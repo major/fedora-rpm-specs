@@ -1,10 +1,14 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck
 Version: 2.31.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 URL: http://download.gnome.org/sources/libwnck/
 #VCS: git:git://git.gnome.org/libwnck
 Source0: http://download.gnome.org/sources/libwnck/2.31/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/libwnck/-/commit/7da939976014f791b9643b79bdefa2bc01a3b0b0
+# https://bugzilla.gnome.org/show_bug.cgi?id=765453
+# Included in 3.20.0
+Patch0:  libwnck-3_20_0-ignore-unhandled-non-NET_WM-actions.patch
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 
@@ -37,6 +41,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 
@@ -69,6 +74,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/wnck-urgency-monitor
 %doc %{_datadir}/gtk-doc
 
 %changelog
+* Tue May 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.31.0-29
+- Backport upstream patch to ignore non-_NEW_WM actions
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

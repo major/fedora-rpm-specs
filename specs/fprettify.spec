@@ -1,6 +1,6 @@
 Name:           fprettify
 Version:        0.3.7
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Auto-formatter for modern Fortran source code
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -10,7 +10,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(configargparse)
-BuildRequires:  python3dist(setuptools)
 
 Requires:       python3-fprettify = %{version}-%{release}
 
@@ -36,28 +35,31 @@ This package contains the Python library.
 %prep
 %setup -q -n fprettify-%{version}
 %patch -P0 -p1 -b .pyenv
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l fprettify
 
 %check
+%pyproject_check_import
 %{python3} run_tests.py
 
 %files
 %{_bindir}/fprettify
 
-%files -n python3-fprettify
-%license LICENSE
+%files -n python3-fprettify -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/fprettify/
-%{python3_sitelib}/fprettify-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jun 14 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 0.3.7-21
+- spec modernization fixes rhbz#2377260
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.7-20
 - Rebuilt for Python 3.15
 

@@ -1,8 +1,8 @@
 %bcond_with tests
 
 Name:           adb-enhanced
-Version:        2.5.24
-Release:        9%{?dist}
+Version:        2.9.0
+Release:        %autorelease
 Summary:        Tool for Android testing and development
 
 License:        Apache-2.0
@@ -11,7 +11,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %if %{with tests}
 BuildRequires:  python3-pytest
@@ -24,128 +23,57 @@ battery saver mode, data saver mode, doze mode, permission grant/revocation.
 
 %prep
 %autosetup
+# Relax strict dependency pins (==) to >= to avoid build failures with newer system libraries
+sed -i 's/==/>=/g' pyproject.toml
+
+# Add missing [build-system] table to pyproject.toml so PEP 517 build works
+cat >> pyproject.toml << 'EOF'
+
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+EOF
+
+# Remove shebang from python libraries that are not directly executed
+sed -i -e '1{\@^#!/usr/bin/env python@d}' adbe/adb_enhanced.py adbe/main.py
+
+# Remove Class-Path entry from the prebuilt jar manifest to silence rpmlint warning
+python3 -c "
+import zipfile, os
+jar_path = 'adbe/abe.jar'
+with zipfile.ZipFile(jar_path, 'r') as z_in:
+    with zipfile.ZipFile(jar_path + '.new', 'w') as z_out:
+        for item in z_in.infolist():
+            data = z_in.read(item.filename)
+            if item.filename == 'META-INF/MANIFEST.MF':
+                lines = [line for line in data.decode('utf-8').splitlines() if not line.startswith('Class-Path:')]
+                data = '\n'.join(lines).encode('utf-8') + b'\n'
+            z_out.writestr(item, data)
+os.replace(jar_path + '.new', jar_path)
+"
+
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l adbe
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 %pytest -v tests/adbe_tests.py
 %endif
 
-%files
+%files -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 %{_bindir}/adbe
-%{python3_sitelib}/adbe/
-%{python3_sitelib}/adb_enhanced*.egg-info/
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.5.24-9
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.24-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.24-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5.24-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5.24-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.24-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.5.24-3
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.24-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Sep 27 2024 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.24-1
-- Update to latest upstream release (closes rhbz#2174712)
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.14-11
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.5.14-9
-- Rebuilt for Python 3.13
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.5.14-5
-- Rebuilt for Python 3.12
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.5.14-2
-- Rebuilt for Python 3.11
-
-* Fri Mar 11 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.14-1
-- Update to latest upstream release 2.5.14 (closes rhbz#2063059)
-
-* Thu Mar 03 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.13-1
-- Update to latest upstream release 2.5.13 (closes rhbz#2058429)
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Oct 20 2021 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.12-1
-- Update to latest upstream release 2.5.12 (closes rhbz#2014826)
-
-* Thu Aug 26 2021 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.11-1
-- Update to latest upstream release 2.5.11 (closes rhbz#1953156)
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.5.10-2
-- Rebuilt for Python 3.10
-
-* Wed Feb 24 2021 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.10-1
-- Update to latest upstream release 2.5.10 (#1922957)
-
-* Tue Feb 02 2021 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.9-1
-- Update to latest upstream release 2.5.9 (#1922957)
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec 24 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.8-1
-- Update to latest upstream release 2.5.8 (#1910345)
-
-* Tue Dec 01 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.7-1
-- Update to latest upstream release 2.5.7 (#1898458)
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.5.4-2
-- Rebuilt for Python 3.9
-
-* Tue Mar 31 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.4-1
-- Update prep section
-- Update to latest upstream release (#1819115)
-
-* Wed Mar 18 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.5.2-1
-- Initial package for Fedora
+%autochangelog

@@ -1,12 +1,13 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
+%global upstream_version 3.49.8-2
 
 Name:           httrack
-Version:        3.49.7
+Version:        3.49.8^2
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://github.com/xroche/httrack/
-Source:         https://github.com/xroche/httrack/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xroche/httrack/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        https://github.com/xroche/coucal/archive/%{coucal_commit}/coucal-%{coucal_commit}.tar.gz
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
@@ -14,12 +15,15 @@ BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
+Provides:       bundled(coucal) = 0^git73ada07
+
 
 %description
 HTTrack is a free and easy-to-use offline browser utility. It allows the user 
@@ -40,7 +44,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -a 1
+%autosetup -n %{name}-%{upstream_version} -p1 -a 1
 rmdir src/coucal
 mv coucal-%{coucal_commit} src/coucal
 autoreconf -vfi
@@ -51,6 +55,13 @@ sed -i '/write to the Free Software/{N;s|write to the Free Software\nFoundation,
 # Suppress rpmlint error.
 iconv --from-code ISO8859-1 --to-code UTF-8 ./html/contact.html \
   --output contact.utf-8 && mv contact.utf-8 ./html/contact.html
+
+# Fix AppStream icon validation error by removing the invalid stock icon tag
+sed -i '/<icon type="stock">httrack<\/icon>/d' html/server/div/com.httrack.WebHTTrack.metainfo.xml
+
+# Avoid duplicate files warning in rpmlint by symlinking license.txt to COPYING
+rm -f license.txt
+ln -s COPYING license.txt
 
 %build
 %configure  --disable-static \
@@ -85,17 +96,15 @@ rm %{buildroot}%{_pkgdocdir}/html/license.txt
 rm %{buildroot}%{_datadir}/%{name}/html
 ln -s ../doc/%{name}/html %{buildroot}%{_datadir}/%{name}/html
 
-desktop-file-install --delete-original \
-  --dir %{buildroot}%{_datadir}/applications \
-  %{buildroot}%{_datadir}/applications/WebHTTrack.desktop
-
-desktop-file-install --delete-original \
-  --dir %{buildroot}%{_datadir}/applications \
-  %{buildroot}%{_datadir}/applications/WebHTTrack-Websites.desktop
-
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 make check -C tests
+
+desktop-file-validate %{buildroot}%{_datadir}/applications/WebHTTrack.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/WebHTTrack-Websites.desktop
+appstream-util validate-relax --nonet \
+%{buildroot}%{_metainfodir}/com.httrack.WebHTTrack.metainfo.xml
+
 
 %files
 %{_pkgdocdir}
@@ -116,6 +125,7 @@ make check -C tests
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/proxytrack.1*
 %{_mandir}/man1/webhttrack.1*
+%{_metainfodir}/com.httrack.WebHTTrack.metainfo.xml
 
 %files devel
 %{_pkgdocdir}/libtest/

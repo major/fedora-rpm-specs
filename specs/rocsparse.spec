@@ -43,11 +43,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -111,12 +113,14 @@
   -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
   -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
   -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
+  -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \\\
   -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_BUILD_TYPE=%build_type \\\
   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
-  -DCMAKE_SKIP_RPATH=ON \\\
+  -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \\\
+  -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \\\
   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
   -DHIP_PLATFORM=amd \\\
@@ -134,20 +138,22 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
-License:        MIT AND 0BSD
+License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  rocblas%{pkg_suffix}-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -184,6 +190,9 @@ BuildRequires:  ninja
 %endif
 
 Provides:       rocsparse%{pkg_suffix} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
+Requires:       rocblas%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -209,6 +218,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 %{summary}
@@ -217,6 +227,7 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
 %{summary}
@@ -254,6 +265,13 @@ mkdir -p %{buildroot}/%{pkg_prefix}/share/rocsparse/matrices
 install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{pkg_prefix}/share/rocsparse/matrices
 %endif
 
+%if %{with compat}
+# ERROR   0008: file '/usr/lib64/rocm/rocm-7.2/lib/librocsparse.so.1.0'
+#   contains the $ORIGIN runpath specifier at the wrong position in
+#   [/usr/lib64/rocm/rocm-7.2/lib:$ORIGIN/../lib:$ORIGIN/../lib/rocsparse/lib]
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+%endif
+
 %check
 %if %{with test}
 %if %{with check}
@@ -287,6 +305,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package name
 

@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:		xrootd-s3-http
-Version:	0.6.6
-Release:	3%{?dist}
+Version:	0.6.8
+Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -53,20 +53,25 @@ sed 's!nlohmann_json 3.11.2 QUIET!nlohmann_json QUIET!' -i CMakeLists.txt
 %cmake_install
 rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 
+%global pver %(xrootd-config --plugin-version)
+
 %files
 %{_libdir}/libXrdPelicanHttpCore.so.*
-%{_libdir}/libXrdHTTPServer-6.so
-%{_libdir}/libXrdN2NPrefix-6.so
-%{_libdir}/libXrdOssFilter-6.so
-%{_libdir}/libXrdOssGlobus-6.so
-%{_libdir}/libXrdOssHttp-6.so
-%{_libdir}/libXrdOssS3-6.so
-%{_libdir}/libXrdOssPosc-6.so
-%{_libdir}/libXrdS3-6.so
+%{_libdir}/libXrdHTTPServer-%{pver}.so
+%{_libdir}/libXrdN2NPrefix-%{pver}.so
+%{_libdir}/libXrdOssFilter-%{pver}.so
+%{_libdir}/libXrdOssGlobus-%{pver}.so
+%{_libdir}/libXrdOssHttp-%{pver}.so
+%{_libdir}/libXrdOssS3-%{pver}.so
+%{_libdir}/libXrdOssPosc-%{pver}.so
+%{_libdir}/libXrdS3-%{pver}.so
 %doc README.md
 %license LICENSE
 
 %changelog
+* Sat Jun 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.8-1
+- Update to version 0.6.8
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.6-3
 - Rebuilt for openssl 4.0
 

@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	5
+%global	baserelease	6
 %dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -67,7 +67,6 @@ BuildRequires:	pkgconfig(libgnomeui-2.0)
 BuildRequires:	pkgconfig(libical)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxklavier)
-BuildRequires:	pkgconfig(openssl) >= 1.1
 # BuildRequires:	pkgconfig(thunar-vfs-1)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(vte-2.91)
@@ -419,6 +418,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-6
+- Remove unneeded BR: openssl-devel
+
 * Fri Jun 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-5
 - Rebuild for new libetpan
 

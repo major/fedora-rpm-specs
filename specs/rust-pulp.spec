@@ -5,7 +5,7 @@
 %global crate pulp
 
 Name:           rust-pulp
-Version:        0.22.2
+Version:        0.22.3
 Release:        %autorelease
 Summary:        Safe generic simd
 

@@ -7,6 +7,8 @@ Summary:        Backport of PEP 654 (exception groups)
 License:        MIT or PSF-2.0
 URL:            https://github.com/agronholm/exceptiongroup
 Source:         %{pypi_source exceptiongroup}
+# Fix test failures in Python 3.15
+Patch0:         fix-python315-tests.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -2,7 +2,7 @@
 
 Name:           mingw-harfbuzz
 Version:        14.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
 License:        MIT
@@ -184,6 +184,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Sat Jun 20 2026 Sandro Mani <manisandro@gmail.com> - 14.2.1-2
+- Rebuild (icu)
+
 * Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 14.2.1-1
 - Update to 14.2.1
 

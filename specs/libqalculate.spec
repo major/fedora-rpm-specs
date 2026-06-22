@@ -1,16 +1,25 @@
 %global srcnm Qalculate
 %global libversion 23
-%global libsymlink 3.10
+%global libsymlink 3.12
 
 Summary:	Multi-purpose calculator library
 Name:		libqalculate
-Version:	5.9.0
+Version:	5.11.0
 Release:	%autorelease
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
+# The entire source code is GPL-2.0-or-later except:
+# LicenseRef-Fedora-Public-Domain
+#   po/libqalculate.pot
+#   po-defs/libqalculate.pot
+# GFDL-1.1-or-later
+#   data/planets.xml.in
+License:	GPL-2.0-or-later and LicenseRef-Fedora-Public-Domain and GFDL-1.1-or-later
+
+%global	forgeurl https://github.com/%{srcnm}/%{name}
+%global	tag v%{version}
+%forgemeta
 
 URL:		https://qalculate.github.io/
-Source0:	https://github.com/%{srcnm}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:	%{forgesource}
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -28,7 +37,7 @@ BuildRequires:	mpfr-devel
 BuildRequires:	perl(XML::Parser)
 BuildRequires:	gettext-devel
 BuildRequires:	perl(Getopt::Long)
-BuildRequires: make
+BuildRequires:	make
 
 %description
 This library underpins the Qalculate! multi-purpose desktop calculator for
@@ -61,14 +70,15 @@ This package provides the text-mode interface for Qalculate! The GTK and QT
 frontends are provided by qalculate-gtk and qalculate-kde packages resp.
 
 %prep
-%setup -q
-
-%build
+%forgeautosetup -p1
 autoreconf -fiv
+
+%conf
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
+%build
 %make_build
 
 %install

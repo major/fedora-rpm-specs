@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: Ruby/EventMachine library
 # Automatically converted from old format: GPLv2 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR Ruby
@@ -31,6 +31,10 @@ Patch5: rubygem-eventmachine-1.2.7-Bump-TLS-version.patch
 # Fix intermittent tests.
 # https://github.com/eventmachine/eventmachine/pull/870
 Patch6: rubygem-eventmachine-1.2.7-Fix-intermittent-tests.patch
+# https://github.com/eventmachine/eventmachine/pull/868
+# https://github.com/eventmachine/eventmachine/pull/970
+# Backport some OpenSSL related upstream fix
+Patch7: rubygem-eventmachine-1.2.7-openssl4-test-fix.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -77,6 +81,7 @@ sed -i '/SSL_CTX_set_cipher_list/ s/".*"/"PROFILE=SYSTEM"/' ext/ssl.cpp
 %patch 4 -p1
 %patch 5 -p1
 %patch 6 -p1
+%patch 7 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -158,6 +163,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.7-35
+- Backport some OpenSSL related fixes from upstream
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.7-34
 - Rebuilt for openssl 4.0
 

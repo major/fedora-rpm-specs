@@ -1,15 +1,15 @@
 %global daemon_name intel_lpmd
 
 Name:		intel-lpmd
-Version:	0.0.9
+Version:	0.1.0
 Release:	%autorelease
 Summary:	Intel Low Power Mode Daemon
 
 License:	GPL-2.0-or-later
 URL:		https://github.com/intel/intel-lpmd
-Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -32,16 +32,18 @@ disabling the rest, and restoring the system from Low Power Mode by activating
 all CPUs.
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # fedora path fix
 sed -i -e "s|etc|usr/share|" configure.ac
 
-%build
+%conf
 aclocal --install
 gtkdocize --copy --flavour no-tmpl
 autoreconf --install --verbose
 %configure --disable-werror
+
+%build
 %make_build
 
 %install
@@ -64,8 +66,7 @@ install -D -p -m 644 src/%{daemon_name}_dbus_interface.xml %{buildroot}/%{_datad
 %{_sbindir}/%{daemon_name}
 %dir %{_sysconfdir}/%{daemon_name}
 %config(noreplace) %{_sysconfdir}/%{daemon_name}/%{daemon_name}_config.xml
-%config(noreplace) %{_sysconfdir}/%{daemon_name}/%{daemon_name}_config_F6_M170.xml
-%config(noreplace) %{_sysconfdir}/%{daemon_name}/%{daemon_name}_config_F6_M189.xml
+%config(noreplace) %{_sysconfdir}/%{daemon_name}/%{daemon_name}_config_*.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.%{daemon_name}.xml
 %{_datadir}/dbus-1/system.d/org.freedesktop.%{daemon_name}.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.%{daemon_name}.service

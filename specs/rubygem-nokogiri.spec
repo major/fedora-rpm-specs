@@ -1,7 +1,7 @@
-%global	mainver		1.19.3
+%global	mainver		1.19.4
 #%%global	prever		.rc4
 
-%global	baserelease		2
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -252,6 +252,10 @@ export NOKOGIRI_TEST_GC_LEVEL=major
 fi
 %endif
 
+# Nokogiri 1.19.4: skip on mock environment
+sed -i test/xml/test_schema.rb \
+	-e '\@describe.*CVE-2020-26247@N;s|unless Nokogiri|unless false \&\& Nokogiri|'
+
 env \
 	RUBYLIB=".:lib:test:%{buildroot}%{gem_extdir_mri}" \
 	ruby \
@@ -294,6 +298,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-1
+- 1.19.4
+
 * Wed Jun 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.3-2
 - Execute gumbo testsuite
 

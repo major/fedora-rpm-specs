@@ -8,7 +8,7 @@
 
 Name:          tesseract
 Version:       5.5.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -275,6 +275,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Sat Jun 20 2026 Sandro Mani <manisandro@gmail.com> - 5.5.2-4
+- Rebuild (icu)
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 5.5.2-3
 - Rebuilt for icu 78.3
 

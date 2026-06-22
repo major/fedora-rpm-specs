@@ -2,20 +2,17 @@
 
 Name:           mintlocale
 Version:        1.4.7
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Language selection tool
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Revert https://github.com/linuxmint/mintlocale/commit/0206bbf7c12058999e701bb11f9012be54da2cbb
 # Using non utf8 breaks gnome apps
-Patch0:         show_utf8_only.patch
+Patch0:         fixes.patch
 Patch1:         %{url}/pull/56.patch#/add_apt_checking.patch
-Patch2:         %{url}/commit/7041982b69fa9fea065098e7b33f306df1dcac91.patch#/fix_signal_name.patch
-Patch3:         fix_gdk_import.patch
 
 BuildArch:      noarch
 
@@ -74,6 +71,9 @@ echo 'LANG=$locale' > %{buildroot}%{_datadir}/linuxmint/mintlocale/templates/def
 
 
 %changelog
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 1.4.7-22
+- Fix all the warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

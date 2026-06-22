@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           hyfetch
-Version:        2.0.5
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Customizable Linux System Information Script
 
@@ -21,9 +21,7 @@ License:        %{shrink:
 
 URL:            https://github.com/hykilpikonna/hyfetch
 Source0:        https://github.com/hykilpikonna/hyfetch/archive/%{version}/hyfetch-%{version}.tar.gz
-Source1:        hyfetch-vendor-%{version}.tar.gz
-Source2:        hyfetch-vendor-config-%{version}.toml
-Patch0:         hyfetch-fix-metadata-auto.patch
+Source1:        hyfetch-%{version}-vendor.tar.zst
 
 BuildRequires:  cargo-rpm-macros
 

@@ -18,21 +18,21 @@
 # We have to bundle the linbox package.  It has global constructors that cause
 # the same problem as libfplll.
 
-%global emacscommit a95ab17170bf6234b77fa8ccdb2431b7fb9e9dd9
+%global emacscommit ae882ab04da19f62c62462ef9604251a0b30a9f5
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %{sub %{emacscommit} 1 7}
 %global m2url       https://github.com/Macaulay2/M2
+
+# Whether to create a -common subpackage
+%bcond common 0
+
+# Whether to use the system normaliz package
+%bcond system_normaliz 1
 
 # Address randomization interferes with Macaulay2's memory management scheme,
 # and linking with -z now breaks configure.
 %undefine _hardened_build
 
-## define to create -common subpkg
-#global common 1
-#if 0%%{?fedora}
-# use system normaliz
-%global system_normaliz 1
-#endif
 %global ISSUE %{?fedora:Fedora-%{fedora}}%{?rhel:RedHatEnterprise-%{rhel}}
 %global M2_machine %{_target_cpu}-Linux-%{ISSUE}
 
@@ -45,10 +45,10 @@
 # on, disable LTO universally.
 %define _lto_cflags %{nil}
 
-Summary: System for algebraic geometry and commutative algebra
-Name:    Macaulay2
-Version: 1.26.05
-Release: %autorelease
+Summary:        System for algebraic geometry and commutative algebra
+Name:           Macaulay2
+Version:        1.26.06
+Release:        %autorelease
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -81,6 +81,7 @@ Release: %autorelease
 #   - Macaulay2/packages/InvariantRing*
 #   - Macaulay2/packages/K3Surfaces.m2
 #   - Macaulay2/packages/KustinMiller.m2
+#   - Macaulay2/packages/LanguageServer.m2
 #   - Macaulay2/packages/LieTypes.m2
 #   - Macaulay2/packages/MRDI.m2
 #   - Macaulay2/packages/MonomialAlgebras.m2
@@ -90,6 +91,7 @@ Release: %autorelease
 #   - Macaulay2/packages/Normaliz.m2
 #   - Macaulay2/packages/NumericalAlgebraicGeometry.m2
 #   - Macaulay2/packages/PackageCitations.m2
+#   - Macaulay2/packages/Padic.m2
 #   - Macaulay2/packages/Posets.m2
 #   - Macaulay2/packages/RInterface.m2
 #   - Macaulay2/packages/RationalPoints*
@@ -107,6 +109,7 @@ Release: %autorelease
 #   - Macaulay2/packages/VectorFields.m2
 # GPL-3.0-or-later:
 #   - normaliz, when it is bundled
+#   - Macaulay2/e/cytools/*
 #   - Macaulay2/e/mpreal.h
 #   - Macaulay2/packages/BettiCharacters.m2
 #   - Macaulay2/packages/CodingTheory.m2
@@ -143,10 +146,12 @@ Release: %autorelease
 # MIT AND OFL-1.1-RFN:
 #   - Macaulay2/packages/Style
 # LicenseRef-Fedora-Public-Domain:
-#   - Macaulay2/e/localring*
+#   - Macaulay2/e/NAG/*
+#   - Macaulay2/e/SLP/*
+#   - Macaulay2/e/computations/BRP*
 #   - Macaulay2/e/mutablecomplex*
-#   - Macaulay2/e/NAG*
-#   - Macaulay2/e/SLP*
+#   - Macaulay2/e/rings/localring*
+#   - Macaulay2/editors/vim/ftplugin/m2.vim
 #   - Macaulay2/packages/Depth.m2
 #   - Macaulay2/packages/Divisor.m2
 #   - Macaulay2/packages/FastMinors.m2
@@ -154,228 +159,239 @@ Release: %autorelease
 #   - Macaulay2/packages/NoetherNormalization.m2
 #   - Macaulay2/packages/RationalMaps.m2
 #   - Macaulay2/packages/SectionRing.m2
-License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND Apache-2.0 AND MIT AND OFL-1.1-RFN AND LicenseRef-Fedora-Public-Domain
-URL:     https://macaulay2.com/
-VCS:     git:%{m2url}.git
-%if 0%{?snap:1}
-Source0: %{name}-%{version}-%{snap}.tar.xz
-%else
-Source0: %{m2url}/archive/release-%{version}/%{name}-%{version}.tar.gz
-%endif
-Source1: %{emacsurl}/tarball/%{emacscommit}/M2-emacs-%{emacsshort}.tar.gz
+License:        %{shrink:
+                  (GPL-2.0-only OR GPL-3.0-only) AND
+                  GPL-1.0-or-later AND
+                  GPL-2.0-only AND
+                  GPL-2.0-or-later AND
+                  GPL-3.0-or-later AND
+                  LGPL-2.0-or-later AND
+                  LGPL-3.0-or-later AND
+                  Apache-2.0 AND
+                  MIT AND
+                  OFL-1.1-RFN AND
+                  LicenseRef-Fedora-Public-Domain
+                 }
+URL:            https://macaulay2.com/
+VCS:            git:%{m2url}.git
+Source0:        %{m2url}/archive/release-%{version}/%{name}-%{version}.tar.gz
+Source1:        %{emacsurl}/tarball/%{emacscommit}/M2-emacs-%{emacsshort}.tar.gz
 
 # Various sizes of the planets icon from macaulay2.com.  See README.icons in
 # the tar file for details on how these icons were created.
-Source10: Macaulay2-icons.tar.xz
-Source11: com.macaulay2.macaulay2.desktop
-Source12: com.macaulay2.macaulay2.metainfo.xml
-Source20: etags.sh
+Source10:       Macaulay2-icons.tar.xz
+Source11:       com.macaulay2.macaulay2.desktop
+Source12:       com.macaulay2.macaulay2.metainfo.xml
+Source20:       etags.sh
 
 ## BUNDLED code
 # Normaliz must sometimes be bundled due to version differences
-%if ! %system_normaliz
+%if %{without system_normaliz}
 %global normalizver 3.11.1
-Source100: http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/normaliz-%{normalizver}.tar.gz
-Provides:  bundled(normaliz) = %{normalizver}
+Source100:      http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/normaliz-%{normalizver}.tar.gz
+Provides:       bundled(normaliz) = %{normalizver}
 %endif
 
 # MPFR is bundled because it must be built with different threading options
 %global mpfrver 4.2.2
-Source101: https://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.gz
-Provides:  bundled(mpfr) = %{mpfrver}
+Source101:      https://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.gz
+Provides:       bundled(mpfr) = %{mpfrver}
 
 # FLINT is bundled because it must be linked with the specially-built MPFR
 %global flintver 3.5.0
-Source102: https://github.com/flintlib/flint/archive/v%{flintver}/flint-%{flintver}.tar.gz
-Provides:  bundled(flint) = %{flintver}
+Source102:      https://github.com/flintlib/flint/archive/v%{flintver}/flint-%{flintver}.tar.gz
+Provides:       bundled(flint) = %{flintver}
 
 # FACTORY is bundled because it must be built with special options
 %global factoryver 4.4.1
-Source103: https://www.singular.uni-kl.de/ftp/pub/Math/Factory/factory-%{factoryver}.tar.gz
-Provides:  bundled(factory) = %{factoryver}
+Source103:      https://www.singular.uni-kl.de/ftp/pub/Math/Factory/factory-%{factoryver}.tar.gz
+Provides:       bundled(factory) = %{factoryver}
 
 # LINBOX is bundled because it introduces static global objects
 %global linboxver 1.7.1
-Source104: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}/linbox-%{linboxver}.tar.gz
-Provides:  bundled(linbox) = %{linboxver}
+Source104:      https://github.com/linbox-team/linbox/releases/download/v%{linboxver}/linbox-%{linboxver}.tar.gz
+Provides:       bundled(linbox) = %{linboxver}
 
 ## PATCHES FOR BUNDLED code
 # No patches
 
 ## FAKE library tarballs that convince Macaulay2 to use the system versions
-Source300: frobby_v0.9.8.tar.gz
-Source301: cddlib-094n.tar.gz
+Source300:      frobby_v0.9.9.tar.gz
+Source301:      cddlib-094n.tar.gz
 # lapack
-Source302: v3.12.1.tar.gz
-Source303: 4ti2-1.6.15.tar.gz
-Source304: fplll-5.5.0.tar.gz
-Source305: gfan0.6.2.tar.gz
-Source306: givaro-4.2.1.tar.gz
-Source307: lrslib-073.tar.gz
-Source308: TOPCOM-1.1.2.tar.gz
-Source309: cohomCalg-0.32.tar.gz
-Source310: glpk-5.0.tar.gz
-Source311: Csdp-6.2.0.tgz
-Source312: mpsolve-3.2.3.tar.gz
+Source302:      v3.12.1.tar.gz
+Source303:      4ti2-1.6.15.tar.gz
+Source304:      fplll-5.5.0.tar.gz
+Source305:      gfan0.8beta.tar.gz
+Source306:      givaro-4.2.2.tar.gz
+Source307:      lrslib-073.tar.gz
+Source308:      TOPCOM-1.1.2.tar.gz
+Source309:      cohomCalg-0.32.tar.gz
+Source310:      glpk-5.0.tar.gz
+Source311:      Csdp-6.2.0.tgz
+Source312:      mpsolve-3.2.3.tar.gz
 # msolve
 %global msolvever 0.9.5
-Source313: v%{msolvever}.tar.gz
+Source313:      v%{msolvever}.tar.gz
 
 # let Fedora optflags override the defaults
-Patch: %{name}-1.25-optflags.patch
+Patch:          %{name}-1.25-optflags.patch
 # give the build a little more time and space than upstream permits
-Patch: %{name}-1.16-ulimit.patch
+Patch:          %{name}-1.16-ulimit.patch
 # drop checking of html links from default make target
-Patch: %{name}-1.25-default_make_targets.patch
+Patch:          %{name}-1.25-default_make_targets.patch
 # do not override the debug level
-Patch: %{name}-1.17-configure.patch
+Patch:          %{name}-1.17-configure.patch
 # Fix LTO warnings about mismatched declarations and definitions
-Patch: %{name}-1.18-lto.patch
+Patch:          %{name}-1.18-lto.patch
 
-BuildRequires: 4ti2
-BuildRequires: appstream
-BuildRequires: autoconf
-BuildRequires: autoconf-archive
-BuildRequires: bison
-BuildRequires: boost-devel
-BuildRequires: chrpath
-BuildRequires: cmake
-BuildRequires: cohomCalg
-BuildRequires: csdp-tools
-BuildRequires: desktop-file-utils
-BuildRequires: diffutils
+BuildRequires:  4ti2
+BuildRequires:  appstream
+BuildRequires:  autoconf
+BuildRequires:  autoconf-archive
+BuildRequires:  bison
+BuildRequires:  boost-devel
+BuildRequires:  chrpath
+BuildRequires:  cmake
+BuildRequires:  cohomCalg
+BuildRequires:  csdp-tools
+BuildRequires:  desktop-file-utils
+BuildRequires:  diffutils
 %if 0%{?fedora}
-BuildRequires: doxygen-latex
+BuildRequires:  doxygen-latex
 %else
-BuildRequires: doxygen
+BuildRequires:  doxygen
 %endif
-BuildRequires: e-antic-devel
-BuildRequires: eigen3-static
+BuildRequires:  e-antic-devel
+BuildRequires:  eigen3-static
 # etags
-BuildRequires: emacs
-BuildRequires: factory-gftables
-BuildRequires: flex
-BuildRequires: gawk
-BuildRequires: gcc-c++
-BuildRequires: gcc-gfortran
-BuildRequires: gdb
-BuildRequires: gdbm-devel
-BuildRequires: gettext-devel
-BuildRequires: gfan
-BuildRequires: git-core
-BuildRequires: givaro-static
-BuildRequires: glpk-devel
-BuildRequires: iml-devel
-BuildRequires: info
-BuildRequires: libappstream-glib
-BuildRequires: libatomic
-BuildRequires: libfplll-static
-BuildRequires: libfrobby-devel
-BuildRequires: libgfan-devel
-BuildRequires: libnormaliz-devel >= 3.11.1
-BuildRequires: libtool
-BuildRequires: lrslib-devel
-BuildRequires: lrslib-utils
-BuildRequires: make
-BuildRequires: mpsolve-devel
-BuildRequires: msolve
-BuildRequires: msolve-devel
-BuildRequires: nauty
-BuildRequires: normaliz
-BuildRequires: ocl-icd-devel
-BuildRequires: pari-devel
-BuildRequires: pkgconfig(bdw-gc) >= 8.2.6
-BuildRequires: pkgconfig(cddlib)
-BuildRequires: pkgconfig(expat)
-BuildRequires: pkgconfig(fflas-ffpack)
-BuildRequires: pkgconfig(flexiblas)
-BuildRequires: pkgconfig(gmp)
-BuildRequires: pkgconfig(gtest)
-BuildRequires: pkgconfig(jansson)
-BuildRequires: pkgconfig(libffi)
-BuildRequires: pkgconfig(libmariadb)
-BuildRequires: pkgconfig(libnauty)
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(m4ri)
-BuildRequires: pkgconfig(m4rie)
-BuildRequires: pkgconfig(mathic)
-BuildRequires: pkgconfig(mathicgb)
-BuildRequires: pkgconfig(memtailor)
-BuildRequires: pkgconfig(mpfi)
-BuildRequires: pkgconfig(ncurses)
-BuildRequires: pkgconfig(ntl)
-BuildRequires: pkgconfig(qd)
-BuildRequires: pkgconfig(readline)
-BuildRequires: pkgconfig(tbb)
-BuildRequires: pkgconfig(tinyxml2)
-BuildRequires: polymake
-BuildRequires: python3-devel
-BuildRequires: pythoncapi-compat-devel
-BuildRequires: %{py3_dist matplotlib}
-BuildRequires: R
-BuildRequires: scip
-BuildRequires: texinfo
-BuildRequires: time
-BuildRequires: TOPCOM
-BuildRequires: transfig
+BuildRequires:  emacs-nw
+BuildRequires:  factory-gftables
+BuildRequires:  flex
+BuildRequires:  gawk
+BuildRequires:  gcc-c++
+BuildRequires:  gcc-gfortran
+BuildRequires:  gdbm-devel
+BuildRequires:  gettext-devel
+BuildRequires:  gfan
+BuildRequires:  git-core
+BuildRequires:  givaro-static
+BuildRequires:  glpk-devel
+BuildRequires:  iml-devel
+BuildRequires:  info
+BuildRequires:  libappstream-glib
+BuildRequires:  libatomic
+BuildRequires:  libfplll-static
+BuildRequires:  libfrobby-devel
+BuildRequires:  libgfan-devel
+BuildRequires:  libnormaliz-devel >= 3.11.1
+BuildRequires:  libtool
+BuildRequires:  lrslib-devel
+BuildRequires:  lrslib-utils
+BuildRequires:  make
+BuildRequires:  mpsolve-devel
+BuildRequires:  msolve
+BuildRequires:  msolve-devel
+BuildRequires:  nauty
+BuildRequires:  normaliz
+BuildRequires:  pkgconfig(bdw-gc) >= 8.2.6
+BuildRequires:  pkgconfig(cddlib)
+BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(fflas-ffpack)
+BuildRequires:  pkgconfig(flexiblas)
+BuildRequires:  pkgconfig(gmp)
+BuildRequires:  pkgconfig(gtest)
+BuildRequires:  pkgconfig(jansson)
+BuildRequires:  pkgconfig(libffi)
+BuildRequires:  pkgconfig(libmariadb)
+BuildRequires:  pkgconfig(libnauty)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(m4ri)
+BuildRequires:  pkgconfig(mathic)
+BuildRequires:  pkgconfig(mathicgb)
+BuildRequires:  pkgconfig(memtailor)
+BuildRequires:  pkgconfig(mpfi)
+BuildRequires:  pkgconfig(ncurses)
+BuildRequires:  pkgconfig(ntl)
+BuildRequires:  pkgconfig(qd)
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(tbb)
+BuildRequires:  pkgconfig(tinyxml2)
+BuildRequires:  polymake
+BuildRequires:  python3-devel
+BuildRequires:  pythoncapi-compat-devel
+BuildRequires:  R
+BuildRequires:  scip
+BuildRequires:  time
+BuildRequires:  TOPCOM
 %ifarch %{valgrind_arches}
-BuildRequires: valgrind
+BuildRequires:  valgrind-devel
 %endif
 
-Requires: 4ti2
-Requires: cohomCalg
-Requires: csdp-tools
-Requires: emacs-filesystem
-Requires: factory-gftables
-Requires: gfan
-Requires: hicolor-icon-theme
-Requires: lrslib-utils
-Requires: nauty
-Requires: normaliz
-Requires: TOPCOM
+Requires:       4ti2
+Requires:       cohomCalg
+Requires:       csdp-tools
+Requires:       emacs-filesystem
+Requires:       factory-gftables
+Requires:       gfan
+Requires:       hicolor-icon-theme
+Requires:       lrslib-utils
+Requires:       nauty
+Requires:       normaliz
+Requires:       TOPCOM
 
 # M2-help
-Requires: xdg-utils
+Requires:       xdg-utils
 
-Recommends: mathicgb
-Recommends: msolve
-Recommends: scip
+Recommends:     mathicgb
+Recommends:     msolve
+Recommends:     palp
+Recommends:     %{py3_dist matplotlib}
+Recommends:     scip
 
-%if 0%{?common}
-Requires:  %{name}-common = %{version}-%{release}
+# Includes a few files takes from cytools, version unknown
+# See M2/Macaulay2/e/cytools
+Provides:       bundled(cytools)
+
+# Includes box_enum code taked from latticepts
+Provides:       bundled(latticepts)
+
+%if %{with common}
+Requires:       %{name}-common = %{version}-%{release}
 %else
-Obsoletes: Macaulay2-common < %{version}-%{release}
-Provides:  Macaulay2-common = %{version}-%{release}
+Obsoletes:      Macaulay2-common < %{version}-%{release}
+Provides:       Macaulay2-common = %{version}-%{release}
 %endif
-Obsoletes: Macaulay2-doc < %{version}-%{release} 
-Provides:  Macaulay2-doc = %{version}-%{release}
-Obsoletes: Macaulay2-emacs < %{version}-%{release}
-Provides:  Macaulay2-emacs = %{version}-%{release}
+Obsoletes:      Macaulay2-doc < %{version}-%{release}
+Provides:       Macaulay2-doc = %{version}-%{release}
+Obsoletes:      Macaulay2-emacs < %{version}-%{release}
+Provides:       Macaulay2-emacs = %{version}-%{release}
 
-Provides:  macaulay2 = %{version}-%{release}
+Provides:       macaulay2 = %{version}-%{release}
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Macaulay2 takes more than 14 hours to build on ppc64le, more than twice as
 # long as the x86_64 build, and it is doubtful that anyone will ever use it on
 # that platform anyway.
-ExcludeArch: %{ix86} %{power64}
+ExcludeArch:    %{ix86} %{power64}
 
 # Do not advertise the bundled mpfr
 %global __provides_exclude libmpfr.so*
-
 
 %description
 Macaulay 2 is a new software system devoted to supporting research in
 algebraic geometry and commutative algebra written by Daniel R. Grayson and
 Michael E. Stillman.
 
-%package common
-Summary: Common files for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildArch: noarch
-%description common
-%{summary}.
+%if %{with common}
+%package        common
+Summary:        Common files for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
 
+%description    common
+%{summary}.
+%endif
 
 %prep
 %setup -q -n M2-release-%{version}/M2
@@ -384,8 +400,14 @@ tar -C Macaulay2/editors/emacs --strip-components=1 -xzf %{SOURCE1}
 
 install -p -m755 %{SOURCE20} ./etags
 
+# Unbundle the valgrind headers
+%ifarch %{valgrind_arches}
+rm -fr include/valgrind
+ln -s %{_includedir}/valgrind include/valgrind
+%endif
+
 ## bundled code
-%if ! %system_normaliz
+%if %{without system_normaliz}
 install -p -m644 %{SOURCE100} BUILD/tarfiles/
 %endif
 install -p -m644 %{SOURCE101} %{SOURCE102} %{SOURCE103} BUILD/tarfiles/
@@ -420,7 +442,6 @@ tar -C submodules/flint --strip-components=1 -xzf %{SOURCE102}
 
 %autopatch -p1
 
-
 %conf
 # Unbundle pythoncapi-compat
 rm Macaulay2/d/pythoncapi_compat.h
@@ -428,11 +449,6 @@ ln -s %{_includedir}/pythoncapi_compat.h Macaulay2/d/pythoncapi_compat.h
 
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
-
-# gdb is used during the build; let it autoload some files
-if [ "$HOME" = "/builddir" ]; then
-  echo "set auto-load safe-path /" > /builddir/.gdbinit
-fi
 
 # Use, but don't build, cddlib, fflas-ffpack, and gc.  Use the static versions
 # of libfplll and givaro.  Link with flexiblas instead of the reference blas
@@ -463,7 +479,6 @@ sed -e '/^IgnoreExampleErrors/s/false/true/' \
 
 # (re)generate configure
 autoreconf -fi .
-
 
 %build
 # Let the configure script find lrslib utilities
@@ -516,7 +531,6 @@ make -C BUILD/%{_target_platform} VERBOSE=true Verbose=true IgnoreExampleErrors=
 # log errors
 find BUILD/%{_target_platform}/ -name *.errors -execdir echo {} \; -execdir cat {} \;
 
-
 %install
 %make_install -C BUILD/%{_target_platform} IgnoreExampleErrors=true
 
@@ -568,21 +582,20 @@ cd -
 # info dir
 rm -fv %{buildroot}%{_infodir}/dir
 
-
 %check
 # The test suite has grown to the point where it takes many hours to run.
 # Just run the most basic tests.
 make check -C BUILD/%{_target_platform}/Macaulay2/e
 make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
-
 %files
 %{_bindir}/M2
 %{_bindir}/M2-binary
+%{_bindir}/M2-language-server
 %{_prefix}/lib/Macaulay2/
 %{_libexecdir}/Macaulay2/
 
-%if 0%{?common}
+%if %{with common}
 %files common
 %endif
 %{_datadir}/Macaulay2/
@@ -593,7 +606,6 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 %{_infodir}/*.info*
 %{_mandir}/man1/*
 %{_emacs_sitelispdir}/macaulay2/
-
 
 %changelog
 %autochangelog

@@ -9,7 +9,7 @@
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        2.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -46,6 +46,8 @@ BuildRequires:  chrpath
 BuildRequires:  cmake
 
 Requires:       gnupg2 >= %{gnupg2_min_ver}
+Obsoletes:      %{name}2 <= %{version}-%{release}
+Conflicts:      %{name}2 <= %{version}-%{release}
 
 # On the following architectures workaround multiarch conflict of -devel packages:
 %define multilib_arches %{ix86} x86_64 ia64 ppc ppc64 s390 s390x %{sparc}
@@ -60,6 +62,8 @@ management.
 Summary:        Development headers and libraries for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       libgpg-error-devel%{?_isa} >= %{libgpg_error_min_ver}
+Obsoletes:      %{name}2-devel <= %{version}-%{release}
+Conflicts:      %{name}2-devel <= %{version}-%{release}
 
 %description devel
 %{summary}.
@@ -147,6 +151,9 @@ make check
 %{_libdir}/pkgconfig/%{name}*.pc
 
 %changelog
+* Sat Jun 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.0.1-5
+- Obsolete compatibility package from older Fedora/EPEL
+
 * Mon May 04 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.0.1-4
 - put gpgmepp, qgpgme and pygpgme into separate packages
 

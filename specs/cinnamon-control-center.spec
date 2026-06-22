@@ -5,21 +5,13 @@
 %global cinnamon_menus_version 6.7.0
 %global redhat_menus_version 1.8
 
-%global upstream_version 6.7.1-unstable
+%global upstream_version 6.7.2-unstable
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.7.1^unstable
+Version: 6.7.2^unstable
 Release: 1%{?dist}
-# The following files contain code from
-# ISC for panels/network/rfkill.h
-# And MIT for wacom/calibrator/calibrator.c
-# wacom/calibrator/calibrator.h
-# wacom/calibrator/gui_gtk.c
-# wacom/calibrator/gui_gtk.h
-# wacom/calibrator/main.c
-# Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT and ISC - review is highly recommended.
-License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND ISC
+License: GPL-2.0-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
@@ -131,6 +123,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
 - Update to 6.7.1-unstable
 

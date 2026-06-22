@@ -6,14 +6,23 @@
 
 Summary:	A multi-purpose desktop calculator for GNU/Linux
 Name:		qalculate-gtk
-Version:	5.9.0
+Version:	5.11.0
 Release:	%autorelease
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
+# The entire source code is GPL-2.0-or-later except:
+# GFDL-1.1-or-later
+#   doc/C/legal.xml
+License:	GPL-2.0-or-later and GFDL-1.1-or-later
+
+%global	forgeurl https://github.com/%{srcnm}/%{name}
+%global	tag v%{version}
+%forgemeta
 
 URL:		https://qalculate.github.io/
-Source0:	https://github.com/%{srcnm}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:	%{forgesource}
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	gtk3-devel
@@ -34,13 +43,15 @@ Features include customizable functions, units, arbitrary precision, plotting.
 This package provides a (GTK+) graphical interface for Qalculate! 
 
 %prep
-%setup -q
-
+%forgeautosetup -p1
+autoreconf -fiv
 sed -i 's/<i>//' data/qalculate-gtk.appdata.xml.in
 sed -i 's/<\/i>//' data/qalculate-gtk.appdata.xml.in
 
+%conf
+%configure
+
 %build
-%configure 
 %make_build
 
 %install

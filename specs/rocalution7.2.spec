@@ -28,7 +28,7 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -192,7 +192,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMakeLists.txt
 %endif
 
-# rocalution.x86_64: E: undefined-non-weak-symbol /usr/lib64/librocalution_hip.so.1.0.0 _ZNK10rocalution10BaseVectorIdE5CheckEv	(/usr/lib64/librocalution_hip.so.1.0.0)
+# rocalution.x86_64: E: undefined-non-weak-symbol /usr/lib64/librocalution_hip.so.1.0.0 _ZNK10rocalution10BaseVectorIdE5CheckEv (/usr/lib64/librocalution_hip.so.1.0.0)
 # Need to add -lrocalution to link
 # Try this..
 # sed -i -e 's@rocalution_hip PRIVATE roc::rocblas@rocalution_hip PRIVATE roc::rocalution roc::rocblas@' src/CMakeLists.txt
@@ -263,7 +263,7 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 
 %changelog
 * Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
-- merge compat changes
+- Fix gpu list
 
 * Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Generate suse package name

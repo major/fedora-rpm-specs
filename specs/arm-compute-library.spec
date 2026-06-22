@@ -1,5 +1,5 @@
-%global majorver 42
-%global releasever 42.0.0
+%global majorver 53
+%global releasever 53.1.0
 %global desc %{expand: \
 The Compute Library is a collection of low-level machine learning functions
 optimized for Arm Cortex-A, Arm Neoverse and Arm Mali GPUs architectures.
@@ -8,11 +8,11 @@ The library provides superior performance to other open source alternatives
 and immediate support for new Arm technologies e.g. SVE2.}
 
 Name:		arm-compute-library
-Version:	24.09
+Version:	53.1.0
 Release:	%autorelease
 Summary:	ARM compute library
 
-License:	MIT AND Apache-2.0
+License:	MIT AND Apache-2.0 AND BSD-3-Clause
 URL:		https://github.com/arm-software/ComputeLibrary
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	arm_compute.pc.in
@@ -57,11 +57,6 @@ Contains documentations and examples for %{name}.
 
 # remove .bazel files
 find . -name *.bazel -exec rm -f '{}' \;
-
-# gcc 15 include cstdint
-sed -i '/#include <memory>.*/a#include <cstdint>' arm_compute/core/CPP/CPPTypes.h
-sed -i '/#include <cstddef>.*/a#include <cstdint>' arm_compute/runtime/MemoryRegion.h
-sed -i '1i #include <cstdint>' tests/framework/instruments/hwc_names.hpp
 
 %build
 scons %{?_smp_mflags} os=linux \
@@ -117,7 +112,7 @@ cp -a build/docs/html %{buildroot}%{_docdir}/%{name}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./build/tests/arm_compute_validation --filter='^(?!CL).*'
 
 %files
-%license LICENSE include/half/LICENSE.txt
+%license LICENSES include/half/LICENSE.txt
 %doc README.md
 %{_libdir}/libarm_compute.so.%{releasever}
 %{_libdir}/libarm_compute.so.%{majorver}

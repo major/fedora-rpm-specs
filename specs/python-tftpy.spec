@@ -1,6 +1,6 @@
 %global         forgeurl https://github.com/msoulier/tftpy
 Name:           python-tftpy
-Version:        0.8.6
+Version:        0.8.7
 %global         tag %{version}
 %forgemeta
 Release:        %autorelease
@@ -44,15 +44,12 @@ Requires: python3-tftpy = %{version}-%{release}
 # Disable verbose debug logging in tests to speed up build
 sed -i 's/logging.DEBUG/logging.WARNING/g' tests/test.py
 
+# Generate missing test data file
+dd if=/dev/zero of=tests/640KBFILE bs=1k count=640
+
 %py3_shebang_fix \
         bin/tftpy_client.py \
-        bin/tftpy_server.py \
-        tests/nologs.py \
-        tests/stdin.py \
-        tests/stdout.py
-
-iconv -f latin1 -t utf-8 ChangeLog.md -o ChangeLog.md.utf8
-mv ChangeLog.md.utf8 ChangeLog.md
+        bin/tftpy_server.py
 
 
 %generate_buildrequires

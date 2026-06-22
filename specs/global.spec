@@ -1,5 +1,7 @@
+%bcond reconf           1
+
 Name:           global
-Version:        6.6.14
+Version:        6.6.15
 Release:        1%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPL-3.0-or-later except:
@@ -35,6 +37,17 @@ BuildRequires:  ncurses-devel
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  python3-devel
 BuildRequires:  emacs
+%if %{with reconf}
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  bison
+BuildRequires:  flex
+BuildRequires:  gperf
+BuildRequires:  libtool
+BuildRequires:  m4
+BuildRequires:  perl-interpreter
+BuildRequires:  texinfo
+%endif
 %if 0%{?fedora} < 36
 BuildRequires:  xemacs
 %endif
@@ -48,8 +61,6 @@ Obsoletes:      emacs-global <= 6.5.1-1
 Obsoletes:      emacs-global-el <= 6.5.1-1
 Provides:       emacs-global = %{version}-%{release}
 Provides:       emacs-global-el = %{version}-%{release}
-
-Patch0100:      libdb-dbpanic-function-pointers.patch
 
 %description
 GNU GLOBAL is a source code tag system that works the same way across
@@ -67,12 +78,17 @@ through Pygments and Universal Ctags.
 
 %prep
 %autosetup -p1
-touch -r configure.ac configure aclocal.m4 Makefile.in
+%if %{with reconf}
+chmod +x reconf.sh
+./reconf.sh
+%endif
 
-%build
+%conf
 %configure --with-posix-sort=/usr/bin/sort --with-universal-ctags=/usr/bin/ctags \
            --localstatedir=/var/tmp/ --without-included-ltdl --with-sqlite3 \
            --with-python-interpreter=%{python3} --disable-static
+
+%build
 %make_build
 
 %install
@@ -127,6 +143,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Sat Jun 20 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 6.6.15-1
+- Update to v6.6.15
+
 * Sat Feb 14 2026 Matthew Krupcale <mkrupcale@gmail.com> - 6.6.14-1
 - Update to v6.6.14
 

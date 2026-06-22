@@ -61,7 +61,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A utility to get the ROCm release version
 License:        MIT
@@ -70,12 +70,14 @@ Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{up
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 
 %if 0%{?suse_version}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %endif
 
 Provides:       rocm-core = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -96,6 +98,7 @@ Summary:        Runtime for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 %{summary}
@@ -118,9 +121,7 @@ rm -rf %{buildroot}/%{pkg_prefix}/.info
 rm -rf %{buildroot}/%{pkg_prefix}/%{pkg_libdir}/rocmmod
 rm -rf %{buildroot}/%{pkg_prefix}/share/rdhc
 # Extra licenses
-# Fedora
 rm -f %{buildroot}/%{pkg_prefix}/share/doc/*/LICENSE.md
-# OpenSUSE
 rm -f %{buildroot}/%{pkg_prefix}/share/doc/*/*/LICENSE.md
 
 # Use the system include path
@@ -155,6 +156,9 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-3
+- merge compat changes
+
 * Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-2
 - Generate suse package name
 

@@ -1,12 +1,6 @@
-# EPEL7 changes for Python and metainfodir
-%if 0%{?rhel} && 0%{?rhel} < 8
-%global __python %{__python3}
-%global _metainfodir %{_datadir}/metainfo
-%endif
-
 Name:		bleachbit
-Version:	4.6.0
-Release:	8%{?dist}
+Version:	6.0.0
+Release:	2%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
 License:	GPL-3.0-or-later
@@ -24,18 +18,15 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:	make
 BuildRequires:	python3-devel
-%if 0%{?rhel}  &&  0%{?rhel} < 8
-BuildRequires:	python3-rpm-macros
-%endif
+BuildRequires:	python3-pytest
+BuildRequires:	python3-psutil
+BuildRequires:	python3-requests
 BuildRequires:	pkgconfig(systemd)
 
 Requires:	gtk3
 Requires:	python3-chardet
-%if 0%{?rhel}  &&  0%{?rhel} < 8
-Requires:	python36-gobject
-%else
 Requires:	python3-gobject
-%endif
+Requires:	python3-psutil
 
 
 %description
@@ -64,8 +55,6 @@ find ./bleachbit/  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?
 find ./  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?/usr/bin/env python3?$|#!%{_bindir}/python3|g' --in-place '{}' +
 find ./  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?/usr/bin/python[[:digit:][:punct:]]*$|#!%{_bindir}/python3|g' --in-place '{}' +
 
-# SafeConfigParser class removed from the configparser module in Python 3.12
-sed -i -e "s|SafeConfigParser|ConfigParser|" bleachbit/__init__.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -91,6 +80,11 @@ install -Dp org.bleachbit.BleachBit.metainfo.xml %{buildroot}/%{_metainfodir}/
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.bleachbit.BleachBit.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit.BleachBit.metainfo.xml
+%pytest -v \
+	--ignore=tests/TestWinapp.py \
+	--ignore=tests/TestWindows.py \
+	--ignore=tests/TestNetwork.py \
+	-k 'not (test_Chaff or test_have_models or test_clean_ini_kde or test_detect_encoding or test_run_external_nowait or test_expanduser or test_make_source or test_update_url or test_update_winapp2 or test_download_url_to_fn or test_get_ip_for_url)'
 
 
 %files -f %{name}.lang
@@ -104,6 +98,16 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Sat Jun 20 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 6.0.0-2
+- Test enablement
+
+* Sun May 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0.0-1
+- Update to v6.0.0
+
+* Mon Mar 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.1.0-1
+- Update to v5.1.0
+- Remove RHEL-7 specific parts of the spec
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -33,6 +33,12 @@ Source1:        get_source
 
 %endif
 
+# Bump pyo3 to 0.28
+# https://github.com/milesgranger/cramjam/pull/240
+# Rebased on 2.11.0. Without changes to Cargo.lock and
+# .github/workflows/CI.yml, which are not relevant downstream.
+Patch:          cramjam-2.11.0-pyo3-0.28.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license cramjam
 
@@ -62,11 +68,13 @@ Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
+# bzip2-1.0.6
 License:        %{shrink:
-    (0BSD OR MIT OR Apache-2.0) AND
+    MIT AND
     Apache-2.0 AND
     BSD-3-Clause AND
-    MIT AND
+    bzip2-1.0.6 AND
+    (0BSD OR MIT OR Apache-2.0) AND
     (MIT OR Zlib OR Apache-2.0)
     }
 # LICENSE.dependencies contains a full license breakdown

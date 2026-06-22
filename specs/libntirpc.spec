@@ -2,8 +2,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	7.2
-Release:	5%{?dev:%{dev}}%{?dist}
+Version:	10.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -12,8 +12,6 @@ Url:		https://github.com/nfs-ganesha/ntirpc
 %global prometh_ver_short	48d09c45
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
 Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
-Patch:		0001-CMakeLists.txt.patch
-Patch:		0002-7.2plus.patch
 
 BuildRequires:	cmake gcc gcc-c++
 %ifarch x86_64 aarch64
@@ -93,6 +91,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Fri Jun 19 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 10.0-1
+- ntirpc-10.0 GA
+
 * Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-5
 - ntirpc-7.2, ntirpc did not tag/release required updates for
   ganesha-8.1 and later (nfs-ganesha-9.16)

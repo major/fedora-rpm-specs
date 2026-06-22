@@ -44,11 +44,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -88,7 +90,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
@@ -110,6 +112,7 @@ BuildRequires:  libva-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -126,7 +129,7 @@ BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
 BuildRequires:  libavutil-free-devel
 BuildRequires:  mesa-va-drivers
-BuildRequires:  rocprofiler-register-devel
+BuildRequires:  rocprofiler-register%{pkg_suffix}-devel
 %endif
 
 %if %{with ninja}
@@ -142,6 +145,9 @@ BuildRequires:  ninja
 # Rocdecode isn't useful without AMD's mesa va drivers:
 Requires:     mesa-va-drivers
 Provides:     rocdecode%{pkg_suffix} = %{version}-%{release}
+Requires:     rocm-filesystem%{pkg_suffix}
+Requires:     rocm-hip%{pkg_suffix}
+Requires:     rocprofiler-register%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -163,6 +169,7 @@ Summary:        Runtime for %{name}
 %package devel
 Summary: The rocDecode development package
 Requires:     %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:     rocm-filesystem%{pkg_suffix}
 Provides:     rocdecode%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -198,6 +205,9 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DROCM_PATH=%{pkg_prefix}
 
 %cmake_build
@@ -231,6 +241,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package name
 

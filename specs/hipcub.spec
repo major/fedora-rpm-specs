@@ -80,11 +80,32 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
-License:        MIT AND BSD-3-Clause AND 0BSD
+License:        MIT AND BSD-3-Clause
+# The main license is BSD-3-Clause because hipcub is a derivative of cub
+# https://github.com/NVIDIA/cub/blob/main/LICENSE.TXT
+#
+# New changes are MIT, these files
+#  CMakeLists.txt
+#  cmake/*
+#  cmake/VerifyCompiler.cmake
+#  hipcub/CMakeLists.txt
+#  hipcub/include/hipcub/agent/single_pass_scan_operators.hpp
+#  hipcub/include/hipcub/backend/cub/iterator/tex_obj_input_iterator.hpp
+#  hipcub/include/hipcub/backend/cub/thread/thread_operators.hpp
+#  hipcub/include/hipcub/backend/cub/tuple.hpp
+#  hipcub/include/hipcub/backend/rocprim/iterator/iterator_category.hpp
+#  hipcub/include/hipcub/backend/rocprim/iterator/iterator_wrapper.hpp
+#  hipcub/include/hipcub/backend/rocprim/tuple.hpp
+#  hipcub/include/hipcub/backend/rocprim/warp/specializations/warp_exchange_shfl.hpp
+#  hipcub/include/hipcub/backend/rocprim/warp/specializations/warp_exchange_smem.hpp
+#  hipcub/include/hipcub/hipcub.hpp
+#  hipcub/include/hipcub/hipcub_version.hpp.in
+#  hipcub/include/hipcub/tuple.hpp
+
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -94,6 +115,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocprim%{pkg_suffix}-static
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
@@ -120,6 +142,7 @@ In the ROCm environment, hipCUB uses the rocPRIM library as the backend.
 Summary:        The %{upstreamname} development package
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       rocprim%{pkg_suffix}-devel
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 The %{upstreamname} development package.
@@ -141,6 +164,11 @@ Precompiled self-tests for %{name}
 # generates a files that reference the install location of other files
 # Make this change so they match
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
+
+# simplify the source for licensing when not testing
+%if %{without test}
+rm -rf examples test benchmark
+%endif
 
 %build
 
@@ -183,7 +211,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 
 %files devel
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.txt NOTICES.txt
 %{pkg_prefix}/include/hipcub
 %{pkg_prefix}/share/cmake/hipcub
 
@@ -194,6 +222,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- merge compat changes
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

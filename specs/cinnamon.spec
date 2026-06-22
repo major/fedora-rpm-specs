@@ -9,14 +9,13 @@
 
 %global __python %{__python3}
 
-%global upstream_version 6.7.2-unstable
+%global upstream_version 6.7.3-unstable
 
 Name:           cinnamon
-Version:        6.7.2^unstable
+Version:        6.7.3^unstable
 Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
-# Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        10_cinnamon-common.gschema.override
@@ -330,6 +329,12 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
+- Update to 6.7.3-unstable
+
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-2
+- Fix theme file
+
 * Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
 - Update to 6.7.2-unstable
 

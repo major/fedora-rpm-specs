@@ -1,10 +1,10 @@
 %global cinnamon_desktop_version 6.7.1
 
-%global upstream_version 6.7.2-unstable
+%global upstream_version 6.7.3-unstable
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 6.7.2^unstable
+Version: 6.7.3^unstable
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://github.com/linuxmint/%{name}
@@ -74,6 +74,9 @@ the other core components and handles logout and saving the session.
 %{_userunitdir}/*.target
 
 %changelog
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
+- Update to 6.7.3-unstable
+
 * Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
 - Update to 6.7.2-unstable
 

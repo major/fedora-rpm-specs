@@ -1,5 +1,5 @@
 Name:           xonsh
-Version:        0.23.1
+Version:        0.23.8
 Release:        %autorelease
 Summary:        A general purpose, Python-ish shell
 
@@ -48,12 +48,10 @@ Requires:       %{py3_dist virtualenv}
 Recommends:     bash-completion
 
 %description
-xonsh is a Python-powered, cross-platform, Unix-gazing shell language and
-command prompt.
-
-The language is a superset of Python 3.6+ with additional shell primitives.
-xonsh (pronounced conch) is meant for the daily use of experts and novices
-alike.
+Xonsh (sounds like "consh") is a full-featured and cross-platform Python-based
+shell. The language is a superset of Python 3 with seamless integration of shell
+functionality and commands. It works on all major platforms, including Linux,
+macOS, Windows, BSD, Jupyter, Android and Raspberry Pi.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -80,7 +78,8 @@ sed --in-place "s:#!\s*/usr.*::" xonsh/xoreutils/_which.py xonsh/webconfig/main.
 
 %check
 # Altering PYTHONPATH makes the tests importable.
-%global __pytest PYTHONPATH="$PYTHONPATH:$(pwd)" %{python3} -m xonsh run-tests.xsh test --
+unset PYTHONPATH
+%global __pytest PYTHONPATH="$(pwd)" %{python3} -m xonsh run-tests.xsh test --
 # TODO: broken tests
 # deselected test_integrations fail due to unexpected DeprecationWarning in output, setting PYTHONWARNINGS does not help
 #pytest -v -k "not test_is_tok_color_dict and not test_ptk_prompt and not test_vc_get_branch[hg] and not test_vc_get_branch[fossil] and not test_callable_alias_no_bad_file_descriptor and not test_dirty_working_directory[hg]"
@@ -107,7 +106,7 @@ fi
 
 %files -f %{pyproject_files}
 %doc README.rst
-%license license
+%license LICENSE
 %{_bindir}/xonsh
 %{_bindir}/xonsh-cat
 %{_bindir}/xonsh-uname

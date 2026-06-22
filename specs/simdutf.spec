@@ -1,7 +1,7 @@
-%global lib_ver 24.0.0
-%global so_ver 24
+%global lib_ver 34.0.0
+%global so_ver 34
 Name:		simdutf
-Version:	7.2.1
+Version:	9.0.0
 Release:	%autorelease
 Summary:	Unicode validation and transcoding at billions of characters per second
 
@@ -52,6 +52,7 @@ that use %{name}.
 
 %files devel
 %{_includedir}/%{name}.h
+%{_includedir}/%{name}_c.h
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 %{_libdir}/lib%{name}.so

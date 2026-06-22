@@ -1,7 +1,7 @@
-%global upstream_version 3.3.2-unstable
+%global upstream_version 3.3.3-unstable
 
 Name:           xapps
-Version:        3.3.2^unstable
+Version:        3.3.3^unstable
 Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
@@ -122,6 +122,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.3^unstable-1
+- Update to 3.3.3-unstable
+
 * Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.2^unstable-1
 - Update to 3.3.2-unstable
 
