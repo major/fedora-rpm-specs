@@ -3,8 +3,7 @@ Version:        1.9.1
 Release:        2%{?dist}
 Summary:        The Mint-Y icon theme
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 

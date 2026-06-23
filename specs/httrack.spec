@@ -1,13 +1,12 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
-%global upstream_version 3.49.8-2
 
 Name:           httrack
-Version:        3.49.8^2
+Version:        3.49.9
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://github.com/xroche/httrack/
-Source0:        https://github.com/xroche/httrack/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source0:        https://github.com/xroche/httrack/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/xroche/coucal/archive/%{coucal_commit}/coucal-%{coucal_commit}.tar.gz
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
@@ -44,7 +43,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{name}-%{upstream_version} -p1 -a 1
+%autosetup -n %{name}-%{version} -p1 -a 1
 rmdir src/coucal
 mv coucal-%{coucal_commit} src/coucal
 autoreconf -vfi

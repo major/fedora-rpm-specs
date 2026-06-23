@@ -1,26 +1,29 @@
 Name:           veusz
-Version:        4.2
-Release:        4%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
 URL:            https://veusz.github.io/
 Source0:        https://github.com/veusz/veusz/releases/download/veusz-%{version}/veusz-%{version}.tar.gz
+Patch0:         remove-vectorfield-test.patch
+
+# see RHBZ#2491178
+ExcludeArch:    s390x
 
 BuildRequires:  gcc gcc-c++
-BuildRequires:  python3 python3-devel python3-setuptools
+BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  qt6-qtbase-devel qt6-qtsvg-devel
 BuildRequires:  python3-pyqt6 python3-pyqt6-devel
-BuildRequires:  python3-pyqt6-sip python3dist(sip)
+BuildRequires:  python3dist(sip)
 BuildRequires:  python3-h5py
 BuildRequires:  desktop-file-utils
 
 Requires:       python3dist(pyqt6-sip) >= 13, python3dist(pyqt6-sip) < 14
-Requires:       python3-pyqt6 python3-pyqt6-sip
+Requires:       python3-pyqt6
 Requires:       python3-numpy
 Requires:       qt6-qtsvg
-Requires:       /usr/bin/env
 Recommends:     python3-h5py python3-astropy ghostscript qt6-qtimageformats
 
 Provides:       python3-veusz
@@ -29,8 +32,8 @@ Provides:       python3-veusz
 # https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering
 %global __provides_exclude_from ^%{python3_sitearch}/veusz/helpers/.*\\.so$
 
-# install docs in version specific for old releases
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 Veusz is a 2D and 3D scientific plotting package, designed to create
@@ -42,33 +45,24 @@ ternary plots, vector plots, contours, images, shapes and fitting
 data. 3D point, surface, volume and function plots are also supported.
 
 %prep
-%setup -q -n veusz-%{version}
-
-find -name \*~ | xargs rm -f
+%autosetup -v -n veusz-%{version} -p1
 
 # remove shebangs from scripts which aren't installed
 # (veusz allows these to be executed if app isn't installed properly)
 sed -i '/^#!/d' veusz/veusz_main.py
 sed -i '/^#!/d' veusz/veusz_listen.py
 
+# delete hidden file in docs
+rm -f Documents/manual/html/.buildinfo
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
 rm -rf %{buildroot}
 
-# veusz-resource-dir: put data files in location given
-%{python3} setup.py install --skip-build --root %{buildroot} \
-    --veusz-resource-dir=%{buildroot}/%{_datadir}/veusz \
-    --disable-install-examples
-
-# tell veusz where its resource directory is in _datadir
-ln -s %{_datadir}/veusz \
-    %{buildroot}%{python3_sitearch}/veusz/resources
-
-# tell it where to look for examples and COPYING
-ln -s %{_pkgdocdir}/examples \
-   %{buildroot}%{_datadir}/veusz
+%pyproject_install
+%pyproject_save_files veusz
 
 # install desktop file
 desktop-file-install  \
@@ -80,22 +74,20 @@ mkdir -p %{buildroot}%{_datadir}/mime/packages/
 install -p support/veusz.xml -m 0644 %{buildroot}%{_datadir}/mime/packages/
 
 # appdata file
-mkdir -p %{buildroot}%{_datadir}/appdata/
-install -p support/veusz.appdata.xml -m 0644 %{buildroot}%{_datadir}/appdata/
+install -D -p -m 0644 support/veusz.appdata.xml \
+    %{buildroot}%{_metainfodir}/veusz.appdata.xml
 
-# symlink main veusz icon into pixmaps (for desktop file)
-mkdir %{buildroot}%{_datadir}/pixmaps
-ln -s ../veusz/icons/veusz_48.png %{buildroot}%{_datadir}/pixmaps/veusz.png
+# copy main icon into pixmaps (for desktop file)
+install -D -p -m 0644 icons/veusz.png \
+    %{buildroot}%{_datadir}/pixmaps/veusz.png
 
-# also link in hicolor icons
+# also copy in hicolor icons
 for size in 16 32 48 64 128; do
-    odir=%{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps
-    mkdir -p $odir
-    ln -s %{_datadir}/veusz/icons/veusz_${size}.png ${odir}/veusz.png
+    install -D -p -m 0644 icons/veusz_${size}.png \
+        %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/veusz.png
 done
-odir=%{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-mkdir -p $odir
-ln -s %{_datadir}/veusz/icons/veusz.svg $odir
+install -D -p -m 0644 icons/veusz.svg \
+    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/veusz.svg
 
 # install man pages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -103,29 +95,35 @@ install -p Documents/man-page/veusz.1 -m 0644 \
     %{buildroot}%{_mandir}/man1
 
 %check
-# as the data directory hasn't got the same absolute path we have
-# to define VEUSZ_RESOURCE_DIR
+# emf_export relies on pyemf3 which isn't packaged
+%pyproject_check_import -e veusz.document.emf_export -e veusz.examples.*
 PYTHONPATH=%{buildroot}%{python3_sitearch} \
-    VEUSZ_RESOURCE_DIR=%{buildroot}%{_datadir}/veusz \
     QT_QPA_PLATFORM=minimal \
     %{python3} tests/runselftest.py
 
 %files
 %doc README.md AUTHORS COPYING
-%doc examples
 %doc Documents/manual/html
 %{_bindir}/veusz
 %{_mandir}/man1/veusz.1.gz
 %{_datadir}/applications/veusz.desktop
 %{_datadir}/mime/packages/veusz.xml
-%{_datadir}/appdata/veusz.appdata.xml
+%{_metainfodir}/veusz.appdata.xml
 %{_datadir}/pixmaps/veusz.png
 %{_datadir}/icons/hicolor/*/apps/veusz.*
-%{_datadir}/veusz
-%{python3_sitearch}/veusz-*.egg-info
+%{python3_sitearch}/veusz-%{version}.dist-info/
 %{python3_sitearch}/veusz
 
 %changelog
+* Sun Jun 21 2026 Jeremy Sanders <jeremy@jeremysanders> - 4.2.1-1
+- Update to new Python packaging guidelines
+- Update appdata location to _metainfodir
+- Copy icons rather than symlink
+- Remove line for versioned docdir
+- Remove examples from documentation
+- Cleanup dependencies and build dependencies
+- Update to Veusz 4.2.1
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.2-4
 - Rebuilt for Python 3.15
 
@@ -620,4 +618,3 @@ with Python licensing
 
 * Mon Jun 19 2006 Jeremy Sanders <jeremy@jeremysanders.net> - 0.10-2
 - Renamed from python-veusz to veusz
-

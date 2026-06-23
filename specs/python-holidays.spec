@@ -1,5 +1,5 @@
 Name:           python-holidays
-Version:        0.98
+Version:        0.99
 Release:        %autorelease
 Summary:        Generate and work with holidays in Python
 
@@ -66,6 +66,7 @@ cat pyproject.toml
 
 %files -n python3-holidays -f %{pyproject_files}
 %doc README.md CHANGES.md CONTRIBUTORS
+%{_bindir}/holidays-ics
 
 %changelog
 %autochangelog

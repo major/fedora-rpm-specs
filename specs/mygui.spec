@@ -1,5 +1,5 @@
 Name:           mygui
-Version:        3.4.3
+Version:        3.4.4
 Release:        %autorelease
 Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
@@ -14,7 +14,6 @@ Source3:        mygui-layouteditor.desktop
 Source4:        mygui-imageeditor.desktop
 Source5:        mygui-fonteditor.desktop
 Source6:        mygui-skineditor.desktop
-Patch0:         mygui-add-missing-soname.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(SDL2)
@@ -23,7 +22,6 @@ BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  freetype-devel 
 BuildRequires:  gcc-c++
-BuildRequires:  glew-devel
 BuildRequires:  graphviz
 BuildRequires:  libuuid-devel
 BuildRequires:  libX11-devel
@@ -69,7 +67,6 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
 
 %prep
 %setup -qn %{name}-MyGUI%{version}
-%patch -P0 -p1 -b .orig
 
 
 %build
@@ -83,8 +80,7 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
    -DMYGUI_INSTALL_DOCS=TRUE \
    -DMYGUI_INSTALL_PDB=FALSE \
    -DMYGUI_INSTALL_TOOLS=TRUE \
-   -DMYGUI_RENDERSYSTEM=4 \
-   -DMYGUI_USE_SYSTEM_GLEW=TRUE
+   -DMYGUI_RENDERSYSTEM=4
 %cmake_build
 cd %{_vpath_builddir}
 pushd Docs
@@ -147,8 +143,6 @@ done
 %license COPYING.MIT
 %doc README.md
 %{_libdir}/libEditorFramework.so
-%{_libdir}/libMyGUI.OpenGLPlatform.so.%{version}
-%{_libdir}/libMyGUICommon.so.%{version}
 %{_libdir}/libMyGUIEngine.so.%{version}
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
@@ -158,8 +152,8 @@ done
 
 %files devel
 %{_includedir}/MYGUI
-%{_libdir}/libMyGUI.OpenGLPlatform.so
-%{_libdir}/libMyGUICommon.so
+%{_libdir}/libMyGUI.OpenGLPlatform.a
+%{_libdir}/libMyGUICommon.a
 %{_libdir}/libMyGUIEngine.so
 %{_libdir}/pkgconfig/MYGUI.pc
 

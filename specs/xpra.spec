@@ -148,7 +148,7 @@ Summary: Wireshark/tshark Lua dissector for the Xpra remote display protocol
 BuildRequires:  wireshark-devel
 %{?lua_version:Requires: lua(abi) = %{lua_version}}
 Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
-Requires:       wireshark%{?_isa}
+Requires:       wireshark-cli%{?_isa}
 %description -n %{name}-plugin-lua
 The dissector registers on TCP port 14500 (xpra default) and also
 installs a heuristic detector so it picks up traffic on any port.

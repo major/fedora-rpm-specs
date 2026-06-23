@@ -1,8 +1,8 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        3.3.0
-Release:        3%{?dist}
+Version:        3.5.2
+Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
 URL:            https://github.com/python-greenlet/greenlet
@@ -10,8 +10,6 @@ Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 
 # Skip leak checking to avoid a missing dependency, `objgraph`
 Patch:          skip-leak-checks.patch
-# Backport patch to fix python 3.15 builds
-Patch:          https://patch-diff.githubusercontent.com/raw/python-greenlet/greenlet/pull/482.patch
 
 BuildRequires:  gcc-c++
 
@@ -69,6 +67,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Sun Jun 21 2026 Federico Pellegrin <fede@evolware.org> - 3.5.2-1
+- Update to 3.5.2. Fixes rhbz#2432443
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.0-3
 - Rebuilt for Python 3.15
 

@@ -5,15 +5,13 @@
 %global crate v_frame
 
 Name:           rust-v_frame
-Version:        0.5.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Video Frame data structures, originally part of rav1e
 
 License:        BSD-2-Clause
 URL:            https://crates.io/crates/v_frame
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          v_frame-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          v_frame-fix-metadata.diff

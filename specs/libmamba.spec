@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.5.0
+Version:        2.6.0
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
@@ -12,10 +12,6 @@ Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{
 # Use Fedora versions of zstd
 # Install into /etc/profile.d
 Patch:          libmamba-fedora.patch
-# Fix for gcc 16 - https://github.com/mamba-org/mamba/pull/4132
-Patch:          libmamba-gcc16.patch
-# Fix build wih libmamba-spdlog - https://github.com/mamba-org/mamba/pull/4172
-Patch:          libmamba-export.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -27,6 +23,7 @@ BuildRequires:  libarchive-devel
 BuildRequires:  libcurl-devel
 # Need CONDA_ADD_USE_ONLY_TAR_BZ2
 BuildRequires:  libsolv-devel
+BuildRequires:  cmake(msgpack-c)
 BuildRequires:  openssl-devel
 BuildRequires:  reproc-devel
 BuildRequires:  cmake(simdjson)

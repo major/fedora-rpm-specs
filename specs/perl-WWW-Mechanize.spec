@@ -1,5 +1,5 @@
 Name:           perl-WWW-Mechanize
-Version:        2.21
+Version:        2.22
 Release:        1%{?dist}
 Summary:        Automates web page form & link interaction
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,10 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/WWW::Mechanize::*.3pm*
 
 %changelog
+* Sun Jun 21 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.22-1
+- Update to 2.22
+- Remove no-longer-neeeded rpmlintrc configuration
+
 * Sat Jun 13 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.21-1
 - Update to 2.21
 

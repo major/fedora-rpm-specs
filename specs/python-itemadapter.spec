@@ -4,12 +4,11 @@ The ItemAdapter class is a wrapper for data container objects,
 providing a common interface to handle objects of different
 types in an uniform manner, regardless of their underlying implementation.}
 Name:		python-itemadapter
-Version:	0.10.0
-Release:	8%{?dist}
+Version:	0.13.1
+Release:	%autorelease
 Summary:	The ItemAdapter class is a wrapper for data container object
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		https://github.com/scrapy/itemadapter
 Source0:	%{pypi_source %pkg_name}
 
@@ -23,101 +22,32 @@ BuildArch:	noarch
 Summary:	%{summary}
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-Requires:	python3-attrs
-
-%py_provides  python3-%{pkg_name}
 
 
 %description -n python3-%{pkg_name}
 %{desc}
 
+
 %prep
 %autosetup -n %{pkg_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t -x attrs,pydantic,scrapy
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l itemadapter
 
-%files -n python3-%{pkg_name}
-%license LICENSE
+%check
+%pyproject_check_import
+%pytest
+
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/itemadapter
-%{python3_sitelib}/itemadapter-*.egg-info
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.10.0-8
-- Rebuilt for Python 3.15
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.0-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.10.0-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Dec 24 2024 Eduardo Echeverria <echevemaster@gmail.com> - 0.10.0-1
-- Update to 0.10.0
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.0-11
-- convert license to SPDX
-
-* Fri Aug 16 2024 Eduardo Echeverria <echevemaster@gmail.com> - 0.9.0-1
-- Bumped to the latest upstream version
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.4.0-9
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-5
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.4.0-2
-- Rebuilt for Python 3.11
-
-* Sun Feb 20 2022 Eduardo Echeverria <echevemaster@gmail.com> - 0.4.0-1
-- Bumped to the latest upstream version
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.2.0-2
-- Rebuilt for Python 3.10
-
-* Sat Apr 3 2021 Eduardo Echeverria <echevemaster@gmail.com> - 0.2.0-1
-- Initial packaging
-
+%autochangelog

@@ -4,8 +4,7 @@ Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        6.7.3^unstable
 Release:        1%{?dist}
-# Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        nemo-fedora.gschema.override
@@ -64,8 +63,7 @@ It is also responsible for handling the icons on the Cinnamon desktop.
 
 %package extensions
 Summary: Nemo extensions library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License:    LGPL-2.0-or-later
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description extensions
@@ -73,8 +71,7 @@ This package provides the libraries used by nemo extensions.
 
 %package search-helpers
 Summary: Nemo search helpers
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License:    LGPL-2.0-or-later
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   exif
 Requires:   ghostscript
@@ -88,8 +85,7 @@ This package provides the search helpers used by nemo.
 
 %package devel
 Summary: Support for developing nemo extensions
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License:    LGPL-2.0-or-later
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   %{name}-extensions%{?_isa} = %{version}-%{release}
 

@@ -12,7 +12,7 @@ A collection of libraries for building applications to work with OpenStack
 clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.15.0
+Version:        4.16.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 
@@ -24,6 +24,7 @@ BuildArch:      noarch
 
 BuildRequires:  git-core
 BuildRequires:  python3-devel
+
 
 %description
 %{common_desc}
@@ -102,7 +103,6 @@ rm -f ./openstack/tests/unit/test_hacking.py
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst ChangeLog
-%license LICENSE
 %{_bindir}/openstack-inventory
 %exclude %{python3_sitelib}/openstack/tests
 

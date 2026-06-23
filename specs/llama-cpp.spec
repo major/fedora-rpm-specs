@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b8064
+Version:        b9601
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -72,6 +72,12 @@ BuildRequires:  libcurl-devel
 BuildRequires:  gcc-c++
 BuildRequires:  openmpi
 BuildRequires:  pthreadpool-devel
+
+%if %{with check}
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(jinja2)
+%endif
+
 %if %{with examples}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pip)
@@ -86,12 +92,12 @@ BuildRequires:  rocblas-devel
 BuildRequires:  hipblas-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-
-Requires:       rocblas
-Requires:       hipblas
 %endif
 
 Requires:       curl
+Requires:       hipblas
+Requires:       rocblas
+
 Recommends:     numactl
 
 %description
@@ -166,6 +172,16 @@ rm -rf exmples/llma.android
 # git cruft
 find . -name '.gitignore' -exec rm -rf {} \;
 
+# Some so version help
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/batched-bench/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/llama-bench/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/cli/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/completion/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/fit-params/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/perplexity/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/quantize/CMakeLists.txt
+sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/server/CMakeLists.txt
+
 %build
 
 %if %{with examples}
@@ -212,8 +228,6 @@ cp -r %{_vpath_srcdir}/examples %{buildroot}%{_datarootdir}/%{name}/
 cp -r %{_vpath_srcdir}/models %{buildroot}%{_datarootdir}/%{name}/
 cp -r %{_vpath_srcdir}/README.md %{buildroot}%{_datarootdir}/%{name}/
 rm -rf %{buildroot}%{_datarootdir}/%{name}/examples/llama.android
-%else
-rm %{buildroot}%{_bindir}/convert*.py
 %endif
 
 %if %{with test}
@@ -232,16 +246,25 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %files
 %license LICENSE
 %{_libdir}/libllama.so.*
+%{_libdir}/libllama-bench-impl.so.*
+%{_libdir}/libllama-batched-bench-impl.so.*
+%{_libdir}/libllama-cli-impl.so.*
+%{_libdir}/libllama-common.so.*
+%{_libdir}/libllama-completion-impl.so.*
+%{_libdir}/libllama-fit-params-impl.so.*
+%{_libdir}/libllama-perplexity-impl.so.*
+%{_libdir}/libllama-quantize-impl.so.*
+%{_libdir}/libllama-server-impl.so.*
 %{_libdir}/libmtmd.so.*
 %{_libdir}/libggml.so.*
 %{_libdir}/libggml-base.so.*
 %{_libdir}/libggml-cpu.so.*
-%if %{with rocm}
 %{_libdir}/libggml-hip.so.*
-%endif
+%{_bindir}/llama
 %{_bindir}/llama-batched-bench
 %{_bindir}/llama-bench
 %{_bindir}/llama-cli
+%{_bindir}/llama-debug-template-parser
 %{_bindir}/llama-completion
 %{_bindir}/llama-cvector-generator
 %{_bindir}/llama-export-lora
@@ -251,7 +274,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_bindir}/llama-mtmd-cli
 %{_bindir}/llama-perplexity
 %{_bindir}/llama-quantize
+%{_bindir}/llama-results
 %{_bindir}/llama-server
+%{_bindir}/llama-template-analysis
 %{_bindir}/llama-tokenize
 %{_bindir}/llama-tts
 
@@ -264,13 +289,20 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_includedir}/llama*.h
 %{_includedir}/mtmd*.h
 %{_libdir}/libllama.so
+%{_libdir}/libllama-batched-bench-impl.so
+%{_libdir}/libllama-bench-impl.so
+%{_libdir}/libllama-cli-impl.so
+%{_libdir}/libllama-common.so
+%{_libdir}/libllama-completion-impl.so
+%{_libdir}/libllama-fit-params-impl.so
+%{_libdir}/libllama-perplexity-impl.so
+%{_libdir}/libllama-quantize-impl.so
+%{_libdir}/libllama-server-impl.so
 %{_libdir}/libmtmd.so
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so
 %{_libdir}/libggml-cpu.so
-%if %{with rocm}
 %{_libdir}/libggml-hip.so
-%endif
 %{_libdir}/cmake/llama/*.cmake
 %{_libdir}/cmake/ggml/*.cmake
 %{_libdir}/pkgconfig/llama.pc

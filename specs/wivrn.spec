@@ -13,7 +13,7 @@
 %forgemeta
 
 Name:           wivrn
-Version:        26.6
+Version:        26.6.1
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
@@ -300,7 +300,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}-dashboard.lang
 %license COPYING LICENSE-OFL-1.1 _deps/monado-src/LICENSES/*
 %doc README.md docs/
-%caps(cap_sys_nice=ep) %{_bindir}/wivrn-server
+%{_bindir}/wivrn-server
 %{_bindir}/wivrnctl
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/libopenxr_wivrn.so

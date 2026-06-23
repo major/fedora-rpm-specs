@@ -1,5 +1,5 @@
 Name:           python-boltons
-Version:        25.0.0
+Version:        26.0.0
 Release:        %autorelease
 Summary:        Functionality that should be in the standard library
 
@@ -7,14 +7,11 @@ License:        BSD-3-Clause
 URL:            https://github.com/mahmoud/boltons
 %global pypi_name boltons
 Source:         %{pypi_source}
-# Fix pytest 9 compatibility: py.path.local arguments deprecated
-Patch:          https://github.com/mahmoud/boltons/commit/a2af585.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  make
-BuildRequires:  python3-sphinx
 
 %global _description %{expand:
 Boltons is a set of over 230 BSD-licensed, pure-Python utilities in the same
@@ -50,13 +47,10 @@ Summary:        %{summary}
 %build
 %pyproject_wheel
 export READTHEDOCS=True
-make -C docs man
 
 
 %install
 %pyproject_install
-mkdir -p %{buildroot}%{_mandir}/man1
-install -m644 docs/_build/man/boltons.1 %{buildroot}%{_mandir}/man1/
 %pyproject_save_files boltons
 
 
@@ -65,8 +59,7 @@ install -m644 docs/_build/man/boltons.1 %{buildroot}%{_mandir}/man1/
 
 
 %files -n python3-boltons -f %{pyproject_files}
-%doc CHANGELOG.md README.md TODO.rst
-%{_mandir}/man1/boltons.1*
+%doc CHANGELOG.md README.md
 
 
 %changelog

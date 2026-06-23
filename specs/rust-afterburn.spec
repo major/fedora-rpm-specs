@@ -121,6 +121,7 @@ to run in the initramfs on boot.
 %autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
 %if 0%{?rhel}
 %cargo_prep -v vendor
+rm -f Cargo.lock
 # avoid brp-mangle-shebangs error from sources with executable bit
 chmod -x vendor/ipnet/src/*.rs
 %else

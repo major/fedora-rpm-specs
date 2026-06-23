@@ -1,7 +1,7 @@
 %global srcname switchtec-user
 
 Name:           switchtec
-Version:        4.3
+Version:        4.4
 Release:        %autorelease
 Summary:        Userspace code for the Microsemi PCIe switch
 

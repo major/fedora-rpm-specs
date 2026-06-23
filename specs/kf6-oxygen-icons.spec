@@ -2,7 +2,7 @@
 
 Name:           kf6-oxygen-icons
 Version:        6.27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Oxygen icon theme
 
 License:        CC0-1.0 AND LGPL-3.0-or-later
@@ -26,6 +26,7 @@ the Oxygen Style. It features smooth gradients, soft shadows, and a
 slightly glossy look.
 
 %package -n oxygen-icon-theme
+Epoch:       1
 Summary:     Oxygen icon theme
 License:     CC0-1.0 AND LGPL-3.0-or-later
 BuildArch:   noarch
@@ -33,8 +34,8 @@ Requires:    hicolor-icon-theme
 # Needed for proper Fedora logo
 Requires:    system-logos
 # Renamed from oxygen-icon-theme
-Obsoletes:   oxygen-icon-theme < 6.27.0-1
-Conflicts:   oxygen-icon-theme < 6.27.0-1
+Obsoletes:   oxygen-icon-theme < 1:6.27.0-1
+Conflicts:   oxygen-icon-theme < 1:6.27.0-1
 
 %description -n oxygen-icon-theme
 Oxygen Icons is a freedesktop.org compatible icon theme originally
@@ -85,5 +86,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ox
 
 
 %changelog
+* Sun Jun 21 2026 Steve Cossette <farchord@gmail.com> - 6.27.0-2
+- Changed conflicts/obsoletes as the previous package had an epoch
+
 * Sun Jun 14 2026 Steve Cossette <farchord@gmail.com> - 6.27.0-1
 - Initial Release

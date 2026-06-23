@@ -1,5 +1,5 @@
 Name:           Zim
-Version:        0.76.3
+Version:        0.77.0
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
@@ -9,12 +9,6 @@ Summary:        Desktop wiki & notekeeper
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
-# Crashes the test run, and is also disabled for Mac OS in upstream repo
-Patch:          0000-Disable-TestPlugins-test.patch
-# Install icons even when building Python wheels
-Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2859.patch
-# See: https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/2934
-Patch:          zim_2934.patch
 
 BuildArch:      noarch
 
@@ -65,7 +59,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.zim_wiki.Zim.desk
 # since it executes "git commit" 
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
-# for some unknown reason settings these env variables does not have the expected effect:
+# for some unknown reason settings these env variables does not have
+# the expected effect:
 #GIT_COMMITTER_NAME=test \
 #GIT_COMMITTER_EMAIL=test@test.com \
 LANG=en_US.UTF-8 \

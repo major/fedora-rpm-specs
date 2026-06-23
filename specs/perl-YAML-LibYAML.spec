@@ -7,8 +7,8 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.907.0
-Release:        2%{?dist}
+Version:        0.908.0
+Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -164,7 +164,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
-* Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> -
+* Sun Jun 21 2026 Paul Howarth <paul@city-fan.org> - 1:0.908.0-1
+- 0.908.0 bump (rhbz#2491093)
+
+* Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.907.0-2
 - Safely check for JSON::PP in 13-utf8.t
 
 * Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.907.0-1

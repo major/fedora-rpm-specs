@@ -1,4 +1,3 @@
-%undefine __cmake_in_source_build
 %global minorversion	2.10
 
 Name:		xfce4-whiskermenu-plugin
@@ -8,8 +7,8 @@ Summary:	An alternate application launcher for Xfce
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		http://gottcode.org/xfce4-whiskermenu-plugin/
-Source0:	http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
+URL:		https://gottcode.org/xfce4-whiskermenu-plugin/
+Source0:	https://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
@@ -32,10 +31,10 @@ a list of applications you have marked as favorites. You can browse through
 all of your installed applications by clicking on the category buttons on the
 side. Top level categories make browsing fast, and simple to switch between. 
 Additionally, Whisker Menu keeps a list of the last ten applications 
-that you’ve launched from it
+that you have launched from it.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 %cmake
@@ -46,7 +45,8 @@ that you’ve launched from it
 
 %find_lang %{name}
 
-%ldconfig_scriptlets
+%check
+# Upstream does not provide a test suite.
 
 %files -f %{name}.lang
 %license COPYING

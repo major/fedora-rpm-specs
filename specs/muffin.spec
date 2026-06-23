@@ -2,10 +2,10 @@
 
 Name:          muffin
 Version:       6.7.3^unstable
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
-License:       GPL-2.0-or-later
+License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND SGI-B-2.0
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
@@ -130,6 +130,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Jun 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-2
+- Fix license, that will teach me for copying from mutter spec
+
 * Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
 - Update to 6.7.3-unstable
 

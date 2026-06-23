@@ -27,8 +27,8 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2604
-Release:        4%{?dist}
+Version:        6.2.2605
+Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
 ExcludeArch:    %{ix86} aarch64
@@ -53,8 +53,6 @@ Patch4:         netgen_libjpeg.patch
 # /usr/include/mpich-x86_64/mpicxx.h:160:18: error: expected identifier before ‘int’
 #   160 |     friend class Status;
 Patch5:         netgen_include-order.patch
-# Fix invalid egg-info version
-Patch6:         netgen-mesher_egg-info-version.patch
 # Port bundled togl to tk9
 # Patch8:         netgen-togl-tk9.patch
 
@@ -416,6 +414,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Sun Jun 21 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2605-1
+- Update to 6.2.2605
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 6.2.2604-4
 - Rebuilt for Python 3.15
 

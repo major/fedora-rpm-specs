@@ -15,10 +15,10 @@
 %global miniz_version 3.0.2
 %global pybind11_version 3.0.1
 %else
-%global pypi_version 2.11.0
+%global pypi_version 2.12.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
-%global pybind11_version 2.13.6
+%global pybind11_version 3.0.1
 %endif
 
 # For -test subpackage
@@ -52,11 +52,7 @@
 %if 0%{?fedora}
 %bcond_without eigen3
 %bcond_without onnx
-%if %{with gitcommit}
 %bcond_with protobuf
-%else
-%bcond_without protobuf
-%endif
 %bcond_with setuptools
 %bcond_without sympy
 %else
@@ -90,6 +86,13 @@ Patch2: 0001-Fix-struct.pack-polyfill-signature-mismatch-on-Pytho.patch
 
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
+
+Source1001:     inject.py
+
+# Problems with python 3.15
+Patch1: 0001-Fix-functools.reduce-polyfill-signature-mismatch-on-.patch
+Patch2: 0001-Fix-struct.pack-polyfill-signature-mismatch-on-Pytho.patch
+
 %endif
 Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v%{flatbuffers_version}.tar.gz
 Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v%{pybind11_version}.tar.gz
@@ -120,7 +123,7 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 %if %{with gitcommit}
 %global ki_commit b2103f78d13fde4937af010c0ef8e24313568bc5
 %else
-%global ki_commit 7a731b6ae01cfc2b1fc75d83a91f84e682e43fd7
+%global ki_commit b2103f78d13fde4937af010c0ef8e24313568bc5
 %endif
 %global ki_scommit %(c=%{ki_commit}; echo ${c:0:7})
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
@@ -230,9 +233,7 @@ BuildRequires:  ninja-build
 %endif
 
 %if %{with rocm}
-%if %{with gitcommit}
 BuildRequires:  amdsmi-devel
-%endif
 BuildRequires:  hipblas-devel
 BuildRequires:  hipblaslt-devel
 BuildRequires:  hipcub-devel
@@ -329,6 +330,9 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 # Overwrite with a git checkout of the pyproject.toml
 cp %{SOURCE1000} .
 
+%else
+%autosetup -p1 -n pytorch-v%{version}
+
 # to fix handling of environment variable
 # comment out broken
 sed -i -e 's@include(cmake/EnvVarForwarding.cmake)@#include(cmake/EnvVarForwarding.cmake)@' CMakeLists.txt
@@ -343,9 +347,6 @@ sed -i -E 's@# NVSHMEM .*@inject.build_options(build_options)@' tools/setup_help
 sed -i -e 's@setuptools>=70.1.0,<82@setuptools@' pyproject.toml
 sed -i -e 's@setuptools>=70.1.0,<82@setuptools@' requirements-build.txt
 sed -i -e 's@setuptools<82@setuptools@' setup.py
-
-%else
-%autosetup -p1 -n pytorch-v%{version}
 
 # GitHub release tarballs identify the version as an alpha, so replace that
 echo "%{pypi_version}" > version.txt

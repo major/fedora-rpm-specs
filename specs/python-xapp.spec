@@ -3,8 +3,7 @@ Version:        3.0.3
 Release:        2%{?dist}
 Summary:        Python bindings for xapps
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
-%global  commit       09d6175a2ba69e7016fcecc4f384946a2f84f92d
-%global  shortcommit  09d6175
-%global  commitdate   21012025
+%global  commit       a90709dab584c98990dc31109ce4b00cbf3b7865
+%global  shortcommit  %(c=%{commit}; echo ${c:0:7})
+%global  commitdate   20260609
 
 Name:           ondselsolver
 Version:        1.0.1^%{commitdate}git%{shortcommit}
@@ -11,9 +11,6 @@ License:        LGPL-2.1-only
 URL:            https://github.com/FreeCAD/OndselSolver
 VCS:            git:%{URL}.git
 Source:         %{url}/archive/%{shortcommit}/OndselSolver-%{commit}.tar.gz
-# Use google test from Fedora repositories
-# https://github.com/FreeCAD/OndselSolver/pull/9
-Patch:          packaged-gtest.patch
 # Fix C++ name mangling
 # https://github.com/FreeCAD/OndselSolver/pull/2
 Patch:          https://github.com/gentoo/gentoo/blob/1896fac74ffa1cdb67fd9c9d3d85a618096c5d40/sci-libs/ondselsolver/files/ondselsolver-1.0.1-properly-demangle-typenames.patch

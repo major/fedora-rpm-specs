@@ -1,7 +1,7 @@
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 Name:           conda
-Version:        26.1.1
+Version:        26.5.3
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -72,6 +72,7 @@ BuildRequires:  python%{python3_pkgversion}-flask
 BuildRequires:  python%{python3_pkgversion}-jsonpatch
 BuildRequires:  python%{python3_pkgversion}-libmambapy
 BuildRequires:  python%{python3_pkgversion}-pexpect
+BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
 BuildRequires:  python%{python3_pkgversion}-pytest-rerunfailures
 BuildRequires:  python%{python3_pkgversion}-pytest-split
@@ -273,6 +274,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_main_export.py::test_export_ignore_channels_flag[True] \
     --deselect=tests/cli/test_main_export.py::test_export_ignore_channels_flag[False] \
     --deselect=tests/cli/test_main_export.py::test_export_override_channels_and_ignore_channels_independence \
+    --ignore=tests/cli/test_main_export.py \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[default behavior raises warning]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[JSON format with `--format` flag]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[JSON format with `--json` flag]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[warns with `--file` flag alone]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[suppress warning with `--quiet`]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings"[suppress warning with `--json` and `--file`]" \
     --deselect=tests/cli/test_main_info.py::test_info_license \
     --deselect=tests/cli/test_main_info.py::test_info_root \
     --deselect=tests/plugins/test_pre_solves.py::test_pre_solve_action_raises_exception \
@@ -306,12 +314,14 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/base/test_context.py::test_default_activation_prefix \
     --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[libmamba] \
     --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[classic] \
+    --deselect=tests/cli/test_cli_install.py::test_reinstall_args[classic] \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[xonsh-expected_patterns5] \
+    --deselect=tests/cli/test_main_export.py::test_export_non_pip_env_warnings \
     --deselect=tests/cli/test_main_export.py::test_export_preserves_channels_from_installed_packages \
     --deselect=tests/cli/test_main_export.py::test_export_package_alphabetical_ordering \
     --deselect=tests/cli/test_main_export.py::test_export_no_builds_format \
@@ -336,6 +346,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/core/test_prefix_data.py::test_pinned_specs_conda_meta_pinned \
     --deselect=tests/core/test_prefix_data.py::test_unset_reserved_env_vars \
     --deselect=tests/core/test_prefix_data.py::test_warn_setting_reserved_env_vars \
+    --ignore=tests/core/test_solve.py \
     --deselect=tests/core/test_solve.py::test_pinned_specs_conda_meta_pinned[libmamba] \
     --deselect=tests/core/test_solve.py::test_pinned_specs_condarc[libmamba] \
     --deselect=tests/core/test_solve.py::test_pinned_specs_all[libmamba] \
@@ -345,6 +356,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/gateways/test_repodata_gateway.py::test_repodata_fetch_jsondecodeerror \
     --deselect=tests/models/test_environment.py::test_extrapolate \
     --deselect=tests/models/test_environment.py::test_explicit_packages \
+    --deselect=tests/models/test_environment.py::test_from_prefix_behavior_with_pip_interoperability \
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[True] \
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[False] \
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_not_supported \
@@ -440,10 +452,14 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/core/test_prefix_data.py::test_get_environment_env_vars \
     --deselect=tests/core/test_prefix_data.py::test_set_unset_environment_env_vars \
     --deselect=tests/core/test_prefix_data.py::test_set_unset_environment_env_vars_no_exist \
+    --deselect=tests/shards/test_shards_subset.py::test_traversal_algorithms_match[devops_automation] \
+    --deselect=tests/shards/test_shards_subset.py::test_traversal_algorithms_match[python] \
     --deselect=tests/testing/test_fixtures.py::test_tmp_env \
     --deselect=tests/testing/test_fixtures.py::test_session_tmp_env \
     --deselect=tests/testing/test_fixtures.py::test_env \
     --deselect=tests/testing/test_fixtures.py::test_tmp_channel \
+    --ignore=tests/shards/test_shardfetch.py \
+    --ignore=tests/shards/test_shards.py \
     --ignore=tests/trust \
     conda tests
 

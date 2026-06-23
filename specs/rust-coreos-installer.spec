@@ -144,6 +144,7 @@ from the initramfs in IoT/Edge and is supported by the community.
 %if 0%{?rhel}
 tar xf %{SOURCE1}
 %cargo_prep -v vendor
+rm -f Cargo.lock
 %else
 %cargo_prep
 %endif

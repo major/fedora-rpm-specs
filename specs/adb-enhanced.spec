@@ -1,13 +1,13 @@
 %bcond_with tests
 
 Name:           adb-enhanced
-Version:        2.9.0
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Tool for Android testing and development
 
 License:        Apache-2.0
 URL:            https://github.com/ashishb/adb-enhanced
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

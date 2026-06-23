@@ -1,21 +1,22 @@
-%global upstream_version        1.0.3
+%global upstream_version        1.0.4
 
-Name:                   redisx
-Version:                1.0.3
-Release:                %autorelease
-Summary:                An independent C/C++ Redis/Valkey client library and toolkit
-License:                Unlicense
-URL:                    https://sigmyne.github.io/redisx
-Source0:                https://github.com/Sigmyne/redisx/archive/refs/tags/v%{upstream_version}.tar.gz
-BuildRequires:          doxygen >= 1.13.0
-BuildRequires:          gcc
-BuildRequires:          libbsd-devel
-BuildRequires:          libomp-devel
-BuildRequires:          libxchange-devel >= 1.0.1
-BuildRequires:          openssl-devel
-BuildRequires:          popt-devel
-BuildRequires:          readline-devel
-BuildRequires:          sed
+Name:              redisx
+Version:           1.0.4
+Release:           %autorelease
+Summary:           An independent C/C++ Redis/Valkey client library and toolkit
+License:           Unlicense
+URL:               https://sigmyne.github.io/redisx
+Source0:           https://github.com/Sigmyne/redisx/archive/refs/tags/v%{upstream_version}.tar.gz
+BuildRequires:     doxygen >= 1.13.0
+BuildRequires:     gcc
+BuildRequires:     cmake
+BuildRequires:     libbsd-devel
+BuildRequires:     libomp-devel
+BuildRequires:     libxchange-devel >= 1.2.0
+BuildRequires:     openssl-devel
+BuildRequires:     popt-devel
+BuildRequires:     readline-devel
+BuildRequires:     sed
 
 %description
 
@@ -26,14 +27,14 @@ with multiple Redis servers simultaneously also. RedisX is free to use, in any
 way you like, without licensing restrictions.
 
 %package devel
-Summary:                C development files for the RedisX C/C++ library
-Requires:               %{name}%{_isa} = %{version}-%{release}
-Requires:               libbsd-devel%{_isa}
-Requires:               libomp-devel%{_isa}
-Requires:               libxchange-devel%{_isa} >= 1.0.1
-Requires:               openssl-devel%{_isa}
-Requires:               popt-devel%{_isa}
-Requires:               readline-devel%{_isa}
+Summary:           C development files for the RedisX C/C++ library
+Requires:          %{name}%{_isa} = %{version}-%{release}
+Requires:          libbsd-devel%{_isa}
+Requires:          libomp-devel%{_isa}
+Requires:          libxchange-devel%{_isa} >= 1.2.0
+Requires:          openssl-devel%{_isa}
+Requires:          popt-devel%{_isa}
+Requires:          readline-devel%{_isa}
 
 
 %description devel
@@ -41,28 +42,34 @@ This sub-package provides C headers and non-versioned shared library symbolic
 links for the RedisX C/C++ library.
 
 %package doc
-Summary:                Documentation for the RedisX C/C++ library
-BuildArch:              noarch
+Summary:           Documentation for the RedisX C/C++ library
+BuildArch:         noarch
 
 %description doc
 This package provides HTML documentation and examples for the RedisX C/C++ 
 library. The HTML API documentation can also be used with the Eclipse IDE.
 
 %prep
-%autosetup
+%autosetup -n redisx-%{upstream_version}
 
 %build
 
-%make_build
+%cmake \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_CLI=ON \
+    -DBUILD_DOC=ON \
+    -DENABLE_TLS=ON \
+    -DENABLE_OPENMP=ON
+
+%cmake_build
 
 %install
 
-%make_install libdir=%{_libdir}
+%cmake_install
 
 %check
 
-export LD_LIBRARY_PATH=$(pwd)/lib
-make test
+%ctest
 
 %files
 %license LICENSE
@@ -72,10 +79,13 @@ make test
 %{_mandir}/man1/redisx-cli.1*
 
 %files devel
-%doc CONTRIBUTING.md
-%doc examples/*
-%{_includedir}/*.h
+%doc %{_docdir}/%{name}/CONTRIBUTING.md
+%dir %{_docdir}/%{name}/examples
+%doc %{_docdir}/%{name}/examples/*
+%{_includedir}/redisx.h
 %{_libdir}/libredisx.so
+%{_libdir}/cmake
+%{_libdir}/pkgconfig
 
 %files doc
 %license LICENSE
@@ -85,3 +95,4 @@ make test
 
 %changelog
 %autochangelog
+

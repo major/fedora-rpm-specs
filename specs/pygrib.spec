@@ -1,9 +1,15 @@
 # avoid providing the private libs:
 %global __provides_exclude_from ^(%{python3_sitearch})/.*\\.so.*$
 
+# Note that cartopy is only used by the test suite, not by the
+# pygrib module it self. Therefore it is safe to set this next switch
+# to 0 to unblock the build if the build of cartopy is delayed
+# at a mayor python upgrade in rawhide.
+%bcond cartopy 0
+
 Name:       pygrib
 Version:    2.1.8
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -61,12 +67,13 @@ BuildRequires: python3-numpy
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-mpl
 BuildRequires: python3-matplotlib
-BuildRequires: python3-cartopy
 BuildRequires: python3-scipy
-
+%if %{with cartopy}
+BuildRequires: python3-cartopy
 # these are needed to prevent cartopy from downloading shape files
 BuildRequires: natural-earth-map-data-110m
 BuildRequires: natural-earth-map-data-50m
+%endif
 
 %global _description \
 Cython wrapper to provide a high-level interface to the ECMWF eccodes \
@@ -151,12 +158,16 @@ cd  $TESTROOT/test
 # execute the doc tests as defined in test/test.py
 %{__python3} test.py
 
+%if %{with cartopy}
+
 # This run script automatically executes all
 # tests in the test folder starting with "test_",
 # but it only executes the data read functionality of pygrib, and
 # does not test generate the test maps by cartopy and does not compare
 # those to the reference maps provided.
 # That is done by the pytest call below.
+# But still these tests do import add_cyclic_point and ccrs from the
+# cartopy module, so need to be switched off if the cartopy bcond is not set.
 %{__python3} run_tests.py
 
 # note: pyspharm is not yet available in fedora
@@ -182,6 +193,7 @@ cd  $TESTROOT/test
 #    test_reglatlon.py
 # This has been reported here:
 # https://github.com/jswhit/pygrib/issues/188
+%endif
 
 %files -n python3-%{name} -f %{pyproject_files}
 %doc LICENSE PKG-INFO README.md
@@ -192,6 +204,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Sun Jun 21 2026 Jos de Kloe <josdekloe@gmail.com> 2.1.8-4
+- Disable cartopy use in tests to allow rawhide build
+
 * Sat Jun 06 2026 Jos de Kloe <josdekloe@gmail.com> 2.1.8-3
 - Fix 3 failing tests
 

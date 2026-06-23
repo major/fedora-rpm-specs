@@ -13,7 +13,7 @@
 
 Name:           cinnamon
 Version:        6.7.3^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -96,6 +96,9 @@ Requires:       at-spi2-atk%{?_isa}
 
 # needed for the user menu
 Requires:       accountsservice-libs%{?_isa}
+
+# needed for the screen locker
+Requires: gnome-keyring-pam%{?_isa}
 
 # needed for settings
 Requires:       gsound
@@ -329,6 +332,9 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sun Jun 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-2
+- Add requires gnome-keyring-pam
+
 * Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
 - Update to 6.7.3-unstable
 

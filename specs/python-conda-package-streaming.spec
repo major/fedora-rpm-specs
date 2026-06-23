@@ -2,7 +2,7 @@
 %global pkgname conda_package_streaming
 
 # We have a circular dep on conda for tests
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:           python-%{srcname}
 Version:        0.13.0

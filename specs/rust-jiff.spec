@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.28
+Version:        0.2.29
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -31,14 +31,15 @@ Patch:          jiff-fix-metadata-auto.diff
 #   crate, and we do not see a good use case for static time zone databases in
 #   distribution packages, which are much better off using the system timezone
 #   database in general.
+# * Patch out the defmt feature; rust-defmt is not (yet) packaged
 Patch:          jiff-fix-metadata.diff
 # * Downstream-only: Omit doctests that require hifitime. It is not worth
 #   packaging it solely for a couple of tiny examples.
 Patch10:        0001-Downstream-only-Omit-doctests-that-require-hifitime.patch
 # * Downstream-only: Omit doctests that require jiff-static
-Patch11:        0001-Downstream-only-Omit-doctests-that-require-jiff-stat.patch
+Patch11:        0002-Downstream-only-Omit-doctests-that-require-jiff-stat.patch
 # * Downstream-only: Omit doctest that requires time-tz
-Patch12:        0001-Downstream-only-Omit-doctest-that-requires-time-tz.patch
+Patch12:        0003-Downstream-only-Omit-doctest-that-requires-time-tz.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

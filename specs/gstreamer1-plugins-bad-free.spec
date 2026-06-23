@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -143,6 +143,7 @@ BuildRequires:  flite-devel
 BuildRequires:  game-music-emu-devel
 BuildRequires:  ladspa-devel
 BuildRequires:  libmpcdec-devel
+BuildRequires:  librtmp-devel
 BuildRequires:  pkgconfig(avtp)
 BuildRequires:  pkgconfig(fluidsynth)
 BuildRequires:  pkgconfig(libass)
@@ -393,6 +394,7 @@ aren't tested well enough, or the code is not of good enough quality.
     -D openexr=disabled \
     -D openmpt=disabled \
     -D qroverlay=disabled \
+    -D rtmp=disabled \
     -D spandsp=disabled \
     -D srt=disabled \
     -D teletext=disabled \
@@ -424,7 +426,6 @@ aren't tested well enough, or the code is not of good enough quality.
     -D openni2=disabled \
     -D opensles=disabled \
     -D qt6d3d11=disabled \
-    -D rtmp=disabled \
     -D svthevcenc=disabled \
     -D svtjpegxs=disabled \
     -D tflite=disabled \
@@ -740,6 +741,7 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstopenexr.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenmpt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstqroverlay.so
+%{_libdir}/gstreamer-%{majorminor}/libgstrtmp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstspandsp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsrt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstteletext.so
@@ -928,6 +930,9 @@ EOF
 
 
 %changelog
+* Sun Jun 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.28.4-3
+- Enabled rtmp plugin in extras
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.28.4-2
 - Rebuilt for openssl 4.0
 
