@@ -1,5 +1,5 @@
 Name:           fedora-active-user
-Version:        26.05.04
+Version:        26.06.22
 Release:        %autorelease
 Summary:        Check whether a given Fedora developer is still active
 License:        GPL-2.0-or-later
@@ -13,6 +13,7 @@ Requires:       python3-requests
 # Kerberos support is needed to login to the FAS
 Requires:       python3-requests-kerberos
 Requires:       python3-bugzilla
+Requires:       python3-gssapi
 Requires:       python3-koji
 Requires:       bodhi-client
 

@@ -76,7 +76,6 @@ BuildRequires: libicu-devel
 BuildRequires: libstemmer-devel
 BuildRequires: xapian-core-devel
 %endif
-BuildRequires: multilib-rpm-config
 BuildRequires: flex, bison
 BuildRequires: perl-version
 BuildRequires: systemd-devel
@@ -101,10 +100,8 @@ Requires(postun): systemd-units
 BuildRequires: libcurl-devel expat-devel
 BuildRequires: make
 
-%if 0%{?fedora} > 39
 # as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-%endif
 
 %global restart_flag /run/%{name}/%{name}-restart-after-rpm-install
 
@@ -258,9 +255,6 @@ rm -rf $RPM_BUILD_ROOT
 
 # move doc dir back to build dir so doc macro in files section can use it
 mv $RPM_BUILD_ROOT/%{_docdir}/%{name} %{_builddir}/%{name}-%{version}%{?prever}/docinstall
-
-# fix multilib issues
-%multilib_fix_c_header --file %{_includedir}/dovecot/config.h
 
 pushd dovecot-pigeonhole
 %make_install

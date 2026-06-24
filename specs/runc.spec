@@ -4,7 +4,7 @@
 # https://github.com/opencontainers/runc
 %global goipath github.com/opencontainers/runc
 Epoch:          2
-Version:        1.4.3
+Version:        1.5.0
 %global tag     v%{gsub %{version} ~ -}
 
 %gometa -L -f

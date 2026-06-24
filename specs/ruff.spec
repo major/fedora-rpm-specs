@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.16
+Version:        0.15.18
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -65,9 +65,6 @@ Summary:        Extremely fast Python linter and code formatter
 #
 # Apache-2.0 OR MIT:
 #   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
-#
-# MIT:
-#   - lsp-types, Source200
 #
 # =====
 #
@@ -151,32 +148,12 @@ License:        %{shrink:
 URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
-# Currently, ruff must use a fork of lsp-types
-# (https://github.com/gluon-lang/lsp-types), as explained in:
-#   Add README disclaimer
-#   https://github.com/gluon-lang/lsp-types/commit/ddc7dc8
-# which says,
-#   This fork is a temporary solution for supporting Jupyter Notebooks for our
-#   new LSP server, `ruff server`.
-#   This fork is not actively maintained by Astral.
-# We asked for a status update in:
-#   Path to not forking lsp-types?
-#   https://github.com/astral-sh/ruff/issues/20449
-# Upstream has not ruled out “unforking,” but indicates they are in no
-# particular hurry to do so. We therefore bundle the fork as prescribed in:
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global lsp_types_git https://github.com/astral-sh/lsp-types
-%global lsp_types_rev e15db0593f0ecbbd80599c3f5880e4bf5da1ca0c
-%global lsp_types_baseversion 0.95.1
-%global lsp_types_snapdate 20260220
-Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
-
 # Get this from crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 4a47505dd891ac8a94ba7f4b578899c72727ce23
+%global typeshed_rev feeb9aa8dde3ae9269b13f3bae435b82d8538b76
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260531
+%global typeshed_snapdate 20260613
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -202,11 +179,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
-
-# This is a fork of lsp-types; see the notes about Source200.
-%global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
-%global lsp_types_version %{lsp_types_baseversion}^%{lsp_types_snapinfo}
-Provides:       bundled(crate(lsp-types)) = %{lsp_types_version}
 
 # This is not versioned or released as a whole, and it is normal for
 # type-checkers to vendor it. See
@@ -237,10 +209,6 @@ Provides:       bundled(typeshed) = %{typeshed_version}
 #   [`annotate-snippets` crate]: https://github.com/rust-lang/annotate-snippets-rs
 Provides:       bundled(crate(annotate-snippets)) = 0.11.5
 
-# forked from lsp-types upstream: https://github.com/gluon-lang/lsp-types
-# with changes applied:           https://github.com/astral-sh/lsp-types/tree/notebook-support
-Provides:       bundled(crate(lsp-types)) = 0.95.1
-
 %global common_description %{expand:
 An extremely fast Python linter and code formatter, written in Rust.
 
@@ -267,30 +235,8 @@ This package provides an importable Python module for ruff.
 
 
 %prep
-%autosetup -N
-%autopatch -p1 -M99
-
+%autosetup -p1
 %cargo_prep
-
-# Usage: git2path SELECTOR PATH
-# Replace a git dependency with a path dependency in Cargo.toml
-git2path() {
-  tomcli set Cargo.toml del "${1}.git"
-  tomcli set Cargo.toml del "${1}.rev"
-  tomcli set Cargo.toml str "${1}.path" "${2}"
-}
-
-# See comments above Source200:
-%setup -q -T -D -b 200 -n ruff-%{version}
-# Adding the crate to the workspace (in this case implicitly, by moving it
-# under crates/) means %%cargo_generate_buildrequires can handle it correctly.
-mv ../lsp-types-%{lsp_types_rev} crates/lsp-types
-git2path workspace.dependencies.lsp-types crates/lsp-types
-pushd crates/lsp-types
-%autopatch -p1 -m200 -M299
-popd
-install -D --preserve-timestamps --mode=0644 \
-    --target=LICENSE.bundled/lsp-types crates/lsp-types/LICENSE
 
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.
@@ -300,14 +246,6 @@ install -D --preserve-timestamps --mode=0644 \
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# get-size2
-#   wanted: 0.9.0
-#   currently packaged: 0.10.0
-# We haven’t suggested this upstream because we know they use renovate with
-# dependency cooldowns, and we expect they will soon update without prompting.
-tomcli set Cargo.toml str workspace.dependencies.get-size2.version \
-    '>=0.9.0, <0.11.0'
 
 # tikv-jemallocator
 #   wanted: 0.6.0

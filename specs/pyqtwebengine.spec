@@ -2,7 +2,7 @@
 Summary: Python bindings for QtWebEngine
 Name:    pyqtwebengine
 Version: 5.15.6
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -81,7 +81,7 @@ done
 %files -n python%{python3_pkgversion}-qt5-webengine
 %doc README
 %license LICENSE
-%{python3_sitearch}/PyQtWebEngine-%{version}.dist-info/
+%{python3_sitearch}/pyqtwebengine-%{version}.dist-info/
 %{python3_sitearch}/PyQt5/QtWebEngine.*
 %{python3_sitearch}/PyQt5/QtWebEngineCore.*
 %{python3_sitearch}/PyQt5/QtWebEngineWidgets.*
@@ -99,6 +99,9 @@ done
 
 
 %changelog
+* Mon Jun 22 2026 Steve Cossette <farchord@gmail.com> - 5.15.6-15
+- Removed dist-info subfolder name
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.15.6-14
 - Rebuilt for Python 3.15
 

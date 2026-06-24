@@ -1,11 +1,13 @@
 Name:           codespell
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Fix common misspellings in text files
 
 License:        GPL-2.0-only AND CC-BY-SA-3.0
 URL:            https://github.com/codespell-project/codespell/
 Source0:        %{pypi_source}
+# https://github.com/codespell-project/codespell/pull/3911
+Patch:          aca223e2ec3ddc25f52089653c8f9ef8bfda0d9b.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

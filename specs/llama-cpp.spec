@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b9601
+Version:        b9672
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -92,11 +92,13 @@ BuildRequires:  rocblas-devel
 BuildRequires:  hipblas-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+
+Requires:       hipblas
+Requires:       rocblas
+
 %endif
 
 Requires:       curl
-Requires:       hipblas
-Requires:       rocblas
 
 Recommends:     numactl
 
@@ -259,7 +261,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_libdir}/libggml.so.*
 %{_libdir}/libggml-base.so.*
 %{_libdir}/libggml-cpu.so.*
+%if %{with rocm}
 %{_libdir}/libggml-hip.so.*
+%endif
 %{_bindir}/llama
 %{_bindir}/llama-batched-bench
 %{_bindir}/llama-bench
@@ -302,7 +306,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so
 %{_libdir}/libggml-cpu.so
+%if %{with rocm}
 %{_libdir}/libggml-hip.so
+%endif
 %{_libdir}/cmake/llama/*.cmake
 %{_libdir}/cmake/ggml/*.cmake
 %{_libdir}/pkgconfig/llama.pc

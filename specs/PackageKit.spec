@@ -8,17 +8,13 @@
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.3.4
+Version:   1.3.6
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later AND FSFAP
 URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
 # Backports from upstream (1~500)
-## Fix turning off the Python backend
-Patch0001:    https://github.com/PackageKit/PackageKit/commit/11c5f1f34f48b58ee10acec839dd01a31728704b.patch
-## Fix race condition vulnerability (Pack2TheRoot)
-Patch0002:    GHSA-f55j-vvr9-69xv.patch
 
 # Patches proposed upstream (501~1000)
 ## Alias "dnf" to "dnf5"

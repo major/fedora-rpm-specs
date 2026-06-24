@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.86
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -18,6 +18,8 @@ Patch1: big-endian-5.86.patch
 Patch2: 0001-a2dp-connect-source-profile-after-sink.patch
 # https://patchwork.kernel.org/project/bluetooth/list/?series=1058931
 Patch3: bluetoothctl-no-output.patch
+# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=2a6968b40378dca5650e18e03ad0407738c47be5
+Patch4: 0001-advertising-Fix-sending-extra-bytes-with-MGMT_OP_ADD.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -341,6 +343,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Jun 22 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-5
+- Fix BLE advertisments (Closes: #2489100)
+
 * Fri Feb 27 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-4
 - Re-add btmgmt as it does not require bluetoothd to be running,
   unlike bluetoothctl mgmt

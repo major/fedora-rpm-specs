@@ -1,6 +1,6 @@
 Summary: A Python client for the Akamai Fast Purge API
 Name: python-fastpurge
-Version: 1.0.5
+Version: 1.0.6
 Release: %autorelease
 URL: https://github.com/release-engineering/python-fastpurge
 # PyPI tarball doesn't have tests

@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 2.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -136,8 +136,11 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Mon Jun 22 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.3.0-4
+- f45-buid-side-141772
+
 * Mon Jun 15 2026 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-3
-- Switch liborc to protobuf3-devel
+- Switch liborc to protobuf3-devel f45-build-side-140796
 
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 2.3.0-2
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x

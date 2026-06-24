@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -19,6 +19,9 @@ Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 Patch:          https://github.com/pexpect/pexpect/pull/794.patch
 # Tests: Avoid the multiprocessing forkserver method (for Python 3.14+ compatibility)
 Patch:          https://github.com/pexpect/pexpect/pull/808.patch
+# Suppress DeprecationWarning for os.forkpty() on Python 3.15+ (gh#827)
+# Upstream issue: https://github.com/pexpect/pexpect/issues/827
+Patch:          827.patch
 
 BuildRequires:  /usr/bin/man
 %if %{with check}
@@ -107,6 +110,10 @@ ignore="${ignore-} --ignore=tests/test_performance.py"
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Mon Jun 22 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.9.0-18
+- Suppress DeprecationWarning for os.forkpty() on Python 3.15+
+- Fixes: rhbz#2458644
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-17
 - Rebuilt for openssl 4.0
 

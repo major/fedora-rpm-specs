@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2745,8 +2745,11 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Jun 22 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.2-2
+- Ceph 20.2.2 GA, f45-side-build-141772
+ 
 * Tue Jun 16 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.2-1
-- Ceph 20.2.2 GA
+- Ceph 20.2.2 GA, f45-side-build-141058
  
 * Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-6
 - Ceph 20.2.1, rebuild with liborc, libarrow w/ protobuf3

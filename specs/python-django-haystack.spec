@@ -2,7 +2,7 @@
 %bcond_with tests
 
 Name:           python-django-haystack
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Pluggable search for Django
 

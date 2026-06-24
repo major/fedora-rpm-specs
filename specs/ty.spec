@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.44
+Version:        0.0.51
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -74,9 +74,6 @@ Summary:        Extremely fast Python type checker and language server
 #
 # Apache-2.0 OR MIT:
 #   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
-#
-# MIT:
-#   - lsp-types, Source200
 #
 # =====
 #
@@ -162,28 +159,17 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev a70f81f779856ab4fbcd019c0add42537c6d72a3
-%global ruff_baseversion 0.15.16
-%global ruff_snapdate 20260604
+%global ruff_rev 3d7c13b04bd723706273705f80b8212b789554a9
+%global ruff_baseversion 0.15.18
+%global ruff_snapdate 20260619
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
-# Currently, ruff must use a fork of lsp-types,
-# https://github.com/astral-sh/ruff/issues/20449. Upstream has not ruled out
-# “unforking,” but indicates they are in no particular hurry to do so. We
-# therefore bundle the fork; full details and justification are in the ruff
-# package.
-%global lsp_types_git https://github.com/astral-sh/lsp-types
-%global lsp_types_rev e15db0593f0ecbbd80599c3f5880e4bf5da1ca0c
-%global lsp_types_baseversion 0.95.1
-%global lsp_types_snapdate 20260220
-Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
-
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 4a47505dd891ac8a94ba7f4b578899c72727ce23
+%global typeshed_rev feeb9aa8dde3ae9269b13f3bae435b82d8538b76
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260531
+%global typeshed_snapdate 20260613
 
 # Downstream patch: always find the system-wide ty executable
 #
@@ -217,11 +203,6 @@ BuildRequires:  tomcli
 %global ruff_version %{ruff_baseversion}^%{ruff_snapinfo}
 Provides:       bundled(ruff) = %{ruff_version}
 
-# This is a fork of lsp-types; see the notes about Source200.
-%global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
-%global lsp_types_version %{lsp_types_baseversion}^%{lsp_types_snapinfo}
-Provides:       bundled(crate(lsp-types)) = %{lsp_types_version}
-
 # This is not versioned or released as a whole, and it is normal for
 # type-checkers to vendor it. See
 # https://typing.python.org/en/latest/spec/distributing.html#the-typeshed-project.
@@ -250,10 +231,6 @@ Provides:       bundled(typeshed) = %{typeshed_version}
 #   [issue #167]: https://github.com/rust-lang/annotate-snippets-rs/issues/167
 #   [`annotate-snippets` crate]: https://github.com/rust-lang/annotate-snippets-rs
 Provides:       bundled(crate(annotate-snippets)) = 0.11.5
-
-# forked from lsp-types upstream: https://github.com/gluon-lang/lsp-types
-# with changes applied:           https://github.com/astral-sh/lsp-types/tree/notebook-support
-Provides:       bundled(crate(lsp-types)) = 0.95.1
 
 %global common_description %{expand:
 An extremely fast Python type checker and language server, written in Rust.}
@@ -292,28 +269,6 @@ pushd ruff
 tomcli set pyproject.toml false tool.maturin.strip
 %cargo_prep
 popd
-
-# Usage: git2path SELECTOR PATH
-# Replace a git dependency with a path dependency in Cargo.toml
-git2path() {
-  tomcli set Cargo.toml del "${1}.git"
-  tomcli set Cargo.toml del "${1}.rev"
-  tomcli set Cargo.toml str "${1}.path" "${2}"
-}
-
-# See comments above Source200:
-%setup -q -T -D -b 200 -n ty-%{version}
-# Adding the crate to the workspace (in this case implicitly, by linking it
-# under crates/) means %%cargo_generate_buildrequires can handle it correctly.
-mv ../lsp-types-%{lsp_types_rev} ruff/crates/lsp-types
-pushd ruff
-git2path workspace.dependencies.lsp-types crates/lsp-types
-pushd crates/lsp-types
-%autopatch -p1 -m200 -M299
-popd
-popd
-install -D --preserve-timestamps --mode=0644 \
-    --target=LICENSE.bundled/lsp-types ruff/crates/lsp-types/LICENSE
 
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.

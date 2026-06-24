@@ -19,8 +19,6 @@ Source:         %pypi_source %{srcname}
 Patch:          0001-Drop-pydap-from-dependencies.patch
 # Fix failures with latest dependencies.
 Patch:          https://github.com/pydata/xarray/pull/11204.patch
-# Adjust TestDataset.test_repr for Pandas 3.0.3
-Patch:          https://github.com/pydata/xarray/pull/11384.patch
 
 BuildArch:      noarch
 
@@ -87,6 +85,9 @@ k="${k-}${k+ and }not test_save_mfdataset_compute_false_roundtrip"
 %if %{without dask}
 k="${k-}${k+ and }not test_source_encoding_always_present_with_fsspec"
 k="${k-}${k+ and }not test_h5netcdf_storage_options"
+# The following test does not need dask, but fails without it,
+# see https://github.com/pydata/xarray/pull/11384
+k="${k-}${k+ and }not (TestDataset and test_repr)"
 %endif
 
 %{pytest} -ra -n auto -m "not network" ${k:+-k "${k}"} --pyargs xarray --timeout 300 --full-trace

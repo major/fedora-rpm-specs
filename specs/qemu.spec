@@ -36,6 +36,9 @@
 %ifarch riscv64
 %global kvm_package   system-riscv
 %endif
+%ifarch loongarch64
+%global kvm_package   system-loongarch64
+%endif
 
 %global modprobe_kvm_conf %{_sourcedir}/kvm.conf
 %ifarch s390x
@@ -65,7 +68,7 @@
 %global have_numactl 1
 
 %global have_spice 1
-%ifnarch x86_64 aarch64
+%ifnarch x86_64 aarch64 loongarch64
 %global have_spice 0
 %endif
 %if 0%{?rhel} >= 9
@@ -2223,7 +2226,7 @@ export MTESTARGS="--no-suite block"
 # the hardware that's currently available is too slow and we need to
 # allow tests to run for a little bit longer
 %define timeout_multiplier 1
-%ifarch riscv64
+%ifarch riscv64 loongarch64
 %define timeout_multiplier 3
 %endif
 
@@ -2860,7 +2863,9 @@ popd
 %{_datadir}/systemtap/tapset/qemu-loongarch64-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-loongarch64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-loongarch64-static.stp
+%ifnarch loongarch64
 %{_exec_prefix}/lib/binfmt.d/qemu-loongarch64-static.conf
+%endif
 
 %files user-static-m68k
 %license COPYING COPYING.LIB LICENSE

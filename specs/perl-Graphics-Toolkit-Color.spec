@@ -1,16 +1,32 @@
 Name:           perl-Graphics-Toolkit-Color
-Version:        2.11
+Version:        2.22
 Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Name.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Argument.pod:   GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Calculation.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/CheatSheet.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Constructor.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Cookbook.pod:   GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Deprecation.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Error.pod:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Format.pod:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Getter.pod:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Name.pod:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Philosophy.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Plugin.pod:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Set.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Manual/Space.pod:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Name/Constant.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Name/Scheme.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Space.pm:      GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Space/Hub.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Space/Instance/LICENSE.OK: MIT text
+# lib/Graphics/Toolkit/Color/Space/Instance/OKHSL.pm:   MIT
+# lib/Graphics/Toolkit/Color/Space/Instance/OKHSV.pm:   MIT
+# lib/Graphics/Toolkit/Color/Space/Instance/OKHWB.pm:   MIT
+# lib/Graphics/Toolkit/Color/Space/Instance/OKLAB.pm:   MIT
+# lib/Graphics/Toolkit/Color/Space/Instance/OKLCH.pm:   MIT
 # LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:            https://metacpan.org/release/Graphics-Toolkit-Color
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Graphics-Toolkit-Color-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,6 +39,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter) >= 5
 # Optional run-time:
 # Graphics::ColorNames::$schema, where $schema is a user-supplied string, is
@@ -34,6 +51,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Builder) >= 1
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More) >= 1.3
+BuildRequires:  perl(Test::Warn)
 Requires:       perl(Exporter) >= 5
 
 # Remove underspecified dependencies
@@ -53,6 +71,7 @@ you to get the color palette you desire.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness 
 Requires:       perl(Test::Builder) >= 1
@@ -88,6 +107,7 @@ make test
 
 %files
 %license LICENSE
+%license %{perl_vendorlib}/Graphics/Toolkit/Color/Space/Instance/LICENSE.OK
 %doc Changes CONTRIBUTING README
 %dir %{perl_vendorlib}/Graphics
 %dir %{perl_vendorlib}/Graphics/Toolkit
@@ -98,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 2.22-1
+- 2.22 bump
+
 * Mon May 11 2026 Petr Pisar <ppisar@redhat.com> - 2.11-1
 - 2.11 bump
 

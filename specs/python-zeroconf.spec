@@ -1,15 +1,13 @@
-Name:           python-zeroconf
-Version:        0.118.0
+%global pypi_name zeroconf
+
+Name:           python-%{pypi_name}
+Version:        0.149.17
 Release:        %autorelease
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/jstasiak/python-zeroconf
 Source0:        %{url}/archive/%{version}/zeroconf-%{version}.tar.gz
-
-# Fixup the Cython declaration of zeroconf._handlers.record_manager.async_updates_complete to match the Python type
-# Partially cherry-picked from https://github.com/python-zeroconf/python-zeroconf/commit/9eac0a12
-Patch:          cython-3.2.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -30,10 +28,10 @@ supporting Bonjour/Avahi.
 
 
 %prep
-%autosetup -p1
-# Upstream requires this for https://github.com/python-poetry/poetry/issues/7505
-# But it's not relevant for the RPM package
-sed -i 's/poetry-core>=1.5.2/poetry-core/' pyproject.toml
+%autosetup -p1 -n %{pypi_name}-%{version}
+# Remove benchmarks
+rm -rf tests/benchmarks/
+sed -i '#_BENCHMARKS_DIR = "tests/benchmarks"#d' tests/conftest.py
 # We don't measure coverage in tests
 sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 

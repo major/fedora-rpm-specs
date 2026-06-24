@@ -1,6 +1,6 @@
 Name:		perl-Module-Extract-VERSION
-Version:	1.119
-Release:	3%{?dist}
+Version:	1.121
+Release:	1%{?dist}
 Summary:	Extract a module version without running code
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-VERSION
@@ -13,13 +13,14 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.10.0
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(ExtUtils::MM_Any)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Spec::Functions)
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Safe)
 BuildRequires:	perl(strict)
-BuildRequires:	perl(version) >= 0.86
+BuildRequires:	perl(utf8)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More) >= 1
@@ -29,7 +30,6 @@ BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 # Dependencies
 Requires:	perl(Safe)
-Requires:	perl(version) >= 0.86
 
 %description
 This module lets you pull out of module source code the version number for the
@@ -56,6 +56,10 @@ make test
 %{_mandir}/man3/Module::Extract::VERSION.3*
 
 %changelog
+* Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 1.121-1
+- Update to 1.121
+  - Support the old qv() syntax from version.pm
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.119-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

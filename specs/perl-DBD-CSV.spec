@@ -1,11 +1,10 @@
 Name:           perl-DBD-CSV
-Version:        0.62
-Release:        5%{?dist}
+Version:        0.63
+Release:        1%{?dist}
 Summary:        DBI driver for CSV files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-CSV
 Source0:        https://cpan.metacpan.org/modules/by-module/DBD/DBD-CSV-%{version}.tgz
-Patch0:         DBD-CSV-0.62-dbi-1.648.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -18,26 +17,26 @@ BuildRequires:  perl(lib)
 # Module Runtime
 # The DBI and SQL::Statement are needed per DBD::CVS POD
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(DBD::File) >= 0.44
-BuildRequires:  perl(DBI) >= 1.628
+BuildRequires:  perl(DBD::File) >= 0.45
+BuildRequires:  perl(DBI) >= 1.649
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(SQL::Statement) >= 1.405
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Text::CSV_XS) >= 1.45
+BuildRequires:  perl(Text::CSV_XS) >= 1.62
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(Test::More) >= 0.90
+BuildRequires:  perl(Test::More) >= 1.302222
 # Dependencies
 Requires:       perl(DBD::File) >= 0.44
 Requires:       perl(DBI) >= 1.628
 Requires:       perl(Exporter)
 Requires:       perl(SQL::Statement) >= 1.405
-Requires:       perl(Text::CSV_XS) >= 1.45
+Requires:       perl(Text::CSV_XS) >= 1.62
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(DBD::File\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Text::CSV_XS\\)$
@@ -52,10 +51,6 @@ MS Excel data.
 
 %prep
 %setup -q -n DBD-CSV-%{version}
-
-# Fix test failure with DBI 1.648 onwards
-# Based on https://github.com/perl5-dbi/DBD-CSV/commit/ae091790398088a66b22fa572856bfeb4db4c78a
-%patch -P0 -p1
 
 chmod -c a-x ChangeLog README lib/DBD/*.pm lib/Bundle/DBD/*.pm
 
@@ -78,6 +73,13 @@ make test
 %{_mandir}/man3/DBD::CSV.3*
 
 %changelog
+* Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 0.63-1
+- Update to 0.63 (rhbz#2491316)
+  - It's 2026
+  - New test for DBI-1.648 CVE fix
+  - Minor typo in doc
+  - Raise recommended versions for fixed CVE's
+
 * Mon Jun  8 2026 Paul Howarth <paul@city-fan.org> - 0.62-5
 - Fix test failure with DBI 1.648 onwards
 

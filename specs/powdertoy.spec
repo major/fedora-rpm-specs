@@ -5,11 +5,10 @@ Summary: Physics sandbox game
 URL: https://powdertoy.co.uk
 
 # Powder Toy itself is GPLv3
-# src/bson/ is Apache v2.0
 # src/lua/ is MIT
-License: GPL-3.0-only AND Apache-2.0 AND MIT
+License: GPL-3.0-only AND MIT
 
-Version: 99.5.394
+Version: 100.0.399
 Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
@@ -20,10 +19,6 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/v%{version}/%{rep
 # but in Fedora we always used "powdertoy". This patch edits some files
 # which refer to "powder" and makes them use "powdertoy" instead.
 Patch0: 0000-use-powdertoy-instead-of-powder-as-name.patch
-
-# Fix building with GCC16. Backported from upstream.
-# https://github.com/The-Powder-Toy/The-Powder-Toy/commit/2df4e31e5ff526b8871adb0bb62d1b6a8e289255.patch
-Patch1: 0001-gcc16.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -37,7 +32,6 @@ BuildRequires: libcurl-devel
 BuildRequires: libpng-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: SDL2-devel
-BuildRequires: zlib-devel
 
 # luajit is not available on these architectures
 %ifnarch ppc64le
@@ -124,7 +118,7 @@ install -m 644 -p "%{_vpath_builddir}/resources/appdata.xml" "%{buildroot}%{_met
 
 # -- savefile mimetype
 install -m 755 -d %{buildroot}%{_datadir}/mime/packages/
-install -m 644 resources/save.xml %{buildroot}%{_datadir}/mime/packages/powdertoy-save.xml
+install -m 644 "%{_vpath_builddir}/resources/save.xml" %{buildroot}%{_datadir}/mime/packages/powdertoy-save.xml
 
 # -- man page
 install -m 755 -d %{buildroot}%{_mandir}/man6/
@@ -150,6 +144,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Mon Jun 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 100.0.399-1
+- Update to v100.0.399
+- License change: "GPL-3.0-only AND Apache-2.0 AND MIT" -> "GPL-3.0-only AND MIT"
+
 * Thu Apr 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 99.5.394-1
 - Update to v99.5.394
 

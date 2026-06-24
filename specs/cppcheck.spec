@@ -5,7 +5,7 @@
 %endif
 
 Name:           cppcheck
-Version:        2.21.0
+Version:        2.21.1
 Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
@@ -137,6 +137,9 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Mon Jun 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.21.1-1
+- 2.21.1
+
 * Thu Jun 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.21.0-1
 - 2.21.0
 

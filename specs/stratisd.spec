@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.9.0
+Version:        3.9.1
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -14,7 +14,6 @@ Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
 
 
-ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
 ExcludeArch:    i686
 %endif
@@ -57,7 +56,6 @@ Recommends:     clevis-luks >= 18
 %package dracut
 Summary: Dracut modules for use with stratisd
 
-ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
 ExcludeArch:    i686
 %endif
@@ -72,7 +70,6 @@ Requires:     systemd
 %package tools
 Summary: Tools that support Stratis operation
 
-ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
 ExcludeArch:    i686
 %endif

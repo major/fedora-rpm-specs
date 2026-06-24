@@ -108,7 +108,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -125,6 +125,9 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
+
+# Backport fix for CVE-2026-30998
+Patch10:        https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/18b83f2d0a0f9bcbafb0001a2911327c4b8df056#/ffmpeg-CVE-2026-30998.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -976,6 +979,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Mon Jun 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.2-2
+- Backport fix for CVE-2026-30998 (resolves rhbz#2457970).
+
 * Wed Jun 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.2-1
 - Updated to 8.1.2 (resolves rhbz#2489751)
 

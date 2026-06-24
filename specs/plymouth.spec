@@ -6,10 +6,15 @@ License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
 
 Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# Spinner update from: https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/1a01883fa2659bfb5e7417e1d5bd8d287a2cac36
-# Drop this on next rebase to latest upstream
-Source1: spinner-update.tar.gz
-Source2: charge.plymouth
+Source1: charge.plymouth
+
+# Fix race in fb_device_has_drm_device () causing frame-buffer plugin to
+# sometimes load while drm plugin is already handling the display
+Patch: 0001-ply-device-manager-Fix-race-in-fb_device_has_drm_dev.patch
+
+# For https://bugzilla.redhat.com/show_bug.cgi?id=2481687
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/cea90be39d263e388003a07d125b469c0803d55c
+Patch: 0001-ply-device-manager-fix-default-XKB-keymap-fallback-o.patch
 
 BuildRequires: meson
 BuildRequires: system-logos
@@ -222,7 +227,7 @@ Plymouth. It features a small spinner on a dark background.
 
 
 %prep
-%autosetup -p1 -a 1
+%autosetup -p1
 # Change the default theme
 sed -i -e 's/spinner/bgrt/g' src/plymouthd.defaults
 # Use simpledrm /dev/dri/card# by default, except when LUKS disk encrpytion is used
@@ -251,7 +256,7 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/plymouth
 %if ! 0%{?rhel}
 # Add charge, our old default
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
-cp %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
 cp $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/glow/{box,bullet,entry,lock}.png $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
 %endif
 

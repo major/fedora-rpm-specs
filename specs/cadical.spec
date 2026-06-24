@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 %global giturl  https://github.com/arminbiere/cadical
 
 Name:           cadical
@@ -7,6 +10,8 @@ Release:        %autorelease
 Summary:        Simplified SAT solver
 
 License:        MIT
+# MIT OR Apache-2.0: contrib/craigtracer*, not shipped in the binary RPM
+SourceLicense:  MIT AND (MIT OR Apache-2.0)
 URL:            http://fmv.jku.at/cadical/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/rel-%{version}/%{name}-%{version}.tar.gz
@@ -17,9 +22,9 @@ Patch:          %{name}-cryptominisat.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DCMAKE_SKIP_RPATH:BOOL=ON
 
-BuildRequires:  cmake
-BuildRequires:  drat-trim-tools
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
 BuildRequires:  help2man
@@ -50,14 +55,9 @@ Library links and header files for developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-rel-%{version}
-
-%conf
 sed 's/%%version%%/%{version}/' %{SOURCE1} > CMakeLists.txt
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON
 
-%build
-%cmake_build
-
+%build -a
 # Make man pages for the command line interface
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}
 help2man --version-string=%{version} -N -o cadical.1 \
@@ -65,14 +65,12 @@ help2man --version-string=%{version} -N -o cadical.1 \
 help2man --version-string=%{version} -N -o mobical.1 -h -h \
   -n 'Model Based Tester for CaDiCaL' %{_vpath_builddir}/mobical
 
-%install
-%cmake_install
-
+%install -a
 # Install the man pages
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p *.1 %{buildroot}%{_mandir}/man1
 
-%check
+%check -p
 # Prevent rebuilding the library while testing
 sed -i '/make -C \$CADICALBUILD/d;/^make$/d' test/*/run.sh
 
@@ -97,7 +95,8 @@ ln -s %{_vpath_builddir} build
 
 export LD_LIBRARY_PATH="$PWD/%{_vpath_builddir}"
 export CADICALBUILD='../%{_vpath_builddir}'
-%ctest
+
+%check -a
 rm %{_vpath_builddir}/{config.h,libcadical.a} build
 
 %files

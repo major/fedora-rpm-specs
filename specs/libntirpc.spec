@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	10.0
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -21,6 +21,7 @@ BuildRequires:	librdmacm
 BuildRequires:	rdma-core-devel
 BuildRequires:	krb5-devel
 BuildRequires:	userspace-rcu-devel
+BuildRequires:	openssl-devel
 # libtirpc has /etc/netconfig, most machines probably have it anyway
 # for NFS client
 Requires:	libtirpc
@@ -58,6 +59,7 @@ mv ../prometheus-cpp-lite-%{prometh_ver_long}/* ./src/monitoring/prometheus-cpp-
     -DCMAKE_COLOR_MAKEFILE:BOOL=OFF \
     -DTIRPC_EPOLL=1 \
     -DUSE_GSS=ON \
+    -DUSE_TLS=ON \
     -DUSE_RPC_RDMA=ON \
 %ifarch x86_64 aarch64
     -DCMAKE_LINKER=%{_bindir}/ld.mold \
@@ -91,6 +93,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Mon Jun 22 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 10.0-2
+- ntirpc-10.0 GA, enable TLS
+
 * Fri Jun 19 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 10.0-1
 - ntirpc-10.0 GA
 

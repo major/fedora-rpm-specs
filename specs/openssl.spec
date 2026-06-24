@@ -30,7 +30,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 4.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -214,6 +214,10 @@ ktlsopt=enable-ktls
 %ifarch armv7hl
 ktlsopt=disable-ktls
 %endif
+%ifarch loongarch64
+sslarch=linux64-loongarch64
+%endif
+
 
 # Add -Wa,--noexecstack here so that libcrypto's assembler modules will be
 # marked as not requiring an executable stack.
@@ -230,7 +234,7 @@ export HASHBANGPERL=/usr/bin/perl
 # RPM_OPT_FLAGS, so we can skip specifiying them here.
 ./Configure \
 	--prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
-%ifarch riscv64
+%ifarch riscv64 loongarch64
         --libdir=%{_lib} \
 %endif
 	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/opensslcnf.config \
@@ -434,6 +438,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Mon Jun 22 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1:4.0.1-2
+- Add sslarch use linux64-loongarch64 for loongarch64
+- Add --libdir=%{_lib} for loongarch64
+
 * Tue Jun 09 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.1-1
 - Rebase to OpenSSL 4.0.1
 

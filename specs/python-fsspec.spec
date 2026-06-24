@@ -13,6 +13,8 @@ Summary:        Specification for Pythonic file system interfaces
 License:        BSD-3-Clause
 URL:            https://github.com/fsspec/filesystem_spec
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# https://github.com/fsspec/filesystem_spec/pull/2056
+Patch:          0001-ftp-Make-deprecated-TLS-versions-optional.patch
 
 BuildArch:      noarch
 

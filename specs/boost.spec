@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -126,7 +126,6 @@ Recommends: (boost-numpy3 if python3-numpy)
 %endif
 
 BuildRequires: gcc-c++
-BuildRequires: m4
 BuildRequires: libstdc++-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
@@ -139,7 +138,6 @@ BuildRequires: libicu-devel
 %if %{with quadmath}
 BuildRequires: libquadmath-devel
 %endif
-BuildRequires: bison
 BuildRequires: libzstd-devel
 BuildRequires: which
 
@@ -166,6 +164,14 @@ Patch6: boost-1.90-system.patch
 
 # https://github.com/boostorg/range/pull/157
 Patch7: boost-1.90.0-range.patch
+
+# https://github.com/boostorg/multi_index/pull/98
+# This should not be needed for boost-1.92.0 or later.
+Patch8: boost-1.90.0-multi_index-utf8.patch
+
+# https://github.com/boostorg/bloom/pull/46
+# This should not be needed for boost-1.92.0 or later.
+Patch9: boost-1.90.0-bloom-utf8.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -967,7 +973,7 @@ echo ============================= install documentation ==================
 # Prepare the place to temporarily store the generated documentation
 rm -rf %{boost_docdir} && %{__mkdir_p} %{boost_docdir}/html
 DOCPATH=%{boost_docdir}
-DOCREGEX='.*\.\(html?\|css\|png\|gif\)'
+DOCREGEX='.*\.\(html?\|css\|png\|gif\|svg\)'
 
 find libs doc more -type f -regex $DOCREGEX \
     | sed -n '/\//{s,/[^/]*$,,;p}' \
@@ -984,17 +990,6 @@ rm -f tmp-doc-directories
 %{__install} -p -m 644 -t $DOCPATH LICENSE_1_0.txt index.htm index.html boost.png rst.css boost.css
 
 echo ============================= install examples ==================
-# Fix a few non-standard issues (DOS and/or non-UTF8 files)
-sed -i -e 's/\r//g' libs/geometry/example/ml02_distance_strategy.cpp
-for tmp_doc_file in flyweight/example/Jamfile.v2 \
- format/example/sample_new_features.cpp multi_index/example/Jamfile.v2 \
- multi_index/example/hashed.cpp serialization/example/demo_output.txt
-do
-  mv libs/${tmp_doc_file} libs/${tmp_doc_file}.iso8859
-  iconv -f ISO8859-1 -t UTF8 < libs/${tmp_doc_file}.iso8859 > libs/${tmp_doc_file}
-  touch -r libs/${tmp_doc_file}.iso8859 libs/${tmp_doc_file}
-  rm -f libs/${tmp_doc_file}.iso8859
-done
 
 # Prepare the place to temporarily store the examples
 rm -rf %{boost_examplesdir} && mkdir -p %{boost_examplesdir}/html
@@ -1372,6 +1367,10 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Thu Jun 18 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-11
+- Replace outdated "fixes" for character sets and line endings
+- Include SVG files in the boost-doc subpackage
+
 * Sun Jun 07 2026 František Zatloukal <fzatlouk@redhat.com> - 1.90.0-10
 - Rebuilt for icu 78.3
 

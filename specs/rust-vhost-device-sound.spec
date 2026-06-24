@@ -50,6 +50,7 @@ BuildRequires:  rust-toolset
 BuildRequires:  alsa-lib-devel
 BuildRequires:  clang-devel
 BuildRequires:  pipewire-devel
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
 %else
 BuildRequires:  cargo-rpm-macros >= 24
 %endif
@@ -187,6 +188,7 @@ use the "xen" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version_no_tilde} -p1 -N %{?with_bundled_rust_deps:-a1}
 %autopatch -p1
 %cargo_prep %{?with_bundled_rust_deps:-v vendor}
+rm -f Cargo.lock
 
 %if %{without bundled_rust_deps}
 %generate_buildrequires

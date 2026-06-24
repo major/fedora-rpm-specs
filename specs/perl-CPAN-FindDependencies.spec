@@ -6,8 +6,8 @@
 %bcond_without perl_CPAN_FindDependencies_enables_optional_test
 
 Name:           perl-CPAN-FindDependencies
-Version:        3.13
-Release:        13%{?dist}
+Version:        3.14
+Release:        1%{?dist}
 Summary:        Find dependencies for modules on CPAN
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-FindDependencies
@@ -39,6 +39,7 @@ BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Module::CoreList)
 BuildRequires:  perl(Parse::CPAN::Packages)
+BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Pod::Perldoc)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
@@ -89,6 +90,7 @@ with "%{_libexecdir}/%{name}/test".
 for F in \
 %if !%{with perl_CPAN_FindDependencies_enables_network}
     t/cpandeps-diff-script.t \
+    t/cpandeps-script.t \
 %endif
 %if !%{with perl_CPAN_FindDependencies_enables_optional_test}
     t/pod.t t/pod-coverage.t \
@@ -151,6 +153,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.14-1
+- 3.14 bump (rhbz#2491176)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

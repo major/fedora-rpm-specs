@@ -1,39 +1,47 @@
 Name:           perl-Server-Starter
 Version:        0.35
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Superdaemon for hot-deploying server programs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Server-Starter
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Server-Starter-%{version}.tar.gz
 BuildArch:      noarch
-
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(base)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(warnings)
+# Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IO::Socket::UNIX)
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-
-# For the tests
+# Tests:
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::Select)
+BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(IO::Socket::IP)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Net::EmptyPort)
-BuildRequires:  perl(Test::TCP) >= 2.08
+BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::SharedFork)
+BuildRequires:  perl(Test::TCP) >= 2.08
 
-
-%package start_server
-Summary:        perl-Server-Starter start_server script
-Requires:       perl-Server-Starter = %{version}-%{release}
+# Remove under-specified depenendencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::TCP\\)$
 
 %description
 It is often a pain to write a server program that supports graceful
@@ -45,34 +53,78 @@ handles the necessary tasks (for example, responding to incoming
 connections). The spawned server programs under Server::Starter call
 accept(2) and handle the requests.
 
+%package start_server
+Summary:        perl-Server-Starter start_server script
+Requires:       perl-Server-Starter = %{version}-%{release}
+
 %description start_server
 perl-Server-Starter's start_server script.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(IO::Socket::IP)
+Requires:       perl(Test::TCP) >= 2.08
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Server-Starter-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+chmod 0755 t/*.pl
 
 %build
-%{__perl} Build.PL --installdirs=vendor
+unset RELEASE_TESTING
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTO_RESTART_INTERVAL ENABLE_AUTO_RESTART ENVDIR KILL_OLD_DELAY \
+    SERVER_STARTER_GENERATION SERVER_STARTER_PORT
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTO_RESTART_INTERVAL ENABLE_AUTO_RESTART ENVDIR KILL_OLD_DELAY \
+    SERVER_STARTER_GENERATION SERVER_STARTER_PORT
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
 %doc Changes README.md
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Server
+%{perl_vendorlib}/Server/Starter
+%{perl_vendorlib}/Server/Starter.pm
+%{_mandir}/man3/Server::Starter.*
 
 %files start_server
 %{_bindir}/start_server
 %{_mandir}/man1/start_server.*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 0.35-20
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

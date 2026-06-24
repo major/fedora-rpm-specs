@@ -2,7 +2,7 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20260612
+Version:        2.20260621
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,7 +21,7 @@ BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(:VERSION) >= 5.10.0
+BuildRequires:  perl(:VERSION) >= 5.34.3
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(Config::Tiny)
@@ -40,6 +40,7 @@ BuildRequires:  perl(Email::Sender::Transport::Test)
 BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(English)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(Getopt::Long)
@@ -79,12 +80,12 @@ BuildRequires:  perl(Net::HTTP)
 BuildRequires:  perl(Email::Sender::Transport::Failable)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Net::DNS::Resolver::Mock)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::File::ShareDir)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Output)
 %if %{with perl_Mail_DMARC_enables_optional_test}
 # Optional tests:
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(XML::SAX::ParserFactory)
 BuildRequires:  perl(XML::Validator::Schema)
 %endif
@@ -188,7 +189,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes.md DEVELOP.md example FAQ.md README.md TODO.md
+%doc CHANGELOG.md DEVELOP.md example FAQ.md README.md TODO.md
 # Intended as an example <https://github.com/msimerson/mail-dmarc/issues/287>.
 %doc bin/dmarc_sqlite_to_mysql.pl
 %{_bindir}/dmarc_http_client
@@ -238,6 +239,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 2.20260621-1
+- 2.20260621 bump
+
 * Mon Jun 15 2026 Petr Pisar <ppisar@redhat.com> - 1.20260612-1
 - 1.20260612 bump
 

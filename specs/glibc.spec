@@ -1280,6 +1280,7 @@ inherit_flags.cc_main = string_to_array [[
 -mtune=z14
 -mtune=z15
 -mtune=z16
+-mtune=z17
 -mtune=zEC12
 ]]
 

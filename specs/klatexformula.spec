@@ -3,7 +3,7 @@
 
 Name:             klatexformula
 Version:          4.1.0
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Application for easy image creating from a LaTeX equation
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -14,8 +14,8 @@ Source0:          http://downloads.sourceforge.net/klatexformula/%{name}-%{versi
 # (https://github.com/klatexformula/klatexformula/commit/513ce8f47293d3acaaaf5ee3efe2aabedbca8d1b)
 Patch0:           painter_path.patch
 
+BuildRequires:    kf5-rpm-macros
 BuildRequires:    qt5-qtbase-devel
-BuildRequires:    kf5-plasma-devel
 BuildRequires:    qt5-qttools-static
 BuildRequires:    qt5-qtsvg-devel
 BuildRequires:    qt5-qtx11extras-devel
@@ -25,11 +25,13 @@ BuildRequires:    help2man
 BuildRequires:    graphviz
 BuildRequires:    python3-devel
 BuildRequires:    make
-Requires:         texlive-latex
 Requires:         hicolor-icon-theme
 
+%if %{undefined flatpak}
+Requires:         texlive-latex
 # Recommend the dvisvgm program as a way of creating SVG files from the latex input
 Recommends:       texlive-dvisvgm
+%endif
 
 %description
 This application provides a GUI for writing and generating an image
@@ -79,6 +81,8 @@ Static library for the klfbackend library provided by libklatexformula.
 %autosetup -p1
 
 %build
+# fixed by https://github.com/klatexformula/klatexformula/pull/80
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5} \
         -DCMAKE_SKIP_RPATH=ON \
         -DKLF_LIBKLFAPP_STATIC=OFF \
@@ -140,6 +144,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue May 05 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.0-16
+- Update dependencies
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

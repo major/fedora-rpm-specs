@@ -1,5 +1,5 @@
 Name:           perl-YAML-PP
-Version:        0.40.0
+Version:        0.41.0
 Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,7 +50,7 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.98
-BuildRequires:  perl(Test::Warn)
+BuildRequires:  perl(Test::Warnings) >= 0.005
 BuildRequires:  perl(Tie::IxHash)
 Requires:       perl(boolean)
 Requires:       perl(B::Deparse)
@@ -113,7 +113,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
-cp -a t examples ext %{buildroot}%{_libexecdir}/%{name}
+cp -a t examples ext test-suite %{buildroot}%{_libexecdir}/%{name}
 perl -i -pe 's{\$Bin/data/simple-out.yaml}{/tmp/simple-out.yaml}' %{buildroot}%{_libexecdir}/%{name}/t/19.file.t
 perl -i -pe 's{\$Bin/data/simple.yaml.copy}{/tmp/simple.yaml.copy}' %{buildroot}%{_libexecdir}/%{name}/t/30.legacy.t
 
@@ -145,6 +145,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.41.0-1
+- 0.41.0 bump (rhbz#2490162)
+
 * Tue May 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.40.0-1
 - 0.40.0 bump (rhbz#2461593)
 

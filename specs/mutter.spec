@@ -27,6 +27,10 @@ License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# wayland: Only schedule a single cursor location update
+# https://gitlab.gnome.org/GNOME/mutter/-/commit/f1570318ec3e9a38615eb91708bb71628ab8bcfd
+Patch:         wayland-only-schedule-a-single-cursor-location-update.patch
+
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel

@@ -1,13 +1,13 @@
-%global giturl  https://github.com/mwouts/jupytext
+%global giturl  https://github.com/jupytext/jupytext
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.19.3
+Version:        1.19.4
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
 License:        MIT
-URL:            https://jupytext.readthedocs.io/
+URL:            https://jupytext.org/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/jupytext-%{version}%{?vsuffix}.tar.gz
 # Source1 and Source2 created with ./prepare_vendor.sh
@@ -25,7 +25,7 @@ ExclusiveArch:  %{x86_64} %{arm64} noarch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): -x docs,test,test-functional,test-integration
+BuildOption(generate_buildrequires): -x docs,test,test-functional,test-integration docs/doc-requirements.txt
 BuildOption(install): -l jupytext jupytext_config
 
 BuildRequires:  gcc-c++
@@ -33,7 +33,6 @@ BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  /usr/bin/node
-BuildRequires:  /usr/bin/npm
 BuildRequires:  pandoc
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2275382
@@ -136,8 +135,9 @@ export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
 
 %build -a
 # Build the documentation
-PYTHONPATH=$PWD %make_build -C docs html
-rm docs/_build/html/.buildinfo
+mkdir -p docs/_build/html
+PYTHONPATH=$PWD sphinx-build docs docs/_build/html
+rm -fr docs/_build/html/.{buildinfo,doctrees}
 
 %install -p
 export HATCH_BUILD_HOOKS_ENABLE=true

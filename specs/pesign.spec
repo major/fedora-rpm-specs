@@ -6,7 +6,7 @@
 Name:    pesign
 Summary: Signing utility for UEFI binaries
 Version: 116
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-only
 URL:     https://github.com/rhboot/pesign
 
@@ -163,6 +163,10 @@ certutil -d %{_sysconfdir}/pki/pesign/ -X -L > /dev/null
 %{_sysusersdir}/pesign.conf
 
 %changelog
+* Mon Jun 22 2026 Nicolas Frayer <nfrayer@redhat.com> - 116-9
+- Fix a FTBFS issue caused by a missing const qualifier
+- Resolves: #2491392
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

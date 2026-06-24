@@ -35,7 +35,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -265,6 +265,9 @@ done
 
 
 %changelog
+* Mon Jun 22 2026 Python Maint <python-maint@redhat.com> - 3.3.10-4
+- Rebuilt for Python 3.15
+
 * Fri Mar 13 2026 Neal Gompa <ngompa@fedoraproject.org> - 3.3.10-3
 - Fix pathlib usage for Python 3.13+ compat; Resolves: RHBZ#2367737
 

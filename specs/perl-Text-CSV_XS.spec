@@ -1,5 +1,5 @@
 Name:           perl-Text-CSV_XS
-Version:        1.62
+Version:        1.64
 Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 1.64-1
+- Update to 1.64 (rhbz#2491334)
+  - Fix syntax error in csv2xlsx
+
+* Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 1.63-1
+- Update to 1.63
+  - Check attribute lengths (memory protection)
+  - Minor code consistencies (not user-visible)
+  - Dropped support for 5.6.x and 5.8.0; minimum perl is now 5.8.1
+  - Fix special str setting consistency for types, undef_str and comment_str
+  - Characters []:*/\ are not allowed in XLSX sheet names
+
 * Wed Apr 29 2026 Paul Howarth <paul@city-fan.org> - 1.62-1
 - Update to 1.62 (rhbz#2463743)
   - It is 2026

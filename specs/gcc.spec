@@ -1306,7 +1306,7 @@ CONFIGURE_OPTS="\
 %endif
 %ifarch s390 s390x
 %if 0%{?rhel} >= 11
-	--with-arch=z15 --with-tune=z16 \
+	--with-arch=z15 --with-tune=z17 \
 %else
 %if 0%{?rhel} >= 10
 	--with-arch=z14 --with-tune=z16 \
@@ -1320,6 +1320,9 @@ CONFIGURE_OPTS="\
 %if 0%{?rhel} == 7
 	--with-arch=z196 --with-tune=zEC12 \
 %else
+%if 0%{?fedora} >= 45
+	--with-arch=z15 --with-tune=z17 \
+%else
 %if 0%{?fedora} >= 38
 	--with-arch=z13 --with-tune=z14 \
 %else
@@ -1327,6 +1330,7 @@ CONFIGURE_OPTS="\
 	--with-arch=zEC12 --with-tune=z13 \
 %else
 	--with-arch=z9-109 --with-tune=z10 \
+%endif
 %endif
 %endif
 %endif

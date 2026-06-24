@@ -1,7 +1,7 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.69
+%global cpan_version 1.70
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
 Release:        1%{?dist}
@@ -114,7 +114,6 @@ make test
 %doc Change* CONTRIBUTING.md Documentation/* README.dist
 %{perl_vendorlib}/Finance/
 %{_mandir}/man3/Finance::Quote.3*
-%{_mandir}/man3/Finance::Quote::AEX.3*
 %{_mandir}/man3/Finance::Quote::AlphaVantage.3*
 %{_mandir}/man3/Finance::Quote::ASEGR.3*
 %{_mandir}/man3/Finance::Quote::ASX.3*
@@ -131,12 +130,15 @@ make test
 %{_mandir}/man3/Finance::Quote::CurrencyRates::ECB.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::FinanceAPI.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::Fixer.3*
+%{_mandir}/man3/Finance::Quote::CurrencyRates::Frankfurter.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::OpenExchange.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::TwelveData.3*
+%{_mandir}/man3/Finance::Quote::CurrencyRates::UniRate.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::Deka.3*
 %{_mandir}/man3/Finance::Quote::FinanceAPI.3*
 %{_mandir}/man3/Finance::Quote::Finanzpartner.3*
+%{_mandir}/man3/Finance::Quote::Finnhub.3*
 %{_mandir}/man3/Finance::Quote::Fondsweb.3*
 %{_mandir}/man3/Finance::Quote::Fool.3*
 %{_mandir}/man3/Finance::Quote::FTfunds.3*
@@ -169,6 +171,20 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 1.7000-1
+- Update to 1.70
+  - New module Finnhub.pm: Fetches quotes from https://finnhub.io using a free
+    personal-use API key
+  - GoogleWeb.pm: Adapt to the redesigned Google Finance site
+  - Tradegate.pm: Remove explicit "our $VERSION" assignment that collided with
+    the dzil-injected version, producing a duplicate declaration and an
+    "our variable $VERSION redeclared" warning; use a bare # VERSION
+    marker like the other modules
+  - Tradegate.pm: Trim whitespace before parsing date and time
+  - Added CurrencyRates/Frankfurter
+  - Removed AEX.pm: Euronext.com added JavaScript based anti-webscraping
+  - Added CurrencyRates/UniRate.pm
+
 * Sun Apr 19 2026 Paul Howarth <paul@city-fan.org> - 1.6900-1
 - Update to 1.69
   - Sinvestor.pm: Trim whitespace before parsing date and price

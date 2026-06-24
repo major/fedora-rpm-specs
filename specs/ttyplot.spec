@@ -2,8 +2,8 @@ Name: ttyplot
 Summary: Real-time plotting utility for the terminal
 License: Apache-2.0
 
-Version: 1.7.4
-Release: 2%{?dist}
+Version: 1.7.5
+Release: 1%{?dist}
 
 URL: https://github.com/tenox7/ttyplot/
 Source0: %{URL}archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
@@ -38,6 +38,9 @@ with data input from stdin / pipe.
 
 
 %changelog
+* Mon Jun 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.5-1
+- Update to v1.7.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

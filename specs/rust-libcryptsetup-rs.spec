@@ -5,7 +5,7 @@
 %global crate libcryptsetup-rs
 
 Name:           rust-libcryptsetup-rs
-Version:        0.15.1
+Version:        0.16.1
 Release:        %autorelease
 Summary:        High level Rust bindings for libcryptsetup
 

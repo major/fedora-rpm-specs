@@ -1,22 +1,22 @@
-%global commit0 c6a40950607fa73861f81185764dff2bab150010
+%global commit0 865f2c9842520958879665d5c9b820d9ed51761e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       rbm
-Version:    0.4^20241205git%{shortcommit0}
-Release:    4%{?dist}
+Version:    0.4^20260622git%{shortcommit0}
+Release:    1%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
 URL:        https://rbm.torproject.org/
 # Latest 0.4 release is very old, use a git snapshot,
 # <https://github.com/boklm/rbm/issues/2>.
-# Upstream git repository is <https://git.torproject.org/builders/rbm.git>.
+# Upstream git repository is <https://gitlab.torproject.org/tpo/applications/rbm.git>.
 Source0:    %{name}-%{shortcommit0}.tar.gz
 # Install container script, proposed to an upstream,
 # <https://github.com/boklm/rbm/pull/8>.
 Patch0:     rbm-c485326-Install-container-script-as-rmbcontainer.patch
 # Remove tests which require the Internet, not suitable for an upstream.
-Patch1:     rbm-c6a4095-Remove-on-line-tests.patch
+Patch1:     rbm-865f2c9-Remove-on-line-tests.patch
 BuildArch:  noarch
 BuildRequires:  asciidoc
 BuildRequires:  coreutils
@@ -48,7 +48,7 @@ BuildRequires:  perl(String::ShellQuote)
 BuildRequires:  perl(Template)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML::XS)
-# redhat-lsb and other tools are not used at tests
+# lsb_release and other tools are not used at tests
 # Tests:
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
@@ -69,8 +69,11 @@ Requires:       hostname
 Requires:       man-db
 Requires:       mercurial
 Requires:       perl(Exporter)
-# redhat-lsb for lsb_release
-Requires:       redhat-lsb
+%if 0%{?fedora} < 45
+Requires:       redhat_lsb
+%else
+Requires:       lsb_release
+%endif
 # rpm in default configuration
 Requires:       rpm
 # rpm-build for rpmbuild defined in default configuration
@@ -143,13 +146,19 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{perl_vendorlib}/RBM
 %{perl_vendorlib}/RBM.pm
 %{_mandir}/man1/rbm.*
-%{_mandir}/man1/rbm-{build,fetch,showconf,tar,usage}.*
+%{_mandir}/man1/rbm-{build,fetch,showconf,show_used_projects,tar,usage}.*
 %{_mandir}/man7/rbm_{cli,config,input_files,layout,modules,remote,steps,targets,templates,tutorial}.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 0.4^20260622git865f2c9-1
+- Rebase to a git snapshot taken on 2026-06-22
+
+* Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 0.4^20241205gitc6a4095-5
+- lsb_release tool is now provided by lsb_release package (bug #2491000)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20241205gitc6a4095-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

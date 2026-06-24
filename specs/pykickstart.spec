@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.74
+Version:   3.75
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -85,6 +85,11 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Mon Jun 22 2026 Brian C. Lane <bcl@redhat.com> - 3.75-1
+- packit.yaml: Just list the tar.gz (bcl)
+- Makefile: Use https for po-pull (bcl)
+- packit: generate spec file after upstream clone (k.koukiou)
+
 * Mon Jun 08 2026 Brian C. Lane <bcl@redhat.com> - 3.74-1
 - spec: do not depend on pytest-cov, nor pytest-xdist on RHEL (yselkowi)
 - Fix filename typo in condition (github.com)

@@ -2515,6 +2515,16 @@ move_and_replace_with_symlinks() {
 %if %{build_docs} == 0
 # Install the man pages before the symlinks below are created
 cp -v ../%{src_manpage_tarball_dir}/* %{buildroot}%{install_mandir}/man1/
+%if %{without flang}
+rm %{buildroot}%{install_mandir}/man1/flang.1
+%endif
+%if %{without polly}
+rm %{buildroot}%{install_mandir}/man1/polly.1
+%endif
+%if %{without lldb}
+rm %{buildroot}%{install_mandir}/man1/lldb.1
+rm %{buildroot}%{install_mandir}/man1/lldb-server.1
+%endif
 %endif
 
 %if %{without compat_build}

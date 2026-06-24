@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Signing and verification tools for conda
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ sed -i -E -e '/--(no-)?cov/d' -e '/--benchmark/d' pyproject.toml
 %{_bindir}/conda-content-trust
 
 %changelog
+* Mon Jun 22 2026 Python Maint <python-maint@redhat.com> - 0.3.2-2
+- Rebuilt for Python 3.15
+
 * Fri May 08 2026 Orion Poplawski <orion@nwra.com> - 0.3.2-1
 - Update to version 0.3.2
 - Resolves: rhbz#2467892

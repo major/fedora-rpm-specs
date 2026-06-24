@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -1140,6 +1140,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Mon Jun 22 2026 Stephen Gallagher <sgallagh@redhat.com> - 7.1.2-4
+- Rebuilt for xmlsec 1.3
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1.2-3
 - Rebuilt for openssl 4.0
 

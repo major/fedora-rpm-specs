@@ -5,7 +5,7 @@
 %global crate zlib-rs
 
 Name:           rust-zlib-rs
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -40,7 +40,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name hacking
 
 # disable tests for now, see
@@ -17,7 +17,7 @@
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order reno
 
 Name:           python-%{pypi_name}
-Version:        8.0.0
+Version:        8.1.0
 Release: %autorelease
 Summary:        OpenStack Hacking Guideline Enforcement
 

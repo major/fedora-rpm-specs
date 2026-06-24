@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           file-roller
-Version:        44.6
+Version:        44.7
 Release:        %autorelease
 Summary:        Tool for viewing and creating archives
 

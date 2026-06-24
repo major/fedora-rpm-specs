@@ -1,5 +1,5 @@
 Name:           python-resend
-Version:        2.21.0
+Version:        2.32.2
 Release:        %autorelease
 Summary:        Resend Python SDK
 
@@ -17,6 +17,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-typing-extensions
 BuildRequires:  python3-requests
 BuildRequires:  python3-setuptools
+# optional and needed for tests
+BuildRequires:  python3-httpx >= 0.24.0
 
 %global _description %{expand:
 The best way to reach humans instead of spam folders. Deliver transactional
@@ -30,6 +32,7 @@ Python API to the service.}
 Summary:        %{summary}
 
 %description -n python3-resend %_description
+Recommends:     python3-httpx >= 0.24.0
 
 %prep -a
 # contains deprecated feature
