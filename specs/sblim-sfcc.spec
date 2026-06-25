@@ -7,7 +7,7 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
@@ -17,6 +17,10 @@ Patch0: sblim-sfcc-2.2.8-docdir-license.patch
 Patch1: c99.patch
 Patch2: c89.patch
 Patch3: sblim-sfcc-2.2.8-fix-clone-stack-exhaust.patch
+# Patch4: fixes buffer overflow in CIMMethod header handling
+Patch4: sblim-sfcc-2.2.8-fix-method-buffer-overflow.patch
+# Patch5: fixes buffer overflow in CIMObject namespace handling
+Patch5: sblim-sfcc-2.2.8-fix-namespace-buffer-overflow.patch
 BuildRequires: make
 BuildRequires: curl-devel chrpath
 BuildRequires: gcc gcc-c++
@@ -67,6 +71,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
+* Tue Jun 23 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-32
+- Fix buffer overflow in CIMMethod header handling
+- Fix buffer overflow in CIMObject namespace handling
+
 * Wed May 27 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-31
 - Fix possible __clone() stack exhaustion
 

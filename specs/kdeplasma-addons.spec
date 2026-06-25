@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.7.0
-Release: 2%{?dist}
+Version: 6.7.1
+Release: 1%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -227,6 +227,9 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
+- 6.7.1
+
 * Mon Jun 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 6.7.0-2
 - Patch kamelion-qmk-helper for qmk-via-api 0.8
 - Account for licenses of statically-linked Rust dependencies

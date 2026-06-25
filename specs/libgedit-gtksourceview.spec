@@ -1,7 +1,7 @@
 %global api_version 300
 
 Name:           libgedit-gtksourceview
-Version:        299.6.0
+Version:        299.7.0
 Release:        %autorelease
 Summary:        Gedit Technology - Source code editing widget
 License:        LGPL-2.1-or-later
@@ -16,7 +16,9 @@ BuildRequires:  gtk-doc
 BuildRequires:  meson >= 0.64
 BuildRequires:  pkgconfig(gio-2.0) >= 2.74
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.20
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24
+BuildRequires:  pkgconfig(libgedit-amtk-5) >= 5.10
+BuildRequires:  pkgconfig(libgedit-gfls-1) >= 0.4
 BuildRequires:  pkgconfig(libxml-2.0)
 
 %description
@@ -54,7 +56,7 @@ developing applications that use %{name}.
 %files -f libgedit-gtksourceview-%{api_version}.lang
 %license LICENSES/*
 %doc NEWS README.md
-%{_libdir}/libgedit-gtksourceview-%{api_version}.so.4{,.*}
+%{_libdir}/libgedit-gtksourceview-%{api_version}.so.5{,.*}
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/GtkSource-%{api_version}.typelib
 %{_datadir}/libgedit-gtksourceview-%{api_version}/

@@ -24,6 +24,9 @@ Patch:          sccache-fix-metadata-auto.diff
 # * Allow serde_json version 1.0.149
 # * Allow tokio-serde version < 1.0
 Patch:          sccache-fix-metadata.diff
+# * Fix build on ppc64le and s390x -
+#   https://github.com/mozilla/sccache/pull/2749
+Patch10:        sccache-fix-ppc64le-and-s390x.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

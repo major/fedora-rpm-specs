@@ -466,7 +466,7 @@ find %{buildroot} -name '*.py' -exec sed -i 's|^#!python$|#!/usr/bin/python3|g' 
 for p in gdal2tiles gdal2xyz gdal_calc gdal_edit gdal_fillnodata gdal_merge gdal_pansharpen \
          gdal_polygonize gdal_proximity gdal_retile gdal_sieve gdalchksum gdalcompare \
          gdalident gdalimport gdalmove ogr_layer_algebra ogrmerge pct2rgb rgb2pct ; do
-    rm -f %{buildroot}%{_datadir}/bash-completion/completions/${p}.py
+    rm -f %{buildroot}%{_datadir}/bash-completion/completions/${p}{,.py}
     rm -f %{buildroot}%{_mandir}/man1/${p}.1*
 done
 %endif
@@ -550,6 +550,7 @@ done
 %{_mandir}/man1/gdal-convert.1*
 %{_mandir}/man1/gdal_create.1*
 %{_mandir}/man1/gdal-dataset.1.gz
+%{_mandir}/man1/gdal-dataset-check.1.gz
 %{_mandir}/man1/gdal-dataset-copy.1.gz
 %{_mandir}/man1/gdal-dataset-delete.1.gz
 %{_mandir}/man1/gdal-dataset-identify.1.gz
@@ -598,6 +599,7 @@ done
 %{_mandir}/man1/gdal-raster-pixel-info.1*
 %{_mandir}/man1/gdal-raster-polygonize.1*
 %{_mandir}/man1/gdal-raster-proximity.1.gz
+%{_mandir}/man1/gdal-raster-read.1*
 %{_mandir}/man1/gdal-raster-reclassify.1*
 %{_mandir}/man1/gdal-raster-reproject.1*
 %{_mandir}/man1/gdal-raster-resize.1*
@@ -615,6 +617,7 @@ done
 %{_mandir}/man1/gdal-raster-unscale.1*
 %{_mandir}/man1/gdal-raster-update.1.gz
 %{_mandir}/man1/gdal-raster-viewshed.1*
+%{_mandir}/man1/gdal-raster-write.1*
 %{_mandir}/man1/gdal-raster-zonal-stats.1.gz
 %{_mandir}/man1/gdalsrsinfo.1*
 %{_mandir}/man1/gdaltindex.1*
@@ -626,10 +629,14 @@ done
 %{_mandir}/man1/gdal-vector-check-geometry.1.gz
 %{_mandir}/man1/gdal-vector-clean-coverage.1.gz
 %{_mandir}/man1/gdal-vector-clip.1*
+%{_mandir}/man1/gdal-vector-combine.1*
 %{_mandir}/man1/gdal-vector-concat.1*
 %{_mandir}/man1/gdal-vector-convert.1*
+%{_mandir}/man1/gdal-vector-create.1*
+%{_mandir}/man1/gdal-vector-dissolve.1*
 %{_mandir}/man1/gdal-vector-edit.1*
 %{_mandir}/man1/gdal-vector-explode-collections.1.gz
+%{_mandir}/man1/gdal-vector-export-schema.1*
 %{_mandir}/man1/gdal-vector-filter.1*
 %{_mandir}/man1/gdal-vector-grid.1*
 %{_mandir}/man1/gdal-vector-index.1.gz
@@ -640,13 +647,18 @@ done
 %{_mandir}/man1/gdal-vector-partition.1.gz
 %{_mandir}/man1/gdal-vector-pipeline.1*
 %{_mandir}/man1/gdal-vector-rasterize.1*
+%{_mandir}/man1/gdal-vector-read.1*
+%{_mandir}/man1/gdal-vector-rename-layer.1*
 %{_mandir}/man1/gdal-vector-segmentize.1.gz
 %{_mandir}/man1/gdal-vector-select.1*
 %{_mandir}/man1/gdal-vector-set-field-type.1.gz
 %{_mandir}/man1/gdal-vector-set-geom-type.1.gz
 %{_mandir}/man1/gdal-vector-simplify.1.gz
+%{_mandir}/man1/gdal-vector-sort.1*
 %{_mandir}/man1/gdal-vector-sql.1*
 %{_mandir}/man1/gdal-vector-swap-xy.1.gz
+%{_mandir}/man1/gdal-vector-update.1*
+%{_mandir}/man1/gdal-vector-write.1*
 %{_mandir}/man1/gdal_viewshed.1*
 %{_mandir}/man1/gdal-vsi.1*
 %{_mandir}/man1/gdal-vsi-copy.1*
@@ -778,18 +790,6 @@ done
 %{_mandir}/man1/gdal_proximity.1*
 %{_mandir}/man1/gdal_retile.1*
 %{_mandir}/man1/gdal_sieve.1*
-%{_mandir}/man1/gdal-dataset-check.1.gz
-%{_mandir}/man1/gdal-raster-read.1.gz
-%{_mandir}/man1/gdal-raster-write.1.gz
-%{_mandir}/man1/gdal-vector-combine.1.gz
-%{_mandir}/man1/gdal-vector-create.1.gz
-%{_mandir}/man1/gdal-vector-dissolve.1.gz
-%{_mandir}/man1/gdal-vector-export-schema.1.gz
-%{_mandir}/man1/gdal-vector-read.1.gz
-%{_mandir}/man1/gdal-vector-rename-layer.1.gz
-%{_mandir}/man1/gdal-vector-sort.1.gz
-%{_mandir}/man1/gdal-vector-update.1.gz
-%{_mandir}/man1/gdal-vector-write.1.gz
 %{_mandir}/man1/ogr_layer_algebra.1*
 %{_mandir}/man1/ogrmerge.1*
 %{_mandir}/man1/pct2rgb.1*

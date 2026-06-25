@@ -7,8 +7,8 @@ ExcludeArch: %{ix86}
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.7.0
-Release:        2%{?dist}
+Version:        6.7.1
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -125,6 +125,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
+- 6.7.1
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.7.0-2
 - Rebuilt for openssl 4.0
 

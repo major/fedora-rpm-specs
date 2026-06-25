@@ -69,6 +69,8 @@ Requires: openSUSE-release
 
 %bcond_with jemalloc
 
+%bcond_with tcmalloc
+
 %bcond_with lttng
 %global use_lttng %{on_off_switch lttng}
 
@@ -116,6 +118,15 @@ Requires: openSUSE-release
 %bcond_with sanitize_address
 %global use_sanitize_address %{on_off_switch sanitize_address}
 
+%bcond_without tls
+%global use_tls %{on_off_switch tls}
+
+%bcond_without openssl
+%global use_openssl %{on_off_switch openssl}
+
+%bcond_with gnutls
+%global use_gnutls %{on_off_switch gnutls}
+
 %bcond_with legacy_python_install
 %global use_legacy_python_install %{on_off_switch legacy_python_install}
 
@@ -136,14 +147,18 @@ Requires: openSUSE-release
 %global dev_version %{lua: s = string.gsub('@GANESHA_EXTRA_VERSION@', '^%-', ''); s2 = string.gsub(s, '%-', '.'); print((s2 ~= nil and s2 ~= '') and s2 or "0.1") }
 #%%global dev rc6
 
+%global kmip_ver_long	4f553ecaf8e57cc3019222b8551d17888f0a1e66
+%global kmip_ver_short	4f553ecaf
+
 Name:		nfs-ganesha
-Version:	9.16
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	10.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
+Source1:	https://github.com/ceph/libkmip/archive/%{kmip_ver_long}/libkmip-%{kmip_ver_short}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
 Patch:		0002-src-scripts-python.patch
 
@@ -157,6 +172,7 @@ BuildRequires:	flex
 BuildRequires:	pkgconfig
 BuildRequires:	userspace-rcu-devel
 BuildRequires:	krb5-devel
+BuildRequires:	openssl-devel
 %if ( 0%{?with_nfs_rdma} || 0%{?with_rpc_rdma} )
 # for RDMA:
 BuildRequires:	rdma-core-devel
@@ -180,7 +196,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc gcc-c++
 %if ( 0%{?with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 7.0
+BuildRequires:	libntirpc-devel >= 10.0
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -561,6 +577,7 @@ Development headers and auxiliary files for developing with %{name}.
 %endif
 
 %prep
+tar xpf %{SOURCE1}
 %autosetup -p1
 
 # Create a sysusers.d config file
@@ -570,6 +587,7 @@ EOF
 
 %build
 export VERBOSE=1
+mv ../libkmip-%{kmip_ver_long}/* ./src/libkmip/
 cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DBUILD_CONFIG=rpmbuild				\
 	-DCMAKE_COLOR_MAKEFILE:BOOL=OFF			\
@@ -585,6 +603,10 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_SAUNAFS=%{use_fsal_saunafs}		\
 	-DUSE_SYSTEM_NTIRPC=%{use_system_ntirpc}	\
 	-DENABLE_QOS=%{use_qos}				\
+	-DUSE_MONITORING=%{use_monitoring}		\
+	-DUSE_TLS=%{use_tls}				\
+	-DUSE_OPENSSL=%{use_openssl}			\
+	-DUSE_GNUTLS=%{use_gnutls}			\
 	-DUSE_9P_RDMA=%{use_mooshika}			\
 	-DUSE_LTTNG=%{use_lttng}			\
 	-DUSE_UNWIND=%{use_unwind}			\
@@ -752,6 +774,7 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %license src/LICENSE.txt
 %{_bindir}/ganesha.nfsd
 %{_libdir}/libganesha_nfsd.so*
+%{_libdir}/ganesha/libkmip_fscrypt*
 %config %{_sysconfdir}/dbus-1/system.d/org.ganesha.nfsd.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/ganesha
 %config(noreplace) %{_sysconfdir}/logrotate.d/ganesha
@@ -790,6 +813,12 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 
 %if %{with qos}
 %{_mandir}/*/ganesha-qos-config.8.gz
+%endif
+
+%if %{with tls}
+%if %{with man_page}
+%{_mandir}/*/ganesha-tls-config.8.gz
+%endif
 %endif
 
 %if ( 0%{?with_rados_urls} )
@@ -977,6 +1006,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Jun 22 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 10.0-1
+- NFS-Ganesha 10.0 GA
+
 * Tue Jun 16 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.16-2
 - NFS-Ganesha 9.16, missing BR for rdma-core-devel and enable rdma
 

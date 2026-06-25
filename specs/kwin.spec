@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.7.0
+Version: 6.7.1
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -283,6 +283,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
+- 6.7.1
+
 * Thu Jun 11 2026 Steve Cossette <farchord@gmail.com> - 6.7.0-1
 - 6.7.0
 

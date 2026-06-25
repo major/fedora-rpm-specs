@@ -110,6 +110,7 @@ tar xf %{SOURCE2}
 # prevents this check.
 find vendor -type f -exec chmod -x {} +
 %cargo_prep -v vendor
+rm -f Cargo.lock
 %else
 %cargo_prep
 %generate_buildrequires

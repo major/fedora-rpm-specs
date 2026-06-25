@@ -55,8 +55,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        363.2
-Release:        2%{?dist}
+Version:        364
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
@@ -369,16 +369,16 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.5.2
+Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(focus-trap)) = 7.6.4
+Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(ipaddr.js)) = 2.4.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.18.1
@@ -387,10 +387,10 @@ Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.4.0
+Provides: bundled(npm(tabbable)) = 6.5.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 14.0.0
+Provides: bundled(npm(uuid)) = 14.0.1
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -665,6 +665,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 364-1
+- Bug fixes and translation updates
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 363.2-2
 - Rebuilt for openssl 4.0
 

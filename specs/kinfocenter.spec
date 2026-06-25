@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.7.0
-Release: 2%{?dist}
+Version: 6.7.1
+Release: 1%{?dist}
 Summary: KDE Info Center
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
+- 6.7.1
+
 * Mon Jun 15 2026 Timothée Ravier <tim@siosm.fr> - 6.7.0-2
 - Turn lm_sensors into a Recommends (fedora#2373989)
 

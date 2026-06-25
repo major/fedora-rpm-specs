@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	10.0
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -12,6 +12,7 @@ Url:		https://github.com/nfs-ganesha/ntirpc
 %global prometh_ver_short	48d09c45
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
 Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
+Patch:		0001-CMakeLists.txt.patch
 
 BuildRequires:	cmake gcc gcc-c++
 %ifarch x86_64 aarch64
@@ -93,6 +94,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Tue Jun 23 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 10.0-3
+- fix version.h
+
 * Mon Jun 22 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 10.0-2
 - ntirpc-10.0 GA, enable TLS
 

@@ -1,11 +1,12 @@
 Name:           sasl-xoauth2
 Version:        0.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The xoauth2 plugin for cyrus-sasl
 
 License:        Apache-2.0
 URL:            https://github.com/tarickb/%{name}
 Source0:        https://github.com/tarickb/%{name}/archive/refs/tags/release-%{version}.tar.gz
+Patch1:         sasl-xoauth2-curl.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -33,7 +34,7 @@ Among other things it enables the use of Gmail or Outlook/Office 365 SMTP
 relays from Postfix.
 
 %prep
-%setup -q -n %{name}-release-%{version}
+%autosetup -n %{name}-release-%{version} -p1
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -72,6 +73,9 @@ relays from Postfix.
 %{_mandir}/man1/%{name}-tool.1.gz
 
 %changelog
+* Tue Jun 23 2026 Jakub Jelen <jjelen@redhat.com> - 0.27-4
+- Pull fix for curl compatibility (#2486101)
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.27-3
 - Rebuild (jsoncpp)
 - Fix conditional for cmake

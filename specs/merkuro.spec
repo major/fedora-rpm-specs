@@ -45,7 +45,7 @@ BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6Holidays)
 
 BuildRequires:  cmake(KF6KirigamiAddons)
-BuildRequires:  gpgme-devel
+BuildRequires:  cmake(Gpgmepp)
 
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6AkonadiCalendar)

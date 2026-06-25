@@ -6,7 +6,7 @@
 %if %{with python}
 ## Failed on s390x, see https://gitlab.com/petsc/petsc/-/issues/1694
 %ifnarch s390x
-%bcond_with pycheck
+%bcond_without pycheck
 %else
 %bcond_with pycheck
 %endif
@@ -592,6 +592,12 @@ for i in `find . -name 'setup.py' -o -name 'configure' -o -name '*.py'`; do
 %py3_shebang_fix $i
 done
 %endif
+
+# Avoid AssertionError with Python-3.15*
+# See https://gitlab.com/petsc/petsc/-/work_items/1902
+%if 0%{?python3_version_nodots} > 313
+sed -n '325d' %{name}-%{version}/src/binding/petsc4py/test/test_mat_py.py
+%endif
 %endif
 
 pushd %{name}-%{version}
@@ -1064,7 +1070,7 @@ export MPIEXEC=lib/petsc/bin/petscmpiexec
 export PMIX_MCA_gds=hash
 export PMIX_MCA_psec=native
 # petsc4py test fails with MPICH
-#make V=1 petsc4pytest PETSC4PY_NP=2
+make V=1 petsc4pytest PETSC4PY_NP=2
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_mpich_unload}

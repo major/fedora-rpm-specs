@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.8
-Release: 2%{?dist}
+Version: 45.9
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -520,6 +520,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 45.9-1
+- docs: add daily WebUI boot.iso CI status badge (k.koukiou)
+- storage: check disk space in cmdline mode before starting installation
+  (rvykydal)
+
 * Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 45.8-2
 - Rebuilt for openssl 4.0
 

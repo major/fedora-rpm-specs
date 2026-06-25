@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    ksshaskpass
-Version: 6.7.0
+Version: 6.7.1
 Release: 1%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
@@ -61,6 +61,9 @@ EOF
 
 
 %changelog
+* Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
+- 6.7.1
+
 * Thu Jun 11 2026 Steve Cossette <farchord@gmail.com> - 6.7.0-1
 - 6.7.0
 

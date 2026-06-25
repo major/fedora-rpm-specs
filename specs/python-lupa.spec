@@ -16,16 +16,13 @@ such as proper co-routine support.
 %endif
 
 Name:           python-lupa
-Version:        2.6
+Version:        2.8
 Release:        %autorelease
 Summary:        Python wrapper around Lua and LuaJIT
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/lupa
 Source:         https://github.com/scoder/lupa/archive/lupa-%{version}/lupa-%{version}.tar.gz
-# this could be passed via command line options or envvar if we're invoking setup.py directly
-# but we're not
-Patch:          lupa-default-to-no-bundle.diff
 
 BuildRequires:  gcc
 %if %{with luajit}
@@ -50,9 +47,10 @@ BuildRequires:  python3-setuptools
 
 %prep
 %autosetup -n lupa-lupa-%{version} -p1
+rm -r third-party/
 %if %{with old_cython}
 for f in pyproject.toml requirements.txt; do
-  sed -i 's|Cython>=3.1.6|Cython>=3.1.3|' $f
+  sed -i 's|Cython>=3.2.4|Cython>=3.1.3|' $f
 done
 %endif
 
@@ -62,7 +60,7 @@ done
 
 
 %build
-%pyproject_wheel
+%pyproject_wheel -C--global-option=--no-bundle
 
 
 %install

@@ -1,4 +1,4 @@
-%global candidate rc3
+%global candidate rc5
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.07
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -35,8 +35,6 @@ Patch5:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch7:   uefi-enable-https-boot-by-default.patch
-# Upstream revert to fix boot on RPi
-Patch8:   Revert-lmb-Reinstate-access-to-memory-above-ram_top.patch
 
 # Device improvments
 # USB-PD improvements
@@ -52,13 +50,8 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  Fix-NVMe-not-only-on-Raspberry-Pi-5.patch
-Patch21:  ARM-RPi5-Enable-PCIe.patch
-Patch22:  rpi-enable-nvme.patch
-Patch23:  video-arm-rpi-Add-brcm-bcm2712-hdmi0-compatible.patch
-Patch24:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
-Patch25:  mmc-bcm2835_sdhci-Parse-generic-MMC-device-tree-properties.patch
-Patch26:  rpi_arm64-Enable-MBEDTLS-LWIP-WGET-and-WGET_HTTPS.patch
-Patch27:  mmc-bcmstb-Fix-non-removable-check-in-bcm2712-init.patch
+Patch21:  rpi-enable-nvme.patch
+Patch22:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -69,8 +62,8 @@ BuildRequires:  gnutls-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
-BuildRequires:  openssl-devel
-BuildRequires:  openssl-devel-engine
+BuildRequires:  openssl3-devel
+BuildRequires:  openssl3-devel-engine
 BuildRequires:  perl-interpreter
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -317,6 +310,12 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Jun 23 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.4.rc5
+- Update to 2026.07 RC5
+
+* Mon Jun 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.3.rc4
+- Update to 2026.07 RC4
+
 * Fri May 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.2.rc3
 - Update to 2026.07 RC3
 - Update U-Boot Project URL

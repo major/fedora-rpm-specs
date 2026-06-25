@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 41
+Version: 42
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -31,14 +31,14 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.5.2
+Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(focus-trap)) = 7.6.4
+Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -85,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 42-1
+- Bug fixes and translation updates
+
 * Thu Jun 4 2026 Packit <hello@packit.dev> - 41-1
 - Add editor shortcut for “Save”
 - Dependency updates

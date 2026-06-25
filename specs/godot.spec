@@ -13,8 +13,8 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.6.3
-Release:        2%{?dist}
+Version:        4.7
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -27,6 +27,8 @@ Source1:        https://github.com/godotengine/godot-builds/releases/download/%{
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
+# https://github.com/godotengine/godot/pull/120568
+Patch1:         pr-120568-system-harfbuzz-flags.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -41,6 +43,8 @@ BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(harfbuzz-icu)
+BuildRequires:  pkgconfig(harfbuzz-raster)
+BuildRequires:  pkgconfig(harfbuzz-vector)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(graphite2)
 BuildRequires:  pkgconfig(icu-i18n)
@@ -126,7 +130,7 @@ Recommends:     oidn
 Provides:       bundled(enet) = 1.3.18
 %if ! %{system_glslang}
 # Fedora package only provides static libs, needs more work to be usable.
-Provides:       bundled(glslang) = 14.2.0
+Provides:       bundled(glslang) = 16.1.0
 %endif
 # Has custom changes to support seeking in zip archives.
 # Should not be unbundled.
@@ -249,7 +253,7 @@ install -d %{buildroot}%{_bindir}
 install -m755 bin/%{name}.linuxbsd.editor.%{godot_arch} %{buildroot}%{_bindir}/%{name}
 install -m755 bin/%{name}.linuxbsd.template_release.%{godot_arch} %{buildroot}%{_bindir}/%{name}-runner
 
-install -D -m644 icon.svg \
+install -D -m644 misc/logo/icon.svg \
     %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 install -D -m644 misc/dist/linux/%{rdnsname}.desktop \
     %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
@@ -266,12 +270,17 @@ install -D -m644 misc/dist/shell/%{name}.fish \
 install -D -m644 misc/dist/shell/_%{name}.zsh-completion \
     %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 
+cp misc/logo/LICENSE.txt LOGO_LICENSE.txt
+
 %check
 # Validate desktop and appdata files
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Jun 22 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.7-1
+- Version 4.7-stable
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 4.6.3-2
 - Rebuilt for icu 78.3
 

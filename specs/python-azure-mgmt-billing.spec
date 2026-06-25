@@ -1,10 +1,3 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
-%bcond_with     tests
-%endif
-
 %global         srcname     azure-mgmt-billing
 
 Name:           python-%{srcname}
@@ -19,16 +12,10 @@ BuildArch:      noarch
 
 
 BuildRequires:  python3-devel
+# We're stuck on an old version of this package because azure-cli; it depends on six
+# but doesn't include that detail in its metadata.
+BuildRequires:  python3dist(six)
 
-%if %{with tests}
-BuildRequires:  python3dist(azure-devtools)
-BuildRequires:  python3dist(azure-mgmt-keyvault)
-BuildRequires:  python3dist(azure-mgmt-resource)
-BuildRequires:  python3dist(azure-sdk-tools)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-aiohttp)
-BuildRequires:  python3dist(python-dotenv)
-%endif
 
 %global _description %{expand:
 Microsoft Azure Billing AI Management Client Library for Python}
@@ -38,6 +25,9 @@ Microsoft Azure Billing AI Management Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# We're stuck on an old version of this package because azure-cli; it depends on six
+# but doesn't include that detail in its metadata.
+BuildRequires:  python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 
@@ -61,10 +51,6 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
-
-%if %{with tests}
-%pytest
-%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

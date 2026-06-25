@@ -1,13 +1,11 @@
 Name:       clpeak
-Version:    2.0.13
+Version:    2.0.14
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
 URL:        https://github.com/krrishnarraj/%{name}
 Source:     %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Patch submitted to upstream, may be removed in next version
-# https://github.com/krrishnarraj/clpeak/issues/173
-Patch:      clpeak-fix-amx-32bit.patch
+
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -34,8 +32,13 @@ scheduling, extension exposure) become visible alongside the raw peak
 numbers.
 
 %prep
-%autosetup -p1
+%autosetup
 
+# Starting with clpeak-2.0.14 below ugly hacks are needed to fix install paths
+# Fix incorrect installation paths in upstream CMakeLists.txt
+sed -i 's/RUNTIME DESTINATION ./RUNTIME DESTINATION bin/' CMakeLists.txt
+# Remove upstream license installation to avoid installing to /usr/LICENSE
+sed -i '/install(FILES LICENSE DESTINATION .)/d' CMakeLists.txt
 
 %build
 %cmake
@@ -44,7 +47,6 @@ numbers.
 
 %install
 %cmake_install
-rm -v %{buildroot}/%{_datadir}/clpeak/LICENSE
 
 
 %check

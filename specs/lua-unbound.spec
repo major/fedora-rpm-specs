@@ -1,7 +1,7 @@
 Summary:        Binding to libunbound for Lua
 Name:           lua-unbound
-Version:        1.0.0
-Release:        14%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://www.zash.se/luaunbound.html
 Source0:        https://code.zash.se/dl/luaunbound/luaunbound-%{version}.tar.gz
@@ -33,7 +33,7 @@ Lua bindings for the Unbound APIs.
 %make_install LUA_LIBDIR=%{lua_libdir}
 
 # Correct strange upstream file permission
-chmod 755 %{buildroot}%{lua_libdir}/lunbound.so
+chmod 0755 %{buildroot}%{lua_libdir}/lunbound.so
 
 %check
 lua -e \
@@ -47,6 +47,9 @@ lua -e \
 %{lua_libdir}/lunbound.so
 
 %changelog
+* Wed Jun 24 2026 Robert Scheck <robert@fedoraproject.org> 1.1.0-1
+- Upgrade to 1.1.0 (#2491987)
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.0.0-14
 - rebuild
 

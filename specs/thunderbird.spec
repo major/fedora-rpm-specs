@@ -91,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        151.0.1
+Version:        152.0
 Release:        %autorelease
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20260604.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20260618.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -121,11 +121,6 @@ Patch425:       build-disable-elfhack.patch
 # Build patches
 Patch32:        build-rust-ppc64le.patch
 Patch35:        build-ppc-jit.patch
-Patch36:        build-botan-target.patch
-Patch37:        build-c11-threads-avail.patch
-# Fix for "sourcestamp.txt is corrupt"
-Patch38:        D303424.1781004200.diff
-Patch39:        D303205.1781242667.diff
 
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
 Patch44:        build-arm-libopus.patch
@@ -142,7 +137,7 @@ Patch83:        build-seccomp.patch
 
 # Upstream patches
 Patch402:       mozilla-526293.patch
-Patch406:        mozilla-1170092.patch
+Patch406:       mozilla-1170092.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1998188
 # this is the Firefox patch, manually rediffed against 146.0.1
 # https://bugzilla.mozilla.org/show_bug.cgi?id=2008377
@@ -285,11 +280,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %setup -q
 
 # Build patches
-
-%patch -P36 -p1 -b .build-botan
-%patch -P37 -p1 -b .build-c11-threads-avail
-%patch -P38 -p1 -b .D303424.1781004200
-%patch -P39 -p1 -b .D303205.1781242667
 
 %patch -P 418 -p1 -b .mozbz-1512162
 %patch -P 402 -p1 -b .526293

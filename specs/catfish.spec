@@ -9,7 +9,7 @@ BuildRequires:	%1 \
 %define		mainver		4.20.1
 %undefine		betaver		
 
-%define		baserelease		8
+%define		baserelease		9
 
 Name:		catfish
 Version:	%{mainver}
@@ -20,6 +20,9 @@ Summary:	A handy file search tool
 License:	GPL-2.0-only
 URL:		https://docs.xfce.org/apps/catfish/start
 Source0:	https://archive.xfce.org/src/apps/catfish/%{majorver}/catfish-%{version}%{?betaver}.tar.xz
+# https://gitlab.xfce.org/apps/catfish/-/work_items/152
+# https://gitlab.xfce.org/apps/catfish/-/commit/816eda5a3b1ab3c2e9532039629d205a056e5d3e
+Patch0:	catfish-4.20.1-restore-use-of-GtkTreeModelSort.patch
 BuildArch:	noarch
 
 BuildRequires:	desktop-file-utils
@@ -61,6 +64,7 @@ options.
 
 %prep
 %setup -q -n %{name}-%{mainver}%{?betaver}
+%patch -P0 -p1
 
 # Fix up permissions...
 find . -type f -print0 | xargs --null chmod 0644
@@ -148,6 +152,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Tue Jun 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.20.1-9
+- Backport upstream patch to restore functionality for sorting by column
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.20.1-8
 - Rebuilt for Python 3.15
 

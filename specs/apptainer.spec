@@ -27,7 +27,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.5.1
+%global package_version 1.5.2
 
 %global gocryptfs_version 2.6.1
 %global squashfuse_version 0.6.2
@@ -36,6 +36,9 @@
 %global squashfs_tools_version 4.7.5
 %ifnarch ppc64le s390x
 %if 0%{?fedora} < 45 || "%{_arch}" != "x86_64"
+# On fedora45 x86_64 building PRoot dies with
+# "relocation truncated to fit: R_X86_64_PC32 against `.rodata'"
+# See https://github.com/proot-me/proot/issues/414
 %global PRoot_version 5.4.0-rootless.3
 %endif
 %endif
@@ -45,7 +48,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -354,6 +357,13 @@ rm -f $(dirname %{SOURCE10})/PRoot-*.tar.gz
 %endif
 
 %build
+if go version | grep -q "Red Hat"; then
+    # With Red Hat's golang this changes crashes when running non-FIPS
+    # compliant containers on FIPS-enabled machines into helpful error
+    # messages.
+    export GOEXPERIMENT=strictfipsruntime
+fi
+
 %if "%{?SOURCE1}" != ""
 GOVERSION="$(echo %SOURCE1|sed 's,.*/,,;s/go//;s/\.src.*//')"
 if ! ./mlocal/scripts/check-min-go-version go $GOVERSION; then
@@ -515,6 +525,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Jun 23 2026 Dave Dykstra <dwd@cern.ch> - 1.5.2
+- Update to upstream 1.5.2
+
 * Thu Jun 04 2026 Dave Dykstra <dwd@cern.ch> - 1.5.1
 - Update to upstream 1.5.1
 

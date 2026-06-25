@@ -287,13 +287,7 @@ BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(openjph)
 BuildRequires:  pkgconfig(theora)
-%if 0%{?fedora} > 44
-# New for Blender 5.1 (ThorVG 1.0) on Rawhide
 BuildRequires:  pkgconfig(thorvg-1)
-%else
-# New for Blender 5.1 (ThorVG) on Fedora <=44
-BuildRequires:  pkgconfig(thorvg)
-%endif
 BuildRequires:  pkgconfig(vpx)
 # OpenColorIO 2 and up required
 BuildRequires:  cmake(OpenColorIO) > 1

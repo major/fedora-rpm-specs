@@ -26,9 +26,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 6.0.1
+%global rpmver 6.0.91
 #global snapver rc1
-%global baserelease 6
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -111,7 +111,7 @@ BuildRequires: fsverity-utils-devel
 # Set rpmdb path to /usr/lib/sysimage/rpm
 rpm-4.17.x-rpm_dbpath.patch
 # Disable autoconf config.site processing (#962837)
-rpm-4.18.x-siteconfig.patch
+rpm-6.1.x-siteconfig.patch
 # In current Fedora, man-pages pkg owns all the localized man directories
 rpm-4.9.90-no-man-dirs.patch
 
@@ -466,6 +466,7 @@ fi
 %{_mandir}/man5/rpm-macrofile.5*
 %{_mandir}/man5/rpm-manifest.5*
 %{_mandir}/man5/rpm-rpmrc.5*
+%{_mandir}/man7/rpm-design.7*
 %{_mandir}/man7/rpm-lua.7*
 %{_mandir}/man7/rpm-macros.7*
 %{_mandir}/man7/rpm-payloadflags.7*
@@ -574,7 +575,10 @@ fi
 %{_bindir}/gendiff
 %{_bindir}/rpmspec
 %{_bindir}/rpmlua
+%{_bindir}/rpmuncompress
+%{_bindir}/rpm-setup-autosign
 
+%{_mandir}/man1/elfdeps.1*
 %{_mandir}/man1/gendiff.1*
 %{_mandir}/man1/rpmbuild.1*
 %{_mandir}/man1/rpmdeps.1*
@@ -583,6 +587,10 @@ fi
 %{_mandir}/man1/rpm-setup-autosign.1*
 %{_mandir}/man1/rpmuncompress.1*
 %{_mandir}/man5/rpmbuild-config.5.*
+%{_mandir}/man7/rpm-dependency-generators.7*
+%{_mandir}/man7/rpm-scriptlets.7*
+%{_mandir}/man7/rpm-sysusers.7*
+
 
 %{rpmhome}/brp-*
 %{rpmhome}/check-*
@@ -630,6 +638,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Jun 22 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-1
+- Rebase to 6.1 rc1 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.0.1-6
 - Rebuilt for Python 3.15
 

@@ -50,6 +50,7 @@ ExclusiveArch:  x86_64 aarch64
 %else
 %bcond_with rocm
 %endif
+%bcond_without vulkan
 
 %if %{with rocm}
 %global build_hip ON
@@ -59,6 +60,12 @@ ExclusiveArch:  x86_64 aarch64
 %else
 %global build_hip OFF
 %global toolchain gcc
+%endif
+
+%if %{with vulkan}
+%global build_vulkan ON
+%else
+%global build_vulkan OFF
 %endif
 
 BuildRequires:  cmake
@@ -95,11 +102,15 @@ BuildRequires:  rocm-rpm-macros
 
 Requires:       hipblas
 Requires:       rocblas
+%endif
 
+%if %{with vulkan}
+BuildRequires:  glslc
+BuildRequires:  spirv-headers-devel
+BuildRequires:  vulkan-loader-devel
 %endif
 
 Requires:       curl
-
 Recommends:     numactl
 
 %description
@@ -207,6 +218,7 @@ export HIPCC_COMPILE_FLAGS_APPEND="--offload-compress"
     -DGGML_FMA=OFF \
     -DGGML_F16C=OFF \
     -DGGML_HIP=%{build_hip} \
+    -DGGML_VULKAN=%{build_vulkan} \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DLLAMA_BUILD_EXAMPLES=%{build_examples} \
     -DLLAMA_BUILD_TESTS=%{build_test}
@@ -264,6 +276,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %if %{with rocm}
 %{_libdir}/libggml-hip.so.*
 %endif
+%if %{with vulkan}
+%{_libdir}/libggml-vulkan.so.*
+%endif
 %{_bindir}/llama
 %{_bindir}/llama-batched-bench
 %{_bindir}/llama-bench
@@ -308,6 +323,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_libdir}/libggml-cpu.so
 %if %{with rocm}
 %{_libdir}/libggml-hip.so
+%endif
+%if %{with vulkan}
+%{_libdir}/libggml-vulkan.so
 %endif
 %{_libdir}/cmake/llama/*.cmake
 %{_libdir}/cmake/ggml/*.cmake

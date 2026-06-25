@@ -100,8 +100,8 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-%global _gpu_list %{rocm_gpu_list_default}
-%global gpu_list gfx1100
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
 
 # Use ninja if it is available
 %if 0%{?fedora} || 0%{?suse_version}
@@ -130,7 +130,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -375,6 +375,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Tue Jun 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Rebuild full gpu list
+
 * Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Generate suse package name
 

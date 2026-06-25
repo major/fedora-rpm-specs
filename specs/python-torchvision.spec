@@ -34,7 +34,7 @@ Source0:        %{url}/archive/%{commit0}/vision-%{shortcommit0}.tar.gz
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/vision-v%{version}.tar.gz
 %endif
 # get the hip version, step on the cuda version
-# Patch1:         0001-A-better-cuda-version.patch
+Patch1:         0001-A-better-cuda-version.patch
 # Fix build with FFmpeg 8
 # Patch2:         %{name}-ffmpeg8.patch
 

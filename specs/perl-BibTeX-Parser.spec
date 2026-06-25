@@ -1,9 +1,9 @@
-# Run optional test
-%bcond_without perl_BibTeX_Parser_enables_optional_test
+# Run optional test, disabled since 1.94, CPAN RT#179655
+%bcond_with perl_BibTeX_Parser_enables_optional_test
 
 Name:           perl-BibTeX-Parser
-Version:        1.93
-Release:        2%{?dist}
+Version:        1.94
+Release:        1%{?dist}
 Summary:        Pure Perl BibTeX parser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BibTeX-Parser
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Petr Pisar <ppisar@redhat.com> - 1.94-1
+- 1.94 bump
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.93-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

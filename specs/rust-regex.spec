@@ -5,7 +5,7 @@
 %global crate regex
 
 Name:           rust-regex
-Version:        1.12.3
+Version:        1.12.4
 Release:        %autorelease
 Summary:        Implementation of regular expressions for Rust
 

@@ -1,10 +1,7 @@
-%global commit b00e4a318fc7e4074b67f75dbb22373e1e07c56b
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20260117
 %bcond bundled_dr_libs 0
 
 Name:           SDL3_sound
-Version:        3.0.0~%{date}git%{shortcommit}
+Version:        3.2.0
 Release:        %autorelease
 Summary:        An abstract soundfile decoder library
 # src/dr_{flac,mp3}.h: Unlicense or MIT-0
@@ -13,7 +10,7 @@ Summary:        An abstract soundfile decoder library
 # src/timidity: LGPL-2.1-or-later or Artistic-1.0-Perl (See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/589)
 License:        Zlib AND LGPL-2.1-or-later AND (Unlicense OR MIT-0) AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.icculus.org/SDL_sound
-Source0:        https://github.com/icculus/SDL_sound/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/icculus/SDL_sound/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-unbundle-dr_libs.patch
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -61,7 +58,7 @@ Conflicts:      SDL2_sound-devel
 This package contains the headers and libraries for SDL_sound development.
 
 %prep
-%setup -q -n SDL_sound-%{commit}
+%setup -q -n SDL_sound-%{version}
 %if %{without bundled_dr_libs}
 %patch -P0 -p1 -b .orig
 # Unbundle dr_flac and dr_mp3, from dr_libs.

@@ -5,7 +5,7 @@
 %global crate ron
 
 Name:           rust-ron
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        Rusty Object Notation
 

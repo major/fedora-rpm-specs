@@ -1,8 +1,10 @@
+%bcond mingw %{defined fedora}
+
 # Installed library version
-%global lib_version 2601.0.0
+%global lib_version 2605.0.0
 
 Name:           abseil-cpp
-Version:        20260107.1
+Version:        20260526.0
 Release:        %autorelease
 Summary:        C++ Common Libraries
 
@@ -30,6 +32,13 @@ Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-
 # https://github.com/abseil/abseil-cpp/issues/1992.
 Patch:          0001-Omit-the-bind-block-in-test-Test-Mutex-FunctorCondit.patch
 
+# PR #2071: Include immintrin.h instead of bmi2intrin.h
+# https://github.com/abseil/abseil-cpp/commit/d851fdd768b27c02b3fb786fd0987faddd279ece
+#
+# Fixes failure to build with GCC 16 when the BMI2 extensions are enabled,
+# e.g., when targeting x86_64-v3 on ELN/RHEL.
+Patch:          https://github.com/abseil/abseil-cpp/commit/d851fdd768b27c02b3fb786fd0987faddd279ece.patch
+
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
 BuildRequires:  ninja-build
@@ -37,6 +46,14 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
+
+%if %{with mingw}
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc-c++
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc-c++
+%endif
 
 # The contents of absl/time/internal/cctz are derived from
 # https://github.com/google/cctz (https://src.fedoraproject.org/rpms/cctz), but
@@ -93,6 +110,24 @@ Provides:       bundled(cctz)
 %description devel
 Development headers for %{name}
 
+%if %{with mingw}
+%package -n mingw32-abseil-cpp
+Summary:        MinGW Windows abseil-cpp library
+BuildArch:      noarch
+
+%description -n mingw32-abseil-cpp
+MinGW Windows abseil-cpp library.
+
+%package -n mingw64-abseil-cpp
+Summary:        MinGW Windows abseil-cpp library
+BuildArch:      noarch
+
+%description -n mingw64-abseil-cpp
+MinGW Windows abseil-cpp library.
+
+%{?mingw_debug_package}
+%endif
+
 %prep
 %autosetup -p1 -S gendiff
 
@@ -101,19 +136,30 @@ Development headers for %{name}
 # subpackage when tests are not enabled. It is therefore redundant here, but we
 # still supply it to be more explicit.
 %cmake \
-  -GNinja \
-  -DABSL_USE_EXTERNAL_GOOGLETEST:BOOL=ON \
-  -DABSL_FIND_GOOGLETEST:BOOL=ON \
-  -DABSL_ENABLE_INSTALL:BOOL=ON \
-  -DABSL_BUILD_TESTING:BOOL=ON \
-  -DABSL_BUILD_TEST_HELPERS:BOOL=ON \
-  -DCMAKE_BUILD_TYPE:STRING=None \
-  -DCMAKE_CXX_STANDARD:STRING=17
+    -GNinja \
+    -DABSL_USE_EXTERNAL_GOOGLETEST:BOOL=ON \
+    -DABSL_FIND_GOOGLETEST:BOOL=ON \
+    -DABSL_ENABLE_INSTALL:BOOL=ON \
+    -DABSL_BUILD_TESTING:BOOL=ON \
+    -DABSL_BUILD_TEST_HELPERS:BOOL=ON \
+    -DCMAKE_BUILD_TYPE:STRING=None \
+    -DCMAKE_CXX_STANDARD:STRING=17
 %cmake_build
 
+%if %{with mingw}
+%mingw_cmake \
+    -DABSL_BUILD_TESTING:BOOL=OFF \
+    -GNinja
+%mingw_ninja --verbose
+%endif
 
 %install
 %cmake_install
+
+%if %{with mingw}
+%mingw_ninja_install
+%mingw_debug_install_post
+%endif
 
 %check
 skips='^($.'
@@ -137,9 +183,9 @@ skips="${skips})$"
 # All shared libraries except installed TESTONLY libraries; see the %%files
 # list for the -testing subpackage for those.
 %{_libdir}/libabsl_base.so.%{lib_version}
-%{_libdir}/libabsl_borrowed_fixup_buffer.so.%{lib_version}
 %{_libdir}/libabsl_city.so.%{lib_version}
 %{_libdir}/libabsl_civil_time.so.%{lib_version}
+%{_libdir}/libabsl_clock_interface.so.%{lib_version}
 %{_libdir}/libabsl_cord.so.%{lib_version}
 %{_libdir}/libabsl_cord_internal.so.%{lib_version}
 %{_libdir}/libabsl_cordz_functions.so.%{lib_version}
@@ -211,9 +257,11 @@ skips="${skips})$"
 %{_libdir}/libabsl_raw_hash_set.so.%{lib_version}
 %{_libdir}/libabsl_raw_logging_internal.so.%{lib_version}
 %{_libdir}/libabsl_scoped_set_env.so.%{lib_version}
+%{_libdir}/libabsl_source_location.so.%{lib_version}
 %{_libdir}/libabsl_spinlock_wait.so.%{lib_version}
 %{_libdir}/libabsl_stacktrace.so.%{lib_version}
 %{_libdir}/libabsl_status.so.%{lib_version}
+%{_libdir}/libabsl_status_builder.so.%{lib_version}
 %{_libdir}/libabsl_statusor.so.%{lib_version}
 %{_libdir}/libabsl_str_format_internal.so.%{lib_version}
 %{_libdir}/libabsl_strerror.so.%{lib_version}
@@ -251,6 +299,7 @@ skips="${skips})$"
 # absl/synchronization/CMakeLists.txt
 %{_libdir}/libabsl_per_thread_sem_test_common.so.%{lib_version}
 # absl/time/CMakeLists.txt
+%{_libdir}/libabsl_simulated_clock.so.%{lib_version}
 %{_libdir}/libabsl_time_internal_test_util.so.%{lib_version}
 
 %files devel
@@ -258,6 +307,208 @@ skips="${skips})$"
 %{_libdir}/libabsl_*.so
 %{_libdir}/cmake/absl
 %{_libdir}/pkgconfig/absl_*.pc
+
+%if %{with mingw}
+%files -n mingw32-abseil-cpp
+%license LICENSE
+%{mingw32_bindir}/libabsl_base.dll
+%{mingw32_bindir}/libabsl_city.dll
+%{mingw32_bindir}/libabsl_civil_time.dll
+%{mingw32_bindir}/libabsl_clock_interface.dll
+%{mingw32_bindir}/libabsl_cord.dll
+%{mingw32_bindir}/libabsl_cord_internal.dll
+%{mingw32_bindir}/libabsl_cordz_functions.dll
+%{mingw32_bindir}/libabsl_cordz_handle.dll
+%{mingw32_bindir}/libabsl_cordz_info.dll
+%{mingw32_bindir}/libabsl_cordz_sample_token.dll
+%{mingw32_bindir}/libabsl_crc32c.dll
+%{mingw32_bindir}/libabsl_crc_cord_state.dll
+%{mingw32_bindir}/libabsl_crc_cpu_detect.dll
+%{mingw32_bindir}/libabsl_crc_internal.dll
+%{mingw32_bindir}/libabsl_debugging_internal.dll
+%{mingw32_bindir}/libabsl_decode_rust_punycode.dll
+%{mingw32_bindir}/libabsl_demangle_internal.dll
+%{mingw32_bindir}/libabsl_demangle_rust.dll
+%{mingw32_bindir}/libabsl_die_if_null.dll
+%{mingw32_bindir}/libabsl_examine_stack.dll
+%{mingw32_bindir}/libabsl_exponential_biased.dll
+%{mingw32_bindir}/libabsl_failure_signal_handler.dll
+%{mingw32_bindir}/libabsl_flags_commandlineflag.dll
+%{mingw32_bindir}/libabsl_flags_commandlineflag_internal.dll
+%{mingw32_bindir}/libabsl_flags_config.dll
+%{mingw32_bindir}/libabsl_flags_internal.dll
+%{mingw32_bindir}/libabsl_flags_marshalling.dll
+%{mingw32_bindir}/libabsl_flags_parse.dll
+%{mingw32_bindir}/libabsl_flags_private_handle_accessor.dll
+%{mingw32_bindir}/libabsl_flags_program_name.dll
+%{mingw32_bindir}/libabsl_flags_reflection.dll
+%{mingw32_bindir}/libabsl_flags_usage.dll
+%{mingw32_bindir}/libabsl_flags_usage_internal.dll
+%{mingw32_bindir}/libabsl_generic_printer_internal.dll
+%{mingw32_bindir}/libabsl_graphcycles_internal.dll
+%{mingw32_bindir}/libabsl_hash.dll
+%{mingw32_bindir}/libabsl_hashtable_profiler.dll
+%{mingw32_bindir}/libabsl_hashtablez_sampler.dll
+%{mingw32_bindir}/libabsl_int128.dll
+%{mingw32_bindir}/libabsl_kernel_timeout_internal.dll
+%{mingw32_bindir}/libabsl_leak_check.dll
+%{mingw32_bindir}/libabsl_log_entry.dll
+%{mingw32_bindir}/libabsl_log_flags.dll
+%{mingw32_bindir}/libabsl_log_globals.dll
+%{mingw32_bindir}/libabsl_log_initialize.dll
+%{mingw32_bindir}/libabsl_log_internal_check_op.dll
+%{mingw32_bindir}/libabsl_log_internal_conditions.dll
+%{mingw32_bindir}/libabsl_log_internal_fnmatch.dll
+%{mingw32_bindir}/libabsl_log_internal_format.dll
+%{mingw32_bindir}/libabsl_log_internal_globals.dll
+%{mingw32_bindir}/libabsl_log_internal_log_sink_set.dll
+%{mingw32_bindir}/libabsl_log_internal_message.dll
+%{mingw32_bindir}/libabsl_log_internal_nullguard.dll
+%{mingw32_bindir}/libabsl_log_internal_proto.dll
+%{mingw32_bindir}/libabsl_log_internal_structured_proto.dll
+%{mingw32_bindir}/libabsl_log_severity.dll
+%{mingw32_bindir}/libabsl_log_sink.dll
+%{mingw32_bindir}/libabsl_malloc_internal.dll
+%{mingw32_bindir}/libabsl_periodic_sampler.dll
+%{mingw32_bindir}/libabsl_poison.dll
+%{mingw32_bindir}/libabsl_profile_builder.dll
+%{mingw32_bindir}/libabsl_random_distributions.dll
+%{mingw32_bindir}/libabsl_random_internal_distribution_test_util.dll
+%{mingw32_bindir}/libabsl_random_internal_entropy_pool.dll
+%{mingw32_bindir}/libabsl_random_internal_platform.dll
+%{mingw32_bindir}/libabsl_random_internal_randen.dll
+%{mingw32_bindir}/libabsl_random_internal_randen_hwaes.dll
+%{mingw32_bindir}/libabsl_random_internal_randen_hwaes_impl.dll
+%{mingw32_bindir}/libabsl_random_internal_randen_slow.dll
+%{mingw32_bindir}/libabsl_random_internal_seed_material.dll
+%{mingw32_bindir}/libabsl_random_seed_gen_exception.dll
+%{mingw32_bindir}/libabsl_random_seed_sequences.dll
+%{mingw32_bindir}/libabsl_raw_hash_set.dll
+%{mingw32_bindir}/libabsl_raw_logging_internal.dll
+%{mingw32_bindir}/libabsl_scoped_set_env.dll
+%{mingw32_bindir}/libabsl_source_location.dll
+%{mingw32_bindir}/libabsl_spinlock_wait.dll
+%{mingw32_bindir}/libabsl_stacktrace.dll
+%{mingw32_bindir}/libabsl_status.dll
+%{mingw32_bindir}/libabsl_status_builder.dll
+%{mingw32_bindir}/libabsl_statusor.dll
+%{mingw32_bindir}/libabsl_strerror.dll
+%{mingw32_bindir}/libabsl_str_format_internal.dll
+%{mingw32_bindir}/libabsl_strings.dll
+%{mingw32_bindir}/libabsl_strings_internal.dll
+%{mingw32_bindir}/libabsl_symbolize.dll
+%{mingw32_bindir}/libabsl_synchronization.dll
+%{mingw32_bindir}/libabsl_throw_delegate.dll
+%{mingw32_bindir}/libabsl_time.dll
+%{mingw32_bindir}/libabsl_time_zone.dll
+%{mingw32_bindir}/libabsl_tracing_internal.dll
+%{mingw32_bindir}/libabsl_utf8_for_code_point.dll
+%{mingw32_bindir}/libabsl_vlog_config_internal.dll
+%{mingw32_includedir}/absl/
+%{mingw32_libdir}/libabsl_*.dll.a
+%{mingw32_libdir}/cmake/absl/
+%{mingw32_libdir}/pkgconfig/absl_*.pc
+
+%files -n mingw64-abseil-cpp
+%license LICENSE
+%{mingw64_bindir}/libabsl_base.dll
+%{mingw64_bindir}/libabsl_city.dll
+%{mingw64_bindir}/libabsl_civil_time.dll
+%{mingw64_bindir}/libabsl_clock_interface.dll
+%{mingw64_bindir}/libabsl_cord.dll
+%{mingw64_bindir}/libabsl_cord_internal.dll
+%{mingw64_bindir}/libabsl_cordz_functions.dll
+%{mingw64_bindir}/libabsl_cordz_handle.dll
+%{mingw64_bindir}/libabsl_cordz_info.dll
+%{mingw64_bindir}/libabsl_cordz_sample_token.dll
+%{mingw64_bindir}/libabsl_crc32c.dll
+%{mingw64_bindir}/libabsl_crc_cord_state.dll
+%{mingw64_bindir}/libabsl_crc_cpu_detect.dll
+%{mingw64_bindir}/libabsl_crc_internal.dll
+%{mingw64_bindir}/libabsl_debugging_internal.dll
+%{mingw64_bindir}/libabsl_decode_rust_punycode.dll
+%{mingw64_bindir}/libabsl_demangle_internal.dll
+%{mingw64_bindir}/libabsl_demangle_rust.dll
+%{mingw64_bindir}/libabsl_die_if_null.dll
+%{mingw64_bindir}/libabsl_examine_stack.dll
+%{mingw64_bindir}/libabsl_exponential_biased.dll
+%{mingw64_bindir}/libabsl_failure_signal_handler.dll
+%{mingw64_bindir}/libabsl_flags_commandlineflag.dll
+%{mingw64_bindir}/libabsl_flags_commandlineflag_internal.dll
+%{mingw64_bindir}/libabsl_flags_config.dll
+%{mingw64_bindir}/libabsl_flags_internal.dll
+%{mingw64_bindir}/libabsl_flags_marshalling.dll
+%{mingw64_bindir}/libabsl_flags_parse.dll
+%{mingw64_bindir}/libabsl_flags_private_handle_accessor.dll
+%{mingw64_bindir}/libabsl_flags_program_name.dll
+%{mingw64_bindir}/libabsl_flags_reflection.dll
+%{mingw64_bindir}/libabsl_flags_usage.dll
+%{mingw64_bindir}/libabsl_flags_usage_internal.dll
+%{mingw64_bindir}/libabsl_generic_printer_internal.dll
+%{mingw64_bindir}/libabsl_graphcycles_internal.dll
+%{mingw64_bindir}/libabsl_hash.dll
+%{mingw64_bindir}/libabsl_hashtable_profiler.dll
+%{mingw64_bindir}/libabsl_hashtablez_sampler.dll
+%{mingw64_bindir}/libabsl_int128.dll
+%{mingw64_bindir}/libabsl_kernel_timeout_internal.dll
+%{mingw64_bindir}/libabsl_leak_check.dll
+%{mingw64_bindir}/libabsl_log_entry.dll
+%{mingw64_bindir}/libabsl_log_flags.dll
+%{mingw64_bindir}/libabsl_log_globals.dll
+%{mingw64_bindir}/libabsl_log_initialize.dll
+%{mingw64_bindir}/libabsl_log_internal_check_op.dll
+%{mingw64_bindir}/libabsl_log_internal_conditions.dll
+%{mingw64_bindir}/libabsl_log_internal_fnmatch.dll
+%{mingw64_bindir}/libabsl_log_internal_format.dll
+%{mingw64_bindir}/libabsl_log_internal_globals.dll
+%{mingw64_bindir}/libabsl_log_internal_log_sink_set.dll
+%{mingw64_bindir}/libabsl_log_internal_message.dll
+%{mingw64_bindir}/libabsl_log_internal_nullguard.dll
+%{mingw64_bindir}/libabsl_log_internal_proto.dll
+%{mingw64_bindir}/libabsl_log_internal_structured_proto.dll
+%{mingw64_bindir}/libabsl_log_severity.dll
+%{mingw64_bindir}/libabsl_log_sink.dll
+%{mingw64_bindir}/libabsl_malloc_internal.dll
+%{mingw64_bindir}/libabsl_periodic_sampler.dll
+%{mingw64_bindir}/libabsl_poison.dll
+%{mingw64_bindir}/libabsl_profile_builder.dll
+%{mingw64_bindir}/libabsl_random_distributions.dll
+%{mingw64_bindir}/libabsl_random_internal_distribution_test_util.dll
+%{mingw64_bindir}/libabsl_random_internal_entropy_pool.dll
+%{mingw64_bindir}/libabsl_random_internal_platform.dll
+%{mingw64_bindir}/libabsl_random_internal_randen.dll
+%{mingw64_bindir}/libabsl_random_internal_randen_hwaes.dll
+%{mingw64_bindir}/libabsl_random_internal_randen_hwaes_impl.dll
+%{mingw64_bindir}/libabsl_random_internal_randen_slow.dll
+%{mingw64_bindir}/libabsl_random_internal_seed_material.dll
+%{mingw64_bindir}/libabsl_random_seed_gen_exception.dll
+%{mingw64_bindir}/libabsl_random_seed_sequences.dll
+%{mingw64_bindir}/libabsl_raw_hash_set.dll
+%{mingw64_bindir}/libabsl_raw_logging_internal.dll
+%{mingw64_bindir}/libabsl_scoped_set_env.dll
+%{mingw64_bindir}/libabsl_source_location.dll
+%{mingw64_bindir}/libabsl_spinlock_wait.dll
+%{mingw64_bindir}/libabsl_stacktrace.dll
+%{mingw64_bindir}/libabsl_status.dll
+%{mingw64_bindir}/libabsl_status_builder.dll
+%{mingw64_bindir}/libabsl_statusor.dll
+%{mingw64_bindir}/libabsl_strerror.dll
+%{mingw64_bindir}/libabsl_str_format_internal.dll
+%{mingw64_bindir}/libabsl_strings.dll
+%{mingw64_bindir}/libabsl_strings_internal.dll
+%{mingw64_bindir}/libabsl_symbolize.dll
+%{mingw64_bindir}/libabsl_synchronization.dll
+%{mingw64_bindir}/libabsl_throw_delegate.dll
+%{mingw64_bindir}/libabsl_time.dll
+%{mingw64_bindir}/libabsl_time_zone.dll
+%{mingw64_bindir}/libabsl_tracing_internal.dll
+%{mingw64_bindir}/libabsl_utf8_for_code_point.dll
+%{mingw64_bindir}/libabsl_vlog_config_internal.dll
+%{mingw64_includedir}/absl/
+%{mingw64_libdir}/libabsl_*.dll.a
+%{mingw64_libdir}/cmake/absl/
+%{mingw64_libdir}/pkgconfig/absl_*.pc
+%endif
 
 %changelog
 %autochangelog

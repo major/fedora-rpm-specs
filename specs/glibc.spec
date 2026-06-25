@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-409-ga767fbcff0
+%global glibcsrcdir glibc-2.43.9000-444-gb61b98e3d0
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 21
+%global baserelease 22
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -349,11 +349,6 @@ Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
 Patch19: glibc-rh2457183-1.patch
 Patch20: glibc-rh2457183-2.patch
-Patch22: glibc-RHEL-172425-1.patch
-Patch23: glibc-RHEL-172425-2.patch
-Patch24: glibc-RHEL-172425-3.patch
-Patch25: glibc-RHEL-172425-4.patch
-Patch26: glibc-RHEL-172425-5.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2409,6 +2404,51 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jun 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-22
+- Auto-sync with upstream branch master,
+  commit b61b98e3d0c81c85200e2082407708c7b0e821a3:
+- resolv: Add test for gethostbyname_r unaligned buffer [BZ #18287] (Sergey Kolosov)
+- Define _PATH_MOUNTED as "/etc/mtab" (Justus Winter)
+- Add advisory text for CVE-2026-6791 (Adhemerval Zanella)
+- posix: Fix stack overflow in wordexp tilde expansion (BZ 34091, CVE-2026-6791) (Adhemerval Zanella)
+- riscv: Add RVV memmove for both multiarch and non-multiarch builds (Yao Zihong)
+- elf: Support THP segment load with madvise enabled THP (H.J. Lu)
+- advisories: Update GLIBC-SA-2026-0012 metadata (Carlos O'Donell)
+- Remove unused THREAD_SET_POINTER_GUARD and THREAD_COPY_POINTER_GUARD (Adhemerval Zanella)
+- resolv: Add test case tst-ns_sprintrr (bug 34033, bug 34069) (Florian Weimer)
+- resolv: Fix buffer overreads in ns_sprintrrf (CVE-2026-6238) (Florian Weimer)
+- resolv: More types as unknown in ns_sprintrrf (CVE-2026-5435) (Florian Weimer)
+- resolv: Check for inet_ntop failure in ns_sprintrrf (Florian Weimer)
+- resolv: Improve formatting of unknown records in ns_sprintrrf (Florian Weimer)
+- resolv: Fix ns_sprintrrf formatting of class, type values (bug 34289) (Florian Weimer)
+- resolv: Declare __p_class_syms, __p_type_syms for internal use (Florian Weimer)
+- Update GLIBC-SA-2026-0012 to mention A6 records (Florian Weimer)
+- string: Improve memchr random test (Wilco Dijkstra)
+- AArch64: Vectorise SVE fp64 sin/cos special case (Dylan Fleming)
+- AArch64: Vectorise AdvSIMD fp64 sin/cos special case (Dylan Fleming)
+- AArch64: Vectorise SVE fp32 sin/cos special case (Dylan Fleming)
+- AArch64: Vectorise AdvSIMD fp32 sin/cos special case (Dylan Fleming)
+- news: Describe AArch64-specific changes for 2.44 (Yury Khrustalev)
+- elf: Do not scrub AT_RANDOM to a constant when reseeding fails (BZ 34197) (Adhemerval Zanella)
+- manual: Update memchr description [BZ #19406] (Wilco Dijkstra)
+- hurd: Add ETH_TLEN and ETH_FCS_LEN (Samuel Thibault)
+- hurd: Fix ETH_P_PUP (Samuel Thibault)
+- Factorize if_arp.h (Samuel Thibault)
+- elf: Scrub and reseed the AT_RANDOM bytes after deriving the guards (BZ 34197) (Adhemerval Zanella)
+- Consolidate dl-osinfo.h into the generic implementation (Adhemerval Zanella)
+- Consolidate the C pointer guard and align the assembly implementations (Adhemerval Zanella)
+- Remove the jmp_buf stack pointer demangle on ABIs that do not mangle it (Adhemerval Zanella)
+- Split pointer_guard.h into C and assembly headers (Adhemerval Zanella)
+- Enable the pointer guard in the dynamic loader (Adhemerval Zanella)
+- Consolidate pointer guard to use a relro variable instead of the TCB (Adhemerval Zanella)
+- elf: Propagate the pointer guard to ld.so loaded via static dlopen (BZ 34196) (Adhemerval Zanella)
+- Remove applied or redundant patches:
+  - glibc-RHEL-172425-1.patch
+  - glibc-RHEL-172425-2.patch
+  - glibc-RHEL-172425-3.patch
+  - glibc-RHEL-172425-4.patch
+  - glibc-RHEL-172425-5.patch
+
 * Tue Jun 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-21
 - Auto-sync with upstream branch master,
   commit a767fbcff0eefc64cb6b2369a34b5205468dbafd:

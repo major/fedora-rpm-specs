@@ -1,7 +1,7 @@
 %define dracutlibdir lib/dracut
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
-Version:        1.9.24
+Version:        1.9.25
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -64,6 +64,7 @@ sed -e 's:@SBIN_DIR@:%{_sbindir}:g' -i contrib/Fedora/*service
 sed -i '/^ConditionKernelVersion/d' contrib/Fedora/*service
 
 install -Dpm 0644 contrib/Fedora/haveged.service %{buildroot}%{_unitdir}/%{name}.service
+install -Dpm 0644 contrib/Fedora/haveged-initramfs.service %{buildroot}%{_unitdir}/%{name}-initramfs.service
 install -Dpm 0644 contrib/Fedora/haveged-switch-root.service %{buildroot}%{_unitdir}/%{name}-switch-root.service
 install -Dpm 0644 contrib/Fedora/haveged-once.service %{buildroot}%{_unitdir}/%{name}-once.service
 install -Dpm 0755 contrib/Fedora/haveged-dracut.module %{buildroot}/%{_prefix}/%{dracutlibdir}/modules.d/98%{name}/module-setup.sh
@@ -105,6 +106,11 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Wed Jun 24 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.25-1
+- Update to 1.9.25
+- Fix initramfs switch-root failure caused by --no-command (BZ#2491739)
+- Add haveged-initramfs.service for use inside the initramfs
+
 * Fri Jun 19 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.24-1
 - Update to 1.9.24
 - Disable command mode in long-running service (--no-command flag)

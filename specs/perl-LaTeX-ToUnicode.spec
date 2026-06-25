@@ -1,7 +1,14 @@
+# ltx2unitxt(1) manual page conflicts with texlive-bibtexperllibs
+%global install_ltx2unitxt_manual 0
+
 Name:           perl-LaTeX-ToUnicode
-Version:        1.93
+Version:        1.94
 Release:        2%{?dist}
 Summary:        Convert LaTeX commands to Unicode
+# latex-tounicode.pdf is concatenated ltx2unitxt.pdf and
+#                     lib/LaTeX/ToUnicode.pm POD.
+# ltx2unitxt.pdf is generated from ltx2unitxt.1.
+# ltx2unitxt.1 is generated from script/ltx2unitxt.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LaTeX-ToUnicode
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/LaTeX-ToUnicode-%{version}.tar.gz
@@ -10,9 +17,13 @@ Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/LaTeX-ToUnicode
 Patch0:         LaTeX-ToUnicode-0.53-Do-not-add-bogus-paths-to-INC.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
+%if %{install_ltx2unitxt_manual}
+BuildRequires:  help2man
+%endif
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.0
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -42,6 +53,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n LaTeX-ToUnicode-%{version}
+# Remove generated files
+rm latex-tounicode.pdf ltx2unitxt.pdf ltx2unitxt.1
 # Remove always skipped tests
 for F in t/release-pod-coverage.t t/release-pod-syntax.t t/release-synopsis.t; do
     rm "$F"
@@ -51,10 +64,17 @@ done
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
+%if %{install_ltx2unitxt_manual}
+PERL5LIB=lib %{make_build} -f Makefile.TDS ltx2unitxt.1
+%endif
 
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+%if %{install_ltx2unitxt_manual}
+# Install regenerated documentation
+install -m 0644 -D -t %{buildroot}/%{_mandir}/man1 ltx2unitxt.1
+%endif
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -75,6 +95,9 @@ make test
 %{perl_vendorlib}/LaTeX/ToUnicode
 %{perl_vendorlib}/LaTeX/ToUnicode.pm
 %{_bindir}/ltx2unitxt
+%if %{install_ltx2unitxt_manual}
+%{_mandir}/man1/ltx2unitxt.*
+%endif
 %{_mandir}/man3/LaTeX::ToUnicode.*
 %{_mandir}/man3/LaTeX::ToUnicode::*
 
@@ -82,6 +105,13 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Petr Pisar <ppisar@redhat.com> - 1.94-2
+- Do not install ltx2unitxt(1) manual page because it is packaged in
+  texlive-bibtexperllibs
+
+* Tue Jun 23 2026 Petr Pisar <ppisar@redhat.com> - 1.94-1
+- 1.94 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.93-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

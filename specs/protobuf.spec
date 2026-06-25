@@ -18,7 +18,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        33.5
 %global so_version 33
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # See version.json:
 %global version_protoc %{version}
@@ -648,6 +648,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Jun 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 33.5-6
+- Rebuilt for abseil-cpp 20260526.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 33.5-5
 - Rebuilt for Python 3.15
 

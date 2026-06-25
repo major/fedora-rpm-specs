@@ -1,5 +1,5 @@
 Name:           python-litellm-proxy-extras
-Version:        0.4.29
+Version:        0.4.74
 Release:        %autorelease
 Summary:        Additional files for the LiteLLM Proxy
 
@@ -12,6 +12,7 @@ BuildOption(install):  -l litellm_proxy_extras
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python-uv-build
 
 
 # Fill in the actual package description to submit package to Fedora
@@ -26,6 +27,9 @@ Reduces the size of the main litellm package.
 Summary:        %{summary}
 
 %description -n python3-litellm-proxy-extras %_description
+
+%prep -a
+%pyproject_patch_dependency uv_build:ignore
 
 %check
 %pyproject_check_import

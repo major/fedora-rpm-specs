@@ -9,8 +9,8 @@ https://semver.org/.
 A leading "=" or "v" character is stripped off and ignored.}
 
 Name: python-%{pypi_name}
-Version: 0.9.0
-Release: 14%{?dist}
+Version: 0.9.1
+Release: 1%{?dist}
 
 License: MIT
 Summary: Python version of node-semver
@@ -49,6 +49,9 @@ Summary: %{summary}
 %doc CHANGES.txt README.rst
 
 %changelog
+* Tue Jun 23 2026 Federico Pellegrin <fede@evolware.org> - 0.9.1-1
+- Upgrade to 0.9.1 (rhbz#2491623)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9.0-14
 - Rebuilt for Python 3.15
 

@@ -19,6 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+%if 0%{?python3_version_nodots} >= 315
+BuildRequires:  python3-pkg-resources
+%endif
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -32,8 +35,8 @@ Sphinx documentation, originally derived from Mitsuhiko's Flask theme.
 Summary:        %{summary}
 
 Requires:       python3dist(setuptools)
-%if 0%{?fedora} < 33 || 0%{?rhel} < 9
-%py_provides    python3-%{pypi_name}
+%if 0%{?python3_version_nodots} >= 315
+Requires:       python3-pkg-resources
 %endif
 
 %description -n python3-%{pypi_name}
@@ -64,6 +67,10 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{python3_sitelib}/sphinx_kr_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 23 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.2.1-25
+- Add build and runtime requires on python3-pkg-resources, setuptools 82 dropped pkg_resources
+- salimma: gate the requirement to Python >= 3.15, drop obsolete conditional py_provides
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.1-24
 - Rebuilt for Python 3.15
 

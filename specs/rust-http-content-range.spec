@@ -5,7 +5,7 @@
 %global crate http-content-range
 
 Name:           rust-http-content-range
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        HTTP Content Range response header parser
 

@@ -40,13 +40,29 @@
 %bcond old_hatchling 1
 %endif
 
-# Although this supports a range of libgit2 and librpm versions upstream,
-# we want to ensure newer versions don’t accidentally break all packages using this.
-# Hence we artificially restrict the Required version to what was tested during the build.
-# When libgit2/librpm soname is bumped, this package needs to be rebuilt (and tested).
-%define libgit2_lower_bound 1.7
-%define libgit2_upper_bound 1.10
-%define libgit2_requires %(rpm -q --provides libgit2 | grep '^libgit2\.so\.' | sed 's/()(64bit)$//' | head -n 1)
+# From Fedora 45 on libgit2 packages are versioned, i.e. named "libgit2_X.Y". In this case, pin the
+# package name. On older releases (and EPEL for the time being), depend on plain "libgit2" for
+# building. In all cases, pin the SONAME for runtime.
+
+%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+%bcond versioned_libgit2 1
+%else
+%bcond versioned_libgit2 0
+%endif
+
+%if %{with versioned_libgit2}
+%global libgit2_pkg libgit2_1.9
+%else
+%global libgit2_lower_bound 1.7
+%global libgit2_upper_bound 1.10
+%global libgit2_pkg libgit2
+%endif
+
+# Although this supports a range of libgit2 versions upstream, we want to ensure newer versions
+# don’t accidentally break all packages using this. Hence we artificially restrict the Required
+# version to what was tested during the build. When the libgit2 soname is bumped, this package needs
+# to be rebuilt (and tested).
+%define libgit2_requires %(rpm -q --provides %{libgit2_pkg} | grep '^libgit2\.so\.' | sed 's/()(64bit)$//' | head -n 1)
 
 %global srcname rpmautospec
 
@@ -92,7 +108,11 @@ BuildRequires: python3dist(pytest-xdist)
 
 BuildRequires: sed
 
-BuildRequires: (libgit2 >= %libgit2_lower_bound with libgit2 < %libgit2_upper_bound)
+%if %{with versioned_libgit2}
+BuildRequires: %{libgit2_pkg}
+%else
+BuildRequires: (%{libgit2_pkg} >= %libgit2_lower_bound with %{libgit2_pkg} < %libgit2_upper_bound)
+%endif
 BuildRequires: rpm-libs
 BuildRequires: rpm-build-libs
 

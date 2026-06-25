@@ -1,5 +1,5 @@
 %global srcname level-zero
-%global lib_version 1.30
+%global lib_version 1.31
 %global patch_version 0
 %global _lto_cflags %nil
 

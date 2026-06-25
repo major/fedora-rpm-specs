@@ -131,7 +131,6 @@ Patch41: php-8.5.0-parser.patch
 # use system tzdata
 Patch42: php-8.5.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
-# + display PHP version backported from 8.4
 Patch43: php-8.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
 Patch45: php-8.5.0-ldap_r.patch
@@ -388,8 +387,8 @@ Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
 %if %{with rename}
 Conflicts:  php-devel         < %{major_version}
-Provides:   php-devel         = %{version}-%{release}
-Provides:   php-devel%{?_isa} = %{version}-%{release}
+# Don't provide "php-devel" to avoid best provider
+# for extension BuildRequires
 %endif
 Recommends: php-nikic-php-parser5 >= 5.6.1
 Conflicts:  php-nikic-php-parser5 <  5.6.1
@@ -858,6 +857,9 @@ in pure PHP.
 %patch -P41 -p1 -b .syslib
 %patch -P42 -p1 -b .systzdata
 %patch -P43 -p1 -b .headers
+%if %{with rename}
+sed -e 's/php-devel/php%{major_version}-devel/' -i scripts/phpize.in
+%endif
 %patch -P45 -p1 -b .ldap_r
 %patch -P47 -p1 -b .phpinfo
 %patch -P48 -p1 -b .ec-param

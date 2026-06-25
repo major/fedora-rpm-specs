@@ -14,13 +14,13 @@ URL:            https://crates.io/crates/abol-parser
 Source:         %{crates_source}
 # * See https://github.com/Abel981/abol/blob/main/LICENSE
 # * Merge Request: https://github.com/Abel981/abol/pull/3
-Source2:        LICENSE
+Source2:        https://raw.githubusercontent.com/Abel981/abol/refs/heads/main/LICENSE
 # * See https://github.com/Abel981/abol/blob/main/LICENSE-APACHE
 # * Merge Request: https://github.com/Abel981/abol/pull/3
-Source3:        LICENSE-APACHE
+Source3:        https://raw.githubusercontent.com/Abel981/abol/refs/heads/main/LICENSE-APACHE
 # * See https://github.com/Abel981/abol/blob/main/README.md
 # * Merge Request: https://github.com/Abel981/abol/pull/3
-Source4:        README.md
+Source4:        https://raw.githubusercontent.com/Abel981/abol/refs/heads/main/README.md
 
 BuildRequires:  cargo-rpm-macros >= 24
 

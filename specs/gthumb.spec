@@ -3,7 +3,7 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        4.0~alpha
+Version:        4.0~beta
 Release:        %autorelease
 Summary:        Image viewer, editor, organizer
 
@@ -11,15 +11,8 @@ License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/gthumb
 Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
-Patch:          0001-gthumb-4.0-alpha-build.patch
-
 # the development files had been removed in the 4.0 series
 Obsoletes:	%{name}-devel < %{version}
-
-%if %{defined el8}
-# RHEL8 doesn't ship LibRaw-devel on s390x
-ExcludeArch:    s390x
-%endif
 
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(colord) >= 1.3

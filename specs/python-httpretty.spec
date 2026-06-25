@@ -85,7 +85,7 @@ Don't worry, HTTPretty is here for you.
 %autosetup -n httpretty-%{version} -p1
 
 %if %{run_tests}
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires
 %else
 %pyproject_buildrequires
 %endif

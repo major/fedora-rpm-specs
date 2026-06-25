@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        8.5.1
+Version:        8.6.0
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 

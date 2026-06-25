@@ -2,7 +2,7 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.4.9
+%global package_version 8.4.10
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -25,7 +25,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.4.9
+%global last_tested_version 8.4.10
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -99,7 +99,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1099,6 +1099,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 23 2026 Michal Schorm <mschorm@redhat.com> - 8.4.10-1
+- Rebase to 8.4.10
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.4.9-4
 - Rebuilt for openssl 4.0
 

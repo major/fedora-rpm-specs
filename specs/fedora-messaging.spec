@@ -7,8 +7,8 @@
 %global srcname fedora_messaging
 
 Name:           %{pkgname}
-Version:        3.9.0
-Release:        3%{?dist}
+Version:        3.9.1
+Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -126,6 +126,9 @@ install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir
 
 
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 3.9.1-1
+- Update to version 3.9.1
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.9.0-3
 - Rebuilt for Python 3.15
 

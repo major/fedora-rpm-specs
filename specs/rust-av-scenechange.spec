@@ -4,7 +4,7 @@
 %global crate av-scenechange
 
 Name:           rust-av-scenechange
-Version:        0.14.1
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Estimates frames in a video where a scenecut would be ideal
 
@@ -12,24 +12,14 @@ License:        MIT AND BSD-2-Clause AND ISC AND LicenseRef-BSD-2-Clause-WITH-Ad
 URL:            https://crates.io/crates/av-scenechange
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Adjust SPDX expression from “MIT” to “MIT AND BSD-2-Clause AND ISC AND
-#   LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0”. The adjustment to “MIT
-#   AND BSD-2-Clause AND ISC” was suggested upstream in “Better handle licenses
-#   attached to assembly routines,”
-#   https://github.com/rust-av/av-scenechange/pull/201, and the
-#   “LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0” part is downstream-only
+# * Adjust SPDX expression from “MIT AND BSD-2-Clause AND ISC” to “MIT AND
+#   BSD-2-Clause AND ISC AND
+#   LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0”. This is downstream-only
 #   since SPDX handling of the Alliance for Open Media Patent License 1.0 is not
 #   yet standardized; see
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/407.
-# * Update pastey from 0.1 to 0.2. Downstream-only because the pastey dependency
-#   was removed entirely in 0.15.0.
-# * Update console from 0.15 to 0.16:
-#   https://github.com/rust-av/av-scenechange/commit/3868441d01472d30531598fef77e5a1cba2ef0e0
+# * Remove benchmark-only criterion dev-dependency
 Patch:          av-scenechange-fix-metadata.diff
-# * Add license texts for various assembly routines to LICENSE
-# * From “Better handle licenses attached to assembly routines”:
-#   https://github.com/rust-av/av-scenechange/pull/201
-Patch10:        https://github.com/rust-av/av-scenechange/pull/201/commits/b12eccf8998e189ee1568fcf8bf6fc916dcb818d.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  help2man
@@ -41,7 +31,6 @@ Estimates frames in a video where a scenecut would be ideal.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # BSD-2-Clause
 # MIT
@@ -53,7 +42,6 @@ License:        %{shrink:
     BSD-2-Clause AND
     ISC AND
     LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0 AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Unlicense OR MIT)
     }
@@ -64,7 +52,6 @@ License:        %{shrink:
 %files       -n %{crate}
 %license LICENSE
 %license LICENSE.dependencies
-%doc CHANGELOG.md
 %doc README.md
 %{_bindir}/av-scenechange
 %{_mandir}/man1/av-scenechange.1*
@@ -80,7 +67,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -240,28 +226,28 @@ use the "serialize" feature of the "%{crate}" crate.
 %files       -n %{name}+serialize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-devel
+%package     -n %{name}+static_simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tracing-devel %{_description}
+%description -n %{name}+static_simd-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
+use the "static_simd" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tracing-devel
+%files       -n %{name}+static_simd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-chrome-devel
+%package     -n %{name}+threading-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tracing-chrome-devel %{_description}
+%description -n %{name}+threading-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tracing-chrome" feature of the "%{crate}" crate.
+use the "threading" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tracing-chrome-devel
+%files       -n %{name}+threading-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tracing-subscriber-devel

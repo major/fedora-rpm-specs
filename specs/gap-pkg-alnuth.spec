@@ -11,7 +11,7 @@
 %global giturl         https://github.com/gap-packages/alnuth
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.0.0
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Algebraic number theory for GAP
 
