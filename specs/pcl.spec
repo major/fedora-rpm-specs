@@ -2,7 +2,7 @@
 %global soversion 1.15
 
 Name:           pcl
-Version:        1.15.0
+Version:        1.15.1
 Release:        %autorelease
 Summary:        Library for point cloud processing
 # PCL is BSD-3-Clause
@@ -26,20 +26,27 @@ Patch2:         %{name}-1.12.0-fedora.patch
 Patch3:         %{name}-1.11.0-doxyfix.patch
 # Use a built-in sphinx documentation theme and disable doxylink plugin
 Patch5:         %{name}-1.15.0-sphinx.patch
+Patch6:         %{name}-1.15.1-eigen5.patch
+# Link X11 explicitly for VTK 9.5+ (no longer transitive)
+Patch7:         %{name}-1.15.1-x11-link.patch
+# Use MathJax instead of LaTeX for doxygen formula rendering
+Patch8:         %{name}-1.15.1-mathjax.patch
+# Use system GTest library instead of building from source
+Patch9:         %{name}-1.15.1-system-gtest.patch
 # For plain building
 BuildRequires:  cmake, gcc-c++, boost-devel
 # Documentation
 BuildRequires:  doxygen, graphviz, /usr/bin/sphinx-build
 
 # mandatory
-BuildRequires:  eigen3-static, flann-devel, vtk-devel, gl2ps-devel, hdf5-devel, libxml2-devel, netcdf-cxx-devel, jsoncpp-devel, libXext-devel, libatomic
+BuildRequires:  eigen3-static, flann-devel, vtk-devel, gl2ps-devel, hdf5-devel, libxml2-devel, netcdf-cxx-devel, jsoncpp-devel, libXext-devel, libX11-devel, libatomic
 # To fix Imported target "VTK::Java" includes non-existent path "/usr/lib/jvm/java/include" in its INTERFACE_INCLUDE_DIRECTORIES
 %ifarch %{java_arches}
 BuildRequires:  java-devel
 %endif
 
 # optional
-BuildRequires:  cjson-devel, libpcap-devel, qhull-devel, libusbx-devel, gtest-devel
+BuildRequires:  cjson-devel, libpcap-devel, qhull-devel, libusbx-devel
 %ifarch x86_64
 BuildRequires:  openni-devel
 %endif
@@ -93,6 +100,10 @@ Library.
 %patch -P2 -p0 -b .fedora
 %patch -P3 -p0 -b .doxyfix
 %patch -P5 -p1 -b .sphinx
+%patch -P6 -p1 -b .eigen5
+%patch -P7 -p1 -b .x11link
+%patch -P8 -p1 -b .mathjax
+%patch -P9 -p1 -b .sysgtest
 
 # Just to make it obvious we're not using any of these
 rm -fr surface/src/3rdparty/opennurbs
@@ -112,7 +123,9 @@ sed -i 's|@PCL_SOURCE_DIR@/build|@PCL_SOURCE_DIR@/%{_vpath_builddir}|' doc/doxyg
   -DWITH_CUDA=OFF \
   -DWITH_TUTORIALS=ON \
   -DBUILD_apps=ON \
-  -DBUILD_global_tests=OFF \
+  -DBUILD_global_tests=ON \
+  -DPCL_DISABLE_VISUALIZATION_TESTS=ON \
+  -DPCL_DISABLE_GPU_TESTS=ON \
   -DOPENNI_INCLUDE_DIR:PATH=/usr/include/ni \
   -DLIB_INSTALL_DIR=%{_lib} \
   -DPCL_WARNINGS_ARE_ERRORS=OFF \
@@ -163,7 +176,8 @@ mv $RPM_BUILD_ROOT%{_datadir}/%{name}-*/*.cmake $RPM_BUILD_ROOT%{_libdir}/cmake/
 mv $RPM_BUILD_ROOT%{_datadir}/%{name}-*/Modules $RPM_BUILD_ROOT%{_libdir}/cmake/pcl/
 
 %check
-%ctest || true
+# Run only headless computational tests (no display or GPU required)
+%ctest --tests-regex "common_|geometry_|a_octree"
 
 
 %files

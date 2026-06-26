@@ -16,7 +16,7 @@
 %global enable_dummy 1
 
 # fwupd.efi is only available on these arches
-%ifarch x86_64 aarch64 riscv64
+%ifarch x86_64 aarch64 riscv64 loongarch64
 %global have_uefi 1
 %endif
 
@@ -189,6 +189,11 @@ or server machines.
     -Dhsi=enabled \
 %else
     -Dhsi=disabled \
+%endif
+%ifarch %{valgrind_arches}
+    -Dvalgrind=enabled \
+%else
+    -Dvalgrind=disabled \
 %endif
     -Dman=true \
     -Dsystemd_unit_user="" \

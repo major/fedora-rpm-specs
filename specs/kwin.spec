@@ -12,6 +12,10 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+# https://bugs.kde.org/521687
+# https://bugs.kde.org/521960
+# https://invent.kde.org/plasma/kwin/-/merge_requests/9465
+Patch: https://invent.kde.org/plasma/kwin/-/commit/83e413ab71aac79c14de7e90e941fb2a0b314477.patch
 
 ## proposed patches
 

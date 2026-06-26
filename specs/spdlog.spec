@@ -58,7 +58,7 @@ sed -e "s,\r,," -i README.md
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}.so.1.15*
+%{_libdir}/lib%{name}.so.1.17*
 
 %files devel
 %doc example

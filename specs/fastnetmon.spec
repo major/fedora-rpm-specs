@@ -11,7 +11,7 @@
 
 Name:              fastnetmon
 Version:           1.2.1
-Release:           34.%{date}git%{shortcommit0}%{?dist}
+Release:           35.%{date}git%{shortcommit0}%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -137,6 +137,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-35.20220528git420e7b8
+- Rebuilt for abseil-cpp 20260526.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-34.20220528git420e7b8
 - Rebuilt for openssl 4.0
 

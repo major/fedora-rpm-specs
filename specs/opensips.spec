@@ -1,13 +1,13 @@
-%global git_commit 985272ff3d7ebc5e9f24ad9f8fcf8b1d2549f1b6
+%global git_commit acf45c08e7a169b18f7b53f02d42c19c035c1c43
 
 %global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly opentelemetry osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
 Version:  4.0.0
-Release:  %autorelease -p -s beta
+Release:  %autorelease
 License:  GPL-2.0-or-later
-Source0:  https://github.com/%{name}/%{name}/archive/%{version}-beta/%{name}-%{version}-beta.tar.gz
+Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source3:  opensips.sysusers
 # Fedora-specific patches
 Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
@@ -18,9 +18,9 @@ Patch: opensips-0005-Fix-rabbitmq-c-deprecated-header-warnings.patch
 Patch: opensips-0006-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
 Patch: opensips-0007-Fix-const-correctness-warnings-in-HTTP-and-FreeSWITC.patch
 Patch: opensips-0008-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
-Patch: opensips-0009-Fix-format-specifier-warnings-on-32-bit-architecture.patch
-Patch: opensips-0010-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
-Patch: opensips-0011-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
+Patch: opensips-0009-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
+Patch: opensips-0010-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
+Patch: opensips-0011-Fix-build-with-OpenSSL-3.x-replace-direct-ASN1_STRIN.patch
 
 URL:      https://opensips.org
 
@@ -927,7 +927,7 @@ the exchange of instant messages between SIP clients and XMPP(jabber)
 clients.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-beta
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes STIR_SHAKEN_OPENSSL=yes \

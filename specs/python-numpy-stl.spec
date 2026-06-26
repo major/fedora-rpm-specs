@@ -1,25 +1,19 @@
 Name:           python-numpy-stl
-Version:        3.2.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Library for reading, writing and modifying STL files
 
 License:        BSD-3-Clause
 URL:            https://github.com/WoLpH/numpy-stl/
-Source:         %{pypi_source numpy_stl}
-
-BuildRequires:  gcc
+Source:         https://github.com/WoLpH/numpy-stl/archive/refs/tags/v%{version}.tar.gz#/numpy_stl-%{version}.tar.gz
+BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-furo
 BuildRequires:  python3-PyQt5
 BuildRequires:  /usr/bin/xvfb-run
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-ExcludeArch:    %{ix86}
-%endif
 
 %description
 Simple library to make working with STL files (and 3D objects in general) fast
@@ -42,7 +36,9 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n numpy_stl-%{version} -p1
+%autosetup -n numpy-stl-%{version} -p1
+# Drop all coverage options from pytest invocation
+sed -i '/-cov[-=]/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -50,7 +46,7 @@ Documentation for %{name}.
 %build
 %pyproject_wheel
 # generate html docs
-sphinx-build-3 docs html
+PYTHONPATH=. sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
@@ -63,7 +59,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %files -n python3-numpy-stl -f %{pyproject_files}
-%doc README.rst
+%doc README.md CHANGELOG.md
 %{_bindir}/stl
 %{_bindir}/stl2bin
 %{_bindir}/stl2ascii

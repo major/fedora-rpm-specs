@@ -1,19 +1,8 @@
 %global modname pycxx
 
-%if 0%{?el6}%{?el7}%{?fc29}%{?fc30}%{?fc31}
-%bcond_without python2
-%else
-%bcond_with    python2
-%endif
-%if 0%{?el6}%{?el7}%{?el8}%{?el9}%{?fedora}
-%bcond_without python3
-%else
-%bcond_with    python3
-%endif
-
 Name:           python-%{modname}
-Version:        7.1.10
-Release:        11%{?dist}
+Version:        7.2.0
+Release:        2%{?dist}
 Summary:        Write Python extensions in C++
 
 License:        BSD-3-Clause
@@ -36,23 +25,6 @@ of Python extension modules in C++.
 
 %description %_description
 
-%if %{with python2}
-%package -n python2-%{modname}-devel
-Summary:        PyCXX header and source files
-%{?python_provide:%python_provide python2-%{modname}-devel}
-BuildRequires:  python2-devel
-Requires:       python2
-# Obsoletes/Provides needed only for EL6
-Provides:       python-pycxx-devel = %{version}-%{release}
-Obsoletes:      python-pycxx-devel < 7.1.3-5
-
-%description -n python2-%{modname}-devel %_description
-
-The python2-%{modname}-devel package provides the header and source files
-for Python 2.  There is no non-devel package needed.
-%endif
-
-%if %{with python3}
 %package -n python%{python3_pkgversion}-%{modname}-devel
 Summary:        PyCXX header and source files
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}-devel}
@@ -63,7 +35,7 @@ Requires:       python%{python3_pkgversion}
 
 The python%{python3_pkgversion}-%{modname}-devel package provides the header and source files
 for Python 3.  There is no non-devel package needed.
-%endif
+
 
 %prep
 %autosetup -p1 -n %{modname}-%{version}
@@ -74,9 +46,18 @@ for Python 3.  There is no non-devel package needed.
 
 
 %install
-%global py_install_args --prefix=%{_prefix} --install-headers=%{_includedir}/CXX --install-data=%{_usrsrc}
-%{?with_python2:%py2_install -- %{py_install_args}}
-%{?with_python3:%py3_install -- %{py_install_args}}
+# PyCXX is a C++ source library it uses the setup.py to install C++ sources and headers
+# It cannot use the newer packaging that is for python source projects
+# setup.py depends on distutils
+
+# If distutils stops being available upstream will write a standalone
+# install script for the C++ files.
+/usr/bin/python3 setup.py install \
+    --skip-build \
+    --root %{buildroot} \
+    --prefix %{_prefix} \
+    --install-headers=%{_includedir}/CXX \
+    --install-data=%{_usrsrc}
 
 # Write pkg-config PyCXX.pc file
 mkdir -p %{buildroot}%{_datadir}/pkgconfig
@@ -98,23 +79,6 @@ export PKG_CONFIG_PATH=%{buildroot}%{_datadir}/pkgconfig:%{buildroot}%{_libdir}/
 test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
-%if %{with python2}
-%files -n python2-%{modname}-devel
-%doc README.html COPYRIGHT Doc/Python2/
-%dir %{_includedir}/CXX
-%{_includedir}/CXX/*.hxx
-%{_includedir}/CXX/*.h
-%{_includedir}/CXX/Python2
-%{python2_sitelib}/CXX*
-%dir %{_usrsrc}/CXX
-%{_usrsrc}/CXX/*.cxx
-%{_usrsrc}/CXX/*.c
-%{_usrsrc}/CXX/Python2
-%{_datadir}/pkgconfig/PyCXX.pc
-%endif
-
-
-%if %{with python3}
 %files -n python%{python3_pkgversion}-%{modname}-devel
 %doc README.html COPYRIGHT Doc/Python3/
 %dir %{_includedir}/CXX
@@ -127,10 +91,18 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 %{_usrsrc}/CXX/*.c
 %{_usrsrc}/CXX/Python3
 %{_datadir}/pkgconfig/PyCXX.pc
-%endif
 
 
 %changelog
+* Wed Jun 24 2026 barry Scott <barry@barrys-emacs.org> - 7.2.0-2
+- remove percent macro from comment onm 7.2.0-1
+
+* Wed Jun 24 2026 barry Scott <barry@barrys-emacs.org> - 7.2.0-1
+- update to pycxx 7.2.0
+  remove python2 conditional sections
+  remove use of py3_install that is deprecated
+  document what happens if distutils is nolonger available
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.1.10-11
 - Rebuilt for Python 3.15
 

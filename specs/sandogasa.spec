@@ -1,7 +1,12 @@
+# build and test everything, not just shipped tools
+%bcond build_and_test_all 1
+
+# not shipping dbranch as it's not that useful in Fedora
 %global tools %{shrink:
   cpu-sig-tracker
   ebranch
   fedora-cve-triage
+  fedora-review-digest
   hs-intake
   hs-meetings
   hs-relmon
@@ -14,7 +19,7 @@
 }
 
 Name:           sandogasa
-Version:        0.15.0
+Version:        0.15.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -54,6 +59,10 @@ URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros
+%if %{with build_and_test_all}
+# needed by dbranch
+BuildRequires:  git-core
+%endif
 
 Requires:       koji
 Recommends:     fedora-packager
@@ -89,7 +98,11 @@ associated with "slum" or post-apocalyptic robots in popular culture.
 # %%cargo_build/%%cargo_test pass trailing args straight to cargo, and cargo's
 # --exclude requires --workspace.
 %build
+%if %{with build_and_test_all}
+%cargo_build
+%else
 %cargo_build -- --workspace --exclude dbranch
+%endif
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -100,7 +113,11 @@ for tool in %{tools}; do
 done
 
 %check
+%if %{with build_and_test_all}
+%cargo_test
+%else
 %cargo_test -- --workspace --exclude dbranch
+%endif
 
 
 %files
@@ -111,6 +128,7 @@ done
 %{_bindir}/cpu-sig-tracker
 %{_bindir}/ebranch
 %{_bindir}/fedora-cve-triage
+%{_bindir}/fedora-review-digest
 %{_bindir}/hs-intake
 %{_bindir}/hs-meetings
 %{_bindir}/hs-relmon

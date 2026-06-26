@@ -13,7 +13,6 @@ Patch0:        libpng-multilib.patch
 
 BuildRequires: gcc
 BuildRequires: zlib-devel
-BuildRequires: autoconf automake libtool
 BuildRequires: cmake
 
 %description

@@ -18,7 +18,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.47.0
+Version:        0.48.0
 %forgemeta
 Release:        %autorelease
 
@@ -99,7 +99,7 @@ rm -r $RPM_BUILD_ROOT%{_licensedir}/httplib
     %ctest --parallel 1 --exclude-regex '^MaxTimeoutTest.ContentStream|_Online$'
   %else
     # https://bugzilla.redhat.com/show_bug.cgi?id=2446435
-    %ctest --parallel 1 --exclude-regex '^ETagTest.LastModifiedAndIfModifiedSince|^ETagTest.IfRangeWithDate|^WebSocketIntegrationTest.LargeMessage|^WebSocketIntegrationTest.MaxPayloadAtLimit|^MaxTimeoutTest.ContentStream|_Online$'
+    %ctest --parallel 1 --exclude-regex '^ETagTest.LastModifiedAndIfModifiedSince|^ETagTest.IfRangeWithDate|^MaxTimeoutTest.ContentStream|_Online$'
   %endif
 %endif
 %endif

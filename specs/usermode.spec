@@ -25,7 +25,6 @@ BuildRequires: desktop-file-utils, gtk2-devel, startup-notification-devel, libSM
 %endif
 BuildRequires: libblkid-devel, libselinux-devel, libuser-devel
 BuildRequires: pam-devel, perl-XML-Parser
-BuildRequires: util-linux
 
 %if %{with gtk}
 %package gtk

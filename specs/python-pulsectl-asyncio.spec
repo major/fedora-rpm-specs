@@ -1,5 +1,5 @@
 Name:           python-pulsectl-asyncio
-Version:        1.3.0
+Version:        1.3.1
 Release:        %{autorelease}
 Summary:        Asyncio frontend for the pulsectl Python bindings of libpulse
 License:        MIT
@@ -7,7 +7,8 @@ URL:            https://github.com/mhthies/pulsectl-asyncio
 Source0:        %{pypi_source pulsectl_asyncio}
 
 BuildArch:      noarch
-# BuildRequires:  /usr/bin/pulseaudio
+BuildRequires:  /usr/bin/paplay
+BuildRequires:  /usr/bin/pulseaudio
 BuildRequires:  pulseaudio-libs
 BuildRequires:  python3-devel
 
@@ -42,11 +43,12 @@ Summary:        %{summary}
 
 
 %check
-## These test fail, because they cause the puleseaudio daemon to crash.
-## Perhaps this doesn't matter, because users will typically be using
-## pipewire-pulse instead.
-## https://github.com/mhthies/pulsectl-asyncio/issues/16
-# %%{py3_test_envvars} %%{python3} -m unittest discover
+# The tests in tests/test_examples.py depend on the contents of the
+# examples/ directory, which is present in Git but absent from the
+# release tarball.
+rm tests/test_examples.py
+
+%{py3_test_envvars} %{python3} -m unittest discover
 
 %pyproject_check_import
 

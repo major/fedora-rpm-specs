@@ -62,8 +62,13 @@ BuildRequires:  gnutls-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
+%if 0%{?fedora} > 44
 BuildRequires:  openssl3-devel
 BuildRequires:  openssl3-devel-engine
+%else
+BuildRequires:  openssl-devel
+BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires:  perl-interpreter
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

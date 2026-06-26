@@ -26,6 +26,9 @@ Patch:          0003-Bump-astroid-from-4.1.1-to-4.1.2.patch
 # Fix test failures with Python 3.15
 # https://github.com/pylint-dev/pylint/issues/10982
 Patch:          python315.patch
+# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
+# Extracted from upstream merge commit 50cd472
+Patch:          fix-pytest-9.1-parametrize.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

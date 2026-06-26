@@ -39,6 +39,7 @@ URL:            https://gitlab.com/kraxel/virt-firmware-rs
 Source:         https://gitlab.com/kraxel/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 Patch1:		downgrade-dialoguer.patch
+Patch2:         update-generate-boot-csv.patch
 
 ExclusiveArch:  x86_64 aarch64 riscv64
 BuildRequires:  cargo-rpm-macros >= 24

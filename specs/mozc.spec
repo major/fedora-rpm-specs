@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -256,6 +256,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-20
+- Rebuilt for abseil-cpp 20260526.0
+
 * Thu May 21 2026 Miroslav Suchy <msuchy@redhat.com> - 2.29.5111.102-19
 - Use protobuf2 because of https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

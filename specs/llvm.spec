@@ -1522,10 +1522,11 @@ cd llvm/utils/lit
 
 %if %{with offload}
 %global runtimes %{runtimes};offload
+%global runtime_targets %{runtime_targets};amdgcn-amd-amdhsa
 %endif
 
 %if %{with libclc} || %{with offload}
-%global runtime_targets %{runtime_targets};amdgcn-amd-amdhsa;nvptx64-nvidia-cuda
+%global runtime_targets %{runtime_targets};nvptx64-nvidia-cuda
 %endif
 
 %if %{with libclc}

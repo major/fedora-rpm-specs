@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit fa82bdf9fe7b5f5bd6008f32f393efd5e7a71c47
-%global commitdatestring 2026-05-13 19:00:37 +0200
-%global cosmic_minver 1.0.16
+%global commit 75c0480f1315ec96ec3eb216fc939f93f57d7612
+%global commitdatestring 2026-06-18 18:06:35 +0200
+%global cosmic_minver 1.1.0
 
 Name:           cosmic-settings-daemon
-Version: 1.0.16
+Version: 1.1.0
 Release:        %autorelease
 Summary:        Settings daemon for the COSMIC Desktop Environment
 
@@ -44,6 +44,7 @@ BuildRequires:  clang-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  pam-devel
 BuildRequires:  pulseaudio-utils
+BuildRequires:  pipewire-devel
 BuildRequires:  just
 BuildRequires:  openssl-devel
 

@@ -595,8 +595,8 @@ done
 
 # Avoid AssertionError with Python-3.15*
 # See https://gitlab.com/petsc/petsc/-/work_items/1902
-%if 0%{?python3_version_nodots} > 313
-sed -n '325d' %{name}-%{version}/src/binding/petsc4py/test/test_mat_py.py
+%if 0%{?python3_version_nodots} > 314
+sed -i '/self.assertEqual(getrefcount(context), 3)/d' %{name}-%{version}/src/binding/petsc4py/test/test_mat_py.py
 %endif
 %endif
 
@@ -1066,7 +1066,8 @@ export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
-export MPIEXEC=lib/petsc/bin/petscmpiexec
+#export MPIEXEC=lib/petsc/bin/petscmpiexec
+export MPIEXEC=$MPI_BIN/mpiexec
 export PMIX_MCA_gds=hash
 export PMIX_MCA_psec=native
 # petsc4py test fails with MPICH

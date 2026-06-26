@@ -47,10 +47,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b2
+%global prerel b3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -414,12 +414,6 @@ Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.
 # 00486 # 1a2c71465a24c72fd06c7839e7cbd2d17ddf4ebc
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
 Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
-
-# 00488 # fda989e2f060fe71ec9bb4a3164644fa48d6ce3f
-# gh-149671: Restore compatibility with setuptools nspkg.pth files in site module
-#
-# Inject "sitedir" variable in the frame which executes pth code.
-Patch488: 00488-gh-149671-restore-compatibility-with-setuptools-nspkg-pth-files-in-site-module.patch
 
 # (New patches go here ^^^)
 #
@@ -2000,6 +1994,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Jun 23 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b3-1
+- Update to Python 3.15.0b3
+
 * Sat Jun 13 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b2-5
 - Restore compatibility with setuptools nspkg.pth files in site module
 - Fixes: rhbz#2486045

@@ -4,7 +4,7 @@
 %global srcname conda_index
 
 Name:           python-conda-index
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause
@@ -47,6 +47,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-conda-build
 %endif
 BuildRequires:  python%{python3_pkgversion}-myst-parser
+BuildRequires:  python%{python3_pkgversion}-sphinx-argparse
 BuildRequires:  python%{python3_pkgversion}-sphinx-click
 
 %description -n python%{python3_pkgversion}-conda-index %_description

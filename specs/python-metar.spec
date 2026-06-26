@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -49,7 +49,8 @@ BuildRequires: python3-devel python3-pytest
 
 %package -n python3-%{srcname}
 Summary: %{summary}
-%{?python_provide:%python_provide python-%{srcname}}
+# This was briefly wrongly packaged as such:
+Obsoletes: python-%{srcname} < 2.0.1-3
 
 %description -n python3-%{srcname} %_description
 
@@ -76,7 +77,7 @@ chmod 644 sample.py
 # run the test suite
 %{__python3} -m pytest -v
 
-%files -n python-%{srcname}
+%files -n python3-%{srcname}
 %{python3_sitelib}/%{srcname}
 %{python3_sitelib}/%{srcname}*dist-info
 %doc sample.py
@@ -86,6 +87,9 @@ chmod 644 sample.py
 
 
 %changelog
+* Wed Jun 24 2026 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-3
+- Rename the RPM package back to python3-metar
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.1-2
 - Rebuilt for Python 3.15
 

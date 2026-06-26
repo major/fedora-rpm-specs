@@ -29,6 +29,10 @@ Patch:          fix-sphinx-import.patch
 # https://github.com/dateutil/dateutil/issues/1472
 Patch:          remove-ctypes-mock.patch
 
+# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
+# https://github.com/dateutil/dateutil/pull/1523
+Patch:          fix-pytest-9.1-parametrize.patch
+
 # when bootstrapping dateutil-freezegun, we cannot run tests
 # on RHEL, we do not have or want all test dependencies
 %bcond tests %{undefined rhel}

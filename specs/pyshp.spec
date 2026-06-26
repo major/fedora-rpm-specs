@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        3.0.13
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 

@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:       csmock
-Version:    3.8.6
-Release:    2%{?dist}
+Version:    3.8.7
+Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -340,6 +340,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Wed Jun 24 2026 Kamil Dudka <kdudka@redhat.com> - 3.8.7-1
+- update to latest upstream
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.8.6-2
 - Rebuilt for Python 3.15
 

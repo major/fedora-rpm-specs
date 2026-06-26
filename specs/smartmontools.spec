@@ -26,7 +26,7 @@ Source9:	smartmontools.tmpfilesd
 Patch1:		smartmontools-5.38-defaultconf.patch
 
 BuildRequires: make
-BuildRequires:	gcc-c++ readline-devel ncurses-devel automake util-linux groff gettext
+BuildRequires:	gcc-c++ readline-devel ncurses-devel automake util-linux gettext
 BuildRequires:	libselinux-devel libcap-ng-devel
 BuildRequires:	systemd systemd-devel
 # For the _tmpfilesdir macro.

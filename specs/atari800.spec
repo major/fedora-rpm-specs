@@ -1,5 +1,5 @@
 Name:          atari800
-Version:       6.0.0
+Version:       6.1.0
 Release:       1%{?dist}
 Summary:       An emulator of 8-bit Atari personal computers
 
@@ -48,6 +48,9 @@ emulation, precise cycle-exact ANTIC/GTIA emulation and more.
 
 
 %changelog
+* Wed Jun 24 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 6.1.0-1
+- Update to upstream.
+
 * Fri Jun 19 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 6.0.0-1
 - Update to upstream.
 

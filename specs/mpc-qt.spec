@@ -25,6 +25,8 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  pkgconfig(mpv)
 
+BuildRequires:  xwayland-run
+
 Requires:       hicolor-icon-theme
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -42,7 +44,7 @@ rm -rf mpv-dev
 
 
 %build
-%cmake
+%cmake -DMPCQT_VERSION=%{version}
 %cmake_build
 
 
@@ -52,6 +54,7 @@ rm -f %{buildroot}%{_datadir}/doc/mpc-qt/ipc.md
 
 
 %check
+xwfb-run -- %{buildroot}%{_bindir}/mpc-qt -v
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 

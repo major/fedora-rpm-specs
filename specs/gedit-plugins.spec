@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gedit-plugins
-Version:        49.0
+Version:        50.0
 Release:        %autorelease
 Summary:        Plugins for gedit
 
@@ -18,7 +18,7 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  yelp-tools
-BuildRequires:  (pkgconfig(gedit) >= 49.0 and pkgconfig(gedit) < 50)
+BuildRequires:  (pkgconfig(gedit) >= 50.0 and pkgconfig(gedit) < 51)
 BuildRequires:  pkgconfig(libpeas-1.0)
 
 # this is a metapackage dragging in all the plugins

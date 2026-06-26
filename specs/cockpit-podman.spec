@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        127
+Version:        128
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -43,23 +43,22 @@ Requires:       criu-libs
 Requires:       libcriu2
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.5.2
+Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(docker-names)) = 1.2.1
-Provides: bundled(npm(focus-trap)) = 7.6.4
+Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(ipaddr.js)) = 2.4.0
 Provides: bundled(npm(lodash)) = 4.18.1
-Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.4.0
+Provides: bundled(npm(tabbable)) = 6.5.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -93,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 128-1
+- Translation and dependency updates
+
 * Thu Jun 04 2026 Packit <hello@packit.dev> - 127-1
 - Avoid bogus page reloads on Firefox
 

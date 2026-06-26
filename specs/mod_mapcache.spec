@@ -23,6 +23,10 @@ Source:         mapcache.sysusers
 Source:         https://salsa.debian.org/debian-gis-team/mapcache/-/raw/master/debian/man/mapcache_detail.1.xml
 Source:         https://salsa.debian.org/debian-gis-team/mapcache/-/raw/master/debian/man/mapcache_seed.1.xml
 
+# Fix build against gdal-3.13
+# https://github.com/MapServer/mapcache/commit/0948ea28df9ef5dae8705196b32f0742268953cf
+Patch:          mapcache-gdal313.patch
+
 Requires:       httpd
 Requires:       libmapcache%{?_isa} = %{version}-%{release}
 
@@ -95,7 +99,7 @@ Summary: Tools for mapcache
 Provides command-line utilities for mapcache
 
 %prep
-%autosetup -n %{project_name}-%{version}
+%autosetup -n %{project_name}-%{version} -p1
 
 %build
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_lib} -DWITH_MEMCACHE=1 -DCMAKE_SKIP_BUILD_RPATH=TRUE . 

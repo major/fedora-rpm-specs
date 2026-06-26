@@ -1,5 +1,5 @@
 Name:    buildbox
-Version: 1.4.9
+Version: 1.4.11
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
@@ -26,7 +26,7 @@ BuildRequires: pkgconfig(libcares)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(nlohmann_json)
 BuildRequires: pkgconfig(openssl)
-BuildRequires: pkgconfig(protobuf) < 4
+BuildRequires: pkgconfig(protobuf) > 3
 BuildRequires: pkgconfig(tomlplusplus)
 BuildRequires: pkgconfig(uuid)
 

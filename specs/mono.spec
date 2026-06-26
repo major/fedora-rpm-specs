@@ -23,7 +23,7 @@
 
 Name:           mono
 Version:        6.14.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -60,6 +60,9 @@ Patch13:	mono-6.6.0-fix-multi-arch-issue.patch
 Patch14:        mono-configure-c99.patch
 Patch15:        mono-6.12.0-correct-alloc-free-for-zlib.patch
 Patch16:        mono-6.14.0-arm64-fix-pointer-int.patch
+# Fix missing icons in Gnome Dash
+# https://gitlab.winehq.org/mono/mono/-/work_items/32
+Patch17:        https://gitlab.winehq.org/mono/mono/-/commit/694cb61761a8ee51d404debbdb019f64d09b61c9.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -354,6 +357,7 @@ popd
 %patch -P 14 -p1
 %patch -P 15 -p1
 %patch -P 16 -p1
+%patch -P 17 -p1
 
 # don't build mono-helix-client which requires the helix-binaries to build
 sed -i 's|mono-helix-client||g' mcs/tools/Makefile
@@ -946,6 +950,9 @@ rm %{buildroot}%{_bindir}/mono-find-provides
 %files complete
 
 %changelog
+* Tue Jun 09 2026 Julian Sikorski <belegdol@fedoraproject.org> - 6.14.1-4
+- Fix application icons being missing from Gnome Dash
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

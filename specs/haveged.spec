@@ -1,7 +1,7 @@
 %define dracutlibdir lib/dracut
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
-Version:        1.9.25
+Version:        1.9.26
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -106,6 +106,10 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Wed Jun 24 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.26-1
+- Update to 1.9.26
+- Fix 100%% CPU spin when --no-command is used (BZ#2492029)
+
 * Wed Jun 24 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.25-1
 - Update to 1.9.25
 - Fix initramfs switch-root failure caused by --no-command (BZ#2491739)

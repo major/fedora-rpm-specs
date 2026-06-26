@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  1248cdf38eebf2d661eb450be9cb4161289420c3
-%global date    20260221
+%global commit  bc6573d7fcb55bccd5c3120dba68276938fccbe0
+%global date    20260519
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -18,13 +18,21 @@ Version:	2.49.95
 
 %forgemeta
 
-# The project as a whole is GPL-2.0-or-later.  Exceptions:
-# - Some documentation is dual-licensed as GPL-2.0-or-later OR GFDL-1.2-or-later
-# - src/gllib is LGPL-2.1-or-later
-# - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
-# - src/xthread.d and modules/asdf/asdf.lisp are X11
-License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	8%{?dist}
+# GPL-2.0-or-later WITH CLISP-exception-2.0: the project as a whole
+# (GPL-2.0-or-later WITH CLISP-exception-2.0 OR GFDL-1.2-no-invariants-or-later): doc/impnotes.*
+# LGPL-2.1-or-later: src/gllib
+# HPND: modules/clx/mit-clx/*.lisp, src/socket.d
+# MIT: modules/gtk2/gtk.lisp
+# X11: modules/asdf/asdf.lisp, src/xthread.d
+License:	%{shrink:
+		  GPL-2.0-or-later WITH CLISP-exception-2.0
+		  AND (GPL-2.0-or-later WITH CLISP-exception-2.0 OR GFDL-1.2-no-invariants-or-later)
+		  AND LGPL-2.1-or-later
+		  AND HPND
+		  AND MIT
+		  AND X11
+		}
+Release:	9%{?dist}
 URL:		http://www.clisp.org/
 VCS:		git:%{forgeurl}.git
 Source0:	%{forgesource}
@@ -43,8 +51,8 @@ Patch1:		%{name}-register-volatile.patch
 # Perhaps we are racing with something else that allocates a pty.  Disable
 # the test for now.
 Patch2:		%{name}-pts-access.patch
-# Do not call the deprecated siginterrupt function
-Patch3:		%{name}-siginterrupt.patch
+# Use zlib-ng instead of zlib
+Patch3:		%{name}-zlib-ng.patch
 # Fix an iconv leak in stream.d
 Patch4:		%{name}-iconv-close.patch
 # Fix a memory leak in encoding.d
@@ -70,18 +78,18 @@ Patch100:	%{name}-no-inline.patch
 
 BuildRequires:	dbus-devel
 BuildRequires:	diffutils
-BuildRequires:	emacs
+BuildRequires:	emacs-nw
 BuildRequires:	fcgi-devel
 BuildRequires:	ffcall-devel
 BuildRequires:	gcc
 BuildRequires:	gdbm-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext
 BuildRequires:	ghostscript
 BuildRequires:	glibc-langpack-en
 BuildRequires:	glibc-langpack-fr
 BuildRequires:	glibc-langpack-ja
 BuildRequires:	glibc-langpack-zh
-BuildRequires:	groff
+BuildRequires:	groff-base
 %if %{with gtk2}
 BuildRequires:	gtk2-devel
 BuildRequires:	libglade2-devel
@@ -99,7 +107,7 @@ BuildRequires:	pari-gp
 BuildRequires:	libpq-devel
 BuildRequires:	readline-devel
 BuildRequires:	vim-filesystem
-BuildRequires:	zlib-devel
+BuildRequires:	zlib-ng-devel
 
 Requires:	emacs-filesystem
 Requires:	vim-filesystem
@@ -467,6 +475,11 @@ make -C build base-mod-check
 
 
 %changelog
+* Wed Jun 24 2026 Jerry James <loganjerry@gmail.com> - 2.49.95-9
+- Update to latest git snapshot for bug fixes
+- Drop upstreamed siginterrupt patch
+- Use zlib-ng instead of zlib
+
 * Sat Apr 04 2026 Jerry James <loganjerry@gmail.com> - 2.49.95-8
 - Update to latest git snapshot to fix gnulib issue
 - Update the French translation

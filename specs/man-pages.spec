@@ -88,13 +88,9 @@ rm man3/crypt{,_r}.3
 %install
 make -R install prefix=/usr DESTDIR=$RPM_BUILD_ROOT
 
-# The man.7 manual page is empty and references groff_man.7, but we
-# don't want to explicitly require installing groff to make the set
-# of man pages complete.
-#
-# rename files for alternative usage
-mv %{buildroot}%{_mandir}/man7/man.7 %{buildroot}%{_mandir}/man7/man.%{name}.7
-touch %{buildroot}%{_mandir}/man7/man.7
+# Per <https://bugzilla.redhat.com/show_bug.cgi?id=2404910>, man(7)
+# is provided by groff-base.
+rm %{buildroot}%{_mandir}/man7/man.7
 
 # Remove binaries we don't use and their man pages.
 rm %{buildroot}%{_bindir}/diffman-git
@@ -107,29 +103,14 @@ rm %{buildroot}%{_mandir}/man1/pdfman.1
 rm %{buildroot}%{_mandir}/man1/sortman.1
 
 %pre
-# remove alternativized files if they are not symlinks
-[ -L %{_mandir}/man7/man.7.gz ] || rm -f %{_mandir}/man7/man.7.gz >/dev/null 2>&1 || :
-
-%post
-# set up the alternatives files
-%{_sbindir}/update-alternatives --install %{_mandir}/man7/man.7.gz man.7.gz %{_mandir}/man7/man.%{name}.7.gz 300 \
-    >/dev/null 2>&1 || :
-
-%preun
-if [ $1 -eq 0 ]; then
+# Deregister the alternative on update.
+# See <https://bugzilla.redhat.com/show_bug.cgi?id=2404910>.
+if [ $1 -gt 1 ]; then
     %{_sbindir}/update-alternatives --remove man.7.gz %{_mandir}/man7/man.%{name}.7.gz >/dev/null 2>&1 || :
-fi
-
-%postun
-if [ $1 -ge 1 ]; then
-    if [ "$(readlink %{_sysconfdir}/alternatives/man.7.gz)" == "%{_mandir}/man7/man.%{name}.7.gz" ]; then
-        %{_sbindir}/update-alternatives --set man.7.gz %{_mandir}/man7/man.%{name}.7.gz >/dev/null 2>&1 || :
-    fi
 fi
 
 %files
 %doc README Changes
-%ghost %{_mandir}/man7/man.7.gz
 %{_mandir}/man*/*
 
 %changelog

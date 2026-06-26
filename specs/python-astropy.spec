@@ -1,11 +1,11 @@
 %bcond_without check
 
 %global srcname astropy
-%global srcversion 8.0.0b1
+%global srcversion 8.0.0
 
 Name: python-%{srcname}
-Version: 8.0.0
-Release: %autorelease -p -e b1
+Version: %{srcversion}
+Release: %autorelease
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
 # jquery is MIT

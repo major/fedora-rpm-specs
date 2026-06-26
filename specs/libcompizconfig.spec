@@ -2,7 +2,7 @@
 
 Name:           libcompizconfig
 Version:        0.8.18
-Release:        19%{?dist}
+Release:        20%{?dist}
 Epoch:          1
 Summary:        Configuration back end for compiz
 # backends/libini.so is GPLv2+, other parts are LGPLv2+
@@ -87,6 +87,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:0.8.18-20
+- Rebuilt for abseil-cpp 20260526.0
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1:0.8.18-19
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

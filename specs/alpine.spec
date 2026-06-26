@@ -3,7 +3,7 @@
 # crasher workaround, http://bugzilla.redhat.com/1282092
 %undefine _hardened_build
 
-Summary: powerful, easy to use console email client
+Summary: Powerful, easy to use console email client
 Name: alpine
 Version: 2.26
 Release: %autorelease
@@ -18,12 +18,15 @@ URL:     https://alpineapp.email/
 # what is at the new upstream. The old location no longer exists
 # Clearly this shuffle should be removed as soon as a new release appears.
 # Source0: https://alpineapp.email/alpine/patches/alpine-2.26/alpine-2.26.tar.xz
-Source0: alpine-2.26_patched.tar.xz
+Source0: https://src.fedoraproject.org/repo/pkgs/alpine/alpine-2.26_patched.tar.xz/sha512/e6c14f76bfa78d8d9295a80c6c98d0f6dc8c4d2fd70eac6c8cbd4454055d7a36911c0daf038dd4ff845adedaeff04cad80d3d150a0bd5c2902dca5ad5f563add/alpine-2.26_patched.tar.xz
 Source1: README.fedora
 
 Patch1: alpine-2.24-useragent.patch
 Patch2: alpine-2.23-gcc10.patch
 Patch3: alpine-configure-c99.patch
+Patch4: alpine-c-client-openssl.patch
+Patch5: alpine-smime-openssl.patch
+
 
 # Using "Conflicts" instead of Obsoletes because while alpine is substantially
 # compatible with pine the change to Unicode breaks important user
@@ -77,15 +80,11 @@ Changes and enhancements over pine:
   * Ground-up reorganization of source code around new "pith/" core 
 routine library.
   * Ground-up reorganization of build and install procedure based on 
-GNU Build System's autotools.
+the GNU Build System.
 
 
 %prep
-%setup -q -n alpine-%{version}
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-
+%autosetup -p1
 install -m644 -p %{SOURCE1} .
 
 
@@ -94,7 +93,7 @@ touch imap/ip6
 
 # Add -std=gnu17 for now.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2336274
-CFLAGS="%{optflags} -std=gnu17"
+export CFLAGS="%{optflags} -std=gnu17"
 
 # --without-tcl disables the TCL-based CGI "Web Alpine"
 %configure \
@@ -112,17 +111,19 @@ CFLAGS="%{optflags} -std=gnu17"
 
 
 # Build single threaded, make is not creating directories in time.
-export RPM_BUILD_NCPUS=1
-%make_build
+%make_build -j1
 
 
 %install
 %make_install
 
-# create/touch %ghost'd files
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf
-touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf.fixed
+# create/touch ghosted files
+mkdir -p %{buildroot}%{_sysconfdir}
+touch %{buildroot}%{_sysconfdir}/pine.conf
+touch %{buildroot}%{_sysconfdir}/pine.conf.fixed
+
+%check
+# No upstream test suite exists
 
 
 %files

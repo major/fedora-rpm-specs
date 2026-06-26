@@ -76,8 +76,7 @@ BuildRequires: libicu-devel
 BuildRequires: libstemmer-devel
 BuildRequires: xapian-core-devel
 %endif
-BuildRequires: flex, bison
-BuildRequires: perl-version
+BuildRequires: bison
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 
@@ -102,6 +101,12 @@ BuildRequires: make
 
 # as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+%if 0%{?fedora} > 45
+# fts_flatcurve is a good replacement for fts-xapian, which no longer seems to
+# have an upstream
+Obsoletes: dovecot-fts-xapian < 1.10
+%endif
 
 %global restart_flag /run/%{name}/%{name}-restart-after-rpm-install
 

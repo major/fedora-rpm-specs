@@ -2,13 +2,9 @@
 %global install_ltx2unitxt_manual 0
 
 Name:           perl-LaTeX-ToUnicode
-Version:        1.94
-Release:        2%{?dist}
+Version:        1.95
+Release:        1%{?dist}
 Summary:        Convert LaTeX commands to Unicode
-# latex-tounicode.pdf is concatenated ltx2unitxt.pdf and
-#                     lib/LaTeX/ToUnicode.pm POD.
-# ltx2unitxt.pdf is generated from ltx2unitxt.1.
-# ltx2unitxt.1 is generated from script/ltx2unitxt.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LaTeX-ToUnicode
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/LaTeX-ToUnicode-%{version}.tar.gz
@@ -53,8 +49,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n LaTeX-ToUnicode-%{version}
-# Remove generated files
-rm latex-tounicode.pdf ltx2unitxt.pdf ltx2unitxt.1
 # Remove always skipped tests
 for F in t/release-pod-coverage.t t/release-pod-syntax.t t/release-synopsis.t; do
     rm "$F"
@@ -72,7 +66,7 @@ PERL5LIB=lib %{make_build} -f Makefile.TDS ltx2unitxt.1
 %{make_install}
 %{_fixperms} %{buildroot}/*
 %if %{install_ltx2unitxt_manual}
-# Install regenerated documentation
+# Install generated documentation
 install -m 0644 -D -t %{buildroot}/%{_mandir}/man1 ltx2unitxt.1
 %endif
 # Install tests
@@ -105,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 24 2026 Petr Pisar <ppisar@redhat.com> - 1.95-1
+- 1.95 bump
+
 * Tue Jun 23 2026 Petr Pisar <ppisar@redhat.com> - 1.94-2
 - Do not install ltx2unitxt(1) manual page because it is packaged in
   texlive-bibtexperllibs

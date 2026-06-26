@@ -1,10 +1,10 @@
 %bcond check 1
 
-%global commit df49b3d01f8f98cd4382df082355ff0b350309a3
+%global commit b1996715a90cbf0a1b2ca724ff1a1def8dc2ee20
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           aw-server-rust
-Version:        0.14.0^20260516.git%{short_commit}
+Version:        0.14.0^20260624.git%{short_commit}
 Release:        %autorelease
 Summary:        A re-implementation of aw-server in Rust
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -37,15 +37,14 @@ Patch0:         0001-Remove-vendored-openssl.patch
 Patch1:         0002-Remove-Android-dependencies.patch
 # jemallocator will not be packaged for Fedora, so remove it
 Patch2:         0003-Remove-jemallocator.patch
+# https://github.com/ActivityWatch/aw-server-rust/pull/558
+Patch3:         0004-Allow-fancy-regex-versions-through-0.17.patch
 # switch to dependency versions available in Fedora
-Patch3:         0004-Fix-fancy-regex-dependency-to-the-one-used-in-Fedora.patch
 Patch4:         0005-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
 # drop an unused, benchmark-only criterion dev-dependency to speed up builds
 Patch5:         0006-Remove-criterion.patch
 # https://github.com/ActivityWatch/aw-server-rust/pull/545
 Patch6:         0007-Allow-dirs-6.patch
-# https://github.com/ActivityWatch/aw-server-rust/pull/558
-Patch7:         0008-Allow-fancy-regex-versions-through-0.17.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

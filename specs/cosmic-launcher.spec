@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit a64ed9a29cad0d5b7d2282b6971e95ad3d0b1f62
-%global commitdatestring 2026-06-08 13:23:30 -0400
-%global cosmic_minver 1.0.16
+%global commit ecb5fd596d920dae52e71384ac050000c724b6ce
+%global commitdatestring 2026-06-23 17:16:15 +0200
+%global cosmic_minver 1.1.0
 
 Name:           cosmic-launcher
-Version: 1.0.16
+Version: 1.1.0
 Release:        %autorelease
 Summary:        Pop launcher frontend for the COSMIC Desktop Environment
 

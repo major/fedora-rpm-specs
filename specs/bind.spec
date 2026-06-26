@@ -87,8 +87,8 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.49
-Release:  2%{?dist}
+Version:  9.18.50
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -113,7 +113,6 @@ Source37: named.service
 Source38: named-chroot.service
 Source41: setup-named-chroot.sh
 Source42: generate-rndc-key.sh
-Source43: named.rwtab
 Source44: named-chroot-setup.service
 Source46: named-setup-rndc.service
 Source48: setup-named-softhsm.sh
@@ -677,9 +676,6 @@ mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
 install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 install -p -m 644 %{SOURCE51} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}-chroot.conf
 
-mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
-install -p -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
-
 %post
 %?ldconfig
 if [ "$1" -eq 1 ]; then
@@ -773,7 +769,6 @@ fi;
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.ca
 %config(noreplace) %{_sysconfdir}/logrotate.d/named
 %{_tmpfilesdir}/named.conf
-%{_sysconfdir}/rwtab.d/named
 %{_unitdir}/named.service
 %{_unitdir}/named-setup-rndc.service
 %{_sysusersdir}/named.conf
@@ -949,6 +944,10 @@ fi;
 %endif
 
 %changelog
+* Wed Jun 17 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.50-1
+- Update to 9.18.50 (rhbz#2489833)
+- Remove rwtab files
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 32:9.18.49-2
 - Rebuilt for openssl 4.0
 

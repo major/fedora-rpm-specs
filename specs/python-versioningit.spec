@@ -46,6 +46,9 @@ Source0:        %{pypi_source versioningit}
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        versioningit.1
 
+# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
+Patch:          https://github.com/jwodder/versioningit/commit/dbc68a42.patch
+
 BuildArch:      noarch
 
 %description %_description
@@ -68,7 +71,7 @@ BuildRequires:  mercurial
 
 
 %prep
-%autosetup -n versioningit-%{version}
+%autosetup -p1 -n versioningit-%{version}
 
 # Tweak build requirements to use what we have in Fedora. For test
 # dependencies, we change all semver pins to minimum versions.

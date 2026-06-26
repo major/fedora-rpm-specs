@@ -28,7 +28,7 @@
 
 %global rpmver 6.0.91
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -126,6 +126,9 @@ rpm-6.0-rpmformat.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
+# Slightly modified from usptream commit due to not having the test,
+# because the test adds a binary that "patch" doesn't handle, argh
+0001-Fix-rubygem-extract-regression-from-b8b54f92c65bca7b.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -638,6 +641,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Jun 24 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-2
+- Fix rubygem rpmuncompress -x regression (#2492128)
+
 * Mon Jun 22 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-1
 - Rebase to 6.1 rc1 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
 

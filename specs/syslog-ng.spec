@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -18,6 +18,13 @@ Source0: https://github.com/balabit/syslog-ng/releases/download/syslog-ng-%{vers
 Source1: syslog-ng.conf
 Source2: syslog-ng.logrotate
 Source3: syslog-ng.service
+
+# tls-verifier: use dedicated ASN1_STRING field accessors instead of direct
+# member access
+# https://github.com/syslog-ng/syslog-ng/pull/5688
+#
+# Fixes failure to build with OpenSSL 4.0.
+Patch: https://github.com/syslog-ng/syslog-ng/pull/5688.patch
 
 BuildRequires: make
 BuildRequires: bison
@@ -654,6 +661,10 @@ fi
 
 
 %changelog
+* Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.11.0-5
+- Rebuilt for abseil-cpp 20260526.0
+- Backport patch for OpenSSL 4.0 from upstream
+
 * Tue Jun 16 2026 Peter Czanik <peter@czanik.hu> - 4.11.0-4
 - disable riemann-c-client temporarily (grpc uses old, riemann the new
   protobuf libraries)

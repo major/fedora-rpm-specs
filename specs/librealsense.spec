@@ -1,12 +1,12 @@
-%global abiver 2.57
+%global abiver 2.58
 Name:           librealsense
-Version:        2.57.7
+Version:        2.58.2
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
 License:        Apache-2.0
-URL:            https://github.com/IntelRealSense/librealsense
-Source0:        https://github.com/IntelRealSense/librealsense/archive/v%{version}.tar.gz#/librealsense-%{version}.tar.gz
+URL:            https://github.com/realsenseai/librealsense
+Source0:        https://github.com/realsenseai/librealsense/archive/v%{version}.tar.gz#/librealsense-%{version}.tar.gz
 # Remove custom CFLAGS that override ours.
 # This was discussed with upstream, but upstream wants to keep those flags.
 # https://github.com/morxa/librealsense/tree/remove-cflags
@@ -23,6 +23,8 @@ Patch4:         librealsense.rsutils-shared-library.patch
 Patch5:         librealsense.use-system-json.patch
 # https://github.com/morxa/librealsense/tree/utf8-string-literals
 Patch6:         librealsense.utf8-string-literals.patch
+# Fix pybind11 3.x incompatibility: def_property does not support keep_alive
+Patch7:         librealsense.fix-pybind11-keep-alive.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)
@@ -97,6 +99,7 @@ with %{name}.
 %build
 %cmake \
   -DBUILD_UNIT_TESTS=NO \
+  -DBUILD_ROSBAG2=NO \
   -DCHECK_FOR_UPDATES=NO \
   -DCMAKE_INSTALL_BINDIR=%{_bindir} \
   -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
@@ -119,6 +122,8 @@ popd
 
 %install
 %cmake_install
+
+rm -f %{buildroot}/%{_libdir}/librs_lz4.a
 
 mkdir -p %{buildroot}/%{_udevrulesdir}
 install -p -m644 config/99-realsense-libusb.rules %{buildroot}/%{_udevrulesdir}
@@ -161,6 +166,7 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-measure
 %{_bindir}/rs-motion
 %{_bindir}/rs-multicam
+%{_bindir}/rs-object-detection
 %{_bindir}/rs-on-chip-calib
 %{_bindir}/rs-pointcloud
 %{_bindir}/rs-post-processing

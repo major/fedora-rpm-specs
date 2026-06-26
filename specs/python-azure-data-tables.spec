@@ -5,24 +5,12 @@
 %global         srcname     azure-data-tables
 
 Name:           python-%{srcname}
-Version:        12.4.0
+Version:        12.7.0
 Release:        %autorelease
 Summary:        Microsoft Azure Azure Data Tables Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-# NOTE(mhayden): Upstream does not include some of the testing VCR cassettes in their
-# code released to PyPi because it makes their archive really large. Because of this,
-# about half of the tests fail. 😭
-# This source comes from making a git archive of the main azure-sdk-for-python
-# repository. To reproduce the source code, run these commands:
-#
-#   git clone https://github.com/azure/azure-sdk-for-python
-#   cd azure-sdk-for-python
-#   export VERSION=12.4.0
-#   git archive --format tar.gz --prefix=azure-data-tables-${VERSION}/ azure-data-tables_${VERSION}:sdk/tables/azure-data-tables \
-#     > azure-data-tables-$VERSION.tgz
-#
-Source0:        azure-data-tables-12.4.0.tgz
+Source:         %{pypi_source azure_data_tables %{version}}
 
 BuildArch:      noarch
 
@@ -54,7 +42,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_data_tables-%{version}
 
 
 %generate_buildrequires
@@ -67,7 +55,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

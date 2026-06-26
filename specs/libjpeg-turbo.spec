@@ -10,7 +10,6 @@ Patch0:         libjpeg-turbo-cmake.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
-BuildRequires:  libtool
 BuildRequires:  nasm
 
 Obsoletes:      libjpeg < 6b-47

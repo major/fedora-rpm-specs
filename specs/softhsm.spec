@@ -1,11 +1,11 @@
-%global prever rc1
+#global prever rc1
 #global prerelease yes
 %global origname SoftHSMv2
 
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.4
+Release: 1%{?dist}
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
@@ -19,6 +19,10 @@ Patch0: memory-leaks-and-openssl-4.patch
 # as discussed at https://github.com/softhsm/SoftHSMv2/issues/729
 # with a minor update to reset objects_deleted after reset-on-fork
 Patch1: prevent-global-deleted-objects-access.patch
+# Skip tests for crypto algorithms not supported by the OpenSSL build
+# (SHA-1 signing, DSA, single DES), fix fork test child process termination,
+# and enable command-line test suite selection in p11test
+Patch2: softhsm-skip-unsupported-crypto-tests.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -42,9 +46,7 @@ with other cryptographic products because of the PKCS#11 interface.
 %package devel
 Summary: Development package of softhsm that includes the header files
 Requires: %{name} = %{version}-%{release}, openssl-devel, sqlite-devel
-%if 0%{?prever:1} || 0%{?prerelease:1}
 BuildRequires: autoconf, libtool, automake
-%endif
 
 %description devel
 The devel package contains the libsofthsm include files
@@ -53,14 +55,9 @@ The devel package contains the libsofthsm include files
 %setup -q -n %{origname}-%{version}%{?prever:-%prever}
 %autopatch -p1
 
-%if 0%{?prever:1} || 0%{?prerelease:1}
-   # pre-release or post-release snapshots fixup
-   sed -i 's:^full_libdir=":#full_libdir=":g' configure.ac
+# Our patches modify configure.ac, so we need to regenerate
+sed -i 's:^full_libdir=":#full_libdir=":g' configure.ac
 autoreconf -fiv
-%else
-   # remove softhsm/ subdir auto-added to --libdir
-   sed -i 's:full_libdir/softhsm:full_libdir:g' configure
-%endif
 
 %build
 # This package fails its testsuite with LTO enabled and needs further
@@ -136,6 +133,12 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Wed Jun 24 2026 Alexander Bokovoy <abokovoy@redhat.com> - 2.7.0-1
+- Update to upstream release 2.7.0
+- Skip SHA-1 signing, DSA, and single DES tests when not supported
+- Fix fork tests to properly terminate child processes
+- Enable command-line test suite selection in p11test
+
 * Mon Jun 15 2026 Pavol Žáčik <pzacik@redhat.com> - 2.7.0-0.1.rc1.4
 - Bring back the patch that prevents access to global C++ variables
   once they are destroyed (with a minor adjustment).

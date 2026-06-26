@@ -4,7 +4,7 @@
 
 Name:           merkaartor
 Version:        0.20.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Qt-Based OpenStreetMap editor
 
 # GPL-2.0-or-later: main program
@@ -108,6 +108,9 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/org.%{name}.%{name}.a
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
 %changelog
+* Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-12
+- Rebuilt for abseil-cpp 20260526.0
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 0.20.0-11
 - Rebuild (gdal)
 

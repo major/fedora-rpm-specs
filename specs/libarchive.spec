@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.8.7
-Release:        2%{?dist}
+Version:        3.8.8
+Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -240,6 +240,10 @@ run_testsuite
 
 
 %changelog
+* Tue Jun 23 2026 Packit <hello@packit.dev> - 3.8.8-1
+- Update to version 3.8.8
+- Resolves: rhbz#2491650
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8.7-2
 - Rebuilt for openssl 4.0
 

@@ -73,7 +73,7 @@ Version:        4.13.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -609,6 +609,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Wed Jun 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.0-8
+- Rebuilt for gdal 3.13.1
+
 * Tue Jun 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.0-7
 - Rebuilt for abseil-cpp 20260526.0
 

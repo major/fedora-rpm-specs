@@ -64,9 +64,7 @@ on system restart.
 
 
 %prep
-%setup -q -n %{oname}-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n %{oname}-%{version}
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

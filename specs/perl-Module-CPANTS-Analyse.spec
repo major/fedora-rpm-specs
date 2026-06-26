@@ -1,11 +1,10 @@
 Name:           perl-Module-CPANTS-Analyse
-Version:        1.02
-Release:        8%{?dist}
+Version:        1.03
+Release:        1%{?dist}
 Summary:        Generate Kwalitee ratings for a distribution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CPANTS-Analyse
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-CPANTS-Analyse-%{version}.tar.gz
-Patch1:         Module-CPANTS-Analyse-1.02-symlink.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -55,6 +54,8 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::More) >= 0.88
+# Optional Tests
+BuildRequires:  perl(Test::File) >= 1.993
 # Dependencies
 Requires:       perl(Archive::Any::Lite) >= 0.06
 Requires:       perl(Archive::Tar) >= 1.76
@@ -85,10 +86,6 @@ metadata for all distributions on CPAN.
 
 %prep
 %setup -q -n Module-CPANTS-Analyse-%{version}
-
-# Use relative symlinks rather than absolute symlinks in test
-# https://github.com/cpants/Module-CPANTS-Analyse/pull/51
-%patch -P 1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -129,6 +126,11 @@ make test
 %{_mandir}/man3/Module::CPANTS::Kwalitee::Version.3*
 
 %changelog
+* Wed Jun 24 2026 Paul Howarth <paul@city-fan.org> - 1.03-1
+- Update to 1.03 (rhbz#2492167)
+  - Fix tests to work with newer Archive::Tar (GH#51)
+  - Check link errors and warnings while extracting an archive
+
 * Sun May 31 2026 Paul Howarth <paul@city-fan.org> - 1.02-8
 - Use relative symlinks rather than absolute symlinks in test (GH#51)
 - Use %%{make_build} and %%{make_install}

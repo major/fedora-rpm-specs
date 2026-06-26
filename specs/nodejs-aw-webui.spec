@@ -1,10 +1,10 @@
 %global npm_name aw-webui
 
-%global commit 8d9a7f834fe940f2b6b2d78c2f5495a1d234a692
+%global commit e83db8e6d2cbf4109b678aee832c052e7f07f187
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           nodejs-%{npm_name}
-Version:        0^20260516.%{short_commit}
+Version:        0^20260624.%{short_commit}
 Release:        %autorelease
 Summary:        A web-based UI for ActivityWatch, built with Vue.js
 

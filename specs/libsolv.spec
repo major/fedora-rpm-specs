@@ -17,6 +17,7 @@
 %bcond_without apk_repo
 # For handling deb + rpm at the same time
 %bcond_without multi_semantics
+%bcond_without openssl
 %if %{defined rhel}
 %bcond_with zchunk
 %else
@@ -62,6 +63,9 @@ Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
 # Fix a buffer overflow when decompressing solv pages (CVE-2026-48864),
 # rejected by upstream, <https://github.com/openSUSE/libsolv/pull/622>.
 Patch:          0003-Fix-a-buffer-overflow-when-decompressing-solv-pages.patch
+# Compute hashes with OpenSSL, proposed upstream,
+# <https://github.com/openSUSE/libsolv/pull/627>.
+Patch:          0004-Add-support-for-computing-hashes-using-OpenSSL-3.1.0.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++
@@ -70,6 +74,11 @@ BuildRequires:  pkgconfig(rpm)
 BuildRequires:  zlib-devel
 # -DWITH_LIBXML2=ON
 BuildRequires:  libxml2-devel
+%if %{with openssl}
+# -DWITH_OPENSSL=ON
+BuildRequires:  coreutils
+BuildRequires:  openssl-devel >= 3.1.0
+%endif
 # -DENABLE_LZMA_COMPRESSION=ON
 BuildRequires:  xz-devel
 # -DENABLE_BZIP2_COMPRESSION=ON
@@ -168,6 +177,10 @@ Python 3 version.
 
 %prep
 %autosetup -p1
+%if %{with openssl}
+# Unbundle private cryptography
+rm src/chksum_impl.c src/md5.{c,h} src/sha1.{c,h} src/sha2.{c,h}
+%endif
 
 %build
 %cmake -GNinja                                            \
@@ -185,6 +198,7 @@ Python 3 version.
   -DWITH_LIBXML2=ON                                       \
   -DENABLE_LZMA_COMPRESSION=ON                            \
   -DENABLE_BZIP2_COMPRESSION=ON                           \
+  -DWITH_OPENSSL=%{__cmake_switch -b openssl}             \
   -DENABLE_ZSTD_COMPRESSION=%{__cmake_switch -b zstd}     \
   -DENABLE_ZCHUNK_COMPRESSION=%{__cmake_switch -b zchunk} \
 %if %{with zchunk}

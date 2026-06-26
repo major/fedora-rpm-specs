@@ -9,6 +9,8 @@ License:        MIT
 URL:            https://github.com/magmax/python-readchar
 # The PyPI tarball doesn't include tests so use GitHub instead
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix pytest 9 compatibility: py.path.local arguments deprecated
+Patch:          https://github.com/magmax/python-readchar/commit/5165992.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -1,9 +1,9 @@
 Name:           perftest
 Summary:        IB Performance Tests
-Version:        26.01.5
+Version:        26.04.17
 Release:        %autorelease
 License:        GPL-2.0-only OR BSD-2-Clause
-Source:		https://github.com/linux-rdma/perftest/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source:		https://github.com/linux-rdma/perftest/releases/download/%{version}/%{name}-%{version}.tar.gz
 Url:            https://github.com/linux-rdma/perftest
 
 BuildRequires:  make
@@ -11,7 +11,7 @@ BuildRequires:  gcc
 BuildRequires:  libibverbs-devel >= 1.2.0
 BuildRequires:  librdmacm-devel >= 1.0.21
 BuildRequires:  libibumad-devel >= 1.3.10.2
-BuildRequires:  pciutils-devel
+BuildRequires:  autoconf pciutils-devel
 Obsoletes:      openib-perftest < 1.3
 ExcludeArch:    s390 %{arm}
 

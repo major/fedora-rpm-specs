@@ -15,30 +15,17 @@
 # We don't want the tex provides that generate here
 %global __provides_exclude tex\\\(.*\\\)
 
-# We need at least gcc 10
-%if 0%{?rhel} && 0%{?rhel} < 9
-%global _lto_cflags %nil
-%endif
-
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-%global blaslib flexiblas
-%global blasvar %{nil}
-%else
-%global blaslib openblas
-%global blasvar o
-%endif
-
 # Should be the previous version, to make mass-rebuilds easier
 %bcond_with bootstrap
 %global bootstrap_abi 4.5
 
 %global major_version 4
 %global minor_version 6
-%global patch_version 0
+%global patch_version 1
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -66,7 +53,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  libdeflate-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  tre-devel
-BuildRequires:  %{blaslib}-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  libSM-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libICE-devel
@@ -209,7 +196,7 @@ Requires:       zlib-devel
 Requires:       libdeflate-devel
 Requires:       libzstd-devel
 Requires:       tre-devel
-Requires:       %{blaslib}-devel
+Requires:       flexiblas-devel
 Requires:       libX11-devel
 Requires:       libicu-devel
 Requires:       libtirpc-devel
@@ -342,7 +329,7 @@ export JAVA_HOME=%{_jvmdir}/jre
   rincludedir=%{_includedir}/R \
   rsharedir=%{_datadir}/R \
   --with-system-tre \
-  --with-blas=%{blaslib}%{blasvar} \
+  --with-blas=flexiblas \
   --with-lapack \
   --with-tcl-config=/usr/%{_lib}/tclConfig.sh \
   --with-tk-config=/usr/%{_lib}/tkConfig.sh \
@@ -354,6 +341,8 @@ export JAVA_HOME=%{_jvmdir}/jre
 cat CONFIGURE.log | grep -A30 'R is now' - > CAPABILITIES
 make V=1
 (cd src/nmath/standalone; make)
+# Fix "I can't find the format file `pdflatex.fmt'!" in rawhide
+texconfig rehash
 make pdf
 make compact-pdf
 make info
@@ -972,6 +961,10 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed Jun 24 2026 Iñaki Úcar <iucar@fedoraproject.org> - 4.6.1-1
+- Update to 4.6.1
+- Remove BLAS and LTO adjustments for EPEL 8, no longer supported
+
 * Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 4.6.0-3
 - Rebuilt for icu 78.3
 
