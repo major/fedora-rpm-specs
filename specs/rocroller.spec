@@ -43,7 +43,7 @@
 
 Name:           rocroller
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's rocRoller Assembly Kernel Generator
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
@@ -164,6 +164,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%_bindir/rocroller-tests*
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.13.0-2
+- Rebuilt for fmt/spdlog
+
 * Sat May 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.13.0-1
 - Initial package
 

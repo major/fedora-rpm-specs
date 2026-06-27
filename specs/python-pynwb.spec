@@ -40,6 +40,16 @@ Source0:        %{pypi_source pynwb}
 # Man page hand-written for Fedora in groff_man(7) format from --help output
 Source1:        pynwb-validate.1
 
+# In test_import_structure, don’t check dunder names
+# https://github.com/NeurodataWithoutBorders/pynwb/pull/2207
+#
+# Fixes:
+#
+# python-pynwb fails to build with Python 3.15: test_outer_import_structure:
+# AssertionError: '__cached__' not found in ...
+# https://bugzilla.redhat.com/show_bug.cgi?id=2453852
+Patch:          %{url}/pull/2207.patch
+
 BuildArch:      noarch
 
 %global desc %{expand:

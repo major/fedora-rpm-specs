@@ -5,7 +5,7 @@
 %global crate handlebars
 
 Name:           rust-handlebars
-Version:        6.4.1
+Version:        6.4.2
 Release:        %autorelease
 Summary:        Handlebars templating implemented in Rust
 

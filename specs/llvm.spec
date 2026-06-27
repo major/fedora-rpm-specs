@@ -1083,7 +1083,7 @@ License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://lldb.llvm.org/
 
 Requires:	%{pkg_name_clang}-libs%{?_isa} = %{version}-%{release}
-%if 0%{?fedora} >= 45
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 Recommends: yama-ptrace-enable
 %endif
 %if %{without compat_build}
@@ -1788,10 +1788,10 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
   -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_STATIC_LINKER_FLAGS="" \\\
   -DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES="openmp"
 
-%if 0%{?__isa_bits} == 64
+%if 0%{?__isa_bits} == 64 && %{maj_ver} <= 22
 # The following shouldn't be required, but due to a bug, we have to be
 # explicit about LLVM_LIBDIR_SUFFIX for nvptx64-nvidia-cuda.
-# TODO: Remove this after fixing
+# This got fixed in LLVM 23.
 # https://github.com/llvm/llvm-project/issues/159762
 %global cmake_config_args %{cmake_config_args} \\\
 	-DRUNTIMES_nvptx64-nvidia-cuda_LLVM_LIBDIR_SUFFIX=64

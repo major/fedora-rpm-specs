@@ -191,7 +191,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1851,6 +1851,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 3:10.11.18-2
+- Rebuilt for fmt/spdlog
+
 * Wed Jun 03 2026 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.18-1
 - Rebase to 10.11.18
 

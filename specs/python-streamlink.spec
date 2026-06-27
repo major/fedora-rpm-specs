@@ -7,8 +7,8 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        8.2.1
-Release:        3%{?dist}
+Version:        8.4.0
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -17,8 +17,10 @@ URL:            https://streamlink.github.io
 Source0:        %{pypi_source %{srcname}}
 # Fix documentation build
 Patch0:         %{name}-8.1.0-documentation.patch
-# Fix tests with pytest < 8.4.0
+# Fix tests with pytest < 8.4.0 (F43)
 Patch1:         %{name}-8.1.0-pytest_8.3.patch
+# Fix tests with Python 3.15 argparse colorization API
+Patch2:         %{name}-8.4.0-python3.15_tests.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
 # For easy patching of pyproject.toml
@@ -67,26 +69,13 @@ Zsh command line completion support for %{srcname}.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
-%patch -P0 -p0 -b .documentation
-%if 0%{?fedora} <= 43
-%patch -P1 -p0 -b .pytest_8.3
-%endif
+%autosetup -p0 -n %{srcname}-%{version}
 
 # Replace pycryptodome dependency with pycryptodomex
 tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(\s*[><=]+.*)" "\1x\2"
 
 # Drop useless dependencies (only needed for building the HTML documentation)
 tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+.*"
-
-%if 0%{?fedora} < 43
-# Drop version constraint on setuptools
-tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools)\s*[><=]+.*" "\1"
-tomcli set pyproject.toml arrays replace "dependency-groups.dev" "(setuptools)\s*[><=]+.*" "\1"
-
-# setuptools < 77.0.3 doesn't support PEP 639
-tomcli set pyproject.toml del "project.license" "project.license-files"
-%endif
 
 
 %generate_buildrequires
@@ -135,6 +124,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Thu Jun 25 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 8.4.0-1
+- Update to 8.4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 8.2.1-3
 - Rebuilt for Python 3.15
 

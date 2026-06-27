@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -72,6 +72,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.11.3-17
+- Rebuilt for fmt/spdlog
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11.3-16
 - Rebuilt for openssl 4.0
 

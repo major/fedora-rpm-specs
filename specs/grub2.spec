@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	65%{?dist}
+Release:	66%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -436,12 +436,10 @@ fi
 
 # On image mode, bootupd takes care of installing bootloader updates to the ESP
 if [[ ! -e "/run/ostree-booted" ]]; then
-   # Check if /boot/efi is actually mounted before cp
-   if ! mountpoint -q ${ESP_PATH}; then
-       : # no ESP mounted, nothing to do
-   else
-     cp -a ${EFI_DIR}/. ${EFI_ESP_DIR} || :
-   fi
+   # Note that cp -R is not indicated because CC binaries are
+   # located in a EFI_DIR subfolder and we do not want to copy
+   # these into the ESP
+   cp -d --preserve=all ${EFI_DIR}/* ${EFI_ESP_DIR} || :
 fi
 
 if test -f ${EFI_DIR}/grubenv; then
@@ -627,6 +625,11 @@ fi
 %endif
 
 %changelog
+* Thu Jun 25 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-66
+- spec efi postttrans: remove mountpoint check
+- Resolves: #2492140
+- Resolves: #2491171
+
 * Mon Jun 15 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-65
 - spec: always exit with zero status on common posttrans scriptlet
 

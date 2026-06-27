@@ -13,7 +13,7 @@
 
 Name:           ccache
 Version:        4.13.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -240,6 +240,9 @@ done\
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 4.13.6-2
+- Rebuilt for fmt/spdlog
+
 * Tue May 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.13.6-1
 - 4.13.6
 

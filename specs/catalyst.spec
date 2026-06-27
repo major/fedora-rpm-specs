@@ -12,7 +12,7 @@
 
 Name:           catalyst
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        API specification for simulations to analyze and visualize data in situ
 
 %global         forgeurl https://gitlab.kitware.com/paraview/%{name}
@@ -418,6 +418,9 @@ done
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2.1.0-4
+- Rebuilt for fmt/spdlog
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.0-3
 - Rebuilt for Python 3.15
 

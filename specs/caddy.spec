@@ -27,7 +27,6 @@ Patch1:         0001-Disable-commands-that-can-alter-the-binary.patch
 
 BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
-BuildRequires:  askalono-cli
 
 BuildRequires:  systemd-rpm-macros
 %{?systemd_ordering}
@@ -42,6 +41,10 @@ Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS.
 
 %prep
 %autosetup -p 1 -a 1
+
+
+%generate_buildrequires
+%go_vendor_license_buildrequires -c %{S:2}
 
 
 %build

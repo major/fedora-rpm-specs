@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.20.1
+Version:  1.20.2
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/%{version}/bin/.+\\.ps1$
 
@@ -24,7 +24,8 @@ BuildRequires: erlang-dialyzer
 %ifnarch riscv64 %{ix86}
 # Requires for unit-testing but not strictly necessary for anything else
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
-BuildRequires: erlang-doc
+# FIXME readd as soon as erlang-doc is available
+#BuildRequires: erlang-doc
 %endif
 BuildRequires: erlang-erts
 BuildRequires: erlang-eunit
@@ -43,7 +44,8 @@ BuildRequires: make
 %ifarch %{java_arches}
 # Requires for unit-testing but not strictly necessary for anything else
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
-Recommends: erlang-doc
+# FIXME readd as soon as erlang-doc is available
+#Recommends: erlang-doc
 %endif
 
 

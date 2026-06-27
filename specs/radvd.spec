@@ -1,19 +1,15 @@
 Name: radvd
-Version: 2.20
+Version: 2.21
 Release: %autorelease
 Summary: A Router Advertisement daemon
 License: radvd
 URL: https://radvd.litech.org
 
-Source0: https://radvd.litech.org/dist/%{name}-%{version}.tar.xz
-Source1: https://radvd.litech.org/dist/%{name}-%{version}.tar.xz.asc
+Source0: https://github.com/radvd-project/radvd/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/radvd-project/radvd/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 # Robin Hugh Johnson's public key
 Source2: https://github.com/robbat2.gpg
 Source3: radvd.sysusers
-
-# allow glibc strlcpy, avoid libbsd dependency
-Patch0: https://github.com/radvd-project/radvd/pull/256.patch
-Patch1: https://github.com/radvd-project/radvd/pull/262.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -89,7 +85,7 @@ make check
 
 
 %files
-%doc CHANGES COPYRIGHT INTRO.html README TODO
+%doc CHANGES COPYRIGHT INTRO.html README.md TODO
 %{_unitdir}/radvd.service
 %config(noreplace) %{_sysconfdir}/radvd.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/radvd

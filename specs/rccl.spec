@@ -94,9 +94,9 @@
 Name:           %{rccl_name}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm Communication Collectives Library
 
@@ -324,6 +324,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.2.0-5
+- Rebuilt for fmt/spdlog
+
 * Wed Apr 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Add --with preview
 

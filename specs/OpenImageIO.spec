@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.14.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -205,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 1:3.1.14.0-6
+- Rebuilt for fmt/spdlog
+
 * Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.1.14.0-5
 - Rebuilt for openssl 4.0
 

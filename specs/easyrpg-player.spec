@@ -40,7 +40,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND (Unlicense OR MIT-0) AND (MIT AND CC0-1.0) AND BSD-3-Clause AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8.1.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -153,6 +153,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.8.1.1-6
+- Rebuilt for fmt/spdlog
+
 * Wed Mar 04 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.1.1-5
 - Rebuilt with updated dr_wav to fix CVE-2026-29022
 

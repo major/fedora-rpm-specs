@@ -7,7 +7,7 @@
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
-%global libo_prerelease .alpha1
+%global libo_prerelease .beta1
 # Should contain any suffix of release tarball name, e.g., -buildfix1.
 %global libo_buildfix %{nil}
 %global libo_python python3
@@ -1190,23 +1190,12 @@ sed -i -e /CppunitTest_sw_pdf_test/d sw/Module_sw.mk
 # Started to fail in 25.8.0.0
 sed -i -e /CppunitTest_sc_solverobj/d sc/Module_sc.mk
 
-# testStatusBarPageNumber it is said to "fail from time to time"...
-# started to fail in 25.2.0.0
-# works in 25.8.0.0 / 25.8.1.1
-#sed -i -e /CppunitTest_sw_tiledrendering2/d sw/Module_sw.mk
-
 # fails testInsertSignatureLineExternal
 # assertion failed
 # - Expression: xComponent.is()
 # - loading failed: file:///tmp/lu696uvm.tmp
 # Started to fail in 25.8.0.0
 sed -i -e /CppunitTest_sd_tiledrendering2/d sd/Module_sd.mk
-
-# fails testTdf154311
-# cppunittester: xls_xml_auto_filter_context.cpp:196: void orcus::xls_xml_auto_filter_context::end_auto_filter(): Assertion `m_filter_node_stack.size() == 1u' failed.
-# Started to fail in 25.8.0.0
-# Works in 25.8.1.1
-#sed -i -e /CppunitTest_sc_subsequent_filters_test2/d sc/Module_sc.mk
 
 # fails testTdf129810
 # equality assertion failed
@@ -1227,25 +1216,19 @@ sed -i -e /CppunitTest_vcl_text/d vcl/Module_vcl.mk
 sed -i -e /CppunitTest_sc_pdf_export/d sc/Module_sc.mk
 
 # Started to fail in 26.8.0.0
-# tiledrendering.cxx:3706:Assertion
-# Test name: testLOKLanguageStatus::TestBody
-# equality assertion failed
-# - Expected: Jan
-# - Actual  : ene
-#
-# tiledrendering.cxx:1198:Assertion
-# Test name: testLanguageStatus::TestBody
-# equality assertion failed
-# - Expected: Spanish (Bolivia);es-BO
-# - Actual  : Anglais (États-Unis d'Amérique);en-US
-sed -i -e /CppunitTest_sc_tiledrendering/d sc/Module_sc.mk
-
-# Started to fail in 26.8.0.0
 # missing Reem Kufi font in Fedora
 sed -i -e /CppunitTest_svgio/d svgio/Module_svgio.mk
 
 # Started to fail in 26.8.0.0
 sed -i -e /CppunitTest_sw_uiwriter9/d sw/Module_sw.mk
+
+# Started to fail in 26.8.0.0
+# doesn't find Liberation Mono font
+sed -i -e /CppunitTest_sw_layoutwriter3/d sw/Module_sw.mk
+
+# Started to fail in 26.8.0.0
+# doesn't find Noto Sans Hebrew font
+sed -i -e /CppunitTest_sw_layoutwriter6/d sw/Module_sw.mk
 
 %build
 # path to external tarballs

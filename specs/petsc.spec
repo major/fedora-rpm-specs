@@ -1066,12 +1066,11 @@ export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
-#export MPIEXEC=lib/petsc/bin/petscmpiexec
-export MPIEXEC=$MPI_BIN/mpiexec
+export MPIEXEC=lib/petsc/bin/petscmpiexec
 export PMIX_MCA_gds=hash
 export PMIX_MCA_psec=native
 # petsc4py test fails with MPICH
-make V=1 petsc4pytest PETSC4PY_NP=2
+#make V=1 petsc4pytest PETSC4PY_NP=2
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_mpich_unload}

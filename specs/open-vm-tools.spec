@@ -18,6 +18,7 @@ Source5:          vmtoolsd.pam
 
 Patch0:           open-vm-tools-gcc16.patch
 Patch1:           open-vm-tools-sigc++3.patch
+Patch2:           open-vm-tools-openssl4.patch
 
 ExclusiveArch:    %{ix86} x86_64 aarch64
 

@@ -2,7 +2,7 @@
 %bcond_without qt6
 
 Name:           qtkeychain
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        A password store library
 

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc0.260624g840ef6c78e6a.8
+%define pkgrelease 0.rc0.260625gab9de95c9cf9.10
 %define kversion 7
-%define tarfile_release 7.1-13176-g840ef6c78e6a
+%define tarfile_release 7.1-13546-gab9de95c9cf9
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260624g840ef6c78e6a.8%{?buildid}%{?dist}
+%define specrelease 0.rc0.260625gab9de95c9cf9.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4857,9 +4857,16 @@ fi\
 #
 #
 %changelog
-* Wed Jun 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.840ef6c78e6a.8]
-- redhat/kspdx: remove redundant OR terms from joint license expression (Jan Stancek)
+* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.10]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.9]
+- Revert "Input: rmi4 - remove the need for artificial IRQ in case of HID" (Justin M. Forbes)
+- Linux v7.2.0-0.rc0.ab9de95c9cf9
+
+* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.840ef6c78e6a.8]
+- Increase the s390x kernel baseline (Justin M. Forbes)
+- redhat/kspdx: remove redundant OR terms from joint license expression (Jan Stancek)
 
 * Wed Jun 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.840ef6c78e6a.7]
 - Linux v7.2.0-0.rc0.840ef6c78e6a

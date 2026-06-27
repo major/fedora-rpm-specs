@@ -128,9 +128,9 @@
 Name:           rocsolver%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -359,6 +359,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.2.0-6
+- Rebuilt for fmt/spdlog
+
 * Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Generate suse package name
 

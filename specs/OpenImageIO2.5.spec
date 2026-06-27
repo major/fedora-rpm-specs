@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2.5.19.1-15
+- Rebuilt for fmt/spdlog
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.19.1-14
 - Rebuilt for openssl 4.0
 

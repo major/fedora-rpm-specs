@@ -10,13 +10,14 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 0.git%{shortcommit0}%{?dist}.5
+Release: 0.git%{shortcommit0}%{?dist}.6
 License: GPL-2.0-or-later
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
 Source4: 04-iscsi
 Source5: iscsi-tmpfiles.conf
 
+Patch00: 0001-Fix-incorrect-parsing-of-node.discovery_type-static-.patch
 Patch01: 0001-meson-don-t-hide-things-with-Wno-all.patch
 
 # https://github.com/open-iscsi/open-iscsi/pull/394/
@@ -272,6 +273,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %endif
 
 %changelog
+* Thu Jun 25 2026 Chris Leech <cleech@redhat.com> - 6.2.1.11-0.git4b3e853.6
+- fix regression in node record of type "fw" or "static" with untagged upstream fix
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.2.1.11-0.git4b3e853.5
 - Rebuilt for openssl 4.0
 

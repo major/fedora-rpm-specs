@@ -1,5 +1,5 @@
 Name:           Coin4
-Version:        4.0.7
+Version:        4.0.10
 Release:        1%{?dist}
 Summary:        High-level 3D visualization library
 
@@ -140,7 +140,7 @@ fi
 
 
 %files
-%doc AUTHORS ChangeLog README{,.UNIX} THANKS FAQ*
+%doc AUTHORS ChangeLog README.md THANKS FAQ*
 %license COPYING
 %dir %{_datadir}/Coin4
 %{_datadir}/Coin4/scxml
@@ -165,6 +165,9 @@ fi
 
 
 %changelog
+* Thu Jun 25 2026 Richard Shaw <hobbes1069@gmail.com> - 4.0.10-1
+- Update to 4.0.10.
+
 * Sun Jan 25 2026 Richard Shaw <hobbes1069@gmail.com> - 4.0.7-1
 - Update to 4.0.7.
 

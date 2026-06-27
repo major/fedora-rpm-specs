@@ -2,8 +2,8 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 5.0.5
-Release: 3%{?dist}
+Version: 5.0.6
+Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
@@ -370,6 +370,9 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Jun 25 2026 Morten Stevens <mstevens@fedoraproject.org> - 5.0.6-1
+- Update to 5.0.6
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.5-3
 - Rebuilt for openssl 4.0
 

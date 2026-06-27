@@ -10,6 +10,7 @@ Summary:        Qualcomm EDL flash tool
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Source1:        51-qcom-usb.rules
 BuildRequires:  gcc
 # meson.build uses git. Fixed in upstream git, drop for 2.8 release.
 BuildRequires:  git-core
@@ -44,12 +45,15 @@ IDs 9008, 900e, 901d) to upload a flash loader and use it to flash images.
 
 %install
 %meson_install
+mkdir -p %{buildroot}%{_sysconfdir}/udev/rules.d
+install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/51-qcom-usb.rules
 
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/qdl*
+%config(noreplace) %{_sysconfdir}/udev/rules.d/51-qcom-usb.rules
 %{_mandir}/man1/qdl*
 
 

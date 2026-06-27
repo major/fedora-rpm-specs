@@ -2,7 +2,7 @@
 
 Name:    unixODBC
 Version: 2.3.14
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -80,6 +80,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 install -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
 %if %{undefined rhel}
 %multilib_fix_c_header --file %{_includedir}/unixODBC/unixodbc_conf.h
+%multilib_fix_c_header --file %{_includedir}/unixodbc.h
 %endif
 
 # Directory for ODBC connector/driver plugins

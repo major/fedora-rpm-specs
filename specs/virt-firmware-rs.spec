@@ -24,15 +24,18 @@ Summary:        Tools for EFI and virtual machine firmware
 
 SourceLicense:  MIT
 License:        %{shrink:
-        Apache-2.0
-        Apache-2.0 OR BSL-1.0
-        Apache-2.0 OR MIT
-        Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-        BSD-2-Clause OR Apache-2.0 OR MIT
-        MIT
-        MIT OR Apache-2.0
-        MPL-2.0
-        Unlicense OR MIT
+((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND
+(0BSD OR MIT OR Apache-2.0) AND
+(Apache-2.0) AND
+(Apache-2.0 OR MIT) AND
+(Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+(BSD-2-Clause OR Apache-2.0 OR MIT) AND
+(BSD-3-Clause) AND
+(MIT) AND
+(MIT OR Apache-2.0) AND
+(MIT OR Zlib OR Apache-2.0) AND
+(MPL-2.0) AND
+(Unlicense OR MIT)
 }
 
 URL:            https://gitlab.com/kraxel/virt-firmware-rs

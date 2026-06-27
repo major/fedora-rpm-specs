@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	16%{?alphatag:.%{alphatag}}%{?dist}
+Release:	17%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -226,6 +226,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 3.10.12.0-17
+- Rebuilt for fmt/spdlog
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.10.12.0-16
 - Rebuilt for Python 3.15
 

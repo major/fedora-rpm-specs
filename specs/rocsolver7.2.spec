@@ -128,9 +128,9 @@
 Name:           rocsolver%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -375,6 +375,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.2.0-7
+- Rebuilt for fmt/spdlog
+
 * Tue Jun 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Rebuild full gpu list
 

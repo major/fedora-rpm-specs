@@ -71,9 +71,9 @@
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause AND Apache-2.0
@@ -187,6 +187,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.2.0-3
+- Rebuilt for fmt/spdlog
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Add --with preview
 - Update URL to rocm-systems

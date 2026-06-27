@@ -5,7 +5,7 @@
 %global crate chacha20
 
 Name:           rust-chacha20
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        ChaCha20 stream cipher
 

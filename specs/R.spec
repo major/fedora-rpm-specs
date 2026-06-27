@@ -324,6 +324,9 @@ export R_BROWSER="%{_bindir}/xdg-open"
 export JAVA_HOME=%{_jvmdir}/jre
 %endif
 
+# Fix "I can't find the format file `pdflatex.fmt'!" in rawhide
+texconfig rehash
+
 %configure \
   rdocdir=%{_pkgdocdir} \
   rincludedir=%{_includedir}/R \
@@ -341,8 +344,6 @@ export JAVA_HOME=%{_jvmdir}/jre
 cat CONFIGURE.log | grep -A30 'R is now' - > CAPABILITIES
 make V=1
 (cd src/nmath/standalone; make)
-# Fix "I can't find the format file `pdflatex.fmt'!" in rawhide
-texconfig rehash
 make pdf
 make compact-pdf
 make info

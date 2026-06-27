@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.40c
+Version:       5.01c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global commit   263c43361ec748e8af84b435e6835db0689f6059
+%global commit   12287f3f350b9df02e9a1b28afe2e02b71c51c30
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -218,6 +218,7 @@ test -n '%{clang_major}'
 %{afl_helper_path}/afl-gcc-cmptrs-pass.so
 %{afl_helper_path}/afl-gcc-pass.so
 %{afl_helper_path}/afl-gcc-rt.o
+%{afl_helper_path}/afl-llvm-bug-pass.so
 %{afl_helper_path}/afl-llvm-ijon-pass.so
 %{afl_helper_path}/injection-pass.so
 %ifarch x86_64
@@ -293,6 +294,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Thu Jun 25 2026 Richard W.M. Jones <rjones@redhat.com> - 5.01c-1
+- New upstream version 5.01c (RHBZ#2484430)
+
 * Fri Mar 13 2026 Richard W.M. Jones <rjones@redhat.com> - 4.40c-1
 - New upstream version 4.40c (RHBZ#2447294)
 

@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -107,6 +107,9 @@ Recommends:     font(fontawesome7brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.15.0-4
+- Rebuilt for fmt/spdlog
+
 * Wed May 27 2026 Jerry James <loganjerry@gmail.com> - 0.15.0-3
 - Migrate from FontAwesome 6.x to 7.x
 

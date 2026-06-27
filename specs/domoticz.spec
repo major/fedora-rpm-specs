@@ -1,6 +1,6 @@
 Name:		domoticz
 Version:	2026.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -252,6 +252,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2026.2-3
+- Rebuilt for fmt/spdlog
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2026.2-2
 - Rebuilt for openssl 4.0
 

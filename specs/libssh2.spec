@@ -6,7 +6,7 @@
 
 Name:		libssh2
 Version:	1.11.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -17,6 +17,7 @@ Source2:	https://daniel.haxx.se/mykey.asc
 Patch0:		libssh2-1.11.1-CVE-2026-7598.patch
 Patch1:		97acf3dfda80c91c3a8c9f2372546301d4a1a7a8-libssh2-1.11.1.patch
 Patch2:		17626857d20b3c9a1addfa45979dadcee1cd84a4.patch
+Patch3:		2dae302-libssh2-1.11.1.patch
 
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -68,13 +69,20 @@ developing applications that use libssh2.
 # CVE-2026-7598 libssh2: integer overflow via large username or password arguments
 # https://github.com/libssh2/libssh2/pull/1858
 %patch -P0
+
 # CVE-2026-55200 transport.c: Additional boundary checks for packet length
 # Patch modified for downstream
 # https://github.com/libssh2/libssh2/pull/2052
 %patch -p1 -P1
+
 # CVE-2026-55199 packet.c: check _libssh2_get_string() return in EXT_INFO handler
 # https://github.com/libssh2/libssh2/pull/1864
 %patch -p1 -P2
+
+# CVE-2025-15661: Information disclosure and denial of service via crafted SFTP response
+# https://github.com/libssh2/libssh2/pull/1705
+# https://github.com/libssh2/libssh2/pull/1717
+%patch -p1 -P3
 
 # Replace hard wired port number in the test suite to avoid collisions
 # between 32-bit and 64-bit builds running on a single build-host
@@ -130,6 +138,10 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Thu Jun 25 2026 Paul Howarth <paul@city-fan.org> - 1.11.1-9
+- Fix CVE-2025-15661: Information disclosure and denial of service via crafted
+  SFTP response
+
 * Tue Jun 23 2026 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.11.1-8
 - Fix CVE-2026-55200 & CVE-2026-55199
 

@@ -1,19 +1,14 @@
 Name:           sudo-rs
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 
-SourceLicense:  Apache-2.0 OR MIT
-# Apache-2.0 OR MIT
-# MIT OR Apache-2.0
+# sudo-rs and all its dependencies are "Apache-2.0 OR MIT" licensed
 License:        Apache-2.0 OR MIT
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/trifectatechfoundation/sudo-rs
 Source:         %{url}/archive/v%{version}/sudo-rs-%{version}.tar.gz
-
-# backport: Fix TAB behaviour in prompt
-Patch:          https://github.com/trifectatechfoundation/sudo-rs/commit/d43ff79.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  pam-devel
@@ -21,6 +16,9 @@ BuildRequires:  pam-devel
 %if %{with check}
 BuildRequires:  /usr/bin/pkill
 %endif
+
+# depends on shared sudo configuration
+Requires:       sudo
 
 %description
 A memory safe implementation of sudo and su.

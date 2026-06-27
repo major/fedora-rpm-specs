@@ -6,7 +6,7 @@
 
 Name:           libdnf-plugin-txnupd
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        libdnf5 plugin to implement transactional updates
 
 License:        LGPL-2.1-or-later
@@ -127,6 +127,9 @@ echo "libdnf5-plugin-txnupd" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.3.0-3
+- Rebuilt for fmt/spdlog
+
 * Mon Jun 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-2
 - Backport fix to link to tukit properly
 

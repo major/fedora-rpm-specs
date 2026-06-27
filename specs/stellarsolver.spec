@@ -1,8 +1,8 @@
 %global major_soversion 2
-%global minor_soversion 7
+%global minor_soversion 8
 
 Name:           stellarsolver
-Version:        2.7
+Version:        2.8
 Release:        %autorelease
 Summary:        The Cross Platform Sextractor and Internal Astrometric Solver
 License:        BSD-3-Clause and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later and LGPL-3.0-or-later and MIT
@@ -36,9 +36,6 @@ License:        BSD-3-Clause and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-
 #   
 URL:            https://github.com/rlancaste/%{name}/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix build with QT 6.9.0
-Patch:          e8d809b183d1f752cd683e1dcad02678cac552f0.patch
 
 # Buildtime tools
 BuildRequires:  cmake

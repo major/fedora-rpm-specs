@@ -7,14 +7,15 @@
 %if %{with debug}
 %global _pkg_extra_cflags   -O0 -g
 %global _pkg_extra_cxxflags -O0 -g
-%global _pkg_extra_fflags   -O0 -g
+# -D_FORTIFY_SOURCE requires some optimizations to be enabled. Disable the fortification.
+%undefine _fortify_level
 %endif
 
 
 
 Name:           mariadb-connector-c
-Version:        3.4.8
-Release:        6%{?with_debug:.debug}%{?dist}
+Version:        3.4.9
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later AND PHP-3.0 AND PHP-3.01 AND LicenseRef-Fedora-Public-Domain
 Source0:        https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -145,7 +146,8 @@ rm -r win win-iconv external/zlib
        -DWITH_UNIT_TESTS=ON
 %endif
 
-cmake -B %__cmake_builddir -LAH
+# Print all cached CMake options values; "-N" means to run in read-only mode; "-LAH" means "List Advanced Help" for each option
+cmake -B %{_vpath_builddir} -N -LAH
 
 %cmake_build
 
@@ -185,7 +187,7 @@ install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{nam
 # - ignore the testsuite result for now. Enable tests now, fix them later.
 # Note: there must be a database called 'test' created for the testcases to be run
 %if %{with testsuite}
-%ctest --test-dir %{__cmake_builddir}/unittest/libmariadb/
+%ctest --test-dir %{_vpath_builddir}/unittest/libmariadb/
 %endif
 
 

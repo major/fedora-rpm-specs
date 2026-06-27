@@ -9,6 +9,9 @@ License:       GPL-2.0-or-later
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
+# https://github.com/mate-desktop/mate-notification-daemon/pull/258
+Patch1:        mate-notification-daemon_0001-daemon-fix-crash-when-monitor-changes-during-notific.patch
+
 BuildRequires: desktop-file-utils
 BuildRequires: gtk-layer-shell-devel
 BuildRequires: libcanberra-devel

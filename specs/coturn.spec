@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -14,6 +14,7 @@ Patch0:         https://github.com/coturn/coturn/raw/refs/tags/%{version}/patche
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
+BuildRequires:  libmicrohttpd-devel
 BuildRequires:  libpq-devel
 BuildRequires:  make
 BuildRequires:  mariadb-connector-c-devel
@@ -125,11 +126,11 @@ sed -i \
 
 %install
 %make_install
-mkdir -p %{buildroot}{%{_sysconfdir}/pki/coturn/{public,private},{%{_rundir},%{_localstatedir}/{lib,log}}/%{name}}
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_unitdir}/coturn.service
-install -Dpm 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/coturn.conf
+mkdir -p %{buildroot}{%{_sysconfdir}/pki/%{name}/{public,private},{%{_rundir},%{_localstatedir}/{lib,log}}/%{name}}
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -Dpm 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -Dpm 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -Dpm 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/coturn.conf
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
 sed -i \
     -e "s|^syslog$|#syslog|g" \
     -e "s|^#*log-file=.*|log-file=/var/log/coturn/turnserver.log|g" \
@@ -143,14 +144,15 @@ mv -f %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf{.default,}
 # Remove generated SQLite database, certificate and key
 rm -f %{buildroot}%{_localstatedir}/lib/%{name}/turndb
 rm -f %{buildroot}%{_docdir}/%{name}/etc/{cacert,turn_{client,server}_{cert,pkey}}.pem
-rm -f %{buildroot}%{_docdir}/%{name}/etc/coturn.service
+rm -f %{buildroot}%{_docdir}/%{name}/etc/%{name}.service
 
 %check
 make test
 
-# Check if turnserver is really linked against MariaDB, PostgreSQL and systemd,
-# because ./configure unfortunately has no proper failure mechanism...
+# Check if turnserver is really linked against libmicrohttpd, MariaDB, PostgreSQL and
+# systemd, because ./configure unfortunately has no proper failure mechanism...
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libmariadb.so
+ldd %{buildroot}%{_bindir}/turnserver | grep -q libmicrohttpd.so
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 
@@ -211,8 +213,7 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_bindir}/turnutils_oauth
 %{_bindir}/turnutils_natdiscovery
 %doc %{_docdir}/%{name}/README.turnutils
-%{_mandir}/man1/turnutils.1.*
-%{_mandir}/man1/turnutils_*.1.*
+%{_mandir}/man1/turnutils*.1.*
 
 %files client-libs
 %license LICENSE
@@ -226,6 +227,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Thu Jun 25 2026 Robert Scheck <robert@fedoraproject.org> - 4.14.0-2
+- Enable prometheus support (thanks to Ricardo Domingues)
+
 * Tue Jun 23 2026 Robert Scheck <robert@fedoraproject.org> - 4.14.0-1
 - Upgrade to 4.14.0 (#2491257)
 

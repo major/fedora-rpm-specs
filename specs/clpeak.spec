@@ -1,5 +1,5 @@
 Name:       clpeak
-Version:    2.0.14
+Version:    2.0.15
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
@@ -34,11 +34,6 @@ numbers.
 %prep
 %autosetup
 
-# Starting with clpeak-2.0.14 below ugly hacks are needed to fix install paths
-# Fix incorrect installation paths in upstream CMakeLists.txt
-sed -i 's/RUNTIME DESTINATION ./RUNTIME DESTINATION bin/' CMakeLists.txt
-# Remove upstream license installation to avoid installing to /usr/LICENSE
-sed -i '/install(FILES LICENSE DESTINATION .)/d' CMakeLists.txt
 
 %build
 %cmake
@@ -47,7 +42,8 @@ sed -i '/install(FILES LICENSE DESTINATION .)/d' CMakeLists.txt
 
 %install
 %cmake_install
-
+# Remove the duplicate license file installed by CMake to standard datadir
+rm -rf %{buildroot}%{_datadir}/clpeak
 
 %check
 %ctest

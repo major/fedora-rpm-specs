@@ -3,46 +3,19 @@
 %global  fastnetmon_group          %{fastnetmon_user}
 %global  fastnetmon_config_path    %{_sysconfdir}/fastnetmon.conf
 
-# We use commit version as we're still in progress of testing FastNetMon on Fedora.
-# We're planning to cut next stable release in next few weeks
-%global  commit0 420e7b873253fdc1b52b517d9c28db39bf384427
-%global  shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global  date 20220528
-
 Name:              fastnetmon
-Version:           1.2.1
-Release:           35.%{date}git%{shortcommit0}%{?dist}
+Version:           1.2.9
+Release:           1%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:           GPL-2.0-only
 URL:               https://fastnetmon.com
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
 ExcludeArch:       %{ix86}
-%endif
 
-Source0:           https://github.com/pavel-odintsov/fastnetmon/archive/%{commit0}.tar.gz
+Source0:           https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v%{version}.tar.gz
 Source1:           fastnetmon.sysusers
-# https://github.com/pavel-odintsov/fastnetmon/pull/968
-# Adding missing header for g++13
-Patch0:            fastnetmon-pr968-g++13-header.patch
-# Boost migration patch by Marek Zarychta. Closes #1027
-# https://github.com/pavel-odintsov/fastnetmon/commit/f02063204d2b07a525d70e502571b31514653604
-#
-# Backported to 420e7b8
-#
-# Fixes:
-#
-# Add support for Boost 1.87.0 (Boost.Asio removals)
-# https://github.com/pavel-odintsov/fastnetmon/issues/1027
-#
-# fastnetmon: FTBFS in Fedora Rawhide/F44 with Boost 1.90
-# https://bugzilla.redhat.com/show_bug.cgi?id=2429533
-Patch1:            0001-Boost-migration-patch-by-Marek-Zarychta.-Closes-1027.patch
-# Added new logic to find Mongo-C v2 library
-Patch2:            mongoc2.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -65,8 +38,12 @@ BuildRequires:     mongo-c-driver-devel
 BuildRequires:     json-c-devel
 BuildRequires:     systemd
 BuildRequires:     systemd-rpm-macros
+BuildRequires:     elfutils-libelf-devel
+BuildRequires:     libbpf-devel
 
 Requires(pre):     shadow-utils
+Requires:          elfutils-libelf
+Requires:          libbpf
 
 %{?systemd_requires}
 
@@ -74,7 +51,7 @@ Requires(pre):     shadow-utils
 DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support.
 
 %prep
-%autosetup -n %{name}-%{commit0} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
@@ -117,7 +94,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %systemd_preun fastnetmon.service
 
 %postun
-%systemd_postun_with_restart fastnetmon.service 
+%systemd_postun_with_restart fastnetmon.service
 
 %files
 
@@ -137,6 +114,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Wed Jun 24 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.2.9-1
+- Rebase to version 1.2.9
+
 * Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-35.20220528git420e7b8
 - Rebuilt for abseil-cpp 20260526.0
 

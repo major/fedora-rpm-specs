@@ -168,6 +168,14 @@
 %global python3_alternate3_version 3.13
 %global python3_alternate3_version_nodots 313
 %endif
+%bcond_without python3_alternate4
+%if %{with python3_alternate4}
+%global python3_alternate4_pkgname python3.14
+%global __python3_alternate4 python3.14
+%global python3_alternate4_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate4} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
+%global python3_alternate4_version 3.14
+%global python3_alternate4_version_nodots 314
+%endif
 #EL9 endif
 %endif
 
@@ -250,6 +258,9 @@
 %if %{with python3_alternate3}
 %global __python %{__python3_alternate3}
 %else
+%if %{with python3_alternate4}
+%global __python %{__python3_alternate4}
+%else
 %if %{with python2}
 %global __python %{__python2}
 %else
@@ -259,10 +270,11 @@
 %endif
 %endif
 %endif
+%endif
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -320,6 +332,9 @@ BuildRequires:  %{python3_alternate2_pkgname}-devel
 %endif
 %if %{with python3_alternate3}
 BuildRequires:  %{python3_alternate3_pkgname}-devel
+%endif
+%if %{with python3_alternate4}
+BuildRequires:  %{python3_alternate4_pkgname}-devel
 %endif
 %if %{with glusterfs}
 BuildRequires:  glusterfs-devel, glusterfs-api-devel
@@ -473,6 +488,17 @@ Requires:       uwsgi-plugin-python%{python3_alternate3_version_nodots} = %{vers
 
 %description -n %{python3_alternate3_pkgname}-uwsgidecorators
 The uwsgidecorators Python %{python3_alternate3_version} module provides
+higher-level access to the uWSGI API.
+%endif
+
+%if %{with python3_alternate4}
+%package -n %{python3_alternate4_pkgname}-uwsgidecorators
+Summary:        Python %{python3_alternate4_version} decorators providing access to the uwsgi API
+Requires:       uwsgi = %{version}-%{release}
+Requires:       uwsgi-plugin-python%{python3_alternate4_version_nodots} = %{version}-%{release}
+
+%description -n %{python3_alternate4_pkgname}-uwsgidecorators
+The uwsgidecorators Python %{python3_alternate4_version} module provides
 higher-level access to the uWSGI API.
 %endif
 
@@ -844,6 +870,15 @@ Requires: uwsgi-plugin-python%{python3_alternate3_version_nodots} = %{version}-%
 This package contains the Python %{python3_alternate3_version} gevent plugin for uWSGI
 %endif
 
+%if %{with python3_alternate4}
+%package -n uwsgi-plugin-python%{python3_alternate4_version_nodots}-gevent
+Summary:  uWSGI - Plugin for Python %{python3_alternate4_version} GEvent support
+Requires: uwsgi-plugin-python%{python3_alternate4_version_nodots} = %{version}-%{release}, libevent
+
+%description -n uwsgi-plugin-python%{python3_alternate4_version_nodots}-gevent
+This package contains the Python %{python3_alternate4_version} gevent plugin for uWSGI
+%endif
+
 %if %{with glusterfs}
 %package -n uwsgi-plugin-glusterfs
 Summary:  uWSGI - Plugin for GlusterFS support
@@ -1019,6 +1054,15 @@ Requires: %{python3_alternate3_pkgname}, uwsgi-plugin-common = %{version}-%{rele
 
 %description -n uwsgi-plugin-python%{python3_alternate3_version_nodots}
 This package contains the Python %{python3_alternate3_version} plugin for uWSGI
+%endif
+
+%if %{with python3_alternate4}
+%package -n uwsgi-plugin-python%{python3_alternate4_version_nodots}
+Summary:  uWSGI - Plugin for Python %{python3_alternate4_version} support
+Requires: %{python3_alternate4_pkgname}, uwsgi-plugin-common = %{version}-%{release}
+
+%description -n uwsgi-plugin-python%{python3_alternate4_version_nodots}
+This package contains the Python %{python3_alternate4_version} plugin for uWSGI
 %endif
 
 %if %{with ruby_rack}
@@ -1409,6 +1453,10 @@ CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_alternate2} uwsgic
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_alternate3} uwsgiconfig.py --verbose --plugin plugins/python fedora python%{python3_alternate3_version_nodots}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_alternate3} uwsgiconfig.py --verbose --plugin plugins/gevent fedora python%{python3_alternate3_version_nodots}_gevent
 %endif
+%if %{with python3_alternate4}
+CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_alternate4} uwsgiconfig.py --verbose --plugin plugins/python fedora python%{python3_alternate4_version_nodots}
+CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_alternate4} uwsgiconfig.py --verbose --plugin plugins/gevent fedora python%{python3_alternate4_version_nodots}_gevent
+%endif
 %if %{with mongodblibs}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --verbose --plugin plugins/mongodblog fedora
 CFLAGS="%{optflags} -Wno-unused-but-set-variable -std=gnu++11 -Wno-error" %{__python2} uwsgiconfig.py --verbose --plugin plugins/stats_pusher_mongodb fedora
@@ -1539,6 +1587,12 @@ install -D -p -m 0644 uwsgidecorators.py %{buildroot}%{python3_alternate3_siteli
 %py_byte_compile %{__python3_alternate3} %{buildroot}%{python3_alternate3_sitelib}/uwsgidecorators.py
 %endif
 %endif
+%if %{with python3_alternate4}
+install -D -p -m 0644 uwsgidecorators.py %{buildroot}%{python3_alternate4_sitelib}/uwsgidecorators.py
+%if %{manual_py_compile} == 1
+%py_byte_compile %{__python3_alternate4} %{buildroot}%{python3_alternate4_sitelib}/uwsgidecorators.py
+%endif
+%endif
 %if %{with java}
 install -D -p -m 0644 plugins/jvm/uwsgi.jar %{buildroot}%{_javadir}/uwsgi.jar
 %endif
@@ -1605,6 +1659,12 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 %files -n %{python3_alternate3_pkgname}-uwsgidecorators
 %{python3_alternate3_sitelib}/uwsgidecorators.py
 %{python3_alternate3_sitelib}/__pycache__/uwsgidecorators.cpython-%{python3_alternate3_version_nodots}*.py*
+%endif
+
+%if %{with python3_alternate4}
+%files -n %{python3_alternate4_pkgname}-uwsgidecorators
+%{python3_alternate4_sitelib}/uwsgidecorators.py
+%{python3_alternate4_sitelib}/__pycache__/uwsgidecorators.cpython-%{python3_alternate4_version_nodots}*.py*
 %endif
 
 %files -n uwsgi-docs
@@ -1784,6 +1844,11 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 %{_libdir}/uwsgi/python%{python3_alternate3_version_nodots}_gevent_plugin.so
 %endif
 
+%if %{with python3_alternate4}
+%files -n uwsgi-plugin-python%{python3_alternate4_version_nodots}-gevent
+%{_libdir}/uwsgi/python%{python3_alternate4_version_nodots}_gevent_plugin.so
+%endif
+
 %if %{with glusterfs}
 %files -n uwsgi-plugin-glusterfs
 %{_libdir}/uwsgi/glusterfs_plugin.so
@@ -1871,6 +1936,11 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 %if %{with python3_alternate3}
 %files -n uwsgi-plugin-python%{python3_alternate3_version_nodots}
 %{_libdir}/uwsgi/python%{python3_alternate3_version_nodots}_plugin.so
+%endif
+
+%if %{with python3_alternate4}
+%files -n uwsgi-plugin-python%{python3_alternate4_version_nodots}
+%{_libdir}/uwsgi/python%{python3_alternate4_version_nodots}_plugin.so
 %endif
 
 %if %{with ruby_rack}
@@ -2030,6 +2100,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Thu Jun 25 2026 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-11
+- Add python3.14 module for EL9
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.31-10
 - Rebuilt for openssl 4.0
 

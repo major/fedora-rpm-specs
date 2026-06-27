@@ -2,8 +2,8 @@
 
 Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
-Version:        3.4.0
-Release:        2%{?dist}
+Version:        3.4.1
+Release:        1%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.haproxy.org/
 Source0:        https://www.haproxy.org/download/%(b=%{version}; echo ${b%.*})/src/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ BuildRequires:  pcre2-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 Requires(pre):  shadow-utils
+Recommends:     logrotate
 %{?systemd_requires}
 %{?sysusers_requires_compat}
 
@@ -96,6 +97,7 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1 examples/%{name}.init
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.cfg
 %dir %{_sysconfdir}/%{name}/conf.d/
+%dir %{_sysconfdir}/logrotate.d/
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_bindir}/halog
@@ -109,6 +111,10 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1 examples/%{name}.init
 %dir %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Thu Jun 25 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.1-1
+- Upgrade to 3.4.1 (#2492990)
+- Add logrotate improvements (thanks to Xose Vazquez Perez)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.0-2
 - Rebuilt for openssl 4.0
 

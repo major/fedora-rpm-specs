@@ -4,7 +4,7 @@
 Summary: Utilities for devices that use SCSI command sets
 Name:    sg3_utils
 Version: 1.48
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-2.0-or-later AND BSD-2-Clause
 URL:     https://sg.danny.cz/sg/sg3_utils.html
 Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
@@ -38,6 +38,9 @@ Patch8: 0008-sg_inq-fix-missing-output-fields-in--export-format.patch
 # https://github.com/doug-gilbert/sg3_utils/pull/49
 # sg_inq: re-add Unit serial number field
 Patch9: 0009-sg_inq-re-add-Unit-serial-number-field.patch
+# https://github.com/doug-gilbert/sg3_utils/pull/83
+# sg_inq-export-output-conformance-for-SCSI-name-string-and-ATA-fields
+Patch10: 0010-sg_inq-export-output-conformance-for-SCSI-name-string-and-ATA-fields.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: make
@@ -154,6 +157,9 @@ install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
 
 
 %changelog
+* Wed Jun 24 2026 Paul Evans <pevans@redhat.com> - 1.48-10
+- sg_inq: export output conformance for SCSI name string (RHEL-188083)
+
 * Mon May 11 2026 Paul Evans <pevans@redhat.com> - 1.48-9
 - rescan-scsi-bus.sh: Replace 'which' with built in 'command -v' [Patch v2]
 

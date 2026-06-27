@@ -7,7 +7,7 @@
 %global crate pathrs
 
 Name:           rust-pathrs
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        C-friendly API to make path resolution safer on Linux
 
@@ -36,6 +36,7 @@ paths (symlinks make the issue significantly worse).}
 
 %package     -n libpathrs
 Summary:        %{summary}
+
 # Apache-2.0
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -63,6 +64,7 @@ License:        %{shrink:
 %license LICENSE.MPL-2.0
 %license LICENSE.dependencies
 %doc CHANGELOG.md
+%doc INSTALL.md
 %doc README.md
 %{_libdir}/libpathrs.so.0{,.*}
 
@@ -107,15 +109,11 @@ rm '%{buildroot}%{_libdir}/libpathrs.a'
 %check
 # export LIBPATHRS_CAPI_BUILDMODE=cdylib triggers a fail in
 # cargo_test
-# * Most opath and fs_dir errors involve: Invalid cross-device link
-# * See https://github.com/cyphar/libpathrs/issues/372 for related information
-# * utils:sysctl errors are all panics in rs code
-%{cargo_test -f capi -- -- %{shrink:
-    --skip _global_fs_dir
-    --skip _opath
-    --skip utils::sysctl::tests
-}}
+%cargo_test -f capi
 %endif
 
 %changelog
+* Wed Jun 24 2026  - 0.2.5-%autorelease
+
+
 %autochangelog

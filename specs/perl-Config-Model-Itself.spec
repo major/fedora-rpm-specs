@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Itself
-Version:        2.025
-Release:        3%{?dist}
+Version:        2.031
+Release:        1%{?dist}
 Summary:        Model editor for Config::Model
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -16,17 +16,14 @@ BuildRequires:  perl(App::Cme) >= 1.002
 BuildRequires:  perl(App::Cme::Common)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config::Model) >= 2.142
+BuildRequires:  perl(Config::Model) >= 2.163
 BuildRequires:  perl(Config::Model::Tester::Setup)
-BuildRequires:  perl(Config::Model::TkUI) >= 1.378
+BuildRequires:  perl(Config::Model::TkUI) >= 1.381
 BuildRequires:  perl(Config::Model::Value)
 BuildRequires:  perl(Data::Compare)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(ExtUtils::testlib)
-BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy::Recursive)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
@@ -54,7 +51,7 @@ Requires:       perl(App::Cme) >= 1.002
 #Requires:       perl(Config::Model::TkUI) >= 1.378
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Config::Model\\)\s*$
-%global __requires_exclude %__requires_exclude|^perl\\(Config::Model\\) >= 2.064\s*$
+%global __requires_exclude %__requires_exclude|^perl\\(Config::Model\\) >= 2.075\s*$
 %global __requires_exclude %__requires_exclude|^perl\\(Config::Model::TkUI\\)\s*$
 %global __requires_exclude %__requires_exclude|^perl\\(Log::Log4perl\\)\s*$
 %global __requires_exclude %__requires_exclude|^perl\\(App::Cme\\)\s*$
@@ -93,6 +90,9 @@ install -D -m 0644 contrib/bash_completion.cme_meta %{buildroot}%{_sysconfdir}/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/cme_meta
 
 %changelog
+* Thu Jun 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.031-1
+- 2.031 bump (rhbz#2459641)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.025-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.27.0
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 
@@ -20,9 +20,13 @@ Source:         %{crates_source}
 #   needs annotate-snippets 0.11. It is easier to temporarily stop compiling the
 #   example that to update rust-annotate-snippets and create a
 #   rust-annotate-snippets0.11 compat package solely to support one example.
+# * Allow older test-log 0.2.19 for now; upstream pinned 0.2.21, but none of the
+#   changes are actually required. See
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2459446.
 Patch:          salsa-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
 
 %global _description %{expand:
 A generic framework for on-demand, incrementalized computation
@@ -81,6 +85,18 @@ This package contains library source intended for building other packages which
 use the "compact_str" feature of the "%{crate}" crate.
 
 %files       -n %{name}+compact_str-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+detailed-trace-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+detailed-trace-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "detailed-trace" feature of the "%{crate}" crate.
+
+%files       -n %{name}+detailed-trace-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+inventory-devel
@@ -155,8 +171,34 @@ use the "salsa_unstable" feature of the "%{crate}" crate.
 %files       -n %{name}+salsa_unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+triomphe-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+triomphe-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "triomphe" feature of the "%{crate}" crate.
+
+%files       -n %{name}+triomphe-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Upstream pinned all dev-dependencies to exact versions in
+# https://github.com/salsa-rs/salsa/pull/1116. We must use what we have; at
+# least loosen them to SemVer bounds! Automate this since it is tedious.
+#
+# https://github.com/salsa-rs/salsa/pull/1116#issuecomment-4796236958
+tomcli get Cargo.toml dev-dependencies --formatter newline-keys |
+  while read -r dd
+  do
+    tomcli set Cargo.toml str "dev-dependencies.${dd}.version" "$(
+      tomcli get Cargo.toml "dev-dependencies.${dd}.version" |
+      sed --regexp-extended 's/^=//'
+    )"
+  done
+
 %cargo_prep
 
 %generate_buildrequires

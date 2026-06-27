@@ -1,7 +1,7 @@
 %global debug_package %{nil}
-%global commit 51c32131da197a38c340da2537cbfd695e6ede78
+%global commit ee76e620798612c52fb8dcc32a1058a0a3538930
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global git_date 20250716
+%global git_date 20260507
 
 Name:           vkroots
 Version:        0^%{git_date}git%{shortcommit}
@@ -12,7 +12,8 @@ URL:            https://github.com/Joshua-Ashton/vkroots
 BuildArch:      noarch
 
 Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch:          https://patch-diff.githubusercontent.com/raw/misyltoad/vkroots/pull/12.patch
+Patch0:         https://patch-diff.githubusercontent.com/raw/misyltoad/vkroots/pull/12.patch
+Patch1:         vkroots-fix-funcpointer-xml-format.patch
 
 BuildRequires:  meson >= 0.58.0
 BuildRequires:  gcc

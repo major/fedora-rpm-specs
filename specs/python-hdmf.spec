@@ -48,6 +48,10 @@ URL:            %forgeurl
 Source0:        %forgesource
 # Man page hand-written for Fedora in groff_man(7) format based on help output
 Source1:        validate_hdmf_spec.1
+# Accept pandas Series/ExtensionArray for Data; lift pandas<3 cap (#1469)
+# https://github.com/hdmf-dev/hdmf/commit/744cf1971f92f34673c41b55376952f8ffe4707f
+# Backported to 4.3.1, without modifications to CHANGELOG.md
+Patch:          0001-Accept-pandas-Series-ExtensionArray-for-Data-lift-pa.patch
 
 BuildArch:      noarch
 
@@ -83,7 +87,9 @@ Obsoletes:      python3-hdmf+zarr < 4.1.0-2
 rm -vrf src/hdmf/common/hdmf-common-schema/
 # Upstream pins numcodecs because “numcodecs 0.16.0 is not compatible with
 # zarr<3,” but we cannot respect this.
-sed -r -i 's/("numcodecs)<[^"]+"/\1"/' pyproject.toml
+%pyproject_patch_dependency numcodecs:drop_upper
+# Allow pandas 3
+%pyproject_patch_dependency pandas:set_upper:4.0
 
 %generate_buildrequires
 %pyproject_buildrequires -x tqdm%{?with_zarr:,zarr},sparse%{?with_termset:,termset}

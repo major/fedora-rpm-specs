@@ -152,7 +152,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	10.0
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -161,6 +161,7 @@ Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%
 Source1:	https://github.com/ceph/libkmip/archive/%{kmip_ver_long}/libkmip-%{kmip_ver_short}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
 Patch:		0002-src-scripts-python.patch
+Patch:		0003-src-selinux-ganesha.te.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -1006,6 +1007,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Jun 25 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 10.0-3
+- NFS-Ganesha 10.0, additional selinux, including home_dir_t
+
 * Wed Jun 24 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 10.0-2
 - NFS-Ganesha 10.0 rebuild with libntirpc-10 rhbz#2492259
 

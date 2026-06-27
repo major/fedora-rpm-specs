@@ -20,6 +20,8 @@ Patch:          rusqlite-fix-metadata-auto.diff
 # * drop unused optional rusqlite_macros dependency
 # * drop unused support for sqlcipher and loadable extensions
 # * drop unused, benchmark-only bencher dev-dependency
+# * allow hashlink 0.12:
+#   https://github.com/rusqlite/rusqlite/commit/6d9764f26920f54db54b0f24f3f026f6a2c24a7c
 Patch:          rusqlite-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

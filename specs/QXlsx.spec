@@ -1,13 +1,12 @@
 Name: QXlsx
-Version:  1.4.10
-Release:  9%{?dist}
+Version:  1.5.1.1
+Release:  1%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
 URL: https://github.com/QtExcel/QXlsx
 Source0: %{url}/archive/v%{version}/QtXslx-%{version}.tar.gz
-
-Patch0:  qxlsx-fix-build-against-qt-6-10.patch
+Patch0:  public-header.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -30,7 +29,7 @@ These are the development files.
 %prep
 %setup -q
 
-%patch -P0 -p1 -b .fix-build-against-qt-6-10
+%patch -P 0 -p1
 
 %build
 
@@ -46,17 +45,19 @@ These are the development files.
 %files
 %license LICENSE
 %doc README*
-%{_libdir}/libQXlsxQt6.so.0*
 %{_libdir}/libQXlsxQt6.so.1*
 
 
 %files devel
 %{_libdir}/libQXlsxQt6.so
-%{_includedir}/QXlsxQt6/
+%{_includedir}/QXlsx/
 %{_libdir}/cmake/QXlsxQt6/
 
 
 %changelog
+* Fri Jun 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.5.1.1-1
+- 1.5.1.1
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.4.10-9
 - Rebuild (qt6)
 

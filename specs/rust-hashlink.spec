@@ -5,9 +5,9 @@
 %global crate hashlink
 
 Name:           rust-hashlink
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
-Summary:        HashMap-like containers with user controllable ordering
+Summary:        HashMap-like containers with user controllable order
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/hashlink

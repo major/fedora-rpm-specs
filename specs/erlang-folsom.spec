@@ -9,6 +9,7 @@ License:	Apache-2.0
 URL:		https://github.com/folsom-project/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Patch:		erlang-folsom-0001-Fix-generator-for-Erlang-27.patch
 BuildRequires:	erlang-bear
 BuildRequires:	erlang-meck
 # For testing only

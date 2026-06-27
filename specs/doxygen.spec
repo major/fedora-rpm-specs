@@ -18,7 +18,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.17.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -375,6 +375,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2:1.17.0-2
+- Rebuilt for fmt/spdlog
+
 * Wed May 20 2026 Than Ngo <than@redhat.com> - 2:1.17.0-1
 - Fix rhbz#2464241, update to 1.17.0
 - Backport upstream patch to fix failing suite's tagfile test

@@ -28,7 +28,7 @@
 
 %global rpmver 6.0.91
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -125,10 +125,15 @@ rpm-6.0-rpmformat.patch
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/298
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
+# Temporarily revert file trigger refactor for further investigation
+0001-Revert-Eliminate-the-now-redundant-rpmtriggers-wrapp.patch
+0002-Revert-Convert-file-trigger-structures-minimally-to-.patch
+
 # Patches already upstream:
 # Slightly modified from usptream commit due to not having the test,
 # because the test adds a binary that "patch" doesn't handle, argh
 0001-Fix-rubygem-extract-regression-from-b8b54f92c65bca7b.patch
+0001-Fix-a-dumb-regression-from-introducing-define-option.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -641,6 +646,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Jun 25 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-3
+- Revert file trigger refactor for further investigation (#2492628)
+- Fix a silly thinko causing a %%define regression (#2492483)
+
 * Wed Jun 24 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-2
 - Fix rubygem rpmuncompress -x regression (#2492128)
 

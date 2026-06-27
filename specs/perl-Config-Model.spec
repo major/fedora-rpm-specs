@@ -2,7 +2,7 @@
 %bcond_with test_fuse
 
 Name:           perl-Config-Model
-Version:        2.160
+Version:        2.163
 Release:        1%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
@@ -32,7 +32,7 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::HomeDir)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(Fuse)
+BuildRequires:  perl(Filesys::Fuse3)
 BuildRequires:  perl(Hash::Merge) >= 0.12
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(JSON)
@@ -52,7 +52,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Parse::RecDescent) >= v1.90.0
 BuildRequires:  perl(Path::Tiny) >= 0.125
-BuildRequires:  perl(Pod::POM)
 BuildRequires:  perl(Pod::Simple) >= 3.23
 BuildRequires:  perl(Pod::Text)
 BuildRequires:  perl(POSIX)
@@ -126,10 +125,15 @@ modprobe fuse
 %files
 %license LICENSE
 %doc Changes MODELS README.org CONTRIBUTING.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Config
+%{perl_vendorlib}/Config/Model*
+%{_mandir}/man3/Config::Model*
 
 %changelog
+* Thu Jun 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.163-1
+- 2.163 bump (rhbz#2459640)
+- Replace perl(Fuse) by perl(Filesys::Fuse3)
+
 * Tue Apr 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.160-1
 - 2.160 bump (rhbz#2442247)
 

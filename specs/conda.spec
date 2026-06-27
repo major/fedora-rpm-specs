@@ -1,4 +1,4 @@
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:           conda
 Version:        26.5.3
@@ -181,6 +181,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
 # tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/fish/conf.d/conda.fish'
 # tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[xonsh-expected_patterns5] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.xsh'
+# tests/cli/test_main_export.py::test_export_warnings - conda.exceptions.CondaHTTPError
 # tests/cli/test_main_export.py::test_export_preserves_channels_from_installed_packages - AssertionError: Expected to find conda-forge or defaults in channels: ['https://conda.anaconda.org/conda-forge']
 # tests/cli/test_main_export.py::test_export_package_alphabetical_ordering - AssertionError: Should have multiple packages for ordering test
 # tests/cli/test_main_export.py::test_export_no_builds_format - AssertionError: Should have conda packages to test
@@ -251,6 +252,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/test_activate.py::test_build_deactivate_shlvl_1 - requries network
 # tests/test_activate.py::test_build_stack_shlvl_1 - requries network
 # tests/test_activate.py::test_get_env_vars_big_whitespace/test_get_env_vars_empty_file require network access
+# tests/test_activate.py::test_activate_default_env - requires network
 # tests/test_activate.py::test_pre_post_command_invoked[hook] - requires conda to be installed
 # tests/test_activate.py::test_pre_post_command_raises[hook] - requires conda to be installed
 # tests/test_misc.py::test_explicit_missing_cache_entries requires network access
@@ -275,16 +277,12 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_main_export.py::test_export_ignore_channels_flag[False] \
     --deselect=tests/cli/test_main_export.py::test_export_override_channels_and_ignore_channels_independence \
     --ignore=tests/cli/test_main_export.py \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[default behavior raises warning]" \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[JSON format with `--format` flag]" \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[JSON format with `--json` flag]" \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[warns with `--file` flag alone]" \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[suppress warning with `--quiet`]" \
-    --deselect=tests/cli/test_main_export.py::test_export_warnings"[suppress warning with `--json` and `--file`]" \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings \
     --deselect=tests/cli/test_main_info.py::test_info_license \
     --deselect=tests/cli/test_main_info.py::test_info_root \
     --deselect=tests/plugins/test_pre_solves.py::test_pre_solve_action_raises_exception \
 %endif
+    --deselect=tests/test_activate.py::test_activate_default_env \
     --deselect=tests/test_activate.py::test_activate_same_environment \
     --deselect=tests/test_activate.py::test_build_activate_dont_activate_unset_var \
     --deselect=tests/test_activate.py::test_build_activate_dont_use_PATH \
@@ -315,6 +313,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[libmamba] \
     --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[classic] \
     --deselect=tests/cli/test_cli_install.py::test_reinstall_args[classic] \
+    --deselect=tests/cli/test_cli_install.py::test_reinstall_args[libmamba] \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] \
@@ -335,6 +334,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_main_export.py::test_export_multiple_platforms \
     --deselect=tests/cli/test_main_export.py::test_export_single_platform_different_platform \
     --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--loads] \
+    --deselect=tests/cli/test_main_export.py::test_export_warnings \
     --deselect=tests/cli/test_main_install.py::test_build_version_shows_as_changed \
     --deselect=tests/cli/test_main_list.py::test_fields_all \
     --deselect=tests/cli/test_main_list.py::test_fields_invalid \

@@ -77,7 +77,7 @@ ExcludeArch: %{ix86} %{arm}
 %global big_endian    1
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 %global system_nss  1
 %else
 %global system_nss  0
@@ -197,7 +197,7 @@ BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: gstreamer1-devel
 BuildRequires: gstreamer1-plugins-base-devel
 BuildRequires: hunspell-devel
-BuildRequires: ImageMagick, autotrace
+BuildRequires: ImageMagick
 BuildRequires: intltool
 BuildRequires: libappstream-glib
 BuildRequires: libavcodec-free-devel
@@ -207,7 +207,6 @@ BuildRequires: libjpeg-devel
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXrender-devel
-BuildRequires: libyuv-devel
 BuildRequires: libXinerama-devel
 BuildRequires: libffi-devel
 BuildRequires: libnotify-devel
@@ -263,7 +262,6 @@ BuildRequires: rust
 BuildRequires: rustfmt
 
 %if %{pgo_wayland}
-BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
 BuildRequires:  gnome-settings-daemon
@@ -341,7 +339,7 @@ tar -xf %{SOURCE5}
 %patch -P 224 -p 1 -b .glibcxx
 
 # Fedora patches
-%if 0%{?fedora} >= 44
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 10
 %patch -P 225 -p 1 -b .build-c11
 %patch -P 227 -p 1 -b .build-seccomp
 %endif

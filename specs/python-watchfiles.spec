@@ -12,6 +12,9 @@ Source:         %{pypi_source watchfiles}
 # Downstream-only: allow a slightly older pytest to support EPEL10
 Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
 
+# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
+Patch:          https://github.com/samuelcolvin/watchfiles/pull/384.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

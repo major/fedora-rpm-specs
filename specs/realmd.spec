@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -23,6 +23,26 @@ Patch0014: 0001-Initial-implementation-of-a-renew-request.patch
 Patch0015: 0002-renew-implement-support-for-adcli.patch
 Patch0016: 0003-service-use-proper-macro-for-os-name-and-os-version.patch
 Patch0017: 0004-renew-fix-issues-found-by-Coverity.patch
+Patch0018: 0001-Tests-initial-framework-and-tests-for-realm.patch
+Patch0019: 0002-service-do-not-set-config_file_version-in-sssd.conf.patch
+Patch0020: 0003-tools-fix-help-message-for-realm-deny.patch
+Patch0021: 0004-disco-check-IPA-specific-extension-in-rootDSE.patch
+Patch0022: 0005-tools-add-message-after-successful-join.patch
+Patch0023: 0006-doc-add-renew-option-of-realm-man-page.patch
+Patch0024: 0007-Testcases-Adding-multiple-testcases.patch
+Patch0025: 0008-doc-Be-explicit-about-default-settings-in-realmd.con.patch
+Patch0026: 0009-doc-document-debug-option-in-service-section-of-real.patch
+Patch0027: 0010-samba-add-debug-level-10-to-net-commands-when-realmd.patch
+Patch0028: 0011-When-running-in-debug-make-warnings-not-fatal.patch
+Patch0029: 0012-service-only-use-single-value-password-server-option.patch
+Patch0030: 0013-Refresh-license-text.patch
+Patch0031: 0014-Testcases-realm-join-leave-user-login.patch
+Patch0032: 0015-Testcases-realm-renew.patch
+Patch0033: 0016-Testcases-realm-renew-and-prejoin-testcases.patch
+Patch0034: 0017-Fix-gboolean-typo-use-FALSE-TRUE-for-false-true.patch
+Patch0035: 0018-tests-Add-delegated-user-join-leave-test.patch
+Patch0036: 0019-Add-GitLab-CI-CD-pipeline-configuration.patch
+Patch0037: 0020-Tests-realmd-testcase-set-8.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -109,6 +129,9 @@ make check
 %doc ChangeLog
 
 %changelog
+* Thu Jun 25 2026 Sumit Bose <sbose@redhat.com> - 0.17.1-20
+- sync with latest upstream patches
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -159,6 +159,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.8.0-18
+- Rebuilt for fmt/spdlog
+
 * Thu Apr  9 2026 Akira TAGOH <tagoh@redhat.com> - 0.8.0-17
 - Rebuilt with fmt 12.
 
