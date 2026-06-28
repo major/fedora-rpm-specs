@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -103,6 +103,9 @@ sed -i -e 's/if(WITH_NEW_SOLID_JOB AND WITH_NEW_POWER_ASYNC_API)/if(0)/g' \
 
 
 %changelog
+* Fri Jun 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.116.0-8
+- libupnp rebuild
+
 * Tue Feb 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.116.0-7
 - libupnp rebuild
 

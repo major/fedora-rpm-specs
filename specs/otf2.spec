@@ -5,8 +5,8 @@
 # writing of non-sionlib traces.
 
 Name:           otf2
-Version:        3.1.1
-Release:        7%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -136,6 +136,9 @@ make check
 %{_datadir}/%{name}/python
 
 %changelog
+* Fri Jun 26 2026 Dave Love <loveshack@fedoraproject.org> - 3.2-1
+- Update to version 3.2
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.1-7
 - Rebuilt for Python 3.15
 

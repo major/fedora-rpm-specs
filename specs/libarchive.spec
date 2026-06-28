@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -14,6 +14,8 @@ Summary:        A library for handling streaming archive formats
 License:        BSD-2-Clause AND FSFULLR AND GPL-2.0-or-later WITH Libtool-exception AND BSD-3-Clause AND FSFUL
 URL:            https://www.libarchive.org/
 Source0:        https://libarchive.org/downloads/%{name}-%{version}.tar.gz
+
+Patch:          https://github.com/libarchive/libarchive/pull/3182.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -240,6 +242,9 @@ run_testsuite
 
 
 %changelog
+* Fri Jun 26 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 3.8.8-2
+- Backport patch to fix seek errors visible in importctl
+
 * Tue Jun 23 2026 Packit <hello@packit.dev> - 3.8.8-1
 - Update to version 3.8.8
 - Resolves: rhbz#2491650

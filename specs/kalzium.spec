@@ -9,8 +9,6 @@
 %global with_facile 1
 %endif
 
-# pending fix for https://bugzilla.redhat.com/1544510
-# disabled for Qt6, see CMakeLists.txt
 %global avogadro 1
 %endif
 
@@ -21,7 +19,7 @@ ExcludeArch: %{ix86}
 Name:    kalzium
 Summary: Periodic Table of Elements
 Version: 26.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/education/kalzium
@@ -153,6 +151,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 
 
 %changelog
+* Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 26.04.2-2
+- Rebuild for openbabel-3.2.0
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

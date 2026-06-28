@@ -11,6 +11,20 @@ License:        LGPL-2.1-or-later AND NIST-PD
 URL:            http://www.freedesktop.org/wiki/Software/fprint/libfprint
 Source0:        https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v%{version}/libfprint-v%{version}.tar.gz
 
+# Backport from upstream
+Patch00001:     https://gitlab.freedesktop.org/libfprint/libfprint/-/commit/2c7842c905147a2d127c1b168b2e9d43.patch
+
+# the updates for the fpi
+Patch10001:     0001-doc-Include-Binary-buffer-I-O-section-for-the-byte-r.patch
+Patch10002:     0002-fpi-byte-writer-Add-APIs-to-write-and-get-GBytes.patch
+Patch10003:     0003-fpi-byte-reader-Add-support-to-read-and-get-peek-GBy.patch
+Patch10004:     0004-fpi-byte-reader-Add-support-to-read-to-a-static-buff.patch
+Patch10005:     0005-fpi-usb-transfer-Add-missing-definition-of-set_short.patch
+Patch10006:     0006-fpi-usb-transfer-Wrap-g_error_new-arguments.patch
+# Add EGIS readers
+# https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/561
+Patch10007:     egis_reader.patch
+
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

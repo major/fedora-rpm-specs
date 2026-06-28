@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           avogadro2-libs
-Version:        1.103.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Avogadro2 libraries
 
@@ -53,7 +53,6 @@ Provides: %{name}-static = 0:%{version}-%{release}
 
 # Do not download "fragments" files
 Patch0: avogadro2-libs-avoid_downloading.patch
-
 %description
 Avogadro libraries provide 3D rendering, visualization, analysis
 and data processing useful in computational chemistry, molecular modeling,
@@ -68,9 +67,7 @@ Requires: libGL-devel%{?_isa}
 Requires: mesa-libGLU-devel%{?_isa}
 Requires: spglib-devel%{?_isa}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-
 Provides: libgwavi-static
-
 %description devel
 This package contains libraries and header files for developing
 applications that use %{name}.
@@ -153,10 +150,25 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %install
 %cmake_install
 
-%py3_shebang_fix %{buildroot}%{_libdir}/avogadro2/scripts
+# Move Python scripts under a system Python directory
+mv %{buildroot}%{_datadir}/avogadro2/fragments/scripts %{buildroot}%{python3_sitearch}/avogadro/fragments/
+
+# Link Python scripts directory under private datadir to the related system Python directory
+ln -sf %{python3_sitearch}/avogadro/fragments/scripts %{buildroot}%{_datadir}/avogadro2/fragments/scripts
+
+# Use pkgdocdir macro
 rm -rf %{buildroot}%{_datadir}/doc
 mkdir -p %{buildroot}%{_pkgdocdir}
-cp -a %_vpath_builddir/docs/html %{buildroot}%{_pkgdocdir}/html/
+cp -r %_vpath_builddir/docs/html %{buildroot}%{_pkgdocdir}/html/
+
+# Link data files under private libdir to the related data directory
+mkdir -p %{buildroot}%{_datadir}/avogadro2/avogenerators
+cp -r avogenerators %{buildroot}%{_datadir}/avogadro2
+ln -sf %{_datadir}/avogadro2/avogenerators %{buildroot}%{_libdir}/avogadro2/plugins/avogenerators
+
+# Fix missing exec perrmissions
+%py3_shebang_fix %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
+chmod a+x %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
 
 %check
 %ctest
@@ -165,18 +177,18 @@ cp -a %_vpath_builddir/docs/html %{buildroot}%{_pkgdocdir}/html/
 %doc README.md thirdparty/libgwavi/README-libgwavi.md avogenerators/README-avogenerators.md
 %doc fragments/README-fragments.md
 %license LICENSE molecules/LICENSE-molecules fragments/LICENSE-fragments
-%{_libdir}/libAvogadro*.so.1
 %{_libdir}/libAvogadro*.so.%{version}
 %dir %{_libdir}/avogadro2
-%{_libdir}/avogadro2/scripts/
 %{_libdir}/avogadro2/libgwavi.a
 %{_libdir}/avogadro2/staticplugins/
+%{_libdir}/avogadro2/plugins/
 %{_datadir}/avogadro2/
 %{python3_sitearch}/avogadro/
 
 
 %files devel
 %{_includedir}/avogadro2/
+%{_libdir}/libAvogadro*.so.2
 %{_libdir}/libAvogadro*.so
 %{_libdir}/cmake/avogadrolibs/
 

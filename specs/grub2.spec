@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	66%{?dist}
+Release:	67%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -625,6 +625,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 25 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-67
+- ieee1275/powerpc: implements fibre channel discovery for ofpathname
+
 * Thu Jun 25 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-66
 - spec efi postttrans: remove mountpoint check
 - Resolves: #2492140

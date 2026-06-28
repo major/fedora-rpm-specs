@@ -43,12 +43,12 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -92,7 +92,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm SOLVER marshaling library
 License:        MIT
@@ -100,6 +100,7 @@ URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 %if 0%{?suse_version}
@@ -107,10 +108,12 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
+BuildRequires:  patchelf
 BuildRequires:  rocblas%{pkg_suffix}-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -134,6 +137,10 @@ BuildRequires:  lapack-static
 %endif
 
 Provides:       hipsolver%{pkg_suffix} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
+Requires:       rocblas%{pkg_suffix}
+Requires:       rocsolver%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -160,6 +167,7 @@ Summary:        Runtime for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -168,6 +176,7 @@ Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
+Requires:       rocm-filesystem%{pkg_suffix}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
@@ -175,7 +184,7 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}
+%autosetup -p3 -n %{upstreamname}
 
 %build
 %cmake \
@@ -183,12 +192,14 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
@@ -202,6 +213,16 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
+
+%if %{with compat}
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
+%endif
+
+# E: unused-direct-shlib-dependency .../libhipsolver_fortran.so.1.0 /lib64/libm.so.6
+patchelf --remove-needed libm.so.6 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
+# E: unused-direct-shlib-dependency .../libhipsolver_fortran.so.1.0 /lib64/libgcc_s.so.1
+patchelf --remove-needed libgcc_s.so.1 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
 
 %files -n %{pkg_name}
 %doc README.md
@@ -222,6 +243,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Fri Jun 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package names
 

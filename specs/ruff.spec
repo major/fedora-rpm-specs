@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.19
+Version:        0.15.20
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -149,11 +149,11 @@ URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 # Get this from crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev feeb9aa8dde3ae9269b13f3bae435b82d8538b76
+%global typeshed_rev 8e6a886ca5b14742924be721d345a619762d6e93
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260613
+%global typeshed_snapdate 20260624
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -162,10 +162,8 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 # “Should uv.find_uv_bin() be able to find /usr/bin/uv?”
 #  https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
-# * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ruff

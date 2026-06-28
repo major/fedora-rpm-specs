@@ -268,7 +268,7 @@
 %endif
 
 Name:	chromium
-Version: 149.0.7827.196
+Version: 149.0.7827.200
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -521,6 +521,7 @@ Patch602: chromium-148-Add-saturation-feature-for-dark-mode-image-classification
 Patch603: chromium-148-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode.patch
 Patch604: chromium-148-Add-chromatic-pixels-feature-based-on-muted-hue-colors-for-dark-mode.patch
 Patch605: chromium-149-Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom.patch
+Patch606: chromium-149-use-64px-css-pixels-absolute-threshold-for-dark-image-classification.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1240,6 +1241,7 @@ Qt6 UI for chromium.
 %patch -P603 -p1 -b .Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
 %patch -P604 -p1 -b .Add-chromatic-pixels-feature-based-on-muted-hue-colors-for-dark-mode
 %patch -P605 -p1 -b .Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom
+%patch -P606 -p1 -b .chromium-149-use-64px-css-pixels-absolute-threshold-for-dark-image-classification
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1914,6 +1916,12 @@ fi
 %endif
 
 %changelog
+* Fri Jun 26 2026 Than Ngo <than@redhat.com> - 149.0.7827.200-1
+- Update to 149.0.7827.200
+   CVE-2026-13281: Integer overflow in Mojo
+   CVE-2026-13282: Use after free in Payments
+   CVE-2026-13283: Use after free in AdFilter
+
 * Wed Jun 24 2026 Than Ngo <than@redhat.com> - 149.0.7827.196-1
 - Update to 149.0.7827.196
   * CVE-2026-13028: Use after free in WebGL

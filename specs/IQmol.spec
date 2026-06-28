@@ -1,29 +1,20 @@
 Name:           IQmol
-Version:        3.2.0
-Release:        5%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        A free open-source molecular editor and visualization package
-# Automatically converted from old format: BSD and GPLv2+ and GPLv3+ - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later AND GPL-3.0-or-later
+License:        BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            http://iqmol.org
-Source0:        https://github.com/nutjunkie/IQmol3/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/nutjunkie/IQmol3/archive/v%{version}/%{name}3-%{version}.tar.gz
 # Patch in correct fragment and QChem interface setting directory
 Patch1:         IQmol3-fragdir.patch
-# Don't mess with OpenBabel's directories
-Patch4:         IQmol-2.13-openbabel.patch
 # Fix CMake build
-Patch5:         IQmol-3.2.0-cmake.patch
+Patch5:         IQmol-3.2.2-cmake.patch
 # Use external QMSGBox headers
-Patch6:         IQmol-3.2.0-qmsgbox.patch
-# Add missing interdependencies
-Patch7:         IQmol-3.1.2-builddeps.patch
+Patch6:         IQmol-3.2.2-qmsgbox.patch
 # and missing links
 Patch8:         IQmol3-3.1.2-missinglink.patch
 # Fix the desktop icon
 Patch9:         IQmol-3.1.4-fixdesktop.patch
-# Fix issues in source
-Patch10:        https://github.com/nutjunkie/IQmol3/pull/26.patch
-# Fix missing file error
-Patch11:        https://github.com/nutjunkie/IQmol3/pull/27.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -33,6 +24,7 @@ BuildRequires:  boost-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  desktop-file-utils
+BuildRequires:  eigen3-devel
 BuildRequires:  gl2ps-devel
 BuildRequires:  highfive-devel
 BuildRequires:  libarchive-devel
@@ -65,16 +57,12 @@ BuildArch:     noarch
 This package contains samples for IQmol.
 
 %prep
-%setup -q -n IQmol3-%{version}
-%patch 1 -p1 -b .fragdir
-%patch 4 -p1 -b .openbabel
-%patch 5 -p1 -b .cmakebuild
-%patch 6 -p1 -b .qmsgbox
-#patch 7 -p1 -b .builddeps
-%patch 8 -p1 -b .missinglink
-%patch 9 -p1 -b .fixdesktop
-%patch 10 -p1 -b .capitalization
-%patch 11 -p1 -b .amber
+%autosetup -n IQmol3-%{version} -N
+%patch -P 1 -p1 -b .fragdir
+%patch -P 5 -p1 -b .cmakebuild
+%patch -P 6 -p1 -b .qmsgbox
+%patch -P 8 -p1 -b .missinglink
+%patch -P 9 -p1 -b .fixdesktop
 
 # Get rid of bundled gl2ps
 rm src/Viewer/gl2ps.{h,C}
@@ -90,6 +78,8 @@ rm -rf src/OpenMesh/
 find . -name .DS_Store -delete
 
 %build
+export LDFLAGS="%{__global_ldflags} -larchive"
+export CXXFLAGS="%{optflags} -larchive"
 # The IQmol build is based on libraries but the objects should be linked to the binary
 %cmake -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
@@ -115,6 +105,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ resources/iqmol
 %doc samples/*
 
 %changelog
+* Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.2.2-1
+- Release 3.2.2
+- Rebuilt for openbabel-3.2.0
+- Force link to libarchive
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.2.0-5
 - Rebuilt for openssl 4.0
 

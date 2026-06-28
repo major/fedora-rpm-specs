@@ -3,13 +3,13 @@
 %global srcname myrepos-utils
 
 Name:           python-%{srcname}
-Version:        0.0.4.2
+Version:        0.0.4.3
 Release:        %autorelease
 Summary:        Additional utilities for myrepos
 
 License:        GPL-2.0-or-later
 URL:            https://git.sr.ht/~michel-slm/myrepos-utils
-Source0:        %{pypi_source}
+Source0:        %{pypi_source myrepos_utils}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -28,7 +28,7 @@ Requires:       myrepos
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n myrepos_utils-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-r requirements-test.txt}
@@ -52,7 +52,6 @@ Requires:       myrepos
 
 %files -n %{srcname} -f %{pyproject_files}
 %doc README.md
-%license COPYING.md
 %{_bindir}/mr-utils
 
 

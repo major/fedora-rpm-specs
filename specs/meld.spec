@@ -1,12 +1,12 @@
 Name:           meld
-Version:        3.23.1
-Release:        3%{?dist}
+Version:        3.24.0
+Release:        1%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://meldmerge.org/
-Source0:        https://download.gnome.org/sources/meld/3.23/meld-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/meld/3.24/meld-%{version}.tar.xz
 
 BuildRequires:  meson >= 1.2.0
 BuildRequires:  python3-devel
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{python3_sitelib}/meld/
 
 %changelog
+* Fri Jun 26 2026 Dominic Hopf <dmaphy@fedoraproject.org> - 3.24.0-1
+- New upstream release 3.24.0 (RHBZ#2490984)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.23.1-3
 - Rebuilt for Python 3.15
 

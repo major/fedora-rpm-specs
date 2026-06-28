@@ -1,5 +1,5 @@
 Name:          gssdp
-Version:       1.6.5
+Version:       1.6.6
 Release:       %autorelease
 Summary:       Resource discovery and announcement over SSDP
 License:       LGPL-2.1-or-later AND CC0-1.0

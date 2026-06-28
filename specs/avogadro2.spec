@@ -4,7 +4,7 @@
 %global app_id  org.openchemistry.Avogadro2
 
 Name:           avogadro2
-Version:        1.103.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Advanced molecular editor
 License:        BSD-3-Clause

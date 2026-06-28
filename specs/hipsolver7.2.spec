@@ -19,10 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname hipblas
+%global upstreamname hipsolver
 
 %global pkg_library_name %{upstreamname}
-%global pkg_library_version 3
+%global pkg_library_version 1
 
 %bcond_with preview
 %if %{with preview}
@@ -30,6 +30,7 @@
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
+%global upstreamname hipsolver
 %global rocm_release 7.2
 %global rocm_patch 0
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
@@ -37,7 +38,7 @@
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -51,7 +52,7 @@
 %endif
 
 %if 0%{?suse_version}
-%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
 %global pkg_name %{NAME}
 %endif
@@ -74,9 +75,6 @@
 %endif
 %if %{with test}
 %global build_test ON
-%global __brp_check_rpaths %{nil}
-# test parallel building broken
-%global _smp_mflags -j1
 %else
 %global build_test OFF
 %endif
@@ -89,14 +87,14 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           hipblas%{pkg_suffix}
+Name:           hipsolver%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        4%{?dist}
 %endif
-Summary:        ROCm BLAS marshaling library
+Summary:        ROCm SOLVER marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
@@ -110,7 +108,7 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
-BuildRequires:  hipblas-common%{pkg_suffix}-devel
+BuildRequires:  patchelf
 BuildRequires:  rocblas%{pkg_suffix}-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
@@ -120,20 +118,25 @@ BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocsolver%{pkg_suffix}-devel
+BuildRequires:  rocsparse%{pkg_suffix}-devel
+%if 0%{?fedora}
+BuildRequires:  suitesparse-devel
+%endif
 
 %if %{with test}
 BuildRequires:  gtest-devel
+BuildRequires:  hipsparse%{pkg_suffix}-devel
 %if 0%{?suse_version}
+BuildRequires:  blas-devel
 BuildRequires:  cblas-devel
 BuildRequires:  lapack-devel
 %else
-BuildRequires:  blis-devel
+BuildRequires:  blas-static
 BuildRequires:  lapack-static
-BuildRequires:  python3-pyyaml
 %endif
 %endif
 
-Provides:       hipblas%{pkg_suffix} = %{version}-%{release}
+Provides:       hipsolver%{pkg_suffix} = %{version}-%{release}
 Requires:       rocm-filesystem%{pkg_suffix}
 Requires:       rocm-hip%{pkg_suffix}
 Requires:       rocblas%{pkg_suffix}
@@ -143,20 +146,20 @@ Requires:       rocsolver%{pkg_suffix}
 ExclusiveArch:  x86_64
 
 %description
-hipBLAS is a Basic Linear Algebra Subprograms (BLAS) marshaling
-library, with multiple supported backends. It sits between the
-application and a 'worker' BLAS library, marshaling inputs into
-the backend library and marshaling results back to the
-application. hipBLAS exports an interface that does not require
-the client to change, regardless of the chosen backend. Currently,
-hipBLAS supports rocBLAS and cuBLAS as backends.
+hipSOLVER is a LAPACK marshaling library, with multiple supported
+backends. It sits between the application and a 'worker'
+LAPACK library, marshaling inputs into the backend library and
+marshaling results back to the application. hipSOLVER exports an
+interface that does not require the client to change, regardless
+of the chosen backend. Currently, hipSOLVER supports rocSOLVER
+and cuSOLVER as backends.
 
 %if 0%{?suse_version}
 %package -n %{pkg_name}
-Summary:        Shared libraries for %{name}
+Summary:        Runtime for %{name}
 
 %description -n %{pkg_name}
-%{summary}
+%summary
 
 %ldconfig_scriptlets -n %{pkg_name}
 %endif
@@ -164,8 +167,8 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
-Requires:       hipblas-common%{pkg_suffix}-devel
 Requires:       rocm-filesystem%{pkg_suffix}
+Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -173,7 +176,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
@@ -181,148 +184,140 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}
-
-# This is a tarball, no .git to query
-sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CMakeLists.txt
+%autosetup -p3 -n %{upstreamname}
 
 %build
-
 %cmake \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
-    -DCMAKE_Fortran_COMPILER=gfortran \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DCMAKE_BUILD_TYPE=%build_type \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
     -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-    -DBUILD_FORTRAN_CLIENTS=OFF
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DBUILD_CLIENTS_TESTS=%{build_test}
 
 %cmake_build
 
 %install
 %cmake_install
+
 # Extra license
-rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 
 %if %{with compat}
 chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
 %endif
 
-%files  -n %{pkg_name}
-%license LICENSE.md
+# E: unused-direct-shlib-dependency .../libhipsolver_fortran.so.1.0 /lib64/libm.so.6
+patchelf --remove-needed libm.so.6 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
+# E: unused-direct-shlib-dependency .../libhipsolver_fortran.so.1.0 /lib64/libgcc_s.so.1
+patchelf --remove-needed libgcc_s.so.1 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}.*
+
+%files -n %{pkg_name}
 %doc README.md
+%license LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}{,.*}
 
 %files devel
-%{pkg_prefix}/include/hipblas/
+%{pkg_prefix}/include/hipsolver/
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
-%{pkg_prefix}/%{pkg_libdir}/cmake/hipblas/
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipsolver/
 
 %if %{with test}
 %files test
-%{pkg_prefix}/bin/hipblas*
+%{pkg_prefix}/share/hipsolver/
+%{pkg_prefix}/bin/hipsolver*
 %endif
 
 %changelog
-* Fri Jun 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
-- merge compat changes
+* Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package names
 
-* Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
-- Generate suse package name
-
-* Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+* Fri Apr 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 
-* Tue Feb 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
-- Fix --with test
-
-* Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+* Wed Feb 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-6
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Add --with compat
 
-* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove dir tags
 
-* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
-- hipblas cmake looks for hipblas-common
-
-* Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
-- Better handling of shared library on opensuse
+* Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-2
+- Rebuilt for gtest 1.17.0
 
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
-- Update to 7.1.0
-
-* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
-- Update to 7.0.2
-
-* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 
-* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-6
+* Mon Oct 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Turn on -test for fedora
+
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
+* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Add Fedora copyright
 
-* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-5
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Simplify file removal
 
-* Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-4
+* Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Remove -mtls-dialect cflag
 
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
+* Thu Jul 24 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+* Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Remove suse check of ldconfig
 
-* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
-- Update to 6.4.1
-
-* Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+* Wed May 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Cleanup module build
 
-* Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-2
-- Rebuild against newer hipblas-common
-
-* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
+
+* Sat Apr 5 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- suitesparse-devel is optional
 
 * Fri Feb 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - remove multi build
 - Fix SLE 15.6
 
-* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
-- multhread compress
+* Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- multithread compress
 
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+* Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - build requires gcc-c++
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-

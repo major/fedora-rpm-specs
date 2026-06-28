@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.52
+Version:        0.0.54
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,17 +159,17 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 085c5cf8576712a9b161108dff2f9d3ea0d4569d
-%global ruff_baseversion 0.15.18
-%global ruff_snapdate 20260623
+%global ruff_rev 9f979a75b31c393c51c9939c07e2aeb03ea409a3
+%global ruff_baseversion 0.15.20
+%global ruff_snapdate 20260625
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev feeb9aa8dde3ae9269b13f3bae435b82d8538b76
+%global typeshed_rev 8e6a886ca5b14742924be721d345a619762d6e93
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260613
+%global typeshed_snapdate 20260624
 
 # Downstream patch: always find the system-wide ty executable
 #
@@ -180,10 +180,8 @@ Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 Patch:          0001-Downstream-patch-always-find-the-system-wide-ty-exec.patch
 
 # Downstream patches for ruff, copied from the ruff package
-# * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch102:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch103:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch102:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ty

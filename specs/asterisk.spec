@@ -56,7 +56,7 @@
 
 Summary:          The Open Source PBX
 Name:             asterisk
-Version:          23.4.0
+Version:          23.4.1
 Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
@@ -93,6 +93,8 @@ Source9:          https://github.com/akheron/jansson/releases/download/v%{jansso
 
 # Bundling libjwt because it depends on a version that is newer than Fedora, but still really old.
 Source10:         https://github.com/benmcollins/libjwt/releases/download/v%{jwt_version}/libjwt-%{jwt_version}.tar.gz
+
+Source99:         0030-ssl_sock_ossl-fix-OpenSSL-4.0-compatibility-5036.patch
 
 %if 0%{?fedora} || 0%{?rhel} >=7
 Patch1:           asterisk-16.1.0-explicit-python3.patch
@@ -683,7 +685,7 @@ echo '*************************************************************************'
 cp %{S:3} menuselect.makedeps
 cp %{S:4} menuselect.makeopts
 
-
+cp %{S:99} ./third-party/pjproject/patches
 
 # Fixup makefile so sound archives aren't downloaded/installed
 %{__perl} -pi -e 's/^all:.*$/all:/' sounds/Makefile

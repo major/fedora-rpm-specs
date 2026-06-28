@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       2.0.2
+Version:       2.1.0
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -105,8 +105,17 @@ BuildArch:      noarch
 %{_kf6_plugindir}/translator/translator_lingva.so
 %{_kf6_plugindir}/translator/translator_yandex.so
 %{_kf6_plugindir}/textautogeneratetext/autogeneratetext*.so
+%{_kf6_plugindir}/textautogeneratetext/mcpprotocol/
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so.0
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so.0.31.0
+%{_kf6_libdir}/libmcpprotocolclientplugin.so.0
+%{_kf6_libdir}/libmcpprotocolserverplugin.so.0
+%{_kf6_libdir}/libtextautogeneratellamacpp.so.1
+%{_kf6_libdir}/libtextautogeneratellamacpp.so.%{version}
+%{_kf6_libdir}/libtextautogeneratelmstudio.so.1
+%{_kf6_libdir}/libtextautogeneratelmstudio.so.%{version}
+%{_kf6_libdir}/libtextautogenerateplugincommon.so.1
+%{_kf6_libdir}/libtextautogenerateplugincommon.so.%{version}
 %{_kf6_libdir}/libtextautogenerateollamacloud.so.%{version}
 %{_kf6_libdir}/libtextautogenerateollamacloud.so.1
 %{_kf6_libdir}/libtextautogenerateollamacommon.so.1
@@ -115,8 +124,13 @@ BuildArch:      noarch
 %{_kf6_libdir}/libtextautogenerateollamaonline.so.%{version}
 %{_kf6_libdir}/libtextautogenerategenericnetwork.so.1
 %{_kf6_libdir}/libtextautogenerategenericnetwork.so.%{version}
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolCore.so.1
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolCore.so.%{version}
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolWidgets.so.1
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolWidgets.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.categories
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.renamecategories
+%{_kf6_datadir}/config.kcfg/textautogeneratetextglobalconfig.kcfg
 
 
 %files qt6-devel
@@ -132,6 +146,8 @@ BuildArch:      noarch
 %{_kf6_includedir}/TextUtils/
 %{_kf6_includedir}/TextAutoGenerateText/
 %{_kf6_includedir}/TextSpeechToText/
+%{_kf6_includedir}/TextAutoGenerateTextMcpProtocolCore/
+%{_kf6_includedir}/TextAutoGenerateTextMcpProtocolWidgets/
 %{_kf6_libdir}/libKF6TextAddonsWidgets.so
 %{_kf6_libdir}/libKF6TextAutoCorrectionCore.so
 %{_kf6_libdir}/libKF6TextAutoCorrectionWidgets.so
@@ -142,6 +158,8 @@ BuildArch:      noarch
 %{_kf6_libdir}/libKF6TextGrammarCheck.so
 %{_kf6_libdir}/libKF6TextTranslator.so
 %{_kf6_libdir}/libKF6TextUtils.so
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolCore.so
+%{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolWidgets.so
 %{_kf6_libdir}/cmake/KF6TextAddonsWidgets/
 %{_kf6_libdir}/cmake/KF6TextAutoCorrectionCore/
 %{_kf6_libdir}/cmake/KF6TextAutoCorrectionWidgets/
@@ -154,6 +172,8 @@ BuildArch:      noarch
 %{_kf6_libdir}/cmake/KF6TextUtils/
 %{_kf6_libdir}/cmake/KF6TextAutoGenerateText/
 %{_kf6_libdir}/cmake/KF6TextSpeechToText/
+%{_kf6_libdir}/cmake/KF6TextAutoGenerateTextMcpProtocolCore/
+%{_kf6_libdir}/cmake/KF6TextAutoGenerateTextMcpProtocolWidgets/
 %{_kf6_libdir}/cmake/textutils-cmark-rc-copy/
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so
 %{_kf6_libdir}/libKF6TextAutoGenerateText.so
@@ -170,6 +190,9 @@ BuildArch:      noarch
 %doc README.md
 
 %changelog
+* Sat Jun 27 2026 Steve Cossette <farchord@gmail.com> - 2.1.0-1
+- 2.1.0
+
 * Sat May 09 2026 Steve Cossette <farchord@gmail.com> - 2.0.2-1
 - 2.0.2
 

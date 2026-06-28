@@ -24,19 +24,18 @@
 # this is not a library version
 %define gs_plugin_version 23
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   50.2
+Version:   51~alpha
 Release:   %autorelease
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
-Source0:   https://download.gnome.org/sources/gnome-software/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:   https://download.gnome.org/sources/gnome-software/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 %if %{with dnf5}
 # to update the patch enter the ./dnf5-plugin/ directory and run from
@@ -45,10 +44,6 @@ Patch:     0001-dnf5-plugin.patch
 %endif
 
 Patch:     0002-plain-package-update-notification.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2463990
-# Fix package updates sometimes shown as online (flatpak) updates
-Patch:     0003-m2434-recognize-added-packages-in-update.patch
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -71,6 +66,7 @@ BuildRequires: pkgconfig(fwupd) >= %{fwupd_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires: pkgconfig(glib-testing-0)
 BuildRequires: pkgconfig(gmodule-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
@@ -167,10 +163,7 @@ This package includes the rpm-ostree backend.
 %endif
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -S gendiff -n %{name}-%{tarball_version}
+%autosetup -p1 -S gendiff -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

@@ -1,6 +1,6 @@
 Name:           gnome-chemistry-utils
 Version:        0.14.17
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        A set of chemical utilities
 
 #openbabel/* is GPLv2+
@@ -273,6 +273,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.14.17-55
+- Rebuild for openbabel-3.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.17-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

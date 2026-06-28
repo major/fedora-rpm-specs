@@ -1,12 +1,12 @@
 %global pkg jedi
 
-%global commit e942a0e410cbb2a214c9cb30aaf0e47eb0895b78
+%global commit 94a031d54c55d22aa36ad557f45c972cb3f5833b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210503
+%global commitdate 20250602
 
 Name:           emacs-%{pkg}
-Version:        0.3.0
-Release:        0.19.%{commitdate}git%{shortcommit}%{?dist}
+Version:        0.3.0~%{commitdate}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        Python auto-completion for Emacs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -18,6 +18,8 @@ Source1:        %{pkg}-init.el
 Patch0:         %{name}-0.3.0-python_requires.patch
 # Invoke system jediepcserver
 Patch1:         %{name}-0.2.8-jediepcserver.patch
+# Fix tests with Python 3.15
+Patch2:         %{name}-0.3.0-python-3.15_tests.patch
 
 BuildRequires:  emacs
 BuildRequires:  emacs-auto-complete
@@ -91,6 +93,9 @@ export PYTEST_ADDOPTS="--deselect=test_jediepcserver.py::test_epc_server_runs_fi
 
 
 %changelog
+* Fri Jun 26 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.3.0~20250602git94a031d-1
+- Update to latest snapshot
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.0-0.19.20210503gite942a0e
 - Rebuilt for Python 3.15
 

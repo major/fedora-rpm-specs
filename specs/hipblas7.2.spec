@@ -37,7 +37,7 @@
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -94,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm BLAS marshaling library
 License:        MIT
@@ -238,9 +238,6 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
-* Fri Jun 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
-- merge compat changes
-
 * Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Generate suse package name
 

@@ -50,17 +50,15 @@
 %global dbus_service_name_sources	org.gnome.evolution.dataserver.Sources5
 %global dbus_service_name_user_prompter	org.gnome.evolution.dataserver.UserPrompter0
 
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.60.2
+Version: 3.61.1
 Release: %autorelease
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 # 0-99: General patches
 # enable corresponding autopatch below to make them applied
@@ -318,8 +316,8 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %files
 %license COPYING
 %doc README ChangeLog NEWS
-%{_libdir}/libcamel-1.2.so.67
-%{_libdir}/libcamel-1.2.so.67.0.0
+%{_libdir}/libcamel-1.2.so.68
+%{_libdir}/libcamel-1.2.so.68.0.0
 %{_libdir}/libebackend-1.2.so.11
 %{_libdir}/libebackend-1.2.so.11.0.0
 %{_libdir}/libebook-1.2.so.21

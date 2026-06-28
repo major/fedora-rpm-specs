@@ -1,7 +1,7 @@
 %global _docdir_fmt %{name}
 
 Name:		gappa
-Version:	1.8.0
+Version:	1.8.1
 Release:	%autorelease
 Summary:	Prove programs with floating-point or fixed-point arithmetic
 
@@ -63,6 +63,9 @@ Documentation for gappa.
 %conf
 # Increase the test timeout for ARM
 sed -i 's/timeout 5/&0/' Remakefile.in
+
+# Force the lex & yacc sources to be regenerated
+rm src/parser/lexer.cpp src/parser/parser.{c,h}pp
 
 %build
 %configure

@@ -8,8 +8,6 @@ URL:            https://github.com/OpenSC/OpenSC/wiki
 Source0:        https://github.com/OpenSC/OpenSC/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
-# File caching by default (#2000626)
-Patch8:         %{name}-0.22.0-file-cache.patch
 # Registering SHA1 mechanisms does not work in FIPS mode
 # https://github.com/OpenSC/OpenSC/pull/3645
 Patch9:         %{name}-0.27.1-fips-sha1.patch

@@ -2,30 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate circular-buffer
+%global crate nanoserde-derive
 
-Name:           rust-circular-buffer
-Version:        1.2.0
+Name:           rust-nanoserde-derive
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Efficient, fixed-size, overwriting circular buffer
+Summary:        Fork of makepad-tinyserde derive without any external dependencies
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/circular-buffer
+License:        MIT
+URL:            https://crates.io/crates/nanoserde-derive
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Do not depend on criterion; it is needed only for benchmarks.
-# * Update a couple of dev-dependencies across SemVer boundaries (drop-tracker
-#   0.2, rand 0.10; rand requires a source-code patch):
-#   https://github.com/andreacorbellini/rust-circular-buffer/pull/21
-Patch:          circular-buffer-fix-metadata.diff
-# * Source-code patch for rand 0.10, backported to v1.2.0, from
-#   https://github.com/andreacorbellini/rust-circular-buffer/pull/21
-Patch10:        0001-Update-rand-dev-dependency-from-0.9.2-to-0.10.1.patch
+# * License file is not bundled in the crate; tracked upstream:
+# * https://github.com/not-fl3/nanoserde/issues/156
+Source1:        https://raw.githubusercontent.com/not-fl3/nanoserde/master/LICENSE-MIT#/nanoserde-derive-LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Efficient, fixed-size, overwriting circular buffer.}
+Fork of makepad-tinyserde derive without any external dependencies.}
 
 %description %{_description}
 
@@ -39,9 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -56,44 +48,45 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+binary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+binary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "binary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+binary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+json-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+json-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "json" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+json-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+use_std-devel
+%package     -n %{name}+ron-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+use_std-devel %{_description}
+%description -n %{name}+ron-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "use_std" feature of the "%{crate}" crate.
+use the "ron" feature of the "%{crate}" crate.
 
-%files       -n %{name}+use_std-devel
+%files       -n %{name}+ron-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp %{SOURCE1} LICENSE-MIT
 %cargo_prep
 
 %generate_buildrequires
@@ -104,6 +97,7 @@ use the "use_std" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+install -m 0644 LICENSE-MIT %{buildroot}/%{crate_instdir}/
 
 %if %{with check}
 %check

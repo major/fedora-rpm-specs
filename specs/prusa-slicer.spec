@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.9.5
+Version:        2.9.6
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -24,7 +24,7 @@ License:        AGPL-3.0-only
 URL:            https://github.com/prusa3d/PrusaSlicer/
 Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.tar.gz
 Source2:        %name.appdata.xml
-%global libbgcode_commit 5041c093b33e2748e76d6b326f2251310823f3df
+%global libbgcode_commit 6f4ad7ce6b0e638b760199d6611039a610a5a479
 Source3:        https://github.com/prusa3d/libbgcode/archive/%{libbgcode_commit}.tar.gz#/libbgcode-%{libbgcode_commit}.tar.gz
 Source4:        https://github.com/atomicobject/heatshrink/archive/refs/tags/v0.4.1.tar.gz#/heatshrink-0.4.1.tar.gz
 Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb8b13d7555183ab10aa5.tar.gz#/openvdb-8.2.tar.gz
@@ -243,6 +243,11 @@ Provides: bundled(heatshrink) = 0.4.1
 # Upstream: https://github.com/AcademySoftwareFoundation/openvdb
 # Upstream: https://github.com/prusa3d/openvdb
 Provides: bundled(openvdb) = 8.2.0
+
+# Not packaged in Fedora (but could be).
+# License: MIT
+# Upstream: https://github.com/prusa3d/prusa-fdm-mixer
+Provides: bundled(prusa-fdm-mixer)
 
 # In case someone tries to install the upstream name
 Provides: PrusaSlicer = %version-%release

@@ -21,6 +21,15 @@ Patch:          %{url}/pull/591.patch
 # Replace pkg resources use, removed from setuptools 82+
 # https://github.com/html5lib/html5lib-python/pull/594 rebased
 Patch:          594.patch
+# Support the <wbr> element
+# Taken from:
+# https://github.com/html5lib/html5lib-python/commit/6ca02445
+# just without the changelog.
+Patch:          wbr_element_support.patch
+# Patch from bleach project fixing a security vulnerability
+# https://github.com/mozilla/bleach/commit/970df58e
+# https://github.com/mozilla/bleach/security/advisories/GHSA-gj48-438w-jh9v
+Patch:          formaction_uri.patch
 
 BuildArch:      noarch
 

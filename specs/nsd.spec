@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.14.2
+Version: 4.14.3
 Release: %autorelease
 License: BSD-3-Clause
 Url: http://www.nlnetlabs.nl/nsd/

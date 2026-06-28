@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 # src/bsd/getopt.c BSD-4-Clause (not used)
@@ -11,19 +11,23 @@ URL:            http://www.etpan.org/
 Source0:        https://github.com/dinhviethoa/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-1.9.2-cryptopolicy.patch
-# xmlError constness
-Patch11:        libetpan-1.10-xmlError-constness.patch
 # Upstream patches
-#
+# https://github.com/dinhvh/libetpan/commit/d3c9bd49e681660bafce6fc193650f0de5ad908f
+Patch101:		libetpan-1.10.1-unittext-plaintext-rendering-fix-build.patch
+# https://github.com/dinhvh/libetpan/commit/0141aba7e56d0ae4450a94cc3e261567fbc47683
+Patch102:		libetpan-1.10.1-use-icu-for-japanese-conversion.patch
 
-BuildRequires:  gcc-c++
-BuildRequires:  liblockfile-devel
-BuildRequires:  libdb-devel < 5.4
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gnutls-devel
-BuildRequires:  libtool
+BuildRequires:  libdb-devel < 5.4
+BuildRequires:  liblockfile-devel
+BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  zlib-devel
-BuildRequires:  autoconf automake
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  make
 # disabled by default in configure.ac accidentally
 # https://github.com/dinhviethoa/libetpan/issues/221
@@ -56,7 +60,8 @@ find . -name \*.gz -delete
 sed -i.flags libetpan.pc.in \
     -e 's|-letpan@LIBSUFFIX@.*$|-letpan@LIBSUFFIX@|'
 %patch -P10 -p1 -b .crypto-policy
-%patch -P11 -p1 -b .const
+%patch -P101 -p1 -b .plaintext
+%patch -P102 -p1 -b .jp_icu
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -98,7 +103,6 @@ sed -i.shared Makefile \
 	-e 's|libetpan.a|libetpan.so|' \
 	-e 's|-liconv ||' \
 	-e 's|-Werror |-Werror -Wno-error=deprecated-declarations |' \
-	-e 's|\$(TIDY_LDLIBS) |$(TIDY_LDLIBS) -lm |' \
 	%{nil}
 
 # plaintext_rendering_test: needs TZ (PDT)
@@ -106,8 +110,9 @@ sed -i.shared Makefile \
 export TZ="America/Los_Angeles"
 pushd plaintext-rendering/data
 if [ ! -d input-fail ] ; then
-	mkdir input-fail
-	mv input/5231-emoji.eml input-fail/
+	true
+#	mkdir input-fail
+#	mv input/5231-emoji.eml input-fail/
 fi
 popd
 
@@ -130,6 +135,9 @@ popd
 %{_libdir}/%{name}.so
 
 %changelog
+* Fri Jun 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10.1-2
+- Backport upstream patch to use ICU for Japanese charset conversion
+
 * Wed Jun 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10.1-1
 - 1.10.1
 

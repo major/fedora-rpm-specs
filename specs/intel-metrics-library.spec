@@ -1,13 +1,13 @@
 %global upstream_name metrics-library
 
 Name: intel-metrics-library
-Version: 1.0.200
+Version: 1.0.231
 Release: %autorelease
 Summary: Shared library for Intel Metrics Library for Metrics Discovery API
 License: MIT
 ExclusiveArch: x86_64
 URL: https://github.com/intel/metrics-library
-Source0: %{url}/archive/%{upstream_name}-%{version}.tar.gz
+Source0: %{url}/archive/%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -31,7 +31,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_name}-%{version}
+%autosetup -n %{upstream_name}-%{version}
 
 %build
 %cmake \

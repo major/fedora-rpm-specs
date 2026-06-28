@@ -1,12 +1,14 @@
 Name:           openscap
 Version:        1.4.4
-Release:        2%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
 URL:            http://www.open-scap.org/
 VCS:            git:https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/openscap/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:         2343.patch
+Patch1:         2360.patch
 
 %global         common_description %{expand:
 OpenSCAP is a set of open source libraries providing an easier path
@@ -52,7 +54,7 @@ BuildRequires:  swig
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  rpm-devel
-BuildRequires:  libgcrypt-devel
+BuildRequires:  nss-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  libacl-devel
 BuildRequires:  libselinux-devel
@@ -223,6 +225,7 @@ Tool for scanning Atomic containers.
 # gconf is a legacy system not used any more, and it blocks testing of oscap-anaconda-addon
 # as gconf is no longer part of the installation medium
 %cmake \
+    -DWITH_CRYPTO=nss \
     -DWITH_PCRE2=ON \
     -DENABLE_PERL=ON \
     -DENABLE_DOCS=ON \
@@ -319,6 +322,12 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Wed Jun 24 2026 Matthew Burket <mburket@redhat.com> - 1:1.4.4-4
+- Update tests
+
+* Thu Jun 11 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.4.4-3
+- Use NSS for crypto
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:1.4.4-2
 - Rebuilt for Python 3.15
 

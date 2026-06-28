@@ -1,6 +1,6 @@
 %bcond_without tests
 Name:             fossil
-Version:          2.26
+Version:          2.28
 Release:          %autorelease
 Summary:          A distributed SCM with bug tracking and wiki
 
@@ -14,10 +14,10 @@ Source3:          fossil-doc-README
 BuildRequires:    gcc-c++
 BuildRequires:    zlib-devel
 BuildRequires:    openssl-devel
-BuildRequires:    tcl
+BuildRequires:    tcl8
 BuildRequires:    make
 BuildRequires:    sqlite
-Provides:         bundled(sqlite) = 3.38.0
+Provides:         bundled(sqlite) = 3.52.0
 
 %description
 Fossil is a simple, high-reliability, distributed software configuration
@@ -26,7 +26,7 @@ interface.
 
 %package doc
 Summary:          Fossil documentation
-
+BuildArch:        noarch
 Requires:         fossil
 
 %description doc
@@ -37,7 +37,8 @@ in %{_docdir}/%{name}-doc folder to view documents in browser.
 %autosetup -p0 -n fossil-src-%{version}
 
 # Update config.guess/sub to fix builds on new architectures (aarch64/ppc64le)
-for conf in /usr/lib/rpm/config.*; do [ -z "${f}" ] && break; cp "${f}" autosetup; done
+cp -f %{_rpmconfigdir}/redhat/config.guess autosetup/autosetup-config.guess
+cp -f %{_rpmconfigdir}/redhat/config.sub autosetup/autosetup-config.sub
 
 %build
 %set_build_flags
@@ -74,7 +75,7 @@ install -D -m 0644 -t %{buildroot}%{_mandir}/man1 fossil.1
 
 %check
 %if %{with tests}
-tclsh test/tester.tcl %{buildroot}%{_bindir}/%name
+tclsh8 test/tester.tcl %{buildroot}%{_bindir}/%name
 %endif
 
 

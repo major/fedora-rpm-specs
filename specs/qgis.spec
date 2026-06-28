@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        4.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -53,7 +53,7 @@ BuildRequires:  PDAL
 BuildRequires:  PDAL-devel
 BuildRequires:  poly2tri-devel
 BuildRequires:  proj-devel
-BuildRequires:  protobuf-lite-devel
+BuildRequires:  protobuf3-lite-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-qscintilla-qt6
 BuildRequires:  python3-qscintilla-qt6-devel
@@ -322,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Jun 26 2026 Sandro Mani <manisandro@gmail.com> - 4.0.3-5
+- Switch to protobuf3-lite-devel for now
+
 * Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.3-4
 - Rebuilt for abseil-cpp 20260526.0
 

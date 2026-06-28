@@ -1,29 +1,49 @@
-%global utf8_range_commit 72c943dea2b9240cd09efde15191e144bc7c7d38
-%global utf8_range_name utf8_range-%( echo %utf8_range_commit | cut -c1-7 )
+# Do not check .so files from python or rocm packages
+%global __provides_exclude_from ^(%{python3_sitearch}/onnxruntime/.*|%{_libdir}/rocm/lib/.*)$
 
 %if 0%{?fedora} && ! 0%{?flatpak}
 %ifarch x86_64
-%bcond rocm 1
+%bcond rocm_migraphx 0
+%bcond migraphx 1
+# Only for testing purposes, deprecated upstream
+%bcond dnnl 0
+# Requires updated openVINO with latest onnx and protobuf
+%bcond openvino 0
 %else
-%bcond rocm 0
+%bcond rocm_migraphx 0
+%bcond migraphx 0
+%bcond dnnl 0
+%bcond openvino 0
 %endif
 %else
-%bcond rocm 0
+%bcond rocm_migraphx 0
+%bcond migraphx 0
+%bcond dnnl 0
+%bcond openvino 0
 %endif
 
-%bcond rocm_test 0
 %bcond test 1
+%bcond rocm_migraphx_test 0
 
 # $backend will be evaluated below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${backend}
-%global backends cpu
-%if %{with rocm}
-%global backends %backends rocm
+%global backends %nil
+%global backends %backends cpu
+%if %{with migraphx}
+%global backends %backends migraphx
 %endif
+%if %{with dnnl}
+%global backends %backends dnnl
+%endif
+%if %{with openvino}
+%global backends %backends openvino
+%endif
+
+%global so_version 1
 
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
-Version:    1.22.2
+Version:    1.26.0
 Release:    %autorelease
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
@@ -32,65 +52,47 @@ Release:    %autorelease
 License:    MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
 URL:        https://github.com/microsoft/onnxruntime
 Source0:    https://github.com/microsoft/onnxruntime/archive/v%{version}/%{name}-%{version}.tar.gz
-# Bundled utf8_range until they get propperly exposed from the protobuff package
-Source1:    https://github.com/protocolbuffers/utf8_range/archive/%{utf8_range_commit}/%{utf8_range_name}.zip
 
-# Add an option to not install the tests
-Patch:      0000-don-t-install-tests.patch
-# Use the system flatbuffers
-Patch:      0001-system-flatbuffers.patch
-# Use the system protobuf
-Patch:      0002-system-protobuf.patch
-# Use the system onnx
-Patch:      0003-system-onnx.patch
-# Fedora targets power8 or higher
-Patch:      0004-disable-power10.patch
-# Use the system safeint
-Patch:      0005-system-safeint.patch
-# Versioned libonnxruntime_providers_shared.so
-Patch:      0006-versioned-onnxruntime_providers_shared.patch
-# Disable gcc -Werrors with false positives
-Patch:      0007-gcc-false-positives.patch
-# Test data not available 
-Patch:      0008-disable-pytorch-tests.patch
+# Disable downloading dependencies
+Patch:      0001-Disable-download-deps.patch
+# Use the system abseil-cpp
+Patch:      0002-System-abseil.patch
 # Use the system date and boost
-Patch:      0009-system-date-and-mp11.patch
-# Use the system cpuinfo
-Patch:      0010-system-cpuinfo.patch
-# Trigger onnx fix for onnxruntime_providers_shared
-Patch:      0011-onnx-onnxruntime-fix.patch
-# Use the system python version
-Patch:      0012-system-python.patch
-# Fix missing includes
-Patch:      0014-missing-cpp-headers.patch
-# Revert https://github.com/microsoft/onnxruntime/pull/21492 until
-# Fedora's Eigen3 is compatible with the fix.
-Patch:      0015-revert-nan-propagation-bugfix.patch
-Patch:      0016-disable-locale-tests.patch
-Patch:      0017-disable-downloading-dependencies.patch
-Patch:      0018-system-eigen3.patch
-Patch:      0019-disable-tests.patch
-# [Build] Fails to build with abseil-cpp 20250814
-# https://github.com/microsoft/onnxruntime/issues/25815
-# Patch suggested in a comment in the above issue.
-Patch:      abseil-cpp-20250814.patch
-# Build fails on ROCm 7
-Patch:     0001-onnxruntime-warpSize-is-not-constant-in-ROCm-7.patch
-Patch:     0001-onnxruntime-ignore-deprecated-thrust-warnings.patch
-# unsupported HIP identifier: CUBLAS_GEMM_DEFAULT_TENSOR_OP
-Patch:     0001-onnxruntime-rocm-no-CUBLAS_GEMM_DEFAULT_TENSOR_OP-su.patch
-Patch:     0001-onnxruntime-use-hipblasGemmStridedBatchedEx-instead-of-_v2.patch
+Patch:      0003-System-date-and-mp11.patch
+# Use the system safeint
+Patch:      0004-System-safeint.patch
+# Use the system eigen3
+Patch:      0005-System-eigen3.patch
+# Use the system flatbuffers
+Patch:      0006-System-flatbuffers.patch
+# Disable gcc -Werrors with false positives
+Patch:      0007-GCC-false-positives.patch
+# Fix deprecated C++20 feature use in migraphx implementation
+Patch:      0008-migraphx-Fix-C-20-deprecated-this-capture.patch
+# Use the system onednn lib
+Patch:      0009-System-dnnl.patch
+Patch:      0010-dnnl-Clean-unused-vars.patch
+# Use the system openVINO
+Patch:      0011-openVINO-runtime-fix.patch
 
-# s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
 # i686:    https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    s390x %{arm} %{ix86}
+
+# Force provides declaration since it's not being detected automatically
+%ifarch x86_64 aarch64 ppc64 ppc64le s390x riscv64
+Provides: libonnxruntime_providers_shared.so()(64bit)
+Provides: libonnxruntime_providers_shared.so(VERS_1.0)(64bit)
+%else
+Provides: libonnxruntime_providers_shared.so
+Provides: libonnxruntime_providers_shared.so(VERS_1.0)
+%endif
 
 BuildRequires:  cmake >= 3.13
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:	onnx-devel = 1.17.0
+BuildRequires:	onnx-devel = 1.21.0
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  boost-devel >= 1.66
 BuildRequires:  bzip2
@@ -105,7 +107,8 @@ BuildRequires:  gsl-devel
 BuildRequires:  gtest-devel
 BuildRequires:  guidelines-support-library-devel
 BuildRequires:  json-devel
-BuildRequires:  protobuf-devel < 4
+BuildRequires:  protobuf-devel >= 4
+BuildRequires:  protobuf-static >= 4
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools
@@ -117,31 +120,17 @@ BuildRequires:  zlib-devel
 Buildrequires:  eigen3-devel >= 1.34
 BuildRequires:  pybind11-devel
 
-%if %{with rocm}
-BuildRequires:  hipcc
-BuildRequires:  hipify
-BuildRequires:  hipblas-devel
-BuildRequires:  hipcub-devel
-BuildRequires:  hipfft-devel
-BuildRequires:  hiprand-devel
-BuildRequires:  hipsparse-devel
+%if %{with migraphx} || %{with rocm_migraphx}
+BuildRequires:  migraphx-devel
 BuildRequires:  miopen-devel
-BuildRequires:  rccl-devel
 BuildRequires:  rocblas-devel
-BuildRequires:  rocm-clang
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-core-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-device-libs
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-smi-devel
-BuildRequires:  rocthrust-devel
-BuildRequires:  roctracer-devel
 %endif
-
-Provides:       bundled(utf8_range)
+%if %{with dnnl}
+BuildRequires:  onednn-devel
+%endif
+%if %{with openvino}
+BuildRequires:  openvino-devel
+%endif
 
 %description
 %{name} is a cross-platform inferencing and training accelerator compatible
@@ -155,34 +144,147 @@ Requires:   %{name}%{_isa} = %{version}-%{release}
 %description devel
 The development part of the %{name} package
 
-%if %{with rocm}
-%package rocm
-Summary:    The ROCm runtime backend for the %{name} package
-
-%description rocm
-%{summary}
-
-%package rocm-devel
-Summary:    The ROCm development part of the %{name} package
-Requires:   %{name}-rocm%{_isa} = %{version}-%{release}
-
-%description rocm-devel
-%{summary}
-
-%package rocm-test
-Summary:    The ROCm tests for the %{name} package
-Requires:   %{name}-rocm%{_isa} = %{version}-%{release}
-
-%description rocm-test
-%{summary}
-%endif
-
 %package -n python3-onnxruntime
 Summary:    %{summary}
-Requires:   %{name}%{_isa} = %{version}-%{release}
 
 %description -n python3-onnxruntime
 Python bindings for the %{name} package
+
+%if %{with test}
+%package test
+Summary:    The test binaries of the %{name} package
+Requires:   %{name}%{_isa} = %{version}-%{release}
+
+%description test
+The test binaries of the %{name} package
+%endif
+
+%if %{with migraphx}
+%package migraphx
+Summary:    %{summary}
+Conflicts:  %{name}%{_isa} = %{version}-%{release}
+Provides:   %{name}%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .migraphx
+
+%description migraphx
+The migraphx execution provider for the %{name} library
+
+%package -n python3-onnxruntime-migraphx
+Summary:    %{summary}
+Conflicts:  python3-onnxruntime = %{version}-%{release}
+Provides:   python3-onnxruntime = %{version}-%{release}
+RemovePathPostfixes: .migraphx:.migraphx.pyc
+
+%description -n python3-onnxruntime-migraphx
+The migraphx execution provider for the %{name} python library
+
+%if %{with test}
+%package migraphx-test
+Summary:    The test binaries of the %{name}-migraphx package
+Requires:   %{name}-migraphx%{_isa} = %{version}-%{release}
+Conflicts:  %{name}-test%{_isa} = %{version}-%{release}
+Provides:   %{name}-test%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .migraphx
+
+%description migraphx-test
+The test binaries of the %{name}-migraphx package
+%endif
+
+%endif
+
+%if %{with dnnl}
+%package dnnl
+Summary:    %{summary}
+Conflicts:  %{name}%{_isa} = %{version}-%{release}
+Provides:   %{name}%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .dnnl
+
+%description dnnl
+The dnnl execution provider for the %{name} library
+
+%package -n python3-onnxruntime-dnnl
+Summary:    %{summary}
+Conflicts:  python3-onnxruntime = %{version}-%{release}
+Provides:   python3-onnxruntime = %{version}-%{release}
+RemovePathPostfixes: .dnnl:.dnnl.pyc
+
+%description -n python3-onnxruntime-dnnl
+The dnnl execution provider for the %{name} python library
+
+%if %{with test}
+%package dnnl-test
+Summary:    The test binaries of the %{name}-dnnl package
+Requires:   %{name}-dnnl%{_isa} = %{version}-%{release}
+Conflicts:  %{name}-test%{_isa} = %{version}-%{release}
+Provides:   %{name}-test%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .dnnl
+
+%description dnnl-test
+The test binaries of the %{name}-dnnl package
+%endif
+
+%endif
+
+%if %{with openvino}
+%package openvino
+Summary:    %{summary}
+Conflicts:  %{name}%{_isa} = %{version}-%{release}
+Provides:   %{name}%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .openvino
+
+%description openvino
+The openvino execution provider for the %{name} library
+
+%package -n python3-onnxruntime-openvino
+Summary:    %{summary}
+Conflicts:  python3-onnxruntime = %{version}-%{release}
+Provides:   python3-onnxruntime = %{version}-%{release}
+RemovePathPostfixes: .openvino:.openvino.pyc
+
+%description -n python3-onnxruntime-openvino
+The openvino execution provider for the %{name} python library
+
+%if %{with test}
+%package openvino-test
+Summary:    The test binaries of the %{name}-openvino package
+Requires:   %{name}-openvino%{_isa} = %{version}-%{release}
+Conflicts:  %{name}-test%{_isa} = %{version}-%{release}
+Provides:   %{name}-test%{_isa} = %{version}-%{release}
+RemovePathPostfixes: .openvino
+
+%description openvino-test
+The test binaries of the %{name}-openvino package
+%endif
+
+%endif
+
+%if %{with rocm_migraphx}
+%package -n rocm-onnxruntime-migraphx
+Summary:    The ROCm version of the %{name} package using MIGraphX PE
+Obsoletes:  onnxruntime-rocm < %version-%release
+Provides:   onnxruntime-rocm = %version-%release
+
+%description -n rocm-onnxruntime-migraphx
+%{summary}
+
+%package -n rocm-onnxruntime-migraphx-devel
+Summary:    The ROCm development part of the rocm-%{name}-migraphx package
+Requires:   rocm-onnxruntime-migraphx%{_isa} = %{version}-%{release}
+Obsoletes:  onnxruntime-rocm-devel < %version-%release
+Provides:   onnxruntime-rocm-devel = %version-%release
+
+%description -n rocm-onnxruntime-migraphx-devel
+%{summary}
+
+%package -n rocm-onnxruntime-migraphx-test
+Summary:    The ROCm test part of the rocm-%{name}-migraphx package
+Requires:   rocm-onnxruntime-migraphx%{_isa} = %{version}-%{release}
+Obsoletes:  onnxruntime-rocm-test < %version-%release
+Provides:   onnxruntime-rocm-test = %version-%release
+
+%description -n rocm-onnxruntime-migraphx-test
+%{summary}
+%endif
 
 %package doc
 Summary:    Documentation files for the %{name} package
@@ -190,169 +292,330 @@ Summary:    Documentation files for the %{name} package
 %description doc
 Documentation files for the %{name} package
 
-%if %{with rocm}
-%endif
-
 %prep
 
 %autosetup -p1
 # Downstream-only: do not pin the version of abseil-cpp; use what we have.
 sed -r -i 's/(FIND_PACKAGE_ARGS[[:blank:]]+)[0-9]{8}/\1/' \
     cmake/external/abseil-cpp.cmake
+# Remove unnecesary folders
+rm -rf onnxruntime/cmake/external/{onnx,libprotobuf-mutator,emsdk}
 
-for backend in %backends; do
-  mkdir -p ./%{_vpath_builddir}/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/
-  cp -r %{SOURCE1} ./%{_vpath_builddir}/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/%{utf8_range_commit}.zip
-done
 
 %build
-# Broken test in aarch64
-%ifarch aarch64
-rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
-%endif
 
 # Re-compile flatbuffers schemas with the system flatc
 %{python3} onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc /usr/bin/flatc
 %{python3} onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 
-# -Werror is too strict and brittle for distribution packaging.
-%if 0%{?fedora} < 44
-CXXFLAGS+="-Wno-error"
-%else
-# -Wno-error=sfinae-incomplete -Wno-error=array-bounds -Wno-error=uninitialized added
-# until codebase is fixed.
-CXXFLAGS+="-Wno-error -Wno-error=sfinae-incomplete -Wno-error=array-bounds -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
-%endif
-
-# Overrides BUILD_SHARED_LIBS flag since onnxruntime compiles individual components as static, and links
-# all together into a single shared library when onnxruntime_BUILD_SHARED_LIB is ON.
-# The array-bounds and dangling-reference checks have false positives.
 %global cmake_config \\\
  -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
  -Donnxruntime_BUILD_BENCHMARKS=OFF \\\
  -Donnxruntime_BUILD_SHARED_LIB=ON \\\
- -Donnxruntime_BUILD_UNIT_TESTS=ON \\\
  -Donnxruntime_ENABLE_PYTHON=ON \\\
  -DPYTHON_VERSION=%{python3_version} \\\
- -Donnxruntime_ENABLE_ABSEIL=ON \\\
+ -Donnxruntime_DISABLE_ABSEIL=OFF \\\
  -Donnxruntime_ENABLE_DLPACK=OFF \\\
  -Donnxruntime_USE_FULL_PROTOBUF=ON \\\
- -Donnxruntime_USE_NEURAL_SPEED=OFF \\\
  -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \\\
  -Deigen_SOURCE_PATH=/usr/include/eigen3 \\\
- -S cmake \\\
+ -DProtobuf_BUILD_SHARED_LIBS=OFF \\\
+ -S cmake
 
-%if %{with rocm}
-backend=rocm
+%ifarch ppc64le
+%global cmake_config %cmake_config \\\
+ -Donnxruntime_ENABLE_CPUINFO=OFF
+%else
+%global cmake_config %cmake_config \\\
+ -Donnxruntime_ENABLE_CPUINFO=ON
+%endif
+
+%if %{with test}
+%global cmake_tests \\\
+ -Donnxruntime_BUILD_UNIT_TESTS=ON
+%else
+%global cmake_tests \\\
+ -Donnxruntime_BUILD_UNIT_TESTS=OFF
+%endif
+
+for backend in %backends; do
+    cp -R ./onnxruntime ./onnxruntime.bak
+    cp ./requirements.txt ./requirements.txt.bak
+
+    if [ "${backend}" == "cpu" ]; then
+        %cmake %cmake_config \
+            %cmake_tests
+    elif [ "${backend}" == "migraphx" ]; then
+        %cmake %cmake_config \
+            %cmake_tests \
+            -Donnxruntime_USE_MIGRAPHX=ON
+    elif [ "${backend}" == "dnnl" ]; then
+        %cmake %cmake_config \
+            %cmake_tests \
+            -Donnxruntime_USE_DNNL=ON
+    elif [ "${backend}" == "openvino" ]; then
+        %cmake %cmake_config \
+            %cmake_tests \
+            -Donnxruntime_USE_OPENVINO=ON
+    fi
+
+    %cmake_build
+
+    # Build python libs
+    cp -R ./%{__cmake_builddir}/onnxruntime/* ./onnxruntime
+    cp ./%{__cmake_builddir}/requirements.txt ./requirements.txt
+
+    if [ "${backend}" == "cpu" ]; then
+        %pyproject_wheel
+    elif [ "${backend}" == "migraphx" ]; then
+        %pyproject_wheel -C--global-option=--use_migraphx
+    elif [ "${backend}" == "dnnl" ]; then
+        cp -p ./%{__cmake_builddir}/libonnxruntime_providers_dnnl.so \
+              ./onnxruntime/capi/
+        %pyproject_wheel -C--global-option=--use_dnnl
+    elif [ "${backend}" == "openvino" ]; then
+        %pyproject_wheel -C--global-option=--use_openvino
+    fi
+
+    # Store each backend result separately
+    mkdir -p dist_onnxruntime_${backend}
+    mv %{_pyproject_wheeldir}/*.whl dist_onnxruntime_${backend}/
+    mv ./build dist_onnxruntime_${backend}/
+
+    rm -rf ./onnxruntime
+    rm -rf ./requirements.txt
+    mv ./onnxruntime.bak ./onnxruntime
+    mv ./requirements.txt.bak ./requirements.txt
+done
+
+%if %{with rocm_migraphx}
+backend=rocm_migraphx
 %cmake %cmake_config \
     -DCMAKE_INSTALL_BINDIR=%{_lib}/rocm/bin \
     -DCMAKE_INSTALL_INCLUDEDIR=%{_lib}/rocm/include \
     -DCMAKE_INSTALL_LIBDIR=%{_lib}/rocm/lib \
     -Donnxruntime_ENABLE_CPUINFO=ON \
-    -DCMAKE_HIP_ARCHITECTURES=%rocm_gpu_list_default \
-    -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_HIP_PLATFORM=amd \
 %if %{with rocm_test}
-    -Donnxruntime_INSTALL_UNIT_TESTS=ON \
+    -Donnxruntime_BUILD_UNIT_TESTS=ON \
 %else
-    -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
+    -Donnxruntime_BUILD_UNIT_TESTS=OFF \
 %endif
     -Donnxruntime_ROCM_HOME=%{_prefix} \
     -Donnxruntime_USE_COMPOSABLE_KERNEL=OFF \
-    -Donnxruntime_USE_ROCM=ON
+    -Donnxruntime_USE_MIGRAPHX=ON
 
 %cmake_build
 %endif
-
-backend=cpu
-%cmake %cmake_config \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-    -DCMAKE_INSTALL_INCLUDEDIR=include \
-%ifarch ppc64le
-    -Donnxruntime_ENABLE_CPUINFO=OFF \
-%else
-    -Donnxruntime_ENABLE_CPUINFO=ON \
-%endif
-    -Donnxruntime_INSTALL_UNIT_TESTS=OFF
-
-%cmake_build
-
-# Build python libs
-cp -R ./%{__cmake_builddir}/onnxruntime/* ./onnxruntime
-cp ./%{__cmake_builddir}/requirements.txt ./requirements.txt
-%pyproject_wheel
 
 %install
-%if %{with rocm}
-backend=rocm
+mkdir -p %{_builddir}/buildroot_acumulator
+for backend in %backends; do
+    %cmake_install
+    if [ "${backend}" = "cpu" ]; then
+        mkdir -p "%{buildroot}/%{_docdir}/"
+        cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
+    fi
+
+    # Install python libs
+    # Retrieve each python wheel
+    cp dist_onnxruntime_${backend}/*.whl %{_pyproject_wheeldir}/
+    cp -r dist_onnxruntime_${backend}/build ./build
+
+    # Run install process
+    %pyproject_install
+    %if ! %{with test}
+        rm -rf %{buildroot}%{_bindir}
+    %endif
+    
+
+    if [ "${backend}" = "cpu" ]; then
+        # List installed files and copy result
+        %pyproject_save_files onnxruntime
+        cp %{pyproject_files} %{_builddir}/files_${backend}
+
+    else
+        # List installed files and copy result
+        %pyproject_save_files onnxruntime 'onnxruntime*'
+        cp %{pyproject_files} %{_builddir}/files_${backend}
+
+        # Add postfix to files in onnxruntime directory from specific backend
+        sed -i '/^%dir/! { /\.dist-info/! s/$/.'"${backend}"'/}' %{_builddir}/files_${backend}
+        find %{buildroot}%{python3_sitearch}/onnxruntime/ -type f -exec bash -c 'mv "${0}" "${0}.'"${backend}"'"' {} \;
+
+        # Make sure that even if they have a postfix, to keep the extension of .pyc files
+        # so that they are properly processed on the check-buildroot step.
+        sed -i 's/.pyc.'"${backend}"'$/.pyc.'"${backend}"'.pyc/' %{_builddir}/files_${backend}
+        find %{buildroot}%{python3_sitearch}/onnxruntime/ -type f -iname "*.pyc.${backend}" -exec bash -c 'mv "${0}" "${0}.pyc"' {} \;
+
+        # Rename other installed files
+        mv  %{buildroot}%{_libdir}/libonnxruntime.so.%{version} \
+            %{buildroot}%{_libdir}/libonnxruntime.so.%{version}.${backend}
+        mv  %{buildroot}%{_libdir}/libonnxruntime_providers_shared.so \
+            %{buildroot}%{_libdir}/libonnxruntime_providers_shared.so.${backend}
+
+        %if %{with test}
+            mv  %{buildroot}%{_bindir}/onnx_test_runner \
+                %{buildroot}%{_bindir}/onnx_test_runner.${backend}
+            mv  %{buildroot}%{_bindir}/onnxruntime_test \
+                %{buildroot}%{_bindir}/onnxruntime_test.${backend}
+        %endif
+    fi
+
+    # Remove this file on each loop so that pyproject_save_files works properly 
+    rm -f %{_pyproject_record}
+    # Store results so that they don't get overwritten in the loop
+    cp -a %{buildroot}/* %{_builddir}/buildroot_acumulator/
+    rm -rf %{buildroot}/*
+
+    # Reset environment
+    rm -rf %{_pyproject_wheeldir}/*
+    rm -rf ./build
+done
+
+%if %{with rocm_migraphx}
+backend=rocm_migraphx
 %cmake_install
+%if ! %{with rocm_migraphx_test}
+    rm -rf %{buildroot}%{_libdir}/rocm/bin
+%endif
 %endif
 
-backend=cpu
-%cmake_install
-mkdir -p "%{buildroot}/%{_docdir}/"
-cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
+# Restore results
+mkdir -p %{buildroot}
+cp -a %{_builddir}/buildroot_acumulator/* %{buildroot}
+rm -rf %{_builddir}/buildroot_acumulator
 
-%pyproject_install
-%pyproject_save_files onnxruntime
-
-ln -s "../../../../libonnxruntime_providers_shared.so.%{version}" "%{buildroot}/%{python3_sitearch}/onnxruntime/capi/libonnxruntime_providers_shared.so"
+%if %{with test} || %{with rocm_migraphx_test}
+%check
+export GTEST_FILTER=" \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutNoCase \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutLower \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutUpper \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutUpperWithLocale \
+    -CContribOpTest.StringNormalizerInsensitiveFilterOutUpperWithLocale \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutUpperEmptyCase \
+    -CContribOpTest.StringNormalizerSensitiveFilterOutUpperSameOutput \
+    -CRandom.MultinomialGoodCase \
+    -CRandom.MultinomialDefaultDType \
+    -CSamplingTest.Gpt2Sampling_CPU "
 
 %if %{with test}
-%check
+for backend in %backends; do
+    %ctest
+done
+%endif
 
-%if %{with rocm_test}
-backend=rocm
-export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
-%ctest
-%else
-backend=cpu
-export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
+%if %{with rocm_migraphx_test}
+backend=rocm_migraphx
 %ctest
 %endif
 
+%if %{with rocm_migraphx_test}
+backend=rocm_migraphx
+%ctest
+%endif
 %endif
 
 %files
 %license LICENSE
 %doc ThirdPartyNotices.txt
+%{_libdir}/libonnxruntime.so.%{so_version}
 %{_libdir}/libonnxruntime.so.%{version}
-%{_libdir}/libonnxruntime_providers_shared.so.%{version}
+%{_libdir}/libonnxruntime_providers_shared.so
 
 %files devel
 %dir %{_includedir}/onnxruntime/
+%dir %{_libdir}/cmake/onnxruntime/
 %{_includedir}/onnxruntime/*
-%{_libdir}/libonnxruntime.so*
-%{_libdir}/libonnxruntime_providers_shared.so
-%{_libdir}/pkgconfig/libonnxruntime.pc
 %{_libdir}/cmake/onnxruntime/*
+%{_libdir}/libonnxruntime.so
+%{_libdir}/pkgconfig/libonnxruntime.pc
 
-%files -n python3-onnxruntime -f %{pyproject_files}
+%files -n python3-onnxruntime -f %{_builddir}/files_cpu
+
+%if %{with test}
+%files test
+%{_bindir}/onnx_test_runner
 %{_bindir}/onnxruntime_test
-%{python3_sitearch}/onnxruntime/capi/libonnxruntime_providers_shared.so
+%endif
+
+%if %{with migraphx}
+%files migraphx
+%license LICENSE
+%doc ThirdPartyNotices.txt
+%{_libdir}/libonnxruntime.so.%{so_version}
+%{_libdir}/libonnxruntime.so.%{version}.migraphx
+%{_libdir}/libonnxruntime_providers_shared.so.migraphx
+%{_libdir}/libonnxruntime_providers_migraphx.so
+
+%files -n python3-onnxruntime-migraphx -f %{_builddir}/files_migraphx
+
+%if %{with test}
+%files migraphx-test
+%{_bindir}/onnx_test_runner.migraphx
+%{_bindir}/onnxruntime_test.migraphx
+%endif
+%endif
+
+%if %{with dnnl}
+%files dnnl
+%license LICENSE
+%doc ThirdPartyNotices.txt
+%{_libdir}/libonnxruntime.so.%{so_version}
+%{_libdir}/libonnxruntime.so.%{version}.dnnl
+%{_libdir}/libonnxruntime_providers_shared.so.dnnl
+%{_libdir}/libonnxruntime_providers_dnnl.so
+
+%files -n python3-onnxruntime-dnnl -f %{_builddir}/files_dnnl
+
+%if %{with test}
+%files dnnl-test
+%{_bindir}/onnx_test_runner.dnnl
+%{_bindir}/onnxruntime_test.dnnl
+%endif
+%endif
+
+%if %{with openvino}
+%files openvino
+%license LICENSE
+%doc ThirdPartyNotices.txt
+%{_libdir}/libonnxruntime.so.%{so_version}
+%{_libdir}/libonnxruntime.so.%{version}.openvino
+%{_libdir}/libonnxruntime_providers_shared.so.openvino
+%{_libdir}/libonnxruntime_providers_openvino.so
+
+%files -n python3-onnxruntime-openvino -f %{_builddir}/files_openvino
+
+%if %{with test}
+%files openvino-test
+%{_bindir}/onnx_test_runner.openvino
+%{_bindir}/onnxruntime_test.openvino
+%endif
+%endif
 
 %files doc
 %{_docdir}/%{name}
 
-%if %{with rocm}
-%files rocm
+%if %{with rocm_migraphx}
+%files -n rocm-onnxruntime-migraphx
 %license LICENSE
 %doc ThirdPartyNotices.txt
+%{_libdir}/rocm/lib/libonnxruntime.so.%{so_version}
 %{_libdir}/rocm/lib/libonnxruntime.so.%{version}
-%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so.%{version}
-%{_libdir}/rocm/lib/libonnxruntime_providers_rocm.so
+%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so
+%{_libdir}/rocm/lib/libonnxruntime_providers_migraphx.so
 
-%files rocm-devel
+%files -n rocm-onnxruntime-migraphx-devel
 %dir %{_libdir}/rocm/include/onnxruntime/
 %dir %{_libdir}/rocm/lib/cmake/onnxruntime/
 %{_libdir}/rocm/include/onnxruntime/*
-%{_libdir}/rocm/lib/libonnxruntime.so*
-%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so
+%{_libdir}/rocm/lib/libonnxruntime.so
 %{_libdir}/rocm/lib/pkgconfig/libonnxruntime.pc
 %{_libdir}/rocm/lib/cmake/onnxruntime/*
 
-%if %{with rocm_test}
-%files rocm-test
+%if %{with rocm_migraphx_test}
+%files -n rocm-onnxruntime-migraphx-test
 %{_libdir}/rocm/bin/*
 %endif
 %endif

@@ -4,7 +4,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           gspell
-Version:        1.14.3
+Version:        1.14.4
 Release:        %autorelease
 Summary:        Spell-checking library for GTK+
 

@@ -7,9 +7,9 @@
 
 ExcludeArch: %{ix86} %{arm}
 
-# Bundled cbindgen makes build slow.
+# Bundled cbindgen-0.29.3
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen  0
+%global use_bundled_cbindgen  1
 
 ####################
 
@@ -171,6 +171,7 @@ Patch603: %{name}-gcc-always-inline.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: autoconf213
+BuildRequires: autotrace
 BuildRequires: bzip2-devel
 BuildRequires: cairo-devel
 BuildRequires: cargo
@@ -211,6 +212,7 @@ BuildRequires: libXinerama-devel
 BuildRequires: libffi-devel
 BuildRequires: libnotify-devel
 BuildRequires: libpng-devel
+BuildRequires: libyuv-devel
 %if %{?with_vpx}
 BuildRequires: libvpx-devel >= %{libvpx_version}
 %endif

@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.38
+Version:        0.0.39
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 
@@ -23,25 +23,20 @@ BuildArch:      noarch
 # to patch pyproject.toml. We preserve upstream’s lower bounds but remove upper
 # bounds, as we must try to make do with what we have.
 #
-# Since requirements-tests.txt and requirements-docs-tests.txt contain
-# overly-strict version bounds and many unwanted
-# linting/coverage/typechecking/formatting dependencies
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
-# we just list the test dependencies we *do* want manually rather than trying
-# to patch the requirements files. We preserve upstream’s lower bounds but
-# remove upper bounds, as we must try to make do with what we have.
-#
 # tests:
 # - Omitted due to
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters:
-#   black, coverage[toml], mypy, pre-commit, ruff
+#   black, coverage[toml], ruff, ty, typer
 # - Already a direct dependency, perhaps with different version bounds:
 #   typing-extensions
 # - Only needed for ignored tests/test_select_gen.py: black, jinja2
 BuildRequires:  %{py3_dist dirty-equals} >= 0.11
 BuildRequires:  %{py3_dist fastapi} >= 0.128
-BuildRequires:  %{py3_dist httpx} >= 0.28.1
+# Upstream asks for httpx >= 0.28.1, but this is just an indirect dependency
+# via Starlette, and Starlette has deprecated httpx in favor of httpx2.
+BuildRequires:  %{py3_dist httpx2}
 BuildRequires:  %{py3_dist pytest} >= 7.0.1
+BuildRequires:  %{py3_dist typer} >= 0.24.1
 
 %global common_description %{expand:
 SQLModel is a library for interacting with SQL databases from Python code, with

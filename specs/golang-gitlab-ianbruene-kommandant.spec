@@ -7,7 +7,7 @@
 %global goipath         gitlab.com/ianbruene/kommandant
 %global forgeurl        https://gitlab.com/ianbruene/kommandant
 
-Version:                0.6.2
+Version:                0.7.0
 %global tag             v%{version}
 
 %gometa
@@ -26,7 +26,6 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Command line meta-interpreter for Go
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}

@@ -21,6 +21,9 @@ Patch0:  0001-hacky-hack.patch
 # https://source.puri.sm/Librem5/libcmatrix/-/merge_requests/116
 Patch1:  116.patch
 
+# https://gitlab.gnome.org/World/Chatty/-/merge_requests/1493
+Patch2: 0002-fix-history-test.patch
+
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc

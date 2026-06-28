@@ -9,7 +9,7 @@
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
 Version:        1.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -132,6 +132,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Fri Jun 26 2026 Milan Crha <mcrha@redhat.com> - 1.5-12
+- Rebuilt for evolution-data-server soname version bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

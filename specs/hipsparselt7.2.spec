@@ -34,7 +34,7 @@
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -45,11 +45,6 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global skip_install_rpath ON
-%endif
-%if 0%{?suse_version}
-%global hipsparselt_name libhipsparselt0
-%else
-%global hipsparselt_name hipsparselt
 %endif
 
 # The tensilelite that hipSPARELt use comes from hipBLASLt
@@ -127,7 +122,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -222,6 +217,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 Requires:       rocm-hip%{pkg_suffix}
 Requires:       rocm-origami%{pkg_suffix}
 Requires:       roctracer%{pkg_suffix}
+
 
 %if %{without nanobind}
 # BSD-3-Clause
@@ -426,9 +422,6 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %changelog
-* Fri Jun 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
-- merge compat changes
-
 * Wed Apr 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Change --with gitcommit to preview
 - Improve libhipsparselt file glob

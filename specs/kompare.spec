@@ -5,12 +5,14 @@ ExcludeArch: %{ix86}
 Name:    kompare
 Summary: Diff tool
 Version: 26.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://apps.kde.org/kompare/
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+Patch0:  kde-bug-481778.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -58,7 +60,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -100,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ko
 
 
 %changelog
+* Fri Jun 26 2026 Pavel Raiskup <pavel@raiskup.cz> - 26.04.2-2
+- backport patch for text alignment issue (KDE Bug 481778)
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

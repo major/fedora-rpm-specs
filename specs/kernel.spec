@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc0.260625gab9de95c9cf9.10
+%define pkgrelease 0.rc0.260626g4edcdefd4083.12
 %define kversion 7
-%define tarfile_release 7.1-13546-gab9de95c9cf9
+%define tarfile_release 7.1-14063-g4edcdefd4083
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260625gab9de95c9cf9.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.260626g4edcdefd4083.12%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -829,7 +829,9 @@ BuildRequires: audit-libs-devel python3-setuptools
 BuildRequires: capstone-devel
 BuildRequires: elfutils-debuginfod-client-devel
 BuildRequires: java-devel
-BuildRequires: libbabeltrace-devel
+%if 0%{?fedora} || 0%{?rhel} >= 11
+BuildRequires: libbabeltrace2-devel
+%endif
 BuildRequires: libpfm-devel
 BuildRequires: libtraceevent-devel
 %ifnarch s390x
@@ -4857,8 +4859,18 @@ fi\
 #
 #
 %changelog
-* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.10]
+* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.4edcdefd4083.12]
+- redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.4edcdefd4083.11]
+- Fix up a mismatch for automotive CONFIG_CLK_X1E80100_GCC (Justin M. Forbes)
+- Linux v7.2.0-0.rc0.4edcdefd4083
+
+* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.10]
+- fedora: aarch64: Set CONFIG_DRIVER_DEFERRED_PROBE_TIMEOUT=-1 (Ali Erdinc Koroglu)
+- redhat: configs: Enable AMD ISP4 MIPI camera solution (Kate Hsuan)
+- redhat: configs: Enable Intel CVS (Kate Hsuan)
 
 * Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.9]
 - Revert "Input: rmi4 - remove the need for artificial IRQ in case of HID" (Justin M. Forbes)

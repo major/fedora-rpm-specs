@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        33.0.5
+Version:        33.0.6
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -47,7 +47,7 @@ BuildArch:      noarch
 
 # Set this to the minimum supported php version Nextcloud will run on
 # Exists to prevent accidental building on distros with outdated php's
-BuildRequires:  php(language) >= 8.1
+BuildRequires:  php(language) >= 8.2
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sed
 
@@ -191,7 +191,12 @@ find . -name .gitignore -type f -delete -print
 find . -name .github    -type d -prune -exec rm -r {} \; -print
 
 # fix CLI upgrade advice on splash screen            
-sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' dist/9396-9396.js.map
+if ! file=$(grep -l 'occ upgrade' dist/*.map); then
+    echo "Could not find the occ upgrade instructions in dist/*.map"
+    exit 1
+fi
+echo "Updating occ upgrade instructions in $file"
+sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' $file
 
 # prepare package doc
 cp %{SOURCE300} README.%{distro}
