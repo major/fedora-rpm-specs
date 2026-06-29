@@ -1,8 +1,8 @@
 %global pkg ansible
 
 Name:           emacs-%{pkg}
-Version:        0.4.2
-Release:        3%{?dist}
+Version:        0.4.3
+Release:        1%{?dist}
 Summary:        Ansible minor mode
 
 License:        GPL-2.0-or-later
@@ -46,6 +46,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sat Jun 27 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.4.3-1
+- Update to 0.4.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

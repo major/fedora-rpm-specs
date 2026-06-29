@@ -2,7 +2,7 @@
 %global srcname_ sphinx_autoapi
 
 Name:           python-%{srcname}
-Version:        3.6.1
+Version:        3.8.0
 Release:        %autorelease
 Summary:        Sphinx API documentation generator
 
@@ -34,8 +34,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname_}-%{version} -p1
-# This symlink is lost from the sdist.
+# These symlinks are lost from the sdist.
+# https://github.com/readthedocs/sphinx-autoapi/issues/565
 ln -s ../pyexample/example tests/python/pymovedconfpy/example
+ln -s ../example_2 tests/toctreeexample/example/example_2
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,15 +48,13 @@ ln -s ../pyexample/example tests/python/pymovedconfpy/example
 %install
 %pyproject_install
 
-# Switch to -l when flit supports PEP639 (3.11, probably.)
-%pyproject_save_files -L autoapi
+%pyproject_save_files -l autoapi
 
 %check
 %{pytest} -m 'not network'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE.rst
 
 %changelog
 %autochangelog

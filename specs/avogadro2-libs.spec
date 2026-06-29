@@ -17,6 +17,9 @@ Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/
 Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/%{version}/fragments-%{version}.tar.gz
 Source5: https://github.com/OpenChemistry/avogadrodata/archive/refs/tags/%{version}/avogadrodata-%{version}.tar.gz
 
+# Do not download "fragments" files
+Patch0: avogadro2-libs-avoid_downloading.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-pybind11
@@ -47,12 +50,9 @@ BuildRequires:  JKQtPlotter-devel
 BuildRequires:  libarchive-devel >= 3.4.0
 %endif
 Provides: %{name}-static = 0:%{version}-%{release}
-
+Obsoletes: %{name} < 0:2.0.0-1
 %py_provides python3-%{name}
 %py_provides python3-avogadro
-
-# Do not download "fragments" files
-Patch0: avogadro2-libs-avoid_downloading.patch
 %description
 Avogadro libraries provide 3D rendering, visualization, analysis
 and data processing useful in computational chemistry, molecular modeling,

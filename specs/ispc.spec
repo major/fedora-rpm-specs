@@ -2,8 +2,9 @@
 %bcond          gcc 0
 
 Name:           ispc
-Version:        1.30.0
+Version:        1.31.0
 Release:        %autorelease
+
 Summary:        C-based SPMD programming language compiler
 License:        BSD-3-Clause
 URL:            https://ispc.github.io/
@@ -29,7 +30,7 @@ Recommends:     %{name}-gpu%{?_isa}
 %endif
 
 # Supported architectures
-ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64 ppc64le
 
 %description
 A compiler for a variant of the C programming language with extensions for
@@ -86,6 +87,9 @@ sed -i 's|-Wno-c99-extensions -Wno-deprecated-register||g' CMakeLists.txt
     -DISPCRT_BUILD_CPU=ON \
     -DISPCRT_BUILD_GPU=ON \
     -DISPCRT_BUILD_TESTS=OFF \
+%endif
+%ifarch ppc64le
+    -DPPC64_ENABLED=ON \
 %endif
     -DLLVM_ENABLE_ASSERTIONS=OFF
 %cmake_build

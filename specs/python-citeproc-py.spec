@@ -1,5 +1,5 @@
 Name:           python-citeproc-py
-Version:        0.8.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Citations and bibliography formatter
 
@@ -69,11 +69,12 @@ sed -i -e '1s|^.*$|#!%{__python3}|' %{buildroot}%{_bindir}/csl_unsorted
 %pyproject_save_files -l citeproc
 
 %check
-%pytest -r fEs
+# requires packaging citeproc-py-styles, which bundles styles
+%pytest -r fEs -k "not test_ordinals_with_embedded_locale"
 
 
 %files -n python3-citeproc-py -f %{pyproject_files}
-%doc CHANGELOG.md README*.md 
+%doc CHANGELOG.md README*.md
 %{_bindir}/csl_unsorted
 
 %changelog

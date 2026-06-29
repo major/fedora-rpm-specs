@@ -7,7 +7,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-xnat
-Version:        0.7.2
+Version:        0.8.1
 Release:        %autorelease
 Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
 

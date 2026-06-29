@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -47,6 +47,10 @@ base directory, which can then be synchronized to remote storage
 
 %prep
 %autosetup -p1
+# Support CMake 4.0
+sed -i CMakeLists.txt -e '\@cmake_policy.*CMP0065@s|^|#|'
+sed -i vendor/cryptopp/vendor_cryptopp/CMakeLists.txt \
+    -e '\@cmake_minimum_required@s|2.8.6|3.5|'
 
 %build
 %cmake \
@@ -72,6 +76,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Jun 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.3-18
+- Support CMake 4.0
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.11.3-17
 - Rebuilt for fmt/spdlog
 

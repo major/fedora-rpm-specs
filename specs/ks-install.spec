@@ -1,16 +1,13 @@
 %global forgeurl https://github.com/cmadamsgit/ks-install
-%global commit 72db7819e3ed40c7f00bd6cd709335970a5ba9c5
-# forgemeta getting a date mismatch at 20230506 vs 07
-%global date 20230507
+%global commit 9c6c6d145004d4f67235eb90b654ba4467a31005
 %forgemeta
 
 Name:		ks-install
 Summary:	Take a Fedora/CentOS/RHEL kickstart file and make a VM
 Version:	0
-Release:	0.12%{?dist}
+Release:	0.13%{?dist}
 URL:		%{forgeurl}
 Source:		%{forgesource}
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 BuildArch:	noarch
 BuildRequires:	perl-generators perl-podlators
@@ -34,10 +31,16 @@ install -D -m0644 ks-libvirt.1 %{buildroot}%{_mandir}/man1/ks-libvirt.1
 %files
 %license LICENSE
 %doc examples
-%{_bindir}/*
-%{_mandir}/man*/*
+%{_bindir}/ks-libvirt
+%{_mandir}/man1/ks-libvirt.1*
 
 %changelog
+* Sat Jun 27 2026 Chris Adams <linux@cmadams.net> - 0-0.13
+- restructure some things to make it easer/cleaner
+- update for newer libvirt/qemu things
+- add ability to disable graphics console (also disables sound)
+- handle any number of disks rather than just 1 or 2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

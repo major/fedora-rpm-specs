@@ -2,8 +2,8 @@
 
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
-Version:	1.5.1.1
-Release:	6%{?dist}
+Version:	1.6.0
+Release:	1%{?dist}
 
 # README.rdoc
 # SPDX confirmed
@@ -51,7 +51,7 @@ sed -i -e \
 	%{gem_name}-%{version}.gemspec
 
 # Kill #line for debuginfo rpm generation
-sed -i -e '/^#line/d' \
+sed -i -e '\@^#line@s@^.*$@@' \
 	ext/syck/*.{c,h}
 
 %build
@@ -88,9 +88,8 @@ require 'test/unit'
 require 'syck'
 EOF
 
+export RUBYLIB=$(pwd)/lib:$(pwd):$(pwd)/test:%{buildroot}%{gem_extdir_mri}
 ruby \
-	-Ilib:test:.:%{buildroot}%{gem_extdir_mri} \
-	-Ilib:test:. \
 	-e 'Dir.glob( "test/test_*.rb" ).sort.each {|f| require f }' \
     %{nil}
 
@@ -108,6 +107,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Jun 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.0-1
+- 1.6.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

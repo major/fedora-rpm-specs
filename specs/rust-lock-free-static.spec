@@ -2,29 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate onefetch-manifest
+%global crate lock-free-static
 
-Name:           rust-onefetch-manifest
-Version:        2.27.1
+Name:           rust-lock-free-static
+Version:        0.2.3
 Release:        %autorelease
-Summary:        Detect and parse manifest files
+Summary:        Lock-free static variables
 
-License:        MIT
-URL:            https://crates.io/crates/onefetch-manifest
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/lock-free-static
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update cargo_toml dependency to 1.0.0:
-#   https://github.com/o2sh/onefetch/pull/1785; requires an accompanying
-#   source-code patch
-Patch:          onefetch-manifest-fix-metadata.diff
-# * Source-code patch for cargo_toml 1.0.0, from
-#   https://github.com/o2sh/onefetch/pull/1785
-Patch10:        onefetch-manifest-2.27.1-cargo_toml1.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Detect and parse manifest files.}
+Lock-free static variables.}
 
 %description %{_description}
 
@@ -38,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -69,9 +63,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * Since tests/fixtures/cargo/ is not included in the released crate, we cannot
-#   run tests that require it.
-%cargo_test -- -- --skip should_detect_and_parse_cargo_manifest
+%cargo_test
 %endif
 
 %changelog

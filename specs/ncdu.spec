@@ -1,13 +1,20 @@
+%global translate_c_version 1.0.0
+
+# From https://codeberg.org/ziglang/translate-c/src/tag/1.0.0/build.zig.zon#L12
+%global aro_commit 5f5a050569a95ecc40a426f0c3666ae7ef987ede
+
+%global zig_build_options -Dpie
+
 Name:           ncdu
-Version:        2.9.2
-Release:        2%{?dist}
+Version:        2.10.0
+Release:        3%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
-URL:            https://dev.yorhel.nl/ncdu/
-Source0:        https://dev.yorhel.nl/download/ncdu-%{version}.tar.gz
-Source1:        https://dev.yorhel.nl/download/ncdu-%{version}.tar.gz.asc
-Source2:        https://yorhel.nl/key.asc
+URL:            https://github.com/BratishkaErik/ncdu
+Source0:        https://github.com/BratishkaErik/ncdu/releases/download/v%{version}/ncdu-%{version}.tar.gz
+Source1:        https://codeberg.org/ziglang/translate-c/archive/%{translate_c_version}.tar.gz#/translate-c-%{translate_c_version}.tar.gz
+Source2:        https://github.com/Vexu/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
 
 Patch0:         ncdu-allow-shlib-undefined.patch
 
@@ -25,16 +32,16 @@ ncdu (NCurses Disk Usage) is a curses-based version of the well-known 'du',
 and provides a fast way to see what directories are using your disk space.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -n ncdu-%{version}
-%patch -P0 -p1
+%autosetup -n ncdu-%{version} -p1
+%zig_fetch %{SOURCE1}
+%zig_fetch %{SOURCE2}
 
 %build
 %zig_prep
-%zig_build -Dpie
+%zig_build
 
 %install
-%zig_install -Dpie
+%zig_install
 %{__make} install-doc PREFIX=%{buildroot}%{_prefix}
 
 %files
@@ -44,6 +51,15 @@ and provides a fast way to see what directories are using your disk space.
 %{_bindir}/ncdu
 
 %changelog
+* Sat Jun 27 2026 Richard Fearn <richardfearn@gmail.com> - 2.10.0-3
+- Use zig_build_options to avoid duplication
+
+* Sat Jun 27 2026 Richard Fearn <richardfearn@gmail.com> - 2.10.0-2
+- Use translate-c & arocc sources to build
+
+* Thu Jun 25 2026 Richard Fearn <richardfearn@gmail.com> - 2.10.0-1
+- Update to 2.10.0 from new upstream (#2487467)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

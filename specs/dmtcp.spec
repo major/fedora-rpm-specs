@@ -1,5 +1,7 @@
+%global _hardened_build 1
+
 %global forgeurl https://github.com/dmtcp/dmtcp
-Version:        4.1.1
+Version:        4.2.0
 %global tag %{version}
 %forgemeta
 
@@ -18,14 +20,9 @@ Source0:        %{forgesource}
 BuildRequires:  gcc-c++
 BuildRequires:  libatomic
 BuildRequires:  make
-BuildRequires:  python3
+BuildRequires:  python3-devel
 
-# This package is functional only on i386, x86_64 and aarch64 architectures.
-# It should also work on %%ix86, but Koji seems to have problems with it.
-## We're excluding aarch64 for now, because we don't have a trampoline for it.
-## In the next relase, we won't need the trampoline.  We'll interpose
-##   entirely on pthread_create, and not on __clone3
-## ExclusiveArch: x86_64 aarch64
+# This package is functional only on x86_64, aarch64 and riscv64 architectures.
 ExclusiveArch: x86_64 aarch64 riscv64
 
 %description
@@ -58,6 +55,7 @@ This package provides files for developing DMTCP plugins.
 %forgeautosetup -p1
 
 %build
+%set_build_flags
 %configure --docdir=%{_pkgdocdir}
 %make_build
 

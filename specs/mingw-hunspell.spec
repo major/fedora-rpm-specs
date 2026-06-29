@@ -3,8 +3,8 @@
 %global pkgname hunspell
 
 Name:          mingw-%{pkgname}
-Version:       1.7.2
-Release:       12%{?dist}
+Version:       1.7.3
+Release:       1%{?dist}
 Summary:       MinGW Windows spell checker and morphological analyzer library
 
 URL:           http://hunspell.github.io/
@@ -178,6 +178,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/man
 
 
 %changelog
+* Sat Jun 27 2026 Sandro Mani <manisandro@gmail.com> - 1.7.3-1
+- Update to 1.7.3
+
 * Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 1.7.2-12
 - Rebuild (mingw-gettext)
 

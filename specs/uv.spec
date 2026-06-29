@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined el10}
 
 Name:           uv
-Version:        0.11.24
+Version:        0.11.25
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -97,6 +97,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # ISC
 # LGPL-3.0-or-later OR MPL-2.0
 # MIT
+# MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
 # MIT OR LGPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0

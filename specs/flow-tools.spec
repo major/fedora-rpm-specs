@@ -23,6 +23,8 @@ Patch0:  flow-werror-fix.patch
 # Fix extern usage
 Patch1:  flow-tools-extern.patch
 Patch2: flow-tools-c99.patch
+# Convert Python2 code to Python3
+Patch3:  Format-bin-flow-to-be-compatible-with-Python3.patch
 
 BuildRequires: gcc
 %if 0%{with openssl}
@@ -34,9 +36,6 @@ BuildRequires: zlib-devel
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: doxygen
-%if 0%{?fedora} >= 31
-BuildRequires: python3.12
-%endif
 BuildRequires: systemd-rpm-macros
 BuildRequires: make
 
@@ -70,11 +69,7 @@ libft.
 %package rrdtool
 Summary: Scripts for flow-tools to build rrd graphs
 Requires: %{name} = %{version}-%{release}
-%if 0%{?fedora} >= 31
 Requires: python3-rrdtool
-%else
-Requires: python2-rrdtool
-%endif
 
 %description rrdtool
 Flow-tools is library and a collection of programs used to collect,
@@ -106,12 +101,7 @@ This package contains additional documentation, such as man pages in html format
 %prep
 %autosetup -p1
 # Remove /bin/env deps
-%if 0%{?fedora} >= 31
 sed -i '1s|^#!.*python|#!/usr/bin/python3|' bin/flow*
-python3.12 -m lib2to3 --write --nobackups bin/flow*
-%else
-sed -i '1s|^#!.*python|#!/usr/bin/python2|' bin/flow*
-%endif
 sed -i '1s|^#!.*perl|#!/usr/bin/perl|' utils/*
 # Fix mariadb-connector-c detection
 sed -i s/my_init/mysql_init/g configure

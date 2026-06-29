@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -276,11 +276,13 @@ cp /%{buildroot}%{cryptlibdir}/tools/clsha2 %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/claes %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clkeys %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsmime %{buildroot}%{_bindir}
+cp /%{buildroot}%{cryptlibdir}/tools/cltls %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha1.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha2.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clkeys.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
+cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 %check
 # checks are performed after install
@@ -338,14 +340,19 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/claes
 %{_bindir}/clkeys
 %{_bindir}/clsmime
+%{_bindir}/cltls
 %{_mandir}/man1/clsha2.1.gz
 %{_mandir}/man1/clsha1.1.gz
 %{_mandir}/man1/claes.1.gz
 %{_mandir}/man1/clkeys.1.gz
 %{_mandir}/man1/clsmime.1.gz
+%{_mandir}/man1/cltls.1.gz
 
 
 %changelog
+* Sat Jun 27 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.2-2
+- Add cltls version 1.0 to the cryptlib tools
+
 * Wed Jun 10 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.2-1
 - update Cryptlib to version 3.4.9.2
 

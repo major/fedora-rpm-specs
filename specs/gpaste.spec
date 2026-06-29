@@ -1,7 +1,7 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        45.4
+Version:        50.5
 Release:        1%{?dist}
 Summary:        Clipboard management system
 
@@ -15,17 +15,14 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(gdk-3.0)
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(gdk-x11-3.0)
 BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gjs-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gnome-keybindings)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4-x11)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(systemd)
@@ -126,12 +123,11 @@ install -Dpm 0644 */data/systemd/*.service -t $RPM_BUILD_ROOT%{_userunitdir}/
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.GPaste.*.desktop
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gnome.GPaste.Ui.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gnome.GPaste.Ui.metainfo.xml
 
 
 %post
-%systemd_user_post org.gnome.GPaste.Preferences.service
-%systemd_user_post org.gnome.GPaste.Ui.service
+%systemd_user_post org.gnome.GPaste.service
 
 
 %post ui
@@ -140,8 +136,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %preun
-%systemd_user_preun org.gnome.GPaste.Preferences.service
-%systemd_user_preun org.gnome.GPaste.Ui.service
+%systemd_user_preun org.gnome.GPaste.service
 
 
 %preun ui
@@ -154,6 +149,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %{_bindir}/%{name}-client
 %dir %{_libexecdir}/%{name}/
 %{_libexecdir}/%{name}/gpaste-daemon
+%{_datadir}/applications/org.gnome.GPaste.Daemon.desktop
 %{_datadir}/dbus-1/services/org.gnome.GPaste.service
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_userunitdir}/org.gnome.GPaste.service
@@ -177,11 +173,11 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %files ui
 %{_libexecdir}/%{name}/%{name}-preferences
 %{_libexecdir}/%{name}/%{name}-ui
-%{_datadir}/applications/org.gnome.GPaste.*.desktop
+%{_datadir}/applications/org.gnome.GPaste.{Preferences,Ui}.desktop
 %{_datadir}/dbus-1/services/org.gnome.GPaste.*.service
 %{_datadir}/gnome-control-center/keybindings/*.xml
 %{_datadir}/gnome-shell/search-providers/*.ini
-%{_datadir}/metainfo/org.gnome.GPaste.Ui.appdata.xml
+%{_datadir}/metainfo/org.gnome.GPaste.Ui.metainfo.xml
 %{_userunitdir}/org.gnome.GPaste.Ui.service
 %{_userunitdir}/org.gnome.GPaste.Preferences.service
 
@@ -199,6 +195,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sat Jun 27 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 50.5-1
+- Update to 50.5
+
 * Tue May 05 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45.4-1
 - Update to 45.4
 
