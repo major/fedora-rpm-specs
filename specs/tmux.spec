@@ -1,5 +1,5 @@
 Name:           tmux
-Version:        3.6b
+Version:        3.7
 Release:        %autorelease
 Summary:        A terminal multiplexer
 
@@ -9,13 +9,10 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 Source2:        tmux@.service
 Source3:        README.polkit
 
-# related to https://github.com/tmux/tmux/commit/f58b8d0d6abb2477b584547a4e72cc362ecbbcdb
-# this patch should be removed during next tmux upgrade since it's in the master branch
-Patch0:         0001-Setting-working-directory-after-fork-means-there-is-.patch
-
 BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  libutempter-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(libevent_core) >= 2
@@ -39,6 +36,7 @@ as GNU Screen.
 
 %prep
 %autosetup
+cp %{SOURCE3} .
 
 
 %build
@@ -50,8 +48,6 @@ as GNU Screen.
 %make_install
 # Install the systemd file
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/tmux@.service
-# Install the polkit example file
-install -Dpm 644 %{SOURCE3} %{buildroot}%{_docdir}/tmux/README.polkit
 
 
 %check
@@ -79,7 +75,7 @@ fi
 
 %files
 %license COPYING
-%doc CHANGES README* example_tmux.conf README.polkit
+%doc CHANGES README* example_tmux.conf
 %{_bindir}/tmux
 %{_mandir}/man1/tmux.1.*
 %{_unitdir}/tmux@.service

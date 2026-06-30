@@ -96,7 +96,7 @@ This package contains the graphical interface.
 Summary: Chemistry software file format converter - libraries
 %if 0%{?rhel}
 License: GPL-2.0-only AND LGPL-2.1-or-later
-Provides: bundled(libinchi) = 1.0.4
+Provides: bundled(libinchi) = 1.07.4
 %endif
 %description libs
 Open Babel is a free, open-source version of the Babel chemistry file
@@ -271,8 +271,8 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{_libdir}/libopenbabel.so.8.0.0
 %if 0%{?rhel}
 %license inchi-license-lgpl-2.1.txt
-%{_libdir}/libinchi.so.0.4.1
-%{_libdir}/libinchi.so.0
+%{_libdir}/libinchi.so.1.07.4
+%{_libdir}/libinchi.so.1
 %endif
 
 %files -n perl-%{name}

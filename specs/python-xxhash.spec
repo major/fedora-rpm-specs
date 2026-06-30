@@ -1,5 +1,5 @@
 Name:           python-xxhash
-Version:        3.7.0
+Version:        3.8.0
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 
@@ -11,11 +11,18 @@ License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
 Source:         %{pypi_source xxhash}
 
+# Register the “benchmark” pytest mark
+# https://github.com/ifduyue/python-xxhash/pull/164
+# Cherry-picked to v3.8.0.
+Patch:          0001-Register-the-benchmark-pytest-mark.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license xxhash
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libxxhash) >= 0.8.2
+
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 xxhash is a Python binding for the xxHash library by Yann Collet.}
@@ -44,8 +51,9 @@ export XXHASH_LINK_SO='1'
 
 
 %check -a
-cd tests
-%{py3_test_envvars} %{python3} -m unittest discover
+# Benchmarks are not useful to run downstream, and they would not print results
+# when run with the test suite anyway.
+%pytest --import-mode=append --verbose -m 'not benchmark'
 
 
 %files -n python3-xxhash -f %{pyproject_files}

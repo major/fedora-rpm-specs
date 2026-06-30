@@ -1,13 +1,11 @@
 Name:           vobcopy
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        Utility to copy DVD .vob files to disk
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/barak/vobcopy
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/barak/vobcopy/issues/23
-Patch:          vobcopy-fix-test-crash-on-32-bit.patch
 # fix LTO warning
 Patch:          vobcopy-lto.patch
 
@@ -28,11 +26,6 @@ rather sparse this shouldn't matter much.
 %prep
 %autosetup -p1
 autoreconf -fiv
-
-# Convert German manpage to UTF-8
-# https://github.com/barak/vobcopy/pull/18
-iconv -f iso8859-1 -t utf-8 vobcopy.1.de > vobcopy.1.de.conv && \
-  mv -f vobcopy.1.de.conv vobcopy.1.de
 
 %build
 %configure
@@ -56,6 +49,10 @@ rm -r %{buildroot}%{_datadir}/doc
 %lang(de) %{_mandir}/de/man1/vobcopy.1*
 
 %changelog
+* Wed Jun 24 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.2.4-1
+- update to 1.2.4 (resolves rhbz#2480338)
+- drop merged patch and obsolete workaround
+
 * Mon May 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.2.3-1
 - Update to 1.2.3 (resolves rhbz#2479642)
 

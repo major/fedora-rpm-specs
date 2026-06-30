@@ -27,6 +27,7 @@ BuildRequires:  cmake
 BuildRequires:  cups-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  fdupes
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(openbabel-3)
@@ -50,7 +51,6 @@ BuildRequires:  JKQtPlotter-devel
 BuildRequires:  libarchive-devel >= 3.4.0
 %endif
 Provides: %{name}-static = 0:%{version}-%{release}
-Obsoletes: %{name} < 0:2.0.0-1
 %py_provides python3-%{name}
 %py_provides python3-avogadro
 %description
@@ -150,25 +150,31 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %install
 %cmake_install
 
-# Move Python scripts under a system Python directory
-mv %{buildroot}%{_datadir}/avogadro2/fragments/scripts %{buildroot}%{python3_sitearch}/avogadro/fragments/
-
-# Link Python scripts directory under private datadir to the related system Python directory
-ln -sf %{python3_sitearch}/avogadro/fragments/scripts %{buildroot}%{_datadir}/avogadro2/fragments/scripts
-
 # Use pkgdocdir macro
 rm -rf %{buildroot}%{_datadir}/doc
 mkdir -p %{buildroot}%{_pkgdocdir}
 cp -r %_vpath_builddir/docs/html %{buildroot}%{_pkgdocdir}/html/
 
-# Link data files under private libdir to the related data directory
-mkdir -p %{buildroot}%{_datadir}/avogadro2/avogenerators
-cp -r avogenerators %{buildroot}%{_datadir}/avogadro2
-ln -sf %{_datadir}/avogadro2/avogenerators %{buildroot}%{_libdir}/avogadro2/plugins/avogenerators
-
 # Fix missing exec perrmissions
-%py3_shebang_fix %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
-chmod a+x %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
+%py3_shebang_fix %{buildroot}%{_datadir}/avogadro2/fragments/scripts/*.py
+
+%fdupes %{buildroot}
+
+# Remove hard links across partitions
+unlink %{buildroot}%{_datadir}/avogadro2/fragments/scripts/requirements.txt
+unlink %{buildroot}%{_datadir}/avogadro2/fragments/scripts/requirements-dev.txt
+unlink %{buildroot}%{_libdir}/avogadro2/plugins/avogenerators
+
+# Fix exec permissions
+chmod a+x %{buildroot}%{_datadir}/avogadro2/fragments/scripts/*.py
+
+# Remove hidden file
+rm -f %{buildroot}%{_datadir}/avogadro2/fragments/.pre-commit-config.yaml
+
+# Remove duplicated files
+rm -f %{buildroot}%{_datadir}/avogadro2/fragments/LICENSE-fragments
+rm -f %{buildroot}%{_datadir}/avogadro2/fragments/README-fragments.md
+rm -f %{buildroot}%{_datadir}/avogadro2/fragments/LICENSE-molecules
 
 %check
 %ctest
@@ -178,6 +184,7 @@ chmod a+x %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
 %doc fragments/README-fragments.md
 %license LICENSE molecules/LICENSE-molecules fragments/LICENSE-fragments
 %{_libdir}/libAvogadro*.so.%{version}
+%{_libdir}/libAvogadro*.so.2
 %dir %{_libdir}/avogadro2
 %{_libdir}/avogadro2/libgwavi.a
 %{_libdir}/avogadro2/staticplugins/
@@ -185,10 +192,8 @@ chmod a+x %{buildroot}%{python3_sitearch}/avogadro/fragments/*.py
 %{_datadir}/avogadro2/
 %{python3_sitearch}/avogadro/
 
-
 %files devel
 %{_includedir}/avogadro2/
-%{_libdir}/libAvogadro*.so.2
 %{_libdir}/libAvogadro*.so
 %{_libdir}/cmake/avogadrolibs/
 

@@ -32,6 +32,9 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+# pop-sound-theme is unmaintained, use freedesktop
+Patch0:         sound-theme-freedesktop.patch
+
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
 BuildRequires:  lld
@@ -50,7 +53,7 @@ BuildRequires:  openssl-devel
 
 Requires:       acpid
 Requires:       adw-gtk3-theme
-Requires:       pop-sound-theme
+Requires:       sound-theme-freedesktop
 Recommends:     breeze-icon-theme
 Recommends:     geoclue2
 Recommends:     playerctl

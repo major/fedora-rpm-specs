@@ -3,8 +3,7 @@ Summary:        Php language and documentation plugins for KDevelop
 Version:        26.04.2
 Release:        2%{?dist}
 
-# Most files LGPLv2+/GPLv2+
-License:        GPL-2.0-or-later
+License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
 URL:            https://kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/kdev-php-%{version}.tar.xz
 
@@ -14,6 +13,7 @@ ExclusiveArch:  %{qt6_qtwebengine_arches}
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  kf6-rpm-macros
+BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Widgets)
@@ -46,9 +46,11 @@ BuildRequires:  kdevelop-devel = 9:%{version}
 %install
 %cmake_install
 
-# TODO Enable translations in stable build
+%check
 %find_lang %{name} --all-name
-
+# • tag-invalid           : stock icon is not valid [kdevelop]
+# Reported Upstream: https://bugs.kde.org/show_bug.cgi?id=522346
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdev-php.metainfo.xml ||:
 
 %files -f %{name}.lang
 %doc AUTHORS

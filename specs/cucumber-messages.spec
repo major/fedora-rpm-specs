@@ -29,7 +29,9 @@ BuildRequires:  gcc-c++
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 BuildRequires:  cmake(nlohmann_json) json-static
 
-%if %{with regenerate_cpp} || %{with regenerate_python}
+%if %{with regenerate_cpp} || \
+    %{with regenerate_python} || \
+    %{with regenerate_ruby}
 BuildRequires:  make
 BuildRequires:  /usr/bin/ruby
 BuildRequires:  rubygem(json)

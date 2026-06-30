@@ -42,7 +42,7 @@ on the command line when you run your script.
 
 %prep
 %setup -q -n %{npm_name}-%{version}
-%patch -P 0 
+#%%patch -P 0 
 %build
 
 # nothing to do

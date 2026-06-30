@@ -5,8 +5,8 @@ Protego is a pure-Python `robots.txt` parser with support for modern
 conventions.}
 
 Name:		python-protego
-Version:	0.5.0
-Release:	4%{?dist}
+Version:	0.6.2
+Release:	1%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -49,6 +49,9 @@ Summary:	%{summary}
 %{python3_sitelib}/protego-*.dist-info
 
 %changelog
+* Sun Jun 28 2026 Eduardo Echeverria <echevemaster@gmail.com> - 0.6.2-1
+- Update to 0.6.2
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.0-4
 - Rebuilt for Python 3.15
 

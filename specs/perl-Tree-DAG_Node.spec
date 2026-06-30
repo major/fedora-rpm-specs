@@ -1,6 +1,6 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.35
-Release:        3%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-DAG_Node
@@ -61,6 +61,16 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Sun Jun 28 2026 Paul Howarth <paul@city-fan.org> - 1.36-1
+- Update to 1.36
+  - No functional changes
+  - Fix typo in the 2nd FAQ: "How to process every node in tree?"
+  - Add new version of LICENSE to the distro
+  - Add new files LICENSE-Artistic-2.0 and LICENSE-GPL-3 to the distro
+  - Add Data::Dumper, Getopt::Long, perl to Makefile.PL
+  - Remove open from Makefile.PL
+  - Modernize MANIFEST.SKIP
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

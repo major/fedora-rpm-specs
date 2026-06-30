@@ -35,10 +35,16 @@ Source103:     https://keys.openpgp.org/vks/v1/by-fingerprint/8DC2487E51ABDD90B5
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
-Source9:       emacs-desktop.sh.in
 
 Source10:      emacs_lisp.attr
 Source11:      emacs_lisp.rec
+
+Source20:      emacs-desktop.sh.in
+Source21:      emacs-desktop.1
+Source22:      emacs-gtk+x11.1
+Source23:      emacs-lucid.1
+Source24:      emacs-nw.1
+Source25:      emacs-pgtk.1
 
 # Avoid trademark issues
 Patch:         0001-Pong-and-Tetris-are-excluded.patch
@@ -515,7 +521,7 @@ cat > 10-source-directory.el << 'EOF'
 ;;; 10-source-directory.el ends here
 EOF
 
-sed -e 's|@bindir@|%{_bindir}|' %SOURCE9 > emacs-desktop.sh
+sed -e 's|@bindir@|%{_bindir}|' %SOURCE20 > emacs-desktop.sh
 
 
 %install
@@ -602,6 +608,13 @@ rm -f %{buildroot}%{_infodir}/dir
 
 # Install a wrapper to avoid running the Wayland-only build on X11
 install -p -m 0755 emacs-desktop.sh %{buildroot}%{_bindir}/emacs-desktop
+
+# Install Fedora-specific manpages:
+install -p -m 0644 %SOURCE21 %{buildroot}%{_mandir}/man1/%{basename %SOURCE21}
+install -p -m 0644 %SOURCE22 %{buildroot}%{_mandir}/man1/%{basename %SOURCE22}
+install -p -m 0644 %SOURCE23 %{buildroot}%{_mandir}/man1/%{basename %SOURCE23}
+install -p -m 0644 %SOURCE24 %{buildroot}%{_mandir}/man1/%{basename %SOURCE24}
+install -p -m 0644 %SOURCE25 %{buildroot}%{_mandir}/man1/%{basename %SOURCE25}
 
 # Remove duplicate desktop-related files
 rm %{buildroot}%{_datadir}/%{name}/%{version}/etc/%{name}.{desktop,metainfo.xml,service} \
@@ -763,6 +776,8 @@ fi
 %{_bindir}/emacs-desktop
 %{_bindir}/emacs-%{version}-pgtk
 %{_bindir}/emacs-pgtk
+%{_mandir}/man1/emacs-desktop.1*
+%{_mandir}/man1/emacs-pgtk.1*
 %{_datadir}/glib-2.0/schemas/org.gnu.emacs.defaults.gschema.xml
 
 %if %{with gtkx11}
@@ -770,6 +785,7 @@ fi
 %ghost %{_bindir}/emacs
 %{_bindir}/emacs-%{version}-gtk+x11
 %{_bindir}/emacs-gtk+x11
+%{_mandir}/man1/emacs-gtk+x11.1*
 %endif
 
 %if %{with lucid}
@@ -777,6 +793,7 @@ fi
 %ghost %{_bindir}/emacs
 %{_bindir}/emacs-%{version}-lucid
 %{_bindir}/emacs-lucid
+%{_mandir}/man1/emacs-lucid.1*
 %endif
 
 %if %{with nw}
@@ -786,6 +803,7 @@ fi
 %{_bindir}/emacs-%{version}-nw
 %{_bindir}/emacs-nox
 %{_bindir}/emacs-nw
+%{_mandir}/man1/emacs-nw.1*
 %endif
 
 %files -n emacsclient

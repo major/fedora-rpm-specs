@@ -31,6 +31,7 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-nanobind
 BuildRequires:  python3-ml-dtypes 
 BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-static
 
 %global _description %{expand:
 %{name} provides an open source format for AI models, both deep learning and
@@ -46,7 +47,7 @@ Summary:    Libraries for %{name}
 
 %package devel
 Summary:    Development files for %{name}
-Requires:   %{name}-libs = %{version}-%{release} 
+Requires:   %{name}-libs = %{version}-%{release}
 
 %description devel %_description
 
@@ -66,7 +67,7 @@ Requires:   %{name}-libs = %{version}-%{release}
 export VPATH_BUILDDIR=%{_vpath_builddir}
 %cmake \
     -DONNX_USE_LITE_PROTO=OFF \
-    -DONNX_USE_PROTOBUF_SHARED_LIBS=ON \
+    -DONNX_USE_PROTOBUF_SHARED_LIBS=OFF \
     -DONNX_BUILD_PYTHON=ON \
     -DPython_EXECUTABLE=python3.14 \
     -DPY_EXT_SUFFIX=%{python3_ext_suffix} \

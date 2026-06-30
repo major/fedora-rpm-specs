@@ -81,7 +81,7 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 %set_build_flags
 
 # Conditionals based on x86_64 microarchitecture levels provide a bit of
-# future-proofing and a convenient place to write explanatory comments.  Theys
+# future-proofing and a convenient place to write explanatory comments. They
 # also have the benefit of improving compatibility with some downstreams;
 # https://github.com/AlmaLinux/ALESCo/pull/2#issuecomment-2637811851 and the
 # following discussion.
@@ -125,14 +125,6 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 # Plain x86_64 (v1), or some other version not covered above.
 %global sfarch x86-64
 %endif
-%endif
-
-# We can remove this once Fedora 41 reaches end-of life, as that will be the
-# last place 32-bit packages are built.
-%ifarch i686
-# Since 32-bit packages are multilib-only, we can assume x86_64 hardware and
-# therefore SSE2.
-%global sfarch x86-32-sse2
 %endif
 
 %ifarch ppc64le

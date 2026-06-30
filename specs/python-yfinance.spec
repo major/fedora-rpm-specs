@@ -1,12 +1,12 @@
 %global         srcname     yfinance
 %global         forgeurl    https://github.com/ranaroussi/%{srcname}
-Version:        0.2.54
+Version:        1.5.1
 %global         tag         %{version}
 %forgemeta
 
 Name:           python-%{srcname}
 Release:        %autorelease
-Summary:        Yahoo! Finance market data downloader
+Summary:        Download market data from Yahoo! Finance API
 
 License:        Apache-2.0
 URL:            %forgeurl
@@ -36,10 +36,11 @@ Summary:        %{summary}
 %forgeautosetup
 
 # Remove the python shebang from non-executable files.
-sed -i '1{\@^#!/usr/bin/env python@d}' yfinance/*.py
+find yfinance -name "*.py" -exec sed -i -e '1{\@^#!/usr/bin/env python@d}' {} +
 
-# Allow an older version of requests.
-sed -i 's/requests>=2.31/requests>=2.28/' requirements.txt setup.py
+# curl_cffi is not packaged in Fedora, but is optional and falls back to requests.
+sed -i '/curl_cffi/d' requirements.txt
+sed -i "s/'curl_cffi>=0.15',//" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -65,6 +66,7 @@ rm -vf %{buildroot}%{_bindir}/sample
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE.txt
 %doc README.md
 
 

@@ -14,7 +14,7 @@
 %endif
 
 Name:           ipython
-Version:        9.14.1
+Version:        9.15.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -27,9 +27,6 @@ License:        BSD-3-Clause AND MIT
 URL:            http://ipython.org/
 Source0:        %pypi_source
 
-# Fix %%debug and ipdb with Python 3.15 (PyREPL conflicts with IPython's input handling)
-# https://github.com/ipython/ipython/issues/15217
-Patch:          https://github.com/ipython/ipython/pull/15220.patch
 # Fix init_path ignoring CWD when -P used in script shebang
 # Fixes rhbz#2479711
 Patch:          https://github.com/ipython/ipython/pull/15262.patch

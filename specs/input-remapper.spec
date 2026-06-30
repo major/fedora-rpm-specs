@@ -1,5 +1,5 @@
 Name:           input-remapper
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        An easy to use tool to change the behaviour of your input devices
 
@@ -14,9 +14,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pkg-resources
-BuildRequires:  python3-wheel
+#BuildRequires:  python3-setuptools
+#BuildRequires:  python3-pkg-resources
+#BuildRequires:  python3-wheel
 BuildRequires:  gettext
 
 # Called from inputremapper/gui/reader_service.py
@@ -44,10 +44,11 @@ Requires:       gtk3
 # gi.require_version("GtkSource", "4")
 BuildRequires:  gtksourceview4
 Requires:       gtksourceview4
-Requires:       python3-pkg-resources
+#Requires:       python3-pkg-resources
+Requires:       python3-dasbus
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %description
@@ -62,9 +63,18 @@ the output of physical devices to that of virtual ones.
 %prep
 %autosetup -p1 -n %{name}-%{version}
 cp %{SOURCE1} ./
+
+# Inject the standard build-system table into pyproject.toml
+# to fix the 'setup.py not found for legacy project' error
+cat << 'EOF' >> pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+EOF
+
 #Fix rpmlint errors
 find inputremapper/injection/macros/ -iname "*.py" -type f -print0 | xargs -0 sed -i -e 's+\s*#\s*!/usr/bin/env python3++'
-
 
 
 %build
@@ -74,19 +84,40 @@ find inputremapper/injection/macros/ -iname "*.py" -type f -print0 | xargs -0 se
 %install
 %pyproject_install
 %pyproject_save_files inputremapper
-mv %{buildroot}%{python3_sitelib}/etc %{buildroot}/etc
-mv %{buildroot}%{python3_sitelib}/usr/bin %{buildroot}/usr/bin
-mv %{buildroot}%{python3_sitelib}/usr/lib/systemd %{buildroot}/usr/lib/systemd
-mv %{buildroot}%{python3_sitelib}/usr/lib/udev %{buildroot}/usr/lib/udev
-mv %{buildroot}%{python3_sitelib}/usr/share %{buildroot}/usr/share
-mkdir -p %{buildroot}/usr/share/dbus-1/system.d/
 
-# clean up duplicate files
-rm %{buildroot}%{_datadir}/%{name}/inputremapper.Control.conf
-rm %{buildroot}%{_datadir}/%{name}/io.github.sezanzeb.input_remapper.metainfo.xml
-rm %{buildroot}%{_datadir}/%{name}/%{name}-gtk.desktop
-rm %{buildroot}%{_datadir}/%{name}/%{name}.policy
-rm %{buildroot}%{_datadir}/%{name}/%{name}.svg
+# Explicitly create target asset paths
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}/%{name}
+mkdir -p %{buildroot}%{_udevrulesdir}
+
+# Explicitly install system assets that are skipped by standard Python wheels
+install -D -p -m 0644 data/inputremapper.Control.conf %{buildroot}%{_datadir}/dbus-1/system.d/inputremapper.Control.conf
+install -D -p -m 0644 data/%{name}-autoload.desktop %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-autoload.desktop
+install -D -p -m 0644 data/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+install -p -m 0644 data/*.rules %{buildroot}%{_udevrulesdir}/
+install -D -p -m 0644 data/io.github.sezanzeb.input_remapper.metainfo.xml %{buildroot}%{_metainfodir}/io.github.sezanzeb.input_remapper.metainfo.xml
+install -D -p -m 0644 data/%{name}.glade %{buildroot}%{_datadir}/%{name}/%{name}.glade
+install -D -p -m 0644 data/%{name}-gtk.desktop %{buildroot}%{_datadir}/applications/%{name}-gtk.desktop
+install -D -p -m 0644 data/%{name}.policy %{buildroot}%{_datadir}/polkit-1/actions/%{name}.policy
+install -p -m 0644 data/style.css %{buildroot}%{_datadir}/%{name}/
+install -D -p -m 0644 data/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -p -m 0644 data/%{name}.svg %{buildroot}%{_datadir}/%{name}/%{name}.svg
+install -p -m 0644 data/%{name}-large.png %{buildroot}%{_datadir}/%{name}/%{name}-large.png
+install -p -m 0755 bin/%{name}* %{buildroot}%{_bindir}/
+
+
+# Compile and install localization files from the po/ directory
+mkdir -p %{buildroot}%{_datadir}/%{name}/lang
+touch input-remapper.lang
+
+for po_file in po/*.po; do
+    lang=$(basename "$po_file" .po)
+    mkdir -p %{buildroot}%{_datadir}/%{name}/lang/${lang}/LC_MESSAGES
+    msgfmt "$po_file" -o %{buildroot}%{_datadir}/%{name}/lang/${lang}/LC_MESSAGES/input-remapper.mo
+    
+    # Dynamically track the files with their proper %lang tag
+    echo "%lang(${lang}) %{_datadir}/%{name}/lang/${lang}" >> input-remapper.lang
+done
 
 
 %post -n %{name}
@@ -181,37 +212,26 @@ export DATA_DIR='%{buildroot}%{_datadir}/%{name}'
 # %%pytest tests/unit ${ignore-} -k "${k-}" -v
 
 
-%files -f %{pyproject_files}
+%files -f %{pyproject_files} -f input-remapper.lang
 %doc README.md README.Fedora
 %license LICENSE
 %{_datadir}/dbus-1/system.d/inputremapper.Control.conf
 %{_sysconfdir}/xdg/autostart/%{name}-autoload.desktop
 %{_bindir}/%{name}*
 %{_unitdir}/%{name}.service
-%{_udevrulesdir}/99-%{name}.rules
-%{_datadir}/%{name}
+%{_udevrulesdir}/*-%{name}*.rules
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-
-# deal with non-standard location of localization files
-%exclude %dir %{_datadir}/%{name}/lang
-%lang(fr) %{_datadir}/%{name}/lang/fr
-%lang(fr) %{_datadir}/%{name}/lang/fr_FR
-%lang(it) %{_datadir}/%{name}/lang/it
-%lang(it) %{_datadir}/%{name}/lang/it_IT
-%lang(pt) %{_datadir}/%{name}/lang/pt
-%lang(pt) %{_datadir}/%{name}/lang/pt_BR
-%lang(ru) %{_datadir}/%{name}/lang/ru
-%lang(ru) %{_datadir}/%{name}/lang/ru_RU
-%lang(sk) %{_datadir}/%{name}/lang/sk
-%lang(sk) %{_datadir}/%{name}/lang/sk_SK
-%lang(uk) %{_datadir}/%{name}/lang/uk
-%lang(uk) %{_datadir}/%{name}/lang/uk_UA
-%lang(zh) %{_datadir}/%{name}/lang/zh
-%lang(zh) %{_datadir}/%{name}/lang/zh_CN
-
 %{_datadir}/applications/%{name}-gtk.desktop
 %{_datadir}/polkit-1/actions/%{name}.policy
 %{_metainfodir}/*.metainfo.xml
+
+# Explicitly own the base directory and static files, but exclude the lang 
+# subfolder root directory so the dynamic file list handles ownership per-locale.
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/%{name}.glade
+%{_datadir}/%{name}/%{name}.svg
+%{_datadir}/%{name}/%{name}-large.png
+%{_datadir}/%{name}/style.css
 
 
 %changelog

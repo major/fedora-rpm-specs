@@ -65,7 +65,7 @@ that uses Dyninst.
 
 %prep
 %setup -q -n %{name}-%{version} -c
-# %setup -q -T -D -a 1
+# %%setup -q -T -D -a 1
 
 pushd %{dyninst_base}
 %patch -P1 -p1

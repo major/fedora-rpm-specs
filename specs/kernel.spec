@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc0.260626g4edcdefd4083.12
+%define pkgrelease 0.rc1.15
 %define kversion 7
-%define tarfile_release 7.1-14063-g4edcdefd4083
+%define tarfile_release 7.2-rc1
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260626g4edcdefd4083.12%{?buildid}%{?dist}
+%define specrelease 0.rc1.15%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4859,9 +4859,19 @@ fi\
 #
 #
 %changelog
-* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.4edcdefd4083.12]
+* Sun Jun 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.15]
 - redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Sun Jun 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.14]
+- Linux v7.2.0-0.rc1
+
+* Sun Jun 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.780d569e6c4b.13]
+- Linux v7.2.0-0.rc0.780d569e6c4b
+
+* Sat Jun 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.5a66900afbd6.12]
+- redhat: configs: Enable USB4STREAM protocol (Dennis Chen) [RHEL-186934]
+- Linux v7.2.0-0.rc0.5a66900afbd6
 
 * Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.4edcdefd4083.11]
 - Fix up a mismatch for automotive CONFIG_CLK_X1E80100_GCC (Justin M. Forbes)

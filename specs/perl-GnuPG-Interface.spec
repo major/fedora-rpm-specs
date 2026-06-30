@@ -1,12 +1,10 @@
 Name:           perl-GnuPG-Interface
-Version:        1.06
+Version:        1.07
 Release:        1%{?dist}
 Summary:        Perl interface to GnuPG
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GnuPG-Interface
 Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/GnuPG-Interface-%{version}.tar.gz
-# https://github.com/bestpractical/gnupg-interface/issues/8
-Patch0:         version-stdin.patch
 BuildArch:      noarch
 BuildRequires:  gpg
 
@@ -54,7 +52,7 @@ Requires:       gpg
 %{summary}.
 
 %prep
-%autosetup -p1 -n GnuPG-Interface-%{version}
+%setup -n GnuPG-Interface-%{version}
 perldoc -t perlgpl > GPL
 perldoc -t perlartistic > Artistic
 # gpg as being used by the testsuite requires test to be 0700
@@ -79,6 +77,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Sun Jun 28 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.07-1
+- Update to 1.07
+- Remove no-longer-needed patch
+
 * Fri Mar 27 2026 Xavier Bachelot <xavier@bachelot.org> - 1.06-1
 - Update to 1.06 (RHBZ#2451923)
 

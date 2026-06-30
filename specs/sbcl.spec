@@ -30,7 +30,7 @@
 
 Name:	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.6.5
+Version: 2.6.6
 Release: %autorelease
 
 # See COPYING for a license breakdown

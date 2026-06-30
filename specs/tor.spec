@@ -13,8 +13,8 @@
 %endif
 
 Name:       tor
-Version:    0.4.9.8
-Release:    2%{?dist}
+Version:    0.4.9.11
+Release:    1%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -168,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Sun Jun 28 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.11-1
+- Update to latest upstream release https://forum.torproject.org/t/security-release-0-4-9-11/21786 bz#2483769
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.9.8-2
 - Rebuilt for openssl 4.0
 

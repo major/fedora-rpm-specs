@@ -2,19 +2,14 @@
 %undefine _hardened_build
 
 Name:           patchelf
-Version:        0.18.0
-Release:        10%{?dist}
+Version:        0.19.0
+Release:        1%{?dist}
 Summary:        A utility for patching ELF binaries
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://nixos.org/patchelf.html
 Source0:        https://github.com/NixOS/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Allocate PHT & SHT at the end of the *.elf file
-# This is needed after a change in binutils, see https://bugzilla.redhat.com/2321588
-# Rebased form https://github.com/NixOS/patchelf/commit/43b75fbc9f
-Patch:          0001-Allocate-PHT-SHT-at-the-end-of-the-.elf-file.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -60,6 +55,10 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Sun Jun 28 2026 Jeremy Sanders <jeremy@jeremysanders.net> - 0.19.0-1
+- Update to v0.19.0
+- Fixes: rhbz#2493812
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

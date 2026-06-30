@@ -7,7 +7,7 @@
 %bcond tests 0
 
 Name:           fedora-repoquery
-Version:        0.9
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Fedora release repos package query tool
 
@@ -21,7 +21,9 @@ Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-Glob-devel
+BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-case-insensitive-devel
 BuildRequires:  ghc-curl-devel
 BuildRequires:  ghc-directory-devel
@@ -36,6 +38,7 @@ BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
+BuildRequires:  ghc-typed-process-devel
 BuildRequires:  ghc-xdg-basedir-devel
 BuildRequires:  help2man
 # End cabal-rpm deps
