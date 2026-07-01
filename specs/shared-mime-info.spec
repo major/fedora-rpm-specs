@@ -1,24 +1,19 @@
 Summary: Shared MIME information database
 Name: shared-mime-info
-Version: 2.4
+Version: 2.5
 Release: %autorelease
 License: GPL-2.0-or-later
 URL: http://freedesktop.org/Software/shared-mime-info
 Source0: https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/%{version}/shared-mime-info-%{version}.tar.bz2
 
 Source1: mimeapps.list
-# openat() with O_CREAT needs also mode
-Source2: 0003-xdgmime-openat-fourth-arg.patch
 
-%global xdgmime_commit 4cc93f9381e0eddd2cac1e92c0f36b29dcd8c1ce
+%global xdgmime_commit 04ce4cd90cb3fa77d5348662de221a6f33b21b17
 # Tarball for https://gitlab.freedesktop.org/xdg/xdgmime/-/tree/%%{xdgmime_commit}
 Source6: https://gitlab.freedesktop.org/xdg/xdgmime/-/archive/%{xdgmime_commit}/xdgmime-%{xdgmime_commit}.tar.bz2
 
 # Work-around for https://bugs.freedesktop.org/show_bug.cgi?id=40354
 Patch0: 0001-Remove-sub-classing-from-OO.o-mime-types.patch
-# Fix build with libxml2 2.12.0
-# https://gitlab.freedesktop.org/xdg/shared-mime-info/-/issues/219
-Patch1: 0002-Fix-build-with-libxml2-2.12.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -43,17 +38,12 @@ and looking up the correct MIME type in a database.
 
 %prep
 %autosetup -S git_am
-rmdir xdgmime
+
+# xdgmime is expected under the subprojects directory
 tar xjf %SOURCE6
-mv xdgmime-%{xdgmime_commit}/ xdgmime/
-patch -p1 < %SOURCE2
+mv xdgmime-%{xdgmime_commit}/ subprojects/xdgmime/
 
 %build
-
-pushd xdgmime
-%meson
-%meson_build
-popd
 
 # the updated mimedb is later owned as %%ghost to ensure proper file-ownership
 # it also asserts it is possible to build it
@@ -80,7 +70,7 @@ install -m 644 %SOURCE1 $RPM_BUILD_ROOT/%{_datadir}/applications/mimeapps.list
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/*
 
 %check
-%meson_test
+%meson_test --suite shared-mime-info
 
 %post
 /bin/touch --no-create %{_datadir}/mime/packages &>/dev/null ||:
@@ -93,7 +83,7 @@ update-mime-database -n %{_datadir}/mime &> /dev/null ||:
 
 %files -f %{name}.files
 %license COPYING
-%doc README.md NEWS HACKING.md data/shared-mime-info-spec.xml
+%doc README.md NEWS CONTRIBUTING.md data/shared-mime-info-spec.xml
 %{_bindir}/update-mime-database
 %{_datadir}/mime/packages/*
 %{_datadir}/applications/mimeapps.list

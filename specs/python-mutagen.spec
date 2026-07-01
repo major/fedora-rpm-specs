@@ -3,7 +3,7 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        1.48.0
+Version:        1.48.1
 Release:        1%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
@@ -100,6 +100,9 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %doc docs/_build/*
 
 %changelog
+* Mon Jun 29 2026 Michele Baldessari <michele@baldessari.info> - 1.48.1-1
+- New upstream (RHBZ#2492865)
+
 * Mon Jun 22 2026 Michele Baldessari <michele@baldessari.info> - 1.48.0-1
 - New upstream (RHBZ#2491376)
 

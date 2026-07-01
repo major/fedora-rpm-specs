@@ -8,15 +8,14 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.14.3
-Release:        4%{?dist}
+Version:        4.15.0
+Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
-# Patches from upstream
-Patch0:         0001-Skip-the-lxml-tree-builder-s-test_surrogate_in_chara.patch
-Patch1:         0001-Change-the-html.parser-tree-builder-s-code-for-handl.patch
+# libxml2 changes seems reverted
+Patch0:         0001-libxml2-seems-to-have-reverted-changes-done-in-2.13..patch
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
 Patch11:        beautifulsoup4-4.14-disable-soupsieve.patch
 BuildArch:      noarch
@@ -93,6 +92,9 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %{python3_sitelib}/bs4
 
 %changelog
+* Mon Jun 29 2026 Terje Rosten <terjeros@gmail.com> - 4.15.0-1
+- 4.15.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.14.3-4
 - Rebuilt for Python 3.15
 

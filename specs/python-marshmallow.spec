@@ -3,7 +3,7 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        4.2.2
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Python library for converting complex datatypes to and from primitive types
 License:        MIT
@@ -70,14 +70,22 @@ sed -i '/"versionwarning.extension",/d' docs/conf.py
 sed -i '/"sphinx-version-warning==/d' pyproject.toml
 sed -i '/"sphinx_issues",/d' docs/conf.py
 sed -i '/"sphinx-issues==/d' pyproject.toml
+sed -i '/"sphinx_copybutton",/d' docs/conf.py
+sed -i '/"sphinxext.opengraph",/d' docs/conf.py
 sed -i '/version = release = importlib.metadata.version/d' docs/conf.py
+# furo theme is not in Fedora, use alabaster
+sed -i 's/html_theme = "furo"/html_theme = "alabaster"/' docs/conf.py
+sed -i '/^html_theme_options/,/^}/d' docs/conf.py
+sed -i '/^pygments_dark_style/d' docs/conf.py
+sed -i '/^ogp_image/d' docs/conf.py
+sed -i '/^copybutton_prompt_text/d' docs/conf.py
 # Drop the sphinx version constraint
 sed -i 's/"sphinx==[^ ]*"/"sphinx"/' pyproject.toml
 # the newer version is not yet in Fedora and is required just because CVEs, old version has all required functionality
 sed -i '/"alabaster==/c\\"alabaster==0.7.16"' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs,tests
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

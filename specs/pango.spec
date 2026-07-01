@@ -1,22 +1,20 @@
-%global glib2_version 2.80
+%global glib2_version 2.82
 %global fribidi_version 1.0.6
 %global libthai_version 0.1.9
 %global harfbuzz_version 8.4.0
-%global fontconfig_version 2.15.0
+%global fontconfig_version 2.17.0
 %global libXft_version 2.0.0
 %global cairo_version 1.18
 %global freetype_version 2.1.5
 
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name:    pango
-Version: 1.57.1
+Version: 1.58.0
 Release: %autorelease
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
-Source0: https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -23,6 +23,9 @@ Patch4:         %{name}-copy-dunder.patch
 Patch5:         %{name}-cryptography47.patch
 # crypto: fix deprection warnings (backport)
 Patch6:         %{name}-cryptography-decrepit.patch
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+Patch7:         https://github.com/tpm2-software/tpm2-pytss/commit/3107f615.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -88,6 +91,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
 
 %changelog
+* Mon Jun 29 2026 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-13
+- Drop redundant BuildRequires for python3-wheel
+
 * Mon Jun 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.0-12
 - Fix build with latest python-cryptography
 

@@ -32,9 +32,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/.*/lib.*\\.so$
 
 Name:		root
-Version:	6.38.04
+Version:	6.40.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	7%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -59,7 +59,7 @@ Source7:	JupyROOT-on-EPEL
 Source8:	%{name}-get-src.sh
 #		Clad is a source-transformation automatic differentiation (AD)
 #		library for C++, implemented as a plugin for the Clang compiler
-Source9:	https://github.com/vgvassilev/clad/archive/v2.2/clad-2.2.tar.gz
+Source9:	https://github.com/vgvassilev/clad/archive/v2.3/clad-2.3.tar.gz
 #		Use system fonts
 Patch0:		%{name}-fontconfig.patch
 #		Reduce memory usage during linking on ARM and x86 by generating
@@ -77,13 +77,18 @@ Patch5:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
 #		Preserve memory during parallel build
 #		https://github.com/root-project/root/pull/18991
 Patch6:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
-#		https://github.com/root-project/root/pull/21604
-#		https://github.com/root-project/root/pull/21605
-Patch7:		%{name}-Avoid-additional-python-version-file-to-wrong-location.patch
-#		Compatibility with Python 3.15
-#		https://github.com/root-project/root/issues/21787
-#		https://github.com/root-project/root/pull/21790
-Patch8:		%{name}-python-3.15.patch
+#		Revert xfail mark (test works except on RHEL/EPEL 9)
+Patch7:		%{name}-Revert-cppyy-Mark-addressof-test-as-xfail-on-modules.patch
+#		Adjust stressGraphics reference
+Patch8:		%{name}-Adjust-stressGraphics-reference.patch
+#		https://github.com/root-project/root/pull/22722
+Patch9:		%{name}-Use-different-output-filenames-in-tests-pdftitle.cxx.patch
+#		https://github.com/root-project/root/pull/22723
+Patch10:	%{name}-tmva-sofie-Fix-big-endian.patch
+#		https://github.com/root-project/root/pull/22724
+Patch11:	%{name}-core-The-old-TUUID-constructor-can-create-either-ver.patch
+Patch12:	%{name}-tree-df-Do-not-fail-test-on-32-bit-due-to-mis-aligne.patch
+Patch13:	%{name}-tree-nt-Compare-size-to-the-size-of-the-struct.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -98,7 +103,6 @@ BuildRequires:	freetype-devel
 BuildRequires:	fcgi-devel
 BuildRequires:	ftgl-devel
 BuildRequires:	gl2ps-devel
-BuildRequires:	glew-devel
 BuildRequires:	pcre2-devel
 BuildRequires:	zlib-devel
 BuildRequires:	xz-devel
@@ -131,6 +135,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	dcap-devel
 BuildRequires:	xrootd-client-devel >= 1:5.0.0
 BuildRequires:	cfitsio-devel
+BuildRequires:	curl-devel
 #		Davix version >= 0.6.4, but not between 0.6.8 and 0.7.0
 BuildRequires:	davix-devel >= 0.7.1
 %if %{rrr}
@@ -149,7 +154,7 @@ BuildRequires:	json-devel >= 3.9
 %endif
 BuildRequires:	liburing-devel
 %if %{tmvasofieparser}
-BuildRequires:	protobuf-devel < 4
+BuildRequires:	protobuf-devel >= 3.0
 %endif
 %ifnarch %{ix86} %{arm}
 BuildRequires:	libarrow-devel
@@ -162,6 +167,7 @@ BuildRequires:	zeromq-devel >= 4.3.5
 BuildRequires:	cppzmq-devel
 %endif
 %endif
+BuildRequires:	python3-pytest
 %if %{pandas}
 BuildRequires:	python3-pandas
 %endif
@@ -397,16 +403,18 @@ Obsoletes:	python3-jsmva < 6.32.00
 This package contains the Python extension for ROOT. It makes it
 possible to use ROOT classes in Python.
 
-%package -n python3-jupyroot
+%package -n python3-root+jupyroot
 Summary:	ROOT Jupyter kernel
-BuildArch:	noarch
-%py_provides	python3-jupyroot
-Requires:	python3-%{name} = %{version}-%{release}
-Requires:	%{name}-core = %{version}-%{release}
+%py_provides	python3-root+jupyroot
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 #		notebook package was merged with JupyROOT package
 Provides:	%{name}-notebook = %{version}-%{release}
 Obsoletes:	%{name}-notebook < 6.32.00
-Requires:	js-jsroot >= 7.10
+#		Package renamed (jupyroot is now a submodule)
+%py_provides	python3-jupyroot
+Obsoletes:	python3-jupyroot < 6.40.00
+Requires:	js-jsroot >= 7.11
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
@@ -418,18 +426,20 @@ Requires:	python3-metakernel
 Requires:	python-jupyter-filesystem
 %endif
 
-%description -n python3-jupyroot
+%description -n python3-root+jupyroot
 The Jupyter kernel for the ROOT notebook.
 
 %if %{distrdf}
-%package -n python3-distrdf
+%package -n python3-root+distrdf
 Summary:	Distributed RDataFrame
-BuildArch:	noarch
+%py_provides	python3-root+distrdf
+#		Package renamed (distrdf is now a submodule)
 %py_provides	python3-distrdf
-Requires:	python3-%{name} = %{version}-%{release}
-Requires:	%{name}-tree-dataframe = %{version}-%{release}
+Obsoletes:	python3-distrdf < 6.40.00
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-dataframe%{?_isa} = %{version}-%{release}
 
-%description -n python3-distrdf
+%description -n python3-root+distrdf
 A layer on top of RDataFrame to enable distributed computations. It is
 a port of the previously known PyRDF python package.
 %endif
@@ -638,6 +648,7 @@ Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d-gl%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf3d-glad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-ged%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
@@ -659,6 +670,7 @@ Requires:	%{name}-graf-asimage%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d-csg%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf3d-glad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-ged%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
@@ -670,6 +682,14 @@ This package contains the GL renderer for ROOT. This library provides
 3D rendering of volumes and shapes defined in ROOT, as well as 3D
 rendering of histograms, and similar. Included is also a high quality
 3D viewer for ROOT defined geometries.
+
+%package graf3d-glad
+Summary:	OpenGL loader library for ROOT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+
+%description graf3d-glad
+This package contains an OpenGL loader library for ROOT generated by
+the Glad tool (https://github.com/Dav1dde/glad).
 
 %package graf3d-gviz3d
 Summary:	Graphviz 3D library for ROOT
@@ -1137,6 +1157,15 @@ Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 %description net-auth
 This package contains the basic authentication algorithms used by ROOT.
 
+%package net-curl
+Summary:	Curl extension for ROOT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+
+%description net-curl
+This package contains the curl extension for TOOT. It provides access
+to http based storage e.g. S3.
+
 %package net-davix
 Summary:	Davix extension for ROOT
 Requires:	davix-libs%{?_isa} >= 0.7.1
@@ -1153,7 +1182,7 @@ Summary:	HTTP server extension for ROOT
 Provides:	bundled(civetweb)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	js-jsroot >= 7.10
+Requires:	js-jsroot >= 7.11
 #		Library split (net-httpsniff from net-http)
 Obsoletes:	%{name}-net-http < 6.14.00
 
@@ -1497,6 +1526,8 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 #		Library split (tmva-utils from tmva)
 Obsoletes:	%{name}-tmva < 6.28.08
+#		Library split (tree-ml from tmva-utils)
+Obsoletes:	%{name}-tmva-utils < 6.40.00
 
 %description tmva-utils
 TMVA utilities using dataframe.
@@ -1507,9 +1538,10 @@ Summary:	Toolkit for multivariate data analysis (Python)
 License:	BSD-3-Clause
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tmva-sofie%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	python3-numpy
+#		Package split (tmva-sofie-parser-python from tmva-python)
+Obsoletes:	%{name}-tmva-python < 6.40.00
 
 %description tmva-python
 Python integration with TMVA.
@@ -1549,6 +1581,18 @@ Requires:	%{name}-tmva-sofie%{?_isa} = %{version}-%{release}
 
 %description tmva-sofie-parser
 Parsers for ROOT/TMVA SOFIE
+
+%package tmva-sofie-parser-python
+Summary:	ROOT/TMVA SOFIE Parsers for Python
+License:	BSD-3-Clause AND MIT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tmva-sofie%{?_isa} = %{version}-%{release}
+Requires:	python3-numpy
+#		Package split (tmva-sofie-parser-python from tmva-python)
+Obsoletes:	%{name}-tmva-python < 6.40.00
+
+%description tmva-sofie-parser-python
+Parsers for ROOT/TMVA SOFIE for Python
 %endif
 
 %package tmva-gui
@@ -1594,6 +1638,16 @@ Obsoletes:	%{name}-tree-player < 6.14.00
 
 %description tree-dataframe
 This package contains a high level interface to ROOT trees.
+
+%package tree-ml
+Summary:	ROOT dataframe python
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-vecops%{?_isa} = %{version}-%{release}
+#		Library split (tree-ml from tmva-utils)
+Obsoletes:	%{name}-tmva-utils < 6.40.00
+
+%description tree-ml
+This package contains ...
 %endif
 
 %package tree-player
@@ -1864,10 +1918,19 @@ This package contains a library to show a pop-up dialog when fitting
 various kinds of data.
 
 %package histv7
-Summary:	Histogram library for ROOT 7
+Summary:	Conversion functions from RHist<int> to THist
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 
 %description histv7
+This package contains converters from the "old" THn* Hist library and
+the "new" histv7 package.
+
+%package histv7util
+Summary:	Histogram library for ROOT 7
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
+
+%description histv7util
 This package contains a library for histogramming in ROOT 7.
 %endif
 
@@ -1883,29 +1946,23 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P6 -p1
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
 
 # Remove bundled sources in order to be sure they are not used
-#  * afterimage
-rm -rf graf2d/asimage/src/libAfterImage/{libjpeg,libpng,libungif,zlib}
-sed '/zlib\/zlib.h/d' -i graf2d/asimage/src/libAfterImage/.depend
 #  * ftgl
 rm -rf graf3d/ftgl/src graf3d/ftgl/inc
-#  * freetype
-rm -rf graf2d/freetype/src
-#  * glew, lz4, nlohmann, pcre, xxhash, zlib, zstd
-rm -rf builtins/glew
-rm -rf builtins/lz4
+#  * nlohmann
 %if ! %{bundlejson}
-rm -rf builtins/nlohmann
+rm builtins/nlohmann/json.hpp
 %endif
-rm -rf builtins/pcre
-rm -rf builtins/xxhash
-rm -rf builtins/zlib
-rm -rf builtins/zstd
-#  * lzma
-rm core/lzma/src/*.tar.gz
-#  * gl2ps
-rm graf3d/gl/src/gl2ps.cxx graf3d/gl/src/gl2ps/gl2ps.h
+#  * pcre
+rm builtins/pcre/pcre-*.tar.bz2
+#  * xxhash
+rm builtins/xxhash/xxhash.c builtins/xxhash/xxhash.h
 #  * unuran
 rm math/unuran/src/*.tar.gz
 #  * x11 extension headers
@@ -1914,7 +1971,8 @@ rm -rf graf2d/x11/inc/X11
 rm -rf js/[^f]* js/files/draw.htm js/files/online.htm
 
 # Additional documentation
-install -p -m 644 %{SOURCE7} bindings/jupyroot
+install -p -m 644 %{SOURCE7} \
+    bindings/pyroot/pythonizations/python/ROOT/_jupyroot
 
 %build
 %if %{?rhel}%{!?rhel:0} == 10
@@ -1922,10 +1980,6 @@ install -p -m 644 %{SOURCE7} bindings/jupyroot
 # is analyzed and fixed, disable LTO
 %define _lto_cflags %{nil}
 %endif
-
-unset QTDIR
-unset QTLIB
-unset QTINC
 
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
@@ -1941,13 +1995,11 @@ unset QTINC
        -Dbuiltin_clang:BOOL=ON \
        -Dbuiltin_cling:BOOL=ON \
        -Dbuiltin_cppzmq:BOOL=OFF \
-       -Dbuiltin_davix:BOOL=OFF \
        -Dbuiltin_fftw3:BOOL=OFF \
        -Dbuiltin_freetype:BOOL=OFF \
        -Dbuiltin_ftgl:BOOL=OFF \
        -Dbuiltin_gif:BOOL=OFF \
        -Dbuiltin_gl2ps:BOOL=OFF \
-       -Dbuiltin_glew:BOOL=OFF \
        -Dbuiltin_gsl:BOOL=OFF \
        -Dbuiltin_gtest:BOOL=OFF \
        -Dbuiltin_jpeg:BOOL=OFF \
@@ -1965,9 +2017,7 @@ unset QTINC
        -Dbuiltin_png:BOOL=OFF \
        -Dbuiltin_tbb:BOOL=OFF \
        -Dbuiltin_unuran:BOOL=OFF \
-       -Dbuiltin_vc:BOOL=OFF \
        -Dbuiltin_vdt:BOOL=OFF \
-       -Dbuiltin_veccore:BOOL=OFF \
        -Dbuiltin_xrootd:BOOL=OFF \
        -Dbuiltin_xxhash:BOOL=OFF \
        -Dbuiltin_zeromq:BOOL=OFF \
@@ -1985,9 +2035,10 @@ unset QTINC
        -Dcefweb:BOOL=OFF \
        -Dcheck_connection:BOOL=OFF \
        -Dclad:BOOL=ON \
-       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-2.2 \
+       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-2.3 \
        -Dcocoa:BOOL=OFF \
        -Dcuda:BOOL=OFF \
+       -Dcurl:BOOL=ON \
        -Ddaos:BOOL=OFF \
 %if %{dataframe}
        -Ddataframe:BOOL=ON \
@@ -2074,9 +2125,8 @@ unset QTINC
        -Dunfold:BOOL=ON \
        -Dunuran:BOOL=ON \
        -During:BOOL=ON \
-       -Dvc:BOOL=OFF \
+       -Duse_gsl_cblas:BOOL=OFF \
        -Dvdt:BOOL=OFF \
-       -Dveccore:BOOL=OFF \
        -Dvecgeom:BOOL=OFF \
        -Dwebgui:BOOL=ON \
        -Dx11:BOOL=ON \
@@ -2130,43 +2180,24 @@ mv %{buildroot}%{python3_sitearch}/ROOT/libROOTPythonizations.so \
 mv %{buildroot}%{python3_sitearch}/cppyy/libcppyy.so \
    %{buildroot}%{python3_sitearch}/cppyy/libcppyy%{python3_ext_suffix}
 
-# Move noarch python modules to sitelib
-if [ "%{python3_sitelib}" != "%{python3_sitearch}" ] ; then
-mkdir -p %{buildroot}%{python3_sitelib}
-mv %{buildroot}%{python3_sitearch}/JupyROOT %{buildroot}%{python3_sitelib}
-%if %{distrdf}
-mv %{buildroot}%{python3_sitearch}/DistRDF %{buildroot}%{python3_sitelib}
-%endif
-fi
-
 # Create .dist-info files so that rpm auto-generates provides
 mkdir %{buildroot}%{python3_sitearch}/ROOT-%{version}.dist-info
-echo 'Name: ROOT' > \
-    %{buildroot}%{python3_sitearch}/ROOT-%{version}.dist-info/METADATA
-echo 'Version: %{version}' >> \
-    %{buildroot}%{python3_sitearch}/ROOT-%{version}.dist-info/METADATA
-mkdir %{buildroot}%{python3_sitelib}/JupyROOT-%{version}.dist-info
-echo 'Name: JupyROOT' > \
-    %{buildroot}%{python3_sitelib}/JupyROOT-%{version}.dist-info/METADATA
-echo 'Version: %{version}' >> \
-    %{buildroot}%{python3_sitelib}/JupyROOT-%{version}.dist-info/METADATA
-%if %{distrdf}
-mkdir %{buildroot}%{python3_sitelib}/DistRDF-%{version}.dist-info
-echo 'Name: DistRDF' > \
-    %{buildroot}%{python3_sitelib}/DistRDF-%{version}.dist-info/METADATA
-echo 'Version: %{version}' >> \
-    %{buildroot}%{python3_sitelib}/DistRDF-%{version}.dist-info/METADATA
-%endif
+cat > %{buildroot}%{python3_sitearch}/ROOT-%{version}.dist-info/METADATA << EOF
+Name: ROOT
+Version: %{version}
+Provides-Extra: distrdf
+Provides-Extra: jupyroot
+EOF
 
 # Put jupyter stuff in the right places
 mkdir -p %{buildroot}%{_datadir}/jupyter/kernels
 
 cp -pr %{buildroot}%{_datadir}/%{name}/notebook/kernels/root \
-   %{buildroot}%{_datadir}/jupyter/kernels/python3-jupyroot
+   %{buildroot}%{_datadir}/jupyter/kernels/root
 sed -e 's!python[0-9]*\.[0-9]*!%{__python3}!' \
-    -i %{buildroot}%{_datadir}/jupyter/kernels/python3-jupyroot/kernel.json
+    -i %{buildroot}%{_datadir}/jupyter/kernels/root/kernel.json
 sed -e '/^\#!/d' \
-    -i %{buildroot}%{python3_sitelib}/JupyROOT/kernel/rootkernel.py
+    -i %{buildroot}%{python3_sitearch}/ROOT/_jupyroot/kernel/rootkernel.py
 
 rm -rf %{buildroot}%{_datadir}/%{name}/notebook/custom
 rm -rf %{buildroot}%{_datadir}/%{name}/notebook/html
@@ -2196,12 +2227,9 @@ sed -e 's!/usr/bin/env python3!%{__python3}!' \
     -e '/import sys/d' \
     -e '/import cmdLineUtils/iimport sys' \
     -e '/import cmdLineUtils/isys.path.insert(0, "%{_datadir}/%{name}/cli")' \
-    -i %{buildroot}%{_bindir}/rootcp \
-       %{buildroot}%{_bindir}/rooteventselector \
-       %{buildroot}%{_bindir}/rootmkdir \
+    -i %{buildroot}%{_bindir}/rooteventselector \
        %{buildroot}%{_bindir}/rootmv \
        %{buildroot}%{_bindir}/rootprint \
-       %{buildroot}%{_bindir}/rootrm \
        %{buildroot}%{_bindir}/rootslimtree
 sed -e 's!/usr/bin/env python3!%{__python3}!' \
     -i %{buildroot}%{_bindir}/rootdrawtree
@@ -2214,7 +2242,6 @@ sed -e 's!/usr/bin/python!%{__python3}!' \
 rm %{buildroot}%{_datadir}/%{name}/root.desktop
 rm %{buildroot}%{_pkgdocdir}/INSTALL
 rm %{buildroot}%{_pkgdocdir}/README.CXXMODULES.md
-rm -rf %{buildroot}%{_datadir}/%{name}/html
 
 # Only used on Windows
 rm %{buildroot}%{_datadir}/%{name}/macros/fileopen.C
@@ -2268,7 +2295,6 @@ done
 # ... and merge some of them
 cat includelist-core-{[^mw],m[^au]}* > includelist-core
 cat includelist-graf2d-x11ttf >> includelist-graf2d-x11
-cat includelist-graf3d-rglew >> includelist-graf3d-gl
 
 # Do python byte compilation (for non-standard paths)
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/cli
@@ -2281,14 +2307,14 @@ ln -s ../../files files
 popd
 pushd runtutorials
 ln -s ../../files files
-ln -s ../../files/tutorials/df014_CsvDataSource_MuRun2010B.csv CsvDataSource_MuRun2010B.csv
 ln -s ../../files/usa.root usa.root
 popd
 popd
 
 # Exclude some tests that can not be run
 #
-# - test-stressIOPlugins-*
+# - test-stressIOPlugins-http
+# - test-stressIOPlugins-xroot
 #   requires network access (by design since they test the remote file IO)
 #
 # - tutorial-analysis-dataframe-df101_h1Analysis
@@ -2305,12 +2331,14 @@ popd
 #
 # - tutorial-analysis-dataframe-df033_Describe-py
 # - tutorial-analysis-dataframe-df102_NanoAODDimuonAnalysis(-py)?
+# - tutorial-hist-histv7-hist102_NanoAODDimuonAnalysis
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/opendata/cms/derived-data/
 #   AOD2NanoAODOutreachTool/Run2012BC_DoubleMuParked_Muons.root
 #
 # - gtest-tree-treeplayer-treeprocessormt-remotefiles
 # - tutorial-analysis-dataframe-df103_NanoAODHiggsAnalysis(-py)?
+# - tutorial-hist-histv7-hist103_NanoAODHiggsAnalysis
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/root-eos/cms_opendata_2012_nanoaod/
 #
@@ -2323,6 +2351,15 @@ popd
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/opendata/atlas/OutreachDatasets/2020-01-22/
 #
+# - tutorial-analysis-dataframe-df014_CSVDataSource(-py)
+# - tutorial-analysis-dataframe-df015_LazyDataSource
+#   reads input data over network:
+#   http://root.cern/files/tutorials/df014_CsvDataSource_MuRun2010B.csv
+#
+# - tutorial-hist-hist039_TH2Poly_usa-py
+#   reads input data over network:
+#   http://root.cern/files/usa.root
+#
 # - tutorial-io-ntuple-ntpl004_dimuon
 #   reads input data over network
 #   http://root.cern.ch/files/NanoAOD_DoubleMuon_CMS2011OpenData.root (1.5 GB)
@@ -2331,9 +2368,9 @@ popd
 #   reads input data over network
 #   http://root.cern.ch/files/HiggsTauTauReduced/GluGluToHToTauTau.root (20 MB)
 #
-# - tutorial-io-ntuple-ntpl011_global_temperatures
-#   reads input data over network
-#   http://root.cern.ch/files/tutorials/GlobalLandTemperaturesByCity.csv
+# - gtest-net-curl-rawfile-curl
+# - gtest-net-curl-tfile-curl
+#   reads input file over network
 #
 # - gtest-net-davix-RRawFileDavix
 #   reads input file over network
@@ -2355,7 +2392,7 @@ popd
 # - test-webgui-ping
 #   error: Cannot display window in native
 #
-# - test-stressgraphics-firefox-skip3d:
+# - test-stressgraphics-firefox-skip3d
 #   requires firefox...
 #
 # - test-stressgraphics-svg
@@ -2363,8 +2400,12 @@ popd
 #
 # - tutorial-visualisation-webcanv-fonts_ttf.cxx:
 #   Requires web graphics
+#
+# - tmva-sofie-test-TestCladAutodiff
+#   Fails often...
 excluded="\
-test-stressIOPlugins|\
+test-stressIOPlugins-http|\
+test-stressIOPlugins-xroot|\
 tutorial-analysis-dataframe-df101_h1Analysis|\
 tutorial-analysis-tree-run_h1analysis|\
 tutorial-legacy-multicore-mp104_processH1|\
@@ -2372,17 +2413,23 @@ tutorial-io-tree-imt_parTreeProcessing|\
 tutorial-analysis-dataframe-df..._SQlite|\
 tutorial-analysis-dataframe-df033_Describe-py|\
 tutorial-analysis-dataframe-df102_NanoAODDimuonAnalysis|\
+tutorial-hist-histv7-hist102_NanoAODDimuonAnalysis|\
 gtest-tree-treeplayer-treeprocessormt-remotefiles|\
 tutorial-analysis-dataframe-df103_NanoAODHiggsAnalysis|\
+tutorial-hist-histv7-hist103_NanoAODHiggsAnalysis|\
 tutorial-analysis-dataframe-df104_HiggsToTwoPhotons-py|\
 tutorial-analysis-dataframe-df105_WBosonAnalysis-py|\
 tutorial-analysis-dataframe-df106_HiggsToFourLeptons|\
 tutorial-analysis-dataframe-df107_SingleTopAnalysis-py|\
 tutorial-visualisation-rcanvas-df104-py|\
 tutorial-visualisation-rcanvas-df105-py|\
+tutorial-analysis-dataframe-df014_CSVDataSource|\
+tutorial-analysis-dataframe-df015_LazyDataSource|\
+tutorial-hist-hist039_TH2Poly_usa-py|\
 tutorial-io-ntuple-ntpl004_dimuon|\
 tutorial-io-ntuple-ntpl008_import|\
-tutorial-io-ntuple-ntpl011_global_temperatures|\
+gtest-net-curl-rawfile-curl|\
+gtest-net-curl-tfile-curl|\
 gtest-net-davix-RRawFileDavix|\
 gtest-net-netxng-RRawFileNetXNG|\
 gtest-net-netxng-TNetXNGFileTest|\
@@ -2391,49 +2438,57 @@ tutorial-machine_learning-tmva100_DataPreparation-py|\
 test-webgui-ping|\
 test-stressgraphics-firefox-skip3d|\
 test-stressgraphics-svg|\
-tutorial-visualisation-webcanv-fonts_ttf.cxx"
+tutorial-visualisation-webcanv-fonts_ttf.cxx|\
+tmva-sofie-test-TestCladAutodiff"
+
+%if %{?rhel}%{!?rhel:0} == 9
+# - pyunittests-bindings-pyroot-cppyy-cppyy-test-datatypes
+#   Fails on EPEL 9 (see patch above)
+excluded="${excluded}|\
+pyunittests-bindings-pyroot-cppyy-cppyy-test-datatypes"
+%endif
 
 %ifarch %{ix86}
 # - gtest-hist-hist-TFormulaGradientTests
 #   out of memory
 #
 # - tmva-sofie-test-TestCustomModelsFromONNX
-#   Expected equality of these values:
-#     output.size()
-#       Which is: 1000
-#     sizeof(Slice_Neg::output) / sizeof(float)
-#       Which is: 900
+#   many failures ...
+#
+# - pyunittests-bindings-pyroot-cppyy-cppyy-test-datatypes
+# - pyunittests-bindings-pyroot-cppyy-cppyy-test-lowlevel
+# - pyunittests-bindings-pyroot-cppyy-cppyy-test-regression
+#   cppyy tests failing
 excluded="${excluded}|\
 gtest-hist-hist-TFormulaGradientTests|\
-tmva-sofie-test-TestCustomModelsFromONNX\$\$"
+tmva-sofie-test-TestCustomModelsFromONNX|\
+pyunittests-bindings-pyroot-cppyy-cppyy-test-datatypes|\
+pyunittests-bindings-pyroot-cppyy-cppyy-test-lowlevel|\
+pyunittests-bindings-pyroot-cppyy-cppyy-test-regression"
 %endif
 
 %ifarch %{power64}
-%if %{?fedora}%{!?fedora:0} >= 42
+# - gtest-tree-ntuple-ntuple-emulated
 # - gtest-tree-ntuple-ntuple-evolution-shape
 #   waitpid() failed
 excluded="${excluded}|\
-gtest-tree-ntuple-ntuple-evolution-shape"
-%endif
-
-# - gtest-tree-ntuple-ntuple-emulated
-# - gtest-tree-ntuple-ntuple-merger
-#   Random failures
-excluded="${excluded}|\
 gtest-tree-ntuple-ntuple-emulated|\
-gtest-tree-ntuple-ntuple-merger"
+gtest-tree-ntuple-ntuple-evolution-shape"
 %endif
 
 %ifarch s390x
 # - gtest-roofit-roofitcore-testNaNPacker
-# - gtest-roofit-roofitcore-testLikelihoodGradientJob
 #   Uses "Packed NaN" feature, not implemented for big endian.
 excluded="${excluded}|\
-gtest-roofit-roofitcore-testNaNPacker|\
-gtest-roofit-roofitcore-testLikelihoodGradientJob"
+gtest-roofit-roofitcore-testNaNPacker"
 
 # - gtest-core-dictgen-dictgen-base
+# - gtest-net-httpsniff-testRootSniffer
+# - gtest-net-net-testParallelMergingFile
+# - gtest-roofit-roofitcore-testLikelihoodGradientJob
 # - gtest-tree-dataframe-dataframe-concurrency
+# - gtest-tree-dataframe-dataframe-snapshot-interpreted-class-read
+# - gtest-tree-dataframe-dataframe-snapshot-interpreted-class-write
 # - gtest-tree-dataframe-dataframe-snapshot-ntuple
 # - gtest-tree-dataframe-dataframe-unified-constructor
 # - gtest-tree-dataframe-dataframe-vary
@@ -2458,6 +2513,7 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - gtest-tree-ntuple-ntuple-processor-join
 # - gtest-tree-ntuple-ntuple-project
 # - gtest-tree-ntuple-ntuple-show
+# - gtest-tree-ntuple-ntuple-soa
 # - gtest-tree-ntuple-ntuple-storage
 # - gtest-tree-ntuple-ntuple-storage-daos
 # - gtest-tree-ntuple-ntuple-types
@@ -2474,10 +2530,10 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector
+# - pyunittests-hist-histv7-hist-py
 # - pyunittests-io-io-rfile-py
 # - tmva-sofie-test-TestCustomModelsFromONNX
 # - tutorial-analysis-dataframe-df006_ranges-py
-# - tutorial-hist-hist007_TH1_liveupdate-py
 # - tutorial-math-exampleFunction-py
 # - tutorial-math-fit-combinedFit-py
 # - tutorial-math-fit-NumericalMinimization-py
@@ -2488,9 +2544,16 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - test-stresshistofit-interpreted
 # - test-stresshistogram
 # - test-stresshistogram-interpreted
+#
+# - pyunittests-bindings-pyroot-cppyy-cppyy-test-*
 excluded="${excluded}|\
 gtest-core-dictgen-dictgen-base|\
+gtest-net-httpsniff-testRootSniffer|\
+gtest-net-net-testParallelMergingFile|\
+gtest-roofit-roofitcore-testLikelihoodGradientJob|\
 gtest-tree-dataframe-dataframe-concurrency|\
+gtest-tree-dataframe-dataframe-snapshot-interpreted-class-read|\
+gtest-tree-dataframe-dataframe-snapshot-interpreted-class-write|\
 gtest-tree-dataframe-dataframe-snapshot-ntuple|\
 gtest-tree-dataframe-dataframe-unified-constructor|\
 gtest-tree-dataframe-dataframe-vary|\
@@ -2515,6 +2578,7 @@ gtest-tree-ntuple-ntuple-processor-chain|\
 gtest-tree-ntuple-ntuple-processor-join|\
 gtest-tree-ntuple-ntuple-project|\
 gtest-tree-ntuple-ntuple-show|\
+gtest-tree-ntuple-ntuple-soa|\
 gtest-tree-ntuple-ntuple-storage\$\$|\
 gtest-tree-ntuple-ntuple-storage-daos|\
 gtest-tree-ntuple-ntuple-types|\
@@ -2529,10 +2593,10 @@ gtest-tree-tree-testTTreeRegressions|\
 pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector|\
+pyunittests-hist-histv7-hist-py|\
 pyunittests-io-io-rfile-py|\
 tmva-sofie-test-TestCustomModelsFromONNX|\
 tutorial-analysis-dataframe-df006_ranges-py|\
-tutorial-hist-hist007_TH1_liveupdate-py|\
 tutorial-math-exampleFunction-py|\
 tutorial-math-fit-combinedFit-py|\
 tutorial-math-fit-NumericalMinimization-py|\
@@ -2540,19 +2604,16 @@ tutorial-visualisation-rcanvas-rbox-py|\
 test-stresshistofit\$\$|\
 test-stresshistofit-interpreted|\
 test-stresshistogram\$\$|\
-test-stresshistogram-interpreted"
+test-stresshistogram-interpreted|\
+pyunittests-bindings-pyroot-cppyy-cppyy-test"
 
 # The zlib-ng library is compiled with hardware acceleration support on s390x
 # in Fedora 43 and later and RHEL 10.1 and later
 # This means that some tests that compare the size of compressed data fail.
 # - test-stress
-# - gtest-tree-readspeed-readspeed-general
-# - gtest-tree-tree-testTBranch
 %if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 10
 excluded="${excluded}|\
-test-stress\$\$|\
-gtest-tree-readspeed-readspeed-general|\
-gtest-tree-tree-testTBranch"
+test-stress\$\$"
 %endif
 %endif
 
@@ -2571,32 +2632,60 @@ gtest-math-matrix-testMatrixTSparse"
 %endif
 
 # Filter out parts of tests that require remote network access
-# RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
-# InterpreterTest.Evaluate fails on s390x
-# TClingDataMemberInfo.Offset fails on s390x
+# gtest-io-io-rfile: RFile.RemoteRead
+# gtest-io-io-RRawFile: RRawFile.Remote
+# gtest-io-io-TFile: TFile.ReadWithoutGlobalRegistrationNet
+#                    TFile.ReadWithoutGlobalRegistrationWeb
+#                    TFile.ReadWithCacheWithoutGlobalRegistration
+# gtest-tree-dataframe-datasource-csv: RCsvDS.Remote
+# gtest-tree-dataframe-datasource-sqlite: RSqliteDS.Remote
+# gtest-tree-ntuple-ntuple-storage: RNTuple.OpenHTTP
+# gtest-tree-tree-testTChainParsing: TChainParsing.DoubleSlash
+#                                    TChainParsing.RemoteGlob
+#
+# Fails on ix86 (different alignment 64 bit (non)atomic)
+# gtest-tree-ntuple-ntuple-types: RNTuple.StdAtomic
+#
+# Fails on ppc64le (no __float128 support)
+# cppinterop-CppInterOpTests: CppInterOpTest/InProcessJIT.Interpreter_Evaluate
+#
+# Fails on s390x (big endian)
 # https://github.com/root-project/root/issues/14512
-# TTreeRegressions.PrintClustersRounding
-# relies on specific versions of compression libraries
+# cppinterop-CppInterOpTests: CppInterOpTest/InProcessJIT.Interpreter_Evaluate
+# gtest-core-metacling-TClingTest: TClingDataMemberInfo.Offset
+# gtest-io-io-rfile: RFile.RNTuple
+# gtest-tree-treeplayer-treeplayer-branchobject: TTreeReaderBasic.LorentzVector32
+# gtest-tree-tree-testTTreeRegressions: TTreeRegressions.TTreeFormulaMemberIndex
+#
+# Fails on s390x (differnt compression size with zlib-ng)
 # https://github.com/root-project/root/issues/18995
+# gtest-tree-tree-testTTreeRegressions: TTreeRegressions.PrintClustersRounding
 export GTEST_FILTER=-\
 %ifarch %{ix86}
 RNTuple.StdAtomic:\
 %endif
+%ifarch %{power64}
+CppInterOpTest/InProcessJIT.Interpreter_Evaluate:\
+%endif
 %ifarch s390x
-InterpreterTest.Evaluate:\
+CppInterOpTest/InProcessJIT.Interpreter_Evaluate:\
 TClingDataMemberInfo.Offset:\
+RFile.RNTuple:\
 TTreeReaderBasic.LorentzVector32:\
+TTreeRegressions.TTreeFormulaMemberIndex:\
+TTreeRegressions.PrintClustersRounding:\
 %endif
 RCsvDS.Remote:\
 RFile.RemoteRead:\
 RNTuple.OpenHTTP:\
 RRawFile.Remote:\
 RSqliteDS.Davix:\
+RSqliteDS.Remote:\
 TChainParsing.DoubleSlash:\
 TChainParsing.RemoteGlob:\
 TFile.ReadWithoutGlobalRegistrationNet:\
 TFile.ReadWithoutGlobalRegistrationWeb:\
-TTreeRegressions.PrintClustersRounding
+TFile.ReadWithCacheWithoutGlobalRegistration
 %ctest -- -E "${excluded}"
 
 %pretrans net-http -p <lua>
@@ -2619,7 +2708,7 @@ if [ -r /var/lib/alternatives/libPyROOT.so ] ; then
     done
 fi
 
-%post -n python3-jupyroot
+%post -n python3-root+jupyroot
 mkdir -p /etc/jupyter
 if [ -e /etc/jupyter/jupyter_notebook_config.py ] ; then
     sed '/Extra static paths for JupyROOT - start/','/Extra static paths for JupyROOT - end/'d -i /etc/jupyter/jupyter_notebook_config.py
@@ -2638,7 +2727,7 @@ c.ServerApp.extra_static_paths.append('%{_jsdir}/jsroot')
 # Extra static paths for JupyROOT - end - do not remove this line
 EOF
 
-%postun -n python3-jupyroot
+%postun -n python3-root+jupyroot
 if [ $1 -eq 0 ] ; then
     if [ -e /etc/jupyter/jupyter_notebook_config.py ] ; then
 	sed '/Extra static paths for JupyROOT - start/','/Extra static paths for JupyROOT - end/'d -i /etc/jupyter/jupyter_notebook_config.py
@@ -2664,9 +2753,12 @@ fi
 %{_bindir}/root
 %{_bindir}/root.exe
 %{_bindir}/rootbrowse
+%{_bindir}/rootcp
 %{_bindir}/rootls
+%{_bindir}/rootmkdir
 %{_bindir}/rootn.exe
 %{_bindir}/rootreadspeed
+%{_bindir}/rootrm
 %{_bindir}/roots
 %{_bindir}/roots.exe
 %{_bindir}/rootssh
@@ -2767,7 +2859,7 @@ fi
 
 %files testsupport
 %{_includedir}/%{name}/ROOT/TestSupport.hxx
-%{_libdir}/%{name}/TestSupport
+%{_libdir}/%{name}/libTestSupport
 %doc core/testsupport/README.md
 
 %files tpython -f includelist-bindings-tpython
@@ -2777,22 +2869,24 @@ fi
 %files -n python3-%{name} -f includelist-bindings-pyroot
 %{python3_sitearch}/cppyy
 %{python3_sitearch}/ROOT
+%exclude %{python3_sitearch}/ROOT/_distrdf
+%exclude %{python3_sitearch}/ROOT/_jupyroot
 %{python3_sitearch}/ROOT-*.dist-info
 %{_libdir}/%{name}/libCPyCppyy.*
 %dir %{_includedir}/%{name}/CPyCppyy
 
-%files -n python3-jupyroot
-%{python3_sitelib}/JupyROOT
-%{python3_sitelib}/JupyROOT-*.dist-info
-%{_datadir}/jupyter/kernels/python3-jupyroot
+%files -n python3-root+jupyroot
+%{python3_sitearch}/ROOT/_jupyroot
+%ghost %{python3_sitearch}/ROOT-*.dist-info
+%{_datadir}/jupyter/kernels/root
 %{_bindir}/rootnb.exe
-%doc bindings/jupyroot/README.md
-%doc bindings/jupyroot/JupyROOT-on-EPEL
+%doc bindings/pyroot/pythonizations/python/ROOT/_jupyroot/README.md
+%doc bindings/pyroot/pythonizations/python/ROOT/_jupyroot/JupyROOT-on-EPEL
 
 %if %{distrdf}
-%files -n python3-distrdf
-%{python3_sitelib}/DistRDF
-%{python3_sitelib}/DistRDF-*.dist-info
+%files -n python3-root+distrdf
+%{python3_sitearch}/ROOT/_distrdf
+%ghost %{python3_sitearch}/ROOT-*.dist-info
 %endif
 
 %if %{rrr}
@@ -2897,6 +2991,9 @@ fi
 %{_datadir}/%{name}/plugins/TVirtualPadPainter/P010_TGLPadPainter.C
 %{_datadir}/%{name}/plugins/TVirtualViewer3D/P020_TGLSAViewer.C
 %{_datadir}/%{name}/plugins/TVirtualViewer3D/P030_TGLViewer.C
+
+%files graf3d-glad
+%{_libdir}/%{name}/libROOTGlad.*
 
 %files graf3d-gviz3d -f includelist-graf3d-gviz3d
 %{_libdir}/%{name}/libGviz3d.*
@@ -3122,6 +3219,12 @@ fi
 %{_datadir}/%{name}/plugins/TVirtualAuth/P010_TRootAuth.C
 %doc %{_pkgdocdir}/README.AUTH
 
+%files net-curl -f includelist-net-curl
+%{_libdir}/%{name}/libRCurlHttp.*
+%{_libdir}/%{name}/libRCurlHttp_rdict.pcm
+%{_datadir}/%{name}/plugins/ROOT@@Internal@@RRawFile/P015_RRawFileCurl.C
+%{_datadir}/%{name}/plugins/TFile/P140_TCurlFile.C
+
 %files net-davix -f includelist-net-davix
 %{_libdir}/%{name}/libRDAVIX.*
 %{_libdir}/%{name}/libRDAVIX_rdict.pcm
@@ -3251,10 +3354,6 @@ fi
 %exclude %{_includedir}/%{name}/TMVA/RSofieReader.hxx
 %exclude %{_includedir}/%{name}/TMVA/RStandardScaler.hxx
 %exclude %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
-%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
-%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
-%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkConstructor.hxx
-%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 
 %if %{dataframe}
 %files tmva-utils
@@ -3267,11 +3366,6 @@ fi
 %{_includedir}/%{name}/TMVA/RSofieReader.hxx
 %{_includedir}/%{name}/TMVA/RStandardScaler.hxx
 %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
-%dir %{_includedir}/%{name}/TMVA/BatchGenerator
-%{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
-%{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
-%{_includedir}/%{name}/TMVA/BatchGenerator/RChunkConstructor.hxx
-%{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 %endif
 
 %files tmva-python -f includelist-tmva-pymva
@@ -3293,6 +3387,13 @@ fi
 %files tmva-sofie-parser -f includelist-tmva-sofie_parsers
 %{_libdir}/%{name}/libROOTTMVASofieParser.*
 %{_libdir}/%{name}/libROOTTMVASofieParser_rdict.pcm
+%exclude %{_includedir}/%{name}/TMVA/RModelParser_Keras.h
+%exclude %{_includedir}/%{name}/TMVA/RModelParser_PyTorch.h
+
+%files tmva-sofie-parser-python
+%{_libdir}/%{name}/libROOTTMVASofiePyParsers.*
+%{_includedir}/%{name}/TMVA/RModelParser_Keras.h
+%{_includedir}/%{name}/TMVA/RModelParser_PyTorch.h
 %endif
 
 %files tmva-gui -f includelist-tmva-tmvagui
@@ -3308,6 +3409,11 @@ fi
 %files tree-dataframe -f includelist-tree-dataframe
 %{_libdir}/%{name}/libROOTDataFrame.*
 %{_libdir}/%{name}/libROOTDataFrame_rdict.pcm
+
+%files tree-ml -f includelist-tree-ml
+%{_libdir}/%{name}/libROOTMLDataLoader.*
+%{_libdir}/%{name}/libROOTMLDataLoader_rdict.pcm
+%dir %{_includedir}/%{name}/ROOT/ML
 %endif
 
 %files tree-player -f includelist-tree-treeplayer
@@ -3331,13 +3437,10 @@ fi
 %{_libdir}/%{name}/libUnfold_rdict.pcm
 
 %files cli
-%{_bindir}/rootcp
 %{_bindir}/rootdrawtree
 %{_bindir}/rooteventselector
-%{_bindir}/rootmkdir
 %{_bindir}/rootmv
 %{_bindir}/rootprint
-%{_bindir}/rootrm
 %{_bindir}/rootslimtree
 %{_datadir}/%{name}/cli
 
@@ -3431,14 +3534,32 @@ fi
 %files histv7 -f includelist-hist-histv7
 %{_libdir}/%{name}/libROOTHist.*
 %{_libdir}/%{name}/libROOTHist_rdict.pcm
+
+%files histv7util -f includelist-hist-histv7util
+%{_libdir}/%{name}/libROOTHistUtil.*
+%{_libdir}/%{name}/libROOTHistUtil_rdict.pcm
+%dir %{_includedir}/%{name}/ROOT/Hist
 %endif
 
 %changelog
+* Sat Jun 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.02-1
+- Update to 6.40.02
+- Rename the jupyroot and distrdf packages to reflect that they are
+  now submodules of the main pyyhon package
+- New subpackages: root-package graf3d-glad, root-package net-curl,
+  root-package tmva-sofie-parser-python, root-package tree-ml,
+  root-package histv7util
+- Dropped patches: 2
+- New patches: 7
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.38.04-7
 - Rebuilt for openssl 4.0
 
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.38.04-6
 - Rebuilt for Python 3.15
+
+* Wed May 06 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-6
+- Combined rebuild for xrootd and R
 
 * Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 6.38.04-5
 - R-maint-sig mass rebuild

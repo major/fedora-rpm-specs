@@ -9,6 +9,10 @@ License:        BSD-2-Clause
 URL:            https://github.com/micheles/decorator
 Source0:        %pypi_source decorator
 
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+Patch:          https://github.com/micheles/decorator/commit/062ff0e0.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

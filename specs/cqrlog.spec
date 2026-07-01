@@ -23,7 +23,8 @@ BuildRequires:	lazarus >= 1.8
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-Requires:	mariadb-server
+Requires:	mariadb-server-any
+Recommends:	mariadb-server
 # https://bugzilla.redhat.com/show_bug.cgi?id=1486480
 %if 0%{?fedora}
 Requires:       mariadb-connector-c

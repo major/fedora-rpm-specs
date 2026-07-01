@@ -11,6 +11,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/sh4nks/flask-caching
 Source0:        https://github.com/sh4nks/%{srcname}/archive/v%{version}/%{srcname}-v%{version}.tar.gz
 
+# Compatibility with pytest 9.1
+Patch:          https://github.com/pallets-eco/flask-caching/pull/652.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

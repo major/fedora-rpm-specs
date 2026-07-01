@@ -1,15 +1,15 @@
 Name:           perl-Clownfish-CFC
-Version:        0.6.3
-Release:        32%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Summary:        Compiler for Apache Clownfish
-# other files:          ASL 2.0
+# other files:          Apache-2.0
 ## Unbundled
-# lemon:                ASL 2.0
-# modules/CommonMark:   BSD and MIT
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
+# lemon:                Apache-2.0
+# modules/CommonMark:   BSD-2-Clause AND MIT
 License:        Apache-2.0
+SourceLicense:  Apache-2.0 AND BSD-2-Clause and MIT
 URL:            https://metacpan.org/release/Clownfish-CFC
-Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWELLNHOF/Clownfish-CFC-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARMAN/Clownfish-CFC-%{version}.tar.gz
 # Use system lemon, <https://issues.apache.org/jira/browse/CLOWNFISH-60>
 Patch0:         Clownfish-CFC-0.6.0-Use-system-lemon-if-possible.patch
 # Handle pkg-config output with multiple arguments, bug #1416443,
@@ -46,7 +46,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  sed
 # Run-time:
 # Clownfish not used at tests
 BuildRequires:  perl(Exporter)
@@ -76,19 +75,37 @@ Requires:       perl(ExtUtils::ParseXS) >= 3.00
 # the other modules that are defined with version in their respective files.
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\([^)]*\\)$
 
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Clownfish::CFC::Test::
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Clownfish::CFC::Test::
+
 %description
 This is a compiler for Apache Clownfish.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Clownfish-CFC-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n Clownfish-CFC-%{version}
 # Unbundle lemon
 rm -rf lemon
-sed -i -e '/^lemon\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^lemon/}' MANIFEST
 # Unbundle cmark
 rm -rf modules/CommonMark
-sed -i -e '/^modules\/CommonMark\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^modules/CommonMark/}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor --optimize="$RPM_OPT_FLAGS" \
@@ -96,21 +113,52 @@ perl Build.PL --installdirs=vendor --optimize="$RPM_OPT_FLAGS" \
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install destdir=%{buildroot} create_packlist=0
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/000-load.t
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/buildlib/Clownfish/CFC
+cp -a buildlib/Clownfish/CFC/Test %{buildroot}%{_libexecdir}/%{name}/buildlib/Clownfish/CFC
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests, e.g. t/001-util.t, write into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+unset CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
 %license LICENSE
 %doc CONTRIBUTING.md NOTICE README.md
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Clownfish*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Clownfish
+%{perl_vendorarch}/auto/Clownfish/CFC
+%dir %{perl_vendorarch}/Clownfish
+%{perl_vendorarch}/Clownfish/CFC
+%{perl_vendorarch}/Clownfish/CFC.{pm,pod}
+%{_mandir}/man3/Clownfish::CFC.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 29 2026 Petr Pisar <ppisar@redhat.com> - 0.6.4-1
+- 0.6.4 bump
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

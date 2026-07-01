@@ -10,6 +10,11 @@ Source:         https://yaml.dev/ruamel-dl-tagged-releases/ruamel.yaml.clib-%{ve
 
 Patch:          unbundle-libyaml.patch
 
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+# From https://sourceforge.net/p/ruamel-yaml-clib/code/merge-requests/5/
+Patch:          nowheel.patch
+
 BuildRequires:  gcc
 
 %global _description %{expand:

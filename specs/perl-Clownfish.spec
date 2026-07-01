@@ -1,6 +1,6 @@
 Name:           perl-Clownfish
-Version:        0.6.3
-Release:        28%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Summary:        Apache Clownfish symbiotic object system
 # The LICENSE file declares sinces 0.5.0 that portions of the libcmark libary
 # from the CommonMark project are bundled. But I cannot find any of the code
@@ -9,7 +9,7 @@ Summary:        Apache Clownfish symbiotic object system
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Clownfish
-Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWELLNHOF/Clownfish-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARMAN/Clownfish-%{version}.tar.gz
 # There is charmonizer.c which is becoming a separate project
 # <git://git.apache.org/lucy-charmonizer.git>. However, lucy-charmonizer has
 # not yet been released <http://lucy.apache.org/download.html>.
@@ -26,7 +26,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.006003
+BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.006004
 BuildRequires:  perl(Clownfish::CFC::Perl::Build::Charmonic)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
@@ -75,18 +75,26 @@ perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Installing tests is too complicated. It would requires cherry-picking files
+# from ./blib (Clownfish::Test) or reimplementing the build script.
 
 %check
+unset AUTOMATED_TESTING CLOWNFISH_VALGRIND
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
 %license LICENSE
 %doc CONTRIBUTING.md NOTICE README.md
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Clownfish
 %{perl_vendorarch}/Clownfish*
-%{_mandir}/man3/*
+%{_mandir}/man3/Clownfish.*
+%{_mandir}/man3/Clownfish::*
 
 %changelog
+* Mon Jun 29 2026 Petr Pisar <ppisar@redhat.com> - 0.6.4-1
+- 0.6.4 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

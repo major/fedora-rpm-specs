@@ -1,10 +1,9 @@
 # Disable in source builds on EPEL <9
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 Name:       cscppc
-Version:    2.2.7
-Release:    4%{?dist}
+Version:    2.2.8
+Release:    1%{?dist}
 Summary:    A compiler wrapper that runs Cppcheck in background
 
 License:    GPL-3.0-or-later
@@ -17,7 +16,7 @@ Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{versi
 Source2:    kdudka.pgp
 
 BuildRequires: asciidoc
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gnupg2
 
@@ -82,19 +81,19 @@ in background fully transparently.
 %autosetup
 
 %build
-%cmake3                                       \
+%cmake                                        \
     -DPATH_TO_CSCPPC=\"%{_libdir}/cscppc\"    \
     -DPATH_TO_CSCLNG=\"%{_libdir}/csclng\"    \
     -DPATH_TO_CSGCCA=\"%{_libdir}/csgcca\"    \
     -DPATH_TO_CSMATCH=\"%{_libdir}/csmatch\"  \
     -DSTATIC_LINKING=ON
-%cmake3_build
+%cmake_build
 
 %check
-%ctest3
+%ctest
 
 %install
-%cmake3_install
+%cmake_install
 
 install -m0755 -d "%{buildroot}%{_libdir}"{,/cs{cppc,clng,gcca,match}}
 
@@ -140,6 +139,9 @@ done
 %{_mandir}/man1/csmatch.1*
 
 %changelog
+* Mon Jun 29 2026 Kamil Dudka <kdudka@redhat.com> 2.2.8-1
+- update to latest upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

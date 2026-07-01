@@ -1,15 +1,14 @@
 %global avahi_version 0.6
 %global fuse_version 3.0.0
-%global glib2_version 2.70.0
+%global glib2_version 2.83.0
 %global gsettings_desktop_schemas_version 3.33.0
-%global goa_version 3.53.1
+%global goa_version 3.57.0
 %global gudev_version 147
-%global libarchive_version 3.0.22
 %global libcdio_paranoia_version 0.78.2
 %global libgcrypt_version 1.2.2
 %global libgphoto2_version 2.5.0
 %global libimobiledevice_version 1.2
-%global libmtp_version 1.1.15
+%global libmtp_version 1.1.21
 %global libnfs_version 1.9.8
 %global libplist_version 2.2
 %global libsmbclient_version 4.12.0
@@ -19,17 +18,15 @@
 %global talloc_version 1.3.0
 %global udisks2_version 1.97
 
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name:    gvfs
-Version: 1.60.0
+Version: 1.61.1
 Release: %autorelease
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -51,6 +48,9 @@ BuildRequires: pkgconfig(udisks2) >= %{udisks2_version}
 %if ! 0%{?rhel}
 BuildRequires: pkgconfig(libbluray)
 %endif
+%if ! (0%{?rhel} >= 9)
+BuildRequires: libgcrypt-devel >= %{libgcrypt_version}
+%endif
 BuildRequires: systemd-devel >= %{systemd_version}
 BuildRequires: pkgconfig(libxslt)
 BuildRequires: docbook-style-xsl
@@ -66,6 +66,8 @@ Requires: /usr/bin/wsdd
 
 Obsoletes: gnome-mount <= 0.8
 Obsoletes: gnome-mount-nautilus-properties <= 0.8
+Obsoletes: gvfs-afp < 1.61.1-1
+Obsoletes: gvfs-archive < 1.61.1-1
 Obsoletes: gvfs-obexftp < 1.17.91-2
 Obsoletes: gvfs-devel < 1.55.1-1
 Obsoletes: gvfs-tests < 1.55.1-3
@@ -112,19 +114,6 @@ This package provides support for reading and writing files on windows
 shares (SMB) to applications using gvfs.
 
 
-%if ! (0%{?rhel} >= 9)
-%package archive
-Summary: Archiving support for gvfs
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-client%{?_isa} = %{version}-%{release}
-BuildRequires: pkgconfig(libarchive) >= %{libarchive_version}
-
-%description archive
-This package provides support for accessing files inside Zip and Tar archives,
-as well as ISO images, to applications using gvfs.
-%endif
-
-
 %ifnarch s390 s390x
 %package gphoto2
 Summary: gphoto2 support for gvfs
@@ -152,22 +141,6 @@ BuildRequires: pkgconfig(libplist-2.0) >= %{libplist_version}
 This package provides support for reading files on mobile devices
 including phones and music players to applications using gvfs.
 %endif
-%endif
-
-
-%if ! (0%{?rhel} >= 9)
-%package afp
-Summary: AFP support for gvfs
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-client%{?_isa} = %{version}-%{release}
-BuildRequires: libgcrypt-devel >= %{libgcrypt_version}
-# this should ensure having this new subpackage installed on upgrade from older versions
-Obsoletes: %{name} < 1.9.4-1
-
-%description afp
-This package provides support for reading and writing files on
-Mac OS X and original Mac OS network shares via Apple Filing Protocol
-to applications using gvfs.
 %endif
 
 
@@ -231,8 +204,6 @@ file services.
        -Donedrive=false \
 %endif
 %if 0%{?rhel} >= 9
-       -Darchive=false \
-       -Dafp=false \
        -Dgcrypt=false \
 %endif
 %if 0%{?rhel} >= 10
@@ -271,16 +242,8 @@ killall -USR1 gvfsd >&/dev/null || :
 %endif
 %endif
 
-%if ! (0%{?rhel} >= 9)
-%post archive
-killall -USR1 gvfsd >&/dev/null || :
-%endif
 %if ! 0%{?rhel}
 %post nfs
-killall -USR1 gvfsd >&/dev/null || :
-%endif
-%if ! (0%{?rhel} >= 9)
-%post afp
 killall -USR1 gvfsd >&/dev/null || :
 %endif
 
@@ -361,12 +324,6 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/gvfs/mounts/smb.mount
 
 
-%if ! (0%{?rhel} >= 9)
-%files archive
-%{_libexecdir}/gvfsd-archive
-%{_datadir}/gvfs/mounts/archive.mount
-%endif
-
 %ifnarch s390 s390x
 %files gphoto2
 %{_libexecdir}/gvfsd-gphoto2
@@ -385,14 +342,6 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/gvfs/remote-volume-monitors/afc.monitor
 %{_userunitdir}/gvfs-afc-volume-monitor.service
 %endif
-%endif
-
-%if ! (0%{?rhel} >= 9)
-%files afp
-%{_libexecdir}/gvfsd-afp
-%{_libexecdir}/gvfsd-afp-browse
-%{_datadir}/gvfs/mounts/afp.mount
-%{_datadir}/gvfs/mounts/afp-browse.mount
 %endif
 
 %ifnarch s390 s390x

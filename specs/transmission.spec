@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -103,9 +103,6 @@ find fast_float/ libb64/ libdeflate/ libevent/ libnatpmp/ libpsl/ \
      utfcpp/ -type f -delete
 popd
 
-# fix icon location for Transmission Qt
-sed -i 's|Icon=%{name}-qt|Icon=%{name}|g' qt/%{name}-qt.desktop
-
 # convert to UTF encoding
 iconv --from=ISO-8859-1 --to=UTF-8 AUTHORS > AUTHORS.new
 mv AUTHORS.new AUTHORS
@@ -197,6 +194,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Jun 20 2026 Ryan Nosurname <fauxpark@gmail.com> - 4.1.2-3
+- Remove unnecessary Qt icon rename
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.2-2
 - Rebuilt for openssl 4.0
 

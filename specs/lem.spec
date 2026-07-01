@@ -1,11 +1,11 @@
 Name:           lem
-Version:        2025.03.13
+Version:        2026.05.01
 Release:        %autorelease
 Summary:        A tool for semantic definition language
 
 License:        LGPL-2.0-only
 URL:            https://github.com/rems-project/%{name}
-Source0:        https://github.com/rems-project/%{name}/archive/2025-03-13/%{name}-2025-03-13.tar.gz
+Source0:        https://github.com/rems-project/%{name}/archive/2026-05-01/%{name}-2026-05-01.tar.gz
 
 # Fix file permissions: lem generates files with 0o600 permissions due to
 # Filename.open_temp_file defaulting to restrictive permissions. This patch
@@ -30,31 +30,31 @@ BuildRequires:  ocaml-zarith-devel
 BuildRequires:  ocaml-num-devel
 
 %description
-Lem is a tool for lightweight executable mathematics, 
-for writing, managing, and publishing large-scale 
-portable semantic definitions. It exports to LaTeX, 
-OCaml code, and theorem proves (Coq, HOL4, Isabelle/HOL). 
-Generated Coq code may not be idiomatic. It acts as 
-an intermediate language for domain-specific tools 
+Lem is a tool for lightweight executable mathematics,
+for writing, managing, and publishing large-scale
+portable semantic definitions. It exports to LaTeX,
+OCaml code, and theorem proves (Coq, HOL4, Isabelle/HOL).
+Generated Coq code may not be idiomatic. It acts as
+an intermediate language for domain-specific tools
 and for porting definitions between theorem proves.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
- 
+
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n lem-2025-03-13 -p1
+%autosetup -n lem-2026-05-01 -p1
 
 %build
 make
 
 %install
 # INSTALL_DIR variable is in Makefile
-# but INSTALLDIR is in ocaml-lib/ocamlbuild.mk 
+# but INSTALLDIR is in ocaml-lib/ocamlbuild.mk
 mkdir -p %{buildroot}%{ocamldir}
 make install INSTALLDIR=%{buildroot}%{ocamldir} INSTALL_DIR=%{buildroot}/usr
 

@@ -1,20 +1,19 @@
 %global gjs_version 1.69.2
 %global libadwaita_version 1.8~alpha
-%global libshumate_version 1.5~alpha
-
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+%global libshumate_version 1.6~alpha
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -60,10 +59,7 @@ GNOME Maps is a simple map application for the GNOME desktop.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build
@@ -87,7 +83,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %files -f %{name}.lang
-%doc NEWS README
+%doc NEWS README.md
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/org.gnome.Maps.desktop

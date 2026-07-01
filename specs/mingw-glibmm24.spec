@@ -13,8 +13,8 @@ URL:            http://www.gtkmm.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
 # Export Glib::Threads::wrap symbols (#2017676)
 Patch0:         glibmm_export-symbols.patch
-# Fix DESTDIR handling by generate-binding.py
-Patch1:         glibmm_generate-binding.patch
+# Fix DESTDIR handling in install scripts
+Patch1:         glibmm_scripts-buildroot.patch
 
 BuildArch:      noarch
 

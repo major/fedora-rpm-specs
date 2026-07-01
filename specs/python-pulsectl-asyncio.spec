@@ -1,5 +1,5 @@
 Name:           python-pulsectl-asyncio
-Version:        1.3.1
+Version:        1.3.2
 Release:        %{autorelease}
 Summary:        Asyncio frontend for the pulsectl Python bindings of libpulse
 License:        MIT
@@ -43,13 +43,7 @@ Summary:        %{summary}
 
 
 %check
-# The tests in tests/test_examples.py depend on the contents of the
-# examples/ directory, which is present in Git but absent from the
-# release tarball.
-rm tests/test_examples.py
-
 %{py3_test_envvars} %{python3} -m unittest discover
-
 %pyproject_check_import
 
 

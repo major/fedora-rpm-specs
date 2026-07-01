@@ -1,5 +1,5 @@
 Name:           perl-App-Cme
-Version:        1.048
+Version:        1.049
 Release:        1%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
@@ -141,6 +141,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.049-1
+- 1.049 bump (rhbz#2493902)
+
 * Mon Jun 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.048-1
 - 1.048 bump (rhbz#2485498)
 

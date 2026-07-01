@@ -17,6 +17,10 @@ License:        %{shrink:
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
 
+# Backport: update to PyO3 0.29 (#254)
+# https://github.com/pydantic/jiter/commit/2fe4246c71c003ddb32c943e3b432925f05f7d3c
+Patch:          jiter-0.15.0-pyo3-0.29.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jiter
 
@@ -54,13 +58,6 @@ tomcli set Cargo.toml lists delitem workspace.members 'crates/jiter'
 # ensure the versions remain exactly synchronized.
 tomcli set crates/jiter-python/Cargo.toml str dependencies.jiter.version "=%{version}"
 tomcli set crates/jiter-python/Cargo.toml del dependencies.jiter.path
-
-# This feature only applies to Windows, and is hidden in our PyO3 packages.
-# We can and should remove it with no consequence.
-tomcli set pyproject.toml lists delitem \
-    tool.maturin.features pyo3/generate-import-lib
-tomcli set crates/jiter-python/Cargo.toml lists delitem \
-    features.extension-module pyo3/generate-import-lib
 
 %cargo_prep
 

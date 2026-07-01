@@ -37,7 +37,11 @@ Source1:        get_source
 # https://github.com/milesgranger/cramjam/pull/240
 # Rebased on 2.11.0. Without changes to Cargo.lock and
 # .github/workflows/CI.yml, which are not relevant downstream.
-Patch:          cramjam-2.11.0-pyo3-0.28.patch
+#
+# Further update to 0.29, without source-code changes, introducing one new
+# deprecation warning as noted in
+# https://github.com/milesgranger/cramjam/pull/240#issuecomment-4756886599.
+Patch:          cramjam-2.11.0-pyo3-0.29.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license cramjam

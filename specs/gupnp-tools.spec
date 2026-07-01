@@ -1,11 +1,11 @@
 Name:          gupnp-tools
-Version:       0.12.2
+Version:       0.12.3
 Release:       %autorelease
 Summary:       A collection of dev tools utilising GUPnP and GTK+
 
 License:       GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Projects/GUPnP
-Source0:       https://download.gnome.org/sources/%{name}/0.12/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc

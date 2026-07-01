@@ -1,4 +1,4 @@
-%global cpan_version 1.43
+%global cpan_version 1.44
 
 Name:           perl-Crypt-PasswdMD5
 # Keep 1-digit version because of history
@@ -51,12 +51,18 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%license LICENSE-GPL-3
+%license LICENSE
 %doc AI_POLICY.md Changes README SECURITY.md
 %{perl_vendorlib}/Crypt/
 %{_mandir}/man3/Crypt::PasswdMD5.3*
 
 %changelog
+* Mon Jun 29 2026 Paul Howarth <paul@city-fan.org> - 1.4.4-1
+- Update to 1.44
+  - Replace the file LICENSE-GPL-3 with the file LICENSE containing what is
+    recommended at https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+  - Patch the source code reference to refer to this LICENSE file
+
 * Sat May 23 2026 Paul Howarth <paul@city-fan.org> - 1.4.3-1
 - Update to 1.43
   - Replace use of the cryptographically weak rand() function with the much

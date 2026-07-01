@@ -1,20 +1,20 @@
-%global glib2_version 2.74.0
-%global gtk4_version 4.13.3
+%global glib2_version 2.78.0
+%global gtk4_version 4.21.0
 %global libadwaita_version 1.8~alpha
+%global nettle_version 3.4
 %global webkitgtk_version 2.43.4
-
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           epiphany
 Epoch:          1
-Version:        50.4
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Web
-Source0:        https://download.gnome.org/sources/epiphany/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/epiphany/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch
@@ -45,7 +45,8 @@ BuildRequires:  pkgconfig(libportal-gtk4)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(nettle)
+BuildRequires:  pkgconfig(nettle) >= %{nettle_version}
+BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
 BuildRequires:  pkgconfig(webkitgtk-web-process-extension-6.0) >= %{webkitgtk_version}
@@ -75,10 +76,7 @@ This package provides a runtime for web applications without actually
 installing the epiphany application itself.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

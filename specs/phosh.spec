@@ -2,7 +2,7 @@
 %global libcall_ui_version v0.1.5
 
 Name:     phosh
-Version:  0.55.0
+Version:  0.56~rc1
 Release:  %autorelease
 Summary:  Graphical shell for mobile devices
 License:  GPL-3.0-or-later
@@ -162,6 +162,8 @@ desktop-file-validate \
 %{_userunitdir}/mobi.phosh.Shell.target
 %{_datadir}/xdg-desktop-portal/portals/phosh-shell.portal
 %{_datadir}/xdg-desktop-portal/phosh-portals.conf
+%{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell.Plugins.Loadmeter-symbolic.svg
+%{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell.Plugins.Syncthing-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.CalendarServer.service
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.Search.service
@@ -170,6 +172,7 @@ desktop-file-validate \
 %{_libdir}/phosh/plugins/dark-mode-quick-setting.plugin
 %{_libdir}/phosh/plugins/emergency-info.plugin
 %{_libdir}/phosh/plugins/launcher-box.plugin
+%{_libdir}/phosh/plugins/load-meter-status-icon.plugin
 %{_libdir}/phosh/plugins/location-quick-setting.plugin
 %{_libdir}/phosh/plugins/mobile-data-quick-setting.plugin
 %{_libdir}/phosh/plugins/night-light-quick-setting.plugin
@@ -187,6 +190,7 @@ desktop-file-validate \
 %{_libdir}/phosh/plugins/libphosh-plugin-dark-mode-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-emergency-info.so
 %{_libdir}/phosh/plugins/libphosh-plugin-launcher-box.so
+%{_libdir}/phosh/plugins/libphosh-plugin-load-meter-status-icon.so
 %{_libdir}/phosh/plugins/libphosh-plugin-location-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-mobile-data-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-night-light-quick-setting.so

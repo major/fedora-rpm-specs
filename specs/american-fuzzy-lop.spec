@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       5.01c
+Version:       5.02c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global commit   12287f3f350b9df02e9a1b28afe2e02b71c51c30
+%global commit   e2dc5296bb9c13b019c870e884dd8c2a4e8acf02
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -201,6 +201,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-gcc-fast
 %{_bindir}/afl-g++-fast
 %{_bindir}/afl-gotcpu
+%{_bindir}/afl-health
 %{_bindir}/afl-persistent-config
 %{_bindir}/afl-plot
 %{_bindir}/afl-showmap
@@ -208,6 +209,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-tmin
 %{_bindir}/afl-whatsup
 %dir %{afl_helper_path}
+%{afl_helper_path}/afl-c11-pass.so
 %if 0%{?__isa_bits} == 32
 %{afl_helper_path}/afl-compiler-rt-32.o
 %else
@@ -235,6 +237,7 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-gcc-fast.8*
 %{_mandir}/man8/afl-g++-fast.8*
 %{_mandir}/man8/afl-gotcpu.8*
+%{_mandir}/man8/afl-health.8*
 %{_mandir}/man8/afl-plot.8*
 %{_mandir}/man8/afl-persistent-config.8*
 %{_mandir}/man8/afl-showmap.8*
@@ -294,6 +297,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Mon Jun 29 2026 Richard W.M. Jones <rjones@redhat.com> - 5.02c-1
+- New upstream version 5.02c (RHBZ#2494171)
+
 * Thu Jun 25 2026 Richard W.M. Jones <rjones@redhat.com> - 5.01c-1
 - New upstream version 5.01c (RHBZ#2484430)
 

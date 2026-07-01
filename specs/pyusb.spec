@@ -1,10 +1,15 @@
 Name: pyusb
 Version: 1.3.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Python bindings for libusb
 License: BSD-3-Clause
 URL: https://github.com/pyusb/pyusb/
 Source0: %{pypi_source}
+
+# Do not require wheel for building
+# https://github.com/fedora-eln/eln/issues/284
+Patch: https://github.com/pyusb/pyusb/commit/81b675f1.patch
+
 BuildRequires: libusb1
 BuildArch: noarch
 
@@ -25,7 +30,7 @@ PyUSB provides easy USB access to python. The module contains classes and
 methods to support most USB operations.
 
 %prep
-%autosetup
+%autosetup -p1
 sed -i -e 's/\r//g' README.rst
 
 %generate_buildrequires
@@ -48,6 +53,9 @@ cd tests
 %doc README.rst
 
 %changelog
+* Mon Jun 29 2026 Miro Hrončok <mhroncok@redhat.com> - 1.3.1-9
+- Drop redundant BuildRequires for python3-wheel
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.1-8
 - Rebuilt for Python 3.15
 

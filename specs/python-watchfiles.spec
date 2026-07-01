@@ -11,6 +11,10 @@ Source:         %{pypi_source watchfiles}
 
 # Downstream-only: allow a slightly older pytest to support EPEL10
 Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
+# Bump pyo3 from 0.28.3 to 0.29.0 (#382)
+# https://github.com/samuelcolvin/watchfiles/commit/42257e82089c3ef880aba8a2f2fc1662a663d61e
+# (Without changes to CI config or Cargo.lock)
+Patch:          0002-Bump-pyo3-from-0.28.3-to-0.29.0-382.patch
 
 # Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
 Patch:          https://github.com/samuelcolvin/watchfiles/pull/384.patch

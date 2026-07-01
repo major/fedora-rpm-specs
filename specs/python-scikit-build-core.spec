@@ -20,6 +20,8 @@ Source:         %{pypi_source scikit_build_core}
 # Tests fix for setuptools-scm 10
 # https://github.com/scikit-build/scikit-build-core/pull/1259
 Patch:          setuptools-scm-10.patch
+# Another fix for compatibility with latest setuptools_scm
+Patch:          https://github.com/scikit-build/scikit-build-core/commit/dfb1a043.patch
 
 BuildRequires:  python3-devel
 # Testing dependences

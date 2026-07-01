@@ -11,7 +11,7 @@ BuildRequires: ansible-core >= 2.11.0
 
 %bcond_with collection_artifact
 
-# This is to avoid ansible-test errors like
+# This is to avoid ansible-test errors like:
 # ERROR: lsr_role2coll_extra_script-vpn:1:1: unexpected non-module shebang: b'#!/usr/bin/bash'
 # we use /usr/bin/env bash in all of our scripts - we don't want rpm to fix them
 %undefine __brp_mangle_shebangs
@@ -329,23 +329,16 @@ for rolename in %{rolenames}; do
     mv $rolename/.README.html $rolename/README.html
 done
 
-%if 0%{?rhel}
-cd %{rolename2}/tests
-# this test causes avcs we want to ignore
-sed -r -i -e '/hosts: all/a\
-  tags:\
-    - tests::avc' tests_selinux_disabled.yml
-cd ../..
-%endif
-
 cd %{rolename15}
-find -P tests examples -name \*.yml | while read file; do
+find -P tasks templates tests examples -name \*.yml | while read file; do
   sed -r -i -e "s/willshersystems:ansible-sshd/system_role:sshd/" \
      -e "s/ansible-sshd/linux-system-roles.sshd/" \
      -e "s/ willshersystems.sshd/ linux-system-roles.sshd/" "$file"
 done
 sed -r -i -e "s/ willshersystems.sshd/ linux-system-roles.sshd/" README.md README.html
 sed -r -i -e 's/min_ansible_version: 2.8/min_ansible_version: "2.9"/' meta/main.yml
+# ansible-sshd does not enable fingerprinting by default, so enable it here
+sed -r -i -e 's/sshd_enable_fingerprint: false/sshd_enable_fingerprint: true/' defaults/main.yml
 cd ..
 
 cd %{rolename7}
@@ -443,13 +436,17 @@ fi
 %{python3} ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Red Hat Enterprise Linux System Roles Ansible Collection" \
                       "https://linux-system-roles.github.io" \
-                      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel" \
+                      "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/automating_system_administration_by_using_rhel_system_roles/index" \
                       "https://access.redhat.com/articles/3050101" \
                       "https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332745&summary=Your%20request%20summary&issuetype=1&priority=10200&labels=Partner-Feature-Request&components=12380283" \
                       > galaxy.yml.tmp
 # we vendor-in all of the dependencies on rhel, so remove them
 rm -f lsr_role2collection/collection_requirements.txt
 # but leave bindep.txt
+# rhel 9 requires 2.14.0 - see https://issues.redhat.com/browse/RHEL-94046
+%if 0%{?rhel} == 9
+sed 's/^requires_ansible:.*/requires_ansible: ">=2.14.0"/' -i lsr_role2collection/runtime.yml
+%endif
 %else
 ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Linux System Roles Ansible Collection" \
@@ -576,7 +573,7 @@ for role in %{rolenames}; do
 done
 
 rm -f %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/semaphore
-rm -r %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/molecule
+rm -rf %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/molecule
 
 # remove .dot files/directories, but keep the .ostree directory
 for item in %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/.[A-Za-z]*; do
@@ -617,8 +614,8 @@ done
 %if %{with collection_artifact}
 # Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
 pushd %{collection_build_path}
-    mv %{collection_namespace}-%{collection_name}-%{version}.tar.gz \
-       %{buildroot}%{_datadir}/ansible/collections/
+mv %{collection_namespace}-%{collection_name}-%{version}.tar.gz \
+   %{buildroot}%{_datadir}/ansible/collections/
 popd
 %endif
 

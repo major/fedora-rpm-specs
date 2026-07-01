@@ -81,7 +81,6 @@ Conflicts: %{name} < 48~rc-5
 Recommends:     gnome-bluetooth%{?_isa} >= %{gnome_bluetooth_version}
 %endif
 Requires:       %{name}-common = %{version}-%{release}
-Requires:       %{name}-libs = %{version}-%{release}
 Requires:       gcr%{?_isa}
 Requires:       gjs%{?_isa} >= %{gjs_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
@@ -178,26 +177,6 @@ BuildArch: noarch
 %description common
 %{summary}
 
-%package libs
-Summary: Common libraries used by %{name} components
-Conflicts: %{name} < 50.2-3
-
-%description libs
-%{summary}
-
-%package -n gnome-extensions-app
-Summary: Manage GNOME Shell extensions
-Requires:       gjs
-Requires:       libadwaita >= %{adwaita_version}
-Requires:       %{name}-common = %{version}-%{release}
-Requires:       %{name}-libs = %{version}-%{release}
-BuildArch: noarch
-
-%description -n gnome-extensions-app
-GNOME Extensions is an application for configuring and removing
-GNOME Shell extensions.
-
-
 %prep
 # check for human errors
 if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
@@ -206,14 +185,11 @@ if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Er
 
 %build
 %meson \
-  -Dextensions_app=true \
+  -Dextensions_app=false \
 %if %{portal_helper}
   -Dportal_helper=true \
 %else
   -Dportal_helper=false \
-%endif
-%if 0%{?flatpak}
-  -Dsystemd=false \
 %endif
   %{nil}
 %meson_build
@@ -248,7 +224,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_datadir}/gnome-control-center/keybindings/50-gnome-shell-screenshots.xml
 %{_datadir}/gnome-control-center/keybindings/50-gnome-shell-system.xml
 %{_datadir}/gnome-shell/
-%exclude %{_datadir}/gnome-shell/org.gnome.Extensions*
 %{_datadir}/dbus-1/services/org.gnome.ScreenSaver.service
 %{_datadir}/dbus-1/services/org.gnome.Shell.CalendarServer.service
 %{_datadir}/dbus-1/services/org.gnome.Shell.Extensions.service
@@ -268,14 +243,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_datadir}/desktop-directories/X-GNOME-Shell-Utilities.directory
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Shell.Extensions.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shell.Extensions-symbolic.svg
-%if ! 0%{?flatpak}
 %{_userunitdir}/org.gnome.Shell-disable-extensions.service
 #{_userunitdir}/org.gnome.Shell.target
 %{_userunitdir}/org.gnome.Shell@.service
-%endif
 %{_libdir}/gnome-shell/
-%exclude %{_libdir}/gnome-shell/libshew-0.so
-%exclude %{_libdir}/gnome-shell/girepository-1.0/Shew-0.typelib
 %{_libexecdir}/gnome-shell-calendar-server
 %{_libexecdir}/gnome-shell-perf-helper
 %{_libexecdir}/gnome-shell-hotplug-sniffer
@@ -290,25 +261,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_libexecdir}/gnome-shell-portal-helper
 %endif
 
-%files common -f %{name}.lang
+%files common
 %{_datadir}/glib-2.0/schemas/*.xml
-%dir %{_datadir}/gnome-shell
-
-%files libs
-%{_libdir}/gnome-shell/libshew-0.so
-%{_libdir}/gnome-shell/girepository-1.0/Shew-0.typelib
-
-%files -n gnome-extensions-app
-%license COPYING
-%{_bindir}/gnome-extensions-app
-%{_datadir}/applications/org.gnome.Extensions.desktop
-%{_datadir}/dbus-1/services/org.gnome.Extensions.service
-%{_datadir}/glib-2.0/schemas/org.gnome.Extensions.gschema.xml
-%{_datadir}/metainfo/org.gnome.Extensions.metainfo.xml
-%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Extensions.svg
-%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Extensions.Devel.svg
-%{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Extensions-symbolic.svg
-%{_datadir}/gnome-shell/org.gnome.Extensions*
 
 %changelog
 %autochangelog

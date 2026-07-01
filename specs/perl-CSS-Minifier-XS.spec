@@ -1,26 +1,34 @@
 Name:       perl-CSS-Minifier-XS
-Version:    0.13
-Release:    18%{?dist}
+Version:    0.14
+Release:    1%{?dist}
 # lib/CSS/Minifier/XS.pm -> GPL+ or Artistic
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    XS based CSS minifier
 Source:     https://cpan.metacpan.org/authors/id/G/GT/GTERMARS/CSS-Minifier-XS-%{version}.tar.gz
-Url:        https://metacpan.org/release/CSS-Minifier-XS
+URL:        https://metacpan.org/dist/CSS-Minifier-XS
 
+# build requirements
+BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: perl-devel
 BuildRequires: perl-generators
-BuildRequires: perl(CSS::Minifier)
 BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires: perl(Module::Build::Compat)
-BuildRequires: perl(blib)
+# runtime requirements
+BuildRequires: perl(DynaLoader)
+BuildRequires: perl(Exporter)
+BuildRequires: perl(strict)
+BuildRequires: perl(warnings)
+# testing requirements
+BuildRequires: perl(File::Spec)
+BuildRequires: perl(File::Temp)
+BuildRequires: perl(IO::Handle)
+BuildRequires: perl(IPC::Open3)
 BuildRequires: perl(Test::DiagINC)
 BuildRequires: perl(Test::More)
-BuildRequires: perl(Test::Pod)
-BuildRequires: perl(Test::Pod::Coverage)
+BuildRequires: perl(blib)
+BuildRequires: perl(if)
 
 %{?perl_default_filter}
 
@@ -54,6 +62,10 @@ in XS and not just pure Perl.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Jun 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
+- Update to 0.14
+- Clean up dependencies
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

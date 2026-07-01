@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/jiter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dependency codspeed-criterion-compat
+# * Update to PyO3 0.29 (#254):
+#   https://github.com/pydantic/jiter/commit/2fe4246c71c003ddb32c943e3b432925f05f7d3c
 Patch:          jiter-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

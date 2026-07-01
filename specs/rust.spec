@@ -798,7 +798,8 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
     " RUSTC_TARGET_CPU_X86_64=x86-64" .. ((rhel >= 10) and "-v3" or (rhel == 9) and "-v2" or "")
     .. " RUSTC_TARGET_CPU_PPC64LE=" .. ((rhel >= 9) and "pwr9" or "pwr8")
     .. " RUSTC_TARGET_CPU_S390X=" ..
-        ((rhel >= 9) and "z14" or (rhel == 8 or fedora >= 38) and "z13" or
+        ((rhel >= 11 or fedora >= 45) and "z15" or (rhel >= 9) and "z14" or
+         (rhel == 8 or fedora >= 38) and "z13" or
          (fedora >= 26) and "zEC12" or (rhel == 7) and "z196" or "z10")
   print(env)
 end}

@@ -1,5 +1,5 @@
 Name:           novelwriter
-Version:        2.7.4
+Version:        26.1.1
 Release:        %autorelease
 Summary:        Plain text editor designed for writing novels
 
@@ -10,15 +10,18 @@ Source:         https://github.com/vkbo/novelwriter/archive/v%{version}/novelwri
 
 BuildArch:      noarch
 BuildRequires:  adobe-source-sans-pro-fonts
+BuildRequires:  enchant2-devel
+BuildRequires:  google-noto-sans-fonts
 BuildRequires:  hunspell-en
 BuildRequires:  hunspell-en-GB
 BuildRequires:  hunspell-en-US
-BuildRequires:  enchant2-devel
 BuildRequires:  hunspell-devel
 BuildRequires:  python3-enchant
 BuildRequires:  python3-zlib-ng
+BuildRequires:  qt6-qtimageformats
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtsvg-devel
+
 BuildRequires:  python3-devel
 
 BuildRequires: libappstream-glib
@@ -37,8 +40,15 @@ BuildRequires:  python3-sphinx-copybutton
 BuildRequires:  texinfo
 # Needed for directory ownership
 Requires:       hicolor-icon-theme
+# Not linked automatically
+Requires:  qt6-qtimageformats
+Requires:  qt6-qttools
+Requires:  qt6-qtsvg
 # Bundles svg material design icons
 Provides:       bundled(material-design-icons)
+# Recommends
+Recommends:  adobe-source-sans-pro-fonts
+Recommends:  google-noto-sans-fonts
 
 %description
 novelWriter is a plain text editor designed for writing novels assembled from
@@ -63,9 +73,6 @@ Documentation for novelWriter in docbook format.
 
 %prep
 %autosetup -n novelWriter-%{version} -p1
-# https://github.com/vkbo/novelWriter/issues/2276
-sed -i 's/self.spellLanguage = "en"/self.spellLanguage = "en_US"/g' novelwriter/config.py
-sed -i 's/spellcheck = en/spellcheck = en_US/g' tests/reference/baseConfig_novelwriter.conf
 # Use Fedora specific variant for qt6
 sed -i 's/"lrelease"/"lrelease-qt6"/g' utils/assets.py
 
@@ -89,8 +96,7 @@ popd
 
 %install
 %pyproject_install
-# Do not include this for now as .qm language files are not automatically marked
-#pyproject_save_files novelwriter
+%pyproject_save_files -L novelwriter
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications setup/data/novelwriter.desktop
 mkdir -p %{buildroot}%{_metainfodir}/
@@ -111,32 +117,9 @@ done
 QT_QPA_PLATFORM=offscreen %pytest
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/novelwriter.appdata.xml
 
-# Include once qm files get marked as language files
-#files -n novelwriter -f %%{pyproject_files} -f nw.lang
-%files -n novelwriter -f nw.lang
-%license LICENSE.md
+%files -n novelwriter -f %{pyproject_files} -f nw.lang
 %doc README.md
 %{_bindir}/novelwriter
-%{python3_sitelib}/novelwriter-%{version}.dist-info/
-%dir %{python3_sitelib}/novelwriter
-%dir %{python3_sitelib}/novelwriter/assets
-%dir %{python3_sitelib}/novelwriter/assets/i18n
-%{python3_sitelib}/novelwriter/assets/i18n/*.json
-%{python3_sitelib}/novelwriter/assets/icons/
-%{python3_sitelib}/novelwriter/assets/images/
-%{python3_sitelib}/novelwriter/assets/sample.zip
-%{python3_sitelib}/novelwriter/assets/syntax/
-%{python3_sitelib}/novelwriter/assets/text/
-%{python3_sitelib}/novelwriter/assets/themes/
-%pycached %{python3_sitelib}/novelwriter/*.py
-%dir  %{python3_sitelib}/novelwriter/__pycache__
-%{python3_sitelib}/novelwriter/core/
-%{python3_sitelib}/novelwriter/dialogs/
-%{python3_sitelib}/novelwriter/extensions/
-%{python3_sitelib}/novelwriter/formats/
-%{python3_sitelib}/novelwriter/gui/
-%{python3_sitelib}/novelwriter/text/
-%{python3_sitelib}/novelwriter/tools/
 %{_datadir}/applications/novelwriter.desktop
 %{_metainfodir}/novelwriter.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*.png

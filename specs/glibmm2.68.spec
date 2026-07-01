@@ -1,18 +1,16 @@
 %global apiver 2.68
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global libsigc_version 3.0.0
 %global glib2_version 2.81.0
 
 Name:           glibmm2.68
-Version:        2.88.0
+Version:        2.88.1
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://www.gtkmm.org/
-Source0:        https://download.gnome.org/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/glibmm/%{gnome_major_minor_version}/glibmm-%{version}.tar.xz
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++

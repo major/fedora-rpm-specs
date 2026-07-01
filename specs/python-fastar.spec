@@ -7,9 +7,9 @@ License:        MIT
 URL:            https://github.com/DoctorJohn/fastar
 Source:         %{url}/archive/v%{version}/fastar-%{version}.tar.gz
 
-# Downstream-only: allow PyO3 0.27 until we have 0.28:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          fastar-0.11.0-allow-pyo3-0.27.patch
+# Update PyO3 to 0.29
+# https://github.com/DoctorJohn/fastar/pull/71
+Patch:          fastar-0.11.0-pyo3-0.29.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license fastar

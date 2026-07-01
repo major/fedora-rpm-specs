@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -12,6 +12,7 @@ Source3: pubkey.brian.lane
 
 Patch0001: 0001-bug-80795-PATCH-build-mark-functions-with-const-attr.patch
 Patch0004: 0004-Cleanup-zero-as-null-pointer-constant-warnings.patch
+Patch0005: 0005-Adding-support-for-ExFAT-filesystem.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -63,6 +64,8 @@ Parted library, you need to install this package.
 %prep
 %{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am
+# Needed when .am files are modified by a patch
+autoreconf -v
 iconv -f ISO-8859-1 -t UTF8 AUTHORS > tmp; touch -r AUTHORS tmp; mv tmp AUTHORS
 
 %build
@@ -115,6 +118,9 @@ make check
 
 
 %changelog
+* Mon Jun 29 2026 Brian C. Lane <bcl@redhat.com> - 3.7-3
+- Adding support for ExFAT filesystem (victor)
+
 * Mon May 04 2026 Brian C. Lane <bcl@redhat.com> - 3.7-2
 - Cleanup zero as null pointer constant warnings (bcl)
 - bug#80795: [PATCH] build: mark functions with const attribute, per gcc warnings (bug-parted)

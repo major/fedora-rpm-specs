@@ -1,8 +1,8 @@
 Name:    prunerepo
-Version: 1.26
+Version: 1.28
 Summary: Remove old packages from rpm-md repository
-Release: 7%{?dist}
-Url: https://pagure.io/prunerepo
+Release: 1%{?dist}
+Url: https://github.com/fedora-copr/prunerepo
 
 
 %if 0%{?rhel} > 10 || 0%{?fedora} > 40
@@ -20,7 +20,9 @@ License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: bash
 BuildRequires: python3-devel
+%if 0%{?rhel} && 0%{?rhel} <= 10
 BuildRequires: python3-setuptools
+%endif
 BuildRequires: python3-rpm
 BuildRequires: createrepo_c
 BuildRequires: asciidoc
@@ -59,28 +61,55 @@ to recreate the repository metadata.
 
 %prep
 %setup -q
+%if 0%{?rhel} && 0%{?rhel} <= 10
+rm -f pyproject.toml
+%endif
 
 %check
 tests/run.sh
 
+%if 0%{?fedora}
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %build
+%if 0%{?fedora}
+%pyproject_wheel
+%else
 name="%{name}" version="%{version}" summary="%{summary}" %py3_build
+%endif
 a2x -d manpage -f manpage man/prunerepo.1.asciidoc
 
 %install
+%if 0%{?fedora}
+%pyproject_install
+%pyproject_save_files -l prunerepo
+%else
 name="%{name}" version="%{version}" summary="%{summary}" %py3_install
+%endif
 
 install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 
+%if 0%{?fedora}
+%files -f %{pyproject_files}
+%else
 %files
 %license LICENSE
-
 %{python3_sitelib}/*
+%endif
 %{_bindir}/prunerepo
 %{_mandir}/man1/prunerepo.1*
 
 %changelog
+* Mon Jun 29 2026 Miroslav Suchý <msuchy@redhat.com> 1.28-1
+- sync changelog from Fedora (msuchy@redhat.com)
+
+* Mon Jun 29 2026 Miroslav Suchý <msuchy@redhat.com> 1.27-1
+- Migrate from deprecated %%py3_build/%%py3_install to pyproject macros
+- update url
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.26-7
 - Rebuilt for Python 3.15
 

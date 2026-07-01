@@ -3,13 +3,12 @@
 %undefine _strict_symbol_defs_build
 
 Name:           qmplay2
-Version:        25.09.11
+Version:        26.06.27
 Release:        %autorelease
 Summary:        A Qt based media player, streamer and downloader
 # LGPL-3.0-or-later: QMPlay2
 # MIT: src/qmvk, src/modules/AudioFilters/bs2b
-# Public-Domain: src/modules/Modplug/libmodplug
-License:        LGPL-3.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
+License:        LGPL-3.0-or-later AND MIT
 URL:            https://github.com/zaps166/QMPlay2
 Source:         %{url}/releases/download/%{version}/%{pname}-src-%{version}.tar.xz
 
@@ -38,6 +37,7 @@ BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libcddb)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libgme)
+BuildRequires:  pkgconfig(libopenmpt)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse-simple)
 BuildRequires:  pkgconfig(libsidplayfp)
@@ -60,15 +60,14 @@ Recommends:     yt-dlp
 
 # These have been converted to C++ and otherwise modified, not cleanly unbundleable
 Provides:       bundled(libbs2b) = 3.1.0
-Provides:       bundled(libmodplug)
 # Private library from the same project
 Provides:       bundled(qmvk)
 
 Obsoletes:      %{name}-kde-integration < %{version}-%{release}
 
 %description
-%{name} is a video player, it can play and stream all formats supported by
-ffmpeg and libmodplug (including J2B). It has an integrated Youtube browser.
+QMPlay2 is a video and audio player. It can play all formats supported by FFmpeg.
+It also supports Audio CD, raw files and chiptunes. It contains YouTube browser.
 
 %package        devel
 Summary:        %{pname} development files
@@ -84,7 +83,6 @@ It's a development package for %{name}.
 find src/qmplay2/vulkan/headers -delete
 # subproject and bundled license files
 cp src/qmvk/LICENSE LICENSE.qmvk
-cp src/modules/Modplug/libmodplug/COPYING COPYING.libmodplug
 
 
 %build
@@ -113,7 +111,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{pname}.appda
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog README.md
-%license LICENSE LICENSE.qmvk COPYING.libmodplug
+%license LICENSE LICENSE.qmvk
 %{_bindir}/%{pname}
 %{_libdir}/%{name}/
 %{_libdir}/libqmplay2.so

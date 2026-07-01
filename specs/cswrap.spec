@@ -1,12 +1,11 @@
 # Disable in source builds on EPEL <9
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 %define csexec_archs aarch64 ppc64le s390x x86_64
 
 Name:       cswrap
-Version:    2.2.5
-Release:    4%{?dist}
+Version:    2.2.6
+Release:    1%{?dist}
 Summary:    Generic compiler wrapper
 
 License:    GPL-3.0-or-later
@@ -19,7 +18,7 @@ Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{versi
 Source2:    kdudka.pgp
 
 BuildRequires: asciidoc
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gnupg2
 
@@ -59,16 +58,16 @@ fully automatically.
 %autosetup
 
 %build
-%cmake3 \
+%cmake \
     -DPATH_TO_WRAP=\"%{_libdir}/cswrap\" \
     -DSTATIC_LINKING=ON
-%cmake3_build
+%cmake_build
 
 %check
-%ctest3
+%ctest
 
 %install
-%cmake3_install
+%cmake_install
 
 install -m0755 -d "%{buildroot}%{_libdir}"{,/cswrap}
 for i in c++ cc g++ gcc clang clang++ cppcheck smatch \
@@ -97,6 +96,9 @@ done
 %endif
 
 %changelog
+* Mon Jun 29 2026 Kamil Dudka <kdudka@redhat.com> 2.2.6-1
+- update to latest upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

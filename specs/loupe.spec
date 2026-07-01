@@ -2,8 +2,6 @@
 
 %bcond bundled_rust_deps %{defined rhel}
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           loupe
 Version:        50.0
 Release:        %autorelease
@@ -42,14 +40,16 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/loupe
-Source0:        https://download.gnome.org/sources/loupe/50/loupe-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/loupe/%{gnome_major_version}/loupe-%{gnome_tarball_version}.tar.xz
 # To create the vendor tarball:
-#   tar Jxvf loupe-%%{tarball_version}.tar.xz ; \
-#   pushd loupe-%%{tarball_version} ; \
+#   tar Jxvf loupe-%%{gnome_tarball_version}.tar.xz ; \
+#   pushd loupe-%%{gnome_tarball_version} ; \
 #   cargo vendor --versioned-dirs ; \
-#   tar Jcvf ../loupe-%%{tarball_version}-vendor.tar.xz vendor/ ; \
+#   tar Jcvf ../loupe-%%{gnome_tarball_version}-vendor.tar.xz vendor/ ; \
 #   popd
-Source1:        loupe-%{tarball_version}-vendor.tar.xz
+Source1:        loupe-%{gnome_tarball_version}-vendor.tar.xz
+
+%gnome_check_version
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -94,10 +94,10 @@ Features:
 
 %prep
 %if %{with bundled_rust_deps}
-%autosetup -n loupe-%{tarball_version} -p1 -a1
+%autosetup -n loupe-%{gnome_tarball_version} -p1 -a1
 %cargo_prep -v vendor
 %else
-%autosetup -n loupe-%{tarball_version} -p1
+%autosetup -n loupe-%{gnome_tarball_version} -p1
 %cargo_prep
 sed -i -e '/Cargo.lock/d' meson.build
 %endif

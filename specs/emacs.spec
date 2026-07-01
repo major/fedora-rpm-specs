@@ -35,16 +35,18 @@ Source103:     https://keys.openpgp.org/vks/v1/by-fingerprint/8DC2487E51ABDD90B5
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
+Source9:       emacs-desktop.sh.in
 
 Source10:      emacs_lisp.attr
 Source11:      emacs_lisp.rec
 
-Source20:      emacs-desktop.sh.in
+Source20:      emacs-fedora.texi
 Source21:      emacs-desktop.1
 Source22:      emacs-gtk+x11.1
 Source23:      emacs-lucid.1
 Source24:      emacs-nw.1
 Source25:      emacs-pgtk.1
+Patch:         0001-Draw-attention-to-Fedora-s-Emacs-varieties-in-emacs-.patch
 
 # Avoid trademark issues
 Patch:         0001-Pong-and-Tetris-are-excluded.patch
@@ -336,6 +338,10 @@ rm keyring
 cd %{name}-%{version}
 %autopatch -p1
 
+# Add info page "Emacs on Fedora"
+cp -p %{SOURCE20} doc/misc/
+sed -e 's/^INFO_COMMON = /INFO_COMMON = %{gsub %{basename %{SOURCE20}} .texi %{quote:}}/' doc/misc/Makefile.in
+
 # Avoid trademark issues
 rm lisp/play/pong.el lisp/play/pong.elc \
    lisp/play/tetris.el lisp/play/tetris.elc
@@ -521,7 +527,7 @@ cat > 10-source-directory.el << 'EOF'
 ;;; 10-source-directory.el ends here
 EOF
 
-sed -e 's|@bindir@|%{_bindir}|' %SOURCE20 > emacs-desktop.sh
+sed -e 's|@bindir@|%{_bindir}|' %SOURCE9 > emacs-desktop.sh
 
 
 %install

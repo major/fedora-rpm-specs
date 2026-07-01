@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -21,10 +21,12 @@ Source2:        https://archive.apache.org/dist/ant/KEYS
 # Non-upstreamable.  Add /etc/ivy/ivysettings.xml at the end list of
 # settings files Ivy tries to load.  This file will be used only as
 # last resort, when no other setting files exist.
-Source3:         00-global-settings.patch
+Patch0:         00-global-settings.patch
+Patch1:         01-fix-pack200-java25.patch
 
 BuildRequires:  gnupg2
-BuildRequires:  ant-openjdk21
+BuildRequires:  mvn(org.apache.commons:commons-compress)
+BuildRequires:  ant-openjdk25
 BuildRequires:  ivy-local
 BuildRequires:  dos2unix
 BuildRequires:  mvn(org.apache.ant:ant)
@@ -62,10 +64,12 @@ reporting and publication.
 %{?javadoc_package}
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -N
+dos2unix README.adoc
 dos2unix src/java/org/apache/ivy/ant/IvyAntSettings.java
-patch -p1 -l < %{SOURCE3}
+dos2unix src/java/org/apache/ivy/util/FileUtil.java
+%autopatch -p1
+
 # Don't hardcode sysconfdir path
 sed -i 's:/etc/ivy/:%{_sysconfdir}/ivy/:' src/java/org/apache/ivy/ant/IvyAntSettings.java
 # remove BOM
@@ -137,7 +141,7 @@ rm -rf asciidoc
 # create custom ant configuration
 mkdir -p ~/.ant
 cp /etc/ant.conf ~/.ant
-sed -i '$a JAVA_HOME=/usr/lib/jvm/java-21-openjdk' ~/.ant/ant.conf
+sed -i '$a JAVA_HOME=/usr/lib/jvm/java-25-openjdk' ~/.ant/ant.conf
 
 ant -Divy.mode=local \
     -f build-release.xml \
@@ -149,12 +153,22 @@ ant -Divy.mode=local \
 mkdir -p %{buildroot}%{_sysconfdir}/ant.d
 echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 
+# Remove duplicate and problematic javadoc legal files
+rm -rf %{buildroot}%{_javadocdir}/%{name}/legal
+
+%check
+# Test suite is disabled as it requires network access and is broken
+
 %files -f .mfiles
 %license LICENSE NOTICE
 %doc README.adoc
-%{_sysconfdir}/ant.d/%{name}
+%config(noreplace) %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Sat Jun 27 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.5.3-4
+- moved to jdk25, patched ivy to use pack200 from org.apache.commons.compress
+- spec cleanup and modernization
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

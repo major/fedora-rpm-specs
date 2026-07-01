@@ -1,22 +1,22 @@
 %bcond cloudproviders %{undefined rhel}
 
-%global glib2_version 2.79.0
+%global glib2_version 2.84.0
 %global gnome_autoar_version 0.4.4
-%global gtk4_version 4.17.5
-%global libadwaita_version 1.6~beta
-
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+%global gtk4_version 4.22.0
+%global libadwaita_version 1.8~alpha
 
 Name:           nautilus
-Version:        50.2.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        File manager for GNOME
 
 # Sources are GPL-3.0-or-later and Appdata is CC0-1.0.
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://apps.gnome.org/Nautilus/
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
+
 # https://pagure.io/fedora-workstation/issue/442
 Patch:          default-terminal.patch
 
@@ -100,10 +100,7 @@ This package provides libraries and header files needed
 for developing nautilus extensions.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 # Remove -Werror from compiler flags
 sed -i '/-Werror/d' meson.build

@@ -1,7 +1,5 @@
-%global pypi_name pillow_jxl_plugin
-
 Name:           python-pillow-jxl-plugin
-Version:        1.3.4
+Version:        1.3.7
 Release:        %autorelease
 Summary:        Pillow plugin for JPEG-XL
 # GPL-3.0-or-later for code
@@ -10,14 +8,13 @@ SourceLicense:  GPL-3.0-or-later AND CC-BY-4.0 AND CC-BY-SA-4.0
 
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # GPL-3.0-or-later
-# MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-or-later AND MIT AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        GPL-3.0-or-later AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/Isotr0py/pillow-jpegxl-plugin
-Source:         %{pypi_source %{pypi_name}}
+Source:         %{url}/archive/v%{version}/pillow-jpegxl-plugin-%{version}.tar.gz
 
 # upstream commit to update jpegxl-rs dependency from 0.11 to 0.12:
 # https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/0ecab6b
@@ -25,6 +22,18 @@ Patch:          0001-Update-jpegxl-rs-dependency-from-0.11.2-to-0.12.0.patch
 
 # drop custom build system that is unnecessary and only breaks stuff
 Patch:          0002-Unconditionally-dynamically-link-libjxl.patch
+
+# Update PyO3 to 0.29
+#
+# https://pyo3.rs/main/changelog.html#0290---2026-06-11
+#
+# Fixes:
+#
+#     https://rustsec.org/advisories/RUSTSEC-2026-0176.html
+#     https://rustsec.org/advisories/RUSTSEC-2026-0177.html
+#
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/pull/156
+Patch:          0003-Update-PyO3-to-0.29.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
@@ -42,7 +51,7 @@ Summary:        Pillow plugin for JPEG-XL
 %description -n python3-pillow-jxl-plugin %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n pillow-jpegxl-plugin-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

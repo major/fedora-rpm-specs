@@ -18,6 +18,10 @@ Source:         %{pypi_source python-dateutil}
 # https://fedoraproject.org/wiki/Changes/DeprecatePython-dateutil
 Provides:  deprecated()
 
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+Patch:          https://github.com/dateutil/dateutil/commit/e081f672.patch
+
 # Allow setuptools-scm dependency greater than v8.0
 Patch:          relax-setuptools_scm-requires.patch
 

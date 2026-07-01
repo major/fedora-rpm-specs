@@ -1,7 +1,7 @@
 # We need to break some cycles with optional dependencies for bootstrapping;
 # given that a conditional is needed, we take the opportunity to omit as many
 # optional dependencies as possible for bootstrapping.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 # When not bootstrapping, run tests?
 %bcond_without tests
@@ -14,10 +14,10 @@
 # When running tests, run ones that cannot be run in parallel?
 %bcond_with single_tests
 
-Name:           python-pandas
-Version:        3.0.3
-Release:        2%{?dist}
-Summary:        Python library providing high-performance data analysis tools
+Name:     python-pandas
+Version:  3.0.4
+Release:  0%{?dist}
+Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
 # https://bugzilla.redhat.com/show_bug.cgi?id=2263999
@@ -693,6 +693,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Mon Jun 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.4-0
+- Update to Pandas 3.0.4 (bootstrap)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.3-2
 - Rebuilt for Python 3.15
 

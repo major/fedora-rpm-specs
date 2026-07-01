@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://github.com/patrick91/rignore
 Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
 
+# Manually created patch for downstream crate metadata changes
+# * Update PyO3 to 0.29: https://github.com/patrick91/rignore/pull/33
+Patch:          rignore-fix-metadata.diff
+
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --dependency-groups dev
 BuildOption(install): --assert-license rignore
@@ -28,7 +32,6 @@ ignore rules.}
 %package -n     python3-rignore
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        %{shrink:

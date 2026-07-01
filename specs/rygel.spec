@@ -1,15 +1,15 @@
 %global apiver 2.8
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:          rygel
-Version:       45.2
+Version:       46~alpha
 Release:       %autorelease
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:           https://wiki.gnome.org/Projects/Rygel
-Source0:       https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: desktop-file-utils
 BuildRequires: docbook-style-xsl
@@ -34,6 +34,8 @@ BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(systemd)
 BuildRequires: pkgconfig(tinysparql-3.0)
+BuildRequires: python3dist(docutils)
+BuildRequires: python3dist(pyyaml)
 BuildRequires: /usr/bin/xsltproc
 
 %description
@@ -60,7 +62,7 @@ Obsoletes: %{name}-tracker <= %{version}
 A plugin for rygel to use localsearch to locate media on the local machine.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \
@@ -97,7 +99,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_libdir}/librygel-db-%{apiver}.so.0*
 %{_libdir}/librygel-renderer-%{apiver}.so.0*
 %{_libdir}/librygel-renderer-gst-%{apiver}.so.0*
-%{_libdir}/librygel-ruih-%{apiver}.so.0*
 %{_libdir}/librygel-server-%{apiver}.so.0*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/RygelCore-%{apiver}.typelib
@@ -119,8 +120,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_libdir}/rygel-%{apiver}/plugins/media-export.plugin
 %{_libdir}/rygel-%{apiver}/plugins/librygel-mpris.so
 %{_libdir}/rygel-%{apiver}/plugins/mpris.plugin
-%{_libdir}/rygel-%{apiver}/plugins/librygel-ruih.so
-%{_libdir}/rygel-%{apiver}/plugins/ruih.plugin
 %{_libdir}/rygel-%{apiver}/plugins/librygel-playbin.so
 %{_libdir}/rygel-%{apiver}/plugins/playbin.plugin
 %{_libexecdir}/rygel/

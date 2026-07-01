@@ -1,6 +1,6 @@
 Name:    smcroute
-Version: 2.5.7
-Release: 5%{?dist}
+Version: 2.6.0
+Release: 1%{?dist}
 
 Summary: Static multicast routing for UNIX
 
@@ -120,7 +120,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/smcroute.d
 %license COPYING
 %doc ChangeLog.md README.md smcroute.conf
 %{_sysconfdir}/smcroute.d/
-%{_sbindir}/smcroute
 %{_sbindir}/smcroutectl
 %{_sbindir}/smcrouted
 %{_mandir}/man5/smcroute.conf.5*
@@ -128,6 +127,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/smcroute.d
 %{_unitdir}/smcroute.service
 
 %changelog
+* Mon Jun 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.0-1
+- 2.6.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

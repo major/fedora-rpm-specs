@@ -1,8 +1,8 @@
 %global modname bleach
 
 Name:           python-%{modname}
-Version:        6.2.0
-Release:        10%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        An easy whitelist-based HTML-sanitizing tool
 
 License:        Apache-2.0
@@ -37,6 +37,9 @@ Requires:       python3-html5lib
 %{_description}
 
 Python 3 version.
+
+
+%pyproject_extras_subpkg -n python3-bleach css
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
@@ -81,6 +84,9 @@ fi;
 
 
 %changelog
+* Tue Jun 16 2026 Lumír Balhar <lbalhar@redhat.com> - 6.4.0-1
+- Update to 6.4.0 and add css extra subpackage
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.2.0-10
 - Rebuilt for Python 3.15
 

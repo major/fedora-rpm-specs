@@ -24,7 +24,7 @@
 %endif
 %endif
 
-%global tinysparql_version 3.8
+%global tinysparql_version 3.11
 
 %global systemd_units localsearch-3.service localsearch-control-3.service localsearch-writeback-3.service
 
@@ -32,21 +32,21 @@
 %global __provides_exclude_from ^%{_libdir}/localsearch-3.0/
 %global __requires_exclude ^(libtracker-extract\.so|libtracker-extract-zip\.so|libextract-.*\.so|libwriteback-.*\.so)
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
-
 Name:           localsearch
-Version:        3.11.1
+Version:        3.12~alpha
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
-Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  giflib-devel
 BuildRequires:  meson
 BuildRequires:  systemd-rpm-macros
@@ -73,6 +73,7 @@ BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libgsf-1)
 BuildRequires:  pkgconfig(libgxps)
 BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libmediainfo)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libtiff-4)
@@ -104,10 +105,7 @@ This package contains various miners and metadata extractors for tinysparql.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

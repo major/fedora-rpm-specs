@@ -10,8 +10,8 @@ For example, it allows you to have all your casting and parsing rules in a
 single place.}
 
 Name:		python-itemloaders
-Version:	1.3.2
-Release:	8%{?dist}
+Version:	1.4.0
+Release:	1%{?dist}
 Summary:	Library that helps you collect data from HTML and XML sources.
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -29,7 +29,6 @@ BuildArch:	noarch
 Summary:	%{summary}
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-parsel
 BuildRequires:	python3-jmespath
 BuildRequires:	python3-w3lib
@@ -42,21 +41,25 @@ BuildRequires:	python3-w3lib
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l itemloaders
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/itemloaders
-%{python3_sitelib}/itemloaders-*.egg-info
 
 %changelog
+* Mon Jun 29 2026 Eduardo Echeverria <echevemaster@gmail.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.2-8
 - Rebuilt for Python 3.15
 

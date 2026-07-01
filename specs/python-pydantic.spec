@@ -11,6 +11,11 @@ License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
 
+# Fix test failures with pytest >= 9.1.0 (non-Collection iterables in parametrize)
+Patch:          https://github.com/pydantic/pydantic/commit/53706f8f95585f2ae0cee43c1df944956dd2a31f.patch
+# Fix use of pytest.warns(match=...) with pytest >= 9.1.0
+Patch:          https://github.com/pydantic/pydantic/commit/e3fe82eba47c78758a21d8413c52063fc105550e.patch
+
 BuildArch:      noarch
 
 BuildRequires:  tomcli

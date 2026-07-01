@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        21.4.2
+Version:        21.5.1
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 
@@ -83,7 +83,6 @@ Requires:       (%{python_wheel_pkg_prefix}-wheel0.37-wheel if python3.6)
 # Remove the wheels provided by RPM packages
 rm src/virtualenv/seed/wheels/embed/pip-*
 rm src/virtualenv/seed/wheels/embed/setuptools-*
-rm src/virtualenv/seed/wheels/embed/wheel-*
 
 test ! -f src/virtualenv/seed/embed/wheels/*.whl
 
@@ -117,6 +116,7 @@ sed -i 's/filelock>=3.24.2/filelock>=3.12.2/' pyproject.toml
 # - test_create_distutils_cfg
 # Uses disabled functionalities around bundled wheels:
 # - test_wheel_*
+# - test_embed_wheel_*
 # - test_seed_link_via_app_data
 # - test_base_bootstrap_via_pip_invoke
 # - test_acquire.py (whole file)
@@ -131,6 +131,8 @@ PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
                 not test_acquire and \
                 not test_periodic_update and \
                 not test_wheel_ and \
+                not test_embed_wheel_future_version_reuses_newest and \
+                not test_embed_wheel_oldest_supported_is_present and \
                 not test_download_ and \
                 not test_can_build_c_extensions and \
                 not test_base_bootstrap_via_pip_invoke and \

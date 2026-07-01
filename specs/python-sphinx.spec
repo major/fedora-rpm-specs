@@ -41,6 +41,13 @@ Source:     %{pypi_source sphinx %{upstream_version}}
 # which causes that test to fail.
 Patch:      sphinx-test_theming.patch
 
+# Fix for test_stemmer failing with Python 3.15+, merged upstream
+Patch:      https://github.com/sphinx-doc/sphinx/pull/14474.patch
+
+# Fix test_gettext_literalblock_additional failure with pytest-xdist:
+# the test used testroot='root' which lacks literalblock.txt
+Patch:      https://github.com/sphinx-doc/sphinx/pull/14507.patch
+
 # Make the first party extensions optional
 # This removes the runtime dependencies on:
 #  - sphinxcontrib.applehelp
@@ -83,6 +90,10 @@ BuildRequires: texinfo
 
 %if %{with imagemagick_tests}
 BuildRequires: ImageMagick
+%endif
+
+%if %{undefined rhel}
+BuildRequires: python%{python3_pkgversion}-pytest-xdist
 %endif
 
 %if %{undefined rhel} && %{with latex_tests}
@@ -477,7 +488,7 @@ k="${k} and not test_term_in_heading_and_section and not test_IndexBuilder"
 k="${k} and not test_check_js_search_indexes"
 %endif
 
-%pytest -k "${k}"
+%pytest -k "${k}" %{!?rhel:-n auto}
 %endif
 
 %files -n python%{python3_pkgversion}-sphinx -f sphinx.lang

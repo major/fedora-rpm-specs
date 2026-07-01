@@ -62,6 +62,9 @@ Patch4:         0005-mbedtls-CVE-2026-34871-fix.patch
 
 Patch10:        dolphin-emu-fix-build-against-qt-6-10.patch
 
+# fmt 12 removed fmt::localtime(); backport of upstream commit 4b65cc9a4c
+Patch11:        dolphin-emu-fmt12-localtime.patch
+
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:
 #https://github.com/weisslj/cpp-optparse

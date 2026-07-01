@@ -1,28 +1,16 @@
-%ifarch x86_64 i686
-%bcond_without ddcpci
-%else
-%bcond_with ddcpci
-%endif
-
-#%%global git_commit 811d34d95f5740ae8310dba3521155ad0f70fc0c
-#%%global git_date 20170623
-
-#%%global git_short_commit %%(c=%%{git_commit}; echo ${c:0:8})
-#%%global git_suffix %%{git_date}git%%{git_short_commit}
-
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          1.0.3
-Release:          7%{?dist}
+Version:          3.1.2
+Release:          2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
-BuildRequires:    gtk2-devel
+BuildRequires:    cargo
+BuildRequires:    gcc
+BuildRequires:    gtk3-devel
 BuildRequires:    pkgconfig
-BuildRequires:    pciutils-devel
 BuildRequires:    desktop-file-utils
 BuildRequires:    perl(XML::Parser)
 BuildRequires:    gettext
-BuildRequires:    libtool
 BuildRequires:    libxml2-devel
 BuildRequires:    tidy
 BuildRequires:    libX11-devel
@@ -40,7 +28,9 @@ Requires:         dbus-common
 Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
-Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+#Source0:          https://github.com/ddccontrol/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+# Created with: cargo vendor --locked vendor
+Source0:          %{url}/releases/download/%{version}/%{name}-%{version}-vendor.tar.gz
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
 
@@ -74,13 +64,20 @@ Development files for ddccontrol.
 
 %prep
 %autosetup -p1
+mkdir -p .cargo
+cat > .cargo/config.toml <<'EOF'
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
+
+[net]
+offline = true
+EOF
 
 %build
-./autogen.sh
-
-# applet is not supported on Gnome 3
-%configure --enable-doc --disable-gnome-applet --prefix=%{_prefix} \
-  --exec-prefix=%{_exec_prefix} --disable-rpath %{!?with_ddcpci:--disable-ddcpci}
+%configure --enable-doc --disable-rpath
 
 # kill rpaths
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -127,19 +124,17 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS NEWS README.md TODO
+%doc AUTHORS README.md
 %exclude %{_docdir}/%{name}/html
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/ddccontrol.DDCControl.conf
 %{_bindir}/ddccontrol
 %dir %{_libexecdir}/%{name}
-%if 0%{?with_ddcpci}
-%{_libexecdir}/%{name}/ddcpci
-%endif
 %{_libexecdir}/%{name}/ddccontrol_service
 %{_prefix}/lib/modules-load.d/%{name}-i2c-dev.conf
 %{_libdir}/lib*.so.*
 %{_datadir}/dbus-1/interfaces/ddccontrol.DDCControl.xml
 %{_datadir}/dbus-1/system-services/ddccontrol.DDCControl.service
+%{_datadir}/%{name}/90-nvidia-i2c.conf
 %{_mandir}/man1/ddccontrol.1*
 %{_unitdir}/%{name}.service
 
@@ -158,6 +153,15 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jun 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.2-2
+- Used vendor package from the upstream
+
+* Thu Jun 25 2026 Lars Tobias Skjong-Børsting <larstobi@relatime.no> - 3.1.2-1
+- New version
+- Add Cargo build dependency for the Rust monitor database parser
+- Switch GUI build dependency from GTK 2 to GTK 3
+- Drop legacy direct PCI backend packaging
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

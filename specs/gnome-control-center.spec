@@ -1,30 +1,29 @@
-%global blueprint_compiler_version 0.17
+%global blueprint_compiler_version 0.19
 %global gcr_version 4.1.0
 %global gnome_online_accounts_version 3.51.0
 %global glib2_version 2.76.6
 %global gnome_desktop_version 44.0-7
 %global gsd_version 48~rc
-%global gsettings_desktop_schemas_version 48~alpha-2
+%global gsettings_desktop_schemas_version 50~alpha
 %global upower_version 1.90.6
-%global gtk4_version 4.15.2
+%global gtk4_version 4.23.0
 %global gnome_bluetooth_version 42~alpha
 %global libadwaita_version 1.8~alpha
 %global nm_version 1.52.0
-
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 # Disable parental control for RHEL builds
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        50.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  blueprint-compiler >= %{blueprint_compiler_version}
 BuildRequires:  desktop-file-utils
@@ -155,10 +154,7 @@ can install configuration files that are picked up by the control-center
 utilities.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

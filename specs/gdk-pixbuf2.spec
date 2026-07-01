@@ -7,13 +7,13 @@
 %global __meson_auto_features disabled
 
 Name:           gdk-pixbuf2
-Version:        2.44.6
+Version:        2.44.7
 Release:        %autorelease
 Summary:        An image loading library
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
-Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.44/gdk-pixbuf-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gdk-pixbuf/%{gnome_major_minor_version}/gdk-pixbuf-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext

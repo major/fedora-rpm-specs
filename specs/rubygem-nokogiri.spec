@@ -300,6 +300,7 @@ popd
 %changelog
 * Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-1
 - 1.19.4
+- Fixes CVE-2026-57438 https://github.com/sparklemotion/nokogiri/pull/3642
 
 * Wed Jun 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.3-2
 - Execute gumbo testsuite

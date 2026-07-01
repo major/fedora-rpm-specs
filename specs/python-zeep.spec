@@ -4,7 +4,7 @@ code to use the services and types in the document. This\
 provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
-Version:        4.3.2
+Version:        4.3.3
 Release:        %autorelease
 Summary:        A fast and modern Python SOAP client
 
@@ -43,11 +43,11 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 # disable linting dependencies and exact test dependencies
-sed -i -e '/isort\|flake\|coverage\[toml\]\|pytest-cov/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\1/' pyproject.toml
+sed -i -e '/ruff\|coverage\[toml\]\|pytest-cov/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\1/' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -g dev
 
 
 %build

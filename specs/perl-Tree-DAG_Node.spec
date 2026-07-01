@@ -1,5 +1,5 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.36
+Version:        1.37
 Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,6 +61,15 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Mon Jun 29 2026 Paul Howarth <paul@city-fan.org> - 1.37-1
+- Update to 1.37
+  - No functional changes
+  - Replace the body of the LICENSE file with what is recommended at
+    https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+  - Patch the source code reference to refer to this LICENSE file
+  - Remove the excess and confusing files LICENSE-Artistic-2.0 and LICENSE-GPL-3
+  - Reset the required version of Data::Dumper back to 0
+
 * Sun Jun 28 2026 Paul Howarth <paul@city-fan.org> - 1.36-1
 - Update to 1.36
   - No functional changes

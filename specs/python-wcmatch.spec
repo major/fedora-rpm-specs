@@ -2,8 +2,8 @@
 %global pypi_name wcmatch
 
 Name:           python-%{pypi_name}
-Version:        10.0
-Release:        8%{?dist}
+Version:        10.1
+Release:        1%{?dist}
 Summary:        Wildcard/glob file name matcher
 
 License:        MIT
@@ -52,16 +52,19 @@ globmatch which functions like fnmatch, but for paths.
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 %check
-%pytest -vv -k "not test_tilde_user"
+%pytest -vv
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md
 %doc README.md
 
 %changelog
+* Sat Jun 27 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 10.1-1
+- Update to latest release
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 10.0-8
 - Rebuilt for Python 3.15
 

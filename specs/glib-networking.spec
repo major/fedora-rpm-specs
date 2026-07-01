@@ -1,19 +1,20 @@
 %define glib2_version 2.73.3
+%define gnutls_version 3.7.4
 %global libproxy_version 0.4.16
-
-%global tarball_version %%(echo %{version} | tr '~' '.')
 
 # Not yet sure whether to have libproxy in el10, but assume yes for now.
 %global with_libproxy 1
 
 Name:           glib-networking
-Version:        2.80.1
+Version:        2.90~alpha
 Release:        %autorelease
 Summary:        Networking support for GLib
 
 License:        LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://gitlab.gnome.org/GNOME/glib-networking
-Source0:        https://download.gnome.org/sources/glib-networking/2.80/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/glib-networking/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  ca-certificates
 BuildRequires:  gcc
@@ -21,7 +22,7 @@ BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(gnutls) >= %{gnutls_version}
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 %if 0%{?with_libproxy}
 BuildRequires:  pkgconfig(libproxy-1.0) >= %{libproxy_version}
@@ -57,7 +58,7 @@ The glib-networking-tests package contains tests that can be used to verify
 the functionality of the installed glib-networking package.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

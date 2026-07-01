@@ -7,7 +7,7 @@
 %global integration_tests_exc '^(html-py-ever)'
 
 Name:           python-setuptools-rust
-Version:        1.12.1
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 
@@ -15,9 +15,15 @@ License:        MIT
 URL:            https://github.com/PyO3/setuptools-rust
 Source:         %{pypi_source setuptools_rust}
 
-# Temporarily allow building examples with PyO3 0.27, until we have 0.28:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          setuptools_rust-1.12.1-allow-PyO3-0.27.patch
+# Update examples to use PyO3 0.29. Some already have upstream dependabot PR’s:
+#
+# build(deps): bump pyo3 from 0.28.3 to 0.29.0 in /examples/namespace_package
+# https://github.com/PyO3/setuptools-rust/pull/596
+# build(deps): bump pyo3 from 0.28.3 to 0.29.0 in /examples/hello-world
+# https://github.com/PyO3/setuptools-rust/pull/597
+#
+# We presume that the others will get dependabot PR’s shortly.
+Patch:          setuptools_rust-1.13.0-PyO3-0.29.patch
 
 BuildArch:      noarch
 

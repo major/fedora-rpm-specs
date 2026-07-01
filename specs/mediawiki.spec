@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.45.3
+Version: 1.45.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
@@ -66,9 +66,9 @@ Provides: bundled(php-composer-semver) = 3.4.4
 Provides: bundled(php-dasprid-enum) = 1.0.7
 Provides: bundled(php-endroid-qr-code) = 6.0.9
 Provides: bundled(php-firebase-php-jwt) = 7.0.2
-Provides: bundled(php-guzzlehttp-guzzle) = 7.10.0
-Provides: bundled(php-guzzlehttp-promises) = 2.3.0
-Provides: bundled(php-guzzlehttp-psr7) = 2.8.0
+Provides: bundled(php-guzzlehttp-guzzle) = 7.12.3
+Provides: bundled(php-guzzlehttp-promises) = 2.5.0
+Provides: bundled(php-guzzlehttp-psr7) = 2.12.3
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
 Provides: bundled(php-justinrainbow-json-schema) = 5.3.1
 Provides: bundled(php-mck89-peast) = 1.17.4
@@ -84,11 +84,11 @@ Provides: bundled(php-psr-http-factory) = 1.1.0
 Provides: bundled(php-psr-http-message) = 1.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
 Provides: bundled(php-symfony-deprecation-contracts) = 3.6.0
-Provides: bundled(php-symfony-polyfill-php82) = 1.33.0
-Provides: bundled(php-symfony-polyfill-php83) = 1.33.0
-Provides: bundled(php-symfony-polyfill-php84) = 1.33.0
-Provides: bundled(php-symfony-polyfill-php85) = 1.33.0
-Provides: bundled(php-symfony-yaml) = 6.4.25
+Provides: bundled(php-symfony-polyfill-php82) = 1.37.0
+Provides: bundled(php-symfony-polyfill-php83) = 1.37.0
+Provides: bundled(php-symfony-polyfill-php84) = 1.37.0
+Provides: bundled(php-symfony-polyfill-php85) = 1.37.0
+Provides: bundled(php-symfony-yaml) = 6.4.40
 Provides: bundled(php-wikimedia-at-ease) = 3.0.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.5.1
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.1.0
@@ -263,6 +263,9 @@ cd tests/phpunit
 
 
 %changelog
+* Mon Jun 29 2026 Michael Cronenworth <mike@cchtml.com> - 1.45.4-1
+- Update to 1.45.4
+
 * Thu Jun 11 2026 Michael Cronenworth <mike@cchtml.com> - 1.45.3-1
 - Update to 1.45.3
 

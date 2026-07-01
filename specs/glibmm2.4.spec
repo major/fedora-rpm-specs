@@ -1,19 +1,17 @@
 %global apiver 2.4
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glib2_version 2.61.2
 %global libsigc_version 2.9.1
 
 Name:           glibmm2.4
-Version:        2.66.8
+Version:        2.66.9
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 
 # Library sources are LGPL 2.1+, tools used to generate sources are GPL 2+.
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://gtkmm.org/
-Source0:        https://download.gnome.org/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/glibmm/%{gnome_major_minor_version}/glibmm-%{version}.tar.xz
 
 Patch0:         glibmm24-gcc11.patch
 

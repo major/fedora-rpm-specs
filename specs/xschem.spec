@@ -1,34 +1,26 @@
-# xschem Package description for Fedora/Free Electronic Lab
-#
-%global rpm_has_recommends    %(rpm --version | awk -e '{print ($3 > 4.12)}')
-#
 Name:           xschem
-Version:        3.1.0
-Release:        8%{?dist}
+Version:        3.4.7
+Release:        %autorelease
 Summary:        Schematic capture and Netlisting EDA tool
 
 License:        GPL-2.0-or-later
 URL:            http://repo.hu/projects/xschem
 Source0:        http://repo.hu/projects/xschem/releases/xschem-%{version}.tar.gz
+Patch:          xschem-cairo-jpg-32bit.patch
 
-BuildRequires:  make
-BuildRequires:  gcc
+BuildRequires:  bison
+BuildRequires:  flex
 BuildRequires:  gawk
-BuildRequires:  flex, bison
-#BuildRequires:  flex-devel
+BuildRequires:  gcc
+BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  make
+BuildRequires:  pkgconfig(cairo-xcb)
+BuildRequires:  pkgconfig(xpm)
 BuildRequires:  tcl-devel
 BuildRequires:  tk-devel
-BuildRequires:  pkgconfig(xpm)
-BuildRequires:  pkgconfig(cairo-xcb)
-#BuildRequires:  cairo-devel
-#BuildRequires:  xcb-util-devel
-
-%if %rpm_has_recommends
 Recommends:     %{name}-doc = %{version}-%{release}
-%endif
-
-#Requires:   tcl, tk
-
+Requires:       tcl
+Requires:       tk
 
 %description
 %{name} is a schematic capture program, it allows creation of hierarchical
@@ -50,7 +42,22 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup
+%setup -q
+
+# Fix wrong line encoding (CRLF to LF) of C files to apply patches cleanly
+sed -i 's/\r$//' src/cairo_jpg.c
+
+%patch -P 0 -p1
+
+# Fix wrong line encoding (CRLF to LF)
+sed -i 's/\r$//' src/make_sym_lcc.awk
+
+# Remove shebang from non-executable script
+sed -i '1{\@^#!/@d}' src/make_sym_lcc.awk
+
+# Ensure LDFLAGS are passed when building rawtovcd to enable PIE/hardening
+sed -i 's/rawtovcd rawtovcd.o/rawtovcd rawtovcd.o $(LDFLAGS)/' src/Makefile.in
+
 
 
 %build
@@ -74,68 +81,11 @@ Documentation for %{name}.
 
 %files doc
 %{_docdir}/%{name}
+%exclude %{_docdir}/%{name}/AUTHORS
+%exclude %{_docdir}/%{name}/Changelog
+%exclude %{_docdir}/%{name}/README
+
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Aug 02 2022 Alain Vigne <avigne@fedoraproject.org> 3.1.0-1
-- Bump to upstream version 3.1.0
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Jul 21 2019 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.9.2-1
-- Upstream new release
-
-* Sun Jul 14 2019 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.9.0-1
-- Upstream new release
-
-* Sun Feb 17 2019 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.8.2-2
-- apply suggestions from package reviewers
-
-* Sun Jan 27 2019 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.8.2-1
-- Upstream new release
-
-* Sun Dec 02 2018 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.8.1-1
-- Upstream new release
-
-* Tue Nov 06 2018 Alain <alain DOT vigne DOT 14 AT gmail DOT com> - 2.8.0-1
-- Initial proposal
+%autochangelog
