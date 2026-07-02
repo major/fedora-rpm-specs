@@ -4,8 +4,8 @@ Name:           perl-ExtUtils-CBuilder
 # Compete with perl.spec
 Epoch:          1
 # Mimic perl.spec
-Version:        0.280242
-Release:        521%{?dist}
+Version:        0.280243
+Release:        1%{?dist}
 Summary:        Compile and link C code for Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CBuilder
@@ -18,6 +18,8 @@ Patch1:         ExtUtils-CBuilder-0.280236-Upgrade-to-0.280238.patch
 Patch2:         ExtUtils-CBuilder-0.280238-Upgrade-to-0.280240.patch
 # Unbundled from perl 5.42.0
 Patch3:         ExtUtils-CBuilder-0.280240-Upgrade-to-0.280242.patch
+# Unbundled from perl 5.44.0-RC1
+Patch4:         ExtUtils-CBuilder-0.280242-Upgrade-to-0.280243.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -124,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.280243-1
+- Upgrade to 0.280243 as provided in perl-5.44.0-RC1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.280242-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

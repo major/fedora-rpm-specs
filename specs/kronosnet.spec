@@ -25,10 +25,15 @@
 %bcond_with rpmdebuginfo
 %bcond_with overriderpmdebuginfo
 %bcond_without buildman
+%bcond_without buildwsdissector
 %bcond_with installtests
 
 %if %{with overriderpmdebuginfo}
 %undefine _enable_debug_packages
+%endif
+
+%if %{with buildwsdissector}
+%define wireshark_plugindir %(pkg-config --variable plugindir wireshark)/epan
 %endif
 
 # main (empty) package
@@ -36,15 +41,14 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.33
-Release: 3%{?dist}
+Version: 1.34
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
 
 # Build dependencies
-BuildRequires: make
-BuildRequires: gcc libqb-devel
+BuildRequires: gcc libqb-devel make
 # required to build man pages
 %if %{with buildman}
 BuildRequires: libxml2-devel doxygen doxygen2man
@@ -81,6 +85,9 @@ BuildRequires: libnl3-devel
 %endif
 %if %{with runautogen}
 BuildRequires: autoconf automake libtool
+%endif
+%if %{with buildwsdissector}
+BuildRequires: wireshark-devel >= 4.6
 %endif
 
 %prep
@@ -151,6 +158,11 @@ BuildRequires: autoconf automake libtool
 	--enable-libnozzle \
 %else
 	--disable-libnozzle \
+%endif
+%if %{with buildwsdissector}
+       --enable-wireshark-dissector \
+%else
+       --disable-wireshark-dissector \
 %endif
 	--with-initdefaultdir=%{_sysconfdir}/sysconfig/ \
 	--with-systemddir=%{_unitdir}
@@ -431,11 +443,49 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %{_libdir}/kronosnet/tests/*
 %endif
 
+%if %{with buildwsdissector}
+%package -n kronosnet-wireshark
+Summary: Wireshark dissector plugin for kronosnet
+License: LGPL-2.1-or-later
+Requires: wireshark >= 4.6.0
+Requires: libknet1%{_isa} = %{version}-%{release}
+
+%description -n kronosnet-wireshark
+ Wireshark dissector plugin for better analysis of kronosnet / libknet traffic.
+
+%files -n kronosnet-wireshark
+%{wireshark_plugindir}/kronosnet.so
+%endif
+
 %if %{with rpmdebuginfo}
 %debug_package
 %endif
 
 %changelog
+* Tue Jun 30 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.34-1
+- New upstream release (Resolves rhbz#2494753)
+- Important bugfixes:
+  Fix critical defragmentation buffer reclamation logic
+  Fix sequence number wraparound calculation in defragmentation
+  Add decompression buffer size validation
+  Fix SCTP reconnect thread race condition
+  Build fixes for int_decompress_bufsize without zlib
+- New features:
+  Add unique names to all threads for better debugging
+  Add Wireshark dissector plugin for kronosnet protocol analysis
+  Add API to enumerate supported cipher modes and hash algorithms
+  libnozzle: Platform-specific refactoring and native ioctl implementations
+  libnozzle: Add input validation for network prefixes
+  libnozzle: Portable type and macro abstractions for BSD/Solaris
+  Improve OpenSSL error logging to print entire error stack
+  Add CLAUDE.md documentation for AI-assisted development
+- Test suite improvements:
+  Add comprehensive defragmentation and sequence wraparound test suites
+  Improve test infrastructure with unified logging and injection helpers
+  libnozzle: Introduce test macros similar to libknet
+  Comprehensive test suite improvements and C99 compliance fixes
+  Test suite now supports parallel execution with "make -j check" on systems with sufficient resources
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.33-3
 - Rebuilt for openssl 4.0
 

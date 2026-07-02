@@ -1,3 +1,5 @@
+%bcond bundled_cxx 0
+
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
 # See gn --version, which outputs something like “1874 (2b683eff)”. The commit
@@ -21,30 +23,54 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit c276f01685bc836f88331b105cce71b690a0e1f4
-%global access 20260621
+%global commit 5223a47630df1b51c5fb3fd9b4f942289cce3d9b
+%global access 20260630
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2423
+%global position 2437
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
 
 # The entire source is BSD-3-Clause, except:
-#   - src/base/third_party/icu/ is (Unicode-DFS-2016 AND ICU); see
-#     src/base/third_party/icu/LICENSE and also the header comment in
-#     src/base/third_party/icu/icu_utf.h.
 #
-# Note that src/util/test/gn_test.cc, which is licensed Apache-2.0, does not
-# contribute to the binary RPMs, only to the gn_unittests executable, which is
-# not installed; you may verify this with:
-#   gdb -ex 'set pagination off' -ex 'info sources' gn | grep -F gn_test.cc
-License:        BSD-3-Clause AND Unicode-DFS-2016 AND ICU
+# - src/base/third_party/icu/ is (Unicode-DFS-2016 AND ICU); see
+#   src/base/third_party/icu/LICENSE and also the header comment in
+#   src/base/third_party/icu/icu_utf.h.
+# - src/gn/starlark/vendor/cxx/include/cxx.h is (MIT OR Apache-2.0); per
+#   src/gn/starlark/vendor/cxx/README.md, it is
+#   https://github.com/dtolnay/cxx/blob/1.0.194/include/cxx.h.
+%global bundled_cxx_version 1.0.194
+#   The license texts for this are missing,
+#   https://gn.issues.chromium.org/issues/529413117.
+# - gn/src/util/test/gn_test.cc, gn/infra/recipes/gn.py, and
+#   gn/infra/recipes.py are Apache-2.0. The first does not contribute to the
+#   binary RPMs, only to the gn_unittests executable, which is not installed;
+#   not installed; you may verify this with:
+#     gdb -ex 'set pagination off' -ex 'info sources' gn | grep -F gn_test.cc
+#   However, the two files from gn/infra/ are installed in the -doc subpackage.
+#   The required Apache-2.0 license text is missing,
+#   https://gn.issues.chromium.org/issues/529413117.
+License:        %{shrink:
+    BSD-3-Clause AND
+    ICU AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR MIT)
+    }
 SourceLicense:  %{license} AND Apache-2.0
 URL:            https://gn.googlesource.com/gn
 Source0:        %{url}/+archive/%{commit}.tar.gz#/gn-%{shortcommit}.tar.gz
 # Generated using script update-version:
 Source1:        last_commit_position.h
 Source2:        update-version
+# Missing Apache-2.0 license text for src/gn/starlark/vendor/cxx/include/cxx.h,
+# gn/src/util/test/gn_test.cc, gn/infra/recipes/gn.py, and gn/infra/recipes.py.
+# https://gn.issues.chromium.org/issues/529413117
+Source3:        https://www.apache.org/licenses/LICENSE-2.0.txt
+# Missing MIT license text for src/gn/starlark/vendor/cxx/include/cxx.h; the
+# corresponding LICENSE-APACHE would be identical to LICENSE-2.0.txt, above, so
+# we don’t need another copy.
+# https://gn.issues.chromium.org/issues/529413117
+Source4:        https://github.com/dtolnay/cxx/raw/refs/tags/%{bundled_cxx_version}/LICENSE-MIT
 
 # Downstream-only: do not override optimization flags
 #
@@ -69,6 +95,13 @@ BuildRequires:  gcc-c++
 BuildRequires:  emacs-common
 
 BuildRequires:  help2man
+%if %{without bundled_cxx}
+BuildRequires:  cargo-rpm-macros
+# We express this as rust-cxx-devel rather than crate(cxx) because we don’t use
+# the package as a Rust crate, only for the C++ header file it contains, and
+# this better reflectes our intent.
+BuildRequires:  (rust-cxx-devel >= 1.0.0 with rust-cxx-devel < 2.0.0~)
+%endif
 
 Requires:       vim-filesystem
 Requires:       python3
@@ -90,6 +123,10 @@ Provides:       emacs-gn = %{version}-%{release}
 # See src/base/third_party/icu/README.chromium, from which the version number
 # is taken.
 Provides:       bundled(icu) = 60
+%if %{with bundled_cxx}
+# src/gn/starlark/vendor/cxx/include/cxx.h
+Provides:       bundled(crate(cxx)) = %{bundled_cxx_version}
+%endif
 
 %description
 GN is a meta-build system that generates build files for Ninja.
@@ -98,6 +135,13 @@ GN is a meta-build system that generates build files for Ninja.
 %package doc
 Summary:        Documentation for GN
 BuildArch:      noarch
+
+# The entire source is BSD-3-Clause, except where otherwise noted in the
+# comment above the base package’s License field.
+#
+# The -doc subpackage contains files that are Apache-2.0:
+# gn/infra/recipes/gn.py and gn/infra/recipes.py.
+License:        BSD-3-Clause AND Apache-2.0
 
 %description doc
 The gn-doc package contains detailed documentation for GN.
@@ -117,6 +161,22 @@ cp --preserve misc/vim/README.md README-vim.md
 # Fix shebangs in examples and such.
 %py3_shebang_fix .
 
+# Copy in missing license texts.
+cp --preserve '%{SOURCE3}' '%{SOURCE4}' .
+# Put the ICU license text somewhere it’s easy to install, with a unique name.
+cp --preserve src/base/third_party/icu/LICENSE LICENSE-ICU
+
+%if %{without bundled_cxx}
+cxx_header='src/gn/starlark/vendor/cxx/include/cxx.h'
+# Explicit removal asserts that we still have the right path, failing if the
+# file does not exist.
+rm "${cxx_header}"
+system_cxx_header="$(
+    rpm --query --list rust-cxx-devel | grep -E '/cxx\.h$' | head -n 1
+)"
+ln --symbolic --verbose "${system_cxx_header}" "${cxx_header}"
+%endif
+
 
 %conf
 AR='gcc-ar'; export AR
@@ -133,7 +193,7 @@ AR='gcc-ar'; export AR
 
 
 %build
-ninja -j %{_smp_build_ncpus} -C out -v
+%ninja_build -C out
 
 help2man \
     --name='%{summary}' \
@@ -180,7 +240,7 @@ grep --extended-regexp \
 
 
 %files
-%license LICENSE
+%license LICENSE LICENSE-ICU LICENSE-2.0.txt LICENSE-MIT
 %{_bindir}/gn
 
 %{_mandir}/man1/gn.1*
@@ -195,7 +255,7 @@ grep --extended-regexp \
 
 
 %files doc
-%license LICENSE src/base/third_party/icu/README.chromium
+%license LICENSE LICENSE-2.0.txt
 %doc AUTHORS
 %doc OWNERS
 %doc README*.md

@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-setuptools_scm
-Version:        10.0.5
+Version:        10.2.0
 Release:        %autorelease
 Summary:        Blessed package to manage your versions by SCM tags
 
@@ -77,7 +77,10 @@ ln -s ./setuptools-scm-%{python3_version} %{buildroot}%{_bindir}/setuptools-scm
 %if %{with tests}
 %check
 # test_pip_download, test_xmlsec_download_regression try to download from the internet
-%pytest -v %{!?rhel:-n auto} -k 'not test_pip_download and not test_xmlsec_download_regression'
+# test_get_version_blank_tag_regex, test_setuptools_version_keyword_ensures_regex fail because
+# vcs-versioning 2.x added DeprecationWarnings for tag_regex that the tests don't expect;
+# fixed upstream: https://github.com/pypa/setuptools-scm/commit/ba215a70a88bbd35ecf0961c8b1a1301c940629e
+%pytest -v %{!?rhel:-n auto} -k 'not test_pip_download and not test_xmlsec_download_regression and not test_get_version_blank_tag_regex and not test_setuptools_version_keyword_ensures_regex'
 %endif
 
 

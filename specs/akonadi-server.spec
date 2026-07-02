@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 26.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -102,7 +102,8 @@ Summary:        Akonadi MySQL backend support
 # upgrade path
 Obsoletes:      kf5-akonadi-server-mysql < 24.01.80-1
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       mariadb-server
+Requires:       mariadb-server-any
+Recommends:     mariadb-server
 Requires:       qt6-qtbase-mysql%{?_isa}
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
@@ -257,6 +258,9 @@ fi
 
 
 %changelog
+* Tue Jun 30 2026 Than Ngo <than@redhat.com> - 26.04.2-2
+- Fix rhbz#2494531, Use '-any' virtual provide for mariadb / mysql dependencies
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

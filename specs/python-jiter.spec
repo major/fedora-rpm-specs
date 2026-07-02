@@ -1,5 +1,5 @@
 Name:           python-jiter
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 
@@ -16,10 +16,6 @@ License:        %{shrink:
     }
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
-
-# Backport: update to PyO3 0.29 (#254)
-# https://github.com/pydantic/jiter/commit/2fe4246c71c003ddb32c943e3b432925f05f7d3c
-Patch:          jiter-0.15.0-pyo3-0.29.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jiter

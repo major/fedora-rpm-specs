@@ -340,7 +340,7 @@ cd %{name}-%{version}
 
 # Add info page "Emacs on Fedora"
 cp -p %{SOURCE20} doc/misc/
-sed -e 's/^INFO_COMMON = /INFO_COMMON = %{gsub %{basename %{SOURCE20}} .texi %{quote:}}/' doc/misc/Makefile.in
+sed -i -e 's/^INFO_COMMON = /INFO_COMMON = %{gsub %{basename %{SOURCE20}} .texi %{quote:}} /' doc/misc/Makefile.in
 
 # Avoid trademark issues
 rm lisp/play/pong.el lisp/play/pong.elc \

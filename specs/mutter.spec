@@ -1,35 +1,31 @@
+%global lcms2_version 2.6
+%global colord_version 1.4.5
 %global glib_version 2.81.1
 %global gobject_introspection_version 1.41.4
 %global gtk3_version 3.19.8
 %global gtk4_version 4.14.0
 %global gsettings_desktop_schemas_version 47~beta
-%global libdrm_version 2.4.118
-%global libinput_version 1.27.0
 %global pixman_version 0.42
-%global pipewire_version 1.2.7
-%global lcms2_version 2.6
-%global colord_version 1.4.5
 %global libei_version 1.3.901
-%global mutter_api_version 18
-%global wayland_protocols_version 1.45
 %global wayland_server_version 1.24
+%global wayland_protocols_version 1.48
+%global libinput_version 1.30.0
+%global libdrm_version 2.4.118
+%global pipewire_version 1.6.0
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+%global mutter_api_version 51
 
 Name:          mutter
-Version:       50.2
+Version:       51~alpha
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
-Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
-# wayland: Only schedule a single cursor location update
-# https://gitlab.gnome.org/GNOME/mutter/-/commit/f1570318ec3e9a38615eb91708bb71628ab8bcfd
-Patch:         wayland-only-schedule-a-single-cursor-location-update.patch
+%gnome_check_version
 
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
@@ -161,13 +157,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Viewer for nested mutter instances.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -n %{name}-%{tarball_version}
+%autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 %build
-%meson -Degl_device=true
+%meson
 %meson_build
 
 %install

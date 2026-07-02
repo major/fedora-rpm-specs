@@ -11,11 +11,7 @@ BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-pip
-BuildRequires:  python3-meson-python
-BuildRequires:  python3-sphinx
 BuildRequires:  web-assets-devel
-BuildRequires:  python3-pytest
 
 %global _description %{expand:
 Python module for native access to the libsystemd facilities. Functionality
@@ -44,6 +40,11 @@ Requires:       js-jquery
 
 %prep
 %autosetup -p1
+# do not test coverage
+sed -i -e 's/"pytest-cov"//' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires -R -g test,docs
 
 %build
 %pyproject_wheel -Csetup-args="-Ddocs=true"

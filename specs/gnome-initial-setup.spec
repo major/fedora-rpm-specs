@@ -5,9 +5,6 @@
 %global geoclue_version 2.6.0
 %global gnome_desktop_version 44.0-7
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 %if 0%{?rhel}
 %bcond_with webkitgtk
 %else
@@ -15,19 +12,18 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        50.0
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 Source1:        vendor.conf
 Source2:        gnome-initial-setup.sysusers.conf
 Source3:        gnome-initial-setup.tmpfiles.conf
 
-# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/242
-Patch:          no-run0.patch
+%gnome_check_version
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -84,10 +80,7 @@ a good setup experience to welcome you to your system, and walks
 you through configuring it. It is integrated with gdm.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

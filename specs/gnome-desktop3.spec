@@ -1,20 +1,20 @@
 %global gdk_pixbuf2_version               2.36.5
 %global gtk3_version                      3.3.6
-%global gtk4_version                      4.4.0
+%global gtk4_version                      4.12.0
 %global glib2_version                     2.53.0
 %global gsettings_desktop_schemas_version 3.27.0
 %global po_package                        gnome-desktop-3.0
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:    gnome-desktop3
-Version: 44.5
+Version: 51~alpha
 Release: %autorelease
 Summary: Library with common API for various GNOME modules
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/gnome-desktop
-Source:  https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-%{tarball_version}.tar.xz
+Source:  https://download.gnome.org/sources/gnome-desktop/%{gnome_major_version}/gnome-desktop-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -97,7 +97,7 @@ The %{name}-tests package contains tests that can be used to verify
 the functionality of the installed %{name} package.
 
 %prep
-%autosetup -p1 -n gnome-desktop-%{tarball_version}
+%autosetup -p1 -n gnome-desktop-%{gnome_tarball_version}
 
 %build
 %meson -Dgtk_doc=true -Dinstalled_tests=true
@@ -112,7 +112,7 @@ the functionality of the installed %{name} package.
 %doc AUTHORS NEWS README.md
 %license COPYING COPYING.LIB
 # LGPL
-%{_libdir}/libgnome-desktop-3.so.20{,.*}
+%{_libdir}/libgnome-desktop-3.so.21{,.*}
 %{_libdir}/girepository-1.0/GnomeDesktop-3.0.typelib
 %{_libexecdir}/gnome-desktop-debug/
 
@@ -131,7 +131,8 @@ the functionality of the installed %{name} package.
 # LGPL
 %{_libdir}/libgnome-bg-4.so.2{,.*}
 %{_libdir}/libgnome-desktop-4.so.2{,.*}
-%{_libdir}/libgnome-rr-4.so.2{,.*}
+%{_libdir}/libgnome-qr-4.so.0{,.*}
+%{_libdir}/libgnome-qr-gtk-4.so.0{,.*}
 %{_libdir}/girepository-1.0/Gnome*-4.0.typelib
 
 %files -n gnome-desktop4-devel

@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -147,9 +147,11 @@ Obsoletes:      akonadi < 1.7.90-2
 Obsoletes:      akonadi-mysql < 15.08.0
 Provides:       akonadi-mysql = %{version}-%{release}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       %{mysql}-server
+Requires:       %{mysql}-server-any
 %if "%{?mysql}" != "mariadb" && 0%{?fedora} > 20
 Recommends:     mariadb-server
+%else
+Recommends:     %{mysql}-server
 %endif
 Requires:       qt5-qtbase-mysql%{?_isa}
 Requires(post): /usr/sbin/update-alternatives
@@ -316,6 +318,9 @@ fi
 
 
 %changelog
+* Tue Jun 30 2026 Than Ngo <than@redhat.com> - 23.08.5-13
+- Fix rhbz#2494548, Use '-any' virtual provides for MariaDB/MySQL dependencies
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

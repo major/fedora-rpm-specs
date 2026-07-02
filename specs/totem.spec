@@ -1,8 +1,6 @@
 %global gst_plugins_base_version 1.6.0
 %global gtk3_version 3.19.4
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name: totem
 Epoch: 1
 Version: 43.2
@@ -10,7 +8,9 @@ Release: %autorelease
 Summary: Movie player for GNOME
 License: GPL-2.0-or-later AND (GPL-2.0-or-later WITH GStreamer-exception-2008) AND LGPL-2.0-or-later AND CC0-1.0
 URL: https://wiki.gnome.org/Apps/Videos
-Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # For PyGObject 3.52 transition. Drop after update to totem 44 or higher.
 Patch:         girepository-2.0.patch
@@ -107,7 +107,7 @@ The %{name}-devel package contains API documentation for
 developing developing plugins for %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Denable-gtk-doc=true

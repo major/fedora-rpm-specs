@@ -1,6 +1,6 @@
 Name:           zork
-Version:        1.0.3
-Release:        12%{?dist}
+Version:        1.1.0
+Release:        %autorelease
 Summary:        Public Domain original DUNGEON game (AKA, Zork)
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -21,7 +21,6 @@ codebase is a C port derived from the FORTRAN source of Zork 2.6.
 
 
 %prep
-%global _hardened_build 1
 %autosetup
 
 %build
@@ -50,6 +49,14 @@ echo ".so dungeon.6" > %{buildroot}%{_mandir}/man6/zork.6
 
 
 %changelog
+* Tue Jun 30 2026 Justin Wheeler <jwheel@fedoraproject.org> - 1.1.0-1
+- Update to v1.1.0
+- Upstream bug fixes: out-of-bounds array access, missing unistd.h header,
+  localtime prototype, curses header preprocessor guard
+- Upstream build improvements: LDFLAGS support in Makefile
+- Migrate to %%autorelease
+- Remove unnecessary %%global _hardened_build 1 (default since F23)
+
 * Sun Feb 22 2026 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.3-12
 - Fix FTBFS. Thanks @limb for the hotfix.
 - Upstream work ongoing for improved support with newer versions of the C programming language and compilers.
@@ -84,12 +91,12 @@ echo ".so dungeon.6" > %{buildroot}%{_mandir}/man6/zork.6
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Tue Mar 02 2021 Justin W. Flory <jflory7@fedoraproject.org> - 1.0.3-1
+* Tue Mar 02 2021 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.3-1
 - Fix reused integers from being optimized out.
 - Props to Jan Drögehoff (FAS: sentry) for sending this fix upstream to avoid carrying a Fedora-specific patch.
 - Remove grues.
 
-* Wed Feb 17 2021 Justin W. Flory <jflory7@fedoraproject.org> - 1.0.2-6
+* Wed Feb 17 2021 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.2-6
 - Remove compiler optimization flag to workaround segfault while upstream change is assessed
 
 * Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
@@ -98,12 +105,12 @@ echo ".so dungeon.6" > %{buildroot}%{_mandir}/man6/zork.6
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Tue Mar 03 2020 Justin W. Flory <jflory7@fedoraproject.org> - 1.0.2-3
+* Tue Mar 03 2020 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.2-3
 - Add manpage alias for zork, to match binary executable
 - Add upstream 'history' file as a doc
 
-* Tue Apr 30 2019 Justin W. Flory <jflory7@fedoraproject.org> - 1.0.2-2
+* Tue Apr 30 2019 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.2-2
 - Use Fedora CFLAGS during compilation
 
-* Mon Apr 29 2019 Justin W. Flory <jflory7@fedoraproject.org> - 1.0.2-1
+* Mon Apr 29 2019 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.2-1
 - First zork package

@@ -1,66 +1,16 @@
-#
-#  This file is provided under a dual BSD/GPLv2 license.  When using or
-#  redistributing this file, you may do so under either license.
-#
-#  GPL LICENSE SUMMARY
-#
-#  Copyright(c) 2015 Intel Corporation.
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of version 2 of the GNU General Public License as
-#  published by the Free Software Foundation.
-#
-#  This program is distributed in the hope that it will be useful, but
-#  WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#  General Public License for more details.
-#
-#  Contact Information:
-#  Intel Corporation, www.intel.com
-#
-#  BSD LICENSE
-#
-#  Copyright(c) 2015 Intel Corporation.
-#
-#  Redistribution and use in source and binary forms, with or without
-#  modification, are permitted provided that the following conditions
-#  are met:
-#
-#    * Redistributions of source code must retain the above copyright
-#      notice, this list of conditions and the following disclaimer.
-#    * Redistributions in binary form must reproduce the above copyright
-#      notice, this list of conditions and the following disclaimer in
-#      the documentation and/or other materials provided with the
-#      distribution.
-#    * Neither the name of Intel Corporation nor the names of its
-#      contributors may be used to endorse or promote products derived
-#      from this software without specific prior written permission.
-#
-#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-#  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-#  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-#  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-#  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-#  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-#  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-#  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-#  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# Copyright (c) 2014-2015 Intel Corporation. All rights reserved.
-#
-Summary: Intel PSM Libraries
+# SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0-only
+# Copyright 2014-2020 Intel Corporation
+# Copyright 2021-2026 Cornelis Networks
+Summary: Cornelis PSM2 Libraries
 Name: libpsm2
 Version: 12.0.1
 Release: %autorelease
-# Automatically converted from old format: BSD or GPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-BSD OR GPL-2.0-only
+License: BSD-3-Clause OR GPL-2.0-only
 URL: https://github.com/cornelisnetworks/opa-psm2/
 
 Source0: https://github.com/cornelisnetworks/opa-psm2/archive/refs/tags/PSM2_%{version}.tar.gz
 
-# The OPA product is supported on x86_64 only:
+# The Omni-Path product is supported on x86_64 only:
 ExclusiveArch: x86_64
 BuildRequires: libuuid-devel
 BuildRequires: numactl-devel
@@ -75,7 +25,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libuuid-devel
 
 %package compat
-Summary: Compat library for Intel PSM
+Summary: Compat library for Cornelis PSM2
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: systemd-udev
 
@@ -84,14 +34,13 @@ Requires: systemd-udev
 %global __requires_exclude ^(%{_privatelibs})$
 
 %description
-The PSM Messaging API, or PSM API, is the low-level
-user-level communications interface for the Intel OPA
-family of products. PSM users are enabled with mechanisms
-necessary to implement higher level communications
-interfaces in parallel environments.
+The PSM2 messaging API is a low-level user-level communications interface for
+the Cornelis Omni-Path family of products.
+PSM2 users are enabled with mechanisms necessary to implement higher level
+communications interfaces in parallel environments.
 
 %description devel
-Development files for the Intel PSM library
+Development files for the Cornelis PSM2 library
 
 %description compat
 Support for MPIs linked with PSM versions < 2
@@ -100,6 +49,12 @@ Support for MPIs linked with PSM versions < 2
 # upstream commits PSM2_12.0.1..master
 0001-Fix-strlcat-multiple-definition-build-error.patch
 0002-Fix-unaligned-heap-allocations-of-aligned-structs.patch
+0003-Fix-missing-memset-zero-caused-by-unaligned-heap-all.patch
+0004-Update-copyright-URL-branding-in-libpsm2-specfile.patch
+# Fix annocheck failure:
+# Hardened: ./usr/lib64/libpsm2.so.2.2: FAIL: cf-protection test because no .note.gnu.property section = no control flow information
+# Upstream pull request: https://github.com/cornelisnetworks/opa-psm2/pull/75
+9000-Apply-CFLAGS-to-assembly-file-compilation.patch
 
 %prep
 %autosetup -p1 -n opa-psm2-PSM2_%{version}

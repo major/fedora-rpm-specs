@@ -5,16 +5,13 @@
 %global crate tree-sitter-erlang
 
 Name:           rust-tree-sitter-erlang
-Version:        0.13.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Erlang grammar for the tree-sitter parsing library
 
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-erlang
 Source:         %{crates_source}
-# * LICENSE file not shipped, see
-#   https://github.com/whatsapp/tree-sitter-erlang/pull/12
-Source1:        https://raw.githubusercontent.com/WhatsApp/tree-sitter-erlang/364e323b32d098ad0e7b29e7adb4005c2bb5cf34/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,7 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -62,7 +58,6 @@ cp -p %{SOURCE1} .
 
 %install
 %cargo_install
-cp -p LICENSE %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

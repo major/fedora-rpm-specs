@@ -1,20 +1,19 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-user-docs
-Version:        50.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
 URL:            https://help.gnome.org/
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildArch:      noarch
 
 BuildRequires:  gettext
 BuildRequires:  itstool
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pkgconfig
 BuildRequires:  yelp-tools
 
@@ -23,17 +22,14 @@ This package contains end-user documentation for the GNOME desktop
 environment.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name} --all-name --with-gnome
 

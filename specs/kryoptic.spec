@@ -9,7 +9,7 @@
 %global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic,profiles
 
 Name:           kryoptic
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -33,11 +33,6 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
-# Manually created patch for downstream crate metadata changes
-# * Allow quick-xml 0.40: https://github.com/latchset/kryoptic/pull/460
-Patch:          kryoptic-fix-metadata.diff
-# https://github.com/latchset/kryoptic/pull/459
-Patch:          kryoptic-deadlock.patch
 
 
 BuildRequires:  cargo-rpm-macros >= 26

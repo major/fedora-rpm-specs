@@ -10,7 +10,7 @@
 # https://github.com/coreos/butane
 %global goipath         github.com/coreos/butane
 %global gomodulesmode   GO111MODULE=on
-Version:                0.28.0
+Version:                0.29.0
 
 %gometa -f
 
@@ -22,7 +22,7 @@ configs for provisioning operating systems that use Ignition.}
 %global godocs          docs README.md
 
 Name:           butane
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Butane config transpiler
 
 License:        Apache-2.0
@@ -148,6 +148,9 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Tue Jun 30 2026 Yasmin de Souza <ydesouza@redhat.com> - 0.29.0-1
+- New Release
+
 * Thu May 21 2026 Steven Presti <spresti@redhat.com> - 0.28.0-2
 - Update changelog to be accurate
 

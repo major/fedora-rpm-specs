@@ -1,8 +1,8 @@
 %global base_version 1.59
 
 Name:           perl-threads-shared
-Version:        1.70
-Release:        521%{?dist}
+Version:        1.73
+Release:        1%{?dist}
 Summary:        Perl extension for sharing data structures between threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-shared
@@ -24,6 +24,8 @@ Patch5:         threads-shared-1.64-Upgrade-to-1.68.patch
 Patch6:         threads-shared-1.68-Upgrade-to-1.69.patch
 # Unbundled from perl 5.42.0
 Patch7:         threads-shared-1.69-Upgrade-to-1.70.patch
+# Unbundled from perl 5.44.0-RC1
+Patch8:         threads-shared-1.70-Upgrade-to-1.73.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -121,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.73-1
+- Upgrade to 1.73 as provided in perl-5.44.0-RC1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

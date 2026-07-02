@@ -5,8 +5,8 @@
 
 # https://github.com/OpenPrinting/ipp-usb
 %global goipath         github.com/OpenPrinting/ipp-usb
-Version:                0.9.31
-%global tag             0.9.31
+Version:                0.9.34
+%global tag             0.9.34
 
 %gometa -L -f
 
@@ -120,6 +120,9 @@ export CGO_CFLAGS="%{build_cflags}" CGO_LDFLAGS="%{build_ldflags}"
 
 
 %changelog
+* Tue Jun 30 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.34-2
+- ipp-usb-0.9.34 is available (fedora#2463247, fedora#2484207, fedora#2494316)
+
 * Fri Mar 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.31-2
 - ipp-usb-0.9.31 is available (fedora#2443042)
 

@@ -13,6 +13,7 @@ Source1:        halflings-license.eml
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  pyproject-rpm-macros
 
 %description

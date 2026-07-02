@@ -3,13 +3,14 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 1.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
 Source0: https://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
+Patch0:  appstream-fcfreetype.patch
 
 # upstream patches
 
@@ -200,6 +201,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Thu Jun 11 2026 Akira TAGOH <tagoh@redhat.com> - 1.1.0-4
+- Add a backport patch to include fontconfig/fcfreetype.h header for FcFreeType* functions
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -13,9 +13,6 @@
 %global libarchive_version 3.6.0
 %global poppler_version 22.05.0
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           evince
 Version:        48.1
 Release:        %autorelease
@@ -23,7 +20,9 @@ Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 Patch:          evince-46.3.1-kpathsea-header-files.patch
 
@@ -160,10 +159,7 @@ This package brings the Evince previewer independently from Evince.
 It provides the printing preview for the GTK printing dialog.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

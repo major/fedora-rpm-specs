@@ -1,8 +1,8 @@
 %global gettext_version                         0.19.6
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
-%global gtk4_version                            3.24.27
-%global mutter_version                          50~beta
+%global gtk4_version                            4.0.0
+%global mutter_version                          51~alpha
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
@@ -13,17 +13,16 @@
 %bcond x11 0
 %endif
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-kiosk
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 %if %{with x11}
 Provides:       firstboot(windowmanager) = %{name}
@@ -43,7 +42,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
-BuildRequires:  pkgconfig(libmutter-18) >= %{mutter_version}
+BuildRequires:  pkgconfig(libmutter-51) >= %{mutter_version}
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
@@ -96,10 +95,7 @@ BuildArch:      noarch
 A basic notification daemon for gnome-kiosk.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -n %{name}-%{tarball_version}
+%autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Daccessibility-panel=true -Dnotification-daemon=true

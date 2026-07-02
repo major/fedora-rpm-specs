@@ -2,8 +2,8 @@
 
 Name:           perl-Time-HiRes
 Epoch:          4
-Version:        1.9778
-Release:        521%{?dist}
+Version:        1.9780
+Release:        1%{?dist}
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-HiRes
@@ -14,6 +14,8 @@ Patch0:         Time-HiRes-1.9764-Upgrade-to-1.9775.patch
 Patch1:         Time-HiRes-1.9775-Upgrade-to-1.9777.patch
 # Unbundled from perl 5.42.0
 Patch2:         Time-HiRes-1.9777-Upgrade-to-1.9778.patch
+# Unbundled from perl 5.44.0-RC1
+Patch3:         Time-HiRes-1.9778-Upgrade-to-1.9780.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -107,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.9780-1
+- Upgrade to 1.9780 as provided in perl-5.44.0-RC1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.9778-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-
 Name:           malcontent
 Version:        0.14.0
 Release:        %autorelease
@@ -7,16 +5,18 @@ Summary:        Parental controls implementation
 
 License:        LGPL-2.1-only AND CC-BY-3.0
 URL:            https://gitlab.freedesktop.org/pwithnall/%{name}/
-Source0:        https://tecnocode.co.uk/downloads/%{name}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://tecnocode.co.uk/downloads/%{name}/%{name}-%{gnome_tarball_version}.tar.xz
 Source1:        https://gitlab.gnome.org/pwithnall/libgsystemservice/-/archive/0.3.0/libgsystemservice-0.3.0.tar.bz2
 Source2:        gvdb.tar.xz
 Source3:        http://www.corpit.ru/mjt/tinycdb/tinycdb-0.81.tar.gz
+
+%gnome_check_version
 
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  cmake
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  gcc
 BuildRequires:  itstool
 BuildRequires:  desktop-file-utils
@@ -108,10 +108,7 @@ This package documentation for libmalcontent.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version} -S git
+%autosetup -p1 -n %{name}-%{gnome_tarball_version} -S git
 tar -xf %{SOURCE1} -C subprojects
 mv subprojects/libgsystemservice-0.3.0 subprojects/libgsystemservice
 tar -xf %{SOURCE2} -C subprojects

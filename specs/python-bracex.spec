@@ -2,8 +2,8 @@
 %global pypi_name bracex
 
 Name:           python-%{pypi_name}
-Version:        2.5
-Release:        8%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        Bash style brace expander
 
 License:        MIT
@@ -48,6 +48,9 @@ Brace expanding is used to generate arbitrary strings.
 %doc README.md
 
 %changelog
+* Tue Jun 30 2026 Parag Nemade <panemade AT redhat DOT com> - 3.0-1
+- Update to new version 3.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.5-8
 - Rebuilt for Python 3.15
 

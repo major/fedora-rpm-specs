@@ -1,10 +1,10 @@
-%global commit bbf6cf03104aed5f73ac2798bdb09dc63ea3adf8
+%global commit 22ec85e5ff5ea2e15c56d71a41bcbef46356cd60
 %if 0%{?rhel} && 0%{?rhel} < 10
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global shortcommit %{sub %{commit} 1 7}
 %endif
-%global commitdate 20260611
+%global commitdate 20260625
 
 
 Name:           steam-devices

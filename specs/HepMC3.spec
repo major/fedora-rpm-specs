@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -16,8 +16,6 @@ Source1:	valgrind-epel10.supp
 #		Valgrind suppression file for memory leak in protobuf
 #		library initialization (Fedora 45+)
 Source2:	valgrind-protobuf.supp
-#		Special version for ppc64le
-Source3:	valgrind-protobuf-ppc.supp
 #		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/400
 Patch0:		0001-Drop-obsolete-work-around-for-ppc64le-on-EPEL-7.patch
 
@@ -177,13 +175,8 @@ sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE1} !' \
 %endif
 
 %if %{?fedora}%{!?fedora:0} >= 45
-%ifarch %{power64}
-sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE3} !' \
-    -i test/CMakeLists.txt
-%else
 sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE2} !' \
     -i test/CMakeLists.txt
-%endif
 %endif
 
 %build
@@ -369,6 +362,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Tue Jun 30 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-12
+- Rebuild for root 6.40
+
 * Sat Jun 06 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-11
 - Suppress memory leak in protobuf library initialization
 

@@ -198,6 +198,7 @@ BuildRequires:  unzip
 Requires:       ed
 BuildRequires:  ed
 Requires:       python3-%{radicale_package_name} = %{version}-%{release}
+Requires:       %{radicale_package_name}-InfCloud-fontware = %{version}-%{release}
 
 %description -n %{radicale_package_name}-InfCloud
 Infcloud extension for Radicale internal WebUI
@@ -526,6 +527,10 @@ fi
 
 
 %changelog
+* Tue Jun 30 2026 Peter Bieringer <pb@bieringer.de
+- Add missing requirement InfCloud-fontware to InfCloud
+- Extend SELinux policy for access to /run/systemd/userdb/io.systemd.DynamicUser on start
+
 * Sun Jun 14 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.5-1
 - Update to 3.7.5
 

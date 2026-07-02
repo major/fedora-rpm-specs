@@ -1,9 +1,4 @@
-# Minimum GNOME Shell version supported
-%global min_gs_version %%(cut -d "." -f 1 <<<%{version})
-
 %global pkg_prefix gnome-shell-extension
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 %if 0%{?fedora} && 0%{?fedora} < 43
 %bcond x11 1
@@ -12,20 +7,22 @@
 %endif
 
 Name:           gnome-shell-extensions
-Version:        50.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
 License:        GPL-2.0-or-later
-URL:            http://wiki.gnome.org/Projects/GnomeShell/Extensions
-Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+URL:            https://gitlab.gnome.org/GNOME/gnome-shell-extensions
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  meson
 BuildRequires:  git-core
 BuildRequires:  gettext >= 0.19.6
 BuildRequires:  glib2%{?_isa}
 BuildRequires:  pkgconfig(systemd)
-Requires:       gnome-shell >= %{min_gs_version}
+Requires:       gnome-shell >= %{gnome_major_version}
 BuildArch:      noarch
 
 %description
@@ -52,7 +49,7 @@ Enabled extensions:
 %package -n %{pkg_prefix}-common
 Summary:        Files common to GNOME Shell Extensions
 License:        GPL-2.0-or-later
-Requires:       gnome-shell >= %{min_gs_version}
+Requires:       gnome-shell >= %{gnome_major_version}
 Obsoletes:      %{pkg_prefix}-horizontal-workspaces < 40.0~alpha.1-3
 
 %description -n %{pkg_prefix}-common
@@ -231,10 +228,7 @@ workspaces.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -n %{name}-%{tarball_version}
+%autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 
 %build

@@ -1,6 +1,6 @@
 Name:           bwbasic
 Version:        3.20g
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Bywater BASIC Interpreter
 
 # All files GPL-2.0-only except unixio.h which is public domain
@@ -31,9 +31,6 @@ BASIC Interpreter.
 
 %prep
 %autosetup -n %{name} -p1
-# Use Fedora build flags
-sed -i 's|^CFLAGS=-s -ansi|^CFLAGS=-s -ansi %{build_cflags}|g' Makefile
-sed -i 's|^LDFLAGS=|^LDFLAGS=%{build_ldflags} -nostartfiles|g' Makefile
 
 dos2unix DOCS/*.txt
 dos2unix README
@@ -76,6 +73,9 @@ cp -p -r DOCS %{buildroot}/%{_docdir}/bwbasic
 %{_docdir}/bwbasic/DOCS/*.HTM
 
 %changelog
+* Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.20g-6
+- Fix FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.20g-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

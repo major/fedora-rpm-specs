@@ -8,6 +8,8 @@ URL:            https://hercstudio.sourceforge.io/
 Source0:        %{url}/herculesstudio-%{version}-src.tar.gz
 # borrowed from Debian
 Source1:        HerculesStudio.1
+# fix build with latest Qt6
+Patch0:         qt610.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -31,6 +33,7 @@ sed -i '/CMAKE_CXX_FLAGS/d' CMakeLists.txt
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

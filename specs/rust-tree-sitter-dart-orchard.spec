@@ -5,7 +5,7 @@
 %global crate tree-sitter-dart-orchard
 
 Name:           rust-tree-sitter-dart-orchard
-Version:        0.2.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Parser for Dart files
 

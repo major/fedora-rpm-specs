@@ -1,7 +1,7 @@
 %global base_version 0.94
 Name:           perl-Filter-Simple
-Version:        0.96
-Release:        521%{?dist}
+Version:        0.97
+Release:        1%{?dist}
 Summary:        Simplified Perl source filtering
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filter-Simple
@@ -11,6 +11,8 @@ BuildArch:      noarch
 Patch0:         Filter-Simple-0.94-Upgrade-to-0.95.patch
 # Unbundled from perl 5.32.0
 Patch1:         Filter-Simple-0.94-Upgrade-to-0.96.patch
+# Unbundled from perl 5.44.0-RC1
+Patch2:         Filter-Simple-0.96-Update-to-0.97.patch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -52,6 +54,7 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n Filter-Simple-%{base_version}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -89,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.97-1
+- Upgrade to 0.97 as provided in perl-5.44.0-RC1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

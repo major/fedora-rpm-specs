@@ -9,7 +9,7 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
@@ -38,6 +38,7 @@ BuildRequires:  ansible-packaging-tests
 # Exclude some files from being installed
 cat << 'EOF' >> galaxy.yml
 build_ignore:
+- .agents
 - .azure-pipelines
 - .github
 - .gitignore
@@ -67,6 +68,38 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Tue Jun 30 2026 Paul Howarth <paul@city-fan.org> - 2.3.0-1
+- Update to 2.3.0 (rhbz#2494563)
+  - This is a minor release of the community.libvirt collection
+  - inventory: Added option 'alternate_id_groups' (default 'true')
+  - inventory: Added option 'filter' (default '.*') to include domains by name
+    or uuid that match regex
+  - inventory: Added checks to prevent powered-off hosts from being issued
+    guest agent calls
+  - plugins: Replaced deprecated imports from 'ansible.module_utils._text' with
+    'ansible.module_utils.common.text.converters' to avoid ansible-core
+    deprecation warnings and prepare for removal of the private import path in
+    ansible-core 2.24
+  - virt: Add 'get_ifaddresses' function to retrieve domain interface addresses
+  - virt_cloud_instance: Add support for compressed base images (gzip, bzip2,
+    xz)
+  - virt_cloud_instance: Add passt network support via shared network schema
+    (GH#231)
+  - virt_cloud_instance: Added cloud-config header when converting cloud-init
+    user-data from dictionary form
+  - virt_cloud_instance: Check if instance exists and not running before
+    calling 'create()'
+  - virt_install: Add 'wait_timeout' parameter to wait for multi-phase
+    unattended installs to complete
+  - virt_install: Add 'wwn' parameter to disk specifications for setting the
+    World Wide Name of a disk device (GH#271)
+  - virt_install: Add passt network support with 'value' shorthand and
+    structured 'type: user' form (GH#231)
+  - virt_install: Added cloud-config header when converting cloud-init
+    user-data from dictionary form
+  - virt_install: Remove incorrect 'required=True' from 'install.os' parameter
+    to allow 'install.no_install=true' without specifying an OS
+
 * Mon Mar 30 2026 Paul Howarth <paul@city-fan.org> - 2.2.0-1
 - Update to 2.2.0 (rhbz#2452926)
   - This is a minor release of the community.libvirt collection

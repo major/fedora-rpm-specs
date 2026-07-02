@@ -4,7 +4,7 @@
 %global crate difftastic
 
 Name:           rust-difftastic
-Version:        0.67.0
+Version:        0.69.0
 Release:        %autorelease
 Summary:        Structural diff that understands syntax
 
@@ -12,14 +12,13 @@ License:        MIT
 URL:            https://crates.io/crates/difftastic
 Source:         %{crates_source}
 # * manpage
-Source1:        https://github.com/Wilfred/difftastic/raw/%{version}/difft.1
+Source2:        https://github.com/Wilfred/difftastic/raw/%{version}/difft.1
 # Manually created patch for downstream crate metadata changes
 # * drop crossterm/windows
 # * bump hashbrown from 0.14 to 0.16
 # * relax upper bound on ignore
 # * allow strum 0.27: https://github.com/Wilfred/difftastic/pull/822
 # * temporarily drop tree-sitter-clojure-orchard, pending legal clarification
-# * bump tree-sitter-ocaml from 0.23.2 to 0.24
 # * allow tikv-jemallocator 0.7: https://github.com/Wilfred/difftastic/pull/985
 Patch:          difftastic-fix-metadata.diff
 # * strip out Clojure support from the codebase
@@ -72,7 +71,7 @@ License:        %{shrink:
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 # manpage
-cp -p %{SOURCE1} .
+cp -p %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

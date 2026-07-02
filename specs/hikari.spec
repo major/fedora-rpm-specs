@@ -1,26 +1,29 @@
 Name:           hikari
-Version:        2.3.3
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Stacking Wayland compositor with tiling capabilities
 
 License:        BSD-2-Clause
-URL:            https://hikari.acmelabs.space/
-Source0:        %{url}/releases/%{name}-%{version}.tar.gz
+URL:            https://codeberg.org/thomasadam/hikari
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires: bmake
-BuildRequires: mk-files
-BuildRequires: gcc
-BuildRequires: pkgconfig(wayland-protocols)
-BuildRequires: pkgconfig(libucl)
-BuildRequires: (pkgconfig(wlroots) >= 0.15 with pkgconfig(wlroots) < 0.16)
-BuildRequires: pkgconfig(pango)
-BuildRequires: pkgconfig(cairo)
-BuildRequires: pkgconfig(libinput)
-BuildRequires: pkgconfig(libevdev)
-BuildRequires: glib2-devel
-BuildRequires: pixman-devel
-BuildRequires: pam-devel
-Recommends: xorg-x11-server-Xwayland
+BuildRequires:  bmake
+BuildRequires:  gcc
+BuildRequires:  glib2-devel
+BuildRequires:  mk-files
+BuildRequires:  pam-devel
+BuildRequires:  pandoc-cli
+BuildRequires:  pixman-devel
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(libevdev)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(libucl)
+BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(wayland-server)
+BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(xkbcommon)
+Recommends:     xorg-x11-server-Xwayland
 
 %description
 Hikari is a stacking Wayland compositor with additional tiling capabilities, it
@@ -28,7 +31,7 @@ is heavily inspired by the Calm Window manager (cwm(1)). Its core concepts are
 views, groups, sheets and the workspace.
 
 %prep
-%autosetup
+%autosetup -n %{name}
 
 %build
 %set_build_flags
@@ -37,7 +40,7 @@ export LDFLAGS_EXTRA="$LDFLAGS"
 bmake WITH_POSIX_C_SOURCE=YES \
       WITH_XWAYLAND=YES \
       WITH_SCREENCOPY=YES \
-      WITH_GAMMACONTOL=YES \
+      WITH_GAMMACONTROL=YES \
       WITH_LAYERSHELL=YES \
       WITH_VIRTUAL_INPUT=YES
 
@@ -53,10 +56,13 @@ for binary in %{buildroot}/usr/bin/hikari %{buildroot}/usr/bin/hikari-unlocker; 
       chmod 0755 "${binary:?}"
 done
 
+%check
+# No upstream tests are available
+
 %files
 %license LICENSE
 %doc README.md
-%config %{_sysconfdir}/pam.d/%{name}-unlocker
+%config(noreplace) %{_sysconfdir}/pam.d/%{name}-unlocker
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %attr(0755, root, root) %{_bindir}/%{name}
 %attr(0755, root, root) %{_bindir}/%{name}-unlocker

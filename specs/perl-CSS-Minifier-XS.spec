@@ -1,5 +1,5 @@
 Name:       perl-CSS-Minifier-XS
-Version:    0.14
+Version:    0.15
 Release:    1%{?dist}
 # lib/CSS/Minifier/XS.pm -> GPL+ or Artistic
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,9 @@ in XS and not just pure Perl.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Jun 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
+- Update to 0.15
+
 * Mon Jun 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
 - Update to 0.14
 - Clean up dependencies

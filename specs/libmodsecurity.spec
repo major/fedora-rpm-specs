@@ -1,5 +1,5 @@
 Name: libmodsecurity
-Version: 3.0.15
+Version: 3.0.16
 Release: %autorelease
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
@@ -7,7 +7,7 @@ License: Apache-2.0
 URL: https://github.com/owasp-modsecurity/ModSecurity
 
 Source0: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
-Source1: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz.sig
+Source1: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz.asc
 # Key 0B2BA1924065B44691202A2AD286E022149F0F6E
 Source2: OWASP_ModSecurity.asc
 

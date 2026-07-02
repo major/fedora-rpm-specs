@@ -6,7 +6,7 @@
 Name:           rust-siguldry
 Version:        0.7.2
 Release:        %autorelease
-Summary:        Implementation of the Sigul protocol
+Summary:        Signing server and client
 
 License:        MIT
 URL:            https://crates.io/crates/siguldry
@@ -17,7 +17,7 @@ Source11:       siguldry-tmpfiles.conf
 # * The binary is incomplete and may change its interface significantly
 # * Remove unused, benchmark-only dev-dependency on criterion
 # * Allow older asn1 0.22, RHBZ#2402490
-# * Allow older pyo3 0.27, RHBZ#2435852
+# * Update PyO3 to 0.29, https://github.com/fedora-infra/siguldry/pull/232
 Patch:          siguldry-fix-metadata.diff
 
 ExcludeArch:    %{ix86}
@@ -34,7 +34,7 @@ BuildRequires:  softhsm
 %endif
 
 %global _description %{expand:
-An implementation of the Sigul protocol.}
+A signing server and client.}
 
 %description %{_description}
 
@@ -52,11 +52,10 @@ Summary:        %{summary}
 # LGPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
-# MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (BSD-3-Clause) AND (BSL-1.0) AND (ISC) AND (LGPL-2.0-or-later) AND (MIT) AND (MIT OR Apache-2.0) AND (MPL-2.0) AND (Unicode-3.0) AND (Unlicense OR MIT) AND (Zlib)
+License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (BSD-3-Clause) AND (BSL-1.0) AND (ISC) AND (LGPL-2.0-or-later) AND (MIT) AND (MIT OR Apache-2.0) AND (Unicode-3.0) AND (Unlicense OR MIT) AND (Zlib)
 # LICENSE.dependencies contains a full license breakdown
 
 %post -n %{crate}

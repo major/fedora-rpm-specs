@@ -5,7 +5,7 @@
 %global crate tree-sitter-rust-orchard
 
 Name:           rust-tree-sitter-rust-orchard
-Version:        0.13.0
+Version:        0.16.7
 Release:        %autorelease
 Summary:        Grammar for Rust that aims to be closer to the actual AST
 

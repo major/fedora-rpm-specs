@@ -1,5 +1,5 @@
 Name:           moreutils
-Version:        0.68
+Version:        0.70
 Release:        %autorelease
 Summary:        Additional unix utilities
 # Automatically converted from old format: GPLv2 - review is highly recommended.

@@ -2,8 +2,6 @@
 
 %bcond bundled_rust_deps %{defined rhel}
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           snapshot
 Version:        50.0
 Release:        %autorelease
@@ -42,7 +40,9 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/snapshot
-Source:         https://download.gnome.org/sources/snapshot/50/snapshot-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # Downstream patch to disable linting as part of self tests
 Patch:          0001-Remove-clippy-tests-linters-should-not-be-run-downst.patch
@@ -84,7 +84,7 @@ Take pictures and videos on your computer, tablet, or phone.
 
 
 %prep
-%autosetup -p1 -n snapshot-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %if %{with bundled_rust_deps}
 %cargo_prep -v vendor

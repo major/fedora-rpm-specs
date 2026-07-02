@@ -2,7 +2,7 @@
 
 Name:    unixODBC
 Version: 2.3.14
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -59,6 +59,7 @@ autoreconf -vfi
 %configure \
   --with-gnu-ld=yes \
   --enable-threads=yes \
+  --enable-fastvalidate \
   --enable-drivers=no \
   --with-odbc-driver-path=%{_libdir}/odbc \
 %if %{with gui_related_parts}

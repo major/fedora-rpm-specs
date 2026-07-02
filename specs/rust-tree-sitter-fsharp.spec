@@ -5,16 +5,13 @@
 %global crate tree-sitter-fsharp
 
 Name:           rust-tree-sitter-fsharp
-Version:        0.1.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Fsharp grammar for the tree-sitter parsing library
 
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-fsharp
 Source:         %{crates_source}
-# * LICENSE file not shipped, see
-#   https://github.com/ionide/tree-sitter-fsharp/pull/155
-Source1:        https://raw.githubusercontent.com/ionide/tree-sitter-fsharp/refs/tags/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,7 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -62,7 +58,6 @@ cp -p %{SOURCE1} .
 
 %install
 %cargo_install
-cp -p LICENSE %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

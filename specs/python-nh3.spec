@@ -1,14 +1,14 @@
 Name:           python-nh3
-Version:        0.3.5
+Version:        0.3.6
 Release:        %autorelease
 Summary:        Python binding to Ammonia HTML sanitizer Rust crate
 License:        MIT
 URL:            https://github.com/messense/nh3
 Source:         %{pypi_source nh3}
 
-# Omit the generate-import-lib feature of the pyo3 dependency, since it is
-# specific to Windows, and we do not package it.
-Patch:          generate-import-lib-dep.patch
+# Don’t depend on deprecated pyo3/generate-import-lib feature
+# https://github.com/messense/nh3/pull/136
+Patch:          %{url}/pull/136.patch#/generate-import-lib-dep.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  python3-devel
@@ -31,8 +31,9 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
+# MPL-2.0
 # Unicode-3.0
-License:        %{license} AND (Apache-2.0 OR MIT) AND Unicode-3.0
+License:        %{license} AND (Apache-2.0 OR MIT) AND MPL-2.0 AND Unicode-3.0
 
 %description -n python3-nh3 %_description
 

@@ -1,6 +1,6 @@
 Name:           wordnet
 Version:        3.0
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        A lexical database for the English language
 
 License:        MIT and GPL-2.0-or-later
@@ -28,8 +28,8 @@ BuildRequires:  gzip
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  tar
-BuildRequires:  tcl-devel
-BuildRequires:  tk-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 
 %description
 WordNet is a large lexical database of English, developed under the direction
@@ -143,6 +143,9 @@ rm -rf doc/{html,ps,pdf}/Makefile*
 
 
 %changelog
+* Tue Jun 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0-51
+- Build with Tcl 8
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

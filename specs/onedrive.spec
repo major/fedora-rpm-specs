@@ -2,8 +2,8 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.5.10
-Release:        2%{?dist}
+Version:        2.5.11
+Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -58,10 +58,14 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %{_unitdir}/%{name}@.service
 %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/icons/hicolor/scalable/places/onedrive.svg
+%{_datadir}/icons/hicolor/scalable/apps/onedrive-notifications.svg
 %{_docdir}/%{name}
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Wed Jul 01 2026 Zamir SUN <sztsian@gmail.com> - 2.5.11-1
+- Update to 2.5.11 (#2494811)
+
 * Wed Mar 04 2026 Kalev Lember <kalevlember@gmail.com> - 2.5.10-2
 - Rebuilt for ldc 1.42
 

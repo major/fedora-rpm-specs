@@ -1,20 +1,36 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 %if 0%{?rhel}
 %global portal_helper 0
 %else
 %global portal_helper 1
 %endif
 
+%define eds_version 3.45.1
+%define glib2_version 2.86.0
+%define gjs_version 1.87.1
+%define gtk4_version 4.0.0
+%define mutter_version 51~alpha
+%define polkit_version 0.100
+%define gsettings_desktop_schemas_version 50~alpha
+%define gnome_desktop_version 44.0-7
+%define pipewire_version 0.3.49
+
+# runtime dependency
+%define adwaita_version 1.5.0
+%define ibus_version 1.5.2
+%define gnome_bluetooth_version 1:42.3
+%define gstreamer_version 1.4.5
+%define gnome_settings_daemon_version 3.37.1
+
 Name:           gnome-shell
-Version:        50.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
-Source0:        https://download.gnome.org/sources/gnome-shell/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch: gnome-shell-favourite-apps-firefox.patch
@@ -22,21 +38,6 @@ Patch: gnome-shell-favourite-apps-firefox.patch
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-%define eds_version 3.45.1
-%define gnome_desktop_version 44.0-7
-%define glib2_version 2.86.0
-%define gjs_version 1.85.90
-%define gtk4_version 4.0.0
-%define adwaita_version 1.5.0
-%define mutter_version 50~alpha
-%define polkit_version 0.100
-%define gsettings_desktop_schemas_version 50~alpha
-%define ibus_version 1.5.2
-%define gnome_bluetooth_version 1:42.3
-%define gstreamer_version 1.4.5
-%define pipewire_version 0.3.49
-%define gnome_settings_daemon_version 3.37.1
 
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
@@ -141,7 +142,7 @@ Requires:     webkitgtk6.0%{?_isa}
 ExcludeArch:    %{ix86}
 %endif
 
-Provides:       gnome-shell(api) = %{major_version}
+Provides:       gnome-shell(api) = %{gnome_major_version}
 Provides:       desktop-notification-daemon = %{version}-%{release}
 Provides:       PolicyKit-authentication-agent = %{version}-%{release}
 Provides:       bundled(gvc)
@@ -178,14 +179,10 @@ BuildArch: noarch
 %{summary}
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -n %{name}-%{tarball_version}
+%autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \
-  -Dextensions_app=false \
 %if %{portal_helper}
   -Dportal_helper=true \
 %else

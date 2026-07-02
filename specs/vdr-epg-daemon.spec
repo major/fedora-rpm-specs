@@ -12,7 +12,7 @@
 
 Name:           vdr-epg-daemon
 Version:        1.3.29
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
@@ -43,7 +43,8 @@ BuildRequires:  libarchive-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-units
 BuildRequires:  vdr-devel >= %{vdr_version}
-Requires:       mariadb-server
+Requires:       mariadb-server-any
+Recommends:     mariadb-server
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
 Requires(postun): systemd-units
@@ -138,6 +139,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Tue Jun 30 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-16
+- Use '-any' virtual provides for MariaDB/MySQL dependencies
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.29-15
 - Rebuilt for openssl 4.0
 

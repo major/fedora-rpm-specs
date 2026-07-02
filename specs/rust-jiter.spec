@@ -5,7 +5,7 @@
 %global crate jiter
 
 Name:           rust-jiter
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Fast Iterable JSON parser
 
@@ -14,8 +14,6 @@ URL:            https://crates.io/crates/jiter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dependency codspeed-criterion-compat
-# * Update to PyO3 0.29 (#254):
-#   https://github.com/pydantic/jiter/commit/2fe4246c71c003ddb32c943e3b432925f05f7d3c
 Patch:          jiter-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -73,6 +71,18 @@ This package contains library source intended for building other packages which
 use the "python" feature of the "%{crate}" crate.
 
 %files       -n %{name}+python-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

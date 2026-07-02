@@ -188,10 +188,16 @@ end
 %ifarch %{ix86}
 %bcond_with pgo
 %else
+# Disable PGO on s390x temporarily in order to reduce LLVM build time and
+# disk usage.
+%if %{maj_ver} >= 23 && "%{_arch}" == "s390x"
+%bcond_with pgo
+%else
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
 %bcond_without pgo
 %else
 %bcond_with pgo
+%endif
 %endif
 %endif
 
@@ -209,11 +215,16 @@ end
 %ifarch %ix86 riscv64
 %bcond_with lto_build
 %else
+# Disable LTO on s390x in order to reduce LLVM build time.
+%if %{maj_ver} >= 23 && "%{_arch}" == "s390x"
+%bcond_with pgo
+%else
 %if %{defined rhel} && 0%{?rhel} <= 8
 # LTO builds got enabled on Fedora and RHEL >= 9 only.
 %bcond_with lto_build
 %else
 %bcond_without lto_build
+%endif
 %endif
 %endif
 
@@ -1537,6 +1548,49 @@ cd llvm/utils/lit
 
 %global cfg_file_content %{gcc_triple}
 %global cfg_file_content_flang %{gcc_triple}
+
+%ifarch ppc64le
+%if 0%{?rhel} >= 10
+%global cfg_file_content %{cfg_file_content} -mcpu=power9 -mtune=power10
+%else
+%if 0%{?rhel} >= 9
+%global cfg_file_content %{cfg_file_content} -mcpu=power9 -mtune=power9
+%else
+# Fedora, RHEL 8
+%global cfg_file_content %{cfg_file_content} -mcpu=power8 -mtune=power8
+%endif
+%endif
+%endif
+
+%ifarch s390x
+%if 0%{?rhel} >= 11 || 0%{?fedora} >= 45
+%global cfg_file_content %{cfg_file_content} -march=z15 -mtune=z17
+%else
+%if 0%{?rhel} >= 10
+%global cfg_file_content %{cfg_file_content} -march=z14 -mtune=z16
+%else
+%if 0%{?rhel} >= 9
+%global cfg_file_content %{cfg_file_content} -march=z14 -mtune=z15
+%else
+# Fedora 44 and earlier, RHEL 8
+%global cfg_file_content %{cfg_file_content} -march=z13 -mtune=z14
+%endif
+%endif
+%endif
+%endif
+
+%ifarch x86_64
+%if 0%{?rhel} >= 10
+%global cfg_file_content %{cfg_file_content} -march=x86-64-v3
+%else
+%if 0%{?rhel} >= 9
+%global cfg_file_content %{cfg_file_content} -march=x86-64-v2
+%else
+# Fedora, RHEL 8
+%global cfg_file_content %{cfg_file_content} -march=x86-64
+%endif
+%endif
+%endif
 
 # We want to use DWARF-5 on all snapshot builds.
 %if %{without snapshot_build} && %{defined rhel} && 0%{?rhel} < 10

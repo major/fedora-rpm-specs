@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.2.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -23,7 +23,7 @@ Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
 Source1: mercurial-site-start.el
 # Patch cargo metadata for dependency versions available in Fedora
 Patch0:  mercurial-rust-metadata.patch
-Patch1:  fix-compat-with-python315.patch
+Patch1:  mercurial_without_TLSv1_2.patch
 
 BuildRequires: make
 BuildRequires: emacs-el
@@ -280,6 +280,10 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Tue Jun 30 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.3-3
+- Drop Python 3.15 patch that apparently isn't necessary.
+- Add patch for Python 3.15 with OpenSSL 4.0 and no TLSv1.2
+
 * Mon Jun 29 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.3-2
 - Update patch that intended to fix a problem that couldn't be verified.
 

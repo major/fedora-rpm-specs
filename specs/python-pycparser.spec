@@ -10,6 +10,10 @@ URL:            https://github.com/eliben/pycparser
 Source0:        %{url}/archive/release_v%{version}/pycparser-release_v%{version}.tar.gz
 Source1:        pycparser-3.00-remove-relative-sys-path.py
 
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+Patch:          https://github.com/eliben/pycparser/commit/8c219ec6.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

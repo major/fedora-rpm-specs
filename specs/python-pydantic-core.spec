@@ -19,7 +19,8 @@ URL:            https://github.com/pydantic/pydantic-core
 Source:         %{pypi_source pydantic_core}
 
 # Manually created patch for downstream crate metadata changes
-# * Allow jiter 0.15. API changes from 0.14 to 0.15 are purely additive, so
+# * Allow jiter 0.15 and 0.16. API changes from 0.14 to 0.16 are purely
+#   additive, plus switching to PyO3 0.29, which we are also doing here, so
 #   this is compatible. Downstream-only because jiter is developed by the
 #   Pydantic people, and we can reasonably assume that they will update in due
 #   course without prompting from us.

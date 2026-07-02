@@ -1,11 +1,11 @@
 %global srcname queuelib
 
 Name:           python-queuelib
-Version:        1.8.0
-Release:        7%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/scrapy/queuelib
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -46,6 +46,10 @@ Python. Queuelib goals are speed and simplicity.
 %license LICENSE
 
 %changelog
+* Tue Jun 30 2026 Eduardo Echeverria <echevemaster@gmail.com> - 1.9.0-1
+- Update to 1.9.0 (added Python 3.14 support, dropped Python 3.9/PyPy 3.10)
+- Correct license tag to BSD-3-Clause
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.8.0-7
 - Rebuilt for Python 3.15
 
