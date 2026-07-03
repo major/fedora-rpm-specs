@@ -1,3 +1,7 @@
+# bootstrap is needed to break the loop with python-mdit-py-plugins.
+# Additionaly we use it to not require python-pytest-regressions for the build,
+# as it has a heavy dependency chain, possible much later in the new Python bootstrap
+%bcond bootstrap 0
 %global pypi_name markdown-it-py
 
 Name:           python-%{pypi_name}
@@ -15,7 +19,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 # The plugins extras creates a bootstrap loop
-%bcond plugins 1
+%bcond plugins %{without bootstrap}
 
 %global _description %{expand:
 Markdown parser done right. Its features:
@@ -44,6 +48,9 @@ sed -i '1{\@^#!/usr/bin/env python@d}' markdown_it/cli/parse.py
 # https://github.com/executablebooks/markdown-it-py/issues/195
 sed -i '/"coverage",/d' pyproject.toml
 sed -i '/"pytest-cov",/d' pyproject.toml
+%if %{with bootstrap}
+sed -i '/"pytest-regressions",/d' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -x testing,linkify%{?with_plugins:,plugins}
@@ -56,7 +63,7 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 %pyproject_save_files markdown_it
 
 %check
-%pytest tests/
+%pytest tests/ %{?with_bootstrap:-k "not test_pretty and not test_table_tokens and not test_file and not test_use_existing_env and not test_store_labels and not test_inline_definitions"}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE LICENSE.markdown-it

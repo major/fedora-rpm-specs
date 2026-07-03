@@ -1,9 +1,11 @@
-%global commit 1be041bc77d2039c5a856352b64deef9693ec316
+%undefine commit
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date 20260117
 
+%bcond bundled_dr_libs 0
+
 Name:           SDL2_sound
-Version:        2.0.5^%{date}git%{shortcommit}
+Version:        2.0.6
 Release:        1%{?dist}
 Summary:        An abstract soundfile decoder library
 # src/dr_{flac,mp3}.h: Unlicense or MIT-0
@@ -17,6 +19,7 @@ Source0:        https://github.com/icculus/SDL_sound/archive/%{commit}/%{name}-%
 %else
 Source0:        https://github.com/icculus/SDL_sound/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
+Patch0:         %{name}-unbundle-dr_libs.patch
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -30,8 +33,14 @@ Provides:       bundled(libmodplug) = 0.8.9.1
 # 2.x lacks both this routine and the SDL_IO_SEEK_CUR needed for its
 # implementation, SDL_SeekIO(x, 0, SDL_IO_SEEK_CUR). Instead, we fall back to
 # using the bundled dr_flac and dr_mp3 libraries.
+%if %{with bundled_dr_libs}
 Provides:       bundled(dr_flac) = 0.13.3
 Provides:       bundled(dr_mp3) = 0.7.3
+%else
+# Header-only libraries (thus the -static)
+BuildRequires:  dr_flac-static >= 0.13.3
+BuildRequires:  dr_mp3-static >= 0.7.3
+%endif
 # This has been forked; see "#ifdef __SDL_SOUND_INTERNAL__"
 Provides:       bundled(stb_vorbis) = 1.22
 # SDL_mixer fork, stripped further, see https://github.com/icculus/SDL_sound/tree/main/src/timidity/CHANGES
@@ -63,14 +72,20 @@ This package contains the headers and libraries for SDL_sound development.
 
 %prep
 %if 0%{?commit:1}
-%autosetup -n SDL_sound-%{commit} -p1
+%setup -q -n SDL_sound-%{commit}
 %else
-%autosetup -n SDL_sound-%{version} -p1
+%setup -q -n SDL_sound-%{version}
+%endif
+%if %{without bundled_dr_libs}
+%patch -P0 -p1 -b .orig
+# Unbundle dr_flac and dr_mp3, from dr_libs.
+rm src/dr_flac.h src/dr_mp3.h
 %endif
 
 %build
 %cmake \
     -DSDLSOUND_BUILD_STATIC:BOOL=OFF \
+    -DSDLSOUND_BUILD_TEST:BOOL=OFF \
     -DSDLSOUND_DECODER_MIDI:BOOL=ON \
 
 %cmake_build
@@ -108,7 +123,6 @@ mv man3 %{buildroot}/%{_mandir}
 %files
 %license LICENSE.txt
 %doc docs/CREDITS.txt README.md
-%{_bindir}/playsound
 %{_libdir}/libSDL2_sound.so.2{,.*}
 
 %files devel
@@ -121,6 +135,11 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Tue Jun 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0.6-1
+- update to 2.0.6
+- unbundle dr_flac and dr_mp3 and make it conditional
+- drop the playsound binary (it's provided by SDL3_sound)
+
 * Thu Mar 05 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0.5^20260117git1be041b-1
 - update to 20260117 snapshot from stable-2.0 branch
 - fixes CVE-2025-14369 (resolves rhbz#2431177)

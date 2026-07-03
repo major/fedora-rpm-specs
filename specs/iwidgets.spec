@@ -1,28 +1,28 @@
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
-%{!?tcl_sitelib: %define tcl_sitelib %{_datadir}/tcl%{tcl_version}}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh || echo 0)}
+%{!?tcl_sitelib: %global tcl_sitelib %{_datadir}/tcl%{tcl_version}}
+%global abi_version  %(echo %{tcl_version} | sed 's/^\([^.]*\.[^.]*\).*/\1/')
 
 Name:           iwidgets
 Version:        4.1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A set of useful widgets based on itcl and itk
 
 License:        MIT
 URL:            http://incrtcl.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/sourceforge/incrtcl/iwidgets-%{version}.tar.gz
-Patch0:         iwidgets-calls.patch
-Patch1:         iwidgets4.0.1-wish85.diff
+Patch0:         iwidgets-4.1.1-tcl9.patch
+Patch1:         iwidgets-4.1.1-calls.patch
+Patch2:         iwidgets-4.1.1-wish85.patch
 
 BuildArch:      noarch
-Requires:       tcl(abi) = 8.6 itk
-BuildRequires:  tcl itcl-devel
+Requires:       tcl(abi) = %{abi_version} itk
+BuildRequires:  tcl
 
 %description
 A set of useful widgets based on itcl and itk.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .calls
-%patch -P1 -p1 -b .wish85
+%autosetup -p 1
 
 %build
 # The configure script and Makefile for this package is horribly broken.
@@ -64,6 +64,9 @@ rm %{buildroot}/%{_mandir}/mann/panedwindow.n
 # This file conflicts with the one from tklib
 rm %{buildroot}/%{_mandir}/mann/datefield.n
 
+%check
+# No tests.
+
 %files
 %{tcl_sitelib}/iwidgets%{version}
 %{_mandir}/mann/*
@@ -71,6 +74,9 @@ rm %{buildroot}/%{_mandir}/mann/datefield.n
 %doc README doc/iwidgets.ps
 
 %changelog
+* Wed Jul  1 2026 Patrick Monnerat <patrick@monnerat.net> 4.1.1-17
+- Patch "tcl9" for Tcl version 9 compatibility.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

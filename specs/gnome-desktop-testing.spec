@@ -1,5 +1,3 @@
-%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
-
 Name:           gnome-desktop-testing
 Version:        2021.1
 Release:        %autorelease
@@ -7,7 +5,7 @@ Summary:        GNOME test runner for installed tests
 
 License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-desktop-testing
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(libsystemd)

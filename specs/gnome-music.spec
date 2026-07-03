@@ -5,9 +5,6 @@
 %global pygobject_version 3.47.0
 %global tracker_sparql_version 2.99.3
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
-
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
 Version:       49.1
@@ -19,7 +16,9 @@ Release:       %autorelease
 # Also: https://bugzilla.gnome.org/show_bug.cgi?id=706457
 License:       (GPL-2.0-or-later WITH GStreamer-exception-2008) AND CC-BY-SA-3.0 AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util
@@ -61,7 +60,7 @@ Music player and management application for GNOME.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

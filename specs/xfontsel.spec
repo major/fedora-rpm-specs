@@ -1,22 +1,34 @@
 Name:           xfontsel
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Tool to list X11 core protocol fonts
 
-# The entire source is X11, except the following files that are not installed
-# or belong to the build system and therefore do not contribute to the license
-# of the binary RPMs…
-License:        X11
-# FSFAP-no-warranty-disclaimer
+# The upstream COPYING file (and meson.build) show that the license is (X11 AND
+# SMLNJ AND MIT). The exact breakdown of which licenses apply to which sources
+# is only clear for those sources that contain copyright notices:
+#
+# X11:
+#   - app-defaults/XFontSel (produces %%{_datadir}/X11/app-defaults/XFontSel)
+#   - man/xfontsel.man (produces %%{_mandir}/man1/xfontsel.1*)
+# X11 AND SMLNJ:
+#   - ULabel.c, ULabel.h, ULabelP.h
+# X11 AND MIT:
+#   - xfontsel.c
+# Additionally, a number of files belong to the build system and therefore do
+# not contribute to the license of the binary RPM. These are documented below.
+License:        X11 AND SMLNJ AND MIT
+# FSFAP:
 #   - INSTALL
 # FSFUL AND HPND-sell-variant:
 # (HPND-sell-variant is because it is derived from configure.ac)
 #   - configure
 # FSFULLR AND FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic
-# AND MIT AND GPL-3.0-or-later WITH Autoconf-exception-generic AND X11
+# AND MIT AND GPL-3.0-or-later WITH Autoconf-exception-generic AND X11:
 #   - aclocal.m4
-# FSFULLR AND HPND-sell-variant:
+# FSFULLRWD AND HPND-sell-variant:
 #   - Makefile.in
+# FSFULLRWD:
+#   - man/Makefile.in
 # GPL-2.0-or-later WITH Autoconf-exception-generic:
 #   - compile
 #   - depcomp
@@ -27,9 +39,13 @@ License:        X11
 # HPND-sell-variant:
 #   - Makefile.am
 #   - configure.ac
+# MIT:
+#   - meson.build
+# X11 AND LicenseRef-LicenseRef-Fedora-Public-Domain:
+#   - install-sh
 SourceLicense:  %{shrink:
     %{license} AND
-    FSFAP-no-warranty-disclaimer AND
+    FSFAP AND
     FSFUL AND
     FSFULLR AND
     FSFULLRWD AND
@@ -40,37 +56,34 @@ SourceLicense:  %{shrink:
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz
 Source1:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz.sig
-# Keyring created on 2021-02-23 with:
+# Keyring re-created on 2026-07-01 for the 1.1.2 release with:
 #   workdir="$(mktemp --directory)"
-#   gpg2 --with-fingerprint xfontsel-1.0.6.tar.bz2.sig 2>&1 |
+#   gpg2 --with-fingerprint xfontsel-1.1.2.tar.xz.sig 2>&1 |
 #     awk '$2 == "using" { print "0x" $NF }' |
 #     xargs gpg2 --homedir="${workdir}" \
-#         --keyserver=hkp://pool.sks-keyservers.net --recv-keys
+#         --keyserver=hkps://keys.openpgp.org --recv-keys
 #   gpg2 --homedir="${workdir}" --export --export-options export-minimal \
 #       > xfontsel.gpg
 #   rm -rf "${workdir}"
 # Inspect keys using:
-#   gpg2 --list-keys --no-default-keyring --keyring ./xfontsel.gpg
-# Since the SKS Keyserver Network is no longer online, you can reproduce by
-# substituting:
-#   --keyserver=hkps://keys.openpgp.org
+#   gpg2 --show-keys xfontsel.gpg
+# The old signing keys had expired 2023-04-21 and included at least one weak
+# algorithm (dsa1024), so having to recreate the keychain is expected. The new
+# key expires 2026-10-24, and upstream releases every few years, so this kind
+# of trust-on-first-use verification isn’t very useful.
 Source2:        xfontsel.gpg
 
 BuildRequires:  gpgverify
-
-BuildRequires:  autoconf
-BuildRequires:  automake
-
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  meson
 
 BuildRequires:  gettext
-
+# meson.build: dependency(…)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xmu)
-BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xaw7)
-BuildRequires:  pkgconfig(xorg-macros) >= 1.8
+BuildRequires:  pkgconfig(xmu)
+BuildRequires:  pkgconfig(xproto) >= 7.0.17
+BuildRequires:  pkgconfig(xt)
 
 %description
 The xfontsel application provides a simple way to display the X11 core protocol
@@ -84,16 +97,15 @@ Logical Font Description (“XLFD”) full name for a font.
 
 
 %conf
-autoreconf --force --install --verbose
-%configure
+%meson
 
 
 %build
-%make_build
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 
 # Upstream provides no tests.

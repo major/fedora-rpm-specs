@@ -4,20 +4,13 @@
 %global crate cargo-deny
 
 Name:           rust-cargo-deny
-Version:        0.18.9
+Version:        0.19.9
 Release:        %autorelease
 Summary:        Cargo plugin to help you manage large dependency graphs
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cargo-deny
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump gix to version 0.83
-Patch:          cargo-deny-fix-metadata.diff
-# * Downstream: temporarily preserve gix 0.73 compatibility
-# * This partially reverts 7e0cff3.
-# * Remove this patch once we have gix 0.75.
-Patch10:        0001-Downstream-temporarily-preserve-gix-0.73-compatibili.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -28,25 +21,17 @@ Cargo plugin to help you manage large dependency graphs.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Apache-2.0 AND CC0-1.0
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
-# Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception
-# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-3-Clause
-# CDLA-Permissive-2.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
-# MIT OR Zlib OR Apache-2.0
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
@@ -54,23 +39,18 @@ Summary:        %{summary}
 License:        %{shrink:
     Apache-2.0 AND
     Apache-2.0 WITH LLVM-exception AND
-    BSD-3-Clause AND
     CC0-1.0 AND
-    CDLA-Permissive-2.0 AND
     ISC AND
     MIT AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
     Zlib AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR ISC OR MIT) AND
-    (Apache-2.0 OR MIT OR Zlib) AND
     (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
+    (Apache-2.0 OR MIT OR Zlib) AND
+    (MIT OR Unlicense)
 }
 # LICENSE.dependencies contains a full license breakdown
+Requires:       git-core
 
 %description -n %{crate} %{_description}
 
@@ -121,18 +101,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+native-certs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+native-certs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "native-certs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+native-certs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

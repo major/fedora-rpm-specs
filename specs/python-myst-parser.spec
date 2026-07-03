@@ -1,3 +1,6 @@
+# A "fake" bootstrap to not require python-pytest-regessions,
+# as its long dependency chain allows to build it much later in new Python bootstrap
+%bcond bootstrap 0
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
@@ -22,7 +25,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-docutils
+%if %{without bootstrap}
 BuildRequires:  python3-pytest-regressions
+%endif
 BuildRequires:  python3-pytest-param-files
 BuildRequires:  python3-sphinx-pytest
 BuildRequires:  python3-linkify-it-py
@@ -61,7 +66,7 @@ Summary:        %{summary}
 %pyproject_save_files myst_parser
 
 %check
-%pytest
+%pytest %{?with_bootstrap:-k 'not test_inv and not test_parse' --ignore tests/test_sphinx/test_sphinx_builds.py}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

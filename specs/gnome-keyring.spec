@@ -4,9 +4,6 @@
 
 %bcond_without ssh_agent
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-keyring
 Version:        50.0
 Release:        %autorelease
@@ -16,7 +13,10 @@ Summary:        Framework for managing passwords and other secrets
 # pkcs11/ is MPL-1.1 OR GPL-2.0-or-later OR  LGPL-2.1-or-later
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND ((GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/GnomeKeyring
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
+
 # https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/78
 # https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/165
 # https://bugzilla.redhat.com/show_bug.cgi?id=2349314
@@ -72,10 +72,7 @@ automatically unlock the "login" keyring when the user logs in.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -n %{name}-%{tarball_version}
+%autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 
 %build

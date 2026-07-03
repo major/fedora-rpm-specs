@@ -5,7 +5,7 @@
 %global crate tame-index
 
 Name:           rust-tame-index
-Version:        0.25.0
+Version:        0.26.3
 Release:        %autorelease
 Summary:        Access to local and remote cargo registry indices
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/tame-index
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove unused benchmark-only tiny-bench dev-dependency
-# * bump gix to version 0.83
 Patch:          tame-index-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -54,78 +53,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+__git-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__git-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__git" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__git-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__internal_all-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__internal_all-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__internal_all" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__internal_all-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+git-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+git-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "git" feature of the "%{crate}" crate.
-
-%files       -n %{name}+git-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gix-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gix-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gix" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gix-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gix-curl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gix-curl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gix-curl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gix-curl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gix-reqwest-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gix-reqwest-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gix-reqwest" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gix-reqwest-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+local-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -148,18 +75,6 @@ This package contains library source intended for building other packages which
 use the "local-builder" feature of the "%{crate}" crate.
 
 %files       -n %{name}+local-builder-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+native-certs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+native-certs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "native-certs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+native-certs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sparse-devel

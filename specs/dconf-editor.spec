@@ -2,8 +2,6 @@
 %global glib2_version 2.56.0
 %global gtk3_version 3.22.27
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           dconf-editor
 Version:        49.0
 Release:        %autorelease
@@ -11,8 +9,10 @@ Summary:        Configuration editor for dconf
 
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Projects/dconf
-Source0:        https://download.gnome.org/sources/dconf-editor/49/dconf-editor-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 Source1:        https://raw.githubusercontent.com/flathub/ca.desrt.dconf-editor/master/start-dconf-editor.sh
+
+%gnome_check_version
 
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  desktop-file-utils
@@ -34,7 +34,7 @@ Requires:       gtk3%{?_isa} >= %{gtk3_version}
 Graphical tool for editing the dconf configuration database.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

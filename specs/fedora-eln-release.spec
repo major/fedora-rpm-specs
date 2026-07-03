@@ -3,6 +3,9 @@
 
 %define fedora_dist_version 45
 %define rhel_dist_version 11
+%if %{defined copr_username}
+%global eln 101
+%endif
 
 %global dist %{?eln:.eln%{eln}}
 
@@ -38,6 +41,8 @@ Provides:       fedora-release-common = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-common < 46
 Provides:       fedora-release-eln = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-eln < 46
+Provides:       fedora-release-identity-basic = %{fedora_dist_version}-%{release}
+Obsoletes:      fedora-release-identity-basic
 Provides:       fedora-release-identity-eln = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-identity-eln < 46
 
@@ -145,6 +150,10 @@ Suggests: wget1-wget
 # Prefer over fedora-logos(-httpd) for system-logos(-httpd)
 Suggests: fedora-eln-logos
 Suggests: fedora-eln-logos-httpd
+
+# Prefer over openssl3
+Suggests: openssl-libs
+Suggests: openssl-devel
 
 %description
 Fedora ELN release files such as various /etc/ files that define the release

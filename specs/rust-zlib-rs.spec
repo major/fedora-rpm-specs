@@ -5,7 +5,7 @@
 %global crate zlib-rs
 
 Name:           rust-zlib-rs
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -88,6 +88,18 @@ This package contains library source intended for building other packages which
 use the "c-allocator" feature of the "%{crate}" crate.
 
 %files       -n %{name}+c-allocator-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+lsx-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+lsx-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "lsx" feature of the "%{crate}" crate.
+
+%files       -n %{name}+lsx-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rust-allocator-devel

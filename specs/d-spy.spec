@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           d-spy
 Version:        50.0
 Release:        %autorelease
@@ -8,7 +5,9 @@ Summary:        D-Bus explorer
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/d-spy
-Source0:        https://download.gnome.org/sources/d-spy/%{major_version}/d-spy-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -30,10 +29,7 @@ originally part of GNOME Builder.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -n d-spy-%{tarball_version} -p1
+%autosetup -n d-spy-%{gnome_tarball_version} -p1
 
 
 %build

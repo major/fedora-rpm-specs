@@ -178,7 +178,7 @@ done
 # Install the CA into certmonger.
 if [[ "$1" == "1" ]]; then
     getcert add-ca -c %{name} \
-      -e %{_libexecdir}/certmonger/%{name}-submit --install >/dev/null || :
+      -e "%{_libexecdir}/certmonger/%{name}-submit --install" >/dev/null || :
 fi
 
 %preun certmonger

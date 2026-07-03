@@ -1,7 +1,7 @@
-%global libsepolver 3.10-1
+%global libsepolver 3.11-1
 
 Name:           secilc
-Version:        3.10
+Version:        3.11
 Release:        1%{?dist}
 Summary:        The SELinux CIL Compiler
 
@@ -9,8 +9,8 @@ License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
 Source0:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz
 Source1:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz.asc
-Source2:        https://github.com/perfinion.gpg
-# fedora-selinux/selinux: git format-patch -N 3.10 -- secilc
+Source2:        https://github.com/bachradsusi.gpg
+# fedora-selinux/selinux: git format-patch -N 3.11 -- secilc
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -57,9 +57,11 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 
 %files
 %{_bindir}/secilc
+%{_bindir}/secilcheck
 %{_bindir}/secil2conf
 %{_bindir}/secil2tree
 %{_mandir}/man8/secilc.8*
+%{_mandir}/man8/secilcheck.8*
 %{_mandir}/man8/secil2conf.8*
 %{_mandir}/man8/secil2tree.8*
 %license LICENSE

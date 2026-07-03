@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        GNOME Klotski game
 License:        GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Klotski
-Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext

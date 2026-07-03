@@ -1,7 +1,7 @@
 %global forgeurl	https://github.com/cage-kiosk/cage
 
 Name:			cage
-Version:		0.3.0
+Version:		0.3.1
 Release:		1%{?dist}
 Summary:		A Wayland kiosk
 
@@ -51,6 +51,9 @@ project page and the Wiki.
 
 
 %changelog
+* Wed Jul 01 2026 Federico Pellegrin <fede@evolware.org> - 0.3.1-1
+- Update to 0.3.1 (rhbz#2495107)
+
 * Sat Apr 11 2026 Federico Pellegrin <fede@evolware.org> - 0.3.0-1
 - Update to 0.3.0 (rhbz#2457571)
 

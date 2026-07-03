@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -930,6 +930,9 @@ EOF
 
 
 %changelog
+* Wed Jul 01 2026 Carl George <carlwgeorge@gmail.com> - 1.28.4-4
+- Rebuild for libonnxruntime.so.1(VERS_1.26.0)
+
 * Sun Jun 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.28.4-3
 - Enabled rtmp plugin in extras
 

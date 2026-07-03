@@ -16,6 +16,7 @@ BuildArch:      noarch
 Epoch:          1
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(six)
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -35,6 +36,8 @@ Microsoft Azure Spark Artifacts Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# It depends on six but doesn't declare that
+Requires:       python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 

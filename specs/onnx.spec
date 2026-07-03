@@ -9,9 +9,18 @@ License:    Apache-2.0
 URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
 # Build shared libraries and fix install location 
-Patch:     0000-Build-shared-libraries-and-fix-install-location.patch
+Patch:     0001-Build-shared-libraries.patch
+Patch:     0002-Fix-install-location.patch
+# Latest nanobind uses different argument format
+Patch:     0003-Fix-nanobind-arguments.patch
+# Let pyproject_wheel use binaries from cmake_build
+Patch:     0004-Let-pyproject_wheel-use-binaries-from-cmake_build.patch
+# Fixes protobuf conflicts when using both python-onnx and python-onnxruntime
+Patch:     0005-Python-binary-should-link-to-system-onnx.patch
 # Remove obsoleted testing dependency
-Patch:     0002-Remove-python-parameterized-dependency.patch
+Patch:     0006-Remove-python-parameterized-dependency.patch
+# Add fixes for use with onnxruntime
+Patch:     0007-Add-fixes-for-use-with-onnxruntime.patch
 
 %if %{undefined fc40} && %{undefined fc41}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -73,7 +82,7 @@ export VPATH_BUILDDIR=%{_vpath_builddir}
     -DPY_EXT_SUFFIX=%{python3_ext_suffix} \
     -DPY_SITEARCH=%{python3_sitearch} \
     -DCMAKE_SKIP_RPATH:BOOL=ON \
-    -DONNX_DISABLE_STATIC_REGISTRATION=ON
+    -DONNX_DISABLE_STATIC_REGISTRATION=OFF
 
 # Build 
 %cmake_build

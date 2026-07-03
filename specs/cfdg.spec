@@ -1,6 +1,6 @@
 Name: cfdg
-Version:  3.4.2
-Release:  6%{?dist}
+Version:  3.4.3
+Release:  1%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
@@ -42,6 +42,9 @@ install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
 %doc input/* README* ChangeLog
 
 %changelog
+* Wed Jul 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.4.3-1
+- 3.4.3
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 3.4.2-6
 - Rebuilt for icu 78.3
 

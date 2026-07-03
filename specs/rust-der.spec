@@ -5,24 +5,20 @@
 %global crate der
 
 Name:           rust-der
-Version:        0.7.10
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Pure Rust embedded-friendly implementation of DER for ASN.1
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/der
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow hex-literal 1.0:
-#   https://github.com/RustCrypto/formats/commit/ed08fc043e7abb38a86fca10f114d15a86f4cb25
-Patch:          der-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Pure Rust embedded-friendly implementation of the Distinguished Encoding
 Rules (DER) for Abstract Syntax Notation One (ASN.1) as described in ITU
-X.690 with full support for heapless no_std targets.}
+X.690 with full support for heapless `no_std`/`no_alloc` targets.}
 
 %description %{_description}
 
@@ -39,7 +35,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -78,6 +73,18 @@ use the "arbitrary" feature of the "%{crate}" crate.
 %files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ber-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ber-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ber" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ber-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+bytes-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -112,6 +119,18 @@ This package contains library source intended for building other packages which
 use the "flagset" feature of the "%{crate}" crate.
 
 %files       -n %{name}+flagset-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+heapless-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+heapless-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "heapless" feature of the "%{crate}" crate.
+
+%files       -n %{name}+heapless-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+oid-devel

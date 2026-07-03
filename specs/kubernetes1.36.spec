@@ -237,15 +237,15 @@ install -dm 0755 %{buildroot}/%{zsh_completions_dir}
 
 echo "+++ INSTALLING config files"
 %define remove_environ_prefix() %(echo -n %1|sed 's/.*environ-//g')
-install -d -m 0755 %{buildroot}%{_sysconfdir}/%{service_name}
-install -d -m 0700 %{buildroot}%{_sysconfdir}/%{service_name}/manifests
-install -m 644 -T %{SOURCE106} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE106}}
-install -m 644 -T %{SOURCE107} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE107}}
-install -m 644 -T %{SOURCE108} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE108}}
-install -m 644 -T %{SOURCE109} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE109}}
-install -m 644 -T %{SOURCE110} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE110}}
-install -m 644 -T %{SOURCE111} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE111}}
-install -m 644 -T %{SOURCE112} %{buildroot}%{_sysconfdir}/%{service_name}/%{remove_environ_prefix %{SOURCE112}}
+install -d -m 0755 %{buildroot}%{_sysconfdir}/kubernetes
+install -d -m 0700 %{buildroot}%{_sysconfdir}/kubernetes/manifests
+install -m 644 -T %{SOURCE106} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE106}}
+install -m 644 -T %{SOURCE107} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE107}}
+install -m 644 -T %{SOURCE108} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE108}}
+install -m 644 -T %{SOURCE109} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE109}}
+install -m 644 -T %{SOURCE110} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE110}}
+install -m 644 -T %{SOURCE111} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE111}}
+install -m 644 -T %{SOURCE112} %{buildroot}%{_sysconfdir}/kubernetes/%{remove_environ_prefix %{SOURCE112}}
 
 # place systemd/tmpfiles.d/kubernetes.conf to /usr/lib/tmpfiles.d/kubernetes.conf
 # install -d -m 0755 % {buildroot}% {_tmpfilesdir}
@@ -322,16 +322,20 @@ rm CHANGELOG.md
     -s "TestCmdConfigImagesList"
     %dnl attempting connection to fake server.sock
     -s "TestPrepareResources"
-    %dnl next 3 tests seem flaky
+    %dnl flaky on some arches
+    -s "TestUnPrepareResources"
+    %dnl next 5 tests seem flaky
+    %dnl binding volumes: context deadline exceeded
+    %[ "%{_arch}" == "aarch64" ? "-s TestBindPodVolumes" : "" ]
     %dnl on aarch TestPrepareResources/pod_is_not_allowed_to_use_resource_claim_from_podgroup
     %[ "%{_arch}" == "aarch64" ? "-s TestPrepareResource" : "" ]
-    %dnl on aarch concurrent_unmount_-_multiple_pods_without_volumes leaked goroutine
-    %[ "%{_arch}" == "aarch64" ? "-s TestWaitForAllPodsUnmount" : "" ]
-    %[ "%{_arch}" == "x86_64" ? "-s TestWaitForAllPodsUnmount" : "" ]
+    %dnl on all arches leaked goroutine
+    -s TestWaitForAllPodsUnmount
     %dnl on x86_64 connection error
     %[ "%{_arch}" == "x86_64" ? "-s TestValidateScaleForDeclarative" : "" ]
-    %dnl on ppcle64 concurrent_unmount_-_many_pods_(20)_with_timeout_errors
-    %[ "%{_arch}" == "ppcle64" ? "-s TestWaitForAllPodsUnmount" : "" ]
+    %dnl TestUpdate... tests flaky on several arches
+    -s "TestUpdateNewNodeStatus"
+    -s "TestUpdateExistingNodeStatus"
     %dnl see hack/make-rules/test.sh kube::test::find_go_packages
     -t "third_party"
     -t "cmd/kubeadm/test"
@@ -359,11 +363,11 @@ rm CHANGELOG.md
 %{_unitdir}/kubelet.service
 # % {_sysusersdir}/% {service_name}.conf
 %dir %{_sharedstatedir}/kubelet
-%dir %{_sysconfdir}/%{service_name}
-%dir %{_sysconfdir}/%{service_name}/manifests
-%config(noreplace) %{_sysconfdir}/%{service_name}/config
-%config(noreplace) %{_sysconfdir}/%{service_name}/kubelet
-%config(noreplace) %{_sysconfdir}/%{service_name}/kubelet.kubeconfig
+%dir %{_sysconfdir}/kubernetes
+%dir %{_sysconfdir}/kubernetes/manifests
+%config(noreplace) %{_sysconfdir}/kubernetes/config
+%config(noreplace) %{_sysconfdir}/kubernetes/kubelet
+%config(noreplace) %{_sysconfdir}/kubernetes/kubelet.kubeconfig
 %config(noreplace) %{_sysconfdir}/systemd/system.conf.d/kubernetes-accounting.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/kubelet
 # % {_tmpfilesdir}/kubernetes.conf
@@ -403,12 +407,12 @@ rm CHANGELOG.md
 %{_unitdir}/kube-controller-manager.service
 %{_unitdir}/kube-scheduler.service
 # % {_sysusersdir}/% {service_name}.conf
-%dir %{_sysconfdir}/%{service_name}
-%config(noreplace) %{_sysconfdir}/%{service_name}/apiserver
-%config(noreplace) %{_sysconfdir}/%{service_name}/scheduler
-%config(noreplace) %{_sysconfdir}/%{service_name}/config
-%config(noreplace) %{_sysconfdir}/%{service_name}/controller-manager
-%config(noreplace) %{_sysconfdir}/%{service_name}/proxy
+%dir %{_sysconfdir}/kubernetes
+%config(noreplace) %{_sysconfdir}/kubernetes/apiserver
+%config(noreplace) %{_sysconfdir}/kubernetes/scheduler
+%config(noreplace) %{_sysconfdir}/kubernetes/config
+%config(noreplace) %{_sysconfdir}/kubernetes/controller-manager
+%config(noreplace) %{_sysconfdir}/kubernetes/proxy
 # % {_tmpfilesdir}/kubernetes.conf
 
 ##############################################

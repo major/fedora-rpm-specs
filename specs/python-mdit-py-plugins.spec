@@ -1,3 +1,6 @@
+# A "fake" bootstrap to not require python-pytest-regessions,
+# as its long dependency chain allows to build it much later in new Python bootstrap
+%bcond bootstrap 0
 %global pypi_name mdit-py-plugins
 
 Name:           python-%{pypi_name}
@@ -14,7 +17,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+%if %{without bootstrap}
 BuildRequires:  python3dist(pytest-regressions)
+%endif
 
 %global _description %{expand:
 Collection of core plugins for markdown-it-py.
@@ -41,7 +46,7 @@ Summary:        %{summary}
 %pyproject_save_files mdit_py_plugins
 
 %check
-%pytest
+%pytest %{?with_bootstrap:-k 'not test_plugin_parse and not test_attrs_allowed and not test_tokens and not test_no_new_line_issue and not test_custom_renderer'}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

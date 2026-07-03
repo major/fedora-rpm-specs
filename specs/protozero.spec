@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           protozero
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Minimalistic protocol buffer decoder and encoder in C++
 

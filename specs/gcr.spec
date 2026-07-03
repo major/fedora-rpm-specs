@@ -13,7 +13,7 @@ Summary:        A library for bits of crypto UI and parsing
 # docs/COPYING is GCR-docs
 License:        LGPL-2.1-or-later AND FSFULLRWD AND (LGPL-3.0-or-later OR CC-BY-SA-3.0) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GCR-docs
 URL:            https://gitlab.gnome.org/GNOME/gcr
-Source0:        https://download.gnome.org/sources/%{name}/4.2/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  meson

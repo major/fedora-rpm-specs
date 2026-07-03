@@ -4,7 +4,7 @@ Release:   %autorelease
 Summary:   Color management tools for GNOME
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/gnome-color-manager
-Source0:   http://download.gnome.org/sources/gnome-color-manager/3.36/%{name}-%{version}.tar.xz
+Source0:   http://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc
 BuildRequires: gtk3-devel >= 3.0.0

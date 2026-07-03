@@ -3,7 +3,7 @@
 %global syn syn123
 
 Name: mpg123
-Version: 1.32.10
+Version: 1.33.6
 Release: %autorelease
 
 Summary: Real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1, 2 and 3
@@ -11,8 +11,6 @@ License: GPL-2.0-or-later
 URL: https://mpg123.org
 
 Source0: %{url}/download/%{name}-%{version}.tar.bz2
-
-Patch:  0001-libmpg123-announce-shadow-stack-and-IBT-support-for-.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -108,6 +106,9 @@ popd
 %install
 %make_install
 rm %{buildroot}%{_libdir}/*.la
+
+%check
+%make_build check
 
 %files
 %doc doc/README.remote

@@ -1,12 +1,12 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           five-or-more
 Version:        48.1
 Release:        %autorelease
 Summary:        GNOME "Five or More" game
 License:        GPL-2.0-or-later AND GFDL-1.1-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Five%20or%20more
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -28,7 +28,7 @@ Move balls around the grid and try and form lines. Once you form five in a
 row, the line disappears. Unfortunately more balls keep dropping in.
 
 %prep
-%autosetup -n five-or-more-%{tarball_version} -p1
+%autosetup -n five-or-more-%{gnome_tarball_version} -p1
 
 
 %build

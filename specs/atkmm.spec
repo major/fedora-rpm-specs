@@ -1,6 +1,4 @@
 %global apiver 1.6
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glibmm24_version 2.46.2
 
@@ -11,7 +9,7 @@ Summary:        C++ interface for the ATK library
 
 License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
-Source0:        https://download.gnome.org/sources/atkmm/%{release_version}/atkmm-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  atk-devel
 BuildRequires:  doxygen

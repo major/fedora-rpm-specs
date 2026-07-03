@@ -15,7 +15,7 @@ BuildRequires:  systemd
 BuildRequires:  systemd-devel
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  python3-dbusmock

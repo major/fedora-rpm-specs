@@ -5,7 +5,7 @@
 %global crate toml-span
 
 Name:           rust-toml-span
-Version:        0.6.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Toml parser and deserializer that preserves span information
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

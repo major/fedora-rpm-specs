@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name: devhelp
 Epoch: 1
 Version: 43.0
@@ -9,7 +7,9 @@ Summary: API documentation browser
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://wiki.gnome.org/Apps/Devhelp
-Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: chrpath
 BuildRequires: desktop-file-utils
@@ -52,7 +52,7 @@ This package contains the development files for the library that can be used
 for embedding devhelp into other applications such as IDEs.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

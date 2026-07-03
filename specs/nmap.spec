@@ -31,6 +31,9 @@ Patch9: nmap-ems-ssl-enum-ciphers.patch
 Patch10: nmap-libpcap.patch
 # Fix OpenSSL 4.0 compatibility
 Patch11: nmap-openssl4.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2494410
+# https://github.com/nmap/nmap/commit/bb6754e
+Patch12: nmap-CVE-2026-58058.patch
 
 BuildRequires: automake make
 BuildRequires: autoconf

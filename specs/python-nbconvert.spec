@@ -12,16 +12,13 @@
 %bcond doc %{undefined rhel}
 
 Name:           python-%{pypi_name}
-Version:        7.16.4
+Version:        7.17.1
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 
 License:        BSD-3-Clause
 URL:            http://jupyter.org
 Source0:        %pypi_source
-
-# Backport of https://github.com/jupyter/nbconvert/pull/2199
-Patch1:         backport-mistune-3.1.0-support.patch
 
 BuildArch:      noarch
 
@@ -66,6 +63,9 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 sed -i '/"pytest-dependency",/d' pyproject.toml
 sed -i '/pyppeteer/d' pyproject.toml
 sed -i 's/"sphinx==.*"/"sphinx"/' pyproject.toml
+# intersphinx_registry is not available in Fedora
+sed -i '/intersphinx_mapping/d' docs/source/conf.py
+sed -i '/"intersphinx_registry",/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-x test} %{?with_doc:-x docs}
@@ -73,12 +73,6 @@ sed -i 's/"sphinx==.*"/"sphinx"/' pyproject.toml
 
 %build
 %pyproject_wheel
-
-%if %{with doc}
-export PYTHONPATH=$(pwd)
-sphinx-build-3 docs/source html
-rm -rf html/.{doctrees,buildinfo}
-%endif
 
 %install
 %pyproject_install
@@ -88,8 +82,21 @@ rm -rf html/.{doctrees,buildinfo}
 %py3_shebang_fix %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 chmod 755 %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 
+%if %{with doc}
+# Build docs after install so sphinx uses the just-installed 7.17.1 code and
+# templates rather than whatever nbconvert version is in the build environment.
+export PYTHONPATH=%{buildroot}%{python3_sitelib}
+export JUPYTER_PATH=%{buildroot}%{_datadir}/jupyter
+sphinx-build-3 docs/source html
+rm -rf html/.{doctrees,buildinfo}
+%endif
+
 %if %{with check}
 %check
+# Use the just-installed templates so tests don't pick up the system-installed
+# nbconvert templates (which may be from an older version with a different
+# RST mimetype). Subprocesses spawned by tests inherit this variable too.
+export JUPYTER_PATH=%{buildroot}%{_datadir}/jupyter
 # Some tests are using templates provided by the previous
 # version of nbconvert.
 %pytest -W ignore::DeprecationWarning -k "\

@@ -12,8 +12,8 @@
 %global __requires_exclude %{__requires_exclude}|libm.so(LIBC)(64bit)
 
 Name:		faust
-Version:	2.85.5
-Release:	2%{?dist}
+Version:	2.85.9
+Release:	1%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
@@ -200,6 +200,9 @@ mv %{buildroot}%{_bindir}/usage.sh %{buildroot}%{_bindir}/faust-usage.sh
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Wed Jul 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.85.9-1
+- 2.85.9
+
 * Tue Apr 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.85.5-2
 - Rename usage.sh to avoid conflict with mmseq
 

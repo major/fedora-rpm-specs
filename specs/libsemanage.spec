@@ -1,15 +1,15 @@
-%define libsepolver 3.10-1
-%define libselinuxver 3.10-1
+%define libsepolver 3.11-1
+%define libselinuxver 3.11-1
 
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
-Version: 3.10
-Release: 2%{?dist}
+Version: 3.11
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz.asc
-Source2: https://github.com/perfinion.gpg
-# git format-patch -N 3.10 -- libsemanage
+Source2: https://github.com/bachradsusi.gpg
+# git format-patch -N 3.11 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -157,7 +157,4 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.10-2
-- Rebuilt for Python 3.15
-
 %autochangelog

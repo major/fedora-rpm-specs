@@ -1,5 +1,3 @@
-%define basever %(echo %{version} | sed "s/\.[0-9]*$//")
-
 %bcond cdrdao %[!(0%{?rhel} >= 9)]
 %bcond cdrkit %[!(0%{?rhel} >= 9)]
 %bcond dvdrwtools %[!(0%{?rhel} >= 9)]
@@ -15,10 +13,10 @@ Summary:   Gnome CD/DVD burning application
 # see https://bugzilla.gnome.org/show_bug.cgi?id=683503
 # SVG files are GPL-2.0-only
 # data/icons/hicolor_actions_scalable_transform-crop-and-resize.svg is CC-BY-SA-2.0
-# libbrasero-media is GPL-2.0-or-later WITH GStreamer-exception-2008                                                                                                                         
+# libbrasero-media is GPL-2.0-or-later WITH GStreamer-exception-2008
 License:   GPL-3.0-or-later AND LGPL-2.0-or-later AND GPL-2.0-only AND CC-BY-SA-2.0 AND GPL-2.0-or-later WITH GStreamer-exception-2008
 URL:       https://wiki.gnome.org/Apps/Brasero
-Source0:   https://download.gnome.org/sources/%{name}/%{basever}/%{name}-%{version}.tar.xz
+Source0:   https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/30
 Patch0:    0001-Fix-gcc-14.x-build-failure.patch
 

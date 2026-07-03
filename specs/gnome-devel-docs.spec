@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name: gnome-devel-docs
 Version: 40.3
 Release: %autorelease
@@ -13,7 +11,9 @@ Summary: GNOME developer documentation
 # programming-guidelines is licensed under CC-BY-SA-3.0
 License: GFDL-1.1-or-later AND CC-BY-SA-3.0 AND CC-BY-SA-4.0 AND CC-BY-SA-3.0 WITH GNOME-examples-exception
 URL: https://developer.gnome.org
-Source0: https://download.gnome.org/sources/%{name}/40/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildArch: noarch
 BuildRequires: docbook-utils
@@ -28,7 +28,7 @@ It contains, e.g., the Human Interface Guidelines, the Integration Guide
 and the Platform Overview.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %configure
@@ -44,4 +44,5 @@ make %{?_smp_mflags}
 %doc README AUTHORS NEWS
 %license COPYING COPYING.GFDL
 
+%changelog
 %autochangelog

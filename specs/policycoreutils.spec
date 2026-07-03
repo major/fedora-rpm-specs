@@ -1,7 +1,7 @@
 %global libauditver     4.0
-%global libsepolver     3.10-1
-%global libsemanagever  3.10-1
-%global libselinuxver   3.10-1
+%global libsepolver     3.11-1
+%global libsemanagever  3.11-1
+%global libselinuxver   3.11-1
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -10,13 +10,13 @@
 
 Summary: SELinux policy core utilities
 Name:    policycoreutils
-Version: 3.10
-Release: 5%{?dist}
+Version: 3.11
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz.asc
-Source2: https://github.com/perfinion.gpg
+Source2: https://github.com/bachradsusi.gpg
 Source3: changelog
 Source4: macros
 URL:     https://github.com/SELinuxProject/selinux
@@ -37,7 +37,7 @@ Source22: selinux-gui.zip
 # wlc --key <apikey> --url https://translate.fedoraproject.org/api/ download selinux/sandbox --output ./
 Source23: selinux-sandbox.zip
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.10 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.11 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
@@ -46,23 +46,6 @@ Patch0003: 0003-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0004: 0004-Use-SHA-2-instead-of-SHA-1.patch
 Patch0005: 0005-python-sepolicy-Fix-spec-file-dependencies.patch
 Patch0006: 0006-sepolicy-Fix-detection-of-writeable-locations.patch
-Patch0007: 0007-restorecond-Add-F-for-run-in-foreground.patch
-Patch0008: 0008-restorecond.service-Use-Type-simple.patch
-Patch0009: 0009-seunshare-guard-fallible-function-calls-by-checking-.patch
-Patch0010: 0010-sandbox-seunshare-pass-O_NOFOLLOW-to-openat.patch
-Patch0011: 0011-sandbox-seunshare-switch-seunshare_mount_file-to-use.patch
-Patch0012: 0012-sandbox-seunshare-fix-error-checking-for-setfsuid.patch
-Patch0013: 0013-sandbox-seunshare-remount-tmp-and-var-tmp-with-the-p.patch
-Patch0014: 0014-sandbox-seunshare-prevent-rsync-from-interpreting-pa.patch
-Patch0015: 0015-sandbox-seunshare-fix-getopt-flags.patch
-Patch0016: 0016-sandbox-seunshare-prevent-path-traversal-via-W-P.patch
-Patch0017: 0017-sandbox-seunshare-verify-RUNTIME_DIR-before-use.patch
-Patch0018: 0018-sandbox-seunshare-drop-unused-runuserdir_r.patch
-Patch0019: 0019-sandbox-seunshare-fix-killall-realloc-and-missing-ty.patch
-Patch0020: 0020-sandbox-seunshare-rewrite-to-pin-directories-before-.patch
-Patch0021: 0021-sandbox-seunshare-fully-check-setfsuid-calls.patch
-Patch0022: 0022-sandbox-seunshare-check-owner-in-seunshare_mount_fil.patch
-Patch0023: 0023-sandbox-seunshare-fix-fd_tmpdir_r-check.patch
 # Patch list end
 
 # gen_changelog
@@ -89,7 +72,7 @@ Provides: /usr/sbin/semodule
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
 BuildRequires: desktop-file-utils dbus-devel glib2-devel
-BuildRequires: python3-devel python3-setuptools python3-pip
+BuildRequires: python3-devel python3-setuptools python3-pip python3-build
 BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd
 BuildRequires: git-core
@@ -481,7 +464,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com>
-- Rebuilt for Python 3.15
-
 %add_changelog %SOURCE3

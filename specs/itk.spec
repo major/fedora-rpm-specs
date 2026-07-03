@@ -1,23 +1,30 @@
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh || echo 0)}
 %{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
+# The following definitions identify the packaged source release.
+%global tagname         itk-%{version}
+%global tagcommit       fd455dc9a1
+
+# Link time optimisation causes problems.
+%define _lto_cflags	%{nil}
+
 Name:           itk
-Version:        4.1.0
-Release:        15%{?dist}
+Version:        4.2.3
+Release:        1%{?dist}
 Summary:        Object oriented extensions to Tk
 
 License:        TCL
-URL:            http://incrtcl.sourceforge.net/itcl/
-Source0:        https://downloads.sourceforge.net/incrtcl/%{name}%{version}.tar.gz
-Patch0:         itk-libdir.patch
-Patch1:         itk-soname.patch
-Patch2:         itcl4.0.0-linuxloading.patch
-Patch4:         itk-tolowercase.patch
+URL:            https://core.tcl-lang.org/itk
+Source0:        https://core.tcl-lang.org/%{name}/tarball/%{name}-%{version}.tar.gz?uuid=%{tagcommit}#/%{name}-%{version}.tar.gz
+Patch0:         itk-4.2.3-libdir.patch
+Patch1:         itk-4.2.3-soname.patch
+Patch2:         itk-4.2.3-linuxloading.patch
+Patch3:         itk-4.2.3-tclsize.patch
 
-Requires:       tcl(abi) = 8.6 itcl tk
+Requires:       tcl(abi) = %{tcl_version} itcl tk
 BuildRequires:  gcc
 BuildRequires:  tk-devel itcl-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 [incr Tk] is Tk extension that provides object-oriented features that are
@@ -31,11 +38,11 @@ Requires:       %{name} = %{version}-%{release}
 Development headers and libraries for linking against itk.
 
 %prep
-%setup -q -n %{name}%{version}
+%setup -q
 %patch -P0 -p1 -b .libdir
 %patch -P1 -p1 -b .soname
 %patch -P2 -p1 -b .linuxloading
-%patch -P4 -p1 -b .tolowercase
+%patch -P3 -p1 -b .tclsize
 
 %build
 %configure
@@ -43,22 +50,36 @@ Development headers and libraries for linking against itk.
 
 %install
 %make_install
+chmod +x '%{buildroot}%{tcl_sitearch}/%{name}%{version}/'*.so
+
+
+%check
+# Tests require a GUI display: do not perform.
+#make test
 
 
 %files
-%{_libdir}/*.so
-%dir %{tcl_sitearch}/itk%{version}
+%dir %{tcl_sitearch}/%{name}%{version}
 %{tcl_sitearch}/%{name}%{version}/*.tcl
 %{tcl_sitearch}/%{name}%{version}/*.itk
+%{tcl_sitearch}/%{name}%{version}/*.so
 %{tcl_sitearch}/%{name}%{version}/tclIndex
 %{_mandir}/mann/*.gz
 %license license.terms
 
 %files devel
 %{_includedir}/*.h
-# What happened to itk's stub library and itkConfig.sh?
+%{tcl_sitearch}/%{name}%{version}/*.a
+%{_libdir}/itkConfig.sh
 
 %changelog
+* Wed Jul  1 2026 Patrick Monnerat <patrick@monnerat.net> 4.2.3-1
+- New upstream release.
+- New URL.
+- New source URL.
+- Use Tcl/Tk version 9.
+- Patch "tclsize" to retain Tcl8 compatibility.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

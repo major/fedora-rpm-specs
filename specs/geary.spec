@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:		geary
 Version:	46.0
 Release:	%autorelease
@@ -15,7 +13,9 @@ Summary:	A lightweight email program designed around conversations
 # the whole binary, so we don't need to specify BSD and MIT separately.
 License:	LGPL-2.1-or-later AND CC-BY-3.0 AND CC-BY-SA-3.0 AND LicenseRef-Fedora-Public-Domain
 URL:		https://wiki.gnome.org/Apps/Geary
-Source0:	https://download.gnome.org/sources/geary/46/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/geary/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:	meson >= 0.49
 BuildRequires:	vala >= 0.26.0
@@ -76,7 +76,7 @@ all kinds of nifty features in a modular way.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

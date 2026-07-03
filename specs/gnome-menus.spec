@@ -7,7 +7,7 @@ Summary:  A menu system for the GNOME project
 
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/gnome-menus
-Source0: https://download.gnome.org/sources/gnome-menus/3.38/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-menus/merge_requests/14
 # Puts eog back to the Utilities submenu
 Patch0: 14.patch

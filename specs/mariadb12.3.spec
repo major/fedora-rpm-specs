@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 12.3.1
+%global package_version 12.3.2
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 12.3.1
+%global last_tested_version 12.3.2
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -134,7 +134,7 @@
 %endif
 
 %if %{with bundled_fmt}
-%global fmt_bundled_version 11.1.4
+%global fmt_bundled_version 12.1.0
 %endif
 
 # Include systemd files
@@ -153,7 +153,8 @@
 
 
 # Macros for extra RPM relations for the versioned packages layout
-%define conflict_with_other_streams() %{expand:\
+%define conflict_with_other_streams() \
+%{expand:\
 Provides: %{majorname}%{?1:-%{1}}-any\
 Conflicts: %{majorname}%{?1:-%{1}}-any\
 }
@@ -161,24 +162,30 @@ Conflicts: %{majorname}%{?1:-%{1}}-any\
 # Add versioned virtual provides, when the RPMs real names are version-less
 # (that is, when this is the "distribution default version")
 %if %?mariadb_default
-%define versioned_virtual_provides() %{expand:\
+%define versioned_virtual_provides() \
+%{expand:\
 Provides: mariadb%{majorversion}%{?1:-%{1}} = %{sameevr}\
 }
-%define versioned_virtual_provides_arched() %{expand:\
+%define versioned_virtual_provides_arched() \
+%{expand:\
 %versioned_virtual_provides %{**}\
 Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 }
 %else
-%define versioned_virtual_provides() %{nil}
-%define versioned_virtual_provides_arched() %{nil}
+%define versioned_virtual_provides() \
+%{nil}
+%define versioned_virtual_provides_arched() \
+%{nil}
 %endif
 
-%define virtual_conflicts_and_provides() %{expand:\
+%define virtual_conflicts_and_provides() \
+%{expand:\
 %conflict_with_other_streams %{**}\
 %versioned_virtual_provides %{**}\
 }
 
-%define virtual_conflicts_and_provides_arched() %{expand:\
+%define virtual_conflicts_and_provides_arched() \
+%{expand:\
 %conflict_with_other_streams %{**}\
 %versioned_virtual_provides_arched %{**}\
 }
@@ -192,7 +199,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -258,12 +265,8 @@ Patch9:           %{majorname}-ownsetup.patch
 Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
-#   Patch15: mark RISC-V64 as 64-bit architecture
-Patch15:          mark-RISC-V64-as-64-bit-architecture.patch
 
 Patch16:          %{majorname}-federated.patch
-
-Patch17:          upstream_87309d3d4bb8f48910d05b0ca5ee989bcdd6b053.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -497,6 +500,8 @@ Requires(post):   (policycoreutils-python-utils if selinux-policy-%{selinuxtype}
 Requires:         lsof
 # Default wsrep_sst_method
 Requires:         rsync
+# The 'wsrep_sst_common' and 'wsrep_sst_rsync_tunnel' call 'which' utility
+Requires:         which
 
 %virtual_conflicts_and_provides_arched server-galera
 
@@ -560,9 +565,6 @@ Requires:         systemd
 %{?systemd_requires}
 # RHBZ#1496131; use 'iproute' instead of 'net-tools'
 Requires:         iproute
-# The 'wsrep_sst_common' and 'wsrep_sst_rsync_tunnel' calls 'which' utility
-%{?with_galera:Requires: which}
-
 %{?with_conflicts_mysql:Conflicts: mysql-server-any}
 # Explicitly disallow combination mariadb-server + mysql
 %{?with_conflicts_mysql:Conflicts: mysql-any}
@@ -893,9 +895,7 @@ rm -r storage/rocksdb/
 %endif
 
 %patch -P14 -p1
-%patch -P15 -p1
 %patch -P16 -p1
-%patch -P17 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1210,10 +1210,16 @@ sed -i 's/^wsrep_on=1/wsrep_on=0/' %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cn
 rm %{buildroot}%{_datadir}/mariadb/mariadb.logrotate
 # Remove AppArmor files
 rm -r %{buildroot}%{_datadir}/%{majorname}/policy/apparmor
-
-# Buildroot does not have symlink /lib64 --> /usr/lib64
+# Remove upstream galera.conf systemd drop-in; our downstream service files
+# already have the Galera/wsrep integration baked in
+%if %{with galera}
+rm -r %{buildroot}%{_unitdir}/%{daemon_name}.service.d
+rm -r %{buildroot}%{_datadir}/%{majorname}/mariadb.service.d
+%endif
+%if %{without test}
 %if %{with pam}
-mv %{buildroot}/%{_lib}/security %{buildroot}%{_libdir}
+rm -r %{buildroot}%{_libdir}/%{majorname}/plugin/test_pam_modules
+%endif
 %endif
 
 # Disable plugins
@@ -1313,11 +1319,6 @@ rm %{buildroot}%{_bindir}/{mariadb-client-test-embedded,mariadb-test-embedded}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test_embedded,mysqltest_embedded}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedded}.1*
 # endif embedded
-%endif
-%if %{with pam}
-rm %{buildroot}/suite/plugins/pam/mariadb_mtr
-rm %{buildroot}/suite/plugins/pam/pam_mariadb_mtr.so
-# endif pam
 %endif
 rm %{buildroot}%{_bindir}/{mysql_client_test,mysqltest}
 rm %{buildroot}%{_bindir}/{mariadb-client-test,mariadb-test}
@@ -1479,6 +1480,7 @@ fi
 %{_bindir}/mysql{admin,binlog,check,dump,import,_plugin,show,slap,_tzinfo_to_sql,_waitpid}
 %{_bindir}/mariadb-{admin,binlog,check,dump,import,plugin,show,slap,tzinfo-to-sql,waitpid}
 %{_bindir}/my_print_defaults
+%{_bindir}/mariadb-migrate-config-file
 
 %{_mandir}/man1/{msql2mysql,replace}.1*
 %{_mandir}/man1/{mysql,mariadb}.1*
@@ -1513,7 +1515,6 @@ fi
 %if %{with common}
 %files -n %{pkgname}-common
 %doc %{_docdir}/%{majorname}
-%{?with_galera:%exclude %{_docdir}/%{majorname}/MariaDB-server-%{version}/README-wsrep}
 %dir %{_datadir}/%{majorname}
 %{_datadir}/%{majorname}/charsets
 %if %{with clibrary}
@@ -1556,15 +1557,21 @@ fi
 
 %if %{with galera}
 %files -n %{pkgname}-server-galera
-%doc Docs/README-wsrep
+%doc README.wsrep_sst_rsync_tunnel
 %license LICENSE.clustercheck
 %{_bindir}/clustercheck
 %{_bindir}/galera_new_cluster
 %{_bindir}/galera_recovery
+# wsrep_sst_common should be moved to /usr/libexec: https://jira.mariadb.org/browse/MDEV-14296
+%{_bindir}/wsrep_sst_{backup,common,mariabackup,mysqldump,rsync,rsync_tunnel,rsync_wan}
 %{_libdir}/%{majorname}/plugin/wsrep_info.so
 %{_mandir}/man1/galera_new_cluster.1*
 %{_mandir}/man1/galera_recovery.1*
+%{_mandir}/man1/wsrep_sst_{backup,common,mariabackup,mysqldump,rsync,rsync_wan}.1*
 %config(noreplace) %{_sysconfdir}/my.cnf.d/galera.cnf
+%config(noreplace) %{_sysconfdir}/my.cnf.d/wsrep_info.cnf
+%{_datadir}/%{majorname}/wsrep.cnf
+%{_datadir}/%{majorname}/wsrep_notify
 %attr(0640,root,root) %ghost %config(noreplace) %{_sysconfdir}/sysconfig/clustercheck
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{majorname}-server-galera
 %{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-server-galera.cil
@@ -1594,13 +1601,6 @@ fi
 
 %{_bindir}/{innochecksum,perror,resolve_stack_dump,resolveip}
 %{_mandir}/man1/{innochecksum,perror,resolve_stack_dump,resolveip}.1*
-
-%if %{with galera}
-# wsrep_sst_common should be moved to /usr/share/mariadb: https://jira.mariadb.org/browse/MDEV-14296
-%{_bindir}/wsrep_*
-%{_mandir}/man1/wsrep_*.1*
-%doc README.wsrep_sst_rsync_tunnel
-%endif
 
 %config(noreplace) %{_sysconfdir}/my.cnf.d/%{majorname}-server.cnf
 %config(noreplace) %{_sysconfdir}/my.cnf.d/enable_encryption.preset
@@ -1672,10 +1672,6 @@ fi
 %license %{_datadir}/%{majorname}-server/groonga/COPYING
 %doc %{_datadir}/%{majorname}-server/groonga-normalizer-mysql/README.md
 %doc %{_datadir}/%{majorname}-server/groonga/README.md
-%endif
-%if %{with galera}
-%{_datadir}/%{majorname}/wsrep.cnf
-%{_datadir}/%{majorname}/wsrep_notify
 %endif
 %dir %{_datadir}/%{majorname}/policy
 %dir %{_datadir}/%{majorname}/policy/selinux
@@ -1855,6 +1851,9 @@ fi
 %{_libdir}/%{majorname}/plugin/test_versioning.so
 %{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 %{_libdir}/%{majorname}/plugin/type_test.so
+%if %{with pam}
+%{_libdir}/%{majorname}/plugin/test_pam_modules/pam_mariadb_mtr.so
+%endif
 %{_libdir}/%{majorname}/plugin/daemon_example.ini
 %attr(-,mysql,mysql) %{_datadir}/mariadb-test
 %{_mandir}/man1/{mysql_client_test,mysqltest,mariadb-client-test,mariadb-test}.1*
@@ -1864,6 +1863,17 @@ fi
 %endif
 
 %changelog
+* Fri Jun 26 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-1
+- Rebase to 12.3.2 (first GA release of the 12.3 series)
+- CVEs fixed: CVE-2026-44168, CVE-2026-44169, CVE-2026-44170,
+              CVE-2026-44171, CVE-2026-44172, CVE-2026-44173
+- Drop 'mark-RISC-V64-as-64-bit-architecture.patch' (upstreamed in connector-c PR#295)
+- Drop 'upstream_87309d3d4bb8f48910d05b0ca5ee989bcdd6b053.patch' (upstreamed in MDEV-38811)
+- Rebase 'mariadb-libfmt.patch' for FMT 12.1.0
+- Remove PAM module install path workaround (fixed upstream in MDEV-37197)
+- Move wsrep scripts from server to server-galera subpackage (MDEV-30953)
+- Remove upstream 'galera.conf' systemd drop-in (conflicts with downstream service files)
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 3:12.3.1-4
 - Rebuilt for fmt/spdlog
 

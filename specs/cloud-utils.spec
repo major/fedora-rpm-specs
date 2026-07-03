@@ -7,7 +7,7 @@
 
 Summary:	Cloud image management utilities
 Name:		cloud-utils
-Version:	0.33
+Version:	0.34
 Release:	%autorelease
 License:	GPL-3.0-only
 URL:		https://github.com/canonical/%{name}
@@ -137,9 +137,6 @@ install -d %{buildroot}%{_mandir}/man1
 # Install binaries and manpages
 install -pm 0755 bin/* %{buildroot}%{_bindir}/
 install -pm 0644 man/* %{buildroot}%{_mandir}/man1/
-
-# Exclude Ubuntu-specific tools
-rm %{buildroot}%{_bindir}/*ubuntu*
 
 # Exclude the cloud-run-instances manpage
 rm -f %{buildroot}%{_mandir}/man1/cloud-run-instances.*

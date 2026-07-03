@@ -7,7 +7,7 @@ Summary:        Simple Note Viewer
 # And ligd is LGPLv2+
 License:        GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-2.0-or-later
 Url:            http://www.gnome.org
-Source0:        http://download.gnome.org/sources/%{name}/40/%{name}-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
 Patch02:        webkitdep.patch
 

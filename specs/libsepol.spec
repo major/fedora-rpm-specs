@@ -1,15 +1,15 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
-Version: 3.10
+Version: 3.11
 Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz.asc
-Source2: https://github.com/perfinion.gpg
+Source2: https://github.com/bachradsusi.gpg
 URL: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N libsepol-3.10 -- libsepol
+# $ git format-patch -N libsepol-3.11 -- libsepol
 # $ i=1; for j in 0*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end

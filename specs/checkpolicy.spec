@@ -1,17 +1,17 @@
-%define libselinuxver 3.10-1
-%define libsepolver 3.10-1
+%define libselinuxver 3.11-1
+%define libsepolver 3.11-1
 
 Summary: SELinux policy compiler
 Name: checkpolicy
-Version: 3.10
+Version: 3.11
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz.asc
-Source2: https://github.com/perfinion.gpg
+Source2: https://github.com/bachradsusi.gpg
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.10 -- checkpolicy
+# $ git format-patch -N 3.11 -- checkpolicy
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -32,7 +32,7 @@ based on the concepts of Type Enforcement®, Role-based Access
 Control, and Multi-level Security.
 
 This package contains checkpolicy, the SELinux policy compiler.  
-Only required for building policies. 
+Only required for building policies.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'

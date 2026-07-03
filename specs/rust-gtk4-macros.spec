@@ -6,13 +6,16 @@
 %global crate gtk4-macros
 
 Name:           rust-gtk4-macros
-Version:        0.11.0
+Version:        0.11.4
 Release:        %autorelease
 Summary:        Macros helpers for GTK 4 bindings
 
 License:        MIT
 URL:            https://crates.io/crates/gtk4-macros
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump quick-xml dependency from v0.39 to v0.40
+Patch:          gtk4-macros-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

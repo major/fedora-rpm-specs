@@ -118,7 +118,8 @@ BuildArch:      noarch
 %description -n %{name}+portable-atomic-unsafe-assume-single-core-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "portable-atomic-unsafe-assume-single-core" feature of the "%{crate}" crate.
+use the "portable-atomic-unsafe-assume-single-core" feature of the "%{crate}"
+crate.
 
 %files       -n %{name}+portable-atomic-unsafe-assume-single-core-devel
 %ghost %{crate_instdir}/Cargo.toml

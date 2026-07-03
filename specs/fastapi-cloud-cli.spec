@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.20.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -36,13 +36,21 @@ Source213:      fastapi-cloud-apps-link.1
 Source214:      fastapi-cloud-apps-list.1
 Source215:      fastapi-cloud-apps-logs.1
 Source216:      fastapi-cloud-apps-unlink.1
-Source220:      fastapi-cloud-deployments.1
-Source221:      fastapi-cloud-deployments-get.1
-Source222:      fastapi-cloud-deployments-build-logs.1
-Source223:      fastapi-cloud-deployments-list.1
-Source230:      fastapi-cloud-teams.1
-Source231:      fastapi-cloud-teams-list.1
-Source232:      fastapi-cloud-teams-get.1
+Source217:      fastapi-cloud-apps-update.1
+Source220:      fastapi-cloud-ci.1
+Source221:      fastapi-cloud-ci-print-workflow.1
+Source222:      fastapi-cloud-ci-setup.1
+Source230:      fastapi-cloud-deployments.1
+Source231:      fastapi-cloud-deployments-get.1
+Source232:      fastapi-cloud-deployments-build-logs.1
+Source233:      fastapi-cloud-deployments-list.1
+Source240:      fastapi-cloud-teams.1
+Source241:      fastapi-cloud-teams-list.1
+Source242:      fastapi-cloud-teams-get.1
+Source250:      fastapi-cloud-tokens.1
+Source251:      fastapi-cloud-tokens-create.1
+Source252:      fastapi-cloud-tokens-delete.1
+Source253:      fastapi-cloud-tokens-list.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -122,9 +130,11 @@ install -D --preserve-timestamps --mode=0644 \
     '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' '%{SOURCE193}' '%{SOURCE194}' \
     '%{SOURCE200}' '%{SOURCE201}' '%{SOURCE202}' \
     '%{SOURCE210}' '%{SOURCE211}' '%{SOURCE212}' '%{SOURCE213}' '%{SOURCE214}' \
-      '%{SOURCE215}' '%{SOURCE216}' \
-    '%{SOURCE220}' '%{SOURCE221}' '%{SOURCE222}' '%{SOURCE223}' \
-    '%{SOURCE230}' '%{SOURCE231}' '%{SOURCE232}'
+      '%{SOURCE215}' '%{SOURCE216}' '%{SOURCE217}' \
+    '%{SOURCE220}' '%{SOURCE221}' '%{SOURCE222}' \
+    '%{SOURCE230}' '%{SOURCE231}' '%{SOURCE232}' '%{SOURCE233}' \
+    '%{SOURCE240}' '%{SOURCE241}' '%{SOURCE242}' \
+    '%{SOURCE250}' '%{SOURCE251}' '%{SOURCE252}' '%{SOURCE253}'
 
 
 %check -a

@@ -14,6 +14,7 @@ Source3:        mygui-layouteditor.desktop
 Source4:        mygui-imageeditor.desktop
 Source5:        mygui-fonteditor.desktop
 Source6:        mygui-skineditor.desktop
+Patch0:         mygui-add-missing-soname.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(SDL2)
@@ -67,6 +68,7 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
 
 %prep
 %setup -qn %{name}-MyGUI%{version}
+%patch -P0 -p1 -b .orig
 
 
 %build
@@ -143,6 +145,8 @@ done
 %license COPYING.MIT
 %doc README.md
 %{_libdir}/libEditorFramework.so
+%{_libdir}/libMyGUI.OpenGLPlatform.so.%{version}
+%{_libdir}/libMyGUICommon.so.%{version}
 %{_libdir}/libMyGUIEngine.so.%{version}
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
@@ -152,8 +156,8 @@ done
 
 %files devel
 %{_includedir}/MYGUI
-%{_libdir}/libMyGUI.OpenGLPlatform.a
-%{_libdir}/libMyGUICommon.a
+%{_libdir}/libMyGUI.OpenGLPlatform.so
+%{_libdir}/libMyGUICommon.so
 %{_libdir}/libMyGUIEngine.so
 %{_libdir}/pkgconfig/MYGUI.pc
 

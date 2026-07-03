@@ -459,15 +459,15 @@ if [ -f %{_builddir}/build/fedora_final/swift-linux-%{_arch}/lib/libsourcekitdIn
     cp -a %{_builddir}/build/fedora_final/swift-linux-%{_arch}/lib/libsourcekitdInProc.so %{_builddir}/usr/lib/
 fi
 
-# Install SourceKit/IndexStore public libraries
+# Install private libraries to toolchain lib dir
 for lib in libIndexStore.so libIndexStore.so.17.0 libsourcekitdInProc.so libswiftDemangle.so; do
     if [ -f %{_builddir}/usr/lib/$lib ]; then
-        install -m 0755 %{_builddir}/usr/lib/$lib %{buildroot}%{_libdir}/
+        install -m 0755 %{_builddir}/usr/lib/$lib %{buildroot}%{_libexecdir}/swift/%{version}/lib/
     fi
 done
-# Create any missing version symlinks
-if [ -f %{buildroot}%{_libdir}/libIndexStore.so.17.0 ] && [ ! -e %{buildroot}%{_libdir}/libIndexStore.so ]; then
-    ln -sf libIndexStore.so.17.0 %{buildroot}%{_libdir}/libIndexStore.so
+# Create any missing version symlinks in private dir
+if [ -f %{buildroot}%{_libexecdir}/swift/%{version}/lib/libIndexStore.so.17.0 ] && [ ! -e %{buildroot}%{_libexecdir}/swift/%{version}/lib/libIndexStore.so ]; then
+    ln -sf libIndexStore.so.17.0 %{buildroot}%{_libexecdir}/swift/%{version}/lib/libIndexStore.so
 fi
 
 # Install lldb libraries to %{_libexecdir} (private, bundled with Swift toolchain)
@@ -552,10 +552,10 @@ export QA_SKIP_RPATHS=1
 # Man pages
 %{_mandir}/man1/swift.1.gz
 
-# SourceKit/IndexStore public libraries
-%{_libdir}/libIndexStore.so*
-%{_libdir}/libsourcekitdInProc.so*
-%{_libdir}/libswiftDemangle.so*
+# SourceKit/IndexStore/SwiftDemangle private libraries
+%{_libexecdir}/swift/%{version}/lib/libIndexStore.so*
+%{_libexecdir}/swift/%{version}/lib/libsourcekitdInProc.so*
+%{_libexecdir}/swift/%{version}/lib/libswiftDemangle.so*
 
 # Compatibility symlink for module lookup
 %{_libdir}/swift

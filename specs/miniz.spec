@@ -1,5 +1,5 @@
 Name:       miniz
-Version:    3.1.1
+Version:    3.1.2
 Release:    1%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # examples/example1.c:  Unlicense (refers to "unlicense" statement at the end
@@ -108,6 +108,9 @@ done
 
 
 %changelog
+* Wed Jul  1 2026 Paul Howarth <paul@city-fan.org> - 3.1.2-1
+- Update to 3.1.2 (rhbz#2495973)
+
 * Tue Feb  3 2026 Paul Howarth <paul@city-fan.org> - 3.1.1-1
 - Update to 3.1.1 (rhbz#2436334)
 

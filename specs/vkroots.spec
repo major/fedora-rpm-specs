@@ -12,8 +12,7 @@ URL:            https://github.com/Joshua-Ashton/vkroots
 BuildArch:      noarch
 
 Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/misyltoad/vkroots/pull/12.patch
-Patch1:         vkroots-fix-funcpointer-xml-format.patch
+Patch0:         vkroots-fix-funcpointer-xml-format.patch
 
 BuildRequires:  meson >= 0.58.0
 BuildRequires:  gcc
@@ -54,7 +53,7 @@ cd gen
 %license LICENSE
 %doc README.md
 %{_includedir}/%{name}.h
-%{_datadir}/pkgconfig/%{name}.pc
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog

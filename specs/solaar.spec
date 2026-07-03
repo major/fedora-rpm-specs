@@ -3,12 +3,11 @@
 %global app_id io.github.pwr_solaar.solaar
 
 Name:           solaar
-Version:        1.1.19
+Version:        1.1.20
 Release:        %autorelease
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr-Solaar/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
-Patch:          https://github.com/pwr-Solaar/Solaar/pull/3099.patch
 
 BuildArch:      noarch
 License:        GPL-2.0-or-later
@@ -148,6 +147,10 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic-dark-filled.svg
 %{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic-filled.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-tool-brush-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-tool-bucket-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-tool-palette-off-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-tool-rect-symbolic.svg
 %{_metainfodir}/%{app_id}.metainfo.xml
 %config(noreplace) %{_sysconfdir}/xdg/autostart/solaar.desktop
 

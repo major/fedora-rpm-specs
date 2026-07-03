@@ -5,7 +5,7 @@
 %global crate ashpd
 
 Name:           rust-ashpd
-Version:        0.13.11
+Version:        0.13.12
 Release:        %autorelease
 Summary:        XDG portals wrapper in Rust using zbus
 

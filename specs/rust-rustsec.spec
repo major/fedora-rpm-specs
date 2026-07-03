@@ -5,22 +5,19 @@
 %global crate rustsec
 
 Name:           rust-rustsec
-Version:        0.31.0
+Version:        0.33.0
 Release:        %autorelease
 Summary:        Client library for the RustSec security advisory database
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustsec
 Source:         %{crates_source}
-
-# * Bump gix to version 0.78
-#   https://github.com/rustsec/rustsec/commit/0e60c1a24809cc1d8b1c32f0e8a17922209cd1f4
-Patch:          0001-rustsec-upgrade-gix-to-0.78.patch
 # Manually created patch for downstream crate metadata changes
 # * drop unused binary-scanning feature with missing dependencies
-# * Bump gix to version 0.83
-#   https://github.com/rustsec/rustsec/commit/0e60c1a24809cc1d8b1c32f0e8a17922209cd1f4
+# * temporarily allow gix 0.83; upstream wants 0.84
+# * allow newer gix 0.85: https://github.com/rustsec/rustsec/pull/1620
 Patch:          rustsec-fix-metadata.diff
+
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
@@ -133,9 +130,9 @@ use the "osv-export" feature of the "%{crate}" crate.
 %check
 # * skip tests that require internet connectivity
 %{cargo_test -- -- --exact %{shrink:
-    --skip query_vulnerabilitie
-    --skip query_vulnerabilities_with_crate_scope
     --skip enumerate_vulnerabilities
+    --skip query_vulnerabilities_with_crate_scope
+    --skip query_warnings_local_crates
     --skip clone_into_existing_directory
     --skip happy_path
 }}

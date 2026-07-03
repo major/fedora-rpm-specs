@@ -3,16 +3,14 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        26.4.0
-Release:        5%{?dist}
+Version:        26.6.0
+Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
 License:        GPL-3.0-only
 URL:            https://github.com/ansible/ansible-lint
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{archive_name}-%{version}.tar.gz
-# Patch from upstream commits https://github.com/ansible/ansible-lint/pull/5062/commits
-Patch0:         Fix-py-3.15-dataclasses-import-issue.patch
 
 BuildArch:      noarch
 BuildRequires:	pyproject-rpm-macros
@@ -64,6 +62,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Wed Jul 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.6.0-1
+- Update to 26.6.0 version (#2494862)
+
 * Sat Jun 20 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-5
 - Fix for Python-3.15 (#2481417)
 

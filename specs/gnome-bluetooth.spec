@@ -1,8 +1,6 @@
 %global libadwaita_version 1.6~beta
 %global gtk4_version 4.15.2
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:		gnome-bluetooth
 Epoch:		1
 Version:	47.2
@@ -11,7 +9,9 @@ Summary:	Bluetooth graphical utilities
 
 License:	GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeBluetooth
-Source0:	https://download.gnome.org/sources/gnome-bluetooth/47/gnome-bluetooth-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 %if 0%{?rhel}
 ExcludeArch:	s390 s390x
@@ -64,7 +64,7 @@ This package contains the libraries and header files that are needed
 for writing applications that require a Bluetooth device selection widget.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Dgtk_doc=true

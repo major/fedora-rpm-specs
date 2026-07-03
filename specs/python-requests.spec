@@ -6,7 +6,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-requests
-Version:        2.33.1
+Version:        2.34.2
 Release:        %autorelease
 Summary:        HTTP library, written in Python, for human beings
 

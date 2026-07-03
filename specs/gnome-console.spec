@@ -2,9 +2,6 @@
 %global libadwaita_version 1.8
 %global vte_version 0.77.0
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-console
 Version:        50.0
 Release:        %autorelease
@@ -12,7 +9,9 @@ Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/console
-Source:         https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  gcc
@@ -38,10 +37,7 @@ ExcludeArch: %{ix86}
 %{summary}.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p 1 -n %{name}-%{tarball_version}
+%autosetup -p 1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

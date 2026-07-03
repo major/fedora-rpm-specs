@@ -1,15 +1,13 @@
-%global debug_package %{nil}
-
 Name:           httping
-Version:        3.6
-Release:        4%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Ping alike tool for http requests
 
 License:        GPL-1.0-or-later AND OpenSSL
 URL:            https://github.com/folkertvanheusden/HTTPing/
 Source0:        https://github.com/folkertvanheusden/HTTPing/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         9524733e67454518ee1075a47f3c21166543e620.patch
-Patch1:         7f76370729c594180348f94feb4216fd14e12abd.patch
+# https://github.com/folkertvanheusden/HTTPing/pull/77
+Patch0:         openssl-no-engine.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -17,7 +15,7 @@ BuildRequires:  make
 BuildRequires:  gettext
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel
-BuildRequires:  openssl-devel-engine
+BuildRequires:  pkgconfig(fftw3)
 
 %description
 Httping is like 'ping' but for HTTP requests. Give it an URL, and it will 
@@ -29,20 +27,24 @@ also takes time.
 %autosetup -n HTTPing-%{version} -p1
 
 %build
-%cmake -DUSE_TUI=1 -DCMAKE_INSTALL_PREFIX=/usr
+%cmake -DUSE_TUI=ON -DUSE_FFTW3=ON -DUSE_SSL=ON -DUSE_GETTEXT=ON
 %cmake_build
 
 %install
 %cmake_install
 rm -rf %{buildroot}/%{_docdir}
+%find_lang %{name}
 
-%files
+%files -f %{name}.lang
 %doc README.md plot-json.py
 %license LICENSE
 %{_bindir}/httping
 %{_mandir}/httping.1
 
 %changelog
+* Sun May 03 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.0-1
+- Update to 4.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/py-pdf/pypdf
 
 Name:           python-%{srcname}
-Version:        4.2.0
+Version:        6.14.2
 Release:        %autorelease
 Summary:        Pure-Python PDF library
 
@@ -15,6 +15,11 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  sed
+# Test dependencies added manually since pyproject.toml doesn't specify them
+# separately from dev dependencies.
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-socket)
+BuildRequires:  python3dist(pytest-timeout)
 
 %global _description %{expand:
 pypdf is a free and open-source pure-python PDF library capable of splitting,
@@ -29,7 +34,7 @@ Summary:        %{summary}
 
 %description -n python3-pypdf %_description
 
-%pyproject_extras_subpkg -n python3-pypdf crypto,full,image
+%pyproject_extras_subpkg -n python3-pypdf crypto,fonts,image,full
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -41,18 +46,13 @@ This package provides additional documentation for %{name}.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Fix test dependencies
-sed -i tox.ini \
-  -e 's/pycryptodome/pycryptodomex/' \
-  -e '/pytest-socket/d'
-
 # Use local intersphinx inventory
 sed -r \
     -e 's|https://docs.python.org/\{python_version\}|%{_docdir}/python3-docs/html|' \
     -i docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x crypto,docs,full,image
+%pyproject_buildrequires -x crypto,fonts,image,full,docs
 
 %build
 %pyproject_wheel
@@ -66,7 +66,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %pyproject_save_files %{srcname}
 
 %check
-%tox
+# Deselect tests downloading files from external hosts and tests requiring
+# sample files which are not included in the source tarball.
+%pytest -m "not enable_socket and not samples"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 # https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/4Y2VRLVAR3DJXBSFVDYJMU3G4ZNPGEU6/

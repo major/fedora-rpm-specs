@@ -7,7 +7,7 @@
 %global crate glib-sys
 
 Name:           rust-glib-sys
-Version:        0.22.6
+Version:        0.22.8
 Release:        %autorelease
 Summary:        FFI bindings to libglib-2.0
 

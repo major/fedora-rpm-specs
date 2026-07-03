@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
-
 Name:           gnome-mahjongg
 Version:        49.1.1
 Release:        %autorelease
@@ -8,7 +5,9 @@ Summary:        GNOME Mahjongg game
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Mahjongg
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -27,7 +26,7 @@ matching identical tiles.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

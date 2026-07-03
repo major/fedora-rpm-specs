@@ -18,7 +18,7 @@
 Summary: GTK+ graphical user interface library
 Name: gtk2
 Version: 2.24.33
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://www.gtk.org
@@ -233,7 +233,7 @@ done
 # for places where we have two copies of the GTK+ package installed.
 # (we might have x86_64 and i686 packages on the same system, for example.)
 case "$host" in
-  alpha*|ia64*|ppc64*|powerpc64*|s390x*|x86_64*|aarch64*|mips64*|riscv64*)
+  alpha*|ia64*|ppc64*|powerpc64*|s390x*|x86_64*|aarch64*|mips64*|riscv64*|loongarch64*)
    mv $RPM_BUILD_ROOT%{_bindir}/gtk-query-immodules-2.0 $RPM_BUILD_ROOT%{_bindir}/gtk-query-immodules-2.0-64
    ;;
   *)
@@ -337,6 +337,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/%{bin_version}/filesystems
 %doc tmpdocs/examples
 
 %changelog
+* Wed Jul 01 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2.24.33-27
+- Ship gtk-query-immodules-2.0-64 on loongarch64
+
 * Fri Apr 17 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.24.33-26
 - Ship gtk-query-immodules-2.0-64 on RISC-V
 

@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 %global __provides_exclude_from ^%{_libdir}/eog/plugins/.*\\.so$
 
 Name:           eog-plugins
@@ -9,7 +7,9 @@ Summary:        A collection of plugins for the eog image viewer
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/EyeOfGnome/Plugins
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 Patch0:         eog-plugins-disable-postasa-plugin-by-default.patch
 
@@ -139,7 +139,7 @@ Requires:       libpeas-loader-python3%{?_isa}
 The eog slideshowshuffle plugin.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

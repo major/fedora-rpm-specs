@@ -1,26 +1,26 @@
 %global srcname	PyGreSQL
-%global uversion 6.1.0
+%global uversion 6.2.3
 
 %{!?runselftest:%global runselftest 1}
 
 Name:		%{srcname}
-Version:	6.1.0
-Release:	7%{?dist}
+Version:	6.2.3
+Release:	2%{?dist}
 Summary:	Python client library for PostgreSQL
 
-URL:		http://www.pygresql.org/
+URL:		https://pygresql.github.io/
 License:	PostgreSQL
 
 Source0:	https://github.com/PyGreSQL/%{name}/archive/%{uversion}/%{name}-%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 
-# Patch to remove overly strict version constraints on pip and virtualenv
-# These constraints break builds on Fedora Rawhide where newer versions are used
-Patch0:		tox.patch
+# Fix buffer overread and missing exception check in array/record parser
+# causing test failures on s390x with Python 3.14
+Patch0:		fix-cast-array-s390x.patch
 
 BuildRequires:	gcc
 BuildRequires:	libpq-devel
 BuildRequires:	python3-devel
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:	pyproject-rpm-macros
 
 # For testsuite
 %if 0%{?runselftest:1}
@@ -36,13 +36,8 @@ Python code for accessing a PostgreSQL database.
 
 %package -n python3-pygresql
 Summary:	%summary
-%{?python_provide:%python_provide python3-pygresql}
-# Remove before F30
-Provides: python3-PyGreSQL = %{uversion}-%{release}
-Provides: python3-PyGreSQL%{?_isa} = %{uversion}-%{release}
-Obsoletes: python3-PyGreSQL < %{uversion}-%{release}
 
-%description -n python3-pygresql
+%description -n python3-pygresql %_description
 
 
 %prep
@@ -62,24 +57,12 @@ find -type f -exec chmod 644 {} +
 
 %install
 %pyproject_install
+%pyproject_save_files -l pg pgdb
 
 
-%files -n python3-pygresql
+%files -n python3-pygresql -f %{pyproject_files}
 %license docs/copyright.rst
-%license %{python3_sitearch}/pygresql-*.dist-info/licenses/LICENSE.txt
-%doc docs/*.rst
-%{python3_sitearch}/pg/*.so
-%{python3_sitearch}/pg/*.py
-%{python3_sitearch}/pg/__pycache__/*.py{c,o}
-%{python3_sitearch}/pg/py.typed
-%{python3_sitearch}/pg/_pg.pyi
-%{python3_sitearch}/pgdb/*.py
-%{python3_sitearch}/pgdb/__pycache__/*.py{c,o}
-%{python3_sitearch}/pgdb/py.typed
-%{python3_sitearch}/pygresql-*.dist-info/WHEEL
-%{python3_sitearch}/pygresql-*.dist-info/INSTALLER
-%{python3_sitearch}/pygresql-*.dist-info/METADATA
-%{python3_sitearch}/pygresql-*.dist-info/top_level.txt
+%doc docs/about.rst docs/index.rst
 
 
 %check
@@ -101,6 +84,13 @@ EOF
 
 
 %changelog
+* Tue Mar 31 2026 Michal Schorm <mschorm@redhat.com> - 6.2.3-2
+- Release bump for package rebuild
+
+* Tue Mar 31 2026 Michal Schorm <mschorm@redhat.com> - 6.2.3-1
+- Rebase to the latest upstream version (rhbz#2330640)
+- Drop tox.patch (no longer needed, upstream removed pip/virtualenv constraints)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.1.0-7
 - Rebuilt for Python 3.15
 

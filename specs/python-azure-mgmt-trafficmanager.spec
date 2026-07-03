@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-trafficmanager
 
 Name:           python-%{srcname}
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Traffic Manager Client Library for Python
 License:        MIT

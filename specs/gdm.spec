@@ -1,10 +1,5 @@
 %global _hardened_build 1
 
-%define gtk3_version 2.99.2
-
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 # This controls support for launching X11 desktops.
 # gdm itself will always use Wayland.
 %if 0%{?rhel}
@@ -15,19 +10,19 @@
 
 Name:           gdm
 Epoch:          1
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GDM
-Source0:        https://download.gnome.org/sources/gdm/%{major_version}/gdm-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 Source1:        org.gnome.login-screen.gschema.override
 Source2:        gdm.sysusers
 
+%gnome_check_version
+
 # Upstream patches
-# From PR https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/357
-Patch:		gdm.service.in-Also-conflict-with-kmsconvt.patch
 
 # Downstream patches
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
@@ -44,11 +39,9 @@ BuildRequires:  pkgconfig(accountsservice) >= 0.6.3
 BuildRequires:  pkgconfig(audit)
 BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(libkeyutils)
 BuildRequires:  pkgconfig(libselinux)
 BuildRequires:  pkgconfig(libsystemd)
@@ -116,10 +109,7 @@ files that are helpful to PAM modules wishing to support
 GDM specific authentication features.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -S git -p1 -n gdm-%{tarball_version}
+%autosetup -S git -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Ddbus-sys=%{_datadir}/dbus-1/system.d \

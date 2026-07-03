@@ -3,8 +3,6 @@
 %global privlibs .*-private|libide|libgnome-builder-plugins
 %global __requires_exclude ^(%{privlibs}).*\\.so.*
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 %global glib2_version 2.75.0
 %global gtk4_version 4.15.5
 %global json_glib_version 1.2.0
@@ -39,7 +37,9 @@ Summary:        IDE for writing GNOME-based software
 #     - data/html-preview.png
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND CC0-1.0 AND CC-BY-3.0
 URL:            https://wiki.gnome.org/Apps/Builder
-Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags
@@ -110,7 +110,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Dhelp=true

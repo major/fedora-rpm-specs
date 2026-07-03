@@ -39,6 +39,9 @@ Source1:        %{name}.appdata.xml
 # https://bodhi.fedoraproject.org/updates/FEDORA-2025-0882918c25#comment-4407961
 Patch0:         %{name}-fix_audio.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2496082
+Patch1:         %{name}-6.5-rhbz2496082.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libXtst-devel
@@ -160,6 +163,8 @@ Use Decode As → Xpra to force it on a different port.
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %patch -P 0 -p1 -b .backup
 %endif
+
+%patch -P 1 -p1 -b .backup
 
 rm -rf *.egg-info
 

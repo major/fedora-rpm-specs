@@ -1,6 +1,6 @@
 Name:		libzdnn
 Version:	1.1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
 License:	Apache-2.0
@@ -52,7 +52,7 @@ autoreconf -i
 # cflags for the init routines in e.g. zdnn_init.c should just use the distro options.
 # export CFLAGS_INIT explicitely since it is not handled by configure
 CFLAGS_INIT="%{build_cflags}"; export CFLAGS_INIT
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 45
 CFLAGS="%{build_cflags} -march=z14 -mtune=z14" CXXFLAGS="%{build_cxxflags} -march=z14 -mtune=z14" \
 %endif
 %configure
@@ -81,6 +81,9 @@ ln -s -r %{buildroot}%{_libdir}/libzdnn.so.%{version} %{buildroot}%{_libdir}/lib
 %{_libdir}/libzdnn.a
 
 %changelog
+* Thu Jun 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.2-2
+- Allow default z15 on Fedora 45
+
 * Wed May 20 2026 Dan Horák <dan[at]danny.cz> - 1.1.2-1
 - updated to 1.1.2
 
