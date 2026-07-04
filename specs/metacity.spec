@@ -3,7 +3,7 @@ Version: 3.58.1
 Release: %autorelease
 Summary: Unobtrusive window manager
 URL: https://wiki.gnome.org/Projects/Metacity
-Source0: https://download.gnome.org/sources/metacity/3.58/metacity-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT-open-group
 

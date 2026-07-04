@@ -1,5 +1,5 @@
 Name:           vmaf
-Version:        3.1.0
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        Video Multi-Method Assessment Fusion
 
@@ -120,6 +120,9 @@ popd
 
 
 %changelog
+* Thu Jul 02 2026 Nicolas Chauvet <kwizart@gmail.com> - 3.2.0-1
+- Update to 3.2.0
+
 * Thu Apr 09 2026 Nicolas Chauvet <kwizart@gmail.com> - 3.1.0-1
 - Update to 3.1.0
 

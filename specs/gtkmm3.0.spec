@@ -1,6 +1,4 @@
 %global apiver 3.0
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glibmm24_version 2.54.0
 %global gtk3_version 3.24.0
@@ -16,7 +14,7 @@ Summary:        C++ interface for the GTK+ library
 
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://www.gtkmm.org/
-Source0:        https://download.gnome.org/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtkmm/%{gnome_major_minor_version}/gtkmm-%{version}.tar.xz
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++

@@ -1,5 +1,5 @@
 Name:    layer-shell-qt
-Version: 6.7.1
+Version: 6.7.2
 Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
@@ -65,6 +65,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
+- 6.7.2
+
 * Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-1
 - 6.7.1
 

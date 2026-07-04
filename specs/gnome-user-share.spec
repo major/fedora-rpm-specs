@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           gnome-user-share
 Version:        48.3
 Release:        %autorelease
@@ -16,7 +14,9 @@ License:        GPL-2.0-or-later AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.gnome.org/GNOME/gnome-user-share
-Source0:        http://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  clang
@@ -45,7 +45,7 @@ computers on the local network using mDNS/rendezvous, so that it shows
 up in the Network location in GNOME.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 %cargo_prep
 
 %generate_buildrequires

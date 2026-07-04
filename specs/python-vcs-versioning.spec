@@ -6,7 +6,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-vcs-versioning
-Version:        2.2.1
+Version:        2.2.2
 Release:        %autorelease
 Summary:        The blessed package to manage your versions by vcs metadata
 License:        MIT
@@ -21,8 +21,6 @@ BuildOption(install): -l vcs_versioning
 %if %{with tests}
 BuildOption(generate_buildrequires): -g test
 BuildRequires:  /usr/bin/git
-# https://github.com/pypa/setuptools-scm/issues/1461
-BuildRequires:  python3dist(pytest-timeout)
 %if %{undefined rhel}
 BuildRequires:  /usr/bin/hg
 %endif

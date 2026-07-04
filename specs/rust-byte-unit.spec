@@ -5,7 +5,7 @@
 %global crate byte-unit
 
 Name:           rust-byte-unit
-Version:        5.2.3
+Version:        5.2.5
 Release:        %autorelease
 Summary:        Library for interacting with units of bytes
 

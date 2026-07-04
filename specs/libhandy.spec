@@ -7,8 +7,7 @@ Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPL-2.1-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/libhandy
-%global majmin %(echo %{version} | cut -d . -f -2)
-Source0:        https://download.gnome.org/sources/%{name}/%{majmin}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gi-docgen

@@ -11,7 +11,7 @@ Summary: GNOME Structured File library
 
 License: LGPL-2.1-only
 URL:     https://gitlab.gnome.org/GNOME/libgsf/
-Source:  https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
+Source:  https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: bzip2-devel
 BuildRequires: chrpath

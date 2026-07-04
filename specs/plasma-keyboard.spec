@@ -1,6 +1,6 @@
 Name:           plasma-keyboard
 Epoch:          1
-Version:        6.7.1
+Version:        6.7.2
 Release:        1%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 1:6.7.2-1
+- 6.7.2
+
 * Tue Jun 23 2026 Steve Cossette <farchord@gmail.com> - 1:6.7.1-1
 - 6.7.1
 

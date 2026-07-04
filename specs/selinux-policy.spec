@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit c7eaaf20b122eaf7241419c8071f499d42346fce
+%global commit 3cf2aa66a844ba5e87fb2a8f04be08c62cf5538a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -19,7 +19,7 @@
 %define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 45.7
+Version: 45.8
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -34,6 +34,13 @@ Source3: macro-expander
 # Git repo: https://github.com/containers/container-selinux.git
 Source4: container-selinux.tgz
 
+# Provide rpm macros for packages installing SELinux modules
+Source5: rpm.macros
+# Use a separate file for changelog entries
+Source6: changelog
+# Internal macros for use in the build process
+Source7: macros
+
 # modules enabled in -minimum policy
 Source16: modules-minimum.lst
 
@@ -47,8 +54,8 @@ Source39: selinux-policy-mls.conf
 # Script to convert /usr/sbin file context entries to /usr/bin
 Source40: binsbin-convert.sh
 
-# Provide rpm macros for packages installing SELinux modules
-Source5: rpm.macros
+# add_changelog
+%{load:%{SOURCE7}}
 
 Url: %{giturl}
 BuildArch: noarch
@@ -507,6 +514,9 @@ sed -i 's@SELINUXSTOREPATH@%{_sharedstatedir}/selinux@' %{buildroot}%{_rpmconfig
 mkdir -p %{buildroot}%{_unitdir}
 install -p -m 644 %{SOURCE36} %{buildroot}%{_unitdir}
 
+# Install changelog to docdir
+install -m 644 -p %{SOURCE6} %{buildroot}/%{_docdir}/%{name}
+
 %post
 %systemd_post selinux-check-proper-disable.service
 if [ ! -s %{_sysconfdir}/selinux/config ]; then
@@ -784,4 +794,4 @@ exit 0
 %endif
 
 %changelog
-%autochangelog
+%add_changelog %SOURCE6

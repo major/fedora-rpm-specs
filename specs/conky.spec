@@ -22,8 +22,8 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.22.2
-Release:        5%{?dist}
+Version:        1.24.2
+Release:        1%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
@@ -38,6 +38,7 @@ BuildRequires:  libXft-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXext-devel
+BuildRequires:  libXi-devel
 BuildRequires:  lua-devel
 %{?with_audacious:BuildRequires: audacious-devel < 3.5 dbus-glib-devel}
 %{?with_curl:BuildRequires: curl-devel}
@@ -126,6 +127,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 %{_mandir}/man1/conky.1*
 
 %changelog
+* Wed Jul 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.24.2-1
+- Update to v1.24.2
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.22.2-5
 - rebuild
 

@@ -5,7 +5,7 @@
 %global fullver %{majorver}.%{minorver}
 
 Name:          mingw-tk
-Version:       9.0.3
+Version:       9.0.4
 Release:       1%{?dist}
 Summary:       MinGW Windows graphical toolkit for the Tcl scripting language
 
@@ -139,6 +139,9 @@ rm -rf %{buildroot}%{mingw64_mandir}/man1/ %{buildroot}%{mingw64_mandir}/man3/ %
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 9.0.4-1
+- Update to 9.0.4
+
 * Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 9.0.3-1
 - Update to 9.0.3
 

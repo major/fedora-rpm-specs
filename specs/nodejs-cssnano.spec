@@ -7,7 +7,7 @@ compact CSS appropriately.
 
 
 Name:           nodejs-%{npm_name}
-Version:        7.0.7
+Version:        8.0.2
 Release:        %autorelease
 Summary:        A modular minifier, built on top of the PostCSS ecosystem
 
@@ -15,6 +15,7 @@ Summary:        A modular minifier, built on top of the PostCSS ecosystem
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND CC-BY-4.0 AND ISC AND MIT
 URL:            https://github.com/cssnano/%{npm_name}
 Source0:        https://registry.npmjs.org/%{npm_name}/-/%{npm_name}-%{version}.tgz
+# Created using nodejs-packaging-bundler cssnano %%{npm_name}
 Source1:        %{npm_name}-%{version}-nm-prod.tgz
 Source2:        %{npm_name}-%{version}-nm-dev.tgz
 Source3:        %{npm_name}-%{version}-bundled-licenses.txt

@@ -1,7 +1,7 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        3.5.2
+Version:        3.5.3
 Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
@@ -67,6 +67,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Sat Jun 27 2026 Federico Pellegrin <fede@evolware.org> - 3.5.3-1
+- Update to 3.5.3. Fixes rhbz#2493685
+
 * Sun Jun 21 2026 Federico Pellegrin <fede@evolware.org> - 3.5.2-1
 - Update to 3.5.2. Fixes rhbz#2432443
 

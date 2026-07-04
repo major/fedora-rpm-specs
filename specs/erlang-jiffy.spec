@@ -1,7 +1,7 @@
 %global realname jiffy
 
 Name:           erlang-%{realname}
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Erlang JSON parser
 # Main sources and tests are licensed under MIT.

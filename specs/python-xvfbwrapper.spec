@@ -2,7 +2,7 @@
 %global pypi_name xvfbwrapper
 
 Name:           python-%{pypi_name}
-Version:        0.2.25
+Version:        0.2.27
 Release:        %autorelease
 Summary:        run headless display inside X virtual framebuffer (Xvfb)
 

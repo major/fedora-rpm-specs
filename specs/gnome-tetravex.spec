@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        GNOME Tetravex game
 License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0 AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Tetravex
-Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

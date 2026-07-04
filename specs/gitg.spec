@@ -4,10 +4,14 @@
 %global commit f7501bc827f1d4476336b0db0791335cf8a613c4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global gitdate 20250512
-%global git 1
+%global git 0
 
 Name:           gitg
+%if 0%{?git}
 Version:        45~%{gitdate}git%{shortcommit}
+%else
+Version:        50
+%endif
 Release:        %autorelease
 Summary:        GTK+ graphical interface for the git revision control system
 
@@ -20,12 +24,13 @@ License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 URL:            https://wiki.gnome.org/Apps/Gitg
 %if 0%{?git}
 Source0:        https://gitlab.gnome.org/GNOME/gitg/-/archive/%{commit}/gitg-%{commit}.tar.bz2
+%else
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
+%endif
+
 Patch0:         gitg-norpath.patch
 # fixes build with libpeas1-1.36.0-11 (gir-2.0 port)
 Patch1:         gitg-gir-2.0.patch
-%else
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{version}.tar.xz
-%endif
 
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
@@ -47,6 +52,7 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-4)
 BuildRequires:  pkgconfig(gspell-1)
 BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libdazzle-1.0)
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libpeas-1.0)
@@ -84,7 +90,11 @@ This package contains development files for %{name}.
 
 
 %prep
-%autosetup -p1 -n gitg-%{commit}
+%if 0%{?git}
+%autosetup -p1 -n %{name}-%{commit}
+%else
+%autosetup -p1 -n %{name}-%{version}
+%endif
 
 
 %build
@@ -106,7 +116,7 @@ This package contains development files for %{name}.
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gitg.desktop
 
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_datadir}/metainfo/org.gnome.gitg.appdata.xml
+    %{buildroot}/%{_datadir}/metainfo/org.gnome.gitg.metainfo.xml
 
 
 
@@ -120,7 +130,7 @@ appstream-util validate-relax --nonet \
 %{_datadir}/glib-2.0/schemas/org.gnome.gitg.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.gitg.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.gitg-symbolic.svg
-%{_metainfodir}/org.gnome.gitg.appdata.xml
+%{_metainfodir}/org.gnome.gitg.metainfo.xml
 %{_mandir}/man1/gitg.1*
 
 %files libs

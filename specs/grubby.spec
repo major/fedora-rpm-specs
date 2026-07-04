@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 89%{?dist}
+Release: 90%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -22,7 +22,7 @@ BuildRequires: pkgconfig
 BuildRequires: popt-devel
 BuildRequires: rpm-devel
 BuildRequires: sed
-%ifarch aarch64 x86_64 %{power64} riscv64
+%ifarch aarch64 x86_64 %{power64} riscv64 loongarch64
 BuildRequires: grub2-tools-minimal
 Requires: grub2-tools-minimal
 Requires: grub2-tools
@@ -79,6 +79,9 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/kernel
 
 %changelog
+* Thu Jul  2 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 8.40-90
+- Add loongarch64 support.
+
 * Mon May 18 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 8.40-89
 - Fix matching by kernel name
 

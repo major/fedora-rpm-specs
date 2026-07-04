@@ -1,6 +1,6 @@
 Name:    kwin
-Version: 6.7.1
-Release: 2%{?dist}
+Version: 6.7.2
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,10 +12,6 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
-# https://bugs.kde.org/521687
-# https://bugs.kde.org/521960
-# https://invent.kde.org/plasma/kwin/-/merge_requests/9465
-Patch: https://invent.kde.org/plasma/kwin/-/commit/83e413ab71aac79c14de7e90e941fb2a0b314477.patch
 
 ## proposed patches
 
@@ -287,6 +283,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
+- 6.7.2
+
 * Fri Jun 26 2026 Steve Cossette <farchord@gmail.com> - 6.7.1-2
 - Bump for rebuild for upstream bugfix
 

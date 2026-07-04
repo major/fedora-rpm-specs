@@ -23,12 +23,12 @@
 # Do we want libedit support
 %global libedit 1
 
-%global openssh_ver 10.2p1
+%global openssh_ver 10.3p1
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -48,161 +48,90 @@ Source20: gsissh-host-keys-migration.sh
 Source21: gsissh-host-keys-migration.service
 Source99: README.sshd-and-gsisshd
 
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
-Patch0001: 0001-openssh-7.8p1-role-mls.patch
-Patch0002: 0002-openssh-6.6p1-keycat.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1644
-Patch0003: 0003-openssh-6.6p1-allow-ip-opts.patch
-#(drop?) https://bugzilla.mindrot.org/show_bug.cgi?id=1925
-Patch0004: 0004-openssh-5.9p1-ipv6man.patch
-Patch0005: 0005-openssh-5.8p2-sigpipe.patch
-Patch0006: 0006-openssh-7.2p2-x11.patch
-Patch0007: 0007-openssh-5.1p1-askpass-progress.patch
-#https://bugzilla.redhat.com/show_bug.cgi?id=198332
-Patch0008: 0008-openssh-4.3p2-askpass-grab-info.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1635 (WONTFIX)
-Patch0009: 0009-openssh-8.7p1-redhat.patch
-# warn users for unsupported UsePAM=no (#757545)
-Patch0010: 0010-openssh-7.8p1-UsePAM-warning.patch
-# GSSAPI Key Exchange (RFC 4462 + RFC 8732)
-Patch0011: 0011-openssh-9.6p1-gssapi-keyex.patch
-#http://www.mail-archive.com/kerberos@mit.edu/msg17591.html
-Patch0012: 0012-openssh-6.6p1-force_krb.patch
-# Improve ccache handling in openssh (#991186, #1199363, #1566494)
-# https://bugzilla.mindrot.org/show_bug.cgi?id=2775
-Patch0013: 0013-openssh-7.7p1-gssapi-new-unique.patch
-# Respect k5login_directory option in krk5.conf (#1328243)
-Patch0014: 0014-openssh-7.2p2-k5login_directory.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1780
-Patch0015: 0015-openssh-6.6p1-kuserok.patch
-# Use tty allocation for a remote scp (#985650)
-Patch0016: 0016-openssh-6.4p1-fromto-remote.patch
-# log via monitor in chroots without /dev/log (#2681)
-Patch0017: 0017-openssh-6.6.1p1-log-in-chroot.patch
-# scp file into non-existing directory (#1142223)
-Patch0018: 0018-openssh-6.6.1p1-scp-non-existing-directory.patch
-# add new option GSSAPIEnablek5users and disable using ~/.k5users by default (#1169843)
-# CVE-2014-9278
-Patch0019: 0019-openssh-6.6p1-GSSAPIEnablek5users.patch
-# apply upstream patch and make sshd -T more consistent (#1187521)
-Patch0020: 0020-openssh-6.8p1-sshdT-output.patch
-# Add sftp option to force mode of created files (#1191055)
-Patch0021: 0021-openssh-6.7p1-sftp-force-permission.patch
-# make s390 use /dev/ crypto devices -- ignore closefrom
-Patch0022: 0022-openssh-7.2p2-s390-closefrom.patch
-# Pass inetd flags for SELinux down to openbsd compat level
-Patch0023: 0023-openssh-7.6p1-cleanup-selinux.patch
-# Sandbox adjustments for s390 and audit
-Patch0024: 0024-openssh-7.5p1-sandbox.patch
-# Unbreak scp between two IPv6 hosts (#1620333)
-Patch0025: 0025-openssh-7.8p1-scp-ipv6.patch
-# Mention crypto-policies in manual pages (#1668325)
-# clarify rhbz#2068423 on the man page of ssh_config
-Patch0026: 0026-openssh-8.0p1-crypto-policies.patch
-# Use OpenSSL KDF (#1631761)
-Patch0027: 0027-openssh-8.0p1-openssl-kdf.patch
-# sk-dummy.so built with -fvisibility=hidden does not work
-Patch0028: 0028-openssh-8.2p1-visibility.patch
-# Do not break X11 without IPv6
-Patch0029: 0029-openssh-8.2p1-x11-without-ipv6.patch
-# sshd provides PAM an incorrect error code (#1879503)
-Patch0030: 0030-openssh-8.0p1-preserve-pam-errors.patch
-# Implement kill switch for SCP protocol
-Patch0031: 0031-openssh-8.7p1-scp-kill-switch.patch
-# Workaround for lack of sftp_realpath in older versions of RHEL
-# https://bugzilla.redhat.com/show_bug.cgi?id=2038854
-# https://github.com/openssh/openssh-portable/pull/299
-# downstream only
-Patch0032: 0032-openssh-8.7p1-recursive-scp.patch
-# Downstream alias for MinRSABits
-Patch0033: 0033-openssh-8.7p1-minrsabits.patch
-# downstream only, IBMCA tentative fix
-# From https://bugzilla.redhat.com/show_bug.cgi?id=1976202#c14
+Patch0001: 0001-Add-SELinux-role-and-MLS-Multi-Level-Security-suppor.patch
+Patch0002: 0002-Implement-SELinux-environment-variable-setup-for-sub.patch
+Patch0003: 0003-Pass-inetd-flags-and-auth-context-to-subprocess-call.patch
+Patch0004: 0004-openssh-6.6p1-keycat.patch
+Patch0005: 0005-openssh-6.6p1-allow-ip-opts.patch
+Patch0006: 0006-openssh-5.9p1-ipv6man.patch
+Patch0007: 0007-openssh-5.8p2-sigpipe.patch
+Patch0008: 0008-openssh-7.2p2-x11.patch
+Patch0009: 0009-openssh-5.1p1-askpass-progress.patch
+Patch0010: 0010-openssh-4.3p2-askpass-grab-info.patch
+Patch0011: 0011-openssh-8.7p1-redhat.patch
+Patch0012: 0012-openssh-7.8p1-UsePAM-warning.patch
+Patch0013: 0013-openssh-9.6p1-gssapi-keyex.patch
+Patch0014: 0014-openssh-6.6p1-force_krb.patch
+Patch0015: 0015-openssh-7.7p1-gssapi-new-unique.patch
+Patch0016: 0016-openssh-7.2p2-k5login_directory.patch
+Patch0017: 0017-openssh-6.6p1-kuserok.patch
+Patch0018: 0018-openssh-6.4p1-fromto-remote.patch
+Patch0019: 0019-openssh-6.6.1p1-log-in-chroot.patch
+Patch0020: 0020-openssh-6.6.1p1-scp-non-existing-directory.patch
+Patch0021: 0021-openssh-6.6p1-GSSAPIEnablek5users.patch
+Patch0022: 0022-openssh-6.8p1-sshdT-output.patch
+Patch0023: 0023-openssh-6.7p1-sftp-force-permission.patch
+Patch0024: 0024-openssh-7.2p2-s390-closefrom.patch
+Patch0025: 0025-openssh-7.5p1-sandbox.patch
+Patch0026: 0026-openssh-7.8p1-scp-ipv6.patch
+Patch0027: 0027-openssh-8.0p1-crypto-policies.patch
+Patch0028: 0028-openssh-8.0p1-openssl-kdf.patch
+Patch0029: 0029-openssh-8.2p1-visibility.patch
+Patch0030: 0030-openssh-8.2p1-x11-without-ipv6.patch
+Patch0031: 0031-openssh-8.0p1-preserve-pam-errors.patch
+Patch0032: 0032-openssh-8.7p1-scp-kill-switch.patch
+Patch0033: 0033-openssh-8.7p1-recursive-scp.patch
 Patch0034: 0034-openssh-8.7p1-ibmca.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1402
-# https://bugzilla.redhat.com/show_bug.cgi?id=1171248
-# record pfs= field in CRYPTO_SESSION audit event
 Patch0035: 0035-openssh-7.6p1-audit.patch
-# Audit race condition in forked child (#1310684)
 Patch0036: 0036-openssh-7.1p2-audit-race-condition.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2049947
 Patch0037: 0037-openssh-9.0p1-audit-log.patch
 Patch0038: 0038-openssh-7.7p1-fips.patch
-# Add missing options from ssh_config into ssh manpage
-# upstream bug:
-# https://bugzilla.mindrot.org/show_bug.cgi?id=3455
-Patch0039: 0039-openssh-8.7p1-ssh-manpage.patch
-# Don't propose disallowed algorithms during hostkey negotiation
-# upstream MR:
-# https://github.com/openssh/openssh-portable/pull/323
-Patch0040: 0040-openssh-8.7p1-negotiate-supported-algs.patch
-Patch0041: 0041-openssh-9.0p1-evp-fips-kex.patch
-Patch0042: 0042-openssh-8.7p1-nohostsha1proof.patch
-Patch0043: 0043-openssh-9.9p1-separate-keysign.patch
-Patch0044: 0044-openssh-9.9p1-openssl-mlkem.patch
-# https://www.openwall.com/lists/oss-security/2025/02/22/1
-Patch0045: 0045-openssh-9.9p2-error_processing.patch
-# https://github.com/openssh/openssh-portable/pull/564
-Patch0046: 0046-Provide-better-error-for-non-supported-private-keys.patch
-# https://github.com/openssh/openssh-portable/pull/567
-Patch0047: 0047-Ignore-bad-hostkeys-in-known_hosts-file.patch
-# https://github.com/openssh/openssh-portable/pull/500
-Patch0048: 0048-support-authentication-indicators-in-GSSAPI.patch
-Patch0049: 0049-NIST-curves-hybrid-KEX-implementation.patch
-# landed upstream, to be removed after 10.3
-Patch0050: 0050-Provide-a-way-to-disable-GSSAPIDelegateCredentials-s.patch
-# Move MAX_DISPLAYS to a configuration option (#1341302)
-Patch0051: 0051-openssh-7.3p1-x11-max-displays.patch
-# PKCS#11 URIs (upstream #2817, seriously reworked on rebasing to 10.2)
-# https://github.com/Jakuje/openssh-portable/commits/jjelen-pkcs11
-Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2423900
-Patch0053: 0053-openssh-10.2p1-pam-auth.patch
-# upstream 487e8ac146f7d6616f65c125d5edb210519b833a
-Patch0054: 0054-openssh-9.9p1-scp-clear-setuid.patch
-# upstream c805b97b67c774e0bf922ffb29dfbcda9d7b5add
-Patch0055: 0055-openssh-9.9p1-mux-askpass-check.patch
-# upstream fd1c7e131f331942d20f42f31e79912d570081fa
-Patch0056: 0056-openssh-9.9p1-ecdsa-incomplete-application.patch
-# upstream fd1c7e131f331942d20f42f31e79912d570081fa
-Patch0057: 0057-openssh-9.9p1-authorized-keys-principles-option.patch
-# upstream 76685c9b09a66435cd2ad8373246adf1c53976d3
-# upstream 0a0ef4515361143cad21afa072319823854c1cf6
-# upstream 607bd871ec029e9aa22e632a22547250f3cae223
-# upstream 1340d3fa8e4bb122906a82159c4c9b91584d65ce
-Patch0058: 0058-openssh-10.2p1-proxyjump-username-validity-checks.patch
-# upstream 607f337637f2077b34a9f6f96fc24237255fe175
-Patch0059: 0059-openssh-10.2p1-downgrade-useless-error-debug.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=2581
+Patch0039: 0039-openssh-8.7p1-negotiate-supported-algs.patch
+Patch0040: 0040-openssh-9.0p1-evp-fips-kex.patch
+Patch0041: 0041-openssh-8.7p1-nohostsha1proof.patch
+Patch0042: 0042-openssh-9.9p1-separate-keysign.patch
+Patch0043: 0043-openssh-9.9p1-openssl-mlkem.patch
+Patch0044: 0044-openssh-9.9p2-error_processing.patch
+Patch0045: 0045-Provide-better-error-for-non-supported-private-keys.patch
+Patch0046: 0046-Ignore-bad-hostkeys-in-known_hosts-file.patch
+Patch0047: 0047-support-authentication-indicators-in-GSSAPI.patch
+Patch0048: 0048-NIST-curves-hybrid-KEX-implementation.patch
+Patch0049: 0049-openssh-7.3p1-x11-max-displays.patch
+Patch0050: 0050-Fix-ssh-pkcs11-client-helper-termination.patch
+Patch0051: 0051-openssh-10.2p1-pam-auth.patch
+Patch0052: 0052-gssapi-s4u.patch
+Patch0053: 0053-openssh-10.2p1-pkcs11-uri.patch
+Patch0054: 0054-gssapi-tests.patch
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
-Patch2000: 2000-openssh-10.2p1-gsissh.patch
+Patch2000: 2000-openssh-10.3p1-gsissh.patch
 
 # This is the HPN patch
-# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.8.0
-Patch2001: 2001-openssh-10.2p1-hpn-18.8.0.patch
+# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.9.0
+Patch2001: 2001-openssh-10.3p1-hpn-18.9.0.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
-Requires: /sbin/nologin
-Requires: openssl-libs >= 3.5.0
+Requires: openssl-libs >= 1:3.5.0
 
 BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
 BuildRequires: audit-libs-devel >= 2.0.5
 BuildRequires: util-linux, groff
 BuildRequires: pam-devel
-BuildRequires: openssl-devel >= 3.5.0
+BuildRequires: openssl-devel >= 1:3.5.0
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
-Recommends: p11-kit
 
 %if %{kerberos5}
 BuildRequires: krb5-devel
+BuildRequires: krb5-workstation
+BuildRequires: krb5-server
+BuildRequires: nss_wrapper
 %endif
 
 %if %{gsi}
@@ -242,6 +171,7 @@ Summary: SSH server daemon with GSI authentication
 Provides: gsissh-server = %{version}-%{release}
 Obsoletes: gsissh-server < 5.8p2-2
 Requires: %{name} = %{version}-%{release}
+Requires: /sbin/nologin
 Requires(pre): /usr/sbin/useradd
 Requires: pam >= 1.0.1-3
 Requires: crypto-policies >= 20220824-1
@@ -508,6 +438,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Wed Jul 01 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.3p1-1
+- Based on openssh-10.3p1-4.fc45
+
 * Tue May 26 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.2p1-2
 - Based on openssh-10.2p1-10.fc44
 

@@ -11,7 +11,7 @@ Summary:        Library to access MS Graph API for Microsoft 365
 
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/msgraph
-Source:         https://download.gnome.org/sources/%{name}/0.3/%{name}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  gcc

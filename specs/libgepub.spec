@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        Library for epub documents
 License:        LGPL-2.1-or-later
 URL:            https://git.gnome.org/browse/libgepub
-Source0:        https://download.gnome.org/sources/libgepub/0.7/libgepub-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)

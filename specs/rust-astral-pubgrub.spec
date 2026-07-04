@@ -5,7 +5,7 @@
 %global crate astral-pubgrub
 
 Name:           rust-astral-pubgrub
-Version:        0.3.3
+Version:        0.5.0
 Release:        %autorelease
 Summary:        PubGrub version solving algorithm
 
@@ -13,9 +13,7 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/astral-pubgrub
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow older versions of the ron dev-dependency until the rust-ron package
-#   can be updated, https://bugzilla.redhat.com/show_bug.cgi?id=2391241. Upstream specifies 0.12; we allow as old as 0.10.
-# * Remove benchmark-only codspeed-criterion-compat dev-dependency
+# * Remove benchmark-only codspeed-criterion-compat and cc dev-dependencies
 # * Remove varisat dev-dependency to avoid having to package it; omit
 #   tests/proptest.rs and tests/sat_dependency_provider.rs, which would require
 #   it.

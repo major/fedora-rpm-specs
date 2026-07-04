@@ -8,13 +8,15 @@ provides advanced optimisations, which may or may not break your CSS.
 
 
 Name:           nodejs-%{npm_name}
-Version:        7.0.7
+Version:        8.0.2
 Release:        %autorelease
 Summary:        Advanced optimisations for cssnano; may or may not break your CSS!
 
 # The entire source code is MIT, and the rest is bundled licenses from node_modules
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND CC-BY-4.0 AND ISC AND MIT
-URL:            https://github.com/cssnano-preset-advanced/%{npm_name}
+# this is part of the repositories. See tags with the name of this module
+URL:            https://github.com/cssnano/cssnano
+# created using nodejs-packaging-bundler cssnano-preset-advanced
 Source0:        https://registry.npmjs.org/%{npm_name}/-/%{npm_name}-%{version}.tgz
 Source1:        %{npm_name}-%{version}-nm-prod.tgz
 Source2:        %{npm_name}-%{version}-nm-dev.tgz

@@ -25,8 +25,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.4.4
-Release:    2%{?dist}
+Version:    1.4.5
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -50,7 +50,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-63.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-27930.cvd
+Source11:   daily-28048.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-339.cvd
 #for update
@@ -118,7 +118,11 @@ BuildRequires:  gnutls-devel
 %endif
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-devel
+%if 0%{?fedora} > 44
+BuildRequires:  openssl3-devel
+%else
 BuildRequires:  openssl-devel
+%endif
 BuildRequires:  pcre2-devel
 # Explicitly needed on EL8
 BuildRequires:  python3
@@ -240,7 +244,11 @@ using the Clam Antivirus scanner.
 Summary:    Header files and libraries for the Clam Antivirus scanner
 Requires:   clamav-lib        = %{version}-%{release}
 Requires:   clamav-filesystem = %{version}-%{release}
+%if 0%{?fedora} > 44
+Requires:   openssl3-devel
+%else
 Requires:   openssl-devel
+%endif
 
 %description devel
 This package contains headerfiles and libraries which are needed to
@@ -665,6 +673,9 @@ done
 
 
 %changelog
+* Thu Jul 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.5-1
+- Update to 1.4.5
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.4-2
 - Rebuilt for openssl 4.0
 

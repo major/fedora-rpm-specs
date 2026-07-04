@@ -14,7 +14,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -34,6 +34,8 @@ Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch1:  pam-1.7.0-redhat-modules.patch
 Patch2:  pam-1.5.3-unix-nomsg.patch
+# https://github.com/linux-pam/linux-pam/commit/30708d973b63891bf700299ce3ae0f1086398284
+Patch3:  pam-1.7.2-pam-userdb-fix-password-leak.patch
 
 %{load:%{SOURCE3}}
 
@@ -130,6 +132,7 @@ cp %{SOURCE18} .
 
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .nomsg
+%patch -P 3 -p1 -b .pam-userdb-fix-password-leak
 
 %build
 %meson \
@@ -363,6 +366,11 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Thu Jul  2 2026 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.2-3
+- pam_userdb: fix password comparison timing leak
+  Resolves: #2496416
+  Resolves: CVE-2026-54411
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
 - Rebuilt for openssl 4.0
 

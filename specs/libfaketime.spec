@@ -47,7 +47,7 @@ system time a program sees without having to change the time system-wide.
 %autosetup -p1
 
 %build
-%ifarch ppc64le
+%ifarch ppc64le loongarch64
   export FAKETIME_COMPILE_CFLAGS="-DFORCE_PTHREAD_NONVER"
 %endif
 %ifarch riscv64
@@ -58,7 +58,7 @@ system time a program sees without having to change the time system-wide.
 %make_build PREFIX=%{_prefix} LIBDIRNAME=/%{_lib} all
 
 %check
-%ifarch ppc64le
+%ifarch ppc64le loongarch64
   export FAKETIME_COMPILE_CFLAGS="-DFORCE_PTHREAD_NONVER"
 %endif
 %ifarch riscv64

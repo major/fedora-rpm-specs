@@ -14,7 +14,7 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.19.2
+Version:	2.4.19.4
 Release:	%autorelease
 Summary:	OpenID Connect auth module for Apache HTTP Server
 

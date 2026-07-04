@@ -74,6 +74,8 @@ Patch:      0009-System-dnnl.patch
 Patch:      0010-dnnl-Clean-unused-vars.patch
 # Use the system openVINO
 Patch:      0011-openVINO-runtime-fix.patch
+# Trigger onnx static registration fix
+Patch:      0012-onnx-static-registration-fix.patch
 
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
 # i686:    https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

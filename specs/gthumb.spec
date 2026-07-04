@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
-
 Name:           gthumb
 Epoch:          1
 Version:        4.0~beta
@@ -9,7 +6,9 @@ Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/gthumb
-Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # the development files had been removed in the 4.0 series
 Obsoletes:	%{name}-devel < %{version}
@@ -55,10 +54,7 @@ gthumb is an application for viewing, editing, and organizing
 collections of images.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

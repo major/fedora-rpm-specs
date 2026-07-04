@@ -3,30 +3,32 @@
 %global systemd_unit_system gnome-remote-desktop.service
 %global systemd_unit_user gnome-remote-desktop.service
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 %bcond rdp %[0%{?fedora} || 0%{?rhel} >= 10]
 %bcond vnc %[0%{?fedora} || 0%{?rhel} < 10]
 
+%global meson_version 1.4.0
 %global libei_version 1.0.901
-%global pipewire_version 0.3.49
+%global pipewire_version 1.2.0
+%global glib_version 2.75.0
+%global vncserver_version 0.9.11-7
 
 Name:           gnome-remote-desktop
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-remote-desktop
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
-BuildRequires:  meson >= 0.47.0
+BuildRequires:  meson >= %{meson_version}
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(epoxy)
@@ -45,7 +47,7 @@ BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(winpr3)
 %endif
 BuildRequires:  pkgconfig(gbm)
-BuildRequires:  pkgconfig(glib-2.0) >= 2.68
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(gudev-1.0)
@@ -55,7 +57,7 @@ BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libsecret-1)
 %if %{with vnc}
-BuildRequires:  pkgconfig(libvncserver) >= 0.9.11-7
+BuildRequires: pkgconfig(libvncserver) >= %{vncserver_version}
 %endif
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon)
@@ -75,10 +77,7 @@ GNOME desktop environment.
 
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

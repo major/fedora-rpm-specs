@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Python-2.0.1
 
 
@@ -408,6 +408,18 @@ Patch484: 00484-cve-2026-3644.patch
 #
 # Stack overflow parsing XML with deeply nested DTD content models
 Patch485: 00485-cve-2026-4224.patch
+
+# 00489 # 008af720a5f6f98ed3feb8ebdbf88ab9dea4db22
+# Use BIO_eof to detect EOF for SSL_FILETYPE_ASN1
+#
+# In PEM, we need to parse until error and then suppress `PEM_R_NO_START_LINE`, because PEM allows arbitrary leading and trailing data. DER, however, does not. Parsing until error and suppressing `ASN1_R_HEADER_TOO_LONG` doesn't quite work because that error also covers some cases that should be rejected.
+#
+# Instead, check `BIO_eof` early and stop the loop that way.
+#
+# This fixes https://github.com/python/cpython/issues/151504 and adds compatibility with OpenSSL 3.5.7+
+#
+# (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
+Patch489: 00489-openssl-3.5.7.patch
 
 # (New patches go here ^^^)
 #
@@ -1741,6 +1753,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 02 2026 Miro Hrončok <mhroncok@redhat.com> - 3.11.15-5
+- Fix ssl.SSLError: [ASN1: NOT_ENOUGH_DATA] not enough data with OpenSSL 3.5.7+
+
 * Fri Apr 17 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.11.15-4
 - Security fixes for CVE-2026-1502, CVE-2026-4786, CVE-2026-6100, CVE-2026-2297, CVE 2026-3644, CVE-2026-4224
 Resolves: rhbz#2457941, rhbz#2458221, rhbz#2458013, rhbz#2444704, rhbz#2448188, rhbz#2448204

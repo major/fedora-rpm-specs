@@ -4,7 +4,7 @@ Release:       %autorelease
 Summary:       A collection of helpers for building UPnP AV applications
 License:       LGPL-2.1-or-later AND CC0-1.0
 URL:           http://www.gupnp.org/
-Source0:       http://download.gnome.org/sources/gupnp-av/0.14/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: gi-docgen
 BuildRequires: gobject-introspection-devel

@@ -9,11 +9,11 @@
 
 %global __python %{__python3}
 
-%global upstream_version 6.7.3-unstable
+%global upstream_version 6.7.4-unstable
 
 Name:           cinnamon
-Version:        6.7.3^unstable
-Release:        2%{?dist}
+Version:        6.7.4^unstable
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -332,6 +332,9 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-1
+- Update to 6.7.4-unstable
+
 * Sun Jun 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-2
 - Add requires gnome-keyring-pam
 

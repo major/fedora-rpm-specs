@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           libpanel
 Version:        1.10.4
 Release:        %autorelease
@@ -7,7 +5,9 @@ Summary:        IDE paneling library for GTK
 
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/libpanel
-Source0:        https://download.gnome.org/sources/libpanel/1.10/libpanel-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -37,7 +37,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n libpanel-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

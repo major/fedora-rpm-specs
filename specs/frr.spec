@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -68,7 +68,8 @@ BuildRequires:  readline-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  texinfo
-BuildRequires:  protobuf3-c-devel
+BuildRequires:  protobuf-compiler
+BuildRequires:  pkgconfig(libprotobuf-c)
 # RPKI support
 BuildRequires:  rtrlib-devel
 
@@ -315,6 +316,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Jul 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 10.6.1-4
+- Auto-select protobuf version
+
 * Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 10.6.1-3
 - Rebuilt for abseil-cpp 20260526.0
 

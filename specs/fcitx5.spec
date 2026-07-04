@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.1.19
+Version:        5.1.21
 Release:        %autorelease
 Summary:        Next generation of fcitx
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -47,6 +47,7 @@ BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xkeyboard-config)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  cmake(nlohmann_json)
+BuildRequires:  cmake(PlasmaWaylandProtocols)
 Requires:       dbus-common
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}

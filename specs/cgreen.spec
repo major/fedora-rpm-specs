@@ -1,5 +1,5 @@
 Name:           cgreen
-Version:        1.6.5
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Modern unit test and mocking framework for C and C++
 License:        ISC

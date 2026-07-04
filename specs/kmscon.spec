@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        10.0.0
+Version:        10.0.1
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
@@ -7,7 +7,7 @@ URL:            https://github.com/kmscon/kmscon/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
-BuildRequires:  libtsm-devel >= 4.5.0
+BuildRequires:  libtsm-devel >= 4.6.0
 BuildRequires:  meson
 BuildRequires:  ncurses
 BuildRequires:  gcc
@@ -28,17 +28,6 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
-
-Patch1: localectl_support.patch
-
-# Fix background startup:
-Patch2: 0001-seat-Fix-seat-startup-in-background.patch
-
-# Temporary downstream patch until kmscon natively supports /usr/lib/issue.d
-# This is needed by Fedora Server and Fedora ELN to display the Cockpit
-# console URL at the login prompt.
-# See https://github.com/kmscon/kmscon/issues/407 for more details
-Patch10: 0001-Use-agetty-on-Fedora.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).

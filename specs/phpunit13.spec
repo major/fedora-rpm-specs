@@ -28,7 +28,7 @@
 %global ver_minor    2
 
 Name:           %{pk_project}%{ver_major}
-Version:        13.2.1
+Version:        13.2.2
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -292,6 +292,9 @@ exit $ret
 
 
 %changelog
+* Wed Jul  1 2026 Remi Collet <remi@remirepo.net> - 13.2.2-1
+- update to 13.2.2
+
 * Tue Jun 16 2026 Remi Collet <remi@remirepo.net> - 13.2.1-1
 - update to 13.2.1
 - raise dependency on phpunit/php-code-coverage 14.2.2

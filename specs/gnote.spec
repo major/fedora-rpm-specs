@@ -1,8 +1,5 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/*/.*\\.so$
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnote
 Version:        50.1
 Release:        %autorelease
@@ -10,7 +7,9 @@ Summary:        Note-taking application
 
 License:        GPL-3.0-or-later AND GFDL-1.1-only AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Gnote
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
@@ -36,10 +35,7 @@ ideas together with Wiki style interconnects. It is a port of Tomboy to C++
 and consumes fewer resources.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

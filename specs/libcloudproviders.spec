@@ -7,7 +7,7 @@ Release:        %autorelease
 License:        LGPL-3.0-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/libcloudproviders
-Source0:        https://ftp.gnome.org/pub/GNOME/sources/libcloudproviders/%{api_version}/libcloudproviders-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gtk-doc

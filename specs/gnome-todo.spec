@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           gnome-todo
 Version:        43.0
 Release:        %autorelease
@@ -7,7 +5,10 @@ Summary:        Personal task manager for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/Endeavour/
-Source0:        https://gitlab.gnome.org/World/Endeavour/-/archive/%{tarball_version}/Endeavour-%{tarball_version}.tar.bz2
+Source0:        https://gitlab.gnome.org/World/Endeavour/-/archive/%{gnome_tarball_version}/Endeavour-%{gnome_tarball_version}.tar.bz2
+
+%gnome_check_version
+
 Patch0:         endeavour-girepository.patch
 Patch1:         endeavour-fix-tests-build.patch
 
@@ -42,7 +43,7 @@ Summary:        Development files needed to write plugins for GNOME To Do
 %{summary}.
 
 %prep
-%autosetup -p1 -n Endeavour-%{tarball_version}
+%autosetup -p1 -n Endeavour-%{gnome_tarball_version}
 
 %build
 %meson

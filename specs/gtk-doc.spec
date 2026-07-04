@@ -1,7 +1,5 @@
 %global debug_package %{nil}
 
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name: gtk-doc
 Version: 1.36.1
 Release: %autorelease
@@ -9,7 +7,7 @@ Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
 URL: https://gitlab.gnome.org/GNOME/gtk-doc/
-Source0: http://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: dblatex
 BuildRequires: docbook-utils

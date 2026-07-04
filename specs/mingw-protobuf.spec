@@ -3,25 +3,27 @@
 %global pkgname protobuf
 
 Name:          mingw-%{pkgname}
-Version:       3.19.6
-Release:       11%{?dist}
+Version:       33.5
+Release:       3%{?dist}
 Summary:       MinGW Windows protobuf library
 
 BuildArch:     noarch
 License:       BSD-3-Clause
 URL:           https://github.com/protocolbuffers/protobuf
 Source0:       https://github.com/protocolbuffers/protobuf/archive/v%{version}/%{pkgname}-%{version}-all.tar.gz
+# Add version suffix to dlls
+Patch0:        protobuf_dllver.patch
 
+BuildRequires: cmake
+BuildRequires: ninja-build
 
-BuildRequires: autoconf automake libtool
-BuildRequires: gcc-c++
-BuildRequires: make
-
-BuildRequires: mingw32-filesystem >= 102
+BuildRequires: mingw32-abseil-cpp
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 102
+BuildRequires: mingw64-abseil-cpp
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-zlib
 
@@ -32,54 +34,27 @@ MinGW Windows protobuf library.
 
 
 %package -n mingw32-%{pkgname}
-Summary:       MinGW Windows protobuf library
-# Ensure packages stay in sync
-Requires:      protobuf-compiler = %{version}
+Summary:        MinGW Windows protobuf library
+BuildArch:      noarch
+Obsoletes:      mingw32-%{pkgname}-static < 33.5-1
+Provides:       mingw32-%{pkgname}-static = %{version}-%{release}
+Obsoletes:      mingw32-%{pkgname}-tools < 33.5-1
+Provides:       mingw32-%{pkgname}-tools = %{version}-%{release}
 
 %description -n mingw32-%{pkgname}
 MinGW Windows protobuf library.
 
 
-%package -n mingw32-%{pkgname}-static
-Summary:       Static version of the MinGW Windows protobuf library
-Requires:      mingw32-%{pkgname} = %{version}-%{release}
-
-%description -n mingw32-%{pkgname}-static
-Static version of the MinGW Windows protobuf library.
-
-
-%package -n mingw32-%{pkgname}-tools
-Summary:       MinGW Windows protobuf library tools
-
-%description -n mingw32-%{pkgname}-tools
-MinGW Windows protobuf library tools.
-
-
-
 %package -n mingw64-%{pkgname}
-Summary:       MinGW Windows protobuf library
-# Ensure packages stay in sync
-Requires:      protobuf-compiler = %{version}
-
+Summary:        MinGW Windows protobuf library
+BuildArch:      noarch
+Obsoletes:      mingw64-%{pkgname}-static < 33.5-1
+Provides:       mingw64-%{pkgname}-static = %{version}-%{release}
+Obsoletes:      mingw64-%{pkgname}-tools < 33.5-1
+Provides:       mingw64-%{pkgname}-tools = %{version}-%{release}
 
 %description -n mingw64-%{pkgname}
 MinGW Windows protobuf library.
-
-
-%package -n mingw64-%{pkgname}-static
-Summary:       Static version of the MinGW Windows protobuf library
-Requires:      mingw64-%{pkgname} = %{version}-%{release}
-
-%description -n mingw64-%{pkgname}-static
-Static version of the MinGW Windows protobuf library.
-
-
-%package -n mingw64-%{pkgname}-tools
-Summary:       MinGW Windows protobuf library tools
-
-%description -n mingw64-%{pkgname}-tools
-MinGW Windows protobuf library tools.
-
 
 %{?mingw_debug_package}
 
@@ -89,63 +64,92 @@ MinGW Windows protobuf library tools.
 
 
 %build
-./autogen.sh
-%mingw_configure
-%mingw_make_build
+%mingw_cmake -Dprotobuf_ABSL_PROVIDER=package \
+    -Dprotobuf_BUILD_TESTS:BOOL=OFF \
+    -GNinja
+%mingw_ninja
 
 
 %install
-%mingw_make_install
-
-# Delete *.la files
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+%mingw_ninja_install
+%mingw_debug_install_post
 
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
-%{mingw32_bindir}/libprotobuf-30.dll
-%{mingw32_bindir}/libprotobuf-lite-30.dll
-%{mingw32_bindir}/libprotoc-30.dll
+%{mingw32_bindir}/libprotobuf-33.5.0.dll
+%{mingw32_bindir}/libprotobuf-lite-33.5.0.dll
+%{mingw32_bindir}/libprotoc-33.5.0.dll
+%{mingw32_bindir}/libutf8_range-33.5.0.dll
+%{mingw32_bindir}/libutf8_validity-33.5.0.dll
+%{mingw32_bindir}/protoc-gen-upb.exe
+%{mingw32_bindir}/protoc-gen-upb.exe-%{version}.0
+%{mingw32_bindir}/protoc-gen-upb_minitable.exe
+%{mingw32_bindir}/protoc-gen-upb_minitable.exe-%{version}.0
+%{mingw32_bindir}/protoc-gen-upbdefs.exe
+%{mingw32_bindir}/protoc-gen-upbdefs.exe-%{version}.0
+%{mingw32_bindir}/protoc.exe
+%{mingw32_bindir}/protoc.exe-%{version}.0
 %dir %{mingw32_includedir}/google
 %{mingw32_includedir}/google/protobuf/
-%{mingw32_libdir}/pkgconfig/protobuf-lite.pc
-%{mingw32_libdir}/pkgconfig/protobuf.pc
+%{mingw32_includedir}/upb/
+%{mingw32_includedir}/utf8_range.h
+%{mingw32_includedir}/utf8_validity.h
+%{mingw32_libdir}/cmake/protobuf/
+%{mingw32_libdir}/cmake/utf8_range/
 %{mingw32_libdir}/libprotobuf-lite.dll.a
 %{mingw32_libdir}/libprotobuf.dll.a
 %{mingw32_libdir}/libprotoc.dll.a
+%{mingw32_libdir}/libupb.a
+%{mingw32_libdir}/libutf8_range.dll.a
+%{mingw32_libdir}/libutf8_validity.dll.a
+%{mingw32_libdir}/pkgconfig/protobuf-lite.pc
+%{mingw32_libdir}/pkgconfig/protobuf.pc
+%{mingw32_libdir}/pkgconfig/upb.pc
+%{mingw32_libdir}/pkgconfig/utf8_range.pc
 
-
-%files -n mingw32-%{pkgname}-static
-%{mingw32_libdir}/libprotobuf-lite.a
-%{mingw32_libdir}/libprotobuf.a
-%{mingw32_libdir}/libprotoc.a
-
-%files -n mingw32-%{pkgname}-tools
-%{mingw32_bindir}/i686-w64-mingw32-protoc.exe
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
-%{mingw64_bindir}/libprotobuf-30.dll
-%{mingw64_bindir}/libprotobuf-lite-30.dll
-%{mingw64_bindir}/libprotoc-30.dll
+%{mingw64_bindir}/libprotobuf-33.5.0.dll
+%{mingw64_bindir}/libprotobuf-lite-33.5.0.dll
+%{mingw64_bindir}/libprotoc-33.5.0.dll
+%{mingw64_bindir}/libutf8_range-33.5.0.dll
+%{mingw64_bindir}/libutf8_validity-33.5.0.dll
+%{mingw64_bindir}/protoc-gen-upb.exe
+%{mingw64_bindir}/protoc-gen-upb.exe-%{version}.0
+%{mingw64_bindir}/protoc-gen-upb_minitable.exe
+%{mingw64_bindir}/protoc-gen-upb_minitable.exe-%{version}.0
+%{mingw64_bindir}/protoc-gen-upbdefs.exe
+%{mingw64_bindir}/protoc-gen-upbdefs.exe-%{version}.0
+%{mingw64_bindir}/protoc.exe
+%{mingw64_bindir}/protoc.exe-%{version}.0
 %dir %{mingw64_includedir}/google
 %{mingw64_includedir}/google/protobuf/
-%{mingw64_libdir}/pkgconfig/protobuf-lite.pc
-%{mingw64_libdir}/pkgconfig/protobuf.pc
+%{mingw64_includedir}/upb/
+%{mingw64_includedir}/utf8_range.h
+%{mingw64_includedir}/utf8_validity.h
+%{mingw64_libdir}/cmake/protobuf/
+%{mingw64_libdir}/cmake/utf8_range/
 %{mingw64_libdir}/libprotobuf-lite.dll.a
 %{mingw64_libdir}/libprotobuf.dll.a
 %{mingw64_libdir}/libprotoc.dll.a
-
-%files -n mingw64-%{pkgname}-static
-%{mingw64_libdir}/libprotobuf-lite.a
-%{mingw64_libdir}/libprotobuf.a
-%{mingw64_libdir}/libprotoc.a
-
-%files -n mingw64-%{pkgname}-tools
-%{mingw64_bindir}/x86_64-w64-mingw32-protoc.exe
+%{mingw64_libdir}/libupb.a
+%{mingw64_libdir}/libutf8_range.dll.a
+%{mingw64_libdir}/libutf8_validity.dll.a
+%{mingw64_libdir}/pkgconfig/protobuf-lite.pc
+%{mingw64_libdir}/pkgconfig/protobuf.pc
+%{mingw64_libdir}/pkgconfig/upb.pc
+%{mingw64_libdir}/pkgconfig/utf8_range.pc
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 33.5-3
+- Drop separate protobuf-compiler subpackage
+
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 33.5-2
+- Drop separate protobuf-lite subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

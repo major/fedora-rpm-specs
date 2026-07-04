@@ -4,7 +4,7 @@
 
 Name:           grive2
 Version:        0.5.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 #Release:        22.%%{commit_date}git%%{shortcommit}%%{?dist}
 Summary:        Google Drive client
 
@@ -27,8 +27,7 @@ BuildRequires:  expat-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  yajl-devel
 BuildRequires:  zlib-devel
-BuildRequires:  systemd
-Requires(preun): systemd
+BuildRequires:  systemd-rpm-macros
 Requires:       inotify-tools
 
 %description
@@ -40,18 +39,30 @@ REST API to talk to Google Drive service.
 %autosetup -p1
 
 %build
-%cmake3
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake -DHAVE_SYSTEMD=ON
 %cmake_build
 
 %install
 %cmake_install
+
+%check
+%_vpath_builddir/libgrive/btest
+
+%post
+%systemd_user_post grive-changes@.service
+%systemd_user_post grive-timer@.service
+%systemd_user_post grive-timer@.timer
 
 %preun
 %systemd_user_preun grive-changes@.service
 %systemd_user_preun grive-timer@.service
 %systemd_user_preun grive-timer@.timer
 
-
+%postun
+%systemd_user_postun_with_restart grive-changes@.service
+%systemd_user_postun_with_restart grive-timer@.service
+%systemd_user_postun_with_restart grive-timer@.timer
 %files
 %license COPYING
 %doc README.md
@@ -61,6 +72,10 @@ REST API to talk to Google Drive service.
 %{_libexecdir}/grive
 
 %changelog
+* Thu Jul 02 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.5.3-14
+- allow to build with CMake 4.0 (rhbz#2380629) - thanks to Cristian Le
+- spec cleanup for cmake, systemd-rpm-macros & scriptlets, enable tests
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

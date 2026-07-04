@@ -53,6 +53,10 @@ Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
 License: Python-2.0.1
 
+# The PYC magic number, see Include/internal/pycore_magic_number.h
+# When upstream bumps this, we need to verify the impact on Fedora
+# May be set to %%{nil} or undefined during alpha development; must be defined from beta onwards
+%global magic_number 3666
 
 # ==================================
 # Conditionals controlling the build
@@ -954,6 +958,22 @@ fi
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
+%endif
+
+# Verify that the PYC magic number matches our expectation
+# During alphas, %%{magic_number} may be %%{nil} or undefined and the check is skipped.
+# From beta onwards, it must be defined.
+%if "%{?magic_number}" != ""
+magic=$(grep -oP '^\s*#define PYC_MAGIC_NUMBER \K\d+' Include/internal/pycore_magic_number.h)
+if [ "$magic" != "%{magic_number}" ]; then
+    echo "PYC_MAGIC_NUMBER changed: expected %{magic_number}, found $magic"
+    echo "Update %%global magic_number in the spec file"
+    exit 1
+fi
+%elif v"%{version}" >= v"%{pybasever}.0~b1"
+echo "%%global magic_number is not defined, but version %{version} >= %{pybasever}.0~b1"
+echo "Check Include/internal/pycore_magic_number.h and set %%global magic_number"
+exit 1
 %endif
 
 # check if there were any changes to Doc/license.rst

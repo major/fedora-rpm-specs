@@ -199,7 +199,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -216,7 +216,6 @@ Source3:          my.cnf.in
 Source4:          https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{pcre_bundled_version}/pcre2-%{pcre_bundled_version}.zip
 %endif
 Source6:          README.mariadb-docs
-Source8:          README.wsrep_sst_rsync_tunnel
 Source10:         mariadb.tmpfiles.d.in
 Source11:         mysql.service.in
 Source12:         mariadb-prepare-db-dir.sh
@@ -250,10 +249,6 @@ Source71:         LICENSE.clustercheck
 # Upstream said: "Generally MariaDB has more allows to allow for xtradb sst mechanism".
 # https://jira.mariadb.org/browse/MDEV-12646
 Source72:         mariadb-server-galera.cil
-
-# Script to support encrypted rsync transfers when SST is required between nodes.
-# https://github.com/dciabrin/wsrep_sst_rsync_tunnel/blob/master/wsrep_sst_rsync_tunnel
-Source73:         wsrep_sst_rsync_tunnel
 
 #   Patch4: Use the correct log file pathname for Red Hat installations
 Patch4:           %{majorname}-logrotate.patch
@@ -500,7 +495,7 @@ Requires(post):   (policycoreutils-python-utils if selinux-policy-%{selinuxtype}
 Requires:         lsof
 # Default wsrep_sst_method
 Requires:         rsync
-# The 'wsrep_sst_common' and 'wsrep_sst_rsync_tunnel' call 'which' utility
+# The 'wsrep_sst_common' calls 'which' utility
 Requires:         which
 
 %virtual_conflicts_and_provides_arched server-galera
@@ -914,7 +909,7 @@ cat %{SOURCE53} | tee -a mysql-test/unstable-tests
 %endif
 
 cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
-   %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} %{SOURCE73} scripts
+   %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} scripts
 
 # Create a sysusers.d config file
 # We no longer enforce the hardcoded UID/GID 27.
@@ -1182,10 +1177,6 @@ install -p -m 0644 %{SOURCE6} %{basename:%{SOURCE6}}
 install -p -m 0644 %{SOURCE16} %{basename:%{SOURCE16}}
 
 %if %{with galera}
-# Add wsrep_sst_rsync_tunnel script
-install -p -m 0755 scripts/wsrep_sst_rsync_tunnel %{buildroot}%{_bindir}/wsrep_sst_rsync_tunnel
-install -p -m 0644 %{SOURCE8} %{basename:%{SOURCE8}}
-
 # install the clustercheck script
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 touch %{buildroot}%{_sysconfdir}/sysconfig/clustercheck
@@ -1557,13 +1548,12 @@ fi
 
 %if %{with galera}
 %files -n %{pkgname}-server-galera
-%doc README.wsrep_sst_rsync_tunnel
 %license LICENSE.clustercheck
 %{_bindir}/clustercheck
 %{_bindir}/galera_new_cluster
 %{_bindir}/galera_recovery
 # wsrep_sst_common should be moved to /usr/libexec: https://jira.mariadb.org/browse/MDEV-14296
-%{_bindir}/wsrep_sst_{backup,common,mariabackup,mysqldump,rsync,rsync_tunnel,rsync_wan}
+%{_bindir}/wsrep_sst_{backup,common,mariabackup,mysqldump,rsync,rsync_wan}
 %{_libdir}/%{majorname}/plugin/wsrep_info.so
 %{_mandir}/man1/galera_new_cluster.1*
 %{_mandir}/man1/galera_recovery.1*
@@ -1863,6 +1853,13 @@ fi
 %endif
 
 %changelog
+* Wed Jul 01 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-2
+- Remove downstream 'wsrep_sst_rsync_tunnel' script (breaking change)
+  MariaDB's own 'wsrep_sst_rsync' now provides TLS capability via stunnel,
+  making the downstream socat-based tunnel script obsolete.
+  Users with 'wsrep_sst_method=rsync_tunnel' must switch to 'rsync' with
+  native TLS configuration.
+
 * Fri Jun 26 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-1
 - Rebase to 12.3.2 (first GA release of the 12.3 series)
 - CVEs fixed: CVE-2026-44168, CVE-2026-44169, CVE-2026-44170,

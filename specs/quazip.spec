@@ -25,7 +25,7 @@
 
 
 Name:           quazip
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Qt/C++ wrapper for the minizip library
 

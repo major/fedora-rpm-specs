@@ -5,17 +5,13 @@
 %global crate buffered-reader
 
 Name:           rust-buffered-reader
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Super-powered Reader
 
 License:        LGPL-2.0-or-later
 URL:            https://crates.io/crates/buffered-reader
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow bzip2 0.6:
-#   https://gitlab.com/sequoia-pgp/sequoia/-/merge_requests/1806
-Patch:          buffered-reader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

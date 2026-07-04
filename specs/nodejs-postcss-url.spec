@@ -3,7 +3,7 @@
 
 
 Name:           nodejs-%{npm_name}
-Version:        10.1.3
+Version:        10.1.4
 Release:        %autorelease
 Summary:        %{_description}
 
@@ -33,6 +33,9 @@ Requires:       nodejs
 cp %{SOURCE3} .
 # Setup bundled runtime(prod) node modules
 tar xfz %{SOURCE1}
+# remove binary executables
+find node_modules* -type f -exec file {} + | grep -E 'ELF|Mach-O|PE32|WebAssembly' | cut -d: -f1 | xargs rm -f
+
 mkdir -p node_modules
 pushd node_modules
 ln -s ../node_modules_prod/* .

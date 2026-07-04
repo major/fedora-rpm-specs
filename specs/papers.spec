@@ -98,6 +98,7 @@ BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(libspelling-1)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
+BuildRequires:  /usr/bin/gi-docgen
 
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
@@ -130,6 +131,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description    devel
 This package contains libraries and header files needed for Papers
 backend development.
+
+
+%package doc
+Summary: Documentation files for %{name}
+BuildArch: noarch
+
+%description doc
+This package contains developer documentation for %{name}.
 
 
 %package        nautilus
@@ -178,7 +187,7 @@ This package brings the Papers thumbnailer independently from Papers.
 %build
 %meson \
        -Ddjvu=%{?with_djvu:enabled}%{!?with_djvu:disabled} \
-       -Dintrospection=disabled \
+       -Dintrospection=enabled \
        -Dtests=false \
        %{nil}
 
@@ -220,6 +229,8 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %files libs
 %license COPYING
+%{_libdir}/girepository-1.0/PapersDocument-4.0.typelib
+%{_libdir}/girepository-1.0/PapersView-4.0.typelib
 %{_libdir}/libppsdocument-4.0.so.6{,.*}
 %{_libdir}/libppsview-4.0.so.5{,.*}
 %{_libdir}/papers/
@@ -236,6 +247,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_libdir}/libppsview-4.0.so
 %{_libdir}/pkgconfig/papers-document-4.0.pc
 %{_libdir}/pkgconfig/papers-view-4.0.pc
+%{_datadir}/gir-1.0/PapersDocument-4.0.gir
+%{_datadir}/gir-1.0/PapersView-4.0.gir
+
+%files doc
+%{_datadir}/doc/libppsdocument/*
+%{_datadir}/doc/libppsview/*
 
 %files nautilus
 %{_libdir}/nautilus/extensions-4/libpapers-document-properties.so

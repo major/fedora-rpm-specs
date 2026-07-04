@@ -1,5 +1,4 @@
 %global debug_package %{nil}
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           pyatspi
 Version:        2.58.2
@@ -8,7 +7,7 @@ Summary:        Python bindings for at-spi
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/pyatspi2/
-Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson

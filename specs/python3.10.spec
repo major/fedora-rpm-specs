@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -216,7 +216,6 @@ BuildRequires: make
 BuildRequires: mpdecimal-devel
 BuildRequires: ncurses-devel
 
-BuildRequires: openssl-devel
 BuildRequires: pkgconfig
 BuildRequires: readline-devel
 BuildRequires: redhat-rpm-config >= 127
@@ -228,6 +227,10 @@ BuildRequires: tcl-devel < 1:9
 BuildRequires: tix-devel
 BuildRequires: tk-devel < 1:9
 BuildRequires: tzdata
+
+# Support for OpenSSL 4 only landed in Python 3.15 for now
+# https://github.com/python/cpython/issues/146207
+BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
 
 %if %{with valgrind}
 BuildRequires: valgrind-devel
@@ -365,6 +368,18 @@ Patch474: 00474-cve-2025-15366.patch
 #
 # (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
 Patch475: 00475-cve-2025-15367.patch
+
+# 00489 # 008af720a5f6f98ed3feb8ebdbf88ab9dea4db22
+# Use BIO_eof to detect EOF for SSL_FILETYPE_ASN1
+#
+# In PEM, we need to parse until error and then suppress `PEM_R_NO_START_LINE`, because PEM allows arbitrary leading and trailing data. DER, however, does not. Parsing until error and suppressing `ASN1_R_HEADER_TOO_LONG` doesn't quite work because that error also covers some cases that should be rejected.
+#
+# Instead, check `BIO_eof` early and stop the loop that way.
+#
+# This fixes https://github.com/python/cpython/issues/151504 and adds compatibility with OpenSSL 3.5.7+
+#
+# (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
+Patch489: 00489-openssl-3.5.7.patch
 
 # (New patches go here ^^^)
 #
@@ -1665,6 +1680,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Apr 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.10.20-2
+- Explicitly build with OpenSSL 3
+- Fix ssl.SSLError: [ASN1: NOT_ENOUGH_DATA] not enough data with OpenSSL 3.5.7+
+
 * Tue Mar 03 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.20-1
 - Update to 3.10.20
 

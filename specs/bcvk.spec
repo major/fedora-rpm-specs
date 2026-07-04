@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           bcvk
-Version:        0.17.0
-Release:        2%{?dist}
+Version:        0.18.0
+Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 
 # Apache-2.0 OR MIT

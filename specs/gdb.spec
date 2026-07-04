@@ -41,11 +41,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 17.1
+Version: 17.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 10%{?dist}
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -142,7 +142,6 @@ Source4: gdbinit
 # Include the auto-generated file containing the "Patch:" directives.
 # See README.local-patches for more details.
 Source9998: _gdb.spec.Patch.include
-Source9999: _gdb.spec.patch.include
 %include %{SOURCE9998}
 
 BuildRequires: readline-devel%{buildisa} >= 7.0
@@ -321,7 +320,7 @@ and printing their data.
 This package provides INFO, HTML and PDF user manual for GDB.
 
 %prep
-%setup -q -n %{gdb_src}
+%autosetup -p1 -n %{gdb_src}
 
 # Files have `# <number> <file>' statements breaking VPATH / find-debuginfo.sh .
 (cd gdb;rm -fv $(perl -pe 's/\\\n/ /' <Makefile.in|sed -n 's/^YYFILES = //p'))
@@ -329,12 +328,6 @@ This package provides INFO, HTML and PDF user manual for GDB.
 # *.info* is needlessly split in the distro tar; also it would not get used as
 # we build in GDB_BUILD, just to be sure.
 find -name "*.info*"|xargs rm -f
-
-# Apply patches defined on _gdb.spec.Patch.include
-
-# Include the auto-generated patch directives.
-# See README.local-patches for more details.
-%include %{SOURCE9999}
 
 find -name "*.orig" | xargs rm -f
 ! find -name "*.rej" # Should not happen.
@@ -401,6 +394,10 @@ mv -f readline-doc readline/readline/doc
 rm -rf zlib texinfo
 
 %build
+
+# Generate TexLive format file needed for PDF documentation
+# This is necessary in F45+ because format files are no longer pre-generated
+fmtutil-user --byfmt pdfetex || true
 
 # A set of common GDB configure flags, which are used for both minimal
 # and non-minimal compilations.
@@ -931,6 +928,13 @@ fi
 # endif scl
 
 %changelog
+* Tue Jun 23 2026 Michal Kolar <mkolar@redhat.com> - 17.2-1
+- Rebase to FSF GDB 17.2.
+  Deleted: gdb-rhbz2435950-skip-revert.patch
+  Backport e492fb22b70, gdb: backport DAP core file support
+  Replace manual, multi-file patch inclusion with modern autosetup
+  Add rpminspect.yaml to define package-specific testing policy
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com>
 - Rebuilt for Python 3.15
 

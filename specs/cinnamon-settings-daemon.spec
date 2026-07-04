@@ -1,9 +1,9 @@
 %global cinnamon_desktop_version 6.7.0
 
-%global upstream_version 6.7.1-unstable
+%global upstream_version 6.7.2-unstable
 
 Name:           cinnamon-settings-daemon
-Version:        6.7.1^unstable
+Version:        6.7.2^unstable
 Release:        1%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
@@ -114,6 +114,9 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
+* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
 - Update to 6.7.1-unstable
 

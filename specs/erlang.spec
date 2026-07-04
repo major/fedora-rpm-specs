@@ -28,7 +28,7 @@
 %ifarch %{java_arches}
 %global __with_java 1
 # cat lib/jinterface/vsn.mk
-%global jinterface_ver 1.14
+%global jinterface_ver 1.14.1
 %else
 %global __with_java 0
 %endif
@@ -69,7 +69,7 @@
 
 
 Name:		erlang
-Version:	27.3.4.13
+Version:	27.3.4.14
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1940,6 +1940,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Fri Jul  3 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.14-1
+- Ver. 27.3.4.14
+
 * Thu Jun 25 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.13-1
 - Erlang 27.
 

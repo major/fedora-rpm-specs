@@ -5,7 +5,7 @@
 
 Name:               python-%{modname}
 Version:            8.1.1
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -18,6 +18,7 @@ BuildRequires:      python3-devel
 
 %if %{with tests}
 BuildRequires:      python3dist(pytest)
+BuildRequires:      python3dist(pytest-asyncio)
 
 # For checking imports.
 # https://vcrpy.readthedocs.io/en/latest/installation.html
@@ -88,6 +89,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Thu Jul 02 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 8.1.1-4
+- BuildRequire python-pytest-asyncio to fix build failure with pytest 9.1
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 8.1.1-3
 - Rebuilt for Python 3.15
 

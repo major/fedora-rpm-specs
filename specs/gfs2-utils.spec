@@ -1,6 +1,6 @@
 Name: gfs2-utils
 Version: 3.6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Refer to doc/README.licence in the upstream tarball
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary: Utilities for managing the global file system (GFS2)
@@ -22,8 +22,8 @@ BuildRequires: libuuid-devel
 BuildRequires: check-devel
 BuildRequires: bzip2-devel
 BuildRequires: make
-Source: https://releases.pagure.org/gfs2-utils/gfs2-utils-%{version}.tar.gz
-URL: https://pagure.io/gfs2-utils
+Source: https://gitlab.com/linux-gfs2/gfs2-utils/-/releases/%{version}/downloads/gfs2-utils-%{version}.tar.gz
+URL: https://gitlab.com/linux-gfs2/gfs2-utils
 
 %prep
 %autosetup -p1
@@ -65,6 +65,9 @@ modifying, and correcting inconsistencies in GFS2 file systems.
 %{_prefix}/lib/udev/rules.d/82-gfs2-withdraw.rules
 
 %changelog
+* Thu Jul 02 2026 Andrew Price <anprice@redhat.com> - 3.6.1-4
+- Update for new upstream location
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

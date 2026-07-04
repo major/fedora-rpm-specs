@@ -1,6 +1,4 @@
 %define apiver 2.48
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glibmm_version 2.68.0
 %global cairomm_version 1.15.1
@@ -13,7 +11,7 @@ Summary:        C++ interface for Pango
 
 License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
-Source0:        https://download.gnome.org/sources/pangomm/%{release_version}/pangomm-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/pangomm/%{gnome_major_minor_version}/pangomm-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(cairomm-1.16) >= %{cairomm_version}
 BuildRequires:  pkgconfig(glibmm-2.68) >= %{glibmm_version}

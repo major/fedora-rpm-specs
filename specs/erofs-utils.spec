@@ -11,17 +11,18 @@
 %bcond qpl      %[ 0%{?fedora} >= 41 && "%{_arch}" == "x86_64" ]
 %bcond s3       %[ %{with curl} && %{with libxml2} && %{with openssl} ]
 %bcond selinux  1
+%bcond ublk     %[ 0%{?fedora} >= 35 || 0%{?rhel} >=  9 ]
 %bcond uuid     1
 %bcond xxhash   1
 %bcond zlib     1
 %bcond zstd     1
 
 Name:           erofs-utils
-Version:        1.9.1
+Version:        1.9.2
 Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
-License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND MIT AND Unlicense
+License:        GPL-2.0-only AND (BSD-2-Clause OR GPL-2.0-only) AND (BSD-2-Clause OR GPL-2.0-or-later) AND (GPL-2.0-or-later OR MIT) AND MIT AND Unlicense
 URL:            https://erofs.docs.kernel.org/
 
 Source:         https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/%{name}-%{version}.tar.gz
@@ -40,6 +41,7 @@ BuildRequires:  make
 %{?with_openssl:BuildRequires:  pkgconfig(openssl)}
 %{?with_qpl:BuildRequires:  pkgconfig(qpl) >= 1.5.0}
 %{?with_selinux:BuildRequires:  pkgconfig(libselinux)}
+%{?with_ublk:BuildRequires:  pkgconfig(liburing) >= 2.0}
 %{?with_uuid:BuildRequires:  pkgconfig(uuid)}
 %{?with_xxhash:BuildRequires:  pkgconfig(libxxhash)}
 %{?with_zlib:BuildRequires:  pkgconfig(zlib)}
@@ -83,11 +85,12 @@ autoreconf -fi
     --%{?with_libxml2:with}%{!?with_libxml2:without}-libxml2 \
     --%{?with_lz4:enable}%{!?with_lz4:disable}-lz4 \
     --%{?with_lzma:enable}%{!?with_lzma:disable}-lzma \
-    --%{?with_oci:enable}%{!?with_oci:disable}-oci \
+    --%{?with_oci:enable}%{!?with_oci:disable}-{fanotify,oci} \
     --%{?with_openssl:with}%{!?with_openssl:without}-openssl \
     --%{?with_qpl:with}%{!?with_qpl:without}-qpl \
     --%{?with_s3:enable}%{!?with_s3:disable}-s3 \
     --%{?with_selinux:with}%{!?with_selinux:without}-selinux \
+    --%{?with_ublk:enable}%{!?with_ublk:disable}-ublk \
     --%{?with_uuid:with}%{!?with_uuid:without}-uuid \
     --%{?with_xxhash:with}%{!?with_xxhash:without}-xxhash \
     --%{?with_zlib:with}%{!?with_zlib:without}-zlib \
@@ -107,19 +110,25 @@ autoreconf -fi
 %{_mandir}/man1/fsck.erofs.1*
 %{_mandir}/man1/mkfs.erofs.1*
 %{_mandir}/man8/mount.erofs.8*
-%doc AUTHORS ChangeLog README docs/PERFORMANCE.md docs/compress-hints.example
-%license LICENSES/Apache-2.0 LICENSES/GPL-2.0 LICENSES/MIT
+%doc AUTHORS ChangeLog README docs/compress-hints.example
+%license LICENSES/GPL-2.0 LICENSES/MIT
 
 %if %{with fuse}
 %files -n erofs-fuse
 %{_bindir}/erofsfuse
 %{_mandir}/man1/erofsfuse.1*
 %doc AUTHORS ChangeLog README
-%license LICENSES/Apache-2.0 LICENSES/GPL-2.0 LICENSES/MIT
+%license LICENSES/GPL-2.0 LICENSES/MIT
 %endif
 
 
 %changelog
+* Thu Jul 02 2026 David Michael <fedora.dm0@gmail.com> - 1.9.2-2
+- Fix enabling ublk support.
+
+* Thu Jul 02 2026 David Michael <fedora.dm0@gmail.com> - 1.9.2-1
+- Update to the 1.9.2 release.
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.1-2
 - Rebuilt for openssl 4.0
 

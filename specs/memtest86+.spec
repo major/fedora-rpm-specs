@@ -3,12 +3,15 @@
 # Turn off debuginfo package
 %global debug_package %{nil}
 %global common_description %{expand:
-Memtest86+ is a thorough stand-alone memory test for x86 and x86-64
+Memtest86+ is a thorough stand-alone memory test for x86, x86-64 and loongarch64
 architecture computers. BIOS based memory tests are only a quick
 check and often miss many of the failures that are detected by
 Memtest86+.
 }
 %global mt_isa x64
+%ifarch loongarch64
+%global mt_isa la64
+%endif
 
 Name:          memtest86+
 Version:       8.10
@@ -21,7 +24,7 @@ Source1:       memtest86+.kernel-install-plugin
 
 BuildRequires: gcc, make, xorriso, dosfstools, mtools
 Requires(pre): systemd-udev >= 252
-ExclusiveArch: x86_64
+ExclusiveArch: x86_64 loongarch64
 
 %description
 %wordwrap -v common_description
@@ -32,8 +35,7 @@ ExclusiveArch: x86_64
 
 
 %build
-# only x86_64 now supported in fedora
-pushd build/x86_64
+pushd build/%{_arch}
 make
 make iso
 popd
@@ -43,7 +45,7 @@ popd
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mkdir -p %{buildroot}%{_datarootdir}/%{name}
 
-pushd build/x86_64
+pushd build/%{_arch}
 install -m 0644 mt86plus %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.efi
 install -m 0644 mt86plus %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.bin
 install -m 0644 memtest.iso %{buildroot}%{_datarootdir}/%{name}/memtest86+%{mt_isa}.iso

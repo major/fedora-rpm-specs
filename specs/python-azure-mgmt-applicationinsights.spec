@@ -14,6 +14,8 @@ Source0:        %{pypi_source %{srcname} %{version} zip}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# Drop once updated to a modern version
+BuildRequires:  python3dist(six)
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -33,6 +35,8 @@ Microsoft Azure Application Insights Management Client Library for Python}
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+# Drop once updated to a modern version
+Requires:       python3dist(six)
 
 %description -n python%{python3_pkgversion}-%{srcname} %{_description}
 

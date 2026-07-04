@@ -1,7 +1,7 @@
 #global pre_release .pre1
 
 Name:		libva
-Version:	2.23.0
+Version:	2.24.0
 Release:	%autorelease
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
@@ -64,8 +64,6 @@ sed -i -e 's|driverdir=.*|driverdir=%{_libdir}/dri|' %{buildroot}%{_libdir}/pkgc
 # Owns the alternates directories
 mkdir -p %{buildroot}%{_libdir}/dri-{freeworld,nonfree}
 
-
-%ldconfig_scriptlets
 
 %files
 %doc NEWS

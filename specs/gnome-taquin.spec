@@ -5,7 +5,7 @@ Summary:        Sliding-block puzzle game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Taquin
-Source0:        https://download.gnome.org/sources/gnome-taquin/3.38/gnome-taquin-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 # couple upstream post 3.38.1 commits to help it build
 Patch1:         0001-Don-t-alter-or-try-to-write-GtkChild-fields.patch
@@ -26,7 +26,7 @@ BuildRequires:  vala
 
 %description
 Taquin is a computer version of the 15-puzzle and other sliding puzzles.
-The object of Taquin is to move tiles so that they reach their places, 
+The object of Taquin is to move tiles so that they reach their places,
 either indicated with numbers, or with parts of a great image.
 
 %prep

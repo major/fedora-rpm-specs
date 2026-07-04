@@ -1,16 +1,23 @@
 Name:           python-logbook
 Version:        1.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A logging replacement for Python
 
 # logbook: BSD-3-Clause
 # Rust dependencies:
 # - BSD-3-Clause
-# - MIT
 # - MIT OR Apache-2.0
-License:        BSD-3-Clause AND MIT AND (MIT OR Apache-2.0)
+License:        BSD-3-Clause AND (MIT OR Apache-2.0)
 URL:            https://logbook.readthedocs.io
 Source0:        https://github.com/getlogbook/logbook/archive/%{version}.tar.gz#/Logbook-%{version}.tar.gz
+
+# Bump pyo3 from 0.27.2 to 0.29.0
+# https://github.com/getlogbook/logbook/pull/581
+# Without changes to Cargo.lock
+#
+# https://forge.fedoraproject.org/rust/backlog/issues/31
+# Resolves RUSTSEC-2026-0176, RUSTSEC-2026-0177.
+Patch:          logbook-1.9.2-pyo3-0.29.patch
 
 %description
 Logbook is a logging system for Python that replaces the standard library's
@@ -64,6 +71,10 @@ Logbook can do that.
 %license LICENSE.dependencies
 
 %changelog
+* Thu Jul 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.2-5
+- Update PyO3 to 0.29
+- Update License expression
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.9.2-4
 - Rebuilt for Python 3.15
 

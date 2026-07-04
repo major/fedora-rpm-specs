@@ -27,7 +27,7 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2605
+Version:        6.2.2606
 Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
@@ -414,6 +414,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2606-1
+- Update to 6.2.2606
+
 * Sun Jun 21 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2605-1
 - Update to 6.2.2605
 

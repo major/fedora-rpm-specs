@@ -1,7 +1,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          3.1.2
-Release:          2%{?dist}
+Version:          3.2.0
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    cargo
@@ -28,7 +28,7 @@ Requires:         dbus-common
 Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
-#Source0:          https://github.com/ddccontrol/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+#Source0:          https://github.com/ddccontrol/%%{name}/releases/download/%%{version}/%%{name}-%%{version}.tar.bz2
 # Created with: cargo vendor --locked vendor
 Source0:          %{url}/releases/download/%{version}/%{name}-%{version}-vendor.tar.gz
 # no monitors on s390(x)
@@ -153,6 +153,10 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.2.0-1
+- New version
+  Resolves: rhbz#2494599
+
 * Mon Jun 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.2-2
 - Used vendor package from the upstream
 

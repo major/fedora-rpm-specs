@@ -5,7 +5,7 @@
 %global crate camino
 
 Name:           rust-camino
-Version:        1.2.3
+Version:        1.2.4
 Release:        %autorelease
 Summary:        UTF-8 paths
 

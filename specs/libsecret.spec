@@ -1,6 +1,3 @@
-# first two digits of version
-%global release_version %%(echo %{version} | awk -F. '{print $1"."$2}')
-
 %ifarch %{valgrind_arches}
 %global has_valgrind 1
 %endif
@@ -18,7 +15,7 @@ Summary:        Library for storing and retrieving passwords and other secrets
 # part of libsecret/mock/dh.py is LicenseRef-Fedora-Public-Domain
 License:        LGPL-2.1-or-later AND Apache-2.0 AND (GPL-2.0-or-later OR TGPPL-1.0) AND LicenseRef-Fedora-Public-Domain AND GCR-docs
 URL:            https://wiki.gnome.org/Projects/Libsecret
-Source0:        https://download.gnome.org/sources/libsecret/%{release_version}/libsecret-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext

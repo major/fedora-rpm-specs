@@ -2,9 +2,6 @@
 %global gtk4_version 4.5
 %global gjs_version 1.71.0
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:		gnome-weather
 Version:	50.0
 Release:	%autorelease
@@ -12,7 +9,9 @@ Summary:	A weather application for GNOME
 
 License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Weather
-Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/216/
 Patch:          no-absolute-symlinks.patch
@@ -48,10 +47,7 @@ Requires:	libgweather4
 gnome-weather is a weather application for GNOME
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} .
 
 %build

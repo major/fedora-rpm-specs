@@ -1,7 +1,7 @@
 %global srcname fido2
 
 Name:           python-%{srcname}
-Version:        2.1.1
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
@@ -11,9 +11,6 @@ Summary:        Functionality for FIDO 2.0, including USB device communication
 License:        BSD-2-Clause AND Apache-2.0 AND MPL-2.0
 URL:            https://github.com/Yubico/python-fido2
 Source0:        https://github.com/Yubico/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix build with Python 3.15 - https://github.com/Yubico/python-fido2/issues/278
-# https://bugzilla.redhat.com/show_bug.cgi?id=2424579
-Patch:          https://github.com/Yubico/python-fido2/commit/4279fd9039040ae49bf2227968d02939d0e812c9.patch
 
 BuildArch:      noarch
 
@@ -39,6 +36,7 @@ For usage, see the examples/ directory.
 Summary: %summary
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python3dist(pyscard)
 
 %description -n python%{python3_pkgversion}-%{srcname} %_description
 

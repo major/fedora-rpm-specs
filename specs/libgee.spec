@@ -5,7 +5,7 @@ Summary:        GObject collection library
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libgee
-Source0:        https://download.gnome.org/sources/libgee/0.20/libgee-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)

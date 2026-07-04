@@ -3,8 +3,8 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.8
-Release:       2%{?dist}
+Version:       3.8.1
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPL-3.0-only
@@ -15,10 +15,8 @@ Source0:       https://github.com/gwaldron/osgearth/archive/%{name}-%{version}.t
 Patch0:        osgearth_mingw.patch
 # Support option to disable fastdxt build
 Patch1:        osgearth_fastdxt.patch
-# Unbundle liblerc, rapidjson
+# Unbundle rapidjson
 Patch2:        osgearth_unbundle.patch
-# Link against liblerct
-Patch3:        osgearth_link-lerc.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -203,8 +201,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.8.0
-%{_libdir}/libosgEarth*.so.185
+%{_libdir}/libosgEarth*.so.3.8.1
+%{_libdir}/libosgEarth*.so.187
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
@@ -278,6 +276,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 3.8.1-1
+- Update to 3.8.1
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 3.8-2
 - Rebuild (gdal)
 

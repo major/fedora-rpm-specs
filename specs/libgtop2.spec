@@ -5,7 +5,7 @@ Summary:        LibGTop library (version 2)
 
 License:        GPL-2.0-or-later
 URL:            https://download.gnome.org/sources/libgtop
-Source0:        https://download.gnome.org/sources/libgtop/2.41/libgtop-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/libgtop/%{gnome_major_minor_version}/libgtop-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)

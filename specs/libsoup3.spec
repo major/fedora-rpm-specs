@@ -13,7 +13,7 @@ Summary: Soup, an HTTP library implementation
 
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
-Source0: https://download.gnome.org/sources/libsoup/3.7/libsoup-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/libsoup/%{gnome_major_minor_version}/libsoup-%{version}.tar.xz
 
 # Downstream patch, needed due to glib2 gnutls-hmac.patch
 Patch:   no-ntlm-in-fips-mode.patch

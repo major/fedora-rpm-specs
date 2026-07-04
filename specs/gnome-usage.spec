@@ -1,5 +1,3 @@
-%global tarball_version	%%(echo %{version} | tr '~' '.')
-
 %global gtk_version 4.11.3
 %global libadwaita_version 1.5
 
@@ -10,7 +8,9 @@ Summary:	A GNOME app to view information about use of system resources
 
 License:	GPL-3.0-or-later AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Usage
-Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -36,7 +36,7 @@ gnome-usage lets you easily visualize the use of system resources such as
 CPU, memory, and storage.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

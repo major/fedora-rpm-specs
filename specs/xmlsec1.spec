@@ -1,16 +1,21 @@
 # widely used
 %bcond openssl 1
+%define openssl_ver 3.0.13
 # used by libreoffice
 %bcond nss 1
-# not used
+%define nss_ver 3.91
+%define nspr_ver 4.34.1
+# not used; deprecated
 %bcond gcrypt 0
-# not used; gnutls depends on gcrypt
+%define gcrypt_ver 1.4.0
+# used by aqbanking
 %bcond gnutls 1
+%define gnutls_ver 3.8.3
 
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.3.11
-Release: 2%{?dist}%{?extra_release}
+Release: %autorelease
 Epoch: 1
 License: MIT
 Source0: https://github.com/lsh123/xmlsec/releases/download/%{version}/xmlsec1-%{version}.tar.gz
@@ -19,20 +24,20 @@ URL: http://www.aleksey.com/xmlsec/
 Patch0: 0000-so-name.patch
 
 BuildRequires: make
-BuildRequires: pkgconfig(libxml-2.0) >= 2.8.0
-BuildRequires: pkgconfig(libxslt) >= 1.0.20
+BuildRequires: pkgconfig(libxml-2.0) >= 2.9.13
+BuildRequires: pkgconfig(libxslt) >= 1.1.35
 %if %{with openssl}
-BuildRequires: pkgconfig(openssl) >= 3.0.0
+BuildRequires: pkgconfig(openssl) >= %{openssl_ver}
 %endif
 %if %{with nss}
-BuildRequires: pkgconfig(nss) >= 3.49.0
-BuildRequires: pkgconfig(nspr) >= 4.25.0
+BuildRequires: pkgconfig(nss) >= %{nss_ver}
+BuildRequires: pkgconfig(nspr) >= %{nspr_ver}
 %endif
 %if %{with gcrypt}
-BuildRequires: libgcrypt-devel >= 1.4.0
+BuildRequires: libgcrypt-devel >= %{gcrypt_ver}
 %endif
 %if %{with gnutls}
-BuildRequires: pkgconfig(gnutls) >= 3.6.13
+BuildRequires: pkgconfig(gnutls) >= %{gnutls_ver}
 %endif
 BuildRequires: libtool-ltdl-devel
 # autoreconf stuff
@@ -49,7 +54,6 @@ standards "XML Digital Signature" and "XML Encryption".
 %package devel
 Summary: Libraries, includes, etc. to develop applications with XML Digital Signatures and XML Encryption support.
 Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
-Requires: openssl-devel%{?_isa} >= 1.0.0
 
 %description devel
 Libraries, includes, etc. you can use to develop applications with XML Digital
@@ -68,6 +72,7 @@ for the xmlsec library.
 Summary: OpenSSL crypto plugin for XML Security Library
 Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
 Requires: xmlsec1-openssl%{?_isa} = 1:%{version}-%{release}
+Requires: openssl-devel%{?_isa} >= 1:%{openssl_ver}
 
 %description openssl-devel
 Libraries, includes, etc. for developing XML Security applications with OpenSSL
@@ -86,7 +91,8 @@ for the xmlsec library.
 %package gcrypt-devel
 Summary: GCrypt crypto plugin for XML Security Library
 Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
-Requires: xmlsec1-gnutls-devel%{?_isa} = 1:%{version}-%{release}
+Requires: xmlsec1-gcrypt%{?_isa} = 1:%{version}-%{release}
+Requires: libgcrypt-devel%{?_isa} >= %{gcrypt_ver}
 Provides: deprecated()
 
 %description gcrypt-devel
@@ -97,7 +103,6 @@ Libraries, includes, etc. for developing XML Security applications with GCrypt.
 %package gnutls
 Summary: GNUTls crypto plugin for XML Security Library
 Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
-Provides: deprecated()
 
 %description gnutls
 GNUTls plugin for XML Security Library provides GNUTls based crypto services
@@ -106,9 +111,8 @@ for the xmlsec library.
 %package gnutls-devel
 Summary: GNUTls crypto plugin for XML Security Library
 Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
-Requires: xmlsec1-openssl-devel%{?_isa} = 1:%{version}-%{release}
-Requires: gnutls-devel%{?_isa} >= 1.0.20
-Provides: deprecated()
+Requires: xmlsec1-gnutls%{?_isa} = 1:%{version}-%{release}
+Requires: gnutls-devel%{?_isa} >= %{gnutls_ver}
 
 %description gnutls-devel
 Libraries, includes, etc. for developing XML Security applications with GNUTls.
@@ -127,6 +131,8 @@ for the xmlsec library
 Summary: NSS crypto plugin for XML Security Library
 Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
 Requires: xmlsec1-nss%{?_isa} = 1:%{version}-%{release}
+Requires: nspr-devel%{?_isa} >= %{nspr_ver}
+Requires: nss-devel%{?_isa} >= %{nss_ver}
 
 %description nss-devel
 Libraries, includes, etc. for developing XML Security applications with NSS.
@@ -212,7 +218,4 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %endif
 
 %changelog
-* Fri Jun 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.3.11-2
-- Rebuilt for openssl 4.0
-
 %autochangelog

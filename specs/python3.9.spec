@@ -26,7 +26,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 10%{?dist}
+Release: 11%{?dist}
 # Python is Python-2.0.1
 # pip is MIT and bundles:
 #   CacheControl: Apache-2.0
@@ -76,9 +76,7 @@ License: Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC A
 %endif
 
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
-# from Python with the versions below.
-%global pip_version 23.0.1
-%global setuptools_version 79.0.1
+# from Python with the versions defined near patch 189.
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
@@ -433,6 +431,12 @@ Patch111: 00111-no-static-lib.patch
 # Downstream only: upstream bundles
 # We might eventually pursuit upstream support, but it's low prio
 Patch189: 00189-use-rpm-wheels.patch
+# The following versions of setuptools/pip are bundled when this patch is not applied.
+# The versions are written in Lib/ensurepip/__init__.py, this patch removes them.
+# When the bundled setuptools/pip wheel is updated, the patch no longer applies cleanly.
+# In such cases, the patch needs to be amended and the versions updated here:
+%global pip_version 23.0.1
+%global setuptools_version 79.0.1
 
 # 00251 # 1b1047c14ff98eae6d355b4aac4df3e388813f62
 # Change user install location
@@ -560,6 +564,18 @@ Patch480: 00480-cve-2026-4786.patch
 #
 # Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
 Patch482: 00482-cve-2026-6100.patch
+
+# 00489 # 67185f85f0bd506e1814a2a2f5580bad5b95ce45
+# Use BIO_eof to detect EOF for SSL_FILETYPE_ASN1
+#
+# In PEM, we need to parse until error and then suppress `PEM_R_NO_START_LINE`, because PEM allows arbitrary leading and trailing data. DER, however, does not. Parsing until error and suppressing `ASN1_R_HEADER_TOO_LONG` doesn't quite work because that error also covers some cases that should be rejected.
+#
+# Instead, check `BIO_eof` early and stop the loop that way.
+#
+# This fixes https://github.com/python/cpython/issues/151504 and adds compatibility with OpenSSL 3.5.7+
+#
+# (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
+Patch489: 00489-openssl-3.5.7.patch
 
 # (New patches go here ^^^)
 #
@@ -2048,6 +2064,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 02 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-11
+- Fix ssl.SSLError: [ASN1: NOT_ENOUGH_DATA] not enough data with OpenSSL 3.5.7+
+
 * Wed Apr 29 2026 Lumír Balhar <lbalhar@redhat.com> - 3.9.25-10
 - Switch to bundled wheels
 

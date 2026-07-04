@@ -5,7 +5,7 @@
 %global crate console
 
 Name:           rust-console
-Version:        0.16.3
+Version:        0.16.4
 Release:        %autorelease
 Summary:        Terminal and console abstraction for Rust
 

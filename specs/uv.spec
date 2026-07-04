@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined el10}
 
 Name:           uv
-Version:        0.11.25
+Version:        0.11.26
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -510,8 +510,7 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # tikv-jemallocator
 #   wanted: 0.6.0
 #   currently packaged: 0.7.0
-# We haven’t suggested this upstream because we know they use renovate with
-# dependency cooldowns, and we expect they will soon update without prompting.
+#   https://github.com/astral-sh/uv/pull/19735
 # We use sed instead of tomcli because the target.cfg(…) expression is a
 # *mess*, and we don’t want to have to write it out here.
 sed --regexp-extended --in-place \

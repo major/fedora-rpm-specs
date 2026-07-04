@@ -1,13 +1,13 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:    libdex
-Version: 1.1.0
+Version: 1.2~alpha
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 
 License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/libdex
-Source0: https://download.gnome.org/sources/libdex/1.1/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/libdex/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: /usr/bin/vapigen
 BuildRequires: gcc
@@ -57,7 +57,7 @@ Requires:    python3-gobject-base-noarch
 This package contains the python3 bindings for %{name}
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

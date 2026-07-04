@@ -4,9 +4,6 @@
 %global bundled_rust_deps 0
 %endif
 
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-tour
 Version:        50.0
 Release:        %autorelease
@@ -22,9 +19,11 @@ Summary:        GNOME Tour and Greeter
 # Unlicense OR MIT
 License:        (Apache-2.0 OR MIT) AND CC-BY-SA-3.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/gnome-tour
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
+
+%gnome_check_version
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
@@ -46,7 +45,7 @@ A guided tour and greeter for GNOME.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %if 0%{?fedora}
 # Install Fedora branding

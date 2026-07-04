@@ -1,13 +1,14 @@
 Name:       ilbc
 Summary:    Internet Low Bitrate Codec
 Version:    3.0.4
-Release:    19%{?dist}
+Release:    20%{?dist}
 License:    BSD-3-Clause
 URL:        https://github.com/TimothyGu/libilbc
 
 Source0:    %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:     %{name}-flags.patch
 Patch1:     %{name}-s390.patch
+Patch2:     %{name}-loongarch.patch
 
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  cmake
@@ -59,6 +60,9 @@ rm -fr %{buildroot}%{_docdir}/libilbc
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jun 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.0.4-20
+- Add loongarch support.
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-19
 - Rebuilt for abseil-cpp 20260107.0
 

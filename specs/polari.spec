@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:          polari
 Version:       50.0
 Release:       %autorelease
@@ -9,7 +7,9 @@ Summary:       Internet Relay Chat client for GNOME
 # all program sources are GPLv2+
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Polari
-Source0:       http://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: meson
 BuildRequires: pkgconfig(gtk4)
@@ -47,7 +47,7 @@ Recommends: google-noto-emoji-fonts
 Polari is an Internet Relay Chat client for the GNOME desktop.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

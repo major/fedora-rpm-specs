@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.22
+Version: 13.24
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jul 02 2026 Nick Clifton  <nickc@redhat.com> - 13.24-1
+- Annocheck: Improve bad filename detection even more.
+
+* Thu Jul 02 2026 Nick Clifton  <nickc@redhat.com> - 13.23-1
+- Annocheck: Improve bad filename detection.
+
 * Tue Jun 16 2026 Nick Clifton  <nickc@redhat.com> - 13.22-1
 - Annocheck: Enable stack-clash test for Risc-V binaries built by gcc-15+.
 

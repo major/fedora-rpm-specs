@@ -18,6 +18,14 @@ Patch:          tests-pep639-license-directory.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
+# For test purposes, we need pkg_resources.
+# Beware that pkg_resources is also used on runtime.
+# However, this is installed to a Python 3.6 virtual environment
+# together with setuptools 40.6.2 from python3.6's ensurepip module,
+# so pkg_resources is available.
+# Once pkg_resources is no longer available some tests will need to be skipped or fixed.
+BuildRequires:  python3-pkg_resources
+
 # For tests
 BuildRequires:  gcc
 

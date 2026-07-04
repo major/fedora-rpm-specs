@@ -33,7 +33,7 @@ GNOME Shell extensions.
 
 
 %prep
-%autosetup -n %{name}-%{gnome_tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

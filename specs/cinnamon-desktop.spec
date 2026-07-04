@@ -2,12 +2,12 @@
 %global glib2_version    2.37.3
 %global po_package       cinnamon-desktop-3.0
 
-%global upstream_version 6.7.1-unstable
+%global upstream_version 6.7.2-unstable
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.7.1^unstable
-Release: 2%{?dist}
+Version: 6.7.2^unstable
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -16,7 +16,6 @@ Source1: x-cinnamon-mimeapps.list
 ExcludeArch: %{ix86}
 
 Patch0:   set_font_defaults.patch
-Patch1:   %url/pull/272.patch#/cinnamon-desktop-bwrap.patch
 
 Requires: redhat-menus
 
@@ -98,6 +97,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
 - Enable alsa
 

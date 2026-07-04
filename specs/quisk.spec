@@ -1,12 +1,13 @@
 Name:           quisk
-Version:        4.2.51
-Release:        2%{?dist}
+Version:        4.2.53
+Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
 License:        GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            http://james.ahlstrom.name/quisk/
-Source0:        https://files.pythonhosted.org/packages/source/q/%{name}/%{name}-%{version}.tar.gz
+#Source0:        https://files.pythonhosted.org/packages/source/q/%%{name}/%%{name}-%%{version}.tar.gz
+Source0:        https://github.com/jimahlstrom/quisk/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        quisk.desktop
 Source2:        quisk.png
 Source3:        name.ahlstrom.james.Quisk.metainfo.xml
@@ -88,6 +89,10 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Thu Jul 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.53-1
+- New version
+  Resolves: rhbz#2495455
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.2.51-2
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           gnome-robots
 Version:        50.0
 Release:        %autorelease
@@ -25,7 +22,9 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://wiki.gnome.org/Apps/Robots
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  desktop-file-utils
@@ -49,7 +48,7 @@ aren't very smart and you also have a helpful teleportation gadget.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 %cargo_prep
 
 

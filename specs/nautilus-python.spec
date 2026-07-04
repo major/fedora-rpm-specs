@@ -1,7 +1,5 @@
 %global nautilus_version 43~beta
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:           nautilus-python
 Version:        4.1.0
 Release:        %autorelease
@@ -9,7 +7,9 @@ Summary:        Python bindings for Nautilus
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/NautilusPython
-Source0:        https://download.gnome.org/sources/%{name}/4.1/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  gtk-doc
@@ -34,7 +34,7 @@ Python bindings for Nautilus
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

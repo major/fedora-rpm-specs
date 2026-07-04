@@ -8,7 +8,7 @@ Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.0-or-later
 URL:            http://www.gnome-db.org/
-Source:         http://ftp.gnome.org/pub/GNOME/sources/%{name}/6.0/%{name}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 Patch0:         mariadb.patch
 Patch1:         signed-int.patch

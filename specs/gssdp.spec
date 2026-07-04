@@ -4,7 +4,7 @@ Release:       %autorelease
 Summary:       Resource discovery and announcement over SSDP
 License:       LGPL-2.1-or-later AND CC0-1.0
 URL:           http://www.gupnp.org/
-Source0:       https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gtk4)

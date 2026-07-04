@@ -5,17 +5,13 @@
 %global crate astral-version-ranges
 
 Name:           rust-astral-version-ranges
-Version:        0.1.4
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Performance-optimized type for generic version ranges and operations on them
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/astral-version-ranges
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow older versions of the ron dev-dependency until the rust-ron package
-#   can be updated, https://bugzilla.redhat.com/show_bug.cgi?id=2391241. Upstream specifies 0.12; we allow as old as 0.10.
-Patch:          astral-version-ranges-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -61,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "proptest" feature of the "%{crate}" crate.
 
 %files       -n %{name}+proptest-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+semver-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+semver-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "semver" feature of the "%{crate}" crate.
+
+%files       -n %{name}+semver-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

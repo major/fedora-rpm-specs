@@ -5,21 +5,19 @@
 %global crate syslog
 
 Name:           rust-syslog
-Version:        6.1.1
+Version:        7.0.0
 Release:        %autorelease
-Summary:        Send log messages to syslog
+Summary:        Syslog message formatter and writer
 
 License:        MIT
 URL:            https://crates.io/crates/syslog
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Relax hostname dependency to allow 0.4.x
-Patch:          syslog-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Send log messages to syslog.}
+Syslog message formatter and writer, supporting unix sockets, UDP and
+TCP exporters.}
 
 %description %{_description}
 

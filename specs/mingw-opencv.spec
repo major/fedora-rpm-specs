@@ -35,6 +35,7 @@ BuildRequires: protobuf-compiler
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-eigen3
+# NOTE: OpenCV currently requires FLATBUFFERS_VERSION_MINOR == 9
 # BuildRequires: mingw32-flatbuffers
 BuildRequires: mingw32-freetype
 BuildRequires: mingw32-gdal

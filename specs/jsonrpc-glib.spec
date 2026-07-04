@@ -5,7 +5,7 @@ Summary:        A JSON-RPC library for GLib
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/jsonrpc-glib
-Source0:        https://download.gnome.org/sources/%{name}/3.44/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gi-docgen
 BuildRequires:  meson

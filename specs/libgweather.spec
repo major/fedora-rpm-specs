@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
-
 Name:           libgweather
 Version:        4.6.0
 Release:        %autorelease
@@ -9,7 +6,9 @@ Summary:        A library for weather information
 # libgweather/third-party/kdtree.c is BSD-3-Clause
 License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            https://wiki.gnome.org/Projects/LibGWeather
-Source:         https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -58,10 +57,7 @@ The %{name}-doc package contains documentation for developing
 applications that use %{name}.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Dgtk_doc=true

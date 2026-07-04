@@ -1,5 +1,3 @@
-%global major_version %%(echo %%{version} | cut -d "." -f 1)
-
 Name:           gweather-locations
 Version:        2026.2
 Release:        %autorelease
@@ -7,7 +5,7 @@ Summary:        The GWeather locations database
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gweather-locations
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  meson

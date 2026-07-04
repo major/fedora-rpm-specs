@@ -5,7 +5,7 @@ Name: libwnck3
 Version: 43.3
 Release: %autorelease
 URL: http://download.gnome.org/sources/%{source_name}/
-Source0: http://download.gnome.org/sources/%{source_name}/43/%{source_name}-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/%{source_name}/%{gnome_major_version}/%{source_name}-%{version}.tar.xz
 License: LGPL-2.0-or-later
 
 # https://gitlab.gnome.org/GNOME/libwnck/-/merge_requests/10

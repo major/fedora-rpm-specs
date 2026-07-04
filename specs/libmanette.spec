@@ -5,7 +5,7 @@ Summary:        Game controller library
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/libmanette
-Source0:        https://download.gnome.org/sources/libmanette/0.2/libmanette-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson

@@ -7,7 +7,7 @@
 %endif
 
 Name:           fcitx5-chinese-addons
-Version:        5.1.12
+Version:        5.1.13
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -114,6 +114,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/fcitx5/inputmethod/*.conf
 %{_datadir}/fcitx5/lua/imeapi/extensions/pinyin.lua
 %{_datadir}/fcitx5/pinyin/*.dict
+%{_datadir}/fcitx5/pinyin/sp.dat.example
 %{_datadir}/fcitx5/pinyin/symbols
 %{_datadir}/fcitx5/pinyinhelper/py_*.mb
 %{_datadir}/fcitx5/punctuation/punc.mb.*

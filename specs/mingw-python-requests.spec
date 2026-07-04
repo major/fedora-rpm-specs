@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.33.1
+Version:       2.34.2
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -70,6 +70,9 @@ sed -i '/#!\/usr\/.*python/d' src/requests/certs.py
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 2.34.2-1
+- Update to 2.34.2
+
 * Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 2.33.1-1
 - Update to 2.33.1
 

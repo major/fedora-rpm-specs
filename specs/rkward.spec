@@ -1,6 +1,6 @@
 Name:           rkward
 Version:        0.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -48,6 +48,9 @@ BuildRequires:  cmake(KDSingleApplication-qt6)
 
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
+Requires:       R(R2HTML)
+Requires:       kate-plugins
+Recommends:     pandoc-cli
 
 %description
 RKWard aims to provide an easily extensible, easy to use IDE/GUI for the
@@ -89,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Thu Jul 02 2026 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.3-3
+- Add runtime dependencies R2HTML, kate-plugins, pandoc-cli
+
 * Tue Jun 02 2026 Maxwell G <maxwell@gtmx.me> - 0.8.3-2
 - Rebuild for kdesingleapplication 1.2
 

@@ -1,7 +1,7 @@
 %bcond_without mingw
 
 Name:           liblerc
-Version:        4.1.0
+Version:        4.1.1
 Release:        1%{?dist}
 Summary:        Library for Limited Error Raster Compression
 
@@ -115,6 +115,9 @@ sed -i 's/\r$//' NOTICE README.md doc/MORE.md
 
 
 %changelog
+* Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 4.1.1-1
+- Update to 4.1.1
+
 * Tue Mar 10 2026 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
 - Update to 4.1.0
 

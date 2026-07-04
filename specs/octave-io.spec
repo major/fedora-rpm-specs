@@ -1,7 +1,7 @@
 %global octpkg io
 
 Name:           octave-%{octpkg}
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Input/Output in external formats
 # inst/pch2mat.m is BSD-2-Clause

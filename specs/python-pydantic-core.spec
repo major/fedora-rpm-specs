@@ -32,6 +32,11 @@ Patch:          0001-Fix-test-assertion-to-account-for-change-in-rust-uuid.patch
 # https://github.com/pydantic/pydantic/pull/13301
 Patch:          pydantic_core-2.46.4-pyo3-0.29.patch
 
+# Compatibility with pytest 9.1
+# The patch is manually adjusted from the upstream
+# https://github.com/pydantic/pydantic/commit/f257d01
+Patch:          fix-pytest-9.1.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

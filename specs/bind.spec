@@ -175,26 +175,33 @@ Recommends:     %{name}-utils %{name}-dnssec-utils
 %upname_compat  %{upname}
 Obsoletes:      %{name}-pkcs11 < 32:9.18.4-2
 
-BuildRequires:  gcc, make
-BuildRequires:  openssl-devel, libtool, autoconf, pkgconfig, libcap-devel
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  pkgconfig(libcrypto) pkgconfig(libssl)
+BuildRequires:  libtool
+BuildRequires:  autoconf
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(libcap)
 %if %{with OPENSSL_ENGINE}
 BuildRequires:  openssl-devel-engine
 %endif
-BuildRequires:  libidn2-devel, libxml2-devel
+BuildRequires:  pkgconfig(libidn2)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  selinux-policy
-BuildRequires:  findutils sed
-BuildRequires:  libnghttp2-devel
+BuildRequires:  findutils
+BuildRequires:  sed
+BuildRequires:  pkgconfig(libnghttp2)
 %if %{with JEMALLOC} && 0%{?fedora}
-BuildRequires:  jemalloc-devel
+BuildRequires:  pkgconfig(jemalloc)
 %endif
 %if 0%{?fedora}
 BuildRequires:  gnupg2
 %endif
-BuildRequires:  libuv-devel
+BuildRequires:  pkgconfig(libuv)
 %if %{with UNITTEST}
 # make unit dependencies
-BuildRequires:  libcmocka-devel
+BuildRequires:  pkgconfig(cmocka)
 %endif
 %if %{with UNITTEST} || %{with SYSTEMTEST}
 BuildRequires:  softhsm
@@ -209,23 +216,25 @@ BuildRequires:  python3-hypothesis
 BuildRequires:  iproute
 %endif
 %if %{with GSSTSIG}
-BuildRequires:  krb5-devel
+BuildRequires:  pkgconfig(krb5)
 %endif
 %if %{with LMDB}
-BuildRequires:  lmdb-devel
+BuildRequires:  pkgconfig(lmdb)
 %endif
 %if %{with JSON}
-BuildRequires:  json-c-devel
+BuildRequires:  pkgconfig(json-c)
 %endif
 %if %{with GEOIP2}
-BuildRequires:  libmaxminddb-devel
+BuildRequires:  pkgconfig(libmaxminddb)
 %endif
 %if %{with DNSTAP}
-BuildRequires:  fstrm-devel protobuf-c-devel
+BuildRequires:  pkgconfig(libfstrm)
+BuildRequires:  pkgconfig(libprotobuf-c)
 %endif
 # Needed to regenerate dig.1 manpage
 %if %{with DOC}
-BuildRequires:  python3-sphinx python3-sphinx_rtd_theme
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  doxygen
 %endif
 %if %{with DOCPDF}
@@ -298,23 +307,27 @@ Summary:  Header files and libraries needed for bind-dyndb-ldap
 Provides: %{name}-lite-devel = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-lite-devel < 32:9.16.6-3
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: openssl-devel%{?_isa} libxml2-devel%{?_isa}
-Requires: libcap-devel%{?_isa}
+Requires: pkgconfig(libcrypto) pkgconfig(libssl)
+Requires: pkgconfig(libxml-2.0)
+Requires: pkgconfig(libpcap)
+Requires(post):   %{_bindir}/alternatives
+Requires(postun): %{_bindir}/alternatives
 %upname_compat %{upname}-devel
 %if %{with GSSTSIG}
-Requires: krb5-devel%{?_isa}
+Requires: pkgconfig(krb5)
 %endif
 %if %{with LMDB}
-Requires: lmdb-devel%{?_isa}
+Requires: pkgconfig(lmdb)
 %endif
 %if %{with JSON}
-Requires:  json-c-devel%{?_isa}
+Requires:  pkgconfig(json-c)
 %endif
 %if %{with DNSTAP}
-Requires:  fstrm-devel%{?_isa} protobuf-c-devel%{?_isa}
+Requires:  pkgconfig(libfstrm)
+Requires:  pkgconfig(libprotobuf-c)
 %endif
 %if %{with GEOIP2}
-Requires:  libmaxminddb-devel%{?_isa}
+Requires:  pkgconfig(libmaxminddb)
 %endif
 
 %description devel
@@ -705,6 +718,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
 install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}.conf
 install -p -m 644 %{SOURCE51} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}-chroot.conf
 
+mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
 
 %if %{with DNSTAP}
   %global utils_bin1_dnstap  dnstap-read
@@ -721,6 +735,7 @@ install -p -m 644 %{SOURCE51} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}-chroot.co
 %global main_man5 named.conf rndc.conf
 %global main_unit named.service named-setup-rndc.service
 %global main_lib filter-{a,aaaa}
+%global main_libexec generate-rndc-key.sh
 
 # Alternatives touches symlinks targets
 for BIN in %{utils_bin1} %{main_bin1} %{dnssec_utils_bin1}; do
@@ -768,6 +783,9 @@ done
   --follower %{_sbindir}/%{1} %{upname}-%{1} %{_sbindir}/%{1}%{program_suffix} \\\
   --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
 
+%define altflibexec() \\\
+  --follower %{_libexecdir}/%{1} %{upname}-%{1} %{_libexecdir}/%{name}/%{1}
+
 %define altflibman() \\\
   --follower %{_libdir}/bind/%{1}.so %{upname}-%{1}.so %{_libdir}/bind/%{1}.so%{program_suffix} \\\
   --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
@@ -799,6 +817,12 @@ done
     fi; \
     if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then \
       rm -f -- "$MANX"; \
+    fi
+
+%define altrmlibexec() \
+    BINX="%{_libexecdir}/%{1}"; \
+    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then \
+      rm -f -- "$BINX"; \
     fi
 
 %define altrmman() \
@@ -855,6 +879,10 @@ fi
   for LIB in %{main_lib}; do
     %{altrmlibman $LIB 8}
     ALTS+="%{altflibman $LIB 8}"
+  done
+  for LIBEXEC in %{main_libexec}; do
+    %{altrmlibexec $LIBEXEC}
+    ALTS+="%{altflibexec $LIBEXEC}"
   done
   for UNIT in %{main_unit}; do
     %{altrmunit $UNIT}
@@ -961,6 +989,19 @@ if [ -x %{_sbindir}/selinuxenabled ] && [ -x %{_sbindir}/getsebool ] && [ -x %{_
   fi
 fi
 
+%post devel
+%if "%{program_suffix}" != ""
+  alternatives --install %{_includedir}/bind9 %{upname}-includedir %{_includedir}/bind-%{mver} %{alternatives_prio}
+%endif
+
+%postun devel
+%if "%{program_suffix}" != ""
+if [ $1 -eq 0 ] ; then
+  alternatives --remove %{upname}-includedir %{_includedir}/bind9
+fi
+%endif
+%end
+
 %ldconfig_scriptlets libs
 
 %post chroot
@@ -1021,6 +1062,7 @@ fi;
 %endif
 %{_libexecdir}/%{name}/generate-rndc-key.sh
 %{_libexecdir}/%{name}/setup-named-softhsm.sh
+%ghost %{_libexecdir}/generate-rndc-key.sh
 # man pages
 %{_mandir}/man1/mdig%{program_suffix}.1*
 %{_mandir}/man1/named-checkconf%{program_suffix}.1*
@@ -1160,6 +1202,7 @@ fi;
 %{_libdir}/libisc-%{mver}.so
 %{_libdir}/libisccfg-%{mver}.so
 %{_libdir}/libirs-%{mver}.so
+%ghost %{_includedir}/bind9
 %dir %{bind_include}
 %{bind_include}/isccc
 %{bind_include}/ns

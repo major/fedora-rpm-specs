@@ -7,7 +7,7 @@ Release:        %autorelease
 Summary:        Git library for GLib
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libgit2-glib
-Source0:        https://download.gnome.org/sources/libgit2-glib/1.2/libgit2-glib-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
