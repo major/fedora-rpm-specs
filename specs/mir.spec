@@ -35,7 +35,7 @@
 
 Name:           mir
 Version:        2.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -327,6 +327,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Fri Jul 03 2026 Michel Lind <salimma@fedoraproject.org> - 2.28.0-2
+- Rebuild for rust-quick-xml 0.41.0
+
 * Thu Jun 18 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.28.0-1
 - Update to 2.28.0
 

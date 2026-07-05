@@ -1,8 +1,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 26.04.2
-Release: 2%{?dist}
+Version: 26.04.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -14,6 +14,9 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 ExcludeArch: %{ix86}
 
 ## upstream patches
+# Fix build against OpenSSL 4.0
+# https://invent.kde.org/network/kdeconnect-kde/-/merge_requests/988
+Patch0:         988.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -195,6 +198,9 @@ done
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.04.2-2
 - Rebuilt for openssl 4.0
 

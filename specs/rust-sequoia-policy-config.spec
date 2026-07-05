@@ -4,7 +4,7 @@
 %global crate sequoia-policy-config
 
 Name:           rust-sequoia-policy-config
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Configure Sequoia using a configuration file
 
@@ -104,18 +104,6 @@ This package contains library source intended for building other packages which
 use the "crypto-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crypto-rust-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crypto-rust-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crypto-rust" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crypto-rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

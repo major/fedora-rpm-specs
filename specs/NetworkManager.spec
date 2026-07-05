@@ -5,8 +5,8 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.57.4~dev
-Release: 3%{?dist}
+Version: 1.58~rc1
+Release: 1%{?dist}
 
 ###############################################################################
 
@@ -34,11 +34,6 @@ Release: 3%{?dist}
 %global systemd_units_cloud_setup nm-cloud-setup.service nm-cloud-setup.timer
 
 ###############################################################################
-%if 0%{?fedora} > 40 || 0%{?rhel} >= 10
-%bcond_with dhclient
-%else
-%bcond_without dhclient
-%endif
 %bcond_without adsl
 %bcond_without bluetooth
 %bcond_without wwan
@@ -163,12 +158,6 @@ Source7: 70-nm-connectivity.conf
 Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
 Source10: 24-clat-auto.conf
-
-# Keep until next rebase
-Patch1: 0001-nmtui-fix-wrong-use-of-assertions-in-bond-page.patch
-
-# Keep until next rebase, https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/0d0b03e7d3f3082540a0dbc7ec05de835b92563d
-Patch2: 0001-libnm-use-correct-directory-permissions-in-nm_utils_.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -582,11 +571,6 @@ Preferably use nmcli instead.
 	-Dnft=%{_sbindir}/nft \
 	-Diptables=%{_sbindir}/iptables \
 	-Dip6tables=%{_sbindir}/ip6tables \
-%if %{with dhclient}
-	-Ddhclient=%{_sbindir}/dhclient \
-%else
-	-Ddhclient=no \
-%endif
 	-Ddhcpcd=no \
 	-Dcrypto=gnutls \
 %if %{with debug}
@@ -1076,6 +1060,11 @@ fi
 
 
 %changelog
+* Thu Jul 02 2026 Josephine Pfeiffer <josie@redhat.com> - 1:1.58~rc1-1
+- Update to 1.58-rc1 release
+- Drop patches now merged upstream (nmtui bond assertions, libnm cert dir permissions)
+- Drop the dhclient meson option, removed upstream in 1.58
+
 * Thu Jun 11 2026 Christian Krause <chkr@fedoraproject.org> - 1:1.57.4-3
 - Apply upstream patch to fix strongSwan VPN connection problem (rhbz#2461399)
 

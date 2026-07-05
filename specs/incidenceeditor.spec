@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    incidenceeditor
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: KDE PIM library for creating and editing calendar incidences
 
@@ -28,6 +28,7 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6LdapWidgets)
@@ -94,6 +95,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

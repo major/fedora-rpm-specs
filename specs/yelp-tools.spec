@@ -1,5 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 %bcond url_handler 0%{?rhel}
 
 Name:          yelp-tools
@@ -9,8 +7,10 @@ Summary:       Create, manage, and publish documentation for Yelp
 
 License:       GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Apps/Yelp/Tools
-Source0:       https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 BuildArch:     noarch
+
+%gnome_check_version
 
 # https://gitlab.gnome.org/GNOME/yelp-tools/-/merge_requests/12
 Patch:         url-handler.patch
@@ -35,7 +35,7 @@ lifting is done by packages like yelp-xsl and itstool. This package just
 wraps things up in a developer-friendly way.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson \

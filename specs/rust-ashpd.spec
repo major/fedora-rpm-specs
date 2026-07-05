@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop example program that pulls in gstreamer bindings
 # * drop reis dev-dependency that is only used in one doctest
-# * allow quick-xml 0.40:
+# * allow quick-xml 0.40 and 0.41:
 #   https://github.com/bilelmoussaoui/ashpd/commit/052cf051257411c0fbaed3af1b32acb1238f5ec7
 Patch:          ashpd-fix-metadata.diff
 # * Ignore one doctest that pulls in reis as an additional dev-dependency

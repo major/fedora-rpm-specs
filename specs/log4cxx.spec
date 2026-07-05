@@ -8,6 +8,9 @@ Summary: A port to C++ of the Log4j project
 License: Apache-2.0
 URL: http://logging.apache.org/log4cxx/index.html
 Source0: http://www.apache.org/dist/logging/log4cxx/%{version}/apache-%{name}-%{version}.tar.gz
+# test2GbMessageFormatting allocates a >2GB string, which cannot succeed in a
+# 32-bit address space; skip it there instead of failing the whole test suite
+Patch0: %{name}-1.7.0-skip-2gb-test-on-32bit.patch
 
 BuildRequires: apr-devel
 BuildRequires: apr-util-devel
@@ -39,7 +42,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n apache-%{name}-%{version}
+%autosetup -n apache-%{name}-%{version} -p1
 
 %build
 %cmake -DBUILD_SITE=ON

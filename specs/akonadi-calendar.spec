@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    akonadi-calendar
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
@@ -29,6 +29,7 @@ BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6CalendarCore)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 BuildRequires:  cmake(KPim6Libkdepim)
 BuildRequires:  cmake(KPim6Mime)
@@ -114,6 +115,9 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

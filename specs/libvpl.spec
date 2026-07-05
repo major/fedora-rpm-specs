@@ -1,9 +1,9 @@
 %global mfx_major 2
-%global mfx_minor 16
+%global mfx_minor 17
 
 Name:           libvpl
 Epoch:          1
-Version:        2.16.0
+Version:        2.17.0
 Release:        %autorelease
 Summary:        Intel Video Processing Library
 License:        MIT

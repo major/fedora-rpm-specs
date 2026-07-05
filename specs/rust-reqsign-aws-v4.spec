@@ -17,6 +17,7 @@ Source:         %{crates_source}
 # * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
 #   not want to package them; these are used only for benchmarks and for one
 #   group of tests.
+# * Allow building against quick-xml 0.41
 Patch:          reqsign-aws-v4-fix-metadata.diff
 # * Downstream-only: avoid a dev-dependency on aws-sigv4 and
 #   aws-credential-types

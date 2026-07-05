@@ -1,6 +1,6 @@
 Name:    kontact
 Summary: Personal Information Manager
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -32,6 +32,7 @@ BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6GuiAddons)
 BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake(KF6SyntaxHighlighting)
 
 BuildRequires: cmake(KPim6KontactInterface)
 BuildRequires: cmake(KPim6Libkdepim)
@@ -96,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

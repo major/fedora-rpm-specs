@@ -1,10 +1,15 @@
 Name:           khealthcertificate
-Version:        26.04.2
-Release:        2%{?dist}
+Version:        26.04.3
+Release:        1%{?dist}
 License:        W3C-20150513 AND LGPL-2.0-or-later AND BSD-3-Clause AND CC0-1.0 AND MIT AND Apache-2.0
 Summary:        Handling of digital vaccination, test and recovery certificates.
 Url:            https://invent.kde.org/pim/khealthcertificate
 Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# Upstream fixes
+# Fix for building on OpenSSL 4.0
+# https://invent.kde.org/pim/khealthcertificate/-/merge_requests/23
+Patch0:        23.patch
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
@@ -55,6 +60,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/*.so
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.04.2-2
 - Rebuilt for openssl 4.0
 

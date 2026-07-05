@@ -7,8 +7,8 @@ ExcludeArch: %{ix86}
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 26.04.2
-Release: 2%{?dist}
+Version: 26.04.3
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/education/%{name}
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 26.04.2-2
 - Rebuilt for Python 3.15
 

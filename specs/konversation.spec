@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           konversation
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary:        A user friendly IRC client
 
@@ -137,6 +137,9 @@ fi
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

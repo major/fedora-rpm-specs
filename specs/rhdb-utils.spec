@@ -3,12 +3,12 @@
 # <overholt@redhat.com>, Tom Lane <tgl@redhat.com>
 # Copyright (C) 2002-2012 Red Hat, Inc.
 
-%global tarballname REL_16_0
+%global tarballname REL_17_4
 
 Summary: Miscellaneous utilities for PostgreSQL - Red Hat Edition
 Name: rhdb-utils
-Version: 16.0
-Release: 8%{?dist}
+Version: 17.4
+Release: 1%{?dist}
 URL: https://github.com/df7cb/pg_filedump
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -44,6 +44,9 @@ install -p -m 755 pg_filedump ${RPM_BUILD_ROOT}%{_bindir}
 
 
 %changelog
+* Thu Jul 02 2026 Michal Schorm <mschorm@redhat.com> - 17.4-1
+- Rebase to 17.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -13,7 +13,7 @@ URL:            https://crates.io/crates/busd
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unstable-only tracing feature from tokio
-# * allow quick-xml 0.40:
+# * allow quick-xml 0.40 and 0.41:
 #   https://github.com/z-galaxy/busd/commit/6a259f673877b044e51eafd0236a713bca969981
 Patch:          busd-fix-metadata.diff
 

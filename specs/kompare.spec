@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kompare
 Summary: Diff tool
-Version: 26.04.2
-Release: 2%{?dist}
+Version: 26.04.3
+Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://apps.kde.org/kompare/
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ko
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Fri Jun 26 2026 Pavel Raiskup <pavel@raiskup.cz> - 26.04.2-2
 - backport patch for text alignment issue (KDE Bug 481778)
 

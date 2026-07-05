@@ -1,12 +1,10 @@
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name:		totem-pl-parser
 Version:	3.26.7
 Release:	%autorelease
 Summary:	Totem Playlist Parser library
 License:	LGPL-2.0-or-later AND (LGPL-2.1-or-later WITH GStreamer-exception-2005)
 Url:		https://wiki.gnome.org/Apps/Videos
-Source0:	https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:	glib2-devel
 BuildRequires:	libxml2-devel

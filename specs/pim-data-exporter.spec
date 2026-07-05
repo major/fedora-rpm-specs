@@ -1,6 +1,6 @@
 Name:    pim-data-exporter
 Summary: Pim Data Exporter
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -37,6 +37,7 @@ BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6TextTemplate)
 BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6SyntaxHighlighting)
 
 BuildRequires: cmake(KPim6Akonadi)
 BuildRequires: cmake(KF6Contacts)
@@ -99,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.pi
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

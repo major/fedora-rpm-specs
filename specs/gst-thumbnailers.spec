@@ -1,9 +1,9 @@
-%global upstream_version %%(echo %{version} | tr '~' '.')
-
 Name:           gst-thumbnailers
-Version:        1.0.0
+Version:        1.1~alpha
 Release:        %autorelease
 Summary:        GStreamer Thumbnailers
+
+%gnome_check_version
 
 SourceLicense:  GPL-3.0-or-later
 # Rust dependencies:
@@ -27,7 +27,7 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.gnome.org/GNOME/gst-thumbnailers
-Source:         %{url}/-/archive/%{upstream_version}/gst-thumbnailers-%{upstream_version}.tar.gz
+Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 Patch:          0001-meson-adapt-for-RPM-package-build-environment.patch
 Patch:          0002-cargo-drop-benchmarks-and-benchmark-only-dependencie.patch
@@ -50,7 +50,7 @@ Requires:       gstreamer1-plugins-good
 %{summary}.
 
 %prep
-%autosetup -n gst-thumbnailers-%{upstream_version} -p1
+%autosetup -n gst-thumbnailers-%{gnome_tarball_version} -p1
 %cargo_prep
 
 %generate_buildrequires

@@ -7,7 +7,7 @@ Summary:        Simple scanning utility
 # Sources are under GPLv3+, icon and help are under CC-BY-SA.
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/simple-scan
-Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext

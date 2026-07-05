@@ -1,7 +1,7 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -54,6 +54,7 @@ BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6DAV)
 BuildRequires:  cmake(KF6TextCustomEditor)
 BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6Mime)
@@ -147,6 +148,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 1:26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 1:26.04.2-1
 - 26.04.2
 

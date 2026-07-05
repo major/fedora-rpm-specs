@@ -3,27 +3,25 @@
 %bcond check 0
 %global debug_package %{nil}
 
-%global crate hickory-resolver
+%global crate hickory-net
 
-Name:           rust-hickory-resolver
+Name:           rust-hickory-net
 Version:        0.26.1
 Release:        %autorelease
-Summary:        Hickory-resolver is a safe and secure DNS stub resolver library
+Summary:        Hickory-net is a safe and secure low-level DNS library
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/hickory-resolver
+URL:            https://crates.io/crates/hickory-net
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          hickory-resolver-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          hickory-resolver-fix-metadata.diff
+Patch:          hickory-net-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hickory-resolver is a safe and secure DNS stub resolver library intended
-to be a high-level library for DNS record resolution.}
+Hickory-net is a safe and secure low-level DNS library. This is the
+foundational DNS protocol library used by the other higher-level Hickory
+DNS crates.}
 
 %description %{_description}
 
@@ -54,28 +52,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+metrics-devel
+%package     -n %{name}+mdns-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+metrics-devel %{_description}
+%description -n %{name}+mdns-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "metrics" feature of the "%{crate}" crate.
+use the "mdns" feature of the "%{crate}" crate.
 
-%files       -n %{name}+metrics-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+recursor-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+recursor-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "recursor" feature of the "%{crate}" crate.
-
-%files       -n %{name}+recursor-devel
+%files       -n %{name}+mdns-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -90,16 +76,16 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+system-config-devel
+%package     -n %{name}+socket2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+system-config-devel %{_description}
+%description -n %{name}+socket2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "system-config" feature of the "%{crate}" crate.
+use the "socket2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+system-config-devel
+%files       -n %{name}+socket2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel
@@ -112,18 +98,6 @@ This package contains library source intended for building other packages which
 use the "tokio" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tokio-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+toml-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+toml-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "toml" feature of the "%{crate}" crate.
-
-%files       -n %{name}+toml-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+webpki-roots-devel

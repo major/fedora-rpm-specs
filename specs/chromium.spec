@@ -498,6 +498,9 @@ Patch418: 0002-regenerate-xnn-buildgn.patch
 Patch419: 0009-sandbox-ignore-byte-span-error.patch
 Patch420: 0005-blink-add-audio-vector-support.patch
 
+# Fix FTBSF with kernel-7.2.0 (fedora 45 and rhel-11)
+Patch450: chromium-150-pt_regs-kernel-7.2.0.patch
+
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
 Patch500: flatpak-Add-initial-sandbox-support.patch
@@ -1222,6 +1225,9 @@ Qt6 UI for chromium.
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
 %patch -P420 -p1 -b .0005-blink-add-audio-vector-support
+%if 0%{?fedora} > 44 || 0%{?rhel} > 10 
+%patch -P450 -p1 -b .pt_regs-kernel-7.2.0
+%endif
 %endif
 
 %if 0%{?flatpak}
@@ -1685,7 +1691,7 @@ pushd %{chromebuilddir}
 	cp -a icudtl.dat %{buildroot}%{chromium_path}
 %endif
 	cp -a chrom*.pak resources.pak %{buildroot}%{chromium_path}
-	cp -a locales/*.pak %{buildroot}%{chromium_path}/locales/
+	cp --remove-destination locales/*.pak %{buildroot}%{chromium_path}/locales/
 	cp -a MEIPreload/ PrivacySandboxAttestationsPreloaded/ %{buildroot}%{chromium_path}/
 %if %{build_chrome_management_service}
 	cp -a chrome_management_service %{buildroot}%{chromium_path}/chrome-management-service

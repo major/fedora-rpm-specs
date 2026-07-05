@@ -7,7 +7,7 @@
 %global common_desc Manage dynamic plugins for Python applications
 
 Name:           python-stevedore
-Version:        5.8.0
+Version:        5.9.0
 Release:        %autorelease
 Summary:        Manage dynamic plugins for Python applications
 

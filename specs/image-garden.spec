@@ -1,5 +1,5 @@
 Name:     image-garden
-Version:  0.3
+Version:  0.6.3
 Release:  %autorelease
 Summary:  Tool for creating test virtual machines
 
@@ -8,12 +8,17 @@ URL:      https://gitlab.com/zygoon/image-garden
 Source:   %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildArch:     noarch
+
 BuildRequires: make
 BuildRequires: shellcheck
+BuildRequires: python3
+BuildRequires: python3-mypy
+
 Requires:      edk2-aarch64
 Requires:      edk2-ovmf
 Requires:      genisoimage
 Requires:      make
+Requires:      python3-mypy
 Requires:      qemu-img
 Requires:      qemu-system-aarch64-core
 Requires:      qemu-system-x86-core
@@ -44,9 +49,12 @@ make check
 %{_bindir}/image-garden
 %{_mandir}/man1/image-garden.1.*
 %license LICENSE
-# SPDX meta-data for the NEWS file is not worth installing.
-%exclude %{_docdir}/image-garden/NEWS.license
 %doc README.md NEWS
+# SPDX meta-data for the NEWS file is not worth installing.
+%exclude %{_docdir}/%{name}/NEWS.license
+# Don't install Docker-container and snap-package NEWS
+%exclude %{_docdir}/%{name}/NEWS.docker*
+%exclude %{_docdir}/%{name}/NEWS.snappy*
 
 %changelog
 %autochangelog

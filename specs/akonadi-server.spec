@@ -4,8 +4,8 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 26.04.2
-Release: 2%{?dist}
+Version: 26.04.3
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -258,6 +258,9 @@ fi
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 30 2026 Than Ngo <than@redhat.com> - 26.04.2-2
 - Fix rhbz#2494531, Use '-any' virtual provide for mariadb / mysql dependencies
 

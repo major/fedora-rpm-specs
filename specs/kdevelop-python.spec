@@ -1,7 +1,7 @@
 %global upstream_name kdev-python
 
 Name:           kdevelop-python
-Version:        26.04.2
+Version:        26.04.3
 Release:        1%{?dist}
 Summary:        KDevelop Python language support
 
@@ -74,5 +74,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 %{_kf6_datadir}/qlogging-categories6/kdevpythonsupport.categories
 
 %changelog
+* Fri Jul 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Sat Jun 27 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - Initial Import

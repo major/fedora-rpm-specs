@@ -20,6 +20,12 @@
 %define no_user_namespace 1
 %endif
 
+# https://redhat.atlassian.net/browse/RHEL-151636
+# RHEL <= 9 and Fedora <= 43 have older policydb versions
+%if (%{defined rhel} && 0%{?rhel} <= 9) || (%{defined fedora} && 0%{?fedora} <= 43)
+%define old_policydb 1
+%endif
+
 # set copr_build is more intuitive than copr_username
 %if %{defined copr_username} && "%{copr_username}" == "rhcontainerbot" && "%{copr_projectname}" == "podman-next"
 %define next_build 1
@@ -35,7 +41,7 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.249.0
+Version: 2.250.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
@@ -52,7 +58,11 @@ Requires: selinux-policy >= %_selinux_policy_version
 Requires(post): selinux-policy-base >= %_selinux_policy_version
 Requires(post): selinux-policy-any >= %_selinux_policy_version
 Recommends: selinux-policy-targeted >= %_selinux_policy_version
+%if %{defined old_policydb}
 Requires(post): policycoreutils
+%else
+Requires(post): policycoreutils >= 3.10
+%endif
 Requires(post): libselinux-utils
 Requires(post): sed
 Obsoletes: %{name} <= 2:1.12.5-13

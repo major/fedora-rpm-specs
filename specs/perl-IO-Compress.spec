@@ -7,13 +7,14 @@
 %bcond_with perl_IO_Compress_enables_optional_test
 %endif
 
-# Dependency version if different to this package version
-%global depver 2.218
+# Dependency versions if different to this package version
+%global depver_bzip2 2.218
+#global depver_zlib  2.222
 
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.221
+Version:        2.222
 Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -33,8 +34,8 @@ BuildRequires:  perl(File::Spec::Functions)
 # Module Runtime
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Compress::Raw::Bzip2) >= %{?depver}%{!?depver:%{version}}
-BuildRequires:  perl(Compress::Raw::Zlib) >= %{?depver}%{!?depver:%{version}}
+BuildRequires:  perl(Compress::Raw::Bzip2) >= %{?depver_bzip2}%{!?depver_bzip2:%{version}}
+BuildRequires:  perl(Compress::Raw::Zlib) >= %{?depver_zlib}%{!?depver_zlib:%{version}}
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
@@ -211,6 +212,10 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul  3 2026 Paul Howarth <paul@city-fan.org> - 2.222-1
+- 2.222 bump (rhbz#2496861)
+- Split depver macro into depver_bzip2 and depver_zlib
+
 * Tue Jun 16 2026 Paul Howarth <paul@city-fan.org> - 2.221-1
 - 2.221 bump (rhbz#2489325)
 

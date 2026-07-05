@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/wayland-scanner
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Update quick-xml (to 0.40) and similar (to v3),
+# * Update quick-xml (to 0.40 or 0.41) and similar (to v3),
 #   https://github.com/Smithay/wayland-rs/commit/ec2d932855593d48aa83c76820f3efbcfea86d39.
 #   This requires an accompanying source-code patch for quick-xml 0.40.
 Patch:          wayland-scanner-fix-metadata.diff

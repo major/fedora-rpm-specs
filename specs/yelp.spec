@@ -1,7 +1,5 @@
 %global libhandy_version 1.5.0
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 Name:          yelp
 Epoch:         2
 Version:       49.1
@@ -9,7 +7,9 @@ Release:       %autorelease
 Summary:       Help browser for the GNOME desktop
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0 AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Yelp
-Source:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires: pkgconfig(gtk4)
 BuildRequires: pkgconfig(libadwaita-1)
@@ -49,7 +49,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 This package contains header files for the libraries in the yelp-libs package.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson

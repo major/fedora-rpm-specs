@@ -37,12 +37,13 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b9781
+Version:        b9840
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
 Source0:        %{url}/archive/%{version}.tar.gz#/llama.cpp-%{version}.tar.gz
 
+# aarch64 needs a maintainer
 ExclusiveArch:  x86_64 aarch64
 
 %ifarch x86_64
@@ -50,7 +51,9 @@ ExclusiveArch:  x86_64 aarch64
 %else
 %bcond_with rocm
 %endif
-%bcond_without vulkan
+# broken on stx halo b9781
+# Needs a maintainer
+%bcond_with vulkan
 
 %if %{with rocm}
 %global build_hip ON

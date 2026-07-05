@@ -11,12 +11,16 @@
 %endif
 #endregion version
 
-# Components enabled if supported by target architecture:
+# LLVMgold is a BFD plugin, not specific to the (deprecated) gold linker;
+# however, some of its tests do use gold, which is packaged separately
+# since RHEL 9 but dropped in RHEL 11.
+%if %{undefined rhel} || (0%{?rhel} > 8 && 0%{?rhel} < 11)
 %define gold_arches %{ix86} x86_64 aarch64 %{power64} s390x
 %ifarch %{gold_arches}
   %bcond_without gold
 %else
   %bcond_with gold
+%endif
 %endif
 
 # Enable this in order to disable a lot of features and get to clang as fast
@@ -644,11 +648,10 @@ BuildRequires:	python%{python3_pkgversion}-myst-parser
 %if %{with multilib}
 BuildRequires:	multilib-rpm-config
 %endif
-%if %{with gold}
+# for LLVMgold BFD plugin, gold is optionally used in tests
 BuildRequires:	binutils-devel
-%if %{undefined rhel} || 0%{?rhel} > 8
+%if %{with gold}
 BuildRequires:	binutils-gold
-%endif
 %endif
 %ifarch %{valgrind_arches}
 # Enable extra functionality when run the LLVM JIT under valgrind.
@@ -1935,6 +1938,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 # Instead, we make use of rpath during the build and only strip it on
 # installation using the CMAKE_SKIP_INSTALL_RPATH option.
 %global cmake_config_args %{cmake_config_args} -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+%global cmake_config_args %{cmake_config_args} -DLLVM_BINUTILS_INCDIR=%{_includedir}
 
 %if 0%{?fedora} || 0%{?rhel} > 9
 	%global cmake_config_args %{cmake_config_args} -DPPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON
@@ -1942,10 +1946,6 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 
 %if 0%{?__isa_bits} == 64
 	%global cmake_config_args %{cmake_config_args} -DLLVM_LIBDIR_SUFFIX=64
-%endif
-
-%if %{with gold}
-	%global cmake_config_args %{cmake_config_args} -DLLVM_BINUTILS_INCDIR=%{_includedir}
 %endif
 
 %if %{with snapshot_build}
@@ -2235,11 +2235,9 @@ install %{build_libdir}/libLLVMTestingAnnotations.a %{buildroot}%{install_libdir
 
 %if %{without compat_build}
 
-%if %{with gold}
 # Add symlink to lto plugin in the binutils plugin directory.
 %{__mkdir_p} %{buildroot}%{_libdir}/bfd-plugins/
 ln -s -t %{buildroot}%{_libdir}/bfd-plugins/ ../LLVMgold.so
-%endif
 
 %else
 
@@ -3436,11 +3434,9 @@ fi
     libLTO.so*
     libRemarks.so*
 }}
-%if %{with gold}
 %expand_libs LLVMgold.so
 %if %{without compat_build}
 %{_libdir}/bfd-plugins/LLVMgold.so
-%endif
 %endif
 
 %if %{with compat_build}

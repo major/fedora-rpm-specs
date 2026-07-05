@@ -10,7 +10,7 @@ handle thousands of simultaneous standing connections, which means it is
 ideal for real-time web services.}
 
 Name:           python-%{srcname}
-Version:        6.5.2
+Version:        6.5.7
 Release:        %autorelease
 Summary:        Scalable, non-blocking web server and tools
 
@@ -59,6 +59,12 @@ export TRAVIS=true
 %ifarch riscv64
 export ASYNC_TEST_TIMEOUT=80
 %endif
+
+# Disable perf tests, fail on i686, not particularly valid in koji
+sed -i 's/def test_disposition_param_linear_performance/\
+    @unittest.skip("disabled")\
+    def test_disposition_param_linear_performance/' \
+    tornado/test/httputil_test.py
 
 %{py3_test_envvars} %{python3} -m tornado.test
 

@@ -1,5 +1,5 @@
 Name:    akonadi-search
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
@@ -28,6 +28,7 @@ BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6TextUtils)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  xapian-core-devel
 BuildRequires:  corrosion
@@ -109,6 +110,9 @@ cd ../../..
 %files doc
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

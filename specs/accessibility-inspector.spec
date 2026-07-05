@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:           accessibility-inspector
-Version:        26.04.2
+Version:        26.04.3
 Release:        1%{?dist}
 Summary:        KDE Accessbility Inspector
 # LGPL: code
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

@@ -10,7 +10,7 @@ Sushy is a Python library to communicate with Redfish based systems (http://redf
 %global common_desc_tests Tests for Sushy
 
 Name: python-%{sname}
-Version: 5.11.0
+Version: 5.11.1
 Release: %autorelease
 Summary: Sushy is a Python library to communicate with Redfish based systems
 License: Apache-2.0

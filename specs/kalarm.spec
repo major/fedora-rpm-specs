@@ -1,6 +1,6 @@
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -48,6 +48,7 @@ BuildRequires: cmake(Phonon4Qt6)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6TextTemplate)
 BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6SyntaxHighlighting)
 
 BuildRequires: cmake(KPim6CalendarUtils)
 BuildRequires: cmake(KPim6IdentityManagementWidgets)
@@ -113,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

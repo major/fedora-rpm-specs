@@ -6,13 +6,13 @@ Version:        33~beta
 Release:        %autorelease
 Summary:        A photo organizer for the GNOME desktop
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 # LGPLv2+ for the code
 # CC-BY-SA for some of the icons
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
-Source0:        https://download.gnome.org/sources/shotwell/%{tarball_version}/shotwell-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  cmake
 BuildRequires:  vala
@@ -77,7 +77,7 @@ making it easy to experiment and correct errors.
 
 
 %prep
-%autosetup -n shotwell-%{tarball_version} -p1
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

@@ -1,5 +1,5 @@
 Name:    kmailtransport
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: The KMailTransport Library
 
@@ -81,6 +81,9 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %files doc
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

@@ -1,5 +1,5 @@
 Name:		isa-l
-Version:	2.32.0
+Version:	2.32.1
 Release:	1%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
@@ -69,7 +69,7 @@ autoreconf -v -f -i
 . /opt/rh/gcc-toolset-12/enable
 %endif
 
-%configure --disable-static
+%configure --disable-static --enable-programs
 %make_build
 
 %install
@@ -97,6 +97,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Fri Jul 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.32.1-1
+- Update to version 2.32.1
+
 * Sat Mar 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.32.0-1
 - Update to version 2.32.0
 

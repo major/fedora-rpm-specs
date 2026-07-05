@@ -6,7 +6,7 @@ Summary:        Clean and lean CD ripper
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/SoundJuicer
-Source0:        https://download.gnome.org/sources/%{name}/3.40/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson

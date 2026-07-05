@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.0-only
@@ -66,6 +66,9 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

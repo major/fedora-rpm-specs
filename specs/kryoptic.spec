@@ -33,6 +33,9 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
+# Manually created patch for downstream crate metadata changes
+# * relax quick-xml dependency to allow 0.41
+Patch:          kryoptic-fix-metadata.diff
 
 
 BuildRequires:  cargo-rpm-macros >= 26

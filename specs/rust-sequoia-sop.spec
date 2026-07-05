@@ -4,7 +4,7 @@
 %global crate sequoia-sop
 
 Name:           rust-sequoia-sop
-Version:        0.37.3
+Version:        0.38.0
 Release:        %autorelease
 Summary:        Implementation of the Stateless OpenPGP Interface using Sequoia
 
@@ -14,7 +14,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * switch crypto backend from Nettle to OpenSSL
 # * exclude files that are only useful for upstream development
-# * bump sequoia-wot dependency from 0.14 to 0.15
 Patch:          sequoia-sop-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -28,7 +27,6 @@ An implementation of the Stateless OpenPGP Interface using Sequoia.}
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-3-Clause
@@ -42,20 +40,19 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib
 License:        %{shrink:
-    GPL-2.0-or-later AND
-    Apache-2.0 AND
-    BSD-3-Clause AND
-    BSL-1.0 AND
-    LGPL-2.0-or-later AND
-    MIT AND
-    MPL-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
+    GPL-2.0-or-later
+    AND Apache-2.0
+    AND BSD-3-Clause
+    AND BSL-1.0
+    AND LGPL-2.0-or-later
+    AND MIT
+    AND MPL-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 
@@ -149,18 +146,6 @@ This package contains library source intended for building other packages which
 use the "crypto-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crypto-rust-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crypto-rust-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crypto-rust" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crypto-rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

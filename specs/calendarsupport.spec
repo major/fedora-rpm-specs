@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    calendarsupport
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
@@ -37,6 +37,7 @@ BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KPim6AkonadiCalendar)
 BuildRequires:  cmake(KPim6AkonadiNotes)
 BuildRequires:  cmake(KF6TextCustomEditor)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 %description
 %{summary}.
@@ -85,6 +86,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

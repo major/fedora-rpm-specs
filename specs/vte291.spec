@@ -18,8 +18,6 @@
 %bcond bundled_fast_float 0
 %endif
 
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name:           vte291
 Version:        0.84.0
 Release:        %autorelease
@@ -29,7 +27,7 @@ Summary:        GTK terminal emulator library
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/%{major_minor_version}/vte-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/vte/%{gnome_major_minor_version}/vte-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(fmt) >= %{fmt_version}
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}

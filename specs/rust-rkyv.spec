@@ -5,7 +5,7 @@
 %global crate rkyv
 
 Name:           rust-rkyv
-Version:        0.8.16
+Version:        0.8.17
 Release:        %autorelease
 Summary:        Zero-copy deserialization framework for Rust
 
@@ -22,7 +22,6 @@ Source:         %{crates_source}
 Patch:          rkyv-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Zero-copy deserialization framework for Rust.}
@@ -189,8 +188,6 @@ use the "unaligned" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix CRLF-terminated source files
-find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

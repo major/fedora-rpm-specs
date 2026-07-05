@@ -14,7 +14,7 @@ License:        MIT
 URL:            https://crates.io/crates/gtk4-macros
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump quick-xml dependency from v0.39 to v0.40
+# * allow quick-xml v0.40 and v0.41
 Patch:          gtk4-macros-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,5 +1,5 @@
 Name: merkuro
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -43,6 +43,7 @@ BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6Holidays)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(Gpgmepp)
@@ -133,6 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

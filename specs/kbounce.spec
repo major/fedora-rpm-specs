@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kbounce
 Summary: Ball bouncing game
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2+ and GFDL - review is highly recommended.
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

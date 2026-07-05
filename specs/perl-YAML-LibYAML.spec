@@ -7,14 +7,13 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.909.0
+Version:        0.910.0
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-v%{version}.tar.gz
 Patch0:         YAML-LibYAML-0.79-Unbundled-libyaml.patch
-Patch1:         YAML-LibYAML-v0.909.0-GH133.patch
 
 # Build
 BuildRequires:  coreutils
@@ -113,10 +112,6 @@ for F in `find t -name *.t`; do
     chmod +x "$F"
 done
 
-# Fix test failures on ppc64le
-# https://github.com/ingydotnet/yaml-libyaml-pm/issues/133
-%patch -P 1 -p1
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -167,6 +162,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.910.0-1
+- 0.910.0 bump (rhbz#2496805)
+
 * Thu Jul  2 2026 Paul Howarth <paul@city-fan.org> - 1:0.909.0-1
 - 0.909.0 bump (rhbz#2496586)
 

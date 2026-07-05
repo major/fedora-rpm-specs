@@ -19,7 +19,7 @@
 }
 
 Name:           sandogasa
-Version:        0.15.2
+Version:        0.15.3
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -57,6 +57,11 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# this was bumped to 0.41 as part of the 0.15.3 release
+# but Fedora does not have it yet, and we're likely unaffected by the fixed CVEs
+# https://github.com/slopfest/sandogasa/commit/b9a010bdafaa0a03dae9f1523b38cc82d2750977
+# Rebuild with https://bugzilla.redhat.com/show_bug.cgi?id=2494601
+Patch:          sandogasa-allow-quick-xml-0.40.diff
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}

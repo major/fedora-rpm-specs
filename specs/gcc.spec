@@ -1,10 +1,10 @@
-%global DATE 20260515
-%global gitrev d776f42bb910ebccf652b010b80c22bcca736f7f
+%global DATE 20260703
+%global gitrev aac23a76ffc9b3a5bd8fcf07ead7c5249f91c457
 %global gcc_version 16.1.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -3988,8 +3988,44 @@ end
 %endif
 
 %changelog
-* Tue May 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1.1-3
-- Increase s390x baselines for RHEL 11
+* Fri Jul  3 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-4
+- update from releases/gcc-16 branch
+  - PRs ada/18205, ada/125695, c/124303, c/124532, c/124985, c/125252,
+	c++/65271, c++/113563, c++/115314, c++/117259, c++/121094, c++/123536,
+	c++/124584, c++/124978, c++/125007, c++/125123, c++/125135,
+	c++/125284, c++/125333, c++/125334, c++/125376, c++/125378,
+	c++/125384, c++/125408, c++/125412, c++/125423, c++/125454,
+	c++/125490, c++/125498, c++/125745, c++/125759, c++/125764,
+	c++/125768, c++/125770, c++/125889, c++/125900, c++/125939,
+	fortran/60576, fortran/105582, fortran/106546, fortran/115260,
+	fortran/125021, fortran/125051, fortran/125391, fortran/125393,
+	fortran/125416, fortran/125430, fortran/125481, fortran/125527,
+	fortran/125528, fortran/125529, fortran/125530, fortran/125531,
+	fortran/125534, fortran/125535, fortran/125606, fortran/125650,
+	fortran/125669, fortran/125902, fortran/126018, ipa/125699,
+	libstdc++/71301, libstdc++/78302, libstdc++/118158, libstdc++/125228,
+	libstdc++/125312, libstdc++/125369, libstdc++/125374,
+	libstdc++/125450, libstdc++/125890, libstdc++/125956,
+	middle-end/125156, middle-end/125621, middle-end/125977, other/125348,
+	rtl-optimization/125173, rtl-optimization/125375, target/106895,
+	target/120144, target/120870, target/122665, target/122827,
+	target/124870, target/124895, target/124908, target/125148,
+	target/125215, target/125320, target/125351, target/125355,
+	target/125362, target/125373, target/125409, target/125448,
+	target/125469, target/125478, target/125611, target/125628,
+	target/125670, target/125751, target/125752, target/125795,
+	target/125818, target/125838, target/125883, target/125949,
+	target/125972, target/125992, tree-optimization/124151,
+	tree-optimization/125250, tree-optimization/125291,
+	tree-optimization/125419, tree-optimization/125431,
+	tree-optimization/125477, tree-optimization/125501,
+	tree-optimization/125502, tree-optimization/125545,
+	tree-optimization/125553, tree-optimization/125646,
+	tree-optimization/125652, tree-optimization/125686,
+	tree-optimization/125774, tree-optimization/125776
+
+* Tue May 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> 16.1.1-3
+- increase s390x baselines for RHEL 11
 
 * Fri May 15 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-2
 - update from releases/gcc-16 branch

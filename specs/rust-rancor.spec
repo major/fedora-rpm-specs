@@ -5,7 +5,7 @@
 %global crate rancor
 
 Name:           rust-rancor
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Scalable and efficient error handling without type composition
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/rancor
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Scalable and efficient error handling without type composition.}
@@ -60,9 +59,6 @@ use the "alloc" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# The crate has a mixture of newline styles.
-# https://github.com/rkyv/rancor/commit/b65012a3848487155c072682b151f50599404bae
-find . -type f | xargs -r -t dos2unix --keepdate
 %cargo_prep
 
 %generate_buildrequires

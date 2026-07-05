@@ -24,7 +24,7 @@
 Name:          php-%{pecl_name}
 Summary:       Zstandard extension
 License:       MIT
-Version:       0.16.0
+Version:       0.17.0
 Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
@@ -85,6 +85,7 @@ extension = %{pecl_name}.so
 ; Configuration
 ;zstd.output_compression = Off
 ;zstd.output_compression_level = 3
+;zstd.output_compression_exclude_types =
 ;zstd.output_compression_dict =
 ;zstd.apcu_compression_level = 3
 EOF
@@ -98,6 +99,7 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
     --with-php-config=%{__phpconfig} \
     --with-libzstd \
     --with-libdir=%{_lib} \
+    --enable-apcu \
     --enable-zstd
 
 %make_build
@@ -152,6 +154,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jul  3 2026 Remi Collet <remi@remirepo.net> - 0.17.0-1
+- update to 0.17.0
+
 * Fri Jun  5 2026 Remi Collet <remi@remirepo.net> - 0.16.0-1
 - update to 0.16.0
 

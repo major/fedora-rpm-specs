@@ -6,7 +6,7 @@ Summary:        D-Bus service to check the availability of dual-GPU
 License:        GPL-3.0-only
 URL:            https://gitlab.freedesktop.org/hadess/switcheroo-control/
 # URL from https://gitlab.freedesktop.org/hadess/switcheroo-control/-/releases
-Source0:        https://gitlab.freedesktop.org/hadess/switcheroo-control/-/releases/3.0/downloads/switcheroo-control-3.0.tar.xz
+Source0:        https://gitlab.freedesktop.org/hadess/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gudev-1.0)

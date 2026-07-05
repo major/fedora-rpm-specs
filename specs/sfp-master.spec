@@ -14,7 +14,7 @@
 
 Name: sfp-master
 Version: 1.1.1
-Release: 1%dist
+Release: 2%dist
 
 Summary: Reading, writing SFP modules data
 Summary(ru_RU.UTF-8): Чтение, запись данных SFP-модулей
@@ -134,6 +134,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Fri Jul  3 2026 Mikhail Medvedev 1.1.1-2
+- Release bump
 * Thu Apr 16 2026 Mikhail Medvedev 1.1.1-1
 - Added mutltiplatform translation path
 - I2C driver has been changed

@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %%{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
-
 Name:           tali
 Version:        40.9
 Release:        %autorelease
@@ -8,7 +5,9 @@ Summary:        GNOME Tali game
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Tali
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -22,10 +21,7 @@ BuildRequires:  pkgconfig(libgnome-games-support-1)
 Sort of poker with dice and less money. An ancient Roman game.
 
 %prep
-# check for human errors
-if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
-
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 
 %build

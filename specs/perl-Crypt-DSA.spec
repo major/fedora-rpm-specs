@@ -1,14 +1,13 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
-Version:	1.21
-Release:	2%{?dist}
+Version:	1.22
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://www.cpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
@@ -38,7 +37,7 @@ BuildRequires:	perl(Symbol)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 # Test Suite
-BuildRequires:	perl(Test::More) >= 0.42
+BuildRequires:	perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:	perl(Crypt::DES_EDE3)
 # Dependencies
@@ -88,8 +87,15 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Fri Jul  3 2026 Paul Howarth <paul@city-fan.org> - 1.22-1
+- Update to 1.22
+  - Hardening: Use a fresh, independent CSPRNG witness every round
+  - Security fix: Modulo bias in key generation (CVE-2026-14570); an attack
+    with hundreds of signatures could lead to full private-key compromise;
+    keys should be considered compromised and new keys should be generated
+
 * Fri Jun 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.21-2
-- Rebuilt for openssl 4.0
+- Rebuilt for OpenSSL 4.0
 
 * Mon Jun 15 2026 Paul Howarth <paul@city-fan.org> - 1.21-1
 - Update to 1.21

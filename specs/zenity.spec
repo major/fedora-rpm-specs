@@ -1,5 +1,3 @@
-%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
-
 Name:          zenity
 Version:       4.2.2
 Release:       %autorelease
@@ -7,7 +5,7 @@ Summary:       Display dialog boxes from shell scripts
 
 License:       LGPL-2.1-or-later
 URL:           https://wiki.gnome.org/Projects/Zenity
-Source:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
+Source:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(libadwaita-1) >= 1.2
 BuildRequires: /usr/bin/help2man

@@ -5,17 +5,20 @@
 %global crate ossl
 
 Name:           rust-ossl
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        OpenSSL version 3+ bindings to modern EVP APIs
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/ossl
 Source:         %{crates_source}
-Patch2:         0001-Unconditionally-link-with-system-OpenSSL.patch
+# Manually created patch for downstream crate metadata changes
+# * default to rust-openssl OpenSSL bindings (openssl-sys)
+# * drop support for custom OpenSSL bindings (ossl-sys)
+# * drop unused logging support
+Patch:          ossl-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(openssl) >= 3.0.7
 
 %global _description %{expand:
 OpenSSL version 3+ bindings to modern EVP APIs.}
@@ -25,7 +28,6 @@ OpenSSL version 3+ bindings to modern EVP APIs.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(openssl) >= 3.0.7
 
 %description    devel %{_description}
 
@@ -49,40 +51,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dynamic-devel
+%package     -n %{name}+openssl-sys-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+dynamic-devel %{_description}
+%description -n %{name}+openssl-sys-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "dynamic" feature of the "%{crate}" crate.
+use the "openssl-sys" feature of the "%{crate}" crate.
 
-%files       -n %{name}+dynamic-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+fips-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+fips-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "fips" feature of the "%{crate}" crate.
-
-%files       -n %{name}+fips-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+log-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+log-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
-
-%files       -n %{name}+log-devel
+%files       -n %{name}+openssl-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ossl320-devel

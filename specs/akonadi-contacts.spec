@@ -1,5 +1,5 @@
 Name:    akonadi-contacts
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: The Akonadi Contacts Library
 
@@ -27,6 +27,7 @@ BuildRequires:  cmake(KF6Contacts)
 BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 Obsoletes:      kf5-akonadi-contacts < 24.01.80-1
 
@@ -87,6 +88,9 @@ find ./po -type f -name akonadicontact5-serializer.po -execdir mv {} akonadicont
 %files doc
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

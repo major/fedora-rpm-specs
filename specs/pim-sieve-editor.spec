@@ -9,7 +9,7 @@
 
 Name:    pim-sieve-editor
 Summary: Sieve Editor
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -46,6 +46,7 @@ BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6UserFeedback)
 BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Sonnet)
 
 BuildRequires: cmake(KPim6MailTransport)
 BuildRequires: cmake(KPim6PimCommon)
@@ -95,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.sieveedit
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

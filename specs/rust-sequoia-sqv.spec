@@ -4,7 +4,7 @@
 %global crate sequoia-sqv
 
 Name:           rust-sequoia-sqv
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Simple OpenPGP signature verification program
 

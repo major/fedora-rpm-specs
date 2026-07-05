@@ -1,5 +1,5 @@
 Name:    kcalutils
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 Summary: The KCalendarUtils Library
 
@@ -73,6 +73,9 @@ find ./po -type f -name libkcalutils5.po -execdir mv {} libkcalutils6.po \;
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

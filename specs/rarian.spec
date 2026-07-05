@@ -29,6 +29,7 @@ BuildRequires: tinyxml2-devel
 BuildRequires: man-db
 BuildRequires: info
 BuildRequires: man-pages
+BuildRequires: mandoc
 
 %description
 Rarian is a documentation meta-data library that allows access to documents,

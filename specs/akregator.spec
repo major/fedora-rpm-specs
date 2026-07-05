@@ -1,6 +1,6 @@
 Name:    akregator
 Summary: Feed Reader
-Version: 26.04.2
+Version: 26.04.3
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -37,6 +37,7 @@ BuildRequires: cmake(KF6Syndication)
 BuildRequires: cmake(KF6Codecs)
 BuildRequires: cmake(KF6StatusNotifierItem)
 BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6SyntaxHighlighting)
 
 BuildRequires: cmake(KPim6GrantleeTheme)
 BuildRequires: cmake(KPim6KontactInterface)
@@ -106,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
+- 26.04.3
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

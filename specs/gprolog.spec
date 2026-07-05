@@ -67,14 +67,24 @@ cd src
 
 # `-std=gnu17` is required as GCC 15 defaults to C23, which is not yet supported.
 # See also https://gcc.gnu.org/gcc-15/porting_to.html#c23.
+%ifarch %{ix86}
+# ix86's --disable-regs build keeps WAM registers in .text via non-PIC-style
+# relocations; -Wl,-z,notext permits the resulting text relocations. This
+# must go in LDFLAGS (used by gplc at link time), not --with-c-flags (only
+# used to compile .c to .o).
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2434633
+export LDFLAGS="$LDFLAGS -Wl,-z,notext"
+%define _pkg_disable_regs --disable-regs
+%else
+%define _pkg_disable_regs %{nil}
+%endif
+
 %configure \
       --with-install-dir=$RPM_BUILD_ROOT%{_libdir}/gprolog-%{version} \
       --without-links-dir --without-examples-dir \
       --with-doc-dir=dist-doc \
       --with-c-flags="$RPM_OPT_FLAGS -std=gnu17" \
-%ifarch %{ix86}
-      --disable-regs
-%endif
+      %{_pkg_disable_regs}
 
 # Remove package notes flag from LDFLAGS
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2051341

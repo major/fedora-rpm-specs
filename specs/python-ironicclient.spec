@@ -6,7 +6,7 @@
 %global common_desc A python and command line client library for Ironic
 
 Name:           python-ironicclient
-Version:        6.1.0
+Version:        6.2.0
 Release:        %autorelease
 Summary:        Python client for Ironic
 
@@ -21,10 +21,6 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-# Tests require
-# https://bugzilla.redhat.com/show_bug.cgi?id=2450758
-BuildRequires:  python3-osc-lib-tests
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1

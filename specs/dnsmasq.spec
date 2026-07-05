@@ -20,6 +20,8 @@
 # But upstream gitweb seems to block direct links like this, they are not usable anymore.
 %define up_patch_url() https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=patch;h=%{1}
 %global upstream_sources 0 3
+%global pgp_signature_sources 3
+%global pgp_keyring_sources 4
 
 
 # Attempt to prepare source-git with downstream repos
@@ -33,8 +35,8 @@
 %endif
 
 Name:           dnsmasq
-Version:        2.92rel2
-Release:        9%{?extraversion:.%{extraversion}}%{?extrabuild:.%{extrabuild}}%{?dist}
+Version:        2.93
+Release:        1%{?extraversion:.%{extraversion}}%{?extrabuild:.%{extrabuild}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -59,14 +61,6 @@ Patch1:         dnsmasq-2.77-underflow.patch
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
 Patch7:         dnsmasq-2.90-dbus-interfaces.patch
-# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018378.html
-Patch8:         %{up_patch_url f603a4f920e6953b11667d424956fd47373870e9}#/dnsmasq-2.92-dnssec-wildcard.patch
-# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018383.html
-Patch9:         %{up_patch_url 1269f074f86bb959863012063060a3a082d37dc4}#/dnsmasq-2.93-dnssec-rrsig-owner.patch
-# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018409.html
-Patch10:        0001-Make-inotify-initialization-non-fatal-error.patch
-# http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=9ad74926d4f7f34ff902e1db5235535aa813c33f
-Patch11:        %{up_patch_url 9ad74926d4f7f34ff902e1db5235535aa813c33f}#/dnsmasq-2.93-CVE-2026-6507.patch
 
 
 Requires:       nettle
@@ -263,6 +257,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 02 2026 Petr Menšík <pemensik@redhat.com> - 2.93-1
+- Update to 2.93 (rbhz#2484748)
+
 * Tue May 12 2026 Petr Menšík <pemensik@redhat.com> - 2.92rel2-9
 - Update to 2.92rel2 (rhbz#2469245)
 

@@ -12,6 +12,9 @@ Source0:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%
 Source1:	https://gitlab.gnome.org/guidog/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/355
 Patch0:	0001-polkit-Allow-to-specify-group.patch
+# Tests currently abort on this warning:
+# "Use GtkSettings:gtk-interface-color-scheme instead"
+Patch1:	0002-tests-Do-not-make-warnings-fatal.patch
 
 ExcludeArch:	%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415478
