@@ -1,14 +1,13 @@
-%global srcname ClusterShell
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           clustershell
-Version:        1.9.3
-Release:        9%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 License:        LGPL-2.1-or-later
-URL:            https://cea-hpc.github.io/clustershell/
-Source0:        https://files.pythonhosted.org/packages/source/C/%{srcname}/%{srcname}-%{version}.tar.gz#/%{srcname}-%{version}.pypi.tar.gz
+URL:            https://clustershell.github.io/clustershell/
+Source0:        %{pypi_source clustershell}
 
 BuildArch:      noarch
 
@@ -42,7 +41,7 @@ ClusterShell Python 3 module and related command line tools.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%setup -q
 
 
 %build
@@ -51,7 +50,7 @@ ClusterShell Python 3 module and related command line tools.
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files ClusterShell
 
 # move config dir away from default setuptools /usr prefix (if rpm-building as user)
 [ -d %{buildroot}/usr/etc ] && mv %{buildroot}/usr/etc %{buildroot}/%{_sysconfdir}
@@ -119,6 +118,10 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Sat Jul 04 2026 Stephane Thiell <sthiell@stanford.edu> - 1.10-1
+- Update to 1.10
+- Update project URL to https://clustershell.github.io/clustershell/
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.3-9
 - Rebuilt for Python 3.15
 

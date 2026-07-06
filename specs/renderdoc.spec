@@ -1,7 +1,7 @@
 %global vswig   modified-7
 Name:           renderdoc
-Version:        1.42
-Release:        3%{?dist}
+Version:        1.45
+Release:        1%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
 License:        MIT
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jul 04 2026 kb1000 <fedora@kb1000.de> - 1.45-1
+- Update to 1.45 (#2443467, #2414559)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.42-3
 - Rebuilt for Python 3.15
 

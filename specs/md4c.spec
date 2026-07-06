@@ -1,6 +1,6 @@
-Version:        0.5.1
+Version:        0.5.3
 Name:           md4c
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Markdown for C
 
 License:        MIT
@@ -35,7 +35,7 @@ developing applications that use md4c.
 
 %check
 cd %__cmake_builddir
-bash %{_builddir}/%{name}-release-%{version}/scripts/run-tests.sh 
+%{python3} %{_builddir}/%{name}-release-%{version}/scripts/run-tests.py
 
 %files
 %doc README.md
@@ -57,26 +57,4 @@ bash %{_builddir}/%{name}-release-%{version}/scripts/run-tests.sh
 %{_libdir}/pkgconfig/md4c-html.pc
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 29 2024 Benson Muite <benson_muite@emailplus.org> - 0.5.1-1
-- Upgrade to latest release
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 29 2023 Benson Muite <benson_muite@emailplus.org> - 0.4.8-1
-- Initial packaging
+%autochangelog

@@ -19,7 +19,11 @@ ExcludeArch:    ppc64le s390x
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
-Version:                0.23.4
+%if %{with next}
+Version:                0.30.11
+%else
+Version:                0.24.0
+%endif
 
 %gometa -L -f
 
@@ -39,16 +43,19 @@ Source10:       ollama.service
 Source11:       ollama.sysusers
 %endif
 
+%if %{with next}
+Patch1:         0001-ollama-OLLAMA_USE_SYSTEM_LLAMA_CPP.patch
+%else
 Patch1:         0001-ollama-handle-load.patch
+%endif
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-
-%if %{with systemd}
-BuildRequires:  systemd-rpm-macros
-%endif
+%if %{with next}
+BuildRequires:  llama-cpp-devel
+%else
 
 %if %{with rocm}
 BuildRequires:  hipblas-devel
@@ -66,6 +73,25 @@ BuildRequires:  vulkan-loader-devel
 BuildRequires:  glslc
 %endif
 
+%endif
+
+%if %{with systemd}
+BuildRequires:  systemd-rpm-macros
+%endif
+
+%if %{with next}
+
+Requires:        llama-cpp
+Obsoletes:       ollama-base < 0.30.0
+Obsoletes:       ollama-rocm < 0.30.0
+Obsoletes:       ollama-vulkan < 0.30.0
+
+%if %{with systemd}
+%{?systemd_requires}
+%endif
+
+%else
+
 Requires:       %{name}-base%{?_isa} = %{version}-%{release}
 %if %{with rocm}
 Requires:       %{name}-rocm%{?_isa} = %{version}-%{release}
@@ -74,9 +100,12 @@ Requires:       %{name}-rocm%{?_isa} = %{version}-%{release}
 Requires:       %{name}-vulkan%{?_isa} = %{version}-%{release}
 %endif
 
+%endif
+
 %description
 Get up and running with OpenAI gpt-oss, DeepSeek-R1, Gemma 3 and other models.
 
+%if %{without next}
 %package base
 Summary:        The base ollama
 %if %{with systemd}
@@ -104,6 +133,7 @@ Summary:        The Vulkan backend for ollama
 %{summary}
 %endif
 
+%endif
 
 %prep
 %goprep -A
@@ -115,9 +145,11 @@ mv app/README.md app-README.md
 mv integration/README.md integration-README.md
 mv llama/README.md llama-README.md
 
+%if %{without next}
 # No knob to turn off vulkan
 %if %{without vulkan}
 sed -i -e 's@Vulkan_FOUND@FALSE@' CMakeLists.txt
+%endif
 %endif
 
 # web-search ollama plugins are not working well
@@ -133,16 +165,29 @@ sed -i '/if ensureWebSearchPlugin()/,+2d' cmd/launch/openclaw.go
 # For pi.go
 sed -i '/ensurePiWebSearchPackage(bin)/d' cmd/launch/pi.go
 
+%if %{with next}
+# sqlite3-binding.c:123934:9: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+sed -i 's@zTail = strrchr@zTail = (char \*)strrchr@' vendor/github.com/mattn/go-sqlite3/sqlite3-binding.c
+%endif
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
 
+%if %{with next}
+
+%cmake \
+    -DOLLAMA_USE_SYSTEM_LLAMA_CPP=ON
+
+%else
+
 %cmake \
 %if %{with rocm}
     -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default}
+%endif
+
 %endif
 
 %cmake_build
@@ -162,6 +207,8 @@ export GO_LDFLAGS="-X=github.com/ollama/ollama/version.Version=%{version} -X=git
 
 %install
 
+%if %{without next}
+
 %cmake_install
 
 # remove copies of system libraries
@@ -170,6 +217,8 @@ for rr in $runtime_removal; do
     rm -rf %{buildroot}%{_prefix}/lib/ollama/lib${rr}*
 done
 rm -rf %{buildroot}%{_prefix}/lib/ollama/rocblas
+
+%endif
 
 mkdir -p %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/ollama %{buildroot}%{_bindir}
@@ -187,6 +236,14 @@ mkdir -p %{buildroot}%{_var}/lib/ollama
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
+%if %{with next}
+# symlink system llama-server
+mkdir -p %{buildroot}%{_prefix}/lib/ollama
+pushd %{buildroot}%{_prefix}/lib/ollama
+ln -s ../../bin/llama-server llama-server
+popd
+%endif
+
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
@@ -203,6 +260,23 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %postun
 %systemd_postun_with_restart ollama.service
 %endif
+
+%if %{with next}
+%files -f %{go_vendor_license_filelist}
+%doc README.md
+%license vendor/modules.txt
+%doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
+%doc llama-README.md
+%{_bindir}/ollama
+%{_prefix}/lib/ollama/llama-server
+
+%if %{with systemd}
+%attr(0755,ollama,ollama) %dir  %{_var}/lib/ollama/
+%{_unitdir}/ollama.service
+%{_sysusersdir}/ollama.conf
+%endif
+
+%else
 
 %files
 %doc README.md
@@ -243,6 +317,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_prefix}/lib/ollama/libggml-vulkan.so
 %endif
 
+%endif
 
 %changelog
 %autochangelog

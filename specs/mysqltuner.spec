@@ -3,7 +3,7 @@
 #%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        2.8.43
+Version:        2.8.45
 Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
@@ -15,8 +15,12 @@ BuildArch:      noarch
 BuildRequires:  perl-generators
 Requires:       which
 
+# RHBZ 2494542 - use '-any' provides to accept non-default DB streams
+%if 0%{?fedora} || 0%{?rhel} >= 10
+Requires:       (mysql-any or mariadb-any)
+Recommends:     (mysql or mariadb)
 # RHBZ 1838780 - mariadb lacks mysql provides on el8
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%elif 0%{?rhel} >= 8
 Requires:       (mysql or mariadb)
 %else
 Requires:       mysql
@@ -39,12 +43,19 @@ install -Dpm 644 basic_passwords.txt $RPM_BUILD_ROOT%{_datadir}/mysqltuner/basic
 install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulnerabilities.csv
 
 %files
-%doc LICENSE README.md mysql_support.md mariadb_support.md
+%doc *.md
 %{_bindir}/mysqltuner
 %{_datadir}/mysqltuner/basic_passwords.txt
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
+* Thu May 28 2026 josef radinger <cheese@nosuchhost.net> - 2.8.45-1
+- bump version
+- modfy Requires/Conflicts to be version-independant; 
+  thanks go to Michal Schorm <mschorm at redhat.com>
+  rhbz#2494542, rhbz#2494543, rhbz#2494544
+- add all *.md files to docs
+
 * Thu May 28 2026 josef radinger <cheese@nosuchhost.net> - 2.8.43-1
 - bump version
 

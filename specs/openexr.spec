@@ -2,8 +2,8 @@
 %global sover 33
 
 Name:           openexr
-Version:        3.4.12
-Release:        2%{?dist}
+Version:        3.4.13
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause WITH AdditionRef-OpenEXR-Additional-IP-Rights-Grant OR Apache-2.0
@@ -156,6 +156,9 @@ EXCLUDE_REGEX='Iex'
 
 
 %changelog
+* Sat Jul 04 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.13-1
+- Update to 3.4.13.
+
 * Sun May 31 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.12-2
 - Rebuild for OpenColorIO 2.5.2.
 

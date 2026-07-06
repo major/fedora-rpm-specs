@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.56~rc1
+Version:  0.56.0
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -9,9 +9,6 @@ License:  GPL-3.0-or-later
 URL:      https://gitlab.gnome.org/World/Phosh/phoc
 Source0:  https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 Source1:  https://gitlab.gnome.org/GNOME/gvdb/-/archive/%{gvdb_commit}/gvdb-%{gvdb_commit}.tar.gz
-
-# test_client_xdg_shell_toplevel_maximized_scale fails on wlroots 0.20.1
-Patch0:   0001-disable-test-xdg_shell_toplevel_maximized_scale.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

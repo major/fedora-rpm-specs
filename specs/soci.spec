@@ -35,6 +35,7 @@ BuildRequires:  gcc gcc-c++
 BuildRequires:  cmake
 BuildRequires:  fmt-devel
 BuildRequires:  boost-devel
+BuildRequires:  fmt-devel
 
 %description
 %{name} is a C++ database access library that provides the

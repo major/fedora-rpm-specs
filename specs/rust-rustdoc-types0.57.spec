@@ -2,34 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate wayland-scanner
+%global crate rustdoc-types
 
-Name:           rust-wayland-scanner
-Version:        0.31.10
+Name:           rust-rustdoc-types0.57
+Version:        0.57.4
 Release:        %autorelease
-Summary:        Wayland Scanner for generating rust APIs from XML wayland protocol files
+Summary:        Types for rustdoc's json output
 
-License:        MIT
-URL:            https://crates.io/crates/wayland-scanner
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/rustdoc-types
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update quick-xml to 0.40 and similar (to v3),
-#   https://github.com/Smithay/wayland-rs/commit/ec2d932855593d48aa83c76820f3efbcfea86d39.
-#   This requires an accompanying source-code patch for quick-xml 0.40. Further
-#   allow quick-xml 0.41, https://github.com/Smithay/wayland-rs/pull/938.
-Patch:          wayland-scanner-fix-metadata.diff
-# * Source-code patch for API changes in quick-xml 0.40, from
-#   https://github.com/Smithay/wayland-rs/commit/ec2d932855593d48aa83c76820f3efbcfea86d39.
-Patch10:        wayland-scanner-0.31.10-quick-xml-0.40.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  rustfmt
-%endif
 
 %global _description %{expand:
-Wayland Scanner for generating rust APIs from XML wayland protocol
-files.}
+Types for rustdoc's json output.}
 
 %description %{_description}
 
@@ -43,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -58,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rkyv_0_8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rkyv_0_8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rkyv_0_8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rkyv_0_8-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustc-hash-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustc-hash-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustc-hash" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustc-hash-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

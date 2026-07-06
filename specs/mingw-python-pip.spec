@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       26.1.1
+Version:       26.1.2
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -119,6 +119,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Sat Jul 04 2026 Sandro Mani <manisandro@gmail.com> - 26.1.2-1
+- Update to 26.1.2
+
 * Fri May 22 2026 Sandro Mani <manisandro@gmail.com> - 26.1.1-1
 - Update to 26.1.1
 

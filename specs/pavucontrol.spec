@@ -1,5 +1,5 @@
 Name:           pavucontrol
-Version:        6.1
+Version:        6.2
 Release:        %autorelease
 Summary:        Volume control for PulseAudio
 
@@ -15,8 +15,11 @@ BuildRequires:  meson >= 0.59.0
 BuildRequires:  lynx
 BuildRequires:  pkgconfig(gtkmm-4.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libcanberra)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(sigc++-3.0)
+
+Requires:       hicolor-icon-theme
 
 %description
 PulseAudio Volume Control (pavucontrol) is a simple GTK based volume control
@@ -48,6 +51,8 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.pulseau
 %doc doc/README
 %{_bindir}/pavucontrol
 %{_datadir}/applications/org.pulseaudio.pavucontrol.desktop
+%{_datadir}/icons/hicolor/scalable/apps/org.pulseaudio.pavucontrol.svg
+%{_datadir}/icons/hicolor/symbolic/apps/org.pulseaudio.pavucontrol-symbolic.svg
 %{_metainfodir}/org.pulseaudio.pavucontrol.metainfo.xml
 
 %changelog

@@ -8,7 +8,7 @@
 %global crate trustfall-rustdoc-adapter
 
 Name:           rust-trustfall-rustdoc-adapter56
-Version:        56.2.6
+Version:        56.3.0
 Release:        %autorelease
 Summary:        Trustfall query adapter for rustdoc JSON data
 
@@ -17,13 +17,7 @@ URL:            https://crates.io/crates/trustfall-rustdoc-adapter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove unused, benchmark-only dev-dependency on criterion
-# * Update `cargo_toml dependency to 1.0.0:
-#   https://github.com/obi1kenobi/trustfall-rustdoc-adapter/pull/1085; requires
-#   an accompanying source-code patch.
 Patch:          trustfall-rustdoc-adapter-fix-metadata.diff
-# * Source-code changes for cargo_toml 1.0.0
-# * https://github.com/obi1kenobi/trustfall-rustdoc-adapter/pull/1085.patch
-Patch10:        trustfall-rustdoc-adapter-57.0.7-cargo_toml-1.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
