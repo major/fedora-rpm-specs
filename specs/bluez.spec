@@ -5,21 +5,13 @@
 %endif
 
 Name:    bluez
-Version: 5.86
-Release: 5%{?dist}
+Version: 5.87
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-# https://patchwork.kernel.org/project/bluetooth/list/?series=1052631
-Patch1: big-endian-5.86.patch
-# https://patchwork.kernel.org/project/bluetooth/patch/ba0e71b91a24557f088b015a349c6ccee6260ec2.1771258477.git.pav@iki.fi/
-Patch2: 0001-a2dp-connect-source-profile-after-sink.patch
-# https://patchwork.kernel.org/project/bluetooth/list/?series=1058931
-Patch3: bluetoothctl-no-output.patch
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=2a6968b40378dca5650e18e03ad0407738c47be5
-Patch4: 0001-advertising-Fix-sending-extra-bytes-with-MGMT_OP_ADD.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -81,7 +73,6 @@ be dropped by upstream. Utilities include:
 	- gatttool
 	- hciattach
 	- hciconfig
-	- hcidump
 	- hcitool
 	- meshctl
 	- rfcomm
@@ -172,6 +163,9 @@ install -m0755 attrib/gatttool $RPM_BUILD_ROOT%{_bindir}
 # "make install" fails to install avinfo
 # Red Hat Bugzilla bug #1699680
 install -m0755 tools/avinfo $RPM_BUILD_ROOT%{_bindir}
+
+# "make install" fails to install avinfo
+install -m0755 tools/btsnoop $RPM_BUILD_ROOT%{_bindir}
 
 # btmgmt is not installed by "make install", but it is useful for debugging
 # some issues and to set the MAC address on HCIs which don't have their
@@ -275,7 +269,6 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/gatttool
 %{_bindir}/hciattach
 %{_bindir}/hciconfig
-%{_bindir}/hcidump
 %{_bindir}/hcitool
 %{_bindir}/meshctl
 %{_bindir}/rfcomm
@@ -283,7 +276,6 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_mandir}/man1/ciptool.1.*
 %{_mandir}/man1/hciattach.1.*
 %{_mandir}/man1/hciconfig.1.*
-%{_mandir}/man1/hcidump.1.*
 %{_mandir}/man1/hcitool.1.*
 %{_mandir}/man1/rfcomm.1.*
 %{_mandir}/man1/sdptool.1.*
@@ -296,6 +288,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 
 %files libs-devel
 %doc doc/*txt
+%{_bindir}/btsnoop
 %{_bindir}/isotest
 %{_bindir}/l2test
 %{_bindir}/l2ping
@@ -304,6 +297,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_mandir}/man1/l2ping.1.*
 %{_mandir}/man1/rctest.1.*
 %{_mandir}/man5/org.bluez.*.5.*
+%{_mandir}/man7/btsnoop.7.*
 %{_mandir}/man7/hci.7.*
 %{_mandir}/man7/iso.7.*
 %{_mandir}/man7/l2cap.7.*
@@ -343,6 +337,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Sun Jul 05 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.87-1
+- Update to 5.87
+- Install new btsnoop tool
+
 * Mon Jun 22 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-5
 - Fix BLE advertisments (Closes: #2489100)
 

@@ -1,5 +1,5 @@
 Name:           python-json-repair
-Version:        0.61.1
+Version:        0.61.2
 Release:        %autorelease
 Summary:        A package to repair broken JSON strings
 

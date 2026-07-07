@@ -2,15 +2,14 @@
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.1.0
-Release: 4%{?dist}
+Version: 1.1.3
+Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
 Source0: https://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
-Patch0:  appstream-fcfreetype.patch
 
 # upstream patches
 
@@ -19,6 +18,7 @@ Patch0:  appstream-fcfreetype.patch
 
 # needed for cmake auto-provides
 BuildRequires: cmake
+BuildRequires: docbook5-style-xsl
 BuildRequires: meson >= 0.62
 BuildRequires: gettext
 BuildRequires: git-core
@@ -29,6 +29,7 @@ BuildRequires: itstool
 %if %{with stemming}
 BuildRequires: libstemmer-devel
 %endif
+BuildRequires: pkgconfig(bash-completion)
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(fontconfig)
@@ -36,6 +37,7 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gi-docgen) >= 2021.1
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
+BuildRequires: pkgconfig(libblake3)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libfyaml)
 BuildRequires: pkgconfig(librsvg-2.0)
@@ -52,7 +54,7 @@ BuildRequires: sed
 BuildRequires: vala
 BuildRequires: xmlto
 
-Requires: (appstream-data if PackageKit)
+Requires: (appstream-data if (PackageKit or libdnf5-plugin-appstream))
 
 %description
 AppStream makes it easy to access application information from the
@@ -142,6 +144,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 %license COPYING
 %{_bindir}/appstreamcli
 %{_mandir}/man1/appstreamcli.1*
+%{_datadir}/bash-completion/completions/appstreamcli
 %{_datadir}/appstream/
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/AppStream-1.0.typelib
@@ -201,6 +204,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Sun Jul 05 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.1.3-1
+- Update to 1.1.3
+
 * Thu Jun 11 2026 Akira TAGOH <tagoh@redhat.com> - 1.1.0-4
 - Add a backport patch to include fontconfig/fcfreetype.h header for FcFreeType* functions
 

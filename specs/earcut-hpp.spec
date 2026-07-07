@@ -1,62 +1,59 @@
+%bcond ctest 1
+
 Name:           earcut-hpp
 Summary:        Fast, header-only polygon triangulation 
-Version:        2.2.4
+Version:        3.2.3
 Release:        %autorelease
 
 # SPDX
 License:        ISC
-# Additionally, a copy of libtess2 (https://github.com/memononen/libtess2) is
-# bundled with the tests as a reference implementation
-# (test/comparison/libtess2/); its license is SGI-B-2.0. We do not treat it as
-# a bundled system library (no virtual Provides, for example) because it is
-# provably used only in the tests, and does not contribute to anything
-# installed in the binary RPM. All of this is just as well, as libtess2 is
-# unmaintained and we would rather not have to package it separately.
-SourceLicense:  %{license} AND SGI-B-2.0
 URL:            https://github.com/mapbox/earcut.hpp
 
-Source:         %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
-
-# Include <cstdint> for uint32_t/int32_t
-#
-# Fixes failure to compile on GCC 15.
-# https://github.com/mapbox/earcut.hpp/pull/120
-Patch:          %{url}/pull/120.patch
-# Use a range for CMake minimum versions, 3.2...3.12: support CMake 4.0
-# https://github.com/mapbox/earcut.hpp/pull/121
-# Cherry-picked on v2.2.4.
-Patch:          0001-Use-a-range-for-CMake-minimum-versions-3.2.3.12-supp.patch
+Source0:        %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
+# The %%check section uses test fixtures from the JavaScript implementation,
+# normally downloaded at built time. This source is also licensed ISC, and does
+# not contribute to the binary RPMs.
+Source1:        https://github.com/mapbox/earcut/archive/v%{version}/earcut-%{version}.tar.gz
 
 BuildSystem:    cmake
 # We do want to build the tests, but we have no use for the benchmarks or the
 # visualizer program.
 BuildOption(conf): %{shrink:
-    -DEARCUT_BUILD_TESTS:BOOL=ON
+    -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+    -DEARCUT_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
     -DEARCUT_BUILD_BENCH:BOOL=OFF
     -DEARCUT_BUILD_VIZ:BOOL=OFF
     -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
     }
 
-
 BuildRequires:  gcc-c++
-
-# For tests (and benchmarks, if enabled):
-BuildRequires:  pkgconfig(opengl)
-
+# We need picojson for a “fixtures” convenience library that is used by tests,
+# benchmarks, and the visualization tool. Of these, we only build tests, and
+# these are conditional, but the fixtures library is built unconditionally.
+BuildRequires:  picojson-devel
+%if %{with ctest}
+# This, at least, is only required when tests are actually enabled.
+BuildRequires:  cmake(gtest)
+%endif
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
 
 %global common_description %{expand:
-A C++ port of earcut.js, a fast, header-only polygon triangulation library.
+A fast, header-only C++ port of earcut.js, the fastest and smallest JavaScript
+polygon triangulation library.
 
-The library implements a modified ear slicing algorithm, optimized by z-order
-curve hashing and extended to handle holes, twisted polygons, degeneracies and
-self-intersections in a way that doesn’t guarantee correctness of
+Earcut favors raw speed and simplicity over triangulation quality, while being
+robust enough to handle most practical datasets without crashing or producing
+garbage, with an option to refine the result to Delaunay quality at a small
+cost. Originally built for Mapbox GL, it’s a good fit for real-time
+triangulation of geographical shapes and other practical data.
+
+It implements a modified ear slicing algorithm, optimized by z-order curve and
+spatial hashing and extended to handle holes, twisted polygons, degeneracies
+and self-intersections in a way that doesn’t guarantee correctness of
 triangulation, but attempts to always produce acceptable results for practical
-data like geographical shapes.
-
-It’s based on ideas from FIST: Fast Industrial-Strength Triangulation of
+data. It’s based on ideas from FIST: Fast Industrial-Strength Triangulation of
 Polygons by Martin Held and Triangulation by Ear Clipping by David Eberly.}
 
 %description %{common_description}
@@ -73,51 +70,23 @@ Provides:       %{name}-static = %{version}-%{release}
 %description devel %{common_description}
 
 
-%prep -a
-# Increase precision of test output so we can understand any failures:
-sed --regexp-extended --in-place \
-    's/(setprecision\()6(\))/\116\2/' test/test.cpp
-
-
-%conf -p
-# Disabling floating-point contraction fixes certain failures on aarch64,
-# ppc64le, and s390x. See:
-#
-#   Test “self_touching” fails on aarch64, ppc64le, s390x
-#   https://github.com/mapbox/earcut.hpp/issues/97
-#
-# particularly
-#
-#   https://github.com/mapbox/earcut.hpp/issues/97#issuecomment-1032813710
-#
-# and also
-#
-#   New test “issue142” in 2.2.4 fails on aarch64, ppc64le, s390x
-#   https://github.com/mapbox/earcut.hpp/issues/103
-#
-# Since this library is header-only, dependent packages should be advised to
-# add this flag too if they want the behavior of the library to exactly match
-# upstream’s expectations.
-export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
-
-
-%install
-# The upstream CMakeLists.txt has no install target; there is only one file to
-# copy, so it is easy to do manually.
-install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_includedir}/mapbox' \
-    'include/mapbox/earcut.hpp'
-
-
-%check
-# The upstream CMakeLists.txt is not configured to run tests via ctest; we run
-# the test executable manually.
-%{_vpath_builddir}/tests
-
+%if %{with ctest}
+%check -p
+# Tests require certain fixtures (sample data files) from the JavaScript
+# implementation’s sources. Mimic CMake’s FetchContent:
+# https://cmake.org/cmake/help/latest/module/FetchContent.html
+# By extracting this only in %%check, we prove it is not used in the build.
+xdir='%{_vpath_builddir}/_deps/earcut_js-src'
+mkdir --parents "${xdir}"
+tar --extract --gzip --verbose '--file=%{SOURCE1}' \
+    "--directory=${xdir}" --strip-components=1 \
+    'earcut-%{version}/bench/tiles-fixture.bin' \
+    'earcut-%{version}/test/expected.json' \
+    'earcut-%{version}/test/fixtures/'
+%endif
 
 %files devel
 %license LICENSE
-%doc CHANGELOG.md
 %doc README.md
 
 # All -devel packages for C and C++ libraries from Mapbox should co-own this
@@ -125,6 +94,7 @@ install -D --preserve-timestamps --mode=0644 \
 %dir %{_includedir}/mapbox
 
 %{_includedir}/mapbox/earcut.hpp
+%{_datadir}/cmake/earcut_hpp/
 
 
 %changelog

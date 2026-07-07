@@ -18,13 +18,6 @@ URL:            https://github.com/skogler/mapbox_earcut_python
 # The GitHub archive contains tests; the PyPI archive does not
 Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz
 
-# Downstream-only: allow scikit-build-core 0.11.5 (vs. 0.11.6). Based on
-# https://github.com/scikit-build/scikit-build-core/releases/tag/v0.11.6, the
-# version choice is likely to have been arbitrary rather than based on
-# significant changes in this particular release, and we would rather not have
-# to wait for the python-scikit-build-core package to be updated.
-Patch:          mapbox_earcut_python-2.0.0-scikit-build-core-0.11.5.patch
-
 BuildSystem:    pyproject
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build):     %{shrink:
@@ -40,6 +33,9 @@ BuildRequires:  dos2unix
 # Header-only libraries; -static is for tracking, required by guidelines
 # Minimum version added downstream to ensure the latest bug fixes are present.
 # Note that upstream of this package bundles earcut.hpp 2.2.4 in release 1.0.1.
+# See also:
+#   Update earcut.hpp to version 3.2.3
+#   https://github.com/skogler/mapbox_earcut_python/pull/32
 BuildRequires:  earcut-hpp-devel >= 2.2.4
 BuildRequires:  earcut-hpp-static
 # An extension built with nanobind uses the C++ sources shipped inside the

@@ -1,7 +1,3 @@
-# Break a circular dependency:
-# maven-doxia-sitetools -> l10n-maven-plugin -> maven-reporting-impl
-%bcond bootstrap 0
-
 Name:           maven-doxia-sitetools
 Version:        2.1.0
 Release:        %autorelease
@@ -31,13 +27,8 @@ BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-resolver-provider)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-core)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-apt)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-fml)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-markdown)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xdoc)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml5)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
-BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic)
@@ -45,12 +36,10 @@ BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-http)
 BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
-BuildRequires:  mvn(org.apiguardian:apiguardian-api)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-i18n)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-testing)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-velocity)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
@@ -62,10 +51,6 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
-
-%if %{without bootstrap}
-BuildRequires:  mvn(org.codehaus.mojo:l10n-maven-plugin)
-%endif
 
 %description
 Doxia is a content generation framework which aims to provide its users with
@@ -87,10 +72,6 @@ API documentation for %{name}.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1 -n doxia-sitetools-%{version}
 
-%if %{with bootstrap}
-%pom_remove_plugin org.codehaus.mojo:l10n-maven-plugin doxia-integration-tools
-%endif
-
 # Unavailable plugins
 %pom_remove_plugin org.apache.maven.plugins:maven-scm-publish-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-site-plugin
@@ -103,11 +84,16 @@ API documentation for %{name}.
 # This module has unavailable dependencies
 %pom_disable_module doxia-site-scm-context
 
-# Needed for the tests
-%pom_add_dep org.apiguardian:apiguardian-api:1.1.2:test
-
 # Add a missing dependency
 %pom_add_dep org.codehaus.plexus:plexus-utils doxia-skin-model
+
+# Not actually used in the build or needed at runtime
+%pom_remove_dep -r org.apache.maven.doxia:doxia-module-apt
+%pom_remove_dep -r org.apache.maven.doxia:doxia-module-fml
+%pom_remove_dep -r org.apache.maven.doxia:doxia-module-markdown
+%pom_remove_dep -r org.apache.maven.doxia:doxia-module-xdoc
+%pom_remove_dep -r org.apache.maven.plugin-testing:maven-plugin-testing-harness
+%pom_remove_dep -r org.codehaus.plexus:plexus-testing
 
 %build
 # tests can't run because of missing deps

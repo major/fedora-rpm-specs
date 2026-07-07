@@ -3,7 +3,7 @@
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
 %global brzmajor 3.3
-%global brzminor .20
+%global brzminor .21
 
 # Optional dependencies not packaged or retired:
 %bcond fastimport 0
@@ -20,17 +20,20 @@ Summary:        Friendly distributed version control system
 #
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # GPL-2.0+
-# MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND MIT AND (Unlicense OR MIT)
+License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 URL:            http://www.breezy-vcs.org/
 Source0:        https://github.com/breezy-team/breezy/archive/brz-%{version}%{?brzrc}.tar.gz
 Source1:        brz-icon-64.png
 
-# Allow dulwich version 1
-# https://github.com/breezy-team/breezy/pull/335
-Patch:          dulwich1.patch
+# Manually created patch for downstream crate metadata changes
+# * Allow PyO3 0.29. See
+#   https://forge.fedoraproject.org/rust/backlog/issues/31; resolves
+#   RUSTSEC-2026-0176, RUSTSEC-2026-0177. Blocked upstream by the need to
+#   coordinate with the newly-introduced dromedary crate dependency,
+#   https://github.com/breezy-team/dromedary/pull/74.
+Patch:          breezy-fix-metadata.diff
 
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging >= 21

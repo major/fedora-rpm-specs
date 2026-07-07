@@ -5,7 +5,7 @@
 %global crate utf8-width
 
 Name:           rust-utf8-width
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Determine the width of a UTF-8 character by providing its first byte
 

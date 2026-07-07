@@ -2,7 +2,7 @@
 %global libcall_ui_version v0.1.5
 
 Name:     phosh
-Version:  0.56~rc1
+Version:  0.56.0
 Release:  %autorelease
 Summary:  Graphical shell for mobile devices
 License:  GPL-3.0-or-later
@@ -18,6 +18,8 @@ Source3:  phosh
 ExcludeArch:  %{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2426735
 ExcludeArch:  ppc64le
+# We don't anticipate anybody running phosh on their legacy mainframe servers.
+ExcludeArch:  s390x
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -162,8 +164,6 @@ desktop-file-validate \
 %{_userunitdir}/mobi.phosh.Shell.target
 %{_datadir}/xdg-desktop-portal/portals/phosh-shell.portal
 %{_datadir}/xdg-desktop-portal/phosh-portals.conf
-%{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell.Plugins.Loadmeter-symbolic.svg
-%{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell.Plugins.Syncthing-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.CalendarServer.service
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.Search.service

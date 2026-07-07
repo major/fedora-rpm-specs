@@ -4,13 +4,17 @@
 %global pypi_name pytest-aiohttp
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        7%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Pytest plugin for aiohttp support
 
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/pytest-aiohttp/
 Source0:        %{pypi_source pytest_aiohttp}
+%if 0%{?rhel} == 10
+# EPEL 10 has older, sufficient Python build tooling.
+Patch:          0001-Lower-build-system-requirements-for-EPEL-10.patch
+%endif
 BuildArch:      noarch
 
 %description
@@ -54,6 +58,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Mon Jun 08 2026 Martin Wolf <mwolf@adiumentum.com> - 1.1.1-1
+- Update to latest upstream release (closes RHBZ#2486155)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.1.0-7
 - Rebuilt for Python 3.15
 

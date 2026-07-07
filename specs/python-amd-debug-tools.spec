@@ -1,5 +1,5 @@
 Name:           python-amd-debug-tools
-Version:        0.2.12
+Version:        0.2.19
 Release:        %autorelease
 Summary:        Helpful tools for debugging AMD Zen systems
 
@@ -19,7 +19,6 @@ ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  pyproject-rpm-macros
 
 %global _description %{expand:
 This repository hosts open tools that are useful for debugging

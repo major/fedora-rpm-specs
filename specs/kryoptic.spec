@@ -34,7 +34,8 @@ Source1:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 # Manually created patch for downstream crate metadata changes
-# * relax quick-xml dependency to allow 0.41
+# * Update quick-xml dependency to 0.41:
+#   https://github.com/latchset/kryoptic/pull/475
 Patch:          kryoptic-fix-metadata.diff
 
 

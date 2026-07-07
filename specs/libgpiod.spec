@@ -2,7 +2,7 @@
 %global with_python 1
 
 Name:          libgpiod
-Version:       2.2.5
+Version:       2.3.1
 Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
@@ -13,14 +13,15 @@ Source1:       gpiod-sysusers.conf
 
 BuildRequires: doxygen
 BuildRequires: gcc gcc-c++
+BuildRequires: meson cmake
 BuildRequires: gi-docgen
 BuildRequires: glib2-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: help2man
 BuildRequires: kernel-headers
+BuildRequires: libedit-devel
 BuildRequires: libgudev-devel
 BuildRequires: libstdc++-devel
-BuildRequires: make
 BuildRequires: pkgconf
 %if 0%{?with_python}
 BuildRequires: python3-devel
@@ -91,42 +92,39 @@ Files for development with %{name}.
 
 %prep
 %autosetup -p1
-%if 0%{?with_python}
-# python bindings build is set to use isolation. Remove this for distro build so it uses the
-# system installed dependencies instead of trying to use pip to install from the network
-sed -i 's/-m build/-m pip wheel --wheel-dir dist --no-build-isolation ./' bindings/python/Makefile*
-# Once the following commit is merged, replace the above line with the command below:
-# https://lore.kernel.org/linux-gpio/20250407181116.1070816-1-yselkowi@redhat.com/T/#u
-#sed -i 's/-m pip wheel/& --no-build-isolation/' bindings/python/Makefile*
-%endif
 
 %build
-%configure \
-	--enable-tools \
-	--enable-dbus \
-	--enable-systemd \
-	--disable-static \
-	--enable-bindings-cxx \
-	--enable-bindings-glib \
+%meson  -Dtools=enabled \
+	-Dbindings-cxx=enabled \
+	-Dbindings-glib=enabled \
 %if 0%{?with_python}
-	--enable-bindings-python \
+	-Dbindings-python=enabled \
 %endif
+	-Ddbus=enabled \
+	-Dsystemd=enabled \
+	-Dtests=disabled \
 	%{nil}
 
-%make_build
+%meson_build
+
 
 %install
-%make_install
+%meson_install
 
 # Install sysusers file
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/gpiod.conf
+
 # Fix udev rule location
 %ifnarch %{ix86}
 mkdir -p %{buildroot}/%{_udevrulesdir}/
 mv -f %{buildroot}/%{_libdir}/udev/rules.d/90-gpio.rules %{buildroot}/%{_udevrulesdir}/90-gpio.rules
 %endif
-# Remove libtool archives.
+# Remove static libs/libtool archives.
 find %{buildroot} -name '*.la' -delete
+find %{buildroot} -name '*.a' -delete
+
+%check
+%meson_test
 
 %ldconfig_scriptlets
 
@@ -145,6 +143,7 @@ find %{buildroot} -name '*.la' -delete
 %doc README.md
 %{_libdir}/libgpiod.so.3*
 %{_libdir}/libgpiodbus.so.1*
+%{_libdir}/libgpiotools.so.1*
 %{_sysusersdir}/gpiod.conf
 %{_udevrulesdir}/90-gpio.rules
 
@@ -180,22 +179,28 @@ find %{buildroot} -name '*.la' -delete
 
 %if 0%{?with_python}
 %files -n python3-%{name}
+%{python3_sitelib}/gpiod/
 %{python3_sitearch}/gpiod/
-%{python3_sitearch}/gpiod-2.2.0.dist-info
 %endif
 
 %files devel
 %{_libdir}/%{name}*.so
+%{_libdir}/libgpiotools.so
 %{_libdir}/pkgconfig/libgpiod*.pc
 %{_libdir}/pkgconfig/gpiod-glib.pc
+%{_libdir}/pkgconfig/libgpiotools.pc
 %{_includedir}/gpiod.*
 %{_includedir}/gpiodcxx/
 %{_includedir}/gpiod-glib.h
 %{_includedir}/gpiod-glib/
+%{_includedir}/gpiotools.h
 %{_datadir}/gir-1.0/Gpiodglib-1.0.gir
 
 
 %changelog
+* Sun Jul 05 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.1-1
+- Update to 2.3.1 (rhbz#2489269)
+
 * Mon Jun 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.5-1
 - Update to 2.2.5 (rhbz#2488905)
 

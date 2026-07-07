@@ -3,7 +3,7 @@
 
 Name:           gammu
 Version:        1.42.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Command Line utility to work with mobile phones
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -14,7 +14,7 @@ Patch0:         gammu-1.3.7-udev.patch
 Patch1:         a37e5d8054f863fa71e38e244dd4da13eee6e251.patch
 
 BuildRequires:  gcc
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  autoconf
 BuildRequires:  pkgconfig
 BuildRequires:  gettext-devel
@@ -107,7 +107,7 @@ developing applications that use %{name}
 %build
 # TODO: Please submit an issue to upstream (rhbz#2380612)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake3                  \
+%cmake                  \
     -DENABLE_BACKUP=ON      \
     -DWITH_NOKIA_SUPPORT=ON     \
     -DWITH_Bluez=ON         \
@@ -141,7 +141,7 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 %if %{with tests}
 # add %%{?_smp_mflags} breaks the tests
 %global _smp_mflags %{nil}
-%ctest3
+%ctest
 %endif
 
 %post
@@ -188,6 +188,9 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 
 
 %changelog
+* Wed Jun 17 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.42.0-22
+- Really use CMake 4 instead of 3.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

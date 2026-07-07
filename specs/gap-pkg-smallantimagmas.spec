@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/smallantimagmas
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.5.1
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Library of antiassociative magmas of small order
 
@@ -18,9 +18,11 @@ BuildOption(install): *.ipynb data lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc)
+BuildRequires:  gap(digraphs) >= 1.8.3
 BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap-devel >= 4.12
 
+Requires:       gap(digraphs) >= 1.8.3
 Requires:       gap-core >= 4.12
 
 Provides:       gap(smallantimagmas) = %{version}-%{release}

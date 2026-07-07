@@ -1,5 +1,5 @@
 Name: zswap-cli
-Version: 1.1.2
+Version: 1.2.0
 Release: %autorelease
 
 License: MIT
@@ -18,6 +18,7 @@ BuildRequires: kernel-headers
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: libappstream-glib
 BuildRequires: ninja-build
 BuildRequires: pandoc
 BuildRequires: systemd
@@ -43,9 +44,13 @@ a compressed cache is much faster than reading from a swap device.
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_DOCS:BOOL=OFF \
     -DBUILD_MANPAGE:BOOL=ON \
+    -DBUILD_METAINFO:BOOL=ON \
     -DBUILD_SHELL_COMPLETION:BOOL=ON \
     -DSYSTEMD_INTEGRATION:BOOL=ON
 %cmake_build
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %post
 %systemd_post %{name}.service
@@ -65,6 +70,7 @@ a compressed cache is much faster than reading from a swap device.
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 %{_mandir}/man1/%{name}.*
+%{_metainfodir}/*.metainfo.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{bash_completions_dir}/%{name}

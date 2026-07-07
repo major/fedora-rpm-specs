@@ -24,7 +24,7 @@
 %global build_opts -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-vpx %{?with_debug:-C--global-option=--with-debug} %{?with_openh264:-C--global-option=--with-openh264} -C--global-option=--without-cuda_rebuild -C--global-option=--with-client -C--global-option=--without-qt6_client -C--global-option=--without-pyglet_client -C--global-option=--without-enc_x264
 
 Name:           xpra
-Version:        6.5
+Version:        6.5.1
 Release:        %autorelease
 Epoch:          1
 Summary:        Remote display server for applications and desktops
@@ -38,9 +38,6 @@ Source1:        %{name}.appdata.xml
 # Suggested from update testing
 # https://bodhi.fedoraproject.org/updates/FEDORA-2025-0882918c25#comment-4407961
 Patch0:         %{name}-fix_audio.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2496082
-Patch1:         %{name}-6.5-rhbz2496082.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -163,8 +160,6 @@ Use Decode As → Xpra to force it on a different port.
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %patch -P 0 -p1 -b .backup
 %endif
-
-%patch -P 1 -p1 -b .backup
 
 rm -rf *.egg-info
 

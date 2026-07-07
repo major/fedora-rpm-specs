@@ -1,15 +1,13 @@
 Name:          mate-menus
-Version:       1.28.0
+Version:       1.28.1
 Release:       %autorelease
 Summary:       Displays menus for MATE Desktop
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
-# >= f43 , see rhbz (#2411809)
-%if 0%{?fedora} && 0%{?fedora} >= 43
-Patch1:        mate-menus_glib2-2.86.patch
-%endif
+# https://github.com/mate-desktop/mate-menus/pull/129
+Patch1:        mate-menus_0001-build-don-t-strip-safety-checks.patch
 
 BuildRequires: make
 BuildRequires: gobject-introspection-devel

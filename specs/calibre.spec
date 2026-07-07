@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.9.0
+Version:        9.11.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -18,6 +18,9 @@ Patch:          calibre-no-update.patch
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
 Patch:          calibre-nodisplay.patch
+
+# fix openssl test
+Patch:          calibre-9.11.0-openssl.patch
 
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
@@ -370,7 +373,7 @@ TEST_ARGS=(
     # fails with python3.13:
     # calibre.srv.tests.loop.LoopTest.test_ssl
     # ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Missing Authority Key Identifier (_ssl.c:1020)
-    --exclude-test-name test_ssl
+    #--exclude-test-name test_ssl
     --exclude-test-name test_pycryptodome  # We do not ship the bundled pycryptodome
     --exclude-test-name test_piper         # piper is not yet packaged
     # segfaults

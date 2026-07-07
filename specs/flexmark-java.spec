@@ -25,9 +25,6 @@ ExclusiveArch:  noarch %{java_arches}
 
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.logging.log4j:log4j-1.2-api)
-BuildRequires:  mvn(org.apache.logging.log4j:log4j-api)
-BuildRequires:  mvn(org.apache.logging.log4j:log4j-core)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
@@ -799,6 +796,9 @@ rm flexmark-integration-test/src/test/java/com/vladsch/flexmark/integration/test
 
 # Disable due to missing docx4j dependency
 %pom_disable_module flexmark-docx-converter
+%pom_remove_dep -r org.apache.logging.log4j:log4j-1.2-api
+%pom_remove_dep -r org.apache.logging.log4j:log4j-api
+%pom_remove_dep -r org.apache.logging.log4j:log4j-core
 
 # Disable due to missing openhtmltopdf dependency
 %pom_disable_module flexmark-pdf-converter

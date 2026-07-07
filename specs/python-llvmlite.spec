@@ -5,10 +5,11 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
-%global llvm_compat 20
+# Latest (or only) version of LLVM supported upstream
+%global llvm_major 22
 
 Name:           python-llvmlite
-Version:        0.47.0~rc1
+Version:        0.48.0
 %global srcversion %(echo '%{version}' | tr -d '~')
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
@@ -41,7 +42,7 @@ Source:         %{forgeurl}/archive/v%{srcversion}/llvmlite-%{srcversion}.tar.gz
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 
-BuildRequires:  llvm%{llvm_compat}-devel
+BuildRequires:  llvm-devel(major) = %{llvm_major}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -101,7 +102,7 @@ echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
 %build
 # See docs/source/admin-guide/install.rst.
-LLVM_CONFIG='%{_libdir}/llvm%{llvm_compat}/bin/llvm-config'
+LLVM_CONFIG='%{_libdir}/llvm%{llvm_major}/bin/llvm-config'
 export CMAKE_PREFIX_PATH="$("${LLVM_CONFIG}" --cmakedir)/../"
 export LLVMLITE_SHARED=1
 # https://cmake.org/cmake/help/latest/manual/cmake-env-variables.7.html
@@ -131,7 +132,13 @@ export PYTEST_ADDOPTS="\
         --deselect llvmlite/tests/test_binding.py::TestOrcLLJIT \
         --deselect llvmlite/tests/test_binding.py::TestDylib::test_bad_library"
 %endif
-%{pytest} -vv llvmlite/tests
+%ifarch %{ix86} s390x riscv64
+# Test test_optsize_minsize fails on at least i686, s390x, and riscv64
+# architectures
+# https://github.com/numba/llvmlite/issues/1449
+k="${k-}${k+ and }not test_optsize_minsize"
+%endif
+%{pytest} -vv -k "${k-}" llvmlite/tests
 %endif
 
 %files -n python3-llvmlite -f %{pyproject_files}

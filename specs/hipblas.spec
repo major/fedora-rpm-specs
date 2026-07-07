@@ -94,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        ROCm BLAS marshaling library
 License:        MIT
@@ -127,7 +127,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  cblas-devel
 BuildRequires:  lapack-devel
 %else
-BuildRequires:  blis-devel
+BuildRequires:  blas-static
 BuildRequires:  lapack-static
 BuildRequires:  python3-pyyaml
 %endif
@@ -188,9 +188,16 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 
 %build
 
+# LINK_BLIS
+#   ON: use AOCL BLIS
+#   OFF: use lapack, cblas
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+    -DBUILD_FORTRAN_CLIENTS=OFF \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_Fortran_COMPILER=gfortran \
@@ -206,10 +213,8 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
     -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-    -DBUILD_FORTRAN_CLIENTS=OFF
+    -DLINK_BLIS=OFF
+
 
 %cmake_build
 
@@ -238,6 +243,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Sun Jul 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
+- fix tests
+
 * Fri Jun 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - merge compat changes
 

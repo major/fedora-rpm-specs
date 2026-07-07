@@ -1,5 +1,5 @@
 Name:           libcpucycles
-Version:        20260105
+Version:        20260625
 Release:        %autorelease
 Summary:        Library for counting CPU cycles
 License:        LicenseRef-Fedora-Public-Domain OR 0BSD OR MIT-0 OR MIT

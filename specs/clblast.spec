@@ -12,6 +12,14 @@
 # at all at this point.  Try again when pocl 4.0 is released.
 
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=113330948
+#
+# For 1.6.3 on Fedora 45, ROCm 7.2
+# Device Board Name (AMD)                         AMD Radeon Pro W7900
+# The following tests FAILED:
+#	 10 - clblast_test_xamax (Failed)
+#	 48 - clblast_test_xaxpybatched (Failed)
+#	 49 - clblast_test_xgemmbatched (Failed)
+
 %bcond_with check
 %bcond_with pocl
 
