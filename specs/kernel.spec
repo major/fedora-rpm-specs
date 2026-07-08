@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc1.260701g665159e24674.16
+%define pkgrelease 0.rc2.21
 %define kversion 7
-%define tarfile_release 7.2-rc1-8-g665159e24674
+%define tarfile_release 7.2-rc2
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260701g665159e24674.16%{?buildid}%{?dist}
+%define specrelease 0.rc2.21%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -829,7 +829,9 @@ BuildRequires: audit-libs-devel python3-setuptools
 BuildRequires: capstone-devel
 BuildRequires: elfutils-debuginfod-client-devel
 BuildRequires: java-devel
-BuildRequires: libbabeltrace-devel
+%if 0%{?fedora} || 0%{?rhel} >= 11
+BuildRequires: libbabeltrace2-devel
+%endif
 BuildRequires: libpfm-devel
 BuildRequires: libtraceevent-devel
 %ifnarch s390x
@@ -3003,7 +3005,7 @@ BuildKernel() {
 
 	rm -f $KernelUnifiedInitrd
 
-	KernelAddonsDirOut="$KernelUnifiedImage.extras/"
+	KernelAddonsDirOut="$KernelUnifiedImage.extras.optional/"
 	mkdir -p $KernelAddonsDirOut
 	python3 %{SOURCE151} %{SOURCE152} $KernelAddonsDirOut virt %{primary_target} %{_target_cpu} @uki-addons.sbat
 
@@ -4760,8 +4762,8 @@ fi\
 %attr(0644, root, root) /lib/modules/%{KVERREL}%{?3:+%{3}}/.%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.hmac\
 %ghost /%{image_install_path}/efi/EFI/Linux/%{?-k:%{-k*}}%{!?-k:*}-%{KVERREL}%{?3:+%{3}}.efi\
 %{expand:%%files %{?3:%{3}-}uki-virt-addons}\
-%dir /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras/ \
-/lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras/*.addon.efi\
+%dir /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras.optional/ \
+/lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras.optional/*.addon.efi\
 %endif\
 %if %{with_dtbloader} && ("%{?3}" == "" || "%{3}" == "debug")\
 %{expand:%%files %{?3:%{3}-}uki-dtbloader}\
@@ -4857,8 +4859,27 @@ fi\
 #
 #
 %changelog
-* Wed Jul 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.665159e24674.16]
+* Mon Jul 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.21]
+- redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Jul 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.20]
+- Linux v7.2.0-0.rc2
+
+* Sun Jul 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.7404ce516372.19]
+- Linux v7.2.0-0.rc1.7404ce516372
+
+* Sat Jul 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.1e9cdc2ea15a.18]
+- Linux v7.2.0-0.rc1.1e9cdc2ea15a
+
+* Fri Jul 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.d2c9a99135da.17]
+- redhat/mod-sign.sh: use CONFIG_MODULE_SIG_HASH (Jan Stancek)
+- redhat/kernel.spec.template: Pack a bit more descriptive name for extras/ (Vitaly Kuznetsov)
+- redhat/configs: Enable IOMMU_DEBUG_PAGEALLOC and AMD_IOMMU_IOMMUFD (Jerry Snitselaar)
+- Linux v7.2.0-0.rc1.d2c9a99135da
+
+* Thu Jul 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.4a50a141f05a.16]
+- Linux v7.2.0-0.rc1.4a50a141f05a
 
 * Wed Jul 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.665159e24674.15]
 - Linux v7.2.0-0.rc1.665159e24674

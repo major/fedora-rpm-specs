@@ -2,18 +2,13 @@
 %global __provides_exclude_from ^(%{python3_sitearch}/.*\\.so)$
 
 Name:           python-%{srcname}
-Version:        1.2.7
+Version:        1.2.8
 Release:        %autorelease
 Summary:        Python implementation of the Git file formats and protocols
 
 License:        GPL-2.0-or-later OR Apache-2.0
 URL:            https://www.dulwich.io/
 Source0:        %{pypi_source}
-
-# Support pyo3 0.29
-# https://github.com/jelmer/dulwich/commit/f8762ba0184e572f54be2a494d728bfe8c000917
-# PyO3 0.29 fixes RUSTSEC-2026-0176 and RUSTSEC-2026-0177.
-Patch:          dulwich-fix-metadata.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros

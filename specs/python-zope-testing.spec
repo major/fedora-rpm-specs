@@ -8,7 +8,7 @@
 %bcond tests 1
 
 Name:           python-zope-testing
-Version:        6.1
+Version:        6.2
 Release:        %autorelease
 Summary:        Zope Testing Framework
 License:        ZPL-2.1

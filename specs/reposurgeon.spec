@@ -6,8 +6,8 @@
 # https://gitlab.com/esr/reposurgeon
 %global goipath         gitlab.com/esr/reposurgeon
 %global forgeurl        https://gitlab.com/esr/reposurgeon
-Version:                5.6
-%global tag             5.6
+Version:                5.9
+%global tag             5.9
 
 %gometa -L -f
 
@@ -59,6 +59,7 @@ tar -xf %{S:1}
 
 %build
 %global gomodulesmode GO111MODULE=on
+export GO_LDFLAGS="-X main.version=%{version}"
 for cmd in %commands; do
   %gobuild -o %{gobuilddir}/bin/repo$(basename $cmd) %{goipath}/$cmd
 done

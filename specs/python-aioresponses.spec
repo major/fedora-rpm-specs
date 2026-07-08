@@ -1,7 +1,7 @@
 %global pypi_name aioresponses
 
 Name:           python-%{pypi_name}
-Version:        0.7.8
+Version:        0.7.9
 Release:        %autorelease
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
@@ -21,6 +21,7 @@ ExcludeArch:    s390x
 BuildRequires:  python3-devel
 # for tests
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(ddt)
 
 %global common_description %{expand:
@@ -37,23 +38,6 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %{common_description}
 
 
-%package -n python-%{pypi_name}-doc
-Summary:        Documentation for python-%{pypi_name}
-# BSD-2-Clause: Sphinx javascript
-# MIT: jquery
-License:        BSD-2-Clause AND MIT
-BuildArch:      noarch
-BuildRequires:  python3dist(sphinx)
-Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       bundled(js-sphinx_javascript_frameworks_compat)
-Provides:       bundled(js-doctools)
-Provides:       bundled(js-jquery)
-Provides:       bundled(js-language_data)
-Provides:       bundled(js-searchtools)
-
-%description -n python-%{pypi_name}-doc
-%{common_description}
-
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
@@ -69,11 +53,6 @@ sed -e '/flake\|tox\|coverage\|pytest-cov\|pytest-html\|Sphinx/d' requirements-d
 %build
 %pyproject_wheel
 
-# generate html docs
-sphinx-build-3 -b html docs/ html
-# remove the sphinx-build-3 leftovers
-rm -rf html/.{doctrees,buildinfo}
-
 
 %install
 %pyproject_install
@@ -88,10 +67,6 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc ChangeLog README.rst
-
-
-%files -n python-%{pypi_name}-doc
-%doc html
 
 
 %changelog

@@ -28,6 +28,8 @@ Requires:       python3-wxpython4
 Requires:       wdsp
 Suggests:       codec2-devel
 
+Patch:          quisk-4.2.53-build-fix.patch
+
 %description
 QUISK is a Software Defined Radio (SDR) which can control various
 radio hardware. QUISK supports CW, SSB, and AM.

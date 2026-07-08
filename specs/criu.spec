@@ -13,7 +13,7 @@
 
 Name: criu
 Version: 4.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -24,6 +24,7 @@ Patch2: 0002-net-Route-veth-restore-through-usernsd-for-userns-mode.patch
 Patch3: 0003-zdtm-Fix-rseq01-test-for-kernel-7.0-rseq-changes.patch
 Patch4: 0004-sockets-Treat-UDPLITE-as-optional-in-collect_err.patch
 Patch5: 0005-zdtm-Skip-socket_udplite-test-when-kernel-lacks-UDPLITE.patch
+Patch6: https://patch-diff.githubusercontent.com/raw/checkpoint-restore/criu/pull/3023.patch
 
 # Add protobuf-c as a dependency.
 # We use this patch because the protobuf-c package name
@@ -126,6 +127,7 @@ This script can help to workaround the so called "PID mismatch" problem.
 %patch -P 3 -p1
 %patch -P 4 -p1
 %patch -P 5 -p1
+%patch -P 6 -p1
 %patch -P 99 -p1
 
 %build
@@ -214,6 +216,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Mon Jul 06 2026 Adrian Reber <areber@redhat.com> - 4.2-21
+- One more test only patch for linux 7.1
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.2-20
 - Rebuilt for Python 3.15
 

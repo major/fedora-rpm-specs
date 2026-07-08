@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.10.1
 %global tag        v%{version}
-Release:           4%{?dist}
+Release:           5%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -107,9 +107,9 @@ This package contains documentation files for %{name}.
 
 %if 0%{?with_guile}
 %package -n guile-%{name}
-%{!?guile_pkgconf: %global guile_pkgconf %(%___build_pre; pkg-config --list-all | grep guile%{?guile_ver:-%{guile_ver}} | sed -e 's! .*$!!g')}
-%{!?guile_sitedir: %global guile_sitedir %(%___build_pre; pkg-config --variable=sitedir %{guile_pkgconf})}
-%{!?guile_extdir:  %global guile_extdir  %(%___build_pre; pkg-config --variable=extensiondir %{guile_pkgconf})}
+%{!?guile_pkgconf: %global guile_pkgconf %(%___build_pre_env; pkg-config --list-all | grep guile%{?guile_ver:-%{guile_ver}} | sed -e 's! .*$!!g')}
+%{!?guile_sitedir: %global guile_sitedir %(%___build_pre_env; pkg-config --variable=sitedir %{guile_pkgconf})}
+%{!?guile_extdir:  %global guile_extdir  %(%___build_pre_env; pkg-config --variable=extensiondir %{guile_pkgconf})}
 
 Summary:           Guile bindings for %{name}
 
@@ -300,6 +300,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.10.1-5
+- RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.10.1-4
 - Rebuilt for Python 3.15
 

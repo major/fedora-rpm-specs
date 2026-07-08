@@ -4,8 +4,8 @@
 %global modname vcrpy
 
 Name:               python-%{modname}
-Version:            8.1.1
-Release:            4%{?dist}
+Version:            8.3.0
+Release:            1%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -89,6 +89,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Mon Jul 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 8.3.0-1
+- 8.3.0
+
 * Thu Jul 02 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 8.1.1-4
 - BuildRequire python-pytest-asyncio to fix build failure with pytest 9.1
 

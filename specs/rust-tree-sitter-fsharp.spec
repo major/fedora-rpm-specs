@@ -5,7 +5,7 @@
 %global crate tree-sitter-fsharp
 
 Name:           rust-tree-sitter-fsharp
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Fsharp grammar for the tree-sitter parsing library
 

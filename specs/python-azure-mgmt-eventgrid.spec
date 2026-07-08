@@ -4,13 +4,12 @@
 %global         srcname     azure-mgmt-eventgrid
 
 Name:           python-%{srcname}
-Version:        10.2.0~b2
-%global         pypi_version    10.2.0b2
+Version:        10.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure EventGrid Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
+Source0:        %{pypi_source azure_mgmt_eventgrid %{version}}
 
 BuildArch:      noarch
 
@@ -39,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{pypi_version}
+%autosetup -n azure_mgmt_eventgrid-%{version}
 
 
 %generate_buildrequires
@@ -52,7 +51,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

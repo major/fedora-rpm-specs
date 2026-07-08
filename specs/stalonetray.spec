@@ -1,6 +1,6 @@
 Name:           stalonetray
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -9,12 +9,17 @@ License:        GPL-2.0-or-later
 URL:            https://d3adb5.github.io/%{name}
 Source0:        https://github.com/d3adb5/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  docbook-xsl
 BuildRequires:  gcc
-BuildRequires:  libX11-devel
+BuildRequires:  meson
+BuildRequires:  xsltproc
 
-# Needed until upstream generates proper tarballs.
-BuildRequires: autoconf automake docbook-xsl xsltproc
+BuildRequires:  pkgconfig(cmocka)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xinerama)
+BuildRequires:  pkgconfig(xpm)
+BuildRequires:  pkgconfig(xrandr)
+
 
 %description
 The stalonetray is a STAnd-aLONE system TRAY (notification area).
@@ -23,31 +28,31 @@ support is planned. Stalonetray runs under virtually any window manager.
 
 %prep
 %setup -q
+%meson
+
 
 %build
-# https://github.com/kolbusa/stalonetray/issues/35
-aclocal
-autoheader
-autoconf
-automake --add-missing
-%configure
-make %{?_smp_mflags}
+%meson_build
 
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%meson_install
 install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %files
-%doc AUTHORS BUGS COPYING NEWS README.md TODO
-%doc stalonetrayrc.sample stalonetray.html stalonetray.xml
+%doc AUTHORS README.md TODO
+%doc stalonetrayrc.sample
+%license LICENSE
 %{_sysconfdir}/stalonetrayrc
 %{_bindir}/stalonetray
 %{_mandir}/man1/stalonetray.*
 
 
 %changelog
+* Fri Jul 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.5.0-1
+- Update to v1.5.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

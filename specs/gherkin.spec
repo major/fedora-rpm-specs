@@ -203,13 +203,13 @@ sed --regexp-extended --in-place 's@python -m@%{python3} -m@' python/Makefile
 %pyproject_patch_dependency uv_build:drop_upper
 
 pushd ruby
-# Ruby: Allow cucumber-messages 33. Since these packages have the same
+# Ruby: Allow cucumber-messages 33 and 34. Since these packages have the same
 # upstream, we expect this to be updated upstream in due course. If too much
 # time goes by, we might suggest it in a PR similar to
 # https://github.com/cucumber/gherkin/pull/525, only also including the
 # language implementations that have been added since then.
 %gemspec_remove_dep -s cucumber-gherkin.gemspec -g cucumber-messages [">= 31", "< 33"]
-%gemspec_add_dep -s cucumber-gherkin.gemspec -g cucumber-messages [">= 31", "< 34"]
+%gemspec_add_dep -s cucumber-gherkin.gemspec -g cucumber-messages [">= 31", "< 35"]
 popd
 
 

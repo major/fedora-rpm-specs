@@ -118,7 +118,7 @@ BuildRequires:  gnutls-devel
 %endif
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-devel
-%if 0%{?fedora} > 44
+%if 0%{?fedora} > 44 || 0%{?rhel} > 10
 BuildRequires:  openssl3-devel
 %else
 BuildRequires:  openssl-devel
@@ -244,7 +244,7 @@ using the Clam Antivirus scanner.
 Summary:    Header files and libraries for the Clam Antivirus scanner
 Requires:   clamav-lib        = %{version}-%{release}
 Requires:   clamav-filesystem = %{version}-%{release}
-%if 0%{?fedora} > 44
+%if 0%{?fedora} > 44 || 0%{?rhel} > 10
 Requires:   openssl3-devel
 %else
 Requires:   openssl-devel

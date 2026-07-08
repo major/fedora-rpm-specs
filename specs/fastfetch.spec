@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.63.1
+Version:        2.65.2
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -43,6 +43,8 @@ BuildRequires:  yyjson-devel
 %if 0%{?fedora} || 0%{?rhel} < 10
 BuildRequires:  efl-devel
 %endif
+BuildRequires:  libva-devel
+BuildRequires:  libvdpau-devel
 
 Recommends:     hwdata
 Suggests:       libXrandr
@@ -85,6 +87,19 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %build
+# remove unnecessary ascii logos to shrink binary
+find src/logo/ascii/ -type f       \
+  -regex 'src/logo/ascii/[a-z]/.*' \
+  ! -name 'almalinux.txt'          \
+  ! -name 'fedora.txt'             \
+  ! -name 'rhel*.txt'              \
+  ! -name 'rocky*.txt'             \
+  ! -name 'centos*.txt'            \
+  ! -name 'oracle.txt'             \
+  ! -name 'miracle_linux.txt'      \
+  -delete
+# remove empty left-over ascii directories
+find src/logo/ascii -type d -empty -delete
 %cmake -DBUILD_TESTS=ON -DENABLE_SYSTEM_YYJSON=ON -DBUILD_FLASHFETCH=OFF
 %cmake_build
 
@@ -109,6 +124,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Mon Jul 06 2026 Jonathan Wright <jonathan@almalinux.org> - 2.65.2-1
+- update to 2.65.2 rhbz#2484357
+
 * Thu May 28 2026 Jonathan Wright <jonathan@almalinux.org> - 2.63.1-1
 - update to 2.63.1 rhbz#2460499
 

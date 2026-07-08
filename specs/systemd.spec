@@ -31,6 +31,9 @@
 # Build with OBS-specific quirks
 %bcond obs       0
 
+# Temporary macro to enable systemd-report.standalone
+%bcond report_standalone 0
+
 # When bootstrap, libcryptsetup is disabled
 # but auto-features causes many options to be turned on
 # that depend on libcryptsetup (e.g. libcryptsetup-plugins, homed)
@@ -173,9 +176,14 @@ BuildRequires:  cryptsetup-devel
 # Require (previous version) of our macros package.
 # We use the %%systemd_{post,preun,…} macros for various services.
 BuildRequires:  systemd-rpm-macros
-# Use dlopen-notes to generate Requires/Recommends from embedded metadata.
-BuildRequires:  package-notes >= 0.18
 %endif
+
+%if 0%{?rhel} == 0 || 0%{?rhel} > 10
+# Use dlopen-notes to generate Requires/Recommends from embedded metadata.
+# Currently, package-notes are not available on Centos Stream 9 or 10.
+BuildRequires:  package-notes >= 0.20
+%endif
+
 BuildRequires:  dbus-devel
 BuildRequires:  util-linux
 # /usr/bin/getfacl is needed by test-acl-util
@@ -291,6 +299,10 @@ Requires:       /usr/bin/systemd-sysusers
 # so this biases towards the common version.
 Recommends:     systemd-sysusers%{_isa} = %{version}-%{release}
 
+%if 0%{?rhel} <= 10
+Requires:       libzstd.so.1%{?elf_suffix}
+%endif
+
 Recommends:     diffutils
 Requires:       (util-linux-core or util-linux)
 Requires:       (libbpf >= 2:1.4.7 if libbpf)
@@ -323,7 +335,7 @@ Conflicts:      dracut < 060-2
 Conflicts:      dracut < 059-16
 %endif
 
-%if %{with upstream}
+%if %{with report_standalone}
 Conflicts:      systemd-standalone-report
 Provides:       systemd-report = %{version}-%{release}
 %endif
@@ -342,6 +354,15 @@ Provides:       /usr/sbin/init
 Provides:       /usr/sbin/poweroff
 Provides:       /usr/sbin/reboot
 Provides:       /usr/sbin/shutdown
+%endif
+
+%if 0%{?rhel} <= 10
+# libmount is always required, even in containers, so make it a hard dependency.
+Requires:       libmount.so.1%{?elf_suffix}
+Requires:       libmount.so.1(MOUNT_2.26)%{?elf_bits}
+# Various systemd services have syscall filters so make libseccomp a hard dependency.
+Requires:       libseccomp.so.2%{?elf_suffix}
+Requires:       libacl.so.1%{?elf_suffix}
 %endif
 
 %define dlopen_notes_features %{expand:
@@ -461,6 +482,17 @@ Requires(postun): systemd%{_isa} = %{version}-%{release}
 Requires(post): grep
 Requires:       kmod >= 18-4
 
+%if 0%{?rhel} <= 10
+# Libkmod is used to load modules. Assume that if we need udevd, we certainly
+# want to load modules, so make this into a hard dependency here.
+Requires:       libkmod.so.2%{?elf_suffix}
+Requires:       libkmod.so.2(LIBKMOD_5)%{?elf_bits}
+# udev uses libblkid in various builtins so make it a hard dependency.
+Requires:       libblkid.so.1%{?elf_suffix}
+Requires:       libblkid.so.1(BLKID_2.30)%{?elf_bits}
+Requires:       libfdisk.so.1%{?elf_suffix}
+%endif
+
 Provides:       udev = %{version}
 Provides:       udev%{_isa} = %{version}
 %if 0%{?fedora} || 0%{?rhel} >= 10
@@ -477,6 +509,16 @@ Obsoletes:      systemd-timesyncd < %{version}-%{release}
 Provides:       systemd-timesyncd = %{version}-%{release}
 %endif
 Conflicts:      systemd-networkd < %{version}-%{release}
+
+%if 0%{?rhel} <= 10
+# Libkmod is used to load modules. Assume that if we need udevd, we certainly
+# want to load modules, so make this into a hard dependency here.
+Requires:       libkmod.so.2%{?elf_suffix}
+Requires:       libkmod.so.2(LIBKMOD_5)%{?elf_bits}
+# udev uses libblkid in various builtins so make it a hard dependency.
+Requires:       libblkid.so.1%{?elf_suffix}
+Requires:       libblkid.so.1(BLKID_2.30)%{?elf_bits}
+%endif
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1377733#c9
 Suggests:       systemd-bootchart
@@ -619,6 +661,10 @@ License:        LGPL-2.1-or-later
 Requires:       firewalld-filesystem
 Provides:       systemd-journal-gateway = %{version}-%{release}
 Provides:       systemd-journal-gateway%{_isa} = %{version}-%{release}
+%if 0%{?rhel} <= 10
+Requires:       libmicrohttpd.so.12%{?elf_suffix}
+Requires:       libcurl.so.4%{?elf_suffix}
+%endif
 # Bias the system towards libcurl-minimal if nothing pulls in full libcurl (#1997040)
 Suggests:       libcurl-minimal
 
@@ -655,6 +701,10 @@ enabled for this to have any effect.
 %package resolved
 Summary:        Network Name Resolution manager
 Requires:       systemd%{_isa} = %{version}-%{release}
+%if 0%{?rhel} <= 10
+Requires:       libidn2.so.0%{?elf_suffix}
+Requires:       libidn2.so.0(IDN2_0.0.0)%{?elf_bits}
+%endif
 Requires(posttrans): grep
 
 %description resolved
@@ -698,7 +748,7 @@ Standalone systemd-repart binary with no dependencies on the systemd-shared
 library or other libraries from systemd-libs. This package conflicts with the
 systemd-udev package and is meant for use on systems without systemd-udev.
 
-%if %{with upstream}
+%if %{with report_standalone}
 %package standalone-report
 Summary:       Standalone systemd-report binaries for use on systems without systemd
 Provides:      systemd-report = %{version}-%{release}
@@ -784,7 +834,11 @@ mv %{_sourcedir}/%{name}.fedora/* %{_sourcedir}
 sed -r -i 's/^u!/u/' sysusers.d/*.conf*
 
 %build
+%if 0%{?eln}
+%global ntpvendor fedora
+%else
 %global ntpvendor %(source /etc/os-release; echo ${ID})
+%endif
 %{!?ntpvendor: echo 'NTP vendor zone is not set!'; exit 1}
 
 VMLINUX_H_PATH=''
@@ -1536,7 +1590,7 @@ fi
 
 %files standalone-repart -f .file-list-standalone-repart
 
-%if %{with upstream}
+%if %{with report_standalone}
 %files standalone-report -f .file-list-standalone-report
 %endif
 

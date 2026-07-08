@@ -1,33 +1,21 @@
-# No tests available from upstream yet.
-%bcond_with     tests
-
 %global         srcname     azure-mgmt-batchai
 
 Name:           python-%{srcname}
-Version:        7.0.0b1
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Batch AI Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-# This source comes from making a git archive of the main azure-sdk-for-python
-# repository. To reproduce the source code, run the generate-source.sh script.
-Source0:        %{srcname}-%{version}.tgz
+Source:         %{pypi_source azure_mgmt_batchai %{version}}
 
 BuildArch:      noarch
 
 Epoch:          1
 
 BuildRequires:  python3-devel
+# Upstream depends on this, but fails to list it as such. It's also a very dead dependency.
+BuildRequires:  python3dist(msrest)
 
-%if %{with tests}
-BuildRequires:  python3dist(azure-devtools)
-BuildRequires:  python3dist(azure-mgmt-keyvault)
-BuildRequires:  python3dist(azure-mgmt-resource)
-BuildRequires:  python3dist(azure-sdk-tools)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-aiohttp)
-BuildRequires:  python3dist(python-dotenv)
-%endif
 
 %global _description %{expand:
 Microsoft Azure Batch AI Management Client Library for Python}
@@ -37,12 +25,14 @@ Microsoft Azure Batch AI Management Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# Upstream depends on this, but fails to list it as such. It's also a very dead dependency.
+Requires:       python3dist(msrest)
 
 %description -n python3-%{srcname} %{_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_mgmt_batchai-%{version}
 
 
 %generate_buildrequires
@@ -55,15 +45,11 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check
 %pyproject_check_import
-
-%if %{with tests}
-%pytest
-%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

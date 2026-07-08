@@ -17,6 +17,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
 
+# Fix logging tests with pytest >= 9.1
+Patch:          https://github.com/pydantic/httpx2/pull/1054.patch
+
 BuildArch:      noarch
 
 BuildRequires:  help2man

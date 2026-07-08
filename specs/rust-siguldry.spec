@@ -4,7 +4,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Signing server and client
 
@@ -14,10 +14,7 @@ Source:         %{crates_source}
 Source10:       siguldry-sysuser.conf
 Source11:       siguldry-tmpfiles.conf
 # Manually created patch for downstream crate metadata changes
-# * The binary is incomplete and may change its interface significantly
 # * Remove unused, benchmark-only dev-dependency on criterion
-# * Allow older asn1 0.22, RHBZ#2402490
-# * Update PyO3 to 0.29, https://github.com/fedora-infra/siguldry/pull/232
 Patch:          siguldry-fix-metadata.diff
 
 ExcludeArch:    %{ix86}

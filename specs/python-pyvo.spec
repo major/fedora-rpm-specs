@@ -20,6 +20,7 @@ Summary:        %{sum}
 License:        BSD-3-Clause
 URL:            https://github.com/astropy/%{srcname}
 Source:        %{pypi_source %{srcname}} 
+Patch:          https://github.com/astropy/pyvo/pull/771.patch
 
 BuildArch:      noarch
 
@@ -40,7 +41,7 @@ Requires:       astropy-tools
 %{desc}
 
 %prep
-%autosetup -n %{srcname}-%{version} 
+%autosetup -p1 -n %{srcname}-%{version} 
 
 %generate_buildrequires
 %pyproject_buildrequires -e %{toxenv}-test

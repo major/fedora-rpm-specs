@@ -8,6 +8,7 @@ Summary:        Python module to access astronomical online data resources
 License:        BSD-3-Clause
 URL:            http://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source}
+Patch0:         astroquery-0.4.11-astropy_helpers-fix-module-loading-for-python-3.15.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

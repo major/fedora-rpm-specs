@@ -1,16 +1,13 @@
-# Upstream removed their tests. 🤔
-%bcond_with     tests
 
 %global         srcname     azure-mgmt-loganalytics
 
 Name:           python-%{srcname}
-Version:        13.0.0~b4
-%global         pypi_version    13.0.0b4
+Version:        13.1.1
 Release:        %autorelease
 Summary:        Microsoft Azure Log Analytics Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
+Source0:        %{pypi_source azure_mgmt_loganalytics %{version}}
 
 BuildArch:      noarch
 
@@ -18,15 +15,6 @@ Epoch:          1
 
 BuildRequires:  python3-devel
 
-%if %{with tests}
-BuildRequires:  python3dist(azure-devtools)
-BuildRequires:  python3dist(azure-mgmt-keyvault)
-BuildRequires:  python3dist(azure-mgmt-resource)
-BuildRequires:  python3dist(azure-sdk-tools)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-aiohttp)
-BuildRequires:  python3dist(python-dotenv)
-%endif
 
 %global _description %{expand:
 Microsoft Azure Log Analytics Management Client Library for Python}
@@ -41,7 +29,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{pypi_version}
+%autosetup -n azure_mgmt_loganalytics-%{version}
 
 
 %generate_buildrequires
@@ -54,16 +42,12 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 
 %check
 %pyproject_check_import
-
-%if %{with tests}
-%pytest
-%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	42.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	LicenseRef-Fedora-Logos
@@ -72,7 +72,9 @@ used as a drop-in replacement for fedora-logos.
 
 %package icewm
 Summary:   Fedora-related icons and pictures for IceWM
+Requires:  system-logos = %{version}-%{release}
 Provides:  system-logos-icewm = %{version}-%{release}
+Obsoletes: fedora-logos < 42.0.1-4
 BuildArch: noarch
 
 %description icewm
@@ -91,6 +93,7 @@ redistribution of this package and its contents.
 
 %package icewm-classic
 Summary:   Classic versions of the Fedora icons and pictures for IceWM
+Obsoletes: fedora-logos-classic < 42.0.1-4
 BuildArch: noarch
 
 %description icewm-classic
@@ -421,6 +424,9 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
 
 %changelog
+* Tue Jun 02 2026 Timothée Ravier <tim@siosm.fr> - 42.0.1-5
+- Add missing obsoletes/requires for the new icewm subpackages
+
 * Fri Mar 20 2026 Timothée Ravier <tim@siosm.fr> - 42.0.1-4
 - Remove KDE 4 Leonidas theme support
 - Replace KDE 4 macros with KF6 ones

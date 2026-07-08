@@ -4,7 +4,7 @@
 %bcond doc 0
 
 Name:           python-pyproject-metadata
-Version:        0.11.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        PEP 621 metadata parsing
 
@@ -49,7 +49,7 @@ Documentation for python3-pyproject-metadata.
 %prep
 %autosetup -n pyproject-metadata-%{version}
 # No need to BuildRequire pytest-cov to run pytest
-sed -i /pytest-cov/d pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
 %if %{with doc}
 # Use local objects.inv for intersphinx

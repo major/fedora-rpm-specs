@@ -1,6 +1,6 @@
 Name:           monit
-Version:        5.35.2
-Release:        3%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Manages and monitors processes, files, directories and devices
 
 # Automatically converted from old format: AGPLv3
@@ -85,6 +85,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/monit.d
 %{_mandir}/man1/monit.1*
 
 %changelog
+* Thu Jul 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0.0-1
+- Update to v6.0.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.35.2-3
 - Rebuilt for openssl 4.0
 

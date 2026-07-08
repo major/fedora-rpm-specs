@@ -11,7 +11,7 @@ new clients.}
 %global with_doc 1
 
 Name:       python-%{pypi_name}
-Version:    5.14.0
+Version:    5.15.0
 Release:    %autorelease
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0

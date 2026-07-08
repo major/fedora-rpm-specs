@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	67%{?dist}
+Release:	68%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -625,6 +625,10 @@ fi
 %endif
 
 %changelog
+* Wed Jul 1 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.12-68
+- Fix default kernel not getting updated when using kernel-uki-dtbloader
+- Resolves: #2463620
+
 * Thu Jun 25 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-67
 - ieee1275/powerpc: implements fibre channel discovery for ofpathname
 

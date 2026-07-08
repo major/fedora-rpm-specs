@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 6.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -125,6 +125,7 @@ KDE and Plasma resources management GUI.
 
 %package libs
 Summary: Runtime libraries for %{name}
+Requires: %{name} = %{version}-%{release}
 %description libs
 %{summary}.
 
@@ -311,6 +312,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Mon Jul 06 2026 renner <renner0@posteo.de> - 6.7.2-2
+- Require main package for -libs
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

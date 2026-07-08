@@ -1,8 +1,7 @@
 Name:           perl-Test-mysqld
 Version:        1.0030
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mysqld runner for tests
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-mysqld
 
@@ -32,7 +31,8 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::SharedFork) >= 0.06
 
 Requires:       perl(DBD::mysql)
-Requires:       mariadb-server
+Requires:       mariadb-server-any
+Recommends:     mariadb-server
 
 %description
 Test::mysqld automatically setups a mysqld instance in a temporary
@@ -59,6 +59,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 
 
 %changelog
+* Mon Jul 06 2026 Denis Fateyev <denis@fateyev.com> - 1.0030-7
+- Use virtual provide for mariadb-server dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0030-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

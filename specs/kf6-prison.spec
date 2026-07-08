@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Summary:	KDE Frameworks 6 Tier 1 barcode library
-Version:	6.27.0
+Version:	6.28.0
 Release:	1%{?dist}
 License:	BSD-3-Clause AND CC0-1.0 AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Jul 04 2026 Steve Cossette <farchord@gmail.com> - 6.28.0-1
+- 6.28.0
+
 * Fri Jun 05 2026 Steve Cossette <farchord@gmail.com> - 6.27.0-1
 - 6.27.0
 

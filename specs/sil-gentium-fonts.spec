@@ -13,7 +13,7 @@ Release:        39%{?dist}
 Summary:        SIL Gentium fonts
 
 License:        OFL-1.1
-URL:            http://scripts.sil.org/Gentium_linux
+URL:            https://software.sil.org/gentium/
 # Source0 can be downloaded from the above URL, search for "tar.gz"
 Source0:        %{archivename}_1.0.2.tar.gz
 Source1:        %{fontname}.metainfo.xml

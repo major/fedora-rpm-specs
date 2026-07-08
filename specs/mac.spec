@@ -1,5 +1,5 @@
 Name:           mac
-Version:        12.73
+Version:        13.18
 Release:        %autorelease
 Summary:        Monkey's Audio Codec
 
@@ -59,7 +59,7 @@ sed -i 's/\r$//' Readme.txt
 %files libs
 %license License.txt
 %doc Readme.txt
-%{_libdir}/libMAC.so.15
+%{_libdir}/libMAC.so.16
 
 %files devel
 %{_includedir}/MAC/

@@ -3,7 +3,7 @@
 
 %global         srcname     knack
 %global         forgeurl    https://github.com/microsoft/knack
-Version:        0.12.0
+Version:        0.14.0
 Epoch:          1
 %global         tag         v%{version}
 %forgemeta
@@ -50,7 +50,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files knack
+%pyproject_save_files -l knack
 
 
 %if %{with tests}

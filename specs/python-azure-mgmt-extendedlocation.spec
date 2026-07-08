@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-extendedlocation
 
 Name:           python-%{srcname}
-Version:        1.0.0b2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Extendedlocation Management Client Library for Python
 License:        MIT

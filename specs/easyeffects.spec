@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        8.2.4
+Version:        8.2.7
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Mon Jul 06 2026 Vasiliy Glazov <vascom2@gmail.com> - 8.2.7-1
+- Update to 8.2.7
+
 * Mon Jun 01 2026 Vasiliy Glazov <vascom2@gmail.com> - 8.2.4-1
 - Update to 8.2.4
 

@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.6
+Version:          0.19.8
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,12 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Mon Jul 06 2026 Packit <hello@packit.dev> - 0.19.8-1
+- preload: Fix libc name on alpha architecture (Thanks Michael Cree!)
+- preload: Check dlopen(libc) failure
+- ioctl: Fix array.resize(0) to work with gcc 16 static analyzer
+- tests: Fix Gentoo tests, re-enable them in CI
+
 * Sun Mar 22 2026 Packit <hello@packit.dev> - 0.19.6-1
 - preload: Reinitialize mutexes after forking. (Thanks Daniel van Vugt) (LP: #2144723)
 

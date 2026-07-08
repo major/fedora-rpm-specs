@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global srcname astropy
-%global srcversion 8.0.0
+%global srcversion 8.0.1
 
 Name: python-%{srcname}
 Version: %{srcversion}
@@ -17,12 +17,12 @@ Source: astropy-README.dist
 # Please, do not change the compilation flags
 Patch: restore-compilation-flags.patch
 Patch: python-astropy-system-configobj.patch
-Patch: python-astropy-system-ply.patch
 Patch: fix-doctest.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel
-BuildRequires: wcslib-devel >= 8.4
+# Not unbundled
+#BuildRequires: wcslib-devel >= 8.6
 BuildRequires: python3-devel
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -49,21 +49,15 @@ BuildRequires: %{py3_dist h5py}
 BuildRequires: %{py3_dist scikit-image}
 # Unbundled
 BuildRequires: %{py3_dist configobj}
-BuildRequires: %{py3_dist ply}
 Requires: %{py3_dist configobj}
-Requires: %{py3_dist ply}
 # Bundled
 Provides: bundled(cfitsio) = 4.6.3
 Provides: bundled(jquery) = 3.60
 Provides: bundled(wcslib) = 8.6
-
-# Drop doc subpackage, is empty 
+Provides: bundled(python-ply) = 3.11
 
 %description -n python3-%{srcname}
 %_description
-
-Provides: python3-%{srcname}-doc = %{version}-%{release}
-Obsoletes: python3-%{srcname}-doc < 6.0.1-1
 
 %package -n %{srcname}-tools
 Summary: Astropy utility tools
@@ -76,7 +70,6 @@ Utilities provided by Astropy.
 %prep
 %autosetup -n %{srcname}-%{srcversion} -p1
 rm -rf astropy/extern/configobj
-rm -rf astropy/extern/ply
 rm -rf cextern/expat
 # The buils system requires a subset of the header files
 # cel.h, lin.h, prj.h, spc.h, spx.h, tab.h, wcs.h, 
@@ -86,7 +79,6 @@ rm -rf cextern/expat
 # Apparently, --current-env doesn't like {list_dependencies_command}
 sed -i 's/{list_dependencies_command}/python -m pip freeze --all/g' tox.ini
 
-#export ASTROPY_USE_SYSTEM_ALL=1
 export ASTROPY_USE_SYSTEM_ERFA=1
 export ASTROPY_USE_SYSTEM_EXPAT=1
 #export ASTROPY_USE_SYSTEM_WCSLIB=1
@@ -98,17 +90,17 @@ export ASTROPY_USE_SYSTEM_EXPAT=1
 %endif
 
 %build
-#export ASTROPY_USE_SYSTEM_ALL=1
 export ASTROPY_USE_SYSTEM_ERFA=1
 export ASTROPY_USE_SYSTEM_EXPAT=1
+#export ASTROPY_USE_SYSTEM_WCSLIB=1
 # Search for headers in subdirs
 #export CPATH="/usr/include/wcslib"
 %pyproject_wheel
 
 %install
-#export ASTROPY_USE_SYSTEM_ALL=1
 export ASTROPY_USE_SYSTEM_ERFA=1
 export ASTROPY_USE_SYSTEM_EXPAT=1
+#export ASTROPY_USE_SYSTEM_WCSLIB=1
 # Search for headers in subdirs
 #export CPATH="/usr/include/wcslib"
 %pyproject_install

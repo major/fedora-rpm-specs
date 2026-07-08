@@ -15,6 +15,8 @@ Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# Drop if upstream ever releases a modern version
+BuildRequires:  python3dist(six)
 
 # NOTE(mhayden): Made an error with 2.1.0b2 and didn't use the tilde in the
 # version number. This broke the update to b5. BZ 2165622.
@@ -38,6 +40,8 @@ Microsoft Azure Synapse Management Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# Drop if upstream ever releases a modern version
+Requires:  python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 

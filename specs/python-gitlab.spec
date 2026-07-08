@@ -13,22 +13,33 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+
 %description
 Interact with GitLab API
+
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
+
 %description -n python3-%{pypi_name}
 Interact with GitLab API
+
 
 %package -n python-%{pypi_name}-doc
 Summary:        Python gitlab documentation
 %description -n python-%{pypi_name}-doc
 Documentation for gitlab
 
+
+%pyproject_extras_subpkg -n python3-%{pypi_name} yaml graphql autocompletion
+
+
 %prep
 %autosetup -p1 -n python_%{pypi_name}-%{version}
+
+# https://github.com/python-gitlab/python-gitlab/pull/3411
+sed -i 's/argcomplete>=1.10.0,<3/argcomplete>=1.10.0,<4/' pyproject.toml
 
 # Relax some dependencies
 sed -i 's/pytest==9.*/pytest>=8.4.2,<10/'              requirements-lint.txt requirements-test.txt
@@ -40,15 +51,16 @@ sed -i 's/anyio==4.*/anyio>=4.0.0,<5.0/'               requirements-test.txt
 sed -i 's/requests==2.*/requests>=2.32.0,<3.0/'        requirements.txt
 
 # not available in rawhide 11 Aug 2022
-sed -i 's/pytest-console-scripts.*//'                  requirements-test.txt
 sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 
 # coverage disabled
 sed -i 's/pytest-cov.*//'                              requirements-test.txt
 sed -i 's/coverage.*//'                                requirements-test.txt
 
+
 %generate_buildrequires
 %pyproject_buildrequires -t
+
 
 %build
 %pyproject_wheel
@@ -56,14 +68,17 @@ sed -i 's/coverage.*//'                                requirements-test.txt
 
 %install
 %pyproject_install
-%pyproject_save_files gitlab
+%pyproject_save_files -l gitlab
+
 
 %check
 %tox
 
+
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %{_bindir}/gitlab
-%doc README.rst
+%doc README.rst CHANGELOG.md
+
 
 %changelog
 %autochangelog

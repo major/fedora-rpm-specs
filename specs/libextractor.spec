@@ -2,7 +2,7 @@
 %global gtkver      3
 
 Name:           libextractor
-Version:        1.16
+Version:        1.17
 Release:        %autorelease
 Summary:        Simple library for keyword extraction
 

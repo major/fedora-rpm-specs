@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-managementgroups
 
 Name:           python-%{srcname}
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Management Groups Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source azure_mgmt_managementgroups %{version}}
 
 BuildArch:      noarch
 
@@ -40,7 +40,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_mgmt_managementgroups-%{version}
 
 
 %generate_buildrequires
@@ -53,7 +53,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

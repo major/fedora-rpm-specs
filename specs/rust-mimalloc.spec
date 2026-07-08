@@ -5,7 +5,7 @@
 %global crate mimalloc
 
 Name:           rust-mimalloc
-Version:        0.1.50
+Version:        0.1.52
 Release:        %autorelease
 Summary:        Performance and security oriented drop-in allocator
 
@@ -140,6 +140,18 @@ This package contains library source intended for building other packages which
 use the "v2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+win_direct_tls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+win_direct_tls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "win_direct_tls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+win_direct_tls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

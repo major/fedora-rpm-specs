@@ -9,17 +9,17 @@
 
 # Dependency versions if different to this package version
 %global depver_bzip2 2.218
-#global depver_zlib  2.222
+%global depver_zlib  2.222
 
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.222
+Version:        2.223
 Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress
-Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Compress-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMQS/IO-Compress-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -212,6 +212,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.223-1
+- 2.223 bump (rhbz#2497019)
+
 * Fri Jul  3 2026 Paul Howarth <paul@city-fan.org> - 2.222-1
 - 2.222 bump (rhbz#2496861)
 - Split depver macro into depver_bzip2 and depver_zlib

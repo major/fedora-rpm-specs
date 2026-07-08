@@ -12,7 +12,7 @@ License:        BSD-3-Clause
 URL:            https://crates.io/crates/rpki
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * allow quick-xml 0.40
+# * allow quick-xml 0.40 and 0.41
 Patch:          rpki-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

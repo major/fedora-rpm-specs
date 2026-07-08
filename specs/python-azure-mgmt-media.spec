@@ -16,6 +16,8 @@ BuildArch:      noarch
 Epoch:          1
 
 BuildRequires:  python3-devel
+# Drop if upstream ever releases a modern version
+BuildRequires:  python3dist(six)
 
 %if %{with tests}
 BuildRequires:  python3-azure-sdk-tools
@@ -35,6 +37,8 @@ Microsoft Azure Media Services Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# Drop if upstream ever releases a modern version
+Requires:  python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 

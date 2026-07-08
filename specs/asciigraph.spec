@@ -3,7 +3,7 @@
 
 # https://github.com/guptarohit/asciigraph
 %global goipath         github.com/guptarohit/asciigraph
-Version:                0.7.3
+Version:                0.10.0
 
 %gometa
 

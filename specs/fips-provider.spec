@@ -3,7 +3,7 @@
 # Enable gpg signature verification by default
 %bcond gpgcheck 1
 
-%global osslver 4.0.0-beta1
+%global osslver 4.0.1
 
 %global features fips,nssdb,ossl400
 
@@ -22,7 +22,7 @@ print(string.sub(hash, 0, 16))
 }
 
 Name:           fips-provider
-Version:        1.5.0
+Version:        1.5.2
 Release:        %autorelease
 Summary:        A FIPS provider built from the Kryoptic project
 
@@ -49,10 +49,6 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 Source3:        https://github.com/openssl/openssl/releases/download/openssl-%{osslver}/openssl-%{osslver}.tar.gz
 Source4:        fips-hmacify.sh
 
-Patch101:       0001-Re-enable-FIPS-security-checks.patch
-Patch102:       0001-Zeroize-sensitive-memory-in-TLS-KDF.patch
-Patch103:       0001-Use-libc-getrandom-for-GRND_RANDOM-flag.patch
-Patch104:       0001-Update-RSA-test-vectors-for-FIPS-compliance.patch
 Patch105:       0001-Remove-bundled-rusqlite-from-fips-feature.patch
 Patch200:       openssl-%{osslver}-kryoptic.patch
 
@@ -87,11 +83,14 @@ as well as a PKCS#11 software token.
 %if %{with gpgcheck}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
+
 # Preps kryoptic
 %setup -n kryoptic-%{version} -q
 %autopatch -p1 -M 199
 %cargo_prep
 %setup -n kryoptic-%{version} -q -T -D -a 3
+
+# Preps openssl
 pushd openssl-%{osslver}
 %autopatch -p1 -m 200
 

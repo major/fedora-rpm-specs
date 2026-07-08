@@ -5,7 +5,7 @@
 %global crate libheif-rs
 
 Name:           rust-libheif-rs
-Version:        2.6.1
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Safe wrapper around the libheif-sys crate for parsing heif/heic files
 

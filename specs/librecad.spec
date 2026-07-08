@@ -7,11 +7,11 @@
 %global commit d1ca469c96f039357e42580205e2f05acfb89e44
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global dxfrw_includedir %(%___build_pre; pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
+%global dxfrw_includedir %(%___build_pre_env; pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
 
 Name:			librecad
 Version:		2.2.1.4
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPL-2.0-only AND GPL-2.0-or-later
 URL:			http://librecad.org/
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.2.1.4-2
+- RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
+
 * Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 2.2.1.4-1
 - update to 2.2.1.4
 

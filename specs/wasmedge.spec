@@ -1,4 +1,4 @@
-%global version 0.17.0
+%global version 0.17.1
 %global reponame WasmEdge
 %global capi_soname 0
 %global capi_version 0.1.1

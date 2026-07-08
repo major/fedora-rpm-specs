@@ -15,6 +15,8 @@ BuildArch:      noarch
 
 
 BuildRequires:  python3-devel
+# Drop if this package ever releases an update
+BuildRequires:  python3dist(six)
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -38,6 +40,8 @@ Microsoft Azure IoTHub Provisioning Services Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+# Drop if this package ever releases an update
+Requires:       python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 

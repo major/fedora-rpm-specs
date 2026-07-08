@@ -1,27 +1,28 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
 Source0:    https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
-#The KDE Logo is under a LGPL license (no version statement)
-# Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
-License:    GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+
+License:    GPL-2.0-only
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
 Obsoletes:  generic-logos < 17.0.0-5
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
+# Fake provide as we don't have generic logos for icewm
+# See: https://src.fedoraproject.org/rpms/fedora-logos/pull-request/13
+Provides:   system-logos-icewm = %{version}-%{release}
 
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
 BuildRequires: make
 BuildRequires: fdupes
-# For _kde4_* macros:
-BuildRequires: kde4-filesystem
+# For _kf6_datadir macro
+BuildRequires: kf6-rpm-macros
 # For generating the EFI icon
 BuildRequires: libicns-utils
 Requires(post): coreutils
@@ -38,7 +39,7 @@ Summary: Fedora-related icons and pictures used by httpd
 Provides: system-logos-httpd = %{version}-%{release}
 Provides: system-logos(httpd-logo-ng)
 Conflicts: fedora-logos-httpd
-Obsoletes:  generic-logos < 17.0.0-5
+Obsoletes: generic-logos < 17.0.0-5
 BuildArch: noarch
 
 %description httpd
@@ -83,10 +84,8 @@ for size in scalable ; do
   install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/fedora-logo-icon.svg
 done
 
-mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
-mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
-install -p -m 644 ksplash/SolarComet-kde.png %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
+mkdir -p %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
 
 mkdir -p %{buildroot}%{_datadir}/plymouth/themes/charge/
 for i in plymouth/charge/* ; do
@@ -97,7 +96,7 @@ done
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+install -p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/start-here.svg
 
@@ -111,37 +110,8 @@ popd
 # save some dup'd icons
 %fdupes %{buildroot}/
 
-%post
-touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kde4_iconsdir}/oxygen ||:
-
-%postun
-if [ $1 -eq 0 ] ; then
-touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kde4_iconsdir}/oxygen ||:
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  if [ -f %{_datadir}/icons/hicolor/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-  fi
-  if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
-  fi
-fi
-fi
-
-%posttrans
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
-  fi
-  if [ -f %{_kde4_iconsdir}/oxygen/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/oxygen/index.theme || :
-  fi
-fi
-
-
 %files
-%license COPYING COPYING-kde-logo
+%license COPYING
 %doc README
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/boot/*
@@ -151,14 +121,19 @@ fi
 %{_datadir}/pixmaps/*
 %exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/plymouth/themes/charge/*
-%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
-%{_kde4_iconsdir}/oxygen/
+%{_kf6_datadir}/oxygen/
 
 %files httpd
 %license COPYING
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Tue May 19 2026 Timothée Ravier <tim@siosm.fr> - 18.0.0-28
+- Remove KDE 4 Leonidas theme support
+- Replace KDE 4 macros with KF6 ones
+- Drop obsolete scriptlets (replaced by file triggers now)
+- Add "fake" Provides for system-logos-icewm
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

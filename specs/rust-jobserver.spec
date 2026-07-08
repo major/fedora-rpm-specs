@@ -5,7 +5,7 @@
 %global crate jobserver
 
 Name:           rust-jobserver
-Version:        0.1.34
+Version:        0.1.35
 Release:        %autorelease
 Summary:        Implementation of the GNU Make jobserver for Rust
 
@@ -14,10 +14,6 @@ URL:            https://crates.io/crates/jobserver
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          jobserver-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * bump nix dev-dependency from v0.28 to v0.31:
-#   https://github.com/rust-lang/jobserver-rs/pull/118
-Patch:          jobserver-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

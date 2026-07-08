@@ -1,7 +1,7 @@
 %global rdnn de.danielnoethen.butt
 
 Name:           butt
-Version:        1.46.0
+Version:        1.47.0
 Release:        %autorelease
 Summary:        Broadcast using this tool
 # Entire source code is GPL-2.0-or-later except:
@@ -43,6 +43,8 @@ BuildRequires:  make
 
 Requires:       hicolor-icon-theme
 
+Provides:       bundled(cjson)
+
 
 %description
 butt (broadcast using this tool) is an easy to use, multi OS streaming tool.
@@ -57,9 +59,12 @@ files.
 %autosetup -p 1
 
 
-%build
+%conf
 autoreconf -ifv
 %configure
+
+
+%build
 %make_build
 
 

@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 # Architectures that have libquadmath
 %ifarch %{x86_64} %{power64}
 %global quadmath 1
@@ -8,7 +11,7 @@
 %global giturl  https://github.com/scipopt/soplex
 
 Name:           soplex
-Version:        8.0.2
+Version:        8.0.3
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
@@ -25,9 +28,12 @@ Patch:          %{name}-unbundle-zstr.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DMPFR:BOOL=ON
+BuildOption(conf): -DPAPILO:BOOL=ON
+BuildOption(conf): -DQUADMATH:BOOL=%{?quadmath:ON}%{!?quadmath:OFF}
 
 BuildRequires:  boost-devel
-BuildRequires:  cmake
 BuildRequires:  cmake(papilo)
 BuildRequires:  cmake(tbb)
 BuildRequires:  gcc-c++
@@ -116,7 +122,6 @@ API documentation for libsoplex.
 %prep
 %autosetup -p1
 
-%conf
 # We want to know about overflow errors, as the compiler can do surprising
 # things if we don't fix them!
 sed -i 's/ -Wno-strict-overflow//' CMakeLists.txt Makefile
@@ -127,13 +132,7 @@ sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/soplex.dxy
 # Ensure the bundled copy of zstr is not used
 rm -fr src/soplex/external/zstr
 
-%build
-%cmake \
-  -DMPFR:BOOL=ON \
-  -DPAPILO:BOOL=ON \
-  -DQUADMATH:BOOL=%{?quadmath:ON}%{!?quadmath:OFF}
-%cmake_build
-
+%build -a
 # Build documentation
 cd doc
 ../%{_vpath_builddir}/bin/soplex --saveset=parameters.set
@@ -144,9 +143,7 @@ cd ..
 doxygen soplex.dxy
 cd ..
 
-%install
-%cmake_install
-
+%install -a
 # We install license files elsewhere
 rm -fr %{buildroot}%{_defaultlicensedir}
 
@@ -154,9 +151,8 @@ rm -fr %{buildroot}%{_defaultlicensedir}
 sed -i 's/papilo;/papilo-core;/' \
     %{buildroot}%{_libdir}/cmake/soplex/soplex-targets.cmake
 
-%check
+%check -p
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-%ctest
 
 %files
 %{_bindir}/soplex

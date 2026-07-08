@@ -1,8 +1,8 @@
 %global __requires_exclude .*BugzillaClient.*
 
 Name:           vym
-Version:        2.9.26
-Release:        6%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        View your mind
 
 License:        GPL-2.0-or-later
@@ -18,9 +18,15 @@ Source6:	vym-logo-new-32.png
 Source7:	vym-logo-new-48.png
 Source8:	vym-logo-new-256.png
 
-BuildRequires:  make cmake
-BuildRequires:  qt5-qtbase-devel qt5-qtsvg-devel libXext-devel desktop-file-utils
-BuildRequires:  qt5-qtscript-devel qt5-linguist
+BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  libXext-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  dbus-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qttools-devel
 
 %{?filter_setup:
 %filter_from_requires /^perl(BugzillaClient)$/d
@@ -99,6 +105,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Mon Jul 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
+- 3.0.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.26-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

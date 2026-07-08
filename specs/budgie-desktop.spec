@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -228,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Mon Jul 06 2026 Maxwell G <maxwell@gtmx.me> - 10.10.2-2
+- Rebuild for new gnome-desktop4
+
 * Sat Mar 07 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-1
 - Update to 10.10.2 stable
 

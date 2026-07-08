@@ -3,45 +3,40 @@ Version:        0.14.0
 Release:        %autorelease
 Summary:        Python bindings to Rust's UUID library
 
-# main package is BSD-3-Clause
-# from LICENSE.dependencies
-# Apache-2.0 OR MIT: atomic v0.6.1 
-# Apache-2.0 OR MIT: uuid v1.19.0
-# BSD-2-Clause OR Apache-2.0 OR MIT: zerocopy v0.8.31
-# BSD-3-Clause: sha1_smol v1.0.1
-# BSD3: fastuuid v0.14.0
-# MIT OR Apache-2.0: block-buffer v0.10.4
-# MIT OR Apache-2.0: cfg-if v1.0.4
-# MIT OR Apache-2.0: crypto-common v0.1.7
-# MIT OR Apache-2.0: digest v0.10.7
-# MIT OR Apache-2.0: getrandom v0.2.16
-# MIT OR Apache-2.0: getrandom v0.3.4
-# MIT OR Apache-2.0: libc v0.2.180
-# MIT OR Apache-2.0: md-5 v0.10.6
-# MIT OR Apache-2.0: once_cell v1.21.3
-# MIT OR Apache-2.0: ppv-lite86 v0.2.21
-# MIT OR Apache-2.0: pyo3 v0.26.0
-# MIT OR Apache-2.0: pyo3-ffi v0.26.0
-# MIT OR Apache-2.0: rand v0.8.5
-# MIT OR Apache-2.0: rand_chacha v0.3.1
-# MIT OR Apache-2.0: rand_core v0.6.4
-# MIT OR Apache-2.0: typenum v1.19.0
-# MIT OR Apache-2.0: unindent v0.2.4
-# MIT: generic-array v0.14.9
-# MIT: memoffset v0.9.1
-# Zlib OR Apache-2.0 OR MIT: bytemuck v1.24.0
+# main package is BSD-3-Clause; statically-linked Rust dependencies are, from
+# the output of %%{cargo_license_summary}:
+#
+# Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# MIT
+# MIT OR Apache-2.0
+# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
         BSD-3-Clause AND
         (Apache-2.0 OR MIT) AND
         (BSD-2-Clause OR Apache-2.0 OR MIT) AND
         BSD-3-Clause AND
-        (MIT OR Apache-2.0) AND
         MIT AND
         (Zlib OR Apache-2.0 OR MIT)
 }
+# LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/thedrow/fastuuid/
 Source:         %{pypi_source fastuuid}
+
+# Adapt for `uuid::Context` renaming in v1.23
+# https://github.com/fastuuid/fastuuid/pull/66
+# Avoids a warning.
+Patch:          %{url}/pull/66.patch
+# Update Pyo3 from 0.26 to 0.29
+# https://github.com/fastuuid/fastuuid/pull/67
+# Fixes RUSTSEC-2026-0176 and RUSTSEC-2026-0177.
+Patch:          %{url}/pull/67.patch
+# Fix invalid SPDX in license metadata
+# https://github.com/fastuuid/fastuuid/pull/68
+# Fixes RUSTSEC-2026-0176 and RUSTSEC-2026-0177.
+Patch:          %{url}/pull/68.patch
 
 BuildSystem:    pyproject
 BuildOption(install):  -l fastuuid

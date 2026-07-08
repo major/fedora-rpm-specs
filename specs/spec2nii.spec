@@ -15,7 +15,7 @@
 # seems to consider the command-line tool to be the primary interface, so we
 # use application naming guidelines.
 Name:           spec2nii
-Version:        0.8.13
+Version:        0.8.14
 Release:        %autorelease
 Summary:        Multi-format in vivo MR spectroscopy conversion to NIFTI
 
@@ -70,10 +70,6 @@ Source116:      spec2nii-dump.1
 Source117:      spec2nii-extract.1
 Source118:      spec2nii-insert.1
 Source119:      spec2nii-clean.1
-
-# Allow textual version 8
-# https://github.com/wtclarke/spec2nii/pull/197
-Patch:          %{url}/pull/197.patch
 
 # The package is arched because a dependency is removed on s390x only. It does
 # not contain any compiled code.

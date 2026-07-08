@@ -1,7 +1,7 @@
 %global	mainver		1.19.4
 #%%global	prever		.rc4
 
-%global	baserelease		1
+%global	baserelease		2
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -298,9 +298,12 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Mon Jul 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-2
+- Bump release
+
 * Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-1
 - 1.19.4
-- Fixes CVE-2026-57438 https://github.com/sparklemotion/nokogiri/pull/3642
+- Fixes CVE-2026-57434 CVE-2026-57435 CVE-2026-57436 CVE-2026-57437 CVE-2026-57438
 
 * Wed Jun 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.3-2
 - Execute gumbo testsuite

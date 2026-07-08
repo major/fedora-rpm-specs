@@ -11,14 +11,18 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        33.0.4
-%global cpp_soversion 33
+Version:        34.0.1
+%global cpp_soversion 34
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
 
 License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
+
+# cpp: Find dependencies when not using CPM to download them
+# https://github.com/cucumber/messages/pull/478
+Patch:          %{url}/pull/478.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -132,7 +136,9 @@ BuildArch: noarch
 
 %conf
 pushd cpp
-%cmake
+%cmake \
+    -DCUCUMBER_MESSAGES_BUILD_TESTS:BOOL=ON \
+    -DCUCUMBER_MESSAGES_FETCH_DEPS:BOOL=OFF
 popd
 
 

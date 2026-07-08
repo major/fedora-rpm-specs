@@ -2,7 +2,7 @@
 %global commit a5fbde82fd5ac017c9ef3c1a0bfdab46fe338d4c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global plugin_dir %(%___build_pre; pkg-config --variable=plugin_dir audacious)
+%global plugin_dir %(%___build_pre_env; pkg-config --variable=plugin_dir audacious)
 
 %global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/libaudcore/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
 %if 0%{aud_plugin_api} > 0
@@ -12,7 +12,7 @@
 
 Name: xmp-plugin-audacious
 Version: 4.0.0.3.8
-Release: 0.9.20250909git%{shortcommit}%{?dist}
+Release: 0.10.20250909git%{shortcommit}%{?dist}
 Summary: Multi-format module playback plugin for Audacious using libxmp
 Source: https://github.com/mschwendt/xmp-plugin-audacious/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 License: GPL-2.0-or-later
@@ -70,6 +70,9 @@ make install DESTDIR=%{buildroot}
 #exclude %%{plugin_dir}/Input/*.la
 
 %changelog
+* Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 4.0.0.3.8-0.10.20250909gita5fbde8
+- RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
+
 * Sun Jun 07 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.0.0.3.8-0.9.20250909gita5fbde8
 - Rebuilt for Audacious 4.6.1 SONAMEs and plugin API version change
 

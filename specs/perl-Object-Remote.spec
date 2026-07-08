@@ -1,10 +1,10 @@
 Name:           perl-Object-Remote
-Version:        0.004004
-Release:        5%{?dist}
+Version:        0.005001
+Release:        1%{?dist}
 Summary:        Call methods on objects in other processes or on other hosts
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Remote
-Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Object-Remote-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/EH/EHUELS/Object-Remote-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -51,6 +51,7 @@ BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Tie::Handle)
 BuildRequires:  perl(Time::HiRes)
 # Tests
+BuildRequires:  perl(Errno)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
@@ -145,6 +146,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.005001-1
+- 0.005001 bump (rhbz#2497056)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004004-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

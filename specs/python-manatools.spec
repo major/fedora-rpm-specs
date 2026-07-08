@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.99.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 License:        LGPL-2.1-or-later
@@ -10,6 +10,8 @@ URL:            https://github.com/manatools/python-manatools
 Source0:        https://github.com/manatools/python-manatools/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+BuildRequires:  gettext
 
 %description
 Python ManaTools aim is to help in writing tools to be collected
@@ -21,8 +23,8 @@ Every output module supports the Qt, GTK, and ncurses interfaces.
 Summary:        %{summary}
 BuildRequires:  python3-devel
 %{?python_provide:%python_provide python3-%{module}}
-Recommends:     (python3dist(python-%{name}[qt]) if qt6-qtbase-gui)
-Recommends:     (python3dist(python-%{name}[gtk]) if gtk4)
+Recommends:     (python3dist(python-%{module}[qt]) if qt6-qtbase-gui)
+Recommends:     (python3dist(python-%{module}[gtk]) if gtk4)
 
 %description -n python3-%{module}
 Python ManaTools aim is to help in writing tools to be collected
@@ -44,14 +46,30 @@ Every output module supports the Qt, GTK, and ncurses interfaces.
 
 %install
 %pyproject_install
+%pyproject_save_files %{module}
 
-%files -n python3-%{module}
+mkdir -p %{buildroot}%{_datadir}/locale
+tools/po-compile.sh -d %{buildroot}%{_datadir}/locale
+%find_lang %{name}
+install -Dpm 0644 share/images/manatools.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/manatools.svg
+install -Dpm 0644 share/images/manatools.png %{buildroot}%{_datadir}/pixmaps/manatools.png
+
+
+%files -n python3-%{module} -f %{pyproject_files} -f %{name}.lang
 %doc README.md NEWS
 %license LICENSE
-%{python3_sitelib}/%{module}/
-%{python3_sitelib}/python_manatools-%{version}.dist-info/
+%{_datadir}/icons/hicolor/scalable/apps/manatools.svg
+%{_datadir}/pixmaps/manatools.png
+
 
 %changelog
+* Mon Jul 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-4
+- Fix up file lists to use pyproject generated lists
+- Build and install translations
+
+* Mon Jul 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-3
+- Fix weak dependency on qt/gtk extras
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.99.2-2
 - Rebuilt for Python 3.15
 

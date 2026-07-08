@@ -65,7 +65,7 @@
 # Build vfs_ceph module and ctdb cepth mutex helper by default on 64bit Fedora
 %if 0%{?fedora}
 
-%ifarch aarch64 ppc64le s390x x86_64 riscv64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64 loongarch64
 %bcond vfs_cephfs 1
 %bcond ceph_mutex 1
 %else
@@ -82,7 +82,7 @@
 
 %if 0%{?fedora}
 
-%ifarch aarch64 ppc64le s390x x86_64 riscv64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64 loongarch64
 %bcond vfs_glusterfs 1
 %else
 %bcond vfs_glusterfs 0
@@ -93,7 +93,7 @@
 %endif
 
 # Build vfs_io_uring module by default on 64bit Fedora
-%ifarch aarch64 ppc64le s390x x86_64 riscv64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64 loongarch64
 %bcond vfs_io_uring 1
 %else
 %bcond vfs_io_uring 0
@@ -125,7 +125,7 @@
 %bcond prometheus 0
 %endif
 
-%ifarch aarch64 ppc64le s390x x86_64 riscv64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64 loongarch64
 %bcond lmdb 1
 %else
 %bcond lmdb 0

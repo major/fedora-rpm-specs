@@ -25,6 +25,7 @@ Recommends: %{name}-info%{?_isa} = %{version}-%{release}
 Source0:         https://download.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
 
 Patch0: cifs.upcall-fix-compiler-warning-with-Wvla.patch
+Patch1: cifs.upcall-fix-regression-with-krb5-creduid.patch
 
 %description
 The SMB/CIFS protocol is a standard file sharing protocol widely deployed

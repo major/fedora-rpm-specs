@@ -14,13 +14,12 @@ Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-%{version}/icu4c-%{version}-sources.tgz
+Source0:   https://github.com/unicode-org/icu/archive/refs/tags/release-%{version}.tar.gz
 %if 0%{?use_tzdata_update}
-Source1:   https://github.com/unicode-org/icu/releases/download/release-%{version}/icu4c-%{version}-data.zip
-Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/metaZones.txt
-Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/timezoneTypes.txt
-Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/windowsZones.txt
-Source5:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/zoneinfo64.txt
+Source1:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/metaZones.txt
+Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/timezoneTypes.txt
+Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/windowsZones.txt
+Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2026b/44/zoneinfo64.txt
 %endif
 Source10:   icu-config.sh
 
@@ -73,17 +72,15 @@ BuildArch: noarch
 
 
 %prep
-%autosetup -p1 -n icu
+%autosetup -p1 -n icu-release-%{version}
 %if 0%{?use_tzdata_update}
-pushd source
-unzip -o %{SOURCE1}
-rm -f data/in/icudt*l.dat
-cp -v -f %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} data/misc
+pushd icu4c/source
+cp -v -f %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} data/misc
 popd
 %endif
 
 %build
-pushd source
+pushd icu4c/source
 autoconf
 CFLAGS='%optflags -fno-strict-aliasing'
 CXXFLAGS='%optflags -fno-strict-aliasing'
@@ -119,7 +116,7 @@ sed -i -r 's|(PKGDATA_OPTS = )|\1-v |' data/Makefile
 
 %install
 #rm -rf source/doc
-%make_install %{?_smp_mflags} -C source
+%make_install %{?_smp_mflags} -C icu4c/source
 chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 (
  cd $RPM_BUILD_ROOT%{_bindir}
@@ -130,18 +127,18 @@ install -p -m755 -D %{SOURCE10} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
 %check
 # test to ensure that -j(X>1) didn't "break" man pages. b.f.u #2357
-if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
+if grep -q @VERSION@ icu4c/source/tools/*/*.8 icu4c/source/tools/*/*.1 icu4c/source/config/*.1; then
     exit 1
 fi
-%make_build -C source check
+%make_build -C icu4c/source check
 
 # log available codes
-pushd source
+pushd icu4c/source
 LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %files
-%license license.html
+%license icu4c/license.html
 %exclude %{_datadir}/%{name}/*/LICENSE
 %{_bindir}/derb
 %{_bindir}/genbrk
@@ -173,12 +170,12 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 %files -n lib%{name}
 %license LICENSE
-%doc readme.html
+%doc icu4c/readme.html
 %{_libdir}/*.so.*
 
 %files -n lib%{name}-devel
 %license LICENSE
-%doc source/samples/
+%doc icu4c/source/samples/
 %{_bindir}/%{name}-config*
 %{_bindir}/icuinfo
 %{_mandir}/man1/%{name}-config.1*
@@ -195,8 +192,8 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 %files -n lib%{name}-doc
 %license LICENSE
-%doc readme.html
-%doc source/doc/html/*
+%doc icu4c/readme.html
+%doc icu4c/source/doc/html/*
 
 
 %changelog

@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit 91e07e8c58b9eba4be507d6f2d125d5424295e2e
+%global nscl_commit 35a17152b4d8fa38446d4b3ff99022e3d14aea41
 
 Name:           mozilla-noscript
-Version:        13.6.25
+Version:        13.6.28
 Release:        %autorelease
 Summary:        JavaScript white list extension for Mozilla Firefox
 

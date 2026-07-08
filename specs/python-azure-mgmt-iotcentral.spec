@@ -18,6 +18,7 @@ BuildArch:      noarch
 Epoch:          2
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(six)
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -36,6 +37,7 @@ Microsoft Azure IoTCentral Management Client Library for Python}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+Requires:       python3dist(six)
 
 %description -n python3-%{srcname} %{_description}
 

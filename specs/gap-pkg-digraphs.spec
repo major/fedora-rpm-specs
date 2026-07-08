@@ -2,7 +2,7 @@
 %global giturl      https://github.com/digraphs/Digraphs
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 
@@ -32,6 +32,7 @@ BuildRequires:  gap-devel >= 4.11.0
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  pkgconfig(libplanarity)
+BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
 
 Requires:       gap(datastructures) >= 0.2.5
@@ -77,7 +78,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %conf
 # Make sure the bundled planarity is not used
-rm -fr extern/edge-addition-planarity-suite-Version_4.0.0.0
+rm -fr extern/edge-addition-planarity-suite-Version_5.0.0.0
 
 %build -p
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules \

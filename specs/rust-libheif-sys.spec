@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libheif-sys
-%global crate_version 5.1.1+1.21.2
+%global crate_version 5.2.0+1.21.2
 
 Name:           rust-libheif-sys
-Version:        5.1.1
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Libheif bindings
 

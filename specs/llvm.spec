@@ -232,13 +232,9 @@ end
 %endif
 %endif
 
-
-%if 0%{?rhel} == 8
-# RHEL8 still builds with gcc + ld.bfd.
-%bcond_with use_lld
-%else
+# Use LLD instead of the system linker by default.
+# This is required if PGO is enabled.
 %bcond_without use_lld
-%endif
 
 %if %{with pgo} && %{without use_lld}
 %{error:PGO requires --with=lld}

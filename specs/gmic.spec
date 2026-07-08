@@ -1,4 +1,4 @@
-%global gimpplugindir %(%___build_pre; gimptool --gimpplugindir)/plug-ins
+%global gimpplugindir %(%___build_pre_env; gimptool --gimpplugindir)/plug-ins
 
 %global use_system_cimg 1
 

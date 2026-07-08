@@ -4,12 +4,17 @@
 
 Name:           python-slixmpp
 Version:        1.13.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
 URL:            https://codeberg.org/poezio/%{srcname}
 Source0:        %{pypi_source slixmpp}
+
+# Update PyO3 to 0.29
+# Addresses RUSTSEC-2026-0176 and RUSTSEC-2026-0177.
+# https://codeberg.org/poezio/slixmpp/pulls/3778
+Patch:          slixmpp-1.13.2-pyo3-0.29.patch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -76,7 +81,7 @@ This package contains documentation in docbook format.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -125,6 +130,9 @@ install -pDm0644 docs/texinfo/slixmpp.xml \
 
 
 %changelog
+* Sun Jul 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.13.2-3
+- Update PyO3 to 0.29
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.13.2-2
 - Rebuilt for Python 3.15
 
