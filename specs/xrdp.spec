@@ -22,8 +22,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.10.6
-Release:   3%{?dist}
+Version:   0.10.6.1
+Release:   1%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -38,14 +38,13 @@ Source7:   xrdp-polkit-1.rules
 Source8:   %{name}-tmpfiles.conf
 Source9:   %{name}.sysusers
 Patch0:    xrdp-0.10.2-sesman.patch
-Patch1:    xrdp-0.10.3-xrdp-ini.patch
 Patch2:    xrdp-0.10.1-service.patch
 Patch3:    xrdp-0.10.0-scripts-libexec.patch
 Patch4:    xrdp-0.9.6-script-interpreter.patch
 Patch5:    xrdp-0.9.16-arch.patch
 Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
-Patch8:    xrdp-0.10.6-sesman-ini.patch
+Patch8:    xrdp-0.10.5-sesman-ini.patch
 %endif
 
 BuildRequires: make
@@ -351,6 +350,12 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Tue Jul 07 2026 Bojan Smojver <bojan@rexursive.com> - 1:0.10.6.1-1
+- Update to 0.10.6.1
+- CVE-2026-41252, CVE-2026-41521, CVE-2026-44178, CVE-2026-42218
+- CVE-2026-44978, CVE-2026-54538, CVE-2026-55238, CVE-2026-55626
+- CVE-2026-55639, CVE-2026-55645
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:0.10.6-3
 - Rebuilt for openssl 4.0
 

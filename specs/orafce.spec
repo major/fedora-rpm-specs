@@ -1,11 +1,10 @@
-%global githubversion 4_9_0
+%global githubversion 4_16_7
 
 Name:		orafce
-Version:	4.9.0
-Release:	7%{?dist}
+Version:	4.16.7
+Release:	2%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	0BSD
 URL:		http://github.com/orafce/orafce
 Source0:	https://github.com/orafce/orafce/archive/VERSION_%{githubversion}.tar.gz
 
@@ -45,6 +44,13 @@ for production work.
 
 
 %changelog
+* Fri Jul 03 2026 Michal Schorm <mschorm@redhat.com> - 4.16.7-2
+- Correct License tag from 'LicenseRef-Callaway-BSD' to '0BSD' per
+  upstream 'COPYRIGHT.orafce' (SPDX tag correction, not a license change)
+
+* Thu Jul 02 2026 Michal Schorm <mschorm@redhat.com> - 4.16.7-1
+- Rebase to 4.16.7
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-7
 - Rebuilt for openssl 4.0
 

@@ -1,5 +1,5 @@
 Name:           python-docutils
-Version:        0.22.4
+Version:        0.23
 Release:        %autorelease
 Summary:        System for processing plaintext documentation
 

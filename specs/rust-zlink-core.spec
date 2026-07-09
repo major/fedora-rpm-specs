@@ -5,7 +5,7 @@
 %global crate zlink-core
 
 Name:           rust-zlink-core
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Core crate of the zlink project
 

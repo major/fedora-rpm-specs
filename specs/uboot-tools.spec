@@ -1,4 +1,4 @@
-%global candidate rc5
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.07
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -50,8 +50,7 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  Fix-NVMe-not-only-on-Raspberry-Pi-5.patch
-Patch21:  rpi-enable-nvme.patch
-Patch22:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
+Patch21:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -315,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Jul 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-1
+- Update to 2026.07 GA
+
 * Tue Jun 23 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.4.rc5
 - Update to 2026.07 RC5
 

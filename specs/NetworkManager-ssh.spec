@@ -10,12 +10,12 @@
 
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
-Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.4.4.tar.gz#/%{name}-%{version}.tar.gz
+Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.4.5.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -130,6 +130,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype} &> /dev/null
 
 %changelog
+* Wed Jul 08 2026 Dan Fruehauf <malkodan@gmail.com> - 1.4.5-1
+- Fix selinux policy to allow access to /run/NetworkManager/cert
+
 * Tue Apr 07 2026 Dan Fruehauf <malkodan@gmail.com> - 1.4.4-1
 - Add sshpass -P prompt
 

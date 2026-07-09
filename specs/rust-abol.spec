@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-macros
+%global crate abol
 
-Name:           rust-pyo3-macros0.28
-Version:        0.28.3
+Name:           rust-abol
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Proc macros for PyO3 package
+Summary:        High-performance, asynchronous, dictionary-driven RADIUS framework
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros
+URL:            https://crates.io/crates/abol
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Proc macros for PyO3 package.}
+A high-performance, asynchronous, dictionary-driven RADIUS framework.}
 
 %description %{_description}
 
@@ -30,8 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CONTRIBUTING.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,44 +48,33 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-async-devel
+%package     -n %{name}+smol-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-async-devel %{_description}
+%description -n %{name}+smol-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental-async" feature of the "%{crate}" crate.
+use the "smol" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-async-devel
+%files       -n %{name}+smol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-inspect-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-inspect-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental-inspect" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-inspect-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+multiple-pymethods-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+multiple-pymethods-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "multiple-pymethods" feature of the "%{crate}" crate.
-
-%files       -n %{name}+multiple-pymethods-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+rm -vrf dictionaries/
 %cargo_prep
 
 %generate_buildrequires

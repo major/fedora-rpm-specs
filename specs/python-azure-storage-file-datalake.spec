@@ -1,5 +1,5 @@
 Name:           python-azure-storage-file-datalake
-Version:        12.23.0
+Version:        12.25.0
 Release:        %autorelease
 Summary:        Azure DataLake service client library for Python
 License:        MIT

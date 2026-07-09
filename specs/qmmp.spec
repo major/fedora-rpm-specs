@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.3.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -11,6 +11,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	enca-devel
+BuildRequires:	faad2-devel
 BuildRequires:	ffmpeg-free-devel
 BuildRequires:	flac-devel
 BuildRequires:	game-music-emu-devel
@@ -57,6 +58,9 @@ Recommends:	opus-tools
 Recommends:	wavpack
 Recommends:	flac
 
+Obsoletes:	qmmp-plugins-freeworld <= 2.3.2-2%{?dist}
+Provides:	qmmp-plugins-freeworld = %{version}-%{release}
+
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
@@ -71,6 +75,7 @@ Main opportunities:
 
 	* Winamp and xmms skins support
 	* plugins support
+	* AAC support
 	* MPEG1 layer 2/3 support
 	* Ogg Vorbis support
 	* native FLAC support
@@ -104,7 +109,6 @@ QMMP is Qt-based audio player. This package contains its development files.
 
 %build
 %cmake \
-	-D USE_AAC:BOOL=FALSE \
 	-D USE_LIBRCD:BOOL=TRUE \
 	-D QMMP_DEFAULT_OUTPUT=pipewire \
 	-D CMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -114,13 +118,6 @@ QMMP is Qt-based audio player. This package contains its development files.
 
 %install
 %cmake_install
-# filter out unsupported formats from MimeType
-sed -i -e "s#audio/aac;##" \
-       -e "s#audio/x-aac;##" \
-    %{buildroot}/%{_datadir}/applications/%{name}.desktop
-sed -i -e "s#audio/aac;##" \
-       -e "s#audio/x-aac;##" \
-    %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-dir.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desktop
@@ -149,6 +146,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Wed Jul 01 2026 Dominik Mierzejewski <dominik@greysector.net> 2.3.3-3
+- enable AAC support now that faad2 is in Fedora
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.3-2
 - Rebuilt for openssl 4.0
 

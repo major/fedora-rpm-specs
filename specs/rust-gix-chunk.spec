@@ -5,7 +5,7 @@
 %global crate gix-chunk
 
 Name:           rust-gix-chunk
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Interact with the git chunk file format
 

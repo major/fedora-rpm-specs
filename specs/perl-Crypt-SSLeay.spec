@@ -4,7 +4,7 @@
 Name:           perl-Crypt-SSLeay
 Summary:        OpenSSL glue that provides LWP with HTTPS support
 Version:        0.72
-Release:        50%{?dist}
+Release:        51%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Crypt-SSLeay
 Source0:        https://cpan.metacpan.org/authors/id/N/NA/NANIS/Crypt-SSLeay-%{version}.tar.gz
@@ -17,6 +17,8 @@ Patch2:         Crypt-SSLeay-0.72-Use-ExtUtils-PkgConfig-to-discover-OpenSSL-if-
 # Stop using SSLv3_client_method with OpenSSL 1.1.1. TLS_client_method
 # method is used instead.
 Patch3:         Crypt-SSLeay-0.72-Use_TLS_client_method-with-OpenSSL-1.1.1.patch
+# Adapt to OpenSSL 4, bug #2491639, CPAN RT#179961, proposed upstream
+Patch4:         Crypt-SSLeay-0.72-Adapt-to-OpenSSL-4.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -77,6 +79,7 @@ for that module to work.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 # Placate rpmlint
 chmod -c -x lib/Net/SSL.pm
@@ -111,6 +114,9 @@ make test
 %{_mandir}/man3/Net::SSL.3pm*
 
 %changelog
+* Tue Jul 07 2026 Petr Pisar <ppisar@redhat.com> - 0.72-51
+- Adapt to OpenSSL 4 (bug #2491639)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.72-50
 - Rebuilt for openssl 4.0
 

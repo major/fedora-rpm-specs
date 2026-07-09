@@ -5,7 +5,7 @@
 %bcond tests %[%{undefined rhel}]
 
 Name:           python-%{modname}
-Version:        4.68.3
+Version:        4.68.4
 Release:        %autorelease
 Summary:        Fast, Extensible Progress Meter
 
@@ -80,6 +80,14 @@ echo 'include tqdm/completion.sh' >> MANIFEST.in
 %install
 %pyproject_install
 %pyproject_save_files %{modname}
+
+# Beginning with 4.68.4, it has started to try to install
+# <sitelib>/images/{logo,tqdm}.gif
+# These files are neither needed for operation nor useful,
+# so we'll just delete them since they don't belong in the
+# global scope.
+rm -Rf %{buildroot}%{python3_sitelib}/images
+
 install -Dpm0644 \
   %{buildroot}%{python3_sitelib}/tqdm/tqdm.1 \
   %{buildroot}%{_mandir}/man1/tqdm.1

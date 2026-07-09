@@ -7,7 +7,7 @@
 %global crate gix-pathspec
 
 Name:           rust-gix-pathspec
-Version:        0.18.0
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Library for dealing with magical pathspecs used by gix
 

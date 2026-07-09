@@ -4,7 +4,7 @@
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
@@ -12,9 +12,6 @@ Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Run tests successfully
-Patch:          https://github.com/executablebooks/MyST-Parser/pull/1090.patch
 
 BuildArch:      noarch
 
@@ -55,6 +52,8 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n MyST-Parser-%{version}
 
+%pyproject_patch_dependency docutils:drop_upper
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -66,7 +65,8 @@ Summary:        %{summary}
 %pyproject_save_files myst_parser
 
 %check
-%pytest %{?with_bootstrap:-k 'not test_inv and not test_parse' --ignore tests/test_sphinx/test_sphinx_builds.py}
+# test_link_resolution: https://github.com/executablebooks/MyST-Parser/issues/1152
+%pytest %{?with_bootstrap:--ignore tests/test_sphinx/test_sphinx_builds.py} -k 'not test_link_resolution%{?with_bootstrap: and not test_inv and not test_parse}'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

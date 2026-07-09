@@ -1,5 +1,5 @@
 Name:           virtiofsd
-Version:        1.13.3
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 

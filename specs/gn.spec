@@ -23,10 +23,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 5223a47630df1b51c5fb3fd9b4f942289cce3d9b
-%global access 20260630
+%global commit 127c7783a8344ff5908ac679c92e632be556c3ad
+%global access 20260707
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2437
+%global position 2455
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -166,7 +166,12 @@ cp --preserve '%{SOURCE3}' '%{SOURCE4}' .
 # Put the ICU license text somewhere it’s easy to install, with a unique name.
 cp --preserve src/base/third_party/icu/LICENSE LICENSE-ICU
 
+rm src/gn/starlark/Cargo.lock
+
+%conf
 %if %{without bundled_cxx}
+# Unbundle this in %%conf rather than %%prep to ensure that the dependency we
+# are trying to symlink is installed.
 cxx_header='src/gn/starlark/vendor/cxx/include/cxx.h'
 # Explicit removal asserts that we still have the right path, failing if the
 # file does not exist.
@@ -177,8 +182,6 @@ system_cxx_header="$(
 ln --symbolic --verbose "${system_cxx_header}" "${cxx_header}"
 %endif
 
-
-%conf
 AR='gcc-ar'; export AR
 # Treating warnings as errors is too strict for downstream builds.
 #

@@ -7,16 +7,13 @@
 %global crate gix
 
 Name:           rust-gix
-Version:        0.83.0
+Version:        0.85.0
 Release:        %autorelease
 Summary:        Interact with git repositories just like git would
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax regex dependency
-Patch:          gix-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

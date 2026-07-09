@@ -74,6 +74,12 @@ This package contains libraries implementing Cucumber Messages for C++.
 Summary:        Development files for using the C++ implementation of Gherkin
 
 Requires:       %{name}-cpp-libs%{?_isa} = %{version}-%{release}
+# This appears in the public API. Formally, dependent packages should also have
+# BuildRequires: json-static, since they will indirectly incorporate the
+# header-only library, although manually tracking such indirect dependencies is
+# relatively impractical in practice.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+Requires:       json-devel%{?_isa}
 
 %description cpp-devel %{common_description}
 

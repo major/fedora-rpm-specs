@@ -7,7 +7,7 @@
 %global crate gix-merge
 
 Name:           rust-gix-merge
-Version:        0.16.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Git merge algorithms
 
@@ -83,6 +83,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

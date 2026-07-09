@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-search
 
 Name:           python-%{srcname}
-Version:        9.0.0
+Version:        9.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Search Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source azure_mgmt_search %{version}}
 
 BuildArch:      noarch
 
@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_mgmt_search-%{version}
 
 
 %generate_buildrequires
@@ -51,7 +51,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

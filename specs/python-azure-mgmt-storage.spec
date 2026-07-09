@@ -5,7 +5,7 @@
 %global         tarball_name     azure_mgmt_storage
 
 Name:           python-azure-mgmt-storage
-Version:        24.0.0
+Version:        25.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Management Client Library for Python
 License:        MIT

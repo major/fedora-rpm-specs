@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc2.21
+%define pkgrelease 0.rc2.260707g0e35b9b6ec0f.22
 %define kversion 7
-%define tarfile_release 7.2-rc2
+%define tarfile_release 7.2-rc2-22-g0e35b9b6ec0f
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.21%{?buildid}%{?dist}
+%define specrelease 0.rc2.260707g0e35b9b6ec0f.22%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -1029,8 +1029,8 @@ Source13: redhatsecureboot501.cer
 %define secureboot_key_uki_0 %{_datadir}/pki/sb-certs/secureboot-uki-virt-%{_arch}.cer
 
 %if 0%{?centos}
-%define pesign_name_0 centossecureboot201
-%define pesign_name_uki_0 centossecureboot204
+%define pesign_name_0 centossecureboot801
+%define pesign_name_uki_0 centossecureboot804
 %else
 %ifarch x86_64 aarch64
 %define pesign_name_0 redhatsecureboot501
@@ -4859,9 +4859,13 @@ fi\
 #
 #
 %changelog
-* Mon Jul 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.21]
+* Tue Jul 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.22]
 - redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Tue Jul 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.21]
+- redhat: sign centos kernel and UKIs with 800 certs (Jan Stancek)
+- Linux v7.2.0-0.rc2.0e35b9b6ec0f
 
 * Mon Jul 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.20]
 - Linux v7.2.0-0.rc2

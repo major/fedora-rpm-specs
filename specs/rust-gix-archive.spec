@@ -7,7 +7,7 @@
 %global crate gix-archive
 
 Name:           rust-gix-archive
-Version:        0.32.0
+Version:        0.34.0
 Release:        %autorelease
 Summary:        Archive generation from of a worktree stream
 
@@ -70,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tar-devel

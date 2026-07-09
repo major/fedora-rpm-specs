@@ -1,5 +1,5 @@
 Name:           python-xxhash
-Version:        3.8.0
+Version:        3.8.1
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 
@@ -10,11 +10,6 @@ Summary:        Python Binding for xxHash
 License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
 Source:         %{pypi_source xxhash}
-
-# Register the “benchmark” pytest mark
-# https://github.com/ifduyue/python-xxhash/pull/164
-# Cherry-picked to v3.8.0.
-Patch:          0001-Register-the-benchmark-pytest-mark.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license xxhash

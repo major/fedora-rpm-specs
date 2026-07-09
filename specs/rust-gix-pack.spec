@@ -7,7 +7,7 @@
 %global crate gix-pack
 
 Name:           rust-gix-pack
-Version:        0.70.0
+Version:        0.72.0
 Release:        %autorelease
 Summary:        Implements git packs and related data structures
 
@@ -108,6 +108,18 @@ use the "pack-cache-lru-static" feature of the "%{crate}" crate.
 %files       -n %{name}+pack-cache-lru-static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+parallel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parallel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parallel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parallel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -130,6 +142,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+streaming-input-devel

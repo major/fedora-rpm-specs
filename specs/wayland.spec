@@ -18,6 +18,7 @@ BuildRequires:  expat-devel
 BuildRequires:  graphviz
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt
+BuildRequires:  mdbook
 BuildRequires:  meson
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  xmlto
@@ -63,6 +64,9 @@ developing applications that use %{name}.
 %package doc
 Summary: Wayland development documentation
 BuildArch: noarch
+# Required for mdbook generated docs
+Requires: adobe-source-code-pro-fonts
+Requires: open-sans-fonts
 
 %description doc
 Wayland development documentation

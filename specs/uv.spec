@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined el10}
 
 Name:           uv
-Version:        0.11.26
+Version:        0.11.27
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -65,12 +65,16 @@ Summary:        An extremely fast Python package installer and resolver, written
 # BSD-2-Clause-Patent:
 #   - test/ecosystem/github-wikidata-bot/
 # BSD-3-Clause:
+#   - test/ecosystem/jupyterlab/
+#   - test/ecosystem/pandas/
 #   - test/ecosystem/saleor/
 # MIT:
 #   - crates/uv-python/fetch-download-metadata.py is derived from
 #     https://github.com/mitsuhiko/rye/tree/f9822267a7f00332d15be8551f89a212e7bc9017
 #     which was MIT.
 #   - test/ecosystem/black/
+#   - test/ecosystem/poetry/
+#   - test/ecosystem/semantic-kernel/
 #
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
@@ -148,6 +152,9 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+# Add license texts for new contents of test/ecosystem/ from PR#20068
+# https://github.com/astral-sh/uv/pull/20174
+Patch:          %{url}/pull/20174.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -645,10 +652,13 @@ skip="${skip-} --skip tests::built_by_uv_building"
 # dependency version differing from Cargo.lock.
 skip="${skip-} --skip base_client::tests::retried_status_codes"
 
-# Harmless and trivial discrepancy in an error message:
+# Harmless and trivial discrepancies in error messages:
 #     8       │-  Caused by: error decoding response body for url (http://[LOCALHOST]/tqdm/)
 #           8 │+  Caused by: error decoding response body
 skip="${skip-} --skip network::retry_read_timeout_index"
+#     9       │-  Caused by: error decoding response body for url (http://[LOCALHOST]/)
+#           9 │+  Caused by: error decoding response body
+skip="${skip-} --skip network::retry_read_timeout_python_downloads_json"
 
 # These fail flakily: most frequently on ppc64le, but this seems to be just a
 # matter of luck, since we suspect a race condition. We have also seen failures

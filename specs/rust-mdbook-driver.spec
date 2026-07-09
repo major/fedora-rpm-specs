@@ -2,22 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-macros-backend
+%global crate mdbook-driver
 
-Name:           rust-pyo3-macros-backend0.28
-Version:        0.28.3
+Name:           rust-mdbook-driver
+Version:        0.5.3
 Release:        %autorelease
-Summary:        Code generation for PyO3 package
+Summary:        High-level library for running mdBook
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros-backend
+License:        MPL-2.0
+URL:            https://crates.io/crates/mdbook-driver
 Source:         %{crates_source}
+# * https://github.com/rust-lang/mdBook/pull/3135
+Source2:        https://github.com/rust-lang/mdBook/raw/refs/tags/v0.5.3/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Code generation for PyO3 package.}
+High-level library for running mdBook.}
 
 %description %{_description}
 
@@ -31,8 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,34 +48,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-async-devel
+%package     -n %{name}+search-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-async-devel %{_description}
+%description -n %{name}+search-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental-async" feature of the "%{crate}" crate.
+use the "search" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-async-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+experimental-inspect-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-inspect-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental-inspect" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-inspect-devel
+%files       -n %{name}+search-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-dos2unix --keepdate src/derive_attributes.rs
+cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -87,7 +76,8 @@ dos2unix --keepdate src/derive_attributes.rs
 
 %if %{with check}
 %check
-%cargo_test
+# * skip a test that relies on input files not included in the published crate
+%cargo_test -- -- --skip builtin_preprocessors::cmd::tests::round_trip_write_and_parse_input
 %endif
 
 %changelog

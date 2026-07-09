@@ -1,6 +1,6 @@
 Name:           devscripts
-Version:        2.26.9
-Release:        2%{?dist}
+Version:        2.26.10
+Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
 
@@ -153,6 +153,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Tue Jul 07 2026 Sandro Mani <manisandro@gmail.com> - 2.26.10-1
+- Update to 2.26.10
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.26.9-2
 - Rebuilt for Python 3.15
 

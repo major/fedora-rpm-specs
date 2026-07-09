@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.2.2
+Version:        14.2.3
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -40,7 +40,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.8.0  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
@@ -55,8 +55,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.2.0"
-BuildRequires:  phpunit13 >= 13.1
+#        "phpunit/phpunit": "^13.2.2"
+BuildRequires:  phpunit13 >= 13.2.2
 BuildRequires:  php-xdebug
 %endif
 
@@ -66,7 +66,7 @@ BuildRequires:  php-xdebug
 #        "ext-libxml": "*",
 #        "ext-mbstring": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^5.7.0",
+#        "nikic/php-parser": "^5.8.0",
 #        "phpunit/php-text-template": "^6.0",
 #        "sebastian/complexity": "^6.0",
 #        "sebastian/environment": "^9.3.2",
@@ -79,7 +79,7 @@ Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
+Requires:       (php-composer(nikic/php-parser)                   >= 5.8.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 Requires:       (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
@@ -191,6 +191,10 @@ exit $ret
 
 
 %changelog
+* Tue Jul  7 2026 Remi Collet <remi@remirepo.net> - 14.2.3-1
+- update to 14.2.3
+- raise dependency on nikic/php-parser 5.8.0
+
 * Mon Jun  8 2026 Remi Collet <remi@remirepo.net> - 14.2.2-1
 - update to 14.2.2
 

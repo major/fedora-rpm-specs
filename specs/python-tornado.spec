@@ -19,6 +19,9 @@ URL:            https://www.tornadoweb.org
 Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Fix for Python 3.15.0b1
 Patch:          Temporarily-disable-test-multi-process.patch
+# Drop redundant BuildRequires for python3-wheel
+# https://github.com/fedora-eln/eln/issues/284
+Patch:          https://github.com/tornadoweb/tornado/commit/dd91a0ee.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

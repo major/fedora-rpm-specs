@@ -25,13 +25,7 @@ ExcludeArch: i686
 # Disabled due to various issues now.
 %global use_xdg_file_portal 0
 
-# PipeWire camera is needed for IPU6 camera support in Fedora 41+
-# https://fedoraproject.org/wiki/Changes/IPU6_Camera_support
-%if 0%{?fedora} >= 41
 %global use_pipewire_camera 1
-%else
-%global use_pipewire_camera 0
-%endif
 
 %global system_nss        1
 %global system_libevent   1
@@ -42,15 +36,10 @@ ExcludeArch: i686
 %global enable_replace_malloc 0
 %endif
 
-# wasi_sdk 30 is not compatible with llvm 18
-%if 0%{?fedora} <= 40
+%ifarch s390x
   %bcond wasi_sdk 0
 %else
-  %ifarch s390x
-    %bcond wasi_sdk 0
-  %else
-    %bcond wasi_sdk 1
-  %endif
+  %bcond wasi_sdk 1
 %endif
 
 %bcond build_with_clang 0
@@ -60,10 +49,7 @@ ExcludeArch: i686
 %global toolchain gcc
 %endif
 
-%global gnome_shell_search_provider 0
-%if 0%{?fedora} >= 40
 %global gnome_shell_search_provider 1
-%endif
 
 # Temporary disabled due to
 # https://bugzilla.redhat.com/show_bug.cgi?id=1951606
@@ -204,7 +190,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        152.0.4
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -473,15 +459,8 @@ BuildRequires:  compiler-rt
 Obsoletes:      mozilla <= 37:1.7.13
 Provides:       webclient
 
-# Don't ship firefox-x11 and firefox-wayland on Fedora 40.
-# Wayland backend is considered as mature enough now.
-# We need to use v-r in Obsoletes because new versions of this
-# package keep being built in older releases, and we want to
-# obsolete all of them when the user updates to F40+.
-%if 0%{?fedora} >= 40
 Obsoletes:  firefox-wayland < %{version}-%{release}
 Obsoletes:  firefox-x11 <  %{version}-%{release}
-%endif
 
 %description
 Mozilla Firefox is an open-source web browser, designed for standards
@@ -515,28 +494,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %files -n %{crashreporter_pkg_name} -f debugcrashreporter.list
 %else
 %global _find_debuginfo_opts %{limit_build -m 32768}
-%endif
-
-%if 0%{?fedora} < 40
-%package x11
-Summary: Firefox X11 launcher.
-Requires: %{name}
-%description x11
-The firefox-x11 package contains launcher and desktop file
-to run Firefox explicitly on X11.
-%files x11
-%{_bindir}/firefox-x11
-%{_datadir}/applications/firefox-x11.desktop
-
-%package wayland
-Summary: Firefox Wayland launcher.
-Requires: %{name}
-%description wayland
-The firefox-wayland package contains launcher and desktop file
-to run Firefox explicitly on Wayland.
-%files wayland
-%{_bindir}/firefox-wayland
-%{_datadir}/applications/firefox-wayland.desktop
 %endif
 
 %if 0%{?run_firefox_tests}
@@ -997,38 +954,17 @@ mkdir -p %{buildroot}%{_datadir}/dbus-1/services
 cp %{SOURCE46} %{buildroot}%{_datadir}/dbus-1/services
 %endif
 
-%if 0%{?fedora} >= 40
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE47}
-%else
-# We can't use desktop-file-install as it refuses to install firefox.desktop file.
-cp %{SOURCE20} %{buildroot}%{_datadir}/applications
-%endif
-
-%if 0%{?fedora} < 40
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE31}
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE29}
-%endif
 
 # set up the firefox start script
 rm -rf %{buildroot}%{_bindir}/firefox
-%if 0%{?fedora} < 40
-sed -e 's,/__PREFIX__,%{_prefix},g' -e 's,__APP_NAME__,firefox,g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
-%else
 sed -e 's,/__PREFIX__,%{_prefix},g' -e 's,__APP_NAME__,org.mozilla.firefox,g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
-%endif
 chmod 755 %{buildroot}%{_bindir}/firefox
 
 %if 0%{?flatpak}
 sed -i -e 's|%FLATPAK_ENV_VARS%|export TMPDIR="$XDG_CACHE_HOME/tmp"|' %{buildroot}%{_bindir}/firefox
 %else
 sed -i -e 's|%FLATPAK_ENV_VARS%||' %{buildroot}%{_bindir}/firefox
-%endif
-
-%if 0%{?fedora} < 40
-sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE30} > %{buildroot}%{_bindir}/firefox-x11
-chmod 755 %{buildroot}%{_bindir}/firefox-x11
-sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE28} > %{buildroot}%{_bindir}/firefox-wayland
-chmod 755 %{buildroot}%{_bindir}/firefox-wayland
 %endif
 
 install -p -D -m 644 %{SOURCE23} %{buildroot}%{_mandir}/man1/firefox.1
@@ -1153,15 +1089,9 @@ sed -e "s/__NAME__/%(source /etc/os-release; echo ${NAME})/" \
 
 # Install appdata file
 mkdir -p %{buildroot}%{_datadir}/metainfo
-%if 0%{?fedora} >= 40
 sed -e "s/__VERSION__/%{version}/" \
     -e "s/__DATE__/$(date '+%F')/" \
     %{SOURCE48} > %{buildroot}%{_datadir}/metainfo/org.mozilla.firefox.appdata.xml
-%else
-sed -e "s/__VERSION__/%{version}/" \
-    -e "s/__DATE__/$(date '+%F')/" \
-    %{SOURCE33} > %{buildroot}%{_datadir}/metainfo/firefox.appdata.xml
-%endif
 
 # Remove copied libraries to speed up build
 rm -f %{buildroot}%{mozappdirdev}/sdk/lib/libmozjs.so
@@ -1224,11 +1154,7 @@ fi
 %dir %{_sysconfdir}/%{name}/*
 %dir %{_datadir}/mozilla/extensions/*
 %dir %{_libdir}/mozilla/extensions/*
-%if 0%{?fedora} >= 40
 %{_datadir}/applications/org.mozilla.firefox.desktop
-%else
-%{_datadir}/applications/firefox.desktop
-%endif
 %if %{gnome_shell_search_provider}
 %{_datadir}/dbus-1/services/*
 %{_datadir}/gnome-shell/search-providers/*.ini
@@ -1286,6 +1212,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jul 07 2026 Martin Stransky <stransky@redhat.com> - 152.0.4-2
+- Remove Fedora 40/41 tweaks.
+
 * Mon Jul 06 2026 Martin Stransky <stransky@redhat.com> - 152.0.4-1
 - Update to latest upstream (152.0.4)
 

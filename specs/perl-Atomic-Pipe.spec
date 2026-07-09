@@ -1,10 +1,10 @@
 # Optional support for zstandard compression.
 # Compress::Zstd yet packaged.
-%bcond_with perl_Atomic_Pipe_enables_zstd
+%bcond_without perl_Atomic_Pipe_enables_zstd
 
 Name:           perl-Atomic-Pipe
 Version:        0.032
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Send atomic messages from multiple writers across a POSIX pipe
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Atomic-Pipe
@@ -33,6 +33,7 @@ BuildRequires:  perl(Scalar::Util)
 # Optional run-time:
 %if %{with perl_Atomic_Pipe_enables_zstd}
 BuildRequires:  perl(Compress::Zstd)
+BuildRequires:  perl(Compress::Zstd::CompressionDictionary)
 %endif
 BuildRequires:  perl(IO::Select)
 # Tests:
@@ -45,6 +46,7 @@ BuildRequires:  perl(Test2::V0) >= 0.000127
 BuildRequires:  perl(Time::HiRes)
 %if %{with perl_Atomic_Pipe_enables_zstd}
 Recommends:     perl(Compress::Zstd)
+Recommends:     perl(Compress::Zstd::CompressionDictionary)
 %endif
 Requires:       perl(IO::Handle) >= 1.27
 Recommends:     perl(IO::Select)
@@ -67,6 +69,7 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 %if %{with perl_Atomic_Pipe_enables_zstd}
 Requires:       perl(Compress::Zstd)
+Requires:       perl(Compress::Zstd::CompressionDictionary)
 %endif
 Requires:       perl(IO::Handle) >= 1.27
 Requires:       perl(IO::Select)
@@ -120,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 07 2026 Petr Pisar <ppisar@redhat.com> - 0.032-2
+- Enable Zstandard compression
+
 * Wed Jun 10 2026 Petr Pisar <ppisar@redhat.com> - 0.032-1
 - 0.032 bump
 

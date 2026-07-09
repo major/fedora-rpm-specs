@@ -4,7 +4,7 @@
 %global pypi_name mdit-py-plugins
 
 Name:           python-%{pypi_name}
-Version:        0.5.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Collection of plugins for markdown-it-py
 

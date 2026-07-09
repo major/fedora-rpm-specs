@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 657930255ee750333bd4629d86825e7859147d81
-%global snapdate 20260508
+%global commit d9ddb0dd1f19a1c34124817ad3757f2eab810ab0
+%global snapdate 20260628
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or

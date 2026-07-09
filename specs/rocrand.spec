@@ -67,9 +67,10 @@
 
 # flags for testing, neither should be enabled for official builds in koji
 # relevant HW is required to run %check
+%bcond_with check
 %bcond_with test
 # enable building of tests if test is enabled
-%if %{with test}
+%if %{with test} || %{with check}
 %global build_test ON
 %else
 %global build_test OFF
@@ -129,7 +130,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -224,6 +225,8 @@ The rocRAND development package.
 %package test
 Summary:        Tests for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       python3dist(pyyaml)
+Requires:       rocminfo
 
 %description test
 %{summary}
@@ -246,6 +249,12 @@ rm -rf test/fortran/fruit
        -DAMDGPU_TARGETS=%{gpu_list} \
 
 %cmake_build
+
+%if %{with check}
+%check
+export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
+%ctest -j1 --output-on-failure
+%endif
 
 %install
 %cmake_install
@@ -278,6 +287,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Tue Jul 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- bring check back
+
 * Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - merge compat changes
 

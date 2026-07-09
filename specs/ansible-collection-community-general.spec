@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        12.6.0
+Version:        13.1.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -86,6 +86,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog
+* Wed Jul 08 2026 Maxwell G <maxwell@gtmx.me> - 13.1.0-1
+- Update to 13.1.0. Fixes rhbz#2459707.
+
 * Thu Apr 30 2026 Maxwell G <maxwell@gtmx.me> - 12.6.0-1
 - Update to 12.6.0. Fixes rhbz#2459707.
 

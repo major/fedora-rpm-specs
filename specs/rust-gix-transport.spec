@@ -5,7 +5,7 @@
 %global crate gix-transport
 
 Name:           rust-gix-transport
-Version:        0.57.0
+Version:        0.57.2
 Release:        %autorelease
 Summary:        Implementation of the git transport layer used by gix
 

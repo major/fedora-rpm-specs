@@ -28,6 +28,11 @@ BuildRequires: pulseaudio-libs-devel
 #BuildRequires: SDL-devel
 #BuildRequires: SDL2-devel
 
+# Force recent mpg123-libs package for RHEL users with selective updates
+%if 0%{?rhel} && 0%{?rhel} < 11
+Requires: libmpg123{?_isa} >= 1.32.0
+%endif
+
 %description
 libopenmpt is a cross-platform C++ and C library to decode tracked music
 files (modules) into a raw PCM audio stream.

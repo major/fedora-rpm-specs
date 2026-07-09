@@ -1,6 +1,6 @@
 Name:		cqrlog
 Version:	2.5.2
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	An amateur radio contact logging program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -14,6 +14,7 @@ Patch1:         cqrlog-desktop.patch
 
 # Fix build failure with FPC 3.2.4 (some symbols were moved around in RTL)
 Patch2:         cqrlog-fpc-3.2.4.patch
+Patch3:         cqrlog-clublog.patch
 
 ExclusiveArch:  %{fpc_arches}
 
@@ -104,6 +105,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 08 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5.2-24
+- Fix change in clublog url.
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.2-23
 - Rebuilt for openssl 4.0
 

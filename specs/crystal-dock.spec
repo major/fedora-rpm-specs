@@ -1,16 +1,14 @@
-%global short_version 2.14
+%global short_version 2.16
 
 Name:           crystal-dock
 Summary:        Modern cross-desktop dock for the Linux Desktop
-Version:        2.14.0
-Release:        7%{?dist}
+Version:        2.16.0
+Release:        1%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/dangvd/crystal-dock
 
 Source0:        %{url}/archive/refs/tags/v%{short_version}.tar.gz
-
-Patch0:         crystal-dock-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -54,6 +52,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/crystal-dock.desktop
 
 %changelog
+* Tue Jul 07 2026 Steve Cossette <farchord@gmail.com> - 2.16.0-1
+- 2.16.0
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 2.14.0-7
 - Rebuild (qt6)
 

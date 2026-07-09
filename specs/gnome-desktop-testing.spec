@@ -9,7 +9,7 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  git automake autoconf libtool
+BuildRequires:  automake autoconf libtool
 BuildRequires:  make
 
 %description

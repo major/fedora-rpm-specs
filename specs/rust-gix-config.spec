@@ -5,16 +5,19 @@
 %global crate gix-config
 
 Name:           rust-gix-config
-Version:        0.56.0
+Version:        0.58.0
 Release:        %autorelease
 Summary:        Git-config file parser and editor from the gitoxide project
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-config
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove unused dev-dependency (cap)
+# * drop benchmark dependency
+Patch:          gix-config-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 A git-config file parser and editor from the gitoxide project.}
@@ -84,10 +87,20 @@ use the "sha1" feature of the "%{crate}" crate.
 %files       -n %{name}+sha1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Drop benchmark dependency
-tomcli-set Cargo.toml del 'dev-dependencies.criterion'
 %cargo_prep
 
 %generate_buildrequires

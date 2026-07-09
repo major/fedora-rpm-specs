@@ -8,9 +8,6 @@
 #
 
 
-%global gh_commit    b36f02317466907a230d3aa1d34467041271ef4a
-%global gh_date      2026-01-27
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
 # Packagist
@@ -22,17 +19,14 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.34
-#global upstream_prever  dev
-
 Name:           %{pk_project}%{ver_major}
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Version:        9.6.35
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{upstream_version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Fix command for autoload
@@ -73,10 +67,10 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 # From composer.json, "require": {
 #        "php": ">=7.3",
 #        "ext-dom": "*",
+#        "ext-filter": "*",
 #        "ext-json": "*",
 #        "ext-libxml": "*",
 #        "ext-mbstring": "*",
-#        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
 #        "doctrine/instantiator": "^1.5.0 || ^2",
 #        "myclabs/deep-copy": "^1.13.4",
@@ -104,7 +98,6 @@ Requires:       php-dom
 Requires:       php-json
 Requires:       php-libxml
 Requires:       php-mbstring
-Requires:       php-xml
 Requires:       php-xmlwriter
 Requires:       (php-composer(doctrine/instantiator) >= 1.5.0         with php-composer(doctrine/instantiator) <  3)
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
@@ -136,6 +129,7 @@ Suggests:       php-xdebug
 Recommends:     phpunit10
 Recommends:     phpunit11
 Recommends:     phpunit12
+Recommends:     phpunit13
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 8.0.0
@@ -145,7 +139,6 @@ Requires:       php-phar
 
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Provides:       php-composer(phpunit/phpunit) = %{version}
-Provides:       phpunit                       = %{version}-%{release}
 %endif
 
 
@@ -160,7 +153,7 @@ Documentation: https://phpunit.de/documentation.html
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 %patch -P0 -p0 -b .rpm
 
 find . -name \*.rpm -delete -print
@@ -240,7 +233,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85 php86; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -257,6 +250,9 @@ exit $ret
 
 
 %changelog
+* Tue Jul  7 2026 Remi Collet <remi@remirepo.net> - 9.6.35-1
+- update to 9.6.35
+
 * Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 9.6.34-1
 - update to 9.6.34
 

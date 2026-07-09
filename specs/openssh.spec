@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 4%{?dist}
+Release: 6%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -514,6 +514,19 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Tue Jul 07 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-6
+- Improve GSS KEX algorithms documentation
+  Patches are submitted by xspielinbox+redhat@protonmail.com
+  Resolves: rhbz#2241564
+
+* Tue Jul 07 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.3p1-5
+- CVE-2026-55653: Fix double free in openssh DH-GEX client path during
+  FIPS known-group validation that leads to client-side denial of service
+- CVE-2026-55654: Fix heap out-of-bounds read during GSSAPI indicator
+  cleanup due to missing NULL terminator
+- CVE-2026-55655: Fix MITM of X11 forwarding via abstract UNIX socket
+  pre-binding
+
 * Fri Jun 12 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-4
 - Rebuild against OpenSSL 4.0.1
 

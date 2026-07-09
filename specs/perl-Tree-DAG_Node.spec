@@ -1,5 +1,5 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.37
+Version:        1.38
 Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -56,11 +56,17 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 %files
 %license LICENSE
-%doc Changes README scripts/ SECURITY.md
+%doc AI_POLICY.md Changes README scripts/ SECURITY.md
 %{perl_vendorlib}/Tree/
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Tue Jul  7 2026 Paul Howarth <paul@city-fan.org> - 1.38-1
+- Update to 1.38
+  - Replace LICENCE file content with the Perl_5 license from Software::License
+  - Add AI_POLICY.md file
+  - Modernize MANIFEST.SKIP again
+
 * Mon Jun 29 2026 Paul Howarth <paul@city-fan.org> - 1.37-1
 - Update to 1.37
   - No functional changes

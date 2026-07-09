@@ -5,7 +5,7 @@
 %global crate gix-object
 
 Name:           rust-gix-object
-Version:        0.60.0
+Version:        0.62.0
 Release:        %autorelease
 Summary:        Immutable and mutable git objects with decoding and encoding support
 
@@ -81,6 +81,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

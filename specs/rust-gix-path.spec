@@ -7,7 +7,7 @@
 %global crate gix-path
 
 Name:           rust-gix-path
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Utility crate for handling paths in gix
 

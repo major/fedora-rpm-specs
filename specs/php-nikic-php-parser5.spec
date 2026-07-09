@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-nikic-php-parser5
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -14,27 +14,23 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    dca41cd15c2ac9d055ad70dbfd011130757d1f82
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
 %global pk_project   php-parser
 %global php_home     %{_datadir}/php
 %global ns_project   PhpParser
 %global major        5
-
-%global upstream_version 5.7.0
-#global upstream_prever  rc1
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Version:        5.8.0
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
-URL:            https://github.com/%{gh_owner}/%{gh_project}
+URL:            %{forgeurl}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Autoloader
@@ -45,7 +41,6 @@ BuildArch:      noarch
 # For tests
 BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-tokenizer
-BuildRequires:  php-ctype
 BuildRequires:  php-json
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "^9.0",
@@ -59,12 +54,10 @@ BuildRequires:  php-fedora-autoloader-devel
 # From composer.json, "require": {
 #        "php": ">=7.4",
 #        "ext-tokenizer": "*",
-#        "ext-json": "*",
-#        "ext-ctype": "*"
+#        "ext-json": "*"
 Requires:       php(language) >= 7.4
 Requires:       php-tokenizer
 Requires:       php-json
-Requires:       php-ctype
 # From phpcompatinfo report for version 5.0.0
 Requires:       php-cli
 # Autoloader
@@ -85,7 +78,7 @@ Autoloader: %{php_home}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 %patch -P0 -p1 -b .rpm
 
@@ -123,7 +116,7 @@ AUTOLOAD
 
 : Upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85 php86; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -146,6 +139,9 @@ exit $ret
 
 
 %changelog
+* Mon Jul  6 2026 Remi Collet <remi@remirepo.net> - 5.8.0-1
+- update to 5.8.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

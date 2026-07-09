@@ -31,9 +31,6 @@
 # Build with OBS-specific quirks
 %bcond obs       0
 
-# Temporary macro to enable systemd-report.standalone
-%bcond report_standalone 0
-
 # When bootstrap, libcryptsetup is disabled
 # but auto-features causes many options to be turned on
 # that depend on libcryptsetup (e.g. libcryptsetup-plugins, homed)
@@ -67,6 +64,11 @@
 %define noarch_requires_version %{version}-%{release}
 %endif
 
+%if 0%{?__isa_bits} == 64
+%global elf_bits (64bit)
+%global elf_suffix ()%{elf_bits}
+%endif
+
 Name:           systemd
 Url:            https://systemd.io
 # Allow users to specify the version and release when building the rpm by
@@ -81,6 +83,9 @@ Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 Release:        %autorelease
 
 %global stable %(c="%version"; [ "$c" = "${c#*.*}" ]; echo $?)
+
+# Temporary macro to enable systemd-report.standalone
+%bcond report_standalone %[ v"%{version}" >= v"261.999" ]
 
 # For a breakdown of the licensing, see README
 License:        LGPL-2.1-or-later AND MIT AND GPL-2.0-or-later
@@ -178,7 +183,7 @@ BuildRequires:  cryptsetup-devel
 BuildRequires:  systemd-rpm-macros
 %endif
 
-%if 0%{?rhel} == 0 || 0%{?rhel} > 10
+%if !%{defined rhel} || 0%{?rhel} > 10
 # Use dlopen-notes to generate Requires/Recommends from embedded metadata.
 # Currently, package-notes are not available on Centos Stream 9 or 10.
 BuildRequires:  package-notes >= 0.20
@@ -299,7 +304,7 @@ Requires:       /usr/bin/systemd-sysusers
 # so this biases towards the common version.
 Recommends:     systemd-sysusers%{_isa} = %{version}-%{release}
 
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 Requires:       libzstd.so.1%{?elf_suffix}
 %endif
 
@@ -356,7 +361,7 @@ Provides:       /usr/sbin/reboot
 Provides:       /usr/sbin/shutdown
 %endif
 
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 # libmount is always required, even in containers, so make it a hard dependency.
 Requires:       libmount.so.1%{?elf_suffix}
 Requires:       libmount.so.1(MOUNT_2.26)%{?elf_bits}
@@ -482,7 +487,7 @@ Requires(postun): systemd%{_isa} = %{version}-%{release}
 Requires(post): grep
 Requires:       kmod >= 18-4
 
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 # Libkmod is used to load modules. Assume that if we need udevd, we certainly
 # want to load modules, so make this into a hard dependency here.
 Requires:       libkmod.so.2%{?elf_suffix}
@@ -510,7 +515,7 @@ Provides:       systemd-timesyncd = %{version}-%{release}
 %endif
 Conflicts:      systemd-networkd < %{version}-%{release}
 
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 # Libkmod is used to load modules. Assume that if we need udevd, we certainly
 # want to load modules, so make this into a hard dependency here.
 Requires:       libkmod.so.2%{?elf_suffix}
@@ -661,7 +666,7 @@ License:        LGPL-2.1-or-later
 Requires:       firewalld-filesystem
 Provides:       systemd-journal-gateway = %{version}-%{release}
 Provides:       systemd-journal-gateway%{_isa} = %{version}-%{release}
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 Requires:       libmicrohttpd.so.12%{?elf_suffix}
 Requires:       libcurl.so.4%{?elf_suffix}
 %endif
@@ -701,7 +706,7 @@ enabled for this to have any effect.
 %package resolved
 Summary:        Network Name Resolution manager
 Requires:       systemd%{_isa} = %{version}-%{release}
-%if 0%{?rhel} <= 10
+%if %{defined rhel} && 0%{?rhel} <= 10
 Requires:       libidn2.so.0%{?elf_suffix}
 Requires:       libidn2.so.0(IDN2_0.0.0)%{?elf_bits}
 %endif
@@ -797,9 +802,7 @@ Standalone systemd-shutdown binary with no dependencies on the systemd-shared
 library or other libraries from systemd-libs. This package conflicts with the
 main systemd package and is meant for use in exitrds.
 
-%prep
-# Print varius with's and without's to make it easier to figure out what is going on
-echo %{shrink:
+%define status %{shrink:
        '**'
        bzip2=%{?with_bzip2}%{!?with_bzip2:0}
        gnutls=%{?with_gnutls}%{!?with_gnutls:0}
@@ -813,10 +816,15 @@ echo %{shrink:
        docs=%{?with_docs}%{!?with_docs:0}
        upstream=%{?with_upstream}%{!?with_upstream:0}
        obs=%{?with_obs}%{!?with_obs:0}
+       report_standalone=%{?with_report_standalone}%{!?with_report_standalone:0}
        fedora=%{?fedora}
        rhel=%{?rhel}
        _arch=%{_arch}
        '**'}
+
+%prep
+# Print varius with's and without's to make it easier to figure out what is going on
+echo %{status}
 
 %if %{with obs}
 # Recipe files in the OBS build are in a distro-specific dir, as they conflict (e.g. with SUSE ones)
@@ -834,6 +842,8 @@ mv %{_sourcedir}/%{name}.fedora/* %{_sourcedir}
 sed -r -i 's/^u!/u/' sysusers.d/*.conf*
 
 %build
+echo %{status}
+
 %if 0%{?eln}
 %global ntpvendor fedora
 %else

@@ -5,7 +5,7 @@
 %global pypi_name markdown-it-py
 
 Name:           python-%{pypi_name}
-Version:        4.0.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Python port of markdown-it
 

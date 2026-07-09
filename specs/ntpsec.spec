@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -30,7 +30,11 @@ Obsoletes:      ntp < 4.2.10 ntp-perl < 4.2.10 ntp-doc < 4.2.10 ntpdate < 4.2.10
 
 # Set pool.ntp.org vendor zone for default configuration
 %if 0%{!?vendorzone:1}
+%if 0%{?eln}
+%global vendorzone fedora.
+%else
 %global vendorzone %(source /etc/os-release && echo ${ID}.)
+%endif
 %endif
 
 # Private library
@@ -205,6 +209,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Tue Jul 07 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.2.4-11
+- use fedora pool.ntp.org vendor zone on eln
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.4-10
 - Rebuilt for openssl 4.0
 

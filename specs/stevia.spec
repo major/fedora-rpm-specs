@@ -1,5 +1,5 @@
 Name:     stevia
-Version:  0.56~rc1
+Version:  0.56.0
 Release:  %autorelease
 Summary:  On screen keyboard (OSK) Phosh
 License:  GPL-3.0-or-later
@@ -7,7 +7,7 @@ URL:      https://gitlab.gnome.org/World/Phosh/stevia
 Source:   %{url}/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 
 ExcludeArch:  %{ix86}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2420908
+# Tests fail on s390x. Nobody's asking to run an OSK on their mainframe.
 ExcludeArch:  s390x
 
 BuildRequires:  gcc

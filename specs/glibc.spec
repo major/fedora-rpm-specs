@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-444-gb61b98e3d0
+%global glibcsrcdir glibc-2.43.9000-496-gb5eecf35d9
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 22
+%global baserelease 23
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2404,6 +2404,62 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jul 07 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-23
+- Auto-sync with upstream branch master,
+  commit b5eecf35d91a3b29cff80b731bbc6bcce6863827:
+- libc.pot: regenerate (Andreas K. Hüttel)
+- Revert "malloc: aarch64: Add ifuncs for malloc functions" (Yury Khrustalev)
+- netinet/tcp.h: Sync with Linux 6.15 and fix struct tcp_info tail (BZ 34347) (Adhemerval Zanella)
+- Add OPEN_TREE_NAMESPACE and FSMOUNT_NAMESPACE to sys/mount.h (Adhemerval Zanella)
+- s390: Prevent hoisting the thread-pointer read in THREAD_SET_STACK_GUARD (BZ 34297) (Adhemerval Zanella)
+- Add new AArch64 HWCAP definitions from Linux 6.14, 6.18 and 7.0 to bits/hwcap.h (Adhemerval Zanella)
+- Makefile: Depend on elf/subdir_lib only if $(subdirs) has elf (H.J. Lu)
+- sysdeps/x86: don't spuriously mark tests as xfail (Andreas Schwab)
+- riscv: Add RVV strncpy for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV stpncpy for both multiarch and non-multiarch builds (Yao Zihong)
+- Add tst-thp-size-mod.so dependency to strace THP tests (H.J. Lu)
+- build-many-glibcs.py: Update Linux kernel version to 7.1 (Adhemerval Zanella)
+- Update kernel version to 7.1 in header constant tests (Adhemerval Zanella)
+- Update syscall lists for Linux 7.1 (Adhemerval Zanella)
+- Add NT_RISCV_USER_CFI from Linux 7.0 to elf.h (Adhemerval Zanella)
+- Add IPPROTO_AGGFRAG from Linux 6.14 to netinet/in.h (BZ 34347) (Adhemerval Zanella)
+- Add SCHED_GETATTR_FLAG_DL_DYNAMIC from Linux 7.1 to bits/sched.h (Adhemerval Zanella)
+- Update PIDFD_* constants for Linux 7.1 (Adhemerval Zanella)
+- Add new LoongArch HWCAP definitions from Linux 7.0 and 7.1 to bits/hwcap.h (Adhemerval Zanella)
+- Add new constants from Linux 6.12, 6.18 and 6.19 to bits/fcntl-linux.h (Adhemerval Zanella)
+- x86: Remove unused VZEROUPPER_SHORT_RETURN macro from memset (RyotaSaito)
+- string: Fix memory leak in argz-addsep.c (Samuel Balazi)
+- Makerules: run test-container helper through the built loader (Adhemerval Zanella)
+- Makerules: add 'make check-parallel' to run tests without serialization (Adhemerval Zanella)
+- Run check-installed-headers concurrently for each header (Adhemerval Zanella)
+- Makefile: Do not install the container testroot if not running tests (Adhemerval Zanella)
+- Makefile: Do not force elf last for the others and tests passes (Adhemerval Zanella)
+- Makefile: Run the subdirectory recursion in parallel (Adhemerval Zanella)
+- scripts/gen-sorted.awk: Also emit the subdirectory dependency edges (Adhemerval Zanella)
+- intl: create correct directory in tst-translit.sh (Sam James)
+- po/*.po: integrate current state of translations (Andreas K. Hüttel)
+- po/libc.pot: regenerate (Andreas K. Hüttel)
+- Add system-wide tunables: manual (DJ Delorie)
+- Add system-wide tunables: Filters (DJ Delorie)
+- Add system-wide tunables: Apply tunables part (DJ Delorie)
+- Add system-wide tunables: cache ld.so.cache (DJ Delorie)
+- Add system-wide tunables: ldconfig part (DJ Delorie)
+- malloc: Don't call __get_thp_mode/__get_thp_size twice (H.J. Lu)
+- nis: Fix a memory leak in nis_creategroup when malloc fails (Jiri Stransky)
+- stdio-common: Fix scanf nan/inf pushback [BZ #34208] (Xiang Gao)
+- nss: Remove --enable-static-nss configure option (Michael Ford)
+- manual: Document indirect functions (IFUNC) (Adhemerval Zanella)
+- ppc64le: Restore optimized memchr for power10 [BZ #34300] (Sachin Monga)
+- riscv: Fix RV32 libthread_db THREAD_SELF register layout (Shengwen Cheng)
+- elf: Fix clang-18 build of ifunc resolver tests (Adhemerval Zanella)
+- arm: Xfail 2 static THP tests (H.J. Lu)
+- thp: Limit THP code padding to 2 * THP page size (H.J. Lu)
+- Update documentation of iconv [BZ #30136] (Mike FABIAN)
+- AArch64: additional mathvec build system cleanups. (Pierre Blanchard)
+- AArch64: Update SHARED-FILES with files from Arm Optimized-Routines (Pierre Blanchard)
+- AArch64: Update mathvec directory structure. (Pierre Blanchard)
+- hppa: Fix missing call to __feraiseexcept (BZ 34306) (John David Anglin)
+
 * Tue Jun 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-22
 - Auto-sync with upstream branch master,
   commit b61b98e3d0c81c85200e2082407708c7b0e821a3:

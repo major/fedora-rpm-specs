@@ -16,7 +16,7 @@
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.6.0
+Version:        4.6.1
 Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
@@ -164,6 +164,9 @@ exit $ret
 %endif
 
 %changelog
+* Tue Jul  7 2026 Remi Collet <remi@remirepo.net> - 4.6.1-1
+- update to 4.6.1
+
 * Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 4.6.0-1
 - update to 4.6.0
 

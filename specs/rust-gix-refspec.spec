@@ -5,7 +5,7 @@
 %global crate gix-refspec
 
 Name:           rust-gix-refspec
-Version:        0.41.0
+Version:        0.43.0
 Release:        %autorelease
 Summary:        Gix implementation for parsing and representing refspecs
 
@@ -57,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

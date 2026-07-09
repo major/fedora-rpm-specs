@@ -38,7 +38,7 @@
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
@@ -128,11 +128,36 @@
 
 # Testing depends on having GPU hw, build only for these gpus to speed up tests
 # Need to use --enable-network with mock
+#
+# GPU_TARGETS vs GPU_ARCHS
+#
+# GPU_TARGETS (Development & Testing)
+#   - Intended for local development and running the 'tests' suite.
+#   - Limited to similar architectures (e.g., gfx908;gfx90a).
+#   - KEY FUNCTION: Only this variable enables the 'tests' and 'examples' subdirectories.
+#
+# GPU_ARCHS (Production & Packaging)
+#   - Intended for creating distribution packages (RPM/DEB).
+#   - Supports diverse/mixed architectures (e.g., gfx908;gfx1030).
+#   - KEY FUNCTION: Explicitly disables 'tests' and 'examples' to save compile time.
+#
+# NOTE: These variables are mutually exclusive. Defining GPU_ARCHS overrides GPU_TARGETS. 
 %bcond_with test
 %if %{with test}
+# test building is broken on 7.2
 %global build_test ON
+%global cmake_gpu_config \\\
+    -DBUILD_TESTING=%{build_test} \\\
+    -DCMAKE_HIP_ARCHITECTURES=%ck_gpu_list \\\
+    -DGPU_TARGETS=%ck_gpu_list
+
 %else
 %global build_test OFF
+%global cmake_gpu_config \\\
+    -DBUILD_TESTING=%{build_test} \\\
+    -DCMAKE_HIP_ARCHITECTURES=%ck_gpu_list \\\
+    -DGPU_ARCHS=%ck_gpu_list
+
 %endif
 
 # Reduce link pressure
@@ -149,10 +174,14 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
-License:        MIT
+License:        MIT AND BSD-3-Clause
+# MIT The main license is MIT with a few execeptions
+# BSD-3-Clause
+#   include/rapidjson/msinttypes/inttypes.h
+#   include/rapidjson/msinttypes/stdint.h
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
@@ -161,6 +190,9 @@ Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
+# This patch adds CMake options to selectively build specific GPU operation
+# libraries (e.g., GEMM, CONV, MHA) within composable_kernel, decoupling them
+# from the default build.
 Patch1:         0001-composable_kernel-per-dir-build.patch
 
 BuildRequires:  cmake
@@ -170,12 +202,17 @@ BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
+
+Provides:       bundled(rapidjson) = 1.1.0
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
 
 %description
 Composable Kernel (CK) library aims to provide a programming
@@ -195,6 +232,7 @@ and code maintainability:
 %package devel
 Summary: Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 %if %{without library}
 Provides:       %{name}-static = %{version}-%{release}
 %endif
@@ -282,8 +320,7 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
 # hipTensors needs contraction,other,reduction
 
-%cmake -G Ninja \
-    -DBUILD_TESTING=%{build_test} \
+%cmake -G Ninja %{cmake_gpu_config} \
     -DCK_BUILD_DEVICE_CONV=%{build_ck_conv} \
     -DCK_BUILD_DEVICE_CONTRACTION=%{build_ck_contraction} \
     -DCK_BUILD_DEVICE_GEMM=%{build_ck_gemm} \
@@ -297,13 +334,11 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_CXX_FLAGS="-fuse-ld=bfd" \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
-    -DCMAKE_HIP_ARCHITECTURES=%ck_gpu_list \
     -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_HIP_COMPILER_ROCM_ROOT=%{pkg_prefix} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DENABLE_CLANG_CPP_CHECKS=OFF \
-    -DGPU_ARCHS=%ck_gpu_list \
     -DHIP_PLATFORM=amd \
     -DROCM_SYMLINK_LIBS=OFF
 
@@ -379,6 +414,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- merge compat changes
+
 * Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Build what is needed for miopen
 

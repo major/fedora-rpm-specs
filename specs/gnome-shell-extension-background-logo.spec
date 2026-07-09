@@ -1,5 +1,5 @@
 Name:           gnome-shell-extension-background-logo
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 
@@ -32,7 +32,7 @@ Show your pride! Display the Fedora logo (or any other graphic) in the corner of
 
 %files
 %license COPYING
-%{_datadir}/glib-2.0/schemas/org.fedorahosted.background-logo-extension.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.background-logo.gschema.xml
 %{_datadir}/gnome-shell/extensions/background-logo@fedorahosted.org/
 
 %changelog

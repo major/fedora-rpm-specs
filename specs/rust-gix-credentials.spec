@@ -7,7 +7,7 @@
 %global crate gix-credentials
 
 Name:           rust-gix-credentials
-Version:        0.38.0
+Version:        0.38.1
 Release:        %autorelease
 Summary:        Gix implementation for interacting with git credentials helpers
 

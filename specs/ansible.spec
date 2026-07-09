@@ -2,21 +2,8 @@
 # Copyright (C) Fedora Project Authors
 # License Text: https://spdx.org/licenses/MIT.html
 
-# Compatibility                                                             #
-#############################################################################
-# This specfile should remain compatible with EPEL 9 and stable Fedoras.    #
-# The EPEL 8 specfile is separately maintained,                             #
-# but the ansible-prep.sh and ansible-install-license.sh scripts are shared #
-# across branches.                                                          #
-#############################################################################
-
-# TODO: Re-enable docs and tests once possible
-%bcond docs 0
-%bcond tests 0
-
 # disable the python -s shbang flag as we want to be able to find non system modules
-# NB: We cannot use https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_py3_shebang_S on RHEL 9.
-%global py3_shebang_flags %(echo %{py3_shebang_flags} | sed 's|s||')
+%undefine _py3_shebang_s
 
 # Roles' files and templates should not be mangled.
 # These files are installed on remote systems which may or may not have the
@@ -24,15 +11,9 @@
 %global __brp_mangle_shebangs_exclude_from ^%{python3_sitelib}/ansible_collections/[^/]+/[^/]+/roles/[^/]+/(files|templates)/.*$
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{__brp_mangle_shebangs_exclude_from}
 
-%if 0%{?rhel} >= 8
-# ansible-core package is built against Python 3.11 in RHEL 8 and RHEL 9 which
-# is not the default version.
-%global python3_pkgversion 3.11
-%endif
-
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        13.7.0
+Version:        14.1.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 
@@ -58,7 +39,7 @@ Source0:        %{pypi_source %{name} %{uversion}}
 Source1:        ansible-prep.sh
 Source2:        ansible-install-licenses.sh
 
-Url:            https://ansible.com
+URL:            https://ansible.com
 BuildArch:      noarch
 
 BuildRequires:  dos2unix
@@ -88,34 +69,16 @@ to ansible-core.
 %prep
 %autosetup -N -n %{name}-%{uversion}
 
-# Relax ansible-core dependency to avoid FTI bugs on EPEL
-#
-# This is necessary, because the EPEL ansible maintainers don't have control
-# over ansible-core in RHEL, and it's difficult to time updates across
-# repositories. I have tried to stick to upstream's version constraints, but
-# that's apparently not working too well. This change gives us a grace period
-# to properly release and test new ansible major versions after RHEL rebases
-# ansible-core. The lower version constraints can stay in place.
-
-sed "s|ansible-core ~=|ansible-core >=|" setup.cfg > setup.cfg.bak
-# Verify
-set -o pipefail
-grep -B1 "ansible-core >=" setup.cfg.bak | grep -F 'install_requires ='
-%if %{defined rhel}
-mv setup.cfg.bak setup.cfg
-%endif
-
 # ansible-prep.sh
 %{S:1}
 
-(
 mkdir licenses docs
 cd ansible_collections
 # ansible-license-install.sh
 %{S:2} \
     "$(readlink -f ../licenses)" \
     "$(readlink -f ../docs)" \
-)
+cd -
 
 
 %generate_buildrequires
@@ -137,12 +100,6 @@ cd ansible_collections
 mkdir -p %{buildroot}%{_licensedir}/ansible %{buildroot}%{_docdir}/ansible
 mv licenses %{buildroot}%{_licensedir}/ansible/ansible_collections
 mv docs %{buildroot}%{_pkgdocdir}/ansible_collections
-
-
-%check
-%if %{with tests}
-# TODO: Run tests
-%endif
 
 
 %files

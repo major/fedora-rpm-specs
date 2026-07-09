@@ -9,7 +9,7 @@
 
 # https://github.com/tailscale/tailscale
 %global goipath         github.com/tailscale/tailscale
-Version:                1.98.5
+Version:                1.98.8
 
 %if 0%{?rhel}
 %gometa
@@ -242,7 +242,7 @@ Provides:       bundled(golang(github.com/tailscale/web-client-prebuilt)) = v0.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/wf)) = v0.0.0~20240214030419~6fbb0a674ee6
 # MIT
-Provides:       bundled(golang(github.com/tailscale/wireguard-go)) = v0.0.0~20260427181203~e3ac4a0afb4e
+Provides:       bundled(golang(github.com/tailscale/wireguard-go)) = v0.0.0~20260622165914~65d8d42c9a5a
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/xnet)) = v0.0.0~20240729143630~8497ac4dab2e
 # 0BSD
@@ -283,6 +283,8 @@ Provides:       bundled(golang(golang.org/x/time)) = v0.12.0
 Provides:       bundled(golang(golang.org/x/tools)) = v0.44.0
 # MIT
 Provides:       bundled(golang(golang.zx2c4.com/wintun)) = v0.0.0~20230126152724~0fa3db229ce2
+# MIT
+Provides:       bundled(golang(golang.zx2c4.com/wireguard)) = v0.0.0~20260522210424~ecfc5a8d5446
 # MIT
 Provides:       bundled(golang(golang.zx2c4.com/wireguard/windows)) = v0.5.3
 # Apache-2.0 OR BSD-3-Clause
@@ -1109,6 +1111,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Tue Jul 07 2026 Jonathan Wright <jonathan@almalinux.org> - 1.98.8-1
+- update to 1.98.8 rhbz#2495017
+
 * Tue Jun 16 2026 Jonathan Wright <jonathan@almalinux.org> - 1.98.5-1
 - update to 1.98.5 rhbz#2483870
 

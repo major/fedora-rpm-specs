@@ -5,7 +5,7 @@
 %global         tarball_name     azure_mgmt_web
 
 Name:           python-%{srcname}
-Version:        9.0.0
+Version:        11.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Web Apps Management Client Library for Python
 License:        MIT
@@ -54,7 +54,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %if %{with tests}

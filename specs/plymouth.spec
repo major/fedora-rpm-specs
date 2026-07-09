@@ -18,7 +18,7 @@ Patch: 0001-ply-device-manager-fix-default-XKB-keymap-fallback-o.patch
 
 BuildRequires: meson
 BuildRequires: system-logos
-BuildRequires: gcc libtool git
+BuildRequires: gcc libtool
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(libevdev)
 BuildRequires: pkgconfig(libudev)

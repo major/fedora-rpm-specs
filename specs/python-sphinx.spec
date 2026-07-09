@@ -368,6 +368,9 @@ sed -i -e '/pytest-xdist/d' pyproject.toml
 # sphinx 9.1.0 requires pytest >= 9, which we don't have in Fedora yet
 sed -i '/"pytest>=/ s/>=[^",]*//' pyproject.toml
 
+# docutils moves faster than sphinx
+%pyproject_patch_dependency docutils:drop_upper
+
 # Drop test-dependency on defusedxml,
 # use xml from the standard library instead.
 # defusedxml is safer but this is only used in tests.

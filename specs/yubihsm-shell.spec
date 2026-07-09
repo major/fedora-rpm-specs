@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		yubihsm-shell
-Version:	2.7.3
+Version:	2.8.0
 Release:	%autorelease
 Summary:	Tools to interact with YubiHSM 2
 
@@ -13,8 +13,6 @@ Source1:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.g
 Source2:	gpgkey-9588EA0F.gpg
 # https://github.com/Yubico/yubihsm-shell/pull/411
 Patch2:	yubihsm-shell-2.5.0-pcsc-lite.patch
-# OpenSSL 4.0 build fixes
-Patch3: 0001-Add-const-qualifiers-in-attest-example.patch
 
 BuildRequires:	cmake
 BuildRequires:	cppcheck

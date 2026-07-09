@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.20.7~rc1
+Version:        2.21.1
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -28,11 +28,6 @@ URL:            https://ansible.com
 Source0:        https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
 
-# Do not require wheel for building.
-# https://github.com/ansible/ansible/pull/85533 merged upstream.
-# The needlessly required wheel version was pinned, so get rid of it rather than unpinning.
-# Also, wheel is unwanted in ELN: https://github.com/fedora-eln/eln/issues/284
-Patch:          nowheel.patch
 # ansible-core 2.20 does not support Python 3.15 and upstream does not plan to do so until 2.22
 # This is a downstream-only patch to make it possible to build 2.20 with Python 3.15
 Patch:          allow-python3.15-build.patch
@@ -260,6 +255,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Jun 29 2026 Maxwell G <maxwell@gtmx.me> - 2.21.1-1
+- Update to 2.21.1. Fixes rhbz#2479699.
+
 * Thu Jun 11 2026 Maxwell G <maxwell@gtmx.me> - 2.20.7~rc1-1
 - Update to 2.20.7~rc1.
 - Mitigates CVE-2026-11332 (rhbz#2485397)

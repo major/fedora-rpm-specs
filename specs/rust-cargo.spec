@@ -23,7 +23,7 @@ Source:         %{crates_source}
 Patch:          cargo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
-# * bump gix to version 0.83
+# * bump gix to version 0.85
 # * bump gix-transport to version 0.57
 Patch:          cargo-fix-metadata.diff
 

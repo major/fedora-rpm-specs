@@ -1,6 +1,6 @@
 Name:           perl-String-Util
-Version:        1.35
-Release:        4%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        String processing utilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Util
@@ -50,6 +50,11 @@ make test
 %{_mandir}/man3/String::Util.3*
 
 %changelog
+* Tue Jul  7 2026 Paul Howarth <paul@city-fan.org> - 1.36-1
+- Update to 1.36 (rhbz#2497573)
+  - Updated POD/README
+  - Make trim() more robust
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

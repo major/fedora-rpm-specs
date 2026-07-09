@@ -1,4 +1,4 @@
-%global cpan_version 1.44
+%global cpan_version 1.45
 
 Name:           perl-Crypt-PasswdMD5
 # Keep 1-digit version because of history
@@ -57,6 +57,11 @@ make test
 %{_mandir}/man3/Crypt::PasswdMD5.3*
 
 %changelog
+* Tue Jul  7 2026 Paul Howarth <paul@city-fan.org> - 1.4.5-1
+- Update to 1.45 (rhbz#2497594)
+  - Replace text of LICENSE file with Perl_5 license generated using
+    Software::License
+
 * Mon Jun 29 2026 Paul Howarth <paul@city-fan.org> - 1.4.4-1
 - Update to 1.44
   - Replace the file LICENSE-GPL-3 with the file LICENSE containing what is

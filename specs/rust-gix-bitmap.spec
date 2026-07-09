@@ -5,7 +5,7 @@
 %global crate gix-bitmap
 
 Name:           rust-gix-bitmap
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Implementation of the standard git bitmap format
 

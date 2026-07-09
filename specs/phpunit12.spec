@@ -28,7 +28,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        12.5.30
+Version:        12.5.31
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -74,10 +74,10 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 # From composer.json, "require": {
 #        "php": ">=8.3",
 #        "ext-dom": "*",
+#        "ext-filter": "*",
 #        "ext-json": "*",
 #        "ext-libxml": "*",
 #        "ext-mbstring": "*",
-#        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
 #        "myclabs/deep-copy": "^1.13.4",
 #        "phar-io/manifest": "^2.0.4",
@@ -104,7 +104,6 @@ Requires:       php-dom
 Requires:       php-json
 Requires:       php-libxml
 Requires:       php-mbstring
-Requires:       php-xml
 Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
@@ -263,7 +262,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php83 php84 php85; do
+for cmd in php php83 php84 php85 php86; do
   if which $cmd; then
      $cmd ./phpunit $OPT || ret=1
   fi
@@ -284,6 +283,9 @@ exit $ret
 
 
 %changelog
+* Tue Jul  7 2026 Remi Collet <remi@remirepo.net> - 12.5.31-1
+- update to 12.5.31
+
 * Tue Jun 16 2026 Remi Collet <remi@remirepo.net> - 12.5.30-1
 - update to 12.5.30
 

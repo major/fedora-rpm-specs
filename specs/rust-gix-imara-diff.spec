@@ -6,7 +6,7 @@
 %global crate gix-imara-diff
 
 Name:           rust-gix-imara-diff
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Gitoxide fork of imara-diff
 

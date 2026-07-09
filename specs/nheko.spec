@@ -72,6 +72,11 @@ Requires: hicolor-icon-theme
 
 Recommends: google-noto-emoji-color-fonts
 Recommends: google-noto-emoji-fonts
+# Required for VoIP/WebRTC
+Recommends: gstreamer1-plugins-bad-free%{?_isa}
+Recommends: gstreamer1-plugins-good%{?_isa}
+Recommends: gstreamer1-plugins-good-qt6%{?_isa}
+Recommends: libnice-gstreamer1%{?_isa}
 Recommends: qt-jdenticon%{?_isa}
 
 %description

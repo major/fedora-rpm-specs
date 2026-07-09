@@ -15,9 +15,8 @@ Source:   https://gitlab.gnome.org/guidog/libgnome-volume-control/-/archive/%{gv
 Patch:    0002-tests-Do-not-make-warnings-fatal.patch
 
 ExcludeArch:  %{ix86}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2415478
+# This package has no demonstrable use-cases for server/mainframe hardware.
 ExcludeArch:  s390x
-# https://bugzilla.redhat.com/show_bug.cgi?id=2415700
 ExcludeArch:  ppc64le
 
 BuildRequires:  gcc

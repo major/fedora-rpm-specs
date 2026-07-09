@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.12
+Version:	7.14
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 

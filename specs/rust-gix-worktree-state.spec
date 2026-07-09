@@ -5,13 +5,16 @@
 %global crate gix-worktree-state
 
 Name:           rust-gix-worktree-state
-Version:        0.30.0
+Version:        0.32.0
 Release:        %autorelease
 Summary:        Set worktrees to a particular state
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-worktree-state
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove unused dev-dependency (symlink)
+Patch:          gix-worktree-state-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -47,6 +50,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+parallel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parallel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parallel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parallel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+sha1-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -57,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha256-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha256-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha256" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha256-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

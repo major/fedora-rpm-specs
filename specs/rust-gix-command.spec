@@ -6,7 +6,7 @@
 %global crate gix-command
 
 Name:           rust-gix-command
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Handle gitoxide internal git command execution
 
