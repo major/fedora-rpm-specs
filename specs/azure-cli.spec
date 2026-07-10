@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.85.0
+Version:        2.88.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -95,7 +95,47 @@ Microsoft Azure CLI SDK testing tools
 
 %prep
 %forgeautosetup -p1
+# Azure CLI *loves* to pin alpha/beta/random versions
+%pyproject_patch_dependency azure-common:set_upper:2.0
+%pyproject_patch_dependency azure-data-tables:set_upper:13.0
+%pyproject_patch_dependency azure-keyvault-administration:set_upper:5.0
+%pyproject_patch_dependency azure-keyvault-keys:set_upper:5.0
+%pyproject_patch_dependency azure-mgmt-advisor:set_upper:10.0
+%pyproject_patch_dependency azure-mgmt-appconfiguration:set_upper:7.0
+%pyproject_patch_dependency azure-mgmt-authorization:set_upper:6.0
+%pyproject_patch_dependency azure-mgmt-batchai:set_upper:8.0
+%pyproject_patch_dependency azure-mgmt-cdn:set_upper:14.0
+%pyproject_patch_dependency azure-mgmt-cognitiveservices:set_upper:16.0
+%pyproject_patch_dependency azure-mgmt-containerservice:set_upper:42.0
+%pyproject_patch_dependency azure-mgmt-datamigration:set_upper:11.0
+%pyproject_patch_dependency azure-mgmt-domainregistration:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-eventgrid:set_upper:11.0
+%pyproject_patch_dependency azure-mgmt-extendedlocation:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-hdinsight:set_upper:10.0
+%pyproject_patch_dependency azure-mgmt-loganalytics:set_upper:14.0
+%pyproject_patch_dependency azure-mgmt-managementgroups:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-maps:set_upper:3.0
+%pyproject_patch_dependency azure-mgmt-marketplaceordering:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-postgresqlflexibleservers:set_upper:4.0
+%pyproject_patch_dependency azure-mgmt-privatedns:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-search:set_upper:10.0
+%pyproject_patch_dependency azure-mgmt-servicefabricmanagedclusters:set_upper:3.0
+%pyproject_patch_dependency azure-mgmt-storage:set_upper:26.0
+%pyproject_patch_dependency azure-mgmt-trafficmanager:set_upper:2.0
+%pyproject_patch_dependency azure-mgmt-web:set_upper:12.0
+%pyproject_patch_dependency azure-monitor-query:set_upper:2.0
+%pyproject_patch_dependency azure-storage-blob:set_upper:13.0
+%pyproject_patch_dependency azure-storage-file-datalake:set_upper:13.0
+%pyproject_patch_dependency azure-storage-file-share:set_upper:13.0
+%pyproject_patch_dependency azure-storage-queue:set_upper:13.0
+
+# Unnecessary dependencies
+%pyproject_patch_dependency certifi:ignore
+%pyproject_patch_dependency py-deviceid:ignore
+
+# Non-Azure dependencies that need tweaks
 %pyproject_patch_dependency paramiko:set_upper:6.0
+%pyproject_patch_dependency pyjwt:set_upper:3.0
 
 # Remove upper version boundaries on anything that isn't azure-related.
 # Upstream has strict requirements on azure SDK packages, but many of the
@@ -106,56 +146,14 @@ sed -i '/azure/!s/==/>=/' src/azure-cli/setup.py
 sed -i '/azure/!s/~=/>=/' src/azure-cli-core/setup.py
 sed -i '/azure/!s/==/>=/' src/azure-cli-core/setup.py
 
-# This dependency is actually optional and used for telemetry anyway
-sed -i '/py-deviceid/d' src/azure-cli-core/setup.py
-
-# Temporary fix for azure-cli-2.64; upstream pinned to hdinsights 9.0b3 which should have been 9.1b1.
-sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-cli/setup.py
-sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-cli/requirements.py3.Linux.txt
-
-# They insist on pinning betas to try my patience
-sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28.0b1,<13/' src/azure-cli/setup.py
-sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
-
-sed -i 's/azure-storage-file-datalake==12.23.0b1/azure-storage-file-datalake>=12.23.0b1,<13/' src/azure-cli/setup.py
-sed -i 's/azure-storage-file-datalake==12.23.0b1/azure-storage-file-datalake>=12.23.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
-
-sed -i 's/azure-storage-file-share==12.24.0b1/azure-storage-file-share>=12.24.0b1,<13/' src/azure-cli/setup.py
-sed -i 's/azure-storage-file-share==12.24.0b1/azure-storage-file-share>=12.24.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
-
-sed -i 's/azure-storage-queue==12.15.0b1/azure-storage-queue>=12.15.0b1,<13/' src/azure-cli/setup.py
-sed -i 's/azure-storage-queue==12.15.0b1/azure-storage-queue>=12.15.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
-
-
-sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/setup.py
-sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/requirements.py3.Linux.txt
-
-# Upstream broke themselves somehow since the pinned version conflicts with other packages
-sed -i 's/azure-mgmt-resource==23.3/azure-mgmt-resource>=24.0/' src/azure-cli/setup.py
-sed -i 's/azure-mgmt-resource==23.3/azure-mgmt-resource>=24.0/' src/azure-cli/requirements.py3.Linux.txt
-
-# Rawhide has 1.7.1 at the moment
-sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure-cli/setup.py
-sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure-cli/requirements.py3.Linux.txt
-
-sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28,<13/' src/azure-cli/setup.py
-sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28,<13/' src/azure-cli/requirements.py3.Linux.txt
-
 # Namespace packages are no longer needed after Python 3.7, but upstream
 # insists on carrying them.
 sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
-
-# portalocker 3 drops support for end-of-life Python versions
-sed -i 's/portalocker>=1.6,<3/portalocker>=1.6,<4/' src/azure-cli-telemetry/setup.py
-sed -i 's/portalocker==2.3.2/portalocker>=1.6,<4/' src/azure-cli/requirements.py3.Linux.txt
 
 # The requirements file has requirements set for azure-cli-{core,telemetry,testsdk}
 # but we can't install those until we actually build this package.
 sed -i '/azure-cli.*/d' src/azure-cli/requirements.py3.Linux.txt
 
-# certifi's version is irrelevant since the package is empty in Fedora.
-sed -i 's/certifi.=.*$/certifi/' \
-    src/azure-cli/requirements.py3.Linux.txt
 
 # Remove the unnecessary secure extra from urllib3.
 sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
@@ -166,26 +164,8 @@ sed -i 's/msal\[broker\]/msal/' src/azure-cli/setup.py
 sed -i 's/msal\[broker\]/msal/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/msal\[broker\]/msal/' src/azure-cli-core/setup.py
 
-# Be more flexible about the required azure-core
-sed -i 's/^azure-core==.*$/azure-core>=1.28.0,<2/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^azure-common==.*$/azure-common>=1.1.28,<2/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/azure-core~=1.35.0/azure-core>=1.35.0,<2/' src/azure-cli-core/setup.py
-
-# Allow slightly older versions.
-sed -i 's/^cryptography>=.*$/oauthlib>=37.0.2/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^oauthlib>=.*$/oauthlib>=3.2.1/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^packaging>=.*$/packaging>=21.3/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^PyNaCl>=.*$/PyNaCl>=1.4.0/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/PyNaCl>=1.5.0/PyNaCl>=1.4.0/'  src/azure-cli/setup.py
-sed -i 's/^requests\[socks\]>=.*$/requests[socks]>=2.28.2/' src/azure-cli/requirements.py3.Linux.txt
-
 # Bring in the antlr4 python runtime manually to avoid a requires/provides mismatch.
 sed -i '/antlr4-python3-runtime/d' src/azure-cli/requirements.py3.Linux.txt src/azure-cli/setup.py
-
-# Allow an older argcomplete until we can get it updated in Fedora.
-sed -i 's/argcomplete>=3.1.1/argcomplete>=2.0.0/' src/azure-cli-core/setup.py
-sed -i 's/^argcomplete>=.*$/argcomplete>=2.0.0/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow older versions for EPEL 9.
 %if %{defined el9}

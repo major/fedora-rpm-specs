@@ -6,7 +6,7 @@
 %bcond tests 0
 
 Name:           nix
-Version:        2.34.7
+Version:        2.34.8
 Release:        %autorelease
 Summary:        A purely functional package manager
 

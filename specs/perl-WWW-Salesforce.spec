@@ -1,27 +1,29 @@
 Name:           perl-WWW-Salesforce
-Version:        0.304
-Release:        12%{?dist}
+Version:        0.400
+Release:        1%{?dist}
 Summary:        Simple abstraction layer between SOAP::Lite and Salesforce.com
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Salesforce
 Source0:        https://cpan.metacpan.org/authors/id/C/CA/CAPOEIRAB/WWW-Salesforce-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(:VERSION) >= 5.16
+BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(IO::Socket::SSL) >= 1.94
+BuildRequires:  perl(JSON::MaybeXS) >= 1.0
 BuildRequires:  perl(LWP::Protocol::https) >= 6.00
+BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(SOAP::Lite) >= 1.0
 BuildRequires:  perl(URI)
 # Tests
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
@@ -38,33 +40,31 @@ document/literal encoding is limited, this module works around those
 limitations and provides a more intuitive interface a developer can
 interact with.
 
-
 %prep
 %setup -q -n WWW-Salesforce-%{version}
 
-
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
-
+perl Build.PL --installdirs=vendor
+./Build
 
 %install
-%{make_install}
+./Build install --destdir=%{buildroot} --create_packlist=0
 %{_fixperms} %{buildroot}/*
 
-
 %check
-make test
-
+./Build test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-
+%dir %{perl_vendorlib}/WWW
+%{perl_vendorlib}/WWW/Salesforce*
+%{_mandir}/man3/WWW::Salesforce*
 
 %changelog
+* Wed Jul 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.400-1
+- 0.400 bump (rhbz#2396611)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.304-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

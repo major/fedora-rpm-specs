@@ -1,22 +1,12 @@
-%bcond_with bootstrap
-
-%if 0%{?rhel}
-%bcond_with tests
-%else
-%if %{with bootstrap}
 # need updated libcst to update hypothesmith
 # and older hypothesmith does not work with newer hypothesis
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
-%endif
-
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 # Use --with all_tests to run all tests
-%bcond_with all_tests
+%bcond all_tests 0
 
 Name:           python-libcst
-Version:        1.8.0
+Version:        1.8.6
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
@@ -24,11 +14,13 @@ Summary:        A concrete syntax tree with AST-like properties for Python 3
 License:        MIT AND (MIT AND PSF-2.0) AND Apache-2.0
 URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
-# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, benchmark-only criterion and rayon dev-dependencies
+# * update PyO3 to 0.29 (requires an accompanying source-code patch):
+#   https://github.com/Instagram/LibCST/pull/1454#issuecomment-4902787314
 Patch:          libcst-fix-metadata.diff
-# pyyaml-ft is not yet packaged for Fedora
-# we can do with the old good, non-freethreaded one
-Patch:          One-pyyaml-to-rule-them-all.patch
+# Source-code patch from https://github.com/Instagram/LibCST/pull/1454 for
+# updating PyO3 from 0.26 to 0.28
+Patch:          libcst-1.8.6-pyo3-0.28.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
@@ -36,8 +28,6 @@ BuildRequires:  python3-devel
 %if %{with tests}
 # test dependencies are intermingled with dev dependencies
 # so list them manually for now
-BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(hypothesmith)
 BuildRequires:  python3dist(pytest)
 %endif
 
@@ -59,7 +49,6 @@ AST.}
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# Apache-2.0 OR MIT
 # MIT
 # MIT AND (MIT AND PSF-2.0)
 # MIT OR Apache-2.0
@@ -95,18 +84,19 @@ for p in libcst_derive libcst; do
   %cargo_generate_buildrequires -t
   cd ../..
 done
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
 export RUSTFLAGS="%{build_rustflags}"
-%pyproject_wheel
 
 # write license summary and breakdown
 cd native
 %{cargo_license_summary}
 %{cargo_license} > ../LICENSE.dependencies
 cd ..
+
+%pyproject_wheel
 
 
 %install
@@ -116,26 +106,41 @@ cd ..
 
 %check
 %pyproject_check_import -e 'libcst.tests.*'
+
 %if %{with tests}
-# libcst.native is not available in build directory
-# test the pure Python codepath for now
-# (TODO: test *both* paths)
-export LIBCST_PARSER_TYPE=pure
-%pyproject_check_import -e 'libcst.tests.*'
-%if %{with all_tests}
-%pytest -v
-%else
-%pytest -v \
-  --ignore=libcst/codegen/tests/test_codegen_clean.py \
-  --ignore=libcst/metadata/tests/test_type_inference_provider.py
-# end all_tests
+mod='%{buildroot}%{python3_sitearch}/libcst'
+# Omit fuzz tests. These don’t make much sense downstream, and would require
+# hypothesmith, which hasn’t been successfully rebuilt for Python 3.15.
+ignore="${ignore-} --ignore=${mod}/tests/test_fuzz.py"
+
+%if %{without all_tests}
+ignore="${ignore-} --ignore=${mod}/codegen/tests/test_codegen_clean.py"
+ignore="${ignore-} --ignore=${mod}/metadata/tests/test_type_inference_provider.py"
 %endif
-# end tests
+
+# A few tests aren’t practical to run when not building in-place
+# Some kind of PYTHONPATH issue, it looks like
+ignore="${ignore-} --ignore=${mod}/codemod/tests/test_codemod_cli.py"
+# Broken path to fixtures for native tests (tries to find them at
+# %%{buildroot}%%{python3_sitearch/native/libcst/tests/fixtures)
+ignore="${ignore-} --ignore=${mod}/tests/test_roundtrip.py"
+
+# Pure-Python parser
+LIBCST_PARSER_TYPE=pure %pytest --import-mode=append ${ignore-} -v "${mod}"
+
+# Rust (native) parser
+%pytest --import-mode=append ${ignore-} -k "${k-}" -v "${mod}"
+
+%dnl Cargo tests fail to build on ppc64le due to a linker error related to the
+%dnl Python C API. It’s not obvious what’s going wrong here.
+%ifnarch %{power64}
+cd native
+%cargo_test
+%endif
 %endif
 
 
 %files -n python3-libcst -f %{pyproject_files}
-%license LICENSE.dependencies
 
 
 %changelog

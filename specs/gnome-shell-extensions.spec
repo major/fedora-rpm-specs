@@ -1,3 +1,6 @@
+# Minimum GNOME Shell version supported (includes ~alpha/~beta/~rc)
+%global min_gs_version %%(cut -d "." -f 1 <<<%{version})
+
 %global pkg_prefix gnome-shell-extension
 
 %if 0%{?fedora} && 0%{?fedora} < 43
@@ -22,7 +25,7 @@ BuildRequires:  git-core
 BuildRequires:  gettext >= 0.19.6
 BuildRequires:  glib2%{?_isa}
 BuildRequires:  pkgconfig(systemd)
-Requires:       gnome-shell >= %{gnome_major_version}
+Requires:       gnome-shell >= %{min_gs_version}
 BuildArch:      noarch
 
 %description
@@ -49,7 +52,7 @@ Enabled extensions:
 %package -n %{pkg_prefix}-common
 Summary:        Files common to GNOME Shell Extensions
 License:        GPL-2.0-or-later
-Requires:       gnome-shell >= %{gnome_major_version}
+Requires:       gnome-shell >= %{min_gs_version}
 Obsoletes:      %{pkg_prefix}-horizontal-workspaces < 40.0~alpha.1-3
 
 %description -n %{pkg_prefix}-common

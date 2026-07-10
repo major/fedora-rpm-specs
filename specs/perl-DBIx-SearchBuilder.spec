@@ -7,7 +7,7 @@
 
 Name:		perl-DBIx-SearchBuilder
 Version:	1.85
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -47,7 +47,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Test::Pod)
 
 # Optional features
-BuildRequires:	perl(capitalization) >= 0.03
+# perl(capitalization) - Not in Fedora
 BuildRequires:	perl(Clone)
 BuildRequires:	perl(DBIx::DBSchema)
 
@@ -104,6 +104,9 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Tue Jul 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.85-2
+- Removed optional BR perl(capitalization)
+
 * Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.85-1
 - 1.85 bump (rhbz#2459643)
 

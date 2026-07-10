@@ -10,7 +10,7 @@ An open source, self-hosted implementation of the Tailscale control server.}
 
 Name:           headscale
 Version:        0.29.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Self-hosted implementation of the Tailscale control server
 
 License:        BSD-2-Clause AND MIT AND Apache-2.0 AND MPL-2.0 AND BSD-2-Clause-Views AND ISC AND BSD-3-Clause AND ISC
@@ -555,6 +555,9 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/headscale/config.yam
 
 
 %changelog
+* Wed Jul 08 2026 Jonathan Wright <jonathan@almalinux.org> - 0.29.2-2
+- Fix duplicate key in config.yaml
+
 * Tue Jul 07 2026 Jonathan Wright <jonathan@almalinux.org> - 0.29.2-1
 - update to 0.29.2
 

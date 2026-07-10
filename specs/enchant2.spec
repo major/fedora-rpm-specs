@@ -1,7 +1,7 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.8.18
+Version:       2.8.19
 Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
@@ -240,6 +240,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 08 2026 Sandro Mani <manisandro@gmail.com> - 2.8.19-1
+- Update to 2.8.19
+
 * Sat Jul 04 2026 Sandro Mani <manisandro@gmail.com> - 2.8.18-1
 - Update to 2.8.18
 

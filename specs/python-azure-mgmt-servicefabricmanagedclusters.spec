@@ -5,8 +5,8 @@
 %global         tarball_name     azure_mgmt_servicefabricmanagedclusters
 
 Name:           python-%{srcname}
-Version:        2.1.0~b1
-%global         pypi_version    2.1.0b1
+Version:        2.1.0~b3
+%global         pypi_version    2.1.0b3
 Release:        %autorelease
 Summary:        Microsoft Azure Service Fabric Managed Clusters Management
 License:        MIT

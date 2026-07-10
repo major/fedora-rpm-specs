@@ -4,13 +4,13 @@
 %global         srcname     azure-keyvault-administration
 
 Name:           python-%{srcname}
-Version:        4.4.0
-%global         pypi_version 4.4.0
+Version:        4.8.0~b2
+%global         pypi_version 4.8.0b2
 Release:        %autorelease
 Summary:        Microsoft Azure Key Vault Administration Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version}}
+Source0:        %{pypi_source azure_keyvault_administration %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -41,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{pypi_version}
+%autosetup -n azure_keyvault_administration-%{pypi_version}
 
 
 %generate_buildrequires

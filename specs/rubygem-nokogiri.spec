@@ -303,6 +303,7 @@ popd
 
 * Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-1
 - 1.19.4
+- Fixes CVE-2026-57234 CVE-2026-57235 CVE-2026-57236
 - Fixes CVE-2026-57434 CVE-2026-57435 CVE-2026-57436 CVE-2026-57437 CVE-2026-57438
 
 * Wed Jun 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.3-2

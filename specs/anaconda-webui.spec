@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        72
+Version:        73
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 08 2026 Packit <hello@packit.dev> - 73-1
+- KS installations: review: rely on backend default disk selection
+- KS installations: review: make auto-proceed a one-shot attempt
+
 * Wed Jun 17 2026 Packit <hello@packit.dev> - 72-1
 - review: show hostname on Live ISO installations
 - storage: block Next when destination has insufficient disk space

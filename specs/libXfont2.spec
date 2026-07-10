@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXfont2 runtime library
 Name: libXfont2
-Version: 2.0.7
-Release: 4%{?dist}
+Version: 2.0.8
+Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-4-Clause-UC AND HPND-sell-variant AND MIT-open-group AND SMLNJ AND X11
 URL: http://www.x.org
 
@@ -55,6 +55,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xfont2.pc
 
 %changelog
+* Wed Jul 08 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.0.8-1
+- libXfont2 2.0.8 (CVE-2026-56001, CVE-2026-56002, CVE-2026-56003)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

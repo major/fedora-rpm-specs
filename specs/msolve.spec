@@ -1,7 +1,7 @@
 %global giturl  https://github.com/algebraic-solving/msolve
 
 Name:           msolve
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 

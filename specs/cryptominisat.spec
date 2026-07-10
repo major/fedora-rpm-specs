@@ -1,11 +1,11 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  35f027383abf3b4b52bbc8af789c8f1aa3d84ad2
+%global cadicommit  3b6a84062b1304433eb8960a4bff6b9a80de9c54
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
-Version:        5.14.5
+Version:        5.14.7
 Release:        %autorelease
 Summary:        SAT solver
 
@@ -20,8 +20,6 @@ Patch:          %{name}-cmake.patch
 Patch:          %{name}-picosat.patch
 # Use zlib-ng instead of zlib
 Patch:          %{name}-zlib-ng.patch
-# Adapt to a changed function name in breakid 3.1.3
-Patch:          %{name}-breakid.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -32,13 +30,13 @@ BuildOption(conf): -DCMAKE_INSTALL_BINDIR=bin
 BuildOption(conf): -DCMAKE_INSTALL_LIBDIR=%{_lib}
 BuildOption(conf): -DENABLE_ASSERTIONS:BOOL=OFF
 BuildOption(conf): -DNOBREAKID:BOOL=OFF
+BuildOption(conf): -Dbreakid_DIR=%{_prefix}
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  cmake(breakid)
 BuildRequires:  cmake(cadical)
 BuildRequires:  gcc-c++
-BuildRequires:  gperftools-devel
 BuildRequires:  help2man
 BuildRequires:  ninja-build
 BuildRequires:  picosat-devel
@@ -116,8 +114,8 @@ rm -fr src/mpicosat
 %pyproject_buildrequires
 
 %conf -p
-export CFLAGS='%{build_cflags} -DNTRACING'
-export CXXFLAGS='%{build_cxxflags} -DNTRACING'
+export CFLAGS='%{build_cflags} -I %{_includedir}/breakid -DNTRACING'
+export CXXFLAGS='%{build_cxxflags} -I %{_includedir}/breakid -DNTRACING'
 
 %install -a
 # We don't want the bundled cadiback

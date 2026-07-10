@@ -1,7 +1,7 @@
 %global srcname pyrtlsdr
 Name:             python-%{srcname}
-Version:          0.4.0
-Release:          2%{?dist}
+Version:          0.5.0
+Release:          1%{?dist}
 Summary:          Python binding for librtlsdr
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:          GPL-3.0-only
@@ -48,6 +48,10 @@ find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 %doc README.md
 
 %changelog
+* Wed Jul 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.0-1
+- New version
+  Resolves: rhbz#2497186
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.0-2
 - Rebuilt for Python 3.15
 

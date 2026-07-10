@@ -5,8 +5,8 @@
 %global         tarball_name     azure_mgmt_authorization
 
 Name:           python-%{srcname}
-Version:        5.0.0~b1
-%global         pypi_version 5.0.0b1
+Version:        5.0.0~b2
+%global         pypi_version 5.0.0b2
 Release:        %autorelease
 Summary:        Microsoft Azure Authorization Management Client Library for Python
 License:        MIT

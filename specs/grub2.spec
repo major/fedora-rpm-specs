@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	68%{?dist}
+Release:	69%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -625,6 +625,16 @@ fi
 %endif
 
 %changelog
+* Tue Jul 07 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-69
+- mm: try allocating regions above defined limit as last resource
+- Revert 'verifiers: Allocate EFI pages instead of grub_malloc for verified buffer'
+- Resolves: #2263643
+- Related: #2427945
+- Related: #2422881
+- Related: #2453022
+- Related: #2451630
+- Related: #2450672
+
 * Wed Jul 1 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.12-68
 - Fix default kernel not getting updated when using kernel-uki-dtbloader
 - Resolves: #2463620

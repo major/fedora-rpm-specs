@@ -1,5 +1,5 @@
 Name:          gupnp-tools
-Version:       0.12.3
+Version:       0.12.4
 Release:       %autorelease
 Summary:       A collection of dev tools utilising GUPnP and GTK+
 
@@ -63,9 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gupnp-universal-cp.de
 %{_datadir}/applications/gupnp-universal-cp.desktop
 %{_datadir}/gupnp-tools/pixmaps/*.png
 %{_datadir}/gupnp-tools/xml/*.xml
-%{_datadir}/icons/hicolor/*/apps/av-cp.png
-%{_datadir}/icons/hicolor/*/apps/network-light.png
-%{_datadir}/icons/hicolor/*/apps/universal-cp.png
+%{_datadir}/icons/hicolor/*/apps/gupnp-av-cp.png
+%{_datadir}/icons/hicolor/*/apps/gupnp-network-light.png
+%{_datadir}/icons/hicolor/*/apps/gupnp-universal-cp.png
 
 %changelog
 %autochangelog

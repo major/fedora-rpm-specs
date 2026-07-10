@@ -1,5 +1,5 @@
 Name:           libmicrohttpd
-Version:        1.0.5
+Version:        1.0.6
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Lightweight library for embedding a webserver in applications
@@ -105,6 +105,9 @@ fi
 %doc html
 
 %changelog
+* Wed Jul 08 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:1.0.6-1
+- Update to 1:1.0.6
+
 * Thu Apr 16 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:1.0.5-1
 - Update to 1:1.0.5
 

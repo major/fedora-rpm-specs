@@ -20,6 +20,10 @@ Patch:          opendal-fix-metadata-auto.diff
 # * Remove fasttrace dev dependency
 # * Remove libtest-mimic dev dependency
 # * Remove divan (benchmark) dev dependency
+# * Update quick-xml to 0.41:
+#   https://github.com/apache/opendal/commit/3a28adce704dd2cfee9f9452df9472399188e7f5,
+#   https://github.com/apache/opendal/commit/dd2f2ed0ea3d3060c2997c7b1885a1294f66037e,
+#   https://github.com/apache/opendal/commit/01ca24e6dd94b24a73de057ef23e70525f019ec6
 Patch:          opendal-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

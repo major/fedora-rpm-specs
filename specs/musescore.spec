@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.7.3
+%global musescore_ver             4.7.4
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -11,23 +11,23 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           41%{?dist}
+%global mscore_font_rel           42%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       41%{?dist}
+%global mscoretext_font_rel       42%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    41%{?dist}
+%global musescoreicon_font_rel    42%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         41%{?dist}
+%global mscorebc_font_rel         42%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 41%{?dist}
+%global mscoretabulature_font_rel 42%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         41%{?dist}
+%global musejazz_font_rel         42%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        41%{?dist}
+%global gootville_font_rel        42%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   41%{?dist}
+%global gootville_text_font_rel   42%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             41%{?dist}
+%global soundfont_rel             42%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
@@ -65,17 +65,17 @@ Release:        1%{?dist}
 # - code from the picojson header-only library
 # Unlicense OR MIT
 # - code from the stb_vorbis header-only library
-License:      %{shrink:
-                GPL-3.0-only WITH Font-exception-2.0 AND
-                GPL-2.0-or-later AND
-                (GPL-2.0-only OR GPL-3.0-only) AND
-                GPL-3.0-or-later AND
-                LGPL-3.0-only AND
-                LGPL-2.1-or-later AND
-                MIT AND
-                BSD-2-Clause AND
-                (Unlicense OR MIT)
-		}
+License:        %{shrink:
+                  GPL-3.0-only WITH Font-exception-2.0
+                  AND GPL-2.0-or-later
+                  AND (GPL-2.0-only OR GPL-3.0-only)
+                  AND GPL-3.0-or-later
+                  AND LGPL-3.0-only
+                  AND LGPL-2.1-or-later
+                  AND MIT
+                  AND BSD-2-Clause
+                  AND (Unlicense OR MIT)
+                }
 URL:            https://musescore.org/
 VCS:            git:%{giturl}.git
 

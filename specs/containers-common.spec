@@ -25,7 +25,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.68.0
+Version: 0.68.1
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -114,7 +114,8 @@ install -Dp -m0644 storage/storage.conf %{buildroot}%{_datadir}/containers/stora
 # install custom vendor overwrites
 install -Dp -m0644 common/rpm/00-containers.conf %{buildroot}%{_datadir}/containers/containers.conf.d/00-vendor.conf
 install -Dp -m0644 common/rpm/00-storage.conf %{buildroot}%{_datadir}/containers/storage.conf.d/00-vendor.conf
-install -Dp -m0644 common/rpm/00-storage-additional-store.conf %{buildroot}%{_datadir}/containers/storage.rootful.conf.d/00-vendor-additional-store.conf
+install -Dp -m0644 common/rpm/00-storage-rootful.conf %{buildroot}%{_datadir}/containers/storage.rootful.conf.d/00-vendor-rootful.conf
+install -Dp -m0644 common/rpm/00-storage-rootless.conf %{buildroot}%{_datadir}/containers/storage.rootless.conf.d/00-vendor-rootless.conf
 
 %if %{defined fedora}
 install -Dp -m0644 common/rpm/00-fedora-registries.conf %{buildroot}%{_datadir}/containers/registries.conf.d/00-vendor.conf
@@ -216,7 +217,9 @@ ln -s ../../../..%{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/
 %dir %{_datadir}/containers/storage.conf.d
 %{_datadir}/containers/storage.conf.d/00-vendor.conf
 %dir %{_datadir}/containers/storage.rootful.conf.d
-%{_datadir}/containers/storage.rootful.conf.d/00-vendor-additional-store.conf
+%{_datadir}/containers/storage.rootful.conf.d/00-vendor-rootful.conf
+%dir %{_datadir}/containers/storage.rootless.conf.d
+%{_datadir}/containers/storage.rootless.conf.d/00-vendor-rootless.conf
 %dir %{_datadir}/rhel
 %dir %{_datadir}/rhel/secrets
 %{_datadir}/rhel/secrets/*

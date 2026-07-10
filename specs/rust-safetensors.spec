@@ -5,13 +5,15 @@
 %global crate safetensors
 
 Name:           rust-safetensors
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Functions for safer PyTorch safetensors read/write operations
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/safetensors
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          safetensors-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Patch out benchmark-only criterion dev-dependency
 Patch:          safetensors-fix-metadata.diff

@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2026.3.0
+Version:        2026.7.0
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
@@ -22,12 +22,6 @@ URL:            https://github.com/dask/dask
 Source0:        %{pypi_source %{srcname}}
 # Fedora-specific patches.
 Patch:          0001-Remove-extra-test-dependencies.patch
-# Fix pyarrow checks.
-Patch:          0002-Clean-up-minimum-pyarrow-version-checks-12376.patch
-# Fix warnings with older Pandas
-Patch:          0003-Test-vs.-intermediate-versions-of-numpy-and-pandas-1.patch
-# https://github.com/dask/dask/pull/12399
-Patch:          0004-TST-Fix-broken-condition-in-test_cpu_affinity_taskse.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

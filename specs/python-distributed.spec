@@ -8,7 +8,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2026.3.0
+Version:        2026.7.0
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
@@ -35,19 +35,16 @@ Source:         %forgesource
 Patch:          0001-Increase-test-timeout-for-slower-architectures.patch
 Patch:          0002-Install-test-packages.patch
 Patch:          0003-Disable-warnings-as-errors-in-tests.patch
-Patch:          0004-Loosen-up-some-dependencies.patch
 # https://github.com/dask/distributed/pull/7765
-Patch:          0005-Skip-doc-test-when-not-running-from-a-git-checkout.patch
+Patch:          0004-Skip-doc-test-when-not-running-from-a-git-checkout.patch
 # Fix TLS certs to work with OpenSSL 3.
 # https://github.com/dask/distributed/issues/8701
 # https://github.com/dask/distributed/pull/8707
-Patch:          0006-Update-make_tls_certs.py-work-with-openssl-3-8701.patch
-# Point the test at the uninstalled version.
-Patch:          0007-Avoid-using-sys.prefix-in-CLI-test.patch
+Patch:          0005-Update-make_tls_certs.py-work-with-openssl-3-8701.patch
 # Temporary workaround: don't chain ModuleNotFoundError to avoid Python 3.15
 # _find_incompatible_extension_module raising during traceback formatting.
 # https://github.com/python/cpython/issues/151631
-Patch:          0008-Don-t-chain-ModuleNotFoundError-when-raising-Runtime.patch
+Patch:          0006-Don-t-chain-ModuleNotFoundError-when-raising-Runtime.patch
 
 BuildArch:      noarch
 
@@ -175,9 +172,6 @@ DESTDIR=%{buildroot} DISABLE_IPV6=1 JUPYTER_PLATFORM_DIRS=1 \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS.md CONTRIBUTING.md README.rst
-%{_bindir}/dask-scheduler
-%{_bindir}/dask-ssh
-%{_bindir}/dask-worker
 
 %changelog
 %autochangelog

@@ -1,15 +1,12 @@
 Name:		synce4l
-Version:	1.1.0
-Release:	6%{?dist}
+Version:	1.1.2
+Release:	1%{?dist}
 Summary:	SyncE implementation for Linux
 
 License:	GPL-2.0-or-later
 URL:		https://github.com/intel/synce4l
 Source0:	https://github.com/intel/synce4l/archive/%{version}/synce4l-%{version}.tar.gz
 Source1:	synce4l.service
-
-# Fix compiler warnings to avoid build failures with -Werror
-Patch1:		synce4l-ccwarns.patch
 
 BuildRequires:	gcc make systemd
 BuildRequires:	libnl3-devel
@@ -71,6 +68,9 @@ echo '.so man8/synce4l.8' > $RPM_BUILD_ROOT%{_mandir}/man5/synce4l.conf.5
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Jul 08 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.1.2-1
+- update to 1.1.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

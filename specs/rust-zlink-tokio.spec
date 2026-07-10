@@ -5,7 +5,7 @@
 %global crate zlink-tokio
 
 Name:           rust-zlink-tokio
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Zlink library for the Tokio runtime
 

@@ -18,7 +18,7 @@
 %global crate kirmes
 
 Name:           rust-kirmes
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Library providing access to systemd's userdb varlink interface
 

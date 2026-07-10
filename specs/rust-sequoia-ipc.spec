@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/sequoia-ipc
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-ipc-fix-metadata-auto.diff
+Patch:          0001-Change-default-backend-server-search-path-to-usr-lib.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -5,7 +5,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-gmpy2
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Python interface to GMP, MPFR, and MPC
 
@@ -20,8 +20,8 @@ BuildOption(install): -l gmpy2
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
-BuildRequires:  libmpc-devel
 BuildRequires:  make
+BuildRequires:  pkgconfig(mpc)
 BuildRequires:  pkgconfig(mpfr)
 %if %{with py3docs}
 BuildRequires:  python3-docs
@@ -76,7 +76,7 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
 %endif
 
 # Permit use of setuptools 80
-sed -i 's/,<80//' pyproject.toml
+%pyproject_patch_dependency setuptools:drop_upper
 
 %build -p
 # Do not pass -pthread to the compiler or linker

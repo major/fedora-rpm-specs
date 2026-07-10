@@ -1011,6 +1011,7 @@ sed -i "s/AC_PREREQ(\[2\.72\])/AC_PREREQ([2.69])/" configure.ac
 # into the Py_GetBuildInfo and sys.version strings.
 # Our Git repository is artificial, so we don't want that.
 # Tell configure to not use git.
+# Instead, we'll pass custom commands to GITVERSION and GITTAG.
 export HAS_GIT=not-found
 
 # Regenerate the configure script and pyconfig.h.in
@@ -1122,7 +1123,14 @@ EOF
   $ExtraConfigArgs \
   %{nil}
 
-%global flags_override EXTRA_CFLAGS="$MoreCFlags" CFLAGS_NODIST="$CFLAGS_NODIST $MoreCFlags"
+%global flags_override %{shrink:
+    EXTRA_CFLAGS="$MoreCFlags"
+    CFLAGS_NODIST="$CFLAGS_NODIST
+    $MoreCFlags"
+    %dnl The following two commands replace "main" with "version-release.arch" in sys.version:
+    GITVERSION="true"
+    GITTAG="echo '%{version}-%{release}.%{_arch}'"
+}
 
 %if %{without bootstrap}
   # Regenerate generated files (needs python3)
@@ -1467,6 +1475,16 @@ for Module in %{buildroot}/%{dynload_dir}/*.so ; do
         ;;
     esac
 done
+
+# Assert that sys.version contains the RPM version-release.arch identifier
+# rather than "main" or a git hash from the artificial %%autosetup git repo
+GITHASH=$(git rev-parse --short=5 HEAD)
+LD_LIBRARY_PATH="%{buildroot}%{_libdir}" \
+    %{buildroot}%{_bindir}/python%{pybasever} -c \
+    "import sys; v = sys.version; print(v); v = v.split('[')[0]
+assert '(%{version}-%{release}.%{_arch},' in v, v
+assert '(main' not in v, v
+assert '$GITHASH' not in v, v"
 
 # Assert the pre-generated JIT stencils are up to date
 %if %{with jit_build_stencils}

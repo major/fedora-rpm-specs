@@ -13,8 +13,8 @@ encrypted JSON objects.}
 
 
 Name:           python-%{pkgname}
-Version:        2.12.1
-Release:        3%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
 URL:            https://github.com/jpadilla/pyjwt
@@ -28,6 +28,7 @@ BuildArch:      noarch
 %package -n python3-%{pkgname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 Recommends:     python3-%{pkgname}+crypto
 
 
@@ -39,14 +40,10 @@ Recommends:     python3-%{pkgname}+crypto
 
 %prep
 %autosetup -n %{srcname}-%{version}
-# remove coverage buildreq and relax pytest req
-sed -e '/coverage\[toml\]/d' \
-    -e '/pytest/ s/,<9.0.0//' \
-    -i pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x crypto,tests
+%pyproject_buildrequires -x crypto
 
 
 %build
@@ -55,7 +52,7 @@ sed -e '/coverage\[toml\]/d' \
 
 %install
 %pyproject_install
-%pyproject_save_files %{libname}
+%pyproject_save_files -l %{libname}
 
 
 %check
@@ -67,6 +64,9 @@ sed -e '/coverage\[toml\]/d' \
 
 
 %changelog
+* Tue Jul 07 2026 Jeremy Cline <jeremycline@microsoft.com> - 2.13.0-1
+- Rebase to 2.13.0 (rhbz#2480639)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.12.1-3
 - Rebuilt for Python 3.15
 

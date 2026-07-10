@@ -5,7 +5,7 @@
 %global crate astral_async_zip
 
 Name:           rust-astral_async_zip
-Version:        0.0.18
+Version:        0.0.20
 Release:        %autorelease
 Summary:        Asynchronous ZIP archive reading/writing crate
 
@@ -14,16 +14,8 @@ URL:            https://crates.io/crates/astral_async_zip
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit the actix-multipart example, allowing us to drop dev-dependencies on
-#   actix-multipart (not packaged), actix-web, derive_more (packaged, but the
-#   example wants 1.x instead of 2.x), and uuid.
-# * Update several dev-dependencies across SemVer boundaries:
-#   https://github.com/astral-sh/rs-async-zip/pull/39. Updates sanitize-filename
-#   0.5 to 0.6, derive_more 1 to 2, and zip 2 to 8.
-# * Exclude `rustfmt.toml` from published crates:
-#   https://github.com/astral-sh/rs-async-zip/pull/43
+#   actix-multipart (not packaged), actix-web, derive_more, and uuid.
 Patch:          astral_async_zip-fix-metadata.diff
-# * Omit zip64 tests on 32-bit targets
-Patch10:        https://github.com/astral-sh/rs-async-zip/pull/40.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

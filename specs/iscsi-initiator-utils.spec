@@ -35,6 +35,8 @@ Patch07: 0007-Disable-Data-Digests.patch
 Patch08: 0008-Revert-iscsiadm-return-error-when-login-fails.patch
 Patch09: 0009-Coverity-scan-fixes.patch
 Patch10: 0010-use-Red-Hat-version-string-to-match-RPM-package-vers.patch
+Patch11: 0011-iscsi-gen-initiatorname-use-IQN_PREFIX-as-default.patch
+Patch12: 0012-iscsi-init.service-Use-iscsi-gen-initiatorname.patch
 
 # libiscsi, deprecated but still needed until UDisks2 is converted to libopeniscsiusr
 Patch101: 0101-libiscsi.patch
@@ -133,11 +135,9 @@ rm $RPM_BUILD_ROOT/etc/iscsi/initiatorname.iscsi
 rm $RPM_BUILD_ROOT/etc/udev/rules.d/50-iscsi-firmware-login.rules
 rm $RPM_BUILD_ROOT/usr/lib/systemd/system-generators/ibft-rule-generator
 rm $RPM_BUILD_ROOT/%{_sbindir}/brcm_iscsiuio
-rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi-gen-initiatorname
 rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_discovery
 rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_fw_login
 rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_offload
-rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi-gen-initiatorname.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_discovery.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_fw_login.8
 rm $RPM_BUILD_ROOT/var/lib/iscsi/ifaces/iface.example
@@ -209,11 +209,13 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %dir %{_sysconfdir}/iscsi
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/iscsi/iscsid.conf
 %{_sbindir}/iscsi-iname
+%{_sbindir}/iscsi-gen-initiatorname
 %{_sbindir}/iscsiadm
 %{_sbindir}/iscsid
 %{_sbindir}/iscsistart
 %{_libdir}/libiscsi.so.0
 %{_mandir}/man8/iscsi-iname.8.gz
+%{_mandir}/man8/iscsi-gen-initiatorname.8.gz
 %{_mandir}/man8/iscsiadm.8.gz
 %{_mandir}/man8/iscsid.8.gz
 %{_mandir}/man8/iscsistart.8.gz

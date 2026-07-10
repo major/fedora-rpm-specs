@@ -1,5 +1,5 @@
-%global git_date 20260331
-%global git_commit 4c567b2a200f1c23076c4c09bf7a5d380ed36ae6
+%global git_date 20260708
+%global git_commit 6ce654c2572d75d8ba320d22d46a7d3f76cbd2a4
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -290,6 +290,12 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Wed Jul 08 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260708-1.git6ce654c
+- java: use SHA3-### names with a dash
+- policies/modules/NO-HMAC-SHA1: introduce
+- java: fix MD5withECDSA concatenating with RIPEMD160withRSA
+- java: use CHACHA20_POLY1305 cipher name
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20260331-2.git4c567b2
 - Rebuilt for openssl 4.0
 

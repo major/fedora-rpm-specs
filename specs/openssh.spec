@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 6%{?dist}
+Release: 8%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -68,7 +68,6 @@ Patch0004: 0004-openssh-6.6p1-keycat.patch
 Patch0005: 0005-openssh-6.6p1-allow-ip-opts.patch
 Patch0006: 0006-openssh-5.9p1-ipv6man.patch
 Patch0007: 0007-openssh-5.8p2-sigpipe.patch
-Patch0008: 0008-openssh-7.2p2-x11.patch
 Patch0009: 0009-openssh-5.1p1-askpass-progress.patch
 Patch0010: 0010-openssh-4.3p2-askpass-grab-info.patch
 Patch0011: 0011-openssh-8.7p1-redhat.patch
@@ -514,6 +513,13 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Jul 08 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-8
+- Fix a typo in crypto-policies documentation patch
+  Resolves: rhbz#2241564
+
+* Wed Jul 08 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.3p1-7
+- Remove support for abstract UNIX sockets
+
 * Tue Jul 07 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-6
 - Improve GSS KEX algorithms documentation
   Patches are submitted by xspielinbox+redhat@protonmail.com

@@ -3,6 +3,9 @@
 %global rhel_minor_version %(echo %{dist} | sed -n 's/.*el10_\\([0-9]\\+\\).*/\\1/p')
 %endif
 
+# Fix installation issue caused by the hard link in locales
+%define __os_install_post_hardlink %{nil}
+
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
 
@@ -268,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.46
+Version: 150.0.7871.100
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1919,6 +1922,10 @@ fi
 %endif
 
 %changelog
+* Wed Jul 08 2026 Than Ngo <than@redhat.com> - 150.0.7871.100-1
+- Update to 150.0.7871.100
+- Fix installation issue caused by the hard link in locales
+
 * Wed Jul 01 2026 Than Ngo <than@redhat.com> - 150.0.7871.46-1
 - Update to 150.0.7871.46
   * CVE-2026-13774: Use after free in Extensions

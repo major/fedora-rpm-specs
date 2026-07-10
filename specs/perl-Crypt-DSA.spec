@@ -1,6 +1,6 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
-Version:	1.22
+Version:	1.24
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
@@ -20,7 +20,6 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(Convert::ASN1)
 BuildRequires:	perl(Convert::PEM) >= 0.13
 BuildRequires:	perl(Crypt::SysRandom)
-BuildRequires:	perl(Crypt::URandom)
 BuildRequires:	perl(Data::Buffer) >= 0.01
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(Exporter)
@@ -72,7 +71,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} -c %{buildroot}
 
 %check
-make test
+# Use AUTHOR_TESTING to run the CVE tests
+make test AUTHOR_TESTING=1
 
 %files
 %license LICENSE
@@ -87,6 +87,11 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Wed Jul  8 2026 Paul Howarth <paul@city-fan.org> - 1.24-1
+- Update to 1.24
+  - Standardize on Crypt::SysRandom and drop the Crypt::URandom dependency
+  - Make CVE tests optional
+
 * Fri Jul  3 2026 Paul Howarth <paul@city-fan.org> - 1.22-1
 - Update to 1.22
   - Hardening: Use a fresh, independent CSPRNG witness every round

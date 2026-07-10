@@ -30,10 +30,9 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 4.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
-Source1: fips-hmacify.sh
 Source4: openssl.rpmlintrc
 Source9: configuration-switch.h
 Source10: configuration-prefix.h
@@ -45,45 +44,15 @@ Patch0004: 0004-RH-Disable-signature-verification-with-bad-digests-R.patch
 Patch0005: 0005-RH-Add-support-for-PROFILE-SYSTEM-system-default-cip.patch
 Patch0006: 0006-RH-Add-FIPS_mode-compatibility-macro.patch
 Patch0007: 0007-RH-Add-Kernel-FIPS-mode-flag-support-FIXSTYLE.patch
-Patch0008: 0008-RH-TMP-KTLS-test-skip.patch
-Patch0009: 0009-RH-Allow-disabling-of-SHA1-signatures.patch
-Patch0010: 0010-FIPS-Red-Hat-s-FIPS-module-name-and-version.patch
-Patch0011: 0011-FIPS-disable-fipsinstall.patch
-Patch0012: 0012-FIPS-Force-fips-provider-on.patch
-Patch0013: 0013-FIPS-INTEG-CHECK-Embed-hmac-in-fips.so-NOTE.patch
-Patch0014: 0014-FIPS-INTEG-CHECK-Add-script-to-hmac-ify-fips.so.patch
-Patch0015: 0015-FIPS-RSA-encrypt-limits-REVIEW.patch
-Patch0016: 0016-FIPS-RSA-PCTs.patch
-Patch0017: 0017-FIPS-RSA-encapsulate-limits.patch
-Patch0018: 0018-FIPS-RSA-size-mode-restrictions.patch
-Patch0019: 0019-FIPS-RSA-Mark-x931-as-not-approved-by-default.patch
-Patch0020: 0020-FIPS-RSA-Remove-X9.31-padding-signatures-tests.patch
-Patch0021: 0021-FIPS-Deny-SHA-1-signature-verification.patch
-Patch0022: 0022-FIPS-RAND-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
-Patch0023: 0023-FIPS-RAND-Forbid-truncated-hashes-SHA-3.patch
-Patch0024: 0024-FIPS-DH-PCT.patch
-Patch0025: 0025-FIPS-DH-Disable-FIPS-186-4-type-parameters.patch
-Patch0026: 0026-FIPS-TLS-Enforce-EMS-in-TLS-1.2-NOTE.patch
-Patch0027: 0027-FIPS-CMS-Set-default-padding-to-OAEP.patch
-Patch0028: 0028-FIPS-PKCS12-PBMAC1-defaults.patch
-Patch0029: 0029-FIPS-Fix-encoder-decoder-negative-test.patch
-Patch0030: 0030-FIPS-EC-DH-DSA-PCTs.patch
-Patch0031: 0031-FIPS-EC-disable-weak-curves.patch
-Patch0032: 0032-FIPS-NO-DSA-Support.patch
-Patch0033: 0033-FIPS-NO-DES-support.patch
-Patch0034: 0034-FIPS-NO-Kmac.patch
-Patch0035: 0035-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
-Patch0036: 0036-FIPS-KDF-key-lenght-errors.patch
-Patch0037: 0037-FIPS-fix-disallowed-digests-tests.patch
-Patch0038: 0038-Make-openssl-speed-run-in-FIPS-mode.patch
-Patch0039: 0039-Allow-hybrid-MLKEM-in-FIPS-mode.patch
-Patch0040: 0040-FIPS-disabling-RSA-PKCS1.5-self-tests.patch
-Patch0041: 0041-Store-initial-disabled-state-for-some-algorithms.patch
-Patch0042: 0042-Disable-short-curves-skip-tests.patch
-Patch0043: 0043-Red-Hat-disables-some-specific-algorithms-in-FIPS-mo.patch
-Patch0044: 0044-Correctly-skip-sslv3-tests-on-RHEL.patch
-Patch0045: 0045-Skipping-ACVP-tests-for-SHA1-P-192.patch
-Patch0046: 0046-Rebase-status-and-helper-script.patch
+Patch0008: 0008-RH-Allow-disabling-of-SHA1-signatures.patch
+Patch0009: 0009-FIPS-Force-fips-provider-on.patch
+Patch0010: 0010-FIPS-RAND-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
+Patch0011: 0011-FIPS-TLS-Enforce-EMS-in-TLS-1.2-NOTE.patch
+Patch0012: 0012-FIPS-CMS-Set-default-padding-to-OAEP.patch
+Patch0013: 0013-FIPS-PKCS12-PBMAC1-defaults.patch
+Patch0014: 0014-FIPS-EC-disable-weak-curves.patch
+Patch0015: 0015-Make-openssl-speed-run-in-FIPS-mode.patch
+Patch0016: 0016-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -115,9 +84,7 @@ Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20250404-3
 Recommends: pkcs11-provider%{?_isa}
 Requires(pre): (openssl3-libs if openssl3-libs)
-%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
-Requires: openssl-fips-provider
-%endif
+Requires: fips-provider-so
 
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
@@ -227,7 +194,6 @@ RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack -Wa,--generate-missing-build-not
 
 export HASHBANGPERL=/usr/bin/perl
 
-%define fips %{version}-%{srpmhash}
 # ia64, x86_64, ppc are OK by default
 # Configure the build tree.  Override OpenSSL defaults with known-good defaults
 # usable on all platforms.  The Configure script already knows to use -fPIC and
@@ -239,10 +205,9 @@ export HASHBANGPERL=/usr/bin/perl
 %endif
 	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/opensslcnf.config \
 	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp enable-sslkeylog \
-	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips -D_GNU_SOURCE\
+	enable-cms enable-md2 enable-rc5 ${ktlsopt} -D_GNU_SOURCE\
 	no-mdc2 no-ec2m no-sm2 no-sm3 no-sm4 no-atexit enable-buildtest-c++\
-	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\""' -DOPENSSL_PEDANTIC_ZEROIZATION\
-	-DREDHAT_FIPS_VENDOR='"\"Red Hat Enterprise Linux OpenSSL FIPS Provider\""' -DREDHAT_FIPS_VERSION='"\"%{fips}\""'
+	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\""' -DOPENSSL_PEDANTIC_ZEROIZATION
 
 # Do not run this in a production package the FIPS symbols must be patched-in
 #util/mkdef.pl crypto update
@@ -271,15 +236,6 @@ OPENSSL_ENABLE_SHA1_SIGNATURES=
 export OPENSSL_ENABLE_SHA1_SIGNATURES
 OPENSSL_SYSTEM_CIPHERS_OVERRIDE=xyz_nonexistent_file
 export OPENSSL_SYSTEM_CIPHERS_OVERRIDE
-#embed HMAC into fips provider for test run
-#dd if=/dev/zero bs=1 count=32 of=tmp.mac
-#objcopy --update-section .rodata1=tmp.mac providers/fips.so providers/fips.so.zeromac
-#mv providers/fips.so.zeromac providers/fips.so
-#rm tmp.mac
-#LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < providers/fips.so > providers/fips.so.hmac
-#objcopy --update-section .rodata1=providers/fips.so.hmac providers/fips.so providers/fips.so.mac
-#mv providers/fips.so.mac providers/fips.so
-%{SOURCE1} providers/fips.so
 
 # Copy configuration files to build root and test directory for tests
 echo "[fips_sect]" > test/fipsmodule.cnf
@@ -291,25 +247,6 @@ make -s %{?_smp_mflags} build_programs \
     CXXFLAGS="%{build_cxxflags} -fno-lto"
 
 make test HARNESS_JOBS=8
-
-# Add generation of HMAC checksum of the final stripped library
-# We manually copy standard definition of __spec_install_post
-# and add hmac calculation/embedding to fips.so
-%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
-%define __spec_install_post \
-    rm -rf $RPM_BUILD_ROOT/%{_libdir}/ossl-modules/fips.so \
-    %{?__debug_package:%{__debug_install_post}} \
-    %{__arch_install_post} \
-    %{__os_install_post} \
-%{nil}
-%else
-%define __spec_install_post \
-    %{?__debug_package:%{__debug_install_post}} \
-    %{__arch_install_post} \
-    %{__os_install_post} \
-    %{SOURCE1} $RPM_BUILD_ROOT/%{_libdir}/ossl-modules/fips.so \
-%{nil}
-%endif
 
 %define __provides_exclude_from %{_libdir}/openssl
 
@@ -438,6 +375,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Jul 03 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.1-3
+- We use FIPS provider from a separate package and can drop
+  FIPS-specific patches and stop building OpenSSL native FIPS provider
+
 * Mon Jun 22 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1:4.0.1-2
 - Add sslarch use linux64-loongarch64 for loongarch64
 - Add --libdir=%{_lib} for loongarch64

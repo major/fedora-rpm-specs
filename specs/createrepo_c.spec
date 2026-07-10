@@ -18,7 +18,7 @@
 %bcond_without zchunk
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 7
+%if 0%{?rhel} && ( 0%{?rhel} < 7 || 0%{?rhel} >= 11 )
 %bcond_with libmodulemd
 %else
 %bcond_without libmodulemd
@@ -41,7 +41,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        %{package_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -52,11 +52,17 @@ Patch4:         0004-spec-require-cmake-3.7.0.patch
 Patch5:         0005-Include-unistd.h-for-STDOUT_FILENO.patch
 Patch6:         0006-Use-RPMTAG_SHA1HEADER-instead-of-RPMTAG_HDRID.patch
 Patch7:         0007-spec-Consistently-use-CMake-RPM-macros.patch
+Patch8:         0008-cmake-Allow-builds-without-Doxygen-being-present-wit.patch
+Patch9:         0009-Make-building-of-doxygen-based-C-API-docs-configurab.patch
+Patch10:        0010-Omit-delta-rpm-related-info-from-bash-completion-and.patch
+Patch11:        0011-doc-Omit-modularity-related-texts-if-built-without-m.patch
+Patch12:        0012-spec-Disable-modularity-from-RHEL-11.patch
 
 %global epoch_dep %{?epoch:%{epoch}:}
 
 BuildRequires:  cmake >= 3.7.0
 BuildRequires:  gcc
+BuildRequires:  git-core
 BuildRequires:  bzip2-devel
 BuildRequires:  doxygen
 BuildRequires:  glib2-devel >= 2.22.0
@@ -139,7 +145,7 @@ Requires:       %{name}-libs = %{epoch_dep}%{version}-%{release}
 Python 3 bindings for the createrepo_c library.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 %py3_shebang_fix examples/python
 mkdir build-py3
 
@@ -220,6 +226,11 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-*-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 08 2026 Petr Pisar <ppisar@redhat.com> - 1.2.1-8
+- Omit delta RPM from bash completion and manual pages if built without delta
+  RPM support
+- Disable modularity on RHEL >= 11
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-7
 - Rebuilt for openssl 4.0
 

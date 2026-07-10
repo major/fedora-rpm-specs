@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.9
+Version: 45.11
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -520,6 +520,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 07 2026 Packit <hello@packit.dev> - 45.11-1
+- Publish runtime session flags before DBus modules start (k.koukiou)
+- storage: drop default disk selection from the UI layer (k.koukiou)
+- Add loongarch64 support. (sunhaiyong)
+- fix: allow enabling socket and other systemd units via kickstart (k.koukiou)
+- fix: persist checkisomd5 media verification output in the journal (k.koukiou)
+- dracut: fix dd_extract payload decompression for zstd RPMs (k.koukiou)
+
 * Tue Jun 23 2026 Packit <hello@packit.dev> - 45.9-1
 - docs: add daily WebUI boot.iso CI status badge (k.koukiou)
 - storage: check disk space in cmdline mode before starting installation

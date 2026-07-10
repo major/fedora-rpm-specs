@@ -4,7 +4,7 @@
 %global crate cargo-rpmstatus
 
 Name:           rust-cargo-rpmstatus
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Cargo-tree for RPM packaging
 
@@ -12,8 +12,11 @@ License:        (MIT OR Apache-2.0) AND GPL-3.0-or-later
 URL:            https://crates.io/crates/cargo-rpmstatus
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Update to bzip2 0.6, still allowing 0.4.4:
-#   https://github.com/dmorawetz/cargo-rpmstatus/pull/7
+# * Update some dependencies across SemVer boundaries:
+#   https://github.com/dmorawetz/cargo-rpmstatus/pull/9. Use rusqlite 0.40, rand
+#   0.10, and quick-xml 0.41 (fixing RUSTSEC-2026-0194 and RUSTSEC-2026-0195).
+#   Downstream, we still allow rusqlite as old as 0.38 until we update it,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2447695.
 Patch:          cargo-rpmstatus-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -26,16 +29,14 @@ Cargo-tree for RPM packaging.}
 %package     -n %{crate}
 Summary:        %{summary}
 
-# rawhide: @2025-12-16
+# rawhide: @2026-07-08
 # (MIT OR Apache-2.0) AND GPL-3.0-or-later # [1]
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016 # (dup 1)
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0) # (dup 1)
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT # (dup 1)
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # CDLA-Permissive-2.0
 # ISC
@@ -48,7 +49,7 @@ Summary:        %{summary}
 # Zlib
 # bzip2-1.0.6
 
-License:       (MIT OR Apache-2.0) AND GPL-3.0-or-later AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND CDLA-Permissive-2.0 AND ISC AND MIT AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND Unicode-3.0 AND (Unlicense OR MIT) AND Zlib AND bzip2-1.0.6
+License:       (MIT OR Apache-2.0) AND GPL-3.0-or-later AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND CDLA-Permissive-2.0 AND ISC AND MIT AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND Unicode-3.0 AND (Unlicense OR MIT) AND Zlib AND bzip2-1.0.6
 
 
 # LICENSE.dependencies contains a full license breakdown

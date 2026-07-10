@@ -5,8 +5,8 @@
 %global         tarball_name     azure_mgmt_cognitiveservices
 
 Name:           python-%{srcname}
-Version:        15.0.0~b1
-%global         pypi_version 15.0.0b1
+Version:        15.0.0~b3
+%global         pypi_version 15.0.0b3
 Release:        %autorelease
 Summary:        Microsoft Azure Cognitive Services Management Client Library for Python
 License:        MIT

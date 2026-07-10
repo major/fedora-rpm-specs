@@ -35,7 +35,6 @@ A tool for managing and enforcing a commit signing policy.}
 %package     -n %{crate}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
-# (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
@@ -61,7 +60,6 @@ License:        %{shrink:
     AND Apache-2.0
     AND BSD-3-Clause
     AND BSL-1.0
-    AND GPL-2.0-only WITH GCC-exception-2.0
     AND MIT
     AND MPL-2.0
     AND Unicode-3.0

@@ -1,18 +1,17 @@
 %global srcname ijson
 
 Name:           python-%{srcname}
-Version:        3.3.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Iterative JSON parser
 
-License:        BSD-3-Clause
+License:        BSD-3-Clause AND ISC
 URL:            https://github.com/ICRAR/ijson
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-BuildRequires:  python3dist(setuptools)
 
 %global _description %{expand:
 Iterative JSON parser with standard Python iterator interfaces.}
@@ -26,6 +25,7 @@ Recommends:     python3dist(cffi)
 
 # Test dependencies
 BuildRequires:  python3dist(cffi)
+BuildRequires:  python3dist(pytest)
 
 %description -n python3-%{srcname} %_description
 
@@ -33,22 +33,24 @@ BuildRequires:  python3dist(cffi)
 %autosetup -n %{srcname}-%{version}
 
 # Disable tests for unsupported configurations.
-sed -i "s/\['python', 'yajl', 'yajl2', 'yajl2_cffi', 'yajl2_c']/\['python', 'yajl2', 'yajl2_cffi']/" test/test_base.py
+sed -i "s/\['python', 'yajl', 'yajl2', 'yajl2_cffi', 'yajl2_c']/\['python', 'yajl2', 'yajl2_cffi']/" tests/test_base.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD %{python3} -m unittest discover
+%pyproject_check_import -e "ijson.backends.yajl*"
+%pytest
 
-%files -n python3-%{srcname}
-%license LICENSE.txt
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

@@ -4,7 +4,7 @@
 %global crate sequoia-sq
 
 Name:           rust-sequoia-sq
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Command-line frontends for Sequoia
 
@@ -32,6 +32,7 @@ Command-line frontends for Sequoia.}
 %package     -n %{crate}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Apache-2.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
@@ -52,6 +53,7 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
+# bzip2-1.0.6
 License:        %{shrink:
     LGPL-2.0-or-later AND
     Apache-2.0 AND
@@ -62,6 +64,7 @@ License:        %{shrink:
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
     Zlib AND
+    bzip2-1.0.6 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND

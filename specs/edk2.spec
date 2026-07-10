@@ -25,7 +25,7 @@
 
 %define OPENSSL_VER    3.5.7
 
-%define DBXDATE        20251016
+%define DBXDATE        20260630
 
 # Undefine this to get *HUGE* (50MB+) verbose build logs
 %define silent --silent
@@ -106,6 +106,7 @@ Source46: 51-edk2-ovmf-2m-raw-x64-nosb.json
 Source47: 60-edk2-ovmf-x64-stateless.json
 Source48: 61-edk2-ovmf-x64-amdsev.json
 Source49: 61-edk2-ovmf-x64-inteltdx.json
+Source51: 62-edk2-ovmf-x64-inteltdx-nosb.json
 
 Source50: 50-edk2-riscv-qcow2.json
 
@@ -400,6 +401,7 @@ cp -a -- \
    %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} %{SOURCE49} \
+   %{SOURCE51} \
    %{SOURCE50} \
    %{SOURCE60} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} %{SOURCE84} \
@@ -634,6 +636,7 @@ install -m 0644 \
         51-edk2-ovmf-2m-raw-x64-nosb.json \
         61-edk2-ovmf-x64-amdsev.json \
         61-edk2-ovmf-x64-inteltdx.json \
+        62-edk2-ovmf-x64-inteltdx-nosb.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %if %{qemuvars}
 install -m 0644 \
@@ -763,6 +766,7 @@ done
 %{_datadir}/qemu/firmware/51-edk2-ovmf-2m-raw-x64-nosb.json
 %{_datadir}/qemu/firmware/61-edk2-ovmf-x64-amdsev.json
 %{_datadir}/qemu/firmware/61-edk2-ovmf-x64-inteltdx.json
+%{_datadir}/qemu/firmware/62-edk2-ovmf-x64-inteltdx-nosb.json
 %if %{qemuvars}
 %{_datadir}/%{name}/ovmf/OVMF.qemuvars.fd
 %{_datadir}/%{name}/ovmf/vars.*.json

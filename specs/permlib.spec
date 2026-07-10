@@ -1,9 +1,12 @@
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
+# Whether to run tests
+%bcond ctest 1
+
 Name:           permlib
 Version:        0.2.9
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Library for permutation computations
 
 License:        BSD-3-Clause
@@ -16,13 +19,15 @@ Source1:        %{name}-Doxyfile
 Patch:          %{name}-0.2.8-gcc6.patch
 # Adapt to changes in recent versions of boost
 Patch:          %{name}-0.2.9-boost.patch
+# Remove deprecated use of std::unary_function and std::binary_function
+Patch:          %{name}-0.2.9-deprecated.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 BuildRequires:  boost-devel
-BuildRequires:  cmake
-BuildRequires:  dvipng
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
@@ -63,10 +68,7 @@ sed "s/@VERSION@/%{version}/" %{SOURCE1} > Doxyfile
 # Remove flags that break the build with boost 1.90.0
 sed -i 's/ -ansi -pedantic//' CMakeLists.txt
 
-%build
-%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake_build
-
+%build -a
 # Build the documentation
 mkdir doc
 doxygen
@@ -81,15 +83,18 @@ rm -f doc/html/installdox
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
 cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 
-%check
-%ctest
-
 %files devel
 %doc AUTHORS CHANGELOG doc/html
 %license LICENSE
 %{_includedir}/permlib
 
 %changelog
+* Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 0.2.9-27
+- Use the cmake declarative buildsystem
+- Simplify the gcc6 patch
+- Add patch to avoid deprecated unary_function and binary_function
+- Drop unused dvipng BR
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

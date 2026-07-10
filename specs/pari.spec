@@ -1,9 +1,9 @@
 Name:           pari
-Version:        2.17.3
+Version:        2.17.4
 Release:        %autorelease
 Summary:        Number Theory-oriented Computer Algebra System
 
-%global majver %(cut -d. -f1-2 <<< %{version})
+%global majver  %{gsub %version ^(%d*%.%d*)%..*$ %1}
 
 License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/
@@ -35,7 +35,11 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  sed
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-tex
 
 # Test suite requirements
 BuildRequires:  pari-elldata
@@ -145,15 +149,8 @@ sed -e 's|%{build_cxxflags}|%{extension_cxxflags}|' \
     -e 's|%{build_ldflags}|%{extension_ldflags}|' \
     -i %{buildroot}%{_libdir}/pari/pari.cfg
 
-# The qf tests started failing on 32-bit x86 with the release of 2.15.3.
-# The final test is supposed to report "precision too low in forqfvec", but
-# does not.  The cause is currently unknown.  Since we don't really care about
-# that architecture, just let it pass until somebody cares enough to diagnose
-# the issue, or we stop building for 32-bit x86.
-%ifnarch %{ix86}
 %check
 make test-all
-%endif
 
 %files
 %license COPYING

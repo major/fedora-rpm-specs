@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	6
+%global	baserelease	7
 %dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -42,6 +42,9 @@ URL:			http://glx-dock.org/
 Source0:		cairo-dock-plugins-fedora-%{tarballver}.tar.gz
 # Source0 is created from Source1
 Source1:		cairo-dock-plug-ins-create-fedora-tarball.sh
+# https://github.com/Cairo-Dock/cairo-dock-plug-ins/pull/132/
+# Support ical 4
+Patch0:		cairo-dock-plug-ins-pr132-support-ical-4.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -205,6 +208,7 @@ binding for Cairo-Dock.
 
 %prep
 %setup -q -n cairo-dock-plugins-%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
+%patch -P0 -p1 -b .ical_4
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -418,6 +422,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Wed Jul 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-7
+- Backport upstream patch to support ical 4
+
 * Sat Jun 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-6
 - Remove unneeded BR: openssl-devel
 
