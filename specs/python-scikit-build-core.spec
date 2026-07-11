@@ -7,7 +7,7 @@
 %bcond optional_tests 1
 
 Name:           python-scikit-build-core
-Version:        0.12.1
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
@@ -17,11 +17,6 @@ Summary:        Build backend for CMake based projects
 License:        Apache-2.0 AND MIT
 URL:            https://github.com/scikit-build/scikit-build-core
 Source:         %{pypi_source scikit_build_core}
-# Tests fix for setuptools-scm 10
-# https://github.com/scikit-build/scikit-build-core/pull/1259
-Patch:          setuptools-scm-10.patch
-# Another fix for compatibility with latest setuptools_scm
-Patch:          https://github.com/scikit-build/scikit-build-core/commit/dfb1a043.patch
 
 BuildRequires:  python3-devel
 # Testing dependences
@@ -43,15 +38,16 @@ Requires:       cmake
 Requires:       ninja-build
 BuildArch:      noarch
 
-Provides:       bundled(python3dist(pyproject-metadata)) = 0.11.0
-
-Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
+Provides:       bundled(python3dist(pyproject-metadata)) = 0.12.1
 
 %description -n python3-scikit-build-core %_description
 
+%pyproject_extras_subpkg -n python3-scikit-build-core setuptools
+%pyproject_extras_subpkg -n python3-scikit-build-core hatchling
+
 
 %prep
-%autosetup -p1 -n scikit_build_core-%{version}
+%autosetup -n scikit_build_core-%{version}
 # Rename the bundled license so that it can be installed together
 cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject-metadata
 
@@ -75,7 +71,11 @@ export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 %pyproject_check_import
 %if %{with tests}
 # Additional tests from optional_tests are automatically skipped/picked-up by pytest
+# TODO: drop %%{ix86} check after https://github.com/scikit-build/scikit-build-core/issues/1481
 %pytest \
+%ifarch %{ix86}
+    -k "not test_wheel_timestamp_clamps_epoch_beyond_zip_range" \
+%endif
     -m "not network"
 %endif
 
@@ -83,6 +83,8 @@ export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 %files -n python3-scikit-build-core -f %{pyproject_files}
 %license LICENSE LICENSE-pyproject-metadata
 %doc README.md
+%{_bindir}/scikit-build
+%{_bindir}/scikit-build-core
 
 
 %changelog

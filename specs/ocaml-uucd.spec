@@ -15,6 +15,10 @@ Source:         %{url}/releases/uucd-%{version}.tbz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -44,16 +48,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n uucd-%{version}
-
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --dev-pkg false --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %license LICENSE.md

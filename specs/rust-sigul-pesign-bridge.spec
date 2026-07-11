@@ -7,7 +7,7 @@
 %global crate sigul-pesign-bridge
 
 Name:           rust-sigul-pesign-bridge
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Bridge pesign-client requests to a Sigul signing server
 
@@ -32,13 +32,18 @@ requests to a Sigul server.}
 %package     -n sigul-pesign-bridge
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# BSL-1.0
+# LGPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-License:        Unicode-DFS-2016 AND (MIT OR Apache-2.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT)
+License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (BSD-3-Clause) AND (BSL-1.0) AND (LGPL-2.0-or-later) AND (MIT) AND (MIT OR Apache-2.0) AND (Unicode-3.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 # Enables support for the "socket_acl" setting

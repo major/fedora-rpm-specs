@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-biniou
 Version:        1.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD-3-Clause
@@ -11,10 +11,10 @@ URL:            https://github.com/ocaml-community/biniou
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/biniou-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-easy-format-devel
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-dune
 
 %description
@@ -45,13 +45,7 @@ developing applications that use %{name}.
 %autosetup -n biniou-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
+%install -a
 %ifarch %{ocaml_native_compiler}
 # avoid potential future name conflict
 mv $RPM_BUILD_ROOT%{_bindir}/{,ocaml-}bdump
@@ -81,6 +75,10 @@ sed -i '/bdump/d' .ofiles
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.2-19
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-18
 - OCaml 5.4.1 rebuild
 

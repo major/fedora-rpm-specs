@@ -15,6 +15,12 @@ Source:         %{url}/releases/uucp-%{version}.tbz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --with-uunf true
+BuildOption(build): --with-cmdliner true
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
@@ -22,7 +28,6 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uucd-devel >= 17.0.0
 BuildRequires:  ocaml-uunf-devel
 
 %description
@@ -43,17 +48,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n uucp-%{version}
-
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --dev-pkg false --with-uunf true --with-cmdliner true \
-  --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %license LICENSE.md

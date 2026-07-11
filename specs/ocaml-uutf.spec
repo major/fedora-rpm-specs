@@ -15,6 +15,11 @@ URL:            https://erratique.ch/software/uutf
 VCS:            git:https://erratique.ch/repos/uutf.git
 Source:         https://github.com/dbuenzli/uutf/archive/v%{version}/uutf-%{version}.tar.gz
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+BuildOption(build): --with-cmdliner true
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-findlib
@@ -55,19 +60,10 @@ for fil in $(find . -type f); do
   rm $fil.orig
 done
 
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --dev-pkg false --tests true --with-cmdliner true
-
+%build -a
 # Build the documentation
 mkdir html
 ocamldoc -html -d html -I _build/src _build/src/uutf.mli
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

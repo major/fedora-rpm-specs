@@ -5,17 +5,20 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cppo
 Version:        1.8.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
 License:        BSD-3-Clause
 URL:            https://ocaml-community.github.io/cppo/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/cppo-%{version}.tar.gz
+# Path representation changed in dune 3.24
+# Restore compatibility with previous versions
+Patch:          %{name}-dune-3.24.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-dune
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 
 %description
@@ -47,19 +50,7 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %prep
-%autosetup -n cppo-%{version}
-
-
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
+%autosetup -n cppo-%{version} -p1
 
 
 %files
@@ -74,6 +65,11 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.8.0-8
+- OCaml 5.5.0 rebuild
+- Add patch for compatibility with previous dune versions
+- Drop unused ocaml-findlib BR
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.8.0-7
 - OCaml 5.4.1 rebuild
 

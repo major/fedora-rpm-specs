@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-fileutils
 Version:        0.6.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml library for common file and filename operations
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -17,6 +17,7 @@ URL:            https://gildor478.github.io/ocaml-fileutils/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/v%{version}/fileutils-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.14
 BuildRequires:  ocaml-dune >= 2.9
 %if 0%{?fedora}
@@ -49,17 +50,9 @@ developing applications that use %{name}.
 %autosetup -n fileutils-%{version} -p1
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-# Do not run the tests (RHEL 7+ only) since they require ocaml-ounit.
-%if 0%{?fedora} || 0%{?rhel} <= 6
+# Do not run the tests on RHEL since they require ocaml-ounit.
 %check
+%if 0%{?fedora}
 %dune_check
 %endif
 
@@ -74,6 +67,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 0.6.6-8
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.6.6-7
 - OCaml 5.4.1 rebuild
 

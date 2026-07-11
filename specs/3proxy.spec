@@ -1,5 +1,5 @@
 Name:             3proxy
-Version:          0.9.6
+Version:          0.9.7
 Release:          %autorelease
 
 Summary:          Tiny but very powerful proxy
@@ -21,7 +21,7 @@ Patch0:           3proxy-0.9.6-config-path.patch
 # Fixes *_poll build error
 Patch1:           3proxy-0.9.4-poll-build.patch
 # Adapt manpages to reflect renamed proxy binary
-Patch2:           3proxy-0.9.6-manpage.patch
+Patch2:           3proxy-0.9.7-manpage.patch
 
 %description
 %{name} -- light proxy server.
@@ -43,20 +43,20 @@ SOCKS v5, FTP, POP3, UDP и TCP проброс портов (portmapping), сп�
 %autosetup -p0
 
 # To use "fedora" CFLAGS (exported)
-sed -i -e "s/^CFLAGS =/CFLAGS +=/" Makefile.Linux
+sed -i -e "s/^CFLAGS [?]=\+/CFLAGS +=/" -e "s/^CFLAGS =/CFLAGS +=/" Makefile.Linux
 
 %build
 %set_build_flags
-%make_build -f Makefile.Linux
+%make_build -f Makefile.Linux PREFIX=
 
 %install
 install -d %{buildroot}%{_sysconfdir}
-install -d %{buildroot}%{_mandir}/man{3,8}
+install -d %{buildroot}%{_mandir}/man{5,8}
 install -d %{buildroot}%{_localstatedir}/log/%{name}
 
 install -m755 -D bin/%{name} %{buildroot}%{_bindir}/%{name}
 install -m755 -D bin/ftppr %{buildroot}%{_bindir}/ftppr
-install -m755 -D bin/mycrypt %{buildroot}%{_bindir}/mycrypt
+install -m755 -D bin/crypt %{buildroot}%{_bindir}/mycrypt
 install -m755 -D bin/pop3p %{buildroot}%{_bindir}/pop3p
 install -m755 -D bin/proxy %{buildroot}%{_bindir}/htproxy
 install -m755 -D bin/smtpp %{buildroot}%{_bindir}/smtpp
@@ -68,8 +68,8 @@ install -m755 -D bin/udppm %{buildroot}%{_bindir}/udppm
 install -p -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}.cfg
 install -p -m644 -D %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 
-for man in man/*.3 ; do
-  install -p -m644 "$man" "%{buildroot}%{_mandir}/man3/"
+for man in man/*.5 ; do
+  install -p -m644 "$man" "%{buildroot}%{_mandir}/man5/"
 done
 for man in man/*.8 ; do
   install -p -m644 "$man" "%{buildroot}%{_mandir}/man8/"
@@ -87,7 +87,7 @@ done
 
 %files
 %license copying
-%doc README authors
+%doc README.md authors
 %{_bindir}/%{name}
 %{_bindir}/ftppr
 %{_bindir}/htproxy
@@ -100,7 +100,7 @@ done
 %{_bindir}/udppm
 %config(noreplace) %{_sysconfdir}/%{name}.cfg
 %dir %{_localstatedir}/log/%{name}
-%{_mandir}/man3/*.3*
+%{_mandir}/man5/*.5*
 %{_mandir}/man8/*.8*
 %{_unitdir}/%{name}.service
 

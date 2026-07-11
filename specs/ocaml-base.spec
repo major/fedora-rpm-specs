@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # This package is needed to build ppx_jane, but its tests require ppx_jane.
 # Break the dependency cycle here.
 %bcond test 0
@@ -23,6 +20,10 @@ Patch:          %{name}-mathlib.patch
 # Do not use the popcount instruction until Fedora moves to x86_64-v2
 Patch:          %{name}-popcount.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-dune-configurator-devel
@@ -60,14 +61,8 @@ developing applications that use %{name}.
 %prep
 %autosetup -n base-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%if %{with test}
 %check
+%if %{with test}
 %dune_check
 %endif
 

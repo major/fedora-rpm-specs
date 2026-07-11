@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-yojson
 Version:        3.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -114,6 +114,9 @@ files for developing applications that use %{name}-five.
 %endif
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 3.0.0-11
+- OCaml 5.5.0 rebuild
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 3.0.0-10
 - Disable the five subpackage by default to avoid circular deps
 

@@ -13,6 +13,7 @@ Patch:          %{name}-popcnt.patch
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 
@@ -36,15 +37,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n ocaml_intrinsics_kernel-%{version} -p1
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc README.md

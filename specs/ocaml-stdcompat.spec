@@ -7,12 +7,13 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz
-# Temporary patch to support OCaml 5.4
-Patch:          %{name}-ocaml5.4.patch
+# Temporary patch to support OCaml 5.5
+Patch:          %{name}-ocaml5.5.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.11
 BuildRequires:  ocaml-dune >= 2.0
 
@@ -43,15 +44,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n stdcompat-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%ifarch %{ocaml_native_compiler}
-# The tests assume that ocamlopt is available
 %check
+# The tests assume that ocamlopt is available
+%ifarch %{ocaml_native_compiler}
 %dune_check
 %endif
 

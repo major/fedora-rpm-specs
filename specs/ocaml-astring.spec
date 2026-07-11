@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-astring
 Version:        0.8.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Alternative String module for OCaml
 
 License:        ISC
@@ -19,6 +19,9 @@ Source:         https://github.com/dbuenzli/astring/archive/v%{version}/astring-
 # This affects x86_64, but not bytecode-only architectures.
 Patch:          %{name}-ocaml5.patch
 
+BuildSystem:    topkg
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -27,7 +30,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Astring exposes an alternative `String` module for OCaml.  This module tries
@@ -68,16 +71,6 @@ for fil in $(find . -type f); do
   rm $fil.orig
 done
 
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
@@ -85,6 +78,11 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-35
+- OCaml 5.5.0 rebuild
+- Use the topkg declarative buildsystem
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-34
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

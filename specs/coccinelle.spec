@@ -23,7 +23,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -300,6 +300,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-8
+- OCaml 5.5.0 rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.1-7
 - Rebuilt for Python 3.15
 

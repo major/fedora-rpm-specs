@@ -4,15 +4,16 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-ppx/ppx_deriving
 
 Name:           ocaml-ppx-deriving
-Version:        6.1.1
+Version:        6.1.2
 Release:        %autorelease
 Summary:        Type-driven code generation for OCaml
 
 License:        MIT
 URL:            https://ocaml-ppx.github.io/ppx_deriving/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/ppx_deriving-%{version}.tar.gz
+Source:         %{giturl}/releases/download/%{version}/ppx_deriving-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-dune >= 1.6.3
@@ -39,12 +40,7 @@ for developing applications that use %{name}.
 %prep
 %autosetup -n ppx_deriving-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 # Help the debuginfo generator find the source files
 cd _build/default
 ln -s ../../src/ppx_deriving_main.cppo.ml
@@ -60,9 +56,6 @@ ln -s ../../src_plugins/map/ppx_deriving_map.cppo.ml .
 ln -s ../../src_plugins/ord/ppx_deriving_ord.cppo.ml
 ln -s ../../src_plugins/show/ppx_deriving_show.cppo.ml
 cd -
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGELOG.md README.md

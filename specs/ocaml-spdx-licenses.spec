@@ -15,6 +15,7 @@ Source:         %{url}/archive/v%{version}/spdx_licenses-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel >= 1.4.0
 BuildRequires:  ocaml-dune >= 2.3
@@ -36,15 +37,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n spdx_licenses-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

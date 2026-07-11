@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk
 Version:        2.18.14
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -128,7 +128,7 @@ export LD_LIBRARY_PATH=$PWD/src
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p src/lablgladecc src/lablgladecc2
 for bin in gdk_pixbuf_mlsource lablgladecc2 lablgtk2; do
-  help2man -N --version-string=%{version} src/$bin > \
+  help2man -N --version-string=%{version} -h -help src/$bin > \
     $RPM_BUILD_ROOT%{_mandir}/man1/$bin.1
 done
 
@@ -148,6 +148,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.18.14-7
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.18.14-6
 - OCaml 5.4.1 rebuild
 

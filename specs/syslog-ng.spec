@@ -1,14 +1,14 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 11
+%global syslog_ng_minor_ver 12
 %global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -18,13 +18,6 @@ Source0: https://github.com/balabit/syslog-ng/releases/download/syslog-ng-%{vers
 Source1: syslog-ng.conf
 Source2: syslog-ng.logrotate
 Source3: syslog-ng.service
-
-# tls-verifier: use dedicated ASN1_STRING field accessors instead of direct
-# member access
-# https://github.com/syslog-ng/syslog-ng/pull/5688
-#
-# Fixes failure to build with OpenSSL 4.0.
-Patch: https://github.com/syslog-ng/syslog-ng/pull/5688.patch
 
 BuildRequires: make
 BuildRequires: bison
@@ -139,12 +132,12 @@ Key features:
    AMQP), files or databases (like PostgreSQL or MongoDB).
 
 
-%package slog
-Summary: secure logging support for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description slog
-This module supports secure message transfer and storage (experimental).
+#%package slog
+#Summary: secure logging support for %{name}
+#Requires: %{name}%{?_isa} = %{version}-%{release}
+#
+#%description slog
+#This module supports secure message transfer and storage (experimental).
 
 %package libdbi
 Summary: Libdbi support for %{name}
@@ -551,15 +544,15 @@ fi
 %{_mandir}/man1/persist-tool.1*
 
 
-%files slog
-%{_bindir}/slogkey
-%{_bindir}/slogencrypt
-%{_bindir}/slogverify
-%{_libdir}/syslog-ng/libsecure-logging.so
-%{_mandir}/man1/slogkey.1*
-%{_mandir}/man1/slogencrypt.1*
-%{_mandir}/man1/slogverify.1*
-%{_mandir}/man7/secure-logging.7*
+#%files slog
+#%{_bindir}/slogkey
+#%{_bindir}/slogencrypt
+#%{_bindir}/slogverify
+#%{_libdir}/syslog-ng/libsecure-logging.so
+#%{_mandir}/man1/slogkey.1*
+#%{_mandir}/man1/slogencrypt.1*
+#%{_mandir}/man1/slogverify.1*
+#%{_mandir}/man7/secure-logging.7*
 
 %if %{with grpc}
 
@@ -661,6 +654,12 @@ fi
 
 
 %changelog
+* Thu Jul 09 2026 Peter Czanik <peter@czanik.hu> - 4.12.0-1
+- update to 4.12.0
+- remove openssl 4.0 patch (part of the 4.12.0 release)
+- comment out secure logging related files (feature
+  disabled by default by upstream)
+
 * Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.11.0-5
 - Rebuilt for abseil-cpp 20260526.0
 - Backport patch for OpenSSL 4.0 from upstream

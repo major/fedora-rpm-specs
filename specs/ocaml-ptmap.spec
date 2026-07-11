@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ptmap
 Version:        2.0.5
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Maps over integers implemented as Patricia trees
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -19,6 +19,7 @@ Source:         %{giturl}/releases/download/%{version}/ptmap-%{version}.tbz
 # Fedora does not need the seq and stdlib-shims forward compatibility modules
 Patch:          %{name}-compat.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune >= 2.0.0
 
@@ -42,18 +43,6 @@ developing applications that use %{name}.
 %autosetup -p1 -n ptmap-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license COPYING LICENSE
@@ -63,6 +52,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.0.5-30
+- OCaml 5.5.0 reubild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.0.5-29
 - OCaml 5.4.1 rebuild
 

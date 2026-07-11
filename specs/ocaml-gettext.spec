@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gettext
 Version:        0.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -31,6 +31,9 @@ Patch:          https://github.com/gildor478/ocaml-gettext/pull/37.patch
 # https://github.com/gildor478/ocaml-gettext/pull/41
 Patch:          0001-xgettext-Fix-type-for-OCaml-5.4.patch
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-fileutils-devel >= 0.6.6-1
 BuildRequires:  ocaml-dune >= 1.11.0
@@ -40,8 +43,6 @@ BuildRequires:  ocaml-cppo
 # needed to run the tests.
 # https://github.com/gildor478/ocaml-gettext/issues/35
 #BuildRequires: ocaml-seq-devel
-BuildRequires:  docbook-style-xsl
-BuildRequires:  libxslt
 BuildRequires:  libxml2
 %if %{with tests}
 BuildRequires:  ocaml-ounit-devel
@@ -122,19 +123,14 @@ awk -i inplace -v RS='^\\(package' -v ORS= \
 %endif
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install -s
+%install -a
 sed -i '\@%{_bindir}@d;\@%{_mandir}@d' .ofiles-gettext
 cat .ofiles-gettext-stub >> .ofiles-gettext
 cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
-%if %{with tests}
 %check
+%if %{with tests}
 %dune_check
 %endif
 
@@ -163,6 +159,10 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.5.0-10
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-9
 - OCaml 5.4.1 rebuild
 

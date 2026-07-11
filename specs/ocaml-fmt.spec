@@ -15,6 +15,12 @@ URL:            https://erratique.ch/software/fmt
 VCS:            git:https://erratique.ch/repos/fmt.git
 Source:         %{url}/releases/fmt-%{version}.tbz
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+BuildOption(build): --with-base-unix true
+BuildOption(build): --with-cmdliner true
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-findlib
@@ -24,7 +30,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Fmt exposes combinators to devise `Format` pretty-printing functions.
@@ -50,23 +56,10 @@ developing applications that use %{name}.
 # link with the math library
 sed -i 's/safe_string/&, cclib(-lm)/' _tags
 
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build \
-  --dev-pkg false \
-  --tests true \
-  --with-base-unix true \
-  --with-cmdliner true
-
+%build -a
 # Build the documentation
 mkdir html
 ocamldoc -html -d html -I +cmdliner -I _build/src _build/src/*.mli
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.9.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -404,7 +404,7 @@ done
 
 %install
 %if %{with ocaml}
-mkdir -p %{buildroot}%{_libdir}/ocaml/stublibs
+mkdir -p %{buildroot}%{ocamldir}/stublibs
 %endif
 
 %if %{with python2}
@@ -664,8 +664,8 @@ fi
 
 %if %{with ocaml}
 %files -n ocaml-brlapi
-%{_libdir}/ocaml/brlapi/
-%{_libdir}/ocaml/stublibs/
+%{ocamldir}/brlapi/
+%{ocamldir}/stublibs/dllbrlapi_stubs.so*
 %endif
 
 %files dracut
@@ -675,6 +675,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 6.9.1-6
+- OCaml 5.5.0 rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 6.9.1-5
 - Rebuilt for icu 78.3
 

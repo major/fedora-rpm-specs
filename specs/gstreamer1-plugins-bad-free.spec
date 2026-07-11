@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.28.4
-Release:        4%{?dist}
+Version:        1.28.5
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -930,6 +930,9 @@ EOF
 
 
 %changelog
+* Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.5-1
+- 1.28.5
+
 * Wed Jul 01 2026 Carl George <carlwgeorge@gmail.com> - 1.28.4-4
 - Rebuild for libonnxruntime.so.1(VERS_1.26.0)
 

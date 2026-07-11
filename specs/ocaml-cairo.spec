@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -25,6 +25,9 @@ Source0:        %{url}/releases/download/%{version}/cairo2-%{version}.tbz
 # Fix a segfault when a Cairo error occurs
 # See https://github.com/Chris00/ocaml-cairo/issues/36
 Patch0:         https://github.com/Chris00/ocaml-cairo/pull/37.patch
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 2.7.0
@@ -113,7 +116,7 @@ for developing applications that use %{name}-pango.
 %autosetup -n cairo2-%{version} -p1
 
 
-%build
+%build -p
 cairo_cflags="$(pkgconf --cflags cairo)"
 cairo_libs="$(pkgconf --libs cairo)"
 gtk_cflags="$(pkgconf --cflags gtk+-2.0)"
@@ -122,15 +125,6 @@ export CAIRO_CFLAGS="%{build_cflags} $cairo_cflags"
 export CAIRO_LIBS="%{build_ldflags} $cairo_libs"
 export GTK_CFLAGS="%{build_cflags} $gtk_cflags"
 export GTK_LIBS="%{build_ldflags} $gtk_libs"
-%dune_build
-
-
-%install
-%dune_install -s
-
-
-%check
-%dune_check
 
 
 %files -f .ofiles-cairo2
@@ -156,6 +150,10 @@ export GTK_LIBS="%{build_ldflags} $gtk_libs"
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2:0.6.5-8
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2:0.6.5-7
 - OCaml 5.4.1 rebuild
 

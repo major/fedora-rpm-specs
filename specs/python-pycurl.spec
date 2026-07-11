@@ -8,8 +8,8 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.46.0
-Release:        3%{?dist}
+Version:        7.47.0
+Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -18,8 +18,6 @@ Source0:        %{pypi_source pycurl}
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
-# backport test hardening from upstream PR #990
-Patch2:         0002-harden-multi-socket-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -97,6 +95,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Thu Jul 09 2026 Jacek Migacz <jmigacz@redhat.com> - 7.47.0-1
+- Update to 7.47.0 (#2494700)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.46.0-3
 - Rebuilt for openssl 4.0
 

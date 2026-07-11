@@ -13,6 +13,7 @@ URL:            https://ocaml.github.io/graphics/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/graphics-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.09.0
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -45,15 +46,6 @@ The %{name}-doc package contains developer documentation for
 
 %prep
 %autosetup -n graphics-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

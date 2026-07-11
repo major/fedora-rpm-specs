@@ -5,13 +5,19 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk3
 Version:        3.1.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml interface to gtk3
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://garrigue.github.io/lablgtk/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/lablgtk3-%{version}.tar.gz
+
+# Fix path handling with dune 3.24
+Patch:          %{giturl}/pull/195.patch
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  help2man
 BuildRequires:  ocaml >= 4.12.0
@@ -128,10 +134,10 @@ rm doc/FAQ.text
 # Make sure we do not use the bundled copy of xml-light
 rm -fr tools/instrospection/xml-light
 
-%build
+%build -p
 export LABLGTK_EXTRA_FLAGS=-g
-%dune_build
 
+%build -a
 # Make the man pages
 HELP2MAN="-N --version-string=%{version}"
 cd _build/install/default/bin
@@ -141,15 +147,10 @@ help2man $HELP2MAN -N -o ../../../../lablgladecc3.1 \
   -n 'GTK interface compiler' ./lablgladecc3
 cd -
 
-%install
-%dune_install -s
-
+%install -a
 # Install the man pages
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
-
-%check
-%dune_check
 
 %files -f .ofiles-lablgtk3
 %doc CHANGES.md CHANGELOG.API README.md doc
@@ -176,6 +177,11 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 3.1.5-11
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+- Add patch for dune 3.24 pathname changes
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 3.1.5-10
 - OCaml 5.4.1 rebuild
 

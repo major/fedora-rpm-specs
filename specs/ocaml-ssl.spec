@@ -8,7 +8,7 @@ Version:       0.7.0
 %forgemeta
 
 Name:           ocaml-ssl
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        SSL bindings for OCaml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -16,6 +16,7 @@ URL:            %{forgeurl}
 VCS:            git:%{forgeurl}.git
 Source0:        %{forgesource}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 2.7
@@ -43,18 +44,6 @@ developing applications that use %{name}.
 %forgeautosetup
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license COPYING
@@ -66,6 +55,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.7.0-19
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-18
 - OCaml 5.4.1 rebuild
 

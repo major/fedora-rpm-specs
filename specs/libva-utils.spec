@@ -1,11 +1,10 @@
 #global pre_release .pre1
 
 Name:		libva-utils
-Version:	2.23.0
-Release:	2%{?dist}
+Version:	2.24.0
+Release:	1%{?dist}
 Summary:	Tools for VAAPI (including vainfo)
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:	LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+License:	MIT AND BSD-3-Clause
 URL:		https://github.com/intel/libva-utils
 Source0:	%{url}/archive/%{version}%{?pre_release}/%{name}-%{version}%{?pre_release}.tar.gz
 
@@ -76,6 +75,9 @@ libva support is available on a system.
 
 
 %changelog
+* Thu Jul 09 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.24.0-1
+- Update to 2.24.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

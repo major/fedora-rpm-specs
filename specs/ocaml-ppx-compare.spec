@@ -19,6 +19,7 @@ URL:            https://github.com/janestreet/ppx_compare
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_compare-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
@@ -50,16 +51,10 @@ developing applications that use %{name}.
 %prep
 %autosetup -n ppx_compare-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%check
 %if %{with test}
 # The tests require a native build.
 %ifnarch %{ocaml_native_compiler}
-%check
 %dune_check
 %endif
 %endif

@@ -28,7 +28,7 @@
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -55,7 +55,6 @@ Patch0004: 0004-openssh-6.6p1-keycat.patch
 Patch0005: 0005-openssh-6.6p1-allow-ip-opts.patch
 Patch0006: 0006-openssh-5.9p1-ipv6man.patch
 Patch0007: 0007-openssh-5.8p2-sigpipe.patch
-Patch0008: 0008-openssh-7.2p2-x11.patch
 Patch0009: 0009-openssh-5.1p1-askpass-progress.patch
 Patch0010: 0010-openssh-4.3p2-askpass-grab-info.patch
 Patch0011: 0011-openssh-8.7p1-redhat.patch
@@ -438,6 +437,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Thu Jul 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.3p1-2
+- Based on openssh-10.3p1-8.fc45
+
 * Wed Jul 01 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.3p1-1
 - Based on openssh-10.3p1-4.fc45
 

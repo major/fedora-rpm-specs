@@ -1,7 +1,7 @@
-%global basever     5.0.0
-%global prerel      beta
-%global prerelnum   1
-%global tag         v%{basever}%{?prerel:-%{prerel}%{prerelnum}}
+%define basever     5.0.0
+%define prerel      beta
+%define prerelnum   2
+%define tag         v%{basever}%{?prerel:-%{prerel}%{prerelnum}}
 
 Name:           noctalia
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
@@ -29,13 +29,9 @@ Summary:        Sleek and minimal desktop shell thoughtfully crafted for Wayland
 #   third_party/luau
 # Apache-2.0 AND MIT:
 #   third_party/wuffs
-# MIT OR Unlicense:
-#   third_party/stb
 # MIT-0 OR Unlicense:
 #   third_party/dr_wav
-# Apache-2.0 AND CC0-1.0 AND MIT:
-#   third_party/nlohmann
-License:        Apache-2.0 AND CC0-1.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later AND (MIT OR Unlicense) AND (MIT-0 OR Unlicense)
+License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later AND (MIT-0 OR Unlicense)
 URL:            https://noctalia.dev
 Source:         https://github.com/noctalia-dev/noctalia/archive/%{tag}/noctalia-%{tag}.tar.gz
 
@@ -74,6 +70,9 @@ BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(tomlplusplus)
 BuildRequires:  pkgconfig(md4c)
+BuildRequires:  json-static
+BuildRequires:  stb_image_resize2-static
+BuildRequires:  stb_image_write-static
 
 # Needed by plugin_git_export_test
 BuildRequires:  git-core
@@ -84,15 +83,20 @@ BuildRequires:  desktop-file-utils
 # For ownership of icon parent directories
 Requires:       hicolor-icon-theme
 
+# Noctalia will segfault at startup if it cannot connect to the pipewire daemon
+Requires:       pipewire
+
+# Optional requirements for various functionality
+Recommends:     upower
+Recommends:     ddcutil
+Recommends:     wtype
+
 # Upstream doesn't currently offer a mechanism for building against system
 # copies of these libraries.
 Provides:       bundled(dr_wav)
 Provides:       bundled(fzy)
 Provides:       bundled(luau)
 Provides:       bundled(material_color_utilities)
-Provides:       bundled(json)
-Provides:       bundled(stb_image_resize2)
-Provides:       bundled(stb_image_write)
 Provides:       bundled(wuffs)
 
 
@@ -104,10 +108,6 @@ notification daemon, lock screen, wallpaper tool, and settings UI.
 
 %prep
 %autosetup -p 1 -n noctalia-%{basever}%{?prerel:-%{prerel}%{prerelnum}}
-
-# Remove bundled libs that we have system copies of
-rm -r third_party/md4c
-rm -r third_party/tomlplusplus
 
 # Upstream uses a git describe command to determine part of the --version
 # output.  Since we're not building from a git checkout, we can change the
@@ -127,19 +127,12 @@ mv third_party/fzy/LICENSE                      LICENSE.fzy
 mv third_party/luau/LICENSE.txt                 LICENSE.luau
 mv third_party/luau/lua_LICENSE.txt             LICENSE.luau_lua
 mv third_party/material_color_utilities/LICENSE LICENSE.material_color_utilities
-mv third_party/nlohmann/LICENSE-APACHE-2.0      LICENSE-Apache-2.0.nlohmann_json
-mv third_party/nlohmann/LICENSE-CC0-1.0         LICENSE-CC0-1.0.nlohmann_json
-mv third_party/nlohmann/LICENSE-MIT             LICENSE-MIT.nlohmann_json
-mv third_party/stb/LICENSE                      LICENSE.stb
 mv third_party/wuffs/LICENSE-APACHE             LICENSE-Apache-2.0.wuffs
 mv third_party/wuffs/LICENSE-MIT                LICENSE-MIT.wuffs
 
 
 %conf
-%meson \
-    -Dsystem_md4c=true \
-    -Dsystem_tomlplusplus=true \
-    -Dtests=enabled
+%meson -Dtests=enabled
 
 
 %build

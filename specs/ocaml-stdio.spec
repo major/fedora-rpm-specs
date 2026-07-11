@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -15,6 +12,10 @@ URL:            https://github.com/janestreet/stdio
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/stdio-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
@@ -34,12 +35,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n stdio-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
 
 %files -f .ofiles
 %doc CHANGES.md README.md

@@ -15,6 +15,15 @@ Source:         %{url}/releases/logs-%{version}.tbz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+BuildOption(build): --with-js_of_ocaml-compiler false
+BuildOption(build): --with-fmt true
+BuildOption(build): --with-cmdliner true
+BuildOption(build): --with-lwt true
+BuildOption(build): --with-base-threads true
+
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-compiler-libs
@@ -27,7 +36,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Logs provides a logging infrastructure for OCaml.  Logging is performed on
@@ -50,22 +59,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n logs-%{version} -p1
-
-%build
-ocaml pkg/pkg.ml build \
-  --dev-pkg false \
-  --tests true \
-  --with-js_of_ocaml-compiler false \
-  --with-fmt true \
-  --with-cmdliner true \
-  --with-lwt true \
-  --with-base-threads true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cinaps
 Version:        0.15.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Trivial Metaprogramming tool using the OCaml toplevel
 
 License:        MIT
@@ -15,6 +15,7 @@ URL:            https://github.com/ocaml-ppx/cinaps
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/cinaps-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  help2man
 BuildRequires:  ocaml >= 4.04.0
 BuildRequires:  ocaml-dune >= 2.0.0
@@ -47,20 +48,15 @@ developing applications that use %{name}.
 %prep
 %autosetup -n cinaps-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 # Generate the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 help2man -N --version-string=%{version} \
   -n 'Trivial Metaprogramming tool using the OCaml toplevel' \
   %{buildroot}%{_bindir}/cinaps > %{buildroot}%{_mandir}/man1/cinaps.1
 
-%if %{with test}
 %check
+%if %{with test}
 %dune_check
 %endif
 
@@ -72,6 +68,10 @@ help2man -N --version-string=%{version} \
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.15.1-29
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-28
 - OCaml 5.4.1 rebuild
 

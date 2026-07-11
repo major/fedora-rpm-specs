@@ -5,7 +5,7 @@
 %global giturl  https://github.com/ocurrent/ocaml-version
 
 Name:           ocaml-version
-Version:        4.0.4
+Version:        4.1.3
 Release:        %autorelease
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
@@ -17,6 +17,7 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 3.6
@@ -45,15 +46,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

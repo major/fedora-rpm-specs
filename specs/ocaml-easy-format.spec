@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.3.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        High-level and functional interface to the Format module
 
 License:        BSD-3-Clause
@@ -17,6 +17,7 @@ URL:            https://github.com/ocaml-community/%{libname}
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/%{libname}-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 3.2
 
@@ -54,18 +55,6 @@ developing applications that use %{name}.
 %autosetup -n %{libname}-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %license LICENSE
 %doc README.md
@@ -76,6 +65,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.3.4-19
+- OCaml 5.5.0
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.4-18
 - OCaml 5.4.1 rebuild
 

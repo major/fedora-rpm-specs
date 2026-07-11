@@ -1,6 +1,6 @@
 Name:           freetennis
 Version:        0.4.8
-Release:        66%{?dist}
+Release:        67%{?dist}
 Summary:        Tennis simulation game
 License:        GPL-2.0-or-later
 URL:            http://freetennis.sourceforge.net/
@@ -12,8 +12,8 @@ Patch1:         freetennis-0.4.8-build.patch
 Patch2:         freetennis-0.4.8-ocaml-4.12.patch
 Patch3:         freetennis-0.4.8-ocaml-5.0.0.patch
 # i686 support was dropped in OCaml 5 / Fedora 39
-ExcludeArch:    sparc64 s390 s390x %{ix86}
-BuildRequires:  make, ocaml, SDL_gfx-devel, SDL_mixer-devel
+ExcludeArch:    %{ix86}
+BuildRequires:  make, ocaml, SDL_mixer-devel
 BuildRequires:  libXmu-devel, gtk2-devel, desktop-file-utils
 BuildRequires:  SDL_ttf-devel
 BuildRequires:  ocaml-camlimages-devel
@@ -64,6 +64,11 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.4.8-67
+- OCaml 5.5.0 rebuild
+- Modernize ExcludeArch
+- Drop unused SDL_gfx-devel dependency
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.4.8-66
 - OCaml 5.4.1 rebuild
 

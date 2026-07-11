@@ -1,8 +1,8 @@
-%global git_hash 47b9dedda00ef23974eca07c06c97cc1c80088b4
+%global git_hash 8a079791d9cca7a6c03fd6a8429b93aa3bddefed
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.35
+Version:	0.8.36
 Release:	%autorelease
 # Not enough deps on x86 and does not work on big-endian arches
 ExcludeArch:	%{ix86} s390x

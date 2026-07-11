@@ -1,6 +1,6 @@
 Name:           perl-JSON-Any
 Summary:        A meta-module to make working with JSON easier
-Version:        1.41
+Version:        1.42
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -65,6 +65,9 @@ find .  -type f -exec chmod -c -x {} +
 %{_mandir}/man3/JSON*
 
 %changelog
+* Thu Jul 09 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.42-1
+- Update to 1.42
+
 * Sun Jun 21 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.41-1
 - Update to 1.41
 

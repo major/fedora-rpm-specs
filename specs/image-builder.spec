@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        73.0.0
+Version:        74.0.0
 
 %gometa
 
@@ -70,26 +70,26 @@ Provides: bundled(golang(github.com/IBM/ibm-cos-sdk-go)) = 1.12.3
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.42.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.13
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.25
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.24
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.29
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.2.11
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.29
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.29
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.30
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.307.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.12
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.22
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.29
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.29
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.104.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.2.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.31.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.43.3
-Provides: bundled(golang(github.com/aws/smithy-go)) = 1.27.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.42.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.14
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.27
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.26
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.30
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.2.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.30
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.30
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.31
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.311.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.23
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.30
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.31
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.104.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.2.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.31.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.8
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.43.5
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.27.3
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = 2.3.0
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/cncf/xds/go)) = ee656c7
@@ -222,7 +222,7 @@ Provides: bundled(golang(google.golang.org/grpc)) = 1.79.3
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.10
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.3
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
-Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.12003.0
+Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.12005.0
 Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.6.0
 # BUNDLE_END
 %endif
@@ -291,7 +291,7 @@ export GOPATH=$PWD/_build:%{gopath}
 cd $PWD/_build/src/%{goipath}
 %gotest ./...
 %else
-%gocheck
+%gocheck -s TestFsNodeUnmarshalBadFile
 %endif
 
 %files
@@ -303,6 +303,46 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Jul 08 2026 Packit <hello@packit.dev> - 74.0.0-1
+Changes with 74.0.0
+----------------
+  - Test depsolvednf with dnf5 [HMS-10324] (#2475)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Update dependencies 2026-06-28 (#2472)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update dependencies 2026-07-05 (#2490)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - depsolvednf: don't require solver.json in test (#2479)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Brian C. Lane
+  - distro/eln: use dnf5 and update package lists (#2482)
+    - Author: Yaakov Selkowitz, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - gen-manifest: optimize checksum calculation (#2382)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - generic/bootc: allow disk.yaml to provide root filesystem type (#2405)
+    - Author: Joel Capitao, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - github: remove osbuild-composer reverse dependency test (#2477)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - image-builder/build: add json format option (#2484)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - manifest: add firstboot support (HMS-9187) (#1913)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - many: plumb sdboot options (#2456)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - many: use `image-builder upload` in tests (HMS-10856) (#2476)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - partition_table: Make AlignUp clearer (#2419)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - pkg/rhsm: match subscription baseurls with wildcards (RHEL-36789) (#2460)
+    - Author: Lucas Garfield, Reviewers: Achilleas Koutsou, Brian C. Lane, Lukáš Zapletal
+  - progress: lock around sub progress (#2487)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - workflows: Add a link to the osbuild-composer API unit test results (#2469)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - workflows: Update old images urls to image-builder (#2468)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-07-08
+
 * Mon Jun 29 2026 Packit <hello@packit.dev> - 73.0.0-1
 Changes with 73.0.0
 ----------------

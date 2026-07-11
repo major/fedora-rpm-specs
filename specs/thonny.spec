@@ -1,5 +1,5 @@
 Name:           thonny
-Version:        4.1.6
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Python IDE for beginners
 
@@ -48,10 +48,15 @@ and special mode for learning about references.
 %autosetup -p1
 
 # Remove localization helper scripts, we don't need them in the package
-rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonny.pot
+rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonny.pot \
+thonny/locale/update_translations.py thonny/locale/register_updates.py
+
 
 # Remove the vendored python-filelock
 rm -r thonny/vendored_libs/filelock/
+
+# Remove macOS metadata files
+find thonny -name ".DS_Store" -delete
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -80,10 +85,13 @@ install -D -m 0644 -t %{buildroot}%{_datadir}/metainfo                    packag
 install -D -m 0644 -t %{buildroot}%{_mandir}/man1                         packaging/linux/thonny.1
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications           packaging/linux/org.thonny.Thonny.desktop
 
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonny.Thonny.appdata.xml
-
 
 %check
+%pyproject_check_import -e "thonny.plugins.ev3.api_stubs.pybricks.*" -e thonny.plugins.micropython.miniterm_wrapper -e thonny.udisks
+
+
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.thonny.Thonny.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonny.Thonny.appdata.xml
 %global __pytest xvfb-run %__pytest
 %pytest --pyargs thonny
 

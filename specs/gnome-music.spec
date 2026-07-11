@@ -1,13 +1,13 @@
 %global gobject_introspection_version 1.35.9
 %global grilo_version 0.3.13
-%global gtk4_version 4.10.0
-%global libadwaita_version 1.5~beta
-%global pygobject_version 3.47.0
+%global gtk4_version 4.16.0
+%global libadwaita_version 1.8
+%global pygobject_version 3.54.0
 %global tracker_sparql_version 2.99.3
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       49.1
+Version:       50.0
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:

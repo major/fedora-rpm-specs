@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-re
 Version:        1.14.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A regular expression library for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -19,6 +19,7 @@ URL:            https://github.com/ocaml/ocaml-re
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 
@@ -45,14 +46,8 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%if %{with test}
 %check
+%if %{with test}
 %dune_check
 %endif
 
@@ -64,6 +59,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.14.0-5
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.0-4
 - OCaml 5.4.1 rebuild
 

@@ -33,8 +33,19 @@ Patch:          %{name}-s390x-doc.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -G Ninja
+BuildOption(conf): -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/z3
+BuildOption(conf): -DZ3_BUILD_DOCUMENTATION:BOOL=ON
+%ifarch %{java_arches}
+BuildOption(conf): -DZ3_BUILD_JAVA_BINDINGS:BOOL=ON
+%endif
+BuildOption(conf): -DZ3_BUILD_PYTHON_BINDINGS:BOOL=ON
+BuildOption(conf): -DCMAKE_INSTALL_PYTHON_PKG_DIR=%{python3_sitelib}
+BuildOption(conf): -DZ3_INCLUDE_GIT_HASH:BOOL=OFF
+BuildOption(conf): -DZ3_INCLUDE_GIT_DESCRIBE:BOOL=OFF
+BuildOption(conf): -DZ3_USE_LIB_GMP:BOOL=ON
 
-BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
@@ -48,7 +59,6 @@ BuildRequires:  make
 BuildRequires:  ninja-build
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-zarith-devel
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
@@ -140,7 +150,6 @@ Python 3 interface to z3.
 %patch 0 -p1
 %endif
 
-%conf
 # Enable verbose builds, use Fedora CFLAGS, preserve timestamps when installing,
 # include the entire contents of the archives in the library, link the library
 # with the correct flags, and build the ocaml files with debuginfo.
@@ -162,23 +171,10 @@ sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so")
 # Turn off HTML timestamps for reproducible builds
 sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/z3api.cfg.in doc/z3code.dox
 
-%build
+%build -p
 export PYTHON=%{python3}
 
-%cmake -G Ninja \
-  -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/z3 \
-  -DZ3_BUILD_DOCUMENTATION:BOOL=ON \
-%ifarch %{java_arches}
-  -DZ3_BUILD_JAVA_BINDINGS:BOOL=ON \
-%endif
-  -DZ3_BUILD_PYTHON_BINDINGS:BOOL=ON \
-  -DCMAKE_INSTALL_PYTHON_PKG_DIR=%{python3_sitelib} \
-  -DZ3_INCLUDE_GIT_HASH:BOOL=OFF \
-  -DZ3_INCLUDE_GIT_DESCRIBE:BOOL=OFF \
-  -DZ3_USE_LIB_GMP:BOOL=ON
-
-%cmake_build
-
+%build -a
 # Remove meaningless memory addresses from the pydoc documentation
 # See https://github.com/python/cpython/issues/83572
 sed -ri 's/, handle [0-9a-fA-F]+//' \
@@ -209,10 +205,7 @@ sed -i '/^api/s/ libz3\$(SO_EXT)//g' build/Makefile
 # Fourth, build the OCaml interface
 %make_build -C build ml
 
-%install
-# Install the C++, python3, and Java interfaces
-%cmake_install
-
+%install -a
 %ifarch %{java_arches}
 # Move the Java interface to its correct location
 mkdir -p %{buildroot}%{_libdir}/z3
@@ -244,8 +237,8 @@ help2man -N -o %{buildroot}%{_mandir}/man1/z3.1 \
 # Fix the pkgconfig file
 sed -i 's,//usr,,' %{buildroot}%{_libdir}/pkgconfig/z3.pc
 
-%if %{with test}
 %check
+%if %{with test}
 cd build
 make test-z3
 ./test-z3 /a

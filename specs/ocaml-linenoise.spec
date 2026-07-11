@@ -13,6 +13,7 @@ Patch0:          unbundle-linenoise.patch
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.1
 BuildRequires:  linenoise-devel
@@ -33,15 +34,6 @@ developing applications that use %{name}.
 
 # Ensure the bundled linenoise sources are not used in the build
 rm src/linenoise_src.*
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc README.md CHANGES.md

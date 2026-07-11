@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-cryptokit
-Version:        1.20.1
-Release:        9%{?dist}
+Version:        1.21.1
+Release:        1%{?dist}
 Summary:        OCaml library of cryptographic and hash functions
 
 %global upver %(tr -d . <<< %{version})
@@ -17,37 +17,39 @@ Source0:        %{url}/archive/release%{upver}/cryptokit-%{version}.tar.gz
 # Use zlib-ng directly instead of via the zlib compatibility API
 Patch:          %{name}-zlib-ng.patch
 
-BuildRequires:  ocaml >= 4.08.0
+BuildSystem:    dune
+BuildRequires:  ocaml >= 4.13.0
 BuildRequires:  ocaml-dune >= 2.5
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-zarith-devel >= 1.4
+BuildRequires:  ocaml-zarith-devel >= 1.13
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(zlib-ng)
 
 
 %description
-The Cryptokit library for Objective Caml provides a variety of
-cryptographic primitives that can be used to implement cryptographic
-protocols in security-sensitive applications. The primitives provided
-include:
+The Cryptokit library for Objective Caml provides a variety of cryptographic
+primitives that can be used to implement cryptographic protocols in
+security-sensitive applications. The primitives provided include:
 
 * Symmetric-key cryptography: AES, Chacha20, DES, Triple-DES, Blowfish,
   ARCfour, in ECB, CBC, CFB, OFB and counter modes.
 * Authenticated encryption: AES-GCM, Chacha20-Poly1305.
-* Public-key cryptography: RSA encryption and signature; Diffie-Hellman
-  key agreement.
-* Hash functions and MACs: SHA-3, SHA-2, BLAKE2, BLAKE3, RIPEMD-160;
-  MACs based on AES and DES; SipHash.  (SHA-1 and MD5, despite being
-  broken, are also provided for historical value.)
+* Public-key cryptography: RSA encryption and signature, ECDSA signature,
+  Diffie-Hellman key agreement.
+* Hash functions and MACs: SHA-3, SHA-2, BLAKE2, BLAKE3, RIPEMD-160; MACs
+  based on AES and DES; SipHash.  (SHA-1 and MD5, despite being broken, are
+  also provided for historical value.)
+* Key derivation: KDF1, KDF2, KDF3, PBKDF2.
 * Random number generation.
 * Encodings and compression: base 64, hexadecimal, Zlib compression. 
+* Elliptic curves (only in Weierstrass form at this point).
 
-Additional ciphers and hashes can easily be used in conjunction with
-the library. In particular, basic mechanisms such as chaining modes,
-output buffering, and padding are provided by generic classes that can
-easily be composed with user-provided ciphers. More generally, the
-library promotes a "Lego"-like style of constructing and composing
-transformations over character streams.
+Additional ciphers and hashes can easily be used in conjunction with the
+library.  In particular, basic mechanisms such as chaining modes, output
+buffering, and padding are provided by generic classes that can easily be
+composed with user-provided ciphers.  More generally, the library promotes a
+"Lego"-like style of constructing and composing transformations over character
+streams.
 
 
 %package        devel
@@ -64,23 +66,11 @@ developing applications that use %{name}.
 %prep
 %autosetup -n cryptokit-release%{upver} -p1
 
-
-%build
 # On x86 and x86_64, the configure script finds support for the -maes flag in
 # the compiler, and uses it to compile src/aesni.{c,h}.  This is okay because
 # use of the compiled code is conditional.  The function aesni_check_available()
 # is called first, which checks the CPUID to verify that the instructions exist
 # on the CPU.  Therefore, older CPUs can still run the compiled code.
-%dune_build
-
-
-%check
-# This opens /dev/random but never reads from it.
-%dune_check
-
-
-%install
-%dune_install
 
 
 %files -f .ofiles
@@ -92,6 +82,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jul 06 2026 Jerry James <loganjerry@gmail.com> - 1.21.1-1
+- OCaml 5.5.0 rebuild
+- Version 1.21.1
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.20.1-9
 - OCaml 5.4.1 rebuild
 

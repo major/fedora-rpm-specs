@@ -17,6 +17,12 @@ Source1:        https://www.unicode.org/Public/%{version}/ucd/NormalizationTest.
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --with-uutf true
+BuildOption(build): --with-cmdliner true
+BuildOption(build): --tests false
+
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
@@ -24,7 +30,6 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uucd-devel >= 17.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 
 %description
@@ -49,23 +54,13 @@ developing applications that use %{name}.
 %autosetup -n uunf-%{version} -p1
 cp -p %{SOURCE1} test
 
-%build
-ocaml pkg/pkg.ml build \
-  --dev-pkg false \
-  --with-uutf true \
-  --with-cmdliner true \
-  --tests false
-
-%install
-# Install the binary and library
-%ocaml_install
-
+%install -a
 # Generate the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 %{buildroot}/%{_bindir}/unftrip --help=groff > %{buildroot}%{_mandir}/man1/unftrip.1
 
+%check
 # FIXME: The tests now require b0
-#%%check
 #ocaml pkg/pkg.ml test
 
 %files -f .ofiles

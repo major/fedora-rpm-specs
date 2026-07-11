@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocplib-endian
 Version:        1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -17,6 +17,7 @@ Source0:        %{url}/archive/%{version}/ocplib-endian-%{version}.tar.gz
 # Remove dependency on base-bytes
 Patch0:         https://github.com/OCamlPro/ocplib-endian/pull/26.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-dune >= 1.0
@@ -46,15 +47,6 @@ signature files for developing applications that use %{name}.
 %prep
 %autosetup -n ocplib-endian-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %license COPYING.txt
 %doc README.md CHANGES.md
@@ -62,6 +54,10 @@ signature files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2-26
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2-25
 - OCaml 5.4.1 rebuild
 

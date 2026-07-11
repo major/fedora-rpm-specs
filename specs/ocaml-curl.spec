@@ -5,13 +5,16 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
 URL:            https://ygrek.org/p/ocurl
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/ocurl-%{version}.tar.gz
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  libcurl-devel >= 7.28.0
 BuildRequires:  ocaml >= 4.11
@@ -63,18 +66,6 @@ developing applications that use LWT with %{name}.
 %autosetup -p1 -n ocurl-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install -s
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles-curl -f .ofiles-ocurl
 %doc CHANGES.txt README.md
 %license COPYING
@@ -91,6 +82,10 @@ developing applications that use LWT with %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.10.0-7
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 0.10.0-6
 - Rebuild for ocaml-lwt 6.1.1
 

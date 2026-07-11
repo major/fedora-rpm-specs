@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sha
 Version:        1.15.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Binding to the SHA cryptographic functions
 
 License:        ISC
@@ -14,6 +14,7 @@ Source0:        %{url}/releases/download/v%{version}/sha-%{version}.tbz
 # The OCaml version packaged in Fedora is recent enough, no need to shim stdlib.
 Patch1:         ocaml-sha-remove-stdlib-shims-dep.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-ounit-devel
@@ -38,18 +39,6 @@ files for developing applications that use %{name}.
 %autosetup -n sha-%{version} -p1
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
@@ -61,6 +50,10 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.15.4-19
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.15.4-18
 - OCaml 5.4.1 rebuild
 

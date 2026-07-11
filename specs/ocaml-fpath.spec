@@ -1,19 +1,22 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-fpath
 Version:        0.7.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        File paths for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/fpath
 VCS:            git:https://erratique.ch/repos/fpath.git
 Source:         https://github.com/dbuenzli/fpath/archive/v%{version}/fpath-%{version}.tar.gz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    topkg
+BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-astring-devel
@@ -24,7 +27,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 0.9.0
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Fpath is an OCaml module for handling file system paths with POSIX or Windows
@@ -57,16 +60,6 @@ for fil in $(find . -type f); do
   rm $fil.orig
 done
 
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
@@ -74,6 +67,11 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.7.3-32
+- OCaml 5.5.0 rebuild
+- Use the topkg declarative buildsystem
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.3-31
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

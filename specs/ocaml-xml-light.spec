@@ -10,13 +10,16 @@ Version: 2.5
 %forgemeta
 
 Name:           ocaml-xml-light
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            %{forgeurl}
 VCS:            git:%{forgesource}.git
 Source0:        %{forgesource}
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 2.7
@@ -44,18 +47,6 @@ developing applications that use %{name}.
 %forgesetup
 
 
-%build
-%dune_build
-
-
-%check
-%dune_check
-
-
-%install
-%dune_install -s
-
-
 %files -f .ofiles-xml-light
 %license LICENSE
 
@@ -66,6 +57,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.5-20
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.5-19
 - OCaml 5.4.1 rebuild
 

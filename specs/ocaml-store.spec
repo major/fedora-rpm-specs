@@ -29,6 +29,7 @@ Source:         %{url}/-/archive/v%{version}/store-v%{version}.tar.bz2
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.2
 BuildRequires:  ocaml-dune >= 3.7
 %ifarch %{x86_64}
@@ -62,15 +63,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n store-v%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE

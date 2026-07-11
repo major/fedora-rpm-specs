@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-react
 Version:        1.2.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
 
 License:        ISC
@@ -15,6 +15,9 @@ URL:            https://erratique.ch/software/react
 VCS:            git:https://erratique.ch/repos/react.git
 
 Source0:        https://erratique.ch/software/react/releases/react-%{version}.tbz
+
+BuildSystem:    topkg
+BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-ocamlbuild
@@ -24,7 +27,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 
 %description
@@ -60,18 +63,6 @@ echo $'\ntrue: debug' >> _tags
 echo $'\ntrue: cclib(-lm)' >> _tags
 
 
-%build
-ocaml pkg/pkg.ml build --tests true
-
-
-%install
-%ocaml_install
-
-
-%check
-ocaml pkg/pkg.ml test
-
-
 %files -f .ofiles
 %license LICENSE.md
 
@@ -81,6 +72,11 @@ ocaml pkg/pkg.ml test
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.2-21
+- OCaml 5.5.0 rebuild
+- Use the topkg declarative buildsystem
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-20
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

@@ -17,6 +17,7 @@ URL:            https://github.com/janestreet/jane-street-headers
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 
@@ -34,12 +35,7 @@ packages.
 %prep
 %autosetup -n %{srcname}-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 # The generated jane_street_headers.ml file is empty, and so the rest of the
 # compiled OCaml artifacts likewise contain nothing useful.  No consumers need
 # them either; we remove them.

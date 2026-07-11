@@ -1,14 +1,15 @@
 %global pypi_name eth_event
 
 Name:          python-eth-event
-Version:       1.4.9
+Version:       1.4.10
 Release:       %autorelease
 Summary:       Tools for Ethereum event decoding and topic generation
 License:       MIT
 URL:           https://github.com/iamdefinitelyahuman/eth-event
 VCS:           git:%{url}.git
-Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 Patch:         python-eth-event-0001-Relax-deps.patch
+Patch:         python-eth-event-0002-Don-t-die-on-a-deprecated-functions.patch
 BuildRequires: gcc
 BuildRequires: python3dist(eth-abi)
 BuildRequires: python3dist(eth-utils)

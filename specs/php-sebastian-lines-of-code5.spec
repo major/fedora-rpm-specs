@@ -22,7 +22,7 @@
 %global ns_project   LinesOfCode
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.1
+Version:        5.0.2
 Release:        1%{?dist}
 Summary:        Counting the lines of code in PHP source code, version %{major}
 
@@ -34,20 +34,20 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
-BuildRequires: (php-composer(nikic/php-parser)     >= 5.7.0 with php-composer(nikic/php-parser)     < 6)
+BuildRequires: (php-composer(nikic/php-parser)     >= 5.8.0 with php-composer(nikic/php-parser)     < 6)
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.10"
-BuildRequires:  phpunit13 >= 13.1.10
+#        "phpunit/phpunit": "^13.2.4"
+BuildRequires:  phpunit13 >= 13.2.4
 %endif
 
 # from composer.json, "require": {
 #        "php": ">=8.4",
-#        "nikic/php-parser": "^5.7.0"
+#        "nikic/php-parser": "^5.8.0"
 Requires:       php(language) >= 8.4
-Requires:      (php-composer(nikic/php-parser)     >= 5.7.0 with php-composer(nikic/php-parser)     < 6)
+Requires:      (php-composer(nikic/php-parser)     >= 5.8.0 with php-composer(nikic/php-parser)     < 6)
 # from phpcompatinfo report for version 2.0.0
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -111,6 +111,10 @@ exit $ret
 
 
 %changelog
+* Thu Jul  9 2026 Remi Collet <remi@remirepo.net> - 5.0.2-1
+- update to 5.0.2
+- raise dependency on nikic/php-parser 5.8.0
+
 * Wed May 20 2026 Remi Collet <remi@remirepo.net> - 5.0.1-1
 - update to 5.0.1
 - raise dependency on nikic/php-parser 5.7.0

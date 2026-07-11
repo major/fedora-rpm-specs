@@ -15,6 +15,7 @@ URL:            https://github.com/janestreet/parsexp
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/parsexp-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-sexplib0-devel >= 0.17
@@ -50,15 +51,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n parsexp-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.org

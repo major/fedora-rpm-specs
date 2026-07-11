@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.006
+Version:        5.007
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -124,6 +124,10 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Thu Jul  9 2026 Paul Howarth <paul@city-fan.org> - 5.007-1
+- Update to 5.007 (rhbz#2498241)
+  - Use $Config{ccflags} to compile zstd with, which should fix AIX
+
 * Thu May 21 2026 Paul Howarth <paul@city-fan.org> - 5.006-1
 - Update to 5.006 (rhbz#2480336)
   - Update bundled miniz to 3.1.1

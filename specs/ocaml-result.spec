@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-result
 Version:        1.5
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Compat result type
 
 License:        BSD-3-Clause
@@ -17,6 +17,7 @@ URL:            https://github.com/janestreet/result
 VCS:            git:%{url}.git
 Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune >= 1.0
 
@@ -36,15 +37,6 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n result-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
@@ -53,6 +45,10 @@ files for developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.5-34
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.5-33
 - OCaml 5.4.1 rebuild
 

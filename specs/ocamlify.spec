@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlify
 Version:        0.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -11,6 +11,7 @@ URL:            https://github.com/gildor478/ocamlify
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-camlp-streams-devel
@@ -26,13 +27,7 @@ OCaml file. It allows embedding external resources as OCaml code.
 %autosetup
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
+%install -a
 # generate manpage
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1/
 help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
@@ -42,10 +37,6 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
     --no-info
 
 
-%check
-%dune_check
-
-
 %files -f .ofiles -f .ofiles-devel
 %doc README.md
 %license COPYING.txt
@@ -53,6 +44,10 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.1.0-7
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.0-6
 - OCaml 5.4.1 rebuild
 

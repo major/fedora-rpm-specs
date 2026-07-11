@@ -1,7 +1,7 @@
 %global crate hddfancontrol
 
 Name:           %{crate}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Daemon to regulate fan speed according to hard drive temperature on Linux
 

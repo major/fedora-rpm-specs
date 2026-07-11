@@ -1,5 +1,5 @@
 Name:           tmux
-Version:        3.7
+Version:        3.7b
 Release:        %autorelease
 Summary:        A terminal multiplexer
 
@@ -9,19 +9,18 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 Source2:        tmux@.service
 Source3:        README.polkit
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  byacc
 BuildRequires:  gcc
-BuildRequires:  systemd-devel
-BuildRequires:  systemd-rpm-macros
 BuildRequires:  libutempter-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(libevent_core) >= 2
-BuildRequires:  pkgconfig(tinfo)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(ncursesw)
-%if "%0{?commit}" != "0"
-BuildRequires:  automake
-%endif
+BuildRequires:  pkgconfig(tinfo)
+BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 
 Requires(post):   coreutils
 Requires(post):   grep
@@ -37,6 +36,7 @@ as GNU Screen.
 %prep
 %autosetup
 cp %{SOURCE3} .
+./autogen.sh
 
 
 %build

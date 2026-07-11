@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-calendar
 Epoch:          1
 Version:        3.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Objective Caml library for managing dates and times
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -25,6 +25,7 @@ Source0:        %{giturl}/archive/v%{version}/calendar-%{version}.tar.gz
 # Work around https://github.com/ocaml-community/calendar/issues/43
 Patch:          %{name}-timezone-test.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.0
 BuildRequires:  ocaml-re-devel >= 1.7.2
@@ -52,16 +53,8 @@ developing applications that use %{name}.
 %autosetup -n calendar-%{version} -p1
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%if %{with tests}
 %check
+%if %{with tests}
 %dune_check
 %endif
 
@@ -77,6 +70,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1:3.0.0-22
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1:3.0.0-21
 - OCaml 5.4.1 rebuild
 

@@ -5,13 +5,16 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zmq
 Version:        5.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
 URL:            https://issuuarchive.github.io/ocaml-zmq/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/zmq-%{version}.tbz
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  ocaml >= 4.04.1
 BuildRequires:  ocaml-dune >= 2.7
@@ -65,20 +68,12 @@ rm -fr zmq-eio*
 # https://github.com/issuu/ocaml-zmq/issues/128
 sed -i 's/sleep 10/&00/' zmq/test/zmq_test.ml
 
-%build
-%dune_build
-
-%install
-%dune_install -s
-
+%install -a
 # We don't want a fake zmq-async install
 rm -fr %{buildroot}%{ocamldir}/zmq-async
 
 # We don't want a fake zmq-eio install
 rm -fr %{buildroot}%{ocamldir}/zmq-eio
-
-%check
-%dune_check
 
 %files -f .ofiles-zmq
 %doc CHANGES.md README.md
@@ -91,6 +86,10 @@ rm -fr %{buildroot}%{ocamldir}/zmq-eio
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.3.0-14
+- OCaml 5.5.0
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 5.3.0-13
 - Rebuild for ocaml-lwt 6.1.1
 

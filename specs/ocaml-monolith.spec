@@ -19,6 +19,7 @@ Source:         %{url}/-/archive/%{version}/monolith-%{version}.tar.bz2
 # The ocaml-afl-persistent package is currently only built for x86_64
 ExclusiveArch:  %{x86_64}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.12
 BuildRequires:  ocaml-afl-persistent-devel >= 1.3
 BuildRequires:  ocaml-dune >= 3.11
@@ -60,12 +61,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n monolith-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
 
 %files -f .ofiles
 %doc AUTHORS.md CHANGES.md README.md

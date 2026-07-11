@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:           liborigin
-Version:        3.0.3
-Release:        6%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading OriginLab OPJ project files
 
@@ -58,7 +58,6 @@ The %{name}-doc package contains documentation for %{name}.
 %exclude %{_docdir}/%{name}/html
 # We have license in different location and FORMAT in -doc
 %exclude %{_docdir}/%{name}/COPYING
-%exclude %{_docdir}/%{name}/FORMAT
 
 %files devel
 %{_includedir}/%{name}/
@@ -66,11 +65,14 @@ The %{name}-doc package contains documentation for %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files doc
-%doc FORMAT README
+%doc doc/FORMAT README
 %license COPYING
 %{_docdir}/%{name}/html/
 
 %changelog
+* Thu Jul 09 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.4-1
+- Update to 3.0.4 (#2498534)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

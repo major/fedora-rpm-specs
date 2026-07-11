@@ -34,7 +34,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.28.4
+Version:        1.28.5
 Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -373,6 +373,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.5-1
+- 1.28.5
+
 * Fri Jun 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.4-1
 - 1.28.4
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zed
 Version:        3.2.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Abstract engine for text editing in OCaml
 
 License:        BSD-3-Clause
@@ -17,6 +17,7 @@ Source0:        %{url}/archive/%{version}/zed-%{version}.tar.gz
 # We don't need the uchar forwards compatibility package
 Patch0:         %{name}-uchar.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 3.0
@@ -52,15 +53,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -n zed-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %license LICENSE
 %doc README.md CHANGES.md
@@ -68,6 +60,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 3.2.3-22
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 3.2.3-21
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

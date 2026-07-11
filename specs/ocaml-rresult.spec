@@ -7,13 +7,17 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/rresult
 VCS:            git:https://erratique.ch/repos/rresult.git
 Source:         %{url}/releases/rresult-%{version}.tbz
+
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-compiler-libs
@@ -23,7 +27,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Rresult is an OCaml module for handling computation results and errors in an
@@ -45,15 +49,6 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n rresult-%{version}
 
-%build
-ocaml pkg/pkg.ml build --dev-pkg false --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
@@ -64,6 +59,11 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.7.0-28
+- OCaml 5.5.0 rebuild
+- Use the topkg declarative buildsystem
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-27
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

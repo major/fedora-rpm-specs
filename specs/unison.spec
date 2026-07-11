@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.54.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -142,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}-gui.me
 %endif
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.54.0-2
+- OCaml 5.5.0 rebuild
+
 * Sun May 24 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 2.54.0-1
 - Update to v2.54.0
 

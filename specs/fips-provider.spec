@@ -8,7 +8,7 @@
 %global features fips,nssdb,ossl400
 
 %global srpmhash() %{lua:
-local files = rpm.expand("%_specdir/%{name}.spec")
+local files = rpm.expand("%_specdir/fips-provider.spec")
 for i, p in ipairs(patches) do
    files = files.." "..p
 end
@@ -21,7 +21,11 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
+%if 0%{?rhel}
+Name:           fips-provider-next
+%else
 Name:           fips-provider
+%endif
 Version:        1.5.2
 Release:        %autorelease
 Summary:        A FIPS provider built from the Kryoptic project

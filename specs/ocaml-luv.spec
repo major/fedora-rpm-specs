@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-luv
 Version:        0.5.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
@@ -13,6 +13,7 @@ URL:            https://aantron.github.io/luv/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/luv-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-alcotest-devel >= 0.8.1
 BuildRequires:  ocaml-ctypes-devel >= 0.14.0
@@ -43,17 +44,14 @@ files for developing applications that use %{name}.
 # Remove spurious executable bits
 find . -type f -exec chmod 0644 {} +
 
-%build
+%build -p
 export LUV_USE_SYSTEM_LIBUV=yes
-%dune_build
 
-%install
+%install -p
 export LUV_USE_SYSTEM_LIBUV=yes
-%dune_install
 
-%check
+%check -p
 export LUV_USE_SYSTEM_LIBUV=yes
-%dune_check
 
 %files -f .ofiles
 %license LICENSE.md
@@ -62,6 +60,10 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.5.14-10
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Tue May 19 2026 Jerry James <loganjerry@gmail.com> - 0.5.14-9
 - Rebuild for ocaml-integers 0.8.0
 

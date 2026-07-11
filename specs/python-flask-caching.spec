@@ -3,16 +3,13 @@
 %global srcname flask-caching
 
 Name:           python-%{srcname}
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Adds caching support to your Flask application
 
 License:        BSD-3-Clause
 URL:            https://github.com/sh4nks/flask-caching
 Source0:        https://github.com/sh4nks/%{srcname}/archive/v%{version}/%{srcname}-v%{version}.tar.gz
-
-# Compatibility with pytest 9.1
-Patch:          https://github.com/pallets-eco/flask-caching/pull/652.patch
 
 BuildArch:      noarch
 
@@ -27,6 +24,7 @@ BuildRequires:  python3dist(pytest-xprocess)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(redis)
 BuildRequires:  redis
+BuildRequires:  python3dist(pallets-sphinx-themes)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-issues)
 BuildRequires:  python3dist(sphinx-tabs)
@@ -49,6 +47,7 @@ Documentation for Flask-Caching
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+sed -i 's/release, version = get_version("Flask-Caching")/release, version = ("%{version}", "%{version}")/' docs/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires

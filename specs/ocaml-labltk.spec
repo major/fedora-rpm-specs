@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 %global giturl https://github.com/garrigue/labltk
 
 Name:          ocaml-labltk
-Version:       8.06.15
-Release:       6%{?dist}
+Version:       8.06.16
+Release:       1%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -134,6 +134,10 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 8.06.16-1
+- OCaml 5.5.0 rebuild
+- New upstream version 8.06.16
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 8.06.15-6
 - OCaml 5.4.1 rebuild
 

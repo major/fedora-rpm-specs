@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -16,6 +16,7 @@ Source:         %{giturl}/archive/%{version}/psmt2-frontend-%{version}.tar.gz
 # https://github.com/ACoquereau/psmt2-frontend/pull/24
 Patch:          %{name}-sphinx6.patch
 
+BuildSystem:    dune
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.04.2
 BuildRequires:  ocaml-dune >= 2.6.0
@@ -48,22 +49,16 @@ Documentation for %{name}.
 # Do not use git to find the version; we don't have a git checkout
 sed -i '/^git =/d;/^branch=/d;s/^\(version = \).*/\1"%{version}"/' sphinx/conf.py
 
-%build
-%dune_build
+%build -a
 make sphinx
 
-%install
-%dune_install
-
+%install -a
 # Put something interesting into the binary package META file
 cat > %{buildroot}%{ocamldir}/psmt2-frontend_bin/META << EOF
 version = "%{version}"
 description = "PSMT2 command line tool"
 requires = ""
 EOF
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md
@@ -75,6 +70,10 @@ EOF
 %doc docs/sphinx
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.4.0-31
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-30
 - OCaml 5.4.1 rebuild
 

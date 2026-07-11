@@ -7,13 +7,16 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlmod
 Version:        0.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate OCaml modules from source files
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/gildor478/ocamlmod
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildSystem:    dune
+BuildOption(install): -n
 
 BuildRequires:  help2man
 BuildRequires:  ocaml >= 4.14.1
@@ -29,13 +32,7 @@ ocamlmod allows to create OCaml modules from source files.
 %autosetup -p1
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install -n
-
+%install -a
 # We don't need the OCaml module files
 rm -rf %{buildroot}%{_libdir}
 
@@ -48,10 +45,6 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlmod \
     --no-info
 
 
-%check
-%dune_check
-
-
 %files
 %doc CHANGES.md README.md
 %license COPYING.txt
@@ -60,6 +53,10 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlmod \
 
 
 %changelog
+* Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 0.1.1-5
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.1-4
 - OCaml 5.4.1 rebuild
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
 Version:        1.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -20,7 +20,6 @@ Patch:          0001-Pass-g-option-to-ocamlmklib.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
 
 
@@ -98,6 +97,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.13-6
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.13-5
 - OCaml 5.4.1 rebuild
 

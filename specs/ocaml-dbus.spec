@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-dbus
 Version:        0.30
-Release:        64%{?dist}
+Release:        65%{?dist}
 Summary:        OCaml library for using D-Bus
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -83,6 +83,9 @@ make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install-byte
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.30-65
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.30-64
 - OCaml 5.4.1 rebuild
 

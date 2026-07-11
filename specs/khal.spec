@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:       khal
-Version:    0.13.0
+Version:    0.14.0
 Release:    %autorelease
 Summary:    CLI calendar application
 
@@ -12,14 +12,8 @@ URL:        https://github.com/pimutils/%{name}
 Source:     https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # In theory documentation requires sphinxcontrib.newsfeed to generate
-# a blog of the changelog. We only need the manpage. We also fix a Makefile error
-# which happens when using .tar.gz
-Patch:      khal-0.8.2-sphinx-docfix.patch
-# Support Python 3.14.
-# https://github.com/pimutils/khal/pull/1417
-Patch:      khal-0.13.0-support-py3.14.patch
-# Reduce setuptools requirement. Fedora 42 lacks setuptools 77+.
-Patch:      khal-0.13.0-reduce-setuptools-req.patch
+# a blog of the changelog. We only need the manpage.
+Patch:      0001-remove-sphinxfeed.patch
 BuildArch:  noarch
 
 BuildRequires: make

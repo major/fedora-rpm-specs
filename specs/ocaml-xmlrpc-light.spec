@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        89%{?dist}
+Release:        90%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -15,7 +15,6 @@ Source0:        https://storage.googleapis.com/google-code-archive-downloads/v2/
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-ocamlnet-devel
 BuildRequires:  ocaml-ocamlnet-nethttpd-devel
@@ -91,6 +90,9 @@ mkdir -p $OCAMLFIND_DESTDIR
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.6.1-90
+- OCaml 5.5.0 rebuild
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-89
 - OCaml 5.4.1 rebuild
 

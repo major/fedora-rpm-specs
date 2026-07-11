@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlimages
 Version:        5.0.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml image processing library
 License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
@@ -20,7 +20,7 @@ Patch2:         %{name}-standard-flags.patch
 # Adapt to the Caml -> Stdlib change in ocaml-base 0.17
 Patch3:         %{name}-base-0.17.patch
 
-BuildRequires:  ghostscript
+BuildSystem:    dune
 BuildRequires:  giflib-devel
 BuildRequires:  ocaml >= 4.12.1
 BuildRequires:  ocaml-base-devel
@@ -37,7 +37,6 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(xpm)
-BuildRequires:  rgb
 
 Requires:       ghostscript
 Requires:       rgb
@@ -62,15 +61,6 @@ developing applications using camlimages.
 %prep
 %autosetup -n camlimages-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc README.md Changes.txt
 %license License.txt
@@ -78,6 +68,10 @@ developing applications using camlimages.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.0.5-12
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.0.5-11
 - OCaml 5.4.1 rebuild
 

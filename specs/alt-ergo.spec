@@ -1,5 +1,6 @@
 %global giturl  https://github.com/OCamlPro/alt-ergo
 
+# FIXME: The name should be alt-ergo-free
 Name:		alt-ergo
 Version:	2.4.3
 Release:	%autorelease

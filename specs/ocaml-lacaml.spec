@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lacaml
 Version:        11.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        BLAS/LAPACK-interface for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -11,13 +11,14 @@ URL:            https://github.com/mmottl/lacaml
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/lacaml-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pkgconfig(flexiblas)
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 
 %description
@@ -43,19 +44,16 @@ developing applications that use %{name}.
 %autosetup -n lacaml-%{version}
 
 
-%build
+%build -p
 export LACAML_LIBS=-lflexiblas
-%dune_build
 
 
-%install
+%install -p
 export LACAML_LIBS=-lflexiblas
-%dune_install
 
 
-%check
+%check -p
 export LACAML_LIBS=-lflexiblas
-%dune_check
 
 
 %files -f .ofiles
@@ -69,6 +67,11 @@ export LACAML_LIBS=-lflexiblas
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 11.1.1-8
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 11.1.1-7
 - OCaml 5.4.1 rebuild
 

@@ -14,8 +14,8 @@ changes or source code (for interpreted languages).
 %global _summary Display local changes in files from installed RPM packages
 
 Name:           dnf-plugin-diff
-Version:        2.0
-Release:        8%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        %_summary
 
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ Provides:       dnf5-command(diff) = %version
 
 
 %changelog
+* Thu Jul 09 2026 Pavel Raiskup <praiskup@redhat.com> - 2.1-1
+- Fixed FTBFS for F44+
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.0-8
 - Rebuilt for Python 3.15
 

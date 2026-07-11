@@ -17,6 +17,7 @@ Source:         %{giturl}/archive/%{version}/swhid_core-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.11
 
@@ -35,15 +36,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n swhid_core-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

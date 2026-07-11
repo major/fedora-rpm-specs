@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-omake
 Version:        0.10.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -62,10 +62,15 @@ Provides:       omake
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-findlib
 BuildRequires:  readline-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  hevea
+BuildRequires:  tex(babel.sty)
+BuildRequires:  tex(english.ldf)
+BuildRequires:  tex(index.sty)
+BuildRequires:  texlive-dvipdfmx
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-makeindex
 
 
 %description
@@ -140,6 +145,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.10.7-9
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.10.7-8
 - OCaml 5.4.1 rebuild
 

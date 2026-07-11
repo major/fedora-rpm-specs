@@ -15,6 +15,12 @@ Source:         %{url}/releases/uuseg-%{version}.tbz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --with-uutf true
+BuildOption(build): --with-cmdliner true
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
@@ -54,17 +60,6 @@ developing applications that use %{name}.
 
 # Files needed for the tests
 cp -p %{_datadir}/unicode/ucd/auxiliary/*BreakTest.txt test
-
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --dev-pkg false --with-uutf true --with-cmdliner true \
-  --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %license LICENSE.md

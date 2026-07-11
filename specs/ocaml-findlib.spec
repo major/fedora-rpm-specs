@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-findlib
 Version:        1.9.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -20,16 +20,14 @@ Patch0:         %{name}-toolbox.patch
 
 BuildRequires:  ocaml >= 4.02.0
 BuildRequires:  ocaml-labltk-devel
-BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  m4, ncurses-devel
+BuildRequires:  ncurses-devel
 BuildRequires:  make
-Requires:       ocaml
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 
 %description
@@ -104,6 +102,12 @@ sed -i '/etc/d' .ofiles
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.9.8-9
+- OCaml 5.5.0 rebuild
+- Drop unused BuildRequires: m4, ocaml-ocamlbuild
+- Remove runtime dependency on ocaml
+- Update __ocaml_requires_opts for OCaml 5.5.0
+
 * Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 1.9.8-8
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

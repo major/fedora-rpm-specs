@@ -84,13 +84,13 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    1%{?dist}
+Release:    2%{?dist}
 %else
-Release:    5%{?dist}
+Release:    6%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
-License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NSCA
+License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NCSA
 # Main license is MIT
 # 
 # This file is GPL-2.0
@@ -101,7 +101,7 @@ License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NSCA
 # But license check says, incorrectly they are
 # *No copyright* GNU General Public License, Version 2
 #
-# NSCA
+# NCSA
 # Covers the bundled esmi_ib_library
 
 URL:        https://github.com/ROCm/rocm-systems
@@ -376,6 +376,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Thu Jul 09 2026 Pavel Simovec <psimovec@redhat.com> - 7.2.1-6
+- Fix license typo: NSCA -> NCSA
+
 * Wed Jun 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
 - Silence _pack_ warnings
 

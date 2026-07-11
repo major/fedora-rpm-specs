@@ -17,15 +17,26 @@ Source:         %{giturl}/-/archive/%{version}/menhir-%{version}.tar.bz2
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 
 %if %{with manual}
-BuildRequires:  ImageMagick
 BuildRequires:  hevea
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amstext.sty)
+BuildRequires:  tex(fontenc.sty)
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(inputenc.sty)
 BuildRequires:  tex(moreverb.sty)
 BuildRequires:  tex(stmaryrd.sty)
+BuildRequires:  tex(tikz.sty)
+BuildRequires:  tex(xspace.sty)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 BuildRequires:  texlive-times
 %endif
 
@@ -33,9 +44,6 @@ Provides:       bundled(ocaml-fix) = 20250919
 Provides:       bundled(ocaml-pprint) = 20230830
 
 Requires:       ocaml-menhirlib-devel%{?_isa} = %{version}-%{release}
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      coq-menhirlib < 20230608-1
 
 %description
 Menhir is a LR(1) parser generator for the Objective Caml programming
@@ -64,9 +72,7 @@ building applications with a parser produced by Menhir.
 %prep
 %autosetup -n menhir-%{version}
 
-%build
-%dune_build
-
+%build -a
 %if %{with manual}
 cd doc
 rm manual.pdf
@@ -78,9 +84,7 @@ pdflatex -interaction=nonstopmode manual
 cd -
 %endif
 
-%install
-%dune_install -s
-
+%install -a
 # We do not install *.ml files by default, but this one is needed
 cp -p _build/default/lib/pack/menhirLib.ml %{buildroot}%{ocamldir}/menhirLib
 

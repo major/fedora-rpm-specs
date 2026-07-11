@@ -11,6 +11,8 @@ License:        MIT
 URL:            https://github.com/camlp5/camlp5-buildscripts
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/camlp5-buildscripts-%{version}.tar.gz
+# Work around changes in dune 3.24
+Patch:          dune-3.24.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}

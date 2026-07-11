@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlbz2
 Version:        0.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -17,6 +17,7 @@ Patch:          %{name}-io-h.patch
 # We do not need the stdlib-shims forward compatibility package
 Patch:          %{name}-shims.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune >= 2.8
 BuildRequires:  pkgconfig(bzip2)
@@ -43,15 +44,6 @@ sed -i 's/0\.7\.1/%{version}/' dune-project
 # Make sure we don't use the bundled copy of io.h
 rm src/io.h
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc BUGS ChangeLog README
 %license COPYING LICENSE
@@ -59,6 +51,10 @@ rm src/io.h
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.8.0-12
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.8.0-11
 - OCaml 5.4.1 rebuild
 

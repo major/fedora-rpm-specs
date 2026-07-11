@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-benchmark
 Version:        1.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
@@ -17,6 +17,7 @@ URL:            https://chris00.github.io/ocaml-benchmark/doc/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 
@@ -39,18 +40,6 @@ developing applications that use %{name}.
 %autosetup -n %{name}-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
@@ -62,6 +51,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.7-7
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.7-6
 - OCaml 5.4.1 rebuild
 

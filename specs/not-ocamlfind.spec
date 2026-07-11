@@ -15,7 +15,6 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  m4
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-compiler-libs

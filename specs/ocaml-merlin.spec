@@ -1,11 +1,11 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global ocamlver 504
+%global ocamlver 505
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.7.1
+Version:        5.8
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -26,19 +26,22 @@ Source:         %{giturl}/releases/download/v%{version}-%{ocamlver}/merlin-%{ver
 # Fix the tests to work with /usr/lib64 as well as /usr/lib
 Patch:          0001-Use-usr-lib64-for-Fedora.patch
 
+BuildSystem:    dune
+BuildOption(build): @install
+BuildOption(install): -s -n
+
 BuildRequires:  emacs
 BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 5.4
+BuildRequires:  ocaml >= 5.5
 BuildRequires:  ocaml-alcotest-devel >= 1.3.0
 BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 3.0.0
 BuildRequires:  ocaml-findlib-devel >= 1.6.0
 BuildRequires:  ocaml-menhir >= 20230608
-BuildRequires:  ocaml-ppxlib-devel
 BuildRequires:  ocaml-source
 BuildRequires:  ocaml-yojson-devel >= 2.0.0
 BuildRequires:  vim-enhanced
@@ -119,12 +122,7 @@ This package contains the Vim interface to merlin.
 %prep
 %autosetup -n merlin-%{version}-%{ocamlver} -p1
 
-%build
-%dune_build @install
-
-%install
-%dune_install -s -n
-
+%install -a
 # Reinstall vim files to Fedora default location
 mkdir -p %{buildroot}%{vimfiles_root}
 mv %{buildroot}%{_datadir}/merlin/vim/* %{buildroot}%{vimfiles_root}
@@ -138,9 +136,6 @@ mkdir -p %{buildroot}%{_emacs_sitestartdir}
 mv merlin-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 %_emacs_bytecompile *.el
 cd -
-
-%check
-%dune_check
 
 %files
 %doc featuremap.* CHANGES.md README.md

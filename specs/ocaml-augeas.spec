@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-augeas
 Version:        0.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -18,7 +18,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  augeas-devel >= 0.1.0
-BuildRequires: gnupg2
+BuildRequires:  gpgverify
 
 
 %description
@@ -40,11 +40,11 @@ developing applications that use %{name}.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
-# Pass -g to ocamlmklib
-sed -i 's/ocamlmklib/& -g/' Makefile.in
-
 
 %build
+# ocamlmklib already passes Fedora flags to the linker
+# We only need -g for debuginfo
+export LDFLAGS=-g
 %configure
 %ifarch %{ocaml_native_compiler}
 # _smp_mflags breaks the build.
@@ -85,6 +85,10 @@ ocamlfind install augeas META *.mli *.cma *.a augeas.cmi *.so
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.7-7
+- OCaml 5.5.0 rebuild
+- BR gpgverify instead of gnupg2
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7-6
 - OCaml 5.4.1 rebuild
 

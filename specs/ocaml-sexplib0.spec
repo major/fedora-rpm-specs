@@ -15,6 +15,7 @@ URL:            https://github.com/janestreet/sexplib0
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/sexplib0-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 3.11.0
 
@@ -32,12 +33,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n sexplib0-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
 
 %files -f .ofiles
 %doc README.md CHANGES.md

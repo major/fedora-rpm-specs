@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-ocamlbuild
 Version:       0.16.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -23,7 +23,6 @@ Source0:       %{url}/archive/%{version}/ocamlbuild-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-rpm-macros
-BuildRequires: ncurses
 BuildRequires: asciidoc
 BuildRequires: python3-pygments
 
@@ -108,6 +107,9 @@ popd
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.16.1-6
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.16.1-5
 - OCaml 5.4.1 rebuild
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-trie
 Version:        1.0.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Strict impure trie tree
 
 License:        MIT
@@ -15,6 +15,7 @@ URL:            https://github.com/kandu/trie
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/trie-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02
 BuildRequires:  ocaml-dune >= 1.0
 
@@ -32,18 +33,16 @@ developing applications that use %{name}.
 %prep
 %autosetup -n trie-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
 %files -f .ofiles
 %license LICENSE
 
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.0.0-35
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.0.0-34
 - OCaml 5.4.1 rebuild
 

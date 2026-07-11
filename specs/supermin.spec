@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.5
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -211,6 +211,9 @@ make check || {
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.3.5-10
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.3.5-9
 - OCaml 5.4.1 rebuild
 

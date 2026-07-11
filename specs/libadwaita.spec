@@ -3,7 +3,7 @@
 %global glib_version 2.84.0
 
 Name:           libadwaita
-Version:        1.10~alpha
+Version:        1.10~alpha.1
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -13,6 +13,10 @@ URL:            https://gitlab.gnome.org/GNOME/libadwaita
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 %gnome_check_version
+
+# https://gitlab.gnome.org/sp1rit/ministream/-/merge_requests/2
+# https://gitlab.gnome.org/GNOME/libadwaita/-/work_items/1146
+Patch:          0001-ministream-do-not-install.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

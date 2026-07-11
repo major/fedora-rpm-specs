@@ -17,13 +17,13 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 1
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9b
+Version:		1.3.9c
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -461,6 +461,23 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Wed Jul  8 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-1
+- Update to 1.3.9c
+  - ExecEnviron values not passed due to regression since 1.3.8.d (GH#2135)
+  - Stack buffer overflow in MLSD/MLST handling for long path names (GH#2146)
+  - MaxTransfersPerUser no longer enforces configured limits (GH#2158)
+  - AdminControlsACLs for config, get actions not honored as they should be
+    (GH#2163)
+  - Memcached/Redis-cached JSON TLS session/OCSP entries decoded into fixed
+    buffers without bounds checking (GH#2166)
+  - RewriteMap unescape builtin use causes one-byte out-of-bounds write, fails
+    to reject illegal characters (GH#2173)
+  - SQL group name lookup concatenates client-provided group names without
+    escaping (GH#2188)
+  - Authenticated SFTP sessions can overflow the SFTP packet buffer (GH#2190)
+  - Default Controls socket ACLs unintentionally allow all users access for
+    sending Controls requests (GH#2210)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.9b-2
 - Rebuilt for openssl 4.0
 

@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.47.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.47.9-4
+- OCaml 5.5.0 rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.47.9-3
 - Rebuilt for openssl 4.0
 

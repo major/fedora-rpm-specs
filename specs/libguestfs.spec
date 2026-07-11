@@ -23,7 +23,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.59-development
+%global source_directory 1.60-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.59.9
-Release:       1%{?dist}
+Version:       1.60.0
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1031,6 +1031,12 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1:1.60.0-2
+- OCaml 5.5.0 rebuild
+
+* Thu Jul 09 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.60.0-1
+- New upstream stable version 1.60.0
+
 * Fri Jul 03 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.9-1
 - New upstream development version 1.59.9
 

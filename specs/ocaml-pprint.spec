@@ -10,6 +10,7 @@ Source0:        https://github.com/fpottier/pprint/archive/%{version}/pprint-%{v
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.3
 
@@ -32,12 +33,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n pprint-%{version} -p1
-
-%build
-%dune_build
-
-%install
-%dune_install
 
 %check
 dune exec test/PPrintTest.exe

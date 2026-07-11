@@ -10,6 +10,7 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # The american-fuzzy-lop package is currently only built for x86_64
 ExclusiveArch:  %{x86_64}
+BuildSystem:    dune
 
 BuildRequires:  american-fuzzy-lop
 BuildRequires:  ocaml >= 4.05
@@ -32,12 +33,8 @@ files for developing applications that use %{name}.
 %prep
 %autosetup
 
-%build
+%build -p
 ./config.sh
-%dune_build
-
-%install
-%dune_install
 
 %check
 cd test

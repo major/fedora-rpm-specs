@@ -11,10 +11,10 @@ Source:         %{url}/archive/v%{version}/crowbar-%{version}.tar.gz
 # The american-fuzzy-lop package is currently only built for x86_64
 ExclusiveArch:  %{x86_64}
 
+BuildSystem:    dune
 BuildRequires:  american-fuzzy-lop
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-afl-persistent-devel >= 1.1
-BuildRequires:  ocaml-calendar-devel >= 2.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-fpath-devel
@@ -43,15 +43,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n crowbar-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

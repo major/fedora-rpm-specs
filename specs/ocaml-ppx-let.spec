@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 Name:           ocaml-ppx-let
 Version:        0.17.1
 Release:        %autorelease
@@ -11,6 +8,10 @@ URL:            https://github.com/janestreet/ppx_let
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_let-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
@@ -54,15 +55,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_let-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

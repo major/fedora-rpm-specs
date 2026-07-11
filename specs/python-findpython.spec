@@ -1,5 +1,5 @@
 Name:           python-findpython
-Version:        0.7.1
+Version:        0.8.0
 Release:        %autorelease
 
 Summary:        A utility to find python versions on your system

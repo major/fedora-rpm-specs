@@ -11,6 +11,7 @@ Source:         %{url}/archive/%{version}/pcre2-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -36,15 +37,6 @@ developing applications that use %{name}.
 %conf
 # dune-compiledb functionality not needed for an RPM build
 sed -i '/dune-compiledb/d' dune-project pcre2.opam
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc README.md CHANGELOG.md

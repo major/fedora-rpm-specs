@@ -2,21 +2,20 @@
 
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
-Version: 5.3
-Release: 4%{?dist}
+Version: 5.4
+Release: 1%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
-Source0: https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/snapshot/tftp-hpa-%{version}.tar.gz
-Source1: tftp.socket
-Source2: tftp.service
-Source3: tftp-server-tmpfiles.conf
-
-# Upstream patches
-# https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=b9f2335e88dcb3939015843c7143f1533c755a46
-Patch: tftp-hpa-5.3-setjmp.patch
+Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.4.tar.gz
+Source1: https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.4.tar.sign
+# gpg --keyserver pgp.mit.edu --recv-key 6D0107BC69EE5A274FD9B60C2DB3C3321B6DDF86
+# gpg --output hpa.gpg --armor --export hpa@zytor.com
+Source2: hpa.gpg
+Source3: tftp.socket
+Source4: tftp.service
+Source5: tftp-server-tmpfiles.conf
 
 # To-be upstreamed patches
-Patch: tftp-hpa-5.3-cmd_arg.patch
 # https://www.syslinux.org/archives/2026-April/026959.html
 Patch: tftp-hpa-5.3-stats.patch
 Patch: tftp-doc.patch
@@ -26,13 +25,9 @@ Patch: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
 
 # Downstream-only patches
 Patch: tftp-0.42-tftpboot.patch
-# Code removed upstream in https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=b6d9029420315dc60237d1d4fb29306ae172c120
-Patch: tftp-hpa-5.3-pktinfo.patch
-# Code removed upstream in https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=04d7b0db0672ef5c7c36886e00f136672881a9ef
-Patch: tftp-off-by-one.patch
 
-BuildRequires: autoconf
 BuildRequires: gcc
+BuildRequires: gpgverify
 BuildRequires: make
 BuildRequires: readline-devel
 BuildRequires: systemd-rpm-macros
@@ -59,26 +54,21 @@ enabled unless it is expressly needed.  The TFTP server is run by using
 systemd socket activation, and is disabled by default.
 
 %prep
+gzip -cd '%{SOURCE0}' > 'tftp-hpa-%{version}.tar'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='tftp-hpa-%{version}.tar'
 %autosetup -p1 -n tftp-hpa-%{version}
 
 %build
-autoreconf
 %configure
 %make_build
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
-mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man{1,8}
-mkdir -p ${RPM_BUILD_ROOT}%{_sbindir}
-mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/lib/tftpboot
-mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
-mkdir -p ${RPM_BUILD_ROOT}%{_unitdir}
-
 %make_install INSTALLROOT=%{buildroot} SBINDIR=%{_sbindir} MANDIR=%{_mandir}
 
-install -p -m 644 %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}
-install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
-install -p -m 644 %SOURCE3 ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}.conf
+mkdir -p %{buildroot}%{_localstatedir}/lib/tftpboot
+install -D -p -m 644 %SOURCE3 %{buildroot}%{_unitdir}/%{name}.socket
+install -D -p -m 644 %SOURCE4 %{buildroot}%{_unitdir}/%{name}.service
+install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %post server
 %systemd_post tftp.socket
@@ -106,6 +96,10 @@ install -p -m 644 %SOURCE3 ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.socket
 
 %changelog
+* Thu Jul 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.4-1
+- rebase to the latest upstream release (rhbz#2497090)
+- add gpg verification
+
 * Wed Apr 15 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.3-4
 - clean-up patches
 

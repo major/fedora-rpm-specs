@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-expat
 Version:        1.3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        OCaml wrapper for the Expat XML parsing library
 License:        MIT
 
@@ -14,7 +14,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  pkgconfig(expat)
@@ -67,6 +66,13 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 %ocaml_files
 
 
+%check
+make test
+%ifarch %{ocaml_native_compiler}
+make testopt
+%endif
+
+
 %files -f .ofiles
 %doc README changelog
 %license LICENCE
@@ -78,6 +84,10 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 1.3.0-19
+- OCaml 5.5.0 rebuild
+- Add a %%check script
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-18
 - OCaml 5.4.1 rebuild
 

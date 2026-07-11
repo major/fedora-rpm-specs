@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPL-2.1-or-later
 
@@ -20,11 +20,10 @@ Source2:        KEYS
 # https://github.com/ygrek/ocaml-mysql/pull/19
 Patch0:         %{name}-custom-fixed-length.patch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  mariadb-connector-c-devel
 
@@ -51,6 +50,11 @@ developing applications that use %{name}.
 
 
 %build
+# The ocaml tools (ocamlc, ocamlopt, ocamlmklib) already have Fedora LDFLAGS
+# baked in. The Makefile passes LDFLAGS directly to ocamlmklib, without -ldopt,
+# which is an error with OCaml 5.5.  This is the only flag we need.
+export LDFLAGS=-g
+
 # Parallel builds of this package fail.
 unset MAKEFLAGS
 %configure
@@ -77,6 +81,10 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.4-22
+- OCaml 5.5.0 rebuild
+- BR gpgverify instead of gnupg2
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-21
 - OCaml 5.4.1 rebuild
 

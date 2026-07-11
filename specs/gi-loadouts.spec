@@ -3,8 +3,8 @@
 %global         identity net.gridhead.gi-loadouts
 
 Name:           %{hyphen}
-Version:        0.1.16
-Release:        2%{?dist}
+Version:        0.1.17
+Release:        1%{?dist}
 Summary:        Loadouts for Genshin Impact
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{identity}.me
 %{_datadir}/icons/hicolor/scalable/apps/%{identity}.svg
 
 %changelog
+* Thu Jul 09 2026 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.17-1
+- Version 0.1.17 release of Loadouts for Genshin Impact
+- Announcement - https://gridhead.net/loadouts-for-genshin-impact-v0-1-17-released/
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.1.16-2
 - Rebuilt for Python 3.15
 

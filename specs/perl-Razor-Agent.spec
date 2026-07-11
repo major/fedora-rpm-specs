@@ -5,13 +5,11 @@
 
 Summary:        Collaborative, content-based spam filtering network agent
 Name:           perl-Razor-Agent
-Version:        2.86
-Release:        16%{?dist}
+Version:        2.88
+Release:        1%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/%{pkgname}-%{version}.tar.gz
-Patch0:         https://github.com/toddr/Razor2-Client-Agent/commit/033b00e94741550ef3ef087d9903742ac881a7ba.patch#/perl-Razor-Agent-2.86-parallel-make.patch
-Patch1:         https://github.com/toddr/Razor2-Client-Agent/commit/1a8dc0ea64c6bbe187babdb1079bc0cf05926e59.patch#/perl-Razor-Agent-2.86-digest-sha.patch
 Requires:       perl(Digest::SHA)
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -20,12 +18,19 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::Socket::IP)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Sys::Syslog)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(URI::Escape)
@@ -65,7 +70,7 @@ make test
 
 %files
 %license LICENSE
-%doc BUGS Changes CREDITS FAQ README.md SERVICE_POLICY
+%doc BUGS Changes CONTRIBUTING.md CREDITS FAQ README.md SECURITY.md SERVICE_POLICY
 %{_bindir}/razor-admin
 %{_bindir}/razor-check
 %{_bindir}/razor-client
@@ -77,6 +82,9 @@ make test
 %{_mandir}/man1/razor-check.1*
 %{_mandir}/man1/razor-report.1*
 %{_mandir}/man1/razor-revoke.1*
+%{_mandir}/man3/Razor2::Client::Agent.3pm*
+%{_mandir}/man3/Razor2::Client::Config.3pm*
+%{_mandir}/man3/Razor2::Client::Core.3pm*
 %{_mandir}/man3/Razor2::Errorhandler.3pm*
 %{_mandir}/man3/Razor2::Preproc::deHTMLxs.3pm*
 %{_mandir}/man3/Razor2::Syslog.3pm*
@@ -85,6 +93,9 @@ make test
 %{_mandir}/man5/razor-whitelist.5*
 
 %changelog
+* Wed Jul 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.88-1
+- 2.88 bump (rhbz#2450185)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.86-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

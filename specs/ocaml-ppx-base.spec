@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 Name:           ocaml-ppx-base
 Version:        0.17.0
 Release:        %autorelease
@@ -11,6 +8,10 @@ URL:            https://github.com/janestreet/ppx_base
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_base-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppx-cold-devel >= 0.17
@@ -35,7 +36,6 @@ Requires:       ocaml-ppx-globalize-devel%{?_isa}
 Requires:       ocaml-ppx-hash-devel%{?_isa}
 Requires:       ocaml-ppx-sexp-conv-devel%{?_isa}
 Requires:       ocaml-ppxlib-devel%{?_isa}
-Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -43,15 +43,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_base-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE.md

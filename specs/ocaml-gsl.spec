@@ -1,6 +1,6 @@
 Name:           ocaml-gsl
 Version:        1.25.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPL-3.0-or-later
 
@@ -17,6 +17,7 @@ URL:            https://github.com/mmottl/gsl-ocaml
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/gsl-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.12
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -44,19 +45,16 @@ developing applications that use %{name}.
 %autosetup -n gsl-%{version} -p1
 
 
-%build
+%build -p
 export GSL_CBLAS_LIB="-lflexiblas"
-%dune_build
 
 
-%install
+%install -p
 export GSL_CBLAS_LIB="-lflexiblas"
-%dune_install
 
 
-%check
+%check -p
 export GSL_CBLAS_LIB="-lflexiblas"
-%dune_check
 
 
 %files -f .ofiles
@@ -70,6 +68,10 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.25.1-9
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.1-8
 - OCaml 5.4.1 rebuild
 

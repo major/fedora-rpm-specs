@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qcheck
 Version:        0.91
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -19,13 +19,15 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch:          %{name}-mathlib.patch
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  asciidoc
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.8.0
 BuildRequires:  ocaml-alcotest-devel >= 1.4.0
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
-BuildRequires:  ocaml-ppx-deriving-devel >= 6.1.0
 BuildRequires:  python3-pygments
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
@@ -157,17 +159,8 @@ files for developing applications that use ocaml-ppx-deriving-qcheck.
 %autosetup -n qcheck-%{version} -p1
 
 
-%build
-%dune_build
+%build -a
 asciidoc README.adoc
-
-
-%install
-%dune_install -s
-
-
-%check
-%dune_check
 
 
 %files -f .ofiles-qcheck
@@ -202,6 +195,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.91-5
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 0.91-4
 - Rebuild for ocaml-ppxlib 0.38.0
 

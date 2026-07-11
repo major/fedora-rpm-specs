@@ -4,7 +4,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.7.3
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Signing server and client
 
@@ -56,13 +56,13 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND 
 # LICENSE.dependencies contains a full license breakdown
 
 %post -n %{crate}
-%systemd_post siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket
+%systemd_post siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket siguldry-client-shared-proxy.socket
 
 %preun -n %{crate}
-%systemd_preun siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket
+%systemd_preun siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket siguldry-client-shared-proxy.socket
 
 %postun -n %{crate}
-%systemd_postun_with_restart siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket
+%systemd_postun_with_restart siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket siguldry-client-shared-proxy.socket
 
 %description -n %{crate} %{_description}
 
@@ -85,6 +85,8 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND 
 %{_unitdir}/siguldry-bridge.service
 %{_unitdir}/siguldry-client-proxy@.service
 %{_unitdir}/siguldry-client-proxy.socket
+%{_unitdir}/siguldry-client-shared-proxy.service
+%{_unitdir}/siguldry-client-shared-proxy.socket
 %{_unitdir}/siguldry-server.service
 %{_unitdir}/siguldry-signer@.service
 %{_unitdir}/siguldry-signer.socket
@@ -189,6 +191,8 @@ install -D -p -m 0644 siguldry-bridge.service %{buildroot}%{_unitdir}/siguldry-b
 ## Client-related files ##
 install -D -p -m 0644 siguldry-client-proxy@.service %{buildroot}%{_unitdir}/siguldry-client-proxy@.service
 install -D -p -m 0644 siguldry-client-proxy.socket %{buildroot}%{_unitdir}/siguldry-client-proxy.socket
+install -D -p -m 0644 siguldry-client-shared-proxy.service %{buildroot}%{_unitdir}/siguldry-client-shared-proxy.service
+install -D -p -m 0644 siguldry-client-shared-proxy.socket %{buildroot}%{_unitdir}/siguldry-client-shared-proxy.socket
 
 %if %{with check}
 %check

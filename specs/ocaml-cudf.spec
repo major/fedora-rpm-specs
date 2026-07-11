@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cudf
 Version:        0.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Format for describing upgrade scenarios
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -16,6 +16,7 @@ URL:            https://www.mancoosi.org/cudf/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/-/archive/v%{version}/cudf-v%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
@@ -59,19 +60,13 @@ developing applications that use %{name}.
 %prep
 %autosetup -n cudf-v%{version}
 
-%build
-%dune_build
+%build -a
 %make_build -C doc
 
-%install
-%dune_install
-
+%install -a
 # Install the man page for cudf-check.
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -a doc/cudf-check.1* %{buildroot}%{_mandir}/man1
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license COPYING
@@ -82,6 +77,10 @@ cp -a doc/cudf-check.1* %{buildroot}%{_mandir}/man1
 %license COPYING
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.10-19
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.10-18
 - OCaml 5.4.1 rebuild
 

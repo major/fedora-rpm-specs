@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlp-streams
 Version:        5.0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Stream and Genlex libraries for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -15,6 +15,7 @@ URL:            https://github.com/ocaml/camlp-streams
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/camlp-streams-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-dune >= 2.7
 
@@ -50,15 +51,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -n camlp-streams-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE
@@ -66,6 +58,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.0.1-23
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-22
 - OCaml 5.4.1 rebuild
 

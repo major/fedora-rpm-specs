@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-facile
 Version:       1.1.4
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       OCaml library for constraint programming
 Summary(fr):   Librairie OCaml de programmation par contraintes
 License:       LGPL-2.1-or-later
@@ -26,6 +26,7 @@ Patch0:        %{name}-use-dune.patch
 # Build with debuginfo and fix an underlinked library
 Patch1:        %{name}-debug.patch
 
+BuildSystem:   dune
 BuildRequires: ocaml >= 4.03.0
 BuildRequires: ocaml-dune
 
@@ -76,15 +77,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -n facile-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
@@ -92,6 +84,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.1.4-20
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1.4-19
 - OCaml 5.4.1 rebuild
 

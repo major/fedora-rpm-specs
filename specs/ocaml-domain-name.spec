@@ -17,6 +17,9 @@ URL:            https://github.com//hannesm/domain-name
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/domain-name-%{version}.tar.gz
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 # Tests
@@ -47,16 +50,6 @@ The %{name}-devel package contains files for developing applications that use
 
 %prep
 %autosetup -n domain-name-%{version}
-
-
-%build
-%dune_build
-
-%install
-%dune_install -s
-
-%check
-%dune_check
 
 
 %files -f .ofiles-domain-name

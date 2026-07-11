@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-compiler-libs-janestreet
 Version:        0.17.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml compiler libraries repackaged
 
 License:        MIT
@@ -17,6 +17,7 @@ URL:            https://github.com/janestreet/ocaml-compiler-libs
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ocaml-compiler-libs-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.2.0
 BuildRequires:  ocaml-dune >= 1.5.1
 
@@ -36,12 +37,6 @@ signature files for developing applications that use
 %prep
 %autosetup -n ocaml-compiler-libs-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
 %files -f .ofiles
 %doc README.org
 %license LICENSE.md
@@ -49,6 +44,10 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.17.0-12
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.17.0-11
 - OCaml 5.4.1 rebuild
 

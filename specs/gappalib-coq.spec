@@ -4,18 +4,16 @@
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
 %global rocqver 9.2.0
-%global commit  df59b68361b1efbd697b17c40f7fae4a35991c44
-%global giturl  https://gitlab.inria.fr/gappa/coq
 
 Name:           gappalib-coq
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
 URL:            https://gappa.gitlabpages.inria.fr/
-VCS:            git:%{giturl}.git
-Source:         %{giturl}/-/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+VCS:            git:https://gitlab.inria.fr/gappa/coq.git
+Source:         %{url}releases/%{name}-%{version}.tar.gz
 
 # Coq's plugin architecture requires cmxs files
 ExclusiveArch:  %{ocaml_native_compiler}
@@ -55,7 +53,7 @@ files are not needed to use gappalib-coq.  They are made available for
 informational purposes.
 
 %prep
-%autosetup -n coq-%{name}-%{version}-%{commit}
+%autosetup
 
 %conf
 # Enable debuginfo

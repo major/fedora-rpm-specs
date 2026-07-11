@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-num
 Version:        1.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -103,6 +103,9 @@ mv %{buildroot}%{ocamldir}/*.{a,cm*,mli} %{buildroot}%{ocamldir}/num
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.6-6
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.6-5
 - OCaml 5.4.1 rebuild
 

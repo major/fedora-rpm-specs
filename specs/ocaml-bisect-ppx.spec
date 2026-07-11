@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -27,6 +27,7 @@ Patch:          %{giturl}/pull/448.patch
 # https://github.com/aantron/bisect_ppx/commit/2d8dffbbfc0c431a37319d4d9a143836c9ec542e
 Patch:          %{giturl}/commit/2d8dffbbfc0c431a37319d4d9a143836c9ec542e.patch
 
+BuildSystem:    dune
 BuildRequires:  git-core
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0
@@ -59,19 +60,14 @@ developing applications that use %{name}.
 %prep
 %autosetup -n bisect_ppx-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 _build/install/default/bin/bisect-ppx-report --help groff > \
   %{buildroot}%{_mandir}/man1/bisect-ppx-report.1
 
-%if %{with test}
 %check
+%if %{with test}
 %dune_check
 %endif
 
@@ -83,6 +79,10 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.8.3-23
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.8.3-22
 - Rebuild for ocaml-cmdliner 2.1.0 and ocaml-ppxlib 0.38.0
 

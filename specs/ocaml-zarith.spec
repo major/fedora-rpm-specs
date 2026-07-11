@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 Name:           ocaml-zarith
 Version:        1.14
 Release:        %autorelease
@@ -11,6 +8,9 @@ URL:            https://github.com/ocaml/Zarith
 VCS:            git:%{url}.git
 Source:         %{url}/archive/release-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  make
@@ -18,13 +18,12 @@ BuildRequires:  ocaml >= 4.04.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  perl-interpreter
 
 # Replace config.guess with a more up to date version which knows about POWER.
 BuildRequires:  redhat-rpm-config
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 This library implements arithmetic and logical operations over
@@ -69,7 +68,10 @@ sed -i "s|^ccdef=''|ccdef='%{build_cflags}'|" configure
 sed -i "s/-shared/-g &/" project.mak
 
 %build
-export CC="gcc"
+# The ocaml tools (ocamlc, ocamlopt, ocamlmklib) already have Fedora LDFLAGS
+# baked in. The Makefile passes LDFLAGS directly to ocamlmklib, without -ldopt,
+# which is an error with OCaml 5.5.  This is the only flag we need.
+export LDFLAGS=-g
 # This is NOT an autoconf-generated configure script; %%configure doesn't work
 ./configure
 # %%{?_smp_mflags} is not safe; same action performed by multiple CPUs

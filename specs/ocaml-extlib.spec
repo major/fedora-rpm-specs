@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-extlib
 Version:        1.8.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
@@ -87,6 +87,9 @@ make -C test all run
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.8.0-8
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.8.0-7
 - OCaml 5.4.1 rebuild
 

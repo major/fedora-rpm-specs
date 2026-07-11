@@ -1,7 +1,7 @@
 %global giturl  https://github.com/hannesm/patch
 
 Name:           ocaml-patch
-Version:        3.1.1
+Version:        3.1.2
 Release:        %autorelease
 Summary:        Parse unified and git diff output and apply patches in memory
 
@@ -16,6 +16,9 @@ Source1:        https://codeberg.org/kit-ty-kate/ocaml-patch-tests/archive/main.
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  help2man
 BuildRequires:  ocaml >= 4.14
@@ -55,12 +58,7 @@ patch to a directory.
 %autosetup -n patch-%{version}
 tar -C test/data/external --strip-components=1 -xf %{SOURCE1}
 
-%build
-%dune_build
-
-%install
-%dune_install -s
-
+%install -a
 # Skip a useless empty META file
 rm %{buildroot}%{ocamldir}/opatch/META
 sed -i '/META/d' .ofiles-opatch
@@ -70,8 +68,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 help2man -N -n 'Apply a diff to a directory' \
   -o %{buildroot}%{_mandir}/man1/opatch.1 %{buildroot}%{_bindir}/opatch
 
-%ifarch %{x86_64}
 %check
+%ifarch %{x86_64}
 %dune_check
 %endif
 

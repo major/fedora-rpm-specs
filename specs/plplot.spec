@@ -164,9 +164,6 @@ BuildRequires:  ocaml
 # BuildRequires:  ocaml-cairo-devel
 BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  ocaml-findlib
-%if ! ( 0%{?rhel} >= 8 )
-BuildRequires:  ocaml-lablgtk-devel
-%endif
 BuildRequires:  ocaml-ocamldoc
 %endif
 BuildRequires:  libharu-devel

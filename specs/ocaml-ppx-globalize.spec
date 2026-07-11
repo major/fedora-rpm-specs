@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -15,6 +12,10 @@ URL:            https://github.com/janestreet/ppx_globalize
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_globalize-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-base-devel >= 0.17
@@ -38,15 +39,6 @@ for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_globalize-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE.md

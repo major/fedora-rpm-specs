@@ -11,6 +11,10 @@ URL:            https://erratique.ch/software/mtime
 VCS:            git:https://erratique.ch/repos/mtime.git
 Source:         %{url}/releases/mtime-%{version}.tbz
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -19,7 +23,7 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Mtime has platform independent support for monotonic wall-clock time in pure
@@ -44,15 +48,6 @@ developing applications that use %{name}.
 
 # link with the math library
 echo $'\ntrue: cclib(-lm)' >> _tags
-
-%build
-ocaml pkg/pkg.ml build --dev-pkg false --tests true
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

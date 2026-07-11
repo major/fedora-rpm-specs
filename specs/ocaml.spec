@@ -1,13 +1,6 @@
 # Don't add -Wl,-dT,<build dir>
 %undefine _package_note_flags
 
-# OCaml 5.1 broke building with LTO.  A file prims.c is generated with
-# primitive function declarations, all with "void" for their parameter
-# list.  This does not match the real definitions, leading to lots of
-# -Wlto-type-mismatch warnings.  These change the output of the tests,
-# leading to many failed tests.  This is still a problem in 5.3.
-%global _lto_cflags %{nil}
-
 # OCaml has a bytecode backend that works on anything with a C
 # compiler, and a native code backend available on a subset of
 # architectures.  A further subset of architectures support native
@@ -32,7 +25,7 @@ ExcludeArch: %{ix86}
 
 # These are all the architectures that the tests run on.  The tests
 # take a long time to run, so don't run them on slow machines.
-%global test_arches aarch64 %{power64} riscv64 s390x x86_64
+%global test_arches %{arm64} %{power64} %{riscv64} s390x %{x86_64}
 # These are the architectures for which the tests must pass otherwise
 # the build will fail.
 #global test_arches_required aarch64 ppc64le x86_64
@@ -45,8 +38,8 @@ ExcludeArch: %{ix86}
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        5.4.1
-Release:        4%{?dist}
+Version:        5.5.0
+Release:        1%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -78,26 +71,17 @@ Source2:        ocaml_files.py
 Patch:          0001-Don-t-add-rpaths-to-libraries.patch
 Patch:          0002-configure-Allow-user-defined-C-compiler-flags.patch
 
-# Fix for arm64 frame pointers
-# https://github.com/ocaml/ocaml/issues/14574
-# https://github.com/ocaml/ocaml/pull/14589
-# Upstream 6cda6d8a928ada5dd0f58de229d3cb193cfdff53
-Patch:          0003-Merge-pull-request-14589-from-xavierleroy-arm64-addi.patch
-
 BuildRequires:  make
 BuildRequires:  git-core
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  gawk
-BuildRequires:  hardlink
 BuildRequires:  perl-interpreter
-BuildRequires:  util-linux
-BuildRequires:  /usr/bin/annocheck
+BuildRequires:  annobin-annocheck
 BuildRequires:  pkgconfig(libzstd)
 
 # Documentation requirements
 BuildRequires:  asciidoc
-BuildRequires:  python3-pygments
 
 # ocamlopt runs gcc to link binaries.  Because Fedora includes
 # hardening flags automatically, redhat-rpm-config is also required.
@@ -142,7 +126,6 @@ and a comprehensive library.
 #   and runtime/md5.c
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND LicenseRef-Fedora-Public-Domain
 Summary:        OCaml runtime environment
-Requires:       util-linux
 Provides:       ocaml(runtime) = %{version}
 
 # Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
@@ -313,7 +296,10 @@ make -j1 tests ||:
 
 %install
 %make_install
-perl -pi -e "s|^$RPM_BUILD_ROOT||" $RPM_BUILD_ROOT%{_libdir}/ocaml/ld.conf
+
+# OCaml 5.5.0 uses relative paths in ld.conf by default to support relocatable
+# OCaml, which we don't need.  Overwrite ld.conf with the absolute path.
+echo %{_libdir}/ocaml/stublibs > $RPM_BUILD_ROOT%{_libdir}/ocaml/ld.conf
 
 echo %{version} > $RPM_BUILD_ROOT%{_libdir}/ocaml/fedora-ocaml-release
 
@@ -325,9 +311,6 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{rpmmacrodir}/macros.ocaml-rpm
 
 mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
 install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
-
-# Link, rather than copy, identical binaries
-hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %files
@@ -371,7 +354,6 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 %endif
 
 %{_libdir}/ocaml/expunge
-%{_libdir}/ocaml/ld.conf
 %{_libdir}/ocaml/Makefile.config
 
 %{_libdir}/ocaml/*.a
@@ -379,11 +361,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 %{_libdir}/ocaml/*.cmxa
 %{_libdir}/ocaml/*.cmx
 %{_libdir}/ocaml/*.o
-%{_libdir}/ocaml/libasmrun_shared.so
 %endif
 %{_libdir}/ocaml/*.mli
 %{_libdir}/ocaml/sys.ml.in
-%{_libdir}/ocaml/libcamlrun_shared.so
 
 %{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.mli
 %if %{native_compiler}
@@ -404,12 +384,18 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 %doc README.html Changes
 %license LICENSE
 %{_bindir}/ocamlrun
+%{_bindir}/*ocamlrun-a100
 %{_bindir}/ocamlrund
+%{_bindir}/*ocamlrund-a100
 %{_bindir}/ocamlruni
+%{_bindir}/*ocamlruni-a100
 %dir %{_libdir}/ocaml
+%{_libdir}/ocaml/libasmrun*.so
+%{_libdir}/ocaml/libcamlrun*.so
 %{_libdir}/ocaml/*.cmo
 %{_libdir}/ocaml/*.cmi
 %{_libdir}/ocaml/*.cma
+%{_libdir}/ocaml/ld.conf
 %{_libdir}/ocaml/stublibs
 %dir %{_libdir}/ocaml/dynlink
 %{_libdir}/ocaml/dynlink/META
@@ -469,6 +455,14 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Tue Jun 23 2026 Jerry James <loganjerry@gmail.com> - 5.5.0-1
+- New upstream version 5.5.0 (RHBZ#2442622)
+- Drop upstreamed fix for arm64 frame pointers
+- Reenable LTO
+- Move ld.conf, libasmrun, and libcamlrun to ocaml-runtime
+- Drop hardlink dependency; rpm now does this by default
+- Drop unused utilx-linux dependency
+
 * Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-4
 - Backport fix for arm64 frame pointers
 

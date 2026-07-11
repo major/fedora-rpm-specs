@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-libvirt
 Version:        0.6.1.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OCaml binding for libvirt
 License:        LGPL-2.1-or-later
 
@@ -12,7 +12,6 @@ Source0:        https://download.libvirt.org/ocaml/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-rpm-macros
 
@@ -78,6 +77,9 @@ make install
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.6.1.7-20
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.6.1.7-19
 - OCaml 5.4.1 rebuild
 

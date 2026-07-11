@@ -15,6 +15,7 @@ Source:         %{url}/-/archive/%{version}/unionfind-%{version}.tar.bz2
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.4.0
 BuildRequires:  ocaml-dune >= 3.11
 BuildRequires:  ocaml-store-devel >= 0.1
@@ -36,15 +37,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n unionfind-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE

@@ -15,6 +15,7 @@ URL:            https://github.com/janestreet/ppx_stable_witness
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_stable_witness-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-base-devel >= 0.17
@@ -38,15 +39,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_stable_witness-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE.md

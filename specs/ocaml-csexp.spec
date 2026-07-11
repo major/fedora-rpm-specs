@@ -17,7 +17,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-csexp
 Version:        1.5.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
@@ -94,7 +94,7 @@ plugin(native) = "csexp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
-(lang dune 3.20)
+(lang dune 3.24)
 (name csexp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/csexp))
@@ -152,6 +152,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.5.2-20
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.5.2-19
 - OCaml 5.4.1 rebuild
 

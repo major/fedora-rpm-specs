@@ -25,6 +25,11 @@ Source2:        5DD58D70899C454A966D6A5175133C8F94F6E0CC.gpg
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
+BuildOption(build): -p 0install-solver
+BuildOption(install): 0install-solver
+BuildOption(check): -p 0install-solver
+
 BuildRequires:  gpgverify
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.5
@@ -65,15 +70,6 @@ developing applications that use %{name}-solver.
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup
-
-%build
-%dune_build -p 0install-solver
-
-%install
-%dune_install 0install-solver
-
-%check
-%dune_check -p 0install-solver
 
 %files -n ocaml-0install-solver -f .ofiles
 %doc CHANGES.md README.md

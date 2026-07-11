@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-curses
-Version:        1.0.11
-Release:        18%{?dist}
+Version:        1.0.12
+Release:        1%{?dist}
 Summary:        OCaml bindings for ncurses
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -11,6 +11,7 @@ URL:            https://github.com/mbacarella/curses
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/curses-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.0
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -36,18 +37,6 @@ developing applications that use %{name}.
 %autosetup -n curses-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license COPYING
@@ -58,6 +47,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.0.12-1
+- OCaml 5.5.0 rebuild
+- Version 1.0.12
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.0.11-18
 - OCaml 5.4.1 rebuild
 

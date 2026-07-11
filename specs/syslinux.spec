@@ -10,7 +10,7 @@ Summary: Simple kernel loader which boots from a FAT filesystem
 Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
-Release: 0.36%{?dist}
+Release: 0.37%{?dist}
 License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
@@ -252,15 +252,19 @@ rm -f %{buildroot}%{_includedir}/syslinux.h
 # If we have a /boot/extlinux.conf file, assume extlinux is our bootloader
 # and update it.
 if [ -f /boot/extlinux/extlinux.conf ]; then \
-	extlinux --update /boot/extlinux ; \
+	extlinux --update /boot/extlinux || : ; \
 elif [ -f /boot/extlinux.conf ]; then \
 	mkdir -p /boot/extlinux && \
 	mv /boot/extlinux.conf /boot/extlinux/extlinux.conf && \
-	extlinux --update /boot/extlinux ; \
+	extlinux --update /boot/extlinux || : ; \
 fi
 %endif
 
 %changelog
+* Thu Jul 09 2026 Nicolas Frayer <nfrayer@redhat.com> - 6.04-0.37
+- spec: always exit with 0 in scriplets
+- Resolves: #2481186
+
 * Wed Mar 25 2026 Josue Hernandez <josherna@redhat.com> - 6.04-0.36
 - Update zlib version to zlib-1.2.11
 - Resolves: CVE-2022-37434 CVE-2018-25032 CVE-2016-9840 CVE-2016-9843

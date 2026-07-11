@@ -4,8 +4,8 @@
 %global pkgname %{srcname}2
 
 Name:           %{pkgname}
-Version:        2.5.8
-Release:        12%{?dist}
+Version:        2.5.10
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -146,6 +146,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.10-1
+- 2.5.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

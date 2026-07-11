@@ -5,20 +5,16 @@ ExcludeArch: %{ix86}
 %global debug_package %{nil}
 
 Name:           ocaml-obuild
-Version:        0.1.11
+Version:        0.2.2
 Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        11%{?dist}
+Release:        1%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
 VCS:            git:%{url}.git
-Source0:        %{url}/archive/obuild-v%{version}.tar.gz
-
-# Fix a partial function application
-# https://github.com/ocaml-obuild/obuild/issues/187
-Patch0:         %{name}-partial.patch
+Source:         %{url}/archive/v%{version}/obuild-v%{version}.tar.gz
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
@@ -40,7 +36,7 @@ way of working, adapting parts where necessary to fully support OCaml.
 
 
 %prep
-%autosetup -p1 -n obuild-obuild-v%{version}
+%autosetup -p1 -n obuild-%{version}
 
 
 %build
@@ -49,9 +45,9 @@ way of working, adapting parts where necessary to fully support OCaml.
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-cp "dist/build/obuild/obuild" "dist/build/obuild-simple/obuild-simple" "$RPM_BUILD_ROOT%{_bindir}"
+cp dist/build/obuild/obuild "$RPM_BUILD_ROOT%{_bindir}"
 
-# generate manpages
+# generate manpage
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 help2man \
     --output "$RPM_BUILD_ROOT%{_mandir}/man1/obuild.1" \
@@ -60,23 +56,21 @@ help2man \
     --no-discard-stderr \
     --no-info \
     dist/build/obuild/obuild
-help2man \
-    --output "$RPM_BUILD_ROOT%{_mandir}/man1/obuild-simple.1" \
-    --name "simple package build system for OCaml" \
-    --version-string " " \
-    --no-discard-stderr \
-    --no-info \
-    dist/build/obuild-simple/obuild-simple
 
 
 %files
 %doc README.md OBUILD_SPEC.md DESIGN.md
 %license LICENSE
-%{_bindir}/obuild*
-%{_mandir}/man1/obuild*.1*
+%{_bindir}/obuild
+%{_mandir}/man1/obuild.1*
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.2.2-1
+- OCaml 5.5.0 rebuild
+- Version 0.2.2
+- Drop upstreamed partial function patch
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.11-11
 - OCaml 5.4.1 rebuild
 

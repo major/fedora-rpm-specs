@@ -11,6 +11,7 @@ Source:         %{url}/archive/%{version}/stdlib-random-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-dune >= 2.7
@@ -36,15 +37,6 @@ for developing applications that use %{name}.
 
 %prep
 %autosetup -n stdlib-random-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc Changelog.md README.md

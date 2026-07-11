@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # To build all parts of alcotest requires the async, js_of_ocaml, and lwt
 # packages.  The async package in particular requires many packages that test
 # with alcotest.  We build only the base alcotest package to break the circular
@@ -24,6 +21,9 @@ Source:         %{giturl}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # installations.  Patch them out instead.  Upstream does not want this patch
 # until stdlib-shims and ocaml-syntax-shims are obsolete.
 Patch:          0001-Drop-the-stdlib-shims-subpackage.patch
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-astring-devel

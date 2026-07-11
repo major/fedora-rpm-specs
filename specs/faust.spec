@@ -33,6 +33,7 @@ BuildRequires:  cmake
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-static
+BuildRequires:  which
 
 %description
 Faust AUdio STreams is a functional programming language for real-time audio

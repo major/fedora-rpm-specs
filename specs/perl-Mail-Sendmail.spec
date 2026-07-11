@@ -1,6 +1,6 @@
 Name:           perl-Mail-Sendmail
-Version:        0.82
-Release:        3%{?dist}
+Version:        0.83
+Release:        1%{?dist}
 Summary:        Simple platform independent mailer for Perl
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -20,8 +20,15 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Sys::Hostname::Long)
 BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# tests
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::Socket::INET)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::TCP)
 # Not picked up automatically.
 Requires:       perl(MIME::QuotedPrint)
 Recommends:     perl(Digest::MD5)
@@ -51,7 +58,8 @@ easy to setup and use.
 
 
 %check
-# We don't want to send the test mail -> no make test
+%{?!_with_network_tests:rm t/original.t}
+make test
 
 
 %files
@@ -62,6 +70,10 @@ easy to setup and use.
 
 
 %changelog
+* Mon Jul 06 2026 Xavier Bachelot <xavier@bachelot.org> 0.83-1
+- Update to 0.83 (RHBZ#2497020)
+  - Fixes CVE-2026-13092
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

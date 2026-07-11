@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlmpfr
 Version:        4.2.1
-Release:        13%{?dist}%{?bugfix:.%{bugfix}}
+Release:        14%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
@@ -22,6 +22,7 @@ Patch:          %{name}-internals.patch
 # https://github.com/thvnx/mlmpfr/commit/1e0c151ec39898dcb12d5b2cdc8184e7669f02a3
 Patch:          %{name}-dune.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-dune-configurator-devel
@@ -42,22 +43,13 @@ developing applications that use %{name}.
 %prep
 %autosetup -n mlmpfr-mlmpfr.%{version} -p1
 
-%build
+%build -p
 # Make sure this version is compatible with our mpfr version
 cd utils
 gcc %{build_cflags} %{build_ldflags} mlmpfr_compatibility_test.c \
     -o mlmpfr_compatibility_test -lmpfr
 ./mlmpfr_compatibility_test
 cd -
-
-# Build the binary artifacts and documentation
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc README.md
@@ -66,6 +58,10 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 4.2.1-14
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 4.2.1-13
 - OCaml 5.4.1 rebuild
 

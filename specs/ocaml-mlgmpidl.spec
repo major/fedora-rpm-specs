@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlgmpidl
 Version:        1.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -14,6 +14,8 @@ Source1:        mlgmpidl_test.ml
 Source2:        mlgmpidl_test_result
 # Remove dependency on the bigarray-compat forward compatibility shim
 Patch:          %{name}-bigarray-compat.patch
+# Create PDFs with pdflatex instead of latex + dvipdf
+Patch:          %{name}-pdflatex.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -26,10 +28,22 @@ BuildRequires:  gmp-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  perl-interpreter
 # BuildRequires for documentation build
-BuildRequires:  tex(latex)
-BuildRequires:  texlive-ec
+BuildRequires:  tex(ae.sty)
+BuildRequires:  tex(color.sty)
+BuildRequires:  tex(fancyhdr.sty)
+BuildRequires:  tex(fontenc.sty)
 BuildRequires:  tex(fullpage.sty)
-BuildRequires:  ghostscript-tools-dvipdf
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(inputenc.sty)
+BuildRequires:  tex(makeidx.sty)
+BuildRequires:  tex(textcomp.sty)
+BuildRequires:  tex(url.sty)
+BuildRequires:  tex(xspace.sty)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-makeindex
+BuildRequires:  texlive-metafont
+BuildRequires:  texlive-mfware
 
 
 %description
@@ -71,7 +85,6 @@ fi
 
 # Build with debug information
 sed -i 's/^OCAMLOPTFLAGS = -annot/& -g/' configure Makefile.config.in
-sed -i 's/\$(OCAMLMKLIB)/& -g/' Makefile
 
 %ifnarch %{ocaml_native_compiler}
 # Fix build on bytecode-only architectures
@@ -81,6 +94,11 @@ sed -i '/addprefix/s/OCAMLOPT/OCAMLC/g' Makefile
 
 
 %build
+# The ocaml tools (ocamlc, ocamlopt, ocamlmklib) already have Fedora LDFLAGS
+# baked in. The Makefile passes LDFLAGS directly to ocamlmklib, without -ldopt,
+# which is an error with OCaml 5.5.  This is the only flag we need.
+export LDFLAGS=-g
+
 # This is not an autoconf-generated script.  Do NOT use %%configure.
 ./configure \
 %ifnarch %{ocaml_native_compiler}
@@ -146,6 +164,10 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.3.0-20
+- OCaml 5.5.0 rebuild
+- Build the manual with pdflatex instead of latex + dvipdf
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-19
 - OCaml 5.4.1 rebuild
 - Replace tex(ecrm1000.tfm) with texlive-ec

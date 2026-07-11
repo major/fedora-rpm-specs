@@ -1,6 +1,6 @@
 Name:           fastfetch
 Version:        2.65.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -91,12 +91,15 @@ mechanisms like multithreading and caching to finish as fast as possible.
 find src/logo/ascii/ -type f       \
   -regex 'src/logo/ascii/[a-z]/.*' \
   ! -name 'almalinux.txt'          \
-  ! -name 'fedora.txt'             \
+  ! -name 'fedora*.txt'            \
   ! -name 'rhel*.txt'              \
   ! -name 'rocky*.txt'             \
   ! -name 'centos*.txt'            \
   ! -name 'oracle.txt'             \
   ! -name 'miracle_linux.txt'      \
+  ! -name 'asahi*.txt'             \
+  ! -name 'ultramarine*.txt'       \
+  ! -name 'nobara*.txt'            \
   -delete
 # remove empty left-over ascii directories
 find src/logo/ascii -type d -empty -delete
@@ -124,6 +127,10 @@ find src/logo/ascii -type d -empty -delete
 
 
 %changelog
+* Thu Jul 09 2026 Carl George <carlwgeorge@gmail.com> - 2.65.2-2
+- Include all Fedora logos rhbz#2498013
+- Include Fedora derivative logos rhbz#2498476
+
 * Mon Jul 06 2026 Jonathan Wright <jonathan@almalinux.org> - 2.65.2-1
 - update to 2.65.2 rhbz#2484357
 

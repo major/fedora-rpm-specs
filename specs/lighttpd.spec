@@ -49,8 +49,8 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.84
-Release: 2%{?dist}
+Version: 1.4.85
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -588,6 +588,9 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 %{_sysusersdir}/lighttpd.conf
 
 %changelog
+* Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.85-1
+- 1.4.85
+
 * Thu Jun 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.84-2
 - Rebuilt for openssl 4.0
 

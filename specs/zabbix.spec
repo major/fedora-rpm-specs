@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.4.9
-Release:        3%{?dist}
+Version:        7.4.12
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.12-1
+- 7.4.12
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:7.4.9-3
 - Rebuilt for openssl 4.0
 

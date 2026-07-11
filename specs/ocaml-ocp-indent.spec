@@ -1,11 +1,8 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %global giturl  https://github.com/OCamlPro/ocp-indent
 
 Name:           ocaml-ocp-indent
 Version:        1.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -17,7 +14,13 @@ Source:         %{giturl}/archive/%{version}/ocp-indent-%{version}.tar.gz
 # Fix use of ISO8859-1 characters at the beginnings of lines
 # https://github.com/OCamlPro/ocp-indent/issues/318
 Patch:          %{name}-nonbreaking-space.patch
+# Fix a test that fails because files in mock builds have security contexts
+Patch:          %{name}-security-context.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  emacs-nw
 BuildRequires:  emacs-tuareg
 BuildRequires:  ocaml
@@ -56,11 +59,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -n ocp-indent-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
+%install -a
 sed -i '\@%{_datadir}/ocp-indent@d' .ofiles .ofiles-devel
 
 # Reinstall vim files to Fedora default location
@@ -77,10 +76,6 @@ mv ocp-indent-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 %_emacs_bytecompile ocp-indent.el
 cd -
 
-%check
-#Tests only run on a git checkout
-# ./tests/test.sh
-
 %files -f .ofiles
 %doc README.md CHANGELOG.md
 %license LICENSE
@@ -91,6 +86,11 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 1.9.0-5
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+- Fix a test that fails on filesystems with security contexts
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 1.9.0-4
 - OCaml 5.4.1 rebuild
 

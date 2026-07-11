@@ -15,6 +15,10 @@ Source:         https://github.com/dbuenzli/jsonm/archive/v%{version}/jsonm-%{ve
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    topkg
+BuildOption(build): --tests true
+BuildOption(build): --dev-pkg false
+
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -53,16 +57,6 @@ for fil in $(find . -type f); do
   touch -r $fil.orig $fil
   rm $fil.orig
 done
-
-%build
-# Build the library and the tests
-ocaml pkg/pkg.ml build --tests true --dev-pkg false
-
-%install
-%ocaml_install
-
-%check
-ocaml pkg/pkg.ml test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

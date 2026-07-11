@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-cmdliner
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
@@ -15,8 +15,9 @@ URL:            https://erratique.ch/software/cmdliner
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/cmdliner-%{version}.tbz
 
-BuildRequires:  ocaml
-BuildRequires:  ocaml-dune
+BuildRequires:  make
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-rpm-macros
 
 %description
 Cmdliner allows the declarative definition of command line
@@ -35,22 +36,36 @@ the ISC license.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-tools%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
+%package        tools
+Summary:        Installation tool for projects that use cmdliner
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    tools
+This package contains a helper for tools using the cmdliner command line
+interface library.  It helps with installing command line completion scripts
+and manpages.
+
 %prep
 %autosetup -n cmdliner-%{version}
 
 %build
-%dune_build
+%make_build
 
 %install
-%dune_install
+%make_install LIBDIR=%{buildroot}%{ocamldir}/cmdliner
+%ocaml_files
 
-%check
-%dune_check
+# We don't want powershell completions
+rm -fr %{buildroot}%{_datadir}/powershell
+
+# Remove entries for the tools subpackage
+sed -i '\@/usr/bin@d;/bash-completion/d;/powershell/d;/zsh/d' .ofiles
 
 %files -f .ofiles
 %license LICENSE.md
@@ -60,7 +75,20 @@ developing applications that use %{name}.
 %doc README.md CHANGES.md
 %license LICENSE.md
 
+%files tools
+%{_bindir}/cmdliner
+%{bash_completions_dir}/_cmdliner_generic
+%{bash_completions_dir}/cmdliner
+%{zsh_completions_dir}/_cmdliner
+%{zsh_completions_dir}/_cmdliner_generic
+
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.1.1-1
+- Rebuild for OCaml 5.5.0
+- New upstream version 2.1.1
+- New tools subpackage
+- Skip the tests, which now require b0
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.1.0-1
 - New upstream version 2.1.0
 

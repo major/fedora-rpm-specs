@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.100
+Version: 150.0.7871.114
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1922,6 +1922,36 @@ fi
 %endif
 
 %changelog
+* Thu Jul 09 2026 Than Ngo <than@redhat.com> - 150.0.7871.114-1
+- Update to 150.0.7871.114
+  * CVE-2026-15112: Use after free in Ozone
+  * CVE-2026-15129: Use after free in Views
+  * CVE-2026-15132: Uninitialized Use in V8
+  * CVE-2026-15133: Use after free in InterestGroups
+  * CVE-2026-15108: Integer overflow in Extensions API
+  * CVE-2026-15109: Uninitialized Use in ANGLE
+  * CVE-2026-15110: Use after free in Extensions
+  * CVE-2026-15111: Use after free in Views
+  * CVE-2026-15113: Use after free in Autofill
+  * CVE-2026-15114: Out of bounds read and write in Codecs
+  * CVE-2026-15115: Insufficient validation of untrusted input in WebAppInstalls
+  * CVE-2026-15116: Use after free in Actor
+  * CVE-2026-15117: Use after free in Payments
+  * CVE-2026-15118: Use after free in Input
+  * CVE-2026-15119: Inappropriate implementation in GetUserMedia
+  * CVE-2026-15120: Use after free in Core
+  * CVE-2026-15121: Use after free in WebRTC
+  * CVE-2026-15122: Insufficient validation of untrusted input in Codecs
+  * CVE-2026-15123: Insufficient data validation in DOM
+  * CVE-2026-15124: Insufficient policy enforcement in Passwords
+  * CVE-2026-15125: Inappropriate implementation in Forms
+  * CVE-2026-15126: Use after free in Forms
+  * CVE-2026-15127: Inappropriate implementation in WebGL
+  * CVE-2026-15128: Inappropriate implementation in Forms
+  * CVE-2026-15130: Insufficient policy enforcement in Navigation
+  * CVE-2026-15107: Use after free in IndexedDB
+  * CVE-2026-15131: Insufficient data validation in Navigation
+
 * Wed Jul 08 2026 Than Ngo <than@redhat.com> - 150.0.7871.100-1
 - Update to 150.0.7871.100
 - Fix installation issue caused by the hard link in locales

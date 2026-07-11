@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-parmap
 Version:        1.2.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -13,6 +13,7 @@ URL:            https://rdicosmo.github.io/parmap/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/parmap-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -37,15 +38,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n parmap-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%ifarch %{ocaml_native_compiler}
-# The tests take a really, really long time on bytecode-only systems
 %check
+# The tests take a really, really long time on bytecode-only systems
+%ifarch %{ocaml_native_compiler}
 %dune_check
 %endif
 
@@ -56,6 +51,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.5-22
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-21
 - OCaml 5.4.1 rebuild
 

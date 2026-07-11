@@ -7,17 +7,16 @@ ExcludeArch: %{ix86}
 
 Name:           prooftree
 Version:        0.14
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
-URL:            https://askra.de/software/prooftree/
+URL:            https://askra.de/software/prooftree
 VCS:            git:%{url}.git
 Source:         %{url}/releases/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-lablgtk-devel
 BuildRequires:  ocaml-ocamldoc
 
@@ -64,6 +63,9 @@ sed -i 's/-I \$(LABLGTKDIR)/& -I +unix/' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.14-12
+- OCaml 5.5.0 rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.14-11
 - OCaml 5.4.1 rebuild
 

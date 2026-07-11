@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:		hevea
 Version:	2.38
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
@@ -22,21 +22,16 @@ Source1:	http://hevea.inria.fr/distri/%{name}-%{version}-manual.pdf
 BuildRequires:	make
 BuildRequires:	ocaml
 BuildRequires:	ocaml-ocamlbuild
-BuildRequires:	tex(latex)
-BuildRequires:	tex(amsfonts.sty)
-BuildRequires:	tex(comment.sty)
-BuildRequires:	tex(keyval.sty)
-BuildRequires:	tex(url.sty)
+BuildRequires:	rpm_macro(_texmf_main)
 
 Requires:	ghostscript
 Requires:	netpbm-progs
 Requires:	texlive-dvips
 Requires:	texlive-latex
-Requires:	texlive-amsfonts
-Requires:	texlive-comment
-# for keyval.sty
-Requires:	texlive-graphics
-Requires:	texlive-url
+Requires:	tex(amsfonts.sty)
+Requires:	tex(comment.sty)
+Requires:	tex(keyval.sty)
+Requires:	tex(url.sty)
 
 
 %description
@@ -99,6 +94,9 @@ ln -s %{_texmf_main}/tex/latex/hevea/hevea.sty examples
 
 
 %changelog
+* Wed Jun 24 2026 Jerry James <loganjerry@gmail.com> - 2.38-4
+- OCaml 5.5.0 rebuild
+
 * Wed Mar 25 2026 Richard W.M. Jones <rjones@redhat.com> - 2.38-3
 - Try alternate texlive package names (RHBZ#2451123)
 

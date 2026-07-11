@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %global giturl  https://github.com/realworldocaml/mdx
 
 Name:           ocaml-mdx
@@ -12,7 +9,15 @@ License:        ISC
 URL:            https://realworldocaml.github.io/mdx/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/mdx-%{version}.tbz
+# Fix the target called by the mdx test runner
+Patch:          %{giturl}/pull/478.patch
+# Adapt to pathname changes in dune 3.24
+Patch:          %{name}-dune-3.24.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-astring-devel
@@ -67,15 +72,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n mdx-%{version} -p1
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

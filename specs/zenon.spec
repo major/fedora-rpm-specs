@@ -4,7 +4,7 @@
 
 Name:		zenon
 Version:	0.8.5
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -25,8 +25,6 @@ ExclusiveArch:  %{ocaml_native_compiler}
 BuildRequires:	coq-core-compat = %{rocqver}
 BuildRequires:	rocq = %{rocqver}
 BuildRequires:	rocq-stdlib
-BuildRequires:	ghostscript
-BuildRequires:	ImageMagick
 BuildRequires:	make
 BuildRequires:	ocaml
 
@@ -94,6 +92,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-41
+- OCaml 5.5.0 rebuild
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-40
 - Rebuild for rocq 9.2.0
 

@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -15,6 +12,10 @@ URL:            https://github.com/ocaml/opam-file-format
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02
 BuildRequires:  ocaml-dune >= 3.13
 BuildRequires:  ocaml-menhir >= 20211230
@@ -35,15 +36,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n opam-file-format-%{version} -p1
-
-%build
-%{dune_build}
-
-%check
-%{dune_check}
-
-%install
-%{dune_install}
 
 %files -f .ofiles
 %doc README.md CHANGES

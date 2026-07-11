@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 26.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -18,6 +18,9 @@ Source11:       akonadiserverrc.sqlite
 
 
 ## upstreamable patches
+## MySQL is killed by akonadi too fast
+## https://invent.kde.org/pim/akonadi/-/merge_requests/400
+Patch0:         400.patch
 
 ## upstream patches
 
@@ -258,6 +261,9 @@ fi
 
 
 %changelog
+* Thu Jul 09 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-2
+- Adding a fix for akonadi killing mysql too quickly
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

@@ -7,11 +7,12 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.70
+Version:	0.72
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
+Patch0:		Unicode-UTF8-0.72-SSE2.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -20,7 +21,9 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(Devel::AssertC99)
+BuildRequires:	perl(Config)
+BuildRequires:	perl(Devel::PPPort)
+BuildRequires:	perl(ExtUtils::CBuilder)
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -31,6 +34,7 @@ BuildRequires:	perl(XSLoader) >= 0.02
 # Test Suite
 BuildRequires:	perl(Encode) >= 1.9801
 BuildRequires:	perl(File::Spec)
+BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Scalar::Util)
@@ -61,6 +65,10 @@ specified by Unicode and ISO/IEC 10646:2011.
 %prep
 %setup -q -n Unicode-UTF8-%{version}
 
+# Fix FTBFS on ix86 with SSE2
+# https://github.com/chansen/p5-unicode-utf8/issues/14
+%patch -P0
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
@@ -81,6 +89,17 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Thu Jul  9 2026 Paul Howarth <paul@city-fan.org> - 0.72-1
+- Update to 0.72
+  - read_utf8() now takes a single-pass fast path on PerlIO fast-gets layers,
+    validating/copying/counting straight out of the layer buffer (up to ~11%%
+    faster on multibyte-heavy input; see benchmarks/)
+  - Fixed read_utf8() on non-buffered handles stranding the trailing incomplete
+    sequence that was read to satisfy the requested length: the pending bytes
+    are now pushed back with PerlIO_unread() so the following read sees them,
+    matching decode_utf8() when drained to end of file
+- Add patch to avoid trying to use 64-bit SSE2 on ix86 (GH#14)
+
 * Fri Mar 20 2026 Paul Howarth <paul@city-fan.org> - 0.70-1
 - Update to 0.70
   - Update the c-utf8 library code: improved GCC code generation, including

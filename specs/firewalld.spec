@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
-Version: 2.4.0
-Release: 4%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -350,12 +350,15 @@ fi
 %pycached %{_datadir}/firewalld/gtk3_chooserbutton.py
 %pycached %{_datadir}/firewalld/gtk3_niceexpander.py
 %{_datadir}/applications/firewall-config.desktop
-%{_datadir}/metainfo/firewall-config.appdata.xml
+%{_datadir}/metainfo/org.firewalld.firewall-config.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Thu Jul 09 2026 Eric Garver <eric@garver.life> - 2.5.0-1
+- rebase to v2.5.0
+
 * Tue Jun 09 2026 Timothée Ravier <tim@siosm.fr> - 2.4.0-4
 - Drop dependency on dbus-x11
 

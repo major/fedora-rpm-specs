@@ -45,6 +45,8 @@ Patch5:         %{name}-flint.patch
 # Prevent segfaults in the OCaml garbage collector
 # https://github.com/antoinemine/apron/pull/112
 Patch6:         %{name}-ocaml-gc.patch
+# Pass -ldopt prior to linker arguments when invoking ocamlmklib
+Patch7:         %{name}-ldopt.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -80,7 +82,7 @@ BuildRequires:  tex(tabu.sty)
 BuildRequires:  tex(ulem.sty)
 BuildRequires:  texinfo-tex
 
-%global sover %(cut -d. -f 1 <<< %{version})
+%global sover   %{gsub %version ^(%d*)%..*$ %1}
 
 # Do not Require symbols we do not Provide
 %global __ocaml_requires_opts -i Coeff -i Dim -i Interval -i Lincons0 -i Linexpr0 -i Scalar -i Tcons0 -i Texpr0

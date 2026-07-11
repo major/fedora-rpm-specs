@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocsigen/lwt
 
 Name:           ocaml-lwt
-Version:        6.1.1
+Version:        6.1.2
 Release:        1%{?dist}
 Summary:        OCaml lightweight thread library
 
@@ -20,10 +20,12 @@ Source0:        %{giturl}/archive/%{version}/lwt-%{version}.tar.gz
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  ocaml >= 5.1
 BuildRequires:  ocaml-dune >= 3.18
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-ocplib-endian-devel
 
@@ -139,24 +141,14 @@ sed 's,test_mcast "mcast-join-noloop" true false;,(*test_mcast "mcast-join-noloo
 sed 's,test_mcast "mcast-nojoin-loop" false true;,(*test_mcast "mcast-nojoin-loop" false true;*),' -i test/unix/test_mcast.ml
 sed 's,test_mcast "mcast-nojoin-noloop" false false;,(*test_mcast "mcast-nojoin-noloop" false false;*),' -i test/unix/test_mcast.ml
 
-%build
+%build -p
 # Enable libev and pthread.
 dune exec src/unix/config/discover.exe -- --save \
      --use-libev true --use-pthread true
-%dune_build
 
-%install
-%dune_install -s
-
+%install -a
 # Remove test-only directory
 rm -rf %{buildroot}%{ocamldir}/lwt_ppx__ppx_let_tests
-
-%check
-# Disable this test on s390x.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1826511
-%ifnarch s390x
-%dune_check
-%endif
 
 %files -f .ofiles-lwt -f .ofiles-lwt_runtime_events
 %doc CHANGES README.md
@@ -193,6 +185,11 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx__ppx_let_tests
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 6.1.2-1
+- OCaml 5.5.0 rebuild
+- Version 6.1.2
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 6.1.1-1
 - Version 6.1.1
 - New ocaml-lwt-direct subpackage

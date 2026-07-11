@@ -10,7 +10,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        82.0.1
+Version:        83.0.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -37,9 +37,6 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # The `setup.py install` deprecation notice might be confusing for RPM packagers
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
-
-# Fix test collection error with pytest >= 9.1 (non-Collection iterable in parametrize)
-Patch:          https://github.com/pypa/setuptools/pull/5244.patch
 
 BuildArch:      noarch
 

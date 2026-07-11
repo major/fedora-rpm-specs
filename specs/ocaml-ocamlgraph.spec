@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %global giturl  https://github.com/backtracking/ocamlgraph
 
 Name:           ocaml-ocamlgraph
@@ -12,6 +9,13 @@ License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://backtracking.github.io/ocamlgraph/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/ocamlgraph-%{version}.tbz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
+BuildOption(build): @default editor
+BuildOption(install): -s
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.0
@@ -75,12 +79,7 @@ for fil in COPYING TODO.md; do
   mv -f $fil.utf8 $fil
 done
 
-%build
-%dune_build @default editor
-
-%install
-%dune_install -s
-
+%install -a
 # Install the graph editing tools
 mkdir -p %{buildroot}%{_bindir}
 install -m 0755 -p _build/default/editor/editor.exe \
@@ -93,9 +92,6 @@ install -m 0755 -p _build/default/dgraph/dGraphViewer.exe \
         %{buildroot}%{_bindir}/dGraphViewer
 install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
         %{buildroot}%{_bindir}/ocamlgraph-viewgraph
-
-%check
-%dune_check
 
 %files -f .ofiles-ocamlgraph
 %doc CREDITS FAQ

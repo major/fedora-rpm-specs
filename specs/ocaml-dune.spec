@@ -17,19 +17,20 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.23.1
+Version:        3.24.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
 # BSD-2-Clause:
-# - vendor/ocaml-blake3-mini
+# - src/ocaml-blake3-mini
 # BSD-3-Clause:
 # - otherlibs/dune-rpc/dbus_address.mll
 # - vendor/bigstringaf
 # ISC:
 # - vendor/cmdliner
 # - vendor/notty
+# - vendor/patch
 # - vendor/sha
 # - vendor/uutf
 # LGPL-2.1-only:
@@ -98,6 +99,7 @@ Provides:       bundled(ocaml-lwd) = 0.3
 Provides:       bundled(ocaml-notty) = 0.2.3
 Provides:       bundled(ocaml-opam) = 2.2.0
 Provides:       bundled(ocaml-opam-file-format) = 2.1.6
+Provides:       bundled(ocaml-patch) = 3.1.0
 Provides:       bundled(ocaml-pp) = 2.0.0
 Provides:       bundled(ocaml-re) = 1.13.2
 Provides:       bundled(ocaml-sha) = 1.15.4
@@ -111,12 +113,6 @@ Requires:       ocaml-rpm-macros
 
 # The dune rules module requires Toploop
 Requires:       ocaml-compiler-libs%{?_isa}
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      ocaml-fiber < 3.7.0
-Obsoletes:      ocaml-fiber-devel < 3.7.0
-Provides:       ocaml-fiber = %{version}-%{release}
-Provides:       ocaml-fiber-devel = %{version}-%{release}
 
 # This can be removed when F48 reaches EOL
 Obsoletes:      ocaml-chrome-trace < 3.21.0
@@ -501,6 +497,10 @@ cd -
 %files -n ocaml-top-closure-devel -f .ofiles-top-closure-devel
 
 %changelog
+* Wed Jun 24 2026 Jerry James <loganjerry@gmail.com> - 3.24.0-1
+- OCaml 5.5.0 rebuild
+- Version 3.24.0
+
 * Tue May 19 2026 Jerry James <loganjerry@gmail.com> - 3.23.1-1
 - Version 3.23.1
 

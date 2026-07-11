@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-res
 Version:        5.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml library for resizing arrays and strings
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -17,6 +17,7 @@ URL:            https://mmottl.github.io/res/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 
@@ -47,18 +48,6 @@ developing applications that use %{name}.
 %autosetup -n res-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %license LICENSE.md
 
@@ -69,6 +58,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.0.2-8
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.0.2-7
 - OCaml 5.4.1 rebuild
 

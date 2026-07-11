@@ -18,11 +18,16 @@ License:        LGPL-2.1-only
 URL:            https://rocq-prover.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/V%{version}/%{name}-%{version}.tar.gz
+# Adapt to dune 3.24
+Patch:          %{name}-dune-3.24.patch
 
 # Rocq's plugin architecture requires cmxs files.
 ExclusiveArch:  %{ocaml_native_compiler}
 
-BuildRequires:  coq-core-compat = %{rocqver}
+BuildSystem:    dune
+BuildOption(build): -p rocq-stdlib
+BuildOption(install): -n rocq-stdlib
+
 BuildRequires:  rocq = %{rocqver}
 BuildRequires:  ocaml >= 4.09.0
 BuildRequires:  ocaml-dune >= 3.6.1
@@ -53,12 +58,6 @@ informational purposes.
 
 %prep
 %autosetup -n stdlib-%{version} -p1
-
-%build
-%dune_build -p rocq-stdlib
-
-%install
-%dune_install -n rocq-stdlib
 
 %files -f .ofiles
 %doc README.md CONTRIBUTING.md

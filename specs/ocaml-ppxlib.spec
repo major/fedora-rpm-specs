@@ -13,6 +13,12 @@ Source:         %{giturl}/archive/%{version}/ppxlib-%{version}.tar.gz
 # Fedora does not have, and does not need, stdlib-shims
 Patch:          %{name}-stdlib-shims.patch
 
+BuildSystem:    dune
+# Do not build, install, or test the benchmark suite
+BuildOption(build): -p ppxlib,ppxlib-tools
+BuildOption(install): -s ppxlib ppxlib-tools
+BuildOption(check): -p ppxlib,ppxlib-tools
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cinaps-devel >= 0.12.1
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
@@ -63,20 +69,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n ppxlib-%{version} -p1
 
-%build
-# Do not build the benchmark suite
-%dune_build -p ppxlib,ppxlib-tools
-
-%install
-# Do not install the benchmark suite
-%dune_install -s ppxlib ppxlib-tools
-
+%install -a
 # Merge the tools devel package into the tools package
 cat .ofiles-ppxlib-tools-devel >> .ofiles-ppxlib-tools
-
-%check
-# Do not run the benchmark suite
-%dune_check -p ppxlib,ppxlib-tools
 
 %files -f .ofiles-ppxlib
 %doc CHANGES.md HISTORY.md README.md

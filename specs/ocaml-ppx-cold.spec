@@ -11,6 +11,7 @@ URL:            https://github.com/janestreet/ppx_cold
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_cold-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
@@ -35,15 +36,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_cold-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc README.md

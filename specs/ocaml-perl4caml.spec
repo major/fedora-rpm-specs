@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        119%{?dist}
+Release:        120%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -19,6 +19,9 @@ Patch:          perl4caml-0.9.5-svtrv.patch
 # Upstream patch to fix build for OCaml 4.04.
 Patch:          perl4caml-0.9.5-fix-use-of-camlparam-etc-macros.patch
 
+# Patch to fix build for OCaml 5.5.0
+Patch:          perl4caml-0.9.5-c-linker-options.patch
+
 # Upstream patch to fix argv declaration for GCC 14:
 Patch:          0001-perl_c.c-Fix-declaration-of-argv.patch
 
@@ -30,7 +33,7 @@ BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  perl-devel >= 5.8
-BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::Embed)
 
 # Perl4caml provides type-safe wrappers for these Perl modules:
@@ -133,6 +136,10 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.9.5-120
+- OCaml 5.5.0 rebuild
+- Add patch to use -ldopt/-cclib as needed
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-119
 - OCaml 5.4.1 rebuild
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ounit
 Version:        2.2.7
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
@@ -18,9 +18,11 @@ Source0:        %{url}/releases/download/v%{version}/ounit-%{version}.tbz
 # Remove seq and stdlib-shims downstream.  Not needed in Fedora.
 Patch0001:      0001-Remove-stdlib-shims.patch
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  ocaml >= 4.04.0
 BuildRequires:  ocaml-dune >= 3.0
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-lwt-devel >= 2.5.2
 
 # The ounit name is now just an alias for ounit2
@@ -72,18 +74,6 @@ files for developing applications that use %{name}-lwt.
 %autosetup -n ounit-%{version} -p1
 
 
-%build
-%dune_build
-
-
-%check
-%dune_check
-
-
-%install
-%dune_install -s
-
-
 %files -f .ofiles-ounit2
 %doc CHANGES.md README.md
 %license LICENSE.txt
@@ -107,6 +97,10 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.2.7-21
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.2.7-20
 - Rebuild for ocaml-lwt 6.1.1
 

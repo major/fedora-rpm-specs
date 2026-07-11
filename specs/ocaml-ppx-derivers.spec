@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-derivers
 Version:        1.2.1
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Deriving plugin registry
 
 License:        BSD-3-Clause
@@ -15,6 +15,7 @@ URL:            https://github.com/ocaml-ppx/ppx_derivers
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 
@@ -38,18 +39,6 @@ developing applications that use %{name}.
 %autosetup -n ppx_derivers-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
@@ -61,6 +50,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.1-46
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-45
 - OCaml 5.4.1 rebuild
 

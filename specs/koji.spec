@@ -8,13 +8,13 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.36.0
-Release: 2%{?dist}
+Version: 1.36.1
+Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
-URL: https://pagure.io/koji/
-Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
+URL: https://forge.fedoraproject.org/koji/koji
+Source0: https://forge.fedoraproject.org/koji/koji/releases/download/koji-%{version}/koji-%{version}.tar.bz2
 # ship a fedora specific tox file that doesn't run coverage/lint and only python3
 Source1: tox.ini-fedora
 
@@ -382,6 +382,9 @@ PYTHONPATH=.:plugins/hub/.:plugins/builder/.:plugins/cli/.:cli/.:www/lib
 %systemd_postun kojira.service
 
 %changelog
+* Thu Jul 09 2026 Kevin Fenzi <kevin@scrye.com> - 1.36.1-1
+- Update to 1.36.1.
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.36.0-2
 - Rebuilt for Python 3.15
 

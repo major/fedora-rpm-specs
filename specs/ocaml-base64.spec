@@ -15,6 +15,7 @@ URL:            https://github.com/mirage/ocaml-base64
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/base64-%{version}.tbz
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune >= 3.20
 
@@ -43,20 +44,9 @@ Development files for %{name}.
 %prep
 %autosetup -n base64-%{version}
 
-
-%build
 # Only build the source and test directories since the other directories
 # require packages that we don't have or need.
 rm -r bench fuzz
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
 
 
 %files -f .ofiles

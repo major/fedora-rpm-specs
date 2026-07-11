@@ -32,6 +32,8 @@ Source2:        org.rocq-prover.rocqide.metainfo.xml
 Source3:        rocq.xml
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
+# Adapt to dune 3.24
+Patch:          %{name}-dune-3.24.patch
 
 # Rocq's plugin architecture requires cmxs files.  In addition, neither Java
 # nor OCaml is available on i386, but since i386 is not in
@@ -39,7 +41,6 @@ Patch:          %{name}-mathlib.patch
 ExclusiveArch:  %{ocaml_native_compiler}
 
 BuildRequires:  adwaita-icon-theme
-BuildRequires:  csdp-tools
 BuildRequires:  desktop-file-utils
 BuildRequires:  findutils
 BuildRequires:  libappstream-glib
@@ -49,7 +50,6 @@ BuildRequires:  ocaml-cairo-devel >= 0.6.4
 BuildRequires:  ocaml-dune >= 3.8
 BuildRequires:  ocaml-findlib-devel >= 1.9.1
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.1.2
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-zarith-devel >= 1.11
 BuildRequires:  python3-devel
 
@@ -75,7 +75,6 @@ BuildRequires:  tex(adjustbox.sty)
 BuildRequires:  tex(amssymb.sty)
 BuildRequires:  tex(array.sty)
 BuildRequires:  tex(fontenc.sty)
-BuildRequires:  tex(fullpage.sty)
 BuildRequires:  tex(ifpdf.sty)
 BuildRequires:  tex(inputenc.sty)
 BuildRequires:  tex(microtype.sty)

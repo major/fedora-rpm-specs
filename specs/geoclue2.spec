@@ -1,5 +1,5 @@
 Name:           geoclue2
-Version:        2.8.1
+Version:        2.8.2
 Release:        %autorelease
 Summary:        Geolocation service
 
@@ -89,6 +89,8 @@ The %{name}-demos package contains demo applications that use %{name}.
 # Home directory for the 'geoclue' user
 mkdir -p $RPM_BUILD_ROOT/var/lib/geoclue
 
+%find_lang geoclue --all-name
+
 
 %pre
 %sysusers_create_compat %{SOURCE1}
@@ -104,7 +106,7 @@ exit 0
 %systemd_postun_with_restart geoclue.service
 
 
-%files
+%files -f geoclue.lang
 %license COPYING
 %doc NEWS
 %config %{_sysconfdir}/geoclue/

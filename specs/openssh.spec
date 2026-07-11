@@ -34,12 +34,12 @@
 # rpm -ba|--rebuild --define 'no_gtk3 1'
 %{?no_gtk3:%global gtk3 0}
 
-%global openssh_ver 10.3p1
+%global openssh_ver 10.4p1
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 8%{?dist}
+Release: 1%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -61,59 +61,59 @@ Source21: ssh-host-keys-migration.service
 Source22: parallel_test.sh
 Source23: parallel_test.Makefile
 
-Patch0001: 0001-Add-SELinux-role-and-MLS-Multi-Level-Security-suppor.patch
-Patch0002: 0002-Implement-SELinux-environment-variable-setup-for-sub.patch
-Patch0003: 0003-Pass-inetd-flags-and-auth-context-to-subprocess-call.patch
-Patch0004: 0004-openssh-6.6p1-keycat.patch
-Patch0005: 0005-openssh-6.6p1-allow-ip-opts.patch
-Patch0006: 0006-openssh-5.9p1-ipv6man.patch
-Patch0007: 0007-openssh-5.8p2-sigpipe.patch
-Patch0009: 0009-openssh-5.1p1-askpass-progress.patch
-Patch0010: 0010-openssh-4.3p2-askpass-grab-info.patch
-Patch0011: 0011-openssh-8.7p1-redhat.patch
-Patch0012: 0012-openssh-7.8p1-UsePAM-warning.patch
-Patch0013: 0013-openssh-9.6p1-gssapi-keyex.patch
-Patch0014: 0014-openssh-6.6p1-force_krb.patch
-Patch0015: 0015-openssh-7.7p1-gssapi-new-unique.patch
-Patch0016: 0016-openssh-7.2p2-k5login_directory.patch
-Patch0017: 0017-openssh-6.6p1-kuserok.patch
-Patch0018: 0018-openssh-6.4p1-fromto-remote.patch
-Patch0019: 0019-openssh-6.6.1p1-log-in-chroot.patch
-Patch0020: 0020-openssh-6.6.1p1-scp-non-existing-directory.patch
-Patch0021: 0021-openssh-6.6p1-GSSAPIEnablek5users.patch
-Patch0022: 0022-openssh-6.8p1-sshdT-output.patch
-Patch0023: 0023-openssh-6.7p1-sftp-force-permission.patch
-Patch0024: 0024-openssh-7.2p2-s390-closefrom.patch
-Patch0025: 0025-openssh-7.5p1-sandbox.patch
-Patch0026: 0026-openssh-7.8p1-scp-ipv6.patch
-Patch0027: 0027-openssh-8.0p1-crypto-policies.patch
-Patch0028: 0028-openssh-8.0p1-openssl-kdf.patch
-Patch0029: 0029-openssh-8.2p1-visibility.patch
-Patch0030: 0030-openssh-8.2p1-x11-without-ipv6.patch
-Patch0031: 0031-openssh-8.0p1-preserve-pam-errors.patch
-Patch0032: 0032-openssh-8.7p1-scp-kill-switch.patch
-Patch0033: 0033-openssh-8.7p1-recursive-scp.patch
-Patch0034: 0034-openssh-8.7p1-ibmca.patch
-Patch0035: 0035-openssh-7.6p1-audit.patch
-Patch0036: 0036-openssh-7.1p2-audit-race-condition.patch
-Patch0037: 0037-openssh-9.0p1-audit-log.patch
-Patch0038: 0038-openssh-7.7p1-fips.patch
-Patch0039: 0039-openssh-8.7p1-negotiate-supported-algs.patch
-Patch0040: 0040-openssh-9.0p1-evp-fips-kex.patch
-Patch0041: 0041-openssh-8.7p1-nohostsha1proof.patch
-Patch0042: 0042-openssh-9.9p1-separate-keysign.patch
-Patch0043: 0043-openssh-9.9p1-openssl-mlkem.patch
-Patch0044: 0044-openssh-9.9p2-error_processing.patch
-Patch0045: 0045-Provide-better-error-for-non-supported-private-keys.patch
-Patch0046: 0046-Ignore-bad-hostkeys-in-known_hosts-file.patch
-Patch0047: 0047-support-authentication-indicators-in-GSSAPI.patch
-Patch0048: 0048-NIST-curves-hybrid-KEX-implementation.patch
-Patch0049: 0049-openssh-7.3p1-x11-max-displays.patch
-Patch0050: 0050-Fix-ssh-pkcs11-client-helper-termination.patch
-Patch0051: 0051-openssh-10.2p1-pam-auth.patch
-Patch0052: 0052-gssapi-s4u.patch
-Patch0053: 0053-openssh-10.2p1-pkcs11-uri.patch
-Patch0054: 0054-gssapi-tests.patch
+Patch0001: 0001-upstream-fix-GSSAPI-option-names-that-I-somehow-scre.patch
+Patch0002: 0002-Add-SELinux-role-and-MLS-Multi-Level-Security-suppor.patch
+Patch0003: 0003-Implement-SELinux-environment-variable-setup-for-sub.patch
+Patch0004: 0004-Pass-inetd-flags-and-auth-context-to-subprocess-call.patch
+Patch0005: 0005-openssh-6.6p1-keycat.patch
+Patch0006: 0006-openssh-6.6p1-allow-ip-opts.patch
+Patch0007: 0007-openssh-5.9p1-ipv6man.patch
+Patch0009: 0008-openssh-5.8p2-sigpipe.patch
+Patch0010: 0009-openssh-5.1p1-askpass-progress.patch
+Patch0011: 0010-openssh-4.3p2-askpass-grab-info.patch
+Patch0012: 0011-openssh-8.7p1-redhat.patch
+Patch0013: 0012-openssh-7.8p1-UsePAM-warning.patch
+Patch0014: 0013-openssh-9.6p1-gssapi-keyex.patch
+Patch0015: 0014-openssh-6.6p1-force_krb.patch
+Patch0016: 0015-openssh-7.7p1-gssapi-new-unique.patch
+Patch0017: 0016-openssh-7.2p2-k5login_directory.patch
+Patch0018: 0017-openssh-6.6p1-kuserok.patch
+Patch0019: 0018-openssh-6.4p1-fromto-remote.patch
+Patch0020: 0019-openssh-6.6.1p1-log-in-chroot.patch
+Patch0021: 0020-openssh-6.6.1p1-scp-non-existing-directory.patch
+Patch0022: 0021-openssh-6.6p1-GSSAPIEnablek5users.patch
+Patch0023: 0022-openssh-6.8p1-sshdT-output.patch
+Patch0024: 0023-openssh-6.7p1-sftp-force-permission.patch
+Patch0025: 0024-openssh-7.2p2-s390-closefrom.patch
+Patch0026: 0025-openssh-7.5p1-sandbox.patch
+Patch0027: 0026-openssh-7.8p1-scp-ipv6.patch
+Patch0028: 0027-openssh-8.0p1-crypto-policies.patch
+Patch0029: 0028-openssh-8.0p1-openssl-kdf.patch
+Patch0030: 0029-openssh-8.2p1-visibility.patch
+Patch0031: 0030-openssh-8.2p1-x11-without-ipv6.patch
+Patch0032: 0031-openssh-8.0p1-preserve-pam-errors.patch
+Patch0033: 0032-openssh-8.7p1-scp-kill-switch.patch
+Patch0034: 0033-openssh-8.7p1-recursive-scp.patch
+Patch0035: 0034-openssh-8.7p1-ibmca.patch
+Patch0036: 0035-openssh-7.6p1-audit.patch
+Patch0037: 0036-openssh-7.1p2-audit-race-condition.patch
+Patch0038: 0037-openssh-9.0p1-audit-log.patch
+Patch0039: 0038-openssh-7.7p1-fips.patch
+Patch0040: 0039-openssh-8.7p1-negotiate-supported-algs.patch
+Patch0041: 0040-openssh-9.0p1-evp-fips-kex.patch
+Patch0042: 0041-openssh-8.7p1-nohostsha1proof.patch
+Patch0043: 0042-openssh-9.9p1-separate-keysign.patch
+Patch0044: 0043-openssh-9.9p1-openssl-mlkem.patch
+Patch0045: 0044-openssh-9.9p2-error_processing.patch
+Patch0046: 0045-Ignore-bad-hostkeys-in-known_hosts-file.patch
+Patch0047: 0046-support-authentication-indicators-in-GSSAPI.patch
+Patch0048: 0047-NIST-curves-hybrid-KEX-implementation.patch
+Patch0049: 0048-openssh-7.3p1-x11-max-displays.patch
+Patch0050: 0049-Fix-ssh-pkcs11-client-helper-termination.patch
+Patch0051: 0050-openssh-10.2p1-pam-auth.patch
+Patch0052: 0051-gssapi-s4u.patch
+Patch0053: 0052-openssh-10.2p1-pkcs11-uri.patch
+Patch0054: 0053-gssapi-tests.patch
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
@@ -513,6 +513,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Jul 08 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.4p1-1
+- Rebasing OpenSSH to 10.4p1
+
 * Wed Jul 08 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-8
 - Fix a typo in crypto-policies documentation patch
   Resolves: rhbz#2241564

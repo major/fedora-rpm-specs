@@ -13,12 +13,14 @@
 %global with_enca 1
 %global with_ffmpeg 1
 %global with_libcue 1
+%global with_libmediainfo 1
 %global with_totem_pl_parser 1
 
 %if 0%{?rhel}
 %global with_enca 0
 %global with_ffmpeg 0
 %global with_libcue 0
+%global with_libmediainfo 0
 %if 0%{?rhel} >= 10
 %global with_totem_pl_parser 0
 %endif
@@ -73,7 +75,9 @@ BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libgsf-1)
 BuildRequires:  pkgconfig(libgxps)
 BuildRequires:  pkgconfig(libjpeg)
+%if 0%{?with_libmediainfo}
 BuildRequires:  pkgconfig(libmediainfo)
+%endif
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libtiff-4)
@@ -122,6 +126,9 @@ This package contains various miners and metadata extractors for tinysparql.
 %endif
 %if ! 0%{?with_ffmpeg}
   -Dlibav=disabled \
+%endif
+%if ! 0%{?with_libmediainfo}
+  -Dlibmediainfo=disabled \
 %endif
 %if ! 0%{?flatpak}
   -Dsystemd_user_services_dir=%{_userunitdir} \

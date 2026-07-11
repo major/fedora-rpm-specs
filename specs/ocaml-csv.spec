@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-csv
 Version:        2.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        OCaml library for reading and writing CSV files
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -12,6 +12,12 @@ VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Remove references to a bytes library for OCaml 5.0 support
 Patch0:         %{name}-bytes.patch
+
+BuildSystem:    dune
+# _smp_mflags breaks the build for some reason.
+# https://github.com/Chris00/ocaml-csv/issues/34
+BuildOption(build): -j1
+BuildOption(install): -s
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune
@@ -63,15 +69,7 @@ developing applications that use LWT with %{name}.
 %autosetup -p1
 
 
-%build
-# _smp_mflags breaks the build for some reason.
-# https://github.com/Chris00/ocaml-csv/issues/34
-%dune_build -j1
-
-
-%install
-%dune_install -s
-
+%install -a
 # Remove the csvtool META file and opam project
 rm -r %{buildroot}%{ocamldir}/csvtool
 
@@ -92,6 +90,10 @@ rm -r %{buildroot}%{ocamldir}/csvtool
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.4-32
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.4-31
 - Rebuild for ocaml-lwt 6.1.0
 

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -24,8 +24,12 @@ Source2:        test-invalid.xml
 # Ensure source files are included in generated debuginfo subpackage
 Patch0:         xmlm-1.4.0-debug.patch
 
+BuildSystem:    topkg
+BuildOption(build): --dev-pkg false
+BuildOption(build): --tests true
+
 BuildRequires:  ocaml >= 4.05.0
-BUildRequires:  ocaml-compiler-libs
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
@@ -50,17 +54,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{libname}-%{version}
 
 
-%build
-ocaml pkg/pkg.ml build --dev-pkg false --tests true
-
-
-%install
-%ocaml_install
-
-
-%check
-ocaml pkg/pkg.ml test
-
+%check -a
 # Against valid XML
 $RPM_BUILD_ROOT%{_bindir}/xmltrip -p %{SOURCE1} 2>valid-err.log
 [ -z "$(cat valid-err.log)" ]
@@ -81,6 +75,10 @@ grep expected invalid-err.log >/dev/null
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.4.0-19
+- OCaml 5.5.0 rebuild
+- Use the topkg declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-18
 - OCaml 5.4.1 rebuild
 
