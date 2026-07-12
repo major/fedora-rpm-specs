@@ -14,8 +14,8 @@
 
 Summary: Utility for determining file types
 Name: file
-Version: 5.47
-Release: 3%{?dist}
+Version: 5.48
+Release: 1%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -47,14 +47,6 @@ Patch2: file-5.04-volume_key.patch
 Patch3: file-5.45-readelf-limit-revert.patch
 
 Patch4: file-5.46-fix-tests-rpm-magic.patch
-
-# Fix tabs->spaces in python/magic.py (upstream 5.47 used tabs; rhbz#2419719)
-Patch5: file-5.47-python-magic-close-fix-whitespace.patch
-
-# Fix 0000739: Possible regression in 5.47 related to compressed executables
-# https://bugs.astron.com/view.php?id=739
-# Upstream commit c546057
-Patch6: 0001-PR-725-inliniac-Revert-previous-and-always-set-offse.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -244,6 +236,10 @@ make -C tests check
 %endif
 
 %changelog
+* Fri Jul 03 2026 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.48-1
+- New upstream release 5.48; drop upstreamed patches
+- Fixes zipfile detection (rhbz#2427330)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.47-3
 - Rebuilt for Python 3.15
 

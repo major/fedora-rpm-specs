@@ -13,6 +13,7 @@ Source:         %{giturl}/archive/%{version}/yamlx-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.14.0
 %ifarch %{x86_64}
 BuildRequires:  ocaml-afl-persistent-devel
@@ -65,15 +66,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n yamlx-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

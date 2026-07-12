@@ -6,7 +6,7 @@
 %global giturl  https://github.com/pydata/pydata-sphinx-theme
 
 Name:           python-pydata-sphinx-theme
-Version:        0.19.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -127,12 +127,19 @@ sed -i '/\.gitignore/d' %{pyproject_files}
 rm %{themedir}/.gitignore
 
 # More work is required to fully unbundle the fontawesome fonts
-sed -i 's,pydata_sphinx_theme/\.\./\.\./\.\./\.\./\.\.,,g' \
-    %{themedir}/scripts/fontawesome.js.map \
-    %{themedir}/styles/pydata-sphinx-theme.css.map
-sed -e 's,url.*fa-solid-900\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
-    -e 's,url.*fa-regular-400\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
-    -e 's,url.*fa-brands-400\.woff2.*format("truetype"),local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
+sed -i 's,pydata_sphinx_theme/\.\.,,g' \
+    %{themedir}/scripts/fontawesome.js.map
+sed -e 's,pydata_sphinx_theme/\.\./\.\./\.\./\.\./\.\.,,g' \
+    -e 's,url(\\"\.\./webfonts/fa-solid-900\.woff2\\"),local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
+    -e 's,url(\\"\.\./webfonts/fa-regular-400\.woff2\\"),local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
+    -e 's,url(\\"\.\./webfonts/fa-brands-400\.woff2\\"),local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
+    -e "s,url('#{v\.\$font-path}/fa-solid-900\.woff2')"',local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
+    -e "s,url('#{v\.\$font-path}/fa-regular-400\.woff2')"',local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
+    -e "s,url('#{v\.\$font-path}/fa-brands-400\.woff2')"',local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
+    -i %{themedir}/styles/pydata-sphinx-theme.css.map
+sed -e 's,url([.-/[:alnum:]]*fa-solid-900\.woff2),local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
+    -e 's,url([.-/[:alnum:]]*fa-regular-400\.woff2),local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
+    -e 's,url([.-/[:alnum:]]*fa-brands-400\.woff2),local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
     -i %{themedir}/styles/pydata-sphinx-theme.css
 sed -i '/vendor/d' %{pyproject_files}
 rm -fr %{themedir}/vendor

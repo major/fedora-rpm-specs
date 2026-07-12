@@ -1,5 +1,5 @@
 Name:           python-virt-firmware
-Version:        26.6
+Version:        26.7.1
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 

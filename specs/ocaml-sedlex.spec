@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
 Version:        3.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -14,6 +14,7 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use local Unicode files instead of attempting to download them
 Patch:          %{name}-no-curl.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-ppxlib-devel
@@ -50,17 +51,6 @@ univer=$(sed -n 's/.*PropList-\([.[:digit:]]*\)\.txt/\1/p' %{_datadir}/unicode/u
 sed -i "s/16\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
   src/generator/data/base_url src/syntax/unicode.ml
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
 
 %files -f .ofiles
 %doc README.md CHANGES.md
@@ -73,6 +63,10 @@ sed -i "s/16\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
 
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 3.7-6
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 3.7-5
 - Rebuild for ocaml-ppxlib 0.38.0
 

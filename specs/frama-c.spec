@@ -1,6 +1,3 @@
-# Coq's plugin architecture requires cmxs files, so:
-ExclusiveArch: %{ocaml_native_compiler}
-
 # Without this, gcc flags are passed to frama-c in the test suite
 %undefine _auto_set_build_flags
 
@@ -44,6 +41,16 @@ Patch:          %{name}-mathlib.patch
 # Work around a change in dune behavior
 Patch:          %{name}-dune-bug.patch
 
+# Run tests in release mode to avoid turning warnings into errors
+Patch:          %{name}-tests.patch
+
+# Adapt to differences in the position of spaces in the tests
+Patch:          %{name}-test-spaces.patch
+
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch:  %{ocaml_native_compiler}
+
+BuildSystem:    dune
 BuildRequires:  alt-ergo
 BuildRequires:  clang
 BuildRequires:  desktop-file-utils
@@ -75,14 +82,10 @@ BuildRequires:  ocaml-yojson-devel >= 2.0.1
 BuildRequires:  ocaml-zarith-devel >= 1.13
 BuildRequires:  ocaml-zip-devel
 BuildRequires:  ocaml-zmq-devel
-BuildRequires:  pandoc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist jsonschema}
-BuildRequires:  %{py3_dist pyyaml}
 BuildRequires:  time
 BuildRequires:  unix2dos
 BuildRequires:  why3
-BuildRequires:  yq
 BuildRequires:  z3
 
 Requires:       alt-ergo
@@ -156,12 +159,7 @@ sed -ri 's/^CP[[:blank:]]+=.*/& -p/' share/Makefile.common
 %py3_shebang_fix tests/libc
 %py3_shebang_fix tests/syntax/cpp-command.t
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 # Two of the man pages are duplicates, so make one a link to the other.
 cat > %{buildroot}%{_mandir}/man1/frama-c-gui.1 << EOF
 .so man1/frama-c.1
@@ -225,8 +223,8 @@ fi
 
 # FIXME: tests fail on ppc6le due to redefinition of bool
 # FIXME: test issue-eacsl-40.1.exec.wtests fails on aarch64
-%ifarch %{x86_64}
 %check
+%ifarch %{x86_64}
 # Skip a broken test for now
 rm -fr tests/fc_script/make-machdep.t
 sed -i '10,+4d' tests/fc_script/dune

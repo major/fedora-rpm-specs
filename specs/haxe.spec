@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -31,7 +31,6 @@ Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-camlp5-devel
 BuildRequires:  ocaml-camlp-streams
@@ -126,6 +125,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 4.3.7-7
+- OCaml 5.5.0 rebuild
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 4.3.7-6
 - OCaml 5.4.1 rebuild
 

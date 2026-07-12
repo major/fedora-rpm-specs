@@ -14,7 +14,7 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           3%{?dist}
+Release:           4%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -58,7 +58,7 @@ BuildRequires:     python3
 BuildRequires:     python3-pyyaml
 %endif
 
-Requires:          logrotate
+Recommends:        logrotate
 # from deps/libvalkey/include/valkey/valkey.h
 Provides:          bundled(libvalkey) = 0.2.1
 # from deps/jemalloc/VERSION
@@ -452,6 +452,9 @@ fi
 
 
 %changelog
+* Thu Jul 9 2026 Benjamin Sherman <bsherman@redhat.com> - 9.1.0-4
+- Weaken logrotate from hard requires to recommends
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 9.1.0-3
 - Rebuilt for openssl 4.0
 

@@ -6,9 +6,10 @@ URL:		https://xorg.freedesktop.org
 Source0:	https://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.xz
 Source1:	%{name}.desktop
 License:	MIT AND BSD-3-Clause
-BuildRequires:	gcc make
 BuildRequires:	desktop-file-utils
+BuildRequires:	gcc
 BuildRequires:	libXaw-devel
+BuildRequires:	meson
 BuildRequires:	xorg-x11-util-macros
 Patch:		xedit-hunspell.patch
 Requires:	xorg-x11-xbitmaps
@@ -30,16 +31,16 @@ cp lisp/README README.lisp
 cp lisp/re/README README.re
 
 %build
-%configure --with-lispdir=%{_datadir}/X11/%{name}
-%make_build
+%meson -Dlispdir=%{_datadir}/X11/%{name}
+%meson_build
 
 %install
-%make_install
-install -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
+%meson_install
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-%make_build check
+%meson_test
 
 %files
 %license COPYING

@@ -15,7 +15,6 @@ SourceLicense:  MIT OR Apache-2.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSD-2-Clause
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -27,6 +26,7 @@ SourceLicense:  MIT OR Apache-2.0
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
+# bzip2-1.0.6
 License:        %{shrink:
     0BSD AND
     Apache-2.0 AND
@@ -36,9 +36,9 @@ License:        %{shrink:
     MPL-2.0 AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
+    bzip2-1.0.6 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
@@ -78,6 +78,10 @@ Patch:          0005-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
 #   considered upstream in https://github.com/PyO3/maturin/pull/2817, but
 #   rejected for now due (solely) to MSRV.
 Patch:          0006-Update-cargo_metadata-to-0.20.0-2864.patch
+
+# * Update dialoguer to 0.12:
+#   https://github.com/PyO3/maturin/commit/a11e002b87806fc9825709154bca80fc10530fc7
+Patch:          0007-Update-dialoguer-to-0.12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -164,6 +164,16 @@ BuildRequires: audit-libs >= 1.0.8
 BuildRequires: xauth
 # for tarball signature verification
 BuildRequires: gnupg2
+
+# for regress tests
+BuildRequires: tmux
+BuildRequires: gdb
+%if 0%{?fedora}
+BuildRequires: softhsm
+BuildRequires: putty
+BuildRequires: openssl
+BuildRequires: dropbear
+%endif
 
 %package clients
 Summary: An open source SSH client applications
@@ -330,8 +340,8 @@ popd
 %endif
 
 %check
-#OPENSSL_CONF=/dev/null %{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
-make tests
+OPENSSL_CONF=/dev/null %{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
+#make tests
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -513,6 +523,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Jul 09 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.4p1-2
+- Restore parallel test run, add build dependency to run more upstream tests.
+
 * Wed Jul 08 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.4p1-1
 - Rebasing OpenSSH to 10.4p1
 

@@ -1,7 +1,7 @@
 %define  cvs 20051105
 Name:    hping3
 Version: 0.0.%{cvs}
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: TCP/IP stack auditing and much more
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -15,7 +15,9 @@ Patch3: hping3-cflags.patch
 Patch4: hping3-man.patch
 Patch5: hping3-20051105-typo.patch
 Patch6: hping3-common.patch
-BuildRequires:  gcc
+Patch7: hping3-Port-to-TCL-9.patch
+BuildRequires: coreutils
+BuildRequires: gcc
 BuildRequires: libpcap-devel, tcl-devel
 BuildRequires: make
 Obsoletes: hping2
@@ -38,10 +40,11 @@ Since version 3, hping implements scripting capabilties
 %patch -P4 -p0 -b .man
 %patch -P5 -p1
 %patch -P6 -p1 -b .common
+%patch -P7 -p1
 
 %build
 %configure --force-libpcap
-make %{?_smp_mflags}
+%{make_build}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -58,10 +61,15 @@ ln -sf hping3 $RPM_BUILD_ROOT%{_sbindir}/hping2
 %doc COPYING *BUGS CHANGES README TODO docs/AS-BACKDOOR docs/HPING2-HOWTO.txt
 %doc docs/HPING2-IS-OPEN docs/MORE-FUN-WITH-IPID docs/SPOOFED_SCAN.txt
 %doc docs/HPING3.txt
-%attr(755,root,root) %{_sbindir}/*
-%{_mandir}/man8/*
+%{_sbindir}/hping
+%{_sbindir}/hping2
+%attr(755,root,root) %{_sbindir}/hping3
+%{_mandir}/man8/hping3.*
 
 %changelog
+* Thu Jul 09 2026 Petr Pisar <ppisar@redhat.com> - 0.0.20051105-50
+- Port to TCL 9 (bug #2337715)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20051105-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

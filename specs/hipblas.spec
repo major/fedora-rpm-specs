@@ -127,6 +127,11 @@ BuildRequires:  gtest-devel
 BuildRequires:  cblas-devel
 BuildRequires:  lapack-devel
 %else
+# On RHEL, this error
+#        ld.lld: error: undefined symbol: _gfortran_transfer_character_write
+#        >>> referenced by xerbla.f.o:(xerbla_) in archive /usr/lib64/libblas64.a
+# but also hipblas/clients/include/cblas_interface.h has a hardcoded dependence on cblas_ functions
+%global blas_static OFF
 BuildRequires:  blas-static
 BuildRequires:  lapack-static
 BuildRequires:  python3-pyyaml
@@ -191,8 +196,11 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 # LINK_BLIS
 #   ON: use AOCL BLIS
 #   OFF: use lapack, cblas
+#
+# It can be painful figuring out where your blas library is, add this to the command line
+#    --debug-find-pkg=BLAS --debug-trycompile
 %cmake \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DBLA_STATIC=%blas_static \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
@@ -211,6 +219,7 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
     -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
+    -DGPU_TARGETS=%{rocm_gpu_list_default} \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DLINK_BLIS=OFF

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -27,11 +27,13 @@ Source4:        libguestfs.keyring
 # included in RHEL builds.
 Patch1:         virt-top-1.0.9-processcsv-documentation.patch
 
+# Adapt to ocaml-curses 1.0.12, which fixed the getstr/getnstr weirdness
+Patch2:         virt-top-1.1.2-curses.patch
+
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.2
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 # Need the ncurses / ncursesw (--enable-widec) fix.
 BuildRequires:  ocaml-curses-devel >= 1.0.3-7
 BuildRequires:  ocaml-calendar-devel
@@ -66,6 +68,8 @@ different virtualization systems.
 %if 0%{?rhel} >= 6
 %patch -P1 -p1
 %endif
+
+%patch -P2 -p1
 
 # "ocamlfind byte" has been removed as an alias
 sed -i 's/\(OCAMLBEST=\)byte/\1ocamlc/' configure
@@ -118,6 +122,10 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.1.2-8
+- OCaml 5.5.0 rebuild
+- Add patch to adapt to ocaml-curses 1.0.12
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-7
 - OCaml 5.4.1 rebuild
 

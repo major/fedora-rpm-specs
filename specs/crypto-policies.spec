@@ -1,5 +1,5 @@
-%global git_date 20260708
-%global git_commit 6ce654c2572d75d8ba320d22d46a7d3f76cbd2a4
+%global git_date 20260710
+%global git_commit b952499b189cdba86e500e1368628c0f96e6bcfb
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -37,7 +37,7 @@ BuildRequires: systemd-rpm-macros
 Conflicts: openssl-libs < 1:3.5.0-1
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
-Conflicts: openssh < 10.0
+Conflicts: openssh < 10.4p1
 Conflicts: gnutls < 3.8.10
 Conflicts: libssh < 0.12
 
@@ -290,6 +290,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Jul 10 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260710-1.gitb952499
+- openssh: add mldsa44-ed25519 signature algorithm
+
 * Wed Jul 08 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260708-1.git6ce654c
 - java: use SHA3-### names with a dash
 - policies/modules/NO-HMAC-SHA1: introduce

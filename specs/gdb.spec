@@ -45,7 +45,7 @@ Version: 17.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -928,6 +928,19 @@ fi
 # endif scl
 
 %changelog
+* Wed Jul 8 2026 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit 93f536d813c41527 to fix RHBZ 2498034.  This
+  commit will drop out when we rebase to GDB 18.
+
+* Wed Jul 8 2026 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit be3a9405ceb4d6d6 to fix and issue with the
+  D demangler (RHBZ 2368350).  This commit will drop out when we
+  rebase to GDB 18.
+
+* Wed Jul 8 2026 Andrew Burgess <aburgess@redhat.com>
+- Adjust commit message in gdb-backport-dap-core-file-support.patch to
+  remove '---' string which confuses git.
+
 * Tue Jun 23 2026 Michal Kolar <mkolar@redhat.com> - 17.2-1
 - Rebase to FSF GDB 17.2.
   Deleted: gdb-rhbz2435950-skip-revert.patch

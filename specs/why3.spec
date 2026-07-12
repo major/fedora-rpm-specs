@@ -1,6 +1,3 @@
-# Coq's plugin architecture requires cmxs files, so:
-ExclusiveArch: %{ocaml_native_compiler}
-
 # NOTE: Upstream has said that the Frama-C support is still experimental, and
 # less functional than the corresponding support in why2.  They recommend not
 # enabling it for now.  We abide by their wishes.  Revisit this decision each
@@ -24,11 +21,13 @@ Patch:          %{name}-zmod.patch
 # Adapt to changes in rocq 9.2.0
 Patch:          %{name}-rocq-9.2.patch
 
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch:  %{ocaml_native_compiler}
+
 BuildRequires:  coq-core-compat
 BuildRequires:  emacs-nw
 BuildRequires:  emacs-proofgeneral
 BuildRequires:  flocq
-BuildRequires:  graphviz
 BuildRequires:  java-devel
 BuildRequires:  latexmk
 BuildRequires:  libappstream-glib
@@ -41,7 +40,6 @@ BuildRequires:  ocaml-lablgtk3-sourceview3-devel
 BuildRequires:  ocaml-menhir
 BuildRequires:  ocaml-mlmpfr-devel
 BuildRequires:  ocaml-num-devel
-BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ocamlgraph-devel
 BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppx-sexp-conv-devel
@@ -52,17 +50,7 @@ BuildRequires:  ocaml-zip-devel
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
 BuildRequires:  rocq
-BuildRequires:  tex(capt-of.sty)
-BuildRequires:  tex(comment.sty)
-BuildRequires:  tex(fncychap.sty)
-BuildRequires:  tex(framed.sty)
-BuildRequires:  tex(latex)
-BuildRequires:  tex(needspace.sty)
-BuildRequires:  tex(tabulary.sty)
-BuildRequires:  tex(tgtermes.sty)
-BuildRequires:  tex(upquote.sty)
-BuildRequires:  tex(wrapfig.sty)
-BuildRequires:  tex-urlbst
+BuildRequires:  texlive-latex
 BuildRequires:  vim-filesystem
 
 Requires:       gtksourceview3%{?_isa}

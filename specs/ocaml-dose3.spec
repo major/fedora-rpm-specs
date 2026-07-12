@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # There is also a separate test data repository for a different set of tests
 # that is distributed separately.
 
@@ -30,6 +27,10 @@ Patch:          0005-OCamlgraph-2.1.0-adds-a-newline.patch
 # A bugfix in ocaml-re 1.13.3 broke dose3
 Patch:          0006-Re-1.13.3-changes.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-base64-devel >= 3.4.0-1
@@ -50,10 +51,15 @@ BuildRequires:  dpkg
 BuildRequires:  %{py3_dist pyyaml}
 
 # Needs latex for documentation.
-BuildRequires:  tex(latex)
-BuildRequires:  tex(comment.sty)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(bookmark.sty)
+BuildRequires:  tex(lmodern.sty)
+BuildRequires:  tex(xcolor.sty)
+BuildRequires:  tex(xurl.sty)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 BuildRequires:  pandoc
-BuildRequires:  graphviz
 BuildRequires:  poetry
 BuildRequires:  python3
 BuildRequires:  %{py3_dist sphinx}
@@ -110,13 +116,11 @@ manipulating packages of various formats.
 # Do not run linkcheck; the koji builders have no network access
 sed -i 's/html linkcheck/html/' doc/rtd/Makefile
 
-%build
-%dune_build
+%build -a
 # FIXME: parallel build does not work
 make -C doc
 
-%install
-%dune_install
+%install -a
 sed -i '\@%{_bindir}@d;\@%{_mandir}@d' .ofiles
 
 # Install manpages.
@@ -126,9 +130,6 @@ mkdir -p %{buildroot}%{_mandir}/man8/
 cp -a doc/manpages/*.8 %{buildroot}%{_mandir}/man8/
 cp -a doc/manpages/*.5 %{buildroot}%{_mandir}/man5/
 cp -a doc/manpages/*.1 %{buildroot}%{_mandir}/man1/
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license COPYING

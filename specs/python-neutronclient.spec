@@ -10,7 +10,7 @@ Client library and command line utility for interacting with the OpenStack
 Neutron API.}
 
 Name:       python-neutronclient
-Version:    12.0.0
+Version:    13.0.0
 Release:    %autorelease
 Summary:    Python API and CLI for OpenStack Neutron
 
@@ -57,7 +57,7 @@ Requires: python3-testscenarios
 %description -n python3-%{sname}-tests
 %{common_desc}
 
-This package containts the unit tests.
+This package contains the unit tests.
 
 %if 0%{?with_doc}
 %package doc
@@ -124,7 +124,7 @@ rm neutronclient/tests/unit/test_http.py
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %exclude %{python3_sitelib}/%{sname}/tests
 
 

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc2.260707g0e35b9b6ec0f.22
+%define pkgrelease 0.rc2.260709g0e35b9b6ec0f.23
 %define kversion 7
 %define tarfile_release 7.2-rc2-22-g0e35b9b6ec0f
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260707g0e35b9b6ec0f.22%{?buildid}%{?dist}
+%define specrelease 0.rc2.260709g0e35b9b6ec0f.23%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4859,9 +4859,13 @@ fi\
 #
 #
 %changelog
-* Tue Jul 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.22]
+* Thu Jul 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.23]
 - redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Jul 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.22]
+- uki-virt: Add fdisk to the initramfs to make systemd-repart functional (Vitaly Kuznetsov)
+- redhat/configs: Enable Epson RX8111 RTC driver for arm/aarch64 builds. Signed-off-by: Nirmala Dalvi <ndalvi@redhat.com> (Nirmala Dalvi)
 
 * Tue Jul 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.21]
 - redhat: sign centos kernel and UKIs with 800 certs (Jan Stancek)

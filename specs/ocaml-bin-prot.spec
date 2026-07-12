@@ -13,7 +13,10 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/janestreet/bin_prot
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/bin_prot-%{version}.tar.gz
+# Adapt to pathname changes in dune 3.24
+Patch:          %{name}-dune-3.24.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
@@ -54,16 +57,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n bin_prot-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
+%autosetup -n bin_prot-%{version} -p1
 
 %files -f .ofiles
 %doc CHANGES.md README.md

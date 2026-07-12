@@ -40,9 +40,9 @@ Source0:        orjson-%{version}-filtered.tar.xz
 # ./get_source ${COMMIT} (or ${TAG})
 Source1:        get_source
 
-# Still allow PyO3 0.27 for now (upstream wants 0.28):
-# https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          orjson-3.11.9-pyo3-0.27.patch
+# Update to PyO3 0.29; fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195.
+# Downstream-only because upstream no longer accepts issues or pull requests.
+Patch:          orjson-3.11.9-pyo3-0.29.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -60,7 +60,6 @@ BuildRequires:  %{py3_dist pandas}
 %endif
 BuildRequires:  %{py3_dist psutil}
 BuildRequires:  cargo-rpm-macros >= 24
-
 
 %global _description %{expand:
 orjson is a fast, correct Python JSON library supporting dataclasses,

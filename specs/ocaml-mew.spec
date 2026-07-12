@@ -1,13 +1,10 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-mew
 Version:        0.1.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Modal Editing Witch
 
 License:        MIT
@@ -17,6 +14,10 @@ Source:         %{url}/archive/%{version}/mew-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch:          %{name}-mathlib.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-dune >= 1.1.0
 BuildRequires:  ocaml-ppx-expect-devel
@@ -44,15 +45,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -n mew-%{version} -p1
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE
@@ -60,6 +52,10 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 0.1.0-37
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.0-36
 - Bump release and rebuild
 

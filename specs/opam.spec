@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global testurl https://github.com/ocaml/opam-repository
 
 Name:           opam
-Version:        2.5.1
+Version:        2.5.2
 Release:        %autorelease
 Summary:        Source-based package manager for OCaml
 
@@ -42,7 +42,6 @@ BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-base64-devel >= 3.1.0
-BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cudf-devel >= 0.7
 BuildRequires:  ocaml-dose3-devel >= 6.1
 BuildRequires:  ocaml-dune >= 2.8.0
@@ -64,7 +63,6 @@ BuildRequires:  openssl
 # Testing dependencies
 BuildRequires:  bubblewrap
 BuildRequires:  bzip2
-BuildRequires:  mercurial
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  rsync
 BuildRequires:  unzip
@@ -90,6 +88,9 @@ Recommends:     git-core
 Suggests:       darcs
 Suggests:       mercurial
 Suggests:       rsync
+
+# cmdliner is bundled; see shell/vendor_cmdliner.sh for the version
+Provides:       bundled(cmdliner) = 1.3.0
 
 %description
 Opam is a source-based package manager for OCaml.  It supports multiple

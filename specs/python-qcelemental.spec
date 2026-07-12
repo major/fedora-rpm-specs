@@ -2,8 +2,8 @@
 %bcond tests 0
 
 Name:           python-qcelemental
-Version:        0.50.1
-Release:        2%{?dist}
+Version:        0.50.4
+Release:        1%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -86,6 +86,9 @@ sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 %{python3_sitelib}/qcelemental-%{version}%{?rc}.dist-info
 
 %changelog
+* Fri Jul 10 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.4-1
+- Update to 0.50.4.
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.50.1-2
 - Rebuilt for Python 3.15
 

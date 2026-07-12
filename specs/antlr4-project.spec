@@ -36,6 +36,8 @@ Source:         %{giturl}/archive/%{version}/antlr4-%{version}.tar.gz
 # Fix some javadoc problems
 # https://github.com/antlr/antlr4/pull/2960
 Patch:          antlr4-javadoc.patch
+# Confine tokenVocab lookup to the search directory (CVE-2026-13503)
+Patch:          %{giturl}/pull/4942.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -221,9 +223,6 @@ find -name \*.jar -delete
 # Missing test dep:
 # io.takari.maven.plugins:takari-plugin-testing
 %pom_remove_dep -r :takari-plugin-testing
-
-# Adapt to jakarta-json 2.x
-%pom_change_dep org.glassfish:javax.json jakarta.json:jakarta.json-api runtime-testsuite
 
 # Missing plugins
 # io.takari.maven.plugins:takari-lifecycle-plugin

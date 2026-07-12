@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -13,6 +13,7 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Remove references to the bytes library for OCaml 5.0 compatibility
 Patch:          %{name}-ocaml5.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 1.1
 BuildRequires:  ocaml-ounit-devel >= 2.0.0
@@ -47,13 +48,7 @@ developing applications that use %{name}.
 sed -i 's/\[source\]/[source,OCaml]/' README.adoc
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
+%install -a
 # generate manpage
 mkdir -p %{buildroot}/%{_mandir}/man1/
 help2man %{buildroot}/%{_bindir}/qtest \
@@ -64,10 +59,6 @@ help2man %{buildroot}/%{_bindir}/qtest \
 
 # Build documentation
 asciidoc README.adoc
-
-
-%check
-%dune_check
 
 
 %files -f .ofiles
@@ -82,6 +73,10 @@ asciidoc README.adoc
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.11.2-31
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-30
 - OCaml 5.4.1 rebuild
 

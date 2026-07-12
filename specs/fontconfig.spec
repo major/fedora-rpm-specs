@@ -4,7 +4,7 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.17.0
+Version:	2.18.2
 Release:	%autorelease
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
@@ -20,16 +20,16 @@ Source2:	fc-cache
 # https://bugzilla.redhat.com/show_bug.cgi?id=140335
 Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
-Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
-Patch7:		%{name}-fix-crash.patch
+# Fedora specific
+Patch7:		%{name}-update-fcgenericfamily.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
 BuildRequires:	fontpackages-devel
 BuildRequires:	gettext
 BuildRequires:	gperf
-BuildRequires:  docbook-utils docbook-utils-pdf
+BuildRequires:  docbook-utils wkhtmltopdf
 BuildRequires:  meson ninja-build gcc
 
 Requires:	fonts-filesystem freetype
@@ -79,6 +79,7 @@ mv conf.d/65-nonlatin.conf conf.d/69-nonlatin.conf
 %meson -Ddoc=disabled -Dcache-build=disabled -Dxml-backend=libxml2 \
        -Dadditional-fonts-dirs=/usr/share/X11/fonts/Type1,/usr/share/X11/fonts/TTF,/usr/local/share/fonts \
        -Dcache-dir=/usr/lib/fontconfig/cache \
+       -Dtests-external-fonts=disabled \
        --default-library=shared
 %meson_build
 
@@ -175,6 +176,7 @@ fi
 %{_bindir}/fc-cache*
 %{_bindir}/fc-cat
 %{_bindir}/fc-conflist
+%{_bindir}/fc-genconf
 %{_bindir}/fc-list
 %{_bindir}/fc-match
 %{_bindir}/fc-pattern

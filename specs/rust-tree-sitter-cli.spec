@@ -14,7 +14,13 @@ URL:            https://crates.io/crates/tree-sitter-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Disable features 'wasm' and 'qjs-rt'
+# * Update dialoguer to 0.12:
+#   https://github.com/tree-sitter/tree-sitter/commit/b8fcf276615c4a979067161b89e1c014e451dae2;
+#   requires an accompanying source-code patch excerpted from the same commit.
 Patch:          tree-sitter-cli-fix-metadata.diff
+# * Source-code patch for dialoguer 0.12, excerpted from
+#   https://github.com/tree-sitter/tree-sitter/commit/b8fcf276615c4a979067161b89e1c014e451dae2
+Patch10:        tree-sitter-cli-0.26.9-dialoguer-0.12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

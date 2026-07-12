@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.22.2
+Version:        1.23.0
 Release:        1%{?dist}
 
 # Macro files
@@ -179,6 +179,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Mon May 18 2026 Miro Hrončok <mhroncok@redhat.com> - 1.23.0-1
+- %%pyproject_save_files: Implement support for multi-package specfiles
+
 * Thu May 14 2026 Miro Hrončok <mhroncok@redhat.com> - 1.22.2-1
 - %%pyproject_buildrequires: Fix "Requirement satisfied/not satisfied" messages to show overridden constraints from %%pyproject_patch_dependency
 - %%pyproject_buildrequires: Stop using deprecated argparse.FileType

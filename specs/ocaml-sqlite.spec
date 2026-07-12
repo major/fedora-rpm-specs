@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/mmottl/sqlite3-ocaml
 
 Name:           ocaml-sqlite
-Version:        5.3.1
-Release:        5%{?dist}
+Version:        5.4.1
+Release:        1%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
 License:        MIT
 
@@ -13,6 +13,7 @@ URL:            https://mmottl.github.io/sqlite3-ocaml
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sqlite3-ocaml-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.12
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -39,18 +40,6 @@ developing applications that use %{name}.
 %autosetup -n sqlite3-ocaml-%{version}
 
 
-%build
-%dune_build
-
-
-%check
-%dune_check
-
-
-%install
-%dune_install
-
-
 %files -f .ofiles
 %license LICENSE.md
 
@@ -61,6 +50,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.4.1-1
+- OCaml 5.5.0 rebuild
+- Version 5.4.1
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.3.1-5
 - OCaml 5.4.1 rebuild
 

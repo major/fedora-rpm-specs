@@ -39,12 +39,12 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
+%global skip_install_rpath ON
 %endif
 %if 0%{?suse_version}
 %global hipblaslt_name libhipblaslt1%{pkg_suffix}
@@ -128,10 +128,14 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
+%if %{without nanobind}
 License:        MIT AND BSD-3-Clause
+%else
+License:        MIT
+%endif
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -182,6 +186,7 @@ BuildRequires:  rocminfo%{pkg_suffix}
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-llvm%{pkg_suffix}-devel
 BuildRequires:  rocm-origami%{pkg_suffix}-devel
@@ -247,6 +252,9 @@ BuildRequires:  ninja
 
 Provides:       hipblaslt%{pkg_suffix} = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
+Requires:       rocm-origami%{pkg_suffix}
 
 %if %{without nanobind}
 # BSD-3-Clause
@@ -267,6 +275,7 @@ algorithmic implementations and heuristics.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       hipblaslt%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -276,6 +285,7 @@ Provides:       hipblaslt%{pkg_suffix}-devel = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
 %{summary}
@@ -453,7 +463,10 @@ fi
        -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
        -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
        -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+       -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
        -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
+       -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+       -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DHIPBLASLT_ENABLE_CLIENT=%{build_test} \
@@ -481,8 +494,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 %{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/Kernels.so-000-*.hsaco
 %{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/extop_*.co
 
+%if %{without compat}
 # hipblaslt.x86_64: E: binary-or-shlib-defines-rpath /usr/lib64/libhipblaslt.so.1.2 (RUNPATH: $ORIGIN/../lib:$ORIGIN/../llvm/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipblaslt/lib)
 chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
+%else
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
+%endif
 
 # hipblaslt-devel.x86_64: W: cross-directory-hard-link /usr/include/hipblaslt/hipblaslt-export.h /usr/include/hipblaslt-export.h
 # Clean up dupes:
@@ -518,6 +535,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %endif
 
 %changelog
+* Tue Jun 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- merge compat changes
+
 * Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Change --with gitcommit to preview
 

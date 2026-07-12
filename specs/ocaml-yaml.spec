@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # Fedora does not have ezjsonm or junit_alcotest
 %global run_tests 0
 
@@ -20,6 +17,12 @@ Source:         %{giturl}/releases/download/v%{version}/yaml-%{version}.tbz
 # - https://github.com/yaml/libyaml/pull/235
 # - https://github.com/avsm/ocaml-yaml/issues/51
 Patch:          %{name}-unbundle-libyaml.patch
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
+BuildOption(install): -s
 
 BuildRequires:  libyaml-devel
 BuildRequires:  ocaml >= 4.13.0
@@ -89,14 +92,8 @@ cp -p %{_includedir}/yaml.h vendor/yaml.h
 touch vendor/dummy.c
 ln -s %{_libdir}/libyaml.so ffi/lib/dllyaml.so
 
-%build
-%dune_build
-
-%install
-%dune_install -s
-
-%if %{run_tests}
 %check
+%if %{run_tests}
 %dune_check
 %endif
 

@@ -4,7 +4,7 @@
 
 Name: planets
 Version:  0.1.13
-Release:  52%{?dist}
+Release:  53%{?dist}
 Summary: A celestial simulator  
 
 License: GPL-2.0-or-later
@@ -81,6 +81,9 @@ install -p -m 644 planets.png \
 %{_mandir}/man1/planets.1.gz
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 0.1.13-53
+- OCaml 5.5.0 rebuild
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.13-52
 - OCaml 5.4.1 rebuild
 

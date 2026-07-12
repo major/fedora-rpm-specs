@@ -58,6 +58,7 @@ ExcludeArch: %{ix86}
 #     - ldap needs krb5-devel too
 #     - when kr5-devel is part of the buildroot, kerberos plugin is compiled no matter the WITH_AUTHENTICATION_KERBEROS value
 #     - when fido is disabled but ldap enabled, authentication_oci_client.so is still built
+#     - authentication_openid_connect_client and mysql_native_password require none of those, but are only built if one of them are enabled
 # To avoid issues, leave either all ON or all OFF.
 %if 0%{?fedora}
 %bcond fido 1
@@ -894,7 +895,6 @@ popd
 %dir %{_libdir}/mysql
 %dir %{_libdir}/mysql/plugin
 %{_libdir}/mysql/plugin/adt_null.so
-%{_libdir}/mysql/plugin/authentication_openid_connect_client.so
 %{_libdir}/mysql/plugin/auth_socket.so
 %{_libdir}/mysql/plugin/component_audit_api_message_emit.so
 %{_libdir}/mysql/plugin/component_classic_hashing.so
@@ -932,7 +932,6 @@ popd
 %{_libdir}/mysql/plugin/locking_service.so
 %{_libdir}/mysql/plugin/mypluglib.so
 %{_libdir}/mysql/plugin/mysql_clone.so
-%{_libdir}/mysql/plugin/mysql_native_password.so
 %{_libdir}/mysql/plugin/mysql_no_login.so
 %{_libdir}/mysql/plugin/rewrite_example.so
 %{_libdir}/mysql/plugin/rewriter.so
@@ -943,6 +942,8 @@ popd
 %{?with_fido:%{_libdir}/mysql/plugin/authentication_webauthn_client.so}
 %{?with_fido:%{_libdir}/mysql/plugin/authentication_oci_client.so}
 %{?with_kerberos:%{_libdir}/mysql/plugin/authentication_kerberos_client.so}
+%{?with_kerberos:%{_libdir}/mysql/plugin/authentication_openid_connect_client.so}
+%{?with_kerberos:%{_libdir}/mysql/plugin/mysql_native_password.so}
 %{?with_ldap:%{_libdir}/mysql/plugin/authentication_ldap_sasl_client.so}
 
 %{_mandir}/man1/ibd2sdi.1*

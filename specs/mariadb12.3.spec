@@ -20,7 +20,7 @@
 %global force_run_testsuite 0
 
 # Filtering: https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/
-%global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::|wsrep)
+%global __requires_exclude ^perl\\((lib::v1|mtr_|My::|wsrep)
 %global __provides_exclude_from ^(%{_datadir}/(mysql|mariadb-test)/.*|%{_libdir}/%{majorname}/plugin/.*\\.so)$
 
 # For some use cases we do not need some parts of the package. Set to "...with" to exclude
@@ -261,7 +261,6 @@ Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
 
-Patch16:          %{majorname}-federated.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -890,7 +889,6 @@ rm -r storage/rocksdb/
 %endif
 
 %patch -P14 -p1
-%patch -P16 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1040,6 +1038,7 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DPLUGIN_AUTH_GSSAPI=%{?with_gssapi:DYNAMIC}%{!?with_gssapi:NO} \
          -DPLUGIN_AUTH_PAM=%{?with_pam:YES}%{!?with_pam:NO} \
          -DPLUGIN_AUTH_PAM_V1=%{?with_pam:DYNAMIC}%{!?with_pam:NO} \
+         -DPLUGIN_FEDERATED=NO \
          -DPLUGIN_COLUMNSTORE=NO \
          -DPLUGIN_CLIENT_ED25519=OFF \
          -DPLUGIN_CACHING_SHA2_PASSWORD=%{?with_clibrary:DYNAMIC}%{!?with_clibrary:OFF} \

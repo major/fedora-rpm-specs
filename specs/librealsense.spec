@@ -25,6 +25,9 @@ Patch5:         librealsense.use-system-json.patch
 Patch6:         librealsense.utf8-string-literals.patch
 # Fix pybind11 3.x incompatibility: def_property does not support keep_alive
 Patch7:         librealsense.fix-pybind11-keep-alive.patch
+# Use system lz4 via pkg-config instead of bundled static library
+Patch8:         librealsense.use-system-lz4.patch
+Patch9:         librealsense.fix-remove-underlying-unicode-in-rmse.py.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)
@@ -42,6 +45,7 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  pkgconfig(liblz4)
 
 Provides:       librealsense2 = %{version}-%{release}
 
@@ -105,7 +109,8 @@ with %{name}.
   -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
   -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
   -DBUILD_PYTHON_BINDINGS:bool=true \
-  -DPYTHON_EXECUTABLE=%{python3}
+  -DPYTHON_EXECUTABLE=%{python3} \
+  -DUSE_EXTERNAL_LZ4=ON
 %cmake_build
 
 sed -i "s:/usr/local/bin:%{_datadir}/realsense:" config/*
@@ -122,8 +127,6 @@ popd
 
 %install
 %cmake_install
-
-rm -f %{buildroot}/%{_libdir}/librs_lz4.a
 
 mkdir -p %{buildroot}/%{_udevrulesdir}
 install -p -m644 config/99-realsense-libusb.rules %{buildroot}/%{_udevrulesdir}

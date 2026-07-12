@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # The OCaml code is byte compiled, not native compiled, so there are no ELF
 # objects in the binary RPM.
 %global debug_package %{nil}
@@ -14,11 +11,15 @@ Summary:        Improved toplevel for OCaml
 
 License:        BSD-3-Clause
 URL:            https://ocaml-community.github.io/utop/
-VCS :           git:%{giturl}.git
+VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # Upstream patch to fix the version number
 Patch:          %{name}-version.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.11.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-cppo >= 1.1.2
@@ -69,25 +70,18 @@ OCaml.
 %prep
 %autosetup -p1
 
-%build
-%dune_build
-
+%build -a
 cd src/top
 emacs -batch --no-init-file --no-site-file \
     --eval "(let ((backup-inhibited t)) (loaddefs-generate \".\" \"$PWD/utop-loaddefs.el\"))"
 %_emacs_bytecompile utop.el
 cd -
 
-%install
-%dune_install
-
+%install -a
 # Install the Emacs interface
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 cp -p src/top/utop-loaddefs.* %{buildroot}%{_emacs_sitestartdir}
 cp -p src/top/utop.elc %{buildroot}%{_emacs_sitelispdir}
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE

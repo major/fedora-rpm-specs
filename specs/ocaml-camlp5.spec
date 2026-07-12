@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/camlp5/camlp5
 
 Name:           ocaml-camlp5
-Version:        8.04.00
-Release:        5%{?dist}
+Version:        8.05.02
+Release:        1%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -29,15 +29,13 @@ BuildRequires:  ocaml-camlp5-buildscripts >= 0.06
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-ounit-devel
-BuildRequires:  ocaml-pcre2-devel >= 8.0.3
+BuildRequires:  ocaml-pcre2-devel >= 8.0.4
 BuildRequires:  ocaml-re-devel >= 1.11.0
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-rresult-devel
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(IPC::System::Simple)
-BuildRequires:  perl(String::ShellQuote)
-
-BuildRequires:  ocaml-ocamldoc
 
 # Do not provide symbols already provided by the OCaml compiler
 %global __ocaml_provides_opts -i Dynlink -i Dynlink_common -i Dynlink_config -i Dynlink_platform_intf -i Dynlink_symtable -i Dynlink_types
@@ -116,6 +114,10 @@ make -C test all
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 8.05.02-1
+- OCaml 5.5.0 rebuild
+- Version 8.05.02
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 8.04.00-5
 - OCaml 5.4.1 rebuild
 

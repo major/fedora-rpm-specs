@@ -81,6 +81,10 @@ Source:         https://github.com/nushell/nushell/archive/%{version}/%{name}-%{
 # disable formats plugin; eml-parser not packaged
 # disable polars plugin; polars not packaged
 # disable query plugin; gsjon not packaged
+# bump dialoguer from 0.11 to 0.12:
+#   https://github.com/nushell/nushell/commit/839e7bb52ed21abc53497b7d91b16024ada46222
+# bump lsp-server from 0.7 to 0.8:
+#   https://github.com/nushell/nushell/commit/96cb2126ab9b8ac7ce1291046f854328bb77de7b
 Patch:          nushell-fix-metadata.diff
 Patch:          nu-command-fix-for-quick-xml-0_33.diff
 Patch:          nu-command-0.99.1-roxmltree-0.21.diff

@@ -12,17 +12,18 @@
 %global apiver 2
 
 Name:		snapd-glib
-Version:	1.66
-Release:	4%{?dist}
+Version:	1.72
+Release:	1%{?dist}
 Summary:	Library providing a GLib interface to snapd
 
 License:	LGPL-2.0-only OR LGPL-3.0-only
-URL:		https://github.com/snapcore/%{name}
-Source0:	https://github.com/snapcore/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+URL:		https://github.com/canonical/%{name}
+Source:		%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
 
-BuildRequires:	gtk-doc >= %{min_gtkdoc_ver}
+BuildRequires:  gi-docgen
+BuildRequires:  gtk-doc >= %{min_gtkdoc_ver}
 BuildRequires:  meson >= %{min_meson_ver}
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -117,7 +118,7 @@ for snapd-qt to verify the functionality of snapd-qt.
 %{_libdir}/girepository-1.0/Snapd-%{apiver}.typelib
 
 %files devel
-%doc %{_datadir}/gtk-doc/html/snapd-glib
+%doc %{_datadir}/doc/snapd-glib/html/
 %{_includedir}/snapd-glib-%{apiver}/
 %{_libdir}/libsnapd-glib-%{apiver}.so
 %{_libdir}/pkgconfig/snapd-glib-%{apiver}.pc
@@ -146,6 +147,9 @@ for snapd-qt to verify the functionality of snapd-qt.
 
 
 %changelog
+* Fri Jul 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.72-1
+- Rebase to 1.72
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

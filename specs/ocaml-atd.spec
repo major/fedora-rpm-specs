@@ -11,6 +11,9 @@ URL:            https://github.com/ahrefs/atd
 VCS:            git:%{url}.git
 Source:         %{url}/releases/download/%{version}/atd-%{version}.tbz
 
+BuildSystem:    dune
+BuildOption(install): -s
+
 BuildRequires:  gcc-c++
 BuildRequires:  ocaml >= 4.14
 BuildRequires:  ocaml-alcotest-devel
@@ -23,12 +26,7 @@ BuildRequires:  ocaml-re-devel >= 1.9.0
 BuildRequires:  ocaml-testo-devel >= 0.3.0
 BuildRequires:  ocaml-yamlx-devel >= 0.2.0
 BuildRequires:  ocaml-yojson-devel >= 3.0.0
-BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist flake8}
-BuildRequires:  %{py3_dist jsonschema}
-BuildRequires:  %{py3_dist mypy}
-BuildRequires:  %{py3_dist pytest}
 
 %ifarch %{java_arches}
 BuildRequires:  java-latest-openjdk-devel
@@ -274,13 +272,7 @@ developing applications that use ocaml-atd-yamlx.
 %autosetup -p1 -n atd-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install -s
-
+%install -a
 # atdcpp, atdd, atdgen, atdj, atdml, atdpy, atds & atdts do not ship libraries
 # dune has a known issue where it generates empty META files
 #

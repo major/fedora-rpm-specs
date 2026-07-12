@@ -1,14 +1,12 @@
 # remirepo/fedora spec file for php-league-mime-type-detection
 #
-# Copyright (c) 2020-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    2d6702ff215bf922936ccc1ad31007edc76451b9
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   mime-type-detection
 # Packagist
@@ -19,15 +17,17 @@
 %global ns_project   MimeTypeDetection
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.16.0
-Release:        4%{?dist}
+Version:        1.17.0
+Release:        1%{?dist}
 Summary:        Mime-type detection for Flysystem
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 # Create git snapshot as tests are excluded from official tarball
 Source1:        makesrc.sh
+
+Patch0:         %{name}-tests.patch
 
 BuildArch:      noarch
 
@@ -35,11 +35,11 @@ BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-fileinfo
 BuildRequires:  php-json
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0",
+#        "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0 || ^11.0 || ^12.0",
 #        "phpstan/phpstan": "^0.12.68",
 #        "friendsofphp/php-cs-fixer": "^3.2"
-BuildRequires:  phpunit10
-%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit11
+%global phpunit %{_bindir}/phpunit11
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -64,7 +64,8 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
+%patch -P0 -p1
 
 
 %build
@@ -96,10 +97,10 @@ sed -e 's/PHPStan\\Testing\\TestCase/PHPUnit\\Framework\\TestCase/' -i src/Overr
 : Run upstream test suite
 # the_generated_map_should_be_up_to_date is online
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85 php86; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit10} \
+    $1 ${2:-%{_bindir}/phpunit11} \
       --filter '^((?!(the_generated_map_should_be_up_to_date)).)*$' \
       --no-coverage \
       || ret=1
@@ -117,6 +118,12 @@ exit $ret
 
 
 %changelog
+* Thu Jul  9 2026 Remi Collet <remi@remirepo.net> - 1.17.0-1
+- update to 1.17.0
+- re-license spec file to CECILL-2.1
+- fix test suite using patch from
+  https://github.com/thephpleague/mime-type-detection/pull/42
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

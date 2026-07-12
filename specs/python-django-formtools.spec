@@ -9,7 +9,7 @@ Currently for form previews and multi-step forms.}
 
 
 Name:           python-%{pypi_name}
-Version:        2.6.1
+Version:        2.7
 Release:        %autorelease
 Summary:        A set of high-level abstractions for Django forms
 

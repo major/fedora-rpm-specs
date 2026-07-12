@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -11,6 +11,7 @@ URL:            https://github.com/ocaml-community/lambda-term
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/lambda-term-%{version}.tar.gz
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 3.0
 BuildRequires:  ocaml-logs-devel
@@ -49,20 +50,12 @@ developing applications that use %{name}.
 %prep
 %autosetup -n lambda-term-%{version}
 
-%build
-%dune_build
-
-%install
-%dune_install
-
+%install -a
 mkdir -p %{buildroot}%{_datadir}/lambda-term
 mv %{buildroot}%{_datadir}/lambda-term{rc,-inputrc} %{buildroot}%{_datadir}/lambda-term
 sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
     -e '\,%{_datadir}/lambda-term-inputrc,d' \
     -i .ofiles
-
-%check
-%dune_check
 
 %files -f .ofiles
 %license LICENSE
@@ -72,6 +65,10 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 3.4.0-2
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 3.4.0-1
 - Version 3.4.0
 

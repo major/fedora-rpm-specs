@@ -8,13 +8,6 @@
 # Failing with llvm 14 https://github.com/Cisco-Talos/clamav/issues/581
 %bcond_with  llvm
 
-# No ocaml on ix86
-%ifarch %{ix86}
-%bcond_with ocaml
-%else
-%bcond_without ocaml
-%endif
-
 %global scanuser    clamscan
 %global updateuser  clamupdate
 %global milteruser  clamilt
@@ -26,7 +19,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.4.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -136,7 +129,6 @@ BuildRequires:  bc
 BuildRequires:  tcl
 BuildRequires:  groff
 BuildRequires:  graphviz
-%{?with_ocaml:BuildRequires: ocaml}
 # nc required for tests
 BuildRequires:  nc
 %{?systemd_requires}
@@ -673,6 +665,9 @@ done
 
 
 %changelog
+* Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 1.4.5-2
+- Remove unused ocaml BuildRequires
+
 * Thu Jul 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.5-1
 - Update to 1.4.5
 

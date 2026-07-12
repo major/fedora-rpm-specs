@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mccs
 Version:        %{basever}.%{extraver}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
-%global libname %(echo %{name} | sed -e 's/^ocaml-//')
+%global libname %{gsub %name ^ocaml-(.*)$ %1}
 
 # Original C/C++ code is BSD-3-Clause, OCaml bindings are LGPL.
 # The bundled glpk code is not used.
@@ -27,6 +27,7 @@ Source:         https://github.com/AltGr/ocaml-mccs/archive/%{basever}+%{extrave
 # Link against the system glpk library
 Patch:          ocaml-mccs-1.1-glpk.patch
 
+BuildSystem:    dune
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  gcc, gcc-c++
@@ -63,15 +64,6 @@ cp -p src/glpk/dune-shared src/glpk/dune
 # Temporary workaround for https://github.com/ocaml-opam/ocaml-mccs/issues/54
 sed -i 's,clibs,../clibs,' src/glpk/dune
 
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
-
 %files -f .ofiles
 %license LICENCE
 %doc README.md
@@ -79,6 +71,10 @@ sed -i 's,clibs,../clibs,' src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.1.19-8
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1.19-7
 - OCaml 5.4.1 rebuild
 

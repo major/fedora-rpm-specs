@@ -9,7 +9,7 @@
 %bcond_without flexiblas
 
 # giac is not ready for FLTK-1.4.*
-%bcond_without fltk
+%bcond_with system_fltk
 
 %global _lto_cflags %{nil}
 
@@ -99,15 +99,18 @@ BuildRequires: libcurl-devel
 BuildRequires: libpng-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libsamplerate-devel
-%if %{with fltk}
-#BuildRequires: fltk-devel
+%if %{with system_fltk}
+BuildRequires: fltk-devel
 %endif
+BuildRequires: libXft-devel
 BuildRequires: libXinerama-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 Provides: bundled(tinymt32)
+%if %{without system_fltk}
 Provides: bundled(fltk) = 1.3.8
+%endif
 
 # The micropython inside is a custom port with
 # addtional built-in modules that are linked to giac.
@@ -240,6 +243,10 @@ sed -e 's|LIB(blas|LIB(flexiblas|g' -e 's|LIB(lapack|LIB(flexiblas|g' \
 # Prepare Micropython lib's License
 cp -p micropython-1.12/LICENSE micropython-1.12/micropython-LICENSE
 
+%if %{with system_fltk}
+rm -rf fltk-*
+%endif
+
 # Update configure.ac obsolete macros
 autoupdate -vf
 
@@ -249,9 +256,13 @@ autoreconf -ivf
 %build
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
-%if %{with fltk}
+%if %{with system_fltk}
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
+%else
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17 -I../fltk-1.3.8"
+%endif
+%if %{without system_fltk}
 export LIBFLTK=GIAC
 %endif
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=no \
@@ -262,7 +273,7 @@ export LIBFLTK=GIAC
 %ifarch %{power64}
  --disable-micropy \
 %endif
- --disable-fltk
+ --enable-fltk
 
 # The --disable-rpath option of configure was not enough to get rid of the hardcoded libdir
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -276,10 +287,14 @@ g++ $OPT_FLAGS -fpermissive -std=gnu++17 src/mkjs.cc -o src/mkjs
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
-export LDFLAGS_FEDORA="$OPT_FLAGS"
-export ACLOCAL=aclocal
+%if %{with system_fltk}
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
+export LDFLAGS_FEDORA="$OPT_FLAGS %{__global_ldflags}"
+%else
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17 -I../fltk-1.3.8"
+export LDFLAGS_FEDORA="$OPT_FLAGS %{__global_ldflags} -L../fltk-1.3.8/lib -lfltk -lfltk_forms -lfltk_gl -lfltk_images"
+%endif
 %make_build
 
 # Rebuild giac_*.info and Convert info file to utf-8

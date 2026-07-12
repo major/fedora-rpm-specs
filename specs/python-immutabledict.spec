@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-immutabledict
-Version:        4.2.1
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Drop-in replacement for dictionaries where immutability is desired
 
@@ -19,8 +19,8 @@ BuildRequires:  python3-pytest
 %global _description %{expand:
 Implements the complete mapping interface and can be used as a drop-in
 replacement for dictionaries where immutability is desired. The immutabledict
-constructor mimics dict, and all of the expected interfaces (iter, len, repr,
-hash, getitem) are provided.}
+constructor mimics dict, and all of the expected dictionary interfaces (such as
+iteration, length, representation, hash, and item retrieval) are provided.}
 
 %description %{_description}
 
@@ -44,19 +44,18 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files immutabledict
+%pyproject_save_files -l immutabledict
 
 
 %if %{with check}
 %check
+%pyproject_check_import
+
 %pytest
 %endif
 
 
 %files -n python3-immutabledict -f %{pyproject_files}
-# Explicit license until poetry adds proper metadata
-# https://github.com/python-poetry/poetry/issues/1350
-%license LICENSE
 %doc README.md
 
 

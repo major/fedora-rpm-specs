@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        185
+Version:        187
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -488,6 +488,28 @@ fi
 %endif
 
 %changelog
+* Fri Jul 10 2026 Packit <hello@packit.dev> - 187-1
+Changes with 187
+----------------
+  - Update images dependency ref to latest (#2497)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - Update osbuild-ci container images (#2493)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - Update snapshots to 20260705 (#2496)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - containers-storage: Handle missing `storage.conf` values (#2501)
+    - Author: Joel Capitao, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - stages/bootc.install-to-fs: remount /dev/shm in addition to /dev/shm (#2494)
+    - Author: Alexander Larsson, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - stages/org.osbuild.bfb: BFB boot grub shims (#2471)
+    - Author: Eli Elgaev, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - stages: add org.osbuild.grub2.d (#2473)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - utils: add utils.makeefi library (#2499)
+    - Author: Dusty Mabe, Reviewers: Achilleas Koutsou, Renata Ravanelli, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-07-10
+
 * Wed Jun 17 2026 Packit <hello@packit.dev> - 185-1
 Changes with 185
 ----------------

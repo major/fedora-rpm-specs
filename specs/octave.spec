@@ -44,7 +44,7 @@ License:        GPL-3.0-or-later
 URL:            http://www.octave.org
 
 Source0:        https://ftp.gnu.org/gnu/octave/octave-%{version}.tar.lz
-#Source0:        https://alpha.gnu.org/gnu/octave/octave-%{version}%{?rctag}.tar.lz
+#Source0:        https://alpha.gnu.org/gnu/octave/octave-%%{version}%%{?rctag}.tar.lz
 # RPM macros for helping to build Octave packages
 Source1:        macros.octave
 Source2:        xorg.conf

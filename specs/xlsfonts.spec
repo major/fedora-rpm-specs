@@ -1,16 +1,14 @@
 Summary:    X font list utility
 Name:       xlsfonts
-Version:    1.0.8
+Version:    1.0.9
 Release:    %autorelease
 License:    MIT
-URL:        http://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+URL:        https://www.x.org
+Source:     https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 BuildRequires:  gcc
-BuildRequires:  make
-BuildRequires:  gettext-devel
-BuildRequires:  libtool
+BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
-Obsoletes: xorg-x11-utils < 7.5-39
+BuildRequires:  pkgconfig(xproto)
 
 %description
 xlsfonts lists the fonts available on an X server.
@@ -19,11 +17,14 @@ xlsfonts lists the fonts available on an X server.
 %autosetup -p1
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
+
+%check
+%meson_test
 
 %files
 %doc README.md

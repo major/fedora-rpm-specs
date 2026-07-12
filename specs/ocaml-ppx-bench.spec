@@ -11,6 +11,7 @@ Source:         %{url}/archive/v%{version}/ppx_bench-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildSystem:    dune
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppx-inline-test-devel >= 0.17
@@ -32,15 +33,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_bench-%{version}
-
-%build
-%dune_build
-
-%install
-%dune_install
-
-%check
-%dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md

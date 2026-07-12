@@ -15,6 +15,11 @@ URL:            https://github.com/patricoferris/ppx_deriving_yaml
 VCS:            git:%{url}.git
 Source:         %{url}/releases/download/v%{version}/ppx_deriving_yaml-%{version}.tbz
 
+BuildSystem: dune
+BuildOption(build): -p ppx_deriving_yaml
+BuildOption(install): ppx_deriving_yaml
+BuildOption(check): -p ppx_deriving_yaml
+
 BuildRequires:  ocaml >= 4.08.1
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 3.14
@@ -46,15 +51,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_deriving_yaml-%{version}
-
-%build
-%dune_build -p ppx_deriving_yaml
-
-%install
-%dune_install ppx_deriving_yaml
-
-%check
-%dune_check -p ppx_deriving_yaml
 
 %files -f .ofiles
 %license LICENSE.md

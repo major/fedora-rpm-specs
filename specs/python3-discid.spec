@@ -1,5 +1,5 @@
 Name:    python3-discid
-Version: 1.4.1
+Version: 1.4.2
 Release: %autorelease
 Summary: Libdiscid Python bindings
 URL:     https://github.com/metabrainz/python-discid

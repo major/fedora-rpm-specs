@@ -5,7 +5,7 @@
 %global crate libadwaita
 
 Name:           rust-libadwaita
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Rust bindings for libadwaita
 
@@ -56,6 +56,18 @@ This package contains library source intended for building other packages which
 use the "gio_v2_80" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gio_v2_80-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gtk_v4_10-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_10-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_10" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_10-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gtk_v4_18-devel

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        5.007
+Version:        5.008
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -99,6 +99,11 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Fri Jul 10 2026 Paul Howarth <paul@city-fan.org> - 5.008-1
+- Update to 5.008 (rhbz#2498976)
+  - Decoder now supports 'thaw_allow_classes' and 'thaw_deny_action' to control
+    thaw callbacks during decoding
+
 * Thu Jul  9 2026 Paul Howarth <paul@city-fan.org> - 5.007-1
 - Update to 5.007 (rhbz#2498239)
   - Use $Config{ccflags} to compile zstd with, which should fix AIX

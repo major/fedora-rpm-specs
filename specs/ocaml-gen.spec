@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -9,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gen
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
 License:        BSD-2-Clause
@@ -19,6 +16,10 @@ Source:         %{giturl}/archive/v%{version}/gen-%{version}.tar.gz
 # Fedora does not need the seq forward compatibility shim
 Patch:          %{name}-seq.patch
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
+BuildSystem:    dune
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 1.1
 BuildRequires:  ocaml-ounit-devel
@@ -44,18 +45,6 @@ developing applications that use %{name}.
 %autosetup -p1 -n gen-%{version}
 
 
-%build
-%dune_build
-
-
-%install
-%dune_install
-
-
-%check
-%dune_check
-
-
 %files -f .ofiles
 %doc README.md CHANGELOG.md
 %license LICENSE
@@ -67,6 +56,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.1-20
+- OCaml 5.5.0 rebuild
+- Use the dune declarative buildsystem
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1-19
 - OCaml 5.4.1 rebuild
 

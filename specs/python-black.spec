@@ -1,18 +1,10 @@
 Name:           python-black
-Version:        25.1.0
+Version:        26.5.1
 Release:        %autorelease
 Summary:        The uncompromising code formatter
 License:        MIT
 URL:            https://github.com/psf/black
 Source:         %{pypi_source black}
-
-# Fix f-string format test failure with Python 3.14 and 3.13.4+
-Patch:          https://github.com/psf/black/commit/5977532781.patch
-
-# Upstream fixes for click 8.2+
-Patch:          https://github.com/psf/black/commit/14e1de805a.patch
-Patch:          https://github.com/psf/black/commit/ed64d89faa.patch
-Patch:          https://github.com/psf/black/commit/b0f36f5b42.patch
 
 BuildArch:      noarch
 

@@ -190,7 +190,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        152.0.4
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -813,6 +813,8 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-fexceptions//')
 # See also https://fedoraproject.org/wiki/Changes/Harden_All_Packages
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-Werror=format-security//')
+# Bug 2458184 - Drop -fcf-protection flag during Firefox builds
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-fcf-protection//')
 # More Fedora specific build flags
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -fpermissive"
 %if %{?debug_build}
@@ -1212,6 +1214,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Jul 10 2026 Martin Stransky <stransky@redhat.com> - 152.0.4-3
+- Added rhbz#2458184 - Drop -fcf-protection flag
+
 * Tue Jul 07 2026 Martin Stransky <stransky@redhat.com> - 152.0.4-2
 - Remove Fedora 40/41 tweaks.
 

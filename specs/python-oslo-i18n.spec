@@ -11,7 +11,7 @@ The oslo.i18n library contain utilities for working with internationalization
 or library.}
 
 Name:           python-oslo-i18n
-Version:        6.8.0
+Version:        6.9.0
 Release:        %autorelease
 Summary:        OpenStack i18n library
 License:        Apache-2.0
@@ -23,8 +23,6 @@ Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_i18n-%{versio
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
-# https://review.opendev.org/c/openstack/oslo.i18n/+/991846
-Patch0:         0001-_gettextutils-deduplicate-Babel-aliases-in-get_avail.patch
 # https://review.opendev.org/c/openstack/oslo.i18n/+/991849
 Patch1:         0001-tests-fix-TypeError-message-for-Python-3.15.patch
 

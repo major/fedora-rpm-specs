@@ -1,7 +1,7 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          4.0.0
+Version:          4.1.1
 Release:          1%{?dist}
 Summary:          Extra features for standard library's cmd module
 
