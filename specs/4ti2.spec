@@ -37,14 +37,27 @@ Source1:        4ti2.module.in
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
 
-BuildRequires:  environment-modules
+BuildRequires:  environment(modules)
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glpk-devel
 BuildRequires:  gmp-devel
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(booktabs.sty)
+BuildRequires:  tex(color.sty)
+BuildRequires:  tex(enumerate.sty)
 BuildRequires:  tex(epic.sty)
+BuildRequires:  tex(graphicx.sty)
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(rotating.sty)
+BuildRequires:  tex(url.sty)
+BuildRequires:  tex(verbatim.sty)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 
 # 4ti2 contains a copy of gnulib, which has been granted a bundling exception:
 # https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
@@ -103,8 +116,8 @@ export LD_LIBRARY_PATH=$PWD/src/4ti2/.libs:$PWD/src/fiber/.libs:$PWD/src/groebne
 cd doc
 make update-manual
 bibtex 4ti2_manual
-pdflatex 4ti2_manual
-pdflatex 4ti2_manual
+pdflatex -interaction=nonstopmode 4ti2_manual
+pdflatex -interaction=nonstopmode 4ti2_manual
 cd -
 
 %install

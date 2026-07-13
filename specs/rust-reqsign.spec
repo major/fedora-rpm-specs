@@ -5,7 +5,7 @@
 %global crate reqsign
 
 Name:           rust-reqsign
-Version:        0.20.1
+Version:        0.20.2
 Release:        %autorelease
 Summary:        Signing HTTP requests for popular cloud services
 

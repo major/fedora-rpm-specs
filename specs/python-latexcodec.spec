@@ -13,7 +13,6 @@ BuildSystem:    pyproject
 BuildOption(install): -l latexcodec
 
 BuildRequires:  make
-BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist setuptools}
@@ -58,7 +57,7 @@ Documentation for %{name}.
 sed -i 's/default/classic/' doc/conf.py
 
 # Use local objects.inv for intersphinx
-sed -i "s|\('http://docs\.python\.org/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" doc/conf.py
+sed -i 's|\("http://docs\.python\.org/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' doc/conf.py
 
 %build -a
 PYTHONPATH=$PWD make -C doc html

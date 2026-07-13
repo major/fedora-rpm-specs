@@ -5,7 +5,7 @@
 %global crate reqsign-core
 
 Name:           rust-reqsign-core
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Signing API requests without effort
 
@@ -46,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jwt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jwt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jwt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jwt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

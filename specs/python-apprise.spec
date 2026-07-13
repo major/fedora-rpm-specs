@@ -58,38 +58,44 @@
 Apprise is a Python package that simplifies access to many popular \
 notification services. It supports sending alerts to platforms such as: \
 \
-`46elks`, `AfricasTalking`, `Amazon Chime`, `Apprise API`, `APRS`, \
+`46elks`, `800.com`, `AfricasTalking`, `Amazon Chime`, `Apprise API`, \
+`APRS`, \
 `AWS SES`, `AWS SNS`, `Bark`, `Blink(1)`, `BlueSky`, `Brevo`, \
 `Burst SMS`, `BulkSMS`, `BulkVS`, \
 `Chanify`, `Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
 `Dot. (Quote/0)`, `E-Mail`, `Emby`, `Evolution API`, `Exotel`, \
-`FCM`, `Feishu`, `Flock`, `Fluxer`, `Free Mobile`, `Google Chat`, \
+`FCM`, `Feishu`, `Flock`, `Flowtriq`, `Fluxer`, `Free Mobile`, `Google Chat`, \
 `Gotify`, `GroupMe`, `Growl`, `Guilded`, `Home Assistant`, `httpSMS`, \
 `HumHub`, \
-`IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, \
-`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, `Mastodon`, \
+`IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, `Kook`, \
+`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, `MailerSend`, \
+`Mastodon`, \
 `Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
 `Microsoft Teams`, `Misskey`, \
 `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, `Nextcloud`, \
 `NextcloudTalk`, `Notica`, `NotificationAPI`, `Notifiarr`, `Notifico`, \
+`Notifyre`, \
 `ntfy`, `Octopush`, `Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, \
-`PagerTree`, `ParsePlatform`, `Plivo`, `PopcornNotify`, `Prowl`, \
+`PagerTree`, `ParsePlatform`, `Plivo`, `Prowl`, \
 `Postmark`, `Pushalot`, `PushBullet`, \
-`Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, `Pushy`, `PushDeer`, \
+`Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, `PushWard`, \
+`Pushy`, `PushDeer`, \
 `QQ Push`, `Revolt`, `Reddit`, `Resend`, `RingCentral`, `Rocket.Chat`, \
 `RSyslog`, `SendGrid`, \
-`SendPulse`, `ServerChan`, `Session Open Group Server`, `Seven`, `SFR`, \
+`SendPulse`, `ServerChan`, `SerwerSMS`, `Session Open Group Server`, \
+`Seven`, `SFR`, \
 `Signal`, `SIGNL4`, `SimplePush`, \
-`Sinch`, `Slack`, `SMPP`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, `SparkPost`, \
-`Splunk`, `Spike`, `Spug Push`, `Super Toasty`, `Streamlabs`, `Stride`, \
+`Sinch`, `Slack`, `SMPP`, `SMSC`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, \
+`SparkPost`, `Splunk`, `Spike`, `Spug Push`, `Stackfield`, `Super Toasty`, \
+`Streamlabs`, `Stride`, \
 `Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, \
 `Twilio`, `Twitter`, `Twist`, `Vapid`, `Viber`, `VictorOps`, `Voipms`, \
 `Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `WhatsApp`, \
 `Webex Teams`, `Workflows`, `WxPusher`, `XBMC`, `XMPP`, `Zoom`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        1.11.0
-Release:        2%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -123,6 +129,8 @@ BuildRequires: python%{python3_pkgversion}-devel
 
 %if %{legacy_python_build}
 BuildRequires: python3dist(setuptools)
+%else
+BuildRequires: python3dist(setuptools) >= 69
 %endif
 
 BuildRequires: python3dist(wheel)
@@ -241,6 +249,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Sat Jul  4 2026 Chris Caron <lead2gold@gmail.com> - 1.12.0-1
+- Updated to v1.12.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.11.0-2
 - Rebuilt for Python 3.15
 

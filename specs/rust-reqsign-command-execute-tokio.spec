@@ -5,7 +5,7 @@
 %global crate reqsign-command-execute-tokio
 
 Name:           rust-reqsign-command-execute-tokio
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Tokio-based command execution implementation for reqsign
 

@@ -1,5 +1,5 @@
-%global commit      9e968d486b026ca39658b8e1ea3e19e9ffd09659
-%global date        20260508
+%global commit      110de905cbb89313ecae7ffd2dfacd8f8d2a3f7a
+%global date        20260709
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           monado
@@ -154,6 +154,8 @@ ctest --output-on-failure \
 %{_datadir}/openxr/1/openxr_monado.json
 %dir %{_datadir}/steamvr-monado
 %{_datadir}/steamvr-monado/*
+%dir %{_datadir}/st-openvr
+%{_datadir}/st-openvr/*
 %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 

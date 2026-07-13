@@ -1,6 +1,6 @@
 %global antlr_version 3.5.3
 %global javascript_runtime_version 3.1
-%global baserelease 18
+%global baserelease 19
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -78,8 +78,6 @@ Patch:          0007-update-java-target.patch
 # Fix source for tighter gcc template checks
 Patch:          0008-unconst-cyclicdfa-gcc-14.patch
 
-BuildRequires:  ant-openjdk25 
-BuildRequires:  make
 BuildRequires:  maven-local-openjdk25
 %if %{without bootstrap}
 BuildRequires:  mvn(org.antlr:antlr)
@@ -256,6 +254,9 @@ popd
 %doc tool/LICENSE.txt
 
 %changelog
+* Sat Jul 11 2026 Jerry James <loganjerry@gmail.com> - 1:3.5.3-19
+- Remove unused BuildRequires
+
 * Fri Feb 20 2026 Jerry James <loganjerry@gmail.com> - 1:3.5.3-18
 - Remove the C and C++ backends
 - They contain files with a disallowed license

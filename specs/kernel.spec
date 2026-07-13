@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc2.260709g0e35b9b6ec0f.23
+%define pkgrelease 0.rc2.260711gdd3210c47e8d.24
 %define kversion 7
-%define tarfile_release 7.2-rc2-22-g0e35b9b6ec0f
+%define tarfile_release 7.2-rc2-264-gdd3210c47e8d
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260709g0e35b9b6ec0f.23%{?buildid}%{?dist}
+%define specrelease 0.rc2.260711gdd3210c47e8d.24%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -282,6 +282,8 @@ Summary: The Linux kernel
 %define with_ynl      %{?_without_ynl:      0} %{?!_without_ynl:      1}
 # kernel-debuginfo
 %define with_debuginfo %{?_without_debuginfo: 0} %{?!_without_debuginfo: 1}
+# kernel-kmap-internal: source-to-module mapping data (JSON)
+%define with_kmap      %{?_without_kmap:      0} %{?!_without_kmap:      1}
 # kernel-abi-stablelists
 %define with_kernel_abi_stablelists %{?_without_kernel_abi_stablelists: 0} %{?!_without_kernel_abi_stablelists: 1}
 # internal samples and selftests
@@ -703,6 +705,10 @@ Summary: The Linux kernel
 %define with_tools 0
 %define with_selftests 0
 %define _enable_debug_packages 0
+%endif
+
+%ifnarch x86_64 ppc64le s390x aarch64 riscv64
+%define with_kmap 0
 %endif
 
 # Architectures we build tools/cpupower on
@@ -1204,6 +1210,9 @@ Source491: %{name}-x86_64-automotive-debug-rhel.config
 # Sources for kernel-tools
 Source2002: kvm_stat.logrotate
 
+# Sources for kernel-kmap-internal
+Source2100: kmap.py
+
 # Some people enjoy building customized kernels from the dist-git in Fedora and
 # use this to override configuration options. One day they may all use the
 # source tree, but in the mean time we carry this to support the legacy workflow
@@ -1450,7 +1459,7 @@ This package provides debug information for package %{name}-tools.
 # symlinks because of the trailing nonmatching alternation and
 # the leading .*, because of find-debuginfo.sh's buggy handling
 # of matching the pattern against the symlinks file.
-%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|.*%%{_bindir}/ynltool(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
 
 %if %{with_tools} && %{with_ynl}
 %package -n python3-%{name}-tools
@@ -1527,6 +1536,27 @@ This package provides debug information for the rv package.
 %endif
 
 # with_tools
+%endif
+
+%if %{with_kmap} && %{with_base}
+%package -n %{name}-kmap-internal
+Summary: Kernel source-to-module mapping data and module list
+Group: Development/System
+BuildRequires: python3
+%description -n %{name}-kmap-internal
+The %{name}-kmap-internal package contains a JSON mapping file that describes
+which C source files contributed to each kernel module and to the built-in
+vmlinux image, and which RPM package each module is shipped in.
+
+Files installed under /usr/share/%{name}-kmap-internal/:
+  kernel-map-<KVERREL>.json - unified mapping file for all kernel variants containing:
+    - variants:    list of variant names (e.g., ["stock", "rt", "automotive"])
+    - source-map:  source file mappings
+      - obj-src:   maps kernel objects to source files with variant indices
+      - src-obj:   maps source files to kernel objects with variant indices
+    - module-map:  module to RPM mappings
+      - module-rpm:  maps module names to RPM package names with variant indices
+      - rpm-modules: maps RPM package names to module names with variant indices
 %endif
 
 %if %{with_selftests}
@@ -3183,6 +3213,44 @@ BuildKernel() {
 %endif
     fi # $DoModules -eq 1
 
+%if %{with_kmap} && %{with_base}
+    # Generate source-to-module mapping data using kmap.py.
+    # Must run before the next BuildKernel call issues make mrproper, which
+    # would wipe the .cmd files that kmap.py reads.  Skip debug variants
+    # (same source mapping as the base kernel).
+    if [[ "$Variant" != *debug* ]]; then
+        _kmap_bdir=$(pwd)
+        _kmap_basedir=%{_builddir}/kmap-data
+        _kmap_merged=$_kmap_basedir/kernel-map.json
+        _kmap_variant=${Variant:-stock}
+        _kmap_listprefix=../kernel${Variant:+-${Variant}}
+        mkdir -p $_kmap_basedir
+
+        # Build kmap.py arguments; merge with existing data if present
+        _kmap_args="--directory $_kmap_bdir --outputdir $_kmap_basedir --rhel upstream --variant $_kmap_variant --time"
+        _kmap_args="$_kmap_args --vmlinux-rpm %{name}-core-%{KVERREL}.rpm"
+        if [ -f "$_kmap_merged" ]; then
+            _kmap_args="$_kmap_args --input kernel-map.json"
+        fi
+
+        # Add module list files for module-to-RPM mapping
+        for _kmap_type in modules-core modules modules-extra modules-internal; do
+            if [ -f "${_kmap_listprefix}-${_kmap_type}.list" ]; then
+                _kmap_rpm=%{name}-${_kmap_type}-%{KVERREL}.rpm
+                _kmap_args="$_kmap_args --module-list ${_kmap_rpm}:${_kmap_listprefix}-${_kmap_type}.list"
+            fi
+        done
+%if 0%{!?fedora:1}
+        if [ -f "${_kmap_listprefix}-modules-partner.list" ]; then
+            _kmap_rpm=%{name}-modules-partner-%{KVERREL}.rpm
+            _kmap_args="$_kmap_args --module-list ${_kmap_rpm}:${_kmap_listprefix}-modules-partner.list"
+        fi
+%endif
+
+        python3 %{SOURCE2100} $_kmap_args
+    fi
+%endif
+
     remove_depmod_files()
     {
         # remove files that will be auto generated by depmod at rpm -i time
@@ -4091,6 +4159,14 @@ find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/
 popd
 %endif
 
+%if %{with_kmap} && %{with_base}
+# Install kmap data files produced during %build.
+_kmap_basedir=%{_builddir}/kmap-data
+_kmap_destbase=$RPM_BUILD_ROOT%{_datadir}/%{name}-kmap-internal
+mkdir -p $_kmap_destbase
+install -m 644 $_kmap_basedir/kernel-map.json $_kmap_destbase/kernel-map-%{KVERREL}.json
+%endif
+
 ###
 ### clean
 ###
@@ -4649,6 +4725,13 @@ fi\
 %{_libexecdir}/kselftests
 %endif
 
+%if %{with_kmap} && %{with_base}
+%files -n %{name}-kmap-internal
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}-kmap-internal
+%{_datadir}/%{name}-kmap-internal/kernel-map-%{KVERREL}.json
+%endif
+
 # empty meta-package
 %if %{with_stock_base}
 %ifnarch %nobuildarches noarch
@@ -4859,9 +4942,17 @@ fi\
 #
 #
 %changelog
-* Thu Jul 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.23]
+* Sat Jul 11 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc2.260711gdd3210c47e8d.24]
+- redhat: move ynltool debuginfo to kernel-tools-debuginfo (Augusto Caringi)
+
+* Sat Jul 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.dd3210c47e8d.24]
 - redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Sat Jul 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.dd3210c47e8d.23]
+- Turn on CONFIG_REGMAP for RHEL s390x pending for mismatch (Justin M. Forbes)
+- redhat: add kmap.py tool and kernel-kmap-internal package (Rado Vrbovsky)
+- Linux v7.2.0-0.rc2.dd3210c47e8d
 
 * Thu Jul 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.22]
 - uki-virt: Add fdisk to the initramfs to make systemd-repart functional (Vitaly Kuznetsov)

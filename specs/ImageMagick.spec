@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -24,8 +24,8 @@ Summary:        An X application for displaying and manipulating images
 %global libcxxsover 5
 License:        ImageMagick
 URL:            https://imagemagick.org/
-Source0:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz
-Source1:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz.asc
+Source0:        https://download.imagemagick.org/archive/%{name}-%{VER}-%{Patchlevel}.tar.xz
+Source1:        https://download.imagemagick.org/archive/%{name}-%{VER}-%{Patchlevel}.tar.xz.asc
 Source2:        ImageMagick.keyring
 
 BuildRequires:  pkgconfig(bzip2)
@@ -423,6 +423,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Sat Jul 11 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.23-2
+- Update source URL address
+
 * Thu Jun 04 2026 Packit <hello@packit.dev> - 1:7.1.2.23-1
 - Update to version 7.1.2.23
 - Resolves: rhbz#2441780

@@ -1,7 +1,7 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.16.0
+Version:	2.17.0
 Release:	%autorelease
 Summary:	A high-level Python Screen Scraping framework
 License:	BSD-3-Clause

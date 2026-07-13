@@ -6,15 +6,17 @@ Version:        3.2
 Release:        %autorelease
 Summary:        Argument parser for modern C++
 
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
-
 License:        MIT
+# BSL-1.0: portions of test/doctest.hpp
+SourceLicense:  MIT AND BSL-1.0
 URL:            https://github.com/p-ranav/argparse
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+
 BuildRequires:  gcc-c++
 
 %description
@@ -31,7 +33,7 @@ Argparse is an argument parser for C++17 in a single header file.
 %prep
 %autosetup
 
-%conf
+%conf -p
 # Install into the noarch directory
 # https://github.com/p-ranav/argparse/pull/323
 sed -i 's/CMAKE_INSTALL_LIBDIR/CMAKE_INSTALL_DATADIR/' CMakeLists.txt
@@ -40,13 +42,6 @@ sed -i 's/CMAKE_INSTALL_LIBDIR/CMAKE_INSTALL_DATADIR/' CMakeLists.txt
 sed -i.orig 's/\r//' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
-
-%build
-%cmake
-%cmake_build
-
-%install
-%cmake_install
 
 %check
 %{_vpath_builddir}/test/tests

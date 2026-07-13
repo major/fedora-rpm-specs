@@ -1,5 +1,4 @@
-# Not packaged: python-pyjwt
-%bcond pyjwt 0
+%bcond pyjwt 1
 # Not packaged: python-pyu2f
 %bcond reauth 0
 # Since grpc is a challenging package, it’s helpful to maintain the ability to
@@ -9,21 +8,22 @@
 %bcond grpcio 0
 %bcond tests 0
 %else
-%bcond grpcio 1
-%bcond tests 1
+# needs grpcio >= 1.75.1 and Fedora has only 1.48.4
+%bcond grpcio 0
+%bcond tests 0
 %endif
 
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.47.0
-Release:        3%{?dist}
+Version:        2.55.2
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
 
 License:        Apache-2.0
-URL:            https://github.com/googleapis/google-auth-library-python
-Source:         %{url}/archive/v%{version}/google-auth-library-python-%{version}.tar.gz
+URL:            https://github.com/googleapis/google-cloud-python/tree/main/packages/google-auth
+Source:         %{pypi_source google_auth}
 
 BuildArch:      noarch
 
@@ -68,7 +68,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n google-auth-library-python-%{version}
+%autosetup -p1 -n google_auth-%{version}
 
 # use unittest.mock instead of mock
 # https://github.com/googleapis/google-auth-library-python/issues/1055
@@ -79,7 +79,7 @@ Summary:       %{summary}
 # https://github.com/googleapis/google-auth-library-python/pull/1361, but these
 # are out of date and upstream has failed to act for months, so we use a more
 # “dynamic” sed-patch to avoid constant rebasing
-find tests* system_tests -type f -name '*.py' -exec \
+find tests* -type f -name '*.py' -exec \
     sed -r -i -e 's/^(from )(mock)\b/\1unittest\.\2/' \
         -e 's/^(import mock)/from unittest \1/' '{}' '+'
 sed -r -i 's/^([[:blank:]]*)("mock",)$/\1# \2/' setup.py
@@ -113,6 +113,9 @@ sed -r -i 's/^([[:blank:]]*"cryptography) >= [^"]+(",)$/\1\2/' setup.py
   -x aiohttp \
   -x enterprise_cert \
   -x pyopenssl \
+%if %{with grpcio}
+  -x grpc \
+%endif
 %if %{with pyjwt}
   -x pyjwt \
 %endif
@@ -207,6 +210,11 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Fri Jul 10 2026 Miroslav Suchy <msuchy@redhat.com> - 1:2.55.2-4
+- enable jwt subpackage
+- rebase to 2.55.2
+- upstream moved to new URL
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1:2.47.0-3
 - Rebuilt for Python 3.15
 

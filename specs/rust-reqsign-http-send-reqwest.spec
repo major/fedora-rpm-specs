@@ -5,7 +5,7 @@
 %global crate reqsign-http-send-reqwest
 
 Name:           rust-reqsign-http-send-reqwest
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Reqwest-based HTTP client implementation for reqsign
 

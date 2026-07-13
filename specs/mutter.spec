@@ -25,6 +25,14 @@ License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
+# Fix crashes in gnome-remote-desktop
+# https://gitlab.gnome.org/GNOME/mutter/-/work_items/4907
+# Two separate fixes are needed
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5143
+Patch:         5143.patch
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5169
+Patch:         5169.patch
+
 %gnome_check_version
 
 BuildRequires: cvt

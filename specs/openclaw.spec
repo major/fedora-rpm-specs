@@ -171,6 +171,28 @@ dos2unix node_modules_prod/node-edge-tts/bin.js
 # Make sure skills/skill-creator/license.txt is noticed
 cp -p skills/skill-creator/license.txt license.skills.skills-creator.txt
 
+# Remove wasm
+rm node_modules_prod/@mariozechner/pi-coding-agent/examples/extensions/doom-overlay/doom/build/doom.wasm
+rm node_modules_prod/@silvia-odwyer/photon-node/photon_rs_bg.wasm
+rm node_modules_prod/pdfjs-dist/wasm/jbig2.wasm
+rm node_modules_prod/pdfjs-dist/wasm/openjpeg.wasm
+rm node_modules_prod/pdfjs-dist/wasm/qcms_bg.wasm
+rm node_modules_prod/pdfjs-dist/wasm/quickjs-eval.wasm
+rm node_modules_prod/quickjs-wasi/quickjs.wasm
+rm node_modules_prod/tree-sitter-bash/tree-sitter-bash.wasm
+rm node_modules_prod/web-tree-sitter/debug/web-tree-sitter.wasm
+rm node_modules_prod/web-tree-sitter/web-tree-sitter.wasm
+
+# Remove some windows file
+rm node_modules_prod/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node
+
+# Make sure we removed all the binary files
+# bin_files=`find node_modules* -type f -exec file {} + | grep -E 'ELF|Mach-O|PE32|WebAssembly'`
+# num=`echo $bin_files | wc | awk '{ print $2 }'`
+# if [ $num != 0 ]; then
+#    find node_modules* -type f -exec file {} + | grep -E 'ELF|Mach-O|PE32|WebAssembly'
+# fi
+
 %build
 #nothing to do
 

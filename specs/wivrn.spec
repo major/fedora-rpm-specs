@@ -33,60 +33,7 @@ License:        %{shrink:
     AND Unlicense
     AND Zlib
 }
-# CECILL-C
-# _deps/monado-src/src/external/imgui/imgui/imconfig.h
-# CC0-1.0 AND Apache-2.0
-# _deps/monado-src/src/external/glad/*
-# Unlicense
-# _deps/monado-src/src/external/imgui/imgui/backends/imgui_impl_opengl3_loader.h
-# Apache-2.0
-# _deps/monado-src/gradle*
-# _deps/monado-src/src/external/{flexkalman,glad,mermaid,nvpro_pyramid,openxr_includes}/*
-# _deps/monado-src/src/xrt/auxiliary/math/m_quatexpmap.cpp
-# gradle*
-# resources/values/ic_wivrn_launcher_background.xml
-# Apache-2.0 OR MIT
-# _deps/monado-src/doc/doxygen-awesome-css/doxygen-awesome-*
-# BSD-2-Clause
-# _deps/monado-src/cmake/FindEigen3.cmake
-# _deps/monado-src/src/external/hungarian/*
-# _deps/monado-src/src/external/tracy/{client,common}/*
-# _deps/monado-src/cmake/{FindEGL.cmake,FindSystemd.cmake,OptionWithDeps.cmake}
-# _deps/monado-src/src/external/openvr_includes/*
-# _deps/monado-src/src/external/tinyceres/*
-# _deps/monado-src/src/external/tracy/libbacktrace/*
-# _deps/monado-src/src/xrt/drivers/north_star/distortion_3d/*
-# _deps/monado-src/src/xrt/tracking/hand/mercury/kine_lm/lm_rotations_ceres.inl
-# BSD-3-Clause AND BSL-1.0
-# _deps/monado-src/src/xrt/targets/steamvr_drv/*
-# BSL-1.0
-# _deps/monado-src/{CMakeLists.txt,CompilerFlags.cmake,build.gradel}
-# _deps/monado-src/cmake/{CleanDirectoryList.cmake,FindHIDAPI.cmake,FindLeapV2.cmake,FindLibcheck.cmake,FindLibusb1.cmake,FindONNXRuntime.cmake,FindOpenGLES.cmake,FindOpenHMD.cmake,FindPercetto.cmake,Findbluetooth.cmake,FindcJSON.cmake,Findudev.cmake,GenerateKhrManifest.cmake,GenerateKhrManifestInternals.cmake.in,GenerateOpenXRRuntimeManifest.cmake,GenerateVulkanApiLayerManifest.cmake,GetGitRevisionDescription.cmake,GetGitRevisionDescription.cmake.in,PrefixListGlob.cmake,ProgramFilesGlob.cmake,SPIR-V.cmake,openxr_manifest.in.json.license}
-# _deps/monado-src/src/external/{Catch2,android-jni-wrap,flexkalman,imgui,nvpro_pyramid,openxr_includes,solarxr,util-headers,vit_includes}
-# _deps/monado-src/src/xrt/auxiliary/{android,bindings,d3d,gsteamer,math,ogl,os,tracking,util,vive,vk}/*
-# _deps/monado-src/src/xrt/compositor/*
-# _deps/monado-src/src/xrt/drivers/{android,arduino,daydream,depthai,euroc,hdk,ht,ht_ctrl_emu,hydra,illixr,multi_wrapper,north_star,ohmd,opengloves,psmv,qwerty,realsense,remote,rift_s,rokid,sample,simula,simulated,solarxr,steamvr_lh,survive,twrap,ultraleap_v2,v4l2,vf,vive,wmr,xreal_air}/*
-# _deps/monado-src/src/xrt/include/tracking/t_hand_tracking.h
-# _deps/monado-src/src/xrt/include/xrt/*
-# _deps/monado-src/src/xrt/{ipc,state_trackers,targets,tracking}/*
-# _deps/monado-src/tests/*
-# server/{main.cpp,start_application.cpp,target_instance_wivrn.cpp}
-# BSL-1.0 AND CC0-1.0
-# _deps/monado-src/{doc,scripts}/*
-# GPL-2.0-or-later
-# tools/wireshark/dissector.cpp
-# GPL-3.0-or-later
-# {client,common,dashboard,server}/*
-# MIT-Khronos-old
-# _deps/monado-src/src/external/glad/include/KHR/khrplatform.h
-# MIT
-# _deps/monado-src/cmake/sanitizers/{FindASan.cmake,FindMSan.cmake,FindSanitizers.cmake,FindTSan.cmake,FindUBSan.cmake,asan-wrapper,sanitize-helpers.cmake}
-# _deps/monado-src/doc/doxygen-awesome-css/*
-# _deps/monado-src/src/external/{cjson,imgui,jnipp,mermaid,renderdoc_api,solarxr,stb,tracy,valve-file-vdf}/*
-# _deps/monado-src/src/xrt/targets/android_common/src/main/res/raw/*
-# external/{magic_enum.hpp,magic_enum_containers.hpp,vk_mem_alloc.h}
-# Zlib
-# _deps/monado-src/src/external/nanopb/*
+# For a per-file license breakdown see LicenseBreakdown.
 URL:            %{forgeurl0}
 Source0:        %{forgesource0}
 # License: GPL-3.0-or-later
@@ -261,7 +208,7 @@ popd
   -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
   -DGIT_DESC=v%{version} \
   -DGIT_COMMIT=v%{version} \
-  -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime \
+  -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime:/opt/xrizer:/opt/opencomposite \
   -DWIVRN_BUILD_CLIENT=OFF \
   -DWIVRN_BUILD_DASHBOARD=ON \
   -DWIVRN_BUILD_DISSECTOR=OFF \
@@ -290,6 +237,10 @@ popd
 install -m 0755 -vd %{buildroot}%{_sysconfdir}/ld.so.conf.d
 echo "%{_libdir}/%{name}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
+# Import the WiVRn OpenXR runtime into Steam's pressure-vessel container
+install -m 0755 -vd %{buildroot}%{_environmentdir}
+echo "PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1" > %{buildroot}%{_environmentdir}/%{name}.conf
+
 %find_lang %{name}-dashboard
 
 %check
@@ -312,6 +263,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_prefix}/lib/firewalld/services/wivrn.xml
 %{_metainfodir}/io.github.wivrn.wivrn.metainfo.xml
 %{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%{_environmentdir}/%{name}.conf
 
 %files -n %{name}-dashboard
 %{_bindir}/wivrn-dashboard

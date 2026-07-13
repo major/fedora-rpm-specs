@@ -1,7 +1,7 @@
 Summary: DWARF optimization and duplicate removal tool
 Name: dwz
-Version: 0.16
-Release: 3%{?dist}
+Version: 0.17
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND LGPL-2.0-or-later
 URL: https://sourceware.org/dwz/
 Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
@@ -40,6 +40,9 @@ CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check
 %{_mandir}/man1/dwz.1*
 
 %changelog
+* Sat Jul 11 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.17-1
+- Update to upstream dwz 0.17
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

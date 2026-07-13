@@ -1,27 +1,26 @@
-%global _legacy_common_support 1
 #global rcVer 1
+# git archive --format=tar --prefix=openocd-0.12.0/ cb52502 | xz > openocd-0.12.0-cb52502.tar.xz
+%global snapshot cb52502
 
 Name:       openocd
 Version:    0.12.0
-Release:    3%{?rcVer:.rc%{rcVer}}%{?dist}.7
+Release:    4%{?rcVer:.rc%{rcVer}}%{?snapshot:.git%{snapshot}}%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:    GPL-2.0-only
+License:    GPL-2.0-or-later
 URL:        https://sourceforge.net/projects/openocd
-Source0:    https://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
-Patch0:     0001-openocd-revert-workarounds-for-expr-syntax-change.patch
-Patch1:     0003-jtag-vdebug-fix-endianness-support.patch
-Patch2:     0004-openocd-fix-build-with-jimtcl-0.83.patch
+#Source0:    https://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
+Source0:    %{name}-%{version}-%{snapshot}.tar.xz
 
-
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
 BuildRequires: capstone-devel
 BuildRequires: chrpath
 BuildRequires: gcc
 BuildRequires: hidapi-devel
 BuildRequires: jimtcl-devel
-# Only used for gpio bitbang driver
-# BuildRequires: libgpiod-devel
+BuildRequires: libgpiod-devel
 BuildRequires: libjaylink-devel
 BuildRequires: libftdi-devel
 BuildRequires: libusbx-devel
@@ -40,14 +39,12 @@ debugging.
 %prep
 %autosetup -n %{name}-%{version}%{?rcVer:-rc%{rcVer}} -p1
 rm -rf jimtcl
+sed -i '/jimtcl/d' Makefile.am
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 sed -i 's/MODE=.*/TAG+="uaccess"/' contrib/60-openocd.rules
 
 %build
-pushd src/jtag/drivers/OpenULINK
-make PREFIX=sdcc hex
-popd
-
+autoreconf -vif
 %configure \
   --disable-werror \
   --enable-static \
@@ -56,7 +53,7 @@ popd
   --enable-ftdi \
   --enable-stlink \
   --enable-ti-icdi \
-  --enable-ulink \
+  --disable-ulink \
   --enable-usb-blaster-2 \
   --enable-ft232r \
   --enable-vsllink \
@@ -79,10 +76,8 @@ popd
   --enable-jtag_vpi \
   --enable-jtag_dpi \
   --enable-ioutil \
-  --enable-amtjtagaccel \
   --enable-ep39xx \
   --enable-at91rm9200 \
-  --enable-gw16012 \
   --enable-oocd_trace \
   --enable-buspirate \
   --enable-sysfsgpio \
@@ -106,9 +101,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %files
 %license COPYING
-%doc AUTHORS NEWS* NEWTAPS README TODO
+%doc AUTHORS NEWTAPS README.md
 %{_datadir}/%{name}/scripts
-%{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
+%{_datadir}/%{name}/angie/
 %{_bindir}/%{name}
 %{_prefix}/lib/udev/rules.d/60-openocd.rules
 # doc
@@ -116,6 +111,10 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> 0.12.0-4
+- Update to upstream git snapshot
+- Drop deprecated options
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

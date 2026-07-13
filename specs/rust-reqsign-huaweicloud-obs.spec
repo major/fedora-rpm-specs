@@ -5,7 +5,7 @@
 %global crate reqsign-huaweicloud-obs
 
 Name:           rust-reqsign-huaweicloud-obs
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Huawei Cloud OBS signing implementation for reqsign
 

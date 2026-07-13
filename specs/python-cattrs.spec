@@ -8,7 +8,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cattrs
-Version:        25.3.0%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
+Version:        26.1.0%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        Python library for structuring and unstructuring data
 
@@ -21,7 +21,7 @@ Source:         %{url}/archive/v%{version}/cattrs-%{version}.tar.gz
 %global srcversion %{version}
 %else
 Source:         %{url}/archive/%{commit}/cattrs-%{commit}.tar.gz
-%global srcversion %(echo %{version} | cut -d '^' -f 1)
+%global srcversion %(echo %{version} | cut --delimiter='^' --fields=1)
 %endif
 
 # Downstream: temporarily loosen version bounds on some test dependencies
@@ -32,10 +32,7 @@ Patch:          0001-Downstream-temporarily-loosen-version-bounds-on-some.patch
 # with no compiled code.
 %global debug_package %{nil}
 
-BuildRequires:  python3-devel
-BuildRequires:  tomcli
-
-%global msgspec_enabled 0
+%dnl msgspec_enabled should be defined to 1 or undefined, never defined to 0
 %if %{with msgspec}
 %ifnarch s390x %{ix86}
 %global msgspec_enabled 1
@@ -63,14 +60,14 @@ Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
 
 
 # Most extras metapackages are noarch:
-%pyproject_extras_subpkg -n python3-cattrs -a ujson pyyaml tomlkit
+%pyproject_extras_subpkg -n python3-cattrs -a ujson pyyaml tomlkit tomllib
 %if %{with bson}
 %pyproject_extras_subpkg -n python3-cattrs -a bson
 %endif
 %if %{with cbor2}
 %pyproject_extras_subpkg -n python3-cattrs -a cbor2
 %endif
-%if %{msgspec_enabled}
+%if %{defined msgspec_enabled}
 # python-msgspec is ExcludeArch: s390x i686; the extras metapackage is arched
 # because it is not present on every architecture
 %pyproject_extras_subpkg -n python3-cattrs msgspec
@@ -84,42 +81,33 @@ Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
 
 
 %prep
-%autosetup -n cattrs-%{?!commit:%{version}}%{?commit:%{commit}}
+%autosetup -C
 
 # Don’t run benchmarks when testing
-tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
-    'pytest-benchmark\b.*'
-sed -r -i 's/ --benchmark[^[:blank:]"]*//g' pyproject.toml
+%pyproject_patch_dependency pytest-benchmark:ignore
+sed --regexp-extended --in-place \
+    's/ --benchmark[^[:blank:]"]*//g' pyproject.toml
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
-    'coverage\b.*'
+%pyproject_patch_dependency coverage:ignore
 
 # Remove bundled fonts to show they are not packaged:
-rm -rv docs/_static/fonts/
+rm --recursive --verbose docs/_static/fonts/
 
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
-%{pyproject_buildrequires \
-    -x ujson \
-%if %{with orjson}
-    -x orjson \
-%endif
-%if %{with msgpack}
-    -x msgpack \
-%endif
-    -x pyyaml \
-    -x tomlkit \
-%if %{with cbor2}
-    -x cbor2 \
-%endif
-%if %{with bson}
-    -x bson \
-%endif
-%if %{msgspec_enabled}
-    -x msgspec \
-%endif
-    -g test}
+%{pyproject_buildrequires %{shrink:
+    --extras ujson
+    %{?with_orjson:--extras orjson}
+    %{?with_msgpack:--extras msgpack}
+    --extras pyyaml
+    --extras tomlkit
+    %{?with_cbor2:--extras cbor2}
+    %{?with_bson:--extras bson}
+    %{?msgspec_enabled:--extras msgspec}
+    --extras tomllib
+    --dependency-groups test
+    }}
 
 
 %build
@@ -129,18 +117,18 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
 
 %install
 %pyproject_install
-%pyproject_save_files -l cattrs cattr
+%pyproject_save_files --assert-license cattrs cattr
 
 
 %check
-%if %{without bson} || %{without cbor2}
-# These unconditionally import bson and cbor2, so they error during test
-# collection
+%if %{without bson} || %{without cbor2} || %{without msgpack}
+# These unconditionally import bson, cbor2, and msgpack, so they error during
+# test collection
 ignore="${ignore-} --ignore=tests/test_preconf.py"
 ignore="${ignore-} --ignore=tests/preconf/test_pyyaml.py"
 %endif
 
-%if !%{msgspec_enabled}
+%if %{undefined msgspec_enabled}
 k="${k-}${k+ and }not test_literal_dicts_msgspec"
 k="${k-}${k+ and }not test_msgspec_efficient_enum"
 k="${k-}${k+ and }not test_msgspec_json_converter"
@@ -151,7 +139,17 @@ k="${k-}${k+ and }not test_msgspec_native_enums"
 ignore="${ignore-} --ignore=tests/preconf/test_msgspec_cpython.py"
 %endif
 
-%pytest --ignore-glob='bench/*' ${ignore-} -k "${k-}" -n auto
+%if %{without orjson}
+k="${k-}${k+ and }not test_literal_dicts_orjson"
+k="${k-}${k+ and }not test_orjson"
+k="${k-}${k+ and }not test_orjson_converter"
+k="${k-}${k+ and }not test_orjson_converter_unstruct_collection_overrides"
+k="${k-}${k+ and }not test_orjson_efficient_enum"
+k="${k-}${k+ and }not test_orjson_native_enums"
+k="${k-}${k+ and }not test_orjson_unions"
+%endif
+
+%pytest --ignore-glob='bench/*' ${ignore-} -k "${k-}" --numprocesses=auto
 
 
 %files -n python3-cattrs -f %{pyproject_files}
