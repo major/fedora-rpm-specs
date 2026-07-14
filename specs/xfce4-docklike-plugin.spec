@@ -1,14 +1,14 @@
 %global majorversion 0.4
-%global xfceversion 4.18
+%global xfceversion 4.20
 
 Name:		xfce4-docklike-plugin
-Version:	0.4.3
+Version:	0.5.1
 Release:	%autorelease
 Summary:	A modern, minimalist taskbar for Xfce
 
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND FSFUL
 URL:		https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin
-Source0:	http://archive.xfce.org/src/panel-plugins/%{name}/%{majorversion}/%{name}-%{version}.tar.bz2
+Source0:	https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin/-/archive/xfce4-docklike-plugin-%{version}/xfce4-docklike-plugin-xfce4-docklike-plugin-%{version}.tar.bz2
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc-c++
@@ -18,8 +18,9 @@ BuildRequires:	libxfce4windowing-devel
 BuildRequires:	libwnck3-devel
 BuildRequires:	libxfce4ui-devel >= %{xfceversion}
 BuildRequires:	libX11-devel
-BuildRequires:	make
+BuildRequires:	meson
 BuildRequires:	xfce4-panel-devel >= %{xfceversion}
+BuildRequires:	gtk-layer-shell-devel
 
 %description
 Docklike Taskbar behaves similarly to many other desktop environments and
@@ -28,17 +29,17 @@ an icon and can be pinned to act as a launcher when the application is not
 running. Commonly referred to as a dock.
 
 %prep
-%autosetup
+%autosetup -n xfce4-docklike-plugin-xfce4-docklike-plugin-%{version}
 
 # remove empty files
 rm -f ChangeLog README
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name}
 

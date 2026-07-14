@@ -5,13 +5,17 @@ Version:        0.1.2
 Release:        %{autorelease}
 Summary:        Vasculature API
 
-%global forgeurl https://github.com/BlueBrain/%{pypi_name}
+%global forgeurl https://github.com/openbraininstitute/%{pypi_name}
 %global tag v%{version}
 %forgemeta
 
 License:        Apache-2.0
 URL:            %forgeurl
 Source:         %forgesource
+
+# Support Pandas version 3
+# https://github.com/openbraininstitute/vascpy/pull/2
+Patch:          %{url}/pull/2.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -45,11 +49,6 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
-
-# `python-igraph` has been renamed to just `igraph`
-# https://pypi.org/project/python-igraph/
-# https://pypi.org/project/igraph/
-sed -i 's/python-igraph/igraph/' setup.py
 
 
 %generate_buildrequires

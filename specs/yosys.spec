@@ -1,10 +1,10 @@
-%global commit0 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51
+%global commit0 b88b73a99a9db67030a952e00f2f111d00cb6013
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20260601
+%global snapdate 20260709
 
 Name:           yosys
-Version:        0.66
+Version:        0.67
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -14,33 +14,25 @@ Source0:        https://github.com/YosysHQ/%{name}/archive/%{commit0}/%{name}-%{
 Source1:        https://github.com/mdaines/viz.js/releases/download/0.0.3/viz.js
 
 # man pages written for Debian:
-Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.52-2.debian.tar.xz
+Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.65-1.debian.tar.xz
 # requested that upstream include those man pages:
 #   https://github.com/YosysHQ/yosys/issues/278
 
 # Fedora-specific patch:
-# Change the substitution done when making yosys-config so that it outputs
-# CXXFLAGS with -I/usr/include/yosys
-Patch1:         0001-fedora-yosys-cfginc-patch.patch
+# Support for pre-packaged dependencies:
+Patch1:         0001-CMake-Support-for-pre-packaged-dependencies.patch
 
-# Fedora-specific patch:
-# When invoking yosys-config for examples in "make docs", need to use
-# relative path for includes, as they're not installed in build host
-# filesystem.
-Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 
-# Fedora-specific patch:
-# Use relative path (instead of assuming a bundled submodule) when
-# referencing the cxxopts.hpp include file.
-Patch3:         0003-fedora-yosys-cxxopts-patch.patch
-
-BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.65
+BuildRequires:  editline-devel
+BuildRequires:  yosyshq-abc >= 0.67
 BuildRequires:  iverilog >= 12.0
+BuildRequires:  fmt-devel
+BuildRequires:  tomlplusplus-devel
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
 BuildRequires:  txt2man
@@ -65,7 +57,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.65
+Requires:       yosyshq-abc >= 0.67
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -120,17 +112,22 @@ do
 done
 
 %build
-make config-gcc
-%make_build PREFIX="%{_prefix}" ABCEXTERNAL=%{_bindir}/abc PRETTY=0 all
+%cmake -DYOSYS_ABC_EXECUTABLE=%{_bindir}/abc \
+       -DYOSYS_WITH_PKG_DEPS=ON \
+       -DYOSYS_WITHOUT_SLANG=ON
+%cmake_build
 #manual
-make ABCEXTERNAL=%{_bindir}/abc DOC_TARGET=latexpdf SPHINXOPTS='' docs
+# For some reason, `yosys-sbtbmc` & `yosys-witness` python scripts
+# end up not being executable (which causes building the manual to fail):
+chmod +x %{__cmake_builddir}/%{name}*
+%cmake_build -t docs-latexpdf
 
 date=$(stat -c %y debian/man/yosys-smtbmc.txt | cut -d' ' -f1)
 txt2man -d $date -t YOSYS-SMTBMC debian/man/yosys-smtbmc.txt >yosys-smtbmc.1
 
 
 %install
-%make_install PREFIX="%{_prefix}" ABCEXTERNAL=%{_bindir}/abc STRIP=/bin/true
+%cmake_install
 
 # move include files to includedir
 install -d -m0755 %{buildroot}%{_includedir}
@@ -147,7 +144,7 @@ install -m 0644 docs/build/latex/yosyshqyosys.pdf %{buildroot}%{_docdir}/%{name}
 %py_byte_compile %{python3} %{buildroot}%{_datadir}/yosys/python3
 
 %check
-make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
+%cmake_build -t test
 
 
 %files
@@ -176,6 +173,10 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Thu Jul 09 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.67.1.20260709gitb88b73a
+- update to 0.67 snapshot
+- switch build to cmake
+
 * Mon Jun 01 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.66.1.20260601git86f2dde
 - update to 0.66 snapshot
 

@@ -1,47 +1,31 @@
-%global pypi_name trx-python
-
-Name:           python-%{pypi_name}
-Version:        0.3
+Name:           python-trx-python
+Version:        0.4.0
 Release:        %{autorelease}
-Summary:        Experiments with new file format for tractography
+Summary:        Community-oriented file format for tractography
 
-%global forgeurl https://github.com/tee-ar-ex/trx-python
-%global tag %{version}
-%forgemeta
-
-# Test datasets (additional source files) are licensed CC-BY-4.0
 License:        BSD-2-Clause
-URL:            %forgeurl
-Source0:        %forgesource
-# Test files
-# Test suite tries to download them, but will only do a checksum check
-# if they already exist.
-# Source URLs and file version and their md5sum are listed in
-# https://github.com/tee-ar-ex/trx-python/blob/master/trx/fetcher.py
-#
+# Test datasets (additional source files) are licensed CC-BY-4.0
+SourceLicense:  %{license} AND CC-BY-4.0
+URL:            https://github.com/tee-ar-ex/trx-python
+Source0:        %{url}/archive/%{version}/trx-python-%{version}.tar.gz
+# Test files defined in trx/fetcher.py
+# All are (per their respective entries on figshare.com) CC-BY-4.0
+%global test_data_repo tee-ar-ex/trx-test-data
+%global test_data_tag v0.1.0
+%global test_data_base_url https://github.com/%{test_data_repo}/releases/download/%{test_data_tag}
 # https://figshare.com/articles/dataset/DSI/20001554/1?file=37624154
-# CC-BY-4.0
-Source1:        https://figshare.com/ndownloader/files/37624154#/DSI.zip
+Source1:        %{test_data_base_url}/DSI.zip
 # https://figshare.com/articles/dataset/memmap_test_data_zip/20020460
-# CC-BY-4.0
-Source2:        https://figshare.com/ndownloader/files/37624148#/memmap_test_data.zip
+Source2:        %{test_data_base_url}/memmap_test_data.zip
 # https://figshare.com/articles/dataset/trx_from_scratch_zip/20020412
-# CC-BY-4.0
-Source3:        https://figshare.com/ndownloader/files/37624151#/trx_from_scratch.zip
+Source3:        %{test_data_base_url}/trx_from_scratch.zip
 # https://figshare.com/articles/dataset/gold_standard_zip/21520557
-# CC-BY-4.0
-Source4:        https://figshare.com/ndownloader/files/38146098#/gold_standard.zip
-# Fix setuptools_scm listed as install requirement
-# https://github.com/tee-ar-ex/trx-python/pull/75
-Patch:          %{forgeurl}/pull/75.patch
+Source4:        %{test_data_base_url}/gold_standard.zip
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-# For tests
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist psutil}
-# For man pages
-BuildRequires:  help2man
+
+# This would enable more tests, but it was orphaned and retired.
+# BuildRequires:  %%{py3_dist dipy}
 
 %global _description %{expand:
 This is a Python implementation of the trx file-format for tractography
@@ -53,78 +37,56 @@ https://tee-ar-ex.github.io/trx-python/.}
 %description %_description
 
 
-%package -n python3-%{pypi_name}
+%package -n python3-trx-python
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-trx-python %_description
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -C -p1
 
-# Install test files
-install -p -m 644 -D -t tests %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4}
-
-# Remove .py extension from executables
-for SCRIPT in $(ls scripts/tff_*.py); do
-  mv ${SCRIPT} ${SCRIPT//.py/}
-done
-# Fix glob in setup.py
-sed -r -i 's|(scripts/)\*\.py|\1tff_*|' setup.py
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency pytest-cov:ignore
 
 
 %generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+%pyproject_buildrequires --extras test
 
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files -l trx
-
-# Don't ship the tests
-rm -rf %{buildroot}%{python3_sitelib}/trx/tests
-sed -i '/tests/d' %{pyproject_files}
-
-# Create man pages from --help and --version
-mkdir man
-mkdir -p %{buildroot}%{_mandir}/man1
-for BIN in $(ls scripts/tff_*); do
-    echo "Generating man page for ${BIN//*\//}"
-    %{py3_test_envvars} help2man --section 1 --no-discard-stderr \
-    --no-info --output man/${BIN//*\//}.1 ${BIN//*\//}
-    install -m 0644 man/${BIN//*\//}.1 %{buildroot}%{_mandir}/man1
-done
+%pyproject_save_files --assert-license trx
 
 
 %check
-# Tests require network for downloading test data. We can provide those
-# without downloading. Use get_test_files.sh for updating if needed.
-# Set directory for test files
-export TRX_HOME="${PWD}/tests"
-# Exlcude tests that fail consistently on big endian.
-# https://github.com/tee-ar-ex/trx-python/issues/83
-%if "%{_host_cpu}" == "s390x"
-k="${k-}${k+ and }not test_seq_ops_trx"
-k="${k-}${k+ and }not test_concatenate[small.trx]"
-k="${k-}${k+ and }not test_resize[small.trx]"
-k="${k-}${k+ and }not test_append[small.trx-10000]"
-k="${k-}${k+ and }not test_append_Tractogram[small.trx-10000]"
-%endif
-# scripts/tests is for internal testing (GitHub workflow)
-%pytest -v --ignore=scripts/tests ${k+-k "$k"}
-%pyproject_check_import -e trx.tests*
+%pyproject_check_import
+
+export TRX_HOME="${PWD}/_home"
+mkdir --parents "${TRX_HOME}"
+ln '%{SOURCE1}' '%{SOURCE2}' '%{SOURCE3}' '%{SOURCE4}' "${TRX_HOME}"
+%pytest -rs --verbose
 
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.*
-%{_bindir}/tff_*
-%{_mandir}/man1/tff_*.1*
+%files -n python3-trx-python -f %{pyproject_files}
+%doc README.md
+%{_bindir}/trx
+%{_bindir}/trx_concatenate_tractograms
+%{_bindir}/trx_convert_dsi_studio
+%{_bindir}/trx_convert_tractogram
+%{_bindir}/trx_generate_from_scratch
+%{_bindir}/trx_info
+%{_bindir}/trx_manipulate_datatype
+%{_bindir}/trx_simple_compare
+%{_bindir}/trx_validate
+%{_bindir}/trx_verify_header_compatibility
+%{_bindir}/trx_visualize_overlap
 
 
 %changelog

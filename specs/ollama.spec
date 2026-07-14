@@ -47,6 +47,7 @@ Source11:       ollama.sysusers
 Patch1:         0001-ollama-OLLAMA_USE_SYSTEM_LLAMA_CPP.patch
 %else
 Patch1:         0001-ollama-handle-load.patch
+Patch2:         0001-feat-server-make-download-and-upload-parameters-conf.patch
 %endif
 
 BuildRequires:  go-vendor-tools

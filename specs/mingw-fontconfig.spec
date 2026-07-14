@@ -1,39 +1,33 @@
 %{?mingw_package_header}
 
 Name:           mingw-fontconfig
-Version:        2.17.1
-Release:        3%{?dist}
+Version:        2.18.2
+Release:        1%{?dist}
 Summary:        MinGW Windows Fontconfig library
 
 License:        MIT
 URL:            http://fontconfig.org
 Source0:        https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/%{version}/fontconfig-%{version}.tar.bz2
 
-# Allow disabling tests (do not build)
-Patch0:         fontconfig_tests.patch
-
 BuildArch:      noarch
 
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  meson
+BuildRequires:  ninja-build
+BuildRequires:  gperf
+
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-expat
 BuildRequires:  mingw32-freetype
 BuildRequires:  mingw32-win-iconv
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-expat
 BuildRequires:  mingw64-freetype
 BuildRequires:  mingw64-win-iconv
-
-BuildRequires:  gperf
-BuildRequires:  pkgconfig
-BuildRequires:  python3
-
-BuildRequires:  automake autoconf libtool gettext-devel
 
 
 %description
@@ -48,13 +42,6 @@ Requires:       pkgconfig
 %description -n mingw32-fontconfig
 MinGW Windows Fontconfig library.
 
-%package -n mingw32-fontconfig-static
-Summary:       Static version of the cross compiled Fontconfig library
-Requires:      mingw32-fontconfig = %{version}-%{release}
-
-%description -n mingw32-fontconfig-static
-Static version of the cross compiled Fontconfig library.
-
 # Win64
 %package -n mingw64-fontconfig
 Summary:        MinGW Windows Fontconfig library
@@ -63,15 +50,8 @@ Requires:       pkgconfig
 %description -n mingw64-fontconfig
 MinGW Windows Fontconfig library.
 
-%package -n mingw64-fontconfig-static
-Summary:       Static version of the cross compiled Fontconfig library
-Requires:      mingw64-fontconfig = %{version}-%{release}
 
-%description -n mingw64-fontconfig-static
-Static version of the cross compiled Fontconfig library.
-
-
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
@@ -79,15 +59,11 @@ Static version of the cross compiled Fontconfig library.
 
 
 %build
-export MINGW32_CONFIGURE_ARGS="--with-arch=i686"
-export MINGW64_CONFIGURE_ARGS="--with-arch=x86_64"
-autoreconf -ifv
-%mingw_configure --disable-docs --disable-tests --enable-static --enable-shared
-%mingw_make_build
+%mingw_meson
 
 
 %install
-%mingw_make_install
+%mingw_ninja_install
 
 rm -f %{buildroot}/%{mingw32_libdir}/charset.alias
 rm -f %{buildroot}/%{mingw64_libdir}/charset.alias
@@ -95,10 +71,6 @@ rm -f %{buildroot}/%{mingw64_libdir}/charset.alias
 # Remove the .def file
 rm -f %{buildroot}%{mingw32_libdir}/fontconfig.def
 rm -f %{buildroot}%{mingw64_libdir}/fontconfig.def
-
-# Remove .la files
-rm -f %{buildroot}%{mingw32_libdir}/*.la
-rm -f %{buildroot}%{mingw64_libdir}/*.la
 
 # Remove duplicate manpages.
 rm -rf %{buildroot}%{mingw32_mandir}
@@ -115,6 +87,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %{mingw32_bindir}/fc-cache.exe
 %{mingw32_bindir}/fc-cat.exe
 %{mingw32_bindir}/fc-conflist.exe
+%{mingw32_bindir}/fc-genconf.exe
 %{mingw32_bindir}/fc-list.exe
 %{mingw32_bindir}/fc-match.exe
 %{mingw32_bindir}/fc-pattern.exe
@@ -133,15 +106,13 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %{mingw32_datadir}/gettext/its/fontconfig.loc
 %{mingw32_datadir}/xml/fontconfig/
 
-%files -n mingw32-fontconfig-static
-%{mingw32_libdir}/libfontconfig.a
-
 # Win64
 %files -n mingw64-fontconfig
 %license COPYING
 %{mingw64_bindir}/fc-cache.exe
 %{mingw64_bindir}/fc-cat.exe
 %{mingw64_bindir}/fc-conflist.exe
+%{mingw64_bindir}/fc-genconf.exe
 %{mingw64_bindir}/fc-list.exe
 %{mingw64_bindir}/fc-match.exe
 %{mingw64_bindir}/fc-pattern.exe
@@ -160,11 +131,11 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %{mingw64_datadir}/gettext/its/fontconfig.loc
 %{mingw64_datadir}/xml/fontconfig/
 
-%files -n mingw64-fontconfig-static
-%{mingw64_libdir}/libfontconfig.a
-
 
 %changelog
+* Sun Jul 12 2026 Sandro Mani <manisandro@gmail.com> - 2.18.2-1
+- Update to 2.18.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

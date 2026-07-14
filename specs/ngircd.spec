@@ -1,6 +1,6 @@
 Name:           ngircd
-Version:        27
-Release:        8%{?dist}
+Version:        28
+Release:        1%{?dist}
 Summary:        Next Generation IRC Daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ make check
 %{_sysusersdir}/ngircd.conf
 
 %changelog
+* Sun Jul 12 2026 Kevin Fenzi <kevin@scrye.com> - 28-1
+- Update to 28. Fixes rhbz#2499523
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 27-8
 - Rebuilt for openssl 4.0
 

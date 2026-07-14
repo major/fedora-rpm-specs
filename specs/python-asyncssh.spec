@@ -32,8 +32,10 @@ Suggests:       python3-bcrypt
 Suggests:       python3-gssapi
 # for X.509 certificate authentication
 Suggests:       python3-pyOpenSSL
+%if 0%{?epel} == 0
 # for U2F etc. support
 Suggests:       python3-fido2
+%endif
 
 
 %description
@@ -55,6 +57,12 @@ sed -E '/(uvloop|python-pkcs11)/d' tox.ini -i  # not available, tests skipped wh
 # sometimes upstream is too eager to bump this dependency,
 # e.g. due to 'Vulnerable OpenSSL included in cryptography wheels'
 sed "s/cryptography >= [^']\+/cryptography/" pyproject.toml -i
+
+# disable optional fido2 dependency on epel,
+# since it is currently (?) not available on epel/rhel
+%if 0%{?epel} != 0
+sed 's@^ *\(fido2\)@# not available on epel/rhel # \1@' pyproject.toml tox.ini -i
+%endif
 
 
 %generate_buildrequires

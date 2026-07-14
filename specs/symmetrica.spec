@@ -1,41 +1,41 @@
-%global gittag b24da56820651687cafb611809a4b1b0
-
 Name:           symmetrica
 Version:        3.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Collection of Routines for Solving Symmetric Groups
 # Note: they claim it's 'public domain' but then provide this:
 # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/copyright_engl.html
 License:        ISC
-URL:            https://gitlab.com/-/project/16178617
-Source0:        %{url}/uploads/%{gittag}/%{name}-%{version}.tar.xz
+URL:            https://gitlab.com/sagemath/symmetrica
+VCS:            git:%{url}.git
+Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  make
 
-
 %description
-Symmetrica is a collection of routines, written in the programming
-language C, through which the user can readily write his/her own
-programs. Routines which manipulate many types of mathematical objects
-are available.
-
+Symmetrica is a collection of routines, written in the programming language C,
+through which the user can readily write his/her own programs.  Routines which
+manipulate many types of mathematical objects are available.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-
 %prep
-%autosetup -p0
+%autosetup
+
+%conf
+autoreconf -fi
 
 %build
 %configure --disable-static --disable-silent-rules
@@ -49,12 +49,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %make_build
 
-
 %install
 %make_install
-rm %{buildroot}%{_libdir}/*.la
 rm doc/Makefile*
-
 
 %check
 cd src
@@ -62,7 +59,6 @@ make test
 export LD_LIBRARY_PATH=$PWD/.libs
 ./test
 cd -
-
 
 %files
 %doc README.md
@@ -75,8 +71,10 @@ cd -
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
-
 %changelog
+* Sat Jul 11 2026 Jerry James <loganjerry@gmail.com> - 3.1.0-5
+- New project URLs
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

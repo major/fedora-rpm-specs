@@ -15,7 +15,7 @@
 
 Name:           mariadb-connector-c
 Version:        3.4.9
-Release:        1%{?with_debug:.debug}%{?dist}
+Release:        2%{?with_debug:.debug}%{?dist}
 Summary:        MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later AND PHP-3.0 AND PHP-3.01 AND LicenseRef-Fedora-Public-Domain
 Source0:        https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -27,6 +27,10 @@ URL:            https://mariadb.org/
 %if %{with testsuite}
 Patch1:         testsuite.patch
 %endif
+
+# Downstream fix attempt for https://jira.mariadb.org/browse/CONC-821
+# No upstream fix as of 2026-06-28 (checked 3.4 branch and PRs)
+Patch2:         conc-821-fix-bind-result-length.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

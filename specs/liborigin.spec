@@ -3,7 +3,7 @@
 
 Name:           liborigin
 Version:        3.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Library for reading OriginLab OPJ project files
 
@@ -14,9 +14,6 @@ Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-
-Provides:       liborigin2 = 2.0.0-21
-Obsoletes:      liborigin2 < 2.0.0-21
 
 %description
 A library for reading OriginLab OPJ project files.
@@ -70,6 +67,9 @@ The %{name}-doc package contains documentation for %{name}.
 %{_docdir}/%{name}/html/
 
 %changelog
+* Sun Jul 12 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.4-2
+- Remove unneeded Provides/Obsoletes
+
 * Thu Jul 09 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.4-1
 - Update to 3.0.4 (#2498534)
 

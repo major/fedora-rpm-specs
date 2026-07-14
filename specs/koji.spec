@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.36.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -242,6 +242,11 @@ for D in kojihub builder plugins util www vm schemas ; do
     popd
 done
 
+%if 0%{?rhel} >= 10
+# fix shebang's in /usr/sbin on epel since sbin merge hasn't happened
+# there yet and pyproject_install only runs it on bindir
+%py3_shebang_fix %{buildroot}%{_sbindir}/*
+%endif
 %pyproject_install
 
 # handle extra byte compilation
@@ -382,6 +387,9 @@ PYTHONPATH=.:plugins/hub/.:plugins/builder/.:plugins/cli/.:cli/.:www/lib
 %systemd_postun kojira.service
 
 %changelog
+* Sun Jul 12 2026 Kevin Fenzi <kevin@scrye.com> - 1.36.1-2
+- Fix sbindir shebangs on epel10.
+
 * Thu Jul 09 2026 Kevin Fenzi <kevin@scrye.com> - 1.36.1-1
 - Update to 1.36.1.
 

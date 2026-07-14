@@ -208,7 +208,7 @@ popd
   -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
   -DGIT_DESC=v%{version} \
   -DGIT_COMMIT=v%{version} \
-  -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime:/opt/xrizer:/opt/opencomposite \
+  -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime:%{_libdir}/xrizer/runtime:/opt/opencomposite:/opt/xrizer \
   -DWIVRN_BUILD_CLIENT=OFF \
   -DWIVRN_BUILD_DASHBOARD=ON \
   -DWIVRN_BUILD_DISSECTOR=OFF \

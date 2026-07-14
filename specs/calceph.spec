@@ -1,5 +1,5 @@
 Name:           calceph
-Version:        4.0.5
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Astronomical library to access planetary ephemeris files
 

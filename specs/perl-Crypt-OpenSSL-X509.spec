@@ -1,5 +1,5 @@
 Name:           perl-Crypt-OpenSSL-X509
-Version:        2.1.2
+Version:        2.1.3
 Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for X509
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,10 @@ make test
 %{_mandir}/man3/Crypt::OpenSSL::X509.3pm*
 
 %changelog
+* Sun Jul 12 2026 Xavier Bachelot <xavier@bachelot.org> - 2.1.3-1
+- Update to 2.1.3 (RHBZ#2499481)
+  - Fixes CVE-2026-58101 and CVE-2026-58102
+
 * Thu Jun 25 2026 Xavier Bachelot <xavier@bachelot.org> - 2.1.2-1
 - Update to 2.1.2 (RHBZ#2492657)
 

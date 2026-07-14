@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        2.65.2
-Release:        2%{?dist}
+Version:        2.66.0
+Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -45,6 +45,7 @@ BuildRequires:  efl-devel
 %endif
 BuildRequires:  libva-devel
 BuildRequires:  libvdpau-devel
+BuildRequires:  lua-devel
 
 Recommends:     hwdata
 Suggests:       libXrandr
@@ -127,6 +128,10 @@ find src/logo/ascii -type d -empty -delete
 
 
 %changelog
+* Sun Jul 12 2026 Jonathan Wright <jonathan@almalinux.org> - 2.66.0-1
+- update to 2.66.0 rhbz#2498974
+- enable lua support
+
 * Thu Jul 09 2026 Carl George <carlwgeorge@gmail.com> - 2.65.2-2
 - Include all Fedora logos rhbz#2498013
 - Include Fedora derivative logos rhbz#2498476

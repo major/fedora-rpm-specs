@@ -5,7 +5,7 @@
 %global crate handlebars
 
 Name:           rust-handlebars
-Version:        6.4.2
+Version:        6.4.3
 Release:        %autorelease
 Summary:        Handlebars templating implemented in Rust
 
@@ -85,6 +85,18 @@ This package contains library source intended for building other packages which
 use the "no_logging" feature of the "%{crate}" crate.
 
 %files       -n %{name}+no_logging-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+preserve_json_order-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+preserve_json_order-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "preserve_json_order" feature of the "%{crate}" crate.
+
+%files       -n %{name}+preserve_json_order-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+string_helpers-devel

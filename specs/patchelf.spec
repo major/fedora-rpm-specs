@@ -2,7 +2,7 @@
 %undefine _hardened_build
 
 Name:           patchelf
-Version:        0.19.0
+Version:        0.19.1
 Release:        1%{?dist}
 Summary:        A utility for patching ELF binaries
 
@@ -55,6 +55,10 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Sun Jul 12 2026 Jermey Sanders <jeremy@jeremysanders.net> - 0.19.1-1
+- Update to v0.19.1
+- Fixes: rhbz#2497587
+
 * Sun Jun 28 2026 Jeremy Sanders <jeremy@jeremysanders.net> - 0.19.0-1
 - Update to v0.19.0
 - Fixes: rhbz#2493812

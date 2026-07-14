@@ -1,47 +1,48 @@
 Name:           perl-Module-Starter-Plugin-CGIApp
 Version:        0.44
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Template based module starter for CGI apps
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Module-Starter-Plugin-CGIApp
 Source0:        https://cpan.metacpan.org/authors/id/J/JA/JALDHAR/Module-Starter-Plugin-CGIApp-%{version}.tar.gz
 # https://github.com/jaldhar/Module-Starter-Plugin-CGIApp/pull/3
 Patch0:         Module-Starter-Plugin-CGIApp-0.44-starter.patch
+Patch1:         Module-Starter-Plugin-CGIApp-0.44-author.patch
 BuildArch:      noarch
+# build requirements
 buildrequires:  findutils
 buildrequires:  perl-generators
 buildrequires:  perl-interpreter
-BuildRequires:  perl(base)
-BuildRequires:  perl(blib)
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(English)
-BuildRequires:  perl(File::Copy::Recursive)
-BuildRequires:  perl(File::DirCompare)
 BuildRequires:  perl(File::Find)
+BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(English)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(HTML::Template)
-BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Module::Signature)
-BuildRequires:  perl(Module::Starter) >= 1.71
+BuildRequires:  perl(Module::Starter) >= 1.80
 BuildRequires:  perl(Module::Starter::App)
+BuildRequires:  perl(base)
+BuildRequires:  perl(lib)
+# testing requirements
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(File::Copy::Recursive)
+BuildRequires:  perl(File::DirCompare)
 BuildRequires:  perl(Pod::Coverage) >= 0.18
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::MockTime)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
-BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::WWW::Mechanize::CGIApp)
 BuildRequires:  perl(Time::Piece)
-BuildRequires:  perl(Titanium)
+BuildRequires:  perl(blib)
 BuildRequires:  perl(vars)
-BuildRequires:  perl(warnings)
-Requires:       perl(Module::Starter) >= 1.71
+Requires:       perl(Module::Starter) >= 1.80
 
 %{?perl_default_filter}
 # Remove under-specified dependencies:
@@ -55,17 +56,17 @@ CPAN. You can customize the output using HTML::Template.
 %prep
 %setup -q -n Module-Starter-Plugin-CGIApp-%{version}
 %patch -P0 -p1
-
+%patch -P1 -p1
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir $RPM_BUILD_ROOT  create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
+./Build install --destdir %{buildroot} create_packlist=0
+find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 %check
 %{?!_with_signature_test:rm t/00-signature.t}
@@ -73,7 +74,8 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
+%{perl_vendorlib}/Module/Starter/Plugin/CGIApp.pm
+%{perl_vendorlib}/auto/share/dist/Module-Starter-Plugin-CGIApp/
 %{_bindir}/cgiapp-starter
 %{_bindir}/titanium-starter
 %{_mandir}/man1/cgiapp-starter.1.gz
@@ -81,6 +83,10 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jul 12 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.44-33
+- Fix compatibility with Module::Starter 1.80+ author arrayref rhbz#2436252 (Filipe Rosset)
+- Update spec file
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
