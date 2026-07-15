@@ -1,11 +1,11 @@
 Name:           libzdb
-Version:        3.4.1
-Release:        4%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Small, easy to use Database Connection Pool Library
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
-URL:            http://www.tildeslash.com/libzdb/
-Source0:        http://www.tildeslash.com/%{name}/dist/%{name}-%{version}.tar.gz
+URL:            https://www.tildeslash.com/libzdb/
+Source0:        https://www.tildeslash.com/%{name}/dist/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  flex
 BuildRequires:  mariadb-connector-c-devel
@@ -55,6 +55,9 @@ make install DESTDIR=%{buildroot}
 %doc doc/api-docs
 
 %changelog
+* Mon Jul 13 2026 Julien Enselme <jujens@jujens.eu> - 3.5.0
+- Update to 3.5.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.1-4
 - Rebuilt for openssl 4.0
 

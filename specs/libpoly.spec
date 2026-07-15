@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 %global giturl  https://github.com/SRI-CSL/libpoly
 
 Name:           libpoly
@@ -12,6 +15,11 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): %{_cmake_skip_rpath}
+BuildOption(conf): -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+BuildOption(conf): -DLIBPOLY_BUILD_STATIC:BOOL=OFF
+BuildOption(conf): -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -47,46 +55,34 @@ This package contains a python 3 interface to %{name}.
 %prep
 %autosetup -p1
 
-%conf
+sed 's/\${LIBPOLY_VERSION}/%{version}/' python/setup.py.in > python/setup.py
+
 # Install in the right place
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's/\(DESTINATION \)lib/\1%{_lib}/' src/CMakeLists.txt
-fi
+sed -i 's/\(DESTINATION \)lib/\1${LIB_INSTALL_DIR}/' src/CMakeLists.txt
 
 # Clean up hidden files before they get installed
 find . -name .gitignore -delete
 
 %generate_buildrequires
-cd python
-sed 's/\${LIBPOLY_VERSION}/%{version}/' setup.py.in > setup.py
-%pyproject_buildrequires
-rm setup.py
+%pyproject_buildrequires -d python
 
-%build
-%cmake %{_cmake_skip_rpath} \
-  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
-  -DLIBPOLY_BUILD_STATIC:BOOL=OFF \
-  -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
-%cmake_build
+%conf -p
+rm python/setup.py
 
+%build -a
 # Build the python interface the Fedora way
 sed -i "s|library_dirs = \[|&'$PWD/%{_vpath_builddir}/src', |" python/setup.py
-cd python
-%pyproject_wheel
-cd -
+%pyproject_wheel -d python
 
-%install
-%cmake_install
-
+%install -a
 # Install the python interface the Fedora way
 cd python
 %pyproject_install
 %pyproject_save_files -L polypy
 cd -
 
-%check
+%check -p
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
-%ctest
 
 %files
 %license LICENCE

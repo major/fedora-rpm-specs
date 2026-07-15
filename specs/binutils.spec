@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.46.50
-Release: 12%{?dist}
+Version: 2.46.90
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -124,8 +124,8 @@ URL: https://sourceware.org/binutils
 
 # %%define source official-release
 # %%define source even-pre-release
-# %%define source odd-pre-release
-%define source snapshot
+%define source odd-pre-release
+# %%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -214,8 +214,8 @@ URL: https://sourceware.org/binutils
 # sources instead - but only for GOLD, not for the rest of the binutils.
 
 # FIXME: Delete this once the gold linker is fully deprecated.
-# %%define gold_tarball %%(echo "binutils-with-gold-2.44.50-21e608528c3")
-%define gold_tarball none
+%define gold_tarball %(echo "binutils-with-gold-2.46.50-f85ff0c4bce")
+# %%define gold_tarball none
 
 #----------------------------------------------------------------------------
 
@@ -225,7 +225,7 @@ Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
 %elif "%{source}" == "even-pre-release"
 Source0: binutils-with-gold-%{version}.tar.xz
 %elif "%{source}" == "odd-pre-release"
-Source0: binutils-%%{version}.tar.xz
+Source0: binutils-%{version}.tar.xz
 %elif "%{source}" == "snapshot"
 Source0: binutils-with-gold-%{version}-%{commit_id}.tar.xz
 %elif "%{source}" == "tarball"
@@ -347,10 +347,6 @@ Patch19: binutils-gold-empty-dwp.patch
 # Purpose:  Fix ld testsuite failures when enable_textrel is set.
 # Lifetime: Permanent.
 Patch20: binutils-ld-default-z-text.patch
-
-# Purpose:  AArch64: Expect the PR34165 linker test to fail.
-# Lifetime: Fixed soon.
-Patch21: binutils-aarch64-ifuncs.patch
 
 #----------------------------------------------------------------------------
 
@@ -889,7 +885,7 @@ run_target_configuration()
             # build.  By default, if configured for just s390x-linux, the GOLD
             # configure system will only include support for 64-bit targets, but
             # the s390x gold backend uses both 32-bit and 64-bit templates.
-            TARGS="--enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none"
+            TARGS="--enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none --enable-obsolete"
             ;;
         ia64*)
             TARGS="--enable-targets=ia64-linux,x86_64-pep,bpf-unknown-none"
@@ -1513,6 +1509,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jul 13 2026 Nick Clifton <nickc@redhat.com> - 2.46.90-1
+- Rebase to 2.47 pre-release tarball.
+
 * Thu Jun 25 2026 Nick Clifton <nickc@redhat.com> - 2.46.50-12
 - Rebase to commit f85ff0c4bce
 

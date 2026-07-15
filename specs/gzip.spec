@@ -1,7 +1,7 @@
 Summary: GNU data compression program
 Name: gzip
 Version: 1.14
-Release: 2%{?dist}
+Release: 3%{?dist}
 # info pages are under GFDL license
 License: GPL-3.0-or-later AND GFDL-1.3-only
 Source0: https://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
@@ -12,6 +12,7 @@ Source100: colorzgrep.csh
 Source101: colorzgrep.sh
 
 Patch1: s390_errno.patch
+Patch2: CVE-2026-41911.patch
 
 # Fixed in upstream code.
 # http://thread.gmane.org/gmane.comp.gnu.gzip.bugs/378
@@ -40,6 +41,7 @@ very commonly used data compression program.
 %prep
 %setup -q
 %patch 1 -p1
+%patch 2 -p1
 
 cp %{SOURCE1} .
 autoreconf
@@ -91,6 +93,9 @@ install -p -m 644 %{SOURCE101} %{buildroot}%{profiledir}
 %{profiledir}/*
 
 %changelog
+* Mon Jul 13 2026 Jakub Martisko <jamartis@redhat.com> - 1.14-3
+- Fix CVE-2026-41911
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

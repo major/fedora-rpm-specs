@@ -1,5 +1,5 @@
-%global git_date 20260710
-%global git_commit b952499b189cdba86e500e1368628c0f96e6bcfb
+%global git_date 20260713
+%global git_commit c42da772d5fcedc55aee8f2a3348e7d718551910
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -290,6 +290,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Mon Jul 13 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260713-1.gitc42da77
+- sequoia: add SLH-DSA signature algorithms
+
 * Fri Jul 10 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260710-1.gitb952499
 - openssh: add mldsa44-ed25519 signature algorithm
 

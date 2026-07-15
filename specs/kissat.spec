@@ -1,5 +1,5 @@
 %global sover   0.0.0
-%global majver  %(cut -d. -f1 <<< %{sover})
+%global majver  %{gsub %sover ^(%d*)%..*$ %1}
 %global giturl  https://github.com/arminbiere/kissat
 
 Name:           kissat
@@ -20,7 +20,6 @@ Patch:          %{name}-logical-not.patch
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  7zip
 BuildRequires:  drat-trim-tools
 BuildRequires:  gcc
 BuildRequires:  glibc-langpack-en

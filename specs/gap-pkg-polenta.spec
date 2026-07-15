@@ -1,14 +1,3 @@
-# When bootstrapping a new architecture, there is no gap-pkg-aclib package
-# yet.  It is only needed by this package to run some tests, but it requires
-# this package to funtion at all.  Therefore, do this:
-# 1. Build this package in bootstrap mode
-# 2. Build gap-pkg-cryst in bootstrap mode
-# 3. Build gap-pkg-crystcat
-# 4. Build gap-pkg-aclib
-# 5. Build this package in non-bootstrap mode
-# 6. Build gap-pkg-cryst in non-bootstrap mode
-%bcond bootstrap 0
-
 %global gap_pkgname    polenta
 %global gap_skip_check %{?with_bootstrap}
 %global giturl         https://github.com/gap-packages/polenta
@@ -28,9 +17,7 @@ BuildSystem:    gap
 BuildOption(install): exam lib tst
 BuildOption(check): tst/testall.g
 
-%if %{without bootstrap}
 BuildRequires:  gap(aclib) >= 1.0
-%endif
 BuildRequires:  gap(alnuth) >= 2.2.3
 BuildRequires:  gap(autodoc) >= 2016.01.21
 BuildRequires:  gap(polycyclic) >= 2.10.1
@@ -43,9 +30,7 @@ Requires:       gap(polycyclic) >= 2.10.1
 Requires:       gap(radiroot) >= 2.4
 Requires:       gap-core >= 4.7
 
-%if %{without bootstrap}
 Recommends:     gap(aclib) >= 1.0
-%endif
 
 Provides:       gap(Polenta) = %{version}-%{release}
 Provides:       gap(polenta) = %{version}-%{release}

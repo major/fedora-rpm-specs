@@ -14,12 +14,6 @@ URL:            https://crates.io/crates/salsa
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove benchmark-only dev-dependency on codspeed-criterion-compat
-# * Temporarily omit annotate-snippets dev-dependency and the calc example that
-#   requires it. Upstream updated annotate-snippets from 0.11 to 0.12, and some
-#   source-code changes in the example were required. However, rust-cargo still
-#   needs annotate-snippets 0.11. It is easier to temporarily stop compiling the
-#   example that to update rust-annotate-snippets and create a
-#   rust-annotate-snippets0.11 compat package solely to support one example.
 # * Allow older test-log 0.2.19 for now; upstream pinned 0.2.21, but none of the
 #   changes are actually required. See
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2459446.

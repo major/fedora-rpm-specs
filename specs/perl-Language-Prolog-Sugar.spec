@@ -1,15 +1,21 @@
 Name:           perl-Language-Prolog-Sugar
-Version:        0.06
-Release:        39%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Syntactic sugar for Prolog term constructors
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Language-Prolog-Sugar
-Source0:        https://cpan.metacpan.org/authors/id/S/SA/SALVA/Language-Prolog-Sugar-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/Z/ZM/ZMUGHAL/Language-Prolog-Sugar-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+# glibc-common for iconv
+BuildRequires:  glibc-common
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(utf8)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Language::Prolog::Types)
@@ -24,6 +30,15 @@ subroutines to create Prolog terms as defined in the
 Language::Prolog::Types module. Perl programs using these constructors have
 the same look as real Prolog programs.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Language-Prolog-Sugar-%{version}
 for F in README; do
@@ -32,26 +47,42 @@ for F in README; do
     mv "${F}.new" "$F"
 done
 
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/2_pods.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Language
+%dir %{perl_vendorlib}/Language/Prolog
+%{perl_vendorlib}/Language/Prolog/Sugar.pm
+%{_mandir}/man3/Language::Prolog::Sugar.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 13 2026 Petr Pisar <ppisar@redhat.com> - 0.07-1
+- 0.07 bump
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

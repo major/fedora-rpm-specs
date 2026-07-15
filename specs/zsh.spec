@@ -1,6 +1,6 @@
 Summary: Powerful interactive shell
 Name: zsh
-Version: 5.9.1
+Version: 5.9.2
 Release: 1%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
@@ -16,13 +16,6 @@ Source6: zshrc.rhs
 Source7: zshenv.rhs
 Source8: dotzshrc
 Source9: dotzprofile
-
-# upstream commit a84fdd7c8f77935ecce99ff2b0bdba738821ed79
-Patch1: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
-
-# downstream patch for rhbz#2449939
-# already fixed upstream in a major refactor of term color attribute handling
-Patch100: 0100-zsh-_IO_putc-SIGSEGV.patch
 
 BuildRequires: coreutils
 BuildRequires: gawk
@@ -161,6 +154,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Mon Jul 13 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.2-1
+- rebase to the latest upstream release (rhbz#2499540)
+
 * Thu Jun 04 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.1-1
 - rebase to the latest upstream release (rhbz#2483668)
 

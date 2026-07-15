@@ -1,11 +1,11 @@
-%global commit0 b88b73a99a9db67030a952e00f2f111d00cb6013
+%global commit0 22c15a7ecd53437f18f67c72572bd693f78357ca
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20260709
+%global snapdate 20260713
 
 Name:           yosys
 Version:        0.67
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -18,9 +18,8 @@ Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.65-1.deb
 # requested that upstream include those man pages:
 #   https://github.com/YosysHQ/yosys/issues/278
 
-# Fedora-specific patch:
-# Support for pre-packaged dependencies:
-Patch1:         0001-CMake-Support-for-pre-packaged-dependencies.patch
+# Fedora-specific patch: # unbundle cxxopts dependency
+Patch1:         0001-fedora-unbundle-cxxopts.patch
 
 
 BuildRequires:  cmake
@@ -112,8 +111,9 @@ do
 done
 
 %build
+# turning off newly-added sv-slang frontend support, for now;
+# FIXME: decide on packaging slang dependency vs. enabling bundled subrepo!
 %cmake -DYOSYS_ABC_EXECUTABLE=%{_bindir}/abc \
-       -DYOSYS_WITH_PKG_DEPS=ON \
        -DYOSYS_WITHOUT_SLANG=ON
 %cmake_build
 #manual
@@ -173,6 +173,10 @@ install -m 0644 docs/build/latex/yosyshqyosys.pdf %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Jul 13 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.67.2.20260713git22c15a7
+- update to newer 0.67 snapshot
+- simplify downstream (un-bundling) patch since some upstream support added
+
 * Thu Jul 09 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.67.1.20260709gitb88b73a
 - update to 0.67 snapshot
 - switch build to cmake

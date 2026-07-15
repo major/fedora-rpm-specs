@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.23.4
+Version:        1.23.5
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -19,6 +19,7 @@ Patch:          uuid-fix-metadata-auto.diff
 # * drop unused optional dependency for zerocopy support
 # * drop WASM-specific features and dependencies
 # * drop macro-diagnostics feature - it is now deprecated and a noop
+# * drop unused, benchmark-only gungraun dev-dependency
 Patch:          uuid-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,10 +1,12 @@
+ExcludeArch:    %{ix86}
+
 %bcond_without docs
 %bcond_with llvmjit
 %global precise_version %{?epoch:%epoch:}%version-%release
 
 Name:           pg_auto_failover
-Version:        2.1
-Release:        9%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 # Main project is PostgreSQL
@@ -14,6 +16,14 @@ License:        PostgreSQL AND BSD-3-Clause AND MIT
 URL:            https://github.com/hapostgres/%{name}/
 Source0:        https://github.com/hapostgres/%{name}/archive/refs/tags/v%{version}.tar.gz
 
+# PostgreSQL 18 support, cherry-picked from upstream 'main' branch:
+#   f763a2645e22 - Include PG18 in supported versions (Christoph Berg)
+#   02e95cab6666 - Fix missing variable declarations (Bradford D. Boyle)
+#   efdbb5f5bfdb - Fix included copy of snprintf (Bradford D. Boyle)
+#   6001bd85a458 - Add expected output for upgrade test with psql 18 (Bradford D. Boyle)
+#   5f31d4f5ef32 - Add 18 in more places (Christoph Berg)
+Patch0:         pg_auto_failover-pg18-support.patch
+
 # Requirements for pg_auto_failover code
 # openssl-devel provides necessary cryptography library
 # build process require the same libraries that were used when PostgreSQL was built
@@ -21,7 +31,7 @@ Source0:        https://github.com/hapostgres/%{name}/archive/refs/tags/v%{versi
 BuildRequires:  gcc-c++ openssl-devel zlib-devel libxslt-devel readline-devel pam-devel
 # PostgreSQL libraries and development headers (used by pg_auto_failover)
 BuildRequires:  postgresql-static postgresql-server-devel
-BuildRequires:  lz4-devel
+BuildRequires:  lz4-devel libzstd-devel
 # Requirements for doc and man files
 BuildRequires:  python3-sphinx
 %if %{with docs}
@@ -90,7 +100,7 @@ This packages provides JIT support for pg_auto_failover.
 %endif
 
 %prep
-%autosetup -n %{name}-%{version} -p2
+%autosetup -n %{name}-%{version} -p1
 
 %build
 # Generate additionally man/doc files
@@ -144,6 +154,11 @@ done
 %endif
 
 %changelog
+* Thu Jul 02 2026 Michal Schorm <mschorm@redhat.com> - 2.2-1
+- Rebase to 2.2
+- Cherry-pick PostgreSQL 18 support from upstream 'main' branch
+- Add 'libzstd-devel' to BuildRequires (PG 18 links against libzstd)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1-9
 - Rebuilt for openssl 4.0
 

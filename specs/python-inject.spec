@@ -17,7 +17,7 @@ Name: python-%{pypi_name}
 Summary: Dependency injection, the Python way
 License: Apache-2.0
 
-Version: 5.4.1
+Version: 5.5.0
 Release: 1%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pypi_name}
@@ -67,6 +67,9 @@ BuildArch: noarch
 
 
 %changelog
+* Mon Jul 13 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.5.0-1
+- Update to v5.5.0
+
 * Sat Jun 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.4.1-1
 - Update to v5.4.1
 

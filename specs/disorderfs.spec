@@ -1,9 +1,8 @@
 Name:           disorderfs
-Version:        0.5.11
-Release:        14%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        FUSE filesystem that introduces non-determinism
 URL:            https://salsa.debian.org/reproducible-builds/%{name}
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Source0:        https://reproducible-builds.org/_lfs/releases/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://reproducible-builds.org/_lfs/releases/%{name}/%{name}-%{version}.tar.bz2.asc
@@ -11,14 +10,14 @@ Source2:        https://salsa.debian.org/reproducible-builds/reproducible-websit
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
-BuildRequires:  fuse-devel
+BuildRequires:  fuse3-devel
 BuildRequires:  pkg-config
 BuildRequires:  asciidoc
 BuildRequires:  make
-BuildRequires:  fuse
+BuildRequires:  fuse3
 BuildRequires:  bc
 
-Requires:       fuse
+Requires:       fuse3
 
 %description
 disorderfs is an overlay FUSE filesystem that introduces non-determinism
@@ -29,6 +28,10 @@ non-determinism in the build process.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version}
+# The test suite uses the FUSE 2 unmount helper 'fusermount'; on FUSE 3 it is
+# named 'fusermount3'.  Without this, the test mount is never torn down and
+# buildroot cleanup fails.
+sed -i 's/\bfusermount\b/fusermount3/g' tests/common
 
 %build
 %set_build_flags
@@ -47,6 +50,11 @@ make -C tests test || true
 %{_datadir}/man/man1/disorderfs.1*
 
 %changelog
+* Mon Jul 13 2026 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 0.6.2-1
+- Update to 0.6.2
+- Switch to FUSE 3 (fuse3-devel/fuse3)
+- Use fusermount3 (FUSE 3 unmount helper) in the test suite
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

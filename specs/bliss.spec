@@ -18,8 +18,9 @@ Patch:          bliss-rehn.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DUSE_GMP:BOOL=ON
 
-BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
@@ -77,7 +78,6 @@ A command-line bliss tool to access the functionality of the bliss library.
 %prep
 %autosetup -n Bliss-%{version} -p0
 
-%conf
 # Do not override Fedora build flags.  The last sagemath version added an
 # soname.  Duplicate it for compatibility.  Link the library with libgmp.
 # Hidden symbols hide ALL symbols, meaning we can't use the library.
@@ -88,20 +88,13 @@ sed -e 's/ -O3//' \
     -i CMakeLists.txt
 
 # Fix installation directories
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's,\(DESTINATION \)lib,\1%{_lib},' CMakeLists.txt
-fi
+sed -i 's,\(DESTINATION \)lib,\1${LIB_INSTALL_DIR},' CMakeLists.txt
 
-%build
-%cmake -DUSE_GMP:BOOL=ON
-%cmake_build
-
+%build -a
 # Build the documentation
 doxygen
 
-%install
-%cmake_install
-
+%install -a
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 sed 's/@VERSION@/%{version}/' %{SOURCE1} > %{buildroot}%{_mandir}/man1/bliss.1
@@ -123,6 +116,9 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/bliss.1
 %{_libdir}/libbliss.so.2{,.*}
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 0.77-13
+- Use the cmake declarative buildsystem
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

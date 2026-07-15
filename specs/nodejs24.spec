@@ -1,6 +1,6 @@
 Name:           nodejs24
 Epoch:          1
-Version:        24.15.0
+Version:        24.18.0
 Release:        %{autorelease}
 
 Summary:        JavaScript runtime
@@ -24,46 +24,46 @@ URL:            https://nodejs.org
 # expect anything between the markers to be overwritten on any update.
 
 # BEGIN automatic-version-macros  # DO NOT REMOVE THIS LINE!
-# Version from node-v24.15.0/src/node_version.h
+# Version from node-v24.18.0/src/node_version.h
 %global node_soversion 137
 
-# Version from node-v24.15.0/deps/ada/ada.h
+# Version from node-v24.18.0/deps/ada/ada.h
 %nodejs_define_version ada 3.4.4
-# Version from node-v24.15.0/deps/brotli/c/common/version.h
+# Version from node-v24.18.0/deps/brotli/c/common/version.h
 %nodejs_define_version brotli 1.2.0
-# Version from node-v24.15.0/deps/cares/include/ares_version.h
+# Version from node-v24.18.0/deps/cares/include/ares_version.h
 %nodejs_define_version c_ares 1.34.6
-# Version from node-v24.15.0/deps/histogram/include/hdr/hdr_histogram_version.h
+# Version from node-v24.18.0/deps/histogram/include/hdr/hdr_histogram_version.h
 %nodejs_define_version histogram 0.11.9
-# Version from node-v24.15.0/tools/icu/current_ver.dep
-%nodejs_define_version icu 78.2 -p
-# Version from node-v24.15.0/deps/uv/include/uv/version.h
-%nodejs_define_version libuv 1.51.0
-# Version from node-v24.15.0/deps/llhttp/include/llhttp.h
-%nodejs_define_version llhttp 9.3.1
-# Version from node-v24.15.0/deps/merve/merve.h
+# Version from node-v24.18.0/tools/icu/current_ver.dep
+%nodejs_define_version icu 78.3 -p
+# Version from node-v24.18.0/deps/uv/include/uv/version.h
+%nodejs_define_version libuv 1.52.1
+# Version from node-v24.18.0/deps/llhttp/include/llhttp.h
+%nodejs_define_version llhttp 9.4.2
+# Version from node-v24.18.0/deps/merve/merve.h
 %nodejs_define_version merve 1.2.2
-# Version from node-v24.15.0/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%nodejs_define_version nghttp2 1.68.1
-# Version from node-v24.15.0/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
-%nodejs_define_version nghttp3 1.6.0
-# Version from node-v24.15.0/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
-%nodejs_define_version ngtcp2 1.11.0
-# Version from node-v24.15.0/deps/minimatch/package.json
-%nodejs_define_version nodejs-minimatch 10.2.4
-# Version from node-v24.15.0/lib/punycode.js
+# Version from node-v24.18.0/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+%nodejs_define_version nghttp2 1.69.0
+# Version from node-v24.18.0/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+%nodejs_define_version nghttp3 1.14.0
+# Version from node-v24.18.0/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+%nodejs_define_version ngtcp2 1.15.1
+# Version from node-v24.18.0/deps/minimatch/package.json
+%nodejs_define_version nodejs-minimatch 10.2.5
+# Version from node-v24.18.0/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
-# Version from node-v24.15.0/deps/undici/src/package.json
-%nodejs_define_version nodejs-undici 7.24.4
-# Version from node-v24.15.0/deps/npm/package.json
-%nodejs_define_version npm 1:11.12.1-%{nodejs_subpackage_release}
-# Version from node-v24.15.0/deps/sqlite/sqlite3.h
-%nodejs_define_version sqlite 3.51.3
-# Version from node-v24.15.0/deps/uvwasi/include/uvwasi.h
+# Version from node-v24.18.0/deps/undici/src/package.json
+%nodejs_define_version nodejs-undici 7.28.0
+# Version from node-v24.18.0/deps/npm/package.json
+%nodejs_define_version npm 1:11.16.0-%{nodejs_subpackage_release}
+# Version from node-v24.18.0/deps/sqlite/sqlite3.h
+%nodejs_define_version sqlite 3.53.1
+# Version from node-v24.18.0/deps/uvwasi/include/uvwasi.h
 %nodejs_define_version uvwasi 0.0.23
-# Version from node-v24.15.0/deps/v8/include/v8-version.h
+# Version from node-v24.18.0/deps/v8/include/v8-version.h
 %nodejs_define_version v8 3:13.6.233.17-%{nodejs_subpackage_release} -p
-# Version from node-v24.15.0/deps/zlib/zlib.h
+# Version from node-v24.18.0/deps/zlib/zlib.h
 %nodejs_define_version zlib 1.3.1
 # END automatic-version-macros  # DO NOT REMOVE THIS LINE!
 
@@ -160,7 +160,6 @@ Source101:      nodejs.srpm.macros
 %patchlist
 0001-Remove-unused-OpenSSL-config.patch
 0002-Disable-FIPS-options.patch
-0003-downstream-update-nghttp2-to-1.68.1.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
@@ -284,7 +283,7 @@ Binary symlinks for Node.js Package Manager.
 readonly -a devendored_paths=(
     deps/v8/third_party/jinja2 tools/inspector_protocol/jinja2
     %{?!with_bundled_brotli:deps/brotli}
-    %{?!with_bundled_c_ares:deps/cares}
+    #%{?!with_bundled_c_ares:deps/cares}
     %{?!with_bundled_libuv:deps/uv}
     %{?!with_bundled_merve:deps/merve}
     %{?!with_bundled_nodejs_undici:deps/undici}
@@ -331,7 +330,10 @@ readonly -a configure_flags=(
     --openssl-use-def-ca-store
     # Link with system libraries where appropriate
     %{?!with_bundled_brotli:--shared-brotli}
-    %{?!with_bundled_c_ares:--shared-cares}
+    # Switching to bundled c-ares for 24.18.0
+    # Due to:
+    # ../../src/cares_wrap.cc:1730:21: error: no matches converting function ‘Callback’ to type ‘ares_host_callback’ 
+    #%{?!with_bundled_c_ares:--shared-cares}
     %{?!with_bundled_libuv:--shared-libuv}
     %{?!with_bundled_sqlite:--shared-sqlite}
     %{?!with_bundled_zlib:--shared-zlib}

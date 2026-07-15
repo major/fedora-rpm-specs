@@ -36,11 +36,6 @@ the C059 font family (Roman, Italic, Bold & Bold Italic) from the Core 35 font
 set.  This was done in order to make modifications that suit the requirements
 of the open source notation software, MuseScore.  It is released under the SIL
 Open Font License (OFL) only.}
-%global fontpkgheader   %{expand:
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-edwin-fonts < 4.0
-Provides:       mscore-edwin-fonts = 1:%{version}-%{release}
-}
 
 Source0:        %{giturl}/archive/v%{version}/Edwin-%{version}.tar.gz
 Source1:        65-%{fontpkgname}.conf

@@ -8,7 +8,7 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.6
+Version:	4.3.7
 Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -234,6 +234,9 @@ popd
 
 
 %changelog
+* Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.7-1
+- 4.3.7
+
 * Sat Apr 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.6-1
 - 4.3.6
 

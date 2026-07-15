@@ -7,8 +7,8 @@
 # Planned for F-20+ only
 Summary:	Ruby binding of GDK-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.6
-Release:	1%{?dist}
+Version:	4.3.7
+Release:	2%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -77,7 +77,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
-sed -i -e 's|= 4\.3\.6|>= 4.3.6|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.7|>= 4.3.7|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -168,6 +168,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.7-2
+- 4.3.7
+
 * Sat Apr 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.6-1
 - 4.3.6
 

@@ -1,7 +1,7 @@
 Summary: The GNU versions of find utilities (find and xargs)
 Name: findutils
-Version: 4.10.0
-Release: 7%{?dist}
+Version: 4.11.0
+Release: 1%{?dist}
 Epoch: 1
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/findutils/
@@ -21,14 +21,8 @@ Patch2:  findutils-4.4.2-xautofs.patch
 # eliminate compile-time warnings
 Patch3:  findutils-4.5.13-warnings.patch
 
-# test-lock: disable the rwlock test
-Patch4:  findutils-4.6.0-test-lock.patch
-
 # implement the -noleaf option of find (#1252549)
-Patch5:  findutils-4.6.0-leaf-opt.patch
-
-# fix find not obeying -ignore_readdir_race in symlink_loop (#2232278)
-Patch6:  findutils-4.9.0-ignore_readdir_race-symlink_loop.patch
+Patch4:  findutils-4.6.0-leaf-opt.patch
 
 Conflicts: filesystem < 3
 Provides: /bin/find
@@ -44,7 +38,7 @@ BuildRequires: make
 BuildRequires: texinfo
 
 # For gpg verification of source tarball
-BuildRequires: gnupg2
+BuildRequires: gpgverify
 
 %description
 The findutils package contains programs which will help you locate
@@ -59,7 +53,7 @@ useful for finding things on your system.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -N -S git
+%autosetup -N -S git_am
 
 # drop the source code of locate
 git rm -q -r locate
@@ -118,6 +112,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_infodir}/find-maint.info.*
 
 %changelog
+* Mon Jul 13 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1:4.11.0-1
+- rebase to the latest upstream release (rhbz#2499353)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.10.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

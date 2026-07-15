@@ -3,7 +3,7 @@ Version:        1.7.6
 Release:        15%{?dist}
 Summary:        Lattice point enumeration
 
-%global tarver  %(tr . _ <<< %{version})
+%global tarver  %{gsub %version %. _}
 %global lidiaver 2.3.0
 %global lidiadate 2014-10-04
 %global giturl  https://github.com/latte-int/latte
@@ -48,7 +48,6 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(ntl)
 BuildRequires:  sqlite-devel
-BuildRequires:  TOPCOM
 
 Requires:       cddlib-tools
 Requires:       coreutils

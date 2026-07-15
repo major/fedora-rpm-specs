@@ -1,5 +1,5 @@
 Name:           kea
-Version:        3.0.3
+Version:        3.2.0
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -9,9 +9,12 @@ URL:            http://kea.isc.org
 %bcond_with sysrepo
 %bcond_with tests
 
-%global keama_version 4.5.0
-# Bundled version of Bind libraries linked into Keama
-%global bind_version 9.11.36
+# The upstream tagged the 4.5.0 on Sep 19, 2023; grab the latest Keama from git instead
+# To switch to a tagged release: uncomment keama_version
+#%%global keama_version 4.5.0
+%global keama_commit 046ceef7a5db084211179dac42e986cda88a3c0e
+%global keama_shortcommit %{lua:print(rpm.expand("%{keama_commit}"):sub(1,7))}
+%global keama_dir keama-%{?keama_version}%{!?keama_version:%{keama_shortcommit}}
 
 # Conflict with kea-next
 %global upstream_name kea
@@ -23,26 +26,22 @@ Conflicts: %1 \
 
 Source0:        https://downloads.isc.org/isc/kea/%{version}/kea-%{version}.tar.xz
 Source1:        https://downloads.isc.org/isc/kea/%{version}/kea-%{version}.tar.xz.asc
+%if 0%{?keama_version:1}
 Source2:        https://downloads.isc.org/isc/keama/%{keama_version}/keama-%{keama_version}.tar.gz
 Source3:        https://downloads.isc.org/isc/keama/%{keama_version}/keama-%{keama_version}.tar.gz.asc
+%else
+Source2:        https://gitlab.isc.org/isc-projects/keama/-/archive/%{keama_shortcommit}/keama-%{keama_shortcommit}.tar.gz
+%endif
 Source10:       https://www.isc.org/docs/isc-keyblock.asc
 Source11:       kea-dhcp4.service
 Source12:       kea-dhcp6.service
 Source13:       kea-dhcp-ddns.service
-Source14:       kea-ctrl-agent.service
-Source15:       systemd-tmpfiles.conf
-Source16:       systemd-sysusers.conf
+Source14:       systemd-tmpfiles.conf
+Source15:       systemd-sysusers.conf
 
 Patch1:         kea-sd-daemon.patch
-# Patch2 & Patch3:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2430574
-# https://gitlab.isc.org/isc-projects/kea/-/issues/4266
-# Based on: https://gitlab.isc.org/isc-projects/kea/-/commit/c54dfd47714fea7e79c16d99c09b896d9c8d44df
-Patch2:         kea-replace-BOOST_STATIC_ASSERT.patch
-# Based on: https://gitlab.isc.org/isc-projects/kea/-/commit/9a86f27a94677ec9ee1988af892d65b7ab22027e
-Patch3:         kea-move-to-system-timer.patch
-#Fix build with OpenSSL 4.0
-Patch4:         0001-Add-const-qualifiers-to-OpenSSL-X509-pointers.patch
+# Fix build with OpenSSL 4.0
+Patch2:         kea-add-const-qualifiers-to-OpenSSL-X509-pointers.patch
 
 BuildRequires: boost-devel
 # %%meson -D crypto=openssl
@@ -135,7 +134,6 @@ This package contains shared libraries used by Kea DHCP server.
 
 %package keama
 Summary: Experimental migration assistant for Kea
-Provides: bundled(bind-libs) = %{bind_version}
 
 %description keama
 The KEA Migration Assistant is an experimental tool which helps to translate
@@ -143,9 +141,11 @@ ISC DHCP configurations to Kea.
 
 %prep
 %{gpgverify} --keyring='%{S:10}' --signature='%{S:1}' --data='%{S:0}'
+%if 0%{?keama_version:1}
 %{gpgverify} --keyring='%{S:10}' --signature='%{S:3}' --data='%{S:2}'
+%endif
 
-%autosetup -T -b2 -N -n keama-%{keama_version}
+%autosetup -T -b2 -N -n %{keama_dir}
 %autosetup -p1 -n kea-%{version}
 
 %build
@@ -174,26 +174,9 @@ export KEA_PKG_TYPE_IN_CONFIGURE="rpm"
 %meson_build doc
 
 # Configure & build Keama
-pushd ../keama-%{keama_version}
-
-# We need to unpack the embedded copy of bind and call autoreconf to
-# ensure that config.{sub,guess} is up to date, since the copies
-# included in the archive are extremely old (2013) and unaware of
-# more recent architectures such as riscv64. The Keama build system
-# would normally take care of unpacking the archive, but it also
-# handles gracefully us doing it ourselves
-tar -C bind/ -zxvf bind/bind.tar.gz
-
-pushd bind/bind-%{bind_version}/
+pushd ../%{keama_dir}
 
 autoreconf --verbose --force --install
-
-# Back to Keama. Its build system will take care of configuring and
-# building the embedded copy of bind
-popd
-
-autoreconf --verbose --force --install
-
 %configure \
     --disable-dependency-tracking \
     --disable-silent-rules
@@ -210,37 +193,26 @@ popd
 %meson_install
 
 # Install Keama
-pushd ../keama-%{keama_version}
+pushd ../%{keama_dir}
 %make_install
 popd
 
-# Remove Keama's static library, dhcp headers and man pages
-rm %{buildroot}/%{_libdir}/libdhcp.a
-rm -rf %{buildroot}/%{_includedir}/omapip/
-rm -rf %{buildroot}%{_mandir}/man5/
-
 # Remove keactrl
-rm %{buildroot}%{_sysconfdir}/kea/keactrl.conf
-rm %{buildroot}%{_sbindir}/keactrl 
-rm %{buildroot}%{_mandir}/man8/keactrl.8*
+find %{buildroot} -name keactrl\* -delete
 
 %if %{without sysrepo}
 # Remove netconf files
-rm %{buildroot}%{_mandir}/man8/kea-netconf.8
+find %{buildroot} -name kea-netconf\* -delete
 %endif
 
 rm %{buildroot}%{_pkgdocdir}/COPYING
 
 rm -rf %{buildroot}/usr/share/kea/meson-info/
 
-# Create empty password file for the Kea Control Agent
-install -m 0640 /dev/null %{buildroot}%{_sysconfdir}/kea/kea-api-password
-
 # Install systemd units
 install -Dpm 0644 %{S:11} %{buildroot}%{_unitdir}/kea-dhcp4.service
 install -Dpm 0644 %{S:12} %{buildroot}%{_unitdir}/kea-dhcp6.service
 install -Dpm 0644 %{S:13} %{buildroot}%{_unitdir}/kea-dhcp-ddns.service
-install -Dpm 0644 %{S:14} %{buildroot}%{_unitdir}/kea-ctrl-agent.service
 
 # Start empty lease databases
 mkdir -p %{buildroot}%{_sharedstatedir}/kea/
@@ -248,8 +220,8 @@ touch %{buildroot}%{_sharedstatedir}/kea/kea-leases4.csv
 touch %{buildroot}%{_sharedstatedir}/kea/kea-leases6.csv
 
 # Install systemd sysusers and tmpfiles configs
-install -Dpm 0644 %{S:16} %{buildroot}%{_sysusersdir}/kea.conf
-install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
+install -Dpm 0644 %{S:15} %{buildroot}%{_sysusersdir}/kea.conf
+install -Dpm 0644 %{S:14} %{buildroot}%{_tmpfilesdir}/kea.conf
 
 mkdir -p %{buildroot}%{_rundir}
 install -dm 0750 %{buildroot}%{_rundir}/kea/
@@ -257,25 +229,25 @@ install -dm 0750 %{buildroot}%{_rundir}/kea/
 mkdir -p %{buildroot}%{_localstatedir}/log
 install -dm 0750 %{buildroot}%{_localstatedir}/log/kea/
 
-%post
-# Set a pseudo-random password for default config to secure fresh install and allow CA startup without user intervention
-if [[ ! -s %{_sysconfdir}/kea/kea-api-password && -n `grep '"password-file": "kea-api-password"' %{_sysconfdir}/kea/kea-ctrl-agent.conf` ]]; then
-    (umask 0027; head -c 32 /dev/urandom | base64 > %{_sysconfdir}/kea/kea-api-password)
-    chown root:kea %{_sysconfdir}/kea/kea-api-password
+%pretrans
+if [ $1 -ge 2 ]; then
+    # kea-ctrl-agent was removed in 3.2.0; stop any running instance on upgrade
+    systemctl disable --now kea-ctrl-agent.service >/dev/null 2>&1 || :
 fi
-%systemd_post kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service kea-ctrl-agent.service
+
+%post
+%systemd_post kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service
 
 %preun
-%systemd_preun kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service kea-ctrl-agent.service
+%systemd_preun kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service
 
 %postun
-%systemd_postun_with_restart kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service kea-ctrl-agent.service
+%systemd_postun_with_restart kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service
 %ldconfig_scriptlets libs
 
 %files
 %license COPYING
 %{_sbindir}/kea-admin
-%{_sbindir}/kea-ctrl-agent
 %{_sbindir}/kea-dhcp-ddns
 %{_sbindir}/kea-dhcp4
 %{_sbindir}/kea-dhcp6
@@ -286,14 +258,12 @@ fi
 %{_datarootdir}/kea
 %dir %attr(0750,root,kea) %{_sysconfdir}/kea/
 %config(noreplace) %attr(0640,root,kea) %{_sysconfdir}/kea/kea*.conf
-%ghost %config(noreplace,missingok) %attr(0640,root,kea) %verify(not md5 size mtime) %{_sysconfdir}/kea/kea-api-password
 %dir %attr(0750,kea,kea) %{_sharedstatedir}/kea
 %config(noreplace) %attr(0640,kea,kea) %{_sharedstatedir}/kea/kea-leases*.csv
 %dir %attr(0750,kea,kea) %{_rundir}/kea/
 %dir %attr(0750,kea,kea) %{_localstatedir}/log/kea
 %{python3_sitelib}/kea
 %{_mandir}/man8/kea-admin.8*
-%{_mandir}/man8/kea-ctrl-agent.8*
 %{_mandir}/man8/kea-dhcp-ddns.8*
 %{_mandir}/man8/kea-dhcp4.8*
 %{_mandir}/man8/kea-dhcp6.8*
@@ -377,33 +347,32 @@ fi
 
 %files libs
 %license COPYING
-# older: find `rpm --eval %%{_topdir}`/BUILDROOT/kea-*/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
-# >=f41: find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
-%{_libdir}/libkea-asiodns.so.62*
-%{_libdir}/libkea-asiolink.so.88*
-%{_libdir}/libkea-cc.so.83*
+# find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
+%{_libdir}/libkea-asiodns.so.75*
+%{_libdir}/libkea-asiolink.so.105*
+%{_libdir}/libkea-cc.so.98*
 %{_libdir}/libkea-cfgrpt.so.3*
-%{_libdir}/libkea-config.so.84*
-%{_libdir}/libkea-cryptolink.so.64*
-%{_libdir}/libkea-d2srv.so.63*
-%{_libdir}/libkea-database.so.76*
-%{_libdir}/libkea-dhcp_ddns.so.68*
-%{_libdir}/libkea-dhcp.so.109*
-%{_libdir}/libkea-dhcpsrv.so.131*
-%{_libdir}/libkea-dns.so.71*
-%{_libdir}/libkea-eval.so.84*
-%{_libdir}/libkea-exceptions.so.45*
-%{_libdir}/libkea-hooks.so.121*
-%{_libdir}/libkea-http.so.87*
-%{_libdir}/libkea-log-interprocess.so.3*
-%{_libdir}/libkea-log.so.75*
-%{_libdir}/libkea-mysql.so.88*
-%{_libdir}/libkea-pgsql.so.88*
-%{_libdir}/libkea-process.so.91*
-%{_libdir}/libkea-stats.so.53*
-%{_libdir}/libkea-tcp.so.33*
+%{_libdir}/libkea-config.so.98*
+%{_libdir}/libkea-cryptolink.so.76*
+%{_libdir}/libkea-d2srv.so.75*
+%{_libdir}/libkea-database.so.88*
+%{_libdir}/libkea-dhcp_ddns.so.82*
+%{_libdir}/libkea-dhcp.so.129*
+%{_libdir}/libkea-dhcpsrv.so.149*
+%{_libdir}/libkea-dns.so.84*
+%{_libdir}/libkea-eval.so.97*
+%{_libdir}/libkea-exceptions.so.55*
+%{_libdir}/libkea-hooks.so.139*
+%{_libdir}/libkea-http.so.100*
+%{_libdir}/libkea-log-interprocess.so.4*
+%{_libdir}/libkea-log.so.86*
+%{_libdir}/libkea-mysql.so.106*
+%{_libdir}/libkea-pgsql.so.105*
+%{_libdir}/libkea-process.so.105*
+%{_libdir}/libkea-stats.so.64*
+%{_libdir}/libkea-tcp.so.45*
 %{_libdir}/libkea-util-io.so.12*
-%{_libdir}/libkea-util.so.102*
+%{_libdir}/libkea-util.so.118*
 
 %files keama
 %license COPYING

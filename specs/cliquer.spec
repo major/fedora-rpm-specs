@@ -1,11 +1,42 @@
+%global giturl  https://github.com/dimpase/autocliquer
+
 Name:           cliquer
 Version:        1.23
 Release:        %autorelease
 Summary:        Find cliques in arbitrary weighted graphs
 
 License:        GPL-2.0-or-later
+# FSFAP: INSTALL
+# FSFUL: configure, m4/libtool.m4
+# FSFULLR: aclocal.m4, m4/{libtool,lt*}.m4
+# FSFULLRWD: aclocal.m4, Makefile.in, {include,lib,src,test}/Makefile.in
+# GPL-2.0-or-later: ltmain.sh
+# (GPL-2.0-or-later OR MIT): ltmain.sh
+# GPL-2.0-or-later WITH Autoconf-exception-generic:
+# - aclocal.m4
+# - configure
+# - depcomp
+# - ltmain.sh
+# - missing
+# - test-driver
+# GPL-3.0-or-later WITH Autoconf-exception-generic-3.0: config.{guess,sub}
+# X11 AND LicenseRef-Fedora-Public-Domain: install-sh
+SourceLicense:  %{shrink:
+                  %{license}
+                  AND FSFAP
+                  AND FSFUL
+                  AND FSFULLR
+                  AND FSFULLRWD
+                  AND GPL-2.0-or-later
+                  AND (GPL-2.0-or-later OR MIT)
+                  AND GPL-2.0-or-later WITH Autoconf-exception-generic
+                  AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+                  AND X11
+                  AND LicenseRef-Fedora-Public-Domain
+                }
 URL:            https://users.aalto.fi/~pat/cliquer.html
-Source0:        https://github.com/dimpase/autocliquer/releases/download/v%{version}/%{name}-%{version}.tar.gz
+VCS:            git:%{giturl}.git
+Source0:        %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        http://users.aalto.fi/~pat/%{name}/%{name}_fm.pdf
 Source2:        http://users.aalto.fi/~pat/%{name}/%{name}.pdf
 Source3:        http://users.aalto.fi/~pat/%{name}/%{name}_bm.pdf

@@ -25,7 +25,7 @@
 %endif
 
 Name: grout
-Version: 0.16.0
+Version: 0.16.1
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -99,12 +99,14 @@ BuildArch: noarch
 This package contains the development headers to build %{name} API clients.
 
 %if %{with frr}
-%global frr_version %(rpm -q --qf '%%{version}' frr-headers)
+%global frr_curr %(rpm -q --qf '%%{version}' frr-headers | awk -F. -v OFS=. '{ print $1, $2 }')
+%global frr_next %(rpm -q --qf '%%{version}' frr-headers | awk -F. -v OFS=. '{ print $1, $2+1 }')
 
 %package frr
 Summary: FRR zebra dataplane plugin for grout.
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: frr%{?_isa} = %{frr_version}
+Requires: frr%{?_isa} >= %{frr_curr}
+Requires: frr%{?_isa} < %{frr_next}
 
 %description frr
 This package contains the FRR zebra dataplane plugin for grout.
@@ -154,11 +156,31 @@ rm -f %{buildroot}%{_mandir}/man7/grout-frr.7*
 %{_includedir}/grout/*.h
 
 %if %{with frr}
+%post frr
+if [ -f /etc/frr/daemons ] && ! grep -q '^zebra_options=.*dplane_grout' /etc/frr/daemons; then
+	cp -a /etc/frr/daemons /etc/frr/daemons.rpmsave
+	echo 'zebra_options="$zebra_options -M dplane_grout"' >> /etc/frr/daemons
+fi
+if [ -x "/usr/lib/systemd/systemd-update-helper" ]; then
+	/usr/lib/systemd/systemd-update-helper system-reload || :
+fi
+
+%postun frr
+if [ "$1" -eq 0 ] && [ -f /etc/frr/daemons ] && grep -q '^zebra_options=.*dplane_grout' /etc/frr/daemons; then
+	cp -a /etc/frr/daemons /etc/frr/daemons.rpmsave
+	sed -i -e '/^zebra_options="\$zebra_options -M dplane_grout"$/d' \
+		-e 's/-M dplane_grout//' /etc/frr/daemons
+fi
+if [ -x "/usr/lib/systemd/systemd-update-helper" ]; then
+	/usr/lib/systemd/systemd-update-helper system-reload || :
+fi
+
 %files frr
 %doc README.md
 %license licenses/GPL-2.0-or-later.txt
 %{_libdir}/frr/modules/dplane_grout.so
 %attr(644, root, root) %{_mandir}/man7/grout-frr.7*
+%attr(644, root, root) %{_unitdir}/frr.service.d/grout.conf
 %endif
 
 %changelog

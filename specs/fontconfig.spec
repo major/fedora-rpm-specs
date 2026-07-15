@@ -29,7 +29,6 @@ BuildRequires:	freetype-devel >= %{freetype_version}
 BuildRequires:	fontpackages-devel
 BuildRequires:	gettext
 BuildRequires:	gperf
-BuildRequires:  docbook-utils wkhtmltopdf
 BuildRequires:  meson ninja-build gcc
 
 Requires:	fonts-filesystem freetype
@@ -115,8 +114,10 @@ done
 # adjust the timestamp to avoid conflicts for multilib
 touch -r doc/fontconfig-user.sgml fontconfig-user.txt
 touch -r doc/fontconfig-user.sgml fontconfig-user.html
+touch -r doc/fontconfig-user.sgml fontconfig-user.pdf
 touch -r doc/fontconfig-devel.sgml fontconfig-devel.txt
 touch -r doc/fontconfig-devel.sgml fontconfig-devel.html
+touch -r doc/fontconfig-devel.sgml fontconfig-devel.pdf
 
 # rename fc-cache binary
 mv $RPM_BUILD_ROOT%{_bindir}/fc-cache $RPM_BUILD_ROOT%{_bindir}/fc-cache-%{__isa_bits}
@@ -169,7 +170,7 @@ fi
 
 %files -f %{name}.lang
 %doc README.md AUTHORS
-%doc fontconfig-user.txt fontconfig-user.html
+%doc fontconfig-user.txt fontconfig-user.html fontconfig-user.pdf
 %doc %{_fontconfig_confdir}/README
 %license COPYING
 %{_libdir}/libfontconfig.so.*
@@ -203,7 +204,7 @@ fi
 %{_datadir}/gettext/its/fontconfig.loc
 
 %files devel-doc
-%doc fontconfig-devel.txt fontconfig-devel.html
+%doc fontconfig-devel.txt fontconfig-devel.html fontconfig-devel.pdf
 
 %changelog
 %autochangelog

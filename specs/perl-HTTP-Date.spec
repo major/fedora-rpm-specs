@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Date
-Version:        6.06
-Release:        8%{?dist}
+Version:        6.08
+Release:        1%{?dist}
 Summary:        Date conversion routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Date
@@ -22,7 +22,9 @@ BuildRequires:  perl(blib)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(Time::Zone)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
@@ -89,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 13 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.08-1
+- 6.08 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.06-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

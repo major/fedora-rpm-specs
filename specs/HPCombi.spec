@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
@@ -20,9 +23,18 @@ Patch:          %{name}-unbundle-simde.patch
 
 # Limited support for architectures.  Recheck this on each release.
 ExclusiveArch:  %{x86_64} %{arm64}
+BuildSystem:    cmake
+%if %{with ctest}
+BuildOption(conf): -DBUILD_TESTING:BOOL=ON
+%endif
+%ifarch %{arm64}
+# Skip the EPU8 test; see https://github.com/libsemigroups/HPCombi/issues/70
+BuildOption(check): -E EPU8
+%endif
 
-BuildRequires:  cmake
+%if %{with ctest}
 BuildRequires:  cmake(Catch2)
+%endif
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libsparsehash)
@@ -70,20 +82,13 @@ API documentation for HPCombi.
 %prep
 %autosetup -p1
 
-%conf
 # Ensure we can't use the bundled simde
 rm -fr third_party
 
 # Install the pkgconfig file in the noarch directory
 sed -i 's,lib/,share/,' CMakeLists.txt
 
-%build
-%cmake -DBUILD_TESTING:BOOL=ON
-%cmake_build
-
-%install
-%cmake_install
-
+%install -a
 # We install license and documentation separately
 rm -fr %{buildroot}%{_datadir}/hpcombi
 
@@ -103,15 +108,6 @@ for f in %{buildroot}%{_includedir}/hpcombi/*.hpp; do
   sed -i.orig 's,\(#include\) "\(.*\)",\1 <hpcombi/\2>,' $f
   fixtimestamp $f
 done
-
-# There are currently no tests.  Uncomment this when there are.
-%check
-%ifarch %{arm64}
-# Skip the EPU8 test; see https://github.com/libsemigroups/HPCombi/issues/70
-%ctest -E EPU8
-%else
-%ctest
-%endif
 
 %files devel
 %doc README.md

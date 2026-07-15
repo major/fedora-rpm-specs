@@ -15,6 +15,8 @@ Release:        %autorelease
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
+# LPPL-1.3a+: src/CoCoA-5/CoCoAManual/aux-files/TeX-extra-files/mybook.cls
+SourceLicense:  %{license} AND LPPL-1.3a+
 URL:            %{baseurl}/index.shtml
 VCS:            git:https://github.com/cocoa-official/CoCoALib.git
 Source:         %{baseurl}/tgz/CoCoALib-%{version}.tgz

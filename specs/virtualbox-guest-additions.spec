@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.2.8
-Release:    2%{?dist}
+Version:    7.2.12
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -19,7 +19,7 @@ Patch80:    029_virtualbox-7.1.4_C23.patch
 BuildRequires:  gcc-c++
 BuildRequires:  kBuild >= 0.1.9998.r3093
 BuildRequires:  openssl-devel
-BuildRequires:  yasm
+BuildRequires:  nasm
 BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
 # for xsltproc
@@ -112,7 +112,8 @@ umask 0022
 kmk %{_smp_mflags}                                             \
     VBOX_ONLY_ADDITIONS=1                                      \
     KBUILD_VERBOSE=2                                           \
-    TOOL_YASM_AS=yasm                                          \
+    DONT_USE_YASM=1                                            \
+    TOOL_NASM_AS=nasm                                          \
     VBOX_USE_SYSTEM_XORG_HEADERS=1                             \
     VBOX_USE_SYSTEM_GL_HEADERS=1                               \
     VBOX_NO_LEGACY_XORG_X11=1                                  \
@@ -198,6 +199,10 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Sun Jul 12 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.12-1
+- Update Virtualbox Guest Additions to 7.2.12 (rhbz#2460053)
+- Switch to building with nasm instead of yasm
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.2.8-2
 - Rebuilt for openssl 4.0
 

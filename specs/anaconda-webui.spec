@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        73
+Version:        74
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Jul 13 2026 Packit <hello@packit.dev> - 74-1
+- Reconnect to active installation task after page reload
+- ks: Allow automated installations to proceed despite storage warnings
+- Handle KeyboardConfigurationError in Keyboard component (Resolves: rhbz#2496409)
+
 * Wed Jul 08 2026 Packit <hello@packit.dev> - 73-1
 - KS installations: review: rely on backend default disk selection
 - KS installations: review: make auto-proceed a one-shot attempt

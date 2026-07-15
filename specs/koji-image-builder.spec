@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/osbuild/koji-image-builder
 
-Version:        8
+Version:        11
 
 %forgemeta
 
 Name:           koji-image-builder
-Release:        5%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -84,6 +84,24 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %pycached %{python3_sitelib}/koji_cli_plugins/image_builder.py
 
 %changelog
+* Mon Jul 13 2026 Packit <hello@packit.dev> - 11-1
+Changes with 11
+----------------
+  - ci: fix integration test (#24)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Sanne Raymaekers
+  - doc/installation: topleveltasks (#19)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt
+  - doc: version requirement (#22)
+    - Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+  - many: accept `preview` option (HMS-9969) (#20)
+    - Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+  - many: allow `bootc` (#18)
+    - Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+  - many: failable arch propagation (#21)
+    - Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-07-13
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 8-5
 - Rebuilt for Python 3.15
 

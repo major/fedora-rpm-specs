@@ -6,6 +6,28 @@ Version:        0.94n
 Release:        %autorelease
 Summary:        A library for generating all vertices in convex polyhedrons
 License:        GPL-2.0-or-later
+# FSFUL: configure
+# FSFULLR: aclocal.m4, m4/*.m4
+# FSFULLRWD: aclocal.m4, {,doc/,lib-src/,src/}Makefile.in
+# GPL-2.0-or-later OR MIT: ltmain.sh
+# GPL-2.0-or-later WITH Autoconf-exception-generic: compile, depcomp, ltmain.sh,
+#   missing
+# GPL-3.0-or-later WITH Autoconf-exception-generic-3.0: config.{guess,sub}
+# Knuth-CTAN: doc/cddlibman.{ps,pdf}
+# OFL-1.1-RFN: doc/cddlibman.{ps,pdf}
+# X11 AND LicenseRef-Fedora-Public-Domain: install-sh
+SourceLicense:  %{shrink:%{license}
+                  AND FSFUL
+                  AND FSFULLR
+                  AND FSFULLRWD
+                  AND (GPL-2.0-or-later OR MIT)
+                  AND GPL-2.0-or-later WITH Autoconf-exception-generic
+                  AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+                  AND Knuth-CTAN
+                  AND OFL-1.1-RFN
+                  AND X11
+                  AND LicenseRef-Fedora-Public-Domain
+                }
 URL:            https://people.inf.ethz.ch/fukudak/cdd_home/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -13,7 +35,9 @@ Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex-latex
 
 %description
 The C-library cddlib is a C implementation of the Double Description Method of
@@ -93,9 +117,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_build
 
 # Need one more invocation of pdflatex to get cross references correct
-pushd doc
-pdflatex cddlibman
-popd
+cd doc
+pdflatex -interaction=nonstopmode cddlibman
+cd -
 
 
 %install

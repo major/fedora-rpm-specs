@@ -13,7 +13,7 @@
 %global giturl         https://github.com/gap-packages/hap
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.76
+Version:        1.78
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 

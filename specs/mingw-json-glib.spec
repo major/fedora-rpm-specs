@@ -1,20 +1,24 @@
 %{?mingw_package_header}
 %define pkgname json-glib
-%define glib2_version 2.54.0
+%define glib2_version 2.72.0
 
 Name:           mingw-%{pkgname}
-Version:        1.6.6
+Version:        1.10.8
+%{lua:
+  local version = rpm.expand('%version')
+  local major_minor = string.sub(version, string.find(version, '%d+%.%d+'))
+  rpm.define('major_minor ' .. major_minor)
+}
 Release:        %autorelease
 Summary:        MinGW compiled library for JavaScript Object Notation format
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/JsonGlib
-Source0:        https://download.gnome.org/sources/%{pkgname}/1.6/%{pkgname}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/%{pkgname}/%{major_minor}/%{pkgname}-%{version}.tar.xz
 
 BuildArch:      noarch
 
 BuildRequires:  meson
-BuildRequires:  gcc
 BuildRequires:  gettext
 
 BuildRequires:  mingw32-filesystem >= 104
@@ -54,7 +58,7 @@ MinGW compiled %{pkgname} library for the Win64 target.
 
 
 %prep
-%setup -q -n %{pkgname}-%{version}
+%autosetup -p1 -n %{pkgname}-%{version}
 
 
 %build
@@ -66,17 +70,17 @@ MinGW compiled %{pkgname} library for the Win64 target.
 export DESTDIR=%{buildroot}
 %mingw_ninja install
 
-%mingw_find_lang json-glib-1.0
+%mingw_find_lang %{pkgname}-1.0
 
 
 # Win32
-%files -n mingw32-%{pkgname} -f mingw32-json-glib-1.0.lang
+%files -n mingw32-%{pkgname} -f mingw32-%{pkgname}-1.0.lang
 %license COPYING
 %{mingw32_bindir}/json-glib-format.exe
 %{mingw32_bindir}/json-glib-validate.exe
-%{mingw32_bindir}/lib%{pkgname}*.dll
+%{mingw32_bindir}/lib%{pkgname}-1.0-0.dll
 %{mingw32_includedir}/%{pkgname}-1.0/
-%{mingw32_libdir}/lib%{pkgname}*.dll.a
+%{mingw32_libdir}/lib%{pkgname}-1.0.dll.a
 #{mingw32_libdir}/girepository-1.0/Json-1.0.typelib
 %{mingw32_libdir}/pkgconfig/%{pkgname}-1.0.pc
 #{mingw32_datadir}/gir-1.0/Json-1.0.gir
@@ -85,13 +89,13 @@ export DESTDIR=%{buildroot}
 
 
 # Win64
-%files -n mingw64-%{pkgname} -f mingw64-json-glib-1.0.lang
+%files -n mingw64-%{pkgname} -f mingw64-%{pkgname}-1.0.lang
 %license COPYING
 %{mingw64_bindir}/json-glib-format.exe
 %{mingw64_bindir}/json-glib-validate.exe
-%{mingw64_bindir}/lib%{pkgname}*.dll
+%{mingw64_bindir}/lib%{pkgname}-1.0-0.dll
 %{mingw64_includedir}/%{pkgname}-1.0/
-%{mingw64_libdir}/lib%{pkgname}*.dll.a
+%{mingw64_libdir}/lib%{pkgname}-1.0.dll.a
 #{mingw64_libdir}/girepository-1.0/Json-1.0.typelib
 %{mingw64_libdir}/pkgconfig/%{pkgname}-1.0.pc
 #{mingw64_datadir}/gir-1.0/Json-1.0.gir

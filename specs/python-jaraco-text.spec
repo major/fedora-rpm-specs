@@ -9,7 +9,7 @@
 %bcond hatch %[0%{?epel} && 0%{?epel} <= 10]
 
 Name:           python-%{pkg_name}
-Version:        4.2.0
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Module for text manipulation
 

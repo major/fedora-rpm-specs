@@ -14,13 +14,11 @@ Source:         https://github.com/emacsmirror/auctex/archive/auctex-%{version}.
 
 BuildArch:      noarch
 BuildRequires:  emacs-nw
-BuildRequires:  ghostscript
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  tex(german.ldf)
 BuildRequires:  tex(tex)
 BuildRequires:  texinfo
-BuildRequires:  texinfo-tex
 BuildRequires:  texlive-latex
 BuildRequires:  texlive-mylatex
 

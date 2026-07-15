@@ -19,10 +19,21 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(a4.sty)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
 BuildRequires:  tex(extdash.sty)
+BuildRequires:  tex(fontenc.sty)
+BuildRequires:  tex(graphicx.sty)
+BuildRequires:  tex(hyperref.sty)
 BuildRequires:  tex(hyperxmp.sty)
-BuildRequires:  tex(totpages.sty)
+BuildRequires:  tex(inputenc.sty)
+BuildRequires:  tex(mathrsfs.sty)
+BuildRequires:  tex(xcolor.sty)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-dvips
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 BuildRequires:  texlive-rsfs
 BuildRequires:  texlive-txfonts
 BuildRequires:  texlive-utopia
@@ -58,10 +69,10 @@ rm -f bin/*.exe manual.pdf
 
 # Build the manual
 cd manual/latex_source
-pdflatex manual
+pdflatex -interaction=nonstopmode manual
 bibtex manual
-pdflatex manual
-pdflatex manual
+pdflatex -interaction=nonstopmode manual
+pdflatex -interaction=nonstopmode manual
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -85,6 +96,10 @@ popd
 %doc manual/latex_source/manual.pdf
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 0.32-22
+- Reduce the number of TeXLive packages installed to build
+- Run pdflatex in nonstop mode
+
 * Fri Feb 20 2026 Jerry James <loganjerry@gmail.com> - 0.32-22
 - Adapt to recent TeXLive changes
 

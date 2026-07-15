@@ -1,11 +1,11 @@
 %global upstreamver 2-5-4
 
 Name:           cxsc
-Version:        %(tr - . <<< %{upstreamver})
+Version:        %{gsub %upstreamver - .}
 Release:        33%{?dist}
 Summary:        C++ library for Extended Scientific Computing
 
-%global majver  %(cut -d. -f1 <<< %{version})
+%global majver  %{gsub %version ^(%d*)%..*$ %1}
 
 License:        LGPL-2.0-or-later
 URL:            https://www2.math.uni-wuppertal.de/wrswt/xsc/cxsc_new.html
@@ -209,6 +209,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 2.5.4-33
+- Use lua macros instead of invoking external tools
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

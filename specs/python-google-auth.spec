@@ -16,8 +16,8 @@
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.55.2
-Release:        4%{?dist}
+Version:        2.56.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
 
@@ -210,6 +210,10 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Mon Jul 13 2026 Packit <hello@packit.dev> - 1:2.56.0-1
+- Update to version 2.56.0
+- Resolves: rhbz#2423777
+
 * Fri Jul 10 2026 Miroslav Suchy <msuchy@redhat.com> - 1:2.55.2-4
 - enable jwt subpackage
 - rebase to 2.55.2

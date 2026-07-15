@@ -84,9 +84,10 @@ BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(tcl)
 BuildRequires:  pkgconfig(tk)
-BuildRequires:  pkgconfig(xaw7)
-BuildRequires:  tex(latex)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  tex(geometry.sty)
 BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
 BuildRequires:  emacs-nw
@@ -165,8 +166,8 @@ make -C info gcl.info
 
 # dwdoc needs two extra LaTeX runs to resolve references
 cd xgcl-2
-pdflatex dwdoc.tex
-pdflatex dwdoc.tex
+pdflatex -interaction=nonstopmode dwdoc.tex
+pdflatex -interaction=nonstopmode dwdoc.tex
 cd -
 
 

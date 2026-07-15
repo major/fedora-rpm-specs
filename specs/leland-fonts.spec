@@ -23,11 +23,6 @@ software.}
 
 %global fontfamily0     Leland
 %global fontsummary0    SMuFL-compliant OpenType music font
-%global fontpkgheader1  %{expand:
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-leland-fonts < 4.0
-Provides:       mscore-leland-fonts = 1:%{version}-%{release}
-}
 %global fonts0          Leland.otf
 %global fontconfs0      %{SOURCE1}
 %global fontdescription0 %{expand:%_desc

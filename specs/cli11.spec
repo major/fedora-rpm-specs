@@ -1,5 +1,8 @@
 # TODO: Package the C++20 module
 
+# Whether to run tests
+%bcond ctest 1
+
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
@@ -12,12 +15,18 @@ Release:        %autorelease
 Summary:        Command line parser for C++11
 
 License:        BSD-3-Clause
+# MIT: tests/module_test/{cmodule.ixx,LICENSE,module_include_test.cpp}
+SourceLicense:  %{license} AND MIT
 URL:            https://github.com/CLIUtils/CLI11
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): -DCLI11_BUILD_DOCS:BOOL=TRUE
+BuildOption(conf): -DCLI11_BUILD_TESTS:BOOL=TRUE
+BuildOption(conf): -DCMAKE_CXX_STANDARD=20
+
 BuildRequires:  boost-devel
-BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -54,28 +63,17 @@ Documentation for CLI11.
 %prep
 %autosetup -p1 -n CLI11-%{version}
 
-%conf
 # Alter the icon path in README.md for the installed paths
 sed -i.orig 's,\./docs,.,' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
 
-%build
+%conf -p
 CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
-%cmake \
-    -DCLI11_BUILD_DOCS:BOOL=TRUE \
-    -DCLI11_BUILD_TESTS:BOOL=TRUE \
-    -DCMAKE_CXX_STANDARD=20
-%cmake_build
 
+%build -a
 # Build the documentation
 %cmake_build --target docs
-
-%install
-%cmake_install
-
-%check
-%ctest
 
 %files devel
 %doc CHANGELOG.md README.md docs/CLI11_300.png

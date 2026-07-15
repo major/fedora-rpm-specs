@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3530200
-%define docver 3530200
-%define rpmver 3.53.2
+%define realver 3530300
+%define docver 3530300
+%define rpmver 3.53.3
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -23,6 +23,7 @@ Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
 Patch3: sqlite-3.53.0-fix-testrunner-exiting-0.patch
+Patch4: sqlite-3.53.3-fix-fts3corrupt4-test.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -174,6 +175,7 @@ This package contains the analysis program for %{name}.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -302,12 +304,7 @@ chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3_analyzer
 export LD_LIBRARY_PATH=`pwd`/.libs
 export MALLOC_CHECK_=3
 
-# csv01 hangs on all non-intel archs i've tried
-%ifnarch x86_64 %{ix86}
-rm test/csv01.test
-%endif
-
-make test
+make test || (echo "Tests failed, printing full log..." && cat testrunner.log && exit 1)
 %endif
 # ends %%{with check} if
 
@@ -357,6 +354,10 @@ make test
 %endif
 
 %changelog
+* Mon Jul 13 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.3-1
+- Update to version 3.53.3
+- Resolves: rhbz#2493788
+
 * Thu Jun 04 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.2-1
 - Update to version 3.53.2
 - Enable the carray() table-valued function

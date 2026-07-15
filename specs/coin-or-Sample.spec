@@ -6,6 +6,7 @@ Version:	1.2.13
 Release:	%autorelease
 License:	LicenseRef-Not-Copyrightable
 URL:		https://github.com/coin-or-tools/Data-Sample
+VCS:		git:%{url}.git
 Source0:	%{url}/archive/releases/%{version}/Data-%{module}-%{version}.tar.gz
 Source1:	%{name}-COPYING
 BuildArch:	noarch

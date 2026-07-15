@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.112.0
+Version:                2.113.0
 
 %gometa -L -f
 

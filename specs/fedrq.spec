@@ -4,11 +4,12 @@
 # SPDX-License-Identifier: MIT
 # License text: https://spdx.org/licenses/MIT.html
 
-%bcond libdnf5 %[0%{?fedora} >= 38]
+%bcond libdnf5 %[ %{undefined rhel} || 0%{?rhel} >= 11 ]
+%define min_libdnf5_version 5.2.0
 
 Name:           fedrq
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
 # - code is GPL-2.0-or-later
@@ -17,9 +18,11 @@ Summary:        A tool to query the Fedora and EPEL repositories
 # - PSF-2.0 code copied from Cpython 3.11 for older Python versions
 License:        GPL-2.0-or-later AND Unlicense AND MIT AND PSF-2.0
 URL:            https://fedrq.gtmx.me
-%global furl    https://git.sr.ht/~gotmax23/fedrq
-Source0:        %{furl}/refs/download/v%{version}/fedrq-%{version}.tar.gz
-Source1:        %{furl}/refs/download/v%{version}/fedrq-%{version}.tar.gz.asc
+%global furl    https://forge.fedoraproject.org/packaging/fedrq
+%dnl Use pre-generated sdist archive instead of forgejo archive
+%dnl Source0:        %{furl}/archive/v%{version}.tar.gz#/fedrq-%{version}.tar.gz
+Source0:        %{furl}/releases/download/v%{version}/fedrq-%{version}.tar.gz
+Source1:        %{furl}/releases/download/v%{version}/fedrq-%{version}.tar.gz.asc
 Source2:        https://meta.sr.ht/~gotmax23.pgp
 
 BuildArch:      noarch
@@ -31,13 +34,16 @@ BuildRequires:  distribution-gpg-keys
 BuildRequires:  python3-argcomplete
 BuildRequires:  python3-dnf
 %if %{with libdnf5}
-BuildRequires:  python3-libdnf5
+BuildRequires:  python3-libdnf5 >= %{min_libdnf5_version}
 %endif
 # Manpage
 BuildRequires:  scdoc
+# gpgverify
+BuildRequires:  gnupg2
 
 Requires:       (python3-dnf or python3-libdnf5)
 Suggests:       (python3-libdnf5 if dnf5)
+Requires:       (python3-libdnf5 >= %{min_libdnf5_version} if python3-libdnf5)
 Requires:       distribution-gpg-keys
 Recommends:     fedora-repos-rawhide
 Recommends:     python3-argcomplete
@@ -114,6 +120,10 @@ FEDRQ_BACKEND=libdnf5 %{py3_test_envvars} \
 
 
 %changelog
+* Mon Jul 13 2026 Maxwell G <maxwell@gtmx.me> - 1.7.0-1
+- Update to 1.7.0.
+- Switch upstream to forge.fedoraproject.org.
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6.0-2
 - Rebuilt for Python 3.15
 

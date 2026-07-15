@@ -42,10 +42,10 @@ ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  emacs-nox
+BuildRequires:  emacs-nw
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  texlive-cm-super
 BuildRequires:  texlive-ec
 BuildRequires:  texinfo-tex
@@ -159,6 +159,9 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 4.5-14
+- Small tweaks to BuildRequires
+
 * Fri Feb 20 2026 Jerry James <loganjerry@gmail.com> - 4.5-14
 - Adapt to recent TeXLive packaging changes
 

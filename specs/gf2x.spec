@@ -18,6 +18,8 @@ Patch:          %{name}-modern-c.patch
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make

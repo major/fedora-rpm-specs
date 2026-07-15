@@ -1,9 +1,22 @@
+# Whether to run tests
+%bcond ctest 1
+
 Name:           breakid
 Version:        3.1.3
 Release:        %autorelease
 Summary:        Symmetry detecting and breaking library
 
 License:        MIT
+# BSL-1.0: cmake/GetGitRevisionDescription.cmake*
+# GPL-2.0-only: scripts/{fix_cnf,rem_dup_cls,xor_to_cnf}.py
+# LGPL-3.0-only: src/bliss
+# LicenseRef-Fedora-Public-Domain: cmake/FindPkgMacros.cmake
+SourceLicense:  %{shrink:%{license}
+                  AND BSL-1.0
+                  AND GPL-2.0-only
+                  AND LGPL-3.0-only
+                  AND LicenseRef-Fedora-Public-Domain
+                }
 URL:            https://github.com/meelgroup/breakid
 VCS:            git:%{url}.git
 Source:         %{url}/archive/release/%{version}/%{name}-%{version}.tar.gz
@@ -14,9 +27,10 @@ Patch:          %{name}-unbundle-bliss.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DBREAKID_INSTALL_CMAKE_DIR:PATH=%{_lib}/cmake/breakid
 
 BuildRequires:  bliss-devel
-BuildRequires:  cmake
 BuildRequires:  cmake(argparse)
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
@@ -37,7 +51,6 @@ Header files and library links for developing applications that use breakid.
 %prep
 %autosetup -n %{name}-release-%{version} -p1
 
-%conf
 # Make sure the bundled bliss cannot be used
 rm -fr src/bliss
 
@@ -50,22 +63,13 @@ sed -i.orig 's/\r//' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
 
-%build
-%cmake -DBREAKID_INSTALL_CMAKE_DIR:PATH=%{_lib}/cmake/breakid
-%cmake_build
-
-%install
-%cmake_install
-
+%install -a
 mkdir -p %{buildroot}%{_mandir}/man1
 cd %{_vpath_builddir}
 help2man -N --version-string=%{version} ./breakid \
   -n 'Symmetry detection and breaking' \
   -o %{buildroot}%{_mandir}/man1/breakid.1
 cd -
-
-%check
-%ctest
 
 %files
 %doc README.md

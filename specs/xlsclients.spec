@@ -5,29 +5,30 @@ Release:    %autorelease
 License:    MIT
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
-BuildRequires:  gettext-devel
-BuildRequires:  libtool
-BuildRequires:  make
+Source1:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.sig
+Source2:    gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 
-BuildRequires:  pkgconfig(x11)
-
-Obsoletes: xorg-x11-utils < 7.5-39
+BuildRequires:  gcc
+BuildRequires:  gpgverify
+BuildRequires:  meson
+BuildRequires:  pkgconfig(xcb) >= 1.6
 
 %description
 xlsclients lists the names of the clients currently connected to an X server.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %check
-make check
+%meson_test
 
 %install
-%make_install
+%meson_install
 
 %files
 %license COPYING

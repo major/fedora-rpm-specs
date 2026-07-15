@@ -5,8 +5,8 @@
 %undefine _package_note_file
 
 Name:		perl-Test-Synopsis
-Version:	0.17
-Release:	14%{?dist}
+Version:	0.18
+Release:	1%{?dist}
 Summary:	Test your SYNOPSIS code
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Synopsis
@@ -18,7 +18,7 @@ BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(ExtUtils::Manifest)
 BuildRequires:	perl(parent)
@@ -52,7 +52,7 @@ BuildRequires:	perl(Test::NoTabs)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
-BuildRequires:	perl(Test::Spelling) >= 0.12, hunspell-en
+BuildRequires:	perl(Test::Spelling) >= 0.17, hunspell-en
 BuildRequires:	perl(Test::Version)
 %endif
 # Dependencies
@@ -70,12 +70,11 @@ sub) and doesn't actually run the code.
 %setup -q -n Test-Synopsis-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -91,6 +90,12 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::Synopsis.3*
 
 %changelog
+* Mon Jul 13 2026 Paul Howarth <paul@city-fan.org> - 0.18-1
+- Update to 0.18
+  - Fix: =for test_synopsis directives are now applied regardless of their
+    position relative to the SYNOPSIS code block (GH#20, regression since 0.14)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/nuclei
 %global goipath         github.com/projectdiscovery/nuclei/v3
-Version:                3.8.0
+Version:                3.11.0
 
 %gometa -L -f
 
@@ -69,6 +69,19 @@ install -m 0755 -vp %{gobuilddir}/bin/nuclei %{buildroot}%{_bindir}/
     -s TestMultiProtoWithDynamicExtractor
     -s TestMultiProtoWithProtoPrefix
     -s TestWithOptionsRateLimitSetsRuntimeLimiter
+    -s TestWithConfigFile
+    -s TestWithConfigBytes
+    -s TestWithReportingConfigFile
+    -s TestWithReportingConfigBytes
+    -s TestPrepareGeneratorValuesRendersDirectPayloadInteractshMarker
+    -s TestPrepareGeneratorValuesRendersHelperEncodedPayloadInteractshMarker
+    -s TestPrepareGeneratorValuesRendersVariableIndirectPayloadInteractshMarker
+    -s TestExecuteEvaluateReplacesHelperEncodedTemplateInteractshMarker
+    -s TestMakeSelfContainedRequestRendersPayloadInteractshMarker
+    -s TestMakeSelfContainedRequestDoesNotAllocateRuntimeInteractshMarkerFromPayload
+    -s TestGeneratorPayloadInteractshMarkerRendersBeforeArgs
+    -s TestNetworkGeneratorPayloadInteractshMarkerRendersBeforeInput
+    -s TestNetworkCompileDefersInteractshMarkerHelpersToRuntime
 }
 %gocheck2 %{ignores} -t pkg/protocols/headless -t pkg/tmplexec
 %endif

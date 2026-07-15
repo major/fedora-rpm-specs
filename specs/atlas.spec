@@ -6,7 +6,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -57,6 +57,7 @@ Patch14: 0008-Add-IBM-z15-support.patch
 
 
 Patch15:		atlas-fgrep.patch
+Patch16:		atlas-riscv64-port.patch
 #Covscan
 Patch101:		atlas-getri.patch
 
@@ -349,15 +350,14 @@ CPUs. The base ATLAS builds for the ppc64 architecture are made for the Power 5 
 %patch -P8 -p1
 %patch -P10 -p1
 
-%ifarch s390x s390
 %patch -P9 -p1
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
 %patch -P14 -p1
-%endif
 
 %patch -P15 -p1
+%patch -P16 -p1
 %patch -P101 -p1
 
 cp %{SOURCE1} CONFIG/ARCHS/
@@ -441,6 +441,11 @@ p=$(pwd)
 %ifarch aarch64
 %define flags %{nil}
 %define base_options "-A ARM64a53 -V 1"
+%endif
+
+%ifarch riscv64
+%define flags %{nil}
+%define base_options "-A RISCV64 -V 1"
 %endif
 
 %if "%{?enable_native_atlas}" != "0"
@@ -777,6 +782,10 @@ fi
 %endif
 
 %changelog
+* Mon Jun 29 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 3.10.3-34
+- always apply s390x patches
+- add RISC-V support
+
 * Wed Feb 04 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-33
 - Fix the ftbfs in Fedora
 - The main issue was caused by the changes in lapack packaging -> the _pic libraries were discontinued

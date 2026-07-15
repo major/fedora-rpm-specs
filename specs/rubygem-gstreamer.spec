@@ -11,7 +11,7 @@
 
 Summary:	Ruby binding of GStreamer
 Name:		rubygem-%{gem_name}
-Version:	4.3.6
+Version:	4.3.7
 Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -28,7 +28,10 @@ BuildRequires:	rubygem-glib2-devel >= %{glibminver}
 BuildRequires:	rubygem-gobject-introspection-devel >= %{glibminver}
 BuildRequires:	ruby-devel
 BuildRequires:	pkgconfig(gstreamer-1.0)
+# 4.3.7
+BuildRequires:	pkgconfig(gstreamer-audio-1.0)
 # %%check
+BuildRequires:	rubygem(fiddle)
 BuildRequires:	rubygem(test-unit)
 # decodebin / playbin
 BuildRequires:	gstreamer1-plugins-base
@@ -65,7 +68,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.6|>= 4.3.6|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.7|>= 4.3.7|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -156,6 +159,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.7-1
+- 4.3.7
+
 * Sat Apr 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.6-1
 - 4.3.6
 

@@ -1,8 +1,8 @@
 # ASL upstream has not tagged any releases, so we use a git checkout
-%global commit     3d477ba78a3392b8b7b05a2fd843ae7f9df70252
+%global commit  877221766530d6bde7f15cb8c014eb6f3ca39c58
 
 Name:           asl
-Version:        20251122
+Version:        20260109
 Release:        %autorelease
 Summary:        AMPL Solver Library
 
@@ -18,8 +18,13 @@ Patch:          %{name}-shared.patch
 # Do not override Fedora architecture flags
 Patch:          %{name}-arch-flags.patch
 
-BuildRequires:  cmake
-BuildRequires:  fdupes
+BuildSystem:    cmake
+BuildOption(conf): -DBUILD_CPP:BOOL=ON
+BuildOption(conf): -DBUILD_EXAMPLES:BOOL=OFF
+BuildOption(conf): -DBUILD_MT_LIBS:BOOL=ON
+BuildOption(conf): -DBUILD_SHARED_LIBS:BOOL=ON
+BuildOption(conf): -DGENERATE_ARITH:BOOL=ON
+
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
 
@@ -37,36 +42,20 @@ Header files and library links for building projects that use %{name}.
 %prep
 %autosetup -p1 -n %{name}-%{commit}
 
-%conf
+%conf -p
 # Fix install location of ampl-asl-config
 sed -i 's,share/,lib/cmake/,' CMakeLists.txt
 
 # Fix install location on 64-bit platforms
-if [ "%{_lib}" != "lib" ]; then
-  sed -i '/DESTINATION/s/lib/%{_lib}/g' CMakeLists.txt
-fi
+sed -i '/DESTINATION/s/lib/${LIB_INSTALL_DIR}/g' CMakeLists.txt
 
 export CFLAGS="%{build_cflags} -DIGNORE_BOGUS_WARNINGS"
 export CXXFLAGS="%{build_cxxflags} -DIGNORE_BOGUS_WARNINGS"
-%cmake \
-  -DBUILD_CPP:BOOL=ON \
-  -DBUILD_EXAMPLES:BOOL=OFF \
-  -DBUILD_MT_LIBS:BOOL=ON \
-  -DBUILD_SHARED_LIBS:BOOL=ON \
-  -DGENERATE_ARITH:BOOL=ON
 
-%build
-%cmake_build
-
-%install
-%cmake_install
-
+%install -a
 # mp needs uninstalled files
 cp -p src/solvers/{dvalue.hd,fg_read.c} %{buildroot}%{_includedir}/asl
 cp -p src/solvers2/fg_read.c %{buildroot}%{_includedir}/asl2
-
-# Save space by not duplicating header files between asl and asl2
-%fdupes %{buildroot}%{_includedir}
 
 %files
 %doc README.md

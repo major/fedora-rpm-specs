@@ -33,9 +33,21 @@ Patch:          lemon-%{version}-std-allocator.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+# CPLEX (aka ILOG) is non-free, so don't try to detect it.
+#
+# We suppress detection of ghostscript, doxygen, and python to make
+# the build behave the same way with and without them installed -- we
+# don't actually need them, since we don't need to rebuild the docs.
+BuildOption(conf): -DDOXYGEN_EXECUTABLE=
+BuildOption(conf): -DGHOSTSCRIPT_EXECUTABLE=
+BuildOption(conf): -DPYTHON_EXECUTABLE=
+BuildOption(conf): -DLEMON_ENABLE_COIN:BOOL=YES
+BuildOption(conf): -DLEMON_ENABLE_GLPK:BOOL=YES
+BuildOption(conf): -DLEMON_ENABLE_ILOG:BOOL=NO
+BuildOption(conf): -DLEMON_ENABLE_SOPLEX:BOOL=YES
 
 BuildRequires:  bzip2-devel
-BuildRequires:  cmake
 BuildRequires:  coin-or-Cbc-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -80,8 +92,6 @@ The %{name}-doc package contains %{name}'s API documentation.
 %prep
 %autosetup -n lemon-%{version} -p1
 
-
-%conf
 # Fix the library directory name on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
     sed -i 's,/lib,/lib64,' cmake/FindCOIN.cmake cmake/FindGLPK.cmake \
@@ -93,32 +103,14 @@ fi
 sed -i 's/libemon\.a/libemon.so/' cmake/LEMONConfig.cmake.in
 
 
-%build
+%conf -p
 # The code is incompatible with C++20 and later
 export CXXFLAGS='%{build_cxxflags} -std=gnu++17 -I%{_includedir}/soplex'
 
-# CPLEX (aka ILOG) is non-free, so don't try to detect it.
-#
-# We suppress detection of ghostscript, doxygen, and python to make
-# the build behave the same way with and without them installed -- we
-# don't actually need them, since we don't need to rebuild the docs.
-%cmake \
-  -DDOXYGEN_EXECUTABLE= \
-  -DGHOSTSCRIPT_EXECUTABLE= \
-  -DPYTHON_EXECUTABLE= \
-  -DLEMON_ENABLE_COIN:BOOL=YES \
-  -DLEMON_ENABLE_GLPK:BOOL=YES \
-  -DLEMON_ENABLE_ILOG:BOOL=NO \
-  -DLEMON_ENABLE_SOPLEX:BOOL=YES
 
-%cmake_build
-
-
-%install
-%cmake_install
-
+%install -a
 # Fix up the symlinks the way ldconfig wants them
-%global majver %(cut -d. -f1 <<< %{version})
+%global majver %{gsub %version ^(%d*)%..*$ %1}
 cd %{buildroot}%{_libdir}
 rm libemon.so
 ln -s libemon.so.%{version} libemon.so.%{majver}
@@ -169,6 +161,9 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-41
+- Use the cmake declarative buildsystem
+
 * Fri Jan 16 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-41
 - Build with C++17 for now
 

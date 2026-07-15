@@ -1,5 +1,5 @@
 Name:           libcanlock
-Version:        3.3.1
+Version:        3.3.3
 Release:        %autorelease
 Summary:        Create and verify RFC 8315 Netnews Cancel-Locks
 # BSD licensed:
@@ -14,6 +14,9 @@ Summary:        Create and verify RFC 8315 Netnews Cancel-Locks
 # src/usha.c
 # test/hkdf.c
 # test/shatest.c
+# NLPL licensed:
+# ChangeLog
+# README
 # ICU licensed:
 # include/canlock-private.h
 # include/canlock.h
@@ -30,7 +33,7 @@ Summary:        Create and verify RFC 8315 Netnews Cancel-Locks
 # hp/util/hfp_lexer.l
 # hp/util/hfp_parser.y
 # hp/util/package_name.c
-License:        BSD-3-Clause AND ICU
+License:        BSD-3-Clause AND NLPL AND ICU
 URL:            https://micha.freeshell.org/libcanlock
 Source0:        %{url}/src/%{name}-%{version}.tar.bz2
 BuildRequires:  byacc

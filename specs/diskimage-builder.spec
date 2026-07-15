@@ -1,6 +1,10 @@
 %global sources_gpg 1
 %global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
+%global __requires_exclude /usr/local/bin/dib-python
+%global __requires_exclude %{__requires_exclude}|/sbin/runscript
+%global __requires_exclude %{__requires_exclude}|/sbin/openrc-run
+
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
 Version:        3.42.0
@@ -17,16 +21,11 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 
 BuildRequires: git-core
 BuildRequires: python3-devel
+%if 0%{?sources_gpg} == 1
+BuildRequires: /usr/bin/gpgv2
+%endif
 
 BuildArch: noarch
-
-
-%description
-Components of TripleO that are responsible for building disk images.
-
-%if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
-%endif
 
 Requires: kpartx
 Requires: qemu-img
@@ -45,9 +44,8 @@ Requires: /bin/bash
 Requires: /bin/sh
 Requires: /usr/bin/env
 
-%global __requires_exclude /usr/local/bin/dib-python
-%global __requires_exclude %__requires_exclude|/sbin/runscript
-%global __requires_exclude %__requires_exclude|/sbin/openrc-run
+%description
+Components of TripleO that are responsible for building disk images.
 
 
 %prep

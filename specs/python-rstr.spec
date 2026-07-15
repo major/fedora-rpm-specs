@@ -6,12 +6,11 @@ It could be useful for fuzz testing, generating dummy data, or other
 applications.}
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
-Release:        18%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        Generate random strings in Python
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://files.pythonhosted.org/packages/source/r/rstr/%{name}-%{version}.tar.gz
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -49,6 +48,11 @@ rm -rf %{pypi_name}.egg-info
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Mon Jul 13 2026 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 3.2.2-1
+- Update to 3.2.2
+- Fixes rhbz#2414567 (FTBFS with Python 3.15: removed sre_parse module)
+- Correct License to SPDX BSD-3-Clause (was LicenseRef-Callaway-BSD)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-18
 - Rebuilt for Python 3.15
 

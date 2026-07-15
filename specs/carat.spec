@@ -11,7 +11,11 @@ Summary:        Crystallographic AlgoRithms And Tables
 %forgemeta
 
 Release:        10%{?dist}
-License:        GPL-2.0-or-later
+# GPL-2.0-or-later: the project as a whole
+# MIT: functions/Datei/get_data_dir.c
+License:        GPL-2.0-or-later AND MIT
+# GPL-3.0-or-later WITH Autoconf-exception-2.0: m4/ax_check_library.m4
+SourceLicense:  %{license} AND GPL-3.0-or-later WITH Autoconf-exception-macro
 URL:            https://lbfm-rwth.github.io/carat/
 VCS:            git:%{forgeurl}.git
 Source0:        %{forgesource}
@@ -28,8 +32,16 @@ BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(a4.sty)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(eepic.sty)
 BuildRequires:  tex(epic.sty)
+BuildRequires:  tex(graphics.sty)
+BuildRequires:  tex(graphicx.sty)
+BuildRequires:  tex(latexsym.sty)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 
 Requires:       %{name}-tables = 1:%{version}-%{release}
 Requires:       environment(modules)
@@ -44,6 +56,7 @@ package uses environment modules to access its binaries.
 
 %package tables
 Summary:        Tables for CARAT binaries
+License:        GPL-2.0-or-later
 BuildArch:      noarch
 
 %description tables
@@ -78,7 +91,7 @@ rm -fr tex/examples/.xvpics
 
 # Build the documentation
 cd tex
-pdflatex manual
+pdflatex -interaction=nonstopmode manual
 cd -
 
 %install
@@ -120,6 +133,11 @@ cd -
 %license LICENSE
 
 %changelog
+* Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 1:2.1-10
+- Add MIT to License
+- Reduce number of TeXLive packages installed to build
+- Run pdflatex in nonstop mode
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

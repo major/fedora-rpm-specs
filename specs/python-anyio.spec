@@ -6,7 +6,7 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        4.14.1
+Version:        4.14.2
 Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
@@ -22,12 +22,6 @@ BuildRequires:  tomcli
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-# We could perhaps generate PDF documentation as a substitute, but instead we
-# simply drop the -doc subpackage.
-Obsoletes:      python-%{srcname}-doc < 3.7.1-7
 
 %description -n python3-%{srcname} %{common_description}
 
@@ -76,6 +70,9 @@ tomcli set pyproject.toml lists delitem \
 
 
 %changelog
+* Mon Jul 13 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.2-1
+- Update to 4.14.2 (close RHBZ#2499541)
+
 * Fri Jun 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.1-1
 - Update to 4.14.1 (close RHBZ#2492545)
 

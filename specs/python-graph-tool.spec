@@ -1,16 +1,32 @@
-# This needs about 15 gigs per thread, otherwise OOMs.
-%global _smp_tasksize_proc 15360
+# Even with debugging symbols disabled entirely, memory usage for compiling
+# e.g. src/graph/inference/blockmodel/layered_overlap/multilevel_mcmc.cc
+# exceeds 20 GB for the compiler (cc1plus) on x86_64, while the associated
+# assembler (as) process takes another GB.
+%global _smp_tasksize_proc 24576
+
+# Even tracking reduced debugging symbols (-g1) would cause memory requirements
+# to roughly double to around 40 GB for the compiler (cc1plus) on the most
+# demanding translation units, plus perhaps 8 GB more for the associated
+# assembler (as) process. This exceeds the total memory of some koji builders,
+# so we have no choice but to omit debuginfo entirely (-g0).
+%global debug_package %{nil}
 
 Name:           python-graph-tool
-Version:        2.98
+Version:        3.0
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 
 # The entire source is LGPL-3.0-or-later, except:
-#   - BSL-1.0: src/boost-workaround/
-#              src/graph/graphml.cpp
-#              src/graph/read_graphviz_new.cpp
-#   - LGPL-3.0-or-later AND BSD-3-Clause: src/graph_tool/collection/small.py
+#   - BSL-1.0:
+#       src/boost-workaround/
+#       src/graph/graphml.cpp
+#       src/graph/read_graphviz_new.cpp
+#   - LGPL-3.0-or-later AND BSL-1.0:
+#       src/graph/fast_vector_property_map.hh
+#       src/graph/graph_filtered.hh
+#       src/graph/graph_reverse.hh
+#   - LGPL-3.0-or-later AND BSD-3-Clause:
+#       src/graph_tool/collection/small.py
 # Additionally, the following libraries are header-only and are therefore
 # treated as static libraries; their licenses do contribute to that of the
 # binary RPMs:
@@ -19,32 +35,6 @@ Summary:        Efficient network analysis tool written in Python
 #     good license audit – but it is a sprawling package, and the preceding
 #     expression is slightly better than the one it currently carries)
 #   - pcg-cpp is: MIT OR Apache-2.0
-# Additionally, the following are under other licenses but do not contribute to
-# the licenses of the binary RPMs:
-#   - FSFULLR: aclocal.m4
-#   - FSFUL (or perhaps FSFUL AND LGPL-3.0-or-later): configure
-#   - GPL-2.0-or-later: build-aux/compile
-#                       build-aux/depcomp
-#                       build-aux/ltmain.sh
-#                       build-aux/py-compile
-#                       m4/ax_boost_python.m4
-#   - GPL-3.0-or-later: build-aux/config.guess
-#                       build-aux/config.sub
-#                       m4/ax_create_pkgconfig_info.m4
-#                       m4/ax_openmp.m4
-#                       m4/ax_python_devel.m4
-#   - X11: build-aux/install-sh
-#   - FSFAP: m4/ax_boost_base.m4
-#            m4/ax_boost_context.m4
-#            m4/ax_boost_coroutine.m4
-#            m4/ax_boost_graph.m4
-#            m4/ax_boost_iostreams.m4
-#            m4/ax_boost_regex.m4
-#            m4/ax_boost_thread.m4
-#            m4/ax_cxx_compile_stdcxx.m4,
-#            m4/ax_cxx_compile_stdcxx_17.m4
-#            m4/ax_lib_cgal_core.m4
-#            m4/ax_python_module.m4
 License:        %{shrink:
                 LGPL-3.0-or-later AND
                 BSL-1.0 AND
@@ -53,12 +43,61 @@ License:        %{shrink:
                 MIT AND
                 (MIT OR Apache-2.0)
                 }
+# Additionally, the following are under other licenses but do not contribute to
+# the licenses of the binary RPMs:
+#   - FSFAP-no-warranty-disclaimer:
+#       m4/ax_boost_base.m4
+#       m4/ax_boost_context.m4
+#       m4/ax_boost_coroutine.m4
+#       m4/ax_boost_iostreams.m4
+#       m4/ax_boost_regex.m4
+#       m4/ax_boost_thread.m4
+#       m4/ax_cxx_compile_stdcxx.m4
+#       m4/ax_lib_cgal_core.m4
+#       m4/ax_python_module.m4
+#   - FSFUL AND FSFULLR AND FSFULLRWD AND
+#     GPL-2.0-or-later WITH Autoconf-exception-generic AND
+#     GPL-2.0-or-later WITH Libtool-exception:
+#       aclocal.m4
+#   - FSFUL AND GPL-2.0-or-later WITH Libtool-exception (and perhaps
+#     LGPL-3.0-or-later due to being derived from configure.ac, and perhaps
+#     some of the other licenses of the various .m4 files and other
+#     autotools-related files as well):
+#       configure
+#   - FSFULLRWD: Makefile.in
+#   - GPL-2.0-or-later WITH Autoconf-exception-generic:
+#       build-aux/compile
+#       build-aux/depcomp
+#       build-aux/missing
+#       build-aux/py-compile
+#   - GPL-2.0-or-later WITH Autoconf-exception-macro
+#       m4/ax_boost_graph.m4
+#   - GPL-2.0-or-later WITH Libtool-exception AND
+#     MIT AND GPL-2.0-or-later:
+#       build-aux/ltmain.sh
+#   - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0:
+#       build-aux/config.guess
+#       build-aux/config.sub
+#   - GPL-3.0-or-later WITH Autoconf-exception-macro
+#       m4/ax_create_pkgconfig_info.m4
+#       m4/ax_openmp.m4
+#       m4/ax_python_devel.m4
+#   - X11 AND LicenseRef-Fedora-Public-Domain: build-aux/install-sh
+SourceLicense:  %{shrink:
+    %{license} AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    FSFULLRWD AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-2.0-or-later WITH Autoconf-exception-macro AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND
+    GPL-3.0-or-later WITH Autoconf-exception-macro AND
+    X11
+    }
 URL:            https://graph-tool.skewed.de/
 Source:         https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
-
-# Fix invalid conversion from 'const char8_t*' to 'const char*'
-# https://git.skewed.de/count0/graph-tool/-/merge_requests/78
-Patch:          https://git.skewed.de/count0/graph-tool/-/merge_requests/78.patch
 
 # Note that upstream sets the optimization flag -O3. Per
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags,
@@ -119,7 +158,6 @@ BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pycairo}
 BuildRequires:  python3-cairo-devel
 BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  sparsehash-devel
 # BR -static package of header-only libraries for tracking per guidelines
 BuildRequires:  pcg-cpp-devel
 BuildRequires:  pcg-cpp-static
@@ -190,9 +228,11 @@ find doc/_static -type f -print -execdir truncate --size=0 '{}' '+'
 # warnings as a pragmatic matter.
 export CXXFLAGS="${CXXFLAGS-} -Wno-attributes"
 
-# Keeping track of full debugging symbols causes us to run out of *disk space*
-# (not memory!) on some koji builders. Reduce the debuginfo level to -g1.
-export CXXFLAGS="$(echo "${CXXFLAGS-}" | sed -r 's/(^| )-g($| )/\1-g1\2/')"
+# We must reluctantly omit debugging symbols entirely. See the comments at the
+# top of this spec file for justification.
+export CXXFLAGS="$(
+  printf '%s\n' "${CXXFLAGS-}" | sed -r 's/(^| )-g($| )/\1-g0\2/'
+)"
 
 %configure \
     --with-python-module-path=%{python3_sitearch} \
