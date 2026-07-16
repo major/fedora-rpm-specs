@@ -16,11 +16,11 @@
 %endif
 %global guile_pkg    %(echo guile%{?guile_ver} | sed -e 's!\\\.!!g')
 
-%global relversion 2.10.1
+%global relversion 2.11.0
 Name:              NLopt
-Version:           2.10.1
+Version:           2.11.0
 %global tag        v%{version}
-Release:           5%{?dist}
+Release:           1%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -217,19 +217,6 @@ mkdir -p %{buildroot}%{octpkgdir}/packinfo
 chmod 0755 %{buildroot}%{octpkglibdir}/*.oct
 install -pm 0644 COPYING %{buildroot}%{octpkgdir}/packinfo
 
-cat > %{buildroot}%{octpkgdir}/packinfo/DESCRIPTION << EOF
-Name: %{name}
-Version: %{version}
-Date: %(date +%Y-%m-%d)
-Author: Steven G. Johnson <stevenj@alum.mit.edu>
-Title: Open-Source library for nonlinear optimization
-Description: NLopt is a library for nonlinear local and global
- optimization, for functions with and without gradient information.
- It is designed as as simple, unified interface and packaging of
- several free/open-source nonlinear optimization libraries.
-Url: %{url}
-EOF
-
 cat > %{buildroot}%{octpkgdir}/packinfo/on_uninstall.m << EOF
 function on_uninstall (desc)
   error ('Can not uninstall %s installed by the redhat package manager', desc.name);
@@ -300,6 +287,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Tue Jul 14 2026 Benson Muite <fed500@fedoraproject.org> - 2.11.0-1
+- Update to latest release
+
 * Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.10.1-5
 - RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
 

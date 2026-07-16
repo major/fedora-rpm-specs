@@ -1,6 +1,6 @@
 Name:           jackson-databind
-Version:        2.18.2
-Release:        6%{?dist}
+Version:        2.21.5
+Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -13,7 +13,8 @@ BuildRequires:  maven-local
 BuildRequires:  maven-local-openjdk25
 %endif
 
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= %{version}
+#BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= %{version}
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= 2.21
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
@@ -38,7 +39,10 @@ Jackson Annotations for configuration.
 %pom_remove_plugin ":maven-enforcer-plugin"
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
-%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "org.codehaus.mojo:animal-sniffer-maven-plugin"
+%pom_remove_plugin "org.gradlex:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin"
+
 %pom_xpath_set "//pom:javac.src.version" "11"
 %pom_xpath_set "//pom:javac.target.version" "11"
 %pom_xpath_inject "//pom:properties" " <maven.compiler.source>11</maven.compiler.source>"
@@ -69,6 +73,9 @@ rm src/test/java/com/fasterxml/jackson/databind/introspect/NoClassDefFoundWorkar
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.5-1
+- Update to version 2.21.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

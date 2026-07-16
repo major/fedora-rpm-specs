@@ -7,16 +7,16 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit fa85fcb5204df964d3728b2d4711e6bcb77e859f
-%global commitdatestring 2026-06-23 11:07:55 -0600
-%global cosmic_minver 1.1.0
+%global commit 8419488a1d3bfca6cfbd6c015aaddaf5ba50e023
+%global commitdatestring 2026-07-13 09:42:26 -0600
+%global cosmic_minver 1.3.0
 
 Name:           cosmic-store
-Version: 1.1.0
+Version: 1.3.0
 Release:        %autorelease
 Summary:        App store for the COSMIC Desktop Environment
 
-License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Zlib
+License: (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR GPL-2.0-only) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR ISC OR MIT-0) AND (Apache-2.0 OR ISC) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (LGPL-3.0-or-later OR MIT) AND (MIT OR Unlicense) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND CDLA-Permissive-2.0 AND GPL-3.0-only AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0 AND Zlib
 
 URL:            https://github.com/pop-os/cosmic-store
 
@@ -29,6 +29,8 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+# Fix building with aws-lc-rs,sys
+Patch1: 0001-Downgrade-aws-lc-rs-sys-to-fix-build.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

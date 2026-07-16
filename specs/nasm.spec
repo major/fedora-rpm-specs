@@ -8,8 +8,8 @@
 
 Summary: A portable x86 assembler which uses Intel-like syntax
 Name: nasm
-Version: 3.01
-Release: 3%{?dist}
+Version: 3.02
+Release: 1%{?dist}
 License: BSD-2-Clause
 URL: http://www.nasm.us
 Source0: https://www.nasm.us/pub/nasm/releasebuilds/%{version}/%{name}-%{version}.tar.xz
@@ -86,6 +86,10 @@ make -C test golden test diff
 %endif
 
 %changelog
+* Tue Jul 14 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.02-1
+- update to 3.02 (resolves rhbz#2494063)
+- fixes CVE-2026-6068
+
 * Wed Apr 22 2026 Dominik Mierzejewski <rpm@greysector.net> - 3.01-3
 - fix CVE-2026-6067 (resolves rhbz#2458087, rhbz#2458089)
   patch by Nick Clifton

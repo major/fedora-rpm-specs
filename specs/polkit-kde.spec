@@ -2,7 +2,7 @@
 
 Name:    polkit-kde
 Summary: PolicyKit integration for KDE Desktop
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND CC0-1.0
@@ -72,6 +72,9 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

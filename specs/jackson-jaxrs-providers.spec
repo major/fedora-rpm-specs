@@ -1,8 +1,8 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.18.2
-Release:        6%{?dist}
+Version:        2.21.5
+Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
 
@@ -114,15 +114,22 @@ cp -p xml/src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 
 %pom_remove_plugin -r :moditect-maven-plugin
-%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin -r "org.gradlex:gradle-module-metadata-maven-plugin"
 
 # Disable jar with no-meta-inf-services classifier, breaks build
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" base
 %pom_remove_plugin :maven-jar-plugin cbor
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" cbor
 %pom_remove_plugin :maven-jar-plugin json
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" json
 %pom_remove_plugin :maven-jar-plugin smile
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" smile
 %pom_remove_plugin :maven-jar-plugin xml
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" xml
 %pom_remove_plugin :maven-jar-plugin yaml
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" yaml
 %pom_remove_plugin :maven-jar-plugin datatypes
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" datatypes
 
 # Replace jakarta-ws-rs with jboss-jaxrs-2.0-api
 %pom_change_dep javax.ws.rs:javax.ws.rs-api org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec
@@ -178,6 +185,9 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.5-1
+- Update to version 2.21.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -41,7 +41,8 @@ Summary:        Link recognition library with full Unicode support
 %autosetup -n linkify-it-py-%{version}
 
 # Do not run coverage tools in RPM builds
-sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 %check
 %pytest -v

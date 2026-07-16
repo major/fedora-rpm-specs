@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.11.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -36,6 +36,7 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 Patch0:  qtdeclarative-dialogs-use-generic-qtquickcontrols-import-in-base-fallback-dialogs.patch
 Patch1:  qtdeclarative-qmltableinstancemodel-refactor-qmodelindex-calculation-out-of-qquicktableview.patch
+Patch2:  qtdeclarative-a11y-guard-against-nullptr-for-scrollbar-valueinterface.patch
 
 ## upstreamable patches
 
@@ -754,6 +755,10 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue Jul 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-3
+- Upstream backport:
+  - a11y: Guard against nullptr for scrollbar valueInterface
+
 * Mon May 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-2
 - Upstream backport:
   - QQmlTableInstanceModel: refactor QModelIndex calculation out

@@ -15,7 +15,9 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 
 Requires:       coreutils
 Requires:       lrslib-utils
@@ -46,8 +48,8 @@ collaboration with Benno Büeler and Komei Fukuda.
 sed -i 's|-o vinci|& %{build_ldflags}|' makefile
 
 %make_build OPT='%{build_cflags}'
-pdflatex manual.tex
-pdflatex manual.tex
+pdflatex -interaction=nonstopmode manual.tex
+pdflatex -interaction=nonstopmode manual.tex
 
 %install
 mkdir -p %{buildroot}%{_bindir}

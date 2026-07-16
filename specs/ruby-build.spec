@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           ruby-build
-Version:        20260701
+Version:        20260714
 Release:        %autorelease
 Summary:        Compile and install Ruby
 BuildArch:      noarch

@@ -24,9 +24,6 @@ BuildRequires:  DSDP-devel
 BuildRequires:  gcc
 BuildRequires:  glpk-devel
 BuildRequires:  flexiblas-devel
-%ifarch %{power64}
-BuildRequires:  flexiblas-atlas
-%endif
 BuildRequires:  make
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(gsl)
@@ -34,11 +31,12 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 BuildRequires:  suitesparse-devel
-BuildRequires:  tex-dvipng
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(amsthm.sty)
 BuildRequires:  tex(anyfontsize.sty)
-BuildRequires:  tex(latex)
-BuildRequires:  tex(tex4ht.sty)
-BuildRequires:  tex(utf8x.def)
+BuildRequires:  tex-dvipng
+BuildRequires:  tex-latex
 
 Requires:       font(fontawesome)
 Requires:       font(lato)

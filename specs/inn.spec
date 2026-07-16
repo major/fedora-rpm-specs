@@ -2,8 +2,8 @@
 
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
-Version: 2.7.3
-Release: 7%{?dist}
+Version: 2.7.4
+Release: 1%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -557,7 +557,7 @@ fi
 %files libs
 %{_libdir}/libinn.so.9{,.*}
 %{_libdir}/libinnhist.so.3{,.*}
-%{_libdir}/libinnstorage.so.3{,.*}
+%{_libdir}/libinnstorage.so.5{,.*}
 
 %files devel
 %{_includedir}/inn
@@ -578,6 +578,10 @@ fi
 %{_sysusersdir}/inn.conf
 
 %changelog
+* Tue Jul 14 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.7.4-1
+- update to 2.7.4 (resolves rhbz#2493970)
+- libinnstorage ABI bumped to .so.5
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.3-7
 - Rebuilt for openssl 4.0
 

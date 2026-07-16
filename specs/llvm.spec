@@ -447,6 +447,18 @@ end
 %endif
 #endregion libclc globals
 
+# RHEL 8 does not support "global toolchain clang", so manually switch to clang here.
+# We need to replace -specs files by --config files, which will be created later.
+%if 0%{?rhel} == 8
+%define __cc clang
+%define __cxx clang++
+%global optflags %(echo "%{optflags} --config=/tmp/redhat-hardened-clang.cfg" | sed -e 's/-specs=[^ ]*//g')
+%global build_ldflags %(echo "%{build_ldflags} --config=/tmp/redhat-hardened-clang-ld.cfg" | sed -e 's/-specs=[^ ]*//g')
+%global set_build_flags %{set_build_flags} ; \
+    CC="%{__cc}" ; export CC ; \
+    CXX="%{__cxx}" ; export CXX
+%endif
+
 #endregion globals
 
 #region packages
@@ -1600,13 +1612,10 @@ cd llvm/utils/lit
 %global cfg_file_content %{cfg_file_content} --gcc-install-dir=/opt/rh/gcc-toolset-%{gts_version}/root/%{_exec_prefix}/lib/gcc/%{_target_cpu}-redhat-linux/%{gts_version}
 %endif
 
-# Already use the new clang config file for the current build. This ensures
-# consistency between the runtimes and non-runtimes builds and makes sure that
-# the new configuration will work without going through a rebuild cycle.
-# Don't do this on RHEL 8, which does not build using clang.
-%if %{defined gts_version} && 0%{?rhel} != 8
-echo "%{cfg_file_content}" > /tmp/clang.cfg
-%global optflags  %{optflags} --config /tmp/clang.cfg
+# Create config files for "global toolchain clang" emulation on RHEL 8.
+%if 0%{?rhel} == 8
+echo "-fPIE" > /tmp/redhat-hardened-clang.cfg
+echo "-pie" > /tmp/redhat-hardened-clang-ld.cfg
 %endif
 
 # Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
@@ -1659,32 +1668,6 @@ popd
     -DCLANG_LINK_CLANG_DYLIB=ON \\\
     -DLLVM_ENABLE_FFI:BOOL=ON \\\
     -DLLVM_ENABLE_EH=OFF
-
-%if 0%{?rhel} == 8
-# On RHEL 8 we build with gcc, but the runtimes are built with the just built
-# clang, so we need to pass clang supported compiler flags to the runtimes
-# build.  If we pass the gcc flags, some of the cmake feature checkes will
-# fail, because they use -Werror and emit an error when passed gcc specific
-# compiler flags like -specs.
-# Specifically, this is required in order to fix the libomptest.so build.
-
-function strip_specs {
-  echo $1 | sed -e 's/-specs=[^ ]\+//g'
-}
-
-CLANG_CC_CONFIG=$(pwd)/redhat-hardened-clang.cfg
-CLANG_LD_CONFIG=$(pwd)/redhat-hardened-clang-ld.cfg
-echo "-fPIE" >> $CLANG_CC_CONFIG
-echo "-pie" >> $CLANG_LD_CONFIG
-CLANG_CCFLAGS_EXTRA=--config=$CLANG_CC_CONFIG
-CLANG_LDFLAGS_EXTRA=--config=$CLANG_LD_CONFIG
-
-CLANG_CXXFLAGS=$(strip_specs "$CXXFLAGS $CLANG_CCFLAGS_EXTRA")
-CLANG_CFLAGS=$(strip_specs "$CFLAGS $CLANG_CCFLAGS_EXTRA")
-CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
-%global cmake_common_args %{cmake_common_args} \\\
-    -DRUNTIMES_CMAKE_ARGS="-DCMAKE_C_FLAGS=$CLANG_C_FLAGS;-DCMAKE_CXX_FLAGS=$CLANG_CXX_FLAGS;-DCMAKE_SHARED_LINKER_FLAGS=$CLANG_LD_FLAGS"
-%endif
 
 %if %reduce_debuginfo == 1
 	%global cmake_common_args %{cmake_common_args} -DCMAKE_C_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG"
@@ -3864,6 +3847,12 @@ fi
     tblgen-lsp-server
     tblgen-to-irdl
 }}
+%if %{maj_ver} >= 23
+%{expand_bins %{expand:
+    mlir-irdl-to-cpp
+    mlir-src-sharder
+}}
+%endif
 %expand_includes mlir mlir-c
 %{expand_libs %{expand:
     cmake/mlir

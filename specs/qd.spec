@@ -18,7 +18,13 @@ BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
 BuildRequires:	ghostscript-tools-dvipdf
 BuildRequires:	make
-BuildRequires:	tex(latex)
+BuildRequires:	tex(amsthm.sty)
+BuildRequires:	tex(graphicx.sty)
+BuildRequires:	texlive-bibtex
+BuildRequires:	texlive-ec
+BuildRequires:	texlive-latex
+BuildRequires:	texlive-metafont
+BuildRequires:	texlive-mfware
 
 %description
 This package provides numeric types of twice the precision of IEEE double (106

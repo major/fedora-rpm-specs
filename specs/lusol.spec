@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/nwh/lusol
 
 Name:           lusol
-Version:        %(sed 's/-//g' <<< %{upver})
+Version:        %{gsub %upver - %{quote:}}
 Summary:        LU factors of a square or rectangular sparse matrix
 
 %forgemeta

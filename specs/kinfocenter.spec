@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

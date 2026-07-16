@@ -7,12 +7,11 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.72
+Version:	0.74
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
-Patch0:		Unicode-UTF8-0.72-SSE2.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -37,6 +36,7 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(lib)
+BuildRequires:	perl(POSIX)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Test::Fatal) >= 0.006
@@ -65,10 +65,6 @@ specified by Unicode and ISO/IEC 10646:2011.
 %prep
 %setup -q -n Unicode-UTF8-%{version}
 
-# Fix FTBFS on ix86 with SSE2
-# https://github.com/chansen/p5-unicode-utf8/issues/14
-%patch -P0
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
@@ -89,6 +85,16 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Tue Jul 14 2026 Paul Howarth <paul@city-fan.org> - 0.74-1
+- Update to 0.74
+  - Added slurp_utf8($filename), which reads an entire file and returns its
+    contents decoded from UTF-8 as a character string
+  - Added support for older MSVC C compilers by using __inline in place of the
+    C99 inline keyword on pre-Visual Studio 2015 builds
+  - Fixed SSE2 detection to only enable the SIMD implementation on 64-bit x86
+    targets, which prevents unsupported SSE2 code from being selected on 32-bit
+    x86 builds (GH#14)
+
 * Thu Jul  9 2026 Paul Howarth <paul@city-fan.org> - 0.72-1
 - Update to 0.72
   - read_utf8() now takes a single-pass fast path on PerlIO fast-gets layers,

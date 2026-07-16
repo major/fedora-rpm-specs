@@ -18,7 +18,6 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): docs/requirements.txt
 BuildOption(install): -L furo
 
-BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  /usr/bin/node
 BuildRequires:  /usr/bin/npm

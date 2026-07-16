@@ -1,9 +1,9 @@
 
-%global commit 5165b68b352087c8a9d9f70f8227d492165c2cc2
+%global commit c613a3ed24cb088c8922716eaa67b0b8a1dcea1f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm15.0-translator
-Version:        15.0.22
+Version:        15.0.23
 Release:        %autorelease
 Summary:        LLVM 15 to SPIRV Translator
 

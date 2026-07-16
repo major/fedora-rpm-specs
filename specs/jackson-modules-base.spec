@@ -1,13 +1,13 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.18.2
-Release:        6%{?dist}
+Version:        2.21.5
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-modules-base
-Source0:        %{url}/archive/%{name}-%{version}-take-2.tar.gz
+Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 Patch1:         0001-Expose-javax.security.auth-from-JDK-internals.patch
 Patch2:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 Patch3:         0001-Use-jakarta.activation-namespace-in-jaxb-api.patch
@@ -19,14 +19,15 @@ BuildRequires:  maven-local-openjdk25
 %endif
 
 BuildRequires:  mvn(cglib:cglib)
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= %{version}
+#BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= %{version}
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= 2.21
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.mockito:mockito-all)
 BuildRequires:  mvn(org.ow2.asm:asm)
@@ -52,9 +53,6 @@ framework to read and write XML.
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p 1
 
-%pom_remove_dep -r org.glassfish.jaxb:jaxb-runtime
-%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
-
 # no need for Java 9 module stuff
 %pom_remove_plugin -r :moditect-maven-plugin
 
@@ -79,6 +77,7 @@ cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
 %pom_disable_module paranamer
 %pom_disable_module jakarta-xmlbind
 %pom_disable_module blackbird
+%pom_disable_module spi-subtypes
 %pom_disable_module no-ctor-deser
 
 # Allow javax,activation to be optional
@@ -92,6 +91,11 @@ cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
 # Revert jaxb annotation dependency to 2.17 mode
 %pom_remove_dep javax.xml.bind:jaxb-api jaxb
 %pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api jaxb
+
+
+%pom_remove_plugin "org.gradlex:gradle-module-metadata-maven-plugin" jaxb
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin" jaxb
+
 
 # This test fails since mockito was upgraded to 2.x
 rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.java
@@ -113,6 +117,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.5-1
+- Update to version 2.21.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        32%{?dist}
+Release:        34%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,15 +58,20 @@ Patch3:         SDL-2.548-Fix-reference-counting-in-set_event_filter.patch
 # <https://github.com/PerlGameDev/SDL/issues/294>, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/309>
 Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
-# Adapt t/core_surface.t test to SDL3, incompatible with SDL2, bug #2341036,
-# proposed to upstream, <https://github.com/PerlGameDev/SDL/pull/310>
-Patch5:         SDL-2.548-core_surface.t-test-data-icon.bmp-is-really-4-bits-p.patch
+# Accept both 4 and 8 BitsPerPixel for test/data/icon.bmp in
+# t/core_surface.t -- SDL may report either value depending on the
+# SDL compat stack version. Replaces a previous patch that hard-coded 4.
+Patch5:         SDL-2.548-core_surface.t-Accept-4-or-8-BitsPerPixel-for-icon.bmp.patch
 # Adapt t/core.t test to SDL-3.2.24, bug #2401791, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/311>
 Patch6:         SDL-2.548-Adapt-to-SDL-3.2.24.patch
 # Make the tests read-only, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/312>
 Patch7:         SDL-2.548-Read-only-t-core_rwops.t.patch
+# Skip palette tests in t/core_palette.t when palette is unavailable.
+# The sdl12-compat dummy video driver does not support switching from
+# 32-bit to 8-bit palettized surfaces, bug #2464853.
+Patch8:         SDL-2.548-Skip-palette-tests-when-8-bit-mode-lacks-palette.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -230,6 +235,12 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 2.548-34
+- Skip 't/core_palette.t' palette tests when 'sdl12-compat' does not provide a palette (rhbz#2464853)
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 2.548-33
+- Update 't/core_surface.t' to accept both 4-bit and 8-bit 'BitsPerPixel' for 'test/data/icon.bmp'
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

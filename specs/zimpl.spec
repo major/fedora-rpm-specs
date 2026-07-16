@@ -33,9 +33,9 @@ Patch:          %{name}-test-bsearch.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
 
 BuildRequires:  bison
-BuildRequires:  cmake
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gmp)
@@ -80,18 +80,14 @@ that use libzimpl.
 %prep
 %autosetup -p1
 
-%conf
 # Avoid warnings about obsolete invocations of grep
 sed -i 's/fgrep/grep -F/' check/check.sh
 
-%build
+%conf -p
 export CFLAGS='%{build_cflags} -DFREEMEM -DNO_MSHELL'
 export CXXFLAGS='%{build_cxxflags} -DFREEMEM -DNO_MSHELL'
-%cmake
-%cmake_build
 
-%install
-%cmake_install
+%install -a
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p doc/zimpl.man %{buildroot}%{_mandir}/man1/zimpl.1
 
@@ -103,9 +99,9 @@ mkdir -p %{_vpath_builddir}/zimpl
 ln -s ../../src/zimpl/mmlscan.l %{_vpath_builddir}/zimpl
 ln -s ../../src/zimpl/mmlparse2.y %{_vpath_builddir}/zimpl
 
+%check
 # FIXME: Test qubo.zpl (qbo: lp) fails on ppc64le
 %ifnarch %{power64}
-%check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 cd check
 sh check.sh ../%{_vpath_builddir}/bin/zimpl

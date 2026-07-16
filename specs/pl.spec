@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 # Name of the architecture-specific lib directory
 %global swipl_arch %{_target_cpu}-linux
 
@@ -31,9 +34,21 @@ Patch5:         swipl-10.0.2-openssl4.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DBUILD_PDF_DOCUMENTATION:BOOL=%{?fedora:ON}%{!?fedora:OFF}
+BuildOption(conf): -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir}
+BuildOption(conf): -DCPACK_GENERATOR:STRING=RPM
+BuildOption(conf): -DINSTALL_TESTS:BOOL=ON
+BuildOption(conf): -DJQUERYDIR:PATH=%{_datadir}/javascript/jquery/latest
+BuildOption(conf): -DSKIP_SSL_TESTS:BOOL=ON
+BuildOption(conf): -DSWIPL_INSTALL_IN_LIB:BOOL=ON
+BuildOption(conf): -DSWIPL_INSTALL_IN_SHARE:BOOL=ON
+BuildOption(conf): -DSWIPL_VERSIONED_DIR:BOOL=OFF
+BuildOption(conf): -DSYSTEM_LIBEDIT:BOOL=ON
+BuildOption(conf): -DUSE_TCMALLOC:BOOL=ON
+BuildOption(conf): -G Ninja
 
 BuildRequires:  cmake
-BuildRequires:  fdupes
 BuildRequires:  findutils
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -52,8 +67,6 @@ BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libdb-devel
 # crypt
 BuildRequires:  libxcrypt-devel
-# http
-BuildRequires:  js-jquery
 # jpl
 %ifarch %{java_arches}
 BuildRequires:  java-25-devel
@@ -67,7 +80,6 @@ BuildRequires:  libstemmer-devel
 # ODBC
 BuildRequires:  pkgconfig(odbc)
 # SSL
-BuildRequires:  openssl
 BuildRequires:  pkgconfig(openssl)
 # sweep
 BuildRequires:  emacs-devel
@@ -92,11 +104,21 @@ BuildRequires:  pkgconfig(yaml-0.1)
 # Doc building
 # Gated to Fedora as EL is currently missing tex(a4wide.sty)
 %if 0%{?fedora}
-BuildRequires:  tex(latex)
+BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
+BuildRequires:  tex(color.sty)
+BuildRequires:  tex(dcolumn.sty)
+BuildRequires:  tex(fancyvrb.sty)
+BuildRequires:  tex(graphicx.sty)
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(ifpdf.sty)
+BuildRequires:  tex(longtable.sty)
 BuildRequires:  tex(tabulary.sty)
+BuildRequires:  tex(url.sty)
 BuildRequires:  texlive-courier
 BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-latex-base-dev
 BuildRequires:  texlive-times
 %endif
 
@@ -157,14 +179,14 @@ This is a metapackage, which installs the full SWI-Prolog suite, except tests.
 # and other development files are included in this package.  It is a Prolog
 # compiler, and therefore is a development package itself.
 License:        %{shrink:
-                  BSD-2-Clause AND
-                  (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND
-                  BSD-3-Clause AND
-                  dtoa AND
-                  LicenseRef-Fedora-Public-Domain AND
-                  MIT AND
-                  Unicode-DFS-2016 AND
-                  Zlib
+                  BSD-2-Clause
+                  AND (Brian-Gladman-3-Clause OR GPL-1.0-or-later)
+                  AND BSD-3-Clause
+                  AND dtoa
+                  AND LicenseRef-Fedora-Public-Domain
+                  AND MIT
+                  AND Unicode-DFS-2016
+                  AND Zlib
                 }
 Summary:        ISO/Edinburgh-style Prolog interpreter - core system
 Recommends:     swi-prolog-bdb%{?_isa} = %{version}-%{release}
@@ -183,21 +205,21 @@ This package contains the core SWI-Prolog system.
 
 %package     -n swi-prolog-core-packages
 License:        %{shrink:
-                  BSD-2-Clause AND
-                  Beerware AND
-                  (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND
-                  (BSD-2-Clause OR Artistic-2.0) AND
-                  BSD-3-Clause AND
-                  GFDL-1.3-no-invariants-or-later AND
-                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND
-                  GPL-2.0-or-later WITH SWI-exception AND
-                  GPL-3.0-or-later AND
-                  LGPL-2.0-or-later AND
-                  LicenseRef-Fedora-Public-Domain AND
-                  MIT AND
-                  Unicode-DFS-2016 AND
-                  W3C AND
-                  Zlib
+                  BSD-2-Clause
+                  AND Beerware
+                  AND (Brian-Gladman-3-Clause OR GPL-1.0-or-later)
+                  AND (BSD-2-Clause OR Artistic-2.0)
+                  AND BSD-3-Clause
+                  AND GFDL-1.3-no-invariants-or-later
+                  AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
+                  AND GPL-2.0-or-later WITH SWI-exception
+                  AND GPL-3.0-or-later
+                  AND LGPL-2.0-or-later
+                  AND LicenseRef-Fedora-Public-Domain
+                  AND MIT
+                  AND Unicode-DFS-2016
+                  AND W3C
+                  AND Zlib
                 }
 Summary:        ISO/Edinburgh-style Prolog interpreter - core packages
 Requires:       swi-prolog-core%{?_isa} = %{version}-%{release}
@@ -243,17 +265,17 @@ but no GUI components.
 
 %package     -n swi-prolog-win
 License:        %{shrink:
-                  BSD-2-Clause AND
-                  CC-BY-SA-3.0 AND
-                  FBM AND
-                  GPL-2.0-or-later WITH Bison-exception-2.2 AND
-                  HPND-Pbmplus AND
-                  IJG AND
-                  Knuth-CTAN AND
-                  LicenseRef-Fedora-Public-Domain AND
-                  PostgreSQL AND
-                  Spencer-99 AND
-                  TCL
+                  BSD-2-Clause
+                  AND CC-BY-SA-3.0
+                  AND FBM
+                  AND GPL-2.0-or-later WITH Bison-exception-2.2
+                  AND HPND-Pbmplus
+                  AND IJG
+                  AND Knuth-CTAN
+                  AND LicenseRef-Fedora-Public-Domain
+                  AND PostgreSQL
+                  AND Spencer-99
+                  AND TCL
                 }
 Summary:        ISO/Edinburgh-style Prolog interpreter - with GUI support
 Requires:       swi-prolog-cli%{?_isa} = %{version}-%{release}
@@ -338,10 +360,10 @@ embedded database.
 
 %package     -n swi-prolog-doc
 License:        %{shrink:
-                  BSD-2-Clause AND
-                  CC-BY-SA-3.0 AND
-                  Knuth-CTAN AND
-                  LPPL-1.3c
+                  BSD-2-Clause
+                  AND CC-BY-SA-3.0
+                  AND Knuth-CTAN
+                  AND LPPL-1.3c
                 }
 Summary:        Documentation and examples for SWI-Prolog
 BuildArch:      noarch
@@ -358,10 +380,10 @@ This package provides documentation and examples.
 
 %package     -n swi-prolog-test
 License:        %{shrink:
-                  BSD-2-Clause AND
-                  GPL-2.0-or-later AND
-                  GPL-2.0-or-later WITH SWI-exception AND
-                  LGPL-2.1-or-later
+                  BSD-2-Clause
+                  AND GPL-2.0-or-later
+                  AND GPL-2.0-or-later WITH SWI-exception
+                  AND LGPL-2.1-or-later
                 }
 Summary:        Tests and checks for SWI-Prolog
 BuildArch:      noarch
@@ -382,7 +404,6 @@ package, you do not.
 %autopatch -p1 -m1
 cp -p %{SOURCE2} .
 
-%conf
 # Fix the installation path on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
   sed -e 's,lib\(/\${SWIPL_INSTALL_DIR}\),lib64\1,' \
@@ -415,7 +436,7 @@ cp -p customize/README.md README-customize.md
 %generate_buildrequires
 %pyproject_buildrequires -d packages/mqi/python
 
-%build
+%conf -p
 %ifarch %{java_arches}
 export JAVA_HOME=%{java_home}
 export LD_LIBRARY_PATH=%{java_home}/lib/server
@@ -424,21 +445,7 @@ export LD_LIBRARY_PATH=%{java_home}/lib/server
 export DISABLE_PKGS="jpl"
 %endif
 
-# Configure
-%cmake \
-  -DBUILD_PDF_DOCUMENTATION:BOOL=%{?fedora:ON}%{!?fedora:OFF} \
-  -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
-  -DCPACK_GENERATOR:STRING=RPM \
-  -DINSTALL_TESTS:BOOL=ON \
-  -DJQUERYDIR:PATH=%{_datadir}/javascript/jquery/latest \
-  -DSKIP_SSL_TESTS:BOOL=ON \
-  -DSWIPL_INSTALL_IN_LIB:BOOL=ON \
-  -DSWIPL_INSTALL_IN_SHARE:BOOL=ON \
-  -DSWIPL_VERSIONED_DIR:BOOL=OFF \
-  -DSYSTEM_LIBEDIT:BOOL=ON \
-  -DUSE_TCMALLOC:BOOL=ON \
-  -G Ninja
-
+%build -p
 # Help latex2html find the bibliographies
 for d in $(find . -name gen); do
   target=$(dirname $d)
@@ -446,15 +453,12 @@ for d in $(find . -name gen); do
   cp -p $d/*.bbl %{_vpath_builddir}/$target
 done
 
-# Build
-%cmake_build
-
+%build -a
 # Switch back before installing; see above
 cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
-%install
+%install -a
 # See <http://www.swi-prolog.org/build/guidelines.html> for file layout
-%cmake_install
 
 # Scripts with shebang should be executable
 chmod 0755 \
@@ -529,15 +533,12 @@ mv %{buildroot}%{_libdir}/swipl/desktop/prolog-mime.xml \
    %{buildroot}%{_datadir}/mime/packages
 rmdir %{buildroot}%{_libdir}/swipl/desktop
 
-# Link duplicates
-%fdupes %{buildroot}%{_datadir}/swipl
-%fdupes %{buildroot}%{_libdir}/swipl
-
-%check
+%check -p
 # Test with the original jpl.pl, since the new version refers to paths that
 # don't exist; then switch back.
 cp -p packages/jpl/jpl.pl.jni packages/jpl/jpl.pl
-%ctest
+
+%check -a
 cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 %files -n swi-prolog

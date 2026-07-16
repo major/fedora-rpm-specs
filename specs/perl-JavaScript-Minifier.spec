@@ -1,6 +1,6 @@
 Name:           perl-JavaScript-Minifier
-Version:        1.16
-Release:        14%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 Summary:        Perl extension for minifying JavaScript code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JavaScript-Minifier
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 14 2026 Xavier Bachelot <xavier@bachelot.org> - 1.17-1
+- Update to 1.17 (RHBZ#2499734)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

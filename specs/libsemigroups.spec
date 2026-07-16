@@ -22,12 +22,13 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  catch-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  perl(open)
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(fmt)
 

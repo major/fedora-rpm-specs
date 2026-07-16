@@ -1,24 +1,30 @@
 Name:           perl-CGI-Application-Structured-Tools
 Version:        0.015
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Tools to generate and maintain CGI::Application::Structured based web apps
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/CGI-Application-Structured-Tools
+URL:            https://metacpan.org/dist/CGI-Application-Structured-Tools
 Source0:        https://cpan.metacpan.org/authors/id/V/VA/VANAMBURG/CGI-Application-Structured-Tools-%{version}.tar.gz
 Patch0:         CGI-Application-Structured-Tools-0.015-Adapt-to-Module-Starter-1.71.patch
+Patch1:         CGI-Application-Structured-Tools-0.015-author.patch
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  sed
+# runtime requirements
 BuildRequires:  perl(CGI::Application::Structured)
 BuildRequires:  perl(DBIx::Class::Schema::Loader)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Slurp)
 BuildRequires:  perl(HTML::Template)
 BuildRequires:  perl(Module::Signature)
 BuildRequires:  perl(Module::Starter)
 BuildRequires:  perl(Module::Starter::Plugin::Template)
 BuildRequires:  perl(Module::Starter::Simple)
+# test requirements
 BuildRequires:  perl(Pod::Coverage)
 BuildRequires:  perl(Probe::Perl)
 BuildRequires:  perl(Test::More)
@@ -41,6 +47,7 @@ and helper scripts to provide a rapid development environment.
 %prep
 %setup -q -n CGI-Application-Structured-Tools-%{version}
 %patch -P0
+%patch -P1
 
 cat << \EOF > %{name}-req
 #!/bin/sh
@@ -66,15 +73,15 @@ chmod 644 index.tmpl config-dev.pl
 sed -i -e '1i#!/usr/bin/perl' server.pl
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README Todo
@@ -85,6 +92,10 @@ make test
 %{_bindir}/cas-starter.pl
 
 %changelog
+* Tue Jul 14 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.015-40
+- Fix compatibility with Module::Starter 1.80+ author arrayref rhbz#2427852 (Filipe Rosset)
+- Modernize spec file
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,14 +9,14 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 6e8e795970fa06d434af22775e415b517f7552d3
 %global commitdatestring 2026-02-13 12:35:27 -0700
-%global cosmic_minver 1.1.0
+%global cosmic_minver 1.3.0
 
 Name:           cosmic-randr
-Version: 1.1.0
+Version: 1.3.0
 Release:        %autorelease
 Summary:        Display configuration command line tool
 
-License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND GPL-3.0-only AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Zlib
+License: (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR MIT) AND (MIT OR Unlicense) AND Apache-2.0 AND GPL-3.0-only AND MIT AND MPL-2.0 AND Unicode-3.0 AND Zlib
 
 URL:            https://github.com/pop-os/cosmic-randr
 

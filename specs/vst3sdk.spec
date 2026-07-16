@@ -33,8 +33,13 @@ Patch:          %{name}-format.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DCMAKE_BUILD_TYPE=RelWithDebInfo
+BuildOption(conf): -DCMAKE_SKIP_RPATH:BOOL=ON
+BuildOption(conf): -DSMTG_ENABLE_VST3_HOSTING_EXAMPLES:BOOL=OFF
+BuildOption(conf): -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES:BOOL=OFF
+BuildOption(conf): -DSMTG_ENABLE_VSTGUI_SUPPORT:BOOL=OFF
 
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 
@@ -125,15 +130,8 @@ tar -xf %{SOURCE4} --strip-components=1 -C public.sdk
 # Remove sources with other licenses to be sure they are not built
 rm -fr public.sdk/samples/vst
 
-%build
+%build -p
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/lib/RelWithDebInfo
-%cmake \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_SKIP_RPATH:BOOL=ON \
-    -DSMTG_ENABLE_VST3_HOSTING_EXAMPLES:BOOL=OFF \
-    -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES:BOOL=OFF \
-    -DSMTG_ENABLE_VSTGUI_SUPPORT:BOOL=OFF
-%cmake_build
 
 %install
 #%%cmake_install does nothing, so do this by hand

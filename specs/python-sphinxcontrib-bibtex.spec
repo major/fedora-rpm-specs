@@ -63,15 +63,13 @@ Documentation for python-sphinxcontrib-bibtex.
 %prep
 %autosetup -p1 -n sphinxcontrib-bibtex-%{version}
 
-%conf
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("http://www\.sphinx-doc\.org/en/master/", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i doc/conf.py
 
-%generate_buildrequires -p
 # Do not use code coverage tools
-sed -i 's/, "pytest-cov"//' pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
 %install -a
 # The Sphinx documentation cannot be built with an uninstalled

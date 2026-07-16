@@ -3,14 +3,14 @@
 %global cryptlibdir %{_libdir}/%{name}
 
 Name:       cryptlib
-Version:    3.4.9.2
-Release:    2%{?dist}
+Version:    3.4.9.3
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cl3492_fedora.zip     
-Source1:    https://senderek.ie/fedora/cl3492_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cl3493_fedora.zip     
+Source1:    https://senderek.ie/fedora/cl3493_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -350,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jul 14 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.3-1
+- Update Cryptlib to version 3.4.9.3
+
 * Sat Jun 27 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.2-2
 - Add cltls version 1.0 to the cryptlib tools
 

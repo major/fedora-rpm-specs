@@ -18,7 +18,6 @@ BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  pkgconfig(flint)
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(mpfr)
 

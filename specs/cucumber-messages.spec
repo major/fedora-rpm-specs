@@ -11,7 +11,7 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        34.0.1
+Version:        34.0.2
 %global cpp_soversion 34
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
@@ -20,9 +20,8 @@ License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
 
-# cpp: Find dependencies when not using CPM to download them
-# https://github.com/cucumber/messages/pull/478
-Patch:          %{url}/pull/478.patch
+# cpp: Allow finding GTest when not fetching deps
+Patch:          %{url}/pull/483.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,6 +39,10 @@ BuildRequires:  make
 BuildRequires:  /usr/bin/ruby
 BuildRequires:  rubygem(json)
 %endif
+
+# C++ test dependencies
+BuildRequires:  cmake(GTest)
+BuildRequires:  gmock-devel
 
 # Python test dependencies; the "test" and "test-coverage" extras have a lot of
 # extra dependencies that are unwanted per

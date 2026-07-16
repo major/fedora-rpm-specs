@@ -1,6 +1,9 @@
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
+# Whether to run tests
+%bcond ctest 1
+
 Name:           zstr
 Version:        1.1.0
 Release:        %autorelease
@@ -13,7 +16,8 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use zlib-ng directly rather than via the compatibility interface
 Patch:          %{name}-zlib-ng.patch
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(zlib-ng)
 
@@ -44,17 +48,10 @@ Provides:       %{name}-static = %{version}-%{release}
 %prep
 %autosetup -p1
 
-%build
-%cmake
-%cmake_build
-
 %install
 #%%cmake_install does nothing, so install manually
 mkdir -p %{buildroot}%{_includedir}/zstr
 install -m 0644 -p src/*.hpp %{buildroot}%{_includedir}/zstr
-
-%check
-%ctest
 
 %files devel
 %doc README.org

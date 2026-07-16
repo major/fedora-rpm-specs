@@ -1,11 +1,18 @@
 %bcond cppunit  1
 %bcond gtest 1
 %bcond profiling 1
+
+# qpdf is not available with the required version on RHEL ≤ 9
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%bcond qpdf 0
+%else
 %bcond qpdf 1
+%endif
+
 %global forgeurl https://github.com/xournalpp/xournalpp
 
 Name:           xournalpp
-Version:        1.3.5
+Version:        1.3.6
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:        GPL-2.0-or-later
@@ -78,7 +85,8 @@ This package contains user interface resources for %{name}.
     -DCMAKE_BUILD_TYPE="Release" \
     -DDISTRO_CODENAME="Fedora Linux" \
     -DENABLE_GTEST=%{with gtest} \
-    -DENABLE_PROFILING=%{with profiling}
+    -DENABLE_PROFILING=%{with profiling} \
+    -DENABLE_QPDF=%{with qpdf}
 
 %cmake_build
 

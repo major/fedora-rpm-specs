@@ -5,12 +5,12 @@
 %bcond ctest 1
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  7df0786de
+%global commit  04024d701
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.14.0
+Version:        1.15.1
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -24,23 +24,8 @@ Patch:          %{name}-rpath.patch
 Patch:          %{name}-popcount.patch
 # Fix out-of-bounds vector accesses
 Patch:          %{name}-vector.patch
-# Unbundle amd, cli11, metis, pdqsort, and zstr
+# Unbundle cli11, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
-# Fix 2957
-# https://github.com/ERGO-Code/HiGHS/pull/2961
-#
-# Fixes:
-#
-# - MIP incorrect solution in HiGHS 1.14:
-#   https://github.com/ERGO-Code/HiGHS/issues/2957
-# - highspy v1.14 regression: presolve in toy example is reaching non-optimal
-#   solution: https://github.com/ERGO-Code/HiGHS/issues/3002
-# - Test regressions in 3.3.0 with HiGHS 1.14:
-#   https://github.com/coin-or/pulp/issues/904
-# - python-pulp: FTBFS in Fedora Rawhide: pulp.constants.PulpError: Tests
-#   failed for solver <pulp.apis.highs_api.HiGHS_CMD object at 0x7f39f283cb00>:
-#   var x == 2.0 != 3: https://bugzilla.redhat.com/show_bug.cgi?id=2466661
-Patch:          %{name}-issue-2957.patch
 # Patch courtesy of Gentoo to fix the tests on some arches
 Patch:          %{name}-ignore-test-iterations.patch
 
@@ -60,15 +45,10 @@ BuildRequires:  boost-devel
 BuildRequires:  catch2-devel
 BuildRequires:  cli11-static
 BuildRequires:  cmake
-BuildRequires:  cmake(AMD)
-BuildRequires:  doctest-static
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  libatomic
-BuildRequires:  metis-devel
 BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(coindatanetlib)
-BuildRequires:  pkgconfig(coindatasample)
 BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  python3-devel
 BuildRequires:  zstr-static
@@ -82,6 +62,13 @@ Provides:       bundled(FilereaderLP)
 # upstream version.  It has been extracted from sparsepak:
 # https://people.sc.fsu.edu/~jburkardt/f77_src/sparsepak/sparsepak.html
 Provides:       bundled(rcm)
+
+# In the past, we unbundled both AMD (part of suitesparse) and metis.  However,
+# with version 1.15.1, we see multiple test failures when unbundling either.
+# The bundled versions are newer than those available in Rawhide.  If either
+# package is updated in Rawhide, see if we can unbundle again.
+Provides:       bundled(metis) = 5.2.1
+Provides:       bundled(suitesparse) = 7.12.1
 
 %description
 HiGHS is a high performance serial and parallel solver for large scale sparse
@@ -127,11 +114,11 @@ This package contains a Python 3 interface to coin-or-HiGHS.
 sed -i 's,n/a,%{commit},' CMakeLists.txt
 
 # Unbundle catch
-rm extern/catch.hpp
-ln -s %{_includedir}/catch2/catch.hpp extern/catch.hpp
+rm extern/catch/catch.hpp
+ln -s %{_includedir}/catch2/catch.hpp extern/catch/catch.hpp
 
-# Ensure the bundled amd, cli11, metis, pdqsort, and zstr are not used
-rm -fr extern/{CLI11.hpp,amd,metis,pdqsort,zstr}
+# Ensure the bundled cli11, pdqsort, and zstr are not used
+rm -fr extern/{cli11,pdqsort,zstr}
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -157,9 +144,9 @@ rm -fr %{buildroot}%{_docdir}
 
 # Instead of linking with and installing a private copy of the library,
 # fix up the installed python tree to use the installed library
-cd highs
-g++ %{build_cxxflags} -fPIC -shared -I . -I ../%{_vpath_builddir} \
-  -I %{_includedir}/python%{python3_version} highs_bindings.cpp \
+cd highspy
+g++ %{build_cxxflags} -fPIC -shared -I ../highs -I ../%{_vpath_builddir} \
+  -I ../extern -I %{_includedir}/python%{python3_version} highs_bindings.cpp \
   -o %{buildroot}%{python3_sitearch}/highspy/_core%{python3_ext_suffix} \
   %{build_ldflags} -L %{buildroot}%{_libdir} -lhighs
 cd -

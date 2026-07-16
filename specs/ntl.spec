@@ -21,7 +21,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  gf2x-devel
 BuildRequires:  gmp-devel
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 

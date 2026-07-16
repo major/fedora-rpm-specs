@@ -15,10 +15,19 @@ ExcludeArch:    %{ix86}
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(anysize.sty)
+BuildRequires:  tex(breqn.sty)
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(longtable.sty)
 BuildRequires:  tex(makecell.sty)
+BuildRequires:  tex(microtype.sty)
 BuildRequires:  tex(needspace.sty)
 BuildRequires:  tex(tabu.sty)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-makeindex
 
 Suggests:       rlwrap
 
@@ -79,13 +88,13 @@ autoreconf -fi
 
 # Build the manual
 touch metamath.ind
-pdflatex metamath
-pdflatex metamath
+pdflatex -interaction=nonstopmode metamath
+pdflatex -interaction=nonstopmode metamath
 bibtex metamath
 makeindex metamath.idx
-pdflatex metamath
-pdflatex metamath
-pdflatex metamath
+pdflatex -interaction=nonstopmode metamath
+pdflatex -interaction=nonstopmode metamath
+pdflatex -interaction=nonstopmode metamath
 
 %install
 %make_install

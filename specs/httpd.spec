@@ -101,6 +101,7 @@ Patch30: httpd-2.4.64-separate-systemd-fns.patch
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
+Patch61: httpd-2.4.68-proxyhtml.patch
 
 # Security fixes
 # Patch200: ...
@@ -863,8 +864,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
-* Wed Jul 01 2026 Joe Orton  <jorton@redhat.com> - 2.4.68-3
+* Tue Jul 14 2026 Joe Orton  <jorton@redhat.com> - 2.4.68-3
 - for F45+ remove mod_proxy_wstunnel, deprecated upstream since 2.4.47
+- mod_proxy_html: fix comment handling (#2496888)
 
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.68-2
 - Rebuilt for openssl 4.0

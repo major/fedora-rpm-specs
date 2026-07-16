@@ -26,8 +26,8 @@ Patch:          %{url}/pull/49.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
 
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
 # Test dependencies
@@ -99,12 +99,6 @@ Provides:       %{name}-static = %{version}-%{release}
 
 %prep
 %autosetup -p1
-
-%conf
-%cmake
-
-%build
-%cmake_build
 
 %install
 #%%cmake_install doesn't do anything

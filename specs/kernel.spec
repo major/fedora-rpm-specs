@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc3.26
+%define pkgrelease 0.rc3.260714g3b029c035b34.27
 %define kversion 7
-%define tarfile_release 7.2-rc3
+%define tarfile_release 7.2-rc3-38-g3b029c035b34
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.26%{?buildid}%{?dist}
+%define specrelease 0.rc3.260714g3b029c035b34.27%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -1459,7 +1459,7 @@ This package provides debug information for package %{name}-tools.
 # symlinks because of the trailing nonmatching alternation and
 # the leading .*, because of find-debuginfo.sh's buggy handling
 # of matching the pattern against the symlinks file.
-%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|.*%%{_bindir}/ynltool(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
 
 %if %{with_tools} && %{with_ynl}
 %package -n python3-%{name}-tools
@@ -4942,9 +4942,14 @@ fi\
 #
 #
 %changelog
-* Mon Jul 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.26]
-- redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
+* Tue Jul 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.3b029c035b34.27]
+- xfs: resample the data fork mapping after cycling ILOCK (Darrick J. Wong)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Tue Jul 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.3b029c035b34.26]
+- redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
+- redhat: move ynltool debuginfo to kernel-tools-debuginfo (Augusto Caringi)
+- Linux v7.2.0-0.rc3.3b029c035b34
 
 * Mon Jul 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.25]
 - Linux v7.2.0-0.rc3

@@ -2,7 +2,7 @@ Name: ttyplot
 Summary: Real-time plotting utility for the terminal
 License: Apache-2.0
 
-Version: 1.7.5
+Version: 1.7.6
 Release: 1%{?dist}
 
 URL: https://github.com/tenox7/ttyplot/
@@ -10,6 +10,8 @@ Source0: %{URL}archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: make
+
+BuildRequires: aalib-devel
 BuildRequires: pkgconfig(ncursesw)
 
 
@@ -23,7 +25,7 @@ with data input from stdin / pipe.
 
 
 %build
-%make_build
+%make_build AA=1
 
 
 %install
@@ -38,6 +40,9 @@ with data input from stdin / pipe.
 
 
 %changelog
+* Tue Jul 14 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.6-1
+- Update to v1.7.6 (with aalib support)
+
 * Mon Jun 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.5-1
 - Update to v1.7.5
 

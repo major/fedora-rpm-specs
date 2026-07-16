@@ -31,8 +31,6 @@ Summary:        Handle redirects for moved pages in Sphinx documentation
 # We Obsolete the duplicate and add Provides for python3-sphinx_reredirects to
 # make this one easier to find.
 %py_provides    python3-sphinx_reredirects
-# This can be removed when F42 reaches EOL
-Obsoletes:      python3-sphinx_reredirects < 0.1.2-3
 
 # This can be removed when F46 reaches EOL
 Obsoletes:      python3-sphinx-reredirects-doc < 1.0.0

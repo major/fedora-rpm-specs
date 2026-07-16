@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 

@@ -3,7 +3,7 @@ Version:        2.9.3
 Release:        %autorelease
 Summary:        Graph canonical labeling and automorphism group computation
 
-%global nautytarver %(tr . _ <<< %{version})
+%global nautytarver %{gsub %version %. _}
 
 # The projects as a whole is Apache-2.0.
 # The bundled cliquer code in nautycliquer.c is GPL-2.0-or-later, but we patch

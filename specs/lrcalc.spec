@@ -4,6 +4,7 @@ Release:	16%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Littlewood-Richardson Calculator
 URL:		https://sites.math.rutgers.edu/~asbuch/lrcalc/
+VCS:		git:https://bitbucket.org/asbuch/lrcalc.git
 Source0:	https://sites.math.rutgers.edu/~asbuch/lrcalc/%{name}-%{version}.tar.gz
 Source1:	lrcalc.module.in
 Requires:	environment(modules)
@@ -44,8 +45,7 @@ Python interface to the Littlewood-Richardson Calculator.
 %autosetup
 
 %generate_buildrequires
-cd python
-%pyproject_buildrequires
+%pyproject_buildrequires -d python
 
 %build
 %configure --bindir=%{_libdir}/%{name} --enable-shared --disable-static
@@ -61,10 +61,8 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 sed -e "/libraries/i\                  extra_link_args=['-L$PWD/src/.libs']," \
     -e 's/long_description_type/long_description_content_type/' \
     -i python/setup.py
-cd python
-ln -s ../src lrcalc
-%pyproject_wheel
-cd -
+ln -s ../src python/lrcalc
+%pyproject_wheel -d python
 
 %install
 %make_install

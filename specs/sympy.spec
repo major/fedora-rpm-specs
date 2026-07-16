@@ -43,7 +43,6 @@ BuildOption(generate_buildrequires): -x dev
 BuildOption(install): -l isympy sympy
 
 BuildRequires:  antlr4
-BuildRequires:  fdupes
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -73,7 +72,6 @@ BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-math-dollar}
 BuildRequires:  %{py3_dist sphinx-reredirects}
 BuildRequires:  %{py3_dist sphinxcontrib-jquery}
-BuildRequires:  tex(latex)
 BuildRequires:  tex(amsfonts.sty)
 BuildRequires:  tex(amsmath.sty)
 BuildRequires:  tex(amssymb.sty)
@@ -84,6 +82,7 @@ BuildRequires:  tex(multicol.sty)
 BuildRequires:  tex(tikz.sty)
 BuildRequires:  tex(url.sty)
 BuildRequires:  tex-dvipng
+BuildRequires:  tex-latex
 
 # Tests
 BuildRequires:  lfortran
@@ -215,12 +214,11 @@ rm -f %{buildroot}%{_bindir}/{,doc}test
 chmod 0755 %{buildroot}%{python3_sitelib}/sympy/benchmarks/bench_symbench.py \
       %{buildroot}%{python3_sitelib}/sympy/testing/tests/diagnose_imports.py
 
-# Install the HTML documentation and link duplicates
+# Install the HTML documentation
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
 cp -a doc/_build/html %{buildroot}%{_docdir}/%{name}-doc
 rm -f %{buildroot}%{_docdir}/%{name}-doc/html/.buildinfo
 rm -fr %{buildroot}%{_docdir}/%{name}-doc/i18n
-%fdupes %{buildroot}%{_docdir}/%{name}-doc
 
 %check
 %{python3} bin/test -v --parallel

@@ -1,8 +1,8 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       62
-Release:       6%{?dist}
+Version:       75
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
@@ -44,6 +44,7 @@ This package contains the parent pom file for FasterXML.com projects.
 %pom_remove_plugin :maven-scm-plugin
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :jdepend-maven-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
 %pom_xpath_remove "pom:build/pom:extensions"
 
 %build
@@ -57,6 +58,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 75-1
+- Rebase to version 75
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 62-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

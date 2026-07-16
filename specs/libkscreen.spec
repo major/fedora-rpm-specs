@@ -1,6 +1,6 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -89,6 +89,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

@@ -1,6 +1,6 @@
 Name:    kglobalacceld
 Summary: Daemon providing Global Keyboard Shortcut functionality
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -72,6 +72,9 @@ Requires:       qt6-qtbase-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

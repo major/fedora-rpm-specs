@@ -51,7 +51,7 @@
 # In fedora, not in rhel/epel or requires a newer version
 %if 0%{?fedora}
 %bcond_without eigen3
-%bcond_without onnx
+%bcond_with onnx
 %bcond_with protobuf
 %bcond_with setuptools
 %bcond_without sympy

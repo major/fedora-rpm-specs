@@ -63,14 +63,13 @@ Documentation for %{name}.
 %prep
 %autosetup -n jupyter-cache-%{version}
 
+# Do not run coverage tools in RPM builds
+%pyproject_patch_dependency pytest-cov:ignore
+
 %conf
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/[.[:digit:]]*", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -i docs/conf.py
-
-%generate_buildrequires -p
-# Do not run coverage tools in RPM builds
-sed -i '/coverage/d;/pytest-cov/d' pyproject.toml
 
 %build -a
 %if %{with doc}

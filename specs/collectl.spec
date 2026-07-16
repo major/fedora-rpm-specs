@@ -1,16 +1,10 @@
-# The upstream 4.3.20.1 tag points to commit c1dcedc, but that commit is still
-# version 4.3.20 in the code.  Use the correct commit which bumps the version
-# to 4.3.20.1 in the code.
-%global commit          d3dab6819dc92fa12da4616207c48fdbb1b86f21
-%global shortcommit     %{sub %{commit} 1 7}
-
 Summary: A utility to collect various Linux performance data
 Name: collectl
-Version: 4.3.20.1
+Version: 4.3.20.3
 Release: 1%{?dist}
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: https://github.com/sharkcz/collectl
-Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: %{name}.service
 Source2: %{name}.sysconfig
 BuildArch: noarch
@@ -26,7 +20,7 @@ A utility to collect Linux performance data
 
 
 %prep
-%setup -q -n %{name}-%{commit}
+%autosetup
 
 # rename directory for easier inclusion
 mv docs html
@@ -79,6 +73,9 @@ install -p -m 644  %{SOURCE2}        $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{n
 
 
 %changelog
+* Tue Jul 14 2026 Dan Horák <dan[at]danny.cz> - 4.3.20.3-1
+- upgrade to upstream version 4.3.20.3 (rhbz#2438007)
+
 * Fri Feb 06 2026 Carl George <carlwgeorge@fedoraproject.org> - 4.3.20.1-1
 - Update to version 4.3.20.1 rhbz#2149728
 

@@ -4,7 +4,7 @@
 %global crate cxxbridge-cmd
 
 Name:           rust-cxxbridge-cmd
-Version:        1.0.194
+Version:        1.0.197
 Release:        %autorelease
 Summary:        C++ code generator for integrating cxx crate into a non-Cargo build
 
@@ -33,7 +33,7 @@ License:        %{shrink:
     AND MIT
     AND Unicode-3.0
     AND (Unlicense OR MIT)
-} 
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n cxxbridge %{_description}

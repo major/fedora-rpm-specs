@@ -35,7 +35,6 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x docs,test
 BuildOption(install): -l nbdime
 
-BuildRequires:  fdupes
 BuildRequires:  fontawesome-fonts-web
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
@@ -77,12 +76,12 @@ BuildRequires:  yarnpkg
 #   style-loader, style-mod, url-parse, w3c-keyname, y-protocols, yjs
 # Public Domain: jsonify
 License:        %{shrink:
-                  Apache-2.0 AND
-                  BSD-2-Clause AND
-                  BSD-3-Clause AND
-                  ISC AND
-                  MIT AND
-                  LicenseRef-Fedora-Public-Domain
+                  BSD-3-Clause
+                  AND Apache-2.0
+                  AND BSD-2-Clause
+                  AND ISC
+                  AND MIT
+                  AND LicenseRef-Fedora-Public-Domain
                 }
 Summary:        %{summary}
 # Filesystem package for the standard Jupyter paths
@@ -252,10 +251,10 @@ cp -p %{SOURCE2} .
 
 # Do not depend on jupyter_server_mathjax; it doesn't work in jupyterlab 4.10+
 # https://github.com/jupyter-server/jupyter_server_mathjax/issues/20
-sed -i '/jupyter_server_mathjax/d' pyproject.toml
+%pyproject_patch_dependency jupyter_server_mathjax:ignore
 
 # Do not run code coverage tools
-sed -i '/pytest-cov/d' pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
 %conf
 # Remove useless shebangs
@@ -287,9 +286,6 @@ rm docs/build/html/.buildinfo
 %install -a
 # Move the configuration files to the standard Jupyter directories
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
-
-# Link identical files
-%fdupes %{buildroot}%{python3_sitelib}/nbdime
 
 # Add missing executable bits
 chmod a+x \

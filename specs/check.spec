@@ -7,7 +7,27 @@ Name:           check
 Version:        0.15.2
 Release:        21%{?dist}
 Summary:        A unit test framework for C
-License:        LGPL-2.1-or-later
+# GFDL-1.2-no-invariants-or-later: doc/{check,fdl}.texi
+License:        LGPL-2.1-or-later AND GFDL-1.2-no-invariants-or-later
+# BSD-3-Clause:
+# - cmake/Check{HeaderDirent,StructMember,TypeExists}.cmake
+# - doc/example/CMakeLists.txt
+# - doc/example/cmake/*
+# checkmk: checkmk/checkmk.in
+# GPL-2.0-or-later: contrib/improved_make_check/check.mk
+# GPL-2.0-or-later WITH Autoconf-exception-macro:
+# - m4/ax_c_check_flag.*
+# - m4/ax_cflags_warn_all_ansi.*
+# GPL-3.0-or-later WITH Autoconf-exception-macro:
+# - m4/acx_pthread.*
+# - m4/ax_create_stdint_h.m4
+SourceLicense:  %{shrink:%{license}
+                  AND BSD-3-Clause
+                  AND checkmk
+                  AND GPL-2.0-or-later
+                  AND GPL-2.0-or-later WITH Autoconf-exception-macro
+                  AND GPL-3.0-or-later WITH Autoconf-exception-macro
+                }
 URL:            https://libcheck.github.io/check/
 VCS:            git:https://github.com/libcheck/check.git
 # The upstream tarball includes an index.html and the web/ folder with files
@@ -56,6 +76,7 @@ from unit tests can be used within source code editors and IDEs.
 
 %package devel
 Summary:        Libraries and headers for developing programs with check
+License:        LGPL-2.1-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-static%{?_isa} = %{version}-%{release}
 
@@ -64,6 +85,7 @@ Libraries and headers for developing programs with check
 
 %package static
 Summary:        Static libraries of check
+License:        LGPL-2.1-or-later
 
 %description static
 Static libraries of check.
@@ -81,6 +103,7 @@ suitable for use with the Check unit test framework.
 %if %{with mingw}
 %package -n mingw32-check
 Summary:        Libraries and headers for developing programs with check
+License:        LGPL-2.1-or-later
 BuildArch: noarch
 
 %description -n mingw32-check
@@ -88,6 +111,7 @@ MinGW libraries and headers for developing programs with check
 
 %package -n mingw64-check
 Summary:        Libraries and headers for developing programs with check
+License:        LGPL-2.1-or-later
 BuildArch: noarch
 
 %description -n mingw64-check
@@ -249,6 +273,9 @@ cd -
 %endif
 
 %changelog
+* Tue Jul 14 2026 Jerry James <loganjerry@gmail.com> - 0.15.2-21
+- Add GFDL-1.2-no-invariants-or-later to main package license
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

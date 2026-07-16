@@ -15,7 +15,6 @@ Patch:          %{name}-javadoc.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(ant-contrib:ant-contrib)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven:maven-core)
@@ -24,8 +23,6 @@ BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-clean-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -33,7 +30,6 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-invoker-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-resources-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
@@ -77,6 +73,10 @@ This package contains %{summary}.
 %pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-release-plugin
 %pom_remove_plugin org.sonatype.plugins:nexus-staging-maven-plugin
+
+# Not actually used during the build
+%pom_remove_plugin org.apache.maven.plugins:maven-clean-plugin
+%pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
 
 # These tests want maven-install-plugin to be installed.  I don't know why.
 rm -fr mojo-executor-maven-plugin/src/it/mojo-executor-test-project-{quiet,with-dependencies}

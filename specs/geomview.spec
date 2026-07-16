@@ -58,7 +58,6 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  desktop-file-utils
-BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  gzip
@@ -67,7 +66,6 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  motif-devel
 BuildRequires:  netpbm-progs
-BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(zlib-ng)
@@ -168,9 +166,6 @@ gzip -9v \
      %{buildroot}%{_mandir}/man1/* \
      %{buildroot}%{_mandir}/man3/* \
      %{buildroot}%{_mandir}/man5/* \
-
-# Deduplicate
-%fdupes %{buildroot}%{_prefix}
 
 %files
 %doc AUTHORS ChangeLog NEWS README

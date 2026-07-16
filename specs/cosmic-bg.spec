@@ -7,16 +7,16 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 8dd97b67e1d475bec72e2020bca245159ed3f189
-%global commitdatestring 2026-06-23 01:00:58 +0200
-%global cosmic_minver 1.1.0
+%global commit ed65f7d3dc9e3d4af3cd65244a966e01bff0f730
+%global commitdatestring 2026-07-07 17:03:22 -0400
+%global cosmic_minver 1.3.0
 
 Name:           cosmic-bg
-Version: 1.1.0
+Version: 1.3.0
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 
-License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0
+License: (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR CC0-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (BSD-3-Clause OR MIT) AND (MIT OR Unlicense) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND ISC AND MIT AND MPL-2.0 AND NCSA AND Unicode-3.0
 
 URL:            https://github.com/pop-os/cosmic-bg
 
@@ -37,6 +37,7 @@ BuildRequires:  wayland-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  just
 BuildRequires:  desktop-backgrounds-compat
+BuildRequires:  libdav1d-devel
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 Requires:       desktop-backgrounds-compat

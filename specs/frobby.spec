@@ -15,8 +15,9 @@ Patch:          %{name}-sharedlib.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DBUILD_TESTING:BOOL=ON
 
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(gmp)
 # docs
@@ -60,22 +61,17 @@ Frobby internals as a library (libfrobby).
 %prep
 %autosetup -p1
 
-%conf
-%cmake -DBUILD_TESTING:BOOL=ON
-
-%build
+%build -p
 export STRIP=true
-%cmake_build
 
+%build -a
 # generate docs
 cd doc
 pdflatex -interaction=nonstopmode manual.tex
 pdflatex -interaction=nonstopmode manual.tex
 cd -
 
-%install
-%cmake_install
-
+%install -a
 # We install these later
 rm -fr %{buildroot}%{_prefix}/licenses %{buildroot}%{_defaultlicensedir}
 

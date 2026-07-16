@@ -1,6 +1,6 @@
 Name:           jackson-core
-Version:        2.18.2
-Release:        6%{?dist}
+Version:        2.21.5
+Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -36,11 +36,10 @@ as basic shared abstractions.
 %pom_remove_plugin "org.apache.maven.plugins:maven-shade-plugin"
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
-%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
-%pom_remove_plugin "io.github.floverfelt:find-and-replace-maven-plugin"
-%pom_remove_dep "ch.randelshofer:fastdoubleparser"
+%pom_remove_plugin "org.gradlex:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin"
 
-%pom_add_plugin "org.apache.felix:maven-bundle-plugin" . "<extensions>true</extensions>"
+%pom_remove_dep "ch.randelshofer:fastdoubleparser"
 
 cp -p src/main/resources/META-INF/jackson-core-NOTICE .
 sed -i 's/\r//' LICENSE jackson-core-NOTICE
@@ -58,6 +57,9 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.5-1
+- Update to version 2.21.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

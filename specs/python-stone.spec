@@ -1,17 +1,13 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
-Version:        3.2.1
-Release:        24%{?dist}
+Version:        3.5.2
+Release:        1%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        MIT
 
 URL:            https://github.com/dropbox/stone
 Source0:        %pypi_source
-
-# Remove pytest-runner / setup.py test support
-# https://github.com/dropbox/stone/pull/354
-# Rebased on v3.2.1, without changes to CONTRIBUTING.md (not in the sdist)
-Patch:          0001-Remove-pytest-runner-setup.py-test-support.patch
+Patch0:         pins.patch
 
 BuildArch:      noarch
 
@@ -28,7 +24,7 @@ Summary:        %{summary}
 %{summary}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version} -p0
 
 
 %generate_buildrequires
@@ -50,6 +46,9 @@ Summary:        %{summary}
 %{_bindir}/stone
 
 %changelog
+* Tue Jul 14 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.5.2-1
+- 3.5.2
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.2.1-24
 - Rebuilt for Python 3.15
 

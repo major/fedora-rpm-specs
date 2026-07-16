@@ -18,8 +18,12 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
-BuildRequires:  libffi-devel
 BuildRequires:  make
+
+%ifnarch %{x86_64} %{arm64}
+# Required for the bytecode interpreter
+BuildRequires:  libffi-devel
+%endif
 
 Requires:       gcc-c++
 Requires:       polyml-libs%{?_isa} = %{version}-%{release}
@@ -81,7 +85,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 # - build with extension_cflags instead of build_cflags
 extflags=$(sed 's/[[:space:]]*$//' <<< '%{extension_cflags}')
 sed -e 's/-Wl,-rpath,\${LIBDIR} //'\
+%ifarch %{x86_64} %{arm64}
     -e 's/-lffi //;s/-lgmp //' \
+%endif
     -e "s/^\(CFLAGS=\).*/\1\"-O2 -pipe -fno-strict-aliasing $extflags\"/" \
     -i polyc
 

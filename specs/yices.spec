@@ -39,15 +39,13 @@ BuildRequires:  tex(cite.sty)
 BuildRequires:  tex(epstopdf.sty)
 BuildRequires:  tex(listings.sty)
 BuildRequires:  tex(xcolor.sty)
-BuildRequires:  tex(latex)
 BuildRequires:  texlive-bibtex
 BuildRequires:  texlive-cm
 BuildRequires:  texlive-courier
 BuildRequires:  texlive-ec
 BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-latex
 BuildRequires:  texlive-makeindex
-BuildRequires:  texlive-metafont
-BuildRequires:  texlive-mfware
 BuildRequires:  texlive-times
 
 # See Source1 comment

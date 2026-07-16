@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/io
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.9.3
+Version:        4.10.0
 Release:        %autorelease
 Summary:        Unix I/O functionality for GAP
 

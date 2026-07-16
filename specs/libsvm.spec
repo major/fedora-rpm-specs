@@ -28,7 +28,7 @@ Version:        3.37
 Release:        %autorelease
 Summary:        A Library for Support Vector Machines
 
-%global upver   %(tr -d . <<< %{version})
+%global upver   %{gsub %version %. %{quote:}}
 
 License:        BSD-3-Clause
 URL:            https://www.csie.ntu.edu.tw/~cjlin/libsvm/
@@ -163,8 +163,7 @@ done
 
 %if %{with python}
 %generate_buildrequires
-cd python
-%pyproject_buildrequires
+%pyproject_buildrequires -d python
 %endif
 
 %build
@@ -188,9 +187,7 @@ cd -
 
 %if %{with python}
 # Build the python interface
-cd python
-%pyproject_wheel
-cd -
+%pyproject_wheel -d python
 %endif
 
 %install

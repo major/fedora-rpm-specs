@@ -1,6 +1,6 @@
 Name:           simcoupe
 Version:        1.0
-Release:        39%{?dist}
+Release:        41%{?dist}
 Summary:        SAM Coupe emulator (spectrum compatible)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,6 +10,8 @@ Source1:        B-DOS-License.txt
 Patch0:         simcoupe-1.0-userpmopts.patch
 Patch1:         simcoupe-1.0-saasound.patch
 Patch2:         simcoupe-1.0-no-builtin-rom.patch
+Patch3:         simcoupe-1.0-no-strict-ansi.patch
+Patch4:         simcoupe-1.0-ldflags.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  SAASound-devel SDL-devel zlib-devel
@@ -27,6 +29,8 @@ improved hardware
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 # Clean up bundled SAASound to avoid accidentally building against it.
 rm -f Extern/SAASound.h Extern/SAASound.cpp
 cp -a %{SOURCE1} .
@@ -34,7 +38,7 @@ cp -a %{SOURCE1} .
 
 %build
 pushd SDL
-make %{?_smp_mflags} CFLAGSRPM="%{optflags}"
+make %{?_smp_mflags} CFLAGSRPM="%{optflags}" LDFLAGS="%{build_ldflags}"
 popd
 
 #Build icon image
@@ -85,6 +89,14 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.0-41
+- Fix annocheck failures: pass '%{build_ldflags}' via LDFLAGS to the linker
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.0-40
+- Fix FTBFS with GCC 16 due to 'std::abs(__int128)' redefinition (BZ#2435106)
+- Drop '-D__STRICT_ANSI__' flag from Makefile: it conflicts with GCC 16 internal
+  handling of '__int128' overloads in '<cstdlib>' and is not needed by the source
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

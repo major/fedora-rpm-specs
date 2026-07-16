@@ -1,6 +1,6 @@
 Name:           jackson-bom
-Version:        2.18.2
-Release:        6%{?dist}
+Version:        2.21.5
+Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
 
@@ -13,7 +13,7 @@ BuildRequires:  maven-local
 BuildRequires:  maven-local-openjdk25
 %endif
 
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.17
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.21
 BuildRequires:  mvn(junit:junit)
 
 BuildArch:      noarch
@@ -29,7 +29,7 @@ A "bill of materials" POM for Jackson dependencies.
 
 # Disable plugins not needed during RPM builds
 %pom_remove_plugin ":maven-enforcer-plugin" base
-%pom_remove_plugin ":nexus-staging-maven-plugin" base
+%pom_remove_plugin "org.sonatype.central:central-publishing-maven-plugin" base
 
 # New EE coords
 %pom_change_dep "javax.activation:javax.activation-api" "jakarta.activation:jakarta.activation-api" base
@@ -48,6 +48,9 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.5-1
+- Update to version 2.21.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

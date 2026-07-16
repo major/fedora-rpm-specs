@@ -51,11 +51,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.47-development
+%global source_directory 1.48-stable
 
 Name:           nbdkit
-Version:        1.47.9
-Release:        4%{?dist}
+Version:        1.48.0
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Tue Jul 14 2026 Richard W.M. Jones <rjones@redhat.com> - 1.48.0-1
+- New upstream stable version 1.48.0
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.47.9-4
 - OCaml 5.5.0 rebuild
 

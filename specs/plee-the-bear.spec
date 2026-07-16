@@ -1,13 +1,15 @@
 Name:           plee-the-bear
 Version:        0.7.1
-Release:        24%{?dist}
+Release:        26%{?dist}
 Summary:        2D platform game
-# Code and artwork respectively
-# Automatically converted from old format: GPLv3 and CC-BY-SA - review is highly recommended.
-License:        GPL-3.0-only AND LicenseRef-Callaway-CC-BY-SA
+# Code: GPL-3.0-only (LICENSE, license/GPL)
+# Multimedia: CC-BY-SA-3.0 (LICENSE, license/CCPL)
+# Bundled fonts: OFL-1.1 (AndikaBasic.ttf, Fava-black.ttf), CC-BY-3.0 (beroga.ttf)
+License:        GPL-3.0-only AND CC-BY-SA-3.0 AND OFL-1.1 AND CC-BY-3.0
 URL:            https://github.com/j-jorge/plee-the-bear/
 Source0:        https://github.com/j-jorge/plee-the-bear/archive/%{version}.tar.gz
 Patch3:         ptb-docbook2man.patch
+Patch4:         plee-the-bear-boost-1.88.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bear-factory-devel
@@ -42,6 +44,7 @@ Plee the Bear is a 2D platform game in the spirit of 1990s console games.
 # we put them in a private-libdir, and use a wrapper to set LD_LIBRARY_PATH
 %cmake \
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DCMAKE_CXX_STANDARD=17 \
         -DCMAKE_BUILD_TYPE=release \
         -DPTB_LIBRARY_PATH=%{_libdir} \
         -DPTB_INSTALL_CUSTOM_LIBRARY_DIR=%{_lib} \
@@ -132,6 +135,16 @@ EOF
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.1-26
+- Fix SPDX license: replace 'LicenseRef-Callaway-CC-BY-SA' with 'CC-BY-SA-3.0',
+  add 'OFL-1.1' and 'CC-BY-3.0' for bundled fonts
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.1-25
+- Fix FTBFS with GCC 16: set 'CMAKE_CXX_STANDARD=17' to avoid C++20
+  'concept' keyword clash in bear-engine headers (rhbz#2434925)
+- Fix FTBFS with Boost 1.88: replace removed 'boost/filesystem/convenience.hpp'
+  and 'boost/filesystem/path.hpp' with the all-inclusive 'boost/filesystem.hpp'
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

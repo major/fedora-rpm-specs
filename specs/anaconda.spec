@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.11
+Version: 45.12
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -237,6 +237,9 @@ Requires: dosfstools
 Requires: e2fsprogs
 # External tooling for managing NVMe-FC devices in the installation environment
 Recommends: nvme-cli
+Requires: stratisd
+Requires: stratis-cli
+Requires: stratisd-dracut
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
@@ -520,6 +523,29 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 14 2026 Packit <hello@packit.dev> - 45.12-1
+- anaconda-generator: `/usr`-support (cmdr)
+- webui boot.iso: stop installing slitherer in lorax build (k.koukiou)
+- data: default Web UI browser to Firefox on Fedora but for live spins
+  (k.koukiou)
+- fix: use Str type for ActiveInstallationTask and call super() (adamkankovsky)
+- fix(storage): update device_spec after reformatting in manual partitioning
+  (k.koukiou)
+  Resolves: rhbz#2463653
+- storage: Start stratisd during storage module initialization (vtrefny)
+- spec: Add Stratis packages as dependencies to install-env-deps (vtrefny)
+- Track active installation task in the backend (adamkankovsky)
+- test: add test for InstallWithTasks in boss module (adamkankovsky)
+- fix(bootc): show bootc error output in the installation error dialog
+  (bciconel)
+- flatpak: honor %%packages --ignoremissing (bciconel)
+- flatpak: surface errors when requested flatpaks cannot be installed
+  (bciconel)
+- modules: rpm_ostree: fix bootc install when /boot is on root partition
+  (k.koukiou)
+- Revert "fix: persist checkisomd5 media verification output in the journal"
+  (k.koukiou)
+
 * Tue Jul 07 2026 Packit <hello@packit.dev> - 45.11-1
 - Publish runtime session flags before DBus modules start (k.koukiou)
 - storage: drop default disk selection from the UI layer (k.koukiou)

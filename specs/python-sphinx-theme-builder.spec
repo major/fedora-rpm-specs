@@ -50,7 +50,11 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
     -i docs/conf.py
 
 # Skip test packages not available in Fedora
-sed -i '/pytest-/d' tests/requirements.txt
+%pyproject_patch_dependency pytest-clarity:ignore
+%pyproject_patch_dependency pytest-pspec:ignore
+
+# Do not run coverage tools during an RPM build
+%pyproject_patch_dependency pytest-cov:ignore
 
 %install -a
 %if %{without bootstrap}

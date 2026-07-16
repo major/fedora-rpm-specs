@@ -29,7 +29,7 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %autosetup -n uc.micro-py-%{version}
 
 # Do not run coverage tools in RPM builds
-sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
 %check
 %pytest -v

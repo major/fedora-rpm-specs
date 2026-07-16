@@ -3,7 +3,7 @@ Version:        1.1.2
 Release:        12%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
-%global upver %(tr . _ <<< %{version})
+%global upver   %{gsub %version %. _}
 
 License:        GPL-2.0-or-later
 URL:            https://www.wm.uni-bayreuth.de/de/team/rambau_joerg/TOPCOM/
@@ -33,8 +33,8 @@ BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  qsopt-ex-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global topcom_major %(cut -d. -f1 <<< %{version})
-%global topcom_minor %(cut -d. -f2 <<< %{version})
+%global topcom_major %{gsub %version ^(%d*)%..*$ %1}
+%global topcom_minor %{gsub %version ^%d*%.(%d*)%..*$ %1}
 
 %description
 TOPCOM is a package for computing Triangulations Of Point Configurations and

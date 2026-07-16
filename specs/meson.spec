@@ -4,13 +4,13 @@
 %bcond docs 1
 
 Name:           meson
-Version:        1.11.1
+Version:        1.11.2
 Release:        %autorelease
 Summary:        High productivity build system
 
 License:        Apache-2.0
 URL:            https://mesonbuild.com/
-Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
+Source:         https://github.com/mesonbuild/meson/archive/%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
 BuildArch:      noarch
 

@@ -2,12 +2,13 @@
 
 Name:           cdogs-sdl
 Version:        0.7.3
-Release:        17%{?dist}
+Release:        19%{?dist}
 Summary:        C-Dogs is an arcade shoot-em-up
-# The game-engine is GPLv2+
-# The game art is CC
-# Automatically converted from old format: GPLv2+ and CC-BY and CC-BY-SA and CC0 - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0
+# Code: GPL-2.0-or-later (engine), BSD-3-Clause, LGPL-2.1-or-later (json-c),
+#        ISC (yajl), Zlib (nanopb), WTFPL (rlutil)
+# Data: CC0-1.0 (default), CC-BY-3.0 (original C-Dogs data, most third-party
+#        assets), CC-BY-2.0 and CC-BY-4.0 (a few assets), CC-BY-SA-3.0
+License:        GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.1-or-later AND ISC AND Zlib AND WTFPL AND CC0-1.0 AND CC-BY-2.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-BY-SA-3.0
 URL:            http://cxong.github.io/cdogs-sdl/
 Source0:        https://github.com/cxong/cdogs-sdl/archive/%{version}%{?extra_version}.tar.gz#/%{name}-%{version}%{?extra_version}.tar.gz
 Patch0:         cdogs-sdl-0.5.8-cmake.patch
@@ -40,7 +41,7 @@ find graphics sounds -name "*.sh" -delete
 
 
 %build
-%cmake -DCDOGS_DATA_DIR=/usr/share/cdogs-sdl/ -DUSE_SHARED_ENET=1
+%cmake -DCDOGS_DATA_DIR=/usr/share/cdogs-sdl/ -DUSE_SHARED_ENET=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -66,6 +67,13 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.3-19
+- Fix SPDX license: replace 'LicenseRef-Callaway-CC-BY' and 'LicenseRef-Callaway-CC-BY-SA' with
+  versioned identifiers, add missing bundled code licenses
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.3-18
+- Fix FTBFS with CMake 4.x by adding '-DCMAKE_POLICY_VERSION_MINIMUM=3.5' (rhbz#2380491)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

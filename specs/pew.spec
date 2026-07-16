@@ -2,7 +2,7 @@
 
 Name: pew
 Version: 1.2.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Tool to manage multiple virtualenvs written in pure Python
 
 License: MIT
@@ -51,6 +51,10 @@ BuildRequires: python3dist(virtualenv-clone) >= 0.2.5
 BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(pip)
 %endif
+
+# Imports pkg_resources at runtime
+# https://github.com/pew-org/pew/blob/1.2.0/pew/pew.py#L726
+Requires: python3-pkg-resources
 
 %{?python_provide:%python_provide python3-%{name}}
 
@@ -109,6 +113,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{zsh_completions_dir}/_pew
 
 %changelog
+* Tue Jul 14 2026 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-32
+- Add runtime dependency on python3-pkg-resources
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.0-31
 - Rebuilt for Python 3.15
 

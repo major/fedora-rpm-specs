@@ -67,11 +67,11 @@ Documentation for %{name}.
 %autosetup -n sphinx-design-%{version} -p1
 
 # Unpin pytest and myst-parser's version
-sed -i "/pytest~=/s/~=8\.3//" pyproject.toml
-sed -i "/myst-parser>=/s/>=4,<6//" pyproject.toml
+%pyproject_patch_dependency pytest:drop_upper
+%pyproject_patch_dependency myst-parser:drop_upper
 
 # Do not run code coverage tools
-sed -i "/pytest-cov/d" pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
 %build -a
 # Build documentation

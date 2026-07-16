@@ -19,9 +19,13 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-makeindex
+BuildRequires:  texlive-metafont
+BuildRequires:  texlive-mfware
 
-%global major %(cut -d. -f1 <<< %{version})
+%global major   %{gsub %version ^(%d*)%..*$ %1}
 
 %description
 SACLIB is a library of C programs for computer algebra derived from the SAC2
@@ -63,13 +67,13 @@ export CFLAGS='%{build_cflags} -frounding-math'
 # Build the documentation
 cd doc/user_guide
 rm *.{aux,dvi,ilg,ind,log,toc,lof,pdf}
-pdflatex saclocal
-pdflatex saclocal
-pdflatex sackwic
-pdflatex saclib
+pdflatex -interaction=nonstopmode saclocal
+pdflatex -interaction=nonstopmode saclocal
+pdflatex -interaction=nonstopmode sackwic
+pdflatex -interaction=nonstopmode saclib
 makeindex saclib
-pdflatex saclib
-pdflatex saclib
+pdflatex -interaction=nonstopmode saclib
+pdflatex -interaction=nonstopmode saclib
 
 %install
 # Install the library

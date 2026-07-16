@@ -1,5 +1,5 @@
 Name:           jackson-annotations
-Version:        2.18.2
+Version:        2.21
 Release:        6%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
@@ -13,7 +13,7 @@ BuildRequires:  maven-local
 BuildRequires:  maven-local-openjdk25
 %endif
 
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.17
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.21
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 
@@ -36,13 +36,10 @@ This package contains API documentation for %{name}.
 %setup -q -n %{name}-%{name}-%{version}
 
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
-%pom_remove_plugin "org.sonatype.plugins:nexus-staging-maven-plugin"
-%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "org.sonatype.central:central-publishing-maven-plugin"
+%pom_remove_plugin "org.gradlex:gradle-module-metadata-maven-plugin"
 %pom_remove_plugin "org.codehaus.mojo:build-helper-maven-plugin"
-%pom_xpath_set "//pom:javac.src.version" "11"
-%pom_xpath_set "//pom:javac.target.version" "11"
-%pom_xpath_set "//pom:maven.compiler.source" "11"
-%pom_xpath_set "//pom:maven.compiler.target" "11"
+%pom_remove_plugin "org.cyclonedx:cyclonedx-maven-plugin"
 
 sed -i 's/\r//' LICENSE
 
@@ -62,6 +59,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Tue Jul 14 2022 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21-1
+- Update to version 2.21
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

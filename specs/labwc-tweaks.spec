@@ -1,17 +1,11 @@
-%global commit 694d0b0d326e95168c7b2e034504c8bd112d1702
-%global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20260128
-
 Name:           labwc-tweaks
-Version:        0.1.0~git%{commitdate}.%{shortcommit}
+Version:        0.1.0
 Release:        1%{?dist}
 Summary:        GUI configuration app for labwc
 
 License:        GPL-2.0-only and BSD-3-Clause
 URL:            https://github.com/labwc/labwc-tweaks
-Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
-Patch0:         0001-add-unistd_h.patch
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -33,7 +27,7 @@ labwc-tweaks is a GUI configuration application for the labwc wayland
 compositor
 
 %prep
-%autosetup -n %{name}-%{commit} -S git_am
+%autosetup -n %{name}-%{version} -S git_am
 
 %build
 %cmake
@@ -57,6 +51,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/labwc_tweaks.desktop
 
 
 %changelog
+* Sun May 31 2026 Nikolas Nyby <nikolas@gnu.org> - 0.1.0-1
+- New upstream version 0.1.0
+
 * Thu Jan 29 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.1.0~git20260128.694d0b0-1
 - Add 0001-add-unistd_h.patch to fix FTBFS on F44
 - Update to latest HEAD

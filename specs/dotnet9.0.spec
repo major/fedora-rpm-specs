@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v9.0.118
+%global upstream_tag v9.0.119
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 9.0.17
-%global aspnetcore_runtime_version 9.0.17
-%global sdk_version 9.0.118
+%global runtime_version 9.0.18
+%global aspnetcore_runtime_version 9.0.18
+%global sdk_version 9.0.119
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -172,7 +172,11 @@ BuildRequires:  llvm-libunwind-devel
 %endif
 BuildRequires:  lttng-ust-devel
 BuildRequires:  make
+%if 0%{?fedora} >= 45
+BuildRequires:  openssl3-devel
+%else
 BuildRequires:  openssl-devel
+%endif
 BuildRequires:  python3
 %if ! %{use_bundled_rapidjson}
 BuildRequires:  rapidjson-devel
@@ -425,7 +429,11 @@ Requires:       dotnet-sdk-%{dotnetver}%{?_isa} >= %{sdk_rpm_version}-%{release}
 # -lbrotlidec -lz ...`.
 Requires:       brotli-devel%{?_isa}
 Requires:       clang%{?_isa}
+%if 0%{?fedora} >= 45
+Requires:       openssl3-devel%{?_isa}
+%else
 Requires:       openssl-devel%{?_isa}
+%endif
 Requires:       zlib-devel%{?_isa}
 
 %description -n dotnet-sdk-aot-%{dotnetver}
@@ -900,6 +908,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Jul 14 2026 Omair Majid <omajid@redhat.com> - 9.0.119-1
+- Update to .NET SDK 9.0.119 and Runtime 9.0.18
+
 * Wed Jun 17 2026 Omair Majid <omajid@redhat.com> - 9.0.118-1
 - Update to .NET SDK 9.0.118 and Runtime 9.0.17
 

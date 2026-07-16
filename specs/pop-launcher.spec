@@ -8,17 +8,17 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 5b868510716673b31a650488401489898352e2d9
-%global commitdatestring 2026-02-13 12:35:27 -0700
-%global cosmic_minver 1.1.0
+%global commit a332a3a73316a3595816dd02fe426a1d3543167a
+%global commitdatestring 2026-07-02 21:14:06 +0200
+%global cosmic_minver 1.3.0
 
 Name:           pop-launcher
-Version: 1.1.0
+Version: 1.3.0
 Epoch: 1
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service
 
-License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND GPL-3.0-only AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Zlib
+License: (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (MIT OR Unlicense) AND MIT AND MPL-2.0 AND Unicode-3.0 AND Zlib
 
 URL:            https://github.com/pop-os/launcher
 

@@ -1,3 +1,6 @@
+# Whether to run tests
+%bcond ctest 1
+
 %global giturl  https://github.com/scipopt/gcg
 
 Name:           gcg
@@ -16,9 +19,10 @@ Patch:          %{name}-gsl-flexiblas.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DHIGHS:BOOL=ON
+BuildOption(conf): -DOPENMP:BOOL=ON
 
-BuildRequires:  cmake
-BuildRequires:  cmake(gtest)
 BuildRequires:  cmake(scip)
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(flexiblas)
@@ -66,7 +70,6 @@ that use libgcg.
 %prep
 %autosetup -p1
 
-%conf
 # Remove the prebuilt hmetis executable
 rm hmetis
 
@@ -75,21 +78,16 @@ sed -e '/INSTALL_RPATH_USE_LINK_PATH/s/TRUE/FALSE/' \
     -e '/INSTALL_RPATH.*CMAKE_INSTALL_PREFIX/d' \
     -i src/CMakeLists.txt
 
-%build
+%conf -p
 export CFLAGS='%{build_cflags} -DNDEBUG'
 export CXXFLAGS='%{build_cxxflags} -DNDEBUG'
-%cmake -DHIGHS:BOOL=ON -DOPENMP:BOOL=ON
-%cmake_build
 
-%install
-%cmake_install
-
+%install -a
 # We install the license file elsewhere
 rm -fr %{buildroot}%{_datadir}/licenses/%{name}
 
-%check
+%check -p
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-%ctest
 
 %files
 %{_bindir}/gcg

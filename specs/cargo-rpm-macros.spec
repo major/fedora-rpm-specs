@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           cargo-rpm-macros
-Version:        28.4
+Version:        28.5
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages with cargo
 License:        MIT
@@ -25,7 +25,7 @@ BuildRequires:  python3-pytest
 Obsoletes:      rust-packaging < 24
 Provides:       rust-packaging = %{version}-%{release}
 
-Requires:       cargo2rpm >= 0.3.2
+Requires:       cargo2rpm >= 0.3.4
 
 Requires:       cargo
 Requires:       gawk

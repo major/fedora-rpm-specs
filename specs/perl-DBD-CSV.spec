@@ -1,5 +1,5 @@
 Name:           perl-DBD-CSV
-Version:        0.63
+Version:        0.64
 Release:        1%{?dist}
 Summary:        DBI driver for CSV files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -73,6 +73,10 @@ make test
 %{_mandir}/man3/DBD::CSV.3*
 
 %changelog
+* Tue Jul 14 2026 Paul Howarth <paul@city-fan.org> - 0.64-1
+- Update to 0.64 (rhbz#2499960)
+  - Next version will require perl-5.12, following DBI
+
 * Mon Jun 22 2026 Paul Howarth <paul@city-fan.org> - 0.63-1
 - Update to 0.63 (rhbz#2491316)
   - It's 2026

@@ -20,9 +20,9 @@ Patch:          %{name}-zlib-ng.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
 
 BuildRequires:  boost-devel
-BuildRequires:  cmake
 BuildRequires:  cmake(soplex)
 BuildRequires:  cmake(tbb)
 BuildRequires:  gcc-c++
@@ -38,11 +38,13 @@ certificates.
 %prep
 %autosetup -n %{name}-%{commit} -p1
 
-%build
+%conf -p
 cd code
-%cmake
-%cmake_build
 
+%build -p
+cd code
+
+%build -a
 %if "%{?_lto_cflags}" != ""
 # LTO inlines a few functions, leaving viprincomp with unneeded dependencies.
 # Relink to drop the unneeded dependencies.
@@ -51,7 +53,7 @@ g++ %{build_cxxflags} %{build_ldflags} \
     -Wl,--dependency-file=CMakeFiles/viprincomp.dir/link.d \
     CMakeFiles/viprincomp.dir/incompletify.cpp.o \
     -o viprincomp -lmpfr -lgmp
-cd ../..
+cd -
 %endif
 
 %install

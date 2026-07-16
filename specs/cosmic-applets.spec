@@ -7,16 +7,16 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 2c95057716471ced36ad52c3a3393e30c58ebe7c
-%global commitdatestring 2026-06-23 17:11:07 +0200
-%global cosmic_minver 1.1.0
+%global commit e544cb54c242fecbe9399fcb3dd61d9ac19e1214
+%global commitdatestring 2026-07-13 17:17:24 -0600
+%global cosmic_minver 1.3.0
 
 Name:           cosmic-applets
-Version: 1.1.0
+Version: 1.3.0
 Release:        %autorelease
 Summary:        Applets for the COSMIC Desktop Environment
 
-License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Unlicense AND Zlib
+License: (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR GPL-2.0-only) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (LGPL-3.0-or-later OR MIT) AND (MIT OR Unlicense) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0 AND Unlicense AND Zlib
 
 URL:            https://github.com/pop-os/cosmic-applets
 
@@ -139,6 +139,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_bindir}/cosmic-applet-workspaces
 %{_userunitdir}/com.system76.CosmicStatusNotifierWatcher.service
 %{_datadir}/dbus-1/services/com.system76.CosmicStatusNotifierWatcher.service
+%{_datadir}/dbus-1/system.d/com.system76.CosmicSettings.Applet.NetworkManager.SecretAgent.conf
 %{_datadir}/applications/com.system76.CosmicAppList.desktop
 %{_datadir}/applications/com.system76.CosmicAppletA11y.desktop
 %{_datadir}/applications/com.system76.CosmicAppletAudio.desktop

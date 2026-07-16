@@ -5,7 +5,7 @@
 %global crate quinn-proto
 
 Name:           rust-quinn-proto
-Version:        0.11.14
+Version:        0.11.16
 Release:        %autorelease
 Summary:        State machine for the QUIC transport protocol
 
@@ -19,6 +19,7 @@ Patch:          quinn-proto-fix-metadata-auto.diff
 # * Temporarily allow hex-literal 0.4 until we update to 1.0; see
 #   https://src.fedoraproject.org/rpms/rust-hex-literal/pull-request/2,
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2347108
+# * relax rustls-platform-verifier dependency to allow 0.6..=0.7
 Patch:          quinn-proto-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

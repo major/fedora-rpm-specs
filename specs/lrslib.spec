@@ -5,7 +5,7 @@ Version:        7.3a
 Release:        %autorelease
 Summary:        Reverse search for vertex enumeration/convex hull problems
 
-%global upver 0%(sed 's/\\.//' <<< %{version})
+%global upver   0%{gsub %version %. %{quote:}}
 
 License:        GPL-2.0-or-later
 URL:            https://cgm.cs.mcgill.ca/~avis/C/lrs.html

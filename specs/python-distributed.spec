@@ -8,7 +8,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2026.7.0
+Version:        2026.7.1
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask

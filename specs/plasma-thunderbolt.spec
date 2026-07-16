@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-thunderbolt
 Summary: Plasma integration for controlling Thunderbolt devices
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_bolt.desktop
 %{_kf6_datadir}/applications/kcm_bolt.desktop
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

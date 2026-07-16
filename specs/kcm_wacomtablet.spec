@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
-Version: 6.7.2
+Version: 6.7.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -90,6 +90,9 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %changelog
+* Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
+- 6.7.3
+
 * Wed Jul 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.2-1
 - 6.7.2
 

@@ -9,16 +9,16 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 84729d1dcd5de2eb3f9d3d3acd90a13018d56620
-%global commitdatestring 2026-06-23 20:19:26 +0200
-%global cosmic_minver 1.1.0
+%global commit 99cf07622907b2fa55bb3a20552fb10fc3f0579f
+%global commitdatestring 2026-07-14 12:11:48 -0400
+%global cosmic_minver 1.3.0
 
 Name:           cosmic-settings
-Version: 1.1.0
+Version: 1.3.0
 Release:        %autorelease
 Summary:        Settings app for the COSMIC Desktop Environment
 
-License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR NCSA) AND (Apache-2.0 OR MIT OR Zlib) AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-3.0-only AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Unlicense AND Zlib
+License: (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR CC0-1.0 OR MIT) AND (Apache-2.0 OR CC0-1.0) AND (Apache-2.0 OR GPL-2.0-only) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (BSD-3-Clause OR MIT) AND (LGPL-3.0-or-later OR MIT) AND (MIT OR Unlicense) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-3.0-only AND ISC AND MIT AND MPL-2.0 AND NCSA AND Unicode-3.0 AND Unlicense AND Zlib
 
 URL:            https://github.com/pop-os/cosmic-settings
 
@@ -43,6 +43,7 @@ BuildRequires:  just
 BuildRequires:  desktop-file-utils
 BuildRequires:  pipewire-devel
 BuildRequires:  clang
+BuildRequires:  libdav1d-devel
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 Requires:       nm-connection-editor
@@ -131,12 +132,16 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_metainfodir}/com.system76.CosmicSettings.metainfo.xml
 %dir %{_datadir}/cosmic/com.system76.CosmicTheme.Dark.Builder
 %{_datadir}/cosmic/com.system76.CosmicTheme.Dark.Builder/v1/*
+%{_datadir}/cosmic/com.system76.CosmicTheme.Dark.Builder/v2/*
 %dir %{_datadir}/cosmic/com.system76.CosmicTheme.Dark
 %{_datadir}/cosmic/com.system76.CosmicTheme.Dark/v1/*
+%{_datadir}/cosmic/com.system76.CosmicTheme.Dark/v2/*
 %dir %{_datadir}/cosmic/com.system76.CosmicTheme.Light.Builder
 %{_datadir}/cosmic/com.system76.CosmicTheme.Light.Builder/v1/*
+%{_datadir}/cosmic/com.system76.CosmicTheme.Light.Builder/v2/*
 %dir %{_datadir}/cosmic/com.system76.CosmicTheme.Light
 %{_datadir}/cosmic/com.system76.CosmicTheme.Light/v1/*
+%{_datadir}/cosmic/com.system76.CosmicTheme.Light/v2/*
 %dir %{_datadir}/cosmic/com.system76.CosmicTheme.Mode
 %{_datadir}/cosmic/com.system76.CosmicTheme.Mode/v1/*
 %dir %{_datadir}/cosmic/com.system76.CosmicComp

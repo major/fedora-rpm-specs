@@ -60,8 +60,7 @@ BuildRequires:  python3-numpy-doc
 BuildRequires:  %{py3_dist geopandas}
 BuildRequires:  %{py3_dist libpysal}
 BuildRequires:  sympy-doc
-BuildRequires:  tex(latex)
-BuildRequires:  tex-preview
+BuildRequires:  tex-latex
 %endif
 
 %description
@@ -149,7 +148,7 @@ sed -i 's,https://networkx.org/documentation/latest/,,' doc/conf.py
 sed -i 's/Helvetica/sans-serif/' examples/drawing/plot_chess_masters.py
 
 # Do not run code coverage tools
-sed -i '/pytest-cov/d' pyproject.toml requirements/test.txt
+%pyproject_patch_dependency pytest-cov:ignore
 
 %build -a
 %if %{with doctest}
