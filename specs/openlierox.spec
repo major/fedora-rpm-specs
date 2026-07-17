@@ -4,10 +4,9 @@ Name:           openlierox
 # Because we downgraded from 0.59 to 0.58 as 0.59 never became stable
 Epoch:          1
 Version:        0.58
-Release:        0.39.%{prever}%{?dist}
+Release:        0.41.%{prever}%{?dist}
 Summary:        Addictive realtime multi-player 2D shoot-em-up
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://openlierox.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/OpenLieroX_%{version}_%{prever}.src.tar.bz2
 Source1:        %{name}.desktop
@@ -53,7 +52,8 @@ rm -rf share/gamedir/scripts share/gamedir/cfg/*.py
 
 
 %build
-%cmake -DDEBUG=OFF -DHAWKNL_BUILTIN=OFF -DBREAKPAD=OFF -DSYSTEM_DATA_DIR=%{_datadir}
+%cmake -DDEBUG=OFF -DHAWKNL_BUILTIN=OFF -DBREAKPAD=OFF -DSYSTEM_DATA_DIR=%{_datadir} \
+       -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -90,6 +90,15 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1:0.58-0.41.rc5
+- Fix SPDX license tag to compound expression reflecting all compiled-in code
+- Main code: 'LGPL-2.0-or-later' (COPYING.LIB: "GNU Library GPL, Version 2, June 1991")
+- Clipboard code from Battle for Wesnoth: 'GPL-2.0-or-later'
+- Bundled pstreams copylib: 'LGPL-2.1-or-later'
+
+* Mon Jul 13 2026 Michal Schorm <mschorm@redhat.com> - 1:0.58-0.40.rc5
+- Fix FTBFS with CMake 4.x by setting 'CMAKE_POLICY_VERSION_MINIMUM=3.5'
+
 * Mon Feb 16 2026 Cristian Le <git@lecris.dev> - 1:0.58-0.39.rc5
 - Allow to build with Ninja (rhbz#2381087)
 - Allow to build with CMake 4.0 (rhbz#2381339)

@@ -2,8 +2,8 @@
 %global gem_name rdoc
 
 Name: rubygem-%{gem_name}
-Version: 7.0.3
-Release: 201%{?dist}
+Version: 7.0.4
+Release: 200%{?dist}
 Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
@@ -37,7 +37,6 @@ Patch0: rubygem-rdoc-5.1.0-ruby_version.patch
 # https://github.com/ruby/rdoc/pull/1531
 # Fix error with `gem install --document=rdoc,ri`
 Patch1: rdoc-pr1531-fix-mutilple-document-installation.patch
-Requires: rubygem(irb)
 Requires: rubygem(io-console)
 Requires: rubygem(json)
 BuildRequires: ruby(release)
@@ -135,6 +134,9 @@ RUBYOPT=-Ilib \
 %{gem_instdir}/rdoc.gemspec
 
 %changelog
+* Sun Jul 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.4-200
+- Update to RDoc 7.0.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

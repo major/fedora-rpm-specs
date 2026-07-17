@@ -2,7 +2,7 @@
 
 Name:           global
 Version:        6.6.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPL-3.0-or-later except:
 # LGPL-2.0-or-later
@@ -143,6 +143,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 6.6.15-1
 - Update to v6.6.15
 

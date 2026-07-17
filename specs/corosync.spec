@@ -15,7 +15,7 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -292,6 +292,9 @@ network splits)
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 02 2026 Jan Friesse <jfriesse@redhat.com> - 3.1.10-5
 - totemsrp: Return error if sanity check fails
   (fixes CVE-2026-35091)

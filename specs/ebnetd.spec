@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	56%{?dist}
+Release:	57%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -204,6 +204,9 @@ install -m0644 -D ebnetd.sysusers.conf %{buildroot}%{_sysusersdir}/ebnetd.conf
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

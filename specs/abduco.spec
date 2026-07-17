@@ -1,6 +1,6 @@
 Name:           abduco
 Version:        0.6
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Session management in a clean and simple way
 
 License:        ISC
@@ -39,6 +39,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

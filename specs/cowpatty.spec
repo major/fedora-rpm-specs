@@ -1,6 +1,6 @@
 Name:		cowpatty
 Version:	4.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	WPA password cracker
 
 # All the source files are BSD-3-Clause, except md5.c, which is GPL-2.0-only.
@@ -53,6 +53,9 @@ install -m 644 -p %{name}.1 genpmk.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.8-2
 - Rebuilt for openssl 4.0
 

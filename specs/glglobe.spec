@@ -1,6 +1,6 @@
 Name:      glglobe
 Version:   0.2
-Release:   46%{?dist}
+Release:   47%{?dist}
 Summary:   OpenGl Globe - Earth simulation for linux
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -94,6 +94,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %endif
 
 %global goipath         github.com/redhatinsights/rhc
-Version:                0.3.9
+Version:                0.3.11
 
 %gometa
 
@@ -23,10 +23,9 @@ Source1:        %{archivename}-vendor.tar.bz2
 %if 0%{?fedora}
 Source2:        go-vendor-tools.toml
 %endif
-# Backport unit test fixes (CCT-2520) post-v0.3.9
-Patch0:         0001-fix-test-Properly-close-temporary-file.patch
-Patch1:         0002-fix-test-Correct-assumptions-in-TestGetArchive.patch
-Patch2:         0003-fix-test-Do-not-delete-archive-before-it-is-used.patch
+
+# Backport test fixes for Fedora rawhide (post-v0.3.11)
+Patch0:         0001-test-collector-fix-failing-tests-on-Fedora-rawhide.patch
 
 BuildRequires:  systemd-rpm-macros
 
@@ -79,6 +78,7 @@ export GO_LDFLAGS="-X github.com/redhatinsights/rhc/pkg/version.Version=%{versio
 %gobuild -o %{gobuilddir}/bin/rhc           %{goipath}/cmd/rhc
 %gobuild -o %{gobuilddir}/bin/rhc-server    %{goipath}/cmd/rhc-server
 %gobuild -o %{gobuilddir}/bin/rhc-collector %{goipath}/cmd/rhc-collector
+%gobuild -o %{gobuilddir}/bin/com.redhat.minimal %{goipath}/cmd/minimal-collector
 
 # Generate man page
 %{gobuilddir}/bin/rhc --generate-man-page > rhc.1
@@ -114,8 +114,12 @@ install -m 0755 -vd                     %{buildroot}%{_unitdir}
 install -m 0644 -vp data/systemd/rhc-canonical-facts.*  %{buildroot}%{_unitdir}/
 install -m 0644 -vp data/systemd/rhc-server.service  %{buildroot}%{_unitdir}/
 install -m 0644 -vp data/systemd/rhc-server.socket   %{buildroot}%{_unitdir}/
+install -m 0644 -vp data/systemd/rhc-collector-com.redhat.minimal.*  %{buildroot}%{_unitdir}/
 # Configuration
 install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/%{name}/
+# Minimal collector
+install -m 0755 -vp _build/bin/com.redhat.minimal %{buildroot}%{_libexecdir}/%{name}/collectors/com.redhat.minimal
+install -m 0644 -vp data/collectors/com.redhat.minimal.toml %{buildroot}%{_prefix}/lib/%{name}/collectors/
 
 %if 0%{?with_rhcd_compat}
 # Yggdrasil used to be called rhcd, and was part of rhc. For historical reasons, rhc
@@ -151,6 +155,7 @@ fi
 %post
 %systemd_post rhc-canonical-facts.timer
 %systemd_post rhc-server.socket
+%systemd_post rhc-collector-com.redhat.minimal.timer
 
 %if 0%{?with_rhcd_compat}
 # rhcd_t is the SELinux type used by the old rhcd daemon. Add it to the
@@ -169,10 +174,12 @@ fi
 %preun
 %systemd_preun rhc-canonical-facts.timer
 %systemd_preun rhc-server.socket rhc-server.service
+%systemd_preun rhc-collector-com.redhat.minimal.timer
 
 %postun
 %systemd_postun_with_restart rhc-canonical-facts.timer
 %systemd_postun_with_restart rhc-server.service
+%systemd_postun_with_restart rhc-collector-com.redhat.minimal.timer
 
 %if 0%{?with_rhcd_compat}
 # Remove rhcd_t from the SELinux permissive list on full package removal.
@@ -201,11 +208,15 @@ fi
 %{_unitdir}/rhc-canonical-facts.*
 %{_unitdir}/rhc-server.service
 %{_unitdir}/rhc-server.socket
+%{_unitdir}/rhc-collector-com.redhat.minimal.*
 # Configuration
 %{_sysconfdir}/%{name}/
 # Collector directories
 %dir %{_prefix}/lib/%{name}/collectors/
 %dir %{_libexecdir}/%{name}/collectors/
+# Minimal collector files
+%{_libexecdir}/%{name}/collectors/com.redhat.minimal
+%{_prefix}/lib/%{name}/collectors/com.redhat.minimal.toml
 # Logs
 %dir %{_localstatedir}/log/%{name}/
 # Logrotate

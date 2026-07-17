@@ -2,7 +2,7 @@
 
 Name:           PyQt-builder
 Version:        1.19.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ sed -r -i '/\/pyqtbuild\/bundle\/dlls/d' %{pyproject_files}
 %{_bindir}/pyqt-qt-wheel
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.19.1-4
 - Rebuilt for Python 3.15
 

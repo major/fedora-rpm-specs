@@ -12,7 +12,7 @@
 
 Name:           fedora-license-data
 Version:        1.75
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,6 +128,9 @@ make check-grammar
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 18 2026 Miroslav Suchý <msuchy@redhat.com> 1.75-1
 - add MIT WITH fmt-exception
 - add LicenseRef-Remix-icon-license-1.0 as not-allowed

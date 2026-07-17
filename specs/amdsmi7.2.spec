@@ -21,20 +21,23 @@
 #
 %global upstreamname amdsmi
 
+%global pkg_library_name amd_smi
+%global pkg_library_version 26
+
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_without compat
+%bcond_with compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -45,6 +48,12 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%endif
+
+%if 0%{?suse_version}
+%global pkg_name %{NAME}-libs
+%else
+%global pkg_name %{NAME}
 %endif
 
 # Downloads its own googletest
@@ -61,16 +70,27 @@
 %global build_test OFF
 %endif
 
+%bcond_with static
+%if %{with static}
+%global build_static ON
+%else
+%global build_static OFF
+%if %{with preview}
+# Test does not link without static libs, disable tests
+%global build_test OFF
+%endif
+%endif
+
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    0%{?dist}
+Release:    3%{?dist}
 %else
-Release:    4%{?dist}
+Release:    7%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
-License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NSCA
+License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NCSA
 # Main license is MIT
 # 
 # This file is GPL-2.0
@@ -81,7 +101,7 @@ License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NSCA
 # But license check says, incorrectly they are
 # *No copyright* GNU General Public License, Version 2
 #
-# NSCA
+# NCSA
 # Covers the bundled esmi_ib_library
 
 URL:        https://github.com/ROCm/rocm-systems
@@ -90,13 +110,24 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 # https://github.com/amd/esmi_ib_library/issues/13
 # This tag was choosen by the amdsmi project because 4.0+ introduced variables not
 # found in the upstream kernel.
+%if %{without preview}
 %global esmi_ver 4.2
+%else
+%global esmi_ver 5.1.1
+%endif
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
+%if %{without preview}
 # https://github.com/ROCm/amdsmi/pull/165
-Patch4:     0001-Fix-compilation-with-libdrm-2.4.130.patch
+Patch1:     0001-Fix-compilation-with-libdrm-2.4.130.patch
+Patch2:     0001-amdsmi-silence-pack-warnings.patch
+%else
+# https://github.com/ROCm/rocm-systems/issues/4535
+Patch1:     0001-amdsmi-so-libamdsminic.patch
+%endif
 
 ExclusiveArch: x86_64
 
+BuildRequires: chrpath
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: kernel-devel
@@ -123,6 +154,10 @@ Requires:      python3dist(pyyaml)
 Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
+%if 0%{?suse_version}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%endif
+
 # University of Illinois/NCSA Open Source License
 Provides: bundled(esmi_ib_library) = %{esmi_ver}
 
@@ -131,9 +166,19 @@ The AMD System Management Interface Library, or AMD SMI library, is a C
 library for Linux that provides a user space interface for applications
 to monitor and control AMD devices.
 
+%if 0%{?suse_version}
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
+%endif
+
 %package devel
-Summary: Libraries and headers for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Libraries and headers for %{name}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -141,15 +186,35 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%if 0%{?suse_version}
+Requires:       libgoamdsmi_shim64-1%{?_isa} = %{version}-%{release}
+%endif
 Requires:       libdrm-devel
 
 %description test
 %{summary}
 %endif
 
+%if %{with preview}
+%if %{with static}
+%package static
+Summary: Static libraries for %{name}
+Requires: amdsmi%{pkg_suffix}-devel = %{version}-%{release}
+Provides:  amdsmi%{pkg_suffix}-static = %{version}-%{release}
+
+%description static
+%{summary}
+%endif
+%endif
+
 %prep
+%if %{without preview}
 %autosetup -p1 -n %{upstreamname}
+%else
+%autosetup -p3 -n %{upstreamname}
+%endif
+
 tar xf %{SOURCE1}
 mv esmi_ib_library-* esmi_ib_library
 # So we can pick up this license
@@ -184,16 +249,15 @@ sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
 
 %build
 %cmake \
-    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DAUTO_BUILD_STATIC_LIBS=%{build_static} \
+    -DBUILD_BOTH_LIBS=%{build_static} \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
-    -DBUILD_TESTS=%build_test \
+    -DBUILD_TESTS=%{build_test} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
     -DSHARE_INSTALL_PREFIX=%{pkg_prefix}/share \
-%if %{with test}
-    -DUSE_SYSTEM_GTEST=On \
-%endif
+    -DUSE_SYSTEM_GTEST=%{build_test} \
     %{nil}
 
 %cmake_build
@@ -240,44 +304,89 @@ rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/_version.py
 rm -f %{buildroot}%{pkg_prefix}/share/setup.py
 rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/setup.py
 
-%if %{with test}
-# put the test files in a reasonable place
-mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
-mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/.
+if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
+  # put the test files in a reasonable place
+  mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
+  mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
+fi
+
+%if %{with preview}
+#ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
+chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/lib%{pkg_library_name}.so
+
 %endif
 
 %if 0%{?suse_version}
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%endif
+%files
+%{pkg_prefix}/bin/amd-smi
+%{pkg_prefix}/libexec/amdsmi_cli
+%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
+
+%files -n %{pkg_name}
+%doc README.md
+%license LICENSE
+%license esmi_ib_library_License.txt 
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.1{,.*}
+
+%else
 
 %files
 %doc README.md
 %license LICENSE
 %license esmi_ib_library_License.txt 
-%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so.*
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %if %{without compat}
-%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.1{,.*}
 %{pkg_prefix}/bin/amd-smi
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
+%endif
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/libamdsminic.so.*
+%endif
 %endif
 
 %files devel
 %{pkg_prefix}/include/amd_smi/
 %{pkg_prefix}/include/*.h
-%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd_smi/
 %if %{without compat}
 %{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
 %endif
+%if %{with preview}
+%{pkg_prefix}/include/e_smi/
+%{pkg_prefix}/include/rocm_smi/
+%{pkg_prefix}/%{pkg_libdir}/libamdsminic.so
+%endif
 
+%if %{without preview}
 %if %{with test}
 %files test
-%{pkg_prefix}/share/amdsmi
+%{pkg_prefix}/share/amdsmi/
+%endif
+%endif
+
+%if %{with preview}
+%if %{with static}
+%files static
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_static.a
+%endif
 %endif
 
 %changelog
+* Wed Jul 15 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 7.2.1-7
+- Fix license typo: NSCA -> NCSA
+- Silence _pack_ warnings
+- Generate suse package names
+- Add --with static
+- Update to 7.2.1
+- Allign rel tag with amdsmi
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - No python for compat
 

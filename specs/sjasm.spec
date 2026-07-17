@@ -1,9 +1,8 @@
 Name:           sjasm
 Version:        0.42c
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        A z80 cross assembler
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        Zlib
 URL:            http://www.xl2s.tk
 Source0:        http://www.xl2s.tk/%{name}42c.zip
 Patch0:         sjasm-0.42c-fixmakefile.patch
@@ -35,7 +34,7 @@ iconv -f iso8859-1 %{name}.txt -t utf8 > %{name}.txt.conv \
 
 
 %build
-make -C sjasmsrc42c %{?_smp_mflags} CXXFLAGS="%{optflags} -DMAX_PATH=MAXPATHLEN"
+make -C sjasmsrc42c %{?_smp_mflags} CXXFLAGS="%{optflags} -DMAX_PATH=MAXPATHLEN" LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -46,10 +45,18 @@ make -C sjasmsrc42c install DESTDIR=%{buildroot}
 
 %files
 %{_bindir}/%{name}
-%doc %{name}.txt
+%license %{name}.txt
 
 
 %changelog
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 0.42c-11
+- Pass '%{build_ldflags}' to the Makefile to fix annocheck 'bind-now' and 'pie'
+  hardening failures
+- Mark 'sjasm.txt' as '%license' instead of '%doc' (contains Zlib license text)
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.42c-10
+- Fix SPDX license tag: 'LicenseRef-Callaway-BSD' -> 'Zlib'
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42c-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

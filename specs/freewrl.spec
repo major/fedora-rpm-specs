@@ -12,7 +12,7 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	3.%{commitdate}git%{shortcommit}%{?dist}
+Release:	4.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPL-3.0-or-later
 URL:		http://freewrl.sourceforge.net
@@ -267,6 +267,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-4.20240420gitb3254b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-3.20240420gitb3254b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

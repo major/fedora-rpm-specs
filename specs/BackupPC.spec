@@ -10,7 +10,7 @@
 
 Name:           BackupPC
 Version:        4.4.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        High-performance backup system
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -337,6 +337,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

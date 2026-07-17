@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.5.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -318,6 +318,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.5-8
 - Rebuild for CVE-2026-25727, CVE-2026-33056
 

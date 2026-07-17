@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Cut Generation Library
 Version:	0.60.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -98,6 +98,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cgl_doxy.tag
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 14 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.60.10-1
 - Release 0.60.10
 

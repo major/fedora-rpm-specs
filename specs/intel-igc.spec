@@ -6,9 +6,9 @@
 %global use_system_headers 0
 %global clang_commit 07e7c931d8bdb38549a907cf04fd06a278f7cdce
 %global clang_shortcommit %(c=%{clang_commit}; echo ${c:0:7})
-%global translator_commit 308a0d7acfd7330e64d72a1cd23d272deafb113b
+%global translator_commit b84990a370e46748f7196af1d8f5a39f5834802d
 %global translator_shortcommit %(c=%{translator_commit}; echo ${c:0:7})
-%global spirv_headers_commit 9268f3057354a2cb65991ba5f38b16d81e803692
+%global spirv_headers_commit b8a32968473ce852a809b9de5f04f02a5a9dfa78
 %global spirv_headers_shortcommit %(c=%{spirv_headers_commit}; echo ${c:0:7})
 %global spirv_tools_commit 28a883ba4c67f58a9540fb0651c647bb02883622
 %global spirv_tools_shortcommit %(c=%{spirv_tools_commit}; echo ${c:0:7})
@@ -29,10 +29,10 @@
 %global optflags %{optflags} -w
 
 # This patch level is reused in cflags
-%global igc_patch 4
+%global igc_patch 3
 
 Name: intel-igc
-Version: 2.34.%{igc_patch}
+Version: 2.36.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -49,6 +49,7 @@ Source6: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-%{llvm_v
 %endif
 
 Patch0: 0001-Fix-segfault-when-running-analysis-passes-after-SCCP.patch
+Patch1: 0002-Fix-incomplete-type-llvm-Triple-in-MemCpyOptimizer-w.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64

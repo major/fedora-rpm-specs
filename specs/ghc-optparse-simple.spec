@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.1.4
 # can only be reset when subpkg bumped
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Simple interface to optparse-applicative
 
 License:        BSD-3-Clause
@@ -156,6 +156,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 0.1.1.4-17
 - Rebuild
 

@@ -23,7 +23,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.1.0
+Version:        8.1.1
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -39,8 +39,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.10",
-BuildRequires:  phpunit13 >= 13.1.10
+#        "phpunit/phpunit": "^13.2.4",
+BuildRequires:  phpunit13 >= 13.2.4
 BuildRequires:  (php-composer(%{pk_vendor}/recursion-context) >= 8.0 with php-composer(%{pk_vendor}/recursion-context) < 9)
 %endif
 
@@ -92,7 +92,7 @@ phpab --template fedora --output vendor/autoload.php tests/_fixture/
 
 : Run upstream test suite
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit13 --bootstrap vendor/autoload.php || ret=1
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed Jul 15 2026 Remi Collet <remi@remirepo.net> - 8.1.1-1
+- update to 8.1.1
+
 * Thu May 21 2026 Remi Collet <remi@remirepo.net> - 8.1.0-1
 - update to 8.1.0
 

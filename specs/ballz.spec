@@ -1,9 +1,8 @@
 Name:           ballz
 Version:        1.0.4
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        B.A.L.L.Z. - platform/puzzle game where you control a rolling ball
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://gitlab.com/groups/ballz
 Source0:        %{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
@@ -52,6 +51,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.0.4-20
+- Fix SPDX license tag: 'LicenseRef-Callaway-BSD' -> 'BSD-3-Clause'
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

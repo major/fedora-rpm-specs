@@ -4,7 +4,7 @@ cryptography primitives}
 
 Name:           aws-c-cal
 Version:        0.9.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        AWS Crypto Abstraction Layer
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.0-6
 - Rebuilt for openssl 4.0
 

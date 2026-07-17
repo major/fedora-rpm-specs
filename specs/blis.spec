@@ -16,7 +16,7 @@
 
 Name:		blis
 Version:	2.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -372,6 +372,9 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 12 2026 Dave Love <loveshack@fedoraproject.org> - 2.0-6
 - Only use memkind on el8,9
 

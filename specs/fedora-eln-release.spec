@@ -155,6 +155,15 @@ Suggests: fedora-eln-logos-httpd
 Suggests: openssl-libs
 Suggests: openssl-devel
 
+# Prefer over protobuf3, protobuf3-c
+Suggests: protobuf-compiler
+Suggests: protobuf-devel
+Suggests: protobuf-c
+Suggests: protobuf-c-devel
+
+# Prefer over Fedora fips-provider (same code, different name)
+Suggests: fips-provider-next
+
 %description
 Fedora ELN release files such as various /etc/ files that define the release
 and systemd preset files that determine which services are enabled by default.

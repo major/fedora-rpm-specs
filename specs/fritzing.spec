@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
 %global version_no 1.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
 # Take the latest commit from the "1.0.7" branch in the fritzing-app repo.
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7^20260414-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.7^20260414-2
 - Rebuilt for openssl 4.0
 

@@ -48,7 +48,7 @@
 
 Name:       copr-frontend
 Version:    2.7.hotfix.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -375,6 +375,9 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.hotfix.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Jakub Kadlcik <frostyx@email.cz> 2.7.hotfix.1-1
 - frontend: don't fail pending-actions when copr is None
 

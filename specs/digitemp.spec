@@ -1,7 +1,7 @@
 Summary:        Dallas Semiconductor 1-wire device reading console application
 Name:           digitemp
 Version:        3.7.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.digitemp.com/
 Source0:        https://github.com/bcl/digitemp/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ touch -c -r ChangeLog ChangeLog.utf8; mv -f ChangeLog.utf8 ChangeLog
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

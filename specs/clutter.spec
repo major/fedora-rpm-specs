@@ -8,7 +8,7 @@
 
 Name:          clutter
 Version:       1.26.4
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       Open Source software library for creating rich graphical user interfaces
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -137,6 +137,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

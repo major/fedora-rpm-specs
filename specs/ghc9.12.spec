@@ -96,7 +96,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}%{?ghc_snapshot:.%{ghc_snapshot}}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -934,6 +934,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.12.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 28 2026 Jens Petersen <petersen@redhat.com> - 9.12.4-17
 - https://downloads.haskell.org/ghc/9.12.4/docs/users_guide/9.12.4-notes.html
 

@@ -1,6 +1,6 @@
 Name:          domtt
 Version:       0.7.3
-Release:       32%{?dist}
+Release:       33%{?dist}
 Summary:       DOM Tooltip (aka domTT) is a Javascript widget
 
 License:       Apache-2.0
@@ -35,6 +35,9 @@ cp -p %{SOURCE1} %{name}.conf
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

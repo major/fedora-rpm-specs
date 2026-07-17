@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.58~rc1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 ###############################################################################
 
@@ -1063,6 +1063,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.58~rc1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Josephine Pfeiffer <josie@redhat.com> - 1:1.58~rc1-1
 - Update to 1.58-rc1 release
 - Drop patches now merged upstream (nmtui bond assertions, libnm cert dir permissions)

@@ -1,7 +1,7 @@
 Name:		globus-gram-protocol
 %global _name %(tr - _ <<< %{name})
 Version:	13.6
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Grid Community Toolkit - GRAM Protocol Library
 
 License:	Apache-2.0
@@ -129,6 +129,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.6-12
 - Fix compiler and doxygen warnings
 

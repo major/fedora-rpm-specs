@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -227,6 +227,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Robert Scheck <robert@fedoraproject.org> - 4.14.0-2
 - Enable prometheus support (thanks to Ricardo Domingues)
 

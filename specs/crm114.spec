@@ -4,7 +4,7 @@
 Summary: Controllable Regex Mutilator: multi-method content classifier and filter
 Name: crm114
 Version: 0
-Release: 36.%{cvsver}%{?dist}
+Release: 37.%{cvsver}%{?dist}
 URL: http://crm114.sourceforge.net/
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -64,6 +64,9 @@ make megatest
 %{_emacs_sitelispdir}/%{name}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-37.20100106
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-36.20100106
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

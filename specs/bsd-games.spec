@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 84%{?dist}
+Release: 85%{?dist}
 # TODO:
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/721
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/722
@@ -231,6 +231,9 @@ install -m0644 -D bsd-games.sysusers.conf %{buildroot}%{_sysusersdir}/bsd-games.
 %{_sysusersdir}/bsd-games.conf
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-85
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-84
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

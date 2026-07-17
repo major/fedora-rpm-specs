@@ -1,6 +1,6 @@
 Name:           eg
 Version:        1.7.5.2
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Git for mere mortals
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -56,6 +56,9 @@ fi
 %{_bindir}/eg
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

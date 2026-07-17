@@ -1,6 +1,6 @@
 Name:           genius
 Version:        1.0.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An arbitrary precision integer and multiple precision floatingpoint calculator
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -88,6 +88,9 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.27-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -94,6 +94,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 17 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.3-2
 - Add debugedit-5.3-elflint-test.patch
 - Add gdb as BuildRequires

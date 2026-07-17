@@ -3,7 +3,7 @@ License:       GPL-3.0-only
 Summary:       A backgammon game and analyser
 Epoch:         1
 Version:       1.08.003
-Release:       8%{?dist}
+Release:       9%{?dist}
 Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
 Source2:       gnubg.png
@@ -123,6 +123,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/Shaders/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.08.003-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.08.003-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

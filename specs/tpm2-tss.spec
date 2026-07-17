@@ -4,8 +4,8 @@
 %endif
 
 Name:          tpm2-tss
-Version:       4.1.3
-Release:       10%{?candidate:.%{candidate}}%{?dist}
+Version:       4.2.0
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 License:       BSD-2-Clause
@@ -14,10 +14,6 @@ Source0:       %{url}/releases/download/%{version}/%{name}-%{version}%{?candidat
 Source1:       tpm2-tss-systemd-sysusers.conf
 # doxygen crash
 Patch0:        tpm2-tss-3.0.0-doxygen.patch
-# Do not use <openssl/engine.h> (fixed upstream for 4.2)
-Patch1:        tpm2-tss-4.1.3-openssl-no-engine.patch
-# Openssl 4 build fixes
-Patch2:        0001-Update-OpenSSL-API-compatibility.patch
 
 %global udevrules_prefix 60-
 
@@ -99,8 +95,10 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tpm2-tss.conf
 %{_libdir}/libtss2-tcti-spi-helper.so.0*
 %{_libdir}/libtss2-tcti-spi-ltt2go.so.0*
 %{_libdir}/libtss2-tcti-swtpm.so.0*
+%{_libdir}/libtss2-tcti-null.so.0*
 %{_sysusersdir}/tpm2-tss.conf
 %{_udevrulesdir}/%{udevrules_prefix}tpm-udev.rules
+%{_udevrulesdir}/%{udevrules_prefix}ltt2go-udev.rules
 
 %files fapi
 %{_libdir}/libtss2-fapi.so.1*
@@ -133,6 +131,7 @@ use tpm2-tss.
 %{_libdir}/libtss2-tcti-spi-helper.so
 %{_libdir}/libtss2-tcti-spi-ltt2go.so
 %{_libdir}/libtss2-tcti-swtpm.so
+%{_libdir}/libtss2-tcti-null.so
 %{_libdir}/pkgconfig/tss2-mu.pc
 %{_libdir}/pkgconfig/tss2-sys.pc
 %{_libdir}/pkgconfig/tss2-esys.pc
@@ -149,11 +148,15 @@ use tpm2-tss.
 %{_libdir}/pkgconfig/tss2-tcti-spi-helper.pc
 %{_libdir}/pkgconfig/tss2-tcti-spi-ltt2go.pc
 %{_libdir}/pkgconfig/tss2-tcti-swtpm.pc
+%{_libdir}/pkgconfig/tss2-tcti-null.pc
 %{_mandir}/man3/*.3.gz
 %{_mandir}/man5/*.5.gz
 %{_mandir}/man7/tss2*.7.gz
 
 %changelog
+* Wed Jul 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.0-1
+- Update to 4.2.0
+
 * Fri Apr 17 2026 Simo Sorce <ssorce@cwredhatfedoraproject.org> - 4.1.3-10
 - OpenSSL 4 build fixes
 

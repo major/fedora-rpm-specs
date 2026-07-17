@@ -7,7 +7,7 @@
 
 Name:           debconf
 Version:        1.5.91
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Debian configuration management system
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -272,6 +272,9 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.91-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.91-8
 - Rebuilt for Python 3.15
 

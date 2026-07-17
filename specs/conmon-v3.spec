@@ -19,7 +19,7 @@
 
 Name:           %{repo}
 Version:        %(echo %{upstream_version} | sed 's/-/~/')
-Release: 1.20260713101508635845.main.4.ge1720dd%{?dist}
+Release: 2.20260713101508635845.main.4.ge1720dd%{?dist}
 Summary:        OCI container runtime monitor (v3)
 
 SourceLicense:  Apache-2.0
@@ -101,4 +101,7 @@ install -m 0644 docs/conmon.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0~dev-2.20260713101508635845.main.4.ge1720dd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 %autochangelog

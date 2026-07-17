@@ -1,6 +1,6 @@
 Name:		dt
 Version:	26
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Generic data test program
 License:	MIT
 URL:		https://github.com/RobinTMiller/dt
@@ -67,6 +67,9 @@ install -m644 html/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}/html
 %{_mandir}/man8/%{name}.*.gz
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 23 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 26-1
 - Update to v26
 

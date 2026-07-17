@@ -9,7 +9,7 @@ Summary:        Proof transformer for propositional logic
 
 %forgemeta
 
-Release:        0.20%{?dist}
+Release:        0.21%{?dist}
 License:        MIT
 URL:            %{forgeurl}
 VCS:            git:%{forgeurl}.git
@@ -98,6 +98,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

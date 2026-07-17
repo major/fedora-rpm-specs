@@ -2,7 +2,7 @@
 
 Name:		QuantLib
 Version:	1.42.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A software framework for quantitative finance
 License:	BSD-3-Clause
 URL:		http://www.quantlib.org
@@ -144,6 +144,9 @@ touch -r News.md %{buildroot}%{_datadir}/emacs/site-lisp/quantlib.elc
 #%%{docdir}/QuantLib-%%{version}-docs-refman.ps
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun  2 2026 Tom Callaway <spot@fedoraproject.org> - 1.42.1-1
 - update to 1.42.1
 

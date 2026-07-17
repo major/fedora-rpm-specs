@@ -30,7 +30,7 @@ Version:        1.32.0
 
 Name:           cri-o
 Epoch:          0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 # Upstream license specification: Apache-2.0
@@ -224,6 +224,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.32.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0:1.32.0-8
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

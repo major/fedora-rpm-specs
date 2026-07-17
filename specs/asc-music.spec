@@ -1,12 +1,13 @@
 Name:           asc-music
-Version:        1.0
-Release:        34%{?dist}
+Version:        1.3
+Release:        2%{?dist}
 Summary:        Background music for the game asc
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.asc-hq.org/
-# transcoded from: http://downloads.sourceforge.net/asc-hq/*.mp3
-Source0:        %{name}-%{version}.tar.gz
+# Upstream distributes individual MP3 files on SourceForge, not a tarball.
+Source0:        https://downloads.sourceforge.net/asc-hq/frontiers.mp3
+Source1:        https://downloads.sourceforge.net/asc-hq/machine_wars.mp3
+Source2:        https://downloads.sourceforge.net/asc-hq/time_to_strike.mp3
 Buildarch:      noarch
 Requires:       asc
 
@@ -19,26 +20,36 @@ asc cache file: $HOME/.asc/asc.cache, otherwise asc will not find the music.
 
 
 %prep
-%setup -q
+# No tarball to extract — sources are individual MP3 files
 
 
 %build
-# nothing todo content only
+# Nothing to build — content only
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/asc/music
-install -p -m 644 *.ogg $RPM_BUILD_ROOT%{_datadir}/asc/music
+install -p -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/asc/music
 
 
 
 %files
-%doc README.fedora
 %{_datadir}/asc/music
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.3-1
+- Rebase to version 1.3
+- Switch from Fedora-transcoded OGG files back to upstream original MP3 files;
+  ASC supports both formats via SDL_mixer (playlist pattern: 'music/*.mp3 music/*.ogg')
+- Use individual upstream MP3 files as sources directly instead of a
+  packager-created tarball; upstream does not distribute a tarball
+- Drop 'README.fedora' (content duplicated in package description)
+- Drop auto-converted license comment; SPDX tag is already correct
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

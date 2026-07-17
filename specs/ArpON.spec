@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 Name:       ArpON
 Version:    3.0
-Release:    34%{?dist}
+Release:    35%{?dist}
 Summary:    ARP handler inspection
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -51,6 +51,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_mandir}/man8/arpon.8*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 12 2026 Cristian Le <git@lecris.dev> - 3.0-34
 - Allow CMake 4.0 build
 

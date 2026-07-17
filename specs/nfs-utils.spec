@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.9.1
-Release: 4.rc4%{?dist}
+Release: 5.rc5%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -15,8 +15,8 @@ Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
 Source5: 10-nfsv3.conf
 
-Patch001: nfs-utils-2.9.2-rc4.patch
-Patch002: nfs-utils-2.9.1-nfsd-thread-count-zero.patch
+Patch001: nfs-utils-2.9.2-rc5.patch
+Patch002: nfs-utils-2.9.1-export-ignore-hosts.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch102: nfs-utils-1.2.5-idmap-errmsg.patch
@@ -477,6 +477,12 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Wed Jul 15 2026 Steve Dickson <steved@redhat.com> 2.9.1-5-rc5
+- Pass ignore_hosts to export_create() in export_read()
+
+* Sat Jul 11 2026 Steve Dickson <steved@redhat.com> 2.9.1-4-rc5
+- Updated to the latest RC release: nfs-utils-2-9-2-rc5
+
 * Tue Jun 16 2026 Steve Dickson <steved@redhat.com> 2.9.1-4-rc4
 - nfsd: don't assume service is running when setting thread count to 0
 

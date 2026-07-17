@@ -1,6 +1,6 @@
 Name:           IPAddress
 Version:        5.2.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library for handling IP addresses and subnets, both IPv4 and IPv6
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -43,6 +43,9 @@ mv dist/IPAddress*.jar dist/IPAddress.jar
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

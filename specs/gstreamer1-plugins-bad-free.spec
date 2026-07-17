@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -930,6 +930,9 @@ EOF
 
 
 %changelog
+* Wed Jul 15 2026 Carl George <carlwgeorge@gmail.com> - 1.28.5-2
+- Rebuild for libonnxruntime.so.1(VERS_1.26.0)
+
 * Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.5-1
 - 1.28.5
 

@@ -1,6 +1,6 @@
 Name:           disktype
 Version:        9
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Detect the content format of a disk or disk image
 
 License:        MIT
@@ -38,6 +38,9 @@ install -p -m 644 disktype.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/disktype.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

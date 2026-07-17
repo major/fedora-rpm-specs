@@ -10,7 +10,7 @@ software and support an extended character set. \
 
 Name:		%{fontname}-fonts
 Version:	1.3
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	Very small futuristic font family
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -288,6 +288,9 @@ done
 %dir %{_fontdir}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

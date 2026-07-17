@@ -1,6 +1,6 @@
 Name: budgie-display-configurator
 Version: 0.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Graphical display configuration tool for Budgie Desktop
 
 License: MPL-2.0
@@ -46,6 +46,9 @@ Graphical display configuration tool for Budgie Desktop
 %{_datadir}/applications/org.buddiesofbudgie.DisplayConfig.desktop
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.0.1-5
 - Rebuild (qt6)
 

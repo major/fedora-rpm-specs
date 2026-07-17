@@ -2,7 +2,7 @@
 
 Name:           git-up
 Version:        2.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -56,6 +56,9 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.3.0-6
 - Rebuilt for Python 3.15
 

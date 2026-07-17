@@ -1,6 +1,6 @@
 Name:		fcitx-fbterm
 Version:	0.2.0
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Fbterm Support for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -36,6 +36,9 @@ a fast Framebuffer based terminal emulator.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

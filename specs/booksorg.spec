@@ -3,7 +3,7 @@
 
 Name: booksorg
 Version: 0.3.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 Summary: Books Organizer
@@ -52,6 +52,9 @@ chmod 644 %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

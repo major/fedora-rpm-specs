@@ -17,7 +17,7 @@ Summary: Traditional top-down car racing game
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT
 
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://juzzlin.github.io/DustRacing2D/
 Source0: https://github.com/juzzlin/DustRacing2D/archive/%{version}/DustRacing2D-%{version}.tar.gz
@@ -127,6 +127,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.0-1
 - Update to v2.2.0
 

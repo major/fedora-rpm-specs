@@ -1,6 +1,6 @@
 Name:           game-music-emu
 Version:        0.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Provides:       libgme%{?_isa} = %{version}-%{release}
 Summary:        Video game music file emulation/playback library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 23 2026 Karel Volný <kvolny@redhat.com> 0.6.5-1
 - New release 0.6.5 (rhbz#2459866)
 - Replaced make with %%__cmake (rhbz#2381010)

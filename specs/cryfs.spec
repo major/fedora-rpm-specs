@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -76,6 +76,9 @@ sed -i vendor/cryptopp/vendor_cryptopp/CMakeLists.txt \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.3-18
 - Support CMake 4.0
 

@@ -3,7 +3,7 @@
 
 Name: audacious
 Version: 4.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -183,6 +183,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{na
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-1
 - update to 4.6.1 (more SONAME bumps + plugin API version increase)
 

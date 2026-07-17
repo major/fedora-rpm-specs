@@ -19,7 +19,7 @@
 
 Name:           erofs-utils
 Version:        1.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND (BSD-2-Clause OR GPL-2.0-only) AND (BSD-2-Clause OR GPL-2.0-or-later) AND (GPL-2.0-or-later OR MIT) AND MIT AND Unlicense
@@ -123,6 +123,9 @@ autoreconf -fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 David Michael <fedora.dm0@gmail.com> - 1.9.2-2
 - Fix enabling ublk support.
 

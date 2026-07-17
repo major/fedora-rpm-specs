@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        14
-Release:        0.beta%{?dist}.1
+Release:        0.beta%{?dist}.2
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -105,6 +105,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14-0.beta.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 14-0.beta.1
 - Rebuilt for openssl 4.0
 

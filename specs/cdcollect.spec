@@ -2,7 +2,7 @@
 
 Name:		cdcollect
 Version:	0.6.0
-Release:	48%{?dist}
+Release:	49%{?dist}
 Summary:	Simple CD/DVD catalog for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -91,6 +91,9 @@ fi
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

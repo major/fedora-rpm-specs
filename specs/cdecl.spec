@@ -10,7 +10,7 @@ Summary: Translator for C gibberish
 License: GPL-3.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-PublicDomain
 
 Version: 18.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/paul-j-lucas/cdecl/
 Source0: %{URL}releases/download/cdecl-%{version}/cdecl-%{version}.tar.gz
@@ -69,6 +69,9 @@ make -C test/ check || { cat test/test-suite.log; exit 1; }
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 18.7.2-1
 - Update vo v18.7.2
 

@@ -5,7 +5,7 @@
 Summary: CVT (Coordinated Video Timings) modeline calculator with CVT v1.2 timings
 Name: cvt12
 Version: 0^%{date}git%{shortcommit}
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: https://github.com/kevinlekiller/cvt_modeline_calculator_12
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 License: BSD-3-Clause
@@ -36,6 +36,9 @@ install -D -pm0755 -t %{buildroot}%{_bindir} cvt12
 %{_bindir}/cvt12
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20221228git6f66135-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20221228git6f66135-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

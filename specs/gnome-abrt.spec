@@ -11,7 +11,7 @@
 
 Name:       gnome-abrt
 Version:    1.4.3
-Release:    10%{?snapshot:.git%{shortcommit}}%{?dist}
+Release:    11%{?snapshot:.git%{shortcommit}}%{?dist}
 Epoch:      1
 Summary:    A utility for viewing problems that have occurred with the system
 
@@ -85,6 +85,9 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:1.4.3-10
 - Rebuilt for Python 3.15
 

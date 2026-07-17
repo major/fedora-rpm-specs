@@ -1,6 +1,6 @@
 Name:          awf-gtk3
 Version:       4.2.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Theme preview application for GTK 3
 Summary(fr):   Application d'aperçu de thème pour GTK 3
 License:       GPL-3.0-or-later
@@ -58,6 +58,9 @@ autoreconf -fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Fabrice Creuzot <code@luigifab.fr> - 4.2.0-1
 - New upstream release
 - Use make install

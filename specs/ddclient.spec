@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           8%{?dist}
+Release:           9%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -148,6 +148,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.0.0-8
 - disable t/ssl-validate.pl test due upstream unresolved issues rhbz#2433977
 

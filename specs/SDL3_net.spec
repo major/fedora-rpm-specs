@@ -7,7 +7,7 @@ License: Zlib
 %global ver_micro 0
 
 Version: %{ver_major}.%{ver_minor}.%{ver_micro}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global so_major 0
 %global so_version %{so_major}.%{ver_minor}.%{ver_micro}
@@ -74,6 +74,9 @@ applications that use %{name} along with relevant documentation.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.0-2
 - Switch from forge-generated tarballs to downloading from upstream homepage
 - Verify source signatures

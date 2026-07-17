@@ -12,7 +12,7 @@
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -188,6 +188,9 @@ make -C tools/test
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.p1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 12 2026 Chad Lemmen <rpm@stansoft.org> - 1.6.3.p1-4
 - added requires for ncurses and libpq
 

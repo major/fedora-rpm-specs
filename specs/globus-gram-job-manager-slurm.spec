@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-slurm
 %global _name %(tr - _ <<< %{name})
 Version:	3.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Grid Community Toolkit - SLURM Job Manager Support
 
 #		The slurm.pm file is BSD, the rest is Apache-2.0
@@ -82,6 +82,9 @@ fi
 %license GLOBUS_LICENSE LICENSE*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

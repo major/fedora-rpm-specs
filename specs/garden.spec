@@ -1,6 +1,6 @@
 Name:           garden
 Version:        1.0.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        An innovative old-school 2D vertical shoot-em-up
 
 License:        GPL-3.0-or-later
@@ -96,6 +96,9 @@ desktop-file-validate \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

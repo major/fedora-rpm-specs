@@ -1,6 +1,6 @@
 Name:           fido
 Version:        1.1.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Multi-threaded file watch utility
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf.sample
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

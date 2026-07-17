@@ -1,7 +1,7 @@
 Name:			ghemical
 Summary:		Molecular mechanics and quantum mechanics front end for GNOME
 Version:		3.0.0
-Release:		31%{?dist}
+Release:		32%{?dist}
 
 # SPDX confirmed
 License:		GPL-2.0-or-later
@@ -119,6 +119,9 @@ desktop-file-install %{name}.desktop --dir=%{buildroot}%{_datadir}/applications
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-31
 - Rebuild for openbabel-3.2.0
 - Add -Wno-write-strings

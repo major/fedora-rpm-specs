@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20180227
-Release: 19%{?dist}
+Release: 20%{?dist}
 URL:     https://www.greekfontsociety-gfs.gr/typefaces/Math
 
 %global foundry           GFS
@@ -69,6 +69,9 @@ unzip -j -q  %{SOURCE0}
 %doc *.pdf *.sty
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20180227-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20180227-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

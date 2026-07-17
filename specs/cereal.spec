@@ -5,7 +5,7 @@
 
 Name:           cereal
 Version:        1.3.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A header-only C++11 serialization library
 # include/cereal/details/polymorphic_impl.hpp is BSL-1.0
 # include/cereal/external/base64.hpp is Zlib
@@ -111,6 +111,9 @@ MinGW Windows %{name} library.
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

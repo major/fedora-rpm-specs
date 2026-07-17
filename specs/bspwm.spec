@@ -2,7 +2,7 @@
 
 Name:		bspwm
 Version:	0.9.9
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	A tiling window manager based on binary space partitioning
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/xsessions/%{name}.desktop
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

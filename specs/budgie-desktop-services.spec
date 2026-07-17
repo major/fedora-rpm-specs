@@ -1,6 +1,6 @@
 Name:    budgie-desktop-services
 Version: 1.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Daemon responsible for enabling various features of Budgie Desktop
 
 License: MPL-2.0
@@ -40,6 +40,9 @@ desktop logic for Budgie 11.
 %{_datadir}/dbus-1/system.d/org.buddiesofbudgie.Services.conf
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jan 20 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.0.2-1
 - Update to 1.0.2 release
 

@@ -1,6 +1,6 @@
 Name:           chromium-bsu
 Version:        0.9.16.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Fast paced, arcade-style, top-scrolling space shooter
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License:        ClArtistic
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

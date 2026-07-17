@@ -1,6 +1,6 @@
 Name:           fvsp
 Version:        0.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Convert Perl version string into RPM-compatible version string
 License:        LGPL-3.0-or-later
 URL:            https://ppisar.fedorapeople.org/%{name}/
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

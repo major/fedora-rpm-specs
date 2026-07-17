@@ -1,7 +1,7 @@
 Name:		globus-ftp-control
 %global _name %(tr - _ <<< %{name})
 Version:	9.10
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Control Library
 
 License:	Apache-2.0
@@ -122,6 +122,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.10-11
 - Fix compiler warnings
 

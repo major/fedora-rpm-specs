@@ -9,7 +9,7 @@
 
 Name:           fedrq
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
 # - code is GPL-2.0-or-later
@@ -120,6 +120,9 @@ FEDRQ_BACKEND=libdnf5 %{py3_test_envvars} \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Maxwell G <maxwell@gtmx.me> - 1.7.0-1
 - Update to 1.7.0.
 - Switch upstream to forge.fedoraproject.org.

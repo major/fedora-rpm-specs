@@ -1,6 +1,6 @@
 Name:           extundelete
 Version:        0.2.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Utility to recover deleted files from ext3 and ext4 filesystem
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ extundelete is no longer maintained by upstream, the practical use is limited.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

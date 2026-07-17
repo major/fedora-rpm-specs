@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.8.3
 # can only be reset when all subpkgs bumped
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -215,6 +215,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.3-41
 - Rebuilt for openssl 4.0
 

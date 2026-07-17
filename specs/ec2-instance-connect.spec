@@ -5,7 +5,7 @@
 Name:           ec2-instance-connect
 Summary:        EC2 Instance Connect scripts
 Version:        1.1.17
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 License:        Apache-2.0
 URL:            https://github.com/aws/%{project}
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.17-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.17-7
 - Rebuilt for openssl 4.0
 

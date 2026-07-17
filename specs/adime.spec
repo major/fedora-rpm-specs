@@ -1,6 +1,6 @@
 Name:           adime
 Version:        2.2.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Allegro Dialogs Made Easy
 License:        zlib
 URL:            http://adime.sourceforge.net/
@@ -68,6 +68,9 @@ ln -s libadime.so.0 $RPM_BUILD_ROOT%{_libdir}/libadime.so
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

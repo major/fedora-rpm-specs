@@ -7,7 +7,7 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -65,6 +65,9 @@ commits and tags:
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-20
 - Rebuilt for Python 3.15
 

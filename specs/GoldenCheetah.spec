@@ -12,10 +12,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.39.RC4%%{?dist}
+Release:        0.40.RC4%%{?dist}
 %else
 Version:        3.7.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.7.1-6
 - Rebuilt for openssl 4.0
 

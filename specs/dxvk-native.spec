@@ -2,7 +2,7 @@
 
 Name:           dxvk-native
 Version:        2.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Vulkan-based D3D8~D3D11 implementation for Linux
 # dxvk-native and dxbc-spirv
 SourceLicense:  Zlib and MIT
@@ -161,6 +161,9 @@ cp %{mingw64_includedir}/_mingw_unicode.h include/native/directx
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.7.1-2
 - Rebuild for libdisplay-info 0.3.0
 

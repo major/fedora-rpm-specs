@@ -11,7 +11,7 @@
 
 Name:          charliecloud
 Version:       0.43
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 License:       Apache-2.0
 URL:           https://%{name}.io/v%{version}
@@ -149,6 +149,9 @@ export CXXFLAGS="$CXXFLAGS -Wno-error=discarded-qualifiers"
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 02 2026 Jordan Ogas <jogas@lanl.gov> - 0.43-2
 - Update License tags to match new SPDX format
 

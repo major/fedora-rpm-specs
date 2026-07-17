@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        6.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Monospaced font with programming ligatures
 
 License:        OFL-1.1
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

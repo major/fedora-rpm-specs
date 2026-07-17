@@ -5,7 +5,7 @@
 
 Name:		    fltk1.3
 Version:	    1.3.11
-Release:	    5%{?dist}
+Release:	    6%{?dist}
 Summary:	    C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -146,6 +146,9 @@ install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/fltk-config
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.3.11-4
 - Restore fluid subpackage
 

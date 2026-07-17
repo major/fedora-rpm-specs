@@ -5,7 +5,7 @@
 
 Name:           check
 Version:        0.15.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A unit test framework for C
 # GFDL-1.2-no-invariants-or-later: doc/{check,fdl}.texi
 License:        LGPL-2.1-or-later AND GFDL-1.2-no-invariants-or-later
@@ -273,6 +273,9 @@ cd -
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Jerry James <loganjerry@gmail.com> - 0.15.2-21
 - Add GFDL-1.2-no-invariants-or-later to main package license
 

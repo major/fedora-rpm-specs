@@ -2,13 +2,15 @@
 
 Name:           wordwarvi
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Accidentally used 1.1 for 1.0.1
 Epoch:          1
 %forgemeta
 Summary:        Side-scrolling shoot 'em up '80s style arcade game
-# Automatically converted from old format: GPLv2+ and CC-BY and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+# Code is GPL-2.0-or-later except 'ogg_to_pcm.c' / 'ogg_to_pcm.h' which are
+# GPL-2.0-only (from vorbis-tools 'oggdec.c'); effective code license is
+# GPL-2.0-only. Some sounds are CC-BY-3.0, rest are CC-BY-SA-3.0.
+License:        GPL-2.0-only AND CC-BY-3.0 AND CC-BY-SA-3.0
 URL:            https://smcameron.github.io/wordwarvi/
 Source0:        %{forgesource}
 Source1:        %{name}.desktop
@@ -67,6 +69,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1:1.0.4-2
+- Fix SPDX license expression: 'GPL-2.0-only AND CC-BY-3.0 AND CC-BY-SA-3.0'
+- 'ogg_to_pcm.c' is GPL-2.0-only (from vorbis-tools), not GPL-2.0-or-later
+
 * Tue May 12 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1:1.0.4-1
 - Update to 1.0.4 release
 - Add Epoch because the 1.1 release from git was 1.0.1

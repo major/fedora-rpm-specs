@@ -1,7 +1,7 @@
 Name:		globus-rsl
 %global _name %(tr - _ <<< %{name})
 Version:	11.4
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Grid Community Toolkit - Resource Specification Language Library
 
 License:	Apache-2.0
@@ -111,6 +111,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-6
 - Fix doxygen warnings
 

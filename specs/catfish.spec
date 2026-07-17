@@ -9,7 +9,7 @@ BuildRequires:	%1 \
 %define		mainver		4.20.1
 %undefine		betaver		
 
-%define		baserelease		9
+%define		baserelease		10
 
 Name:		catfish
 Version:	%{mainver}
@@ -152,6 +152,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.20.1-9
 - Backport upstream patch to restore functionality for sorting by column
 

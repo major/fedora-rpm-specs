@@ -2,7 +2,7 @@
 
 Name:           ogre
 Version:        1.9.0
-Release:        55%{?dist}
+Release:        56%{?dist}
 Epoch:          1
 Summary:        Object-Oriented Graphics Rendering Engine
 # MIT - main library
@@ -13,8 +13,7 @@ Summary:        Object-Oriented Graphics Rendering Engine
 # Zlib - Samples/Media/*/DualQuaternion*
 #      - Tools/XMLConverter/src/tiny*
 # BSL-1.0 - Many of the maths/spatial routines (OgreMain/include/OgreAny.h, OgreMain/include/OgrePlane.h ...)
-# LicenseRef-Callaway-dante-treglia - OgreMain/include/OgreSingleton.h
-#         - temporary id, see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/595
+# Game-Programming-Gems - OgreMain/include/OgreSingleton.h
 # NCSA - OgreMain/include/OgreSmallVector.h
 # BSD-3-Clause - OgreMain/include/OgreUTFString.h
 # MIT-Khronos-old - RenderSystems/GL/include/GL/glew.h, RenderSystems/GL/include/GL/glxew.h, RenderSystems/GL/include/GL/wglew.h
@@ -22,10 +21,9 @@ Summary:        Object-Oriented Graphics Rendering Engine
 # SGI-B-2.0 - RenderSystems/GLES2/include/GLES2/gl2.h
 # LGPL-2.1-only - Tools/Common/setup/License.rtf
 # LGPL-2.1-or-later - files in Tools/BlenderExport/
-# GPLv2-or-later - Tools/LightwaveConverter
 # HPND - Tools/MaterialEditor/wxscintilla_1.69.2/src/scintilla/License.txt
 # LGPL-2.0-or-later WITH WxWindows-exception-3.1 - Tools/MaterialEditor/wxscintilla_1.69.2/src/ScintillaWX.h
-License:        MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0 AND Zlib AND BSL-1.0 AND LicenseRef-Callaway-dante-treglia AND NCSA AND BSD-3-Clause AND MIT-Khronos-old AND GPL-2.0-or-later WITH Bison-exception-1.24 AND SGI-B-2.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND GPLv2-or-later AND HPND AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
+License:        MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0 AND Zlib AND BSL-1.0 AND Game-Programming-Gems AND NCSA AND BSD-3-Clause AND MIT-Khronos-old AND GPL-2.0-or-later WITH Bison-exception-1.24 AND SGI-B-2.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND HPND AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            http://www.ogre3d.org/
 # This is modified http://downloads.sourceforge.net/ogre/ogre-v%%(echo %%{version} | tr . -).tar.bz2
 # with non-free files striped (see ogre-make-clean.sh):
@@ -293,6 +291,10 @@ mv %{buildroot}%{_libdir}/OGRE/cmake/* %{buildroot}%{_datadir}/cmake/Modules
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1:1.9.0-56
+- Fix SPDX license expression: replace 'LicenseRef-Callaway-dante-treglia'
+  with 'Game-Programming-Gems', fix 'GPLv2-or-later' to 'GPL-2.0-or-later'
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1:1.9.0-55
 - Rebuild for OpenEXR 3.4.12.
 

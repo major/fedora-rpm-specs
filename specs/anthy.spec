@@ -10,7 +10,7 @@
 
 Name:  anthy
 Version: 9100h
-Release: 61%{?dist}
+Release: 62%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
@@ -179,6 +179,9 @@ popd
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 21 2026 Akira TAGOH <tagoh@redhat.com> - 9100h-61
 - Fix FTBFS
 - Set --with-lispdir=%%{_emacs_sitelispdir} instead of default.

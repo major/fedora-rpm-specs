@@ -1,7 +1,7 @@
 Summary:        GUI for editing keybindings in Enlightenment, DR16
 Name:           e16-keyedit
 Version:        0.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: MIT with advertising - review is highly recommended.
 License:        LicenseRef-Callaway-MIT-with-advertising
 URL:            http://www.enlightenment.org/
@@ -43,6 +43,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

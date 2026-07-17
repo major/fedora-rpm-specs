@@ -5,7 +5,7 @@
 
 Name:		%{srcname}
 Version:	6.2.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		https://pygresql.github.io/
@@ -84,6 +84,9 @@ EOF
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 31 2026 Michal Schorm <mschorm@redhat.com> - 6.2.3-2
 - Release bump for package rebuild
 

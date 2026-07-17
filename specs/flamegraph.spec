@@ -33,7 +33,7 @@ Summary:        Stack trace visualizer
 
 %forgemeta
 
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        CDDL-1.0
 URL:            http://www.brendangregg.com/flamegraphs.html
 VCS:            git:%{forgeurl}.git
@@ -211,6 +211,9 @@ sed -i 's/ pid tid//' test.sh
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

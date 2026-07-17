@@ -14,7 +14,7 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 %global commit ada6219325d9a835b71b62a42c3e150427b91882
 %forgemeta
 
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -199,6 +199,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 08 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.11
 - Rebase on top of upstream Augeas tree
 

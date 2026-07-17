@@ -20,6 +20,9 @@ Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
 # with a few possible, usually-minor test failures than a sudden failure
 # to install.
 Patch:          0002-Downstream-only-do-not-upper-bound-the-version-of-ri.patch
+# test: fix version string mismatch between pyproject.toml and __version__.py
+# https://github.com/jrnl-org/jrnl/commit/6ff5b53f1e9891fde289713cee053cb401b43d10
+Patch:          %{forgeurl}/commit/6ff5b53f1e9891fde289713cee053cb401b43d10.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jrnl
@@ -56,15 +59,7 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check -a
-# https://github.com/jrnl-org/jrnl/issues/2060#issuecomment-3964203676
-k="${k-}${k+ and }not test_install_jrnl_with_custom_expanded_default_journal_path"
-k="${k-}${k+ and }not test_install_jrnl_with_custom_relative_default_journal_path"
-k="${k-}${k+ and }not test_install_jrnl_with_default_options"
-k="${k-}${k+ and }not test_install_jrnl_with_encrypted_default_journal"
-k="${k-}${k+ and }not test_install_jrnl_with_encrypted_default_journal_with_no_entries"
-k="${k-}${k+ and }not test_update_version_number_in_config_file_when_running_newer_version"
-
-%tox -- -- -k "${k-}" -rs
+%tox -- -- -rs
 
 
 %files -f %{pyproject_files}

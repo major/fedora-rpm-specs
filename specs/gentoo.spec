@@ -1,6 +1,6 @@
 Name:           gentoo
 Version:        0.20.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Graphical file management program written in GTK+3
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -74,6 +74,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_mandir}/man1/gentoo.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.7-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 01 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.7-26
 - Fix build with C23
 

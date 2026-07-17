@@ -1,6 +1,6 @@
 Name:           ansible-collection-mdellweg-filters
 Version:        0.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An Ansible collection of random filters I missed at some point
 
 License:        GPL-3.0-or-later
@@ -44,6 +44,9 @@ ansible-playbook $(find tests/playbooks/*.yaml -not -name 'jq.yaml')
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

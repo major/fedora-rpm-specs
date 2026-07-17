@@ -1,6 +1,6 @@
 Name:           fedora-jam-backgrounds
 Version:        2.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fedora Jam desktop backgrounds
 
 # Automatically converted from old format: CC0 - review is highly recommended.
@@ -89,6 +89,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

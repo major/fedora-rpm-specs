@@ -168,8 +168,8 @@ Requires:       coreutils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
-Requires(post):   %{_bindir}/alternatives
-Requires(postun): %{_bindir}/alternatives
+Requires(post):   %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-utils %{name}-dnssec-utils
 %upname_compat  %{upname}
@@ -270,8 +270,8 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # For compatibility with Debian package
 Provides: dnsutils = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-pkcs11-utils < 32:9.18.4-2
-Requires(post):   %{_bindir}/alternatives
-Requires(postun): %{_bindir}/alternatives
+Requires(post):   %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 %upname_compat %{upname}-utils
 
 %description utils
@@ -290,8 +290,8 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends: %{name}-utils
 Obsoletes: python3-%{name} < 32:9.18.0
 Obsoletes: %{name}-dnssec-doc < 32:9.18.4-2
-Requires(post):   %{_bindir}/alternatives
-Requires(postun): %{_bindir}/alternatives
+Requires(post):   %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 %upname_compat %{upname}-dnssec-utils
 
 %description dnssec-utils
@@ -309,9 +309,9 @@ Obsoletes: %{name}-lite-devel < 32:9.16.6-3
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig(libcrypto) pkgconfig(libssl)
 Requires: pkgconfig(libxml-2.0)
-Requires: pkgconfig(libpcap)
-Requires(post):   %{_bindir}/alternatives
-Requires(postun): %{_bindir}/alternatives
+Requires: pkgconfig(libcap)
+Requires(post):   %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 %upname_compat %{upname}-devel
 %if %{with GSSTSIG}
 Requires: pkgconfig(krb5)
@@ -672,9 +672,6 @@ done
 cp -p doc/arm/_build/latex/Bv9ARM.pdf ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %endif
 
-# Ghost config files:
-touch ${RPM_BUILD_ROOT}%{_localstatedir}/log/named.log
-
 # configuration files:
 install -m 640 %{SOURCE16} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.conf
 touch ${RPM_BUILD_ROOT}%{_sysconfdir}/rndc.{key,conf}
@@ -736,30 +733,6 @@ mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
 %global main_unit named.service named-setup-rndc.service
 %global main_lib filter-{a,aaaa}
 %global main_libexec generate-rndc-key.sh
-
-# Alternatives touches symlinks targets
-for BIN in %{utils_bin1} %{main_bin1} %{dnssec_utils_bin1}; do
-  install -m 0755 /dev/null ${RPM_BUILD_ROOT}%{_bindir}/${BIN}
-  touch ${RPM_BUILD_ROOT}%{_mandir}/man1/${BIN}.1
-done
-
-for BIN in %{main_bin8}; do
-  install -m 0755 /dev/null ${RPM_BUILD_ROOT}%{_sbindir}/${BIN}
-  touch ${RPM_BUILD_ROOT}%{_mandir}/man8/${BIN}.8
-done
-
-for MAN in %{main_man5}; do
-  touch ${RPM_BUILD_ROOT}%{_mandir}/man5/$MAN.5
-done
-for MAN in %{utils_bin8}; do
-  touch ${RPM_BUILD_ROOT}%{_mandir}/man8/$MAN.8
-done
-
-# named-chroot*.service are missing intentionally now
-# let bind*-chroot conflict
-for UNIT in %{main_unit}; do
-  touch ${RPM_BUILD_ROOT}%{_unitdir}/$UNIT
-done
 
 
 %define altfbin() \\\
@@ -991,13 +964,13 @@ fi
 
 %post devel
 %if "%{program_suffix}" != ""
-  alternatives --install %{_includedir}/bind9 %{upname}-includedir %{_includedir}/bind-%{mver} %{alternatives_prio}
+  alternatives --install %{_includedir}/bind9 %{upname}-includedir %{bind_include} %{alternatives_prio}
 %endif
 
 %postun devel
 %if "%{program_suffix}" != ""
 if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-includedir %{_includedir}/bind9
+  alternatives --remove %{upname}-includedir %{bind_include}
 fi
 %endif
 %end
@@ -1046,23 +1019,24 @@ fi;
 %{_sbindir}/named%{program_suffix}
 %{_sbindir}/rndc%{program_suffix}
 %{_sbindir}/rndc-confgen%{program_suffix}
-%ghost %{_unitdir}/named.service
-%ghost %{_unitdir}/named-setup-rndc.service
-%ghost %{_libdir}/bind/filter-{a,aaaa}.so
-%ghost %{_bindir}/named-checkconf
-%ghost %{_bindir}/named-journalprint
-%ghost %{_bindir}/named-rrchecker
-%ghost %{_bindir}/mdig
-%ghost %{_sbindir}/named
-%ghost %{_sbindir}/rndc
-%ghost %{_sbindir}/rndc-confgen
+%ghost %attr(0644,-,-) %{_unitdir}/named.service
+%ghost %attr(0644,-,-) %{_unitdir}/named-setup-rndc.service
+%ghost %attr(0755,-,-) %{_libdir}/bind/filter-a.so
+%ghost %attr(0755,-,-) %{_libdir}/bind/filter-aaaa.so
+%ghost %attr(0755,-,-) %{_bindir}/named-checkconf
+%ghost %attr(0755,-,-) %{_bindir}/named-journalprint
+%ghost %attr(0755,-,-) %{_bindir}/named-rrchecker
+%ghost %attr(0755,-,-) %{_bindir}/mdig
+%ghost %attr(0755,-,-) %{_sbindir}/named
+%ghost %attr(0755,-,-) %{_sbindir}/rndc
+%ghost %attr(0755,-,-) %{_sbindir}/rndc-confgen
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/named-checkconf%{program_suffix}
-%ghost %{_sbindir}/named-checkconf
+%ghost %attr(0755,-,-) %{_sbindir}/named-checkconf
 %endif
 %{_libexecdir}/%{name}/generate-rndc-key.sh
 %{_libexecdir}/%{name}/setup-named-softhsm.sh
-%ghost %{_libexecdir}/generate-rndc-key.sh
+%ghost %attr(0755,-,-) %{_libexecdir}/generate-rndc-key.sh
 # man pages
 %{_mandir}/man1/mdig%{program_suffix}.1*
 %{_mandir}/man1/named-checkconf%{program_suffix}.1*
@@ -1074,16 +1048,17 @@ fi;
 %{_mandir}/man8/named%{program_suffix}.8*
 %{_mandir}/man8/rndc-confgen%{program_suffix}.8*
 %{_mandir}/man8/filter-{a,aaaa}%{program_suffix}.8*
-%ghost %{_mandir}/man1/mdig.1*
-%ghost %{_mandir}/man1/named-checkconf.1*
-%ghost %{_mandir}/man1/named-journalprint.1*
-%ghost %{_mandir}/man1/named-rrchecker.1*
-%ghost %{_mandir}/man5/named.conf.5*
-%ghost %{_mandir}/man5/rndc.conf.5*
-%ghost %{_mandir}/man8/rndc.8*
-%ghost %{_mandir}/man8/named.8*
-%ghost %{_mandir}/man8/rndc-confgen.8*
-%ghost %{_mandir}/man8/filter-{a,aaaa}.8*
+%ghost %attr(0644,-,-) %{_mandir}/man1/mdig.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-checkconf.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-journalprint.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-rrchecker.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man5/named.conf.5%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man5/rndc.conf.5%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/rndc.8%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/named.8%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/rndc-confgen.8%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/filter-a.8%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/filter-aaaa.8%{manext}
 %doc README.md named.conf.default
 %doc sample/
 
@@ -1098,7 +1073,7 @@ fi;
 %dir %{_localstatedir}/named/slaves
 %dir %{_localstatedir}/named/data
 %dir %{_localstatedir}/named/dynamic
-%ghost %{_localstatedir}/log/named.log
+%ghost %attr(0644,named,named) %{_localstatedir}/log/named.log
 %defattr(0640,root,named,0750)
 %{_datadir}/named/
 %config %verify(not link) %{_localstatedir}/named/named.ca
@@ -1106,9 +1081,9 @@ fi;
 %config %verify(not link) %{_localstatedir}/named/named.localhost
 %config %verify(not link) %{_localstatedir}/named/named.loopback
 %config %verify(not link) %{_localstatedir}/named/named.empty
-%ghost %config(noreplace) %{_sysconfdir}/rndc.key
+%ghost %attr(0640,root,named) %config(noreplace) %{_sysconfdir}/rndc.key
 # ^- rndc.key now created on first install only if it does not exist
-%ghost %config(noreplace) %{_sysconfdir}/rndc.conf
+%ghost %attr(0640,root,named) %config(noreplace) %{_sysconfdir}/rndc.conf
 # ^- The default rndc.conf which uses rndc.key is in named's default internal config -
 #    so rndc.conf is not necessary.
 %defattr(-,named,named,-)
@@ -1137,17 +1112,17 @@ fi;
 %{_bindir}/named-compilezone%{program_suffix}
 %{_sbindir}/ddns-confgen%{program_suffix}
 %{_sbindir}/tsig-keygen%{program_suffix}
-%ghost %{_bindir}/arpaname
-%ghost %{_bindir}/delv
-%ghost %{_bindir}/dig
-%ghost %{_bindir}/host
-%ghost %{_bindir}/nsec3hash
-%ghost %{_bindir}/nslookup
-%ghost %{_bindir}/nsupdate
-%ghost %{_bindir}/named-checkzone
-%ghost %{_bindir}/named-compilezone
-%ghost %{_sbindir}/ddns-confgen
-%ghost %{_sbindir}/tsig-keygen
+%ghost %attr(0755,-,-) %{_bindir}/arpaname
+%ghost %attr(0755,-,-) %{_bindir}/delv
+%ghost %attr(0755,-,-) %{_bindir}/dig
+%ghost %attr(0755,-,-) %{_bindir}/host
+%ghost %attr(0755,-,-) %{_bindir}/nsec3hash
+%ghost %attr(0755,-,-) %{_bindir}/nslookup
+%ghost %attr(0755,-,-) %{_bindir}/nsupdate
+%ghost %attr(0755,-,-) %{_bindir}/named-checkzone
+%ghost %attr(0755,-,-) %{_bindir}/named-compilezone
+%ghost %attr(0755,-,-) %{_sbindir}/ddns-confgen
+%ghost %attr(0755,-,-) %{_sbindir}/tsig-keygen
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/named-checkzone
 %{_sbindir}/named-compilezone
@@ -1155,14 +1130,14 @@ fi;
 %if %{with DNSTAP}
 %{_bindir}/dnstap-read%{program_suffix}
 %{_mandir}/man1/dnstap-read%{program_suffix}.1*
-%ghost %{_bindir}/dnstap-read
-%ghost %{_mandir}/man1/dnstap-read.1*
+%ghost %attr(0755,-,-) %{_bindir}/dnstap-read
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnstap-read.1*
 %endif
 %if %{with LMDB}
 %{_bindir}/named-nzd2nzf%{program_suffix}
 %{_mandir}/man1/named-nzd2nzf%{program_suffix}.1*
-%ghost %{_bindir}/named-nzd2nzf
-%ghost %{_mandir}/man1/named-nzd2nzf.1*
+%ghost %attr(0755,-,-) %{_bindir}/named-nzd2nzf
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-nzd2nzf.1*
 %endif
 %{_mandir}/man1/arpaname%{program_suffix}.1*
 %{_mandir}/man1/delv%{program_suffix}.1*
@@ -1175,24 +1150,24 @@ fi;
 %{_mandir}/man1/named-compilezone%{program_suffix}.1*
 %{_mandir}/man8/ddns-confgen%{program_suffix}.8*
 %{_mandir}/man8/tsig-keygen%{program_suffix}.8*
-%ghost %{_mandir}/man1/arpaname.1*
-%ghost %{_mandir}/man1/delv.1*
-%ghost %{_mandir}/man1/dig.1*
-%ghost %{_mandir}/man1/host.1*
-%ghost %{_mandir}/man1/nslookup.1*
-%ghost %{_mandir}/man1/nsupdate.1*
-%ghost %{_mandir}/man1/nsec3hash.1*
-%ghost %{_mandir}/man1/named-checkzone.1*
-%ghost %{_mandir}/man1/named-compilezone.1*
-%ghost %{_mandir}/man8/ddns-confgen.8*
-%ghost %{_mandir}/man8/tsig-keygen.8*
+%ghost %attr(0644,-,-) %{_mandir}/man1/arpaname.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/delv.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dig.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/host.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/nslookup.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/nsupdate.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/nsec3hash.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-checkzone.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/named-compilezone.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/ddns-confgen.8%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man8/tsig-keygen.8%{manext}
 %{_sysconfdir}/trusted-key.key
 
 %files dnssec-utils
 %{_bindir}/%{dnssec_utils_bin1}%{program_suffix}
 %{_mandir}/man1/%{dnssec_utils_bin1}%{program_suffix}.1*
-%ghost %{_bindir}/%{dnssec_utils_bin1}
-%ghost %{_mandir}/man1/%{dnssec_utils_bin1}.1*
+%ghost %attr(0755,-,-) %{_bindir}/%{dnssec_utils_bin1}
+%ghost %attr(0644,-,-) %{_mandir}/man1/%{dnssec_utils_bin1}.1%{manext}
 
 %files devel
 %{_libdir}/libbind9-%{mver}.so
@@ -1202,7 +1177,7 @@ fi;
 %{_libdir}/libisc-%{mver}.so
 %{_libdir}/libisccfg-%{mver}.so
 %{_libdir}/libirs-%{mver}.so
-%ghost %{_includedir}/bind9
+%ghost %attr(0755,-,-) %{_includedir}/bind9
 %dir %{bind_include}
 %{bind_include}/isccc
 %{bind_include}/ns

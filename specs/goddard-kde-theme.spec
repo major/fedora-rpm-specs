@@ -1,6 +1,6 @@
 Name:		goddard-kde-theme
 Version:	13.1.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Goddard KDE Theme
 
 License:	GPL-2.0-or-later AND CC-BY-SA-1.0
@@ -107,6 +107,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

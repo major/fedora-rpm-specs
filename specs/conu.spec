@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.7.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        library which makes it easy to write tests for your containers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -98,6 +98,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.7.1-32
 - Rebuilt for Python 3.15
 

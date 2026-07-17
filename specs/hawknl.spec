@@ -1,9 +1,8 @@
 Name:           hawknl
 Version:        1.68
-Release:        38%{?dist}
+Release:        40%{?dist}
 Summary:        Game oriented network library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+ 
+License:        LGPL-2.0-or-later
 URL:            http://www.hawksoft.com/hawknl/
 Source0:        http://www.sonic.net/~philf/download/HawkNL168src.tar.gz
 Patch0:         hawknl-64bit.patch
@@ -31,12 +30,16 @@ developing applications that use %{name}.
 # some fixups
 sed -i 's|ln -s $(LIBDIR)/$(OUTPUT)|ln -s $(OUTPUT)|g' src/makefile.linux
 sed -i 's|-soname,NL.so|-soname,libNL.so|' src/makefile.linux
+# Add $(LDFLAGS) to the link command so distribution linker flags
+# (e.g. '-Wl,-z,now' for bind-now hardening) reach the linker
+sed -i 's|$(LIBFLAGS) $(CFLAGS)|$(LIBFLAGS) $(LDFLAGS) $(CFLAGS)|' src/makefile.linux
 sed -i 's|\r||g' src/readme.txt src/nlchanges.txt
 
 
 %build
 make %{?_smp_mflags} -f makefile.linux \
-  OPTFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE"
+  OPTFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE" \
+  LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -66,6 +69,14 @@ rm $RPM_BUILD_ROOT%{_libdir}/libNL.a $RPM_BUILD_ROOT%{_libdir}/NL.so \
 
 
 %changelog
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.68-40
+- Inject '$(LDFLAGS)' into the shared library link command via sed in '%prep',
+  and pass 'LDFLAGS="%{build_ldflags}"' from '%build' to fix annocheck
+  'bind-now' test failure
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.68-39
+- Fix the 'License' tag to use a valid SPDX expression
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

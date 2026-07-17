@@ -1,16 +1,18 @@
 Name:           coldet
-Version:        1.2
-Release:        40%{?dist}
+Version:        2.0
+Release:        2%{?dist}
 Summary:        3D Collision Detection Library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-URL:            http://coldet.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/coldet/coldet12.zip
-Patch0:         coldet-1.1-fixes.patch
-Patch1:         coldet-1.2-gcc46.patch
+License:        LGPL-2.0-or-later
+URL:            https://sourceforge.net/projects/coldet/
+Source0:        https://downloads.sourceforge.net/coldet/coldet20.zip
+# Code fixes: extern C brace, getTriangleIndex, #include <cstddef>, mytritri.h newline
+Patch0:         coldet-2.0-fixes.patch
+# Build shared library with soname instead of static library
+Patch1:         coldet-2.0-shared-lib.patch
 
 BuildRequires:  gcc-c++
-BuildRequires: make
+BuildRequires:  make
+
 %description
 This library is an effort to provide a free collision detection library for
 generic polyhedra. Its purpose is mainly for 3D games where accurate detection
@@ -28,6 +30,7 @@ Features:
     * Segment-Model collision test.
     * Sphere-Model collision test.
     * Ray-Sphere and Sphere-Sphere primitive collision tests.
+    * Multi-object collision system with sweep-and-prune broad phase.
 
 
 %package devel
@@ -41,7 +44,9 @@ applications which use coldet.
 
 %prep
 %setup -q -n %{name}
-%patch -P0 -p1 -z .fixes
+# Convert CRLF line endings to LF
+find src -type f -exec sed -i 's/\r$//' {} \;
+%patch -P0 -p1
 %patch -P1 -p1
 # for %doc
 sed -i 's/\r//' readme.txt COPYING doc/quickstart.html doc/html/{*.html,*.css}
@@ -50,17 +55,15 @@ mv doc/quickstart.html doc/html
 
 %build
 pushd src
-make %{?_smp_mflags} -f makefile.g++ OPT="$RPM_OPT_FLAGS"
+make %{?_smp_mflags} OPT="$RPM_OPT_FLAGS" LDFLAGS="%{build_ldflags}"
 popd
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_includedir}/%{name}
 install -m 755 src/lib%{name}.so.0 $RPM_BUILD_ROOT%{_libdir}
 ln -s lib%{name}.so.0 $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so
-install -m 644 src/coldet.h src/math3d.h $RPM_BUILD_ROOT%{_includedir}/%{name}
-
+install -m 644 src/coldet.h src/cdmath3d.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %ldconfig_scriptlets
@@ -77,6 +80,15 @@ install -m 644 src/coldet.h src/math3d.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 2.0-1
+- Rebase to version 2.0
+- New upstream features: multi-object collision system with sweep-and-prune
+  broad phase, bounding sphere radius query, const-correctness improvements
+- Correct SPDX license tag to 'LGPL-2.0-or-later'
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

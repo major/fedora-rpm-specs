@@ -1,7 +1,7 @@
 Name:		globus-xio-gridftp-driver
 %global _name %(tr - _ <<< %{name})
 Version:	3.6
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO GridFTP Driver
 
 License:	Apache-2.0
@@ -131,6 +131,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.6-11
 - Fix compiler and doxygen warnings
 

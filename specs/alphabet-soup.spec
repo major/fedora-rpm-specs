@@ -1,6 +1,6 @@
 Name:           alphabet-soup
 Version:        1.1
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Guide your worm through the soup to spell words
 # Automatically converted from old format: Crystal Stacker - review is highly recommended.
 License:        CrystalStacker
@@ -48,6 +48,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

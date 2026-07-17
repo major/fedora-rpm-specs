@@ -9,7 +9,7 @@
 
 Name:           espeak
 Version:        1.48.04
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Software speech synthesizer (text-to-speech)
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -123,6 +123,9 @@ cp -pf %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.04-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.04-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

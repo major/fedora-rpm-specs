@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 100%{?dist}
+Release: 101%{?dist}
 License: BSD-4-Clause-UC
 # The Upstream of ftp is no longer active.
 # The source file for ftp is no longer available anywhere
@@ -92,6 +92,9 @@ make INSTALLROOT=${RPM_BUILD_ROOT} install
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-100
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

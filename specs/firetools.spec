@@ -1,6 +1,6 @@
 Name:		firetools
 Version:	0.9.72
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Graphical user interface for the Firejail security sandbox
 License:	GPL-2.0-only AND GPL-2.0-or-later AND CC-BY-SA-3.0 AND MPL-2.0 AND GPL-1.0-only AND LGPL-2.0-only AND CC0-1.0
 Group:		Development/Tools
@@ -68,6 +68,9 @@ rm %{buildroot}%{_docdir}/firetools/COPYING
 %{_datadir}/pixmaps/firetools-minimal.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.72-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 24 2026 Brandon Nielsen <nielsenb@jetfuse.net> 0.9.72-5
 - Update GPLv2 text
 

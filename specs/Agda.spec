@@ -25,7 +25,7 @@
 Name:           %{pkg_name}
 Version:        2.8.0
 # can only be reset when all subpkgs bumped
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT AND BSD-3-Clause
@@ -419,6 +419,9 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 2.8.0-59
 - Rebuild
 

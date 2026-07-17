@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        13.1.0
+Version:        13.2.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -86,6 +86,12 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog
+* Thu Jul 16 2026 Maxwell G <maxwell@gtmx.me> - 13.2.0-1
+- Update to 13.2.0. Fixes rhbz#2499805.
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 08 2026 Maxwell G <maxwell@gtmx.me> - 13.1.0-1
 - Update to 13.1.0. Fixes rhbz#2459707.
 

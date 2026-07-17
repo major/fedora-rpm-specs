@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.3
 # can only be reset when subpkg bumped
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Conduit interface for lzma/xz compression
 
 License:        BSD-3-Clause
@@ -138,6 +138,9 @@ cabal-tweak-dep-ver transformers '< 0.6' '< 0.7'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 1.2.3-27
 - lzma-0.0.1.1
 

@@ -3,7 +3,7 @@
 %global _hardened_build 1
 Name:           dnstop
 Version:        20140915
-Release:        28.git20240708%{?dist}
+Release:        29.git20240708%{?dist}
 Summary:        Displays information about DNS traffic on your network
 License:        BSD-3-Clause
 URL:            http://dns.measurement-factory.com/tools/dnstop/
@@ -48,6 +48,9 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20140915-29.git20240708
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20140915-28.git20240708
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

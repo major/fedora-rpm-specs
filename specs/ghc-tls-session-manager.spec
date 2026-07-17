@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.0.8
 # can only be reset when subpkg bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        In-memory TLS session DB and session ticket
 
 License:        BSD-3-Clause
@@ -149,6 +149,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 0.0.8-4
 - https://hackage.haskell.org/package/tls-session-manager-0.0.8/changelog
 

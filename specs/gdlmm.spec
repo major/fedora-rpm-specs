@@ -4,7 +4,7 @@
 
 Name:           gdlmm
 Version:        3.7.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        C++ bindings for the gdl library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -78,6 +78,9 @@ make check
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

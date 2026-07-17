@@ -17,7 +17,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.6.4.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reading, writing and manipulating ".tar" archive files
 
 License:        BSD-3-Clause
@@ -186,6 +186,9 @@ dos2unix -k -n %{SOURCE4} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Jens Petersen <petersen@redhat.com> - 0.6.4.0-1
 - https://hackage.haskell.org/package/tar-0.6.4.0/changelog
 - add atomic-counter, directory-ospath-streaming

@@ -693,7 +693,7 @@ nbdkit-tls-fallback-filter TLS protection filter.
 
 nbdkit-truncate-filter     Truncate, expand, round up or round down size.
 
-nbdkit-xor-filter          Obfuscate contents of a plugin with XOR..
+nbdkit-xor-filter          Obfuscate contents of a plugin with XOR.
 
 
 %package bzip2-filter

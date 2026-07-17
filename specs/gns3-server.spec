@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.59
-Release:        2%{?dist}
+Version:        2.2.60
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -147,6 +147,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Jul 15 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.60-1
+- Update to 2.2.60
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.2.59-2
 - Rebuilt for Python 3.15
 

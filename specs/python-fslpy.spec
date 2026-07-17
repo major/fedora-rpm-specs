@@ -1,14 +1,14 @@
 # These are problematic, sometimes they randomly fail or hang
 %bcond xvfb_tests 0
 
-%global desc \
-The fslpy project is a FSL programming library written in Python. It is used by \
-FSLeyes.
+%global desc %{expand:
+The fslpy project is a FSL programming library written in Python. It is used by
+FSLeyes.}
 
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.27.0
+Version:        3.28.1
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -16,17 +16,15 @@ Summary:        The FSL Python Library
 
 %forgemeta
 
-
 License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
 BuildArch:      noarch
-# fsleyes dropped it already, so this is a leaf package
-# F40+
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  python3-devel
 BuildRequires:  help2man
 
 BuildRequires:  dcm2niix
@@ -36,15 +34,12 @@ BuildRequires:  %{py3_dist wxpython}
 BuildRequires:  xorg-x11-server-Xvfb
 %endif
 
-
-%description
-%{desc}
+%description %{desc}
 
 %package -n python3-fslpy
 Summary:        %{summary}
 
-%description -n python3-fslpy
-%{desc}
+%description -n python3-fslpy %{desc}
 
 %pyproject_extras_subpkg -n python3-fslpy extra
 
@@ -52,7 +47,7 @@ Summary:        %{summary}
 %forgesetup
 
 # Don't run coverage when calling `pytest`
-sed -i 's/--cov=fsl //' pyproject.toml
+sed -i 's/--cov //' pyproject.toml
 
 # remove unneeded shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env python$/ d' {} 2>/dev/null ';'

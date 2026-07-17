@@ -15,7 +15,7 @@
 
 Name:           ddupdate
 Version:        0.7.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tool updating DNS data for dynamic IP addresses
 
 Group:          Applications/System
@@ -89,6 +89,9 @@ export FINAL_PREFIX=/
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.1-20
 - Rebuilt for Python 3.15
 

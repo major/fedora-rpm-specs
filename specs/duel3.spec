@@ -1,10 +1,9 @@
 %global snapshot 20060225
 Name:           duel3
 Version:        0.1
-Release:        0.45.%{snapshot}%{?dist}
+Release:        0.47.%{snapshot}%{?dist}
 Summary:        One on one spaceship duel in a 2D arena
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 # Upstream has vanished
 #URL:            http://ts-games.com/duel3.php
 Source0:        http://downloads.sourceforge.net/%{name}/Duel3_%{snapshot}_src.zip
@@ -16,6 +15,7 @@ Patch0:         Duel3_20060225-fixes.patch
 Patch1:         Duel3_20060225-windowed-mode.patch
 Patch2:         Duel3_20060225-fix-buf-oflow.patch
 Patch3:         Duel3_20060225-extra-fix-buf-oflow.patch
+Patch4:         Duel3_20060225-ldflags.patch
 BuildRequires:  gcc-c++
 BuildRequires:  alleggl-devel dumb-devel libGLU-devel desktop-file-utils
 BuildRequires: make
@@ -50,6 +50,7 @@ cp %{SOURCE4} .
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 sed -i 's/\r//' Source/readme.txt license.txt music-credits.txt
 iconv -f iso8859-1 -t utf-8 music-credits.txt > temp
 mv temp music-credits.txt
@@ -58,7 +59,8 @@ mv temp music-credits.txt
 %build
 pushd Source
 make %{?_smp_mflags} PREFIX=%{_prefix} \
-  CFLAGS="-std=c++14 $RPM_OPT_FLAGS -fsigned-char -Wno-deprecated-declarations -Wno-non-virtual-dtor"
+  CFLAGS="-std=c++14 $RPM_OPT_FLAGS -fsigned-char -Wno-deprecated-declarations -Wno-non-virtual-dtor" \
+  LDFLAGS="%{build_ldflags}"
 popd
 
 
@@ -88,6 +90,16 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.47.20060225
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 0.1-0.46.20060225
+- Fix annocheck hardening failures: pass '%{build_ldflags}' to the linker
+- Add 'Duel3_20060225-ldflags.patch' to separate library flags from 'LDFLAGS'
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.1-0.45.20060225
+- Fix SPDX license tag: replace 'LicenseRef-Callaway-BSD' with 'BSD-3-Clause'
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.45.20060225
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

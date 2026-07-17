@@ -3,7 +3,7 @@
 Name:		globus-gatekeeper
 %global _name %(tr - _ <<< %{name})
 Version:	11.4
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Grid Community Toolkit - Globus Gatekeeper
 
 License:	Apache-2.0
@@ -104,6 +104,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-services/available
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-12
 - Fix compiler warnings
 

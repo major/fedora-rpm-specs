@@ -1,6 +1,6 @@
 Name:          atari800
 Version:       7.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An emulator of 8-bit Atari personal computers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ emulation, precise cycle-exact ANTIC/GTIA emulation and more.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 27 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 7.0.0-1
 - Update to upstream.
 

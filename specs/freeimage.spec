@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.33%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.34%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -176,6 +176,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.34.svn1909
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 3.19.0-0.33.svn1909
 - Rebuild for OpenColorIO 2.5.2.
 

@@ -1,6 +1,6 @@
 Name:           dftd4
 Version:        3.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Generally Applicable Atomic-Charge Dependent London Dispersion Correction
 License:        LGPL-3.0-or-later
 URL:            https://dftd4.readthedocs.io/
@@ -76,6 +76,9 @@ MESON_TESTTHREADS=2 %meson_test --timeout-multiplier 4
 %{python3_sitearch}/dftd4/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.7.0-12
 - Rebuilt for Python 3.15
 

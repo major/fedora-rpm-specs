@@ -1,6 +1,6 @@
 Name:		bleachbit
 Version:	6.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
 License:	GPL-3.0-or-later
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 6.0.0-2
 - Test enablement
 

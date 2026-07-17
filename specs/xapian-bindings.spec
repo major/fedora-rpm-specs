@@ -2,8 +2,8 @@
 %global tcl_sitearch %{_libdir}/tcl%{tcl_version}
 
 Name:          xapian-bindings
-Version:       2.0.0
-Release:       2%{?dist}
+Version:       1.4.31
+Release:       3%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -14,8 +14,12 @@ Source0:       https://www.oligarchy.co.uk/xapian/%{version}/%{name}-%{version}.
 BuildRequires: gcc-c++
 BuildRequires: libuuid-devel
 BuildRequires: make
+BuildRequires: perl-interpreter
 BuildRequires: python3-devel python3-setuptools python3-sphinx
 BuildRequires: ruby ruby-devel rubygems rubygem-rdoc rubygem-json
+# swig 4.4.0+ contains a fix for PyThread_release_lock/PyThread_free_lock in Mutex destructor
+# needed for successful build with Python 3.15
+BuildRequires: swig >= 4.4.0
 BuildRequires: tcl-devel
 BuildRequires: xapian-core-devel
 BuildRequires: zlib-devel
@@ -77,6 +81,16 @@ export TCL_LIB=%{tcl_sitearch}
 
 %configure --with-python3 --with-ruby --with-tcl
 
+# Regenerate Python's SWIG wrapper with system swig
+pushd python3
+swig -DSWIG_PYTHON_LEGACY_BOOL \
+     $(xapian-config --swigflags) \
+     -I. -c++ -python -threads -shadow -O \
+     -o xapian_wrap.cc python.i
+perl fixup-swig-py3-wrapper xapian.py > xapian__init__.py
+rm xapian.py
+popd
+
 %{make_build}
 
 %install
@@ -103,11 +117,8 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.0-2
-- Rebuilt for Python 3.15
-
-* Tue Apr 07 2026 Christiano Anderson <chris@christiano.me> - 2.0.0-1
-- Update to 2.0.0
+* Fri Jul 03 2026 Karolina Surma <ksurma@redhat.com> - 1.4.31-3
+- Regenerate SWIG wrapper at build time with swig >= 4.4.0 (rhbz#2417021)
 
 * Wed Feb 25 2026 Christiano Anderson <chris@christiano.me> - 1.4.31-2
 - Rebuild to 1.4.31

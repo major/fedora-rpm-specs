@@ -1,7 +1,7 @@
 Summary: Ncurses based hexadecimal editor with a diff mode
 Name: dhex
 Version: 0.69
-Release: 19%{?dist}
+Release: 20%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.dettus.net/dhex/
@@ -37,6 +37,9 @@ make %{?_smp_mflags} DESTDIR=%{buildroot} BINDIR=%{_bindir} \
 %{_mandir}/*/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

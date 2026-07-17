@@ -2,7 +2,7 @@
 
 Name:      emacs-%{pkg}
 Version:   0.0.16
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Major mode to edit YAML files for emacs
 License:   GPL-3.0-or-later
 URL:       https://github.com/yoshiki/yaml-mode
@@ -41,6 +41,9 @@ install -pm 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

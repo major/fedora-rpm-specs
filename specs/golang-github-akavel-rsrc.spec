@@ -14,7 +14,7 @@ Tool for embedding binary resources in Go programs.}
 %global godocs          AUTHORS README.txt
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Tool for embedding .ico & manifest resources in Go programs
 
 License:        MIT
@@ -50,6 +50,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.10.2-18
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

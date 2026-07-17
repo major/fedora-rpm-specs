@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        2.20.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modern list library for Emacs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -42,6 +42,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

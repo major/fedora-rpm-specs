@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	42.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	LicenseRef-Fedora-Logos
@@ -424,6 +424,9 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 02 2026 Timothée Ravier <tim@siosm.fr> - 42.0.1-5
 - Add missing obsoletes/requires for the new icewm subpackages
 

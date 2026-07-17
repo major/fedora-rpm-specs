@@ -3,7 +3,7 @@
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
 Version: 1.4.23
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.freetds.org/
@@ -158,6 +158,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Michal Schorm <mschorm@redhat.com> - 1.4.23-5
 - Move ODBC plugin libtdsodbc.so to %%{_libdir}/odbc/ (rhbz#2453060)
 

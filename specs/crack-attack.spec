@@ -1,7 +1,7 @@
 Summary:        Puzzle action game
 Name:           crack-attack
 Version:        1.1.14
-Release:        58%{?dist}
+Release:        59%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.nongnu.org/crack-attack/
@@ -85,6 +85,9 @@ convert $RPM_BUILD_ROOT%{_datadir}/%{name}/logo.tga \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.14-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.14-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

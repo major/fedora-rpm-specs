@@ -62,6 +62,18 @@
 # For deep debugging we need to build binaries with extra debug info
 %bcond_with    debug
 
+# Custom build flags applied on top of distribution defaults
+# '-fPIC' is needed so that we can build 'libmysqld.so' (embedded library)
+%global _pkg_extra_cflags   -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fPIC
+%global _pkg_extra_cxxflags %{_pkg_extra_cflags}
+
+%if %{with debug}
+%global _pkg_extra_cflags   %{_pkg_extra_cflags} -O0 -g
+%global _pkg_extra_cxxflags %{_pkg_extra_cxxflags} -O0 -g
+# -D_FORTIFY_SOURCE requires some optimizations to be enabled. Disable the fortification.
+%undefine _fortify_level
+%endif
+
 # Authentication plugins
 %bcond_without gssapi
 %if !0%{?flatpak}
@@ -202,8 +214,8 @@ Version:          %{package_version}
 Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
-Summary:          A very fast and robust SQL database server
-URL:              http://mariadb.org
+Summary:          Fast and robust SQL database server
+URL:              https://mariadb.org
 License:          ( GPL-2.0-only OR Apache-2.0 ) AND ( GPL-2.0-or-later OR Apache-2.0 ) AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND ( GPL-3.0-or-later WITH Bison-exception-2.2 ) AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OpenSSL AND MIT AND OFL-1.1 AND CC0-1.0 AND PHP-3.0 AND PHP-3.01 AND zlib AND dtoa AND FSFAP AND blessing AND Info-ZIP AND Boehm-GC
 
 Source0:          https://downloads.mariadb.org/interstitial/mariadb-%{version}/source/mariadb-%{version}.tar.gz
@@ -266,7 +278,7 @@ Patch14:          %{majorname}-mtr.patch
 %if %?mariadb_default
 %global pkgname %{majorname}
 %package -n %{pkgname}
-Summary: A very fast and robust SQL database server
+Summary:          Fast and robust SQL database server
 %else
 %global pkgname %{name}
 %endif
@@ -408,7 +420,7 @@ subpackage, that depends on Perl.
 
 %if %{with clibrary}
 %package          -n %{pkgname}-libs
-Summary:          The shared libraries required for MariaDB/MySQL clients
+Summary:          Shared libraries required for MariaDB/MySQL clients
 Requires:         %{pkgname}-common = %{sameevr}
 
 %virtual_conflicts_and_provides_arched libs
@@ -434,7 +446,7 @@ to a MariaDB/MySQL server.
 # the transaction.
 %if %{with config}
 %package          -n %{pkgname}-config
-Summary:          The config files required by server and client
+Summary:          Config files required by server and client
 
 %virtual_conflicts_and_provides_arched config
 
@@ -448,7 +460,7 @@ package itself.
 
 %if %{with common}
 %package          -n %{pkgname}-common
-Summary:          The shared files required by server and client
+Summary:          Shared files required by server and client
 BuildArch:        noarch
 %if 0%{?flatpak}
 Requires:         mariadb-connector-c-config
@@ -466,7 +478,7 @@ You will need to install this package to use any other MariaDB package.
 
 %if %{with errmsg}
 %package          -n %{pkgname}-errmsg
-Summary:          The error messages files required by server and embedded
+Summary:          Error messages files required by server and embedded
 BuildArch:        noarch
 Requires:         %{pkgname}-common = %{sameevr}
 
@@ -481,7 +493,7 @@ MariaDB packages.
 
 %if %{with galera}
 %package          -n %{pkgname}-server-galera
-Summary:          The configuration files and scripts for galera replication
+Summary:          Configuration files and scripts for galera replication
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 Requires:         galera >= 26.4.3
@@ -509,7 +521,7 @@ member. MariaDB is a community developed fork originally from MySQL.
 
 
 %package          -n %{pkgname}-server
-Summary:          The MariaDB server and related files
+Summary:          MariaDB server and related files
 
 %if %{with hashicorp}
 BuildRequires:    curl-devel
@@ -573,7 +585,7 @@ MariaDB is a community developed fork from MySQL.
 
 %if %{with oqgraph}
 %package          -n %{pkgname}-oqgraph-engine
-Summary:          The Open Query GRAPH engine for MariaDB
+Summary:          Open Query GRAPH engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # boost and Judy required for oograph
 BuildRequires:    boost-devel >= 1.40.0
@@ -592,7 +604,7 @@ standard SQL syntax, and results joined onto other tables.
 
 %if %{with connect}
 %package          -n %{pkgname}-connect-engine
-Summary:          The CONNECT storage engine for MariaDB
+Summary:          CONNECT storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 # As per https://jira.mariadb.org/browse/MDEV-21450
@@ -611,7 +623,7 @@ or products (such as Excel), or data retrieved from the environment
 
 %if %{with backup}
 %package          -n %{pkgname}-backup
-Summary:          The mariabackup tool for physical online backups
+Summary:          Mariabackup tool for physical online backups
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    libarchive-devel
 
@@ -626,7 +638,7 @@ For InnoDB, "hot online" backups are possible.
 
 %if %{with rocksdb}
 %package          -n %{pkgname}-rocksdb-engine
-Summary:          The RocksDB storage engine for MariaDB
+Summary:          RocksDB storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # The version of rocksdb provided is not specified because the mariadb
 # upstream provides it as a submodule, which is linked in their github
@@ -649,7 +661,7 @@ The RocksDB storage engine is used for high performance servers on SSD drives.
 
 %if %{with cracklib}
 %package          -n %{pkgname}-cracklib-password-check
-Summary:          The password strength checking plugin
+Summary:          Password strength checking plugin
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    cracklib-dicts cracklib-devel
 Requires:         cracklib-dicts
@@ -704,7 +716,7 @@ PAM authentication server-side plugin for MariaDB.
 %if %{with sphinx}
 # MariaDB upstream packages this inside the client sub-package
 %package          -n %{pkgname}-sphinx-engine
-Summary:          The Sphinx storage engine for MariaDB
+Summary:          Sphinx storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    sphinx libsphinxclient-devel
 Requires:         sphinx libsphinxclient
@@ -718,7 +730,7 @@ The Sphinx storage engine for MariaDB.
 
 %if %{with s3}
 %package          -n %{pkgname}-s3-engine
-Summary:          The S3 storage engine for MariaDB
+Summary:          S3 storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 BuildRequires:    curl-devel
@@ -734,7 +746,7 @@ but still have them accessible for reading in MariaDB.
 
 %if %{with videx}
 %package          -n %{pkgname}-videx-engine
-Summary:          The VIDEX storage engine for MariaDB
+Summary:          VIDEX storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 %virtual_conflicts_and_provides_arched videx-engine
@@ -823,7 +835,7 @@ the embedded version of the MariaDB server.
 
 %if %{with test}
 %package          -n %{pkgname}-test
-Summary:          The test suite distributed with MariaDB
+Summary:          Test suite distributed with MariaDB
 Requires:         %{pkgname}%{?_isa} = %{sameevr}
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
@@ -953,24 +965,6 @@ fi
 %endif
 
 
-# Adjust the compliation flags:
-# First initialize the distribution default values
-%{set_build_flags}
-# Add custom tweaks
-CFLAGS="$CFLAGS -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
-# Force the 'PIC' mode so that we can build libmysqld.so
-CFLAGS="$CFLAGS -fPIC"
-
-# When making a debug build, remove all optimizations
-%if %{with debug}
-# -D_FORTIFY_SOURCE requires optimizations enabled. Disable the fortify.
-%undefine _fortify_level
-CFLAGS=`echo "$CFLAGS" | sed -r 's/-O[0123]//'`
-CFLAGS="$CFLAGS -O0 -g"
-%endif
-
-# Apply the updated values
-CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
 
 
 # The INSTALL_xxx macros have to be specified relative to CMAKE_INSTALL_PREFIX

@@ -1,6 +1,6 @@
 Name:           anet
 Version:        0.5.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Ada Networking Library
 
 License:        GPL-2.0-or-later WITH GNAT-exception
@@ -119,6 +119,9 @@ make tests %{all_the_flags}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 0.5.1-9
 - Rebuilt because GCC 16.0.1-0.10 broke ALI.
 

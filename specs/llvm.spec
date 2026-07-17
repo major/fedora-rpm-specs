@@ -536,6 +536,7 @@ Source1001: changelog
 Patch2100: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2200: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2300: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
+Patch2400: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 
 # Workaround a bug in ORC on ppc64le.
@@ -562,6 +563,7 @@ Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 Patch2102: 0001-20-polly-shared-libs.patch
 Patch2202: 0001-22-polly-shared-libs.patch
 Patch2302: 0001-22-polly-shared-libs.patch
+Patch2401: 0001-22-polly-shared-libs.patch
 #endregion polly patches
 
 #region RHEL patches

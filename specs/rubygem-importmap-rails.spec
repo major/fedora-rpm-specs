@@ -2,30 +2,25 @@
 %global gem_name importmap-rails
 
 Name: rubygem-%{gem_name}
-Version: 1.0.3
-Release: 12%{?dist}
+Version: 2.2.3
+Release: 1%{?dist}
 Summary: Manage modern JavaScript in Rails without transpiling or bundling
 License: MIT
 URL: https://github.com/rails/importmap-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# To get the test suite:
-# git clone https://github.com/rails/importmap-rails.git --no-checkout
-# git -C importmap-rails archive -v -o importmap-rails-1.0.3-tests.txz v1.0.3 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
+# git clone https://github.com/rails/importmap-rails.git
+# git -C importmap-rails archive -v -o importmap-rails-2.2.3-tests.tar.gz v2.2.3 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 
-BuildRequires: ruby
 BuildRequires: ruby(release)
-# Used for sample app
+BuildRequires: rubygems-devel
+BuildRequires: ruby >= 3.1.0
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(minitest-mock)
-BuildRequires: rubygem(mutex_m)
 BuildRequires: rubygem(rails)
 BuildRequires: rubygem(sqlite3)
-BuildRequires: rubygems-devel
+BuildRequires: rubygem(propshaft)
 BuildArch: noarch
-# Bundles ES Module Shims
-# app/assets/javascripts/es-module-shims.js
-Provides: bundled(es-module-shims) = 1.4.1
 
 %description
 Use ESM with importmap to manage modern JavaScript in Rails without
@@ -53,25 +48,31 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/test
+( cd .%{gem_instdir}
+ln -s %{builddir}/test .
 
-echo 'gem "minitest-mock"' >> Gemfile
-echo 'gem "mutex_m"' >> Gemfile
+echo 'gem "propshaft"' >> Gemfile
 echo 'gem "rails"' >> Gemfile
 echo 'gem "sqlite3"' >> Gemfile
 
 # Test requires network access
 mv test/packager_integration_test.rb{,.disable}
+# NPM test requires network connecton.
+mv test/npm_integration_test.rb{,.disable}
+
 
 export BUNDLE_GEMFILE="$(pwd)/Gemfile"
 
-# Tests require building rails app (currently fails)
-echo > test/dummy/config/initializers/assets.rb
-mv test/importmap_test.rb{,.disable}
+# The `update` / `pin` commands needs network connection.
+sed -i '/def run_importmap_command/a \
+      skip if ["update", "pin"].include? command' test/commands_test.rb
 
-ruby -Ilib:test -rbundler -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+# This relies too heavily on the original Gemfile and so on.
+mv test/installer_test.rb{,.disable}
+
+# The RUBYOPT is needed so `bin/importmaps` called by the test can properly load the library.
+RUBYOPT="-I$(pwd)/lib" ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -87,6 +88,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Tue Jul 14 2026 Vít Ondruch <vondruch@redhat.com> - 2.2.3-1
+- Update to Importmap for Rails 2.2.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

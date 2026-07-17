@@ -1,7 +1,7 @@
 Summary: Git commit message linting tool
 Name: gitlint
 Version: 0.19.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 Source: https://github.com/jorisroovers/gitlint/archive/refs/tags/v%{version}.tar.gz
 URL: https://jorisroovers.github.io/gitlint
@@ -49,6 +49,9 @@ popd
 %{_bindir}/gitlint
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.19.1-2
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Name:           doclifter
 Version:        2.20
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Translates documents written in troff macros to DocBook
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -79,6 +79,9 @@ install -p -D -m 0644 man/de/manlifter.1 \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

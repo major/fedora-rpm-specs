@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.26
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Java agent-based bytecode injection tool
 # most of the code is LGPL-2.1-or-later
 # agent/src/main/java/org/jboss/byteman/agent/adapter/RuleGeneratorAdapter.java is BSD-3-Clause
@@ -223,6 +223,9 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.26-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

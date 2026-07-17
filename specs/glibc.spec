@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 23
+%global baserelease 24
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2404,6 +2404,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.9000-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-23
 - Auto-sync with upstream branch master,
   commit b5eecf35d91a3b29cff80b731bbc6bcce6863827:

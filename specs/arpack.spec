@@ -8,7 +8,7 @@
 
 Name:		arpack
 Version:	3.9.1
-Release:	9%{dist}
+Release:	10%{dist}
 Summary:	Fortran 77 subroutines for solving large scale eigenvalue problems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -166,6 +166,9 @@ popd
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

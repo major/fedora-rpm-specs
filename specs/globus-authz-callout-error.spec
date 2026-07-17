@@ -1,7 +1,7 @@
 Name:		globus-authz-callout-error
 %global _name %(tr - _ <<< %{name})
 Version:	4.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Grid Community Toolkit - Globus authz error library
 
 License:	Apache-2.0
@@ -102,6 +102,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

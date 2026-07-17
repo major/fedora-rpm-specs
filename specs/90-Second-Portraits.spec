@@ -1,6 +1,6 @@
 Name:           90-Second-Portraits
 Version:        1.01b
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Frantic street painting game
 
 # Zlib: Main package
@@ -79,6 +79,9 @@ install -p -D -m 0644 data/images/title_background.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.01b-30
 - Add loongarch64 support
 

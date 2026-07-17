@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -121,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.6.0-1
 - rebase to the latest upstream release (rhbz#2494157)
   - CVE-2026-54371 - Symlink Traversal Privilege Escalation via getfattr (rhbz#2494172)

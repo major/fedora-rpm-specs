@@ -1,6 +1,6 @@
 Name: cfdg
 Version:  3.4.3
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
@@ -42,6 +42,9 @@ install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
 %doc input/* README* ChangeLog
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.4.3-1
 - 3.4.3
 

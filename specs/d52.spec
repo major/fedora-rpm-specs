@@ -9,7 +9,7 @@
 Name:           d52
 URL:            http://www.brouhaha.com/~eric/software/d52/
 Version:        %{major}.%{minor}.%{patchlevel}
-Release:        30%{?dist}
+Release:        31%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Summary:        Disassemblers for 8051, 8048, and Z80 families
@@ -61,6 +61,9 @@ install -p -m0644 cyclefiles/*.{a51,d52,bin,ctl,HEX,LST,z80} %{buildroot}%{_data
 %doc cyclefiles/cycle_counting.{doc,htm,rtf}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          awesfx
 Version:       0.5.1c
-Release:       36%{?dist}
+Release:       37%{?dist}
 Summary:       Utility programs for the AWE32/Emu10k1 sound driver
 URL:           http://www.alsa-project.org/~iwai/awedrv.html
 Source0:       http://ftp.suse.com/pub/people/tiwai/awesfx/awesfx-%{version}.tar.bz2
@@ -56,6 +56,9 @@ rm -f samples/Makefile*
 %{_mandir}/man*/*.1.gz
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1c-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1c-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

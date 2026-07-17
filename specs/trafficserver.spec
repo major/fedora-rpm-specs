@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.1.2
-Release:        2%{?dist}
+Version:        10.1.3
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -27,7 +27,6 @@ Patch1:         fix-rpath.patch
 Patch2:         remove-openssl-engine.patch
 Patch3:         config-path-fix.patch
 Patch4:         convert-ip-to-bind.patch
-Patch5:         gcc-16-cstdint.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
@@ -286,6 +285,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Jered Floyd <jered@redhat.com> - 10.1.3-1
+- Update to upstream 10.1.3
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 10.1.2-2
 - Rebuilt for openssl 4.0
 

@@ -1,6 +1,6 @@
 Name:    freight
 Version: 0.3.13
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A modern take on the Debian archive
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ find %{buildroot}%{_sysconfdir} -type f -size 0 -delete
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary:       A powerful visualization and data analysis tool
 Name:          extrema
 Version:       4.4.5
-Release:       44%{?dist}
+Release:       45%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://exsitewebware.com/extrema/
@@ -78,6 +78,9 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.{la,a}
 %doc doc/*.pdf
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jan 18 2026 Terje Røsten <terjeros@gmail.com> - 4.4.5-44
 - Add patch to build with GCC 16
 

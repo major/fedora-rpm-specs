@@ -2,7 +2,7 @@ Summary:       Allows several audio streams to play on a single audio device
 Name:          esound
 Epoch:         1
 Version:       0.2.41
-Release:       39%{?dist}
+Release:       40%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           https://ftp.gnome.org/pub/GNOME/sources/esound
@@ -135,6 +135,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/esd.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.41-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.41-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

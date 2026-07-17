@@ -18,7 +18,7 @@ Version:        %{version_code}
 %else
 Version:        %{version_beta}~%{version_suffix}
 %endif
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 %if ! 0%{?beta}
   %global archive_type dist
@@ -819,6 +819,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4~rc1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.4~rc1-3
 - Fix FTBFS (rhbz#2434049)
 

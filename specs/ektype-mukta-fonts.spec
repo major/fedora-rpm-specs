@@ -6,7 +6,7 @@ seven weights, supporting Devanagari, Gujarati, Tamil and Latin scripts.
 
 Name:			%{fontname}-fonts
 Version:			2.538
-Release:			20%{?dist}
+Release:			21%{?dist}
 Summary:		Free Indian truetype/open type fonts
 # Automatically converted from old format: OFL - review is highly recommended.
 License:			LicenseRef-Callaway-OFL
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet \
 %license OFL.txt Copyright.txt 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.538-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.538-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:       cswrap
 Version:    2.2.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Generic compiler wrapper
 
 License:    GPL-3.0-or-later
@@ -96,6 +96,9 @@ done
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Kamil Dudka <kdudka@redhat.com> 2.2.6-1
 - update to latest upstream
 

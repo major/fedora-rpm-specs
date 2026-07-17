@@ -1,7 +1,7 @@
 Name:		globus-gsi-cert-utils
 %global _name %(tr - _ <<< %{name})
 Version:	10.11
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Cert Utils Library
 
 License:	Apache-2.0
@@ -143,6 +143,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.11-6
 - Compile with OpenSSL 4
 

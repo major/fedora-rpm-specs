@@ -1,42 +1,59 @@
 Name:           methane
-Version:        1.5.1
-Release:        39%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Super Methane Brothers
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://methane.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
+Source0:        https://github.com/rombust/Methane/archive/v%{version}/Methane-v%{version}.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.png
-Patch1:         methane-highscore.patch
-Patch2:         methane-fullscreen.patch
-Patch3:         methane-1.5.1-clanlib-23.patch
-Patch4:         methane-1.5.1-gcc5.patch
-BuildRequires: make
-BuildRequires:  gcc gcc-c++
-BuildRequires:  ClanLib-devel >= 2.3 desktop-file-utils
-Requires:       hicolor-icon-theme opengl-games-utils
+
+Patch0:         0000-missing-includes.patch
+
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
+
+BuildRequires:  alsa-lib-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXinerama-devel
+BuildRequires:  vulkan-devel
+
+Requires:       hicolor-icon-theme
+Requires:       %{name}-data = %{version}-%{release}
 
 %description
 Super Methane Brothers is a platform game converted from the Amiga by
 its original author.
 
 
+%package data
+Summary: Data files for Super Methane Brothers
+BuildArch: noarch
+
+%description data
+This package contains data files (graphics, sounds, et cetera)
+required to play Super Methane Brothers.
+
+
 %prep
-%autosetup -p1
+%autosetup -p1 -n Methane-%{version}
+%cmake
 
 
 %build
-make CXXFLAGS="$RPM_OPT_FLAGS"
+%cmake_build
 
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_var}/games
-install -m 755 %{name} $RPM_BUILD_ROOT%{_bindir}
+install -m 755 %{__cmake_builddir}/%{name} $RPM_BUILD_ROOT%{_bindir}
 cp -a resources $RPM_BUILD_ROOT%{_datadir}/%{name}
-ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/%{name}-wrapper
 touch $RPM_BUILD_ROOT%{_var}/games/%{name}.scores
 
 # below is the desktop file and icon stuff.
@@ -74,7 +91,7 @@ SentUpstream: 2014-09-24
       Bad guys are harmless in this state.
       Puff and Blow must suck the floating gas clouds into their guns and blast
       them out against a vertical surface.
-      bThe Bad guys then turn into bonuses which can be collected.
+      The Bad guys then turn into bonuses which can be collected.
     </p>
   </description>
   <url type="homepage">http://methane.sourceforge.net/</url>
@@ -85,18 +102,22 @@ SentUpstream: 2014-09-24
 EOF
 
 %files
-%doc authors.txt docs history.txt readme.txt
-%license copying.txt
+%doc authors.txt docs history.txt README.md
 %attr(2755,root,games) %{_bindir}/%{name}
-%{_bindir}/%{name}-wrapper
-%{_datadir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %verify(not md5 size mtime) %config(noreplace) %attr(664,root,games) %{_var}/games/%{name}.scores
 
+%files data
+%license copying.txt
+%{_datadir}/%{name}
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Sun Jul 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.0-1
+- Update to v3.0.0
+- Move game data to a subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

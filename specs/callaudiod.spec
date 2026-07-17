@@ -1,6 +1,6 @@
 Name:       callaudiod
 Version:    0.1.99
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Daemon for dealing with audio routing during phone calls
 
 License:        GPL-3.0-or-later
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %license COPYING
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

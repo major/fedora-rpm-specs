@@ -1,14 +1,13 @@
 %global srcname doit
 
 Name:           python-%{srcname}
-Version:        0.36.0
-Release:        9%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 Summary:        Automation Tool
 
 License:        MIT
 URL:            https://pydoit.org/
 Source0:        https://pypi.io/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch1:         python-doit_ignore_versions.patch
 
 BuildArch:      noarch
 
@@ -51,15 +50,17 @@ Requires:       python3-%{srcname} = %{version}-%{release}
 find -type f -exec sed -i '1s=^#! /usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
 %generate_buildrequires
-%pyproject_buildrequires dev_requirements.txt doc_requirements.txt -r
+%pyproject_buildrequires dev_requirements.txt -r
 
 %build
 %pyproject_wheel
 
-cd doc
-PYTHONPATH=.. make html SPHINXBUILD=sphinx-build-3
-rm -rf _build/html/_sources/ _build/html/.buildinfo
-cd -
+# sphinx-sitemap is not available so let us skip the documentation build
+# so above in the buildrequires we skipped the doc_requirements.txt
+# cd doc
+# PYTHONPATH=.. make html SPHINXBUILD=sphinx-build-3
+# rm -rf _build/html/_sources/ _build/html/.buildinfo
+# cd -
 
 %install
 %pyproject_install
@@ -68,9 +69,7 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 %pyproject_save_files %{srcname}
 
 %check
-# Is impossible to run tests because the testsuite is not ready for Python 3
-# environment and there is also one unresolved test dependency doit-py
-# %{__python3} -m pytest
+%{__python3} -m pytest
 %py3_check_import %{srcname}
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -81,13 +80,14 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 
 %files -n python3-%{srcname}-doc
 %license LICENSE
-# doc is not present in the tar ball (reported upstream)
-#%doc doc/tutorial
-%doc doc/_build/html
 %doc CHANGES
 %doc TODO.txt
 
 %changelog
+* Wed Jul 15 2026 José Matos  <jamatos@fedoraproject.org> - 0.37.0-1
+- Update to 0.37.0
+- do not build the documentation
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

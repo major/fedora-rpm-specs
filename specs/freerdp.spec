@@ -26,8 +26,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.28.0
-Release:        1%{?dist}
+Version:        3.29.0
+Release:        2%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -374,6 +374,13 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.29.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Ondrej Holy <oholy@redhat.com> - 2:3.29.0-1
+- Update to 3.29.0
+  Resolves: rhbz#2499994
+
 * Mon Jul 13 2026 Ondrej Holy <oholy@redhat.com> - 2:3.28.0-1
 - Update to 3.28.0 (CVE-2026-57156, CVE-2026-57157, CVE-2026-57158)
   Resolves: rhbz#2497324

@@ -13,7 +13,7 @@
 
 Name:           btop
 Version:        1.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 1.4.7-1
 - update to 1.4.7 rhbz#2464521
 

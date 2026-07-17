@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -228,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.10.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Maxwell G <maxwell@gtmx.me> - 10.10.2-2
 - Rebuild for new gnome-desktop4
 

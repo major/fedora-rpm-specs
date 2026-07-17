@@ -1,7 +1,7 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        72%{?dist}
+Release:        73%{?dist}
 # GPL-2.0-or-later: everything except the following
 # LGPL-2.0-or-later: src/Fl_Table*
 # CC-BY-SA-3.0: the icon (Source10)
@@ -98,6 +98,9 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2016.3.1-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-72
 - rebuild with newer SimGear
 

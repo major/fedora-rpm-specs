@@ -59,12 +59,12 @@
 
 # some example cmake's do not like :xnack suffix
 # reduce the default list
-%global gpu_list %rocm_gpu_list_test
+%global gpu_list "gfx900;gfx906;gfx908;gfx90a;gfx942;gfx950;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1036;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
 %global _gpu_list gfx1100
 
 Name:           rocm-examples%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -203,6 +203,9 @@ rm -f %{buildroot}%{pkg_prefix}/bin/*.hsaco
 %{pkg_prefix}/bin/*
 
 %changelog
+* Wed Jul 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Increase gpus
+
 * Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

@@ -1,6 +1,6 @@
 Name: Box2D
 Version:  3.1.1
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary: A 2D Physics Engine for Games
 
 License: Zlib
@@ -79,6 +79,9 @@ mv -f box2d.pc %{buildroot}%{_libdir}/pkgconfig/box2d.pc
 %{_libdir}/pkgconfig/box2d.pc
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Mattia Verga <mattia.verga@proton.me> - 3.1.1-2
 - Add pkgconfig file
 

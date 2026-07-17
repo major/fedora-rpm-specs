@@ -1,6 +1,6 @@
 Name:           foomuuri
 Version:        0.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -186,6 +186,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Kim B. Heino  <b@bbbs.net> - 0.33-2
 - rhbz#2486092: Switch from python3-gobject to python3-gobject-base
 

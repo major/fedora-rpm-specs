@@ -1,9 +1,8 @@
 Name:           cegui06
 Version:        0.6.2
-Release:        51%{?dist}
+Release:        53%{?dist}
 Summary:        CEGUI library 0.6 for apps which need this specific version
-# Automatically converted from old format: MIT and LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-LGPLv2+
+License:        MIT AND LGPL-2.1-or-later
 URL:            http://www.cegui.org.uk
 # This is
 # http://downloads.sourceforge.net/crayzedsgui/CEGUI-0.6.2b.tar.gz
@@ -128,6 +127,12 @@ done
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.6.2-52
+- Fix the 'License' tag to use a valid SPDX expression
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

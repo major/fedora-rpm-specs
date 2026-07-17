@@ -3,7 +3,7 @@
 
 Name: creds
 Version: 0.1.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Simple encrypted credential management with GPG
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -57,6 +57,9 @@ mv completions/zsh/_%{name}.sh %{buildroot}%{zshcompdir}/_%{name}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

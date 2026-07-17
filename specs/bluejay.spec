@@ -2,7 +2,7 @@
 
 Name:           bluejay
 Version:        1.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Bluetooth manager written in Qt
 
 # The main code is MPL-2.0, the icon file is CC-BY-SA-4.0, the desktop and metainfo files are CC0-1.0, and pin-code-database.xml is GPL-2.0-or-later
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn_name}.m
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.0.3-5
 - Add missing qml dependency on org.kde.desktop
 

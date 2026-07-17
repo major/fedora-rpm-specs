@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -249,6 +249,9 @@ fi
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Miroslav Suchý <msuchy@redhat.com> 1.20-1
 - Fix tests for Python 3.15: replace removed CGIHTTPRequestHandler
 

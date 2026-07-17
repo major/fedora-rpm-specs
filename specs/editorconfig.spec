@@ -16,7 +16,7 @@ editors.}
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
 Version:        0.12.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The entire source is BSD-2-Clause, except:
 #   BSD-3-Clause: src/lib/ini.h
@@ -139,6 +139,9 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 11 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.11-1
 - Update to 0.12.11 (close RHBZ#2458650)
 - Fixes CVE-2026-40489

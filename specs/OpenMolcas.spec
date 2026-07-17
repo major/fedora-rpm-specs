@@ -3,7 +3,7 @@
 
 Name:           OpenMolcas
 Version:        26.02
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPL-2.1-only
 URL:            https://gitlab.com/Molcas/OpenMolcas
@@ -115,6 +115,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.02-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 18 2026 Cristian Le <git@lecris.dev> - 26.02-3
 - Use standard CMake macros (rhbz#2380964)
 - Remove various dead %%if checks

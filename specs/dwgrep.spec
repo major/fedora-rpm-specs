@@ -2,7 +2,7 @@
 
 Name:           dwgrep
 Version:        0.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A tool for querying Dwarf (debuginfo) graphs
 
 # Automatically converted from old format: GPLv3+ and (GPLv2+ or LGPLv3+) - review is highly recommended.
@@ -171,6 +171,9 @@ popd
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

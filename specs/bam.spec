@@ -1,7 +1,7 @@
 Name:           bam
 Version:        0.5.1
 
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A build-system
 
 License:        zlib
@@ -34,6 +34,9 @@ install -D -p -m 0755 %{name} \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

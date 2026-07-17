@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -350,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.3-1
 - Update Cryptlib to version 3.4.9.3
 

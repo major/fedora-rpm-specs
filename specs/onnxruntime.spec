@@ -3,27 +3,23 @@
 
 %if 0%{?fedora} && ! 0%{?flatpak}
 %ifarch x86_64
-%bcond rocm_migraphx 0
 %bcond migraphx 1
 # Only for testing purposes, deprecated upstream
 %bcond dnnl 0
 # Requires updated openVINO with latest onnx and protobuf
 %bcond openvino 0
 %else
-%bcond rocm_migraphx 0
 %bcond migraphx 0
 %bcond dnnl 0
 %bcond openvino 0
 %endif
 %else
-%bcond rocm_migraphx 0
 %bcond migraphx 0
 %bcond dnnl 0
 %bcond openvino 0
 %endif
 
 %bcond test 1
-%bcond rocm_migraphx_test 0
 
 # $backend will be evaluated below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${backend}
@@ -122,7 +118,7 @@ BuildRequires:  zlib-devel
 Buildrequires:  eigen3-devel >= 1.34
 BuildRequires:  pybind11-devel
 
-%if %{with migraphx} || %{with rocm_migraphx}
+%if %{with migraphx}
 BuildRequires:  migraphx-devel
 BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
@@ -260,34 +256,6 @@ The test binaries of the %{name}-openvino package
 
 %endif
 
-%if %{with rocm_migraphx}
-%package -n rocm-onnxruntime-migraphx
-Summary:    The ROCm version of the %{name} package using MIGraphX PE
-Obsoletes:  onnxruntime-rocm < %version-%release
-Provides:   onnxruntime-rocm = %version-%release
-
-%description -n rocm-onnxruntime-migraphx
-%{summary}
-
-%package -n rocm-onnxruntime-migraphx-devel
-Summary:    The ROCm development part of the rocm-%{name}-migraphx package
-Requires:   rocm-onnxruntime-migraphx%{_isa} = %{version}-%{release}
-Obsoletes:  onnxruntime-rocm-devel < %version-%release
-Provides:   onnxruntime-rocm-devel = %version-%release
-
-%description -n rocm-onnxruntime-migraphx-devel
-%{summary}
-
-%package -n rocm-onnxruntime-migraphx-test
-Summary:    The ROCm test part of the rocm-%{name}-migraphx package
-Requires:   rocm-onnxruntime-migraphx%{_isa} = %{version}-%{release}
-Obsoletes:  onnxruntime-rocm-test < %version-%release
-Provides:   onnxruntime-rocm-test = %version-%release
-
-%description -n rocm-onnxruntime-migraphx-test
-%{summary}
-%endif
-
 %package doc
 Summary:    Documentation files for the %{name} package
 
@@ -390,26 +358,6 @@ for backend in %backends; do
     mv ./requirements.txt.bak ./requirements.txt
 done
 
-%if %{with rocm_migraphx}
-backend=rocm_migraphx
-%cmake %cmake_config \
-    -DCMAKE_INSTALL_BINDIR=%{_lib}/rocm/bin \
-    -DCMAKE_INSTALL_INCLUDEDIR=%{_lib}/rocm/include \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib}/rocm/lib \
-    -Donnxruntime_ENABLE_CPUINFO=ON \
-    -DCMAKE_HIP_PLATFORM=amd \
-%if %{with rocm_test}
-    -Donnxruntime_BUILD_UNIT_TESTS=ON \
-%else
-    -Donnxruntime_BUILD_UNIT_TESTS=OFF \
-%endif
-    -Donnxruntime_ROCM_HOME=%{_prefix} \
-    -Donnxruntime_USE_COMPOSABLE_KERNEL=OFF \
-    -Donnxruntime_USE_MIGRAPHX=ON
-
-%cmake_build
-%endif
-
 %install
 mkdir -p %{_builddir}/buildroot_acumulator
 for backend in %backends; do
@@ -475,20 +423,12 @@ for backend in %backends; do
     rm -rf ./build
 done
 
-%if %{with rocm_migraphx}
-backend=rocm_migraphx
-%cmake_install
-%if ! %{with rocm_migraphx_test}
-    rm -rf %{buildroot}%{_libdir}/rocm/bin
-%endif
-%endif
-
 # Restore results
 mkdir -p %{buildroot}
 cp -a %{_builddir}/buildroot_acumulator/* %{buildroot}
 rm -rf %{_builddir}/buildroot_acumulator
 
-%if %{with test} || %{with rocm_migraphx_test}
+%if %{with test}
 %check
 export GTEST_FILTER=" \
     -CContribOpTest.StringNormalizerSensitiveFilterOutNoCase \
@@ -508,20 +448,10 @@ for backend in %backends; do
 done
 %endif
 
-%if %{with rocm_migraphx_test}
-backend=rocm_migraphx
-%ctest
-%endif
-
-%if %{with rocm_migraphx_test}
-backend=rocm_migraphx
-%ctest
-%endif
 %endif
 
 %files
-%license LICENSE
-%doc ThirdPartyNotices.txt
+%license LICENSE ThirdPartyNotices.txt
 %{_libdir}/libonnxruntime.so.%{so_version}
 %{_libdir}/libonnxruntime.so.%{version}
 %{_libdir}/libonnxruntime_providers_shared.so
@@ -544,8 +474,7 @@ backend=rocm_migraphx
 
 %if %{with migraphx}
 %files migraphx
-%license LICENSE
-%doc ThirdPartyNotices.txt
+%license LICENSE ThirdPartyNotices.txt
 %{_libdir}/libonnxruntime.so.%{so_version}
 %{_libdir}/libonnxruntime.so.%{version}.migraphx
 %{_libdir}/libonnxruntime_providers_shared.so.migraphx
@@ -562,8 +491,7 @@ backend=rocm_migraphx
 
 %if %{with dnnl}
 %files dnnl
-%license LICENSE
-%doc ThirdPartyNotices.txt
+%license LICENSE ThirdPartyNotices.txt
 %{_libdir}/libonnxruntime.so.%{so_version}
 %{_libdir}/libonnxruntime.so.%{version}.dnnl
 %{_libdir}/libonnxruntime_providers_shared.so.dnnl
@@ -580,8 +508,7 @@ backend=rocm_migraphx
 
 %if %{with openvino}
 %files openvino
-%license LICENSE
-%doc ThirdPartyNotices.txt
+%license LICENSE ThirdPartyNotices.txt
 %{_libdir}/libonnxruntime.so.%{so_version}
 %{_libdir}/libonnxruntime.so.%{version}.openvino
 %{_libdir}/libonnxruntime_providers_shared.so.openvino
@@ -598,29 +525,6 @@ backend=rocm_migraphx
 
 %files doc
 %{_docdir}/%{name}
-
-%if %{with rocm_migraphx}
-%files -n rocm-onnxruntime-migraphx
-%license LICENSE
-%doc ThirdPartyNotices.txt
-%{_libdir}/rocm/lib/libonnxruntime.so.%{so_version}
-%{_libdir}/rocm/lib/libonnxruntime.so.%{version}
-%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so
-%{_libdir}/rocm/lib/libonnxruntime_providers_migraphx.so
-
-%files -n rocm-onnxruntime-migraphx-devel
-%dir %{_libdir}/rocm/include/onnxruntime/
-%dir %{_libdir}/rocm/lib/cmake/onnxruntime/
-%{_libdir}/rocm/include/onnxruntime/*
-%{_libdir}/rocm/lib/libonnxruntime.so
-%{_libdir}/rocm/lib/pkgconfig/libonnxruntime.pc
-%{_libdir}/rocm/lib/cmake/onnxruntime/*
-
-%if %{with rocm_migraphx_test}
-%files -n rocm-onnxruntime-migraphx-test
-%{_libdir}/rocm/bin/*
-%endif
-%endif
 
 %changelog
 %autochangelog

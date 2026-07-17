@@ -1,7 +1,7 @@
 Name:		globus-gsi-credential
 %global _name %(tr - _ <<< %{name})
 Version:	8.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Credential Library
 
 License:	Apache-2.0
@@ -111,6 +111,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5-3
 - Compile with OpenSSL 4
 

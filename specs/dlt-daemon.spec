@@ -6,7 +6,7 @@
 
 Name: dlt-daemon
 Version: 2.18.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
@@ -179,6 +179,9 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -16,7 +16,7 @@ An extended version of x/image/tiff.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        An extended version of x/image/tiff
 
 # Upstream license specification: BSD-3-Clause
@@ -47,6 +47,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.12
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

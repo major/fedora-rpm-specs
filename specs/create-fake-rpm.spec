@@ -1,6 +1,6 @@
 Name:           create-fake-rpm
 Version:        5
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-or-later
 Summary:        Generate fake (S)RPM
 BuildArch:      noarch
@@ -62,6 +62,9 @@ cp -a template/template.spec %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

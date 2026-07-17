@@ -2,7 +2,7 @@
 
 Name:           brutalchess
 Version:        0.5.2
-Release:        0.34.%{pre}%{?dist}
+Release:        0.35.%{pre}%{?dist}
 Summary:        Chess game with impressive 3D graphics
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -105,6 +105,9 @@ cp -p %{SOURCE11} %{buildroot}%{_datadir}/pixmaps
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.35.alpha
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.34.alpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

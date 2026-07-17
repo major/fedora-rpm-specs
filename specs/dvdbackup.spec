@@ -1,6 +1,6 @@
 Name:           dvdbackup
 Version:        0.4.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Command line tool for ripping video DVDs
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -41,6 +41,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

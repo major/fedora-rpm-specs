@@ -18,7 +18,7 @@ Version: 5.0.0
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
 License:   GPL-3.0-or-later
@@ -159,6 +159,9 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 23 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:5.0.0-3
 - Fix for Avoid assigning to a const lua variable
 

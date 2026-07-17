@@ -1,6 +1,6 @@
 Name:       git-extras
 Version:    7.3.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Little git extras
 
 License:    MIT
@@ -59,6 +59,9 @@ install -pm 0644 man/*.md md
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

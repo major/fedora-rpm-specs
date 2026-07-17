@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.11.0
-Release:    4%{?build_nr}%{?git_tag}%{?dist}
+Release:    5%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
@@ -154,6 +154,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.11.0-4
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Name:           cockpit-image-builder
 Version:        94
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 94-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 18 2026 Packit <hello@packit.dev> - 94-1
 Changes with 94
 ----------------

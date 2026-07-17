@@ -6,7 +6,7 @@
 
 Name:           OpenMesh
 Version:        %{pkg_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A generic and efficient polygon mesh data structure
 License:        BSD-3-Clause
 URL:            http://www.openmesh.org/
@@ -157,6 +157,9 @@ done
 %doc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 12.1.0.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD-3-Clause
@@ -94,6 +94,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib OpenIb_Host/ff_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 5 2026 Jijun Wang <jijun.wang@intel.com> - 12.1.0.1-6
 - Added Navix support
 - Updated stream.c to use 'omp masked'

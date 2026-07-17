@@ -6,7 +6,7 @@
 
 Name:           enkiTS
 Version:        %{forgeversion}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A C and C++ task scheduler for creating parallel programs
 
 License:        Zlib
@@ -76,6 +76,9 @@ Examples for how to use enkiTS.
 %doc example/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11^git686d0ec-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11^git686d0ec-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

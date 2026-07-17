@@ -1,6 +1,6 @@
 Name:           gcolor3
 Version:        2.4.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A simple color chooser written in GTK3 (like gcolor2)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/nl.hjdske
 %{_mandir}/man1/gcolor3.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Access control list utilities
 Name: acl
 Version: 2.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 BuildRequires: gawk
 BuildRequires: gcc
@@ -124,6 +124,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.4.0-1
 - rebase to the latest upstream release (rhbz#2494170)
   - CVE-2026-54369 - Symlink traversal privilege escalation via libacl functions

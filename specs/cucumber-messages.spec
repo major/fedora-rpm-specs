@@ -11,7 +11,7 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        34.0.2
+Version:        34.1.0
 %global cpp_soversion 34
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
@@ -19,9 +19,6 @@ Summary:        A message protocol for representing results and other informatio
 License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
-
-# cpp: Allow finding GTest when not fetching deps
-Patch:          %{url}/pull/483.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -2,7 +2,7 @@ Summary:    Download Ticket Service
 URL:        http://www.thregr.org/~wavexx/software/dl/
 Name:       dl
 Version:    0.19
-Release:    7%{?dist}
+Release:    8%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 
@@ -97,6 +97,9 @@ fi
 %dir %attr(0755,apache,apache) %{_localstatedir}/spool/dl/data
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

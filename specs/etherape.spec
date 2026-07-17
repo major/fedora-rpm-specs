@@ -1,6 +1,6 @@
 Name:           etherape
 Version:        0.9.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical network monitor for Unix
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ desktop-file-install --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9.22-1
 - 0.9.22
 

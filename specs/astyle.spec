@@ -1,6 +1,6 @@
 Name:           astyle
 Version:        3.6.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Source code formatter for C-like programming languages
 
 %global soversion       %{version}
@@ -71,6 +71,9 @@ popd
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Dan Horák <dan[at]danny.cz> - 3.6.16-1
 - updated to 3.6.16 (rhbz#2442504)
 

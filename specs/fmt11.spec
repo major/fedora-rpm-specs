@@ -2,7 +2,7 @@
 
 Name:           fmt11
 Version:        11.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        MIT
 Summary:        Compatibility version of the %{appname} library (soversion 11)
@@ -50,6 +50,9 @@ rm -f  %{buildroot}%{_libdir}/pkgconfig/%{appname}.pc
 %{_libdir}/lib%{appname}.so.11*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 František Zatloukal <fzatlouk@redhat.com> - 11.2.0-6
 - Release bump
 

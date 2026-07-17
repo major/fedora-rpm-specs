@@ -1,6 +1,6 @@
 Name:           autoconf-archive
 Version:        2024.10.16
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        The Autoconf Macro Archive
 
 # The following licenses were seen in the binary rpm.
@@ -46,6 +46,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Frédéric Bérat <fberat@redhat.com> - 2024.10.16-6
 - Backport ax_check_gl.m4: properly quote m4_fatal (RHBZ#2336906)
 

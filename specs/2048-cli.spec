@@ -1,6 +1,6 @@
 Name:           2048-cli
 Version:        0.9.1
-Release:        26%{?gitrel}%{?dist}
+Release:        27%{?gitrel}%{?dist}
 Summary:        The game 2048 for your Linux terminal
 
 License:        MIT
@@ -79,6 +79,9 @@ install -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048sdl.1
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

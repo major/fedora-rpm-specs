@@ -11,7 +11,7 @@
 
 Name:		fortune-mod
 Version:	3.26.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A program which will display a fortune
 
 License:	BSD-4-Clause-UC
@@ -135,6 +135,9 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 12 2026 Shlomi Fish <shlomif@shlomifish.org> 3.26.1-2
 - Remove the patch application.
 

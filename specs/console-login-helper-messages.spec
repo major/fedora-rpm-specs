@@ -3,7 +3,7 @@
 
 Name:           console-login-helper-messages
 Version:        0.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Combines motd, issue, profile features to show system information to the user before/on login
 License:        BSD-3-Clause
 URL:            https://github.com/%{github_owner}/%{github_project}
@@ -148,6 +148,9 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %ghost %{_sysconfdir}/profile.d/%{name}-profile.sh
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 25 2026 Jean-Baptiste Trystram <jbtrystram@redhat.com> - 0.22.0-1
 - Update to 0.22.0
 - On RHEL < 11: revert move to /run/issue.d, keep using /etc/issue.d

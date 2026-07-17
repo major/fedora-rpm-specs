@@ -12,7 +12,7 @@
 Version: 0.68.5.1
 Name: flow-tools
 Summary: Tool set for working with NetFlow data
-Release: 46%{?dist}
+Release: 47%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
 URL: http://code.google.com/p/%{name}/
@@ -226,6 +226,9 @@ install -m0644 -D flow-tools.sysusers.conf %{buildroot}%{_sysusersdir}/flow-tool
 %doc docs/*.html ChangeLog.old TODO INSTALL SECURITY
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

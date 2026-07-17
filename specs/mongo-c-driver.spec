@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global soname       2
-%global up_version   2.3.2
+%global up_version   2.3.3
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -275,6 +275,9 @@ exit $ret
 
 
 %changelog
+* Wed Jul 15 2026 Remi Collet <remi@remirepo.net> - 2.3.3-1
+- update to 2.3.3
+
 * Wed Jul  8 2026 Remi Collet <remi@remirepo.net> - 2.3.2-1
 - update to 2.3.2
 

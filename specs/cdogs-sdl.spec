@@ -2,7 +2,7 @@
 
 Name:           cdogs-sdl
 Version:        0.7.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        C-Dogs is an arcade shoot-em-up
 # Code: GPL-2.0-or-later (engine), BSD-3-Clause, LGPL-2.1-or-later (json-c),
 #        ISC (yajl), Zlib (nanopb), WTFPL (rlutil)
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.3-19
 - Fix SPDX license: replace 'LicenseRef-Callaway-CC-BY' and 'LicenseRef-Callaway-CC-BY-SA' with
   versioned identifiers, add missing bundled code licenses

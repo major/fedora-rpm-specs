@@ -6,7 +6,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -782,6 +782,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 3.10.3-34
 - always apply s390x patches
 - add RISC-V support

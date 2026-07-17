@@ -1,6 +1,6 @@
 Name:           chrpath
 Version:        0.16
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Modify rpath of compiled programs
 
 License:        GPL-2.0-or-later
@@ -40,6 +40,9 @@ rm -fr %{buildroot}/usr/doc
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

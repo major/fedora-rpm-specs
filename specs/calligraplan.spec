@@ -4,7 +4,7 @@
 
 Name:    calligraplan
 Version: 4.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Project Planner 
 
 License: GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -159,6 +159,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{app_id}*.deskto
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

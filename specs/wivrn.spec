@@ -13,7 +13,7 @@
 %forgemeta
 
 Name:           wivrn
-Version:        26.6.1
+Version:        26.6.2
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 

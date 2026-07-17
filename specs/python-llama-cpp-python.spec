@@ -1,5 +1,5 @@
 %global pypi_name llama-cpp-python
-%global pypi_version 0.3.14
+%global pypi_version 0.3.34
 # it's all python code
 %global debug_package %{nil}
 
@@ -7,9 +7,9 @@
 # https://github.com/abetlen/llama-cpp-python/releases/tag/v0.3.14
 # we can see that the /vendor/llama-cpp links to the llama-cpp repository
 # locked at the specific commit, which is provided as a source
-%global llama_repo https://github.com/ggerganov/llama.cpp
-%global llama_commit 79e0b68c178656bb0632cb8602d2940b755077f8
-%global llama_archive llama.cpp-79e0b68.tar.gz
+%global llama_repo https://github.com/ggml-org/llama.cpp
+%global llama_commit e3546c7948e3af463d0b401e6421d5a4c2faf565
+%global llama_archive llama.cpp-e3546c7.tar.gz
 
 # Exclude any .so built from the bundled tarball so that the automatic 'Provides'
 # does not pollute the RPM dependency database -> the regex should exclude these four libraries:
@@ -84,7 +84,7 @@ tar -xf %{SOURCE1} --strip-components=1 --directory %{_builddir}/%{pypi_name}-%{
 %if %{with test}
 %check
 # these 3 llama tests need ggml-vocab-llama-spm model, we'll run them in testing farm, see plans/
-%pytest -v -k 'not test_llama_cpp_tokenization and not test_real_llama and not test_real_model' tests/
+%pytest -v -k 'not test_llama_cpp_tokenization and not test_real_llama and not test_real_model and not matches_fresh and not test_recurrent_model_prompt_cache_reset and not test_hybrid_model_prompt_cache_reset' tests/
 %endif
 
 %install

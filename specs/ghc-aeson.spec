@@ -20,7 +20,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.2.3.0
 # can only be reset when all subpkgs bumped
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Fast JSON parsing and encoding
 
 License:        BSD-3-Clause
@@ -232,6 +232,9 @@ cabal-tweak-dep-ver base '<4.18' '<4.21'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 2.2.3.0-12
 - OneTuple-0.4.2.1
 

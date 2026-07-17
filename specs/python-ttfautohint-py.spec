@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-ttfautohint-py
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Python wrapper for ttfautohint, a free auto-hinter for TrueType fonts
 

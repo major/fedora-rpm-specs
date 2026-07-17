@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        10.24
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A symbol font
 
 # https://web.archive.org/web/20150625020428/http://users.teilar.gr/~g1951d/
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet \
 %doc Symbola.pdf Symbola.odt
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.24-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.24-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

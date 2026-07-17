@@ -1,18 +1,16 @@
 Name:           mirrormagic
-Version:        3.0.0
-Release:        22%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 Summary:        Puzzle game where you steer a beam of light using mirrors
-License:        GPL-1.0-or-later
-URL:            http://www.artsoft.org/mirrormagic/
-Source0:        http://www.artsoft.org/RELEASES/unix/%{name}/%{name}-%{version}.tar.gz
+License:        GPL-2.0-only
+URL:            https://www.artsoft.org/mirrormagic/
+Source0:        https://www.artsoft.org/RELEASES/linux/%{name}/%{name}-%{version}-linux.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.png
 Source3:        %{name}.appdata.xml
-Patch0:         %{name}-%{version}-yesno.patch
-Patch1:         %{name}-%{version}-fcommon-fix.patch
-Patch2:         %{name}-%{version}-c23.patch
 BuildRequires:  gcc make
 BuildRequires:  SDL2_image-devel SDL2_mixer-devel SDL2_net-devel
+BuildRequires:  zlib-devel
 BuildRequires:  libappstream-glib desktop-file-utils
 Requires:       hicolor-icon-theme
 
@@ -27,17 +25,18 @@ familiar from the games "Deflektor" and "Mindbender".
 %prep
 %autosetup -p1
 rm levels/Classic_Games/classic_mindbender/*.level.orig
-iconv -f ISO_8859-1 -t UTF8 CREDITS > CREDITS.tmp
-touch -r CREDITS CREDITS.tmp
-mv CREDITS.tmp CREDITS
+rm levels/Classic_Games/classic_mindbender/tapes/*.tape.orig
+# Remove pre-built binary and bundled libraries
+rm %{name}
+rm -r lib
 
 
 %build
 # parallel build has been disabled because for some unknown reason
 # it leads to unknown symbols during the linking of the mirrormagic binary
-make PROGBASE=%{name} RO_GAME_DIR=%{_datadir}/%{name} \
-  OPTIONS="$RPM_OPT_FLAGS -DUSE_USERDATADIR_FOR_COMMONDATA" \
-  EXTRA_LDFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS" sdl2
+make PROGBASE=%{name} BASE_PATH=%{_datadir}/%{name} \
+  OPTIONS="$RPM_OPT_FLAGS" \
+  EXTRA_LDFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS"
 
 
 %install
@@ -68,6 +67,24 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 3.3.1-1
+- Rebase to upstream version 3.3.1
+- Update 'Source0' URL: upstream moved from '/unix/' to '/linux/' path
+  and changed the tarball naming convention to include '-linux' suffix
+- Drop all three patches, merged upstream:
+  'mirrormagic-3.0.0-yesno.patch' (Y/N key handling),
+  'mirrormagic-3.0.0-fcommon-fix.patch' (-fcommon multiple definitions),
+  'mirrormagic-3.0.0-c23.patch' (C23 compatibility)
+- Update build flags: replace 'RO_GAME_DIR' with 'BASE_PATH',
+  drop removed 'sdl2' make target (now auto-detected),
+  drop unused '-DUSE_USERDATADIR_FOR_COMMONDATA' flag
+- Add 'zlib-devel' BuildRequires (new upstream zip support via bundled minizip)
+- Remove pre-built binary and bundled shared libraries in '%prep'
+- Drop iconv CREDITS conversion (file is now UTF-8 upstream)
+- Correct License to 'GPL-2.0-only' (COPYING contains GPL-2.0 text; the prior
+  'GPL-1.0-or-later' was a mechanical SPDX conversion from the old 'GPL+' tag)
+- Update URL to HTTPS
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 3.0.0-22
 - Fix FTBFS (rhbz#2340868, rhbz#2385191)
 

@@ -1,6 +1,6 @@
 Name:           centerim
 Version:        4.22.10
-Release:        51%{?dist}
+Release:        52%{?dist}
 Epoch:          1
 
 Summary:        Text mode menu- and window-driven IM
@@ -104,6 +104,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE2}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.22.10-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.22.10-51
 - Rebuilt for openssl 4.0
 

@@ -1,6 +1,6 @@
 Name:           bubblemon
 Version:        1.46
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        A system monitoring dockapp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -46,6 +46,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 %{_bindir}/bubblemon
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

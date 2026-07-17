@@ -4,7 +4,7 @@
 
 Name:           clamav-unofficial-sigs
 Version:        8.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scripts to download unofficial clamav signatures 
 Group:          Applications/System
 License:        BSD-3-Clause
@@ -91,6 +91,9 @@ install -p -m0644 clamav-unofficial-sigs.man8 %{buildroot}%{_mandir}/man8/clamav
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 03 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 8.0.0-1
 - Update to upstream.
 - Cleanup spec file, remove very old conditions.

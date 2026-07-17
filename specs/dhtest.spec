@@ -1,6 +1,6 @@
 Name:		dhtest
 Version:	1.5
-Release:	19%{?snapinfo:.%{snapinfo}}%{?dist}
+Release:	20%{?snapinfo:.%{snapinfo}}%{?dist}
 Summary:	A DHCP client simulation on linux
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -40,6 +40,9 @@ mkdir -p %{buildroot}%{_bindir}
 %{_bindir}/dhtest
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

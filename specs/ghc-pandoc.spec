@@ -25,7 +25,7 @@
 Name:           ghc-%{pkg_name}
 Version:        3.7.0.2
 # can only be reset when all subpkgs bumped
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Haskell %{name} library
 
 License:        GPL-2.0-or-later
@@ -410,6 +410,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 3.7.0.2-38
 - https://hackage.haskell.org/package/pandoc-3.7.0.2/changelog
 

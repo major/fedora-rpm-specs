@@ -1,7 +1,7 @@
 Name:		fontawesome-fonts
 Summary:	Support files for the FontAwesome fonts
 Epoch:		1
-Version:	7.3.0
+Version:	7.3.1
 Release:	%autorelease
 
 License:	MIT
@@ -77,21 +77,6 @@ JavaScript, SVG, and WOFF2 files, which are typically used on web pages.
 %prep
 %autosetup -n Font-Awesome-%{version}
 cp -p %SOURCE2 .
-
-# Modify the CSS to point to local OpenType font files, rather than to the eot,
-# svg, ttf, woff, and woff2 web fonts, as required by Fedora's font packaging
-# guidelines.
-sed -ri \
-    -e 's,url\("?\.\./webfonts/fa-brands-400\.woff2"?\)( format\("woff2"\))?,local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
-    -e 's,url\("?\.\./webfonts/fa-regular-400\.woff2"?\)( format\("woff2"\))?,local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
-    -e 's,url\("?\.\./webfonts/fa-solid-900\.woff2"?\)( format\("woff2"\))?,local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
-    -e 's,url\("?\.\./webfonts/fa-v4compatibility\.woff2"?\),local("fontawesome-4-compatibility-fonts/fa-v4compatibility"),g' \
-    css/all{,.min}.css \
-    css/brands{,.min}.css \
-    css/regular{,.min}.css \
-    css/solid{,.min}.css \
-    css/v4-font-face{,.min}.css \
-    css/v5-font-face{,.min}.css
 
 %build
 %fontbuild -a

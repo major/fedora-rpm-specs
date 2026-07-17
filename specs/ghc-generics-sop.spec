@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.5.1.4
 # can only be reset when subpkg bumped
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Generic Programming using True Sums of Products
 
 License:        BSD-3-Clause
@@ -178,6 +178,9 @@ cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 0.5.1.4-23
 - Rebuild
 

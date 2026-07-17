@@ -1,6 +1,6 @@
 Name:           GeographicLib
 Version:        2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for geographic coordinate transformations
 
 License:        MIT
@@ -185,6 +185,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

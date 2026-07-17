@@ -1,6 +1,6 @@
 Name:           glog
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A C++ application logging library
 # main source code is BSD-3-Clause
 # Apache-2.0
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Carl George <carlwgeorge@fedoraproject.org> - 0.7.1-1
 - Update to version 0.7.1
 

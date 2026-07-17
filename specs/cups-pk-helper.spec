@@ -1,6 +1,6 @@
 Name:           cups-pk-helper
 Version:        0.2.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A helper that makes system-config-printer use PolicyKit
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ interfaces available under control of PolicyKit.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

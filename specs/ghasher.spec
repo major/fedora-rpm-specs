@@ -1,6 +1,6 @@
 Name:           ghasher
 Version:        1.2.1
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        GUI hasher for GTK+ 2
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -50,6 +50,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-45
 - Rebuilt for openssl 4.0
 

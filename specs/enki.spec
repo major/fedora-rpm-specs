@@ -4,7 +4,7 @@
 
 Name:           enki
 Version:        22.08.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Text editor for programmers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -148,6 +148,9 @@ xvfb-run -s '-screen :0 1024x768x16' %{__python3} run_all.py
 %doc html/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 10 2026 Maxwell G <maxwell@gtmx.me> - 22.08.0-16
 - Remove unused and deprecated python3-mock test dependency
 

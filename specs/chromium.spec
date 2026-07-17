@@ -271,8 +271,8 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.114
-Release: 1%{?dist}
+Version: 150.0.7871.124
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -527,6 +527,9 @@ Patch601: chromium-150-Omit-ar-from-inputs-when-resolved-via-PATH.patch
 Patch602: chromium-150-Fix-get_path_info-on-empty-ar-in-unbundle-toolchain.patch
 # Darkmode
 Patch603: chromium-150-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode.patch
+Patch604: chromium-150-Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom.patch
+Patch605: chromium-150-Use-64px-css-pixels-absolute-threshold-for-dark-image-classification.patch
+Patch606: chromium-150-Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1248,6 +1251,9 @@ Qt6 UI for chromium.
 %patch -P602 -p1 -b .Fix-get_path_info-on-empty-ar-in-unbundle-toolchain
 # Darkmode
 %patch -P603 -p1 -b .Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
+%patch -P604 -p1 -b .Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom
+%patch -P605 -p1 -b .Use-64px-css-pixels-absolute-threshold-for-dark-image-classification
+%patch -P606 -p1 -b .Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1922,6 +1928,28 @@ fi
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 150.0.7871.124-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Than Ngo <than@redhat.com> - 150.0.7871.124-1
+- Update to 150.0.7871.124
+  * CVE-2026-15764: Use after free in Ozone
+  * CVE-2026-15765: Use after free in Ozone
+  * CVE-2026-15766: Uninitialized Use in Skia
+  * CVE-2026-15767: Heap buffer overflow in libyuv
+  * CVE-2026-15768: Insufficient policy enforcement in HTML-in-Canvas
+  * CVE-2026-15769: Insufficient validation of untrusted input in Linux Toolkit Theming
+  * CVE-2026-15770: Uninitialized Use in V8
+  * CVE-2026-15771: Insufficient validation of untrusted input in Media
+  * CVE-2026-15772: Use after free in GPU
+  * CVE-2026-15773: Use after free in Core
+  * CVE-2026-15774: Use after free in Skia
+  * CVE-2026-15775: Insufficient policy enforcement in V8
+  * CVE-2026-15776: Type Confusion in V8
+  * CVE-2026-15777: Use after free in UI
+  * CVE-2026-15778: Insufficient validation of untrusted input in Navigation
+- Backport patches to improve auto darkmode
+
 * Thu Jul 09 2026 Than Ngo <than@redhat.com> - 150.0.7871.114-1
 - Update to 150.0.7871.114
   * CVE-2026-15112: Use after free in Ozone

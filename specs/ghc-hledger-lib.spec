@@ -18,7 +18,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.43.2
 # can only be reset when subpkg bumped
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A library providing the core functionality of hledger
 
 License:        GPL-3.0-or-later
@@ -376,6 +376,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.43.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 1.43.2-23
 - https://hackage.haskell.org/package/hledger-lib-1.43.2/changelog
 - new encoding dep

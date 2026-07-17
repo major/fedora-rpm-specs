@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
@@ -128,6 +128,9 @@ popd
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Timothée Ravier <tim@siosm.fr> - 18.0.0-28
 - Remove KDE 4 Leonidas theme support
 - Replace KDE 4 macros with KF6 ones

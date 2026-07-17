@@ -1,6 +1,6 @@
 Name: cylindrix
 Version:  1.0
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: A 3 degrees of freedom combat game
 
 License: LGPL-2.0-only        
@@ -90,6 +90,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

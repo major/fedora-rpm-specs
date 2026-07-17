@@ -2,10 +2,9 @@
 
 Name:           cbios
 Version:        0.29a
-Release:        18%{?dist}
+Release:        20%{?dist}
 Summary:        A third party BIOS compatible with the MSX BIOS
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            http://cbios.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.zip
 BuildArch:      noarch
@@ -69,6 +68,12 @@ done
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.29a-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.29a-19
+- Fix SPDX license tag: 'LicenseRef-Callaway-BSD' -> 'BSD-2-Clause'
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.29a-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

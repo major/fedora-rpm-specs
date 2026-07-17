@@ -32,7 +32,7 @@ License:	%{shrink:
 		  AND MIT
 		  AND X11
 		}
-Release:	9%{?dist}
+Release:	10%{?dist}
 URL:		http://www.clisp.org/
 VCS:		git:%{forgeurl}.git
 Source0:	%{forgesource}
@@ -475,6 +475,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.95-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Jerry James <loganjerry@gmail.com> - 2.49.95-9
 - Update to latest git snapshot for bug fixes
 - Drop upstreamed siginterrupt patch

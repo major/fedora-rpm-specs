@@ -17,7 +17,7 @@
 
 Name:           btrfs-efi
 Version:        20230328^git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        EFI driver to enable Btrfs support
 
 License:        LGPL-2.1-or-later
@@ -88,6 +88,9 @@ tar -C src/zstd --strip-components=1 -xf %{S:2}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20230328^git20251111.a17333f-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 25 2026 Neal Gompa <ngompa@fedoraproject.org> - 20230328^git20251111.a17333f-1
 - Bump to new git snapshot
 - Refresh patch set

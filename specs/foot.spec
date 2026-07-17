@@ -4,7 +4,7 @@
 
 Name:           foot
 Version:        1.27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 # Main package license: MIT
@@ -148,6 +148,9 @@ desktop-file-validate \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 16 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.27.0-1
 - Update to 1.27.0 (#2447592)
 

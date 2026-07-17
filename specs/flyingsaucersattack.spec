@@ -1,10 +1,9 @@
 Name:           flyingsaucersattack
 Version:        1.20h
-Release:        26%{?dist}
+Release:        29%{?dist}
 Summary:        Shoot down the attacking UFOs and to save the city
 # Engine is MIT, resources are CC-BY-SA-4.0
-# Automatically converted from old format: MIT and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY-SA
+License:        MIT AND CC-BY-SA-4.0
 URL:            http://www.dennisbusch.de/fsa.php
 Source0:        http://www.dennisbusch.de/software/fsa/fuga120h.zip
 Source1:        %{name}.png
@@ -12,6 +11,7 @@ Source2:        %{name}.desktop
 Source3:        %{name}.appdata.xml
 # Note upstream is not interested in taking unix porting patches
 Patch0:         flyingsaucersattack-1.20h-unixify.patch
+Patch1:         flyingsaucersattack-1.20h-ldflags.patch
 BuildRequires:  gcc-c++
 BuildRequires:  allegro-devel dumb-devel desktop-file-utils libappstream-glib
 BuildRequires: make
@@ -34,6 +34,7 @@ in a game over.
 %prep
 %setup -q -n fuga120h
 %patch -P0 -p1 -b .unix
+%patch -P1 -p1 -b .ldflags
 for i in docs/*; do
   sed -i 's/\r//' $i;
 done
@@ -43,7 +44,8 @@ done
 # Note -Wno-format-security is to work around the custom translation system
 # All format strings passed to printf are actually const strings
 %make_build -C sources \
-  CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations -Wno-deprecated -Wno-write-strings -Wno-unused-result -Wno-format-security"
+  CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations -Wno-deprecated -Wno-write-strings -Wno-unused-result -Wno-format-security" \
+  LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -72,6 +74,16 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20h-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.20h-28
+- Fix annocheck hardening failures: pass '%{build_ldflags}' to the linker
+- Add 'flyingsaucersattack-1.20h-ldflags.patch' to separate library flags from 'LDFLAGS'
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.20h-27
+- Fix SPDX license expression: 'MIT AND CC-BY-SA-4.0'
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20h-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

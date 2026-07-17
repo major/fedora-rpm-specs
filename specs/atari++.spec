@@ -1,6 +1,6 @@
 Name:           atari++
 Version:        1.85
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Unix based emulator of the Atari 8-bit computers
 
 # Automatically converted from old format: TPL - review is highly recommended.
@@ -90,6 +90,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.85-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.85-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

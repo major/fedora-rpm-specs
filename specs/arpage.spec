@@ -2,7 +2,7 @@
 
 Name:		arpage
 Version:	0.3.3
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	A JACK MIDI arpeggiator
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -69,6 +69,9 @@ install -m 644 %{_builddir}/%{name}-%{version}/src/arpage.png %{buildroot}%{_dat
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

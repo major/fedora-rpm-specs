@@ -3,7 +3,7 @@ Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A non-linear least squares minimizer
 License:        BSD-3-Clause AND Apache-2.0
 
@@ -125,6 +125,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 17 2026 Luya Tshimbalan ga <luya@fedoraproject.org> - 2.2.0-12
 - Requires flexiblas-devel (rhbz#2448468)
 

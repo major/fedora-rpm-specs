@@ -1,6 +1,6 @@
 Name:           cava
 Version:        0.10.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Console-based Audio Visualizer for Alsa
 
 License:        MIT
@@ -42,6 +42,9 @@ rm -f %{buildroot}%{_libdir}/libiniparser.{a,la,so}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

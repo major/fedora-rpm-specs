@@ -6,7 +6,7 @@
 Summary: GNOME Monitor Configuration Tool
 Name: gnome-monitor-config
 Version: 0
-Release: 0.18%{?fgittag:.%{fgittag}}%{?dist}
+Release: 0.19%{?fgittag:.%{fgittag}}%{?dist}
 #Note that the license isn't included in source yet, see this pull request:
 #https://github.com/jadahl/gnome-monitor-config/pull/1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ install -m 755 */src/%{name} -D %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19.20230925.git04b854e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20230925.git04b854e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

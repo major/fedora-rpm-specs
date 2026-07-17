@@ -6,7 +6,7 @@ Summary: Side-view scrolling 2D shooter
 License: MIT OR GPL-2.0-only OR GPL-3.0-only
 
 Version: 1.0.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://djoffe.com/gnukem/
 Source0: https://github.com/davidjoffe/dave_gnukem/archive/%{version}/dave_gnukem-%{version}.tar.gz
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.djoff
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-3
 - Change license tag (GPL-2.0-or-later -> GPL-2.0-only or GPL-3.0-only)
 - Move license texts to -data subpackage so they're always installed

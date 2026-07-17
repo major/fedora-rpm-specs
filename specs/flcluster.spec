@@ -2,7 +2,7 @@
 
 Name:           flcluster
 Version:        1.0.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A management tool for accessing dxcluster nodes
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.0.7-13
 - Rebuild with fltk 1.4.
 

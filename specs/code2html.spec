@@ -1,6 +1,6 @@
 Name:           code2html
 Version:        0.9.1
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Convert source code to HTML
 License:        MIT
 URL:            http://www.palfrader.org/code/%{name}
@@ -30,6 +30,9 @@ install -p -m 644 %{name}.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

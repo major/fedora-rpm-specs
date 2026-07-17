@@ -1,6 +1,6 @@
 Name:           filebench
 Version:        1.4.9.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A model based file system workload generator
 
 License:        CDDL-1.1
@@ -49,6 +49,9 @@ install -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.4.9.1-28
 - Explicitly use C99 standard when compiling
 

@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or Utilities
 Version:	2.11.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -110,6 +110,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/coinutils_doxy.tag
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 14 2026 Antonio Trande <sagitter@fedoraproject.org> - 2.11.13-1
 - Release 2.11.13
 

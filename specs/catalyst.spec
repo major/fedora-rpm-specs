@@ -12,7 +12,7 @@
 
 Name:           catalyst
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        API specification for simulations to analyze and visualize data in situ
 
 %global         forgeurl https://gitlab.kitware.com/paraview/%{name}
@@ -418,6 +418,9 @@ done
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2.1.0-4
 - Rebuilt for fmt/spdlog
 

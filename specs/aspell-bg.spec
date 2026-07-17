@@ -4,7 +4,7 @@ Summary: Bulgarian dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 4.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: GPL-2.0-only
 URL: http://aspell.net/
 Source:   http://prdownloads.sourceforge.net/bgoffice/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -45,6 +45,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50:4.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50:4.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

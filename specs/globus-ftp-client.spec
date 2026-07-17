@@ -1,7 +1,7 @@
 Name:		globus-ftp-client
 %global _name %(tr - _ <<< %{name})
 Version:	9.9
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Client Library
 
 License:	Apache-2.0
@@ -143,6 +143,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9-3
 - Fix compiler and doxygen warnings
 

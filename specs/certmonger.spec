@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.21
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -277,6 +277,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.21-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.79.21-8
 - Rebuilt for openssl 4.0
 

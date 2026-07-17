@@ -7,7 +7,7 @@
 
 Name:               fcoe-utils
 Version:            1.0.34
-Release:            15.git%{shortcommit0}%{?dist}
+Release:            16.git%{shortcommit0}%{?dist}
 Summary:            Fibre Channel over Ethernet utilities
 License:            GPL-2.0-only
 URL:                http://www.open-fcoe.org
@@ -81,6 +81,9 @@ done
 %{_libexecdir}/fcoe/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.34-16.git5e78a2d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 25 2026 Chris Leech <cleech@redhat.com> - 1.0.34-15.git5e78a2d
 - rebase, previous FTBFS patches are now upstream
 

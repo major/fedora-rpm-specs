@@ -1,7 +1,7 @@
 Summary: Localizations for Gnulib
 Name:    gnulib-l10n
 Version: 20241231
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.1-or-later
 
 Url:     https://www.gnu.org/software/gnulib
@@ -41,6 +41,9 @@ The localizations for the GNU portability library.
 %license COPYING
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20241231-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 20241231-3
 - remove redundant build requires
 

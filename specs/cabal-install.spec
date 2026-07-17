@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        3.12.1.0
 # can only be reset when all subpkgs bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD-3-Clause
@@ -243,6 +243,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 24 2026 Jens Petersen <petersen@redhat.com> - 3.12.1.0-2
 - rebuild to quieten newer ghc version warnings (#9734)
 

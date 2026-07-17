@@ -13,7 +13,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.14.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Constraint manipulation
 
 License:        BSD-2-Clause
@@ -147,6 +147,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 0.14.3-7
 - https://hackage.haskell.org/package/constraints-0.14.3/changelog
 

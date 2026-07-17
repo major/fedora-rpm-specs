@@ -4,7 +4,7 @@
 
 Name:           dynamic-hibernate
 Version:        0.1.0%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automatic dynamic swapfile management on Btrfs for hibernation
 
 # No code uses CC0, just documentation and unused Cargo.lock
@@ -108,6 +108,9 @@ It also provides a notifier which alerts the user if and why hibernation fails.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20251209.aaf963c-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20251209.aaf963c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

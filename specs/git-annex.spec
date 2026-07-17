@@ -7,7 +7,7 @@
 
 Name:           git-annex
 Version:        10.20260601
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPL-3.0-or-later
@@ -254,6 +254,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.20260601-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Jens Petersen <petersen@redhat.com> - 10.20260601-1
 - https://hackage.haskell.org/package/git-annex-10.20260601/changelog
 

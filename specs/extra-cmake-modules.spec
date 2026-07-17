@@ -10,7 +10,7 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: 6.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # kde-modules/clang-format.cmake is MIT
 License: BSD-3-Clause AND BSD-2-Clause AND MIT
 URL:     https://api.kde.org/ecm/
@@ -88,6 +88,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Steve Cossette <farchord@gmail.com> - 6.28.0-1
 - 6.28.0
 

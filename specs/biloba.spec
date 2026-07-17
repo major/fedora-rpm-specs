@@ -1,6 +1,6 @@
 Name:           biloba
 Version:        0.9.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A tactical board game
 
 License:        GPL-2.0-or-later
@@ -91,6 +91,9 @@ desktop-file-install                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

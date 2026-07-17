@@ -3,7 +3,7 @@
 
 Name:          %{fontname}-fonts
 Version:       0
-Release:       0.21.20111222%{?dist}
+Release:       0.22.20111222%{?dist}
 Summary:       General purpose warm slab serif font
 # Automatically converted from old format: OFL - review is highly recommended.
 License:       LicenseRef-Callaway-OFL
@@ -48,6 +48,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %license *.txt
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22.20111222
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21.20111222
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

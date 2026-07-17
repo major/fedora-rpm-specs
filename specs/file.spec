@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.48
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -236,6 +236,9 @@ make -C tests check
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.48-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 03 2026 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.48-1
 - New upstream release 5.48; drop upstreamed patches
 - Fixes zipfile detection (rhbz#2427330)

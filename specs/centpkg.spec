@@ -4,7 +4,7 @@
 %endif
 
 Name:           centpkg
-Version:        0.10.4
+Version:        0.11.0
 Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
@@ -81,6 +81,15 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Troy Dawson <tdawson@redhat.com> - 0.11.0-1
+- Update the CentOS SIG urls to gitlab (dgilmore)
+- Fix centos version calculation for sig branches (olebaran)
+- Fix various centpkg-sig bugs (dgilmore)
+- Fix --user-config option (dward)
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.10.4-2
 - Rebuilt for Python 3.15
 

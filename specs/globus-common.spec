@@ -1,7 +1,7 @@
 Name:		globus-common
 %global _name %(tr - _ <<< %{name})
 Version:	18.15
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - Common Library
 
 License:	Apache-2.0
@@ -167,6 +167,9 @@ rm %{buildroot}%{_datadir}/globus-user-env.sh
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 18.15-3
 - Fix compiler and doxygen warnings
 

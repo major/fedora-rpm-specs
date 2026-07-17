@@ -3,7 +3,7 @@
 Summary: Use a single keyboard and mouse to control multiple computers
 Name: barrier
 Version: 2.4.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://github.com/debauchee/barrier/wiki
@@ -125,6 +125,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/barrier.desktop
 %{_mandir}/man1/barriers.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-14
 - Rebuilt for openssl 4.0
 

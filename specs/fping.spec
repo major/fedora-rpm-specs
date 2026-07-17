@@ -9,7 +9,7 @@
 
 Name: fping
 Version: 5.5%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD-4.3TAHOE
 URL: https://www.fping.org/
@@ -59,6 +59,9 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> - 5.5-1
 - Update to 5.5
 

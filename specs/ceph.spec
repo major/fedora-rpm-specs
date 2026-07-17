@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2745,6 +2745,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:20.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.2-2
 - Ceph 20.2.2 GA, f45-side-build-141772
  

@@ -3,7 +3,7 @@
 
 Name:		awesome
 Version:	4.3
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Highly configurable, framework window manager for X. Fast, light and extensible
 # common/buffer.[ch]: BSD
 License:	GPL-2.0-or-later AND LicenseRef-Callaway-BSD
@@ -130,6 +130,9 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/%{name}.desktop
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 4.3-24
 - rebuild
 

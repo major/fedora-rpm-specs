@@ -1,8 +1,8 @@
 %global modname crank
 
 Name:               python-crank
-Version:            0.8.1
-Release:            35%{?dist}
+Version:            0.9.0
+Release:            1%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -13,6 +13,7 @@ BuildArch:          noarch
 
 BuildRequires:      python3-devel
 BuildRequires:      python3-webob
+BuildRequires:      python3-pytest, python3-pytest-cov
 
 %global _description\
 Generalization of dispatch mechanism for use across frameworks.
@@ -45,18 +46,17 @@ This package provides the python3 version of this module
 %pyproject_save_files %{modname}
 
 
-# The current upstream tarball doesn't contain the tests
-#%check
-#%{__python3} setup.py test
-
-
 %check
-%pyproject_check_import
+%pytest
 
 
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Wed Jul 15 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.9.0-1
+- Update to upstream.
+- Enable check section again.
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.1-35
 - Rebuilt for Python 3.15
 

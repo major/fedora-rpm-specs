@@ -13,7 +13,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        14.1.0
+Version:        14.2.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 

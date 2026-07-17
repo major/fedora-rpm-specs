@@ -3,7 +3,7 @@ Summary: Terminal emulator mimicking a CRT display
 License: GPL-3.0-or-later
 
 Version: 2.0.0~beta2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global git_tag %(echo "%{version}" | tr '~' '-')
 
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0~beta2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.0~beta2-2
 - Fix FTI (rhbz#2485527)
 

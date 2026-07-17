@@ -2,7 +2,7 @@
 
 Name:           bcvk
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootable container VM toolkit
 
 # Apache-2.0 OR MIT
@@ -72,6 +72,9 @@ sed -i -e '/https:\/\//d' cargo-vendor.txt
 %{_mandir}/man*/*bcvk*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.17.0-2
 - Rebuilt for openssl 4.0
 

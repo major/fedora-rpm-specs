@@ -14,7 +14,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	0.2^%{posttag}
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 URL:		https://github.com/opsengine/cpulimit
 Source0:	https://github.com/opsengine/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -47,6 +47,9 @@ install -Dp -m 755 src/cpulimit %{buildroot}/%{_bindir}/cpulimit
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2^20151118gitf4d2682-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2^20151118gitf4d2682-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

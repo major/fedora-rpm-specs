@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.9
 # can only be reset when all subpkgs bumped
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A declarative terminal user interface library
 
 License:        BSD-3-Clause
@@ -211,6 +211,9 @@ echo %{_bindir}/vty-unix-build-width-table >> %{vtyunix}/ghc-vty-unix.files
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 2.9-13
 - https://hackage.haskell.org/package/brick-2.9/changelog
 

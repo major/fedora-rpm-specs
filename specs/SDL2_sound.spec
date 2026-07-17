@@ -6,7 +6,7 @@
 
 Name:           SDL2_sound
 Version:        2.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An abstract soundfile decoder library
 # src/dr_{flac,mp3}.h: Unlicense or MIT-0
 # src/stb_vorbis.h: MIT or Unlicense
@@ -135,6 +135,9 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0.6-1
 - update to 2.0.6
 - unbundle dr_flac and dr_mp3 and make it conditional

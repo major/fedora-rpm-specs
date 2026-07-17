@@ -1,8 +1,8 @@
 # https://rogerbinns.github.io/apsw/about.html#apsw-and-sqlite-versions
-%global sqlite_version 3.51.2
+%global sqlite_version 3.53.3
 
 Name:               python-apsw
-Version:            %{sqlite_version}.0
+Version:            %{sqlite_version}.1
 Release:            %autorelease
 Summary:            Another Python SQLite Wrapper
 License:            any-OSI

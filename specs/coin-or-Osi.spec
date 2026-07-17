@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	COIN-OR Open Solver Interface Library
 Version:	0.108.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -132,6 +132,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/osi_doxy.tag
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.108.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 14 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.108.12-1
 - Release 0.108.12
 

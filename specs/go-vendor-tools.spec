@@ -14,7 +14,7 @@
 Name:           go-vendor-tools
 Version:        0.12.0
 %forgemeta
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -145,6 +145,9 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 6 2026 Maxwell G <maxwell@gtmx.me> - 0.12.0-2
 - Rebuilt for Python 3.15
 

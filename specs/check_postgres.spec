@@ -1,7 +1,7 @@
 Summary:    PostgreSQL monitoring script
 Name:       check_postgres
 Version:    2.25.0
-Release:    16%{?dist}
+Release:    17%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 URL:        https://bucardo.org/check_postgres/
@@ -57,6 +57,9 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1p %{buildroot}%{_mandir}/man1/%{name}.pl
 %{_bindir}/%{name}.pl
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

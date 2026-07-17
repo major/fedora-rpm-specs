@@ -1,15 +1,13 @@
 #global candidate rc1
 
 Name:    tpm2-tools
-Version: 5.7
-Release: 6%{?candidate:.%{candidate}}%{?dist}
+Version: 5.8
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
 License: BSD-3-Clause
 URL:     https://github.com/tpm2-software/tpm2-tools
-Source0: https://github.com/tpm2-software/tpm2-tools/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
-
-Patch1: 0001-Use-ASN1-getters-instead-of-direct-struct-access.patch
+Source0: %{url}/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -57,6 +55,9 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Wed Jul 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.8-1
+- Update to 5.8
+
 * Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 5.7-6
 - OpenSSL 4 build fixes
 

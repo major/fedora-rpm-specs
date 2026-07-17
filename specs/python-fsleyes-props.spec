@@ -11,7 +11,7 @@ fsleyes-props is a library which is used by FSLeyes, and which allows you to:
   attributes of a python object.}
 
 Name:           python-fsleyes-props
-Version:        1.12.2
+Version:        1.13.0
 Release:        %autorelease
 Summary:        [wx]Python event programming framework
 

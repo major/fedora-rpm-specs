@@ -2,10 +2,9 @@
 
 Name:           scorched3d
 Version:        44
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Game based loosely on the classic DOS game Scorched Earth
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            http://www.scorched3d.co.uk/
 Source0:        http://downloads.sourceforge.net/%{name}/Scorched3D-%{version}-src.tar.gz
 Source1:        %{name}.desktop
@@ -152,6 +151,10 @@ EOF
 
 
 %changelog
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 44-43
+- Fix SPDX license tag: replace 'LicenseRef-Callaway-CC-BY-SA' with
+  'CC-BY-SA-3.0' based on upstream license text
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 44-42
 - rebuild
 

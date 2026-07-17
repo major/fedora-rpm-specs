@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1367,6 +1367,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 18 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-11
 - Replace outdated "fixes" for character sets and line endings
 - Include SVG files in the boost-doc subpackage

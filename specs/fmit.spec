@@ -1,7 +1,7 @@
 Summary:       Free Music Instrument Tuner
 Name:          fmit
 Version:       1.2.14
-Release:       14%{?dist}
+Release:       15%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://gillesdegottex.github.io/fmit/
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{_datadir}/%{name}/tr/*.ts
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

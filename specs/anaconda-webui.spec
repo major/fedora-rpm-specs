@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        74
-Release:        1%{?dist}
+Version:        75
+Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -129,6 +129,14 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 75-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Packit <hello@packit.dev> - 75-1
+- fix(storage): fix automated installations when boot drive is specified
+- fix(storage): fix manual partitioninig automated installations
+- fix(storage): fix empty error notifications when applyStorage fails
+
 * Mon Jul 13 2026 Packit <hello@packit.dev> - 74-1
 - Reconnect to active installation task after page reload
 - ks: Allow automated installations to proceed despite storage warnings

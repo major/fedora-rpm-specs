@@ -1,7 +1,7 @@
 Name:		gnome-phone-manager
 Summary:	Gnome Phone Manager
 Version: 	0.69
-Release: 	50%{?dist}
+Release: 	51%{?dist}
 License: 	GPL-2.0-or-later
 Source:		http://ftp.gnome.org/pub/GNOME/sources/gnome-phone-manager/%{version}/%{name}-%{version}.tar.xz
 #Using git clone plus patch from GNOME BZ 680927.
@@ -151,6 +151,9 @@ fi
 %{_datadir}/mission-control/profiles/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

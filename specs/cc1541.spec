@@ -5,7 +5,7 @@ CC=%{__cc} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" ENABLE_MAN=1
 
 Name:           cc1541
 Version:        4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tool for creating Commodore Floppy disk images in D64, G64, D71 or D81 format
 
 License:        MIT
@@ -47,6 +47,9 @@ using either SPEED DOS or DOLPHIN DOS BAM-formatting.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

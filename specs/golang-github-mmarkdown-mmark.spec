@@ -17,7 +17,7 @@ output).}
 %global godocs          FAQ.md README.md mmark.1.md Syntax.md 
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Powerful markdown processor in Go geared towards the IETF
 
 # Upstream license specification: BSD-2-Clause
@@ -70,6 +70,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 2.2.10-20
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

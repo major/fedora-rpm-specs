@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
 Version:        1.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.8-3
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Name:           astronomy-menus
 Version:        1.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Astronomy menu for the Desktop
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://fedoraproject.org/wiki/SIGs/Astronomy
@@ -61,6 +61,9 @@ make test
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

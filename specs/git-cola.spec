@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.18.2
+Version:        4.19.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -76,7 +76,7 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} %{makeopts} \
 
 
 %check
-%pytest test
+QT_QPA_PLATFORM=offscreen %pytest test
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-cola-folder-handler.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-cola.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-dag.desktop

@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1.5
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple ANSI terminal support
 
 License:        BSD-3-Clause
@@ -127,6 +127,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 1.1.5-11
 - https://hackage.haskell.org/package/ansi-terminal-1.1.5/changelog
 

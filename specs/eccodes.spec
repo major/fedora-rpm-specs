@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.47.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -478,6 +478,9 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 
 * Sat May 02 2026 Jos de Kloe <josdekloe@gmail.com> - 2.47.0-1
 - Update to 2.47.0

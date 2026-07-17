@@ -1,6 +1,6 @@
 Name:		HepMC
 Version:	2.06.11
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 License:	GPL-2.0-or-later
@@ -93,6 +93,9 @@ install -p -m 644 README %{buildroot}%{_pkgdocdir}
 %license COPYING
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.06.11-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.06.11-19
 - Don't run tests in parallel - undeclared inter-dependencies in Makefile
 

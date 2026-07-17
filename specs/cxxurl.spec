@@ -6,7 +6,7 @@
 
 Name:              cxxurl
 Version:           0.3^%{commit_date}git%{commit_short}
-Release:           1%{dist}
+Release:           2%{dist}
 Summary:           A simple C++ URL class
 License:           MIT
 URL:               https://github.com/chmike/CxxUrl
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 %{_includedir}/%{srcname}/string.hpp
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3^20260214gite81b86e-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 14 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.3^20260214gite81b86e-1
 - initial specfile
 

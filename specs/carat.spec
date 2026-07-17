@@ -10,7 +10,7 @@ Summary:        Crystallographic AlgoRithms And Tables
 
 %forgemeta
 
-Release:        10%{?dist}
+Release:        11%{?dist}
 # GPL-2.0-or-later: the project as a whole
 # MIT: functions/Datei/get_data_dir.c
 License:        GPL-2.0-or-later AND MIT
@@ -133,6 +133,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 1:2.1-10
 - Add MIT to License
 - Reduce number of TeXLive packages installed to build

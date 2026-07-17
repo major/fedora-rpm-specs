@@ -46,10 +46,15 @@
 
 # Needs ROCm HW so is only suitable for local testing
 %bcond_with check
+%if %{with check}
+%global build_test ON
+%else
+%global build_test OFF
+%endif
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -116,6 +121,7 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TESTING=%{build_test} \
     -DCMAKE_BUILD_TYPE=%{build_type}
 
 %cmake_build
@@ -123,17 +129,8 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
 # Assume you _just_ installed hipfort-devel as the tests assume hipfc is in the PATH
 %if %{with check}
 %check
-# Mixing rpm gfortran security flags with hipcc does not work
-# Override the normal rpm flags
-export CFLAGS=""
-export CXXFLAGS=""
-export FFLAGS=""
-export FCFLAGS=""
-export LDFLAGS=""
-# hipfc needs these set to find things
-export HIPFORT="%{pkg_prefix}"
-export ROCM_PATH="%{pkg_prefix}"
-%cmake_build -t all-tests-run
+export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
+%ctest -j1
 %endif
 
 %install
@@ -162,6 +159,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Wed Jul 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Fix check
+
 * Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix so version
 

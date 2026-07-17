@@ -18,7 +18,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.10.1
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Pattern language for improvised music
 
 License:        GPL-3.0-or-later
@@ -180,6 +180,9 @@ echo %{_bindir}/tidal-linktest >> %{tidallink}/ghc-tidal-link-devel.files
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 1.10.1-7
 - https://hackage.haskell.org/package/tidal-1.10.1/changelog
 

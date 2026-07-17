@@ -4,7 +4,7 @@
 
 Name:           angelscript
 Version:        2.38.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flexible cross-platform scripting library
 
 License:        zlib
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

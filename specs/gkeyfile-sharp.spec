@@ -7,7 +7,7 @@
 
 Name:           gkeyfile-sharp
 Version:        0.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        C# bindings for glib2's keyfile implementation
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -71,6 +71,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv %{buildroot}%{_prefix}/lib/pkgconfig/
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

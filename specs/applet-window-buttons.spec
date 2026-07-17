@@ -6,7 +6,7 @@
 
 Name:           applet-window-buttons
 Version:        0.14.0^%{gitdate}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plasma 6 applet to show window buttons in panels
 License:        GPL-2.0-or-later
 URL:            https://github.com/moodyhunter/applet-window-buttons6
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0^20250224.b114cf2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 26 2026 Alessandro Astone <ales.astone@gmail.com> - 0.14.0^20250224.b114cf2-1
 - New git snapshot
 - Add proposed patch for Plasma 6.6 compatibility

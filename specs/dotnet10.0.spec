@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.109
+%global upstream_tag v10.0.110
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.9
-%global aspnetcore_runtime_version 10.0.9
-%global sdk_version 10.0.109
+%global runtime_version 10.0.10
+%global aspnetcore_runtime_version 10.0.10
+%global sdk_version 10.0.110
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -77,7 +77,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        .NET %{dotnetver} Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -157,7 +157,11 @@ BuildRequires:  llvm-libunwind-devel
 BuildRequires:  lttng-ust-devel
 %endif
 BuildRequires:  make
+%if 0%{?fedora} >= 45
+BuildRequires:  openssl3-devel
+%else
 BuildRequires:  openssl-devel
+%endif
 BuildRequires:  python3
 %if ! %{use_bundled_rapidjson}
 BuildRequires:  rapidjson-devel
@@ -426,7 +430,11 @@ Requires:       dotnet-sdk-%{dotnetver}%{?_isa} >= %{sdk_rpm_version}-%{release}
 # -lbrotlidec -lz ...`.
 Requires:       brotli-devel%{?_isa}
 Requires:       clang%{?_isa}
+%if 0%{?fedora} >= 45
+Requires:       openssl3-devel%{?_isa}
+%else
 Requires:       openssl-devel%{?_isa}
+%endif
 Requires:       zlib-devel%{?_isa}
 
 %description -n dotnet-sdk-aot-%{dotnetver}
@@ -930,6 +938,12 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.110-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Omair Majid <omajid@redhat.com> - 10.0.110-1
+- Update to .NET SDK 10.0.110 and Runtime 10.0.10
+
 * Tue Jun 16 2026 Omair Majid <omajid@redhat.com> - 10.0.109-1
 - Update to .NET SDK 10.0.109 and Runtime 10.0.9
 

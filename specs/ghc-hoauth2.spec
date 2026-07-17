@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.14.3
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Haskell OAuth2 authentication client
 
 License:        MIT
@@ -192,6 +192,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 2.14.3-1
 - https://hackage.haskell.org/package/hoauth2-2.14.3/changelog
 - add binary-instances

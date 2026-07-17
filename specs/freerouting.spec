@@ -1,6 +1,6 @@
 Name:           freerouting
 Version:        1.3.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Circuit Board Routing Tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

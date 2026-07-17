@@ -1,16 +1,22 @@
 Name:           SAASound
-Version:        3.2
-Release:        42%{?dist}
+Version:        3.5.0
+Release:        2%{?dist}
 Summary:        Phillips SAA 1099 sound chip emulator library
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            http://simonowen.com/sam/saasound
-Source0:        http://simonowen.com/sam/saasound/%{name}-%{version}.tar.gz
-Patch0:         SAASound-3.2-fixweaksymbol.patch
-Patch1:         SAASound-3.2-configure-c99.patch
-Provides:       saasound = %{version}-%{release}
+# SAASound itself is BSD-3-Clause (LICENCE file)
+# Bundled minIni (config file parser, src/minIni/) is Apache-2.0
+License:        BSD-3-Clause AND Apache-2.0
+URL:            https://github.com/stripwax/SAASound
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+# Use GNUInstallDirs for proper lib64 install paths on Fedora
+Patch0:         SAASound-3.5.0-gnuinstalldirs.patch
+
+Provides:       saasound = %{version}-%{release}
+# minIni is a small INI file parser bundled in src/minIni/
+# No standalone Fedora package exists for minIni
+Provides:       bundled(minIni)
+
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -20,7 +26,7 @@ Phillips SAA 1099 sound chip emulator library
 
 %package devel
 Summary:        Development files for SAASound
-Requires:       SAASound = %{version}-%{release}
+Requires:       SAASound%{?_isa} = %{version}-%{release}
 Provides:       saasound-devel = %{version}-%{release}
 
 %description devel
@@ -32,30 +38,43 @@ Development files for SAASound
 
 
 %build
-%configure --disable-static
-make %{?_smp_mflags}
+%cmake
+%cmake_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
+%cmake_install
 
 
 %ldconfig_scriptlets
 
 
 %files
-%doc LICENCE README
-%{_libdir}/*.so.*
+%license LICENCE
+%doc README
+%{_libdir}/libSAASound.so.3{,.*}
 
 
 %files devel
-%{_libdir}/*.so
-%{_includedir}/*.h
+%{_libdir}/libSAASound.so
+%{_includedir}/SAASound.h
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 3.5.0-1
+- Rebase from 3.2 to 3.5.0
+- Build system migrated from autotools to CMake
+- Drop 'SAASound-3.2-fixweaksymbol.patch' (autotools-specific, no longer needed)
+- Drop 'SAASound-3.2-configure-c99.patch' (autotools-specific, no longer needed)
+- Add 'SAASound-3.5.0-gnuinstalldirs.patch' for proper library install paths
+- Correct SPDX license to 'BSD-3-Clause AND Apache-2.0'
+- Library soname changed from 'libSAASound-3.2.so.0' to 'libSAASound.so.3'
+- Use '%license' for LICENCE file
+- URL updated to GitHub repository
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

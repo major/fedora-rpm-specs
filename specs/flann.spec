@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD-3-Clause
@@ -146,6 +146,9 @@ popd
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.2-16
 - Rebuilt for Python 3.15
 

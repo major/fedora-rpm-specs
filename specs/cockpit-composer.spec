@@ -1,6 +1,6 @@
 Name:           cockpit-composer
 Version:        53
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -42,6 +42,9 @@ cp -a public/org.image-builder.cockpit-composer.metainfo.xml %{buildroot}/%{_dat
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 53-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 53-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           brotli
 Version:        1.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lossless compression algorithm
 
 License:        MIT
@@ -106,6 +106,9 @@ cd python
 %{_mandir}/man3/types.h.3brotli*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.0-4
 - Rebuilt for Python 3.15
 

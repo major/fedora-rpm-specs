@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.8
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Type level booleans
 
 License:        BSD-3-Clause
@@ -142,6 +142,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 0.1.8-7
 - Rebuild
 

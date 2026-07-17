@@ -24,6 +24,13 @@ Patch:          %{forgeurl}/pull/59.patch
 # And two more failing since `black >= 24.4.0`
 # https://github.com/python-lsp/python-lsp-black/issues/57
 Patch:          %{forgeurl}/pull/56.patch
+# Migrate test_entry_point from pkg_resources to importlib.metadata
+# https://github.com/python-lsp/python-lsp-black/pull/64
+# Fixes compatibility with setuptools≥82.
+Patch:          %{forgeurl}/pull/64.patch
+# Fix compatibility with black≥26.5
+# https://github.com/python-lsp/python-lsp-black/pull/65
+Patch:          %{forgeurl}/pull/65.patch
 
 BuildArch:      noarch
 
@@ -48,7 +55,7 @@ sed -i -r -e 's/(lsp-server)>=.*/\1/' setup.cfg
 sed -i -e 's/; python_version.*//' setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -x extras_require
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -1,6 +1,6 @@
 Name:    cdrkit
 Version: 1.1.11
-Release: 63%{?dist}
+Release: 64%{?dist}
 Summary: A collection of CD/DVD utilities
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -290,6 +290,9 @@ fi
 %{_includedir}/usal
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-64
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb  2 2026 Christoph Erhardt <fedora@sicherha.de> - 1.1.11-63
 - Set `cap_ipc_lock` capability for `wodim` executable (fedora#1583845)
 

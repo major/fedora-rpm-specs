@@ -19,6 +19,12 @@
 %bcond bootstrap 0
 %bcond tests     1
 
+# When enabled, rely on filesystem(unmerged-sbin-symlinks) file triggers to
+# create /usr/sbin symlinks instead of shipping them in the package. This
+# avoids file conflicts when installing on merged-sbin systems and eliminates
+# bootstrap ordering issues with the bin/sbin merge.
+%bcond sbin_compat 1
+
 # riscv64 has LTO disabled globally
 %bcond lto       %["%_arch" != "riscv64"]
 
@@ -349,8 +355,7 @@ Provides:       systemd-tmpfiles = %{version}-%{release}
 Conflicts:      systemd-standalone-shutdown
 Provides:       systemd-shutdown = %{version}-%{release}
 
-
-%if "%{_sbindir}" == "%{_bindir}"
+%if %{with sbin_compat} || "%{_sbindir}" == "%{_bindir}"
 # Compat symlinks for Requires in other packages.
 # We rely on filesystem to create the symlinks for us.
 Requires:       filesystem(unmerged-sbin-symlinks)
@@ -547,7 +552,7 @@ Provides:       systemd-repart = %{version}-%{release}
 Conflicts:      xorg-x11-drv-evdev < 2.11.0
 Conflicts:      xorg-x11-drv-libinput < 1.5.0
 
-%if "%{_sbindir}" == "%{_bindir}"
+%if %{with sbin_compat} || "%{_sbindir}" == "%{_bindir}"
 # Compat symlinks for Requires in other packages.
 # We rely on filesystem to create the symlinks for us.
 Requires:       filesystem(unmerged-sbin-symlinks)
@@ -1032,7 +1037,7 @@ sed -r 's|/system/|/user/|g' %{SOURCE16} >10-timeout-abort.conf.user
 %meson_install
 
 # udev links
-%if "%{_sbindir}" != "%{_bindir}"
+%if !%{with sbin_compat} && "%{_sbindir}" != "%{_bindir}"
 mkdir -p %{buildroot}/%{_sbindir}
 ln -sf ../bin/udevadm %{buildroot}%{_sbindir}/udevadm
 %endif
@@ -1181,7 +1186,7 @@ install -Dm0644 -t %{buildroot}%{_prefix}/lib/systemd/network/ %{SOURCE25}
 ln -s --relative %{buildroot}%{_bindir}/kernel-install %{buildroot}%{_sbindir}/installkernel
 %endif
 
-%if "%{_sbindir}" == "%{_bindir}"
+%if %{with sbin_compat} || "%{_sbindir}" == "%{_bindir}"
 # Systemd has the split-sbin option which is also used to select the directory
 # for alias symlinks. We need to keep split-sbin=true for now, to support
 # unmerged systems. Move the symlinks here instead.

@@ -2,7 +2,7 @@
 
 Name:           clustershell
 Version:        1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 License:        LGPL-2.1-or-later
@@ -118,6 +118,9 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Stephane Thiell <sthiell@stanford.edu> - 1.10-1
 - Update to 1.10
 - Update project URL to https://clustershell.github.io/clustershell/

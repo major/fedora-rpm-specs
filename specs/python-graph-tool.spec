@@ -115,6 +115,9 @@ Source:         https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+# We need this because the Python extensions’ filenames begin with “lib”.
+%global __provides_exclude_from ^%{python3_sitearch}/graph_tool/.*\\.so$
+
 BuildRequires:  make
 BuildRequires:  git-core
 BuildRequires:  autoconf

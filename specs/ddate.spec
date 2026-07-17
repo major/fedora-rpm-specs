@@ -1,6 +1,6 @@
 Name:       ddate   
 Version:    0.2.2
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    Convert Gregorian dates to Discordian dates
 License:    LicenseRef-Fedora-Public-Domain
 URL:        https://github.com/bo0ts/%{name}
@@ -34,6 +34,9 @@ This tool prints a date in the Discordian date format.
 %{_mandir}/man1/ddate.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

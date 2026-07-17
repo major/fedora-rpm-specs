@@ -6,7 +6,7 @@
 
 Name:           check-create-certificate
 Version:        0.5
-Release:        34.%{checkout}%{?dist}
+Release:        35.%{checkout}%{?dist}
 Summary:        A non-interactive script that creates an SSL certificate if it does not exist
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -35,6 +35,9 @@ install -Dpm 755 script/%{name} %{buildroot}%{_sbindir}/%{name}
 %doc COPYING
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-35.20140409gitd0971ba
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5-34.20140409gitd0971ba
 - Rebuilt for openssl 4.0
 

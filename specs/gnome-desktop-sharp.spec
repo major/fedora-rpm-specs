@@ -1,6 +1,6 @@
 Name:           gnome-desktop-sharp
 Version:        2.26.0
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        .NET language binding for mono
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -94,6 +94,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Maxwell G <maxwell@gtmx.me> - 2.26.0-55
 - Rebuild for new gnome-desktop4
 

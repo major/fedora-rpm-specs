@@ -1,6 +1,6 @@
 Name:       directory-maven-plugin
 Version:    1.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Establish locations for files in multi-module builds
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -61,6 +61,9 @@ sed -i 's/1.7/1.8/g' pom.xml
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

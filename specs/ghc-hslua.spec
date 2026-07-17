@@ -23,7 +23,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.3.1
 # can only be reset when all subpkgs bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Bindings to Lua, an embeddable scripting language
 
 License:        MIT
@@ -194,6 +194,9 @@ rm -r cbits/lua-5.*
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 2.3.1-6
 - update hslua deps
 

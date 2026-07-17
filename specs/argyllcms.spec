@@ -3,7 +3,7 @@
 
 Name: argyllcms
 Version: 3.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -162,6 +162,9 @@ mv %{buildroot}%{_bindir}/com.argyllcms.metainfo.xml %{buildroot}%{_metainfodir}
 %{_datadir}/color/argyll/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.5.0-2
 - Rebuilt for openssl 4.0
 

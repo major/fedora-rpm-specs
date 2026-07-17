@@ -1,6 +1,6 @@
 Name:			PerceptualDiff
 Version:		2.1
-Release:		16%{?dist}
+Release:		17%{?dist}
 Summary:		An image comparison utility
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ find . -name libpdiff.so -exec mv {} %{buildroot}%{_libdir}/libpdiff.so ';'
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Cristian Le <git@lecris.dev> - 2.1-16
 - Allow to build with CMake 4.0
 

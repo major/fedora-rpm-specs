@@ -16,7 +16,7 @@ DHCP Server for Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        DHCP Server for Go
 
 License:        MPL-2.0
@@ -48,6 +48,9 @@ echo 'golang(github.com/d2g/hardwareaddr)'
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.18
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

@@ -1,6 +1,6 @@
 Name:           ants
 Version:        1.4
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Guide the insects safely home before they drop of the cliff
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://www.allegro.cc/depot/Ants
@@ -69,6 +69,9 @@ install -p -m 644 %{SOURCE3} \
 %{_datadir}/applications/%{name}-level-editor.desktop
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

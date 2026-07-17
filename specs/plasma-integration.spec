@@ -8,7 +8,7 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
 Version: 6.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -75,6 +75,10 @@ Recommends:     plasma-workspace
 Requires:       qqc2-breeze-style%{?_isa}
 Requires:       kf6-qqc2-desktop-style%{?_isa}
 
+# The default fonts
+Requires:       font(notosans)
+Requires:       font(hack)
+
 %description
 %{summary}.
 
@@ -124,6 +128,9 @@ Requires:       qqc2-desktop-style%{?_isa}
 %endif
 
 %changelog
+* Wed Jul 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.7.3-2
+- Add dependencies for required fonts
+
 * Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
 - 6.7.3
 

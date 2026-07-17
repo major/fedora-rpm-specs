@@ -84,9 +84,9 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    2%{?dist}
+Release:    3%{?dist}
 %else
-Release:    6%{?dist}
+Release:    7%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -376,6 +376,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Pavel Simovec <psimovec@redhat.com> - 7.2.1-6
 - Fix license typo: NSCA -> NCSA
 

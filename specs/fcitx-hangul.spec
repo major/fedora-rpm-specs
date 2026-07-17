@@ -1,6 +1,6 @@
 Name:		fcitx-hangul
 Version:	0.3.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Hangul Engine for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -41,6 +41,9 @@ Provides Korean input method from libhangul.
 %{_datadir}/icons/hicolor/*/status/fcitx-hanja-inactive.png
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

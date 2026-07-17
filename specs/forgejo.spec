@@ -13,14 +13,14 @@
 %global __node_deps_path ^%{_bindir}/%{name}$
 
 Name:           forgejo
-Version:        15.0.3
+Version:        15.0.5
 Release:        %autorelease
 Summary:        A lightweight software forge
 
 # CC0-1.0 is normally not permissible for code in Fedora. Because the vendored Go package
 # github.com/zeebo/blake3 it applies to has been available in Fedora as golang-github-zeebo-blake3
 # since before the cutoff date 2022-08-01, the exception to use it also applies here.
-%global vendored_go_mod_licenses 0BSD AND AGPL-3.0-only AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND ICU AND ISC AND MIT AND MPL-2.0 AND (FTL OR GPL-2.0-or-later)
+%global vendored_go_mod_licenses 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND ICU AND ISC AND MIT AND MPL-2.0 AND (FTL OR GPL-2.0-or-later)
 
 # Determined using forgejo-node-get-licenses.py
 %global vendored_node_mod_licenses Apache-2.0 AND LGPL-3.0-or-later AND Unlicense AND PSF-2.0 AND (BSD-2-Clause OR MIT OR Apache-2.0) AND CC-BY-4.0 AND CC-BY-3.0 AND MIT-0 AND Apache-2.0 AND LGPL-3.0-only AND BSD-2-Clause AND LGPL-3.0-or-later AND (MIT OR Apache-2.0) AND Apache-2.0 AND LGPL-3.0-or-later AND MIT AND ISC AND BSD-3-Clause AND BlueOak-1.0.0 AND (MPL-2.0 OR Apache-2.0) AND MPL-2.0 AND 0BSD AND CC0-1.0 AND MIT AND (MIT AND CC-BY-3.0) AND (MIT OR CC0-1.0)

@@ -1,6 +1,6 @@
 Name: cvise
 Version: 2.11.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Super-parallel Python port of the C-Reduce
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -68,6 +68,9 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
 %{_datadir}/cvise
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

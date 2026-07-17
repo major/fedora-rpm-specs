@@ -2,7 +2,7 @@
 
 Name:			gnome-do
 Version:		0.95.3
-Release:		32%{?dist}
+Release:		33%{?dist}
 Summary:		Quick launch and search
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -132,6 +132,9 @@ fi
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

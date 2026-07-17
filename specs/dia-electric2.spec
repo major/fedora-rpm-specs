@@ -3,7 +3,7 @@
 
 Name:           dia-%{shapes}
 Version:        0.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Dia Digital IC logic shapes
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ cp -pr shapes %{buildroot}%{dia_datadir}
 %{dia_datadir}/shapes/%{shapes}/
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

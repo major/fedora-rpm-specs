@@ -1,6 +1,6 @@
 Name:           basez
 Version:        1.6.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Base 16/32/64 encode/decode data to standard output
 
 License:        GPL-3.0-or-later AND CC-BY-3.0-US AND BSD-2-Clause AND FSFAP
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{_datadir}/doc/%{name}/LICENSE
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           Carla
 Version:        2.5.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -227,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.10-5
 - Drop Carla-pipewire-bufsize-fix due (RHBZ#2457554)
 

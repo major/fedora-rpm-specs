@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -123,6 +123,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.2-7
 - Rebuilt for Python 3.15
 

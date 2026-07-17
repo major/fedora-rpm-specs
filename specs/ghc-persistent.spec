@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.17.1.0
 # can only be reset when all subpkgs bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Type-safe, multi-backend data serialization
 
 License:        MIT
@@ -202,6 +202,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 2.17.1.0-6
 - https://hackage.haskell.org/package/persistent-2.17.1.0/changelog
 - add replace-megaparsec dep

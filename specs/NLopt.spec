@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.11.0
 %global tag        v%{version}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -287,6 +287,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Benson Muite <fed500@fedoraproject.org> - 2.11.0-1
 - Update to latest release
 

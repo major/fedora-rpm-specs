@@ -1,7 +1,7 @@
 Name:           ALL
 Version:        0.9.4
 %global         sover 0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Load Balancing Library (ALL)
 
 # stb_arr.h is public domain
@@ -159,6 +159,9 @@ done
 %{_docdir}/%{name}/html
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Christoph Junghans <junghans@votca.org> - 0.9.4-1
 - Version bump to v0.9.4
 - Fixes: rhbz#2463476

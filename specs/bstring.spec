@@ -1,6 +1,6 @@
 Name:              bstring
 Version:           1.0.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A string abstraction data type for the C language
 License:           BSD-3-Clause OR GPL-2.0-only
 URL:               https://github.com/msteinert/bstring
@@ -97,6 +97,9 @@ sed -i "s|/ 'doc' /|/ 'help' / 'en' /|" doc/meson.build
 %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.0.3-1
 - initial specfile
 

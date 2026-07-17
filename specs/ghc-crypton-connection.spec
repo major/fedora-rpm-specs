@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.4.5
 # can only be reset when subpkg bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple and easy network connection API
 
 License:        BSD-3-Clause
@@ -155,6 +155,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 0.4.5-6
 - https://hackage.haskell.org/package/crypton-connection-0.4.5/changelog
 - add crypton-socks

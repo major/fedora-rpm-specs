@@ -7,7 +7,7 @@
 
 Name:           avrdude
 Version:        8.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
 License:        GPL-2.0-or-later AND GPL-3.0-only AND (WTFPL OR MIT)
@@ -169,6 +169,9 @@ install -p -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_mandir}/man1/elf2tag.1
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

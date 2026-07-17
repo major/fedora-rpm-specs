@@ -1,6 +1,6 @@
 Name:          dfu-util
 Version:       0.11
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       USB Device Firmware Upgrade tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -51,6 +51,9 @@ The DFU specification can be found at:
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

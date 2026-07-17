@@ -1,6 +1,6 @@
 Name:           fastfetch
 Version:        2.66.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -128,6 +128,9 @@ find src/logo/ascii -type d -empty -delete
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 12 2026 Jonathan Wright <jonathan@almalinux.org> - 2.66.0-1
 - update to 2.66.0 rhbz#2498974
 - enable lua support

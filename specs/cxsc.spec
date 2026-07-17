@@ -2,7 +2,7 @@
 
 Name:           cxsc
 Version:        %{gsub %upstreamver - .}
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        C++ library for Extended Scientific Computing
 
 %global majver  %{gsub %version ^(%d*)%..*$ %1}
@@ -209,6 +209,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Jerry James <loganjerry@gmail.com> - 2.5.4-33
 - Use lua macros instead of invoking external tools
 

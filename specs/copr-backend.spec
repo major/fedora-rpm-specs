@@ -6,7 +6,7 @@
 
 Name:       copr-backend
 Version:    2.13.hotfix.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -240,6 +240,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.hotfix.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.13.hotfix.1-2
 - Rebuilt for Python 3.15
 

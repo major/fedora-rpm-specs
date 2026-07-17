@@ -1,6 +1,6 @@
 Name:           ascii
 Version:        3.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
 BuildRequires:  xmlto
@@ -39,6 +39,9 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 07 2026 Didier Fabert <didier.fabert@gmail.com> - 3.32-1
 - Update to 3.32 version
 - Add rubygem-asciidoctor build requires

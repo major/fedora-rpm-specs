@@ -13,7 +13,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.4.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cross platform library for file change notification
 
 License:        BSD-3-Clause
@@ -182,6 +182,9 @@ rm %{buildroot}%{_bindir}/example
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jens Petersen <petersen@redhat.com> - 0.4.4.0-13
 - https://hackage.haskell.org/package/fsnotify-0.4.4.0/changelog
 - add string-interpolate

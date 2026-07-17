@@ -3,7 +3,7 @@
 
 Name:           flrig
 Version:        2.0.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Transceiver control program
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.0.10-3
 - Rebuild with fltk 1.4.
 

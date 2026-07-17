@@ -4,7 +4,7 @@
 
 Name:    dbus-glib
 Version: 0.112
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: GLib bindings for D-Bus
 
 # dbus/dbus-bash-completion-helper.c is GPL-2.0-or-later
@@ -90,6 +90,9 @@ chmod -x $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/dbus-bash-completion.sh
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

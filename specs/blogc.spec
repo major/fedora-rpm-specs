@@ -3,7 +3,7 @@
 %global commitdate   20240602
 Name:    blogc
 Version: 0.20.1^%{commitdate}.%{shortcommit}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # All code is BSD-3-Clause except src/common/utf8.c which is MIT
 License: BSD-3-Clause AND MIT
 Summary: A blog compiler
@@ -105,6 +105,9 @@ blogc-runserver is a simple HTTP server to test blogc websites.
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1^20240602.b1ae9c9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1^20240602.b1ae9c9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

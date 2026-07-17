@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -213,6 +213,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.8-6
 - use fedora pool.ntp.org vendor zone on eln
 

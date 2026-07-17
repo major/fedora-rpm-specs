@@ -1,6 +1,6 @@
 Name: abook
 Version: 0.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # GPL-2.0-or-later, except:
 # getopt.[ch]: LGPL-2.0-or-later
 # getopt1.c: LGPL-2.0-or-later
@@ -55,6 +55,9 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.6.2-1
 - update to 0.6.2 (resolves rhbz#2432808)
 - drop obsolete patches

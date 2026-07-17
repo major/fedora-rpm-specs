@@ -3,7 +3,7 @@
 
 Name: cros-guest-tools
 Version: 143
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Chromium OS integration meta package
 
 License: BSD-3-Clause
@@ -396,6 +396,9 @@ echo "fi" >> %{buildroot}%{_sysconfdir}/profile.d/sommelier.sh
 %doc README.md
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 143-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 143-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

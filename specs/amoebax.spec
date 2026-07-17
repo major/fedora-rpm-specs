@@ -1,6 +1,6 @@
 Name:           amoebax
 Version:        0.2.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Action-Puzzle Game
 # Automatically converted from old format: GPLv2+ and Free Art - review is highly recommended.
 License:        GPL-2.0-or-later AND LAL-1.3
@@ -109,6 +109,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/pixmaps/%{name}.svg \
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 12 2026 Filipe Rosset <filiperosset@gmail.com> - 0.2.1-35
 - Fix build with GCC 16 (FTBFS) (rhbz#2433855)
 

@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	20070829
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	N'Ko font by Michael Everson
 
 License:	OFL-1.1
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20070829-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20070829-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

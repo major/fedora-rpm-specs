@@ -1,6 +1,6 @@
 Name:           gkrellm-wifi
 Version:        0.9.12
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Wireless monitor plugin for the GNU Krell Monitors
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -53,6 +53,9 @@ install -m 755 %{name}.so $RPM_BUILD_ROOT%{_libdir}/gkrellm2/plugins
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 19 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.9.12-44
 - Fix FTBFS (rhbz#2340229, rhbz#2384632)
 

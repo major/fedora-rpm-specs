@@ -1,7 +1,7 @@
 Summary:        Library for generating random numbers using the RDRAND (read random) instruction
 Name:           RdRand
 Version:        2.1.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://github.com/jirka-h/%{name}
 Source0:        https://github.com/jirka-h/%{name}/archive/%{version}.tar.gz
@@ -62,6 +62,9 @@ rm -vf $RPM_BUILD_ROOT{%{_libdir}/librdrand.la,%{_libdir}/librdrand.a,%{_libdir}
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.6-7
 - Rebuilt for openssl 4.0
 

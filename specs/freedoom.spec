@@ -3,7 +3,7 @@
 Name:           freedoom
 
 Version:        0.13.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Doom styled first person shooter game
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ chmod 755 %{buildroot}/%{_bindir}/%{name}2
 %{_bindir}/%{name}2
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

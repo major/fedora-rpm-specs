@@ -1,6 +1,6 @@
 Name:           bcrypt
 Version:        1.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        File encryption utility
 
 License:        Zlib
@@ -50,6 +50,9 @@ Bruce Schneier in 1993.
 %{_bindir}/bcrypt
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

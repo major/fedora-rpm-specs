@@ -5,7 +5,7 @@
 
 Name:           DankMaterialShell
 Version:        1.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Desktop shell for Wayland compositors built on QuickShell
 
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-only AND ISC AND MIT AND MPL-2.0
@@ -146,6 +146,9 @@ pkill -USR1 -x dms || :
 %{_datadir}/icons/hicolor/scalable/apps/danklogo.svg
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4-2
 - Add missing procps-ng dep for posttrans scriptlet
 

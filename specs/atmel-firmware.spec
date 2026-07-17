@@ -2,7 +2,7 @@
 
 Name:           atmel-firmware
 Version:        1.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Firmware for Atmel at76c50x wireless network chips
 
 License:        LicenseRef-Fedora-Firmware
@@ -43,6 +43,9 @@ xz -C crc32 $RPM_BUILD_ROOT/lib/firmware/atmel*
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

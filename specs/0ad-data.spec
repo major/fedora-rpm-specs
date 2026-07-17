@@ -2,7 +2,7 @@
 
 Name:		0ad-data
 Version:	0.28.0
-Release:	2%{?dist}
+Release:	6%{?dist}
 Summary:	The Data Files for 0 AD
 License:	CC-BY-SA-3.0
 Url:		http://play0ad.com
@@ -48,6 +48,18 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-2
 - Bump EVR
 

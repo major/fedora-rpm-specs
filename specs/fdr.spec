@@ -2,7 +2,7 @@ Summary:	A daemon which enables ftrace probes and harvests the data
 Name:		fdr
 URL:		https://github.com/oracle/fdr.git
 Version:	1.3
-Release:	11%{?dist}
+Release:	12%{?dist}
 # Automatically converted from old format: UPL - review is highly recommended.
 License:	UPL-1.0
 Source0:	http://people.redhat.com/steved/fdr/%{name}-%{version}.tar.xz
@@ -58,6 +58,9 @@ install -m 644 fdrd.man %{buildroot}/%{_mandir}/man8/fdrd.8
 %license LICENSE
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

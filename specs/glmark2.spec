@@ -4,7 +4,7 @@
 
 Name:		glmark2
 Version:	2023.01^%{commitdate0}git%{shortcommit0}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Benchmark for OpenGL 2.0 and ES 2.0
 
 
@@ -227,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01^20250221gitcebbb63-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01^20250221gitcebbb63-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.74
+Version:	0.75
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
@@ -85,6 +85,11 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Wed Jul 15 2026 Paul Howarth <paul@city-fan.org> - 0.75-1
+- Update to 0.75
+  - Fixed slurp_utf8() leaking the file descriptor if a fatal "utf8" warning
+    (e.g. warnings FATAL => 'utf8') was thrown while reading an ill-formed file
+
 * Tue Jul 14 2026 Paul Howarth <paul@city-fan.org> - 0.74-1
 - Update to 0.74
   - Added slurp_utf8($filename), which reads an entire file and returns its

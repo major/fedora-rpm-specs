@@ -1,7 +1,7 @@
 Summary:	SSH tarpit that slowly sends an endless banner 
 Name:		endlessh
 Version:	1.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 
 License:	Unlicense
 URL:		https://github.com/skeeto/endlessh
@@ -60,6 +60,9 @@ install -m644 ./util/endlessh.service %{buildroot}/%{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

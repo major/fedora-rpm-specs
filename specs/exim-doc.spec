@@ -1,7 +1,7 @@
 Summary: Documentation for the exim mail transfer agent
 Name: exim-doc
 Version: 4.73
-Release: 30%{?dist}
+Release: 31%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 Url: http://www.exim.org/
@@ -38,6 +38,9 @@ find . -name CVS -type d | xargs rm -rf
 %doc faq html ps pdf config.samples
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.73-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.73-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           composer-generators
 Version:        0.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Use same license than RPM
 License:        GPL-2.0-or-later
 URL:            https://git.remirepo.net/cgit/rpms/composer-generators.git/
@@ -59,6 +59,9 @@ install -Dpm 644 composer.attr %{buildroot}%{_fileattrsdir}/composer.attr
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

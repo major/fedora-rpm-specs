@@ -1,6 +1,6 @@
 Name:		bowtie
 Version:	1.3.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	An ultrafast, memory-efficient short read aligner
 
 # bowite: Artistic 2.0
@@ -134,6 +134,9 @@ scripts/test/simple_tests.pl --bowtie=./bowtie --bowtie-build=./bowtie-build
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

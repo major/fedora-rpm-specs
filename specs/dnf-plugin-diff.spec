@@ -15,7 +15,7 @@ changes or source code (for interpreted languages).
 
 Name:           dnf-plugin-diff
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %_summary
 
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ Provides:       dnf5-command(diff) = %version
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Pavel Raiskup <praiskup@redhat.com> - 2.1-1
 - Fixed FTBFS for F44+
 

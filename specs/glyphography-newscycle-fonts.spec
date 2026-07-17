@@ -1,5 +1,5 @@
 Version:        0.5.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 URL:            https://launchpad.net/newscycle
 
 %global foundry           glyphography
@@ -46,6 +46,9 @@ rm -f *~ *.svg
 %fontfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

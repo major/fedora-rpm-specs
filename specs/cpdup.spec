@@ -1,6 +1,6 @@
 Name:           cpdup
 Version:        1.18
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Filesystem mirroring utility
 
 %if 0%{?el5}
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT -f %{SOURCE1}
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

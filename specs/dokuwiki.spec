@@ -5,7 +5,7 @@ License:	GPL-2.0-only
 %global		releasenum 2025-05-14b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 %global php_min_version 7.4
 
@@ -280,6 +280,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250514b-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-5
 - Add a patch for CVE-2026-26477
 

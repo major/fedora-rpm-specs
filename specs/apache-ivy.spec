@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -165,6 +165,9 @@ rm -rf %{buildroot}%{_javadocdir}/%{name}/legal
 %config(noreplace) %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 27 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.5.3-4
 - moved to jdk25, patched ivy to use pack200 from org.apache.commons.compress
 - spec cleanup and modernization

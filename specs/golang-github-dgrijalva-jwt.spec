@@ -21,7 +21,7 @@ Golang implementation of json web tokens (jwt).}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Golang implementation of json web tokens (jwt)
 
 License:        MIT
@@ -63,6 +63,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 3.2.0-25
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

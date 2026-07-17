@@ -1,7 +1,7 @@
 Summary: Text file format converters
 Name: dos2unix
 Version: 7.5.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: https://waterlan.home.xs4all.nl/dos2unix.html
 Source: https://waterlan.home.xs4all.nl/dos2unix/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Than Ngo <than@redhat.com> - 7.5.5-1
 - Fix rhbz#2435574, update to 7.5.5
 - Fix rhbz#2414009, none-zero exit code

@@ -15,7 +15,7 @@ Package Ansi is a small, fast library to create ANSI colored strings and codes.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.27%{?dist}
+Release:        0.28%{?dist}
 Summary:        Small, fast library to create ANSI colored strings and codes
 License:        MIT
 URL:            %{gourl}
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.27
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

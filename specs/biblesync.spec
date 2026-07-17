@@ -3,7 +3,7 @@
 
 Name:		biblesync
 Version:	2.1.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 License:	LicenseRef-Fedora-Public-Domain
@@ -70,6 +70,9 @@ popd
 %{_mandir}/man7/biblesync.7*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

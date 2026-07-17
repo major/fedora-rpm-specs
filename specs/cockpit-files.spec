@@ -1,6 +1,6 @@
 Name: cockpit-files
 Version: 42
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -85,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Packit <hello@packit.dev> - 42-1
 - Bug fixes and translation updates
 

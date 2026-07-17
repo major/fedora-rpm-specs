@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
 Version:   3.5.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 %forgemeta
 
@@ -47,6 +47,9 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 01 2026  Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 3.5.0-1
 - Updated to Unicode Version 18.0 for Bengali
 - Fixed missing open type rules

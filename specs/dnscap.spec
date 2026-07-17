@@ -1,7 +1,7 @@
 %global filesurl https://www.dns-oarc.net/files/%{name}
 Name:           dnscap
 Version:        2.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network capture utility designed specifically for DNS traffic
 License:        BSD-3-Clause AND ISC
 URL:            https://www.dns-oarc.net/tools/dnscap
@@ -61,6 +61,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %doc CONTRIBUTORS CHANGES README.md
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.2-2
 - Rebuilt for openssl 4.0
 

@@ -4,7 +4,7 @@
 
 Name:       aemu
 Version:    0.1.2^%{gitdate}git%{gitversion}
-Release:    9%{?dist}
+Release:    10%{?dist}
 
 Summary:    Android emulator library
 License:    Apache-2.0
@@ -70,6 +70,9 @@ AEMU development files, used by gfxstream to build against.
 
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2^20231031gitdd8b929c-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.1.2^20231031gitdd8b929c-9
 - Enable RISC-V
 

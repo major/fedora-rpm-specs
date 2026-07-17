@@ -55,7 +55,11 @@ install -D --preserve-timestamps --mode 0644 \
 
 
 %check -a
-%pytest --verbose
+# [self-tests] `test_cli_blueprints` fail with `click` `8.4.0`
+# https://github.com/pallets/quart/issues/465
+k="${k-}${k+ and }not test_cli_blueprints[cli_group2-args2]"
+
+%pytest -k "${k-}" --verbose
 
 
 %files -n python3-quart -f %{pyproject_files}

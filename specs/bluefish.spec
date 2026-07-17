@@ -1,6 +1,6 @@
 %global pkgver 2.4.1
 #global prerel rc1
-%global baserelease 2
+%global baserelease 3
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.4.1-2
 - Rebuilt for Python 3.15
 

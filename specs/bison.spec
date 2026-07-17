@@ -1,7 +1,7 @@
 Summary: GNU general-purpose parser generator
 Name: bison
 Version: 3.8.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 # An SPDX license string check done against bison-3.8.2 found strings
 # corresponding to the following licenses across the bison source tree:
@@ -134,6 +134,9 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 %{_libdir}/liby.a
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Robert Scheck <robert@fedoraproject.org> - 3.8.2-15
 - Remove TODO file, install COPYING file correctly in /usr/share/licenses
 

@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        26.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -62,6 +62,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:26.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.6.0-1
 - Update to 26.6.0 version (#2494862)
 
