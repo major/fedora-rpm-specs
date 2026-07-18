@@ -1,6 +1,6 @@
 Name:           perl-App-s2p
 Version:        1.004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert sed script to Perl program
 License:        CC-BY-SA-3.0
 URL:            https://metacpan.org/release/App-s2p
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.004-1
 - 1.004 bump (rhbz#2484844)
 

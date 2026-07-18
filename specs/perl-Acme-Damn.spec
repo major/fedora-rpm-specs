@@ -1,6 +1,6 @@
 Name:           perl-Acme-Damn
 Version:        0.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unbless Perl objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -49,6 +49,9 @@ able to do it.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.09-1
 - Update to 0.09
 - Drop upstreamed patch

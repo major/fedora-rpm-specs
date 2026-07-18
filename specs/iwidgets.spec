@@ -4,7 +4,7 @@
 
 Name:           iwidgets
 Version:        4.1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A set of useful widgets based on itcl and itk
 
 License:        MIT
@@ -74,6 +74,9 @@ rm %{buildroot}/%{_mandir}/mann/datefield.n
 %doc README doc/iwidgets.ps
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  1 2026 Patrick Monnerat <patrick@monnerat.net> 4.1.1-17
 - Patch "tcl9" for Tcl version 9 compatibility.
 

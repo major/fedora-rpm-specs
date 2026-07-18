@@ -1,6 +1,6 @@
 Name:           playerctl
 Version:        2.4.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Command-line MPRIS-compatible Media Player Controller
 
 License:        LGPL-3.0-or-later
@@ -104,6 +104,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

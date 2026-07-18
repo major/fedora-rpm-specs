@@ -1,6 +1,6 @@
 Name:           rcssserver
 Version:        19.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Robocup 2D Soccer Simulation Server
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sqlite
 Version:        5.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
 License:        MIT
 
@@ -50,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.4.1-1
 - OCaml 5.5.0 rebuild
 - Version 5.4.1

@@ -1,7 +1,7 @@
 Name:           john
 Summary:        John the Ripper password cracker
 Version:        1.9.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 %bcond_without  check
 
@@ -199,6 +199,9 @@ rm doc/INSTALL
 %{_libexecdir}/john/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

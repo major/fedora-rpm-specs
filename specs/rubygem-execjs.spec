@@ -4,7 +4,7 @@
 Summary: Run JavaScript code from Ruby
 Name: rubygem-%{gem_name}
 Version: 2.8.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: MIT
 URL: https://github.com/rails/execjs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -73,6 +73,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

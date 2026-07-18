@@ -1,6 +1,6 @@
 Name:           libbsd
 Version:        0.12.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library providing BSD-compatible functions for portability
 URL:            https://libbsd.freedesktop.org/
 # Breakdown in COPYING file of libbsd release tarball, see also:
@@ -85,6 +85,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_includedir}/bsd/sys/cdefs.h
 %{_libdir}/pkgconfig/%{name}-ctor.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

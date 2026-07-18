@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python module %srcname parser
 License:        MIT
 Url:            https://github.com/globocom/m3u8
@@ -57,6 +57,9 @@ Python module %srcname parser
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.0.0-9
 - Rebuilt for Python 3.15
 

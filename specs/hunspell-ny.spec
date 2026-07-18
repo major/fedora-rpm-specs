@@ -8,7 +8,7 @@ Name: hunspell-ny
 Summary: Chichewa hunspell dictionaries
 Epoch: 1
 Version: 0.01
-Release: 34%{?dist}
+Release: 35%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/4052/0/hunspell-chichewa-ny-dict-%{version}.oxt
 URL: https://extensions.openoffice.org/en/project/chichewa-spellcheking-dictionary.html
 License: GPL-3.0-or-later
@@ -46,6 +46,9 @@ cp -p dictionaries/ny_MW.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/ny_MW.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.01-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 1:0.01-34
 - Remove unnecessary BuildRequires: hunspell-devel
 

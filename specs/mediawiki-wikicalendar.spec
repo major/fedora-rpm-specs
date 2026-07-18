@@ -1,6 +1,6 @@
 Name:           mediawiki-wikicalendar
 Version:        1.16
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Simple calendar extension for mediawiki
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -37,6 +37,9 @@ install -cpm 644 calendar/*.php $RPM_BUILD_ROOT%{_datadir}/mediawiki/extensions/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

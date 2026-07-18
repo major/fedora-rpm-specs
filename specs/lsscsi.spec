@@ -1,7 +1,7 @@
 Summary:        List SCSI devices (or hosts) and associated information
 Name:           lsscsi
 Version:        0.32
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        GPL-2.0-or-later
 # official git repository: https://github.com/doug-gilbert/lsscsi
 Source0:        http://sg.danny.cz/scsi/%{name}-%{version}.tgz
@@ -52,6 +52,9 @@ Author:
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 20 2026 Paul Evans <pevans@redhat.com> - 0.32.16
 - lsscsi: Fixes for SBP (Firewire) host in transport_h_init() (RHEL-48228)
 - lsscsi: Change default output trailing space after each device entry (RHEL-70371)

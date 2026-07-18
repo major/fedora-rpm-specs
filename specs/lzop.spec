@@ -1,7 +1,7 @@
 Summary:        Real-time file compressor
 Name:           lzop
 Version:        1.04
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.lzop.org/
 Source0:        https://www.lzop.org/download/%{name}-%{version}.tar.gz
@@ -35,6 +35,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_mandir}/man?/%{name}.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

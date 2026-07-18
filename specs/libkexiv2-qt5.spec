@@ -1,7 +1,7 @@
 Name:    libkexiv2-qt5
 Summary: A wrapper around Exiv2 library
 Version: 25.08.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/libkexiv2
@@ -55,6 +55,9 @@ Provides:  kf5-libkexiv2-devel = %{version}-%{release}
 %{_kf5_libdir}/cmake/KF5KExiv2/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.08.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.08.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

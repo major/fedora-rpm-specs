@@ -5,7 +5,7 @@
 
 Name:           qcom-firmware-extract
 Version:        17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Script to extract Qualcomm firmware from Windows partition
 
 License:        GPL-2.0-or-later
@@ -58,6 +58,9 @@ cp -p %{name}.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 17-2
 - Properly install manpage under /usr/share/man/man8/
 

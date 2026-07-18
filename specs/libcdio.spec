@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 2.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 # include/cdio/ecma_167.h and lib/driver/netbsd.c and lib/udf/udf_fs.c are BSD-2-Clause
 # src/getopt* are LGPL-2.1-or-later
@@ -122,6 +122,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 22 2026 Adrian Reber <adrian@lisas.de> - 2.3.0-1
 - updated to 2.3.0 (#2336514)
 

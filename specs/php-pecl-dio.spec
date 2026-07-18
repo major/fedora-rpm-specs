@@ -26,7 +26,7 @@ Summary:        Direct I/O functions
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        0.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -116,6 +116,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 0.3.0-10
 - drop pear/pecl dependency
 - sources from github

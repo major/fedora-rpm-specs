@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 19.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A simpler alternative to Regular Expressions
 License: MIT
 URL: https://github.com/cucumber/cucumber-expressions
@@ -70,6 +70,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 10 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 19.0.1-1
 - Update to 19.0.1 (close RHBZ#2064184)
 

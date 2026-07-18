@@ -1,6 +1,6 @@
 Name:           perl-Filter-signatures
 Version:        0.19
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Very simplistic signatures for Perl < 5.20
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Filter-signatures/
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Filter::signatures*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

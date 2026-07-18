@@ -2,7 +2,7 @@
 
 Name:           mimalloc
 Version:        2.2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
 License:        MIT
@@ -62,6 +62,9 @@ rm -rf bin
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

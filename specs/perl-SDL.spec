@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -235,6 +235,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 2.548-34
 - Skip 't/core_palette.t' palette tests when 'sdl12-compat' does not provide a palette (rhbz#2464853)
 

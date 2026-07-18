@@ -1,7 +1,7 @@
 Summary: Shared memory allocation library
 Name: mm
 Version: 1.4.2
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
 License: LicenseRef-Callaway-BSD-with-advertising
 Source0: ftp://ftp.ossp.org/pkg/lib/mm/mm-%{version}.tar.gz
@@ -72,6 +72,9 @@ sed -i -e 's#^mm_libdir=.*#mm_libdir=#; s# -L$mm_libdir##; s# -m[36][24]##' %{bu
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

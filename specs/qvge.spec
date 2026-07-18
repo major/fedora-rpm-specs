@@ -1,6 +1,6 @@
 Name:		qvge
 Version:	0.6.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 # Automatically converted from old format: MIT and LGPLv3 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND LGPL-3.0-only AND LicenseRef-Callaway-BSD
 Summary:	Graph editor
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

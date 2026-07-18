@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Kenneth Reitz's krTheme for Sphinx
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{python3_sitelib}/sphinx_kr_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.2.1-25
 - Add build and runtime requires on python3-pkg-resources, setuptools 82 dropped pkg_resources
 - salimma: gate the requirement to Python >= 3.15, drop obsolete conditional py_provides

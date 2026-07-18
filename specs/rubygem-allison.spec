@@ -3,7 +3,7 @@
 Summary:	A modern, pretty RDoc template
 Name:		rubygem-%{gem_name}
 Version:	2.0.3
-Release:	35%{?dist}
+Release:	36%{?dist}
 # SPDX confirmed
 License:	AFL-3.0
 URL:		http://github.com/fauna/allison/tree/master
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{gem_instdir}/%{gem_name}.gemspec
 %{gem_docdir}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

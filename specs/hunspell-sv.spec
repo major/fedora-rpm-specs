@@ -6,7 +6,7 @@
 Name: hunspell-sv
 Summary: Swedish hunspell dictionaries
 Version: 2.42
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://extensions.libreoffice.org/assets/downloads/z/ooo-swedish-dict-2-42.oxt
 URL: https://extensions.libreoffice.org/en/extensions/show/swedish-spelling-dictionary-den-stora-svenska-ordlistan
 License: LGPL-3.0-only
@@ -35,6 +35,9 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

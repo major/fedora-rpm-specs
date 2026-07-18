@@ -3,7 +3,7 @@
 %global	mainver	3.13.7
 %undefine	prever
 
-%global	baserelease	1
+%global	baserelease	2
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -110,6 +110,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.7-1
 - 3.13.7
 

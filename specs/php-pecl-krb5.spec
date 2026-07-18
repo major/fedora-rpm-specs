@@ -20,7 +20,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        Kerberos authentification extension
 License:        MIT
 Version:        1.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -128,6 +128,9 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr  2 2026 Remi Collet <remi@remirepo.net> - 1.2.4-3
 - drop pear/pecl dependency
 - sources from github

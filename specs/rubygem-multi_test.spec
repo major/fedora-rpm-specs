@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.1.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Wafter-thin gem to disable autorun of various testing libraries
 License: MIT
 URL: http://cukes.info
@@ -86,6 +86,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

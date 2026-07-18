@@ -8,7 +8,7 @@
 Name:           ntfs-3g
 Epoch:          2
 Version:        2026.2.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Linux NTFS userspace driver
 License:        GPL-2.0-or-later
 URL:            https://github.com/tuxera/ntfs-3g
@@ -195,6 +195,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2026.2.25-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun  8 2026 Tom Callaway <spot@fedoraproject.org> - 2:2026.2.25-2
 - make symlink to ntfs-3g-mount (bz2486080)
 

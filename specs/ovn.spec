@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 26.03.1
-Release: 52%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 53%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -456,6 +456,9 @@ fi
 %{_unitdir}/ovn-br-db.service
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.03.1-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Nicholas Hubbard <nhubbard@redhat.com> - 26.03.1-52
 - Configure OVN with --with-version-suffix=-%{release} so OVN binaries
   report the full RPM version-release string.

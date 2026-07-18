@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-yojson
 Version:        3.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -114,6 +114,9 @@ files for developing applications that use %{name}-five.
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 3.0.0-11
 - OCaml 5.5.0 rebuild
 

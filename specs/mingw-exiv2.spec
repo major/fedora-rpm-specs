@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.28.8
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
 BuildArch:     noarch
@@ -106,6 +106,9 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 0.28.8-2
 - Rebuild (mingw-gettext)
 

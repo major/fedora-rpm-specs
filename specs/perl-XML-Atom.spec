@@ -1,6 +1,6 @@
 Name:           perl-XML-Atom
 Version:        0.43
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Atom feed and API implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -93,6 +93,9 @@ handler or as part of a CGI program.
 %{_mandir}/man3/XML::Atom::Server.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

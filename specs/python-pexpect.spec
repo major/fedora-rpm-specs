@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -110,6 +110,9 @@ ignore="${ignore-} --ignore=tests/test_performance.py"
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.9.0-18
 - Suppress DeprecationWarning for os.forkpty() on Python 3.15+
 - Fixes: rhbz#2458644

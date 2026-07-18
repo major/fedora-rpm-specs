@@ -10,7 +10,7 @@
 Name:    liblastfm
 Summary: Libraries to integrate Last.fm services
 Version: 1.1.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://github.com/drfiemost/liblastfm
@@ -178,6 +178,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

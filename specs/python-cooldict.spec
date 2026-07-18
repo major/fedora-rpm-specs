@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.04
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Some useful dict-like structures
 
 License:        BSD-2-Clause
@@ -46,6 +46,9 @@ sed -i 's|collections.MutableMapping|collections.abc.MutableMapping|g' cooldict.
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.04-27
 - Rebuilt for Python 3.15
 

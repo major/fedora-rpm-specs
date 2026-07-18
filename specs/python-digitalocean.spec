@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ This is the Python 3 version of the package.
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.17.0-21
 - Rebuilt for Python 3.15
 

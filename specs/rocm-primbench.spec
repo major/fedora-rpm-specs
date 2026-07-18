@@ -30,7 +30,7 @@
 
 Name:           rocm-primbench
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A single-header HIP benchmarking library
 # No toplevel license file
 # https://github.com/ROCm/rocm-libraries/issues/4580
@@ -87,6 +87,9 @@ install -D -m 644 primbench.hpp %{buildroot}%{_includedir}/primbench.hpp
 %{_includedir}/primbench.hpp
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.13.0-1
 - Update to 7.13
 

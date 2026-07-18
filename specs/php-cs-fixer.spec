@@ -12,7 +12,7 @@
 
 Name:           php-cs-fixer
 Version:        3.95.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP Coding Standards Fixer
 
 # see bundled list below, SPDX
@@ -99,6 +99,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.95.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Remi Collet <remi@remirepo.net> - 3.95.15-1
 - update to 3.95.15
 

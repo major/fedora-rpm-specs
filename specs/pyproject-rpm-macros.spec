@@ -15,7 +15,7 @@ License:        MIT
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
 Version:        1.23.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Macro files
 Source:         macros.pyproject
@@ -179,6 +179,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 18 2026 Miro Hrončok <mhroncok@redhat.com> - 1.23.0-1
 - %%pyproject_save_files: Implement support for multi-package specfiles
 

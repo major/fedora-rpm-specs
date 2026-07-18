@@ -7,7 +7,7 @@ License: MIT
 %global git_sha %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 1.1.0^%{git_date}git%{git_sha}
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: http://zserge.com/jsmn.html
 Source0: https://github.com/zserge/jsmn/archive/%{git_commit}/jsmn-%{git_commit}.tar.gz
@@ -71,6 +71,9 @@ install -m 644 -p jsmn.h %{buildroot}%{_includedir}/%{name}/%{name}.h
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^20211014git25647e6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^20211014git25647e6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

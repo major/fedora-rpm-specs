@@ -1,6 +1,6 @@
 Name:           libjwt
 Version:        1.12.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A Javascript Web Token library in C
 
 License:        MPL-2.0
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libjwt.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.12.1-22
 - Rebuilt for openssl 4.0
 

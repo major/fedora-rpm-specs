@@ -1,6 +1,6 @@
 Name:           openelp
 Version:        0.9.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Open Source EchoLink Proxy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -115,6 +115,9 @@ install -m0644 -D openelp.sysusers.conf %{buildroot}%{_sysusersdir}/openelp.conf
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.3-8
 - Rebuilt for openssl 4.0
 

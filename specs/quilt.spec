@@ -3,7 +3,7 @@
 
 Name:           quilt
 Version:        0.69
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scripts for working with series of patches
 
 License:        GPL-2.0-only
@@ -77,6 +77,9 @@ rm -rf %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple data validation library
 
 License:        MIT
@@ -49,6 +49,9 @@ py.test-%{python3_version} -v
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.8-3
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 99.0
+Version: 100.0
 Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
@@ -47,6 +47,8 @@ Requires: libmatroska%{_isa} >= 1.7.1
 Provides: bundled(avilib) = 0.6.10
 # https://www.bunkus.org/videotools/librmff/index.html LGPLv2+
 Provides: bundled(librmff) = 0.6.0
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description
 Mkvtoolnix is a set of utilities to mux and demux audio, video and subtitle
@@ -125,7 +127,7 @@ drake tests:run_unit
 %{_mandir}/man1/mkvtoolnix-gui.1*
 %{_datadir}/applications/org.bunkus.mkvtoolnix-gui.desktop
 %{_metainfodir}/org.bunkus.mkvtoolnix-gui.appdata.xml
-%{_datadir}/icons/hicolor/*/apps/*.png
+%{_datadir}/icons/hicolor/*/apps/*.svg
 %{_datadir}/mime/packages/org.bunkus.mkvtoolnix-gui.xml
 %{_datadir}/mkvtoolnix
 

@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Role-WarnOnConflict
 Version:        0.01
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Warn if classes override role methods without excluding them
 License:        Artistic-2.0
 URL:            http://cpan.metacpan.org/dist/MooseX-Role-WarnOnConflict/
@@ -58,6 +58,9 @@ resolution.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name: hunspell-mr
 Summary: Marathi hunspell dictionaries
 Version: 15.02webext
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source: https://addons.mozilla.org/firefox/downloads/file/4592209/marathi_dictionary-15.02webext.xpi
 URL: https://addons.mozilla.org/en-US/firefox/addon/marathi-dictionary/
@@ -36,6 +36,9 @@ cp -p dictionaries/mr-IN.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mr_IN.a
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:15.02webext-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:15.02webext-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

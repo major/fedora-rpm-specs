@@ -1,6 +1,6 @@
 Name:             rush
 Version:          2.4
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          GNU Restricted User Shell
 # Main code and man pages under GPL-3.0-or-later
 # Documentation under GFDL1.1-or-later AND GFDL-1.3-or-later
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_infodir}/dir
 %{_infodir}/rush.info*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

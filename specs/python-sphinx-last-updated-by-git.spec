@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Get the "last updated" time for each Sphinx page from Git
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ other dependencies.
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.2-22
 - Rebuilt for Python 3.15
 

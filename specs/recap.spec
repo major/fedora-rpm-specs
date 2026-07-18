@@ -6,7 +6,7 @@
 
 Name: recap
 Version: 2.1.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Generates reports of various system information
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -127,6 +127,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb  5 2026 Tony Garcia <tonysk8@gmx.net> - 2.1.0-22
 - Switch to /usr/bin on Fedora 42+
 

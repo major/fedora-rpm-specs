@@ -25,7 +25,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        Wrapper for FANN Library
 License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        15%{?dist}
+Release:        16%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -112,6 +112,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 25 2026 Remi Collet <remi@remirepo.net> - 1.2.0-15
 - drop pear/pecl dependency
 - sources from github

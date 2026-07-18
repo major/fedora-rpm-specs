@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    3.2.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Encoder/decoder for simple GIS features
 
 License:    LicenseRef-Callaway-BSD
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %license LICENSE.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.2.0-5
 - Rebuilt for Python 3.15
 

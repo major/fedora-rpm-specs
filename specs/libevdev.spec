@@ -1,6 +1,6 @@
 Name:           libevdev
 Version:        1.13.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kernel Evdev Device Wrapper Library
 
 # SPDX
@@ -66,6 +66,9 @@ Utilities to handle and/or debug evdev devices.
 %{_mandir}/man1/mouse-dpi-tool.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

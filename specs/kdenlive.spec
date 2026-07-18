@@ -3,7 +3,7 @@
 Name:    kdenlive
 Summary: Non-linear video editor
 Version: 26.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
@@ -136,6 +136,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

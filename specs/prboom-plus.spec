@@ -1,6 +1,6 @@
 Name:    prboom-plus
 Version: 2.6.66
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Free enhanced DOOM engine
 URL:     https://github.com/coelckers/prboom-plus/tags
 License: BSD-3-Clause AND MIT AND LGPL-2.0-or-later
@@ -70,6 +70,9 @@ install -Dpm 644 ICONS/%{name}.bash %{buildroot}%{_datadir}/bash-completion/comp
 %{_datadir}/bash-completion/completions/%{name}.bash
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.66-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.66-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

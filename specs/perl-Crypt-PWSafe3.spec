@@ -7,7 +7,7 @@
 
 Name:           perl-Crypt-PWSafe3
 Version:        1.23%{?snapshot:~%{commitdate}git%{shortcommit}}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Read and write Passwordsafe v3 files
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Crypt-PWSafe3
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23~20220227git002b0f0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23~20220227git002b0f0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

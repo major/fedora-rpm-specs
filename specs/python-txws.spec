@@ -11,7 +11,7 @@
 
 Name:             python-%{pkgname}
 Version:          0.9.1
-Release:          42%{?dist}
+Release:          43%{?dist}
 Summary:          Twisted WebSockets wrapper
 
 License:          MIT
@@ -68,6 +68,9 @@ PYTHONPATH=$(pwd) trial-3 tests
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.1-42
 - Rebuilt for Python 3.15
 

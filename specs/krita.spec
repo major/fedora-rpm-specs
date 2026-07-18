@@ -8,7 +8,7 @@
 
 Name:           krita
 Version:        6.0.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -234,6 +234,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 17 2026 Than Ngo <than@redhat.com> - 6.0.2.1-1
 - Fix rhbz#2481429, Update to 6.0.2.1
 - Fix rhbz#2476570, CVE-2026-42144: integer overflow in PNM size check bypasses memory guard

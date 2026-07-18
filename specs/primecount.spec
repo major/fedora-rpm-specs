@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.5
-Release:        4%{?dist}
+Version:        8.6
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -124,6 +124,16 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Thu Jul 16 2026 Kim Walisch <walki@fedoraproject.org> - 8.6-1
+- count_simd.hpp: Prevent loop unrolling to reduce branch mispredictions
+- Sieve.cpp: New sieving algorithm for small primes
+- Sieve_count_simd.hpp: Fix undefined behavior
+- Sieve.hpp: Use Vector<uint64_t> sieve to fix undefined behavior
+- Move the sieve source files into the new src/sieve directory
+- Fix LLVM/Clang -Wunused-template warning
+- Improve ARM SVE runtime dispatch
+- multiarch_arm_sve.cmake: Update the ARM SVE compiler support check to match
+
 * Tue May 19 2026 Jerry James  <loganjerry@gmail.com> - 8.5-4
 - Stop building for 32-bit x86
 - Remove obsolete ldconfig_scriptlets macro

@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -43,6 +43,10 @@ Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 # this tarball contains documentation used to generate help docs
 Source1:       %{url}/releases/download/v%{version}/vendor-docs-%{version}.tar.gz
+
+# Update PyO3 to 0.29: fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195.
+# https://github.com/ctc-oss/fapolicy-analyzer/pull/1092
+Patch:         %{url}/pull/1092.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -109,7 +113,7 @@ Requires:      webkit2gtk4.1
 GUI Tools to assist with the configuration and management of fapolicyd.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 %cargo_prep
 
 %if %{without cli}
@@ -208,6 +212,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Thu Jul 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-5
+- Update PyO3 to 0.29: fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

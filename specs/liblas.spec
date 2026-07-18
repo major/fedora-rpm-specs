@@ -3,7 +3,7 @@
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.32%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.33%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD-3-Clause AND BSL-1.0
@@ -106,6 +106,9 @@ libLAS utility applications.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-0.33.git0839c6c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.32.git0839c6c
 - Update to git 0839c6c
 

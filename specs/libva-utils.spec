@@ -2,7 +2,7 @@
 
 Name:		libva-utils
 Version:	2.24.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools for VAAPI (including vainfo)
 License:	MIT AND BSD-3-Clause
 URL:		https://github.com/intel/libva-utils
@@ -75,6 +75,9 @@ libva support is available on a system.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.24.0-1
 - Update to 2.24.0
 

@@ -8,7 +8,7 @@ This package contains the MinGW Windows cross compiled graphene library.
 
 Name:           mingw-graphene
 Version:        1.10.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Thin layer of types for graphic libraries
 
 License:        MIT
@@ -86,6 +86,9 @@ rm -rf %{buildroot}%{mingw64_libexecdir}/installed-tests/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

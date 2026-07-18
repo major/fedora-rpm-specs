@@ -1,6 +1,6 @@
 Name:           php-feedcreator
 Version:        1.7.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Create RSS feeds
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -39,6 +39,9 @@ cp -a feedcreator.class.php $RPM_BUILD_ROOT%{_datadir}/php/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

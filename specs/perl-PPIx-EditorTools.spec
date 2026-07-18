@@ -1,6 +1,6 @@
 Name:           perl-PPIx-EditorTools
 Version:        0.21
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Utility methods and base class for manipulating Perl via PPI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-EditorTools
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-26
 - Adapt to PPI 1.286 (check for defined code before passing to PPI::Document->new)
 

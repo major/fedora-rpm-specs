@@ -4,7 +4,7 @@
 Summary: Library for working with files using the mp4 container format
 Name: libmp4v2
 Version: 2.1.0
-Release: 0.35%{gver}%{?dist}
+Release: 0.36%{gver}%{?dist}
 # Automatically converted from old format: MPLv1.1 - review is highly recommended.
 License: LicenseRef-Callaway-MPLv1.1
 URL: http://code.google.com/p/mp4v2
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.36.trunkREV507
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.35.trunkREV507
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

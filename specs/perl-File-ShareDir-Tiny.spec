@@ -1,6 +1,6 @@
 Name:           perl-File-ShareDir-Tiny
 Version:        0.001
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Locate per-dist and per-module shared files
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/File::ShareDir::Tiny.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

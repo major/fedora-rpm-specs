@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 # Note, this package is not actively developed
@@ -58,6 +58,9 @@ no longer needed.
 %doc CHANGES.rst README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.0-12
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Easily capture stdout/stderr of the current process and subprocesses
 
 License:        MIT
@@ -79,6 +79,9 @@ rm docs/build/html/.buildinfo
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0-24
 - Rebuilt for Python 3.15
 

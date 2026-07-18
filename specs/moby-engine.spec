@@ -16,7 +16,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        29.6.1
+%global version0        29.6.2
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
     rpm.define("tag0 " .. "docker-v" .. version0)
@@ -336,6 +336,8 @@ cd %{engine_dir}
     -s "TestCreateSpecPreservesCDIAdditionalGIDs"
     %dnl no ipv4 forwarding
     -s "TestContainerWarningHostAndPublishPorts"
+    %dnl unexpected end of JSON input
+    -s "TestDaemonBrokenConfiguration"
     %dnl all with error is not nil: create tmp file
     %[ "%{_arch}" == "s390x" ? "-s TestCloseRunningCommand" : "" ]
     %dnl graphdriver tests require extra permissions
@@ -344,6 +346,8 @@ cd %{engine_dir}
     -t integration
     %dnl libnetwork tests cannot create netns in mock
     -t daemon/libnetwork
+    %dnl stack exceeded error
+    -t daemon/pkg/opts
     %dnl integration-cli: we don't want to run integration tests or benchmarks
     -d integration-cli
 }

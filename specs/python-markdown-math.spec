@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Math extension for Python-Markdown
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_markdown_math-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8-22
 - Rebuilt for Python 3.15
 

@@ -25,7 +25,7 @@ Summary:        Inotify
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -122,6 +122,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 3.0.1-1
 - update to 3.0.1
 - drop pear/pecl dependency

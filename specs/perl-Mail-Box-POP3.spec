@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-POP3
 Version:        4.02
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
@@ -110,6 +110,9 @@ MARKOV_DEVEL=1 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.02-1
 - 4.02 bump (rhbz#2421436)
 

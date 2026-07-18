@@ -11,7 +11,7 @@
 
 Name:           jsoncpp
 Version:        1.9.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON library implemented in C++
 
 License:        LicenseRef-Fedora-Public-Domain OR MIT
@@ -136,6 +136,9 @@ hardlink -cfv %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 1.9.7-1
 - Update to version 1.9.7 (Fixes rhbz#2449364)
 

@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-Utils
 Version:        0.09
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Extra Gtk2 Utilities for working with GNOME2/GTK2 in Perl
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Utils
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/Gtk2::Ex::Utils.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.09-51
 - Refine a license tag
 

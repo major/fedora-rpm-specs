@@ -7,7 +7,7 @@ applications.}
 
 Name:           python-%{pypi_name}
 Version:        3.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate random strings in Python
 
 License:        BSD-3-Clause
@@ -48,6 +48,9 @@ rm -rf %{pypi_name}.egg-info
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 3.2.2-1
 - Update to 3.2.2
 - Fixes rhbz#2414567 (FTBFS with Python 3.15: removed sre_parse module)

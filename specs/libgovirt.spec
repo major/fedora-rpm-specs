@@ -2,7 +2,7 @@
 Summary: A GObject library for interacting with oVirt REST API
 Name: libgovirt
 Version: 0.3.11
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPL-2.1-or-later
 Source0: http://download.gnome.org/sources/libgovirt/0.3/%{name}-%{version}.tar.xz
 URL: https://gitlab.gnome.org/GNOME/libgovirt
@@ -63,6 +63,9 @@ Libraries, includes, etc. to compile with the libgovirt library
 %{_datadir}/gir-1.0/GoVirt-1.0.gir
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.11-1
 - Release 0.3.11
 

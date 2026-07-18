@@ -1,6 +1,6 @@
 Name: libcdson
 Version: 1.0.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Pure C parsing/serialization for the DSON data format, for humans
 License: MPL-2.0
 URL: https://github.com/frozencemetery/cdson
@@ -52,6 +52,9 @@ CFLAGS="%{build_cflags} -Wno-error=unused-result"
 %{_libdir}/*.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

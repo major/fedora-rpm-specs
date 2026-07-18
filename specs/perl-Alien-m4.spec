@@ -3,7 +3,7 @@
 
 Name:           perl-Alien-m4
 Version:        0.21
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Find GNU m4
 # lib/Alien/m4.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -109,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 19 2026 Petr Pisar <ppisar@redhat.com> - 0.21-11
 - Rebuild against m4-1.4.21 (bug #2440930)
 

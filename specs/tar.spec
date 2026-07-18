@@ -58,6 +58,9 @@ Patch22: tar-1.35-no-overwrite-dir-no-overwrite-even-temporarily.patch
 # d1aeb7388926e045bdec0f7934c5522c4745f02c
 # 45b6e6898d1f931bfca41d961289bd6ac33238e5
 Patch23: tar-1.35-CVE-2025-45582.patch
+# Source: https://cgit.git.savannah.gnu.org/cgit/tar.git/commit/?id=08c3fc2e9337094aff01a511170fd35fdb8f1ee3
+# Fixes build with acl 2.4.0
+Patch25: tar-1.35-Avoid-acl_-prefix-for-functions.patch
 
 BuildRequires: autoconf
 BuildRequires: automake

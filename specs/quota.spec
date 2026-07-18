@@ -13,7 +13,7 @@
 Name:       quota
 Epoch:      1
 Version:    4.11
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    System administration tools for monitoring users' disk usage
 # quota_nld.c, quotaio_xfs.h:       GPL-2.0-only
 # bylabel.c copied from util-linux: GPL-2.0-or-later
@@ -344,6 +344,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 15 2026 Petr Pisar <ppisar@redhat.com> - 1:4.11-3
 - List packaged files explicitly
 

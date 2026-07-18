@@ -1,7 +1,7 @@
 Summary:      Miniature XML development library
 Name:         mxml
 Version:      3.3.1
-Release:      10%{?dist}
+Release:      11%{?dist}
 License:      Apache-2.0 WITH mxml-exception
 URL:          https://www.msweet.org/mxml/
 Source:       https://github.com/michaelrsweet/mxml/archive/v%{version}/mxml-%{version}.tar.gz
@@ -54,6 +54,9 @@ rm %{buildroot}%{_pkgdocdir}/{LICENSE,NOTICE}
 %{_libdir}/pkgconfig/mxml.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

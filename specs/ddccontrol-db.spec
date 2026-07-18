@@ -1,6 +1,6 @@
 Name:             ddccontrol-db
 URL:              https://github.com/ddccontrol/ddccontrol-db
-Version:          20260702
+Version:          20260714
 Release:          2%{?dist}
 # Agreed by usptream to be GPLv2+
 # http://sourceforge.net/mailarchive/message.php?msg_id=29762202
@@ -40,6 +40,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 20260714-2
+- New version
+  Resolves: rhbz#2499979
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260702-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           leonidas-backgrounds
 Version:        11.0.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Leonidas desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -179,6 +179,9 @@ cp -a $RPM_BUILD_DIR/%{name}-%{version}/desktop-backgrounds-leonidas-landscape.x
 %{_datadir}/backgrounds/leonidas/leonidas_right.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

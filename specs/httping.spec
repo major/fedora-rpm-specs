@@ -1,6 +1,6 @@
 Name:           httping
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ping alike tool for http requests
 
 License:        GPL-1.0-or-later AND OpenSSL
@@ -42,6 +42,9 @@ rm -rf %{buildroot}/%{_docdir}
 %{_mandir}/httping.1
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 03 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.0-1
 - Update to 4.4.0
 

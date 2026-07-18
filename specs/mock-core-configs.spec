@@ -4,7 +4,7 @@
 
 Name:       mock-core-configs
 Version:    44.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -156,6 +156,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Pavel Raiskup <pavel@raiskup.cz> 44.4-1
 - Fixes #1761: Add Fedora Rawhide RISC-V (jmontleo@redhat.com)
 - configs: add Azure Linux 4.0 beta configuration (tobiasb@microsoft.com)

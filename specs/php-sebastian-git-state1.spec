@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Describing the state of a Git checkout, version %{major}
 
 License:        BSD-3-Clause
@@ -106,5 +106,8 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr  3 2026 Remi Collet <remi@remirepo.net> - 1.0.0-1
 - initial package

@@ -4,7 +4,7 @@
 
 Name:       python-%{pkg_name}
 Version:    0.9.1
-Release:    33%{?dist}
+Release:    34%{?dist}
 Summary:    Flask extension for sending email
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -47,6 +47,9 @@ A Flask extension for sending email messages.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.1-33
 - Rebuilt for Python 3.15
 

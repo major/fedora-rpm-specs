@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
 Version:       1.55
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -182,6 +182,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.55-1
 - 1.55 bump (rhbz#2430556)
 - Update upstream GPG signing key (NLnet Labs releases signing key G2)

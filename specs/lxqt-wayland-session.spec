@@ -3,7 +3,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -252,6 +252,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.lua
 %fdupes %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.4.1-1
 - Update to 0.4.1
 

@@ -1,6 +1,6 @@
 Name:           perl-Mojo-Pg
 Version:        5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mojolicious ♥ PostgreSQL
 License:        Artistic-2.0
 
@@ -75,6 +75,9 @@ publish/subscribe pattern.
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 10 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0-1
 - Update to 5.0
 

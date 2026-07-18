@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -71,6 +71,9 @@ wait $REDIS_SERVER_PID
 %{_bindir}/rqworker
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Python Maint <python-maint@redhat.com> - 2.6.1-2
 - Rebuilt for Python 3.15
 

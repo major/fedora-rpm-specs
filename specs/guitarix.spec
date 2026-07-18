@@ -7,7 +7,7 @@
 
 Name:           guitarix
 Version:        0.47.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A virtual guitar amplifier
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -197,6 +197,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_libdir}/lv2/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.47.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Guido Aulisi <guido.aulisi@inps.it> - 0.47.0-1
 - Update to 0.47.0
 

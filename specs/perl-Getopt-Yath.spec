@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Yath
 Version:        2.000011
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Option processing in yath style
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Getopt-Yath
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000011-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 09 2026 Petr Pisar <ppisar@redhat.com> - 2.000011-1
 - 2.000011 bump
 

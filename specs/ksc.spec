@@ -8,7 +8,7 @@
 
 Name:		ksc
 Version:	1.7
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Kernel source code checker
 Group:		Development/Tools
 AutoReqProv:	no
@@ -49,6 +49,9 @@ install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
 %{python3_sitelib}/ksc-%{version}*.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           plee-the-bear
 Version:        0.7.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        2D platform game
 # Code: GPL-3.0-only (LICENSE, license/GPL)
 # Multimedia: CC-BY-SA-3.0 (LICENSE, license/CCPL)
@@ -135,6 +135,9 @@ EOF
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.1-26
 - Fix SPDX license: replace 'LicenseRef-Callaway-CC-BY-SA' with 'CC-BY-SA-3.0',
   add 'OFL-1.1' and 'CC-BY-3.0' for bundled fonts

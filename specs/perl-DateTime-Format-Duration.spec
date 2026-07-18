@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        1.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Format and parse DateTime::Durations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Petr Pisar <ppisar@redhat.com> - 1.06-1
 - 1.06 bump
 

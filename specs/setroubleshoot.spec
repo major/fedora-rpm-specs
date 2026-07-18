@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.37
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
@@ -98,7 +98,6 @@ Summary: SELinux troubleshoot server
 Requires: %{name}-plugins >= 3.3.15-7
 Requires: audit >= 3.0.1
 Requires: audit-libs-python3
-Requires: libxml2-python3
 Requires: rpm-python3
 Requires: libselinux-python3  >= 2.1.5-1
 Requires: policycoreutils-python-utils
@@ -193,6 +192,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Tue Jul 14 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 3.3.37-2
+- Remove the obsolete libxml2-python3 dependency
+
 * Thu Jun 18 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-1
 - Migrate from libxml2 to xml.etree.ElementTree
 - Handle ImportError when setroubleshoot.browser is not available

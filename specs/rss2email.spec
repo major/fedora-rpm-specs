@@ -1,6 +1,6 @@
 Name:           rss2email
 Version:        3.14
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Deliver news from RSS feeds to your SMTP server as text or HTML mail
 
 # Automatically converted from old format: GPLv2+ or GPLv3+ - review is highly recommended.
@@ -85,6 +85,9 @@ PATH="${PATH}:%{buildroot}%{_bindir}" PYTHONPATH=%{buildroot}%{python3_sitelib} 
 %{_datadir}/zsh/functions/Completion/Unix/_r2e
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.14-18
 - Rebuilt for Python 3.15
 

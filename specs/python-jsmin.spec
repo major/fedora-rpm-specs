@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        JavaScript minifier
 
 License:        MIT
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.1-16
 - Rebuilt for Python 3.15
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Config-Model
 Version:        2.163
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
@@ -130,6 +130,9 @@ modprobe fuse
 %{_mandir}/man3/Config::Model*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.163-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.163-1
 - 2.163 bump (rhbz#2459640)
 - Replace perl(Fuse) by perl(Filesys::Fuse3)

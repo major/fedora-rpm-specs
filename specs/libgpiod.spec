@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.3.1
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -198,6 +198,9 @@ find %{buildroot} -name '*.a' -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 05 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.1-1
 - Update to 2.3.1 (rhbz#2489269)
 

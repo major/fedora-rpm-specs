@@ -2,7 +2,7 @@
 
 Name:           mingw-orc
 Version:        0.4.40
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross compiled Oil Run-time Compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -106,6 +106,9 @@ The Orc compiler, to produce optimized code.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.40-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.40-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

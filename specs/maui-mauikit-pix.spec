@@ -1,6 +1,6 @@
 Name:          maui-mauikit-pix
 Version:       4.0.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       GPL-3.0-or-later AND BSD-3-Clause AND MIT
 Summary:       Image gallery manager built on the maui framework
 URL:           https://mauikit.org/apps/pix/
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_bindir}/pix
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-6
 - Rebuild (qt6)
 

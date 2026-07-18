@@ -42,7 +42,7 @@
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
 Version: 1.34
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -462,6 +462,9 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.34-1
 - New upstream release (Resolves rhbz#2494753)
 - Important bugfixes:

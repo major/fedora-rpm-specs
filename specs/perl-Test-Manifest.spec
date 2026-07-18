@@ -1,7 +1,7 @@
 Summary:        Test case module for Perl
 Name:           perl-Test-Manifest
 Version:        2.026
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Manifest
 Source0:        https://www.cpan.org/modules/by-module/Test/Test-Manifest-%{version}.tar.gz
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/Test::Manifest.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.026-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.026-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

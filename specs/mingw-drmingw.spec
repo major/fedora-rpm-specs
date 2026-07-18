@@ -4,7 +4,7 @@
 
 Name:           mingw-%{name1}
 Version:        0.9.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Just-in-Time (JIT) debugger for MinGW
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -169,6 +169,9 @@ chmod a-x $RPM_BUILD_ROOT%{mingw64_libdir}/* $RPM_BUILD_ROOT%{mingw64_includedir
 %{mingw64_includedir}/exchndl.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

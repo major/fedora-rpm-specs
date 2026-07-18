@@ -1,6 +1,6 @@
 Name:           nqc
 Version:        3.1.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Not Quite C compiler
 
 # Automatically converted from old format: MPLv1.0 - review is highly recommended.
@@ -163,6 +163,9 @@ install -m0644 -D nqc.sysusers.conf %{buildroot}%{_sysusersdir}/nqc.conf
 %lang(pt) %doc nqc-tutorial-pt.pdf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

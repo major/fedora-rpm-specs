@@ -14,7 +14,7 @@ encrypted JSON objects.}
 
 Name:           python-%{pkgname}
 Version:        2.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
 URL:            https://github.com/jpadilla/pyjwt
@@ -64,6 +64,9 @@ Recommends:     python3-%{pkgname}+crypto
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Jeremy Cline <jeremycline@microsoft.com> - 2.13.0-1
 - Rebase to 2.13.0 (rhbz#2480639)
 

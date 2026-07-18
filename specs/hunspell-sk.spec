@@ -9,7 +9,7 @@ Epoch: 1
 %global upstreamid 20240829
 %global upstreamver 2.4.8
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://github.com/sk-spell/hunspell-sk/releases/download/v%{upstreamver}/%{upstreamver}-sk@dictionaries.addons.mozilla.org.xpi
 URL: http://www.sk-spell.sk.cx/
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
@@ -37,6 +37,9 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 %{_datadir}/%{dict_dirname}/sk_SK.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20240829-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:0.20240829-1
 - Update to new upstream release at new Source URL
 - keep using date as versioning

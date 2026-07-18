@@ -71,9 +71,9 @@
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause AND Apache-2.0
@@ -187,6 +187,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.2.0-3
 - Rebuilt for fmt/spdlog
 

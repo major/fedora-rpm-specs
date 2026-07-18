@@ -7,7 +7,7 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        46%{?dist}
+Release:        47%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
@@ -197,6 +197,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 06 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-46
 - Add config file for mon.cgi.
 - Fix Perl syntax defined in 1.2.0-44.

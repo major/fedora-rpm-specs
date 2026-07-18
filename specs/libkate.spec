@@ -4,7 +4,7 @@
 
 Name:           libkate
 Version:        0.4.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Libraries to handle the Kate bitstream format
 
 License:        BSD-3-Clause
@@ -138,6 +138,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

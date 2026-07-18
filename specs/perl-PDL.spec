@@ -4,7 +4,7 @@
 Name:           perl-PDL
 %global cpan_version 2.104
 Version:        2.104.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -225,6 +225,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.104.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.104.0-1
 - 2.104 bump (rhbz#2456840)
 

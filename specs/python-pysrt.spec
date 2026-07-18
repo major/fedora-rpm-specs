@@ -1,6 +1,6 @@
 Name: python-pysrt
 Version: 1.1.2
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: Library used to edit or create SubRip files
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -53,6 +53,9 @@ done
 %{_bindir}/srt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.2-28
 - Rebuilt for Python 3.15
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manage modern JavaScript in Rails without transpiling or bundling
 License: MIT
 URL: https://github.com/rails/importmap-rails
@@ -88,6 +88,9 @@ RUBYOPT="-I$(pwd)/lib" ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Vít Ondruch <vondruch@redhat.com> - 2.2.3-1
 - Update to Importmap for Rails 2.2.3
 

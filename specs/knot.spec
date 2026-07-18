@@ -15,7 +15,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.5.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -431,6 +431,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Jan Včelák <jvcelak@fedoraproject.org> - 3.5.5-1
 - Update to 3.5.5
 

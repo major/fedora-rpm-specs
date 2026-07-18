@@ -1,6 +1,6 @@
 Name: libdmapsharing4
 Version: 3.9.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A DMAP client and server library
 
 License: LGPL-2.1-or-later
@@ -62,6 +62,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdmapsharing-4.0.la
 %{_datadir}/vala/vapi/libdmapsharing-4.0.vapi
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 W. Michael Petullo <mike@flyn.org> - 3.9.14-1
 - New upstream version
 

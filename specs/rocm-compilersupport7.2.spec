@@ -128,9 +128,9 @@
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with preview}
-Release:        1000.rocm%{rocm_version}%{?dist}
+Release:        1001.rocm%{rocm_version}%{?dist}
 %else
-Release:        10.rocm%{rocm_version}%{?dist}
+Release:        11.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1113,6 +1113,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22-11.rocm7.2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 6 2026 Tom Rix <Tom.Rix@amd.com> - 22-10.rocm7.2.1
 - Add conflicts for rocm-compilersupport-macros
 

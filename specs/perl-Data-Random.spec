@@ -1,6 +1,6 @@
 Name:           perl-Data-Random
 Version:        0.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module to generate random data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -68,6 +68,9 @@ AUTHOR_TESTING=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
 - Update to 0.15
 

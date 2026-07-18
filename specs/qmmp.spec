@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.3.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -146,6 +146,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 01 2026 Dominik Mierzejewski <dominik@greysector.net> 2.3.3-3
 - enable AAC support now that faad2 is in Fedora
 

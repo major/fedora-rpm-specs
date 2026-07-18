@@ -1,7 +1,7 @@
 Name:       ilbc
 Summary:    Internet Low Bitrate Codec
 Version:    3.0.4
-Release:    20%{?dist}
+Release:    21%{?dist}
 License:    BSD-3-Clause
 URL:        https://github.com/TimothyGu/libilbc
 
@@ -60,6 +60,9 @@ rm -fr %{buildroot}%{_docdir}/libilbc
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.0.4-20
 - Add loongarch support.
 

@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20090423
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A handwritten monospace font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20090423-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20090423-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

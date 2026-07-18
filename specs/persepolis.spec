@@ -1,6 +1,6 @@
 Name:           persepolis
 Version:        5.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A powerful graphical download manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.1.1-8
 - Rebuilt for Python 3.15
 

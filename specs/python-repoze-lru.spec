@@ -2,7 +2,7 @@
 
 Name:           python-repoze-lru
 Version:        0.7
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A tiny LRU cache implementation and decorator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/repoze.lru-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7-31
 - Rebuilt for Python 3.15
 

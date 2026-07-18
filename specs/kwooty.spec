@@ -1,7 +1,7 @@
 Name:    kwooty
 Summary: A friendly nzb usenet binary download application
 Version: 1.1.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -92,6 +92,9 @@ rm -f %{buildroot}%{_kde4_libdir}/libkwootycore.so
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

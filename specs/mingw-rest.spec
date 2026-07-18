@@ -2,7 +2,7 @@
 
 Name:           mingw-rest
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for access to RESTful web services
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -146,6 +146,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_libdir}/librest-extras-1.0.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.9.1-1
 - Update to v0.9.1, fixes FTBFS rhbz#2434820
 

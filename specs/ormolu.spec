@@ -10,7 +10,7 @@
 
 Name:           ormolu
 Version:        0.7.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A formatter for Haskell source code
 
 # markdown-unlit is MIT
@@ -141,6 +141,9 @@ cp -p %{thenv}/LICENSE licenses/th-env
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 27 2026 Jens Petersen <petersen@redhat.com> - 0.7.7.0-12
 - convert to cabal-rpm --bundle
 - drop markdown-unlit dep (only needed for th-env testsuite)

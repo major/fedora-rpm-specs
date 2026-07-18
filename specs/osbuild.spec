@@ -11,7 +11,7 @@ Version:        187
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -488,6 +488,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 187-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 10 2026 Packit <hello@packit.dev> - 187-1
 Changes with 187
 ----------------

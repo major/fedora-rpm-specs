@@ -3,7 +3,7 @@
 
 Name:		mISDN
 Version:	2.0.22
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Userspace part of Modular ISDN stack
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -102,6 +102,9 @@ install -m0644 -D misdn.sysusers.conf %{buildroot}%{_sysusersdir}/misdn.conf
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

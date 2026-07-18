@@ -5,7 +5,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        FIFO library for Lua
 
 License:        MIT
@@ -56,6 +56,9 @@ install -D -p -m 0644 fifo.lua %{buildroot}/%{luacompatpkgdir}/fifo.lua
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.2-17
 - rebuild for lua 5.5
 

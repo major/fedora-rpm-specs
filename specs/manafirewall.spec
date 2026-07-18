@@ -5,7 +5,7 @@
 
 Name:		manafirewall
 Version:	0.99.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	ManaTools FirewallD configuration tool
 License:	GPL-2.0-or-later
 URL:		https://github.com/manatools/%{name}
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.99.2-2
 - Rebuilt for Python 3.15
 

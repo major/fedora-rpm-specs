@@ -1,6 +1,6 @@
 Name:		libtwin
 Version:	0.0.3
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Tiny Window System
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/*.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

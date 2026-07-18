@@ -6,7 +6,7 @@
 
 Name:           %{sname}-qt5
 Version:        0.98
-Release:        0.23.%{commitdate}git%{shortcommit0}%{?dist}
+Release:        0.24.%{commitdate}git%{shortcommit0}%{?dist}
 Summary:        Qt OAuth support library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -72,6 +72,9 @@ make check
 %exclude %{_libdir}/qt5/mkspecs/features/%{sname}.prf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.98-0.24.20140122git7c31a12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.98-0.23.20140122git7c31a12
 - Rebuilt for openssl 4.0
 

@@ -39,7 +39,7 @@
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
 Version: 4.0.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 # BSD-2-Clause OR Ruby:
 #   lib/rubygems/net-http/
 #   lib/rubygems/net-protocol/
@@ -334,6 +334,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.16-1
 - Update to RubyGems 4.0.16
 

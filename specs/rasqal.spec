@@ -1,6 +1,6 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        RDF Query Library
 
 License:        LGPL-2.1-or-later OR Apache-2.0
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

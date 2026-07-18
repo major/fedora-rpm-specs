@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.13
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Extension for colcon to customize the output in various ways
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to customize the output in various ways.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.13-15
 - Rebuilt for Python 3.15
 

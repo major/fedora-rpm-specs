@@ -1,6 +1,6 @@
 Name:           perl-PDF-Reuse
 Version:        0.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reuse and mass produce PDF documents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/PDF-Reuse
@@ -95,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.43-1
 - 0.43 bump
 

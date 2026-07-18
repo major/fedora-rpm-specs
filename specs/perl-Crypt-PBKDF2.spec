@@ -1,7 +1,7 @@
 Summary:	The PBKDF2 password hashing algorithm
 Name:		perl-Crypt-PBKDF2
 Version:	0.261630
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Crypt-PBKDF2
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-PBKDF2-%{version}.tar.gz
@@ -74,6 +74,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Crypt::PBKDF2::Hash::HMACSHA3.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.261630-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Paul Howarth <paul@city-fan.org> - 0.261630-1
 - Update to 0.261630 (rhbz#2488228)
   - Change the default hash algorithm to HMAC-SHA256, and increase the default

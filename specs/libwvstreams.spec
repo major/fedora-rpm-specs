@@ -1,6 +1,6 @@
 Name: libwvstreams
 Version: 4.6.1
-Release: 51%{?dist}
+Release: 52%{?dist}
 Summary: WvStreams is a network programming library written in C++
 Source: http://wvstreams.googlecode.com/files/wvstreams-%{version}.tar.gz
 #fixed multilib issue (bug #192717)
@@ -122,6 +122,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.6.1-51
 - Rebuilt for openssl 4.0
 

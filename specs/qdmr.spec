@@ -14,7 +14,7 @@
 
 Name:		qdmr
 Version:	0.15.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
 URL:		https://dm3mat.darc.de/qdmr/
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.15.1-1
 - New version
   Resolves: rhbz#2491033

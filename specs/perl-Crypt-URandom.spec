@@ -3,7 +3,7 @@
 
 Name:           perl-Crypt-URandom
 Version:        0.55
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-URandom
@@ -130,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 23 2026 Petr Pisar <ppisar@redhat.com> - 0.55-1
 - 0.55 bump (CVE-2026-2474)
 

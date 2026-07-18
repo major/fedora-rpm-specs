@@ -5,7 +5,7 @@ Version:        1.17.0
 %global forgeurl https://github.com/google/googletest
 %forgemeta
 
-Release:        2%{?dist}
+Release:        3%{?dist}
 # scripts/generator/* are Apache-2.0
 License:        BSD-3-Clause and Apache-2.0
 URL:            %forgeurl
@@ -102,6 +102,9 @@ This package contains development files for gmock.
 %{_libdir}/pkgconfig/gmock_main.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

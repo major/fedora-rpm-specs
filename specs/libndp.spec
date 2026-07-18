@@ -1,6 +1,6 @@
 Name: libndp
 Version: 1.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library for Neighbor Discovery Protocol
 License: LGPL-2.1-or-later
 URL: http://www.libndp.org/
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -name \*.la -delete
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

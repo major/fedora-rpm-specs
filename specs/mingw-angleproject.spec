@@ -11,7 +11,7 @@
 
 Name:           mingw-angleproject
 Version:        3280
-Release:        16.git%{shortcommit}%{?dist}
+Release:        17.git%{shortcommit}%{?dist}
 Summary:        Almost Native Graphics Layer Engine
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -322,6 +322,9 @@ rmdir %{buildroot}%{mingw64_includedir}/KHR/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3280-17.git57ea533
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3280-16.git57ea533
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

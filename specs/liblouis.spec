@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.33.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -190,6 +190,9 @@ cd -
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.33.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.33.0-8
 - Rebuilt for Python 3.15
 

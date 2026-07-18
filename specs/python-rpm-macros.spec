@@ -54,7 +54,7 @@ License:        MIT AND PSF-2.0 AND GPL-2.0-or-later
   %{load:macros.python-srpm}
 %endif
 Version:        %{__default_python3_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 BuildArch:      noarch
 
@@ -181,6 +181,9 @@ grep -iF PLACEHOLDER %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15-1
 - Update main Python to 3.15
 

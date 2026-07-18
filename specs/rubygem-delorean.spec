@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Delorean lets you travel in time with Ruby by mocking Time.now
 License: MIT
 URL: https://github.com/bebanjo/delorean
@@ -62,6 +62,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

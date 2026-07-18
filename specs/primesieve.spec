@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.14
-Release:  2%{?dist}
+Version:  12.15
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,18 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Thu Jul 16 2026 Kim Walisch <walki@fedoraproject.org> - 12.15-1
+- Fix LLVM/Clang -Wunused-template warning
+- CpuInfo.cpp: Use primesieve::Vector instead of std::vector
+- nthPrime.cpp: Fix undefined behavior
+- util.hpp: Fix undefined behavior in littleendian_cast<T>()
+- PrimeGenerator_x86_avx512.hpp: Fix undefined behavior
+- CountPrintPrimes.cpp: Fix undefined behavior
+- popcount.hpp: Fix undefined behavior
+- PreSieve_arm_sve.hpp: Improve ARM SVE multiarch runtime dispatch
+- multiarch_sve_arm.cmake: Update the ARM SVE compiler support check to match
+- CMakeLists.txt: Fix Emscripten (WebAssembly) compiliation failure
+
 * Fri May 08 2026 Kim Walisch <walki@fedoraproject.org> - 12.14-2
 - ParallelSieve.cpp: Fix CPU false sharing
 - PrimeSieveClass.hpp: Fix CPU false sharing

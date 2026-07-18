@@ -30,7 +30,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 4.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source4: openssl.rpmlintrc
@@ -375,6 +375,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 03 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.1-3
 - We use FIPS provider from a separate package and can drop
   FIPS-specific patches and stop building OpenSSL native FIPS provider

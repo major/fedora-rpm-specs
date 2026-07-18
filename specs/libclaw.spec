@@ -1,6 +1,6 @@
 Name:           libclaw
 Version:        1.7.4
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        C++ Library of various utility functions
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -100,6 +100,9 @@ done
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.7.4-45
 - Add libclaw-c++20-no-concept-keyword.patch
 

@@ -25,7 +25,7 @@ Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 License:        BSD-3-Clause
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -152,6 +152,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.17~RC1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 3.2.17~RC1-1
 - update to 3.2.17RC1
 - add pie virtual provides

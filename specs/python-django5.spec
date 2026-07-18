@@ -23,7 +23,7 @@
 %bcond old_setuptools 0
 %endif
 
-Version:        5.2.15
+Version:        5.2.16
 %global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
 

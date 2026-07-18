@@ -1,6 +1,6 @@
 Name:          reflections
 Version:       0.9.12
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       Java run-time meta-data analysis
 License:       WTFPL
 URL:           https://github.com/ronmamo/reflections
@@ -49,6 +49,9 @@ find -type f '(' -name '*.jar' -o -name '*.class' ')' -not -path './src/test/*' 
 %license COPYING.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

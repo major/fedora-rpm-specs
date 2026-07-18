@@ -1,6 +1,6 @@
 Name:		hitori
 Version:	44.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Logic puzzle game for GNOME
 Summary(de):	Logikpuzzle für GNOME
 
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Hitori.desk
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

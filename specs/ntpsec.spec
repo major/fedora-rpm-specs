@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -209,6 +209,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.2.4-11
 - use fedora pool.ntp.org vendor zone on eln
 

@@ -1,6 +1,6 @@
 Name:           perl-Protocol-HTTP2
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP/2 protocol implementation (RFC 7540)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Protocol-HTTP2
@@ -100,6 +100,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Petr Pisar <ppisar@redhat.com> - 1.13-1
 - 1.13 bump
 

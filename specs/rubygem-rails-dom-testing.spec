@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Dom and Selector assertions for Rails applications
 License: MIT
 URL: https://github.com/rails/rails-dom-testing
@@ -62,6 +62,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

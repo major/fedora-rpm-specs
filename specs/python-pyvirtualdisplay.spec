@@ -1,6 +1,6 @@
 Name:           python-pyvirtualdisplay
 Version:        3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python wrapper for Xvfb, Xephyr and Xvnc
 
 License:        BSD-2-Clause
@@ -51,6 +51,9 @@ sed -i -E -e '/^(types-pillow|entrypoint2|vncdotool=.*)$/d' requirements-test.tx
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.0-8
 - Rebuilt for Python 3.15
 

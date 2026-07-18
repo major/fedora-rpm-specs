@@ -39,7 +39,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -455,6 +455,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Jerry James <loganjerry@gmail.com> - 5.5.0-1
 - New upstream version 5.5.0 (RHBZ#2442622)
 - Drop upstreamed fix for arm64 frame pointers

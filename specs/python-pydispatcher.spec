@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Multi-producer-multi-consumer signal dispatching mechanism
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.7-16
 - Rebuilt for Python 3.15
 

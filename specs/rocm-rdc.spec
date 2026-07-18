@@ -55,7 +55,7 @@
 
 Name:           rocm-rdc%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Data Center Tool
 
 URL:            https://github.com/ROCm/%{upstreamname}
@@ -179,6 +179,9 @@ chmod a+x %{buildroot}%{pkg_prefix}/libexec/rdc/authentication/*.sh
 %{pkg_prefix}/%{pkg_libdir}/cmake/rdc/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 7.2.1-3
 - Rebuilt for abseil-cpp 20260526.0
 

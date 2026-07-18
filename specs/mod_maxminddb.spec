@@ -4,7 +4,7 @@
 Summary:        Module for the Apache web server to query MaxMind DB files
 Name:           mod_maxminddb
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache-2.0
 URL:            https://maxmind.github.io/mod_maxminddb/
 Source0:        https://github.com/maxmind/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -39,6 +39,9 @@ install -D -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_httpd_confdir}/maxminddb.conf
 %{_httpd_moddir}/%{name}.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

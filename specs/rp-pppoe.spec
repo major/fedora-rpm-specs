@@ -1,6 +1,6 @@
 Name: rp-pppoe
 Version: 4.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A PPP over Ethernet client (for xDSL support).
 License: GPL-2.0-or-later
 Url: https://dianne.skoll.ca/projects/rp-pppoe/
@@ -51,6 +51,9 @@ rm -rf %{buildroot}/etc/ppp/plugins
 %doc %{_docdir}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

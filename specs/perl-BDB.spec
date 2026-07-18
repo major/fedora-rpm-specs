@@ -3,7 +3,7 @@
 Name:           perl-BDB
 # Extend to 2 digits to get higher RPM package version than 1.88
 Version:        %{cpan_version}
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Asynchronous Berkeley DB access
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BDB
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.92-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.92-30
 - Rename atfork_child to bdb_atfork_child to avoid collision with perl 5.43.2+
 

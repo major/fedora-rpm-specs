@@ -26,7 +26,7 @@ Name:         php-pecl-mcrypt
 Summary:      Bindings for the libmcrypt library
 License:      PHP-3.01
 Version:      1.0.9
-Release:      4%{?dist}
+Release:      5%{?dist}
 %forgemeta
 URL:          %{forgeurl}
 Source0:      %{forgesource}
@@ -106,6 +106,9 @@ make test TESTS='-q --show-diff'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 25 2026 Remi Collet <remi@remirepo.net> - 1.0.9-4
 - drop pear/pecl dependency
 - sources from github

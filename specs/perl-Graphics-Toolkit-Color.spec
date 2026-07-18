@@ -1,6 +1,6 @@
 Name:           perl-Graphics-Toolkit-Color
 Version:        2.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Manual/Argument.pod:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 2.22-1
 - 2.22 bump
 

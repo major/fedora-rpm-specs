@@ -4,7 +4,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz
@@ -285,6 +285,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 30 2026 Miroslav Lichvar <mlichvar@redhat.com> 6.6-2
 - fix dangling build-id symlinks (#2463897)
 

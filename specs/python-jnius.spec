@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.6.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -112,6 +112,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6.1-15
 - Rebuilt for Python 3.15
 

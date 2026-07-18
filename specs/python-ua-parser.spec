@@ -4,7 +4,7 @@
 
 Name:           python-%{pkg_name}
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_pars
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.0.2-2
 - Rebuilt for Python 3.15
 

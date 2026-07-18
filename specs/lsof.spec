@@ -1,7 +1,7 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
 Version: 4.99.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: lsof
 URL: https://github.com/lsof-org/lsof
 
@@ -52,6 +52,9 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 06 2026 Jan Rybar <jrybar@redhat.com> - 4.99.6-1
 - rebase to lsof-4.99.6
 - upstream2downstream.sh needs alignment with the new codebase

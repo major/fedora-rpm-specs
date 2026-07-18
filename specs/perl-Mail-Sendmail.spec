@@ -1,6 +1,6 @@
 Name:           perl-Mail-Sendmail
 Version:        0.83
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple platform independent mailer for Perl
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.83-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Xavier Bachelot <xavier@bachelot.org> 0.83-1
 - Update to 0.83 (RHBZ#2497020)
   - Fixes CVE-2026-13092

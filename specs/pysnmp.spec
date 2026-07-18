@@ -1,6 +1,6 @@
 Name:           pysnmp
 Version:        7.1.21
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        An SNMP engine written in Python
 
@@ -53,6 +53,9 @@ networking.
 %license LICENSE.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.21-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.1.21-6
 - Rebuilt for Python 3.15
 

@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: High-level wrapper for processing images for the web with ImageMagick or libvips
 License: MIT
 URL: https://github.com/janko/image_processing
@@ -104,6 +104,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/image_processing.gemspec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.0-4
 - Backport upstream patch for tests with newer ImageMagick
 

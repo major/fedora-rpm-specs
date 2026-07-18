@@ -3,7 +3,7 @@
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # SPDX confirmed
 # Ruby:	lib/locale.rb
@@ -97,6 +97,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.5-1
 - 2.1.5
 

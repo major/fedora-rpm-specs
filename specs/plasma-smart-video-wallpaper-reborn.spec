@@ -1,6 +1,6 @@
 Name:           plasma-smart-video-wallpaper-reborn
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Play videos on your Plasma 6 Desktop/Lock Screen
 License:        GPL-2.0-only
 URL:            https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn
@@ -40,6 +40,9 @@ chmod 755 %{buildroot}%{_datadir}/plasma/wallpapers/luisbocanegra.smart.video.wa
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Steve Cossette <farchord@gmail.com> - 2.9.0-1
 - 2.9.0
 

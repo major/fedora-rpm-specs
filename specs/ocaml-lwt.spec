@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lwt
 Version:        6.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -185,6 +185,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx__ppx_let_tests
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 6.1.2-1
 - OCaml 5.5.0 rebuild
 - Version 6.1.2

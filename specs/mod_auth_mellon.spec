@@ -3,7 +3,7 @@
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
 Version: 0.19.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: https://github.com/latchset/mod_auth_mellon/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
@@ -105,6 +105,9 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.19.1-5
 - Rebuilt for xmlsec 1.3
 

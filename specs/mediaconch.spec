@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        25.04
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -181,6 +181,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.04-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

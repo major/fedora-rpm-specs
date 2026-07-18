@@ -1,6 +1,6 @@
 Name:           perl-REST-Client
 Version:        281
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple client for interacting with RESTful http/https resources
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/REST-Client
@@ -51,6 +51,9 @@ REST::Client provides a simple way to interact with HTTP RESTful resources.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 281-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 281-15
 - Update package metadata
 

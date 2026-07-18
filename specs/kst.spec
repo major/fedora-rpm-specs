@@ -1,6 +1,6 @@
 Name:       kst
 Version:    2.0.8
-Release:    63%{?dist}
+Release:    64%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
@@ -160,6 +160,9 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 %{_libdir}/kst2/plugins/libkst2_datasource_dirfilesource.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-64
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 15 2026 Adam Williamson <awilliam@redhat.com> - 2.0.8-63
 - cfitsio rebuild
 

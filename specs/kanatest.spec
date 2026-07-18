@@ -12,7 +12,7 @@
 
 Name:           kanatest
 Version:        %{mainver}
-Release:        %{mainrel}%{?git_version:.%{?git_version}}%{?dist}.19
+Release:        %{mainrel}%{?git_version:.%{?git_version}}%{?dist}.20
 Summary:        Hiragana and Katakana drill tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -85,6 +85,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-0.1.D20170810git19dd1a7d.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-0.1.D20170810git19dd1a7d.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

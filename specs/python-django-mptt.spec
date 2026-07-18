@@ -3,7 +3,7 @@
 Summary:    Utilities for implementing Modified Preorder Tree Traversal
 Name:       python-%{srcname}
 Version:    0.12.0
-Release:    20%{?dist}
+Release:    21%{?dist}
 License:    MIT
 URL:        https://github.com/django-mptt/django-mptt
 Source:     %{pypi_source}
@@ -57,6 +57,9 @@ rm mptt/locale/*/LC_MESSAGES/django.po
 %{python3_sitelib}/mptt/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.12.0-20
 - Rebuilt for Python 3.15
 

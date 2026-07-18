@@ -7,7 +7,7 @@
 Name: hunspell-oc
 Summary: Occitan hunspell dictionaries
 Version: 1.5
-Release: 8%{?dist}
+Release: 10%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/4085695/diccionari_occitan_lengadocian-%{version}.xpi
 URL: https://addons.mozilla.org/en-US/firefox/addon/diccionari-occitan-lengadocian/
 # https://www.mozilla.org/en-US/MPL/2.0/combining-mpl-and-gpl/
@@ -23,6 +23,7 @@ Occitan hunspell dictionaries.
 
 %prep
 %autosetup -c -n hunspell-oc
+sed -i 's/\r$//' dictionaries/oc_FR.dic
 
 %build
 # nothing here
@@ -36,6 +37,12 @@ cp -p dictionaries/oc_FR.aff dictionaries/oc_FR.dic $RPM_BUILD_ROOT/%{_datadir}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Parag Nemade <panemade AT redhat DOT com> - 1.5-10
+- Fix the encoding for oc_FR.dic file
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

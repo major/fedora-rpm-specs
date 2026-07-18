@@ -3,7 +3,7 @@
 Summary:        Python module to extract EXIF information
 Name:           python-exif
 Version:        3.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ianare/exif-py
@@ -44,6 +44,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{_bindir}/EXIF.py
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.5.1-4
 - Rebuilt for Python 3.15
 

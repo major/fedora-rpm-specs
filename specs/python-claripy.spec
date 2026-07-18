@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.189
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        BSD-2-Clause
@@ -43,6 +43,9 @@ sed -i 's/, "z3-solver==4.13.0.0"//' pyproject.toml
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.189-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.2.189-4
 - Rebuilt for Python 3.15
 

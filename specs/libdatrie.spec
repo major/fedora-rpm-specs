@@ -1,6 +1,6 @@
 Name:           libdatrie
 Version:        0.2.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of Double-Array structure for representing trie
 License:        LGPL-2.1-or-later
 URL:            http://linux.thai.net/projects/datrie
@@ -62,6 +62,9 @@ LD_LIBRARY_PATH=../datrie/.libs %make_build check
 %{_pkgdocdir}-devel/*.{html,css,png,js,svg}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

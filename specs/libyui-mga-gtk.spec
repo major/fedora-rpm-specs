@@ -12,7 +12,7 @@
 
 Name:			%{libname}-mga-gtk
 Version:		1.2.0
-Release:		17%{?git_rel}%{?dist}
+Release:		18%{?git_rel}%{?dist}
 Summary:		Libyui-Gtk extensions for Mageia tools
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -75,6 +75,9 @@ for %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Log4perl
 Version:        0.03
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Logging extension for the POE environment
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -47,6 +47,9 @@ TEST_POD=1 make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

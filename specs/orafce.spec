@@ -2,7 +2,7 @@
 
 Name:		orafce
 Version:	4.16.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	0BSD
 URL:		http://github.com/orafce/orafce
@@ -44,6 +44,9 @@ for production work.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 03 2026 Michal Schorm <mschorm@redhat.com> - 4.16.7-2
 - Correct License tag from 'LicenseRef-Callaway-BSD' to '0BSD' per
   upstream 'COPYRIGHT.orafce' (SPDX tag correction, not a license change)

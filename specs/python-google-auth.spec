@@ -17,7 +17,7 @@
 
 Name:           python-google-auth
 Version:        2.56.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
 
@@ -210,6 +210,9 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.56.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Packit <hello@packit.dev> - 1:2.56.0-1
 - Update to version 2.56.0
 - Resolves: rhbz#2423777

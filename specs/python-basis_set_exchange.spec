@@ -2,7 +2,7 @@
 
 Name:           python-basis_set_exchange
 Version:        0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A repository for quantum chemistry basis sets
 License:        BSD-3-Clause
 URL:            https://github.com/MolSSI-BSE/basis_set_exchange
@@ -134,6 +134,9 @@ find basis_set_exchange/data/ -name move.py -delete
 %{_bindir}/bsecurate
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.12-2
 - Rebuilt for Python 3.15
 

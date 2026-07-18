@@ -8,7 +8,7 @@
 Name:           perl-TimeDate
 Version:        2.35
 Epoch:          1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl module for time and date manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TimeDate
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 1:2.35-1
 - 2.35 bump
 

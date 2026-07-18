@@ -1,6 +1,6 @@
 Name:          maui-mauikit-archiver
 Version:       4.0.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 # Ignored the Mainpage.dox's LGPL-2.0-or-later as it's not used by us in any way
 License:       LGPL-2.1-or-later AND BSD-2-Clause AND GPL-3.0-or-later
 Summary:       Maui plugin for online archived/compressed files management
@@ -69,6 +69,9 @@ sed -e '/prefer/d' -i %{buildroot}%{_kf6_qmldir}/org/mauikit/archiver/qmldir
 %{_includedir}/MauiKit4/Archiver/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-7
 - Rebuild (qt6)
 

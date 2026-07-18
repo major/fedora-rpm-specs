@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python Bindings for OpenNebula XML-RPC API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -64,6 +64,9 @@ install -pm 0644 %{SOURCE1} LICENSE
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

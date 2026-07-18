@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Syndication Library
 
 # Qt-Commercial-exception-1.0 is also found in the LICENSES folder, but is unused except for tests which we don't use anyway
@@ -75,6 +75,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Steve Cossette <farchord@gmail.com> - 6.28.0-1
 - 6.28.0
 

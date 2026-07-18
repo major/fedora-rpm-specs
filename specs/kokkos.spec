@@ -35,7 +35,7 @@
 Name:           kokkos
 Version:        5.0.2
 %global         sover 5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -204,6 +204,9 @@ module purge
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Richard Berger <richard.berger@outlook.com> - 5.0.2-1
 - Version bump to v5.0.2
 

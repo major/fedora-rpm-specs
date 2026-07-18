@@ -18,7 +18,7 @@
 
 Name:           hdhomerun
 Version:        20250506
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Silicon Dust HDHomeRun configuration utility
 
 License:        LGPL-2.1-or-later
@@ -146,6 +146,9 @@ install -pm 0644 %{SOURCE3} %{buildroot}%{fw_services}/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250506-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 30 2026 Xavier Bachelot <xavier@bachelot.org> - 20250506-4
 - Disable gui on F45+ because of orphaned gtk2
 

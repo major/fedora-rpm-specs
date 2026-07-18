@@ -1,6 +1,6 @@
 Name:           kirigami-app-components
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kirigami extra addons and modules
 
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -57,5 +57,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6KirigamiAppComponents/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 17 2026 Steve Cossette <farchord@gmail.com> - 1.0.0-1
 - Initial Release

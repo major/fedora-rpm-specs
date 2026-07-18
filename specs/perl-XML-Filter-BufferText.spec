@@ -1,6 +1,6 @@
 Name:           perl-XML-Filter-BufferText
 Version:        1.01
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Filter to put all characters() in one event
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Filter-BufferText
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/XML::Filter::BufferText.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 1.01-53
 - Spec tidy-up
   - Classify buildreqs by usage

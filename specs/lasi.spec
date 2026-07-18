@@ -2,7 +2,7 @@
 
 Name:           lasi
 Version:        1.1.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        C++ library for creating Postscript documents
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -98,6 +98,9 @@ export FFLAGS="$RPM_OPT_FLAGS"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

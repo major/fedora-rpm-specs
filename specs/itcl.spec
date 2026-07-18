@@ -3,7 +3,7 @@
 
 Name:           itcl
 Version:        4.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Object oriented extensions to Tcl and Tk
 
 License:        TCL
@@ -62,6 +62,9 @@ make test
 %{_libdir}/itclConfig.sh
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

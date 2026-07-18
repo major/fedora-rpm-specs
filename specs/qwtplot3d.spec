@@ -5,7 +5,7 @@
 Name:           qwtplot3d
 Epoch:          1
 Version:        0.3.0
-Release:        13.%{commitdate}git%{shortcommit}%{?dist}
+Release:        14.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original QwtPlot3D library
 License:        Zlib
 URL:            https://github.com/SciDAVis/%{name}
@@ -188,6 +188,9 @@ popd
 #
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.0-14.20260129git3ba6d52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-13.20260129git3ba6d52
 - Set cmake_minimum-required in CMakeLists.txt
 

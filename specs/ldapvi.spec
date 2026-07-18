@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An interactive LDAP client
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ make manual.html
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8-2
 - Rebuilt for openssl 4.0
 

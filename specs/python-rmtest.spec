@@ -8,7 +8,7 @@
 
 Name:    python-%{srcname}
 Version: 1.0.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: %{summary}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/rmtest %{__python3} test.py
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-26
 - Rebuilt for Python 3.15
 

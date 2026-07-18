@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        %{short_version}~git.4.%{shortcommit}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Microsoft Azure Development Tools for SDK
 License:        MIT and Apache-2.0
 URL:            https://github.com/Azure/azure-sdk-for-python/
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{_bindir}/{perfstress,perfstressdebug,systemperf}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1~git.4.67d46b9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2.1~git.4.67d46b9-17
 - Rebuilt for Python 3.15
 

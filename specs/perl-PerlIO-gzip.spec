@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-gzip
 Version:        0.20
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl extension to provide a PerlIO layer to gzip/gunzip
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-gzip
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/PerlIO::gzip.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           miracle-wm-config
 Version:        0~git.%{commitdate}.2.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Miracle Window Manager system configuration
 
 License:        GPL-3.0-or-later
@@ -99,6 +99,9 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git.20260216.2.9b1fe3f-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20260216.2.9b1fe3f-1
 - Turn off dock autohide
 

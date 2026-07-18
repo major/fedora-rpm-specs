@@ -1,6 +1,6 @@
 Name: pdsh
 Version: 2.36
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -391,6 +391,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.36-1
 - update to 2.36
 

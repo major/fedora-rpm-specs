@@ -133,9 +133,9 @@
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with preview}
-Release:        1000.rocm%{rocm_version}%{?dist}
+Release:        1001.rocm%{rocm_version}%{?dist}
 %else
-Release:        12.rocm%{rocm_version}%{?dist}
+Release:        13.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1186,6 +1186,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22-13.rocm7.2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 18 2026 Tom Rix <Tom.Rix@amd.com> - 22-12.rocm7.2.1
 - Check version of rocminfo is recent enough
 

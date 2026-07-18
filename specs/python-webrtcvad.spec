@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python interface to the WebRTC Voice Activity Detector
 
 License:        MIT
@@ -50,6 +50,9 @@ It can be useful for telephony and speech recognition.
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Manish Tiwari <matiwari@redhat.com> - 2.0.10-3
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

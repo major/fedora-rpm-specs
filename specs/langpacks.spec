@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.3
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1774,6 +1774,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 12 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.3-2
 - Add functionality to only generate default-fonts for any language
 

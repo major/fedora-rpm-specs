@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Subtitle file manipulation library
 
 License:        GPL-3.0-or-later
@@ -56,6 +56,9 @@ rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already c
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.15-30
 - Rebuilt for Python 3.15
 

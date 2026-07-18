@@ -1,7 +1,7 @@
 Name:		rootsh
 Summary: 	Shell wrapper for auditing
 Version:	1.5.3
-Release:	38%{?dist}
+Release:	39%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Source0:	http://download.sourceforge.net/rootsh/%{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ mkdir -p $RPM_BUILD_ROOT/var/log/rootsh
 %attr(700, root, root) /var/log/rootsh/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

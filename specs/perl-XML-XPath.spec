@@ -9,7 +9,7 @@
 
 Name:           perl-XML-XPath
 Version:        1.49
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XPath parser and evaluator for Perl
 # XML/XPath.pm, XML/XPath/PerlSAX.pm, REAME: GPL-1.0-or-later OR Artistic-1.0-Perl
 # Others: Artistic-2.0
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.49-1
 - 1.49 bump (rhbz#2452772)
 

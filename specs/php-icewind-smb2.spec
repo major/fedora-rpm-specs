@@ -31,7 +31,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}%{major}
 Version:        2.0.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        php wrapper for smbclient and libsmbclient-php
 
 License:        MIT
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

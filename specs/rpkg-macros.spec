@@ -4,7 +4,7 @@
 
 Name: rpkg-macros
 Version: 2.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Set of preproc macros for rpkg utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -96,6 +96,9 @@ install -p -m 644 man/rpkg-macros.1 %{buildroot}/%{_mandir}/man1/
 %{_mandir}/man1/rpkg-macros.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

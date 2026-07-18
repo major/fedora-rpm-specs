@@ -1,6 +1,6 @@
 Name:           openpace
 Version:        1.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cryptographic library for EAC version 2
 
 License:        GPL-3.0-only
@@ -96,6 +96,9 @@ rm -rf %{buildroot}%{_docdir}/openpace/_static/bootswatch-3.3.7/fonts
 %doc %{_docdir}/openpace
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.4-3
 - Rebuilt for openssl 4.0
 

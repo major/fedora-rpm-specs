@@ -2,7 +2,7 @@
 
 Name:           keydb
 Version:        6.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Multithreaded Fork of Redis
 
 ExcludeArch:    %{ix86}
@@ -221,6 +221,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.3.4-8
 - Rebuilt for openssl 4.0
 

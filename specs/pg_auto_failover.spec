@@ -6,7 +6,7 @@ ExcludeArch:    %{ix86}
 
 Name:           pg_auto_failover
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 # Main project is PostgreSQL
@@ -154,6 +154,9 @@ done
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Michal Schorm <mschorm@redhat.com> - 2.2-1
 - Rebase to 2.2
 - Cherry-pick PostgreSQL 18 support from upstream 'main' branch

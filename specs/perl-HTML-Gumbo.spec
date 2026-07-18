@@ -1,6 +1,6 @@
 Name:           perl-HTML-Gumbo
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML5 parser based on gumbo C library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-Gumbo
@@ -50,6 +50,9 @@ pure C99 library with no outside dependencies.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.19-1
 - Update to 0.19
 - Update dependencies

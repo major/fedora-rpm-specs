@@ -1,6 +1,6 @@
 Name:           libsigc++
 Version:        1.2.7
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Typesafe signal framework for C++
 License:        LGPL-2.1-or-later
 URL:            http://libsigc.sourceforge.net/
@@ -95,6 +95,9 @@ find _doc -type d -empty -print0 | xargs -0r rmdir
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

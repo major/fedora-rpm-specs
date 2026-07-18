@@ -1,6 +1,6 @@
 Name:           perl-Test-Most
 Version:        0.42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module with test functions and features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Most
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Test::Most::Exception.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May  8 2026 Paul Howarth <paul@city-fan.org> - 0.42-1
 - Update to 0.42 (rhbz#2467785)
   - Restore support for 'use Test::Most import => [...]' to select which

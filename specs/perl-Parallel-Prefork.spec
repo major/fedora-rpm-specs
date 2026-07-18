@@ -1,6 +1,6 @@
 Name:           perl-Parallel-Prefork
 Version:        0.18
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Simple prefork server framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Parallel-Prefork
@@ -65,6 +65,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/Parallel*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 12 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.18-31
 - Take into account re-review feedback (#2497527)
 

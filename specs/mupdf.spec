@@ -25,12 +25,14 @@ Source2:	%{name}-gl.desktop
 # Upstream patches from master branch:
 # rhbz#2454361 and siblings
 Patch:		0001-Bug-708990-Avoid-overflow-src_stride-calculation-in-.patch
+# rhbz#2463402
+Patch:		0001-Bug-709364-Fix-missing-bounds-checks-in-CFF-subsetti.patch
 # Fedora specific patches:
 # Do not bug me if Artifex relies on local fork
 Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
 # Do not generate wrong form of dependencies
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
-# Do install shared libraries in the python tree
+# Do not install shared libraries in the python tree
 Patch:		0001-setup.py-do-not-bundle-c-and-c-libs-in-wheel.patch
 # Suggested upstream:
 # Avoid core dump of python bindings with gcc15

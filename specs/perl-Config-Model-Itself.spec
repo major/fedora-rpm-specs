@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Itself
 Version:        2.031
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Model editor for Config::Model
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -90,6 +90,9 @@ install -D -m 0644 contrib/bash_completion.cme_meta %{buildroot}%{_sysconfdir}/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/cme_meta
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.031-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.031-1
 - 2.031 bump (rhbz#2459641)
 

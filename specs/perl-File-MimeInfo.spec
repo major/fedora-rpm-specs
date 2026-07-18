@@ -11,7 +11,7 @@
 
 Name:           perl-File-MimeInfo
 Version:        0.37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Determine file type and open application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-MimeInfo
@@ -140,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 0.37-1
 - 0.37 bump (rhbz#2480138)
 

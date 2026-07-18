@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.8.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -59,6 +59,9 @@ This is Python 3 version.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.8.5-13
 - Rebuilt for Python 3.15
 

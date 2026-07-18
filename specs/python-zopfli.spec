@@ -3,7 +3,7 @@
 
 Name:           python-zopfli
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zopfli module for python
 License:        Apache-2.0
 URL:            https://pypi.org/project/zopfli/
@@ -50,6 +50,9 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}}"
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 11 2026 Parag Nemade <pnemade AT redhat DOT com> - 0.4.3-1
 - Update to 0.4.3 version (#2487444)
 

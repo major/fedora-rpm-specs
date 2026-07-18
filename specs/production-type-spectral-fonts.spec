@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.003
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           Production Type
@@ -43,6 +43,9 @@ Source10: 57-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 2.003-16
 - Fix the license file name
 

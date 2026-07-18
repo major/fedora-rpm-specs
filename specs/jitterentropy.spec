@@ -1,7 +1,7 @@
 %global libjit_soversion 3
 Name:           jitterentropy
 Version:        3.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library implementing the jitter entropy source
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -50,6 +50,9 @@ mkdir -p %{buildroot}%{_includedir}
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 20 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-3
 - Restore previous jitterentropy public api
 

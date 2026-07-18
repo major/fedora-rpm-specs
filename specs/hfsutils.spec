@@ -1,7 +1,7 @@
 Summary: Tools for reading and writing Macintosh HFS volumes
 Name: hfsutils
 Version: 3.2.6
-Release: 55%{?dist}
+Release: 56%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: ftp://ftp.mars.org/pub/hfs/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ install -p -m 0755 hfsck/hfsck $RPM_BUILD_ROOT/%{_bindir}
 %{_includedir}/rsrc.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

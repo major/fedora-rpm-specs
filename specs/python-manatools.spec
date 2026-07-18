@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.99.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 License:        LGPL-2.1-or-later
@@ -63,6 +63,9 @@ install -Dpm 0644 share/images/manatools.png %{buildroot}%{_datadir}/pixmaps/man
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-4
 - Fix up file lists to use pyproject generated lists
 - Build and install translations

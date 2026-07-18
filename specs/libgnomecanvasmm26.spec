@@ -4,7 +4,7 @@ Version:        2.26.0
 # yes, this is ugly
 %global major_minor_version %(echo "%version" | sed "s|^\\([^\\.]*\\.[^\\.]*\\).*$|\\1|")
 
-Release:        39%{?dist}
+Release:        40%{?dist}
 
 Summary:        C++ interface for Gnome libs (a GUI library for X)
 
@@ -62,6 +62,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-WWW-Mechanize-PSGI
 Version:        0.39
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Test PSGI programs using WWW::Mechanize
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-WWW-Mechanize-PSGI
@@ -55,6 +55,9 @@ PSGI applications.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

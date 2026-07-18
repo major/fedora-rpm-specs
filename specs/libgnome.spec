@@ -26,7 +26,7 @@
 Summary: GNOME base library
 Name: libgnome
 Version: 2.32.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnome/2.32/%{name}-%{version}.tar.bz2
 Source1: desktop_gnome_peripherals_monitor.schemas
@@ -173,6 +173,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

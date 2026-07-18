@@ -6,7 +6,7 @@
 %bcond_without                  tests
 
 Version:    3.0.50
-Release:    1%{?dist}
+Release:    2%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
 Name:       php-%{composer_project}%{vmajor}
@@ -114,6 +114,9 @@ php -d memory_limit=1G %{phpunit_bin} \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.50-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.50-1
 - Update to v3.0.50
 

@@ -1,6 +1,6 @@
 Name: python-bitmath
 Version: 1.3.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Aids representing and manipulating file sizes in various prefix notations
 
 License: MIT
@@ -90,6 +90,9 @@ rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/docs/NEWS.rst
 
 ######################################################################
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.3.1-9
 - Rebuilt for Python 3.15
 

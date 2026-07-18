@@ -6,7 +6,7 @@
 
 Name:               python-pygments-markdown-lexer
 Version:            0.1.0.dev39
-Release:            40%{?dist}
+Release:            41%{?dist}
 Summary:            %{sum}
 
 # One file is BSD, the rest are ASL
@@ -52,6 +52,9 @@ rm -rf %{buildroot}/usr/EGG-INFO
 %{python3_sitelib}/pygments_markdown_lexer-%{version}-*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0.dev39-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.0.dev39-40
 - Rebuilt for Python 3.15
 

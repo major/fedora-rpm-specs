@@ -2,7 +2,7 @@
 
 Name:		guitone
 Version:	1.0
-Release:	0.39%{?rctag:.%rctag}%{?dist}
+Release:	0.40%{?rctag:.%rctag}%{?dist}
 Summary:	A frontend for Monotone
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -124,6 +124,9 @@ EOF
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.40.rc5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.39.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

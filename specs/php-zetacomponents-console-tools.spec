@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.7.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zeta %{gh_project} Component
 
 License:        Apache-2.0
@@ -143,6 +143,9 @@ done
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

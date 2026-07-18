@@ -31,7 +31,7 @@ Version:        6.23
 
 
 Name:           incus
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -424,6 +424,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 09 2026 Carl George <carlwgeorge@fedoraproject.org> - 6.23-3
 - Remove incus dependency from incus-agent rhbz#2456888
 

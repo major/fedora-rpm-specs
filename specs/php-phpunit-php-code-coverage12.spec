@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        12.5.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -180,6 +180,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.5.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 12.5.7-1
 - update to 12.5.7
 - raise dependency on sebastian/environment 8.1.2

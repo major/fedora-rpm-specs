@@ -19,7 +19,7 @@
 
 Name:           libsodium
 Version:        1.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Sodium crypto library
 # Most source code is ISC, except:
 # BSD-2-Clause:
@@ -197,6 +197,9 @@ make -C build_native check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 10 2026 Remi Collet <remi@remirepo.net> - 1.0.22-1
 - update to 1.0.22
 - verify sources with minisig instead of gnupg

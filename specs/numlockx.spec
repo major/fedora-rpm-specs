@@ -1,6 +1,6 @@
 Name:           numlockx
 Version:        1.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Turns on NumLock after starting X
 
 License:        MIT
@@ -33,6 +33,9 @@ install -p -D %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinitrc.d/numlo
 %{_sysconfdir}/X11/xinit/xinitrc.d/numlockx.sh
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

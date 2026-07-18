@@ -1,6 +1,6 @@
 Name:           perl-Auth-Yubikey_WebClient
 Version:        4.02
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Authenticating the Yubikey against the Yubico Web API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://metacpan.org/dist/Auth-Yubikey_WebClient/
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

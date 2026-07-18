@@ -3,7 +3,7 @@
 
 Name:              redict
 Version:           7.3.6
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A persistent key-value database
 # redict: LGPL-3.0-only
 # hiredict: BSD-3-Clause
@@ -225,6 +225,9 @@ make %{make_flags} test-sentinel
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.3.6-2
 - Rebuilt for openssl 4.0
 

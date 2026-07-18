@@ -1,7 +1,7 @@
 Name:           perl-Lingua-EN-Syllable
 Epoch:          1
 Version:        0.31
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Routine for estimating syllable count in words
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Syllable
@@ -64,6 +64,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

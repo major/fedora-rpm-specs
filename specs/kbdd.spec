@@ -1,6 +1,6 @@
 Name:           kbdd
 Version:        0.7.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Per window keyboard layout
 
 # Upstream license ticket https://github.com/qnikst/kbdd/issues/48
@@ -46,6 +46,9 @@ autoreconf -vfi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.1-25
 - Add a patch to fix "conflicting types" compilation error
 

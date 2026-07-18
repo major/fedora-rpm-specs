@@ -1,6 +1,6 @@
 Name:           perl-Data-Entropy
 Version:        0.008
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Entropy (randomness) management
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -65,6 +65,9 @@ explicitly configure a source at all.
 %{_mandir}/man3/Data*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

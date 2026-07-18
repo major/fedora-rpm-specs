@@ -8,7 +8,7 @@
 
 Name:		im-chooser
 Version:	1.7.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:		http://pagure.io/im-chooser/
 %{?_with_gtk2:BuildRequires:	gtk2-devel}
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{_datadir}/applications/im-chooser-panel.desktop
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Akira TAGOH <tagoh@redhat.com> - 1.7.6-1
 - New upstream release.
 - Drop unneeded patch.

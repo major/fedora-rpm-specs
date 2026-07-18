@@ -8,7 +8,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BaseXX encoding and decoding library for Lua
 
 License:        MIT
@@ -54,6 +54,9 @@ install -D -p -m 0644 lib/basexx.lua %{buildroot}/%{luacompatpkgdir}/basexx.lua
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.4.1-1
 - update to 0.4.1. only 7 years late. :/
 - oh, lua 5.5 too.

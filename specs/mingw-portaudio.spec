@@ -3,7 +3,7 @@
 
 Name:           mingw-portaudio
 Version:        19
-Release:        19.%{datetag}%{?dist}
+Release:        20.%{datetag}%{?dist}
 Summary:        Free, cross platform, open-source, audio I/O library
 
 License:        LGPL-2.0-or-later
@@ -99,6 +99,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19-20.20210406
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19-19.20210406
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

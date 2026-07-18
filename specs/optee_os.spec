@@ -3,7 +3,7 @@
 
 Name:      optee_os
 Version:   4.10.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -74,6 +74,9 @@ done
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.10.0-1
 - Update to 4.10
 

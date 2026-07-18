@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A YAML parser and emitter for C++
 License:        MIT
 URL:            https://github.com/jbeder/yaml-cpp
@@ -76,6 +76,9 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 06 2026 Sandro Mani <manisandro@gmail.com> - 0.9.0-1
 - Update to 0.9.0
 

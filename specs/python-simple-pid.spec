@@ -1,6 +1,6 @@
 Name:		python-simple-pid
 Version:	2.0.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A PID (proportional–integral–derivative) controller in Python
 
 License:	MIT
@@ -45,6 +45,9 @@ Summary:	A PID (proportional–integral–derivative) controller in Python
 %{python3_sitelib}/simple_pid-%{version}.dist-info/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.0-10
 - Rebuilt for Python 3.15
 

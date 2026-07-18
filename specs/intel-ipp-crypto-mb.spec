@@ -11,7 +11,7 @@ Intel Advanced Vector Extensions 512 (Intel AVX-512) instructions.}
 
 Name:		intel-ipp-crypto-mb
 Version:	1.0.10
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Intel IPP Cryptography multi-buffer library
 
 License:	Apache-2.0
@@ -81,6 +81,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -42,6 +42,9 @@ License:        GPL-2.0-only
 URL:            https://github.com/pengutronix/genimage/
 Source0:        %{url}/releases/download/v%{version}/genimage-%{version}.tar.xz
 
+# https://github.com/pengutronix/genimage/pull/339
+Patch0:         339.patch
+
 Recommends:     %{trim_fs_block_tools}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2374067

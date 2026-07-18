@@ -1,7 +1,7 @@
 Summary:    WAV Editing Package
 Name:       mhwaveedit
 Version:    1.4.24
-Release:    1%{?dist}
+Release:    2%{?dist}
 Url:        https://github.com/magnush/mhwaveedit
 License:    GPL-2.0-or-later
 %global     forgeurl https://github.com/magnush/mhwaveedit
@@ -77,5 +77,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 peterbb <peter@pblackman.plus.com> - 1.4.24-1
 - Reintroduce to Fedora

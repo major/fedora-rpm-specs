@@ -1,6 +1,6 @@
 Name:           plib
 Version:        1.8.5
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Set of portable libraries especially useful for games
 License:        LGPL-2.0-or-later
 URL:            http://plib.sourceforge.net/
@@ -95,6 +95,9 @@ cp -a `find . -name "libplib*.so*"` $RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.8.5-42
 - Fix SPDX license tag: 'LicenseRef-Callaway-LGPLv2+' -> 'LGPL-2.0-or-later'
 

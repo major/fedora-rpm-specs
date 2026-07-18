@@ -3,7 +3,7 @@
 
 Name:           picocom
 Version:        2024.07
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Minimal serial communications program
 
 License:        GPL-2.0-or-later
@@ -58,6 +58,9 @@ install -m0644 -D picocom.sysusers.conf %{buildroot}%{_sysusersdir}/picocom.conf
 %{_sysusersdir}/picocom.conf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.07-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.07-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

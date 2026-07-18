@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD-3-Clause
@@ -124,6 +124,9 @@ install -m0644 -D rancid.sysusers.conf %{buildroot}%{_sysusersdir}/rancid.conf
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 28 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.14-1
 - Update to 3.14
 - Drop rancid-3.13-dnos10-psu-filter.patch

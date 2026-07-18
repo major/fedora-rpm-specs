@@ -13,7 +13,7 @@ Name:           php-pecl-lzf
 Summary:        Extension to handle LZF de/compression
 License:        PHP-3.01
 Version:        1.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -78,6 +78,9 @@ install -D -p -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 20 2026 Remi Collet <remi@remirepo.net> - 1.7.0-19
 - add pie virtual provides
 - drop pear/pecl dependency

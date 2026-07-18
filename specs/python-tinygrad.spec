@@ -4,7 +4,7 @@ Version:        0.13.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        You like pytorch? You like micrograd? You'll love tinygrad!
 
 License:        MIT
@@ -95,6 +95,9 @@ PYTHON=1 SKIP_SLOW_TEST=1 %python3 -m pytest \
 %doc examples
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.13.0-2
 - Rebuilt for Python 3.15
 

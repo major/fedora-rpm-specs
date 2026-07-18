@@ -4,7 +4,7 @@
 
 Name:		python-%{pkgname}
 Version:	1.6.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	%{sum}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -81,6 +81,9 @@ rm flask_admin/translations/README.md
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.1-13
 - Rebuilt for Python 3.15
 

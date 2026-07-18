@@ -4,7 +4,7 @@
 
 Name:          rubygem-%{gem_name}
 Version:       1.1.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Useful tools for working with Semantic Versions
 License:       Apache-2.0
 URL:           https://github.com/puppetlabs/semantic_puppet
@@ -70,6 +70,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

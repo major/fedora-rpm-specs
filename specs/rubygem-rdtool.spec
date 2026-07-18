@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.6.39
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Formatter for RD
 # SPDX confirmed
@@ -114,6 +114,9 @@ popd
 %{gem_instdir}/utils/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.39-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.39-2
 - Remove warnings for ruby 4.0
 

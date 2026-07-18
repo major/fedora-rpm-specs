@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -95,6 +95,9 @@ rm -f %{buildroot}%{python3_sitelib}/tw2.core-*-nspkg.pth
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-29
 - Remove pth file for python3.15 compatibility
 

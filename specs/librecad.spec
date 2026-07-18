@@ -11,7 +11,7 @@
 
 Name:			librecad
 Version:		2.2.1.4
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPL-2.0-only AND GPL-2.0-or-later
 URL:			http://librecad.org/
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.2.1.4-2
 - RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
 

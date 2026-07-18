@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Connector
 Version:        0.60
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, safe DBI connection and transaction management
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Connector
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

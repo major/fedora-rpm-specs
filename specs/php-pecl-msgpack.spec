@@ -32,7 +32,7 @@ Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 License:       BSD-3-Clause
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -164,6 +164,9 @@ TEST_PHP_ARGS="-n -d extension=apcu.so -d extension=$PWD/modules/%{pecl_name}.so
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 3.0.1-1
 - update to 3.0.1
 

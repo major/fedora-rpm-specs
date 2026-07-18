@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -91,6 +91,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-13
 - Drop redundant BuildRequires for python3-wheel
 

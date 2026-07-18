@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
 Version:        2.0
-Release:        0.rc4%{?dist}
+Release:        0.rc4%{?dist}.1
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0-0.rc4.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 17 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0-0.rc4
 - Update to 2.0-RC4
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-MethodMaker
 Version:        2.25
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl module for creating generic object-oriented methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-MethodMaker
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/Class::MethodMaker::scalar.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

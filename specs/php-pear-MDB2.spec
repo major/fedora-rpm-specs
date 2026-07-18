@@ -6,9 +6,9 @@
 Name:           php-pear-MDB2
 Version:        2.5.0
 %if 0%{?prever:1}
-Release:        0.34.%{?prever}%{?dist}
+Release:        0.35.%{?prever}%{?dist}
 %else
-Release:        29%{?dist}
+Release:        30%{?dist}
 %endif
 Summary:        Database Abstraction Layer
 
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-0.35.b5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-0.34.b5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

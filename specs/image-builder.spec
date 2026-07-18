@@ -11,7 +11,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -303,6 +303,9 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 74.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 08 2026 Packit <hello@packit.dev> - 74.0.0-1
 Changes with 74.0.0
 ----------------

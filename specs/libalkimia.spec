@@ -10,7 +10,7 @@
 Name:    libalkimia
 Summary: Financial library
 Version: 8.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -199,6 +199,9 @@ time \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 8.2.1-5
 - Rebuild (qt6)
 

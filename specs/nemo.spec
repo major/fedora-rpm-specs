@@ -3,7 +3,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        6.7.4^unstable
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -173,6 +173,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-2
 - Remove requires gvfs-archive
 

@@ -1,6 +1,6 @@
 Name:           podman-compose
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -44,6 +44,9 @@ install -Dpm 0644 completion/bash/podman-compose -t %{buildroot}%{bash_completio
 %{bash_completions_dir}/podman-compose
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 11 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-1
 - 1.6.0
 

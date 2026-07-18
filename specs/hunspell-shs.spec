@@ -8,7 +8,7 @@ Name: hunspell-shs
 Summary: Shuswap hunspell dictionaries
 %global upstreamid 20090828
 Version: 0.%{upstreamid}
-Release: 33%{?dist}
+Release: 34%{?dist}
 # Upstream Source and URL links are dead now
 Source: http://secpewt.sd73.bc.ca/hunspell/hunspell-shs-ca.tar.gz
 URL: http://secpewt.sd73.bc.ca/wordlist
@@ -36,6 +36,9 @@ cp -p hunspell/shs_CA.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/shs_CA.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090828-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20090828-33
 - Remove unnecessary BuildRequires: hunspell-devel
 - Update SPEC for latest guidelines

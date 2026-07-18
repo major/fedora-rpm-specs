@@ -1,6 +1,6 @@
 Name:           perl-Sort-MergeSort
 Version:        0.31
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Merge pre-sorted input streams
 # Automatically converted from old format: (Artistic 2.0 or LGPLv2) and (GPL+ or Artistic) - review is highly recommended.
 License:        (Artistic-2.0 OR LicenseRef-Callaway-LGPLv2) AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-libpng
 Version:        1.6.58
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows Libpng library
 
 License:        Zlib
@@ -132,6 +132,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.58-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 18 2026 Sandro Mani <manisandro@gmail.com> - 1.6.58-1
 - Update to 1.6.58
 

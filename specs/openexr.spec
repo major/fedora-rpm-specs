@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.4.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause WITH AdditionRef-OpenEXR-Additional-IP-Rights-Grant OR Apache-2.0
@@ -156,6 +156,9 @@ EXCLUDE_REGEX='Iex'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.13-1
 - Update to 3.4.13.
 

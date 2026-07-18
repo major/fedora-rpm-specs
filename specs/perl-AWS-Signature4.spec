@@ -1,6 +1,6 @@
 Name:           perl-AWS-Signature4
 Version:        1.02
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Create a version4 signature for Amazon Web Services
 
 License:        GPL-1.0-or-later OR Artistic-2.0
@@ -63,6 +63,9 @@ This module implement's Amazon Web Service's Signature version 4
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

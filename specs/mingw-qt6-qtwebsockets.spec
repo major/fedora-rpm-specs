@@ -18,7 +18,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -137,6 +137,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
 - Update to 6.11.1
 

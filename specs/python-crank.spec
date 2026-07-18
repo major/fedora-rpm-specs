@@ -2,7 +2,7 @@
 
 Name:               python-crank
 Version:            0.9.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -53,6 +53,9 @@ This package provides the python3 version of this module
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.9.0-1
 - Update to upstream.
 - Enable check section again.

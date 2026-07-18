@@ -1,6 +1,6 @@
 Name:		libfastjson
 Version:	1.2304.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A JSON implementation in C
 License:	MIT
 URL:		https://github.com/rsyslog/libfastjson
@@ -66,6 +66,9 @@ make V=1 check
 %{_libdir}/pkgconfig/libfastjson.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2304.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 23 2026 Adam Williamson <awilliam@redhat.com> - 1.2304.0-10
 - Correct patch file
 - Apply patch

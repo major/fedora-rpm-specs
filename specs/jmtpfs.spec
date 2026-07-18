@@ -1,7 +1,7 @@
 Summary:        FUSE and libmtp based filesystem for accessing MTP devices
 Name:           jmtpfs
 Version:        0.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        GPL-3.0-only
 URL:            https://github.com/JasonFerrara/jmtpfs/
 Source0:        https://github.com/JasonFerrara/jmtpfs/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -49,6 +49,9 @@ install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

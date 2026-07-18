@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
@@ -95,6 +95,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Vít Ondruch <vondruch@redhat.com> - 10.1.0-15
 - Relax cucumber-gherkin dependency.
 

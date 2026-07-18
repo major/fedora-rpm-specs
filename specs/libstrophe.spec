@@ -1,6 +1,6 @@
 Name:           libstrophe
 Version:        0.14.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An XMPP library for C
 
 License:        MIT AND GPL-3.0-only
@@ -120,6 +120,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.14.0-4
 - Rebuilt for openssl 4.0
 

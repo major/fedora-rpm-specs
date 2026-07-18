@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Introspector
 Version:        0.001005
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Detect what database you are connected to
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,6 +61,9 @@ only option, as DBD::ADO can also be used.
 %{_mandir}/man3/DBIx*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001005-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001005-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

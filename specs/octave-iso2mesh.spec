@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -181,6 +181,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 28 2026 Orion Poplawski <orion@nwra.com> - 1.9.8-7
 - Fix cmake build (FTBFS rhbz#2380958)
 

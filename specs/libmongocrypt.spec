@@ -15,7 +15,7 @@
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
 Version:   1.20.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
 # kms-message/src/kms_b64.c is ISC
@@ -112,6 +112,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul  2 2026 Remi Collet <remi@remirepo.net> - 1.20.0-1
 - update to 1.20.0
 

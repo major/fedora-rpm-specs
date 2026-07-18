@@ -1,6 +1,6 @@
 Name:           perl-JavaScript-Minifier-XS
 Version:        0.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XS based JavaScript minifier
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JavaScript-Minifier-XS
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/JavaScript::Minifier::XS*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
 - 0.16 bump (rhbz#2494051) - Fix CVE-2026-56017 and CVE-2026-56018
 

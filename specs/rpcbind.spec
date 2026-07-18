@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            https://sourceforge.net/projects/rpcbind
@@ -120,6 +120,9 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  1 2026 Steve Dickson <steved@redhat.com> 1.2.9-2
 - Fix leak of nconf in main()
 

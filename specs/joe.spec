@@ -1,7 +1,7 @@
 Summary: An easy to use, modeless text editor
 Name: joe
 Version: 4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/joe-editor/
 Source: http://downloads.sourceforge.net/joe-editor/joe-%{version}.tar.gz
@@ -67,6 +67,9 @@ popd
 %exclude %{_datadir}/applications/j*desktop
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.8-1
 - 4.8
 

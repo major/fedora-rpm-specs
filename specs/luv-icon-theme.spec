@@ -10,7 +10,7 @@ License: CC-BY-SA-4.0
 
 # Version number taken from 'debian/changelog' file
 Version: 0.7.0^%{git_date}.%{git_commit_short}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/Nitrux/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -98,6 +98,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Luv &>/dev/null || :
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0^20260402.d61d029-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.0^20260402.d61d029-1
 - Update to v0.7.0
 

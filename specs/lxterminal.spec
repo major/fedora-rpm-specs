@@ -36,7 +36,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	3
+%global		baserelease	4
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -185,6 +185,9 @@ cd ..
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1^20250415gitac5e36f4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1^20250415gitac5e36f4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

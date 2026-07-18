@@ -3,7 +3,7 @@
 
 Name:           python-avalara
 Version:        26.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AvaTax Python SDK
 
 
@@ -53,6 +53,9 @@ Summary: %{summary}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 NeuroWinter <dev@neurowinter.com> - 26.6.0-1
 - Updated to version 26.6.0
 

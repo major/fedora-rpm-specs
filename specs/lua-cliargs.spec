@@ -3,7 +3,7 @@
 
 Name:      lua-cliargs
 Version:   3.0.2
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   A command-line argument parser
 License:   MIT
 URL:       %{forgeurl}
@@ -42,6 +42,9 @@ lua examples/00_general.lua --version
 %{lua_pkgdir}/cliargs/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.2-11
 - rebuild
 

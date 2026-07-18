@@ -1,6 +1,6 @@
 Name:           perl-Tie-Hash-Method
 Version:        0.02
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Tied hash with specific methods overridden by callbacks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-Hash-Method
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 04 2026 Petr Pisar <ppisar@redhat.com> - 0.02-32
 - Modernize a spec file
 - Package the tests

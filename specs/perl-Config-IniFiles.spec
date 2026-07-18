@@ -1,6 +1,6 @@
 Name:           perl-Config-IniFiles
 Version:        3.002000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A module for reading .ini-style configuration files
 # LICENSE:                              GPL+ or Artistic
 # lib/Config/IniFiles.pm:               GPL+ or Artistic
@@ -81,6 +81,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Config::IniFiles.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.002000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Xavier Bachelot <xavier@bachelot.org> - 3.002000-1
 - Update to 3.002000 (RHBZ#2488759)
 

@@ -4,7 +4,7 @@
 
 Name:           libva-v4l2-request
 Version:        1.0.0
-Release:        18.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        19.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        VA-API Backend using v4l2-request API
 
 # Automatically converted from old format: LGPLv2+ and MIT - review is highly recommended.
@@ -56,6 +56,9 @@ sed -i -e "/'h265.c'/d" src/meson.build
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-19.20190517gita3c2476
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-18.20190517gita3c2476
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

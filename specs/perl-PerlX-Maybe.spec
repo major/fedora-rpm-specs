@@ -3,7 +3,7 @@
 
 Name:           perl-PerlX-Maybe
 Version:        1.202
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Return a pair only if they are both defined
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlX-Maybe
@@ -102,6 +102,9 @@ PERLX_MAYBE_IMPLEMENTATION=PP make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

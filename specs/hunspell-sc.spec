@@ -8,7 +8,7 @@ Name: hunspell-sc
 Summary: Sardinian hunspell dictionaries
 %global upstreamid 20081101
 Version: 0.%{upstreamid}
-Release: 39%{?dist}
+Release: 40%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1446/2/dict_sc_it03.oxt
 URL: https://extensions.openoffice.org/en/project/sardinian-dictionary.html
 #The license included is AGPLv3 and pkg-desc/pkg-description.txt
@@ -38,6 +38,9 @@ cp -p sc_it.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/sc_IT.dic
 %{_datadir}/%{dict_dirname}/sc_IT.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20081101-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20081101-39
 - Remove unnecessary BuildRequires: hunspell-devel
 - Update Source and URL links

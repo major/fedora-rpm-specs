@@ -2,7 +2,7 @@
 
 Name:           mingw-cairomm
 Version:        1.12.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        MinGW Windows C++ API for the cairo graphics library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -127,6 +127,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

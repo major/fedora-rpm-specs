@@ -1,6 +1,6 @@
 Version:        0.63.0
 Name:           lfortran
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -157,6 +157,9 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.63.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 0.63.0-3
 - Rebuilt for fmt/spdlog
 

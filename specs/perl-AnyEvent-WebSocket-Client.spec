@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-WebSocket-Client
 Version:        0.55
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        WebSocket client for AnyEvent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/AnyEvent-WebSocket-Client
@@ -83,6 +83,9 @@ make test
 %{_mandir}/man3/AnyEvent::WebSocket*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

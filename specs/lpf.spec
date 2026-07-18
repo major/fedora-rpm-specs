@@ -5,7 +5,7 @@
 
 Name:           lpf
 Version:        0.3
-Release:        15%{?rel}%{?dist}
+Release:        16%{?rel}%{?dist}
 Summary:        Local package factory - build non-redistributable rpms
 
 # Icon from iconarchive.com
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet appdata/lpf-gui.appdata.xml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

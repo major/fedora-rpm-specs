@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plymouth-theme-breeze
 Version: 6.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Breeze theme for Plymouth
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
 - 6.7.3
 

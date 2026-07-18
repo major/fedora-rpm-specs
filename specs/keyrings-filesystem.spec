@@ -1,6 +1,6 @@
 Name:           keyrings-filesystem
 Version:        1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Keyrings filesystem layout
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -36,6 +36,9 @@ EOF
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

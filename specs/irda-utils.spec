@@ -3,7 +3,7 @@
 Summary:         Utilities for infrared communication between devices
 Name:            irda-utils
 Version:         0.9.18
-Release:         53%{?dist}
+Release:         54%{?dist}
 Url:             http://irda.sourceforge.net
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
@@ -125,6 +125,9 @@ chmod -x etc/ifcfg-irlan0
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.18-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.18-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

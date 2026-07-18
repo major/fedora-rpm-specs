@@ -4,7 +4,7 @@
 Summary:       Code coverage analysis tool for Ruby 1.9
 Name:          rubygem-%{gem_name}
 Version:       0.13.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 License:       MIT
 URL:           http://github.com/colszowka/simplecov
 Source0:       http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -96,6 +96,9 @@ popd
 %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		perl-MouseX-Types-Path-Class
 Summary:	A Path::Class type library for Mouse
 Version:	0.07
-Release:	36%{?dist}
+Release:	37%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Types-Path-Class
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Types-Path-Class-%{version}.tar.gz
@@ -87,6 +87,9 @@ make test TEST_POD=1 TEST_VERBOSE=1
 %{_mandir}/man3/MouseX::Types::Path::Class.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

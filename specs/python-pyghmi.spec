@@ -10,7 +10,7 @@ incorporate the pyghmi library into a Python application.}
 Summary: Python General Hardware Management Initiative (IPMI and others)
 Name: python-%{sname}
 Version: 1.6.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 BuildArch: noarch
@@ -99,6 +99,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.18-1
 - Update to v1.6.18
 

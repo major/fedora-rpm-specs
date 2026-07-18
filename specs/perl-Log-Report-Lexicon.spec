@@ -1,6 +1,6 @@
 Name:           perl-Log-Report-Lexicon
 Version:        1.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Translation component of Log::Report
 # t/simplecal/  "same license as libintl-perl", i.e. GPL-3.0-or-later AND LGPL-2.0-or-later
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

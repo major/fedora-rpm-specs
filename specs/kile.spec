@@ -6,7 +6,7 @@ Name:	 kile
 Summary: (La)TeX source editor and TeX shell
 Version: 2.9.94
 %global respin -1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://kile.sourceforge.io/
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kile.desk
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.94-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.94-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

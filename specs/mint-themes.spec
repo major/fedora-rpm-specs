@@ -1,7 +1,7 @@
 Name:           mint-themes
 Epoch:          1
 Version:        2.3.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mint themes
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -101,6 +101,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1:2.3.9-1
 - Update to 2.3.9
 - Switch to sassc

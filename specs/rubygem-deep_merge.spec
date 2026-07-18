@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Merge Deeply Nested Hashes
 License: MIT
 URL: https://github.com/danielsdeleo/deep_merge
@@ -74,6 +74,9 @@ ruby -Ilib test/test_deep_merge.rb
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

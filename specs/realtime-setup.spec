@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
@@ -78,6 +78,9 @@ install -m0644 -D realtime-setup.sysusers.conf %{buildroot}%{_sysusersdir}/realt
 %{_sysusersdir}/realtime-setup.conf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

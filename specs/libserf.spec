@@ -3,7 +3,7 @@
 
 Name:           libserf
 Version:        1.3.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            https://serf.apache.org/
@@ -88,6 +88,9 @@ grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf-%{major}.pc
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.3.10-14
 - Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
 

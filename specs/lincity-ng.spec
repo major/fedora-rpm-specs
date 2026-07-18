@@ -2,7 +2,7 @@
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 4
+%global baserelease 5
 
 Name:		lincity-ng
 Version:	2.14.2
@@ -69,6 +69,9 @@ popd
 %{_datadir}/lincity-ng/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 2.14.2-1
 - Rebuilt for fmt/spdlog
 

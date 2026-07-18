@@ -1,6 +1,6 @@
 Name:           kmid2
 Version:        2.4.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A MIDI/karaoke player for KDE
 
 # GPL-2.0-or-later for the code and the MMA examples, CC-BY-SA-3.0 for the MIDI examples
@@ -108,6 +108,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/kmid.deskto
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

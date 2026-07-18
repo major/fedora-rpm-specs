@@ -1,6 +1,6 @@
 Name:           python-norpm
 Version:        1.11
-Release:        1%?dist
+Release:        2%?dist
 Summary:        RPM Macro Expansion in Python
 
 License:        LGPL-2.1-or-later
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Pavel Raiskup <praiskup@redhat.com> - 1.11-1
 - new release, per upstream release notes:
   https://github.com/praiskup/norpm/blob/main/NEWS.md

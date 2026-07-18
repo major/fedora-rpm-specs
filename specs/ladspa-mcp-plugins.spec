@@ -1,7 +1,7 @@
 Name:           ladspa-mcp-plugins
 Epoch:          1
 Version:        0.4.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A set of audio plugins for LADSPA
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ rm ladspa.h
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

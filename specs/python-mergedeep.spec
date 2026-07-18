@@ -1,6 +1,6 @@
 Name:           python-mergedeep
 Version:        1.3.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A deep merge function for python
 BuildArch:      noarch
 
@@ -48,6 +48,9 @@ A deep merge function for python.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.4-21
 - Rebuilt for Python 3.15
 

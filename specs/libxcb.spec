@@ -2,7 +2,7 @@
 
 Name:       libxcb
 Version:    1.17.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    A C binding to the X11 protocol
 License:    X11
 URL:        http://xcb.freedesktop.org/
@@ -119,6 +119,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 %{_pkgdocdir}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

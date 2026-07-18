@@ -2,7 +2,7 @@
 
 Name:          muffin
 Version:       6.7.4^unstable
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND SGI-B-2.0
@@ -130,6 +130,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-1
 - Update to 6.7.4-unstable
 

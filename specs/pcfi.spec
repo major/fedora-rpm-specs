@@ -2,7 +2,7 @@
 
 Name:           pcfi
 Version:        2010.08.09
-Release:        36.20111103git%{commit}%{?dist}
+Release:        37.20111103git%{commit}%{?dist}
 Summary:        PDF Core Font Information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ cp %SOURCE1 .
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-37.20111103gitbd245c9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-36.20111103gitbd245c9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

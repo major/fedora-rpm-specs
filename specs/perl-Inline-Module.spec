@@ -1,6 +1,6 @@
 Name:           perl-Inline-Module
 Version:        0.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for Inline-based CPAN extension modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Module
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 0.35-1
 - 0.35 bump
 - Package the tests

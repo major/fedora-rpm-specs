@@ -7,7 +7,7 @@
 Name: hunspell-nl
 Summary: Dutch hunspell dictionaries
 Version: 2.20.21~beta
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://extensions.libreoffice.org/assets/downloads/1750/opentaal-nl_2.20.21_beta.oxt
 URL: https://extensions.libreoffice.org/en/extensions/show/5711
 License: BSD-3-Clause OR CC-BY-3.0
@@ -42,6 +42,9 @@ done
 %{_datadir}/%{dict_dirname}/nl_*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.21~beta-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 18 2026 Parag Nemade <pnemade AT redhat DOT com> - 2.20.21~beta-1
 - Update to 2.20.21 beta release (rhbz#2490238)
 

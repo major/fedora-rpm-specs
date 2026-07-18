@@ -4,7 +4,7 @@
 
 Name:           linenoise
 Version:        1.0
-Release:        14.20200312git%{shortcommit}%{?dist}
+Release:        15.20200312git%{shortcommit}%{?dist}
 Summary:        Minimal replacement for readline
 License:        BSD-2-Clause
 URL:            https://github.com/antirez/linenoise
@@ -55,6 +55,9 @@ LIBDIR="%{_libdir}" INCLUDEDIR="%{_includedir}" CFLAGS="%{optflags}" make %{?_sm
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-15.20200312git97d2850
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14.20200312git97d2850
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

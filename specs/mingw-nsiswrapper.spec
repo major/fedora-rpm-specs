@@ -1,6 +1,6 @@
 Name:           mingw-nsiswrapper
 Version:        12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Helper program for making NSIS Windows installers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -77,6 +77,9 @@ pod2man -c "NSIS" -r "%{name}-%{version}" %{SOURCE0} \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

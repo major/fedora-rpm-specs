@@ -3,7 +3,7 @@
 Summary: Utilities for the IBM Power Linux RAID adapters
 Name:    iprutils
 Version: 2.4.19
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: CPL-1.0
 URL:     https://github.com/bjking1/iprutils
 Source0: https://github.com/bjking1/iprutils/archive/%{gitver}/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm %{buildroot}/%{_sysconfdir}/ha.d/resource.d/iprha
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.19-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.19-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

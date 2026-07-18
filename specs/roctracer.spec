@@ -83,9 +83,9 @@
 Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -272,6 +272,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libfile_plugin.so
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-3
 - merge compat changes
 

@@ -1,7 +1,7 @@
 
 Name:           python-xmltramp
 Version:        2.18
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Pythonic API for XML
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -55,6 +55,9 @@ install -Dm0644 -t %{buildroot}%{python3_sitelib}/ xmltramp.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.18-31
 - Rebuilt for Python 3.15
 

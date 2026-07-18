@@ -22,6 +22,7 @@ BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libgtop-2.0)
 BuildRequires:  pkgconfig(vte-2.91-gtk4) >= %{vte_version}
 BuildRequires:  /usr/bin/appstream-util
+BuildRequires:  /usr/bin/appstreamcli
 BuildRequires:  /usr/bin/desktop-file-validate
 
 Requires:       gtk4%{?_isa} >= %{gtk4_version}

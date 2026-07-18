@@ -3,7 +3,7 @@
 
 Name:           perl-Data-Float
 Version:        0.015
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Details of the floating point data type
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
 # SECURITY.md:  Relicensed by the author from CC-BY-SA-4.0 to
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

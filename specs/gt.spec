@@ -1,6 +1,6 @@
 Name:           gt
 Version:        0.4
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Modified Timidity which supportes enhanced gus format patches
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -75,6 +75,9 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 19 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.4-50
 - Fix FTBFS (rhbz#2340597, rhbz#2385043)
 

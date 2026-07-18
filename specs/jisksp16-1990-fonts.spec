@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	0.983
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	16x16 JIS X 0212:1990 Bitmap font
 License:	LicenseRef-Fedora-Public-Domain
 
@@ -48,6 +48,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{name}
 %{catalogue}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.983-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.983-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

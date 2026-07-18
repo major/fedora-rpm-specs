@@ -1,6 +1,6 @@
 Name: gretl	
 Version: 2026a
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for econometric analysis
 
 %if 0%{?fedora} >= 33
@@ -153,6 +153,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026a-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Johannes Lips <hannes@fedoraproject.org> - 2026a-1
 - Update to 2026a
 

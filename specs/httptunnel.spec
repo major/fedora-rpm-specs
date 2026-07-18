@@ -1,6 +1,6 @@
 Name:           httptunnel
 Version:        3.3
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Tunnels a data stream in HTTP requests
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -48,6 +48,9 @@ export CFLAGS="${CFLAGS} -std=gnu99"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.3-41
 - Use "-std=gnu99" when building
 

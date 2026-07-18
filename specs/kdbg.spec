@@ -1,7 +1,7 @@
 Name: kdbg
 Summary: A GUI for gdb, the GNU debugger, and KDE
 Version: 3.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source: http://download.sourceforge.net/kdbg/%{name}-%{version}.tar.gz
 # No version specified.
@@ -53,6 +53,9 @@ requires X and KDE to be installed in order to run.
 %{_datadir}/icons/*/*/*/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jan 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.2.0-3
 - Build with KF6
 

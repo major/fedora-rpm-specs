@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Bindings for libssh C library
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.1-9
 - Rebuilt for Python 3.15
 

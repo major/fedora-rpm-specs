@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod-Coverage
 Version:        1.10
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Check for pod coverage in your distribution
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Pod-Coverage
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

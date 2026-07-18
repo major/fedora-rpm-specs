@@ -4,7 +4,7 @@
 
 Name:           perl-Clone
 Version:        0.50
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Recursively copy perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone
@@ -133,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 28 2026 Paul Howarth <paul@city-fan.org> - 0.50-1
 - Update to 0.50
   - Fix: Deep-copy HVs past MAX_DEPTH instead of aliasing (GH#93)

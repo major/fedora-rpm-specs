@@ -2,7 +2,7 @@
 
 Name:           net-naming-sysattrs
 Version:        263
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mechanism to emulate older network device naming behavior
 
 License:        MIT
@@ -57,4 +57,7 @@ make test
 %{dracutmoddir}/70net-naming-sysattrs/module-setup.sh
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 263-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 %autochangelog

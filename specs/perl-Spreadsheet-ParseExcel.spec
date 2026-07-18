@@ -11,7 +11,7 @@
 Name:           perl-Spreadsheet-ParseExcel
 Epoch:          1
 Version:        0.66
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extract information from an Excel file
 # sample/xls2csv.pl:    Artistic-1.0-Perl
 #                       TODO: Clarify with an upstream
@@ -172,6 +172,9 @@ make test AUTOMATED_TESTING=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.66-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.66-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

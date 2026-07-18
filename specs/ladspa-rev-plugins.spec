@@ -1,6 +1,6 @@
 Name:           ladspa-rev-plugins
 Version:        0.3.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        A reverberation plugin for LADSPA
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -47,6 +47,9 @@ rm ladspa.h
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

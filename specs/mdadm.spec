@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.6
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -124,6 +124,9 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 5 2026 Xiao Ni <xni@redhat.com> - 4.6-1
 - Update rawhide(f45) to upstream 4.6
 

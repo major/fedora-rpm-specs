@@ -4,7 +4,7 @@
 
 Name:           mingw-libgcrypt
 Version:        1.10.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MinGW Windows gcrypt encryption library
 
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
@@ -174,6 +174,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libgcrypt.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

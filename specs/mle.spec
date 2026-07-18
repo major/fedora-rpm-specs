@@ -1,7 +1,7 @@
 Summary:         A small, flexible, terminal-based text editor
 Name:            mle
 Version:         1.8.1
-Release:         1%{?dist}
+Release:         2%{?dist}
 License:         Apache-2.0
 URL:             https://github.com/adsr/mle
 Source:          https://github.com/adsr/mle/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ install -D -p -v -m 644 mle.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/mle.1
 %{_mandir}/man1/mle.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Adam Saponara <as@php.net> - 1.8.1-1
 - New upstream release
 

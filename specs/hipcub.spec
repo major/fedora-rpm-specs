@@ -78,9 +78,9 @@
 Name:           hipcub%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
@@ -222,6 +222,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - merge compat changes
 

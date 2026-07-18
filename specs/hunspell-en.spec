@@ -3,7 +3,7 @@ Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20260225
 Version: 0.%{upstreamid}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2026.02.25.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 Patch1: en_GB-singleletters.patch
@@ -170,6 +170,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_CA.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20260225-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.20260225-2
 - Re-BR aspell
 

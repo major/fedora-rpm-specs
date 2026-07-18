@@ -25,7 +25,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        Always Populate Form Data
 License:        BSD-2-Clause
 Version:        1.0.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -123,6 +123,9 @@ TEST_PHP_ARGS="-n -d extension=modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 1.0.3-21
 - drop pear/pecl dependency
 - sources from github

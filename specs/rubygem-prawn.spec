@@ -3,7 +3,7 @@
 Summary: A fast and nimble PDF generator for Ruby
 Name: rubygem-%{gem_name}
 Version: 2.4.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 # afm files are licensed by APAFML, the rest of package is GPLv2 or GPLv3 or Ruby
 # Automatically converted from old format: (GPLv2 or GPLv3 or Ruby) and APAFML - review is highly recommended.
 License: ( GPL-2.0-only OR GPL-3.0-only OR Ruby ) AND APAFML
@@ -110,6 +110,9 @@ popd
 %doc %{gem_instdir}/data/fonts/MustRead.html
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

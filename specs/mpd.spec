@@ -15,7 +15,7 @@
 Name:           mpd
 Epoch:          1
 Version:        0.24.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music player daemon
 
 License:        GPL-2.0-only AND BSD-2-Clause AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND BSD-2-Clause-Views
@@ -230,6 +230,9 @@ rm %{buildroot}%{_docdir}/mpd/COPYING
 %ghost %{mpd_statefile}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.24.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.24.13-1
 - Update to 0.24.13
 

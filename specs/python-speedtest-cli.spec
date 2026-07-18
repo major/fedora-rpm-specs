@@ -2,7 +2,7 @@
 
 Name:		python-%{pypi_name}
 Version:	2.1.3
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Command-line interface for testing internet bandwidth using speedtest.net
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -54,6 +54,9 @@ unset PYTHONPATH
 %{python3_sitelib}/__pycache__/speedtest*.cpython-%{python3_version_nodots}*.pyc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.3-21
 - Rebuilt for Python 3.15
 

@@ -10,7 +10,7 @@
 
 Name:           perl-Module-Install-ReadmeFromPod
 Version:        0.30
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Module::Install extension to automatically convert POD to a README
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-ReadmeFromPod
@@ -110,6 +110,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           latte-integrale
 Version:        1.7.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Lattice point enumeration
 
 %global tarver  %{gsub %version %. _}
@@ -186,6 +186,9 @@ make check
 %{_libdir}/libnormalize.so.0{,.*}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Jerry James <loganjerry@gmail.com> - 1.7.6-15
 - Add patch to remove obsolete ifstream usage
 

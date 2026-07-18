@@ -25,7 +25,7 @@
 
 Name:           half
 Version:        2.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A C++ half-precision floating point type
 License:        MIT
 
@@ -82,6 +82,9 @@ install -m 644 README.txt %{buildroot}%{_docdir}/%{name}/
 %{_includedir}/half.hpp
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Hash-Util-FieldHash-Compat
 Version:	0.11
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Use Hash::Util::FieldHash or ties, depending on availability
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Hash-Util-FieldHash-Compat
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Hash::Util::FieldHash::Compat::Heavy.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

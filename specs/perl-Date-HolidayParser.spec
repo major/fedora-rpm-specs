@@ -1,6 +1,6 @@
 Name:           perl-Date-HolidayParser
 Version:        0.43
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Parser for .holiday-files
 # COPYING:      GPL-3.0-or-later OR Artistic-1.0-Perl
 # COPYING.artistic:     Artistic-1.0-Perl text
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        6.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An easy whitelist-based HTML-sanitizing tool
 
 License:        Apache-2.0
@@ -84,6 +84,9 @@ fi;
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Lumír Balhar <lbalhar@redhat.com> - 6.4.0-1
 - Update to 6.4.0 and add css extra subpackage
 

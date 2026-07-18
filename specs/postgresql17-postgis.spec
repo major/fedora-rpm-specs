@@ -20,7 +20,7 @@
 
 Name:          postgresql%{pgversion}-postgis
 Version:       3.6.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -493,6 +493,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 3.6.4-2
 - Rebuild (gdal)
 

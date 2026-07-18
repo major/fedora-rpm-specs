@@ -3,7 +3,7 @@
 
 Name:           rapidsvn
 Version:        0.13.0
-Release:        0.20220212git%{shortcommit}%{?dist}
+Release:        0.20220213git%{shortcommit}%{?dist}
 Summary:        Graphical interface for the Subversion revision control system
 
 License:        GPL-3.0-or-later
@@ -155,6 +155,9 @@ rm -f %{buildroot}%{_libdir}/librapidsvn.so
 %{_libdir}/libsvncpp.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-0.20220213git3a564e0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-0.20220212git3a564e0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

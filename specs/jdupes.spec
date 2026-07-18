@@ -1,6 +1,6 @@
 Name:           jdupes
 Version:        1.31.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
@@ -44,6 +44,9 @@ prompting the user."
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 11 2026 Dave Cantrell <dcantrell@redhat.com> - 1.31.1-1
 - Upgrade to jdupes-1.31.1
 

@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -88,6 +88,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.1.2-4
 - Rebuilt for Python 3.15
 

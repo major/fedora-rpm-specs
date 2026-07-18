@@ -1,6 +1,6 @@
 Name:           lib765
 Version:        0.4.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A library for emulating the uPD765a floppy controller
 License:        LGPL-2.0-or-later
 URL:            http://www.seasip.demon.co.uk/Unix/LibDsk
@@ -57,6 +57,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

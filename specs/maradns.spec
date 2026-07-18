@@ -1,6 +1,6 @@
 Name:		maradns
 Version:	3.5.0037
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
 Source0:	http://www.maradns.org/download/3.5/%{version}/MaraDNS-%{version}-fedora.tar.xz
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0037-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 15 2026 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0037-1
 - update to 3.5.0037, fixing DNS-over-TCP bug (rhbz#2488786)
 

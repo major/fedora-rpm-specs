@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.100
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           google
@@ -43,6 +43,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

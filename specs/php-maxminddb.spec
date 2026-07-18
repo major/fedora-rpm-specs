@@ -33,7 +33,7 @@ Name:          php-maxminddb
 Summary:       MaxMind DB Reader extension
 License:       Apache-2.0
 Version:       1.13.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
 Source0:       %{name}-%{version}-%{gh_short}.tgz
@@ -228,6 +228,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 1.13.1-3
 - drop pear/pecl dependency
 

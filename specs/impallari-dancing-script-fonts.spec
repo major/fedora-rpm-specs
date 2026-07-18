@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.000
-Release: 23%{?dist}
+Release: 24%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           Impallari
@@ -49,6 +49,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Utility for writing multi-host tests for pytest
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ specify how many machines they need and commands/checks to run on them.
 %{python3_sitelib}/%{modulename}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0-33
 - Rebuilt for Python 3.15
 

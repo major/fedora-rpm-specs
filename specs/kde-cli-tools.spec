@@ -1,6 +1,6 @@
 Name:    kde-cli-tools
 Version: 6.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -110,6 +110,9 @@ ln -s %{_kf6_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
 - 6.7.3
 

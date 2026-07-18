@@ -1,6 +1,6 @@
 Name:		python-ipyparallel
 Version:	9.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
@@ -89,6 +89,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.2.0-1
 - Update to 9.2.0
 

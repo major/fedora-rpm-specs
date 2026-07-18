@@ -29,7 +29,7 @@ Summary(ru): Редактор электрических схем
 
 Epoch:       0
 Version:     0.100
-Release:     1%{?dist}
+Release:     2%{?dist}
 
 
 # Prog is GPLv2 - Symbols/Elements are Creative Commons Attribution
@@ -243,6 +243,9 @@ cat qet.lang >>qelectrotech.lang
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0:0.100-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Remi Collet <remi@remirepo.net> - 0.100-1
 - update to 0.100
 - re-license spec file to CECILL-2.1

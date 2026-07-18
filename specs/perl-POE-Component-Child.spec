@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Child
 Version:        1.39
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Child management component for POE
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

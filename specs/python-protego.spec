@@ -6,7 +6,7 @@ conventions.}
 
 Name:		python-protego
 Version:	0.6.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -49,6 +49,9 @@ Summary:	%{summary}
 %{python3_sitelib}/protego-*.dist-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 28 2026 Eduardo Echeverria <echevemaster@gmail.com> - 0.6.2-1
 - Update to 0.6.2
 

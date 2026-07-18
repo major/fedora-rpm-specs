@@ -23,7 +23,7 @@
 
 Name:           mono
 Version:        6.14.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -950,6 +950,9 @@ rm %{buildroot}%{_bindir}/mono-find-provides
 %files complete
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Julian Sikorski <belegdol@fedoraproject.org> - 6.14.1-4
 - Fix application icons being missing from Gnome Dash
 

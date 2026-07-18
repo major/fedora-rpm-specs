@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box
 Version:        4.02
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage a mailbox, a folder with messages
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box
@@ -90,6 +90,9 @@ make test
 %{_mandir}/man3/Mail::Server*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 20 2026 Tom Callaway <spot@fedoraproject.org> - 4.02-1
 - update to 4.02
 

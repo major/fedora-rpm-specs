@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Interact with a server using the SMB 2/3 Protocol
 
 License:        MIT
@@ -60,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/smbclient/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.15.0-5
 - Rebuilt for Python 3.15
 

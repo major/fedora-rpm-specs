@@ -1,6 +1,6 @@
 Name:          libtypec
 Version:       0.6.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A generic user space library for USB-C port management
 License:       MIT and GPL-2.0-only
 URL:           https://github.com/libtypec/libtypec
@@ -70,6 +70,9 @@ Utilities for USB Type-C.
 %{_bindir}/usbcview
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

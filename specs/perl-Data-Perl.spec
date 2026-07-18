@@ -1,6 +1,6 @@
 Name:           perl-Data-Perl
 Version:        0.002011
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Base classes wrapping fundamental Perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Perl
@@ -57,6 +57,9 @@ constructor input.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002011-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002011-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

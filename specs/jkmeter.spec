@@ -2,7 +2,7 @@
 Summary:       Horizontal or vertical bar-graph audio levels meter 
 Name:          jkmeter
 Version:       0.9.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://kokkinizita.linuxaudio.org/
@@ -63,6 +63,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

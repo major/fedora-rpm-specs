@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A repository of test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -67,6 +67,9 @@ ln -s ./testr-%{python3_version} %{buildroot}%{_bindir}/testr
 %{_bindir}/testr-%{python3_version}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.22-2
 - Rebuilt for Python 3.15
 

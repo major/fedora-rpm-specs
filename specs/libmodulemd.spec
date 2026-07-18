@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -182,6 +182,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Petr Pisar <ppisar@redhat.com> - 2.15.3-1
 - 2.15.3 bump
 

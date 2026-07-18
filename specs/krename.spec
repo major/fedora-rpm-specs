@@ -4,7 +4,7 @@
 
 Name:           krename
 Version:        5.0.60~%{gitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Powerful batch file renamer
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/kio/servicemenus/%{name}*.desktop
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.60~20260502.101040.4e03e61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 3 2026 Steve Cossette <farchord@gmail.com> - 1:5.0.60~4e03e612.20260502.101040-1
 - Conversion to qt6
 

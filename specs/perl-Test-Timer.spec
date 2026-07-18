@@ -1,6 +1,6 @@
 Name:           perl-Test-Timer
 Version:        2.12
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Test module to test/assert response times
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Timer
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

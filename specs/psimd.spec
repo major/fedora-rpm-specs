@@ -8,7 +8,7 @@ Summary:        P(ortable) SIMD
 Name:           psimd
 License:        MIT
 Version:        %{date0}.%{shortcommit0}
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 URL:            https://github.com/Maratyszcza
 Source0:        %{url}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -46,6 +46,9 @@ sed -i -e 's@CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR@CMAKE_MINIMUM_REQ
 %{_includedir}/psimd.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200517.072586a-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200517.072586a-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		perl-Image-ExifTool
 # Look for stable version at https://metacpan.org/pod/Image::ExifTool (not at the project website)
 Version:	13.50
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/Image::ExifTool*.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.50-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 31 2026 Tom Callaway <spot@fedoraproject.org> - 13.50-1
 - update to latest stable (13.50)
 

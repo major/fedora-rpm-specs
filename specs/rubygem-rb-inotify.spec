@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.10.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A Ruby wrapper for Linux inotify, using FFI
 License: MIT
 URL: https://github.com/guard/rb-inotify
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

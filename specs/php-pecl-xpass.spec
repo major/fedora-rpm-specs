@@ -31,7 +31,7 @@ Name:           %{php_base}-pecl-%{pecl_name}
 Summary:        Extended password extension
 License:        BSD-3-Clause
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -142,6 +142,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Remi Collet <remi@remirepo.net> - 1.2.1-1
 - update to 1.2.1
 - PHP License updated from version 3 to version 4 (BSD-3-Clause)

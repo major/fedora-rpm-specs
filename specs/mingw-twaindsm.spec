@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.5.1
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       TWAIN Data Source Manager
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

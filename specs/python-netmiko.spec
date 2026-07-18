@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -80,6 +80,9 @@ sed -si '/^paramiko/s/>=3.5.0,<5.0/>=3.5.0/' pyproject.toml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.7.0-2
 - Rebuilt for Python 3.15
 

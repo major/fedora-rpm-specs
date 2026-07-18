@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -93,6 +93,9 @@ py.test -k \
 %doc docs/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Kevin Fenzi <kevin@scrye.com> - 3.10.1-16
 - Drop pth file. Fixes rhbz#2486065
 

@@ -5,7 +5,7 @@
 Name:		ks-install
 Summary:	Take a Fedora/CentOS/RHEL kickstart file and make a VM
 Version:	0
-Release:	0.13%{?dist}
+Release:	0.14%{?dist}
 URL:		%{forgeurl}
 Source:		%{forgesource}
 License:	GPL-3.0-only
@@ -35,6 +35,9 @@ install -D -m0644 ks-libvirt.1 %{buildroot}%{_mandir}/man1/ks-libvirt.1
 %{_mandir}/man1/ks-libvirt.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 27 2026 Chris Adams <linux@cmadams.net> - 0-0.13
 - restructure some things to make it easer/cleaner
 - update for newer libvirt/qemu things

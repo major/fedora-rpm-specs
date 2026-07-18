@@ -1,6 +1,6 @@
 Name:           perl-PPIx-Utils
 Version:        0.004
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility functions for PPI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -57,6 +57,9 @@ from the appropriate submodule or via this module.
 %{_mandir}/man3/PPIx::Utils*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name: hunspell-uk
 Summary: Ukrainian hunspell dictionaries
 Version: 6.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://github.com/brown-uk/dict_uk/releases/download/v%{version}/dict-uk_UA-%{version}.oxt
 URL: https://github.com/brown-uk/dict_uk/
 # license tag information obtained from README_uk_UA.txt file
@@ -36,6 +36,9 @@ cp -p uk_UA/uk_UA.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.29
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extension for colcon to support CMake packages
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ An extension for colcon-core to support CMake projects.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.29-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.29-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

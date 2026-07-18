@@ -3,7 +3,7 @@ Pocillo is a Material Design theme for the Budgie Desktop.}
 
 Name:           pocillo-gtk-theme
 Version:        0.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pocillo is a Material Design theme for the Budgie Desktop
 BuildArch:      noarch
 
@@ -112,6 +112,9 @@ cp -R Pocillo* %{buildroot}%{_datadir}/themes/
 %{_datadir}/themes/Pocillo*/plank/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

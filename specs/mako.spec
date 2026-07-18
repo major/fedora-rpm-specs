@@ -1,6 +1,6 @@
 Name:       mako
 Version:    1.11.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Lightweight Wayland notification daemon
 Provides:   desktop-notification-daemon
 
@@ -78,6 +78,9 @@ install -m0644 -Dt %{buildroot}%{_userunitdir}/ contrib/systemd/mako.service
 %{zsh_completions_dir}/_mako*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 05 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.11.0-1
 - Update to 1.11.0 (#2452049)
 

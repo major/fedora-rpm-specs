@@ -1,6 +1,6 @@
 Name:           python-varlink
 Version:        31.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python implementation of Varlink
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -51,6 +51,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 31.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 31.0.0-19
 - Rebuilt for Python 3.15
 

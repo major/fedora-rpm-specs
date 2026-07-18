@@ -29,7 +29,7 @@ Summary: SELinux binding for PHP scripting language
 Name:    php-pecl-selinux
 License: PHP-3.01
 Version: 0.6.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 %forgemeta
 URL:     %{forgeurl}
 Source0: %{forgesource}
@@ -123,6 +123,9 @@ REPORT_EXIT_STATUS=0 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 0.6.1-7
 - drop pear/pecl dependency
 - sources from github

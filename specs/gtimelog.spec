@@ -1,6 +1,6 @@
 Name:           gtimelog
 Version:        0.12.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Unobtrusively keep track of your time
 
 License:        GPL-2.0-or-later
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.12.0-11
 - Rebuilt for Python 3.15
 

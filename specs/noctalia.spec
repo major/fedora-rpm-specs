@@ -1,10 +1,10 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   2
-%define tag         v%{basever}%{?prerel:-%{prerel}%{prerelnum}}
+%define prerelnum   3
+%define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
-Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
+Version:        %{basever}~%{prerel}.%{prerelnum}
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        Sleek and minimal desktop shell thoughtfully crafted for Wayland
@@ -86,6 +86,9 @@ Requires:       hicolor-icon-theme
 # Noctalia will segfault at startup if it cannot connect to the pipewire daemon
 Requires:       pipewire
 
+# The plugin system uses git at runtime as well
+Requires:       git-core
+
 # Optional requirements for various functionality
 Recommends:     upower
 Recommends:     ddcutil
@@ -107,7 +110,7 @@ notification daemon, lock screen, wallpaper tool, and settings UI.
 
 
 %prep
-%autosetup -p 1 -n noctalia-%{basever}%{?prerel:-%{prerel}%{prerelnum}}
+%autosetup -p 1 -n noctalia-%{basever}-%{prerel}.%{prerelnum}
 
 # Upstream uses a git describe command to determine part of the --version
 # output.  Since we're not building from a git checkout, we can change the

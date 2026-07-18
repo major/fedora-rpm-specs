@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       33.5
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows protobuf library
 
 BuildArch:     noarch
@@ -144,6 +144,9 @@ MinGW Windows protobuf library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Sandro Mani <manisandro@gmail.com> - 33.5-3
 - Drop separate protobuf-compiler subpackage
 

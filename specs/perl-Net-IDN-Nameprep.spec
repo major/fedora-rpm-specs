@@ -1,7 +1,7 @@
 Name:           perl-Net-IDN-Nameprep
 Summary:        Stringprep Profile for Internationalized Domain Names (RFC 3491)
 Version:        1.102
-Release:        32%{?dist}
+Release:        33%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Nameprep
@@ -71,6 +71,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

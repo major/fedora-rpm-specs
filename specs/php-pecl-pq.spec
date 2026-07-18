@@ -29,7 +29,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        PostgreSQL client library (libpq) binding
 License:        BSD-2-Clause
 Version:        2.2.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -186,6 +186,9 @@ exit $RET
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 2.2.3-10
 - drop pear/pecl dependency
 - sources from github

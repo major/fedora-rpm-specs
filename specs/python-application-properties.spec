@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.3-2
 - Rebuilt for Python 3.15
 

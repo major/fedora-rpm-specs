@@ -2,7 +2,7 @@
 
 Name:           qtbrowserplugin
 Version:        2.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Qt Solutions Component: Browser Plugin
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -58,6 +58,9 @@ cp -p src/*.h %{buildroot}%{_includedir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

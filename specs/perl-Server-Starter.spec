@@ -1,6 +1,6 @@
 Name:           perl-Server-Starter
 Version:        0.35
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Superdaemon for hot-deploying server programs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Server-Starter
@@ -121,6 +121,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 0.35-20
 - Modernize a spec file
 - Package the tests

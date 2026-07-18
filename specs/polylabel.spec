@@ -2,7 +2,7 @@
 
 Name:           polylabel
 Version:        2.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A fast algorithm for finding the pole of inaccessibility of a polygon
 
 License:        ISC
@@ -58,6 +58,9 @@ cp -pr include/mapbox %{buildroot}%{_includedir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

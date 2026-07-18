@@ -7,7 +7,7 @@
 
 Name:		perl-Sub-Exporter
 Version:	0.991
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Sophisticated exporter for custom-built routines
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Exporter
@@ -94,6 +94,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Sub::Exporter::Util.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 02 2026 Petr Pisar <ppisar@redhat.com> - 0.991-8
 - Remove unused dependency on perl(blib)
 

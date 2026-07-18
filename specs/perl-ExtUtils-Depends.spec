@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Depends
 Version:        0.8002
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Easily build XS extensions that depend on XS extensions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Depends
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/ExtUtils::Depends.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8002-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8002-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

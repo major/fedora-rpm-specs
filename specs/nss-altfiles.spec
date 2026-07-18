@@ -1,7 +1,7 @@
 Summary: NSS module to look up from files in /usr/lib as well
 Name: nss-altfiles
 Version: 2.23.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Source0: https://github.com/flatcar/nss-altfiles/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1: macros.altfiles
 Patch1: 0001-build-sys-Inherit-LDFLAGS.patch
@@ -39,6 +39,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_rpmmacrodir}/macros.altfiles
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 10 2026 Joseph Marrero <jmarrero@fedoraproject.org> - 2.23.0-9
 - Add RPM macros to configure %%_passwd_path and %%_group_path
 - Fixes user/group lookup for packages with non-root file ownership

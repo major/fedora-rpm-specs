@@ -1,6 +1,6 @@
 Name:           libjodycode
 Version:        4.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_libdir}/libjodycode.a
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 11 2026 Dave Cantrell <dcantrell@redhat.com> - 4.1.2-1
 - Upgrade to libjodycode-4.1.2
 

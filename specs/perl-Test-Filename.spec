@@ -1,6 +1,6 @@
 Name:           perl-Test-Filename
 Version:        0.03
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Portable filename comparison
 License:        Apache-2.0
 
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:         liblo
 Version:      0.34
-Release:      3%{?dist}
+Release:      4%{?dist}
 Summary:      Open Sound Control library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:      LicenseRef-Callaway-LGPLv2+
@@ -63,6 +63,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 31 2026 Guido Aulisi <guido.aulisi@gmail.com> - 0.34-3
 - Fix FTBFS in rawhide #2434759
 

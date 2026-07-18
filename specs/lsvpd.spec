@@ -1,6 +1,6 @@
 Name:		lsvpd
 Version:	1.7.17
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
@@ -85,6 +85,9 @@ systemctl daemon-reload >/dev/null 2>&1 || :
 %{_unitdir}/vpdupdate.service
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 25 2026 Than Ngo <than@redhat.com> - 1.7.17-1
 - Update to 1.7.17
 - Enhance lsvpd to update VPD for Nvidia OTS Adapters

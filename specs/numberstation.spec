@@ -1,6 +1,6 @@
 Name:           numberstation
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TOTP Authenticator application
 License:        GPL-3.0-or-later
 URL:            https://sr.ht/~martijnbraam/%{name}/
@@ -50,6 +50,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarke
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Tomi Lähteenmäki <lihis@lihis.net> - 1.5.0-2
 - Patch to fix syntax error
 

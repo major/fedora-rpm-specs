@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        25.12.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
@@ -90,6 +90,9 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 25.12.2-3
 - Rebuilt for Python 3.15
 

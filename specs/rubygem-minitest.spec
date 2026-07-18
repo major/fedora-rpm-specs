@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.0.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.6-2
 - Add explicit BR: rubygem(drb,prism)
 

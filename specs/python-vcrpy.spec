@@ -5,7 +5,7 @@
 
 Name:               python-%{modname}
 Version:            8.3.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -89,6 +89,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 8.3.0-1
 - 8.3.0
 

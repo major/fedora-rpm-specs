@@ -12,7 +12,7 @@
 
 Name: libvirt-sandbox
 Version: 0.8.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: libvirt application sandbox framework
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -112,6 +112,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-sandbox-1.0.la
 %{_datadir}/gtk-doc/html/Libvirt-sandbox
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

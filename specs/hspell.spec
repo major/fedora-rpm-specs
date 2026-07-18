@@ -1,7 +1,7 @@
 Summary: A Hebrew spell checker
 Name: hspell
 Version: 1.4
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: AGPL-3.0-only
 URL: http://hspell.ivrix.org.il/
 Source: http://hspell.ivrix.org.il/%{name}-%{version}.tar.gz
@@ -86,6 +86,9 @@ cp -p he.aff $RPM_BUILD_ROOT/%{_datadir}/hunspell/he_IL.aff
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 1.4-26
 - Remove unnecessary BuildRequires:
 - Correct Requires: for hunspell-he package

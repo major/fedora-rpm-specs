@@ -6,7 +6,7 @@
 
 Name:               python-%{srcname}
 Version:            1.1.0^%{date}%{shortcommit}
-Release:            15%{?dist}
+Release:            16%{?dist}
 Summary:            Mako template bindings for the Pyramid web framework
 
 License:            BSD-4-Clause
@@ -70,6 +70,9 @@ sed -i 's|pytest-cover|pytest-cov|g' setup.cfg
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^2023011250a2322-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Python Maint <python-maint@redhat.com> - 1.1.0^2023011250a2322-15
 - Rebuilt for Python 3.15
 

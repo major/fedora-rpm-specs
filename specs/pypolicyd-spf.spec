@@ -2,7 +2,7 @@
 
 Name:           pypolicyd-spf
 Version:        3.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -117,6 +117,9 @@ install -m0644 -D pypolicyd-spf.sysusers.conf %{buildroot}%{_sysusersdir}/pypoli
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-9
 - Rebuilt for Python 3.15
 

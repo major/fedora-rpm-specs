@@ -6,7 +6,7 @@
 
 Name:	        mingw-srvany
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Utility for creating services for Windows
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ make DESTDIR=$RPM_BUILD_ROOT install bindir=%{_datadir}/virt-tools
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 18 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1-13
 - Use %%license instead of %%doc for the license file
 

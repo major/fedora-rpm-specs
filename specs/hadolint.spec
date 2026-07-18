@@ -18,7 +18,7 @@
 Name:           %{pkg_name}
 Version:        2.14.0
 # can only be reset when all subpkgs bumped
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPL-3.0-or-later
@@ -263,6 +263,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 09 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.14.0-24
 - https://hackage.haskell.org/package/hadolint-2.14.0/changelog
 

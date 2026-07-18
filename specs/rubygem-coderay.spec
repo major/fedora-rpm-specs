@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Fast syntax highlighting for selected languages
 License: MIT
 URL: http://coderay.rubychan.de
@@ -105,6 +105,9 @@ popd
 %doc %{gem_instdir}/README_INDEX.rdoc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

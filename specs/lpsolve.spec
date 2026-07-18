@@ -1,6 +1,6 @@
 Name:       lpsolve
 Version:    5.5.2.14
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Mixed Integer Linear Programming (MILP) solver
 # bfp/bfp_LUSOL/lp_LUSOL.c:             LGPL-2.1-or-later
 # LICENSE:          LGPL-2.1 text
@@ -112,6 +112,9 @@ LD_LIBRARY_PATH="$LP_PATH" ./a.out </dev/null
 %{_includedir}/lpsolve
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

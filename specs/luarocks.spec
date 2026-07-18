@@ -1,6 +1,6 @@
 Name:           luarocks
 Version:        3.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A deployment and management system for Lua modules
 
 License:        MIT
@@ -83,6 +83,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/luarocks/config-5.1.lua
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.13.0-2
 - rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-nbxmpp
 Version:        4.5.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -45,6 +45,9 @@ Obsoletes:      python-nbxmpp-doc < 1.0.0
 %doc README.md ChangeLog
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.5.4-8
 - Rebuilt for Python 3.15
 

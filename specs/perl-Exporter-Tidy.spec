@@ -1,6 +1,6 @@
 Name:           perl-Exporter-Tidy
 Version:        0.09
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Another way of exporting symbols
 License:        any-OSI-perl-modules
 URL:            https://metacpan.org/release/Exporter-Tidy
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/Exporter::Tidy*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

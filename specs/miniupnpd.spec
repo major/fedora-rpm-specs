@@ -1,6 +1,6 @@
 Name:       miniupnpd
 Version:    2.3.10
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -105,6 +105,9 @@ mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 20 2026 - Michael Cronenworth <mike@cchtml.com> - 2.3.10-1
 - Version update
 

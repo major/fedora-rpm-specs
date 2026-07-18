@@ -8,8 +8,8 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           4.4.3
-Release:           2%{?dist}
+Version:           4.5.1
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -27,11 +27,16 @@ BuildRequires:     bison
 BuildRequires:     bstring-devel
 BuildRequires:     coreutils
 BuildRequires:     cracklib-devel
+BuildRequires:     cups-devel
 BuildRequires:     dbus-devel
 BuildRequires:     dbus-glib-devel
+BuildRequires:     dconf-devel
+BuildRequires:     file-devel
 BuildRequires:     findutils
 BuildRequires:     flex
 BuildRequires:     gcc
+#needed for xapian support
+BuildRequires:     gcc-c++
 BuildRequires:     grep
 BuildRequires:     iniparser-devel
 BuildRequires:     krb5-devel
@@ -59,9 +64,10 @@ BuildRequires:     rpm
 BuildRequires:     sed
 BuildRequires:     systemd
 BuildRequires:     systemtap-sdt-devel
+BuildRequires:     systemtap-sdt-dtrace
 BuildRequires:     %{tracker}
 BuildRequires:     %{trackerdevel}
-BuildRequires:     cups-devel
+BuildRequires:     xapian-core-devel
 
 Requires:     dconf
 Requires:     python3-dbus
@@ -83,7 +89,6 @@ are also included:
  * afpstats    - inquire AFP server usage stats
  * asip-status - inquire AFP server capabilities
  * dbd         - CNID database maintenance
- * macusers    - list connected AFP server users
 
 %package        devel
 Summary:        Development files for %{name}
@@ -176,7 +181,6 @@ done
         -Dwith-overwrite=true                                                  \
         -Dwith-lockfile-path=%{_rundir}/lock/netatalk                          \
         -Dwith-tcp-wrappers=false                                              \
-        -Dwith-dbus-sysconf-path=%{_sysconfdir}/dbus-1/system.d                \
         -Dwith-pkgconfdir-path=%{_sysconfdir}/netatalk                         \
         -Dwith-init-style=systemd                                              \
         -Dwith-init-hooks=false                                                \
@@ -184,6 +188,8 @@ done
         -Dwith-cups=true                                                       \
         -Dwith-tests=true                                                      \
         -Dwith-testsuite=true                                                  \
+        -Dwith-install-hooks=false                                             \
+        -Dwith-dtrace=true                                                     \
         %{?fedora:-Dwith-appletalk=true}
 
 %meson_build
@@ -208,6 +214,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %check
 %meson_test
 
+%posttrans
+%{_bindir}/dconf update
+
 %post
 %systemd_post %{name}.service
 
@@ -230,14 +239,14 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 
 %files
 %license COPYING COPYRIGHT
-%doc CONTRIBUTORS.txt NEWS.txt INSTALL.txt README.txt SECURITY.txt CODE_OF_CONDUCT.txt
+%doc CONTRIBUTORS.txt NEWS.txt INSTALL.txt README.txt SECURITY.txt CODE_OF_CONDUCT.txt CONTAINERS.txt
 
 %dir %{_sysconfdir}/netatalk
-%config(noreplace) %{_sysconfdir}/dbus-1/system.d/netatalk-dbus.conf
 %config(noreplace) %{_sysconfdir}/netatalk/afp.conf
 %config(noreplace) %{_sysconfdir}/netatalk/dbus-session.conf
 %config(noreplace) %{_sysconfdir}/netatalk/extmap.conf
 %config(noreplace) %{_sysconfdir}/pam.d/netatalk
+%config %{_sysconfdir}/dconf/profile/netatalk
 
 %{_sbindir}/afpd
 %{_sbindir}/cnid_dbd
@@ -251,11 +260,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_bindir}/addump
 %{_bindir}/asip-status
 %{_bindir}/dbd
-%{_bindir}/macusers
 
 %dir %{_libdir}/netatalk
 %{_libdir}/netatalk/uams_*.so
-%{_libdir}/libatalk.so.19{,.*}
+%{_libdir}/libatalk.so.20{,.*}
 
 %{_mandir}/man1/nad.1*
 %{_mandir}/man1/afpldaptest.1*
@@ -264,7 +272,6 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_mandir}/man1/addump.1*
 %{_mandir}/man1/asip-status.1*
 %{_mandir}/man1/dbd.1*
-%{_mandir}/man1/macusers.1*
 
 %{_mandir}/man5/afp.conf.5*
 %{_mandir}/man5/afp_signature.conf.5*
@@ -290,11 +297,6 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %dir %{_includedir}/netatalk
 %{_includedir}/netatalk/*.h
 %endif
-
-%{_mandir}/man3/atalk_aton.3*
-%{_mandir}/man3/nbp_name.3*
-
-%{_mandir}/man4/atalk.4*
 
 %files afptest
 %license test/testsuite/COPYING
@@ -369,6 +371,12 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/manual
 
 %changelog
+* Thu Jul 16 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.5.1-1
+- 4.5.1 release
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5:4.4.3-2
 - Rebuilt for openssl 4.0
 

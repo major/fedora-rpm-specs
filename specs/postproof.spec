@@ -3,7 +3,7 @@
 
 Name:       postproof
 Version:    0
-Release:    0.26.20150331git65bcbbb9%{?dist}
+Release:    0.27.20150331git65bcbbb9%{?dist}
 Summary:    Mail abuse incident tool
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -38,6 +38,9 @@ install -pm 0644 *.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27.20150331git65bcbbb9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20150331git65bcbbb9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

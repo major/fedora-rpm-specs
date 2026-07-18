@@ -1,6 +1,6 @@
 Name:           perl-Text-Shellwords
 Version:        1.08
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        A thin wrapper around the shellwords.pl package
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

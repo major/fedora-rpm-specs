@@ -2,7 +2,7 @@ Name: python-ovirt-engine-sdk4
 Summary: Python SDK for version 4 of the oVirt Engine API
 Version: 4.6.2
 %global major_version %(v=%{version}; echo ${v:0:3})
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/oVirt/python-ovirt-engine-sdk4
@@ -61,6 +61,9 @@ done
 %doc examples
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.6.2-14
 - Rebuilt for Python 3.15
 

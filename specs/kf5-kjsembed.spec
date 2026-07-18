@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for binding JS objects to QObjects
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

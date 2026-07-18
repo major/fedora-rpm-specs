@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple optionally-async Python inotify library
 
 License:        MPL-2.0
@@ -56,6 +56,9 @@ sed -i '1{/^#!/d}' src/%{pypi_name}/__init__.py src/%{pypi_name}/_ffi.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.4.4-2
 - Rebuilt for Python 3.15
 

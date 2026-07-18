@@ -27,7 +27,7 @@ Summary:        RPM information
 Name:           %{php_base}-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        1.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -132,6 +132,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 1.2.1-5
 - drop pear/pecl dependency
 - sources from github

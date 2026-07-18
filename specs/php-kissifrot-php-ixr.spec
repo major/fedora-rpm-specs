@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.8.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: XML-RPC library for PHP
 License: BSD
@@ -102,6 +102,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

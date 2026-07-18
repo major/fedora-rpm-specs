@@ -1,6 +1,6 @@
 Name:           miriway
 Version:        26.06.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -126,6 +126,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.06.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 26.06.1-2
 - Rebuilt for Mir-2.28.0
 

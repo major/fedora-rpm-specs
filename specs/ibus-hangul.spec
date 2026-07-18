@@ -3,7 +3,7 @@
 
 Name:       ibus-hangul
 Version:    1.5.5
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    The Hangul engine for IBus input platform
 License:    GPL-2.0-or-later
 URL:        https://github.com/libhangul/ibus-hangul
@@ -88,6 +88,9 @@ make check \
 %{_datadir}/installed-tests/ibus-hangul
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

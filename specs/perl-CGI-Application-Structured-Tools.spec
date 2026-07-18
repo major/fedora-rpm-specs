@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Structured-Tools
 Version:        0.015
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Tools to generate and maintain CGI::Application::Structured based web apps
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/CGI-Application-Structured-Tools
@@ -92,6 +92,9 @@ sed -i -e '1i#!/usr/bin/perl' server.pl
 %{_bindir}/cas-starter.pl
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.015-40
 - Fix compatibility with Module::Starter 1.80+ author arrayref rhbz#2427852 (Filipe Rosset)
 - Modernize spec file

@@ -14,7 +14,7 @@ Name:           kiss-fft
 License:        BSD-3-Clause
 
 Version:        %{srcver}.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/mborgerding/%{srcname}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -156,6 +156,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 131.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 09 2026 Guido Aulisi <guido.aulisi@inps.it> - 131.2.0-1
 - Update to 131.2.0
 - Fix for CVE-2025-34297

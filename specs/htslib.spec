@@ -3,7 +3,7 @@
 
 Name: htslib
 Version: 1.23.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: C library for high-throughput sequencing data formats
 
 # MIT outside cram/, BSD-3-Clause in cram/, public domain for md5.c
@@ -117,6 +117,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.23.1-3
 - Rebuilt for openssl 4.0
 

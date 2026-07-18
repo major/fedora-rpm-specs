@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -186,6 +186,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Remove rocm-omp-static
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.37.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automation Tool
 
 License:        MIT
@@ -84,6 +84,9 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 %doc TODO.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 José Matos  <jamatos@fedoraproject.org> - 0.37.0-1
 - Update to 0.37.0
 - do not build the documentation

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -66,6 +66,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.0-2
 - Rebuilt for Python 3.15
 

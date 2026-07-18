@@ -1,6 +1,6 @@
 Name:           rtrlib
 Version:        0.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Small extensible RPKI-RTR-Client C library
 Group:          Development/Libraries
 License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause
@@ -108,6 +108,9 @@ allows to validate given IP prefixes and origin ASes.
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Michal Ruprich <mruprich@redhat.com> - 0.8.0-3
 - Fixing FTBFS caused by wrong minimum cmake version required (rhbz#2492244)
 

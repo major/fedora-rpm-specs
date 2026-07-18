@@ -14,7 +14,7 @@ openQA web API, using the requests HTTP request library.
 
 Name:           python-openqa_client
 Version:        %{github_version}
-Release:        4%{?github_date:.%{github_date}git%{shortcommit}}%{?dist}
+Release:        5%{?github_date:.%{github_date}git%{shortcommit}}%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.3.1-4
 - Rebuilt for Python 3.15
 

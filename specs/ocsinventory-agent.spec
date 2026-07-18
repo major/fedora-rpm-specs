@@ -22,7 +22,7 @@ Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
 Version:   %{official_version}
-Release:   2%{?dist}
+Release:   3%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -319,6 +319,9 @@ find %{buildroot}%{perl_vendorlib}/Ocsinventory -type f \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 5 2026 Pat Riehecky <riehecky@fnal.gov> - 2.10.5-2
 - Fix incorrect permissions on %{_libexecdir}/%{name}/ocsinventory-agent.cron
 - Correct manpages not tagged as doc

@@ -1,6 +1,6 @@
 Name:          nmh
 Version:       1.8
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -57,6 +57,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8-11
 - Rebuilt for openssl 4.0
 

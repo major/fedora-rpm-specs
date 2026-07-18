@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A session implementation for Rack
 License: MIT
 URL: https://github.com/rack/rack-session
@@ -77,6 +77,9 @@ ruby -Itest -e 'Dir.glob "./test/**/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/security.md
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

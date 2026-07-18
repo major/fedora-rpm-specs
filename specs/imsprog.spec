@@ -1,6 +1,6 @@
 Name: imsprog
 Version: 1.8.5
-Release: 1%dist
+Release: 2%dist
 
 Summary: I2C, SPI and MicroWire EEPROM/Flash chip programmer for CH341a/CH347t devices
 Summary(ru_RU.UTF-8): I2C, SPI and MicroWire EEPROM/Flash программатор для CH341a/CH347t устройств
@@ -199,6 +199,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Mikhail Medvedev 1.8.5-1
 - Fixed: the first highlighted area in HexEdit was not being cleared
 - Fixed: combobox Operations was not reset if chip type changed

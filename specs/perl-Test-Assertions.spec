@@ -1,6 +1,6 @@
 Name:           perl-Test-Assertions
 Version:        1.054
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Simple set of building blocks for both unit and runtime testing
 License:        GPL-2.0-only
 URL:            https://metacpan.org/release/Test-Assertions
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.054-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.054-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

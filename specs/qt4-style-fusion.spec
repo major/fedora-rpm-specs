@@ -2,7 +2,7 @@
 
 Name:           qt4-style-fusion
 Version:        0
-Release:        24.%{snap}%{?dist}
+Release:        25.%{snap}%{?dist}
 Summary:        Fusion widget style for Qt4
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -49,6 +49,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-25.hg20151214
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-24.hg20151214
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

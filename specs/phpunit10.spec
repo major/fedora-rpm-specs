@@ -29,7 +29,7 @@
 
 Name:           %{pk_project}%{ver_major}
 Version:        10.5.64
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -261,6 +261,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.5.64-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul  7 2026 Remi Collet <remi@remirepo.net> - 10.5.64-1
 - update to 10.5.64
 

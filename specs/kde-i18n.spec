@@ -9,7 +9,7 @@ Summary: Internationalization support for KDE3
 Name: kde-i18n
 Epoch: 1
 Version: 3.5.10
-Release: 46%{?dist}
+Release: 47%{?dist}
 
 # GFDL, with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 # Automatically converted from old format: GFDL - review is highly recommended.
@@ -1644,6 +1644,9 @@ rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/libkicker.mo
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.10-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 06 2026 Than Ngo <than@redhat.com> - 1:3.5.10-46
 - Fix rhbz#2434703, FTBFS
 

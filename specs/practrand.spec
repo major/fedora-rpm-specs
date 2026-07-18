@@ -1,7 +1,7 @@
 Summary:        Software package for the Randon number generation & testing
 Name:           practrand
 Version:        0.951
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
 URL:            https://sourceforge.net/projects/pracrand/
@@ -68,6 +68,9 @@ install -Dp -m0755 practrand-RNG_test practrand-RNG_output practrand-RNG_benchma
 %{_bindir}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.951-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.951-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		noip
 Version:	2.1.9
-Release:	45%{?dist}
+Release:	46%{?dist}
 Summary:	A dynamic DNS update client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -69,6 +69,9 @@ install -m0644 -D noip.sysusers.conf %{buildroot}%{_sysusersdir}/noip.conf
 %{_sysusersdir}/noip.conf
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

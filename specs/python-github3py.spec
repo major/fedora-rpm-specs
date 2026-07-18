@@ -7,7 +7,7 @@
 
 Name:           python-%{modname}
 Version:        4.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python wrapper for the GitHub API
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ Python 3 version.
 %doc AUTHORS.rst README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.0.1-15
 - Rebuilt for Python 3.15
 

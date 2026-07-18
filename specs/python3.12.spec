@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -1811,6 +1811,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.12.13-3
 - Security fixes for CVE-2026-1502, CVE-2026-4786, CVE-2026-6100, CVE-2026-2297, CVE-2026-3644, CVE-2026-4224
 Resolves: rhbz#2444705, rhbz#2448189, rhbz#2448205, rhbz#2457942, rhbz#2458014, rhbz#2458222

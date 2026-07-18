@@ -1,7 +1,7 @@
 Name:    ofono
 Summary: Open Source Telephony
 Version: 2.19
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # oFono is GPL. This covers most of the source files.
 # ProvisionDB is LGPL. This covers src/provisiondb.{c,h}
@@ -89,6 +89,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -25,7 +25,7 @@ Summary:        Code coverage driver
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        1.0.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -125,6 +125,9 @@ TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 1.0.12-6
 - drop pear/pecl dependency
 - sources from github

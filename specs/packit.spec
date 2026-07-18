@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Packit <hello@packit.dev> - 1.16.1-1
 - Fixed a couple of Copr-related issues. (#2721, #2727)
 - Resolves: rhbz#2488767

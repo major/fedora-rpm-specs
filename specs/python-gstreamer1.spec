@@ -2,7 +2,7 @@
 
 Name:           python-gstreamer1
 Version:        1.28.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GStreamer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/python/gesotioformatter.py
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.5-1
 - 1.28.5
 

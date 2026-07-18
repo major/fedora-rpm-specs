@@ -4,7 +4,7 @@
 
 Name:           python-sgmllib3k
 Version:        1.0.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        python3 copy of sgmllib
 License:        PSF-2.0
 URL:            https://pypi.org/project/sgmllib3k/
@@ -52,6 +52,9 @@ eventually think about finding another module to use.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.0-23
 - Rebuilt for Python 3.15
 

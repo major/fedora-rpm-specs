@@ -10,7 +10,7 @@
 
 Name:           itk
 Version:        4.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object oriented extensions to Tk
 
 License:        TCL
@@ -73,6 +73,9 @@ chmod +x '%{buildroot}%{tcl_sitearch}/%{name}%{version}/'*.so
 %{_libdir}/itkConfig.sh
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  1 2026 Patrick Monnerat <patrick@monnerat.net> 4.2.3-1
 - New upstream release.
 - New URL.

@@ -12,7 +12,7 @@
 
 Name:           python-%{srcname}
 Version:        6.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Static file serving for Python web apps
 
 License:        MIT
@@ -113,6 +113,9 @@ export DJANGO_SETTINGS_MODULE=tests.django_settings
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.4.0-13
 - Rebuilt for Python 3.15
 

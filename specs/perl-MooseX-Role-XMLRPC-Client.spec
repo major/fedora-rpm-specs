@@ -1,6 +1,6 @@
 Name:       perl-MooseX-Role-XMLRPC-Client 
 Version:    0.07
-Release:    30%{?dist}
+Release:    31%{?dist}
 # lib/MooseX/Role/XMLRPC/Client.pm -> LGPLv2+
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:    LicenseRef-Callaway-LGPLv2+
@@ -69,6 +69,9 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

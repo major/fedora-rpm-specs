@@ -3,7 +3,7 @@
 
 Name:           python-tinyhtml5
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        HTML parser based on the WHATWG HTML specification
 License:        MIT
 URL:            https://github.com/CourtBouillon/tinyhtml5
@@ -53,6 +53,9 @@ into an ElementTree tree. This module is a simplified fork of html5lib.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.0.0-8
 - Rebuilt for Python 3.15
 

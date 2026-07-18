@@ -2,7 +2,7 @@
 
 Name:           ibus-table-extraphrase
 Version:        1.3.9.20110826
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Extra phrase for ibus-table
 License:        GPL-3.0-or-later
 URL:            http://code.google.com/p/ibus/
@@ -49,6 +49,9 @@ make install \
 %{_datadir}/ibus-table/data/extra_phrase.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9.20110826-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9.20110826-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

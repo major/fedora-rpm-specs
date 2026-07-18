@@ -1,6 +1,6 @@
 Name:		perl-Devel-OverloadInfo
 Version:	0.008
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Introspect overloaded operators
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Devel-OverloadInfo
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Devel::OverloadInfo.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-django-health-check
 Version:        3.20.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Monitor the health of your Django app and its connected services
 
 License:        MIT
@@ -61,6 +61,9 @@ PYTHONPATH="${PWD}" %pytest
 %doc docs/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 3.20.8-2
 - Rebuilt for Python 3.15
 

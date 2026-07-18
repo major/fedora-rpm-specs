@@ -3,7 +3,7 @@
 
 Name:           openbox-theme-mistral-thin
 Version:        0
-Release:        21.%{release_date}%{?dist}
+Release:        22.%{release_date}%{?dist}
 Summary:        Mistral Thin theme for Openbox
 
 # No license file included, CC-BY-SA mentioned on URL
@@ -34,6 +34,9 @@ Mistral Thin theme for the Openbox window manager.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-22.20170125
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-21.20170125
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

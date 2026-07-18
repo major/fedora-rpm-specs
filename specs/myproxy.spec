@@ -8,7 +8,7 @@
 
 Name:           myproxy
 Version:        6.2.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -323,6 +323,9 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.20-4
 - Compile with OpenSSL 4
 - Fix compiler warnings

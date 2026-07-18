@@ -1,6 +1,6 @@
 Name:		libzdnn
 Version:	1.1.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
 License:	Apache-2.0
@@ -81,6 +81,9 @@ ln -s -r %{buildroot}%{_libdir}/libzdnn.so.%{version} %{buildroot}%{_libdir}/lib
 %{_libdir}/libzdnn.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.2-2
 - Allow default z15 on Fedora 45
 

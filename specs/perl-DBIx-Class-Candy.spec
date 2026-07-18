@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-Candy
 Version:        0.005004
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sugar for your favorite ORM, DBIx::Class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -65,6 +65,9 @@ DBIx::Class related things.
 %{_mandir}/man3/DBIx*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.005004-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.005004-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

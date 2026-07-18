@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
 Version: 26.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.0-only
 URL:     https://invent.kde.org/network/%{base_name}
@@ -66,6 +66,9 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

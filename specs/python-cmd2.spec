@@ -2,7 +2,7 @@
 
 Name:             python-%{pypi_name}
 Version:          4.1.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
@@ -83,4 +83,7 @@ sed -i '/"\-\-cov/d' pyproject.toml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 %autochangelog

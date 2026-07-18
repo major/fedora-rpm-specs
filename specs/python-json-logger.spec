@@ -2,7 +2,7 @@
 
 Name:           python-json-logger
 Version:        4.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A python library adding a json log formatter
 License:        BSD-2-Clause
 URL:            http://github.com/nhairs/python-json-logger
@@ -47,6 +47,9 @@ rm -rf src/%{pypi_name}.egg-info
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.1.0-2
 - Rebuilt for Python 3.15
 

@@ -25,7 +25,7 @@
 
 Name:           libnbd
 Version:        1.25.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -405,6 +405,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.6-1
 - New upstream development version 1.25.6
 

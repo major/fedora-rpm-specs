@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Builders for MarkUp
 License: MIT
 URL: https://github.com/rails/builder
@@ -80,6 +80,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

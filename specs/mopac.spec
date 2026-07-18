@@ -13,7 +13,7 @@
 
 Name:           mopac
 Version:        23.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        Apache-2.0
 URL:            http://openmopac.net
@@ -83,6 +83,9 @@ export OMP_NUM_THREADS=1
 %{_includedir}/mopac.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

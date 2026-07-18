@@ -1,6 +1,6 @@
 Name:           perl-Meta-Builder
 Version:        0.004
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Tools for creating Meta objects to track custom metrics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Meta-Builder
@@ -51,6 +51,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Meta::Builder::Util.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 0.004-22
 - Spec tidy-up
   - Classify buildreqs by usage

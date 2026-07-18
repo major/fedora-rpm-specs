@@ -2,7 +2,7 @@
 
 Name:           python-queuelib
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
 License:        BSD-3-Clause
@@ -46,6 +46,9 @@ Python. Queuelib goals are speed and simplicity.
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Eduardo Echeverria <echevemaster@gmail.com> - 1.9.0-1
 - Update to 1.9.0 (added Python 3.14 support, dropped Python 3.9/PyPy 3.10)
 - Correct license tag to BSD-3-Clause

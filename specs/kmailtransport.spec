@@ -1,6 +1,6 @@
 Name:    kmailtransport
 Version: 26.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -81,6 +81,9 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %files doc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

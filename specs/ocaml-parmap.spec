@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-parmap
 Version:        1.2.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.5-22
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

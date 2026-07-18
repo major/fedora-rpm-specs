@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        10.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ in ISO 8601 format into datetime format.
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 10.0.1-2
 - Rebuilt for Python 3.15
 

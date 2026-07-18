@@ -29,7 +29,7 @@ Summary:        Data Structures for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 License:        MIT
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -139,6 +139,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 2.0.0-1
 - update to 2.0.0
 - rename to php-pecl-ds2

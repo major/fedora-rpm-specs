@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mccs
 Version:        %{basever}.%{extraver}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %{gsub %name ^ocaml-(.*)$ %1}
@@ -71,6 +71,9 @@ sed -i 's,clibs,../clibs,' src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.1.19-8
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

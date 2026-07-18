@@ -19,7 +19,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
 Version:        3.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 3.2.4-1
 - update to 3.2.4
 

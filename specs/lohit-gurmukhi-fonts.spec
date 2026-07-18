@@ -6,7 +6,7 @@
 
 Name:           %{fontname}-fonts
 Version:        2.91.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Free Gurmukhi truetype font for Punjabi language
 
 License:        OFL-1.1
@@ -61,6 +61,9 @@ install -Dm 0644 -p %{metainfo}.xml \
 %{_datadir}/metainfo/%{metainfo}.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

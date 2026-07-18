@@ -1,6 +1,6 @@
 Name: libdaemon
 Version: 0.14
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Library for writing UNIX daemons
 License: LGPL-2.1-or-later
 URL: http://0pointer.de/lennart/projects/libdaemon/
@@ -60,6 +60,9 @@ rm $RPM_BUILD_ROOT/%{_datadir}/doc/libdaemon/style.css
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

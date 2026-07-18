@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.6
-Release:	22%{?dist}
+Release:	23%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2
 Summary:	Easy creating PDF using ReportLab's RML
@@ -57,6 +57,9 @@ Open source implementation of RML (Report Markup Language) from ReportLab
 %{_mandir}/man1/trml2pdf.1.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.6-22
 - Rebuilt for Python 3.15
 

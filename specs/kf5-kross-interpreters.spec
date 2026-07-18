@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 Name:    kf5-kross-interpreters
 Summary: Kross interpreters for KDE Frameworks 5
 Version: 22.04.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 License: LGPL-2.1-or-later AND CC0-1.0
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -107,6 +107,9 @@ Ruby plugin for the Kross archtecture in KDE Frameworks 5.
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

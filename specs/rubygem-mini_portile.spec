@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.6.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Simplistic port-like solution for developers
 License:	MIT
 
@@ -74,6 +74,9 @@ cp -a .%{gem_dir}/* \
 %exclude	%{gem_instdir}/examples/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

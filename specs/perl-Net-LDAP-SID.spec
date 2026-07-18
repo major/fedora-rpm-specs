@@ -1,6 +1,6 @@
 Name:           perl-Net-LDAP-SID
 Version:        0.001
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Net::LDAP::SID Perl module
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-LDAP-SID
@@ -42,6 +42,9 @@ Active Directory Security Identifier manipulation
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

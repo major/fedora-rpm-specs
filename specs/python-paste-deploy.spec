@@ -9,7 +9,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{python3_sitelib}/PasteDeploy-%{version}-py*-nspkg.pth
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-16
 - Remove pth file for python3.15 compatibility (bz#2488680)
 

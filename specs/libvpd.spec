@@ -1,6 +1,6 @@
 Name:		libvpd
 Version:	2.2.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	VPD Database access library for lsvpd
 
 License:	LGPL-2.0-or-later
@@ -58,6 +58,9 @@ install -D -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/dracut/dracut.conf.d/99-l
 %{_libdir}/pkgconfig/libvpd_cxx-2.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 26 2026 Than Ngo <than@redhat.com> - 2.2.11-1
 - update to 2.2.11
 

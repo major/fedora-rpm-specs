@@ -5,7 +5,7 @@ projects.
 
 Name: python-%{srcname}
 Version: 1.0.13
-Release: 20%{?dist}
+Release: 21%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ Summary: %{summary}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.13-20
 - Rebuilt for Python 3.15
 

@@ -13,7 +13,7 @@
 
 Name:           php-seld-cli-prompt
 Version:        1.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Allows you to prompt for user input on the command line
 
 License:        MIT
@@ -84,6 +84,9 @@ exit(0);
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:      libgta
 Version:   1.2.1
 %global so_version 1
-Release:   17%{?dist}
+Release:   18%{?dist}
 Summary:   Library that implements the Generic Tagged Arrays file format
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:   LicenseRef-Callaway-LGPLv2+
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

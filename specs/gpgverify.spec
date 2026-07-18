@@ -1,6 +1,6 @@
 Name:           gpgverify
 Version:        2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Signature verifier for easy and safe scripting
 
 License:        Boehm-GC
@@ -41,6 +41,9 @@ cp macros.gpgverify %{buildroot}%{rpmmacrodir}/
 %license license.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

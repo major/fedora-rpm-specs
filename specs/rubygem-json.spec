@@ -6,7 +6,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        %{pkg_version_num}%{?pkg_version_alpha:~%pkg_version_alpha}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.21.1-1
 - 2.21.1
 

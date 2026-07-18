@@ -1,6 +1,6 @@
 Name:           python-pyxlsb2
 Version:        0.0.9
-%global         baserelease     0.11
+%global         baserelease     0.12
 Summary:        Excel 2007+ Binary Workbook (xlsb) parser
 
 
@@ -102,6 +102,9 @@ FAILING="$FAILING and not test_read_string and not test_read_string_u and not te
 %{python3_sitelib}/pyxlsb2-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-0.12.20220509git0a1ff1b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.9-0.11.20220509git0a1ff1b
 - Rebuilt for Python 3.15
 

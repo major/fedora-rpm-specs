@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Tiny-Multipart
 Version:        0.08
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Add post_multipart to HTTP::Tiny
 
 License:        Artistic-2.0
@@ -55,6 +55,9 @@ BuildRequires:  perl(warnings)
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           gst-devtools
 Version:        1.28.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
@@ -93,6 +93,9 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.5-1
 - 1.28.5
 

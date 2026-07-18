@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
 Version:        3.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -63,6 +63,9 @@ sed -i "s/16\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 10 2026 Jerry James <loganjerry@gmail.com> - 3.7-6
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

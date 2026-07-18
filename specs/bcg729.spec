@@ -1,6 +1,6 @@
 Name:          bcg729
-Version:       1.1.1
-Release:       16%{?dist}
+Version:       1.1.2
+Release:       1%{?dist}
 Summary:       Opensource implementation of the G.729 codec
 
 License:       GPL-3.0-or-later
@@ -11,8 +11,6 @@ Source0:       https://github.com/BelledonneCommunications/bcg729/archive/%{vers
 
 # Fix cmake installation dir
 Patch0:        bcg729_cmakedir.patch
-# Increase minimum cmake version to 3.5
-Patch1:        bcg729_cmakever.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -64,10 +62,13 @@ Development files for %{name}.
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/lib%{name}.pc
-%{_libdir}/cmake/Bcg729/
+%{_libdir}/cmake/BCG729/
 
 
 %changelog
+* Wed Jul 15 2026 Sandro Mani <manisandro@gmail.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

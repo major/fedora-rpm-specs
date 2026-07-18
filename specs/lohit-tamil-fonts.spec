@@ -1,7 +1,7 @@
 %global fontname lohit-tamil
 
 Version:       2.91.3
-Release:       26%{?dist}
+Release:       27%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-tamil-fonts
 
 %global foundry           Lohit
@@ -43,6 +43,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -34,7 +34,7 @@ teams, nextcloud, mumble, vk and more with REST API (mattermost not required!).}
 %global godocs          README.md changelog.md matterclient/README.md
 
 Name:           matterbridge
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Bridge between many online chat protocols
 
 License:        BSD-2-Clause AND MIT AND (Apache-2.0 OR AGPL-3.0-only) AND Apache-2.0 AND MPL-2.0 AND GPL-3.0-or-later AND ISC AND (MIT OR ICU) AND BSD-3-Clause
@@ -421,6 +421,9 @@ install -p -D -m 0644 %{S:3} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 1.26.0-10
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

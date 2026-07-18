@@ -1,6 +1,6 @@
 Name:           monocypher
 Version:        3.1.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Boring crypto that simply works
 
 # Automatically converted from old format: BSD or CC0 - review is highly recommended.
@@ -64,6 +64,9 @@ make check CFLAGS="${RPM_OPT_FLAGS}"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Module-Signature
 Version:        0.96
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -91,6 +91,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Paul Howarth <paul@city-fan.org> - 0.96-1
 - Update to 0.96
   - Fix issue from last release where search keys is interactive

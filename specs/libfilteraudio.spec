@@ -1,6 +1,6 @@
 Name:       libfilteraudio
 Version:    0.0.1
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    Lightweight audio filtering library made from webrtc code
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ find %{buildroot} -name '*.a' -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

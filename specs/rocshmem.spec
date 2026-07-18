@@ -32,7 +32,7 @@
 
 Name:       rocshmem
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm OpenSHMEM runtime
 
 License:    MIT AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR Linux-OpenIB)
@@ -139,5 +139,8 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocshmem/LICENSE.md
 %{_libdir}/librocshmem.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.12.0-1
 - Initial package

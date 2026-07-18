@@ -7,7 +7,7 @@
 
 Name:		perl-Perl-Critic
 Version:	1.156
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
@@ -158,6 +158,9 @@ LANG=en_US.UTF-8 ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.156-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun  1 2026 Paul Howarth <paul@city-fan.org> - 1.156-5
 - Run tests with LANG=en_US.UTF-8 to fix pod spelling test on Rawhide
 

@@ -2,7 +2,7 @@
 
 Name:           perl-Data-Dumper
 Version:        2.192
-Release:        523%{?dist}
+Release:        524%{?dist}
 Summary:        Stringify perl data structures, suitable for printing and eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.192-524
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.192-523
 - Fixed the version
 

@@ -1,6 +1,6 @@
 Name:           kcbench
 Version:        0.9.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
 License:        MIT
@@ -52,6 +52,9 @@ echo "Nothing to build"
 %{_docdir}/kcbench/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.15-2
 - Rebuilt for openssl 4.0
 

@@ -1,6 +1,6 @@
 Name:           python-openid-cla
 Version:        1.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        CLA extension for python-openid
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,6 +48,9 @@ This package includes the python 3 version of the module.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2-38
 - Rebuilt for Python 3.15
 

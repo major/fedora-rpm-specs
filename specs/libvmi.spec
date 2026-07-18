@@ -4,7 +4,7 @@
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
-%global baserelease 16
+%global baserelease 17
 
 Name:           libvmi
 Version:        0.14.0
@@ -80,6 +80,9 @@ find %{buildroot}%{_libdir} -name '*.a' -delete -print
 %{_bindir}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-17.20260104git82bbee6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 W. Michael Petullo <mike@flyn.org> - 0.14.0-16.20260104git82bbee6
 - Update to Git master
 - Remove patch merged upstream

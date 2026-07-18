@@ -5,7 +5,7 @@
 
 Name:           perl-libwww-perl
 Version:        6.83
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libwww-perl
@@ -211,6 +211,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.83-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.83-1
 - 6.83 bump
 

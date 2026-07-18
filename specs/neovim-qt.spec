@@ -8,7 +8,7 @@
 
 Name:           neovim-qt
 Version:        0.2.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt GUI for Neovim
 
 # src/gui/shellwidget/konsole_wcwidth.cpp: HPND-Markus-Kuhn
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.19-3
 - Switch xwfb-run compositor to cage
 

@@ -2,7 +2,7 @@
 
 Name: rubber
 Version: 1.6.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: An automated system for building LaTeX documents
 
 License: GPL-1.0-or-later
@@ -47,6 +47,9 @@ Metapost compilation).
 %{_bindir}/rubber-pipe
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.1-15
 - Rebuilt for Python 3.15
 

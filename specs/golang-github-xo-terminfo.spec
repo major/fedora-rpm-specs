@@ -16,7 +16,7 @@ A terminfo package in pure go!}
 
 Name:           %{goname}
 Version:        0
-Release:        0.21%{?dist}
+Release:        0.22%{?dist}
 Summary:        A terminfo package in pure go
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.21
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

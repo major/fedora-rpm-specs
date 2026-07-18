@@ -1,6 +1,6 @@
 Name:           perl-Cache-Memcached
 Version:        1.30
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Perl client for memcached
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -50,6 +50,9 @@ chmod -R u+w %{buildroot}/*
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

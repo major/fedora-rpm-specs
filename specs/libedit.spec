@@ -6,7 +6,7 @@
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	59.%{snap}cvs%{?dist}
+Release:	60.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -86,6 +86,9 @@ sed -i "s/lncurses/ltinfo/" configure
 %{_includedir}/editline/readline.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-60.20260512cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 12 2026 Jerry James  <loganjerry@gmail.com> - 3.1-59.20260512cvs
 - New version (20260512-3.1)
 

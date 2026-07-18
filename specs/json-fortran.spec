@@ -1,6 +1,6 @@
 Name:           json-fortran
 Version:        8.3.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A Modern Fortran JSON API
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -51,6 +51,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %{_fmoddir}/json_*.mod
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

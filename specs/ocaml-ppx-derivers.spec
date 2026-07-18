@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-derivers
 Version:        1.2.1
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Deriving plugin registry
 
 License:        BSD-3-Clause
@@ -50,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.1-46
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

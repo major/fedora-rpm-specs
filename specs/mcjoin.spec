@@ -1,6 +1,6 @@
 Name:           mcjoin
 Version:        2.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiny multicast testing tool
 # The project is shipped under ISC and most sources have this license.
 # pev.c and pev.h are under Unlicensed https://github.com/troglobit/pev
@@ -45,5 +45,8 @@ make check
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Michal Ruprich <mruprich@redhat.com> - 2.12-1
 - Initial commit

@@ -14,7 +14,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        1.0.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        C extension module for Lua which adds bit-wise operations on numbers
 
 License:        MIT
@@ -80,6 +80,9 @@ install -p -m 0755 bit.so %{buildroot}%{lualibdir}/bit.so
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

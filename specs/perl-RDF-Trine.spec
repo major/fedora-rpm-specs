@@ -11,7 +11,7 @@
 
 Name:           perl-RDF-Trine
 Version:        1.019
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        RDF Framework for Perl
 # README:           GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/RDF/Trine.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -320,6 +320,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

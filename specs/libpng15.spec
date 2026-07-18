@@ -1,7 +1,7 @@
 Summary: Old version of libpng, needed to run old binaries
 Name: libpng15
 Version: 1.5.30
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: zlib
 URL: http://www.libpng.org/pub/png/
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/*
 %{_libdir}/libpng15.so.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.30-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 01 2026 Michal Hlavinka <mhlavink@redhat.com> - 1.5.30-25
 - fix CVE-2026-25646: heap buffer overflow in png_set_quantize (rhbz#2438683)
 

@@ -1,6 +1,6 @@
 Name:           ladspa-blop-plugins
 Version:        0.2.8
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Bandlimited LADSPA Oscillator Plugins
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ export LDADD="$RPM_LD_FLAGS -lm"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.2.8-44
 - Fix FTBFS (rhbz#2340705, rhbz#2385103)
 

@@ -24,7 +24,7 @@ ExcludeArch: %{ix86}
 Name:		libint2
 Version:	2.13.1
 %global postver -post999
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A library for efficient evaluation of electron repulsion integrals
 # Generator itself is GPLv2+, generated library packaged in Fedora is LGPLv3
 License:	LGPL-3.0-only
@@ -151,6 +151,9 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_libdir}/libint2.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Susi Lehtola <jussilehtola@fedoraproject.org>  2.13.1-2
 - Bump spec.
 

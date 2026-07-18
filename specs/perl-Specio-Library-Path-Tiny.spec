@@ -1,6 +1,6 @@
 Name:           perl-Specio-Library-Path-Tiny
 Version:        0.05
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Path::Tiny types and coercions for Specio
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Specio-Library-Path-Tiny
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

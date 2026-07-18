@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.16.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -132,6 +132,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 25 2026 Peng Wu <pwu@redhat.com> - 1.16.1-3
 - Rebuilt for opencc 1.2.0
 

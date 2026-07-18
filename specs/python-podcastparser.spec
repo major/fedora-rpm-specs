@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            0.6.11
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -54,6 +54,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.11-3
 - Rebuilt for Python 3.15
 

@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
@@ -461,6 +461,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  8 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-1
 - Update to 1.3.9c
   - ExecEnviron values not passed due to regression since 1.3.8.d (GH#2135)

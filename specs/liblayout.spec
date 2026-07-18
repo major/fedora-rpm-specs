@@ -1,6 +1,6 @@
 Name: liblayout
 Version: 0.2.10
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: CSS based layouting framework
 License: LGPL-2.1-or-later and Unicode-DFS-2016
 Source: http://downloads.sourceforge.net/jfreereport/liblayout-%{version}.zip
@@ -60,6 +60,9 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

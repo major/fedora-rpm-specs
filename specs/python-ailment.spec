@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.158
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The angr intermediate language
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ AIL is the angr intermediate language.
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.158-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.2.158-7
 - Rebuilt for Python 3.15
 

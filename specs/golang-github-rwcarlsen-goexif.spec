@@ -15,7 +15,7 @@ This package provides decoding of basic exif and tiff encoded data.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.25%{?dist}
+Release:        0.26%{?dist}
 Summary:        Decode embedded EXIF meta data from image files
 
 License:        BSD-2-Clause
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 23 2026 W. Michael Petullo <mike@flyn.org> - 0-0.25
 - Update license value per SPDX statistics email
 

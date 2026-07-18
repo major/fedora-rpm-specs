@@ -1,7 +1,7 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
 Version:    1.10
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc-aws
 BuildArch:  noarch
@@ -55,6 +55,9 @@ install -p -m 0755 bin/resalloc-aws-minimal-spot-zone %{buildroot}%{_bindir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

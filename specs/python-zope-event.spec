@@ -9,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -97,6 +97,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.0-5
 - Rebuilt for Python 3.15
 

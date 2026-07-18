@@ -1,6 +1,6 @@
 Name:		libpaper
 Version:	2.1.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
 Summary:	Library and tools for handling papersize
@@ -121,6 +121,9 @@ install -m0644 paperconf.1.gz %{buildroot}%{_mandir}/man1/paperconf.1
 %{_mandir}/man5/paperspecs.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

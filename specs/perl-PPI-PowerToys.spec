@@ -1,6 +1,6 @@
 Name:           perl-PPI-PowerToys
 Version:        0.14
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Handy collection of small PPI-based utilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI-PowerToys
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

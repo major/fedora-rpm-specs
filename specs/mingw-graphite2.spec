@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.15
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # As per COPYING file this library is tri-licensed
@@ -91,6 +91,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 Sandro Mani <manisandro@gmail.com> - 1.3.15-1
 - Update to 1.3.15
 

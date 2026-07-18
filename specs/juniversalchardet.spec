@@ -1,6 +1,6 @@
 Name:           juniversalchardet
 Version:        2.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
@@ -49,6 +49,9 @@ sed 's;<compiler.level>1.7</compiler.level>;<compiler.level>1.8</compiler.level>
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

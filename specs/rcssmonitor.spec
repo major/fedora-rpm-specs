@@ -1,6 +1,6 @@
 Name:           rcssmonitor
 Version:        19.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        RoboCup 2D Soccer Simulator Monitor
 
 # rcss/ libraries are under LGPLv2+
@@ -70,6 +70,9 @@ desktop-file-install \
 %{_libdir}/*.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 19.0.0-7
 - Backport patch from simdjson wrt no member error in template class
 

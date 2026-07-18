@@ -11,7 +11,7 @@ features offered by PostgreSQL.
 Summary:	%{sum}
 Name:		python-%{srcname}
 Version:	2.9.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 Url:		https://www.psycopg.org/
@@ -138,6 +138,9 @@ cp -r tests/ %{buildroot}%{python3_sitearch}/%{srcname}/tests/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.9.12-1
 - Update to 2.9.12 fixes rhbz#2414801 and rhbz#2459947
 - Spec cleanup and modernization per Fedora guidelines

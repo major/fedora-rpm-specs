@@ -3,7 +3,7 @@
 
 Name:           lua-loop
 Version:        2.3
-Release:        0.31.beta%{?dist}
+Release:        0.32.beta%{?dist}
 Summary:        Class models for Lua
 
 License:        MIT
@@ -72,6 +72,9 @@ cp -p lua/*.lua $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-0.32.beta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-0.31.beta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

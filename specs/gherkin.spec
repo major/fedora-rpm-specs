@@ -21,6 +21,11 @@ Version:        41.0.0
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
+# Fix a missing #include <cstring>; excerpted from a massive commit containing
+# other unrelated changes,
+# https://github.com/cucumber/gherkin/commit/39d5a71caaa2b6e90042a043525c8e6cd8a7be09.
+Patch:          gherkin-41.0.0-cstring.patch
+
 License:        MIT
 URL:            https://github.com/cucumber/gherkin
 Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz

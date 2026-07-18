@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Chess game for GNOME
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -167,6 +167,9 @@ PYCHESS_UNITTEST=true PYTHONPATH=../lib xvfb-run -a %{python3} ./run_tests.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Tester
 Version:        4.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test framework for Config::Model
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/Config-Model-Tester
@@ -69,6 +69,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Config::Model::Tester*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.010-1
 - 4.010 bump (rhbz#2450152)
 

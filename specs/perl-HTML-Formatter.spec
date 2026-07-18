@@ -1,6 +1,6 @@
 Name:           perl-HTML-Formatter
 Version:        2.16
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        HTML formatter modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-Formatter
@@ -94,6 +94,9 @@ A collection of modules that formats HTML as plaintext, PostScript or RTF.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.16-31
 - Take into account re-review feedback (#2486589)
 

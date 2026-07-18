@@ -3,7 +3,7 @@
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
 Version:	3.0.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -108,6 +108,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-3
 - Use upstream PR for patches
 - Backport upstream PR for Minitest 6.0.5 compatibility

@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Inject
 Version:        1.14
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Base class for injecting distributions into CPAN sources
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Inject
@@ -88,6 +88,9 @@ make test </dev/null
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

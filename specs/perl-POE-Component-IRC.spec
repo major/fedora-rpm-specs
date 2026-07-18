@@ -10,7 +10,7 @@
 Name:           perl-POE-Component-IRC
 Summary:        A POE component for building IRC clients
 Version:        6.95
-Release:        3%{?dist}
+Release:        4%{?dist}
 # LICENSE:      (GPL-1.0-or-later OR Artistic-1.0-Perl) declaration,
 #               GPL-1.0 text and Artistic-1.0 text
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -221,6 +221,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.95-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.95-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

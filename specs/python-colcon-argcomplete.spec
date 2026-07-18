@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Completion for colcon command lines using argcomplete
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -69,6 +69,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.3-28
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-dbus
 Version:        1.16.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows port of D-Bus
 
 # The effective license of the majority of the package, including the shared
@@ -156,6 +156,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/xml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

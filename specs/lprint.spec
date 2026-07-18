@@ -3,7 +3,7 @@
 
 Name: lprint
 Version: 1.3.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A Label Printer Application
 
 License: Apache-2.0
@@ -136,6 +136,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

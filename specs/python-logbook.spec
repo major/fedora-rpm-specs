@@ -1,6 +1,6 @@
 Name:           python-logbook
 Version:        1.9.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A logging replacement for Python
 
 # logbook: BSD-3-Clause
@@ -71,6 +71,9 @@ Logbook can do that.
 %license LICENSE.dependencies
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.2-5
 - Update PyO3 to 0.29
 - Update License expression

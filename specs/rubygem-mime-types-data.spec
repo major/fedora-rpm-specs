@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.2023.0218.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A registry for information about MIME media type definitions
 License: MIT
 URL: https://github.com/mime-types/mime-types-data/
@@ -65,6 +65,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2023.0218.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2023.0218.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

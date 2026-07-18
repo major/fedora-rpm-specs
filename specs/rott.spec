@@ -1,6 +1,6 @@
 Name:           rott
 Version:        1.1.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Rise of the Triad
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -126,6 +126,9 @@ install -p -m 644 %{SOURCE8} \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.1.2-30
 - Fix FTBFS (rhbz#2341288, rhbz#2385577)
 

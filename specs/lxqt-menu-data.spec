@@ -1,7 +1,7 @@
 Name:           lxqt-menu-data
 Summary:        Menu files for LXQt Panel, Configuration Center and PCManFM-Qt/libfm-qt
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 License:        LGPL-2.1-or-later
 URL:            https://lxqt-project.org/
@@ -35,6 +35,9 @@ Center and PCManFM-Qt/libfm-qt.
 %config(noreplace) %{_sysconfdir}/xdg/menus/lxqt-*.menu
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 21 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
 - Update to 2.4.0
 

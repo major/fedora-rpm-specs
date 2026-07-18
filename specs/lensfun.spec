@@ -6,7 +6,7 @@
 Name:    lensfun
 Version: 0.3.4
 Summary: Library to rectify defects introduced by photographic lenses
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 # libs/regex/ is LGPL-2.1-or-later
 # application is GPL-3.0-only
@@ -193,6 +193,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.4-12
 - Rebuilt for Python 3.15
 

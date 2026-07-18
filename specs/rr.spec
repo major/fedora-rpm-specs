@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 9
+%global baserelease 10
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -140,6 +140,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Aaron Merey <amerey@redhat.com> - 5.9.0-9
 - Fix FTBFS on rawhide (gcc 16, glibc 2.43+) by including <limits.h>
   in src/test/util.h, which several test files rely on for INT_MAX

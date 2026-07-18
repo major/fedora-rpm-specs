@@ -15,7 +15,7 @@
 
 %global ini_name         40-%{pecl_name}.ini
 
-%global upstream_version 3.1.5
+%global upstream_version 3.1.6
 #global upstream_prever  RC3
 #global upstream_postver r1
 
@@ -24,13 +24,13 @@
 %global gh_proj          pecl-event
 %global forgeurl         https://bitbucket.org/%{gh_vend}/%{gh_proj}
 %global tag              %{upstream_version}%{?upstream_prever}
-%global commit           e14e0f5e134e
+%global commit           63cb86c26995
 
 Name:          php-pecl-%{pecl_name}
 Summary:       Provides interface to libevent library
 License:       PHP-3.01
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       3%{?dist}
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -149,6 +149,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Remi Collet <remi@remirepo.net> - 3.1.6-1
+- update to 3.1.6
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.5-3
 - Rebuilt for openssl 4.0
 

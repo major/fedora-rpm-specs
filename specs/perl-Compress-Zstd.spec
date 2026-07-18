@@ -1,6 +1,6 @@
 Name:           perl-Compress-Zstd
 Version:        0.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to Zstandard compressor and decompressor
 # lib/Compress/Zstd.pm:                     BSD-2-Clause
 # lib/Compress/Zstd/CompressionContext.pm:  BSD-2-Clause
@@ -397,5 +397,8 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 04 2026 Petr Pisar <ppisar@redhat.com> 0.20-1
 - 0.20 version packaged

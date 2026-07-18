@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -87,6 +87,9 @@ chmod 644 sample.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-3
 - Rename the RPM package back to python3-metar
 

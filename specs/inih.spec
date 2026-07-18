@@ -2,7 +2,7 @@
 
 Name:     inih
 Version:  62
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Simple INI file parser library
 
 License:  BSD-3-Clause
@@ -133,6 +133,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 62-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 62-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
 Version:       3.0.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -74,6 +74,9 @@ sed -i '/setuptools/s/>=.*"/"/' pyproject.toml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,7 +6,7 @@ fun, more predictable, and more productive.
 
 Name:           python-%{modname}
 Version:        2.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
@@ -94,6 +94,9 @@ done;
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Python Maint <python-maint@redhat.com> - 2.0.2-13
 - Rebuilt for Python 3.15
 

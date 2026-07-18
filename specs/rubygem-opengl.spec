@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	41%{?dist}
+Release:	42%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -183,6 +183,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-41
 - Update testsuite for mesa 26
 

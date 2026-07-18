@@ -1,6 +1,6 @@
 Name:		nsdiff
 Version:	1.85
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	create an "nsupdate" script from DNS zone file differences
 
 License:	0BSD OR MIT-0
@@ -51,6 +51,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.85-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.85-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:   Support files for bmake, the NetBSD make(1) tool
 Name:      mk-files
 Version:   20210321
-Release:   13%{?dist}
+Release:   14%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:   LicenseRef-Callaway-BSD
 URL:       ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
@@ -35,6 +35,9 @@ env FORCE_BSD_MK={RPM_BUILD_ROOT}/nonexistent \
 %{_datadir}/mk/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20210321-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20210321-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

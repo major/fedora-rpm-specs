@@ -3,21 +3,17 @@
 %bcond doc %[ %{defined fc43} || %{defined fc42} ]
 
 Name:           python-dictdiffer
-Version:        0.9.0
-Release:        20%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Dictdiffer is a module that helps you to diff and patch dictionaries
 
 License:        MIT
 URL:            https://github.com/inveniosoftware/dictdiffer
 Source:         %{url}/archive/v%{version}/dictdiffer-%{version}.tar.gz
 
-# tests: remove pytest-runner / setup.py test support
-# https://github.com/inveniosoftware/dictdiffer/pull/192
-# rebased on v0.9.0
-Patch:          0001-tests-remove-pytest-runner-setup.py-test-support.patch
 # Downstream-only: remove linting/coverage options for pytest
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          0002-Downstream-only-remove-linting-coverage-options-for-.patch
+Patch:          0001-Downstream-only-remove-linting-coverage-options-for-.patch
 
 # List test dependencies manually since the test extra has various unwanted
 # dependencies, including linting/coverage tools:
@@ -102,6 +98,9 @@ PYTHONPATH="${PWD}" %pytest
 
 
 %changelog
+* Thu Jul 16 2026 Jaosn Montleon <jmontleo@redhat.com> 0.10.0-1
+- Update to 0.10.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9.0-20
 - Rebuilt for Python 3.15
 

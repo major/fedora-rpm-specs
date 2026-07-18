@@ -2,7 +2,7 @@
 
 Name:           mingw-xz
 Version:        5.2.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Cross-compiled LZMA compression utilities
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -179,6 +179,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Time-y2038
 Version:	20100403
-Release:	41%{?dist}
+Release:	42%{?dist}
 Summary:	Versions of Perl's time functions which work beyond 2038
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Time-y2038
@@ -61,6 +61,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Time::y2038::Everywhere.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20100403-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20100403-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

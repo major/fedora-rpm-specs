@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compute positions of the planets and stars
 
 License:        MIT
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.2.1-2
 - Rebuilt for Python 3.15
 

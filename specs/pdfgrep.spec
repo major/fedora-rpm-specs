@@ -1,7 +1,7 @@
 Summary:        Tool to search text in PDF files
 Name:           pdfgrep
 Version:        2.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://pdfgrep.org/
@@ -71,6 +71,9 @@ make check
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Marek Kasik <mkasik@redhat.com> - 2.2.0-9
 - Disallow ligatures in tests
 - Tests were failing due to "fi" ligature

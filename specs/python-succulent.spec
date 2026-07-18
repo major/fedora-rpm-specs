@@ -15,7 +15,7 @@ via POST requests. }
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -91,6 +91,9 @@ done
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.4.4-3
 - Rebuilt for Python 3.15
 

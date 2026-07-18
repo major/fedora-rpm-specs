@@ -1,6 +1,6 @@
 Name:       jalv
 Version:    1.8.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A simple but fully featured LV2 host for Jack
 
 License:    MIT
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_mandir}/man1/%{name}.gtk3.1.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Guido Aulisi <guido.aulisi@gmail.com> - 1.8.0-1
 - Update to 1.8.0
 - Verify sources

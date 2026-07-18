@@ -4,7 +4,7 @@
 
 Name:           python-zstarfile
 Version:        0.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tarfile extension with additional compression algorithms and PEP 706 by default
 
 
@@ -71,6 +71,9 @@ export ERROR_FOR_MISSING=1
 %pyproject_extras_subpkg -n python3-zstarfile all lz4 zstandard
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.3.0-6
 - Rebuilt for Python 3.15
 

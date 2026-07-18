@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.1.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Prawn::Templates allows using PDFs as templates in Prawn
 # Automatically converted from old format: Ruby or GPLv2 or GPLv3 - review is highly recommended.
 License: Ruby OR GPL-2.0-only OR GPL-3.0-only
@@ -68,6 +68,9 @@ rspec spec
 %{gem_instdir}/prawn-templates.gemspec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

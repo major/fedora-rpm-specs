@@ -7,7 +7,7 @@
 Summary:         Library to enable creation and expansion of ISO-9660 filesystems
 Name:            libisoburn
 Version:         1.5.8
-Release:         2%{?dist}
+Release:         3%{?dist}
 License:         GPL-2.0-or-later
 URL:             https://libburnia-project.org/
 Source0:         https://files.libburnia-project.org/releases/%{pkgname}-%{version}.pl02.tar.gz
@@ -218,6 +218,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 25 2026 Robert Scheck <robert@fedoraproject.org> 1.5.8-2
 - Upgrade to 1.5.8.pl02 (#2481024)
 

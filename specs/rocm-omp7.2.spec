@@ -67,9 +67,9 @@
 Name:           rocm-omp%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm OpenMP
 
@@ -236,6 +236,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %{bundle_prefix}/lib/libomp*.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Add --with preview
 

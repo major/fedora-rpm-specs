@@ -1,7 +1,7 @@
 Version: 2.0.2
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause AND ISC AND MIT
 URL: https://github.com/pupnp/pupnp
 Source: %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{_libdir}/pkgconfig/libupnp.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.0.2-1
 - 2.0.2
 

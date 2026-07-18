@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -120,6 +120,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-16
 - Remove Minitest6-assert_same.patch : fixed in Minitest 6.0.6
 

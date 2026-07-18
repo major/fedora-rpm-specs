@@ -1,6 +1,6 @@
 Name:       llconf
 Version:    0.4.6
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Loss-less configuration file parser
 # COPYING:              LGPL-2.1 text
 # examples/example.c:   GPL-2.0-or-later
@@ -177,6 +177,9 @@ find "$RPM_BUILD_ROOT" -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.4.6-32
 - Correct a license tag
 

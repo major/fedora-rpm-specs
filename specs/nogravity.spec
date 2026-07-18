@@ -1,6 +1,6 @@
 Name:           nogravity
 Version:        2.00
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Space shooter in 3D
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.00-51
 - Fix FTBFS (rhbz#2340938, rhbz#2385217)
 

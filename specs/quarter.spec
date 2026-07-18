@@ -2,7 +2,7 @@
 
 Name:           quarter
 Version:        1.2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight glue library between Coin and Qt
 
 License:        BSD-3-Clause 
@@ -81,6 +81,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 23 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.3-4
 - Migrate quart to QT6.
 

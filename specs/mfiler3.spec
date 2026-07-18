@@ -4,7 +4,7 @@
 
 Name:		mfiler3
 Version:	4.4.9
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Two pane file manager under UNIX console
 
 # SPDX confirmed
@@ -94,6 +94,9 @@ rm -rf ./Trash
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

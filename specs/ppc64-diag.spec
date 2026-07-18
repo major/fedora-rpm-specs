@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -175,6 +175,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Than Ngo <than@redhat.com> - 2.7.11-1
 - Update to 2.7.11
 

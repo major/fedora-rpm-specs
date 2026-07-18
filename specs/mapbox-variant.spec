@@ -2,7 +2,7 @@
 
 Name:           mapbox-variant
 Version:        1.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A header-only alternative to boost::variant for C++11 and C++14
 
 License:        BSL-1.0 AND BSD-3-Clause
@@ -52,6 +52,9 @@ cp -pr include/mapbox %{buildroot}%{_includedir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

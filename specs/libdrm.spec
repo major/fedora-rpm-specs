@@ -47,7 +47,7 @@ end}
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
 Version:        2.4.134
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 # Get the patch version.
@@ -281,6 +281,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.134-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Packit <hello@packit.dev> - 2.4.134-1
 - Update to version 2.4.134
 - Resolves: rhbz#2483183

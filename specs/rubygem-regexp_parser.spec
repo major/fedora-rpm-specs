@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.11.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Scanner, lexer, parser for ruby's regular expressions
 License: MIT
 URL: https://github.com/ammar/regexp_parser
@@ -70,6 +70,9 @@ rspec spec
 %{gem_instdir}/regexp_parser.gemspec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

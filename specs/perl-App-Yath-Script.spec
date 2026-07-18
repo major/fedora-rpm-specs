@@ -1,6 +1,6 @@
 Name:           perl-App-Yath-Script
 Version:        2.000016
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Script initialization and utility functions for Test2::Harness
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/App-Yath-Script
@@ -118,5 +118,8 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000016-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Petr Pisar <ppisar@redhat.com> 2.000016-1
 - 2.000016 packaged

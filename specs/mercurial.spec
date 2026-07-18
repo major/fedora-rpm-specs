@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.2.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -280,6 +280,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.3-3
 - Drop Python 3.15 patch that apparently isn't necessary.
 - Add patch for Python 3.15 with OpenSSL 4.0 and no TLSv1.2

@@ -1,6 +1,6 @@
 Name:           perl-Text-WikiFormat
 Version:        0.81
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Translate Wiki formatted text into other formats
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -50,6 +50,9 @@ PERL_RUN_ALL_TESTS=1 ./Build test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

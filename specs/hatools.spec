@@ -1,6 +1,6 @@
 Name:		hatools
 Version:	2.14
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Improved shell scripting in High Availability environment
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -39,6 +39,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

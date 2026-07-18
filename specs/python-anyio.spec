@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -70,6 +70,9 @@ tomcli set pyproject.toml lists delitem \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.2-1
 - Update to 4.14.2 (close RHBZ#2499541)
 

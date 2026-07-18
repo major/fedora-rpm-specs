@@ -1,6 +1,6 @@
 Name:           quesoglc
 Version:        0.7.2
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        The OpenGL Character Renderer
 
 License:        LGPL-2.1-or-later AND MIT
@@ -79,6 +79,9 @@ rm %{buildroot}%{_libdir}/libGLC.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 0.7.2-45
 - Fix SPDX license tag: 'LicenseRef-Callaway-LGPLv2+' -> 'LGPL-2.1-or-later AND MIT'
 - MIT: Mesa platform-detection macros in 'include/GL/glc.h' (shipped in -devel)

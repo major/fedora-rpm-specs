@@ -1,7 +1,7 @@
 Summary: Graphical effect and filter library
 Name:    qimageblitz
 Version: 0.0.6
-Release: 35%{?dist}
+Release: 36%{?dist}
 
 # Automatically converted from old format: BSD and ImageMagick - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND ImageMagick
@@ -70,6 +70,9 @@ test "$(pkg-config --modversion qimageblitz)" = "4.0.0"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

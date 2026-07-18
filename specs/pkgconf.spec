@@ -23,7 +23,7 @@
 
 Name:           pkgconf
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 # cli/getopt_long.c, libpkgconf/bsdstubs.c, libpkgconf/pkg.c and tests/* are ISC
@@ -227,6 +227,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.1-1
 - Update to 2.5.1
 - https://github.com/pkgconf/pkgconf/blob/pkgconf-2.5.1/NEWS

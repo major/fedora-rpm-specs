@@ -38,7 +38,7 @@ Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
 License:        MIT
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta -a
 URL:            %{forgeurl}
 Source0:        %{forgesource0}
@@ -150,6 +150,9 @@ mv tests/tests/CollectionTest.php tests/tests/Collection.php
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 1.8.0-1
 - update to 1.8.0
 - raise dependency on PHP 8.2

@@ -5,7 +5,7 @@ supports formatted output with SI (decimal) and IEC (binary) prefixes.}
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Prefixed alternative numeric library
 
 License:        MPL-2.0
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/prefixed*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.1-10
 - Rebuilt for Python 3.15
 

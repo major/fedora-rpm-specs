@@ -27,7 +27,7 @@ since they're a poor design and are gone in YAML 1.2.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.19%{?dist}
+Release:        0.20%{?dist}
 Summary:        YAML support for the Go language
 
 License:        MIT AND LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -58,6 +58,9 @@ done
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.19
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

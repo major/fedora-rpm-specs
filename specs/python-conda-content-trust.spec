@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Signing and verification tools for conda
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ sed -i -E -e '/--(no-)?cov/d' -e '/--benchmark/d' pyproject.toml
 %{_bindir}/conda-content-trust
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Python Maint <python-maint@redhat.com> - 0.3.2-2
 - Rebuilt for Python 3.15
 

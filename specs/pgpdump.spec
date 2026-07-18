@@ -1,6 +1,6 @@
 Name:           pgpdump
 Version:        0.36
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PGP packet visualizer
 License:        MIT
 URL:            https://www.mew.org/~kazu/proj/pgpdump/
@@ -34,6 +34,9 @@ OpenPGP (RFC 4880) and PGP version 2 (RFC 1991).
 %{_mandir}/man1/pgpdump.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 10 2026 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.36-5
 - Patch to enable build with newer GCC version. Fixes rhbz#2434914
 

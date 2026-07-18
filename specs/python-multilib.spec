@@ -1,6 +1,6 @@
 Name:       python-multilib
 Version:    1.3
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    A module for determining if a package is multilib or not
 License:    GPL-2.0-only
 URL:        https://pagure.io/releng/python-multilib
@@ -65,6 +65,9 @@ Requires:       %{name}-conf = %{version}-%{release}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3-7
 - Rebuilt for Python 3.15
 

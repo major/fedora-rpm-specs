@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 21 2026 Remi Collet <remi@remirepo.net> - 7.1.8-1
 - update to 7.1.8
 

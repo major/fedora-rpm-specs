@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.7
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPL-2.0-or-later
@@ -55,6 +55,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.7-2
 - Rebuilt for Python 3.15
 

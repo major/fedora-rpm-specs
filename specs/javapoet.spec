@@ -1,6 +1,6 @@
 Name:          javapoet
 Version:       1.7.0
-Release:       29%{?dist}
+Release:       30%{?dist}
 Summary:       A Java API for generating .java source files
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -57,6 +57,9 @@ sed 's;<java.version>1.7</java.version>;<java.version>1.8</java.version>;' -i po
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-YAML-Valid
 Version:        0.04
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Lets you test the validity of YAML files in unit tests
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-YAML-Valid
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Test::YAML::Valid.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Censor
 Version:        0.04
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Censor sensitive stuff in a data structure
 License:        Artistic-2.0
 URL:            https://metacpan.org/dist/Data-Censor
@@ -44,6 +44,9 @@ RELEASE_TESTING= %{make_build} test
 %{_mandir}/man3/Data*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

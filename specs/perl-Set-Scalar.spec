@@ -1,6 +1,6 @@
 Name:           perl-Set-Scalar
 Version:        1.29
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Basic set operations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Set-Scalar
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Set::Scalar::Virtual.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

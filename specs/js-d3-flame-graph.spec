@@ -3,7 +3,7 @@
 
 Name:           js-d3-flame-graph
 Version:        4.0.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A D3.js plugin that produces flame graphs
 
 BuildArch:      noarch
@@ -105,6 +105,9 @@ cp -a dist/* %{buildroot}/%{_jsdir}/%{pkgname}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.7-13
 - Rebuilt with Node.js 24
 

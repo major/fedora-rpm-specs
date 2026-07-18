@@ -2,7 +2,7 @@
 
 Name: python-%{upname}
 Version: 4.0.3
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: A Python implementation of HUSL
 License: MIT
 
@@ -49,6 +49,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.0.3-39
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.21.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Serverless configuration management tool for chef
 License: MIT
 URL: https://gitlab.com/terceiro/chake
@@ -94,6 +94,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

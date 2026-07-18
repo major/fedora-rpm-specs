@@ -3,7 +3,7 @@
 Summary: Run external commands on Unix or Windows
 Name: rubygem-%{gem_name}
 Version: 3.4.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL: https://github.com/chef/mixlib-shellout
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -66,6 +66,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 05 2026 Phil Dibowitz <phil@ipom.com> - 3.4.10-1
 - Un-orphan
 - Update to latest version

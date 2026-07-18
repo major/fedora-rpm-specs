@@ -1,6 +1,6 @@
 Name:           perl-Authen-Radius
 Version:        0.37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Authen-Radius
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 18 2026 Paul Howarth <paul@city-fan.org> - 0.37-1
 - Update to 0.37
   - Enable Rfc3579MessageAuth by default and emit Message-Authenticator as the

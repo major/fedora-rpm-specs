@@ -4,7 +4,7 @@
 
 Name:           mdevctl
 Version:        1.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -83,6 +83,9 @@ sed  -e 's/SBINDIR=/SBINDIR\?=/' -i Makefile.in
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.4.0-4
 - In Fedora, update nix dev-dependency to 0.31
 

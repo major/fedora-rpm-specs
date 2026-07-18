@@ -31,7 +31,7 @@ ExcludeArch:    i686 armv7hl s390x
 
 Name:		gromacs
 Version:	2026.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	LGPL-2.1-or-later
@@ -377,6 +377,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 05 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2026.2-1
 - Update to 2026.2
 - Fixes: rhbz#2466880

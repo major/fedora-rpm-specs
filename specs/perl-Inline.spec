@@ -3,7 +3,7 @@
 
 Name:           perl-Inline
 Version:        0.87
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Inline Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
@@ -143,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 21 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.87-3
 - Fix test dependencies
 

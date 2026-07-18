@@ -1,6 +1,6 @@
 Name:           perl-PerlX-Maybe-XS
 Version:        1.001
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        XS backend for PerlX::Maybe
 # CONTRIBUTING: CC-By-SA
 # LICENSE:      GPL+ or Artistic
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

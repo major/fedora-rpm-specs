@@ -25,7 +25,7 @@ Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        1.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -120,6 +120,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 1.4.1-3
 - drop pear/pecl dependency
 - sources from github

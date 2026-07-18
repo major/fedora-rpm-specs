@@ -20,7 +20,7 @@ faster with no additional code changes.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.24%{?dist}
+Release:        0.25%{?dist}
 Summary:        Faster JSON serialization for Go
 
 # Upstream license specification: Apache-2.0
@@ -66,6 +66,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.24
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

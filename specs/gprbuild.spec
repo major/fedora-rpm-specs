@@ -66,7 +66,7 @@
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -490,6 +490,9 @@ make -C examples run
 ###############
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 27 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:26.0.0-4
 - Rebuilt because GCC broke ALI again.
 

@@ -1,6 +1,6 @@
 Name:           libcacard
 Version:        2.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CAC (Common Access Card) library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -71,6 +71,9 @@ cp %{SOURCE3} tests/
 %{_libdir}/pkgconfig/libcacard.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3:2.8.2-2
 - Rebuilt for openssl 4.0
 

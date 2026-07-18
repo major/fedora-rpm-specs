@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
 Version:	1.3.19
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -114,6 +114,9 @@ kill $(cat /tmp/valkey.pid)
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Paul Howarth <paul@city-fan.org> - 1.3.19-1
 - Update to 1.3.19 (rhbz#2477392)
   - Apache::Session::Generate::SHA256 used a low-entropy seed (time, PID, rand,

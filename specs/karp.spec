@@ -4,7 +4,7 @@
 
 Name:          karp
 Version:       25.03.70~%{gitdate}.%{shortcommit}
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND FSFAP AND CC-BY-SA-4.0 AND BSD-3-Clause AND LGPL-2.0-or-later
 Summary:       Simple PDF editor to arrange, merge and improve PDF file(s)
 URL:           https://apps.kde.org/karp/
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/karp.categories
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.03.70~20251108.040727.a5d2573-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 25.03.70~20251108.040727.a5d2573-3
 - Rebuild (qt6)
 

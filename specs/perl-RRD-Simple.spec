@@ -1,6 +1,6 @@
 Name:		perl-RRD-Simple
 Version:	1.44
-Release:	54%{?dist}
+Release:	55%{?dist}
 Summary:	Simple interface to create and store data in RRD files
 License:	Apache-2.0
 URL:		https://metacpan.org/release/RRD-Simple
@@ -92,6 +92,9 @@ LC_ALL=C ./Build test
 %{_mandir}/man3/RRD::Simple::Examples.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Paul Howarth <paul@city-fan.org> - 1.44-54
 - Drop redundant doc-file-dependency filter
 - Modernize provides filter so that it starts working again

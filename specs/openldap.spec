@@ -20,7 +20,7 @@
 
 Name: openldap
 Version: 2.6.13
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -567,6 +567,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 07 2026 Simon Pichugin <spichugi@redhat.com> - 2.6.13-2
 - Fix build against OpenSSL 4
 - Bump version 2.6.13-2

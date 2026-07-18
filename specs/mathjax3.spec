@@ -1,6 +1,6 @@
 Name:		mathjax3
 Version:	3.2.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	JavaScript library to render math in the browser
 License:	Apache-2.0 AND 0BSD AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC-BY-4.0 AND ISC AND (LGPL-2.0-only OR MIT) AND MIT
 URL:		https://mathjax.org
@@ -49,6 +49,9 @@ cp -pr es5 %{buildroot}%{_jsdir}/mathjax@3
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.2-10
 - Add BuildRequires /usr/bin/npm
 

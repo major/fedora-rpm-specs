@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.5.2
-Release:    5%{?dist}
+Release:    6%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry        RIT
@@ -42,6 +42,9 @@ Source0:    %{fontsource}-%{version}.zip
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -204,6 +204,9 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 11 2026 Pavol Žáčik <pzacik@redhat.com> - 2.11-6
 - Add OpenSSL 4.0 compatibility patches
 - Use %%autopatch to apply patches

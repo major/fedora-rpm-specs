@@ -17,7 +17,7 @@
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
 Version:          1.12.0
-Release:          1.%{git_suffix}%{?dist}
+Release:          2.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
 BuildRequires:    autoconf
@@ -103,6 +103,9 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2.20260129git8450f365
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.12.0-1.20260129git8450f365
 - New version
 - Fixed FTBFS

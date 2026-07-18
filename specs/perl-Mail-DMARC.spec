@@ -3,7 +3,7 @@
 
 Name:           perl-Mail-DMARC
 Version:        2.20260621
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -239,6 +239,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20260621-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 2.20260621-1
 - 2.20260621 bump
 

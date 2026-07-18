@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.10.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Writing user interfaces without all that ugly mucking about in hyperspace
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ done
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.10.5-25
 - Rebuilt for Python 3.15
 

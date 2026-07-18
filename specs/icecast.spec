@@ -1,6 +1,6 @@
 Name:		icecast
 Version:	2.4.4
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	ShoutCast compatible streaming media server
 
 # admin/xspf.xsl:	GPL-2.0-or-later
@@ -154,6 +154,9 @@ cp -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.4-27
 - Rebuilt for openssl 4.0
 

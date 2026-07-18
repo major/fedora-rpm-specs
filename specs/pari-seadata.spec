@@ -1,6 +1,6 @@
 Name:		pari-seadata
 Version:	20090618
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	PARI/GP Computer Algebra System modular polynomials
 License:	GPL-2.0-or-later
 URL:		https://pari.math.u-bordeaux.fr/packages.html
@@ -70,6 +70,9 @@ cp -a data/seadata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/seadata/sea7*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20090618-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20090618-31
 - BR gpgverify instead of gnupg2
 

@@ -7,7 +7,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.17.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 
 BuildArch:      noarch
@@ -95,6 +95,9 @@ install -Dpm 0644 %{pkgname}.h %{buildroot}%{mingw64_includedir}/%{pkgname}.h
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

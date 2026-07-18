@@ -1,6 +1,6 @@
 Name:           perl-Parallel-ForkManager
 Version:        2.04
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple parallel processing fork manager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-ForkManager
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Parallel::ForkManager*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.04-1
 - 2.04 bump (rhbz#2392147)
 

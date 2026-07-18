@@ -1,6 +1,6 @@
 Name:           libzen
 Version:        0.4.41
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 
 License:        Zlib
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.41-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.41-10
 - Fix build with CMake 4.0
 

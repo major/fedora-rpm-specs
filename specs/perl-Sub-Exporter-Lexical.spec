@@ -1,6 +1,6 @@
 Name:           perl-Sub-Exporter-Lexical
 Version:        1.001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Export lexically-available subs with Sub::Exporter
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Exporter-Lexical
@@ -55,6 +55,9 @@ rm $RPM_BUILD_ROOT%{perl_vendorlib}/Sub/Exporter/snippet.pl
 %{_mandir}/man3/Sub::Exporter::Lexical*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.001-1
 - 1.001 bump (rhbz#2442249)
 

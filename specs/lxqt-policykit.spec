@@ -1,7 +1,7 @@
 Name:          lxqt-policykit
 Summary:       PolicyKit agent for LXQt desktop suite
 Version:       2.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-agent.des
 %dir %{_datadir}/lxqt/translations/lxqt-policykit-agent
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
 - Update to 2.4.0
 

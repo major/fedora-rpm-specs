@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Extension for colcon to quickly re-run a recently executed verb
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -60,6 +60,9 @@ An extension for colcon-core to quickly re-run a recently executed verb.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.1-11
 - Rebuilt for Python 3.15
 

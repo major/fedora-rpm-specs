@@ -1,6 +1,6 @@
 Name:           micronucleus
 Version:        2.04
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Flashing tool for USB devices with Micronucleus bootloader
 
 # The only thing that we package -- the command line tool -- has a MIT
@@ -54,6 +54,9 @@ install -pm644 %{SOURCE1} %{buildroot}%{_udevrulesdir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:               python-requests-oauthlib
 Version:            2.0.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            OAuthlib authentication support for Requests.
 
 License:            ISC
@@ -62,6 +62,9 @@ rm tests/examples/test_native_spa_pkce_auth0.py
 %doc README.rst HISTORY.rst requirements.txt AUTHORS.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.0.0-2
 - Rebuilt for Python 3.15
 

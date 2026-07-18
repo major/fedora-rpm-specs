@@ -2,7 +2,7 @@
 
 Name:           mintlocale
 Version:        1.4.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Language selection tool
 
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ echo 'LANG=$locale' > %{buildroot}%{_datadir}/linuxmint/mintlocale/templates/def
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 1.4.7-22
 - Fix all the warnings
 

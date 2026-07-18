@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Fast Python ASN.1 parser and serializer
 
 License:        MIT
@@ -48,6 +48,9 @@ PKCS#12, PKCS#5, X.509 and TSP.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.1-18
 - Rebuilt for Python 3.15
 

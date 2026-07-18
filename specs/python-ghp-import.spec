@@ -1,6 +1,6 @@
 Name:           python-ghp-import
 Version:        2.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        GitHub Pages Import
 BuildArch:      noarch
 
@@ -56,6 +56,9 @@ sed -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/ghp_import.py
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.0-17
 - Rebuilt for Python 3.15
 

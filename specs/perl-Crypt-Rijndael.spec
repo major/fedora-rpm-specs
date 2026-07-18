@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Rijndael
 Version:        1.16
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Crypt::CBC compliant Rijndael encryption module
 # Rijndael.{h,xs}, _rijndael.c: LGPL-2.0-or-later
 # Rijndael.pm, COPYING:         LGPL-3.0-only
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           lordsawar
 Version:        0.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Turn-based strategy game in a fantasy setting
 
 # This is used for prereleases and such
@@ -87,6 +87,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}-appdata.xml $RPM_BUILD_ROOT%{_data
 %{_mandir}/man6/lordsawar.6*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -8,7 +8,7 @@ grapheme clusters according to Unicode Standard Annex #29.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode segmentation and width for Python using Rust
 
 # The source is MIT (except for certain non-code files licensed CC0-1.0 that do
@@ -74,6 +74,9 @@ sed -i 's/maturin>=1.10/maturin>=1.9/' pyproject.toml
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.4-1
 - Update to version 0.2.4 (close RHBZ#2496486)
 - Update to PyO3 0.29

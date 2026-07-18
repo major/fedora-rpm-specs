@@ -7,7 +7,7 @@
 
 Name:           perl-Web-Scraper
 Version:        0.38
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Web Scraping Toolkit using HTML and CSS Selectors or XPath expressions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Web-Scraper
@@ -82,6 +82,9 @@ LEAK_TEST=1 %{?with_live_test:LIVE_TEST=1} ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

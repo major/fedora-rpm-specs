@@ -8,7 +8,7 @@
 Name:		roc-toolkit
 #Version:	0.2.1^%%{git_suffix}
 Version:	0.4.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
@@ -103,6 +103,9 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.0-6
 - Rebuilt for openssl 4.0
 

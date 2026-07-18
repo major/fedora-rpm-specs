@@ -3,7 +3,7 @@
 %global name1 jimtcl
 Name:           mingw-%{name1}
 Version:        0.81
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MinGW small embeddable Tcl interpreter
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -109,6 +109,9 @@ rm -f %{buildroot}/%{mingw64_bindir}/jimdb
 %{mingw64_libdir}/pkgconfig/jimtcl.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:    kio-extras-kf5
 Version: 24.02.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -172,6 +172,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 24.02.2-11
 - Rebuild for OpenEXR 3.4.12.
 

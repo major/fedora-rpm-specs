@@ -1,8 +1,8 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           clustershell
-Version:        1.10
-Release:        2%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 License:        LGPL-2.1-or-later
@@ -12,7 +12,6 @@ Source0:        %{pypi_source clustershell}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  vim
 
 Requires:       python3-%{name} = %{version}-%{release}
 Requires:       vim-filesystem
@@ -30,8 +29,6 @@ offered by the library.
 
 %package -n python3-%{name}
 Summary:        ClusterShell module for Python 3
-%{?python_provide:%python_provide python3-%{name}}
-
 
 %description -n python3-%{name}
 ClusterShell Python 3 module and related command line tools.
@@ -50,10 +47,12 @@ ClusterShell Python 3 module and related command line tools.
 
 %install
 %pyproject_install
-%pyproject_save_files ClusterShell
+%pyproject_save_files -l ClusterShell
 
 # move config dir away from default setuptools /usr prefix (if rpm-building as user)
-[ -d %{buildroot}/usr/etc ] && mv %{buildroot}/usr/etc %{buildroot}/%{_sysconfdir}
+if [ -d %{buildroot}/usr/etc ]; then
+    mv %{buildroot}/usr/etc %{buildroot}/%{_sysconfdir}
+fi
 
 # man pages
 install -d %{buildroot}/%{_mandir}/{man1,man5}
@@ -76,6 +75,10 @@ install -p -m 0644 bash_completion.d/clush -t %{buildroot}%{bash_completions_dir
 pushd %{buildroot}%{bash_completions_dir}
 ln -s cluset nodeset
 popd
+
+
+%check
+%pyproject_check_import ClusterShell
 
 
 %files -n python3-%{name} -f %{pyproject_files}
@@ -118,6 +121,11 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Thu Jul 16 2026 Stephane Thiell <stephane@thiell.com> - 1.10.1-1
+- Update to 1.10.1
+- add import smoke test
+- drop unused vim build dependency
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -241,7 +249,7 @@ popd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
 * Thu Jun 27 2019 Stephane Thiell <sthiell@stanford.edu> 1.8.1-3
-- Avoid using #%else if" statements (#1724485)
+- Avoid using #%%else if" statements (#1724485)
 
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild

@@ -1,6 +1,6 @@
 Name:           perl-Starman
 Version:        0.4018
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -86,6 +86,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4018-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.4018-1
 - Update to 0.4018 (which contains a fix for CVE-2026-40560)
 

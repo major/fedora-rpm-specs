@@ -1,6 +1,6 @@
 Name:          ruqola
 Version:       2.6.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Qt-based client for Rocket Chat
 
 License:       BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ru
 %{_docdir}/HTML/en/ruqola/index.docbook
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6.0-4
 - Rebuilt for ktextaddons 2.0
 

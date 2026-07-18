@@ -3,7 +3,7 @@
 Summary:        Perl module with client code for querying multiple DNSBLs
 Name:           perl-Net-DNSBL-Client
 Version:        0.207
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/D/DS/DSKOLL/%{pkgname}-%{version}.tar.gz
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Net::DNSBL::Client.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Dec 14 2025 Robert Scheck <robert@fedoraproject.org> 0.207-1
 - Upgrade to 0.207 (#2422114)
 - Initial spec file for Fedora and Red Hat Enterprise Linux

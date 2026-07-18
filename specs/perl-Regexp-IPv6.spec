@@ -1,6 +1,6 @@
 Name:           perl-Regexp-IPv6
 Version:        0.03
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Regular expression for IPv6 addresses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-IPv6
@@ -37,6 +37,9 @@ Addresses" but ::. Any string not compliant with such RFC will be rejected.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Check for python builtins being used as variables or parameters
 
 License:        GPL-2.0-only
@@ -53,6 +53,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-3
 - Rebuilt for Python 3.15
 

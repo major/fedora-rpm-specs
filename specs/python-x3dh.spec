@@ -1,6 +1,6 @@
 Name:           python-x3dh
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation of the X3DH key agreement protocol
 
 License:        MIT
@@ -80,6 +80,9 @@ install -pDm0644 docs/texinfo/x3dh.xml \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3.0-2
 - Rebuilt for Python 3.15
 

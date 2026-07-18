@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -169,6 +169,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-af
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.10.0-8
 - Rebuilt for openssl 4.0
 

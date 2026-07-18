@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Numbers-Ordinate
 Version:        1.05
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Perl functions for giving the ordinal form of a number given its cardinal value
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Numbers-Ordinate
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

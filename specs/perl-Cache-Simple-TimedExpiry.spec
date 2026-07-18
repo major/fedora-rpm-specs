@@ -1,6 +1,6 @@
 Name:           perl-Cache-Simple-TimedExpiry
 Version:        0.27
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        A lightweight cache with timed expiration
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cache-Simple-TimedExpiry
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/Cache::Simple::TimedExpiry*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-52
 - Re-add to Fedora
 

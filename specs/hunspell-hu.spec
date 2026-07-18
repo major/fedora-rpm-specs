@@ -7,7 +7,7 @@
 Name: hunspell-hu
 Summary: Hungarian hunspell dictionaries
 Version: 1.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/hu_HU/hu_HU.dic
 Source1: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/hu_HU/hu_HU.aff
 URL: http://magyarispell.sourceforge.net
@@ -37,6 +37,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{buildroot}%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 07 2026 Parag Nemade <pnemade AT redhat DOT com> - 1.9-1
 - Updated to new version from libreoffice repository
 

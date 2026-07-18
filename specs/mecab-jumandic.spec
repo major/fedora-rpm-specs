@@ -9,7 +9,7 @@
 
 Name:		mecab-jumandic
 Version:	%{majorver}.%{date}
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	JUMAN dictorionary for MeCab
 
 # SPDX confirmed
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.20070304-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.20070304-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

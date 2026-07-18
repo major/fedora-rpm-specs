@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -102,6 +102,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

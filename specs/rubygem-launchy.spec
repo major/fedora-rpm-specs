@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Helper class for cross-platform launching of applications
 License: ISC
 URL: http://github.com/copiousfreetime/launchy
@@ -92,6 +92,9 @@ popd
 %{gem_instdir}/tasks
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

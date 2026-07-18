@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 
 Summary:	Glut bindings for the OpenGL gem
 # SPDX confirmed
@@ -82,6 +82,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

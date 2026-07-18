@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Various objects to denote special meanings in Python
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com> - 1.1.1-4
 - Backport upstream fix for pytest 9.0 (testpaths must be a list)
 

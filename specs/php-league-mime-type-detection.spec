@@ -18,7 +18,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        1.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mime-type detection for Flysystem
 
 License:        MIT
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul  9 2026 Remi Collet <remi@remirepo.net> - 1.17.0-1
 - update to 1.17.0
 - re-license spec file to CECILL-2.1

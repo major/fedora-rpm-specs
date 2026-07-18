@@ -2,7 +2,7 @@
 
 Name:           perl-PathTools
 Version:        3.95
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PathTools Perl module (Cwd, File::Spec)
 # Cwd.xs:                   BSD-3-Clause
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -125,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.95-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.95-1
 - Upgrade to 3.95 as provided in perl-5.44.0-RC1
 

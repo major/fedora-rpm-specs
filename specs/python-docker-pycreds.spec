@@ -17,7 +17,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Python bindings for the docker credentials store API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -131,6 +131,9 @@ PYTHONPATH="${PWD}" py.test-%{python3_version} -vv tests/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.0-29
 - Rebuilt for Python 3.15
 

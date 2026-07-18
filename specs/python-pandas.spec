@@ -16,7 +16,7 @@
 
 Name:     python-pandas
 Version:  3.0.4
-Release:  0%{?dist}
+Release:  1%{?dist}
 Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -693,6 +693,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.4-0
 - Update to Pandas 3.0.4 (bootstrap)
 

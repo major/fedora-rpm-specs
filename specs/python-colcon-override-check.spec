@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Extension for colcon to check for problems overriding installed packages
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ overridden.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.1-12
 - Rebuilt for Python 3.15
 

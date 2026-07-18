@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.4.350.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 # volk.h is MIT
@@ -90,6 +90,9 @@ MINGW64_CMAKE_ARGS="-Dvolk_DIR=$PWD/volk-vulkan-sdk-%{version}/dist/%{mingw64_li
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.350.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.350.1-1
 - Update to 1.4.350.1
 

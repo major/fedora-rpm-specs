@@ -3,7 +3,7 @@
 
 Name:           libcutl
 Version:        %{base_version}.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        C++ utility library from Code Synthesis
 # Code found in the cutl/details/boost/ directory is distributed under
 # the Boost Software License (see the accompanying LICENSE file).
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}
 %{_libdir}/pkgconfig/libcutl.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 24 2026 Antonio Trande <sagitter@fedoraproject.org> - 1.10.0-35
 - Fix License
 

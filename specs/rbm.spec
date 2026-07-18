@@ -3,7 +3,7 @@
 
 Name:       rbm
 Version:    0.4^20260622git%{shortcommit0}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -153,6 +153,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20260622git865f2c9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Petr Pisar <ppisar@redhat.com> - 0.4^20260622git865f2c9-1
 - Rebase to a git snapshot taken on 2026-06-22
 

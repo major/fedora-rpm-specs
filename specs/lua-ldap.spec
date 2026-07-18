@@ -3,7 +3,7 @@
 %{!?lua_libdir: %global lua_libdir %{_libdir}/lua/%{lua_version}}
 Name:           lua-ldap
 Version:        1.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        LDAP client library for Lua, using OpenLDAP
 License:        MIT
 URL:            https://lualdap.github.io/lualdap/
@@ -48,6 +48,9 @@ lua -e \
 %{lua_libdir}/lualdap.so*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.4.0-5
 - rebuild
 

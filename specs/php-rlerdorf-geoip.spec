@@ -28,7 +28,7 @@ Name:           php-%{pie_vend}-%{pie_proj}
 Summary:        Legacy GeoIP (v1) PHP extension
 License:        PHP-3.01
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -122,6 +122,9 @@ php -n run-tests.php -P -q --show-diff %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 23 2026 Remi Collet <remi@remirepo.net> - 1.4.0-1
 - initial package
 - obsoletes php-pecl-geoip

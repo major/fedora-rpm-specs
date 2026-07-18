@@ -13,7 +13,7 @@ generate. \
 
 Name:           mingw-%{pkgname}
 Version:        1.8.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        JSON library implemented in C++
 
 # Automatically converted from old format: Public Domain or MIT - review is highly recommended.
@@ -101,6 +101,9 @@ This package provides the library for the Win64 target.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

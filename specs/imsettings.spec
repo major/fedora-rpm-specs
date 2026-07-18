@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.11
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -319,6 +319,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar  4 2026 Akira TAGOH <tagoh@redhat.com> - 1.8.11-2
 - Disable imsettings for KDE
 

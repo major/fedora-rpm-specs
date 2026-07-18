@@ -1,18 +1,13 @@
-# python-cattrs is too old in Fedora 40:
-%bcond cattrs %{undefined fc40}
-
 Name:           python-ufoLib2
 Version:        0.18.1
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
 URL:            https://github.com/fonttools/ufoLib2
-Source:         %{pypi_source ufolib2 %{version}}
+Source:         %{pypi_source ufolib2}
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 # Required for running tests
 BuildRequires:  python3dist(pytest)
@@ -29,29 +24,35 @@ Summary:        %{summary}
 
 %description -n python3-ufoLib2 %_description
 
-%pyproject_extras_subpkg -n python3-ufoLib2 lxml%{?with_cattrs: converters json msgpack}
+%pyproject_extras_subpkg -n python3-ufoLib2 lxml converters json msgpack
 
 %prep
 %autosetup -n ufolib2-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x lxml%{?with_cattrs:,converters,json,msgpack}
+%pyproject_buildrequires --extras lxml,converters,json,msgpack
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files -l ufoLib2
+%pyproject_save_files --assert-license ufoLib2
 
 %check
-%pyproject_check_import %{?!with_cattrs:-e ufoLib2.converters -e ufoLib2.serde.json -e ufoLib2.serde.msgpack}
-%pytest -v
+%pyproject_check_import
+%pytest --verbose
 
 %files -n python3-ufoLib2 -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Sat Jul 11 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.18.1-7
+- Minor spec-file housekeeping
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.18.1-6
 - Rebuilt for Python 3.15
 

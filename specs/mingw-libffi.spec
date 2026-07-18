@@ -2,7 +2,7 @@
 
 Name:		mingw-libffi
 Version:	3.5.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A portable foreign function interface library for MinGW
 
 License:	MIT
@@ -103,6 +103,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

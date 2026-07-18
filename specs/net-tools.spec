@@ -11,7 +11,7 @@
 Summary: Basic networking tools
 Name: net-tools
 Version: 2.0
-Release: 0.77.%{checkout}%{?dist}
+Release: 0.78.%{checkout}%{?dist}
 License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/net-tools/
 
@@ -175,6 +175,9 @@ install -D -p -m 644 %{SOURCE9} %{buildroot}%{_unitdir}/arp-ethers.service
 %attr(0644,root,root)   %{_unitdir}/arp-ethers.service
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.78.20160912git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Adam Williamson <awilliam@redhat.com> - 2.0-0.77.20160912git
 - Don't ship French man8 in F44+ (rhbz#2399744 again)
 

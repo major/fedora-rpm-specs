@@ -4,7 +4,7 @@
 
 Name:           rtmpdump
 Version:        2.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Toolkit for RTMP streams
 
 SourceLicense:  GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -77,6 +77,9 @@ rm -v %{buildroot}%{_libdir}/librtmp.a
 %{_mandir}/man3/librtmp.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6-4
 - latest git commit is tagged as v2.6
 - bump release field for clean upgrade path from RPM Fusion

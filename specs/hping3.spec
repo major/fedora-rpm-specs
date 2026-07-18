@@ -1,7 +1,7 @@
 %define  cvs 20051105
 Name:    hping3
 Version: 0.0.%{cvs}
-Release: 50%{?dist}
+Release: 51%{?dist}
 Summary: TCP/IP stack auditing and much more
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -67,6 +67,9 @@ ln -sf hping3 $RPM_BUILD_ROOT%{_sbindir}/hping2
 %{_mandir}/man8/hping3.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20051105-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Petr Pisar <ppisar@redhat.com> - 0.0.20051105-50
 - Port to TCL 9 (bug #2337715)
 

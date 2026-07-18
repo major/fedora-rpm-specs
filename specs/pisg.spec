@@ -1,6 +1,6 @@
 Name:           pisg
 Version:        0.73
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        IRC Statistics generator
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -53,6 +53,9 @@ install -p -D -m644 docs/pisg.1 %{buildroot}%{_mandir}/man1/pisg.1
 %config(noreplace)%{_sysconfdir}/%{name}.cfg
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

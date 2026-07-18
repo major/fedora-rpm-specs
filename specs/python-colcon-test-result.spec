@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.8
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Extension for colcon to provide information about the test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to provide information about the test results.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.8-25
 - Rebuilt for Python 3.15
 

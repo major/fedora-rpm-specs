@@ -12,7 +12,7 @@
 
 Name:           qrencode
 Version:        4.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Generate QR 2D barcodes
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -121,6 +121,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

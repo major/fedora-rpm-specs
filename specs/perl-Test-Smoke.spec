@@ -1,6 +1,6 @@
 Name:           perl-Test-Smoke
 Version:        1.87
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
@@ -178,6 +178,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.87-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.87-1
 - 1.87 bump (rhbz#2461207)
 

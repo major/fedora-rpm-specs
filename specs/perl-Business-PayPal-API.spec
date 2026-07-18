@@ -2,7 +2,7 @@
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(SOAP::Lite\\)$
 Name:           perl-Business-PayPal-API
 Version:        0.77
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        PayPal API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Business-PayPal-API
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

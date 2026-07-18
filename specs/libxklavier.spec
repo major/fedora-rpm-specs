@@ -1,7 +1,7 @@
 Summary:	High-level API for X Keyboard Extension
 Name:		libxklavier
 Version:	5.4
-Release: 	30%{?dist}
+Release: 	31%{?dist}
 License:	LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/LibXklavier
 BuildRequires: make
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_datadir}/gir-1.0/Xkl-1.0.gir
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

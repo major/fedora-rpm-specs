@@ -1,6 +1,6 @@
 Name:           perl-Time-ParseDate
 Version:        2026.033
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl modules for parsing dates and times
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-ParseDate
@@ -63,6 +63,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.033-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 20 2026 Xavier Bachelot <xavier@bachelot.org> - 2026.033-1
 - Update to 2026.033 (RHBZ#2459649)
 

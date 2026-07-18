@@ -1,6 +1,6 @@
 Name:		pari-galpol
 Version:	20180625
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois polynomials
 License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
@@ -38,6 +38,9 @@ cp -a data/galpol %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20180625-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20180625-19
 - BR gpgverify instead of gnupg2
 

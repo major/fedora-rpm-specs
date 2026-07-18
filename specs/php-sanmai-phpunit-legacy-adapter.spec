@@ -19,7 +19,7 @@ Name:           php-%{gh_owner}-%{gh_project}
 Summary:        PHPUnit Legacy Versions Adapter
 License:        Apache-2.0
 Version:        8.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -140,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May  3 2026 Remi Collet <remi@remirepo.net> - 8.2.3-1
 - update to 8.2.2 (no change)
 - tests: add phpunit13

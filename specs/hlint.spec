@@ -13,7 +13,7 @@
 Name:           %{pkg_name}
 Version:        3.10
 # can only be reset when all subpkgs bumped
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Haskell source code suggestions
 
 License:        BSD-3-Clause
@@ -216,6 +216,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/hlint.1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 3.10-12
 - https://hackage.haskell.org/package/hlint-3.10/changelog
 

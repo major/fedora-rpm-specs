@@ -1,6 +1,6 @@
 Name:           perl-Mail-RFC822-Address
 Version:        0.3
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Perl extension for validating email addresses according to RFC822
 License:        MIT
 URL:            https://metacpan.org/release/Mail-RFC822-Address
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

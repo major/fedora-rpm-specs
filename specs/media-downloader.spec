@@ -1,6 +1,6 @@
 Name:           media-downloader
 Version:        5.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
 URL:            https://github.com/mhogomchungu/media-downloader
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.5.1-2
 - Enable BUILD_WITH_QT6
 

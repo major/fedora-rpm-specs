@@ -3,7 +3,7 @@
 
 Name:      lua-cldr
 Version:   0.3.0
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   Lua interface to Unicode CLDR data
 
 # The Lua interfaces and code is MIT License
@@ -50,6 +50,9 @@ assert(#CLDR.locales > 100)'
 %{lua_pkgdir}/cldr/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.3.0-11
 - rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-bzip2
 Version:        1.0.8
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        MinGW port of bzip2 file compression utility
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -179,6 +179,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libbz2.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

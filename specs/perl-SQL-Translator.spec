@@ -4,7 +4,7 @@
 Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
 Version:        1.66
-Release:        4%{?dist}
+Release:        5%{?dist}
 # script/sqlt*: GPL-2.0-only
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND GPL-2.0-only
@@ -249,6 +249,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

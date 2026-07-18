@@ -3,7 +3,7 @@
 
 Name:           perl-%{src_name}
 Version:        0.27
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Complete GitLab API v4 client
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -86,6 +86,9 @@ perl Build.PL --installdirs=vendor
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

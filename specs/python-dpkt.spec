@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.8
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ with definitions for the basic TCP/IP protocols.
 %doc AUTHORS LICENSE README.md examples docs
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.8-16
 - Rebuilt for Python 3.15
 

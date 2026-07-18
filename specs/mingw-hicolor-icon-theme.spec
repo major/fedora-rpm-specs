@@ -2,7 +2,7 @@
 
 Name:           mingw-hicolor-icon-theme
 Version:        0.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Basic requirement for icon themes in MingGW
 
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ touch %{buildroot}%{mingw64_datadir}/icons/hicolor/icon-theme.cache
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

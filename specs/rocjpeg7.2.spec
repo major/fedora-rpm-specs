@@ -88,9 +88,9 @@
 Name:           rocjpeg%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
+Release:        1%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
@@ -256,6 +256,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package names
 

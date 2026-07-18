@@ -8,7 +8,7 @@
 Name:           perl-Business-ISBN
 %global cpan_version 3.014
 Version:        %(echo '%{cpan_version}' | tr '_' '.'})
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module to work with International Standard Book Numbers
 
 License:        Artistic-2.0
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.014-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 13 2026 Petr Pisar <ppisar@redhat.com> - 3.014-1
 - 3.014 bump
 

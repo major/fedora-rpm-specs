@@ -1,6 +1,6 @@
 Name:           quotatool
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line utility for filesystem quotas
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -33,6 +33,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 31 2026 Tom Callaway <spot@fedoraproject.org> - 1.8.0-1
 - update to 1.8.0
 

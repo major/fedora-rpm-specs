@@ -25,7 +25,7 @@ used for integration with existing/legacy systems.
 
 Name: python-%{pname}
 Version: %{version0}^%{commitdate}git%{shortcommit}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Compiler-free Python crypto library backed by the OS
 License: MIT
 URL: %{forgeurl}
@@ -75,6 +75,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 %doc readme.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0^20230823git1547f53-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0^20230823git1547f53-3
 - Rebuilt for openssl 4.0
 

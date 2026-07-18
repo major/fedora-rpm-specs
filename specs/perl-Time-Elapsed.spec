@@ -1,6 +1,6 @@
 Name:           perl-Time-Elapsed
 Version:        0.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert elapsed seconds into a human readable string
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Time-Elapsed
@@ -96,5 +96,8 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 07 2026 Petr Pisar <ppisar@redhat.com> 0.34-1
 - 0.34 version packaged

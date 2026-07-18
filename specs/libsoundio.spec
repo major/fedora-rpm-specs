@@ -1,6 +1,6 @@
 Name:		libsoundio
 Version:	2.0.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	C library for cross-platform real-time audio input and output
 License:	MIT
 URL:		http://libsound.io/
@@ -83,6 +83,9 @@ cd %{__cmake_builddir}
 %{_bindir}/sio_sine
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

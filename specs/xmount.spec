@@ -1,5 +1,5 @@
 Name:           xmount
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        A on-the-fly convert for multiple hard disk image types
 
@@ -9,12 +9,12 @@ Source0:        https://code.sits.lu/foss/xmount/-/archive/%{version}/xmount-%{v
 Patch0:         xmount-suffix.patch
 Patch1:         xmount-cflags.patch
 
-BuildRequires:  gcc-c++
-BuildRequires:  fuse3-devel
-BuildRequires:  libewf-devel
 BuildRequires:  afflib-devel
-BuildRequires:  zlib-devel
 BuildRequires:  cmake
+BuildRequires:  fuse3-devel
+BuildRequires:  gcc-c++
+BuildRequires:  libewf-devel
+BuildRequires:  zlib-devel
 
 Provides:       bundled(md5-deutsch)
 
@@ -33,9 +33,7 @@ VmWare, or alike.
 
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .suffix
-%patch -P1 -p1 -b .cflags
+%autosetup -p1
 # Fix perm
 chmod -x src/xmount.*
 

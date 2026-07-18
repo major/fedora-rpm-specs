@@ -23,7 +23,7 @@
 
 Name:           %{pk_project}
 Version:        13.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
@@ -145,6 +145,9 @@ exit $ret;
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 19 2026 Remi Collet <remi@remirepo.net> - 13.0.1-1
 - update to 13.0.1
 - raise dependency on phpunit/php-code-coverage 14.1.3

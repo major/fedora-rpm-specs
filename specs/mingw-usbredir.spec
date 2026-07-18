@@ -2,7 +2,7 @@
 
 Name:           mingw-usbredir
 Version:        0.14.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MinGW USB network redirection protocol libraries
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -135,6 +135,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

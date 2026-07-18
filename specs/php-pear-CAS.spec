@@ -16,7 +16,7 @@ Name:           php-pear-CAS
 Summary:        Central Authentication Service client library in php
 License:        Apache-2.0
 Version:        1.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            https://wiki.jasig.org/display/CASC/phpCAS
 Source0:        %{forgesource}
@@ -105,6 +105,9 @@ echo "Ok\n";
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 1.6.2-1
 - update to 1.6.2
 - re-license spec file to CECILL-2.1

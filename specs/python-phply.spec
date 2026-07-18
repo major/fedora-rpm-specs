@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}*.pth
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Manish Tiwari <matiwari@redhat.com> - 1.2.5-20
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

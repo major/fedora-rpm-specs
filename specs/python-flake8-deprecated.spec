@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Flake8 plugin that warns about deprecated method calls
 
 License:        GPL-2.0-only
@@ -57,6 +57,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3.0-3
 - Rebuilt for Python 3.15
 

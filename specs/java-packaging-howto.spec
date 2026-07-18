@@ -1,6 +1,6 @@
 Name:           java-packaging-howto
 Version:        40.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fedora Java packaging HowTo
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -33,6 +33,9 @@ make clean-all all
 %doc index.html
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

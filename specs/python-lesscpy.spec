@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -66,6 +66,9 @@ supported (JavaScript evaluation).
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.14.0-28
 - Fix deprecations
 - Use pyproject macros

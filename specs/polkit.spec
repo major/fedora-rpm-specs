@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 127
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
@@ -169,6 +169,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 127-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 27 2026 Jan Rybar <jrybar@redhat.com> - 127-4
 - CVE-2026-4897 aisle.com fix of unsanitized getline
 

@@ -6,7 +6,7 @@
 
 Name:           mingw-icu
 Version:        78.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
 License:        Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
@@ -198,6 +198,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 78.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Sandro Mani <manisandro@gmail.com> - 78.3-1
 - Update to 78.3
 

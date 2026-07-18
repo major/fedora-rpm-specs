@@ -16,7 +16,7 @@ MessagePack encoding for Golang.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        MessagePack encoding for Golang
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ done
 %gopkgfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 2.9.1-18
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

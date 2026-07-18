@@ -47,10 +47,10 @@ Name:           python-tensile
 %endif
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
@@ -244,6 +244,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.1.0-5
 - Rebuilt for Python 3.15
 

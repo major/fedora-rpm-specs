@@ -3,7 +3,7 @@
 
 Name:           python-qcelemental
 Version:        0.50.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -86,6 +86,9 @@ sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 %{python3_sitelib}/qcelemental-%{version}%{?rc}.dist-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 10 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.4-1
 - Update to 0.50.4.
 

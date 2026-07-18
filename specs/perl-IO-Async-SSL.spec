@@ -1,6 +1,6 @@
 Name:           perl-IO-Async-SSL
 Version:        0.25
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Use SSL/TLS with IO::Async
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/IO-Async-SSL/
@@ -57,6 +57,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/IO::Async::SSL*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.25-9
 - Rebuilt for openssl 4.0
 

@@ -7,7 +7,7 @@ Express devices and their topology.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Display/filter/export information about PCI or PCI Express devices
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -e '\|#!/usr/bin/env python|d' -i */*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.0-20
 - Rebuilt for Python 3.15
 

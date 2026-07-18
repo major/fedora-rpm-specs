@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 License:        BSD-3-Clause
@@ -101,6 +101,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.0-7
 - Rebuilt for Python 3.15
 

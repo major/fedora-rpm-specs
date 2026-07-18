@@ -1,6 +1,6 @@
 Name:           masscan
 Version:        1.3.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        This is an Internet-scale port scanner
 
 # Automatically converted from old format: AGPLv3
@@ -48,6 +48,9 @@ install -Dp -m 0644 doc/%{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

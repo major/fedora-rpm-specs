@@ -3,7 +3,7 @@
 Summary: Mesa demos
 Name: mesa-demos
 Version: 9.0.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 # SPDX
 License: MIT
 URL: http://www.mesa3d.org
@@ -116,6 +116,9 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2gears_wayland %{buildroo
 %{_bindir}/es2gears_wayland
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

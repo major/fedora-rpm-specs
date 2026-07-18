@@ -2,7 +2,7 @@
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
 Version:        1.9.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/jirka-h/haveged
@@ -106,6 +106,9 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.26-1
 - Update to 1.9.26
 - Fix 100%% CPU spin when --no-command is used (BZ#2492029)

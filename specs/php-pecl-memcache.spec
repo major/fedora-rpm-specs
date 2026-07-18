@@ -24,7 +24,7 @@ Name:         php-pecl-memcache
 Summary:      Extension to work with the Memcached caching daemon
 License:      PHP-3.01
 Version:      8.2
-Release:      14%{?dist}
+Release:      15%{?dist}
 %forgemeta
 URL:          %{forgeurl}
 Source0:      %{forgesource}
@@ -198,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 8.2-14
 - add pie virtual provides (not yet published)
 - drop pear/pecl dependency

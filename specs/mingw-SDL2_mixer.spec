@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL2_mixer
 Version:        2.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of Simple DirectMedia Layer's Sample Mixer Library
 
 License:        Zlib
@@ -88,6 +88,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 2.8.2-1
 - Update to 2.8.2
 

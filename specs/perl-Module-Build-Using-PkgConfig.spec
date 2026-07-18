@@ -1,6 +1,6 @@
 Name:           perl-Module-Build-Using-PkgConfig
 Version:        0.03
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Extend Module::Build to easily use platform libraries provided by pkg-config
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build-Using-PkgConfig/
@@ -46,6 +46,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

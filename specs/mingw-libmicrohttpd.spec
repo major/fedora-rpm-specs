@@ -2,7 +2,7 @@
 
 Name:           mingw-libmicrohttpd
 Version:        0.9.73
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MinGW package for libmicrohttpd
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -123,6 +123,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/pkgconfig/libmicrospdy.pc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.73-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.73-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

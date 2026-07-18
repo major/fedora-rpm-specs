@@ -32,7 +32,7 @@
 
 Name:			lxrandr
 Version:		%{main_version}%{git_ver_rpm}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Simple monitor configuration tool
 
 # SPDX confirmed
@@ -149,6 +149,9 @@ cd ..
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

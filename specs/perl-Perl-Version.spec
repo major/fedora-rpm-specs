@@ -1,6 +1,6 @@
 Name:           perl-Perl-Version
 Version:        1.019
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.019-1
 - 1.019 bump (rhbz#2442513)
 

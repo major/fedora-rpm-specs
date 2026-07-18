@@ -1,6 +1,6 @@
 Name:           jackson-annotations
 Version:        2.21
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
 
@@ -59,6 +59,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2022 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21-1
 - Update to version 2.21
 

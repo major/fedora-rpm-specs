@@ -1,6 +1,6 @@
 Name:		libsysstat
 Version:	1.1.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary:	Library used to query system info and statistics
 Url:		http://www.lxde.org
@@ -47,6 +47,9 @@ Sysstat libraries for development.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

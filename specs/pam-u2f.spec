@@ -1,7 +1,7 @@
 
 Name:          pam-u2f
 Version:       1.4.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -56,6 +56,9 @@ over U2F.
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.0-4
 - Rebuilt for openssl 4.0
 

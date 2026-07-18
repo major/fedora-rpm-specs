@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -56,10 +56,11 @@ Source0:        https://github.com/ibus/%name/releases/download/%{source_version
 Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz.sha256sum#/%{name}.tar.xz.sha256sum
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
-# Patch0:         %%{name}-HEAD.patch
-Patch1:         %{name}-2444009-wayland-xkb-lv-tilde.patch
+# Patch:         %%{name}-HEAD.patch
+Patch:          %{name}-HEAD.patch
+Patch:          %{name}-2444009-wayland-xkb-lv-tilde.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
-Patch2:         %{name}-1385349-segv-bus-proxy.patch
+Patch:          %{name}-1385349-segv-bus-proxy.patch
 
 BuildRequires:  cldr-emoji-annotation
 BuildRequires:  dbus-python-devel >= %{dbus_python_version}
@@ -544,6 +545,12 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jul 16 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-3
+- Fix CI in GNOME 50
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.35~alpha2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-1
 - Bump to 1.5.35-alpha2
 

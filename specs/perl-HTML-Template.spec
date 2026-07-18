@@ -1,6 +1,6 @@
 Name:           perl-HTML-Template
 Version:        2.97
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Perl module to use HTML Templates
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -82,6 +82,9 @@ TEST_SHARED_MEMORY=1 make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

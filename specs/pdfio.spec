@@ -2,7 +2,7 @@
 
 Name: pdfio
 Version: 1.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C library for PDF I/O
 # Apache 2.0 with exception - pdfio code
 # GPL-2.0-or-later - code128 font from examples
@@ -130,6 +130,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 17 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.4-1
 - pdfio-1.6.4 is available
 

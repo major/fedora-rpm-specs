@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 4 scripts and data for building API documentation
 
 License: BSD
@@ -67,6 +67,9 @@ style.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Steve Cossette <farchord@gmail.com> - 6.28.0-1
 - 6.28.0
 

@@ -16,7 +16,7 @@
 
 Name:               quickshell
 Version:            0.2.1%{?commit:^git%{commitdate}.%{shortcommit}}
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Flexible QtQuick based desktop shell toolkit
 # Code is LGPL, Hyprland protocols are BSD-3-Clause, wlr protocols are HPND-sell-variant
 License:            LGPL-3.0-or-later and BSD-3-Clause and HPND-sell-variant
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_qt6_qmldir}/Quickshell/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1^git20260209.dacfa9d-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.2.1^git20260209.dacfa9d-3
 - Rebuild (qt6)
 

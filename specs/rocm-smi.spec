@@ -68,9 +68,9 @@
 Name:       rocm-smi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    0%{?dist}
+Release:    1%{?dist}
 %else
-Release:    2%{?dist}
+Release:    3%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -255,6 +255,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
 - Generate suse package names
 

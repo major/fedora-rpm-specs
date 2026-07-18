@@ -11,7 +11,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: KDE Frameworks 5 Tier 3 with advanced embeddable text editor
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -145,6 +145,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 Fabio Valentini <decathorpe@gmail.com> - 5.116.0-6
 - Fix git dependencies to account for upstream changes.
 

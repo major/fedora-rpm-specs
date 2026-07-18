@@ -1,6 +1,6 @@
 Name:           pilotlog
 Version:        11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pilot logbook for logging flight time
 
 License:        AGPL-3.0-or-later
@@ -84,6 +84,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Nov 13 2025 Chad Lemmen <rpm@stansoft.org> - 11-1
 - initial Fedora RPM packaging
 

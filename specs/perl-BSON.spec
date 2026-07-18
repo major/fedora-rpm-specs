@@ -3,7 +3,7 @@
 
 Name:           perl-BSON
 Version:        1.12.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        BSON serialization and deserialization
 License:        Apache-2.0
 URL:            https://metacpan.org/release/BSON
@@ -173,6 +173,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Petr Pisar <ppisar@redhat.com> - 1.12.2-20
 - Adapt tests to perl-JSON-PP-4.18 (bug #2457779)
 

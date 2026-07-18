@@ -1,7 +1,7 @@
 Summary:       Web server access log visualizer
 Name:          logstalgia
 Version:       1.1.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           https://github.com/acaudwell/Logstalgia
@@ -49,6 +49,9 @@ autoreconf -f -i
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 07 2026 Terje Rosten <terjeros@gmail.com> - 1.1.5-1
 - 1.1.5
 

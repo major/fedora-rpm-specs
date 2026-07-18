@@ -1,6 +1,6 @@
 Name:           perl-Term-Clui
 Version:        1.76
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Perl module offering a Command-Line User Interface
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -57,6 +57,9 @@ STDOUT or STDERR, such as make, pgp, rcs etc.
 %{_mandir}/man3/Term*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

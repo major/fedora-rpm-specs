@@ -1,6 +1,6 @@
 Name:		rgbds
 Version:	1.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
 License:	MIT
@@ -55,6 +55,9 @@ It consists of:
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.1-1
 - Update to v1.0.1
 

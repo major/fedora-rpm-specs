@@ -1,6 +1,6 @@
 Name: libmaa
 Version: 1.5.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Library that implements some basic data structures and algorithms
 URL: https://github.com/cheusov/libmaa
 License: MIT
@@ -57,6 +57,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %{_libdir}/libmaa.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 19 2026 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.5.1-7
 - Remove i686 support
 

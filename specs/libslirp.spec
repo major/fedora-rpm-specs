@@ -1,6 +1,6 @@
 Name:           libslirp
 Version:        4.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
 # check the SPDX tags in source files for details
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.3-1
 - new version
 

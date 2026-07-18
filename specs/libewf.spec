@@ -6,7 +6,7 @@
 
 Name:           libewf
 Version:        20140608
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Library for the Expert Witness Compression Format (EWF)
 
 License:        LGPL-3.0-or-later
@@ -114,6 +114,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*.gz
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20140608-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20140608-34
 - Rebuilt for openssl 4.0
 

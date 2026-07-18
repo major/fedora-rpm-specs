@@ -5,7 +5,7 @@
 Summary:        Speedy, parallel, and modular, login brute-forcer
 Name:           medusa
 Version:        2.3
-Release:        7.%{date}git%{shortcommit0}%{?dist}
+Release:        8.%{date}git%{shortcommit0}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.foofus.net/jmk/medusa/medusa.html
@@ -65,6 +65,9 @@ autoreconf -vif
 %{_libdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-8.20240130git4e9be7e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3-7.20240130git4e9be7e
 - Rebuilt for openssl 4.0
 

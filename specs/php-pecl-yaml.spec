@@ -25,7 +25,7 @@ Summary:       PHP Bindings for libyaml
 Name:          php-pecl-%{pecl_name}
 License:       MIT
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -143,6 +143,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 10 2026 Remi Collet <remi@remirepo.net> - 2.3.0-3
 - drop pear/pecl dependency
 - sources from github

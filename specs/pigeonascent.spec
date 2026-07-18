@@ -1,7 +1,7 @@
 Summary: Take care of your own pigeon as they fight
 Name: pigeonascent
 Version: 1.5.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: MIT
 Url: https://escada-games.itch.io/pigeon-ascent
 Source0: http://www.identicalsoftware.com/pigeonascent/%{name}-%{version}.tgz
@@ -49,6 +49,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

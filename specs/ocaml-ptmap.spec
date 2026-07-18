@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ptmap
 Version:        2.0.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Maps over integers implemented as Patricia trees
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.0.5-30
 - OCaml 5.5.0 reubild
 - Use the dune declarative buildsystem

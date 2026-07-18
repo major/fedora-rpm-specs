@@ -4,7 +4,7 @@ Name:           lcd4linux
 Version:        0.11
 # We package an svn snapshot of what will become 0.11 since upstream has
 # neglected to do a new release for ages
-Release:        0.38.svn%{svn_rev}%{?dist}
+Release:        0.39.svn%{svn_rev}%{?dist}
 Summary:        Display system state on an external LCD display
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -79,6 +79,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE3}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.39.svn1200
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.38.svn1200
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

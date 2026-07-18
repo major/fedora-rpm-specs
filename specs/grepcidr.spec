@@ -1,7 +1,7 @@
 Summary:        Filter IPv4 and IPv6 addresses matching CIDR patterns
 Name:           grepcidr
 Version:        2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.pc-tools.net/unix/grepcidr/
 Source0:        https://www.pc-tools.net/files/unix/%{name}-%{version}.tar.gz
@@ -34,6 +34,9 @@ sed -e 's/install /$(INSTALL) /' -i Makefile
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

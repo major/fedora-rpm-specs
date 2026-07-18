@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.48.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Richard W.M. Jones <rjones@redhat.com> - 1.48.0-1
 - New upstream stable version 1.48.0
 

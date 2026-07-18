@@ -2,7 +2,7 @@
 
 Name:       perl-%{upstream_name}
 Version:    0.2.2
-Release:    15%{?dist}
+Release:    16%{?dist}
 
 Summary:    Split data-driven tests into several test scripts
 License:    MIT
@@ -56,6 +56,9 @@ perl Build.PL --installdirs=vendor
 %perl_vendorlib/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

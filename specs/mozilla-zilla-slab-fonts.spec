@@ -9,7 +9,7 @@ It is the official brand typeface for Mozilla. \
 
 Name:      %{fontname}-fonts
 Version:   1.002
-Release:   14%{?dist}
+Release:   15%{?dist}
 Summary:   Mozilla's Zilla Slab fonts
 # Automatically converted from old format: OFL - review is highly recommended.
 License:   LicenseRef-Callaway-OFL
@@ -81,6 +81,9 @@ done
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

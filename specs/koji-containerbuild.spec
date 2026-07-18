@@ -14,7 +14,7 @@
 
 Name:           %{project}
 Version:        1.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Koji support for building layered container images
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -103,6 +103,9 @@ build layered container images.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-16
 - Rebuilt for Python 3.15
 

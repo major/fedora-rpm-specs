@@ -1,7 +1,7 @@
 Summary: Creates a boot floppy disk for booting a system
 Name: mkbootdisk
 Version:  1.5.5
-Release: 40%{?dist}
+Release: 41%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: mkbootdisk-%{version}.tar.xz
@@ -43,6 +43,9 @@ mv %{buildroot}/sbin %{buildroot}%{_bindir}
 %attr(644,root,root) %{_mandir}/man8/mkbootdisk.8*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 jackyzy823 <jackyzy823@gmail.com> - 1.5.5-40
 - Move binary to /usr/bin
 

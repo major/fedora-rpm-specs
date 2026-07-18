@@ -2,7 +2,7 @@
 
 Name:		lv
 Version:	4.51
-Release:	57%{?dist}
+Release:	58%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.ff.iij4u.or.jp/~nrt/lv/
 BuildRequires:	ncurses-devel autoconf
@@ -58,6 +58,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.51-58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.51-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

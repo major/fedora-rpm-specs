@@ -1,6 +1,6 @@
 Name:           libaec
 Version:        1.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adaptive Entropy Coding library
 License:        LicenseRef-Callaway-BSD
 Url:            https://gitlab.dkrz.de/k202009/libaec
@@ -67,6 +67,9 @@ Static variant of libaec (Adaptive Entropy Coding library).
 %{_libdir}/cmake/%{name}/*_static*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.1.7-1
 - Update to 1.1.7
 - Fixes: rhbz#2479824

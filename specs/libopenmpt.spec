@@ -1,6 +1,6 @@
 Name: libopenmpt
 Version: 0.8.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_root %{name}-%{version}+release.autotools
 
@@ -98,6 +98,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/openmpt123
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 17 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.7-1
 - update to 0.8.7
 

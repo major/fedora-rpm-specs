@@ -8,7 +8,7 @@ Name: hunspell-sw
 Summary: Swahili hunspell dictionaries
 %global upstreamid 20210901
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://extensions.libreoffice.org/assets/downloads/1799/swahilidictionary-2021-09-01.oxt
 URL: https://extensions.libreoffice.org/en/extensions/show/swahili-dictionary
 # sw_KE.dic licensed as LGPL-2.1-or-later
@@ -47,6 +47,9 @@ cp -p sw*.dic sw*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/sw*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210901-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20210901-1
 - Remove unnecessary BuildRequires: hunspell-devel
 - Update Source and URL links

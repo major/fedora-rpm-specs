@@ -1,7 +1,7 @@
 Name:           perl-App-cpm
 Version:        1.1.4
 %global cpan_version v%{version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
@@ -164,6 +164,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.4-1
 - 1.1.4 bump (rhbz#2493989)
 

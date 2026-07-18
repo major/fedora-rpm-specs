@@ -1,6 +1,6 @@
 Name:             jtidy
 Version:          1.0
-Release:          0.50.20100930svn1125%{?dist}
+Release:          0.51.20100930svn1125%{?dist}
 Epoch:            2
 Summary:          HTML syntax checker and pretty printer
 License:          zlib
@@ -71,6 +71,9 @@ EOF
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.0-0.51.20100930svn1125
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.0-0.50.20100930svn1125
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

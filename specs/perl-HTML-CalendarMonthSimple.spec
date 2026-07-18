@@ -1,6 +1,6 @@
 Name:           perl-HTML-CalendarMonthSimple
 Version:        1.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl Module for Generating HTML Calendars
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/HTML-CalendarMonthSimple
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/HTML::CalendarMonthSimple.3pm*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

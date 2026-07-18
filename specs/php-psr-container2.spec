@@ -21,7 +21,7 @@
 
 Name:      php-%{pk_vendor}-%{pk_project}%{major}
 Version:   2.0.2
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   Common Container Interface version %{major}
 
 License:   MIT
@@ -94,6 +94,9 @@ exit (interface_exists("Psr\\Container\\ContainerInterface") ? 0 : 1);
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

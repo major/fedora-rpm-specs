@@ -6,7 +6,7 @@
 
 Name:           perl-Image-Size
 Version:        3.300
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Determine the size of images in several common formats in Perl
 # Automatically converted from old format: LGPLv2 or Artistic 2.0 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 OR Artistic-2.0
@@ -81,6 +81,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

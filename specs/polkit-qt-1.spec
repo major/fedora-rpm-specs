@@ -1,6 +1,6 @@
 Name:            polkit-qt-1
 Version:         0.201.1
-Release:         1%{?dist}
+Release:         2%{?dist}
 Summary:         Qt bindings for PolicyKit
 
 License:         BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -108,6 +108,9 @@ Requires: polkit-qt6-1%{?_isa} = %{version}-%{release}
 %{_libdir}/cmake/PolkitQt6-1/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.201.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 0.201.1-1
 - 0.201.1
 

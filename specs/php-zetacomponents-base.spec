@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.9.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zeta Base Component
 
 Group:          Development/Libraries
@@ -130,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

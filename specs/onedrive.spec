@@ -3,7 +3,7 @@
 
 Name:           onedrive
 Version:        2.5.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -63,6 +63,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 01 2026 Zamir SUN <sztsian@gmail.com> - 2.5.11-1
 - Update to 2.5.11 (#2494811)
 

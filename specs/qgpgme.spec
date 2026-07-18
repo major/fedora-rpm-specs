@@ -6,7 +6,7 @@ Name:           qgpgme
 Summary:        Qt API bindings/wrapper for GPGME
 Epoch:          1
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://gnupg.org/related_software/gpgme/
@@ -131,6 +131,9 @@ chrpath -d %{buildroot}%{_libdir}/lib%{name}qt6.so*
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 04 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.0.0-2
 - fix parsing DNs that end with a hex string (rhbz#2464335)
 

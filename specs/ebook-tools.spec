@@ -1,7 +1,3 @@
-
-# set this until when/if we port to new cmake macros
-%global __cmake_in_source_build 1
-
 Name:		ebook-tools
 Version:	0.2.2
 Release:	32%{?dist}
@@ -12,17 +8,15 @@ URL:		http://sourceforge.net/projects/ebook-tools/
 
 Source0:	http://downloads.sourceforge.net/ebook-tools/%{name}-%{version}.tar.gz
 
-
 ## upstreamable patches
 # support libzip pkgconfig
 Patch51:        ebook-tools-0.2.1-libzip_pkgconfig.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
+BuildRequires:  make
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libzip)
-BuildRequires: make
-
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -47,16 +41,15 @@ The %{name}-libs package contains libraries to be used by
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake} ..
-popd
-
-%{make_build} -C %{_target_platform}
-
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%{cmake} \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64}
+%endif
+%cmake_build
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform} 
+%cmake_install
 
 #remove because it doesnt work without clit
 rm -f %{buildroot}%{_bindir}/lit2epub

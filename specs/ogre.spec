@@ -2,7 +2,7 @@
 
 Name:           ogre
 Version:        1.9.0
-Release:        56%{?dist}
+Release:        57%{?dist}
 Epoch:          1
 Summary:        Object-Oriented Graphics Rendering Engine
 # MIT - main library
@@ -291,6 +291,9 @@ mv %{buildroot}%{_libdir}/OGRE/cmake/* %{buildroot}%{_datadir}/cmake/Modules
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1:1.9.0-56
 - Fix SPDX license expression: replace 'LicenseRef-Callaway-dante-treglia'
   with 'Game-Programming-Gems', fix 'GPLv2-or-later' to 'GPL-2.0-or-later'

@@ -4,7 +4,7 @@
 
 Name:		jam
 Version:	2.6.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 # https://spdx.org/licenses/Jam.html
 License:	Jam
 Summary:	Program construction tool, similar to make
@@ -51,6 +51,9 @@ install -m0755 bin.linux*/mkjambase $RPM_BUILD_ROOT/%{_bindir}
 %{_bindir}/mkjambase
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-Resolver-Programmable
 Version:        0.009
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Programmable DNS resolver class for offline emulation of DNS
 # License contradicts itself, saying "same as perl" (which would be (GPL-1.0-or-later OR Artistic-1.0-Perl))
 # but then going on to clarify that as "either the GNU General Public License (version 2 or later) or the Artistic License"
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Net::DNS::Resolver::Programmable.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

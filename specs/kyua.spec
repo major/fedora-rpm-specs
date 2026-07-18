@@ -3,7 +3,7 @@
 
 Name:           kyua
 Version:        0.13
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Testing framework for infrastructure software
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -86,6 +86,9 @@ HOME=$(pwd)/check %make_build check %{_make_args}
 %{_libexecdir}/%{name}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 28 2026 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 0.13-21
 - Apply upstream fix for test failure wrt empty test result on container
 

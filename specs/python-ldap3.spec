@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.9.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPL-3.0-or-later
@@ -53,6 +53,9 @@ SERVER='NONE' %{py3_test_envvars} %{python3} -m unittest discover -s test
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.9.1-17
 - Rebuilt for Python 3.15
 

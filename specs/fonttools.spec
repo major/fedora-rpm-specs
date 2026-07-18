@@ -31,13 +31,17 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.63.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
 Source:         %{url}/archive/%{version}/fonttools-%{version}.tar.gz
+
+# Avoid the undocumented `glob.glob1` API, removed in Python 3.15
+# https://github.com/fonttools/fonttools/pull/4133
+Patch:          %{url}/pull/4133.patch
 
 Requires:       python3-fonttools = %{version}-%{release}
 Provides:       ttx = %{version}-%{release}
@@ -201,6 +205,9 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Thu Jul 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.63.0-6
+- Avoid removed `glob.glob1` API; fixes RHBZ#2488354
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.63.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

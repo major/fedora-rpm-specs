@@ -41,7 +41,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary:        ROCm directories
 
@@ -225,6 +225,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
 - merge compat changes
 

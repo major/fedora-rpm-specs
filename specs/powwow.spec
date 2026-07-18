@@ -1,6 +1,6 @@
 Name:           powwow
 Version:        1.2.23
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A console MUD client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/powwow/powwow.doc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.23-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 04 2026 Kalev Lember <kalevlember@gmail.com> - 1.2.23-13
 - Stop using retired pcre library (rhbz#2454293)
 

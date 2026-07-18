@@ -3,7 +3,7 @@
 
 Name:           perl-Alien-autoconf
 Version:        0.20
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Find autoconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-autoconf
@@ -111,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Petr Pisar <ppisar@redhat.com> - 0.20-6
 - Rebuild against autoconf-2.73 (bug #2459167)
 

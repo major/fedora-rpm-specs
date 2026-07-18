@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Py.test plugin for testing of asynchronous tornado applications
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.1-24
 - Rebuilt for Python 3.15
 

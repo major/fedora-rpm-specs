@@ -1,6 +1,6 @@
 Name:           perl-File-Inplace
 Version:        0.20
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Perl module for in-place editing of files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Inplace
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/File::Inplace.3pm.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

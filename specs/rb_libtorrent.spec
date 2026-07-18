@@ -2,7 +2,7 @@
  
 Name:		rb_libtorrent
 Version:	2.0.11
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 # Most of the code is BSD-3-Clause
@@ -186,6 +186,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.0.11-7
 - Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
 

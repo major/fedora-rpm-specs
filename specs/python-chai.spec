@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            1.1.2
-Release:            41%{?dist}
+Release:            42%{?dist}
 Summary:            Easy to use mocking/stub/spy framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -63,6 +63,9 @@ $(find tests -type f)
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.2-41
 - Rebuilt for Python 3.15
 

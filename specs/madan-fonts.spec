@@ -10,7 +10,7 @@ BuildRequires: python3
 %endif
 
 Version: 2.000
-Release: 43%{?dist}
+Release: 44%{?dist}
 URL: http://madanpuraskar.org/
 
 %global fontlicense       GPL-1.0-or-later
@@ -63,6 +63,9 @@ cp -p %{SOURCE2} %{SOURCE6} .
 %fontfiles
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

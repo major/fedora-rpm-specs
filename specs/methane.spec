@@ -1,6 +1,6 @@
 Name:           methane
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Super Methane Brothers
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -114,6 +114,9 @@ EOF
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.0-1
 - Update to v3.0.0
 - Move game data to a subpackage

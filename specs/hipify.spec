@@ -45,7 +45,7 @@
 
 Name:           hipify%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -123,6 +123,9 @@ rm -f %{buildroot}%{pkg_prefix}/libexec/hipify/hipify-perl
 %{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - merge compat changes
 

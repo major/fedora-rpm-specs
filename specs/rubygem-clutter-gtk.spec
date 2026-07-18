@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	4.3.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Ruby binding of Clutter-GTK
 
 # SPDX confirmed
@@ -140,6 +140,9 @@ popd
 %doc	%{gem_instdir}/sample/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.7-1
 - 4.3.7
 

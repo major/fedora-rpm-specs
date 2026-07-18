@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        2.11.0
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 
@@ -49,8 +49,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-google-genai aiohttp
 
 %prep -a
-# relax from aiohttp<3.13.3 - we already have 3.13.3 in Fedora
-sed -i '1,$s/^aiohttp = \["aiohttp<3.13.3"\]/aiohttp = ["aiohttp"]/' pyproject.toml
+%pyproject_patch_dependency google-auth:drop_upper
 
 %check
 export GOOGLE_GENAI_REPLAYS_DIRECTORY=/tmp

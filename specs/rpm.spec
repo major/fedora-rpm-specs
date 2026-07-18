@@ -28,7 +28,7 @@
 
 %global rpmver 6.0.91
 #global snapver rc1
-%global baserelease 3
+%global baserelease 4
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -646,6 +646,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.91-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-3
 - Revert file trigger refactor for further investigation (#2492628)
 - Fix a silly thinko causing a %%define regression (#2492483)

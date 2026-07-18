@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -247,6 +247,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Jocelyn Falempe <jfalempe@redhat.com> - 0.5.3^20220831git2d4ba970-15
 - Add conflicts for kmsconvt@tty1.service
 

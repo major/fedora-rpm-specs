@@ -1,6 +1,6 @@
 Name:           kxkb2locale1
 Version:        0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Watches the KDE keyboard config and applies it to org.freedesktop.locale1
 License:        MIT
 URL:            https://invent.kde.org/aleasto/%{name}
@@ -47,6 +47,9 @@ desktop-file-validate %{buildroot}/%{_sysconfdir}/xdg/autostart/kxkb2locale1.des
 %{_datadir}/applications/kxkb2locale1.desktop
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

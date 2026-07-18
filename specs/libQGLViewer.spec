@@ -1,6 +1,6 @@
 Name:           libQGLViewer
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt based OpenGL generic 3D viewer library
 License:        LGPL-3.0-or-later
 URL:            https://gillesdebunne.github.io/libQGLViewer/
@@ -106,6 +106,9 @@ make -e INSTALL_ROOT=%{buildroot} install STRIP=/usr/bin/true
 %doc examples
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

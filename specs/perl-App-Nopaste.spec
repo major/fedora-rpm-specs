@@ -1,6 +1,6 @@
 Name:           perl-App-Nopaste
 Version:        1.013
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Easy access to any pastebin
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-Nopaste
@@ -95,6 +95,9 @@ make test
 %{_mandir}/man1/nopaste.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.013-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.013-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

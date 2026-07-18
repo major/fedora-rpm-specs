@@ -1,6 +1,6 @@
 Name:           perl-Tie-Hash-MultiValue
 Version:        1.07
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Store multiple values per key
 # LICENSE:      "Perl itself, GPL-2.0-or-later OR Artistic-1.0-Perl", CPAN RT#125581
 # lib/Tie/Hash/MultiValue.pm:  "same terms as Perl, see LICENSE"
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

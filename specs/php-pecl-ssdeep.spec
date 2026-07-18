@@ -20,7 +20,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        Wrapper for libfuzzy library
 License:        BSD-2-Clause
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -118,6 +118,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 1.1.1-1
 - Update to 1.1.1
 - drop patch merged upstream

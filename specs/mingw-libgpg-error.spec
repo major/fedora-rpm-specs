@@ -2,7 +2,7 @@
 
 Name:           mingw-libgpg-error
 Version:        1.55
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows GnuPGP error library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -134,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

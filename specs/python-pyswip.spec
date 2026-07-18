@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
@@ -61,6 +61,9 @@ Pythonic interface.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.3-5
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Name:           perl-Lingua-Stem-Snowball-Da
 Version:        1.01
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Porter's stemming algorithm for Danish
 License:        GPL-2.0-only
 URL:            https://metacpan.org/release/Lingua-Stem-Snowball-Da
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Lingua::Stem::Snowball::Da*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

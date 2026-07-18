@@ -1,13 +1,20 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:             ledger
-Version:          3.3.2
+Version:          3.4.1
 Release:          %autorelease
 Summary:          A powerful command-line double-entry accounting system
 License:          BSD-3-Clause
 URL:              https://ledger-cli.org/
 Source0:          https://github.com/ledger/ledger/archive/v%{version}.tar.gz
-Patch0:           ledger-boost190.patch
+
+Patch:            0001-disable-cmake-test.patch
+# required for f43 tests
+Patch:            0002-update-start-method-for-tests.patch
+# create symlink instead of a copy
+# required during the build for the documentation
+# corrected later
+Patch:            0003-create-symlink-for-python-module.patch
 
 BuildRequires:    boost-devel
 BuildRequires:    cmake
@@ -18,6 +25,7 @@ BuildRequires:    gmp-devel
 BuildRequires:    libedit-devel
 BuildRequires:    mpfr-devel
 BuildRequires:    utf8cpp-devel
+BuildRequires:    python3-devel
 
 # For building documentation.
 BuildRequires:    doxygen
@@ -37,9 +45,15 @@ their data, there really is no alternative.
 
 %package devel
 Summary: Libraries and header files for %{name} development
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 Libraries and header files for %{name} development.
+
+%package -n python3-%{name}
+Summary:  Python library for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description -n python3-%{name}
+Python library for %{ledger}.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -49,12 +63,11 @@ sed -i -e 's#FIXME:UNDOCUMENTED#FIXMEUNDOCUMENTED#g' doc/ledger3.texi
 %endif
 rm -r lib/utfcpp
 
-
 %build
 %cmake \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
        -DCMAKE_SKIP_RPATH:BOOL=ON \
-       -DUSE_PYTHON:BOOL=OFF \
+       -DUSE_PYTHON:BOOL=ON \
        -DUSE_DOXYGEN:BOOL=ON \
        -DBUILD_WEB_DOCS:BOOL=ON
 
@@ -65,9 +78,9 @@ rm -r lib/utfcpp
 %cmake_install
 
 # Bash completion
-mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d
+mkdir -p %{buildroot}%{bash_completions_dir}
 install -p -m0644 contrib/ledger-completion.bash \
-    %{buildroot}%{_sysconfdir}/bash_completion.d/ledger
+    %{buildroot}%{bash_completions_dir}
 
 # Install documentation manually to a convenient directory layout
 rm -rf %{buildroot}%{_docdir}
@@ -77,10 +90,8 @@ rm -rf %{buildroot}%{_infodir}/*
 cp -p %{__cmake_builddir}/doc/ledger3.info* %{buildroot}%{_infodir}
 
 # Contrib scripts
-mkdir -p %{buildroot}%{_pkgdocdir}/contrib
-for i in bal bal-huquq compilation-ledger.el entry getquote.pl getquote-uk.py ledger-du README repl.sh report tc ti to trend; do
-    install -p -m0644 contrib/${i} %{buildroot}%{_pkgdocdir}/contrib/${i}
-done
+mkdir -p %{buildroot}%{_pkgdocdir}
+mv %{buildroot}%{_datadir}/contrib %{buildroot}%{_pkgdocdir}/contrib
 
 # Input samples
 mkdir -p %{buildroot}%{_pkgdocdir}/samples
@@ -88,10 +99,12 @@ for i in demo.ledger divzero.dat drewr3.dat drewr.dat sample.dat standard.dat tr
     install -p -m0644 test/input/${i} %{buildroot}%{_pkgdocdir}/samples/${i}
 done
 
-# Tests are disabled for the time being since they seem to require Python 2
-#%%check
-# Tests all fail when removing rpath.
-#LD_LIBRARY_PATH=$PWD %%ctest
+# correct symlink to make it relative
+pushd %{buildroot}%{python3_sitearch} && ln -sfv ../../libledger.so.3 ./ledger.so && popd
+
+%check
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%ctest
 
 %files
 %doc README.md doc/GLOSSARY.md NEWS.md
@@ -105,8 +118,11 @@ done
 %{_infodir}/ledger3.info*
 %{_libdir}/libledger.so.3
 %{_mandir}/man1/ledger.1*
-%config(noreplace) %{_sysconfdir}/bash_completion.d/ledger
+%{bash_completions_dir}
 %license LICENSE.md
+
+%files -n python3-%{name}
+%{python3_sitearch}/%{name}.so
 
 %files devel
 %{_includedir}/ledger

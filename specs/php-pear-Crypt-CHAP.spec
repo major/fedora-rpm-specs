@@ -14,7 +14,7 @@
 
 Name:           php-pear-Crypt-CHAP
 Version:        1.5.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Class to generate CHAP packets
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

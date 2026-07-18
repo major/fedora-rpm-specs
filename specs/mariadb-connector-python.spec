@@ -21,7 +21,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  mariadb-connector-c-devel
+BuildRequires:  mariadb-connector-c-devel >= 3.3.1
 # Required for man page generation
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-myst-parser
@@ -66,7 +66,7 @@ install -p -m 0644 %{_builddir}/docs_out/man/mariadbconnectorpython.1 %{buildroo
 
 
 %check
-# Ensure the module can be succesfully imported in a clean environment. 
+# Ensure the module can be successfully imported in a clean environment. 
 # The extensive upstream test suite requires a live database connection.
 # The suite will be run in the CI pipeline.
 %py3_check_import mariadb

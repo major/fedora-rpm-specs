@@ -20,7 +20,7 @@
 
 Name:              openvpn
 Version:           2.7.5
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -237,6 +237,9 @@ done
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 1 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.5-1
 - Update to upstream 2.7.5 release
 

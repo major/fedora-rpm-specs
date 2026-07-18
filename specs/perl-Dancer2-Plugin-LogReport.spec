@@ -4,7 +4,7 @@
 
 Name:           perl-Dancer2-Plugin-LogReport
 Version:        2.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Logging, exceptions and translations in Dancer2 via Log::Report
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Dancer2-Plugin-LogReport
@@ -163,6 +163,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 13 2026 Petr Pisar <ppisar@redhat.com> - 2.03-1
 - 2.03 bump
 

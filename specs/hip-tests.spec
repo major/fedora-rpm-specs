@@ -66,7 +66,7 @@
 
 Name:       hip-tests%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    HIP tests
 
 License:    MIT AND BSL-1.0 AND Apache-2.0
@@ -203,6 +203,9 @@ rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/saxpy.h
 %{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

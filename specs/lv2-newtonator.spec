@@ -1,6 +1,6 @@
 Name:           lv2-newtonator
 Version:        0.6.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        An LV2 soft synth
 
 # stated as GPLv2 on project page
@@ -48,6 +48,9 @@ export CXXFLAGS="%{optflags} -fpic"
 %{_libdir}/lv2/newtonator_gtk.lv2
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

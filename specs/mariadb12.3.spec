@@ -211,7 +211,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          Fast and robust SQL database server
@@ -1846,6 +1846,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:12.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 01 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-2
 - Remove downstream 'wsrep_sst_rsync_tunnel' script (breaking change)
   MariaDB's own 'wsrep_sst_rsync' now provides TLS capability via stunnel,

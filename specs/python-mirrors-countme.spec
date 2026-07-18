@@ -23,7 +23,7 @@
 %endif
 
 Name:    python-%{srcname}
-Version: 0.1.4
+Version: 0.1.5
 Release: %autorelease
 Summary: Parse access_log and count hosts accessing DNF mirrors
 URL:     https://github.com/fedora-infra/mirrors-countme

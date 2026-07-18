@@ -25,7 +25,7 @@ Summary:        JSON POST handler
 Name:           php-pecl-json-post
 License:        BSD-2-Clause
 Version:        1.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -129,6 +129,9 @@ TEST_PHP_ARGS="$OPT -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 1.1.0-20
 - drop pear/pecl dependency
 - sources from github

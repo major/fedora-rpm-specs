@@ -2,7 +2,7 @@
 
 Name:           libcint
 Version:        6.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        General Gaussian-type orbitals integrals for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -81,6 +81,9 @@ bash compile.sh
 %{_libdir}/libcint.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 12 2026 Cristian Le <git@lecris.dev> - 6.1.3-3
 - Allow building with Ninja (rhbz#2381035)
 

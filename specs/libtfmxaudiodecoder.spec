@@ -1,6 +1,6 @@
 Name: libtfmxaudiodecoder
 Version: 1.0.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: C wrapper library for TFMX & FC music files
 License: GPL-2.0-or-later
@@ -51,6 +51,9 @@ software that uses %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.14-1
 - update to 1.0.14
 

@@ -8,7 +8,7 @@ Version:       0.7.0
 %forgemeta
 
 Name:           ocaml-ssl
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        SSL bindings for OCaml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 0.7.0-19
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

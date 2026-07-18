@@ -29,7 +29,7 @@
 
 Name:           %{pk_project}%{ver_major}
 Version:        13.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -291,6 +291,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  8 2026 Remi Collet <remi@remirepo.net> - 13.2.4-1
 - update to 13.2.4
 - raise dependency on phpunit/php-code-coverage 14.2.3

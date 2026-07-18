@@ -30,7 +30,7 @@ Name:          php-pecl-amqp
 Summary:       Communicate with any AMQP compliant server
 License:       PHP-3.01
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -189,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.0-3
 - drop pear/pecl dependency
 - sources from github

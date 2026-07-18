@@ -64,7 +64,7 @@
 
 Name:           migraphx%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA) AND Apache-2.0 AND CC0-1.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC
 
@@ -352,6 +352,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/migraphx/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/migraphx/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 7.2.2-2
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

@@ -5,7 +5,7 @@
 
 Name:		libdxfrw
 Version:	1.1.0
-Release:	0.12.rc1%{?dist}
+Release:	0.13.rc1%{?dist}
 Summary:	Library to read/write DXF files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -167,6 +167,9 @@ export CXXFLAGS="%{optflags} -Wno-error=unused-parameter -Wno-error=return-type"
 %{_libdir}/pkgconfig/libdxfrw.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.13.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.12.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

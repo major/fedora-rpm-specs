@@ -1,5 +1,5 @@
 Name:           wayland
-Version:        1.25.0
+Version:        1.26.0
 Release:        1%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
@@ -143,6 +143,9 @@ Wayland server library
 %meson_test
 
 %changelog
+* Thu Jul 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.26.0-1
+- Update to 1.26.0
+
 * Sun Jun 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.25.0-1
 - Update to 1.25.0
 - Modernize spec

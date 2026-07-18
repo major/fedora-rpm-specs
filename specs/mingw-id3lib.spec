@@ -5,7 +5,7 @@
 Summary:        Library for manipulating ID3v1 and ID3v2 tags
 Name:           mingw-%{_basename}
 Version:        3.8.3
-Release:        59%{?dist}
+Release:        60%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://www.id3lib.sourceforge.net/
@@ -167,6 +167,9 @@ rm -f %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

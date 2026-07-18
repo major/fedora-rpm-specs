@@ -1,6 +1,6 @@
 Name:           koules
 Version:        1.4
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Action game with multiplayer, network and sound support
 
 License:        GPL-2.0-or-later AND BSD-4-Clause-UC AND HPND-Netrek
@@ -191,6 +191,9 @@ cp %{SOURCE2} %{buildroot}%{_libexecdir}/%{name}/koules.sndsrv.linux
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

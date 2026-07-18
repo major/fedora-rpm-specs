@@ -8,7 +8,7 @@ Name: hunspell-br
 Summary: Breton hunspell dictionaries
 Epoch: 1
 Version: 0.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://extensions.libreoffice.org/en/extensions/show/an-drouizig-breton-spellchecker
 Source: https://extensions.libreoffice.org/assets/downloads/z/difazier-an-drouizig-0-16.oxt
 License: LGPL-2.1-or-later
@@ -36,6 +36,9 @@ cp -p dictionaries/br_FR.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/br_FR.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:0.16-1
 - Update to recent released version 0.16
 

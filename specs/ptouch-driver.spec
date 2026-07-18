@@ -2,7 +2,7 @@
 
 Name:           ptouch-driver
 Version:        1.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        CUPS driver for Brother P-touch label printers
 
 License:        GPL-2.0-or-later
@@ -70,6 +70,9 @@ for driving the family of Brother P-touch label printers.
 %{_datarootdir}/foomatic/db/source/opt/Brother-QL-*.xml
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

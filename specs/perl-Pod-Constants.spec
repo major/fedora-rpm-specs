@@ -1,6 +1,6 @@
 Name:           perl-Pod-Constants
 Version:        0.19
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Include constants from POD
 License:        Artistic-2.0
 
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

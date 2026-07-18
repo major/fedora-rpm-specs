@@ -1,7 +1,7 @@
 Name:          hyphen
 Summary:       A text hyphenation library
 Version:       2.8.8
-Release:       29%{?dist}
+Release:       30%{?dist}
 Source:        https://downloads.sourceforge.net/hunspell/hyphen-%{version}.tar.gz
 URL:           https://sourceforge.net/projects/hunspell/
 License:       GPL-2.0-only OR LGPL-2.1-or-later OR MPL-1.1
@@ -72,6 +72,9 @@ VALGRIND=memcheck make check
 %{_bindir}/substrings.pl
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Parag Nemade <panemade AT redhat DOT com> - 2.8.8-29
 - Remove unnecessary BuildRequires from SPEC
 - Re-write SPEC file

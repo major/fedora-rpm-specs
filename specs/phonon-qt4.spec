@@ -1,7 +1,7 @@
 Summary: Multimedia framework api for Qt4
 Name:    phonon-qt4
 Version: 4.10.3
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://community.kde.org/Phonon
 
@@ -129,6 +129,9 @@ end
 %{_qt4_datadir}/mkspecs/modules/qt_phonon.pri
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

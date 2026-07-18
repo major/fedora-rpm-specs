@@ -17,7 +17,7 @@ DSLs (domain specific languages).
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Recursive descent parsing library based on functional combinators
 
 # SPDX
@@ -64,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-17
 - Rebuilt for Python 3.15
 

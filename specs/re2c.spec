@@ -1,7 +1,7 @@
 Summary: Tool for generating C, C++, and go recognizers from regular expressions
 Name: re2c
 Version: 3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://re2c.org/
 Source: https://github.com/skvadrik/re2c/releases/download/%{version}/re2c-%{version}.tar.xz
@@ -50,6 +50,9 @@ make tests
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

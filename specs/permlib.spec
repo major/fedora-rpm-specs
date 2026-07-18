@@ -6,7 +6,7 @@
 
 Name:           permlib
 Version:        0.2.9
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Library for permutation computations
 
 License:        BSD-3-Clause
@@ -89,6 +89,9 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 08 2026 Jerry James <loganjerry@gmail.com> - 0.2.9-27
 - Use the cmake declarative buildsystem
 - Simplify the gcc6 patch

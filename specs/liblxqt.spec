@@ -1,6 +1,6 @@
 Name:		liblxqt
 Version:	2.4.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:  LGPL-2.1-only AND LGPL-2.1-or-later
 Summary:	Core shared library for LXQt desktop suite
 Url:      https://lxqt-project.org/
@@ -71,6 +71,9 @@ touch -r %{SOURCE1} %{buildroot}%{_rpmmacrodir}/macros.lxqt
 %{_rpmmacrodir}/macros.lxqt
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 08 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-2
 - Add patch to fix brightness adjustment issues with amdgpu
 

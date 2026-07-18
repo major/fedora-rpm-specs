@@ -28,7 +28,7 @@
 Name:           pandoc-cli
 Version:        3.7.0.2
 # can only be reset when all subpkgs bumped
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Markup conversion between documentation formats
 
 License:        GPL-2.0-or-later
@@ -385,6 +385,9 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Jens Petersen <petersen@redhat.com> - 3.7.0.2-40
 - https://hackage.haskell.org/package/pandoc-3.7.0.2/changelog
 

@@ -25,7 +25,7 @@ Name:           php-smbclient
 Summary:        PHP wrapper for libsmbclient
 License:        BSD-2-Clause
 Version:        1.1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -122,6 +122,9 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Mar 26 2026 Remi Collet <remi@remirepo.net> - 1.1.2-6
 - drop pear/pecl dependency
 - sources from github

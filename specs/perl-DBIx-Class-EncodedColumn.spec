@@ -1,7 +1,7 @@
 Name:           perl-DBIx-Class-EncodedColumn
 %global cpan_version 0.11
 Version:        0.11000
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Automatically encode columns
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-EncodedColumn
@@ -108,6 +108,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11000-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

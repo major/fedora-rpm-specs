@@ -4,7 +4,7 @@
 
 Name:          mingw-%{_basename}
 Version:       0.12
-Release:       17%{?dist}
+Release:       18%{?dist}
 Summary:       A high-level API for decoding and seeking within .opus files
 
 License:       BSD-3-Clause
@@ -119,6 +119,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Consumer-NonBlock
 Version:        0.003
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Send data between processes without blocking
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Consumer-NonBlock
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Consumer::NonBlock.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 08 2026 Petr Pisar <ppisar@redhat.com> - 0.003-1
 - 0.003 bump
 

@@ -5,7 +5,7 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 
 Name:           resalloc-ibm-cloud
 Version:        3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ BuildRequires:  pyproject-rpm-macros
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.5-2
 - Rebuilt for Python 3.15
 

@@ -6,7 +6,7 @@
 
 Name:           lib%{libname}
 Version:        0.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminal Interface Construction Kit
 
 License:        MIT
@@ -83,6 +83,9 @@ rm -fr examples/*.o
 %{_mandir}/man7/%{libname}_*.7*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 11 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.4.6-2
 - Remove .libs directory from examples
 - Remove .o files from examples

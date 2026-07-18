@@ -9,7 +9,7 @@
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        2.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -150,6 +150,9 @@ make check
 %{_libdir}/pkgconfig/%{name}*.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.0.1-5
 - Obsolete compatibility package from older Fedora/EPEL
 

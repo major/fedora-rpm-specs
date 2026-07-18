@@ -10,7 +10,7 @@ A leading "=" or "v" character is stripped off and ignored.}
 
 Name: python-%{pypi_name}
 Version: 0.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: Python version of node-semver
@@ -49,6 +49,9 @@ Summary: %{summary}
 %doc CHANGES.txt README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Federico Pellegrin <fede@evolware.org> - 0.9.1-1
 - Upgrade to 0.9.1 (rhbz#2491623)
 

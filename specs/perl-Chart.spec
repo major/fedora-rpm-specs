@@ -1,6 +1,6 @@
 Name:           perl-Chart
 Version:        2.403.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Series of charting modules
 # lib/Chart.pm:         GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.403.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 01 2026 Petr Pisar <ppisar@redhat.com> - 2.403.9-10
 - Adapt to changes in Graphics-Toolkit-Color-2.00 (bug #2453417)
 

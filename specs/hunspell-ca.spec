@@ -7,7 +7,7 @@
 Name: hunspell-ca
 Summary: Catalan hunspell dictionaries
 Version: 3.0.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source: https://github.com/Softcatala/catalan-dict-tools/releases/download/v%{version}/ca.%{version}-hunspell.zip
 URL: https://www.softcatala.org/projectes/corrector-ortografic/
 License: GPL-2.0-or-later OR LGPL-2.1-or-later
@@ -46,6 +46,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

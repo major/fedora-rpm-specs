@@ -1,6 +1,6 @@
 Name:		moe
 Version:	1.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A powerful clean text editor
 
 License:	GPL-3.0-or-later
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 11 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.16-1
 - 1.16
 

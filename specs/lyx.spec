@@ -12,7 +12,7 @@ BuildRequires: fontpackages-devel
 
 Name:    lyx
 Version: 2.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -242,6 +242,9 @@ make -k check ||:
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.1-1
 - 2.5.1
 

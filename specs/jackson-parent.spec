@@ -1,6 +1,6 @@
 Name:          jackson-parent
 Version:       2.21
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
 
@@ -43,6 +43,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21-1
 - Rebase to version 2.21
 

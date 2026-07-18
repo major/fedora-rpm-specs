@@ -2,7 +2,7 @@
 
 Name:           harfbuzz
 Version:        14.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -167,6 +167,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 14.2.1-4
 - Rebuilt for icu 78.3
 

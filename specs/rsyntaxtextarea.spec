@@ -2,7 +2,7 @@
 
 Name:           rsyntaxtextarea
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A syntax highlighting, code folding text editor for Java Swing applications
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ cat  %{SOURCE1} | sed "s/VERSION/%{version}/g" > pom.xml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

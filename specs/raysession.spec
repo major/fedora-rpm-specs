@@ -1,7 +1,7 @@
 
 Name:           raysession
 Version:        0.17.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
 URL:            https://github.com/Houston4444/RaySession
@@ -468,6 +468,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %exclude %{_datadir}/%{name}/data/share/applications/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 6 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.4-1
 - New upstream release
 

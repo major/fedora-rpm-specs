@@ -9,7 +9,7 @@
 
 Name:           python-beautifulsoup4
 Version:        4.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -92,6 +92,9 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %{python3_sitelib}/bs4
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Terje Rosten <terjeros@gmail.com> - 4.15.0-1
 - 4.15.0
 

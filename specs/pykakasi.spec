@@ -1,7 +1,7 @@
 %global __python /usr/bin/python3
 Name:           pykakasi
 Version:        2.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lightweight converter from Japanese Kana-kanji sentences into Kana-Roman
 
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -49,6 +49,9 @@ cp -a build/docs/pykakasi.1 %{buildroot}/%{_mandir}/man1/
 %doc docs/*rst.inc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 Kevin Fenzi <kevin@scrye.com> - 2.3.0-10
 - Add docs patch to fix build with sphinx-9.1. Fixes rhbz#2440185
 

@@ -4,7 +4,7 @@
 
 Name:       kbibtex
 Version:    0.10.50%{?versuffix}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A BibTeX editor for KDE
 # CC0-1.0: desktop file, appstream metadata
 # BSD-2-Clause is used only in tests
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.50^20260219gitfd546d8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 0.10.50^20260219gitfd546d8-2
 - Rebuilt for icu 78.3
 

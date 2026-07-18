@@ -5,7 +5,7 @@
 
 Name:           nethack
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A rogue-like single player dungeon exploration game
 
 License:        NGPL
@@ -106,6 +106,9 @@ rm -f $RPM_BUILD_ROOT%{nhgamedir}/license
 %config(noreplace) %{nhgamedir}/symbols
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Kevin Fenzi <kevin@scrye.com> - 5.0.0-1
 - Update to 5.0.0. Fixes rhbz#2483160
 - Drop old X11 interface and bitmap fonts

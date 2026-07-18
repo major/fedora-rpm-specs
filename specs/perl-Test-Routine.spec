@@ -1,7 +1,7 @@
 Name:           perl-Test-Routine
 Summary:        Composable units of assertion
 Version:        0.032
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Routine
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Test-Routine-%{version}.tar.gz
@@ -70,6 +70,9 @@ composable units of assertion. In other words: roles.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.032-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.32-1
 - Update to 0.32
 

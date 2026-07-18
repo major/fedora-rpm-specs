@@ -26,7 +26,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Python is Python-2.0.1
 # pip is MIT and bundles:
 #   CacheControl: Apache-2.0
@@ -2064,6 +2064,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.25-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-11
 - Fix ssl.SSLError: [ASN1: NOT_ENOUGH_DATA] not enough data with OpenSSL 3.5.7+
 

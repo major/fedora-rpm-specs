@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 # src/bsd/getopt.c BSD-4-Clause (not used)
@@ -135,6 +135,9 @@ popd
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10.1-2
 - Backport upstream patch to use ICU for Japanese charset conversion
 

@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Builder-Compiler
 Version:        0.036
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interface around different compilers
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.036-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 22 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.036-1
 - Update to 0.036
 

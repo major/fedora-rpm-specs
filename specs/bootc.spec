@@ -23,7 +23,7 @@
 
 Name:           bootc
 # Ensure this local build overrides anything else.
-Version:        1.16.3
+Version:        1.16.4
 Release:        %{autorelease}
 Summary:        Bootable container system
 

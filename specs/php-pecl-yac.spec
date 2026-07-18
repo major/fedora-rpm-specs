@@ -23,7 +23,7 @@ Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
 Version:        2.3.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -141,6 +141,9 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 2.3.1-19
 - drop pear/pecl dependency
 - sources from github

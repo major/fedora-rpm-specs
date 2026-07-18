@@ -6,7 +6,7 @@
 
 Name:           libwignernj
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Exact Wignernj 3j/6j/9j symbols and related coefficients via prime factorization
 License:        BSD-3-Clause
 URL:            https://github.com/susilehtola/libwignernj
@@ -159,6 +159,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc docs/optimization_notes.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.7.0-2
 - Fix x86_64 architecture typo that disabled quadmath (binary128) support.
 

@@ -7,7 +7,7 @@ including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
 
 Name:		intel-cmt-cat
 Version:	26.03
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Intel cache monitoring and allocation technology config tool
 
 License:	BSD-3-Clause
@@ -64,6 +64,9 @@ Development files.
 %{_libdir}/libpqos.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 11 2026 Raghavan Kanagaraj <raghavan.kanagaraj@intel.com> - 26.03-1
 - New release 26.03
 

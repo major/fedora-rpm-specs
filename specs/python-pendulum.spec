@@ -2,7 +2,7 @@
 
 Name:           python-pendulum
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
@@ -96,6 +96,9 @@ popd
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.0-1
 - Update to 3.2.0 (final); Fixes RHBZ#2435482
 - Update PyO3 to 0.29 (fixes RUSTSEC-2026-0176, RUSTSEC-2026-0177)

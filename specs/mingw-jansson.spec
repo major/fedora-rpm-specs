@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.14.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for encoding, decoding and manipulating JSON data
 License:        MIT 
 URL:            https://github.com/akheron/jansson
@@ -80,6 +80,9 @@ Small library for parsing and writing JSON documents.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

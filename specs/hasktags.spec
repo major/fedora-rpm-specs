@@ -9,7 +9,7 @@
 
 Name:           %{pkg_name}
 Version:        0.73.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Produces ctags "tags" and etags "TAGS" files for Haskell programs
 
 License:        BSD-3-Clause
@@ -165,6 +165,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.73.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 0.73.0-2
 - Rebuild
 

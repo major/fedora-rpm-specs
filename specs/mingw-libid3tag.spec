@@ -4,7 +4,7 @@
 
 Name:           mingw-%{_basename}
 Version:        0.15.1b
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        ID3 tag manipulation library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -138,6 +138,9 @@ rm -f %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

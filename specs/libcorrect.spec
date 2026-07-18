@@ -4,7 +4,7 @@
 
 Name:           libcorrect
 Version:        0
-Release:        20.%{date}git%{gitcommit}%{?dist}
+Release:        21.%{date}git%{gitcommit}%{?dist}
 Summary:        C library for Convolutional codes and Reed-Solomon
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -66,6 +66,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/libcorrect.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-21.20181010gitf5a28c7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 06 2026 David Auer <dreua@posteo.de> - 0-20.20181010gitf5a28c7
 - Update source name to include project name and .tar.gz extension.
   Fix: https://bugzilla.redhat.com/show_bug.cgi?id=2427929

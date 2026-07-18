@@ -4,7 +4,7 @@
 
 Name:           python-pycares
 Version:        5.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
@@ -105,6 +105,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.0.1-3
 - Rebuilt for Python 3.15
 

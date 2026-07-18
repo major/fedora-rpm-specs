@@ -1,6 +1,6 @@
 Name:           perl-Graphics-ColorNames
 Version:        3.5.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Defines RGB values for common color names
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Graphics-ColorNames
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

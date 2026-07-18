@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Storage
 Summary:        A serialization framework for Moose classes
 Version:        0.53
-Release:        18%{?dist}
+Release:        19%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -97,6 +97,9 @@ chmod 0644 t/*.t
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

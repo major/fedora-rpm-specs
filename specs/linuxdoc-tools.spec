@@ -5,7 +5,7 @@
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
 Version: 0.9.85
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: X11-distribute-modifications-variant
 Source00: https://ftp.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
 Source01: https://ftp.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz.asc
@@ -103,6 +103,9 @@ exit 0
 %{_mandir}/*/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.85-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.85-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

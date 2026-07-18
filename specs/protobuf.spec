@@ -18,7 +18,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        33.5
 %global so_version 33
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 # See version.json:
 %global version_protoc %{version}
@@ -648,6 +648,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 33.5-6
 - Rebuilt for abseil-cpp 20260526.0
 

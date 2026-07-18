@@ -1,6 +1,6 @@
 Name:       perl-CSS-Minifier-XS
 Version:    0.15
-Release:    1%{?dist}
+Release:    2%{?dist}
 # lib/CSS/Minifier/XS.pm -> GPL+ or Artistic
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    XS based CSS minifier
@@ -62,6 +62,9 @@ in XS and not just pure Perl.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
 - Update to 0.15
 

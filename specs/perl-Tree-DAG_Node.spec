@@ -1,6 +1,6 @@
 Name:           perl-Tree-DAG_Node
 Version:        1.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-DAG_Node
@@ -61,6 +61,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul  8 2026 Paul Howarth <paul@city-fan.org> - 1.39-1
 - Update to 1.39
   - Regenerate LICENSE using latest Software::License (GH#1)

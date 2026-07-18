@@ -8,7 +8,7 @@
 Summary:         A small text editor
 Name:            nano
 Version:         9.1
-Release:         1%{?dist}
+Release:         2%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
 
@@ -131,6 +131,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.1-1
 - rebase to the latest upstream release (rhbz#2491643)
 

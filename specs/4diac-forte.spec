@@ -1,6 +1,3 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 %global with_sysfs 1
 %global with_opcua 0
 %global with_paho 1
@@ -57,7 +54,8 @@ online-reconfiguration of its applications and the real-time capable
 execution of all function block types provided by the IEC 61499 standard.
 
 %prep
-%setup -q -n org.eclipse.4diac.forte-%{version}
+%autosetup -p1 -n org.eclipse.4diac.forte-%{version}
+sed -i 's/CMAKE_MINIMUM_REQUIRED(VERSION 2.6)/CMAKE_MINIMUM_REQUIRED(VERSION 3.5)/' CMakeLists.txt
 
 %build
 %cmake -DFORTE_ARCHITECTURE=Posix \
@@ -92,10 +90,10 @@ execution of all function block types provided by the IEC 61499 standard.
 
 %install
 mkdir -p %{buildroot}%{_unitdir}
-install -p systemd/4diac-forte.service %{buildroot}%{_unitdir}
+install -p -m 644 systemd/4diac-forte.service %{buildroot}%{_unitdir}
 
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
-install -p systemd/4diac-forte-sysconfig %{buildroot}%{_sysconfdir}/sysconfig/4diac-forte
+install -p -m 644 systemd/4diac-forte-sysconfig %{buildroot}%{_sysconfdir}/sysconfig/4diac-forte
 
 %cmake_install
 
@@ -109,6 +107,7 @@ install -p systemd/4diac-forte-sysconfig %{buildroot}%{_sysconfdir}/sysconfig/4d
 %systemd_postun_with_restart 4diac-forte.service
 
 %files
+%doc README.md
 %license epl-2.0.html
 %{_bindir}/forte
 %{_unitdir}/4diac-forte.service

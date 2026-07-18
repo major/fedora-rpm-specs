@@ -1,7 +1,7 @@
 Summary:    Command line calendar that displays holidays and events
 Name:       pal
 Version:    0.4.3
-Release:    38%{?dist}
+Release:    39%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 Url:        http://palcal.sourceforge.net
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_datadir}/man/man1/vcard2pal.1.gz
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.4.3-38
 - Fix FTBFS
 

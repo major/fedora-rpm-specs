@@ -1,6 +1,6 @@
 Name:           perl-Mad-Mapper
 Version:        0.09
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Map Perl objects to PostgreSQL, MySQL or SQLite data
 License:        Artistic-2.0
 URL:            https://metacpan.org/dist/Mad-Mapper
@@ -52,6 +52,9 @@ separately.
 %{_mandir}/man3/Mad::Mapper*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 09 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.09-2
 - Take into account review feedback (#2486593)
 

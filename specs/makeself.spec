@@ -1,6 +1,6 @@
 Name:           makeself
 Version:        2.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 Summary:        Make self-extractable archives on Unix
 
@@ -62,6 +62,9 @@ ln -s %{name}.sh %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 01 2026 Dridi Boukelmoune <dridi@fedoraproject.org> - 2.7.1-1
 - Bump version to 2.7.1
 

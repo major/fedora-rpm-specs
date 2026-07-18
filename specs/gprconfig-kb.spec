@@ -9,7 +9,7 @@
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -112,6 +112,9 @@ xmllint --nonet --noout --noent \
 ###############
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 11 2026 David Abdurachmanov <davidlt@rivosinc.com> - 26.0.0-3
 - Add riscv64 to fedora_arches.xml
 

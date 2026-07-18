@@ -22,7 +22,7 @@
 
 Name:           perl-HTML-FormatExternal
 Version:        26
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        HTML to text formatting using external programs
 # debian/rules:     GPLv3+
 # debian/copyright: GPLv3+
@@ -235,6 +235,9 @@ make test
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

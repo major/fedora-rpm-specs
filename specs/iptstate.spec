@@ -1,7 +1,7 @@
 Name: iptstate
 Summary: A top-like display of IP Tables state table entries
 Version: 2.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://github.com/jaymzh/iptstate/archive/refs/tags/v%{version}.tar.gz
 URL: http://www.phildev.net/iptstate/
 License: zlib
@@ -47,6 +47,9 @@ display the state table once.
 %{_mandir}/man8/iptstate.*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Phil Sutter <psutter@redhat.com> - 2.3.0-1
 - new version
 

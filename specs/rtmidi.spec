@@ -1,6 +1,6 @@
 Name:       rtmidi
 Version:    6.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Library for realtime MIDI input/output (ALSA support)
 License:    MIT
 URL:        https://caml.music.mcgill.ca/~gary/rtmidi/index.html
@@ -73,6 +73,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.{a,la}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0.0-1
 - Update to v6.0.0
 

@@ -1,6 +1,6 @@
 Name:           python-flock
 Version:        0.1
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Flock object for with statement
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ when entering (resp. leaving) runtime context related to it.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1-43
 - Rebuilt for Python 3.15
 

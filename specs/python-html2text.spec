@@ -7,7 +7,7 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 Name:           python-%{upname}
 Version:        2025.4.15
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{common_sum}
 
 License:        GPL-3.0-or-later
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.4.15-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2025.4.15-7
 - Rebuilt for Python 3.15
 

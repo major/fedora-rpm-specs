@@ -19,7 +19,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	1
+%global	baserelease	2
 
 %if 0%{?usegitbare} >= 1
 # pre-master-45
@@ -502,6 +502,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 46-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 46-1
 - Update to 46
 

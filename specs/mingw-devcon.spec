@@ -6,7 +6,7 @@
 
 Name:           mingw-devcon
 Version:        0~%{date}git%{shortcommit}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool to display and manipulate Windows devices
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/ZSVCFJFVMLTODFKGV352TYHH5ZQODJXD/
@@ -126,6 +126,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/virt-tools/{x86,x64}/
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~20260212git2977346e-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 0-6
 - Fix Makefile so it includes the whole message catalog
 

@@ -1,6 +1,6 @@
 Name:       perl-RT-Client-REST 
 Version:    0.73
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Talk to RT using REST protocol 
 Url:        https://metacpan.org/release/RT-Client-REST
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Petr Pisar <ppisar@redhat.com> - 0.73-1
 - 0.73 bump
 

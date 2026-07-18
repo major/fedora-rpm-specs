@@ -1,7 +1,7 @@
 Name:           perl-Authen-OATH
 %global cpan_version 3.000001
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OATH One Time Passwords
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-OATH
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 27 2026 Petr Pisar <ppisar@redhat.com> - 3.0.1-1
 - 3.000001 bump
 - Package the tests

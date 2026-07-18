@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -81,6 +81,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.41.0-2
 - Rebuilt for Python 3.15
 
@@ -89,7 +92,7 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 ```
 %%global release 12
 %%global release_string %%{release}%%{?dist}
-Release: %%{release_string}.1
+Release: %%{release_string}.2
 ```
 In this case, with `dist` being `.fc44`, `Specfile.expanded_release` returned `12.fc44.fc44` instead of `12.fc44`. (#539)
 

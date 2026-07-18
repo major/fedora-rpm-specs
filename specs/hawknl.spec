@@ -1,6 +1,6 @@
 Name:           hawknl
 Version:        1.68
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Game oriented network library
 License:        LGPL-2.0-or-later
 URL:            http://www.hawksoft.com/hawknl/
@@ -69,6 +69,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libNL.a $RPM_BUILD_ROOT%{_libdir}/NL.so \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.68-40
 - Inject '$(LDFLAGS)' into the shared library link command via sed in '%prep',
   and pass 'LDFLAGS="%{build_ldflags}"' from '%build' to fix annocheck

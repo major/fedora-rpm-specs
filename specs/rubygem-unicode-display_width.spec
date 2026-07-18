@@ -7,7 +7,7 @@ Summary: Ruby library to determine the monospace display width of a string
 Name: %{?scl_prefix}rubygem-%{gem_name}
 
 Version: 2.6.0
-Release: 4%{dist}
+Release: 5%{dist}
 License: MIT
 URL: https://github.com/janlelis/unicode-display_width
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -69,6 +69,9 @@ fi
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

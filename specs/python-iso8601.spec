@@ -4,7 +4,7 @@
 
 Name:           python-iso8601
 Version:        2.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 BuildArch:      noarch
 Summary:        Simple module to parse ISO 8601 dates
 License:        MIT
@@ -58,6 +58,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.0-9
 - Rebuilt for Python 3.15
 

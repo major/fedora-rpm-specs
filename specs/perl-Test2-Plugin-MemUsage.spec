@@ -1,7 +1,7 @@
 Name:           perl-Test2-Plugin-MemUsage
 %global cpan_version 0.002006
 Version:        0.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test2 plugin that collects and displays memory usage information
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Plugin-MemUsage
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Petr Pisar <ppisar@redhat.com> - 0.2.6-1
 - 0.002006 bump
 

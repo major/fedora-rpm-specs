@@ -1,6 +1,6 @@
 Name:           qt4pas
 Version:        2.5
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Free Pascal Qt4 Binding
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -53,6 +53,9 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/libQt4Pas.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5-35
 - Add a patch to remove webview component (qtwebkit is now retired)
 

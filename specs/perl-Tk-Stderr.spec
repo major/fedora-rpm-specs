@@ -1,6 +1,6 @@
 Name:           perl-Tk-Stderr
 Version:        1.2
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Capture standard error output, display in separate window for Perl::Tk
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ chmod -R u+w %{buildroot}/*
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           kup-backup
 Version:        0.10.0^git%{gitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backup scheduler for the Plasma desktop
 
 # CC0-1.0 is used but only in a couple upstream-related CI files, which we aren't using.
@@ -102,5 +102,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ku
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0^git20260214.094327.92115c2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Steve Cossette <farchord@gmail.com> - 0.10.0^git20260214.094327.92115c2-1
 - Initial commit

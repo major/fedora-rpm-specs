@@ -5,7 +5,7 @@
 
 Name:		nodejs-buble
 Version:	0.20.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	The blazing fast, batteries-included ES2015 compiler
 
 License:	MIT
@@ -82,6 +82,9 @@ NODE_ENV=test %{_bindir}/mocha -R spec
 %{_bindir}/%{npm_name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

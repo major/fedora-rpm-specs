@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 0.5.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Stats, linear algebra and einops for xarray 
 License: Apache-2.0
 
@@ -49,6 +49,9 @@ Summary: %{summary}
 %doc README.md 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Python Maint <python-maint@redhat.com> - 0.5.1-10
 - Rebuilt for Python 3.15
 

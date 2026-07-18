@@ -6,7 +6,7 @@
 
 Name:		perl-Test-Synopsis
 Version:	0.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Test your SYNOPSIS code
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Synopsis
@@ -90,6 +90,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::Synopsis.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Paul Howarth <paul@city-fan.org> - 0.18-1
 - Update to 0.18
   - Fix: =for test_synopsis directives are now applied regardless of their

@@ -25,7 +25,7 @@
 
 Name:           %{pk_project}
 Version:        6.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Copy/Paste Detector (CPD) for PHP code
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

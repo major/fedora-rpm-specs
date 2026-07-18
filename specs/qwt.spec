@@ -8,7 +8,7 @@
 Name:           qwt
 Summary:        Qt Widgets for Technical Applications
 Version:        6.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        LGPL-2.1-or-later WITH Qwt-exception-1.0
 URL:            http://qwt.sourceforge.net
@@ -338,6 +338,9 @@ rm %{buildroot}%{mingw64_libdir}/qt6/plugins/designer/qwt_designer_plugin.dll
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 03 2026 Sandro Mani <manisandro@gmail.com> - 6.3.0-3
 - Update to 6.3.0
 

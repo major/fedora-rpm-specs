@@ -1,6 +1,6 @@
 Name:           rkward
 Version:        0.8.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.3-3
 - Add runtime dependencies R2HTML, kate-plugins, pandoc-cli
 

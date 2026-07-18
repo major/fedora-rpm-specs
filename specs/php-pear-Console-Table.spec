@@ -11,7 +11,7 @@
 
 Name:           php-pear-Console-Table
 Version:        1.3.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Class that makes it easy to build console style tables
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -105,6 +105,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

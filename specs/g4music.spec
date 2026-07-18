@@ -12,6 +12,8 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/neithern/g4music
 VCS:            git:%{url}.git
 Source:         %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
+# Set the arguments to appstream-util to those in the Packaging Guidelines
+Patch:          %{name}-appstream-util.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -56,7 +58,7 @@ Features:
 - Supports MPRIS control.
 
 %prep
-%autosetup -n %{name}-v%{version}-%{commit}
+%autosetup -n %{name}-v%{version}-%{commit} -p1
 
 %build
 %meson --buildtype=release
@@ -65,11 +67,9 @@ Features:
 %install
 %meson_install
 %find_lang %{name}
-appstream-util validate-relax --nonet \
-  %{buildroot}%{_metainfodir}/com.github.neithern.g4music.metainfo.xml
 
 %check
-# Note that the tests run desktop-file-validate
+# Note that the tests run desktop-file-validate and appstream-util
 %meson_test
 
 %files -f %{name}.lang

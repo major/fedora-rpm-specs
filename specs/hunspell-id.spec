@@ -10,7 +10,7 @@ Summary: Indonesian hunspell dictionaries
 # let's continue to use date as version for this package
 %global upstreamver 2.3.0
 Version: 0.%{upstreamid}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://github.com/shuLhan/hunspell-id/archive/refs/tags/v%{upstreamver}.tar.gz
 URL: https://github.com/shuLhan/hunspell-id
 License: LGPL-3.0-or-later
@@ -39,6 +39,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20220921-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20220921-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

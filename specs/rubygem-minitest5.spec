@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}5
 Version: 5.27.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -96,6 +96,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.27.0-2
 - Remove BR: rubygem(hoe)
 - Update description, change obsoleted minitest/unit with minitest/test

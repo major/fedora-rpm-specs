@@ -1,6 +1,6 @@
 Name:           perl-NetPacket
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assemble/disassemble network packets at the protocol level
 # lib/NetPacket.pm:     Artistic-2.0
 # lib/NetPacket/IPX.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -117,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 05 2026 Petr Pisar <ppisar@redhat.com> - 1.8.0-1
 - 1.8.0 bump
 - Package the tests

@@ -22,7 +22,7 @@ Name:          php-pecl-uuid
 Summary:       Universally Unique Identifier extension for PHP
 License:       LGPL-2.1-or-later
 Version:       1.3.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -115,6 +115,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 1.3.0-5
 - drop pear/pecl dependency
 - sources from github

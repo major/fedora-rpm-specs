@@ -7,7 +7,7 @@
 
 Name: hdf
 Version: 4.3.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 # BSD-3-Clause-LBNL is main license
 # Some source files inside hdf/src directory are BSD-3-Clause
@@ -248,6 +248,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 24 2026 Antonio Trande <sagitter@fedoraproject.org> - 4.3.0-6
 - Fix License
 

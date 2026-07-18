@@ -3,7 +3,7 @@ Summary(pl):    Osobisty organizer
 Summary(de):    Persönlicher Organizer
 Name:           osmo
 Version:        0.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://osmo-pim.sourceforge.net/
@@ -130,6 +130,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Feb 25 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.4.4-5
 - spec cleanup, added check session, silent fedpkg lint
 

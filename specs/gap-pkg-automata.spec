@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/automata
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.16
+Version:        1.17
 Release:        %autorelease
 Summary:        Finite automata algorithms
 
@@ -17,11 +17,11 @@ BuildOption(install): gap tst version
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc)
-BuildRequires:  gap-devel >= 4.8
+BuildRequires:  gap-devel >= 4.9
 
 # RandomizeRandomState invokes /usr/bin/date
 Requires:       coreutils
-Requires:       gap-core >= 4.8
+Requires:       gap-core >= 4.9
 
 # Splash can invoke dot and dot2tex in some circumstances
 Recommends:     dot2tex

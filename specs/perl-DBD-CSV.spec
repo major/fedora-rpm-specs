@@ -1,6 +1,6 @@
 Name:           perl-DBD-CSV
 Version:        0.64
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DBI driver for CSV files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-CSV
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/DBD::CSV.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Paul Howarth <paul@city-fan.org> - 0.64-1
 - Update to 0.64 (rhbz#2499960)
   - Next version will require perl-5.12, following DBI

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-extlib
 Version:        1.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
@@ -87,6 +87,9 @@ make -C test all run
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.8.0-8
 - OCaml 5.5.0 rebuild
 

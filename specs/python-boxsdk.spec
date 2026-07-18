@@ -4,7 +4,7 @@
 
 Name:               python-boxsdk
 Version:            10.13.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -67,6 +67,9 @@ pytest-3
 %doc *.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 10.13.0-1
 - 10.13.0
 

@@ -43,7 +43,7 @@
 
 Name:           rocroller
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AMD's rocRoller Assembly Kernel Generator
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
@@ -164,6 +164,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%_bindir/rocroller-tests*
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 František Zatloukal <fzatlouk@redhat.com> - 7.13.0-2
 - Rebuilt for fmt/spdlog
 

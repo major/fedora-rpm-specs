@@ -1,6 +1,6 @@
 Name:       perl-Tree-Simple
 Version:    1.34
-Release:    16%{?dist}
+Release:    17%{?dist}
 Summary:    Object-oriented n-ary tree
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Tree-Simple
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Petr Pisar <ppisar@redhat.com> - 1.34-16
 - Modernize a spec file
 - Package the tests

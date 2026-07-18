@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -43,6 +43,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.0-19
 - Rebuilt for Python 3.15
 

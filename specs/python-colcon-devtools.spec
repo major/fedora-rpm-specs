@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extension for information about colcon extensibility
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to provide information about the plugin system.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.0-10
 - Rebuilt for Python 3.15
 

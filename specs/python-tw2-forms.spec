@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{python3_sitelib}/tw2.forms-*-nspkg.pth
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.6-34
 - Remove pth file for python3.15 compatibility
 

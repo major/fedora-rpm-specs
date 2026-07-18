@@ -5,7 +5,7 @@
 
 Name:           mingw-%{origname}
 Version:        2.32.70
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of SDL 2.0 runtime compatibility library using SDL 3.0
 # License of SDL-2.0 headers
 License:        Zlib and Apache-2.0 and MIT and BSD-3-Clause
@@ -126,6 +126,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.32.70-1
 - Update to v2.32.70
 

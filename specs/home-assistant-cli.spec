@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ a local or a remote Home Assistant instance directly from the command-line.
 %{_bindir}/hass-cli
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 07 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.0.0-2
 - Drop dependency on dead package (rhbz#2485711)
 

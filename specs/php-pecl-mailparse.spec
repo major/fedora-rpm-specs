@@ -24,7 +24,7 @@ Name:      php-pecl-%{pecl_name}
 Summary:   PHP PECL package for parsing and working with email messages
 License:   PHP-3.01
 Version:   3.2.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 %forgemeta
 URL:       %{forgeurl}
 Source0:   %{forgesource}
@@ -121,6 +121,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr  9 2026 Remi Collet <remi@remirepo.net> - 3.2.0-1
 - update to 3.2.0
 - drop dependency on mbstring

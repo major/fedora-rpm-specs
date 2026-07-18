@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        25.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -77,6 +77,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 25.5.0-5
 - Fix compatibility with Sphinx 9.1.0
 Resolves: rhbz#2440191

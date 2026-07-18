@@ -1,5 +1,5 @@
 Version: 1.002
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 URL: https://astralinux.ru/en/information/#section-fonts-astra
 
@@ -48,6 +48,9 @@ install -p -m 0644 %{SOURCE11} .
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlgmpidl
 Version:        1.3.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -164,6 +164,9 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.3.0-20
 - OCaml 5.5.0 rebuild
 - Build the manual with pdflatex instead of latex + dvipdf

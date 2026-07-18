@@ -1,5 +1,5 @@
 Version:        4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://rsms.me/inter/
 
 %global common_description %{expand:Inter is a typeface specially designed for user interfaces with focus on high
@@ -59,6 +59,9 @@ Source11:       63-rsms-inter-vf.conf
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

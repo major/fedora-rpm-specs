@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Easy to use progress bars
 
 License:        ISC
@@ -75,6 +75,9 @@ Summary:        Easy to use progress bars
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6-21
 - Rebuilt for Python 3.15
 

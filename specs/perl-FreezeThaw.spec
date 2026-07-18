@@ -1,6 +1,6 @@
 Name:           perl-FreezeThaw
 Version:        0.5001
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Convert Perl structures to strings and back
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FreezeThaw
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/FreezeThaw.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5001-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5001-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

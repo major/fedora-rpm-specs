@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Pure-PHP implementation to read and write TAR and ZIP archives
 License: MIT
@@ -105,6 +105,9 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.4.2-1
 - Update to v1.4.2
 

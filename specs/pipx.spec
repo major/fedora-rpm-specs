@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.15.0
+Version:        1.16.0
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -18,8 +18,6 @@ BuildOption(generate_buildrequires): --extras uv
 BuildArch:      noarch
 
 BuildRequires:  /usr/bin/register-python-argcomplete
-# noxfile.py: MAN_DEPENDENCIES
-BuildRequires:  python3dist(argparse-manpage[setuptools])
 
 %description
 pipx is a tool to help you install and run end-user applications written in
@@ -81,13 +79,13 @@ do
   register-python-argcomplete --shell "${sh}" pipx > "pipx.${sh}"
 done
 
-# noxfile.py: build_man()
+# See the “man” environment in tox.toml.
 PYTHONPATH="${PWD}/src" %{python3} scripts/generate_man.py
 
 
 %install -a
 install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_mandir}/man1' pipx.1
+    --target='%{buildroot}%{_mandir}/man1' build/man/pipx.1
 
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{bash_completions_dir}' pipx.bash
@@ -120,7 +118,8 @@ cd empty
 
 
 %files -f %{pyproject_files}
-%doc docs/*.md
+%doc docs/README.md
+%doc docs/changelog.rst
 
 %{_bindir}/pipx
 %{_mandir}/man1/pipx.1*

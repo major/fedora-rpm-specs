@@ -11,7 +11,7 @@
 
 Name:           miracle-wm
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
@@ -114,6 +114,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 13 2026 Adam Williamson <awilliam@redhat.com> - 0.9.1-1
 - Update to 0.9.1
 

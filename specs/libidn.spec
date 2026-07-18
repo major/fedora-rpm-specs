@@ -9,7 +9,7 @@
 Summary: Internationalized Domain Name support library
 Name: libidn
 Version: 1.44
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnu.org/software/libidn/
 License: (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
@@ -196,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT%{_javadir}/libidn*.jar
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1.44-1
 - update to 1.44
 

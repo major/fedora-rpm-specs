@@ -1,6 +1,6 @@
 Name:          perl-Net-IMAP-Simple
 Version:       1.2212
-Release:       21%{?dist}
+Release:       22%{?dist}
 Summary:       Simple IMAP account handling
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/Net-IMAP-Simple
@@ -81,6 +81,9 @@ make %{?_smp_mflags} test I_PROMISE_TO_TEST_SINGLE_THREADED=1
 %{_mandir}/man3/Net::IMAP::SimpleX.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2212-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2212-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Runtime inspection utilities for typing module
 
 License:        MIT
@@ -51,6 +51,9 @@ inspection of types defined in the standard "typing" module.
 %doc README.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9.0-13
 - Rebuilt for Python 3.15
 

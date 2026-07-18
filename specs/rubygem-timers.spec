@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.0.1
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Pure Ruby one-shot and periodic timers
 License: MIT
 URL: https://github.com/celluloid/timers
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/timers.gemspec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

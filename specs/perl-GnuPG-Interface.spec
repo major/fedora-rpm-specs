@@ -1,6 +1,6 @@
 Name:           perl-GnuPG-Interface
 Version:        1.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to GnuPG
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GnuPG-Interface
@@ -77,6 +77,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 28 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.07-1
 - Update to 1.07
 - Remove no-longer-needed patch

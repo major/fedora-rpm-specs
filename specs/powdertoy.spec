@@ -9,7 +9,7 @@ URL: https://powdertoy.co.uk
 License: GPL-3.0-only AND MIT
 
 Version: 100.0.399
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -144,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 100.0.399-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 100.0.399-1
 - Update to v100.0.399
 - License change: "GPL-3.0-only AND Apache-2.0 AND MIT" -> "GPL-3.0-only AND MIT"

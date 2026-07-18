@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 # SPDX confirmed
@@ -130,6 +130,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-3
 - Update tex dependency again
 

@@ -8,7 +8,7 @@ Version:       1.18.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       10%{?dist}
+Release:       11%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -96,6 +96,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.18.0-10
 - Rebuilt for Python 3.15
 

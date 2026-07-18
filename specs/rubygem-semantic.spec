@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.6.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Utility class for parsing, storing, and comparing versions
 
 License:        MIT
@@ -59,6 +59,9 @@ rspec -Ilib spec
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

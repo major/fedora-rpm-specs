@@ -4,7 +4,7 @@ Summary:        Generic IMAP server compliancy tester
 Name:           imaptest
 # Upstream is not really planning on adding version numbers
 Version:        20260529
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            https://dovecot.github.io/imaptest/
 Source0:        https://github.com/dovecot/imaptest/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -58,6 +58,9 @@ $RPM_BUILD_ROOT%{_bindir}/%{name} --help
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260529-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Robert Scheck <robert@fedoraproject.org> 20260529-1
 - Upgrade to 20260529
 

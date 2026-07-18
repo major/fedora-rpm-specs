@@ -1,6 +1,6 @@
 Name:    pinfo
 Version: 0.6.13
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: An info file viewer
 License: GPL-2.0-only
 
@@ -56,6 +56,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/pinfo.1*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.13-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

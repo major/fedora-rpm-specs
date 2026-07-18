@@ -1,6 +1,6 @@
 Name:           perl-XML-LibXML-Devel-SetLineNumber
 Version:        0.002
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Set the line number for an XML::LibXML::Node
 # README:       GPL+ or Artistic
 # COPYRIGHT:    Public Domain
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

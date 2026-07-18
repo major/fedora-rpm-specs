@@ -1,6 +1,6 @@
 Name:		lightpack
 Version:        5.11.2.31
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Hardware implementation of the backlight
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND SMLNJ AND BSD-3-Clause AND MIT
@@ -77,6 +77,9 @@ desktop-file-install Software/dist_linux/package_template/usr/share/applications
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.2.31-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.2.31-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

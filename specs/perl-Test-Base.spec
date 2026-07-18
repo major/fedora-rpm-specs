@@ -7,7 +7,7 @@
 
 Name:           perl-Test-Base
 Version:        0.89
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Data Driven Testing Framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Base
@@ -162,6 +162,9 @@ make test %{?with_perl_Test_Base_enables_extra_test:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.89-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.89-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

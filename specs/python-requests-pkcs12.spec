@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.27
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -62,6 +62,9 @@ fi
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.27-4
 - Rebuilt for openssl 4.0
 

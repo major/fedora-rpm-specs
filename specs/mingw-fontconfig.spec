@@ -2,7 +2,7 @@
 
 Name:           mingw-fontconfig
 Version:        2.18.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows Fontconfig library
 
 License:        MIT
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 12 2026 Sandro Mani <manisandro@gmail.com> - 2.18.2-1
 - Update to 2.18.2
 

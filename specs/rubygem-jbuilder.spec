@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.13.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Create JSON structures via a Builder-style DSL
 License: MIT
 URL: https://github.com/rails/jbuilder
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/gemfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

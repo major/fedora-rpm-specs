@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.0.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Lexical scanner generator that is used with Racc to generate Ruby programs
 # LGPL-2.1-or-later: lib/rexical/generator.rb
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.8-2
 - Update License tag
 - Prefer https over http for upstream URL

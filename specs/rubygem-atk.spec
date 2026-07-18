@@ -10,7 +10,7 @@
 Summary:	Ruby binding of ATK-1.0.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -138,6 +138,9 @@ popd
 %exclude %{gem_instdir}/test/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.7-1
 - 4.3.7
 

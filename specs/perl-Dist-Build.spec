@@ -1,6 +1,6 @@
 Name:           perl-Dist-Build
 Version:        0.028
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern module builder with author tools not included
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -103,6 +103,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Dist::Build*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.028-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 22 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.028-1
 - Update to 0.028
 - Update BR/Requires

@@ -1,7 +1,7 @@
 Summary:        OpenBGPD Routing Daemon
 Name:           openbgpd
 Version:        9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 # OpenBGPD itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h
 # BSD-3-Clause: compat/{fmt_scaled,setproctitle,sha2,vis}.c and include/{sha2_openbsd,util,vis,sys/queue}.h
@@ -81,6 +81,9 @@ install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %dir %attr(0711,root,root) %{_localstatedir}/empty/bgpd/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 18 2026 Robert Scheck <robert@fedoraproject.org> 9.1-1
 - Upgrade to 9.1 (#2457823)
 

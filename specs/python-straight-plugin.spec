@@ -1,6 +1,6 @@
 Name:           python-straight-plugin
 Version:        1.5.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Python plugin loader
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -78,6 +78,9 @@ rm -f %{buildroot}%{python3_sitelib}/straight*pth
 %doc README.rst AUTHORS
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 18 2026 Kevin Fenzi <kevin@scrye.com> - 1.5.0-37
 - Modernize spec some. Fixes rhbz#2378255
 - Remove pth file that causes anoying warnings. Fixes rhbz#2486067

@@ -28,7 +28,7 @@
 
 Name:           mixxx
 Version:        2.5.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mixxx is open source software for DJ'ing
 # main sources are under GPL-2.0-or-later, except:
 # lib/fidlib LGPL-2.1
@@ -210,6 +210,9 @@ appstreamcli \
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.6-4
 - Rebuilt for openssl 4.0
 

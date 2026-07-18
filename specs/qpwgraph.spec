@@ -2,7 +2,7 @@
 
 Name:           qpwgraph
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PipeWire Graph Qt GUI Interface
 # Main license is GPL-2.0-or-later in sources,
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/qpwgraph.1.gz
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.3-1
 - Update to 1.0.3
 

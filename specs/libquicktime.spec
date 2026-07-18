@@ -19,7 +19,7 @@
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4^%{date}git%{shortcommit}
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{commit}.zip
@@ -138,6 +138,9 @@ rm -v %{buildroot}%{_libdir}/%{name}{,/lqt_*}.la
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4^20240202git2213b76-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Xavier Bachelot <xavier@bachelot.org> - 1.2.4^20240202git2213b76-4
 - Disable orphaned gtk2 on F45+
 

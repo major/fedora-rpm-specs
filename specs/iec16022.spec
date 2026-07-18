@@ -2,7 +2,7 @@
 
 Name:           iec16022
 Version:        0.3.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Generate ISO/IEC 16022 2D barcodes
 
 License:        GPL-2.0-or-later
@@ -82,6 +82,9 @@ make -C test check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Perl module implementing the Diffie-Hellman key exchange system
 Name:		perl-Crypt-DH
 Version:	0.07
-Release:	40%{?dist}
+Release:	41%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DH
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-DH-%{version}.tar.gz
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Crypt::DH.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

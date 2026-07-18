@@ -2,7 +2,7 @@
 
 Name:           libscrypt
 Version:        1.22
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library that implements the secure password hashing function "scrypt"
 License:        BSD-2-Clause
 URL:            http://www.lolware.net/libscrypt.html
@@ -60,6 +60,9 @@ make check
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 22 2026 Denis Fateyev <denis@fateyev.com> - 1.22-12
 - Added upstream patches
 - Fix library build

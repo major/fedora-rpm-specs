@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        1.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -105,6 +105,9 @@ and header files for developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/librarymanager6.tar.bz2
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 1.12.0-2
 - Rebuild (qt6)
 

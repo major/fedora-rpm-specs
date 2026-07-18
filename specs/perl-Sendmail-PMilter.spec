@@ -1,7 +1,7 @@
 Summary:	Perl binding of Sendmail Milter protocol
 Name:		perl-Sendmail-PMilter
 Version:	1.28
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD-3-Clause
 URL:		https://metacpan.org/release/Sendmail-PMilter
 Source0:	https://cpan.metacpan.org/authors/id/G/GW/GWHAYWOOD/Sendmail-PMilter-%{version}.tar.gz
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Sendmail::PMilter::Context.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul  3 2026 Paul Howarth <paul@city-fan.org> - 1.28-1
 - Update to 1.28
   - Proper handling of NULL mail-from (CPAN RT#179844)

@@ -2,7 +2,7 @@
 
 Name:       python-copr-common
 Version:    1.7
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -79,6 +79,9 @@ version=%version %py3_install
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.7-2
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name:           jakarta-saaj
 Version:        3.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SOAP with Attachments API for Java
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -65,6 +65,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

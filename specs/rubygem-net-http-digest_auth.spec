@@ -6,7 +6,7 @@
 Summary:	Implementation of RFC 2617 - Digest Access Authentication
 Name:		rubygem-%{gem_name}
 Version:	1.4.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 # README.txt
 License:	MIT
@@ -106,6 +106,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

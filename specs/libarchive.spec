@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -242,6 +242,9 @@ run_testsuite
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 3.8.8-2
 - Backport patch to fix seek errors visible in importctl
 

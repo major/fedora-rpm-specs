@@ -5,7 +5,7 @@
 
 Name:           perl-Log-Agent
 Version:        1.005
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Logging agent
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Log-Agent
@@ -168,6 +168,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

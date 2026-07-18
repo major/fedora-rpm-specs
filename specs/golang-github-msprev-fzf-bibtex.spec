@@ -19,7 +19,7 @@ Name:           %{goname}
 # Upstream includes release notes for past releases, but does not post 
 # tarballs or use git tags, so we ship the latest Git snapshot.
 Version:        1.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A BibTeX source for fzf
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.1-21
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

@@ -3,7 +3,7 @@
 
 Name:           python-qcengine
 Version:        0.50.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A compute wrapper for Quantum Chemistry
 License:        BSD-3-Clause
 URL:            https://github.com/MolSSI/QCEngine
@@ -69,6 +69,9 @@ sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 %{_bindir}/qcengine
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.50.0-2
 - Rebuilt for Python 3.15
 

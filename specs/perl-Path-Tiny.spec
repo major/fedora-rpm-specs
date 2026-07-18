@@ -7,7 +7,7 @@
 
 Name:		perl-Path-Tiny
 Version:	0.150
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
 URL:		https://metacpan.org/release/Path-Tiny
@@ -120,6 +120,9 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.150-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.150-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

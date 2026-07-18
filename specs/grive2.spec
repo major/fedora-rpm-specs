@@ -4,7 +4,7 @@
 
 Name:           grive2
 Version:        0.5.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 #Release:        22.%%{commit_date}git%%{shortcommit}%%{?dist}
 Summary:        Google Drive client
 
@@ -72,6 +72,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libexecdir}/grive
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 02 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.5.3-14
 - allow to build with CMake 4.0 (rhbz#2380629) - thanks to Cristian Le
 - spec cleanup for cmake, systemd-rpm-macros & scriptlets, enable tests

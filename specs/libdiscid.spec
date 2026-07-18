@@ -1,6 +1,6 @@
 Name:           libdiscid
 Version:        0.6.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C Library for creating MusicBrainz DiscIDs
 
 License:        LGPL-2.1-or-later
@@ -52,6 +52,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

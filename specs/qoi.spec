@@ -3,7 +3,7 @@
 
 Name: qoi
 Version: 0^%{snapdate}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The "Quite OK Image Format" for fast, lossless image compression
 
 License: MIT
@@ -57,6 +57,9 @@ install -p qoi.h %{buildroot}/%{_includedir}
 %{_includedir}/qoi.h
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20260214-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 23 2026 ErrorNoInternet <errornointernet@envs.net> - 0^20260214-1
 - Bump commit to 6fff9b70dd79b12f808b0acc5cb44fde9998725e
 

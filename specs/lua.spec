@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -230,6 +230,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 5.5.0-2
 - modify luaconf.h to add detection for loongarch64.
 

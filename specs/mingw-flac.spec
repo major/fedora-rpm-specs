@@ -2,7 +2,7 @@
 
 Name:           mingw-flac
 Version:        1.4.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Encoder/decoder for the Free Lossless Audio Codec
 
 License:        BSD-3-Clause AND GPL-2.0-or-later AND GFDL-1.1-or-later
@@ -159,6 +159,9 @@ rm %{buildroot}%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

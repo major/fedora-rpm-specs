@@ -7,7 +7,7 @@
 
 Name:		perl-IO-Compress-Lzma
 Version:	2.217
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-Compress-Lzma
@@ -101,6 +101,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.217-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
 - Update to 2.217
   - Delete XZ environment variable before running interop tests

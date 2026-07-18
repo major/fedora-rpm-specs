@@ -6,12 +6,12 @@
 
 Name: hunspell-gl
 Summary: Galician hunspell dictionaries
-%global upstreamid 20080515
+%global upstreamid 20180729
 Version: 0.%{upstreamid}
-Release: 36%{?dist}
-Source: https://downloads.sourceforge.net/project/aoo-extensions/800/2/corrector_ooo3.oxt
-URL: http://wiki.mancomun.org/index.php/Corrector_ortogr%C3%A1fico_para_OpenOffice.org#Descrici.C3.B3n
-License: GPL-2.0-only
+Release: 1%{?dist}
+Source: https://extensions.libreoffice.org/assets/downloads/z/corrector-18-07-para-galego.oxt
+URL: https://extensions.libreoffice.org/en/extensions/show/corrector-ortografico-para-galego
+License: GPL-3.0-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -27,14 +27,21 @@ Galician hunspell dictionaries.
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-
+cp -p gl.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/gl_ES.dic
+cp -p gl.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/gl_ES.aff
 
 %files
-%doc dictionaries/README-gl-ES.txt
-%{_datadir}/%{dict_dirname}/*
+%doc readme.txt readme-gl.txt
+%license license*.txt
+%{_datadir}/%{dict_dirname}/gl_ES.*
 
 %changelog
+* Thu Jul 16 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20180729-1
+- Update to new upstream with latest release
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080515-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080515-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

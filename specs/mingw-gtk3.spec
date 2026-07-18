@@ -7,7 +7,7 @@
 Name:           mingw-gtk3
 # Drop Source2 on next update!
 Version:        3.24.52
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPL-2.0-or-later
@@ -310,6 +310,9 @@ fi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.52-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 3.24.52-2
 - Rebuild (mingw-gettext)
 

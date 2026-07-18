@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.31.3
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -161,6 +161,9 @@ intended to be run by users.
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Peter Hutterer <peter.hutterer@redhat.com> - 1.31.3-1
 - libinput 1.31.3
 

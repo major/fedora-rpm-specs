@@ -1,13 +1,12 @@
 Name:           perl-Test2-Plugin-Cover
-%global cpan_version 0.000027
-Version:        0.0.27
-Release:        16%{?dist}
+%global cpan_version 0.000028
+Version:        0.0.28
+Release:        1%{?dist}
 Summary:        Collect minimal file coverage data
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Plugin-Cover
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Plugin-Cover-%{cpan_version}.tar.gz
-# Adjust line numbers after adding shebangs, no suitable for upstream
+# Adjust line numbers after adding shebangs, not suitable for upstream
 Patch0:         Test2-Plugin-Cover-0.000027-Adapt-tests-to-added-shebangs.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -22,9 +21,10 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Path::Tiny) >= 0.048
-BuildRequires:  perl(Storable)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test2::API) >= 1.302166
 BuildRequires:  perl(Test2::EventFacet) >= 1.302166
 BuildRequires:  perl(Test2::Util::HashBase)
@@ -33,6 +33,7 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Test2::V0) >= 0.000130
+Requires:       perl(Data::Dumper)
 Requires:       perl(Path::Tiny) >= 0.048
 Requires:       perl(Test2::API) >= 1.302166
 Requires:       perl(Test2::EventFacet) >= 1.302166
@@ -92,13 +93,21 @@ make test
 %license LICENSE
 %doc Changes README
 %{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Test2*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/Test2
+%dir %{perl_vendorarch}/Test2/EventFacet
+%{perl_vendorarch}/Test2/EventFacet/Coverage.pm
+%dir %{perl_vendorarch}/Test2/Plugin
+%{perl_vendorarch}/Test2/Plugin/Cover.pm
+%{_mandir}/man3/Test2::EventFacet::Coverage.*
+%{_mandir}/man3/Test2::Plugin::Cover.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Petr Pisar <ppisar@redhat.com> - 0.0.28-1
+- 0.000028 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.27-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

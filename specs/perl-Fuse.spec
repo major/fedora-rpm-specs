@@ -3,7 +3,7 @@
 
 Name:           perl-Fuse
 Version:        0.16.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Write filesystems in Perl using FUSE
 # LGPL-2.1-only: Reference from metadata
 # (GPL-2.0-or-later OR LGPL-2.1-or-later): same license as fuse as mention in README
@@ -85,6 +85,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

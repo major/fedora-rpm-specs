@@ -24,7 +24,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Lightweight library for event-based programming
 Version:        5.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            http://sabre.io/event
 License:        BSD-3-Clause
@@ -129,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Remi Collet <remi@remirepo.net> - 5.1.8-1
 - update to 5.1.8
 - re-license spec file to CECILL-2.1

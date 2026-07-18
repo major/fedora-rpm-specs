@@ -3,7 +3,7 @@
 
 Name:           perl-CPAN-Meta-Requirements
 Version:        2.145
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
@@ -94,6 +94,9 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.145-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 31 2026 Paul Howarth <paul@city-fan.org> - 2.145-1
 - Update to 2.145 (rhbz#2435673)
   - Correct "normalization of 0" code to work correctly with vstrings (GH#46)

@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Action-REST
 Version:        1.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automated REST Method Dispatching
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -109,6 +109,9 @@ regular method.
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 05 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.22-1
 - Update to 1.22
 - Use %%{?make_build} and %%{?make_install} where appropriate

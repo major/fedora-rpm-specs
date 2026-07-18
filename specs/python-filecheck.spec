@@ -5,7 +5,7 @@
 
 Name: python-%{pypi_name}
 Version: 1.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
 URL: https://github.com/AntonLydike/filecheck
@@ -62,6 +62,9 @@ fi
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.0.3-2
 - Rebuilt for Python 3.15
 

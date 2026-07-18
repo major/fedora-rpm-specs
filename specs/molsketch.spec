@@ -1,6 +1,6 @@
 Name:           molsketch
 Version:        0.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPL-2.0-or-later
 URL:            http://molsketch.sourceforge.net
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.8.4-3
 - Rebuild for openbabel-3.2.0
 

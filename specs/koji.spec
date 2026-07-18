@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.36.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -387,6 +387,9 @@ PYTHONPATH=.:plugins/hub/.:plugins/builder/.:plugins/cli/.:cli/.:www/lib
 %systemd_postun kojira.service
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 12 2026 Kevin Fenzi <kevin@scrye.com> - 1.36.1-2
 - Fix sbindir shebangs on epel10.
 

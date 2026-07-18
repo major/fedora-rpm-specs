@@ -1,6 +1,6 @@
 Name:      python-sphinxcontrib-doxylink
 Version:   1.13.0
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   A Sphinx extension to link to external Doxygen API documentation
 License:   BSD-2-Clause
 URL:       https://github.com/sphinx-contrib/doxylink
@@ -48,6 +48,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.13.0-8
 - Rebuilt for Python 3.15
 

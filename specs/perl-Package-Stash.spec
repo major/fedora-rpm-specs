@@ -7,7 +7,7 @@
 
 Name:		perl-Package-Stash
 Version:	0.40
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Routines for manipulating stashes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Stash
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/Package::Stash::PP.3*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@ with its fields.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Library for read/write access of binary data via structures
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -68,6 +68,9 @@ find . -type f -print0 |          \
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-38
 - Rebuilt for Python 3.15
 

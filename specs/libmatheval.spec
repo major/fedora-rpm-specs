@@ -1,6 +1,6 @@
 Name:           libmatheval
 Version:        1.1.11
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for parsing and evaluating symbolic expressions input as text
 
 License:        GPL-3.0-or-later
@@ -66,6 +66,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           pugixml
 Version:        1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A light-weight C++ XML processing library
 License:        MIT
 URL:            https://pugixml.org/
@@ -72,6 +72,9 @@ Documentation for %{name}
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Richard Shaw <hobbes1069@gmail.com> - 1.16-1
 - update to 1.16.
 

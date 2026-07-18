@@ -9,7 +9,7 @@
 
 Name:      libicu77
 Version:   77.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Compat package with icu 77.1 libraries
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -122,6 +122,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 77.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 05 2026 Mike FABIAN <mfabian@redhat.com> - 77.1-1
 - Initial compat package
 

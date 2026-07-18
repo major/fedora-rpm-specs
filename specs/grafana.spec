@@ -26,7 +26,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1153,6 +1153,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 1 2026 Sam Feifer <sfeifer@redhat.com> - 12.4.3-2
 - Fix patch 1002 to work with newer golang versions
 

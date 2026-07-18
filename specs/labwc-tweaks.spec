@@ -1,6 +1,6 @@
 Name:           labwc-tweaks
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI configuration app for labwc
 
 License:        GPL-2.0-only and BSD-3-Clause
@@ -51,6 +51,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/labwc_tweaks.desktop
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 31 2026 Nikolas Nyby <nikolas@gnu.org> - 0.1.0-1
 - New upstream version 0.1.0
 

@@ -11,7 +11,7 @@
 Name:    kf5-%{framework}
 Epoch:   1
 Version: 5.116.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: The KHolidays Library
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
@@ -91,6 +91,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.116.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.116.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

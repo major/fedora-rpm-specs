@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.8.1
-Release:	105%{?dist}
+Release:	106%{?dist}
 
 Summary:	LALR(1) parser generator
 # SPDX confirmed
@@ -108,6 +108,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-106
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-105
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

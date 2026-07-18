@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.5.2
-Release:        10%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        11%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A set of abstractions extracted out of the Symfony, version %{major}
 
 License:        MIT
@@ -176,6 +176,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

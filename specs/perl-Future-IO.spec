@@ -1,6 +1,6 @@
 Name:           perl-Future-IO
 Version:        0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Future-returning IO core methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -56,6 +56,9 @@ their results asynchronously via Future instances.
 %{_mandir}/man3/Future*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Mar 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.23-1
 - Update to 0.23
 

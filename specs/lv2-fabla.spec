@@ -4,7 +4,7 @@
 
 Name:           lv2-fabla
 Version:        1.3.2
-Release:        0.16.%{prerelease}git%{shortcommit}%{?dist}
+Release:        0.17.%{prerelease}git%{shortcommit}%{?dist}
 Summary:        An LV2 drum sequencer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ mkdir -p %{buildroot}/%{_libdir}/lv2
 %{_libdir}/lv2/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-0.17.20181215gitabeb3e9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-0.16.20181215gitabeb3e9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

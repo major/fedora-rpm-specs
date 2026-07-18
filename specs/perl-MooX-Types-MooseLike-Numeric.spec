@@ -1,6 +1,6 @@
 Name:           perl-MooX-Types-MooseLike-Numeric
 Version:        1.03
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Moo types for numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Types-MooseLike-Numeric
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Petr Pisar <ppisar@redhat.com> - 1.03-29
 - Moderize a spec file
 - Package the tests

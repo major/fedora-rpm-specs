@@ -1,6 +1,6 @@
 Name:           perl-IO-Stty
 Version:        0.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Change and print terminal line settings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Stty
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-1
 - 0.08 bump (rhbz#2449112)
 - Package tests

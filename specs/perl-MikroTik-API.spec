@@ -1,6 +1,6 @@
 Name:           perl-MikroTik-API
 Version:        2.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Client for the MikroTik RouterOS API
 License:        MIT
 URL:            https://metacpan.org/dist/MikroTik-API
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

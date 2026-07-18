@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.40.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3542,6 +3542,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.40.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.02-1
 - Update to 6.40.02
 - Rename the jupyroot and distrdf packages to reflect that they are

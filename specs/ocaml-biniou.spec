@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-biniou
 Version:        1.2.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ sed -i '/bdump/d' .ofiles
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 1.2.2-19
 - OCaml 5.5.0 rebuild
 - Use the dune declarative buildsystem

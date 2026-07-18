@@ -1,6 +1,6 @@
 Name:           perl-HTML-FormatText-WithLinks-AndTables
 Version:        0.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Converts HTML to Text with tables in tact
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/HTML-FormatText-WithLinks-AndTables
@@ -60,6 +60,9 @@ using <BR/> tags.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

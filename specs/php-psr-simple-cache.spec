@@ -24,7 +24,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       18%{?github_release}%{?dist}
+Release:       19%{?github_release}%{?dist}
 Summary:       Common interfaces for simple caching (PSR-16)
 
 License:       MIT
@@ -104,6 +104,9 @@ cp -rp src %{buildroot}%{phpdir}/Psr/SimpleCache
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

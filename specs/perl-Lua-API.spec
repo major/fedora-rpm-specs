@@ -1,6 +1,6 @@
 Name:           perl-Lua-API
 Version:        0.04
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Interface to Lua's embedding API
 License:        GPL-3.0-or-later
 
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

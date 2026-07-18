@@ -1,6 +1,6 @@
 Name: java-scrypt
 Version: 1.4.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Java implementation of scrypt
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -47,6 +47,9 @@ find -name '*.jar' -print -delete
 %license LICENSE
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMime Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6Mime/
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jul 04 2026 Steve Cossette <farchord@gmail.com> - 6.28.0-1
 - 6.28.0
 

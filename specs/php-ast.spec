@@ -26,7 +26,7 @@ Summary:       Abstract Syntax Tree
 Name:          php-ast
 License:       BSD-3-Clause
 Version:       1.1.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -119,6 +119,9 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_extdi
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 1.1.3-4
 - drop pear/pecl dependency
 - sources from github

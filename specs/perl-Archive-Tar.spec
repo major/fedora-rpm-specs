@@ -7,7 +7,7 @@
 
 Name:           perl-Archive-Tar
 Version:        3.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A module for Perl manipulation of .tar files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Tar
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.12-1
 - 3.12 bump (rhbz#2484188)
 - Fix CVE-2026-42496

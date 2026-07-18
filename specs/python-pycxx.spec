@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        7.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Write Python extensions in C++
 
 License:        BSD-3-Clause
@@ -94,6 +94,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 barry Scott <barry@barrys-emacs.org> - 7.2.0-2
 - remove percent macro from comment onm 7.2.0-1
 
