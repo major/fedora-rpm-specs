@@ -2,7 +2,7 @@
 
 Name:           srt
 Version:        1.5.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPL-2.0
@@ -91,6 +91,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Yanko Kaneti <yaneti@declera.com> - 1.5.5-1
 - Update to 1.5.5
 

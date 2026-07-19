@@ -2,7 +2,7 @@
 
 Name:           yagf
 Version:        0.9.5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Graphical front-end for cuneiform
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/YAGF.desktop
 %{_datadir}/appdata/YAGF.appdata.xml
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

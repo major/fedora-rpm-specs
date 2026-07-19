@@ -5,7 +5,7 @@
 Name:           texlive-collection-xetex
 Epoch:          12
 Version:        svn78834
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        XeTeX and packages
 
 License:        LPPL-1.3c
@@ -1257,6 +1257,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/xelatex/zbmath-review-template/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78834-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78834-10
 - artificial release bump to avoid conflict from component migration
 

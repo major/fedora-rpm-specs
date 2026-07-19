@@ -1,7 +1,7 @@
 Summary:          Simple tool to decode X.509 certificates
 Name:             x509viewer
 Version:          0.1.0
-Release:          20%{?dist}
+Release:          21%{?dist}
 License:          GPL-2.0-or-later
 URL:              https://ftp.robert-scheck.de/linux/%{name}/
 Source:           https://ftp.robert-scheck.de/linux/%{name}/%{name}-%{version}.tar.gz
@@ -29,6 +29,9 @@ SSL certificates, CSRs (certificate signing requests), but also private keys.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.1.0-20
 - Rebuilt for openssl 4.0
 

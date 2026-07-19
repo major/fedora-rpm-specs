@@ -6,7 +6,7 @@
 Summary: Analysis plugins for use with setroubleshoot
 Name: setroubleshoot-plugins
 Version: 3.3.15
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/plugins
 Source0: https://gitlab.com/-/project/24478430/uploads/1d856bff1c9fb16a8c6fc877d7fe91ca/setroubleshoot-plugins-3.3.15.tar.gz
@@ -51,6 +51,9 @@ rm -rf %{buildroot}
 %{_datadir}/setroubleshoot/plugins
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.15-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 07 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.15-7
 - Split multi-command fix_cmds into lists
 - catchall: Discourage creating custom policy modules

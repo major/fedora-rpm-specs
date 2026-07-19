@@ -1,6 +1,6 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -160,6 +160,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99991-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 30 2026 Michal Schorm <mschorm@redhat.com> - 0.99991-9
 - Move ODBC driver plugins to %%{_libdir}/odbc/ (rhbz#2453060)
 

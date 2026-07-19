@@ -3,7 +3,7 @@
 Name:           texlive-scheme-gust
 Epoch:          12
 Version:        svn59755
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GUST TeX Live scheme
 
 License:        LPPL-1.3c
@@ -61,6 +61,9 @@ Polish plain TeX, LaTeX and ConTeXt documents in PostScript or PDF.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn59755-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn59755-3
 - drop useless Requires: texlive-gustprog (empty tarball upstream)
 

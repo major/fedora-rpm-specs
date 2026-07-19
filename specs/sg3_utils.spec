@@ -4,7 +4,7 @@
 Summary: Utilities for devices that use SCSI command sets
 Name:    sg3_utils
 Version: 1.48
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-2.0-or-later AND BSD-2-Clause
 URL:     https://sg.danny.cz/sg/sg3_utils.html
 Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
@@ -157,6 +157,9 @@ install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Paul Evans <pevans@redhat.com> - 1.48-10
 - sg_inq: export output conformance for SCSI name string (RHEL-188083)
 

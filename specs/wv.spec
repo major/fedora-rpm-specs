@@ -1,7 +1,7 @@
 Name:       wv
 Summary:    MSWord 6/7/8/9 binary file format to HTML converter
 Version:    1.2.9
-Release:    34%{?dist}
+Release:    35%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 URL:        http://www.abisource.com/downloads/wv/
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.la" -exec rm -f {} \;
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

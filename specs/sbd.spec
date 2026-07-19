@@ -19,7 +19,7 @@
 %global shortcommit %(echo %{longcommit}|cut -c1-8)
 %global modified %(echo %{longcommit}-|cut -f2 -d-)
 %global github_owner Clusterlabs
-%global baserelease 5
+%global baserelease 6
 
 %ifarch s390x s390
 # minimum timeout on LPAR diag288 watchdog is 15s
@@ -178,6 +178,9 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 3 2026 Klaus Wenninger <kwenning@redhat.com> - 1.5.2-5
 - remove unused update counter in sbd-pacemaker
 

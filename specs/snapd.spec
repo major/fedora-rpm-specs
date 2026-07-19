@@ -78,7 +78,7 @@
 
 Name:           snapd
 Version:        2.76
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        A transactional software package manager
 License:        GPL-3.0-only
 URL:            https://%{provider_prefix}
@@ -972,6 +972,9 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 28 2026 Ernest Lotter <ernest.lotter@canonical.com>
 - New upstream release 2.76
  - assertions: add helper for validating integrity data

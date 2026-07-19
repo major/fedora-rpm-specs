@@ -4,7 +4,7 @@
 
 Name:           vim-%upstream_name
 Version:        4.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -82,6 +82,9 @@ done
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

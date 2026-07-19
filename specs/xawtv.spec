@@ -3,7 +3,7 @@
 Summary: TV applications for video4linux compliant devices
 Name: xawtv
 Version: 3.107
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://linuxtv.org/wiki/index.php/Xawtv
@@ -170,6 +170,9 @@ install -p -m 644 v4l-conf.policy $RPM_BUILD_ROOT%{_datadir}/polkit-1/actions/or
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.107-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.107-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

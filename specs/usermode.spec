@@ -9,7 +9,7 @@
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL-2.0-or-later
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
@@ -115,6 +115,9 @@ done
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

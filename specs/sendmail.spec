@@ -42,7 +42,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -765,6 +765,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 8.18.2-5
 - Fix build with OpenSSL 4.0 (bound openssl-devel-engine to Fedora < 45)
 

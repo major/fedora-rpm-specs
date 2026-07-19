@@ -1,6 +1,6 @@
 Name:		sblim-sfcCommon
 Version:	1.0.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Common functions for SBLIM Small Footprint CIM Broker and CIM Client Library.
 
 License:	EPL-1.0
@@ -58,6 +58,9 @@ rm -f %{buildroot}/%{_libdir}/libsfcUtil.la
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

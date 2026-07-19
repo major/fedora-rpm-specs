@@ -1,6 +1,6 @@
 Name:           sugar-speak
 Version:        59
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Speak for Sugar
 
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
@@ -50,6 +50,9 @@ find  %{buildroot}%{sugaractivitydir}Speak.activity/activity.py  -type f -name \
 %{sugaractivitydir}/Speak.activity/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 59-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 59-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Name: sox
 # This workaround will go away with rebase to 14.4.3
 # it affects Source, %%prep and Version
 Version: 14.4.2.0
-Release: 44%{?dist}
+Release: 45%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 # Modified source tarball with libgsm license, without unlicensed liblpc10:
@@ -151,6 +151,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/sox/*.a
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.4.2.0-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.4.2.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

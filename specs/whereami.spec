@@ -1,6 +1,6 @@
 Name:           whereami
 Version:        1.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Displays work location
 
 License:        GPL-3.0-or-later
@@ -38,6 +38,9 @@ on several machines at the same time.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

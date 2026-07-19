@@ -1,6 +1,6 @@
 Name:           ternimal
 Version:        0.1.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Simulate a lifeform in the terminal
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -30,6 +30,9 @@ install -Dpm0755 -t %{buildroot}%{_bindir} ternimal
 %{_bindir}/ternimal
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

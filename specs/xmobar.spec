@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        0.50
 # can only be reset when all subpkgs bumped
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A minimalistic text-based status bar
 
 License:        BSD-3-Clause
@@ -247,6 +247,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 0.50-37
 - https://hackage.haskell.org/package/xmobar-0.50/changelog
 

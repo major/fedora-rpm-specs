@@ -9,7 +9,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.6.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -305,6 +305,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Ruprich <mruprich@redhat.com> - 1:4.6.7-1
 - New version 4.6.7
 

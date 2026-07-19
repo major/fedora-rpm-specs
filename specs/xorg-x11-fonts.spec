@@ -32,7 +32,7 @@ fi										\
 Summary:    X.Org X11 fonts
 Name:       xorg-x11-fonts
 Version:    7.5
-Release:    42%{?dist}
+Release:    43%{?dist}
 License:    HPND AND Adobe-Utopia AND Cronyx AND MIT AND Lucida-Bitmap-Fonts AND Bitstream-Charter AND X11
 URL:        https://www.x.org
 
@@ -975,6 +975,9 @@ mkfontdir %{_x11fontdir}/cyrillic || :
 %ghost %verify(not md5 size mtime) %{_x11fontdir}/cyrillic/fonts.cache-*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.5-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.5-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

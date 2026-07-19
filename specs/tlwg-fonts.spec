@@ -8,7 +8,7 @@ BuildRequires: make
 BuildRequires: fontforge >= 20071110
 
 Version: 0.7.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL-2.0-or-later AND Bitstream-Vera
 URL:     https://linux.thai.net/projects/fonts-tlwg
 
@@ -224,6 +224,9 @@ make
 %fontfiles -a
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

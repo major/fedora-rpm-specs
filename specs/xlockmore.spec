@@ -1,7 +1,7 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
 Version: 5.88
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://sillycycle.com/xlockmore.html
@@ -116,6 +116,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.88-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Adrian Reber <adrian@lisas.de> - 5.88-1
 - Updated to 5.88 (#2425617)
 

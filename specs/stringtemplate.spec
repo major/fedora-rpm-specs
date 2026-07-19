@@ -1,7 +1,7 @@
 Summary: A Java template engine
 Name: stringtemplate
 Version: 3.2.1
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: BSD-3-Clause
 URL: http://www.stringtemplate.org/
 Source0: http://www.stringtemplate.org/download/stringtemplate-%{version}.tar.gz
@@ -60,6 +60,9 @@ ant javadocs -Dpackages= -Djavadocs.additionalparam="-Xdoclint:none"
 %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xwaylandvideobridge
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-1
 - Update to 0.5.0
 

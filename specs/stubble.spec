@@ -8,7 +8,7 @@
 
 Name:           stubble
 Version:        0.0~%{commitdate}git%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        UEFI kernel boot stub with auto-DTB selection
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ubuntu/%{name}
@@ -48,6 +48,9 @@ stubble is compatible with systemd-stub(7) and ukify(1).
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0~20260320git765b1f3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr  7 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.0~20260320git765b1f3-4
 - Sync with upstream for new hwids (rhbz#2455189)
 

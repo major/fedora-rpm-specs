@@ -9,7 +9,7 @@
 
 Name:           sqlite2
 Version:        2.8.17
-Release:        48%{?dist}
+Release:        49%{?dist}
 
 Summary:        Embeddable SQL engine in a C library
 License:        blessing AND LicenseRef-Fedora-Public-Domain
@@ -153,6 +153,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/tclsqlite
 %{tcl_sitearch}/sqlite2/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.17-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.17-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

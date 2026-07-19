@@ -5,27 +5,21 @@
 %global crate circular-buffer
 
 Name:           rust-circular-buffer
-Version:        1.2.0
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Efficient, fixed-size, overwriting circular buffer
+Summary:        Efficient circular buffer implementation
 
 License:        BSD-3-Clause
 URL:            https://crates.io/crates/circular-buffer
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks.
-# * Update a couple of dev-dependencies across SemVer boundaries (drop-tracker
-#   0.2, rand 0.10; rand requires a source-code patch):
-#   https://github.com/andreacorbellini/rust-circular-buffer/pull/21
 Patch:          circular-buffer-fix-metadata.diff
-# * Source-code patch for rand 0.10, backported to v1.2.0, from
-#   https://github.com/andreacorbellini/rust-circular-buffer/pull/21
-Patch10:        0001-Update-rand-dev-dependency-from-0.9.2-to-0.10.1.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Efficient, fixed-size, overwriting circular buffer.}
+Efficient circular buffer implementation.}
 
 %description %{_description}
 
@@ -78,18 +72,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+use_std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use_std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use_std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

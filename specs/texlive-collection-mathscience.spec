@@ -5,7 +5,7 @@
 Name:           texlive-collection-mathscience
 Epoch:          12
 Version:        svn78771
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mathematics, natural sciences, computer science packages
 
 License:        LPPL-1.3c
@@ -8623,6 +8623,9 @@ popd
 %doc %{_texmf_main}/doc/latex/zx-calculus/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78771-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78771-2
 - Update collection from svn77561 to svn78771
 - Add chempid

@@ -5,7 +5,7 @@
 
 Name:		tcl-%{realname}
 Version:	1.5.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Epoch:		1
 Summary:	Tcl extension for Virtual Filesystem support
 License:	MIT
@@ -47,6 +47,9 @@ chmod +x %{buildroot}%{tcl_sitearch}/vfs1.5.0/template/fishvfs.tcl
 %{_mandir}/mann/vfs*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

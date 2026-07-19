@@ -14,7 +14,7 @@
 Summary:    Xorg X11 qxl video driver
 Name:       xorg-x11-drv-qxl
 Version:    0.1.6
-Release:    9%{?dist}
+Release:    10%{?dist}
 URL:        http://www.x.org
 License:    MIT
 
@@ -101,6 +101,9 @@ install -p -m 644 examples/spiceqxl.xorg.conf.example \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

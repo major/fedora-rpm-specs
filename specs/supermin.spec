@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.5
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -211,6 +211,9 @@ make check || {
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 5.3.5-10
 - OCaml 5.5.0 rebuild
 

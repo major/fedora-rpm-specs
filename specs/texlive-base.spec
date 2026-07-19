@@ -32,7 +32,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 112%{?dist}
+Release: 113%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -10072,6 +10072,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:20260301-113
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 12:20260301-112
 - Rebuilt for icu 78.3
 

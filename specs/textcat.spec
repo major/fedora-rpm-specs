@@ -1,6 +1,6 @@
 Name:			textcat
 Version:		1.10
-Release:		24%{?dist}
+Release:		25%{?dist}
 Summary:		Written language identification
 %{?el5:Group:		Applications/Text}
 
@@ -65,6 +65,9 @@ done
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

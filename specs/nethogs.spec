@@ -1,6 +1,6 @@
 Name:           nethogs
-Version:        0.8.8
-Release:        5%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A tool resembling top for network traffic
 
 License:        GPL-1.0-or-later
@@ -15,7 +15,7 @@ BuildRequires:  libstdc++-devel, ncurses-devel, libpcap-devel, gcc-c++
 %description
 NetHogs is a small "net top" tool.
 
-Instead of breaking the traffic down per protocol or per subnet, like
+Instead of breaking the traffic down per protocol or per sub-network, like
 most such tools do, it groups bandwidth by process and does not rely
 on a special kernel module to be loaded.
 
@@ -39,11 +39,14 @@ mkdir -p "${RPM_BUILD_ROOT}%{_mandir}/man8"
 install -m 0644 doc/nethogs.8 "${RPM_BUILD_ROOT}%{_mandir}/man8/"
 
 %files
-%doc INSTALL DESIGN README.md
+%doc DESIGN README.md
 %{_sbindir}/nethogs
 %doc %{_mandir}/man*/*
 
 %changelog
+* Fri Jul 17 2026 Anderson Silva <ansilva@redhat.com> - 0.9.0-1
+- Update to 0.9.0.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

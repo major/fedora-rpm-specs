@@ -1,6 +1,6 @@
 Name:           system-rules
 Version:        1.19.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A collection of JUnit rules for testing code which uses java.lang.System
 # Automatically converted from old format: CPL - review is highly recommended.
 License:        CPL-1.0
@@ -59,6 +59,9 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 %license LICENSE
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

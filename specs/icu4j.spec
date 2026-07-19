@@ -14,18 +14,13 @@ Source:         %{giturl}/archive/release-%{version}.tar.gz
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-resources-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
 BuildRequires:  mvn(pl.pragmatists:JUnitParams)
 
@@ -91,6 +86,13 @@ cd icu4j
 %pom_remove_plugin :maven-project-info-reports-plugin
 %pom_remove_plugin :maven-release-plugin
 %pom_remove_plugin :maven-site-plugin
+
+# Plugins that are not actually used in the build
+%pom_remove_plugin -r :exec-maven-plugin
+%pom_remove_plugin -r :maven-dependency-plugin
+%pom_remove_plugin :maven-assembly-plugin
+%pom_remove_plugin :maven-failsafe-plugin
+%pom_remove_plugin :maven-source-plugin
 
 # Modules we do not want to ship
 %pom_disable_module demos

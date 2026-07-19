@@ -3,7 +3,7 @@
 
 Name:		tkrzw
 Version:	1.0.32
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A straightforward implementation of DBM
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
@@ -111,6 +111,9 @@ install -t %{buildroot}%{_mandir}/man1 -m 0644 -p tkrzw_*.1
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.32-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 23 2026 Peng Wu <pwu@redhat.com> - 1.0.32-4
 - Use make check when build
 

@@ -1,6 +1,6 @@
 Name:		since
 Version:	1.1
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Stateful tail replacement
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -36,6 +36,9 @@ chmod 644 $RPM_BUILD_ROOT/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

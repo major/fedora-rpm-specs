@@ -3,7 +3,7 @@
 
 Name:     wdisplays
 Version:  1.1.3
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  GUI display configurator for wlroots compositors
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:  GPL-3.0-or-later
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 %clean
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

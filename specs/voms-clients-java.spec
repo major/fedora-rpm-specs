@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -167,6 +167,9 @@ fi
 %license LICENSE
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

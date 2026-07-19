@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 4.101
-Release: 22%{?dist}
+Release: 23%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           vernnobile
@@ -46,6 +46,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.101-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.101-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

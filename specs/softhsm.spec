@@ -5,7 +5,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
@@ -133,6 +133,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Alexander Bokovoy <abokovoy@redhat.com> - 2.7.0-1
 - Update to upstream release 2.7.0
 - Skip SHA-1 signing, DSA, and single DES tests when not supported

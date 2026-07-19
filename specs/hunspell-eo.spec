@@ -9,7 +9,7 @@ Summary: Esperanto hunspell dictionaries
 %global upstreamid 20100218
 Version: 0.%{upstreamid}
 Epoch: 1
-Release: 21%{?dist}
+Release: 22%{?dist}
 Source: http://www.esperantilo.org/literumilo-fontoj.tar.gz
 URL: http://www.esperantilo.org
 License: GPL-2.0-or-later
@@ -24,9 +24,17 @@ Esperanto hunspell dictionaries.
 %prep
 %autosetup -n literumilo-fontoj
 
-iconv --from=ISO-8859-1 --to=UTF-8 eo_morf.dic > eo_morf.dic.new && \
-touch -r eo_morf.dic eo_morf.dic.new && \
-mv eo_morf.dic.new eo_morf.dic
+for i in eo_morf.dic; do
+  if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
+    iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
+    touch -r $i $i.new
+    mv -f $i.new $i
+  fi
+  tr -d '\r' < $i > $i.new
+  touch -r $i $i.new
+  mv -f $i.new $i
+done
+
 
 %build
 chmod -x *
@@ -47,6 +55,9 @@ cp -p eo_morf.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/eo.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jul 17 2026 Parag Nemade <panemade AT redhat DOT com> - 1:0.20100218-22
+- Fix the conversion again for eo.dic file
+
 * Thu Jul 16 2026 Parag Nemade <panemade AT redhat DOT com> - 1:0.20100218-21
 - Convert eo.dic to UTF-8 enconding format
 

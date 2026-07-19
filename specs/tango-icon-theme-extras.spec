@@ -1,6 +1,6 @@
 Name:		tango-icon-theme-extras
 Version:	0.1.0
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Extra Icons from the Tango Project
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -63,6 +63,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/Tango 2> /dev/null ||:
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

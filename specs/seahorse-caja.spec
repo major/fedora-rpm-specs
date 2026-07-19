@@ -3,7 +3,7 @@ Name:           seahorse-caja
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Version:        1.18.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 URL:            https://github.com/darkshram/%{name}
 Source0:        https://github.com/darkshram/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 Patch1:         seahorse-fix-building-w-gpgme2.patch
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mate-seahorse-pgp-sig
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

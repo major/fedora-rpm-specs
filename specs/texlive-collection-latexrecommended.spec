@@ -5,7 +5,7 @@
 Name:           texlive-collection-latexrecommended
 Epoch:          12
 Version:        svn78568
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LaTeX recommended packages
 
 License:        LPPL-1.3c
@@ -2045,6 +2045,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/xelatex/xunicode/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78568-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78568-3
 - Update collection from svn77082 to svn78568
 - Update 57 components

@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        9.2.4
+Version:        9.2.8
 Release:        %autorelease
 Summary:        Environmental Modules System in Lua
 
@@ -59,6 +59,7 @@ sed -i -e '/^#!/d' init/*.in
 
 
 %build
+export PATH_TO_CSH=%{_bindir}/csh
 %if 0%{?rhel} && 0%{?rhel} <= 6
 %configure --prefix=%{_datadir} PS=/bin/ps
 %else

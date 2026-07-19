@@ -1,6 +1,6 @@
 Name:           touchegg
 Version:        2.0.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Multi-touch gesture recognizer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

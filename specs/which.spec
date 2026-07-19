@@ -3,7 +3,7 @@
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.25
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-only
 Url: https://savannah.gnu.org/projects/which/
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 29 2026 Than Ngo <than@redhat.com> - 2.25-1
 - Fix rhbz#2480548, update to 2.25 
 

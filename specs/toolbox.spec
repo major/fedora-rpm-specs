@@ -42,7 +42,7 @@ Version:       0.3
 %endif
 %endif
 
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -197,6 +197,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3-5
 - Rebuilt for openssl 4.0
 

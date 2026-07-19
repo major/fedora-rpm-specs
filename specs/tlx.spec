@@ -1,6 +1,6 @@
 Name:           tlx
 Version:        0.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Sophisticated C++ data structures, algorithms, and helpers
 
 License:        BSL-1.0
@@ -83,6 +83,9 @@ doxygen
 %doc doxygen-html
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

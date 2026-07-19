@@ -91,6 +91,9 @@ Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 # https://github.com/haskell/cabal/issues/9734
 Patch6: Cabal-configure-ghc-version-warning.patch
 
+# sphinx9
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
+
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
@@ -422,6 +425,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P4 -p1 -b .orig
 %patch -P5 -p1 -b .orig
 %patch -P6 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

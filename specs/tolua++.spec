@@ -2,7 +2,7 @@
 
 Name:           tolua++
 Version:        1.0.93
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        A tool to integrate C/C++ code with Lua
 License:        MIT
 # Upstream is defunct, so no URL
@@ -82,6 +82,9 @@ install -p -m 644 src/bin/lua/*.lua $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.93-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.0.93-46
 - rebuild
 

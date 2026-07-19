@@ -1,6 +1,6 @@
 Name:           schroedinger-cat-backgrounds
 Version:        18.91.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Schrödinger's Cat desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -180,6 +180,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/xfce4/backdrops/*.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.91.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.91.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

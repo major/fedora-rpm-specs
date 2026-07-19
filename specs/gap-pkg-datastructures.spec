@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/datastructures
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Standard data structures for GAP
 
@@ -10,9 +10,6 @@ License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/datastructures/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
-# Fix an instance of undefined behavior due to a left shift of a signed integer
-# https://github.com/gap-packages/datastructures/pull/160
-Patch:          %{name}-undefined-behavior.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -21,7 +18,6 @@ BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
 BuildRequires:  make

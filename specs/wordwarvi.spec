@@ -2,7 +2,7 @@
 
 Name:           wordwarvi
 Version:        1.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Accidentally used 1.1 for 1.0.1
 Epoch:          1
 %forgemeta
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1:1.0.4-2
 - Fix SPDX license expression: 'GPL-2.0-only AND CC-BY-3.0 AND CC-BY-SA-3.0'
 - 'ogg_to_pcm.c' is GPL-2.0-only (from vorbis-tools), not GPL-2.0-or-later

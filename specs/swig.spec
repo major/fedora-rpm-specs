@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.4.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -400,6 +400,9 @@ _EOF
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.4.1-7
 - Rebuilt for Python 3.15
 

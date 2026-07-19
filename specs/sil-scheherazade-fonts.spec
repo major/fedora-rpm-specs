@@ -2,7 +2,7 @@
 BuildArch: noarch
 
 Version:    4.400
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://software.sil.org/%{projectname}/
 
 %global foundry           SIL
@@ -54,6 +54,9 @@ rm -rf documentation/source documentation/pdf
 %fontfiles -a
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.400-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Mar 10 2026 Tarik ROKHSANE <trkrksn@proton.me> - 4.400-1
 - Update to new upstream release 4.400
 - Remove fontconfig scaling matrix (upstream resized glyphs to match standard

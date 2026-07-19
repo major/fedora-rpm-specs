@@ -3,7 +3,7 @@
 
 Name: vdrift
 Version:  20141020
-Release:  35.git%{shortcommit}%{?dist}
+Release:  36.git%{shortcommit}%{?dist}
 Summary: Driving/drift racing simulation
 
 License: GPL-3.0-or-later
@@ -144,6 +144,9 @@ EOF
 %{_datadir}/vdrift
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20141020-36.git5ae309f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20141020-35.git5ae309f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

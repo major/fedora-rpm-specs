@@ -87,7 +87,7 @@ ExcludeArch: %{ix86}
 
 Name:        sympa
 Version:     6.2.78
-Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}.1
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -829,6 +829,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.78-3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 10 2026 Xavier Bachelot <xavier@bachelot.org> - 6.2.78-3
 - Add upstream patch to fix old style CLI
 - Update URL:

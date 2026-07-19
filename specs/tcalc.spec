@@ -1,6 +1,6 @@
 Name:           tcalc
 Version:        2.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        The terminal calculator
 
 License:        GPL-3.0-or-later
@@ -55,6 +55,9 @@ mv test test2 examples/
 %{_infodir}/%{name}.info*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.1-25
 - Add a patch to fix compilation errors
 

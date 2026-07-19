@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -306,6 +306,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -28,7 +28,7 @@
 
 Name:           vdr
 Version:        2.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -550,6 +550,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.8.2-1
 - Update to 2.8.2 API version 13
 

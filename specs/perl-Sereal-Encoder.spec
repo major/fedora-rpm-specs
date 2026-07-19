@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.008
-Release:        2%{?dist}
+Version:        5.009
+Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -124,6 +124,12 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Fri Jul 17 2026 Paul Howarth <paul@city-fan.org> - 5.009-1
+- Update to 5.009 (rhbz#2501695)
+  - Only use Perl's $Config{ccflags} when building bundled zstd on AIX/IBM
+    toolchains, or when SEREAL_ZSTD_USE_CONFIG_CCFLAGS is set; other platforms
+    now use the normal zstd build flags again
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.008-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

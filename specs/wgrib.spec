@@ -1,6 +1,6 @@
 Name:           wgrib
 Version:        1.8.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Manipulate, inventory and decode GRIB files
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -70,6 +70,9 @@ gcc %{build_cflags} %{build_ldflags} -o testbin testbin.c -lm
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:       scl-utils
 Epoch:      1
 Version:    2.0.3
-Release:    8%{dist}
+Release:    9%{dist}
 Summary:    Utilities for alternative packaging
 
 License:    GPL-2.0-or-later
@@ -89,6 +89,9 @@ ln -s prefixes conf
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 13 2026 Remi Collet <remi@remirepo.net> - 1:2.0.3-8
 - raise cmake minimum version to 3.5
 - use arch-agnostic test for packaging /usr/lib64 (Joe Orton, PR #2)

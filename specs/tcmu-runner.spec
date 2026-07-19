@@ -3,7 +3,7 @@ Name:           tcmu-runner
 License:        LGPL-2.1-or-later OR Apache-2.0
 Summary:        A daemon that supports LIO userspace backends
 Version:        1.5.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 URL:            https://github.com/open-iscsi/tcmu-runner
 Source:         https://github.com/open-iscsi/tcmu-runner/archive/v%{version}.tar.gz
 Patch0:         read_conf.patch
@@ -81,6 +81,9 @@ cp -a libtcmu.h libtcmu_common.h libtcmu_log.h tcmu-runner.h %{buildroot}%{_incl
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.5.4-15
 - Use standard CMake macros (rhbz#2381145)
 

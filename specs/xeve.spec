@@ -1,6 +1,6 @@
 Name:           xeve
 Version:        0.5.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Reference MPEG-5 Part 1 (EVC) encoder
 
 License:        BSD-3-Clause
@@ -98,6 +98,9 @@ rm -rfv %{buildroot}%{_libdir}/%{name}*
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

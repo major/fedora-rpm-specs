@@ -6,7 +6,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: %{basever}%{?snapdate:^git%{snapdate}.%{shortcommit}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -99,6 +99,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2^git20220525.b9aeec6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.2^git20220525.b9aeec6-2
 - Rebuilt for openssl 4.0
 

@@ -4,7 +4,7 @@
 
 Name:		smbcmp
 Version:	0.1
-Release:	26%{?dist}
+Release:	27%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Small curses utility to diff, compare and debug SMB network traces
@@ -52,6 +52,9 @@ sed -i 's|curses||' setup.py
 %{_bindir}/%{name}-gui
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1-26
 - Rebuilt for Python 3.15
 

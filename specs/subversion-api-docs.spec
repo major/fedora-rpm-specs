@@ -1,6 +1,6 @@
 Name:           subversion-api-docs
 Version:        1.14.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Subversion API documentation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_docdir}/subversion/api-docs
 %doc %{_docdir}/subversion/api-docs/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

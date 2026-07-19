@@ -1,6 +1,6 @@
 Name:           tlock
 Version:        1.6
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Terminal lock
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -55,6 +55,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/librpass.la
 %_mandir/man3/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

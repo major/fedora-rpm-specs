@@ -1,6 +1,6 @@
 Name:           sway
 Version:        1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        i3-compatible window manager for Wayland
 
 %global tag     %{gsub %{version} ~ -}
@@ -180,6 +180,9 @@ install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 %{_datadir}/backgrounds/sway
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 25 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.12-1
 - Update to 1.12 (rhbz#2481236)
 

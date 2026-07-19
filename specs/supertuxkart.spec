@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5-3
 - Rebuilt for openssl 4.0
 

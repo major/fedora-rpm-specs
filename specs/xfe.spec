@@ -7,7 +7,7 @@
 
 Name:		xfe
 Version:	%{main_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -172,6 +172,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.7-1
 - 2.1.7
 

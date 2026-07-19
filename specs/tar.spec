@@ -10,7 +10,7 @@ Summary: GNU file archiving program
 Name: tar
 Epoch: 2
 Version: 1.35
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/tar/
 
@@ -159,6 +159,9 @@ make check || (
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.35-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jan 21 2026 Pavel Cahyna <pcahyna@redhat.com> - 2:1.35-8
 - Backport upstream fix for savannah bug 65838, commit 1e6ce98e (fedora#2427654)
 - added "padding with zeros" info message (#2089298)

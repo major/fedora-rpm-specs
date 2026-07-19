@@ -24,7 +24,7 @@ Name: sid
 Epoch: %{rhel}
 %endif
 Version: 0.0.7
-Release: 3%{?scmsnap:.%{scmsnap}}%{?dist}
+Release: 4%{?scmsnap:.%{scmsnap}}%{?dist}
 Summary: Storage Instantiation Daemon (SID)
 
 License: GPL-2.0-or-later
@@ -499,6 +499,9 @@ Daemon (SID).
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

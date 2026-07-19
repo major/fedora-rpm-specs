@@ -7,7 +7,7 @@
 Summary:       Network traffic recorder
 Name:          tcpflow
 Version:       1.6.2
-Release:       0.2.%{shortcommit}%{?dist}
+Release:       0.3.%{shortcommit}%{?dist}
 License:       GPL-1.0-or-later
 URL:           https://github.com/simsong/tcpflow
 # Tarball created by
@@ -55,6 +55,9 @@ make check || :
 %{_mandir}/man1/tcpflow.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-0.3.8d47b53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.2-0.2.8d47b53
 - Rebuilt for openssl 4.0
 

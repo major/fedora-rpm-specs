@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -696,6 +696,9 @@ popd
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72890-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-11
 - Update texlive-common, texlive-msg-translations
 - fix missing -doc provides/obsoletes

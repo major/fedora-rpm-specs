@@ -5,7 +5,7 @@
 
 Name:           yosys
 Version:        0.67
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        3.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -173,6 +173,9 @@ install -m 0644 docs/build/latex/yosyshqyosys.pdf %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-3.20260713git22c15a7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.67.2.20260713git22c15a7
 - update to newer 0.67 snapshot
 - simplify downstream (un-bundling) patch since some upstream support added

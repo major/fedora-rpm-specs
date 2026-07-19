@@ -1,6 +1,6 @@
 Name:           xeus-zmq
 Version:        3.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ZeroMQ based middleware for xeus
 
 License:        BSD-3-Clause
@@ -68,6 +68,9 @@ Development files for xeus-zmq
 %{_libdir}/libxeus-zmq.so
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-2
 - Rebuilt for openssl 4.0
 

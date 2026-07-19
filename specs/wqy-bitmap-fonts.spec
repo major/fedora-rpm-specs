@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0.0
-Release:        0.31.rc1%{?dist}
+Release:        0.32.rc1%{?dist}
 Summary:        WenQuanYi Bitmap Chinese Fonts
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -57,6 +57,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc AUTHORS ChangeLog COPYING README LOGO.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.32.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.31.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

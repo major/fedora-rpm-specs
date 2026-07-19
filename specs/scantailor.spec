@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           scantailor
 Version:        0.9.11.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        An interactive post-processing tool for scanned pages
 
 License:        GPL-3.0-or-later OR LGPL-2.1-only
@@ -71,6 +71,9 @@ make tests
 %{_datadir}/icons/hicolor/scalable/apps/scantailor.svg
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

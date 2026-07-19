@@ -5,7 +5,7 @@
 Name:           texlive-collection-langjapanese
 Epoch:          12
 Version:        svn76651
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Japanese
 
 License:        LPPL-1.3c
@@ -1774,6 +1774,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/zxjatype/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn76651-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-5
 - Drop unpackaged "optional" dependency
 

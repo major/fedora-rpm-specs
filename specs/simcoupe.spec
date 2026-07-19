@@ -1,6 +1,6 @@
 Name:           simcoupe
 Version:        1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        SAM Coupe emulator (spectrum compatible)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 1.0-41
 - Fix annocheck failures: pass '%{build_ldflags}' via LDFLAGS to the linker
 

@@ -2,7 +2,7 @@
 
 Name:           transactional-update
 Version:        6.0.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
@@ -202,6 +202,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 27 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.0.6-2
 - Split snapper plugin into its own subpackage
 

@@ -2,7 +2,7 @@
 
 Name:           supertux
 Version:        0.6.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Jump'n run like game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/supertux2.desktop
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Mar 20 2026 Cristian Le <git@lecris.dev> - 0.6.3-19
 - Allow to build with CMake 4.0 (rhbz#2380810)
 

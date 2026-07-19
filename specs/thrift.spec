@@ -71,7 +71,7 @@
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
 Version: 0.20.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -449,6 +449,9 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20.0-11
 - Rebuilt for openssl 4.0
 

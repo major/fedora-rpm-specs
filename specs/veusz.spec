@@ -1,6 +1,6 @@
 Name:           veusz
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -115,6 +115,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 21 2026 Jeremy Sanders <jeremy@jeremysanders> - 4.2.1-1
 - Update to new Python packaging guidelines
 - Update appdata location to _metainfodir

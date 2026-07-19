@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.37
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
@@ -192,6 +192,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.37-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 3.3.37-2
 - Remove the obsolete libxml2-python3 dependency
 

@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Space arcade game for multiple players
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -223,6 +223,9 @@ install -pD -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{logwatch_scripts}/shared/applyx
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 2 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 4.7.3-38
 - Use sysusers to create xpilot user for xpilot-ng-server (rhbz#2432687)
 

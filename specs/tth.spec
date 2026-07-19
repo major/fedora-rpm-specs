@@ -3,7 +3,7 @@
 
 Name:           tth
 Version:        4.16
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        TeX to HTML/MathML translators
 
 License:        GPL-2.0-only
@@ -251,6 +251,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Feb 09 2026 Jerry James <loganjerry@gmail.com> - 4.16-10
 - Fix FTBFS with TeXLive 2025
 

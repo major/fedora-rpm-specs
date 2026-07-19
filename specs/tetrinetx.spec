@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        The GNU TetriNET server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -110,6 +110,9 @@ install -m0644 -D tetrinetx.sysusers.conf %{buildroot}%{_sysusersdir}/tetrinetx.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

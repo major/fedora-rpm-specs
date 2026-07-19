@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	12
+%define	release	13
 
 Name:           %{name}
 Version:        %{version}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.4.0-12
 - Rebuilt for Python 3.15
 

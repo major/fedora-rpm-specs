@@ -1,6 +1,6 @@
 Name:           xmlpull
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        XML Pull Parsing API
 
 # Automatically converted from old format: Public Domain - needs further work
@@ -47,6 +47,9 @@ rm xmlpull/src/main/java/module-info.java
 %doc %{name}/README.adoc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

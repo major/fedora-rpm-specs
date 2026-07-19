@@ -24,7 +24,7 @@
 
 Name: ucx
 Version: 1.19.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -412,6 +412,9 @@ Infiniband datagrams for out-of-band communications.
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 1.19.0-2
 - Relax use of -Werror
 

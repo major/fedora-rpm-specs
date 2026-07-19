@@ -15,7 +15,7 @@
 
 Name:           traverso
 Version:        0.49.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Multitrack Audio Recording and Editing Suite
 
 License:        GPL-2.0-or-later
@@ -143,6 +143,9 @@ install -pm 644 resources/x-%{name}.xml %{buildroot}%{_datadir}/mime/packages/
 %{_datadir}/mime/packages/*.xml
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.49.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.49.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

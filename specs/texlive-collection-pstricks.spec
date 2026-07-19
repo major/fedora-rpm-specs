@@ -5,7 +5,7 @@
 Name:           texlive-collection-pstricks
 Epoch:          12
 Version:        svn78700
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PSTricks
 
 License:        LPPL-1.3c
@@ -3302,6 +3302,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/vocaltract/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78700-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78700-2
 - Update collection from svn77232 to svn78700
 - Add pst-spectrum

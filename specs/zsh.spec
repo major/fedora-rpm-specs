@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 
@@ -154,6 +154,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 13 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.2-1
 - rebase to the latest upstream release (rhbz#2499540)
 

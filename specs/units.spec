@@ -1,7 +1,7 @@
 Summary: A utility for converting amounts from one unit to another
 Name: units
 Version: 2.27
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://ftp.gnu.org/gnu/units/%{name}-%{version}.tar.gz
 Source1: units.tmpfiles.conf
 URL: https://www.gnu.org/software/units/units.html
@@ -84,6 +84,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.27-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 21 2026 Jan Macku <jamacku@redhat.com> - 2.27-2
 - fix units compatibility with Image Mode
 

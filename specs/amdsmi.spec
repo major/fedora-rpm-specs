@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -84,7 +84,7 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    3%{?dist}
+Release:    0%{?dist}
 %else
 Release:    7%{?dist}
 %endif
@@ -113,7 +113,7 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 %if %{without preview}
 %global esmi_ver 4.2
 %else
-%global esmi_ver 5.1.1
+%global esmi_ver 5.2.1
 %endif
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
 %if %{without preview}
@@ -123,6 +123,8 @@ Patch2:     0001-amdsmi-silence-pack-warnings.patch
 %else
 # https://github.com/ROCm/rocm-systems/issues/4535
 Patch1:     0001-amdsmi-so-libamdsminic.patch
+# https://github.com/ROCm/rocm-systems/issues/8761
+Patch2:     0001-amdsmi-remove-esmi-version-check.patch
 %endif
 
 ExclusiveArch: x86_64
@@ -144,6 +146,11 @@ BuildRequires: gtest
 %else
 BuildRequires: gtest-devel
 %endif
+%endif
+
+%if %{with preview}
+BuildRequires: libnl3-devel
+BuildRequires: libmnl-devel
 %endif
 
 %if %{without compat}

@@ -3,7 +3,7 @@
 Summary:       Virtualization host metrics daemon
 Name:          vhostmd
 Version:       1.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 URL:           https://github.com/vhostmd/vhostmd
@@ -159,6 +159,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/vhostmd/scripts/pagerate.pl
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jan 20 2026 Nils Koenig <nkoenig@redhat.com> - 1.2-1
 - Updated to upstream version 1.2 plus latest fixes
 

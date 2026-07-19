@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    sddm-kcm
 Version: 6.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: SDDM KDE configuration module
 
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC0-1.0 AND (GPL-2.0-only OR GPL-3.0-only)
@@ -69,6 +69,9 @@ SDDM Display Manager
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1
 - 6.7.3
 

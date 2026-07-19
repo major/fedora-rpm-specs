@@ -1,7 +1,7 @@
 Summary: A security tool which acts as a wrapper for TCP daemons
 Name: tcp_wrappers
 Version: 7.6
-Release: 112%{?dist}
+Release: 113%{?dist}
 
 %global LIB_MAJOR 0
 %global LIB_MINOR 7
@@ -157,6 +157,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man3/*
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-113
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-112
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

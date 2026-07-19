@@ -31,7 +31,7 @@ PATH=%{buildroot}%{_bindir}:${PATH}
 
 Name:           tomcli
 Version:        0.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CLI for working with TOML files. Pronounced "tom clee."
 
 License:        MIT
@@ -143,6 +143,9 @@ test "${newname}" = "not-tomcli"
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.10.1-5
 - Rebuilt for Python 3.15
 

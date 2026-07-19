@@ -1,6 +1,6 @@
 Name:		sugar-srilanka
 Version:	4
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Game about the geography of Sri Lanka
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -39,6 +39,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/IknowSriLanka.activity/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

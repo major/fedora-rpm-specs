@@ -1,6 +1,6 @@
 Name:           vobcopy
 Version:        1.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to copy DVD .vob files to disk
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ rm -r %{buildroot}%{_datadir}/doc
 %lang(de) %{_mandir}/de/man1/vobcopy.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 24 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.2.4-1
 - update to 1.2.4 (resolves rhbz#2480338)
 - drop merged patch and obsolete workaround

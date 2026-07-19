@@ -1,6 +1,6 @@
 Name:           x2godesktopsharing
 Version:        3.2.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Share X11 desktops with other users via X2Go
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ install -m0644 -D x2godesktopsharing.sysusers.conf %{buildroot}%{_sysusersdir}/x
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

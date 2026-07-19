@@ -1,6 +1,6 @@
 Name:           urlwatch
 Version:        2.29
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A tool for monitoring webpages for updates
 
 License:        LicenseRef-Callaway-BSD
@@ -72,6 +72,9 @@ popd
 %{python3_sitelib}/%{name}*.dist-info
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.29-5
 - Rebuilt for Python 3.15
 

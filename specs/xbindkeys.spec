@@ -1,6 +1,6 @@
 Name:           xbindkeys
 Version:        1.8.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 Summary:        Binds keys or mouse buttons to shell commands under X
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -37,6 +37,9 @@ LDFLAGS="-lpthread" %{make_build}
 %attr(0644, root, root) %{_mandir}/man?/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:           texlive-scheme-context
 Epoch:          12
 Version:        svn75426
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ConTeXt scheme
 
 License:        LPPL-1.3c
@@ -83,6 +83,9 @@ ConTeXt.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn75426-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn75426-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

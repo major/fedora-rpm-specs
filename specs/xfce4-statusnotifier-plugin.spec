@@ -3,7 +3,7 @@
 
 Name:           xfce4-statusnotifier-plugin
 Version:        0.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Panel area status notifier plugin for Xfce4
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -54,6 +54,9 @@ fi
 %{_datadir}/xfce4/panel/plugins/statusnotifier.desktop
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

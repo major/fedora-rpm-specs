@@ -1,6 +1,6 @@
 Name:           x2goclient
 Version:        4.1.2.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        X2Go Client application
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -135,6 +135,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

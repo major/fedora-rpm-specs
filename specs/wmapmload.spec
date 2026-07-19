@@ -1,6 +1,6 @@
 Name:           wmapmload
 Version:        0.3.4
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Wmapmload monitors your apm status in an lcd display fashion
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -37,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

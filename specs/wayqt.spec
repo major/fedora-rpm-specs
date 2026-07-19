@@ -1,6 +1,6 @@
 Name:           wayqt
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Qt-based library to handle Wayland and Wlroots protocols
 License:        MIT
 URL:            https://gitlab.com/desktop-frameworks/%{name}
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{docdir}/wayqt/ReleaseNotes
 %{_libdir}/pkgconfig/wayqt-qt6.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri May 15 2026 Jan Grulich <jgrulich@redhat.com> - 0.3.0-3
 - Rebuild (qt6)
 

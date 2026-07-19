@@ -3,7 +3,7 @@
 Name:           texlive-scheme-bookpub
 Epoch:          12
 Version:        svn63547
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        book publishing scheme (core LaTeX and add-ons)
 
 License:        LPPL-1.3c
@@ -58,6 +58,9 @@ does it contain additional mathematical or other technical packages.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn63547-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn63547-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

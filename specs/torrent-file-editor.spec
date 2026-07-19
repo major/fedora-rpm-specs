@@ -2,7 +2,7 @@
 
 Name:           torrent-file-editor
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Edit and create torrent files
 
 # Most code licensed with GPL3+
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{cid}.metainf
 %{_metainfodir}/%{cid}.metainfo.xml
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 05 2026 Ivan Romanov <drizt72@zoho.eu> - 1.0.3-1
 - Bump to v1.0.3
 

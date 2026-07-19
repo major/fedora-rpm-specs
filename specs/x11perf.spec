@@ -1,6 +1,6 @@
 Name:       x11perf
 Version:    1.6.1
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    X11 server performance test program
 
 License:    SMLNJ AND HPND
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/x11perfcomp
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

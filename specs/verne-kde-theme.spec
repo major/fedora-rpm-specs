@@ -1,6 +1,6 @@
 Name:		verne-kde-theme
 Version:	15.91.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Verne KDE Theme
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -83,6 +83,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 %{_kde4_appsdir}/ksplash/Themes/Verne/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.91.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.91.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

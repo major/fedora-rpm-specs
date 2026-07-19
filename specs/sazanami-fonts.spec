@@ -18,7 +18,7 @@
 
 Name: sazanami-fonts
 Version: 0.%{srcver}
-Release: 50%{?dist}
+Release: 51%{?dist}
 URL:     http://efont.sourceforge.jp/
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 BuildRequires: fonttools
@@ -184,6 +184,9 @@ ln -sf $(realpath --relative-to=$RPM_BUILD_ROOT%{catalogue} $RPM_BUILD_ROOT%{_fo
 %verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname1}/fonts.alias
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040629-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040629-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

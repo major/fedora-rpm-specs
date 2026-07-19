@@ -1,6 +1,6 @@
 Name:           waf
 Version:        2.1.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python-based build system
 # The entire source code is BSD apart from pproc.py (taken from Python 2.5)
 # Automatically converted from old format: BSD and Python - review is highly recommended.
@@ -138,6 +138,9 @@ rm -f docs/sphinx/build/html/.buildinfo
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.9-4
 - Rebuilt for Python 3.15
 

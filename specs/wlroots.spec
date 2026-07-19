@@ -5,7 +5,7 @@
 
 Name:           wlroots
 Version:        0.20.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 %global tag     %{gsub %{version} ~ -}
@@ -143,6 +143,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 07 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.20.2-1
 - Update to 0.20.2 (#2497891)
 

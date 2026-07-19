@@ -1,6 +1,6 @@
 Name:           waynergy
 Version:        0.0.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Synergy client for Wayland compositors
 # Most sources are MIT or ISC, uSynergy header is zlib
 # KDE Wayland protocol XML files are LGPL-2.1-or-later
@@ -64,6 +64,9 @@ KDE private protocol functionality.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           rust-zincati
 Version:        0.0.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -151,6 +151,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.32-2
 - Rebuilt for openssl 4.0
 

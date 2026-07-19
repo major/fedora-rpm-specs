@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.28.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -62,6 +62,9 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Clark Williams <williams@redhat.com> - 1.28.1-1
 - stalld: bump version to 1.28.1
 - tests: Fix journal flush race in logging destinations test

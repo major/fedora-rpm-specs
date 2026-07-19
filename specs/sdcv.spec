@@ -1,6 +1,6 @@
 Name:           sdcv
 Version:        0.5.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Console version of StarDict program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ SDCV - простая, консольная утилита работы
 %{_mandir}/uk/man1/sdcv.1.gz
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.5-1
 - Update to v0.5.5
 

@@ -6,7 +6,7 @@
 Summary: A utility for unpacking zip files
 Name: unzip
 Version: 6.0
-Release: 69%{?dist}
+Release: 70%{?dist}
 License: Info-ZIP
 Source: http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 
@@ -147,6 +147,9 @@ make -f unix/Makefile prefix=$RPM_BUILD_ROOT%{_prefix} MANDIR=$RPM_BUILD_ROOT%{_
 %{_mandir}/*/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-70
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

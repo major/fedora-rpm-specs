@@ -1,6 +1,6 @@
 Name:           shrinkpdf
 Version:        1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple wrapper around Ghostscript to shrink PDFs
 
 # License mentioned in README.md
@@ -39,6 +39,9 @@ install -p -m 0755 %{name}.sh -D %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 26 2026 Raphael Groner <raphgro@fedoraproject.org> - 1.2-2
 - adjust license BSD
 

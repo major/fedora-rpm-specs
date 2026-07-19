@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 5.000
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -53,6 +53,9 @@ Source10: 62-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.000-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.000-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

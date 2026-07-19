@@ -1,7 +1,7 @@
 Summary:    A GNU utility for monitoring a program's use of system resources
 Name:       time
 Version:    1.9
-Release:    28%{?dist}
+Release:    29%{?dist}
 # src/time.c:               GPL-3.0-or-later
 # COPYING:                  GPL-3.0 text
 # doc/time.texi:            GFDL-1.3-no-invariants-or-later
@@ -122,6 +122,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 # time(1) manual page lives in man-pages package, bug #1612294.
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

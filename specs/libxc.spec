@@ -15,13 +15,15 @@
 
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
-Version:        7.0.0
-Release:        12%{?dist}
+Version:        7.1.0
+Release:        1%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
-# Don't rebuild libxc for pylibxc
-Patch0:         libxc-7.0.0-pylibxc.patch
 URL:            http://www.tddft.org/programs/octopus/wiki/index.php/Libxc
+
+# Hardcode the system libxc library path in pylibxc instead of autodetecting it
+Patch0:         libxc-7.1.0-pylibxc.patch
+Patch1:         https://gitlab.com/libxc/libxc/-/merge_requests/808.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -29,6 +31,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
+BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 
 %description
@@ -77,6 +80,7 @@ This package contains the Python3 interface library to libxc.
 %prep
 %setup -q
 %patch 0 -p1 -b .pylibxc
+%patch 1 -p1 -b .example
 # Plug in library soversion
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
@@ -132,6 +136,9 @@ sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Fri Jul 17 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 7.1.0-1
+- Update to 7.1.0.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

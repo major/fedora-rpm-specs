@@ -2,7 +2,7 @@
 
 Name:           wireless-regdb
 Version:        2026.05.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
 License:        ISC
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.05.30-1
 - 2026.05.30
 

@@ -18,7 +18,7 @@
 
 Name:           zstd
 Version:        1.5.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -146,6 +146,9 @@ make PZSTD_CXX_STD=-std=c++17 -C contrib/pzstd tests check
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

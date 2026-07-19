@@ -1,7 +1,7 @@
 Summary: A file compression and packaging utility compatible with PKZIP
 Name: zip
 Version: 3.0
-Release: 45%{?dist}
+Release: 46%{?dist}
 License: Info-ZIP
 Source: http://downloads.sourceforge.net/infozip/zip30.tar.gz
 URL: http://www.info-zip.org/Zip.html
@@ -68,6 +68,9 @@ mkdir -p $RPM_BULD_ROOT%{_mandir}/man1
 %{_mandir}/man1/zipsplit.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:		xkeycaps
 Summary: 	Graphical front end to xmodmap
 Version:	2.46
-Release:	41%{?dist}
+Release:	42%{?dist}
 License:	MIT
 Source0:	http://www.jwz.org/xkeycaps/%{name}-%{version}.tar.Z
 Source1:	xkeycaps.desktop
@@ -52,6 +52,9 @@ desktop-file-install                             \
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.46-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.46-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

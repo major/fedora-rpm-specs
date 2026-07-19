@@ -5,7 +5,7 @@
 Name:           texlive-collection-publishers
 Epoch:          12
 Version:        svn78756
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Publisher styles, theses, etc.
 
 License:        LPPL-1.3c
@@ -9334,6 +9334,9 @@ popd
 %doc %{_texmf_main}/doc/latex/york-thesis/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78756-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78756-3
 - Update collection from svn77587 to svn78756
 - Add bibleref-sbl

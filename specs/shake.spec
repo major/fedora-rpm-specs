@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        0.19.9
 # can only be reset when all subpkgs bumped
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Build system library, like Make, but more accurate dependencies
 
 License:        BSD-3-Clause
@@ -224,6 +224,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.9-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 0.19.9-35
 - https://hackage.haskell.org/package/shake-0.19.9/changelog
 

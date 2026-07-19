@@ -1,6 +1,6 @@
 Name: texi2html
 Version: 5.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 # GPLv2+ is for the code
 # OFSFDL (Old FSF Documentation License) for the documentation
 # CC-BY-SA or GPLv2 for the images
@@ -84,6 +84,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/texinfo $RPM_BUILD_ROOT%{_sysconfdir}/texinf
 %dir %{_sysconfdir}/texinfo
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

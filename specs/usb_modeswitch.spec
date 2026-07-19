@@ -2,7 +2,7 @@
 
 Name:       usb_modeswitch
 Version:    2.6.2
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):    USB Modeswitch aktiviert UMTS-Karten
 License:    GPL-2.0-or-later
@@ -75,6 +75,9 @@ mkdir -p %{buildroot}%{_unitdir}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

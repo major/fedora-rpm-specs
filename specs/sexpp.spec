@@ -16,7 +16,7 @@
 Name:          sexpp
 Summary:       S-expressions parser and generator tools
 Version:       0.9.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       MIT
 
 URL:           https://github.com/rnpgp/%{name}
@@ -123,6 +123,9 @@ rm $LST
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

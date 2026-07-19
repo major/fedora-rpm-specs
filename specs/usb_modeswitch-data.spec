@@ -2,7 +2,7 @@
 
 Name:		usb_modeswitch-data
 Version:	20191128
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):	USB Modeswitch aktiviert UMTS-Karten
 License:	GPL-2.0-or-later
@@ -57,6 +57,9 @@ make install \
 %doc ChangeLog README REFERENCE
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20191128-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20191128-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

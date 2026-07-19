@@ -22,7 +22,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.14
 %global rocm_patch 0
 %else
 %global rocm_release 7.2
@@ -42,7 +42,7 @@
 Name:           %{pkg_name}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
 Release:        3%{?dist}
 %endif

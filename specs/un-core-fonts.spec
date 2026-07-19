@@ -7,7 +7,7 @@
 BuildArch: noarch
 
 Version: 1.0.2
-Release: 0.50.%{alphatag}%{?dist}
+Release: 0.51.%{alphatag}%{?dist}
 License: GPL-2.0-only
 URL:     http://kldp.net/projects/unfonts/
 
@@ -128,6 +128,9 @@ Summary:  Un Core family of Korean TrueType fonts
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.51.080608
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.50.080608
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

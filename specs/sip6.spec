@@ -2,7 +2,7 @@
 
 Name:           sip6
 Version:        6.15.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -52,6 +52,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.15.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.15.3-2
 - Rebuilt for Python 3.15
 

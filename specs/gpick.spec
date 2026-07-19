@@ -18,6 +18,10 @@ Source:		https://github.com/thezbyg/%{name}/releases/download/v%{version}/%{name
 # https://github.com/thezbyg/gpick/pull/238
 Patch0:		    gpick-0.4-lua-5.5.patch
 
+# Upstream commit 480f9ef15bb657aed0d320d67e30197fe02bcad4
+# https://github.com/thezbyg/gpick/commit/480f9ef15bb657aed0d320d67e30197fe02bcad4
+Patch1:		    gpick-0.4-crash-on-start.patch
+
 BuildRequires:	gcc-c++
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -42,7 +46,7 @@ Advanced color picker
 %{?shortcommit:
 %autosetup -p1 -n %{name}-%{commit}}
 %{!?shortcommit:
-%autosetup -n %{name}-%{version}}
+%autosetup -p1 -n %{name}-%{version}}
 mkdir .git
 
 # Delete external libraries and only use system dependencies to build GPick

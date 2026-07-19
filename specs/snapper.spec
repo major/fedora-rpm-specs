@@ -3,7 +3,7 @@
 
 Name:           snapper
 Version:        0.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for filesystem snapshot management
 
 License:        GPL-2.0-only
@@ -200,6 +200,9 @@ done
 %{_mandir}/man8/pam_snapper.8*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

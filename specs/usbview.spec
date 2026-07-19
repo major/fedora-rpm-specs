@@ -1,6 +1,6 @@
 Name:           usbview
 Version:        3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        USB topology and device viewer
 License:        GPL-2.0-only
 URL:            http://www.kroah.com/linux-usb/
@@ -45,6 +45,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/com.kroah.usb
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

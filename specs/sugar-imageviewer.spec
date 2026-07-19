@@ -1,6 +1,6 @@
 Name:          sugar-imageviewer
 Version:       65
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       Simple Image viewer for Sugar
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 65-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 65-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

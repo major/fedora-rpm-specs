@@ -5,7 +5,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		16%{?dist}
+Release:		17%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 # Xw/		HPND unused
@@ -121,6 +121,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

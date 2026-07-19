@@ -2,7 +2,7 @@
 
 Name:           scorched3d
 Version:        44
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Game based loosely on the classic DOS game Scorched Earth
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            http://www.scorched3d.co.uk/
@@ -151,6 +151,9 @@ EOF
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jul 14 2026 Michal Schorm <mschorm@redhat.com> - 44-43
 - Fix SPDX license tag: replace 'LicenseRef-Callaway-CC-BY-SA' with
   'CC-BY-SA-3.0' based on upstream license text

@@ -1,7 +1,7 @@
 Name:           tweak
 Version:        3.02
 
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        An efficient hex editor
 License:        MIT
 URL:            http://www.chiark.greenend.org.uk/~sgtatham/tweak/
@@ -43,6 +43,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.02-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.02-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -23,7 +23,7 @@
 
 Name: tito
 Version: 0.6.27
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -135,6 +135,9 @@ git config --global user.name "Your Name"
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.6.27-9
 - Rebuilt for Python 3.15
 

@@ -1,7 +1,7 @@
 Summary: A tool for generating SELinux security policies for containers
 Name: udica
 Version: 0.2.8
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source0: https://github.com/containers/udica/archive/v%{version}.tar.gz
 #git format-patch -N v0.2.8 -- . ':!.cirrus.yml' ':!.github'
 Patch0001: 0001-Add-option-to-generate-custom-policy-for-a-confined-.patch
@@ -55,6 +55,9 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %{python3_sitelib}/udica-*.dist-info
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.8-13
 - Rebuilt for Python 3.15
 

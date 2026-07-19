@@ -1,6 +1,6 @@
 Name:		valkyrie
 Version:	2.0.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Graphical User Interface for Valgrind Suite
 
 %global valkyrie %{name}-%{version}
@@ -53,6 +53,9 @@ cp -p %{_builddir}/%{valkyrie}/README  %{buildroot}%{_docdir}/%{valkyrie}
 %{_docdir}/%{valkyrie}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

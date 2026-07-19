@@ -1,6 +1,6 @@
 Name:           wesnoth
 Version:        1.19.24
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -190,6 +190,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.24-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.19.24-3
 - Rebuilt for openssl 4.0
 

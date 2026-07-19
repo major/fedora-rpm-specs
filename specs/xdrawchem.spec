@@ -2,7 +2,7 @@
 
 Name:		xdrawchem
 Version:	1.10.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	2D chemical structures drawing tool
 URL:            https://www.woodsidelabs.com/chemistry/%{name}.php
 Source0:        https://github.com/bryanherger/%{name}/archive/%{tag}/%{name}-%{tag}.tar.gz
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/doc
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 26 2026 Antonio Trande <sagitter@fedoraproject.org> - 1.10.2-17
 - Rebuild for openbabel-3.2.0
 

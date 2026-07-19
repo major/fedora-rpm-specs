@@ -1,6 +1,6 @@
 Name:           solar-backgrounds
 Version:        0.92.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Solar desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -113,6 +113,9 @@ cp -a $RPM_BUILD_DIR/solar-%{version}/desktop-backgrounds-solar-hd.xml \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

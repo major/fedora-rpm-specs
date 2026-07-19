@@ -1,7 +1,7 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
 Version:        3.19.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
 URL:            http://toolkit.translatehouse.org/
@@ -137,6 +137,9 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 29 2026 Manish Tiwari <matiwari@redhat.com> - 3.19.13-1
 - update to 3.19.13
 

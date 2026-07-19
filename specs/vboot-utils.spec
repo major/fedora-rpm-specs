@@ -2,7 +2,7 @@
 
 Name:		vboot-utils
 Version:	20230127
-Release:	9.git%{gitshort}%{?dist}
+Release:	10.git%{gitshort}%{?dist}
 Summary:	Verified Boot Utility from Chromium OS
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -92,6 +92,9 @@ rm -f %{buildroot}/usr/lib/libvboot_host.a
 %{_datadir}/vboot/devkeys/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20230127-10.git9b08a3c4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20230127-9.git9b08a3c4
 - Rebuilt for openssl 4.0
 

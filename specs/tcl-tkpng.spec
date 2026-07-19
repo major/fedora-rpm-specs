@@ -4,7 +4,7 @@
 
 Name:		tcl-%{realname}
 Version:	0.9
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Tcl/Tk support for PNG
 License:	TCL
 URL:		http://www.muonics.com/FreeStuff/TkPNG/
@@ -49,6 +49,9 @@ mv %{buildroot}%{_libdir}/%{realname}%{version} %{buildroot}%{tcl_sitearch}/%{re
 %{tcl_sitearch}/%{realname}%{version}/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

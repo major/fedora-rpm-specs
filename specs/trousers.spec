@@ -1,7 +1,7 @@
 Name: trousers
 Summary: TCG's Software Stack v1.2
 Version: 0.3.15
-Release: 18%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://trousers.sourceforge.net
@@ -119,6 +119,9 @@ install -m0644 -D trousers.sysusers.conf %{buildroot}%{_sysusersdir}/trousers.co
 %{_libdir}/libtddl.a
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.15-18
 - Rebuilt for openssl 4.0
 

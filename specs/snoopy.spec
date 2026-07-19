@@ -10,7 +10,7 @@
 
 Name:           snoopy
 Version:        2.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A preload library to send shell commands to syslog
 License:        GPL-2.0-or-later
 URL:            https://github.com/a2o/snoopy
@@ -128,6 +128,9 @@ rm %{buildroot}%{_libdir}/libsnoopy.la
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Mar 04 2026 Michel Lind <salimma@fedoraproject.org> - 2.5.2-4
 - Fix FTBFS on releases with glibc >= 2.43; Resolves: rhbz#2435113
 - Drop compat conditionals for Fedora >= 42, 41 is EOL

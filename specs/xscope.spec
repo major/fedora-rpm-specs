@@ -1,6 +1,6 @@
 Name:           xscope
 Version:        1.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        X Window Protocol Viewer
 
 License:        MIT AND HPND-sell-variant
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

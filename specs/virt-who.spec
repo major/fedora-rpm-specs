@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.26
-Release:        %{release_number}%{?dist}.13
+Release:        %{release_number}%{?dist}.14
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.26-1.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.31.26-1.13
 - Rebuilt for openssl 4.0
 

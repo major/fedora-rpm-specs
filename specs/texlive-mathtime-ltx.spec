@@ -8,7 +8,7 @@
 Name:           texlive-mathtime-ltx
 Epoch:          12
 Version:        svn%{revision}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LaTeX macros for using MathTime and MathTime Plus
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
@@ -52,6 +52,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/mathtime-ltx/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn362-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn362-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

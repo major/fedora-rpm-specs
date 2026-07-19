@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontutils
 Epoch:          12
 Version:        svn61207
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphics and font utilities
 
 License:        LPPL-1.3c
@@ -85,6 +85,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/dvips/dvipsconfig/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn61207-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn61207-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          vhd2vl
 Version:       2.5
-Release:       23%{?dist}
+Release:       24%{?dist}
 Summary:       VHDL to Verilog translator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ echo "done"
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           ubridge
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bridge for UDP tunnels, Ethernet, TAP and VMnet interfaces
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ install -p -m4755 %{name} %{buildroot}%{_bindir}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 08 2026 Alexey Kurov <nucleo@fedoraproject.org> - 1.1.1-1
 - Update to 1.1.1
 

@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.10.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -134,6 +134,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 29 2026 Bojan Smojver <bojan@rexursive.com> - 0.10.5-1
 - Update to 0.10.5
 

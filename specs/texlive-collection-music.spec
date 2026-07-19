@@ -5,7 +5,7 @@
 Name:           texlive-collection-music
 Epoch:          12
 Version:        svn76267
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Music packages
 
 License:        LPPL-1.3c
@@ -848,6 +848,9 @@ popd
 %doc %{_texmf_main}/doc/latex/xpiano/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn76267-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76267-3
 - Update fretplot
 - fix missing -doc provides/obsoletes

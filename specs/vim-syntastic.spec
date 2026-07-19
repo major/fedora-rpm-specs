@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -295,6 +295,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 8 2026 Martin Jackson <mhjacks@swbell.net> - 3.10.0-30
 - Remove csslint as it is retired. Fixes bz#2455880
 

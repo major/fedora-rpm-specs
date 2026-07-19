@@ -5,7 +5,7 @@
 Name:           texlive-collection-langeuropean
 Epoch:          12
 Version:        svn73414
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Other European languages
 
 License:        LPPL-1.3c
@@ -2200,6 +2200,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/turkmen/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn73414-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-7
 - fix missing -doc provides/obsoletes
 

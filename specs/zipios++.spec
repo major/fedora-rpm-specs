@@ -4,7 +4,7 @@
 
 Name:           zipios++
 Version:        0.1.5.9
-Release:        37%{dist}
+Release:        38%{dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 Summary:        C++ library for reading and writing Zip files
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{_libdir}/*.{a,la}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5.9-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5.9-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           4%{?dist}
+Release:           5%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -452,6 +452,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 9 2026 Benjamin Sherman <bsherman@redhat.com> - 9.1.0-4
 - Weaken logrotate from hard requires to recommends
 

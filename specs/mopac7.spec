@@ -1,7 +1,7 @@
 Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
-Release:        52%{?dist}
+Release:        53%{?dist}
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/554
 # SPDX confirmed
 License:        LicenseRef-Fedora-Public-Domain
@@ -11,6 +11,10 @@ Source0:        http://bioinformatics.org/ghemical/download/current/mopac7-%{ver
 Patch0:         mopac7-1.15-c99-function-prototype.patch
 # Some type size fix
 Patch1:         mopac7-1.15-type-size.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2501699
+# gcc16 and gmp6.3 no longer accepts non-integer loop variable
+# Fix compilation on i686, s390x
+Patch2:         mopac7-1.15-gcc16-loop-variable-nodouble.patch
 BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -44,6 +48,7 @@ perl -pi -e "s#-lg2c##g" libmopac7.pc.in
 
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1 -b .loop_nodouble
 
 %build
 autoreconf -fiv
@@ -85,6 +90,11 @@ find tests -name 'Makefile*' -delete -print
 %{_libdir}/pkgconfig/libmopac7.pc
 
 %changelog
+* Fri Jul 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15-53
+- Fix FTBFS on i686 and s390x, gcc16 and gmp 6.3 no longer accept non-integer
+  loop variable
+  (ref: bug 2501699)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

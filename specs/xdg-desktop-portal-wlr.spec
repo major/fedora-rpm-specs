@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 18 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8.2-1
 - Update to 0.8.2 (#2459226)
 

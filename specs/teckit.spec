@@ -1,6 +1,6 @@
 Name:           teckit
 Version:        2.5.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Encoding conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
@@ -172,6 +172,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jan 20 2026 Petr Pisar <ppisar@redhat.com> - 2.5.13-2
 - Fix CI gating configuration
 

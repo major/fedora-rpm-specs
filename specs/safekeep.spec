@@ -4,7 +4,7 @@
 
 %define name    safekeep
 %define version 1.5.1
-%define release 7
+%define release 8
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -108,6 +108,9 @@ install -m0644 -D safekeep.sysusers.conf %{buildroot}%{_sysusersdir}/safekeep.co
 %{_sysusersdir}/safekeep.conf
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1^20230910git75e66fe-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1^20230910git75e66fe-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

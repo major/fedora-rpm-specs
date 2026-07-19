@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.6.1
-Release:   1%{?dist}
+Release:   3%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -350,6 +350,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Sat Jul 18 2026 Bojan Smojver <bojan@rexursive.com> - 1:0.10.6.1-3
+- Fix bug #2499948
+
 * Tue Jul 07 2026 Bojan Smojver <bojan@rexursive.com> - 1:0.10.6.1-1
 - Update to 0.10.6.1
 - CVE-2026-41252, CVE-2026-41521, CVE-2026-44178, CVE-2026-42218

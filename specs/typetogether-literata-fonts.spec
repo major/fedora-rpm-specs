@@ -5,7 +5,7 @@
 
 Version: 2.200
 
-Release: 14%{?dist}
+Release: 15%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           TypeTogether
@@ -54,6 +54,9 @@ unzip -j -q  %{SOURCE1}
 %fontfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

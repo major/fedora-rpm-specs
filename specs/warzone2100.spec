@@ -3,7 +3,7 @@
 
 Name:           warzone2100
 Version:        4.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 # See COPYING.NONGPL
@@ -101,6 +101,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.6.3-2
 - Rebuilt for openssl 4.0
 

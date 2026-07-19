@@ -1,6 +1,6 @@
 Name:		uARMSolver
 Version:	0.4.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Universal Association Rule Mining Solver
 
 License:	MIT
@@ -46,6 +46,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

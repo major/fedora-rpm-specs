@@ -3,7 +3,7 @@
 
 Name:           vavoom
 Version:        1.33
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Enhanced Doom, Heretic, Hexen and Strife source port - meta package
 Source0:        http://downloads.sourceforge.net/vavoom/%{name}-%{version}.tar.bz2
 Source1:        doom.autodlrc
@@ -254,6 +254,9 @@ install -p -m 644 %{SOURCE22} $RPM_BUILD_ROOT%{_mandir}/man6
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Feb 13 2026 Cristian Le <git@lecris.dev> - 1.33-50
 - Allow to build with CMake 4.0 (rhbz#2381629)
 - Force using Makefile generator (rhbz#2381152)

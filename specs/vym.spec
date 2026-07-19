@@ -2,7 +2,7 @@
 
 Name:           vym
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        View your mind
 
 License:        GPL-2.0-or-later
@@ -105,6 +105,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
 - 3.0.0
 

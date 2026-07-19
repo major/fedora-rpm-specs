@@ -19,7 +19,7 @@
 Name:           texlive
 Epoch:          12
 Version:        %{tl_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Metapackage that provides scheme-basic and collection-latexrecommended
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
@@ -62,6 +62,9 @@ and collection metapackages exist and you can install them instead
 %files
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:2025-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 5 2026 Tom Callaway <spot@fedoraproject.org> - 12:2025-1
 - convert to simple metapackage
 - thank you for your service, you can rest now.

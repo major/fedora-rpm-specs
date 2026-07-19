@@ -3,7 +3,7 @@ Name:           srpc
 License:        Apache-2.0
 
 Version:        0.10.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 URL:            https://github.com/sogou/srpc
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -69,6 +69,9 @@ rm %{buildroot}/%{_docdir}/%{name}-%{version}/README.md
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.10.3-6
 - Rebuilt for openssl 4.0
 

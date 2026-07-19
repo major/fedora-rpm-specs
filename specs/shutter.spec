@@ -9,10 +9,10 @@
 Name:       shutter
 %if 0%{?usesnapshot}
 Version:    0.99.7
-Release:    0.1%{?snapshottag}%{?dist}
+Release:    0.2%{?snapshottag}%{?dist}
 %else
 Version:    0.99.6
-Release:    3%{?dist}
+Release:    4%{?dist}
 %endif
 
 Summary:    GTK+3-based screenshot application written in Perl
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.7-0.2.git21d0da3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Apr 25 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.99.7-0.1.git21d0da3
 - Update to 0.99.7-0.1.git21d0da3
 - Fixed .xpm cursor files to work with new glycin version

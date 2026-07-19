@@ -3,7 +3,7 @@
 
 Name:		xed
 Version:	3.8.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -127,6 +127,9 @@ This package contains the documentation files for %{name}.
 %doc %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

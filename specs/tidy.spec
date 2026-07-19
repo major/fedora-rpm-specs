@@ -6,7 +6,7 @@
 Name:    tidy
 Summary: Utility to clean up and pretty print HTML/XHTML/XML
 Version: 5.8.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: W3C
 URL:     http://www.html-tidy.org/
@@ -102,6 +102,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/libtidy.a
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

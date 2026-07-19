@@ -3,7 +3,7 @@
 
 Name:           zopfli
 Version:        %{so_ver}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Zlib compatible better compressor
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

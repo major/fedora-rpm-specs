@@ -1,6 +1,6 @@
 Name:           telepathy-filesystem
 Version:        0.0.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Telepathy filesystem layout
 
 # SPDX confirmed
@@ -33,6 +33,9 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

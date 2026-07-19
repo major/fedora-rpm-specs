@@ -3,7 +3,7 @@
 Name:           texlive-scheme-small
 Epoch:          12
 Version:        svn71080
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        small scheme (basic + xetex, metapost, a few languages)
 
 License:        LPPL-1.3c
@@ -79,6 +79,9 @@ MetaPost, various hyphenations, and some recommended packages to scheme-basic.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn71080-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn71080-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: tdlib
 Version: 1.8.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: BSL-1.0
 URL: https://github.com/%{name}/td
@@ -74,6 +74,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/libtd*.a
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0-10
 - Rebuilt for openssl 4.0
 

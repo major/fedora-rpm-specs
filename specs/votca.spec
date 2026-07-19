@@ -2,7 +2,7 @@ Name:           votca
 Version:        2026
 %global         uversion %{version}
 %global         sover 2026
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -209,6 +209,9 @@ This package contains bash completion support for the VOTCA package.
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 2026-2
 - Rebuild for hdf5 2.1
 

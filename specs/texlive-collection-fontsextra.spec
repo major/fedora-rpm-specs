@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsextra
 Epoch:          12
 Version:        svn78246
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -12545,6 +12545,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78246-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78246-6
 - Update collection from svn77044 to svn78246
 - Add sourcesans

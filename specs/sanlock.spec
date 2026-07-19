@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        5.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://codeberg.org/sanlock/sanlock
@@ -139,6 +139,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 10 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-1
 - new upstream release.
 - Remove unused python3-sanlock subpackage no longer supported by upstream.

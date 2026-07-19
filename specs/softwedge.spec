@@ -6,7 +6,7 @@
 
 Name:		softwedge
 Version:	0.1^%{git_suffix}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A serial software keyboard wedge for *nix X11
 License:	GPL-2.0-only
 URL:		https://github.com/theatrus/softwedge
@@ -36,6 +36,9 @@ install -Dpm755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/softwedge
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^20250901git9c7ec82d-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^20250901git9c7ec82d-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

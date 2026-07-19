@@ -7,7 +7,7 @@
 
 Name:           sdl12-compat
 Version:        1.2.74
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # main code is Zlib
 # mp3 decoder code is MIT-0 OR Unlicense OR CC0-1.0
@@ -152,6 +152,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.74-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.74-1
 - Update to 1.2.74
 

@@ -119,7 +119,6 @@ Source6:        inittab
 Source7:        sysctl.conf.README
 Source8:        systemd-journal-remote.xml
 Source9:        systemd-journal-gatewayd.xml
-Source10:       20-yama-ptrace.conf
 Source11:       systemd-udev-trigger-no-reload.conf
 # https://fedoraproject.org/wiki/How_to_filter_libabigail_reports
 Source13:       libabigail.abignore
@@ -129,7 +128,7 @@ Source15:       10-oomd-per-slice-defaults.conf
 Source16:       10-timeout-abort.conf
 Source17:       10-map-count.conf
 Source18:       60-block-scheduler.rules
-
+Source19:       99-kernel-hardening.conf
 Source20:       macros.sysusers.compat
 Source21:       macros.sysusers
 Source22:       sysusers.attr
@@ -1137,9 +1136,8 @@ EOF
 
 install -Dm0644 -t %{buildroot}/usr/lib/firewalld/services/ %{SOURCE8} %{SOURCE9}
 
-# Install additional docs
-# https://bugzilla.redhat.com/show_bug.cgi?id=1234951
-install -Dm0644 -t %{buildroot}%{_pkgdocdir}/ %{SOURCE10}
+# Install kernel hardening file. Disabled by default.
+install -Dm0644 -t %{buildroot}%{_pkgdocdir}/ %{SOURCE19}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1378974
 install -Dm0644 -t %{buildroot}%{system_unit_dir}/systemd-udev-trigger.service.d/ %{SOURCE11}
@@ -1539,10 +1537,10 @@ fi
 %global _docdir_fmt %{name}
 
 %files -f %{name}.lang -f .file-list-main
-%doc %{_pkgdocdir}
 %exclude %{_pkgdocdir}/LICENSE*
 # Only the licenses texts for the licenses in License line are included.
 %license LICENSE.GPL2
+%license LICENSE.LGPL2.1
 %license LICENSES/MIT.txt
 %ghost %dir %attr(0755,-,-) /etc/systemd/system/basic.target.wants
 %ghost %dir %attr(0755,-,-) /etc/systemd/system/bluetooth.target.wants

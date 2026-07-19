@@ -2,7 +2,7 @@ Summary: The NIS daemon which binds NIS clients to an NIS domain
 Name: ypbind
 Epoch: 3
 Version: 2.7.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPL-2.0-only
 Url: https://www.thkukuk.de/nis/nis/ypbind-mt/
 
@@ -109,6 +109,9 @@ install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_libexecdir}/ypbind-post-waitbind
 %license COPYING
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.7.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.7.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

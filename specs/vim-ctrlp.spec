@@ -4,7 +4,7 @@
 
 Name:           vim-ctrlp
 Version:        1.80
-Release:        14.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        15.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 
 License:        Vim
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xm
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-15.20190610git2e773fd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-14.20190610git2e773fd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

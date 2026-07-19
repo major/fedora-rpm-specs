@@ -12,7 +12,7 @@
 Summary: Qt wrapper API to different RDF storage solutions
 Name:    soprano
 Version: 2.9.4
-Release: 38%{?dist}
+Release: 39%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -191,6 +191,9 @@ time make -C %{_vpath_builddir} test ARGS="--timeout 300 --output-on-failure -R 
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

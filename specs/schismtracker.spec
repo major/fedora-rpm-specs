@@ -1,6 +1,6 @@
 Name:      schismtracker
 Version:   20260524
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260524-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri June 12 2026 josef radinger <cheese@nosuchhost.net> - 20260524-2
 - add Patch1 to fix compilation with ppc64le
   https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch

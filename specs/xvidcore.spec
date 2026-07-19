@@ -2,7 +2,7 @@
 
 Name:           xvidcore
 Version:        1.3.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        MPEG-4 Simple and Advanced Simple Profile codec
 License:        GPL-2.0-or-later
 URL:            https://www.xvid.com/
@@ -84,6 +84,9 @@ find %{buildroot} -name "*.a" -delete
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-19
 - Drop ASM on i686 as it produces TEXTREL
 

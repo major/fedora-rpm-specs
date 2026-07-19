@@ -1,6 +1,6 @@
 Name:		tgif
 Version:	4.2.5
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	2-D drawing tool
 
 # convkinput.c	HPND
@@ -167,6 +167,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

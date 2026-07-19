@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -50,6 +50,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.5.0-1
 - Update to v1.5.0
 

@@ -9,7 +9,7 @@
 
 Name:           vinagre
 Version:        3.22.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        VNC client for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -118,6 +118,9 @@ make check
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

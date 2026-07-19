@@ -1,6 +1,6 @@
 Name:           safetyblanket
 Version:        1.01
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Creepy blanket simulator
 
 #See LICENSE.txt file in source for details
@@ -73,6 +73,9 @@ install -p -D -m 0644 res/gfx/title_text1.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.01-22
 - Rebuilt for correct exclusive arch
 

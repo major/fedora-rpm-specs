@@ -10,7 +10,6 @@ Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 
 SourceLicense:  Apache-2.0
-# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
@@ -20,7 +19,6 @@ SourceLicense:  Apache-2.0
 # LGPL-2.1-only OR BSD-2-Clause
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Zlib OR Apache-2.0
 # Zlib
 License:        %{shrink:
     Apache-2.0 AND
@@ -28,14 +26,17 @@ License:        %{shrink:
     BSD-3-Clause AND
     MIT AND
     Zlib AND
-    (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (LGPL-2.1-only OR BSD-2-Clause) AND
-    (MIT OR Zlib OR Apache-2.0)
+    (LGPL-2.1-only OR BSD-2-Clause)
     }
 # LICENSE.dependencies contains a full license breakdown
+
+# Update the circular-buffer dependency from v1 to v2
+# https://github.com/jfernandez/bpftop/pull/234
+# Without changes to Cargo.lock
+Patch:          bpftop-0.9.0-circular-buffer-2.patch
 
 URL:            https://github.com/jfernandez/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

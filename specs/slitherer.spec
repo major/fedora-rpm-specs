@@ -7,7 +7,7 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 
 License:        MPL-2.0 and BSD-3-Clause
@@ -63,6 +63,9 @@ ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20251108.d230dba-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Mar 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20251108.d230dba-4
 - Add dependency to ensure QtWebEngine has fix for QTBUG-142823
 

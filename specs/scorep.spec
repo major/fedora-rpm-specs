@@ -1,6 +1,6 @@
 Name:           scorep
 Version:        9.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -361,6 +361,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

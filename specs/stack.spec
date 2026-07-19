@@ -28,7 +28,7 @@
 Name:           %{pkg_name}
 Version:        3.9.1
 # can only be reset when all subpkgs bumped
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Haskell stable package build tool
 
 License:        BSD-3-Clause
@@ -471,6 +471,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 3.9.1-41
 - https://hackage.haskell.org/package/stack-3.9.1/changelog
 

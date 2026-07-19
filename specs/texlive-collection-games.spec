@@ -5,7 +5,7 @@
 Name:           texlive-collection-games
 Epoch:          12
 Version:        svn78746
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Games typesetting
 
 License:        LPPL-1.3c
@@ -1847,6 +1847,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/xskak/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78746-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78746-6
 - Update collection from svn78456 to svn78746
 - Add cardgame

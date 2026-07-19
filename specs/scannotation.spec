@@ -4,7 +4,7 @@
 
 Name:          scannotation
 Version:       1.0.3
-Release:       0.39.%{alphatag}%{?dist}
+Release:       0.40.%{alphatag}%{?dist}
 Summary:       A Java annotation scanner
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -70,6 +70,9 @@ cp -p %SOURCE1 .
 %license License.txt
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.40.r12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.39.r12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

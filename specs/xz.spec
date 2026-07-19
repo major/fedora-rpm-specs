@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
 Version:	5.8.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -184,6 +184,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.3-1
 - New upstream version 5.8.3 (fixes RHBZ#2453487, CVE-2026-34743)
 - Add Arabic language translations

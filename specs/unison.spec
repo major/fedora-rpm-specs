@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.54.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -142,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}-gui.me
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.54.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Jerry James <loganjerry@gmail.com> - 2.54.0-2
 - OCaml 5.5.0 rebuild
 

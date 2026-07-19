@@ -2,7 +2,7 @@
 
 Name:           tasksh
 Version:        1.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Shell command that wraps Taskwarrior commands
 
 # spdx
@@ -42,6 +42,9 @@ unsupported, buggy and flawed.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

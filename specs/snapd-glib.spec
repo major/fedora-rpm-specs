@@ -13,7 +13,7 @@
 
 Name:		snapd-glib
 Version:	1.72
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Library providing a GLib interface to snapd
 
 License:	LGPL-2.0-only OR LGPL-3.0-only
@@ -147,6 +147,9 @@ for snapd-qt to verify the functionality of snapd-qt.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.72-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jul 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.72-1
 - Rebase to 1.72
 

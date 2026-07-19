@@ -5,7 +5,7 @@
 %global crate imago
 
 Name:           rust-imago
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Library for accessing virtual machine disk images
 
@@ -48,6 +48,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+async-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sync-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sync-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sync" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sync-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+sync-wrappers-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -88,6 +112,7 @@ use the "vm-memory" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 %cargo_test
+%cargo_test -n -f sync
 %endif
 
 %changelog

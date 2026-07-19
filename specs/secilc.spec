@@ -2,7 +2,7 @@
 
 Name:           secilc
 Version:        3.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
@@ -72,4 +72,7 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 %autochangelog

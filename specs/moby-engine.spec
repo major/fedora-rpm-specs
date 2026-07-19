@@ -69,6 +69,7 @@ Source201:      cli_go-vendor-tools.toml
 
 # Patches 0-999 are for moby/moby
 Patch0:         0001-systemd-adjust-docker.service-for-downstream.patch
+Patch1:		0001-Fix-Go-1.27-json-issues.patch
 
 # Patches 1000+ are for docker/cli
 # Patch1000:

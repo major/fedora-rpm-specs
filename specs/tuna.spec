@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.20
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -109,6 +109,9 @@ done
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.20-5
 - Rebuilt for Python 3.15
 

@@ -1,6 +1,6 @@
 Name:           stansoft
 Version:        11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Standard Accounting Software
 
 License:        AGPL-3.0-or-later
@@ -149,6 +149,9 @@ make check
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jan 22 2026 Chad Lemmen <rpm@stansoft.org> - 11.0-1
 - initial Fedora RPM packaging
 

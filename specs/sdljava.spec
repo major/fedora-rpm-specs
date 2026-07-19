@@ -7,7 +7,7 @@
 
 Name:           sdljava
 Version:        0.9.1
-Release:        68%{?dist}
+Release:        69%{?dist}
 Summary:        Java binding to the SDL API
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -216,6 +216,9 @@ ln -s $(fc-match -f "%{file}" "sans:bold:italic") \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

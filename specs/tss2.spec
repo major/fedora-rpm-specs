@@ -9,7 +9,7 @@ Name:           tss2
 # this is the release of the TSS library
 Version:        2.3.2
 # this is the release of the fedora package, goes back to 1 when version changes
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
@@ -81,6 +81,9 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %doc ibmtss.docx
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.3.2-6
 - Rebuilt for openssl 4.0
 

@@ -5,7 +5,7 @@ Name:           target-isns
 License:        GPL-2.0-or-later
 Summary:        An iSNS client for the Linux LIO iSCSI target 
 Version:        0.6.8
-Release:        18%{?dist}
+Release:        19%{?dist}
 URL:            https://github.com/cvubrugier/target-isns
 Source:         https://github.com/open-iscsi/target-isns/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-disable-stringop-overflow-and-stringop-truncation-er.patch
@@ -53,6 +53,9 @@ install -m 644 target-isns.service %{buildroot}%{_unitdir}
 %license COPYING
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

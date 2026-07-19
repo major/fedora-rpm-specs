@@ -1,6 +1,6 @@
 Name:           ularn
 Version:        1.5p4
-Release:        50%{?dist}
+Release:        52%{?dist}
 Summary:        Simple roguelike game
 
 License:        GPL-1.0-or-later
@@ -13,6 +13,7 @@ Patch0:         ularn-build.patch
 Patch1:         ularn-euid.patch
 Patch2:         ularn-datadir.patch
 Patch3:         ularn-drop-setgid.patch
+Patch4:         ularn-termio.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -40,6 +41,7 @@ chmod +x config.h.SH
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 # This package requires C89 compatibility mode (bug 2155503).
@@ -76,6 +78,12 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/app
 %license GPL
 
 %changelog
+* Fri Jul 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.5p4-52
+- Fix FTBFS (rhbz#2385711 + rhbz#2435169)
+
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5p4-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5p4-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

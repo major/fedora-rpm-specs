@@ -1,7 +1,7 @@
 Summary:        Real-time software synthesizer
 Name:           zynaddsubfx
 Version:        3.0.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Source is a collective work, distributed by
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -170,6 +170,9 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_libdir}/vst/*.so
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 3.0.6-13
 - Rebuild with fltk 1.4.
 

@@ -3,7 +3,7 @@
 Summary:	Stellar data set for use by the StarPlot tool
 Name:		starplot-%{_dataset}
 Version:	0.95
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	LicenseRef-Not-Copyrightable
 URL:		http://starplot.org/
 Source0:	http://starplot.org/data/%{_dataset}-%{version}.tar.gz
@@ -54,6 +54,9 @@ starpkg --dataset %{_datadir}/starplot/%{_dataset} --dest %{_datadir}/starplot
 %{_datadir}/starplot/%{_dataset}/orig-data
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.95-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.95-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

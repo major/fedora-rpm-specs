@@ -57,7 +57,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
@@ -494,6 +494,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

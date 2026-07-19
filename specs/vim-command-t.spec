@@ -2,7 +2,7 @@
 
 Name: vim-command-t
 Version: 5.0.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: An extremely fast, intuitive mechanism for opening files in VIM
 License: BSD-2-Clause
 URL: https://github.com/wincent/command-t
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

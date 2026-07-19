@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open source realtime-strategy game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -213,6 +213,9 @@ popd
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.3.1-2
 - Rebuilt for icu 78.3
 

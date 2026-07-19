@@ -10,7 +10,7 @@
 Name: webalizer
 Summary: A flexible Web server log file analysis program
 Version: 2.23_08
-Release: 30%{?dist}
+Release: 31%{?dist}
 URL: http://www.mrunix.net/webalizer/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -104,6 +104,9 @@ install -m0644 -D webalizer.sysusers.conf %{buildroot}%{_sysusersdir}/webalizer.
 %{_sysusersdir}/webalizer.conf
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

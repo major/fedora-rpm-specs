@@ -1,6 +1,6 @@
 Name:           unique3
 Version:        3.0.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Single instance support for applications
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

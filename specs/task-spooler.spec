@@ -1,6 +1,6 @@
 Name:           task-spooler
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Personal job scheduler
 
 # Licence headers in code files say:
@@ -48,6 +48,9 @@ mv %{buildroot}%{_mandir}/man1/ts.1 %{buildroot}%{_mandir}/man1/tsp.1
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
 - Update to v1.0.3
 

@@ -3,7 +3,7 @@
 
 Name:           rvm
 Version:        1.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C library for unstructured recoverable virtual memory
 License:        LGPL-2.0-only
 URL:            http://www.coda.cs.cmu.edu/
@@ -74,6 +74,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}lwp.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

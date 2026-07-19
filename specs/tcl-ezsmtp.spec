@@ -4,7 +4,7 @@
 
 Name:           tcl-%{extname}
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Easy SMTP for TCL
 
 License:        TCL and MIT
@@ -42,6 +42,9 @@ cp -P ezsmtp.tcl %{buildroot}%{tcl_sitelib}/ezsmtp
 %{tcl_sitelib}/ezsmtp
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

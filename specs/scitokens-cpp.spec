@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 1.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.1-2
 - Rebuilt for openssl 4.0
 

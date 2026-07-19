@@ -1,6 +1,6 @@
 Name:           speed-dreams
 Version:        2.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        3D Open Racing Simulation
 
@@ -217,6 +217,9 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

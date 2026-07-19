@@ -11,7 +11,7 @@
 
 Name:			squidGuard
 Version:		1.4
-Release:		52%{?dist}
+Release:		53%{?dist}
 Summary:		Filter, redirector and access controller plugin for squid
 
 License:		GPL-2.0-only
@@ -264,6 +264,9 @@ fi
 %attr(0755,squid,squid) %{_localstatedir}/log/squid/squidGuard.log
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

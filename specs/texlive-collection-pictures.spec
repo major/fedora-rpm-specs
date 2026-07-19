@@ -5,7 +5,7 @@
 Name:           texlive-collection-pictures
 Epoch:          12
 Version:        svn78823
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graphics, pictures, diagrams
 
 License:        LPPL-1.3c
@@ -7616,6 +7616,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/generic/xypic/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78823-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 2 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78823-3
 - rebuild with fixed generator
 

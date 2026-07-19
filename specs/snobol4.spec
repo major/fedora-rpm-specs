@@ -4,7 +4,7 @@
 
 Name:		snobol4
 Version:	2.3.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 # Majority: BSD-2-Clause
 # BSD-3-Clause: modules/random/random.c
 # BSD-4-Clause: lib/bsd/popen.c
@@ -85,6 +85,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/%{version}/CHANGES %{buildroot}%{_libdir}/
 %{_libdir}/snobol4/%{version}/include
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.1-9
 - Rebuilt for openssl 4.0
 

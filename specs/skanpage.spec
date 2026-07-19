@@ -1,6 +1,6 @@
 Name:     skanpage
 Version:  26.04.3
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

@@ -1,6 +1,6 @@
 Name:           yank
 Version:        1.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tool for selecting and copying text from stdin without a mouse
 
 License:        MIT
@@ -41,6 +41,9 @@ ln -s %{_mandir}/man1/%{name}.1 %{buildroot}%{_mandir}/man1/%{name_change}.1
 %doc README.md CHANGELOG.md
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

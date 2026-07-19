@@ -23,6 +23,8 @@ Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
 # Fedora specific
 Patch7:		%{name}-update-fcgenericfamily.patch
+# Backport
+Patch8:		%{name}-fix-system-ui.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -73,6 +75,9 @@ which is useful for developing applications that uses fontconfig.
 %autosetup -p1
 # To reduce a maintenance cost of fontconfig-lower-nonlatin-conf.patch
 mv conf.d/65-nonlatin.conf conf.d/69-nonlatin.conf
+for f in test/*.json; do
+  sed -i -e 's/65-nonlatin.conf/69-nonlatin.conf/g' $f
+done
 
 %build
 %meson -Ddoc=disabled -Dcache-build=disabled -Dxml-backend=libxml2 \

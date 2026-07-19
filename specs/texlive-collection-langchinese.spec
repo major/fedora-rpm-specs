@@ -5,7 +5,7 @@
 Name:           texlive-collection-langchinese
 Epoch:          12
 Version:        svn78607
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -1023,6 +1023,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78607-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78607-8
 - Update collection from svn77432 to svn78607
 - fix -doc provides/obsoletes

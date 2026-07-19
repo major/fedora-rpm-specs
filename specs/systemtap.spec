@@ -131,7 +131,7 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 Name: systemtap
 # PRERELEASE
 Version: 5.5
-Release: 3%{?release_override}%{?dist}
+Release: 4%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1375,6 +1375,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.5-3
 - Rebuilt for openssl 4.0
 

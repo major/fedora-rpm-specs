@@ -5,7 +5,7 @@
 Name:           texlive-collection-metapost
 Epoch:          12
 Version:        svn73627
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MetaPost and Metafont packages
 
 License:        LPPL-1.3c
@@ -1298,6 +1298,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/metapost/threeddice/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn73627-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73627-4
 - Update 6 components
 - Fix missing -doc provides/obsoletes

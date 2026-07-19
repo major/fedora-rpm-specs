@@ -1,6 +1,6 @@
 Name: 		utrac
 Version:	0.3.0
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary: 	Universal Text Recognizer and Converter
 Summary(fr): 	Reconnaisseur et convertisseur universel de texte
 
@@ -89,6 +89,9 @@ make install-lib DESTDIR=$RPM_BUILD_ROOT \
 %{_includedir}/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,17 +5,13 @@
 %global crate astral-tokio-tar
 
 Name:           rust-astral-tokio-tar
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Rust implementation of an async TAR file reader and writer
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/astral-tokio-tar
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update rustix dependency from 0.38 to 1.0:
-#   https://github.com/astral-sh/tokio-tar/pull/97
-Patch:          astral-tokio-tar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -41,6 +37,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

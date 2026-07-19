@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.7
-Release:       16%{?dist}
+Release:       17%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -77,6 +77,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.7-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.11.7-16
 - Rebuilt for openssl 4.0
 

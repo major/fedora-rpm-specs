@@ -1,7 +1,7 @@
 Summary:	A voice compression format (codec)
 Name:		speex
 Version:	1.2.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 License:	BSD-3-clause AND TU-Berlin-1.0
 URL:		https://www.speex.org/
 Source0:	https://downloads.xiph.org/releases/speex/%{name}-%{version}.tar.gz
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/speex/manual.pdf
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           xar
 Version:        1.8.0.%{subversion}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The eXtensible ARchiver
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0.417.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0.417.1-19
 - Rebuilt for openssl 4.0
 

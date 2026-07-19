@@ -5,7 +5,7 @@
 
 Name:          %{fontname}-fonts
 Version:       0
-Release:       0.24.%{source_date}%{?dist}
+Release:       0.25.%{source_date}%{?dist}
 Summary:       Font that provide a Fraktur typeface that may be embedded on websites
 # Automatically converted from old format: OFL - review is highly recommended.
 License:       LicenseRef-Callaway-OFL
@@ -67,6 +67,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20140706
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24.20140706
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

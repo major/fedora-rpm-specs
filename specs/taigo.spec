@@ -2,7 +2,7 @@
 
 Name:           taigo
 Version:        0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Virtual pet for your desktop built with GTK+, Vala, and love
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

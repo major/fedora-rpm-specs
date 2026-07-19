@@ -5,7 +5,7 @@
 Name:           texlive-collection-langother
 Epoch:          12
 Version:        svn78607
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Other languages
 
 License:        LPPL-1.3c
@@ -1940,6 +1940,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/wnri-latex/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78607-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78607-4
 - Update collection from svn74620 to svn78607
 - Add fonts-arundina

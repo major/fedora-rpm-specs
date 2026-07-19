@@ -2,7 +2,7 @@
 
 Name:           sdbus-cpp
 Version:        2.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -132,6 +132,9 @@ rm %{buildroot}%{_docdir}/sdbus-c++/COPYING
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 21 2026 Marek Blaha <mblaha@redhat.com> - 2.3.1-2
 - Relocate the license files to %{_licensedir}
 - Resolves: rhbz#2280338

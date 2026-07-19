@@ -8,7 +8,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -203,6 +203,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.10.1-4
 - Rebuilt for openssl 4.0
 

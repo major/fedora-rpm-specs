@@ -1,7 +1,7 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.11.2
-Release:        7%{?dist}
+Version:        1.11.3
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
 Source0:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -12,7 +12,6 @@ Source4:        %{name}.service
 Source5:        %{name}.logrotate
 Source6:        %{name}.tmpfilesd
 Source7:        %{name}.sysusersd
-Patch0:         https://github.com/radsecproxy/radsecproxy/commit/acbe243054d736acb583d15fd0650eff5b655c8a.patch#/radsecproxy-1.11.2-openssl-4.0.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -46,7 +45,7 @@ install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_tmpfilesdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
-chmod 644 tools/*.sh
+chmod 0644 tools/*.sh
 
 %check
 make check
@@ -83,6 +82,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Fri Jul 17 2026 Robert Scheck <robert@fedoraproject.org> 1.11.3-1
+- Upgrade to 1.11.3 (#2499720)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

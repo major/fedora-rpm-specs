@@ -1,6 +1,6 @@
 Name:    vcs-diff-lint
 Version: 6.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: VCS Differential Code Analysis Tool
 BuildArch: noarch
 
@@ -81,6 +81,9 @@ install -p vcs-diff-lint-csdiff-yamllint %buildroot%_bindir
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Apr 26 2026 Pavel Raiskup <pavel@raiskup.cz> 6.7-1
 - Handle (no traceback) "invalid-syntax" code from Ruff
 - log.debug() all git commands

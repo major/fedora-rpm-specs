@@ -5,7 +5,7 @@
 Name:           texlive-collection-context
 Epoch:          12
 Version:        svn75426
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ConTeXt and packages
 
 License:        LPPL-1.3c
@@ -546,6 +546,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/fonts/type1/jmn/hans/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn75426-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75426-6
 - Update context-notes-zh-cn
 - Add missing -doc Provides/Obsoletes

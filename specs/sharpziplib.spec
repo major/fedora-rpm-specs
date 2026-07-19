@@ -7,7 +7,7 @@
 
 Name:           sharpziplib
 Version:        1.3.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Zip, GZip, Tar and BZip2 library
 
 # - as stated on the homepage, license is aka GNU Classpath exception:
@@ -130,6 +130,9 @@ FINISH
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

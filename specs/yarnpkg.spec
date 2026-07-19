@@ -12,7 +12,7 @@
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -94,6 +94,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.22-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Apr 02 2026 Sandro Mani <manisandro@gmail.com> - 1.22.22-18
 - Add yarn-jsyaml4.patch
 - Refresh vendor bundle, fixes CVE-2026-4800

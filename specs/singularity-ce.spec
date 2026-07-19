@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # From 'go_vendor_license report' output.
@@ -359,6 +359,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 25 2026 David Trudgian <dtrudg@sylabs.io> - 4.5.0-1
 - Upgrade to 4.5.0 upstream version.
 

@@ -10,7 +10,7 @@
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
 Version: 1.0.41
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -137,6 +137,9 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.41-2
 - Rebuilt for openssl 4.0
 

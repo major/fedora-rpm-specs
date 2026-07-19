@@ -1,6 +1,6 @@
 Name:       xload
 Version:    1.2.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Tool to display system load average
 
 License:    X11
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/XLoad
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

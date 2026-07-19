@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -496,6 +496,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 18 2026 Vít Ondruch <vondruch@redhat.com> - 2.3.4-11
 - Fix TLS certificate fallback path (thanks to Roman Karwacik)
   Resolves: rhbz#2478914

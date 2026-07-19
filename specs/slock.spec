@@ -2,7 +2,7 @@
 
 Name:           slock
 Version:        1.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple X display locker
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -47,6 +47,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 # binary for light windowmanagers, and it shouldn't appear in applications menu
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

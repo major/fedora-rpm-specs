@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  7.5
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -313,6 +313,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7:7.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7:7.5-3
 - Rebuilt for openssl 4.0
 

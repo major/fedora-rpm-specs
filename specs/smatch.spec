@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.75
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -69,6 +69,9 @@ grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.75-2
 - Rebuilt for openssl 4.0
 

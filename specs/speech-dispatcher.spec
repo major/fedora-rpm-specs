@@ -6,7 +6,7 @@
 
 Name:          speech-dispatcher
 Version:       0.12.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -280,6 +280,9 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{python3_sitearch}/speechd*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.12.1-7
 - Rebuilt for Python 3.15
 

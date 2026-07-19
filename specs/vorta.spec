@@ -1,6 +1,6 @@
 Name:           vorta
 Version:        0.11.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GUI for Borg Backup
 License:        GPL-3.0-only AND BSD-2-Clause AND OFL-1.1
 # src/vorta/qt_single_application.py if BSD-2-Clause
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.11.4-2
 - Rebuilt for Python 3.15
 

@@ -1,5 +1,5 @@
 Version:  3.003
-Release:  21%{?dist}
+Release:  22%{?dist}
 URL:      https://software.sil.org/padauk/
 
 %global         foundry         SIL
@@ -54,6 +54,9 @@ Source11: 66-%{fontpkgname1}.conf
 %fontfiles -a
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

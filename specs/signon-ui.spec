@@ -4,7 +4,7 @@
 
 Name:           signon-ui
 Version:        0.15^%{gitdate}.%{shortcommit0}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Online Accounts Sign-on Ui
 
 License:        GPL-3.0-only
@@ -67,6 +67,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/signon-ui/webkit-options.d
 %{_sysconfdir}/signon-ui
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15^20240205.eef943f-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15^20240205.eef943f-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

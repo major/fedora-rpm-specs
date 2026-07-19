@@ -2,7 +2,7 @@
 
 Name:           whichwayisup
 Version:        0.7.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        2D platform game with a slight rotational twist
 
 # All game content, sounds and graphics are licensed under
@@ -108,6 +108,9 @@ ln -s %{_datadir}/fonts/bitstream-vera-sans-fonts/Vera.ttf \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

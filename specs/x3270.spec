@@ -4,7 +4,7 @@
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
 Version: 4.5ga5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -117,6 +117,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5ga5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5ga5-2
 - Rebuilt for openssl 4.0
 

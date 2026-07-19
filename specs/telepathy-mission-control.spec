@@ -3,7 +3,7 @@
 
 Name:           telepathy-mission-control
 Version:        5.16.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Epoch:          1
 Summary:        Central control for Telepathy connection manager
 
@@ -103,6 +103,9 @@ make check ||:
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.16.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.16.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

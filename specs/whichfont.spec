@@ -1,6 +1,6 @@
 Name:          whichfont
 Version:       3.0.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -36,6 +36,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 09 2026 Sudip Shil <sshil@redhat.com> - 3.0.1-1
 - whichfont will always accept and override --help option
 

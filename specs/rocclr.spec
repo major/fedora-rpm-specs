@@ -25,7 +25,7 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_major 7
-%global rocm_minor 13
+%global rocm_minor 14
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src therock-%{rocm_release}
@@ -454,6 +454,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{rocm_major}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
 %{pkg_prefix}/share/hip
+%if %{with preview}
+%{pkg_prefix}/bin/hrr-playback
+%endif
 
 %files -n rocm-hip%{pkg_suffix}-devel
 %{pkg_prefix}/%{pkg_libdir}/libamdhip64.so

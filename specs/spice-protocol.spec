@@ -6,7 +6,7 @@
 
 Name:           spice-protocol
 Version:        0.14.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Spice protocol header files
 # Main headers are BSD, controller / foreign menu are LGPL
 License:        BSD-3-Clause AND LGPL-2.1-or-later
@@ -91,6 +91,9 @@ This is the MinGW build of spice-protocol.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.14.5-4
 - Add MinGW packages
 

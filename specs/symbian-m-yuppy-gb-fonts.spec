@@ -1,5 +1,5 @@
 Version: 1.00
-Release: 19%{?dist}
+Release: 20%{?dist}
 URL:     https://www.businesswire.com/news/home/20100608005491/en/Monotype-Imaging-Contributes-Simplified-Chinese-Font-%E2%80%9CMYuppy%E2%80%9D
 
 %global foundry           Symbian
@@ -41,6 +41,9 @@ cp %{SOURCE1} .
 %fontfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: steghide
 Summary: A steganography program
 Version: 0.5.1
-Release: 53%{?dist}
+Release: 54%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -71,6 +71,9 @@ make check
 %{_mandir}/man1/steghide.1*
 
 %Changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

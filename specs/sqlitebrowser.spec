@@ -3,7 +3,7 @@
 
 Name:           sqlitebrowser
 Version:        3.13.1
-Release:        5%{?commit:.git%shortcommit}%{?dist}
+Release:        6%{?commit:.git%shortcommit}%{?dist}
 Summary:        Create, design, and edit SQLite database files
 
 License:        GPL-3.0-or-later OR MPL-2.0
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-6.gitffe7e57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-5.gitffe7e57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

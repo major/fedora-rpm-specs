@@ -3,7 +3,7 @@
 %global gh_name seadrive-fuse
 Name:           seadrive-daemon
 Version:        3.0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon part of Seafile Drive client
 
 License:        GPL-3.0-only
@@ -77,6 +77,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{python3_sitearch}/seadrive/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jun 21 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.23-1
 - Update to 3.0.23 (#2483946)
 

@@ -14,7 +14,7 @@
 
 Name:           vdr-%{pname}
 Version:        1.2.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -83,6 +83,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-6
 - Rebuilt for new VDR 2.8.2 API version 13
 

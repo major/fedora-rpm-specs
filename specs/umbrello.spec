@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
 Version: 26.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/development/umbrello/
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 

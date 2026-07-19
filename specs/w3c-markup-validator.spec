@@ -2,7 +2,7 @@
 
 Name:           w3c-markup-validator
 Version:        1.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        W3C Markup Validator
 
 License:        W3C
@@ -143,6 +143,9 @@ done
 %{_datadir}/sgml/%{name}/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: SGPIO captive backplane tool
 Name: sgpio
 Version: 1.2.0.10
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: GPL-2.0-or-later
 URL: https://sourceware.org/lvm2/wiki/DMRAID_Eventing
 Source: sgpio-1.2-0.10-src.tar.gz
@@ -39,6 +39,9 @@ make clean
 %{_mandir}/man1/sgpio.*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0.10-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0.10-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

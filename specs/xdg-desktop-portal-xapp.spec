@@ -2,7 +2,7 @@
 
 Name:           xdg-desktop-portal-xapp
 Version:        1.1.4^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp
 
 License:        LGPL-2.1-or-later
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4^unstable-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.4^unstable-1
 - Update to 1.1.4-unstable
 

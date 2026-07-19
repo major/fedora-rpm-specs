@@ -1,6 +1,6 @@
 Name:             zathura-cb
 Version:          2026.05.10
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Comic book support for zathura
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -44,6 +44,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun May 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.10-1
 - update to 2026.05.10 (rhbz#2406945)
 

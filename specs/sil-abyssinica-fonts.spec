@@ -1,5 +1,5 @@
 Version:        1.200
-Release:        32%{?dist}
+Release:        33%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1
@@ -52,6 +52,9 @@ Source1:        66-%{fontpkgname}.conf
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

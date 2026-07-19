@@ -6,7 +6,7 @@
 
 Name:           rust-slog
 Version:        2.7.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Structured, extensible, composable logging for Rust
 
 License:        MPL-2.0 OR MIT OR Apache-2.0
@@ -275,6 +275,9 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

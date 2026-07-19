@@ -1,6 +1,6 @@
 Name:      scim
 Version:   1.4.18
-Release:   14%{?dist}
+Release:   15%{?dist}
 Summary:   Smart Common Input Method platform
 
 License:   LGPL-2.1-or-later
@@ -258,6 +258,9 @@ fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

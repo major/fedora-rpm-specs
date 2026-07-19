@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -235,6 +235,9 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.1-5
 - Rebuilt for openssl 4.0
 

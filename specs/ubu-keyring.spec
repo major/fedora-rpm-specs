@@ -1,6 +1,6 @@
 Name:           ubu-keyring
 Version:        2023.11.28.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GnuPG keys of the Ubuntu archive
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -34,6 +34,9 @@ cp -a keyrings/* %{buildroot}%{_keyringsdir}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.28.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.28.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

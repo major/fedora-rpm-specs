@@ -3,7 +3,7 @@
 Version: 2.13b171
 %forgemeta
 
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL:     http://www.stixfonts.org/
 
 %global foundry           STIX
@@ -57,6 +57,9 @@ This package provides optional documentation files shipped with
 %doc docs/*pdf docs/*xlsx
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13b171-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13b171-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

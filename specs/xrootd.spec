@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	6.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -657,6 +657,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 23 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.1.0-1
 - Update to version 6.1.0
 - Drop patches accepted upstream

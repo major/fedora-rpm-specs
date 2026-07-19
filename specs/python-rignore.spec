@@ -1,15 +1,11 @@
 Name:           python-rignore
-Version:        0.7.6
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Python bindings for the ignore crate
 
 License:        MIT
 URL:            https://github.com/patrick91/rignore
-Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
-
-# Manually created patch for downstream crate metadata changes
-# * Update PyO3 to 0.29: https://github.com/patrick91/rignore/pull/33
-Patch:          rignore-fix-metadata.diff
+Source:         %{url}/archive/%{version}/rignore-%{version}.tar.gz
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --dependency-groups dev

@@ -1,6 +1,6 @@
 Name:           tinc
 Version:        1.0.36
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A virtual private network daemon
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_unitdir}/%{name}*.service
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.36-18
 - Rebuilt for openssl 4.0
 

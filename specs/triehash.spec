@@ -2,7 +2,7 @@
 
 Name:           triehash
 Version:        0.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generator for order-preserving minimal perfect hash functions in C
 
 License:        MIT
@@ -62,6 +62,9 @@ install -p -m644 -D triehash.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

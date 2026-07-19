@@ -1,6 +1,6 @@
 Name:           sjasm
 Version:        0.42c
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A z80 cross assembler
 License:        Zlib
 URL:            http://www.xl2s.tk
@@ -49,6 +49,9 @@ make -C sjasmsrc42c install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42c-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 0.42c-11
 - Pass '%{build_ldflags}' to the Makefile to fix annocheck 'bind-now' and 'pie'
   hardening failures

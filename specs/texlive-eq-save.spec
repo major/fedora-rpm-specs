@@ -8,7 +8,7 @@
 Name:           texlive-eq-save
 Epoch:          12
 Version:        svn%{revision}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Save exerquiz quizzes and resume
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
@@ -53,6 +53,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/eq-save/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn299-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn299-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

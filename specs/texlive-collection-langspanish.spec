@@ -5,7 +5,7 @@
 Name:           texlive-collection-langspanish
 Epoch:          12
 Version:        svn72203
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Spanish
 
 License:        LPPL-1.3c
@@ -425,6 +425,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-es/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72203-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72203-4
 - Update babel-spanish, hyphen-catalan, hyphen-galician, hyphen-spanish, texlive-es
 - Fix missing -doc provides/obsoletes

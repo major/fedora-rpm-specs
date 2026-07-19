@@ -1,6 +1,6 @@
 Name:           whatmask
 Version:        1.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Convert between different netmask types and show information
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -38,6 +38,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

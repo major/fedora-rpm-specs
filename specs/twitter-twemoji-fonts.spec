@@ -8,7 +8,7 @@
 
 Name:           %{foundry}-%{fontname}-fonts
 Version:        14.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Twitter Emoji for everyone
 
 # In noto-emoji-fonts source
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.%{fou
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

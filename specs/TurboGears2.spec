@@ -1,17 +1,18 @@
 Name:           TurboGears2
 Version:        2.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
 URL:            http://www.turbogears.org
 Source0:        %pypi_source turbogears2
+Patch1:         tg2-crank-update.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-backlash
 BuildRequires:  python3-chameleon
-BuildRequires:  python3-crank >= 0.8.0
+BuildRequires:  python3-crank >= 0.9.0
 BuildRequires:  python3-devel
 BuildRequires:  python3-formencode
 BuildRequires:  python3-genshi >= 0.5.1
@@ -47,7 +48,7 @@ Summary:        %{summary}
 
 Requires:       python3-backlash
 Requires:       python3-chameleon
-Requires:       python3-crank >= 0.8.0
+Requires:       python3-crank >= 0.9.0
 Requires:       python3-decorator
 Requires:       python3-formencode
 Requires:       python3-genshi >= 0.5.1
@@ -94,6 +95,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %doc README.rst
 
 %changelog
+* Fri Jul 17 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-11
+- Update crank dependency (upstream commit c061a5d)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

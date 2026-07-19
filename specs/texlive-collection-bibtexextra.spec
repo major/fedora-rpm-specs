@@ -5,7 +5,7 @@
 Name:           texlive-collection-bibtexextra
 Epoch:          12
 Version:        svn78803
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        BibTeX additional styles
 
 License:        LPPL-1.3c
@@ -4381,6 +4381,9 @@ popd
 %doc %{_texmf_main}/doc/bibtex/zootaxa-bst/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78803-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78803-8
 - Update collection from svn75480 to svn78803
 - Add biblatex-abs-annote

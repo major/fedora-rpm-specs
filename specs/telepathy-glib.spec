@@ -6,7 +6,7 @@
 
 Name:           telepathy-glib
 Version:        0.24.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GLib bindings for Telepathy
 
 # LGPL-2.1-or-later: overall
@@ -128,6 +128,9 @@ make check
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

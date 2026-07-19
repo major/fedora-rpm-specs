@@ -1,6 +1,6 @@
 Name:           unzoo
 Version:        4.4
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        ZOO archive extractor
 
 # Automatically converted from old format: Public Domain - needs further work
@@ -51,6 +51,9 @@ install -Dpm 755 unzoo %{buildroot}%{_bindir}/unzoo
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

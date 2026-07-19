@@ -1,7 +1,7 @@
 Name: sheepdog
 Summary: The Sheepdog distributed storage system for KVM/QEMU
 Version: 1.0.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License: GPL-2.0-only AND GPL-2.0-or-later
 URL: http://sheepdog.github.io/sheepdog
@@ -126,6 +126,9 @@ cp -a %{SOURCE3} %{buildroot}/%{_sysconfdir}/sysconfig
 %{_libdir}/libsheepdog.so
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

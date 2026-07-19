@@ -1,6 +1,6 @@
 Name:           taskd
 Version:        1.1.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Secure server providing multi-user, multi-client access to task data
 # spdx
 License:        MIT
@@ -139,6 +139,9 @@ install -m0644 -D taskd.sysusers.conf %{buildroot}%{_sysusersdir}/taskd.conf
 %{_sysusersdir}/taskd.conf
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 1.3.7
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A Vagrant synced folder plugin that mounts folders via SSHFS
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -72,6 +72,9 @@ cp -a .%{vagrant_plugin_dir}/* \
 %{vagrant_plugin_instdir}/vagrant-sshfs.gemspec
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

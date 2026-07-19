@@ -1,6 +1,6 @@
 Name:           xvkbd
 Version:        4.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Virtual Keyboard for X Window System
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ install -pDm644 %{S:2} %{buildroot}%{_datadir}/pixmaps
 %{_datadir}/X11/words.english
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

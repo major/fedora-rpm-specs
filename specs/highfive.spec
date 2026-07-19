@@ -119,7 +119,14 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 %check
 %if %{with tests}
+
+# on RISC-V we do not get (0-byte long) files needed for those tests to pass
+# they pass if we fake files
+%ifarch riscv64
+%ctest -VV -E "^(test_boost_NOT_BUILT|test_opencv_NOT_BUILT|test_xtensor_NOT_BUILT)"
+%else
 %ctest -VV
+%endif
 %endif
 
 

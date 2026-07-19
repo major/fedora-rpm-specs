@@ -15,7 +15,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.4.0
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        DVB frontend status monitor plugin for VDR
 License:        GPL-2.0-or-later
 URL:            https://github.com/rofafor/vdr-plugin-femon
@@ -56,6 +56,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Jun 03 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-42
 - Rebuilt for new VDR 2.8.2 API version 13
 

@@ -12,7 +12,7 @@ beginning of the file.
 
 Name:          tng
 Version:       1.8.2
-Release:       23%{?dist}
+Release:       24%{?dist}
 Summary:       Trajectory Next Generation binary format manipulation library
 
 # Automatically converted from old format: BSD and zlib - review is highly recommended.
@@ -104,6 +104,9 @@ popd
 %{_docdir}/%{name}
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Apr 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.8.2-23
 - stop using obsolete cmake3 macros
 - specify SONAME in file list explicitly

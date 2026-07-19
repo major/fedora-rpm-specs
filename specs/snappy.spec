@@ -4,7 +4,7 @@
 
 Name:           snappy
 Version:        1.2.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD-3-Clause
@@ -93,6 +93,9 @@ rm -rf %{buildroot}%{_datadir}/doc/snappy-devel/
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.2.2-5
 - Use standard CMake macros (rhbz#2381131)
 

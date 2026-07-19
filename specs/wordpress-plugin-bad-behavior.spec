@@ -4,7 +4,7 @@
 
 Name:		wordpress-plugin-%{plugin_name}
 Version:	2.2.13
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	%{plugin_human_name} plugin for WordPress
 
 # According to http://plugins.trac.wordpress.org/ all plugins are licensed
@@ -64,6 +64,9 @@ cp -a %{plugin_name} %{buildroot}%{_datadir}/wordpress/wp-content/plugins/
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

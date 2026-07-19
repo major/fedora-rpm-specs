@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgerman
 Epoch:          12
 Version:        svn74675
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        German
 
 License:        LPPL-1.3c
@@ -1229,6 +1229,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/voss-mathcol/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn74675-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-7
 - Update babel-german
 - fix -doc provides/obsoletes

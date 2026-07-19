@@ -18,7 +18,7 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -161,6 +161,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.20.0-6
 - Rebuilt for Python 3.15
 

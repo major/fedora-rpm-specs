@@ -2,7 +2,7 @@
 
 Name:           starcal
 Version:        3.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A full-featured international calendar written in Python
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -64,6 +64,9 @@ desktop-file-install     \
 %{_datadir}/icons/hicolor/*/apps/%{pkg_name}*.png
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

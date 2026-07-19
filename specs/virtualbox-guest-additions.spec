@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
 Version:    7.2.12
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -199,6 +199,9 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sun Jul 12 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.12-1
 - Update Virtualbox Guest Additions to 7.2.12 (rhbz#2460053)
 - Switch to building with nasm instead of yasm

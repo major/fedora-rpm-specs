@@ -6,7 +6,7 @@
 
 Name:           vid.stab
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Video stabilize library for fmpeg, mlt or transcode
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} tests/tests || :
 %{_libdir}/pkgconfig/vidstab.pc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

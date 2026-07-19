@@ -6,36 +6,18 @@
 #   Possible confusion with the "ulid" package
 #   https://github.com/mdomke/python-ulid/issues/13
 Name:           python-python-ulid
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Universally unique lexicographically sortable identifier
 
 # SPDX
 License:        MIT
 URL:            https://github.com/mdomke/python-ulid
-Source0:        %{pypi_source python_ulid}
+Source0:        %{url}/archive/%{version}/python-ulid-%{version}.tar.gz
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       ulid.1
 Source11:       ulid-build.1
 Source12:       ulid-show.1
-
-# Depend on typing-extensions for Python<3.11; avoid it otherwise
-#
-# Conditionalize the import of `typing_extensions`, needed only in Python 3.10
-# and older; use `typing` instead for Python 3.11 and later. Add a dependency
-# on `typing-extensions`, appropriately conditioned on the Python interpreter
-# version.
-#
-# Based on https://github.com/mdomke/python-ulid/pull/47 and
-# https://github.com/mdomke/python-ulid/pull/47#issuecomment-3431221960.
-#
-# Fixes https://github.com/mdomke/python-ulid/issues/44.
-#
-# Without changes to uv.lock, since we don’t use the lockfile and to avoid
-# merge conflicts.
-#
-# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2436255.
-Patch:          0001-Depend-on-typing-extensions-for-Python-3.11-avoid-it.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras pydantic
@@ -43,9 +25,9 @@ BuildOption(install): --assert-license ulid
 
 BuildArch:      noarch
 
-# Test dependencies are defined in [envs.default] in hatch.toml. They have
-# tight version pins and include coverage tools; it is easier to maintain a
-# manual list.
+# Test dependencies are defined in the “dev” dependeny group, which has tight
+# version pins and includes coverage tools and other unwanted dependencies; it
+# is easier to maintain a manual list.
 BuildRequires:  %{py3_dist freezegun}
 BuildRequires:  %{py3_dist pytest}
 
@@ -61,6 +43,7 @@ A ULID is a universally unique lexicographically sortable identifier. It is
     character)
   * Case insensitive
   * No special characters (URL safe)
+  * Monotonic sort order (correctly detects and handles the same millisecond)
 
 For more information have a look at the original specification,
 https://github.com/alizain/ulid#specification.}
@@ -79,6 +62,14 @@ Summary:        %{summary}
 
 
 %pyproject_extras_subpkg -n python3-python-ulid pydantic
+
+
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a

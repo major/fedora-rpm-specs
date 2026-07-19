@@ -1,6 +1,6 @@
 Name:           seaview
 Version:        5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphical multiple sequence alignment editor
 License:        GPL-3.0-or-later
 URL:            http://doua.prabi.fr/software/seaview
@@ -66,6 +66,9 @@ install -m 644 seaview.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 5.1-4
 - Rebuild with fltk 1.4.
 

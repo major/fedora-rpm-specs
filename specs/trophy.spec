@@ -1,6 +1,6 @@
 Name:           trophy
 Version:        2.0.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Car racing game with special features
 License:        GPL-1.0-or-later
 URL:            http://trophy.sourceforge.net/
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

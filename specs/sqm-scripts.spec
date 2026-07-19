@@ -1,6 +1,6 @@
 Name: sqm-scripts
 Version: 1.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Traffic shaper scripts for Smart Queue Management
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -42,6 +42,9 @@ queue length management (AQM), traffic shaping/rate limiting, and QoS
 %{_tmpfilesdir}/sqm.conf
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Feb 26 2026 Toke Høiland-Jørgensen <toke@redhat.com> - 1.7.2-1
 - Version 1.7.2 (RHBZ#2441930)
 

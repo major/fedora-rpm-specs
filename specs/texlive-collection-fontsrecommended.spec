@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsrecommended
 Epoch:          12
 Version:        svn54074
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Recommended fonts
 
 License:        LPPL-1.3c
@@ -1103,6 +1103,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/zapfding/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn54074-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-8
 - Fix missing -doc provides/obsoletes
 

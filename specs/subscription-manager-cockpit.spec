@@ -1,6 +1,6 @@
 Name: subscription-manager-cockpit
 Version: 14.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
 Group: System Environment/Base
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 14 2026 Packit <hello@packit.dev> - 14.1-1
 - packaging fixes
 - Resolves: rhbz#2457953

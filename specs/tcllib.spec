@@ -4,7 +4,7 @@
 Summary:    The standard Tcl library
 Name:       tcllib
 Version:    2.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    TCL
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
 URL:        https://core.tcl-lang.org/tcllib/doc/trunk/embedded/index.md
@@ -82,6 +82,9 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 # binaries and manpages are not here anymore, this is just for compat.
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 5.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.4.tar.gz
@@ -96,6 +96,9 @@ install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.socket
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jul 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.4-1
 - rebase to the latest upstream release (rhbz#2497090)
 - add gpg verification

@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 8.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -200,6 +200,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat May 23 2026 Jason Taylor <jtfas90@proton.me> - 8.0.5-1
 - Upstream security/bugfix release
 

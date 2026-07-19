@@ -4,7 +4,7 @@
 
 Name:		wsjtx
 Version:	3.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon May 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.1-1
 - New version
   Resolves: rhbz#2464806

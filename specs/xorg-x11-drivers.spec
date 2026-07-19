@@ -1,7 +1,7 @@
 Summary:    X.Org X11 driver installation package
 Name:       xorg-x11-drivers
 Version:    2022
-Release:    11%{?dist}
+Release:    12%{?dist}
 License:    MIT
 
 Requires:   xorg-x11-drv-dummy
@@ -39,6 +39,9 @@ driver packages to be installed.
 %files
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2022-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2022-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

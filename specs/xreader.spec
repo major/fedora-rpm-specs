@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.6.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -168,6 +168,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue May 19 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-2
 - Add requires xapp-symbolic-icons
 

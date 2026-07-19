@@ -1,6 +1,6 @@
 Name:		tuptime
 Version:	5.2.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -79,6 +79,9 @@ cp src/man/tuptime.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Apr 06 2026 Frank Crawford <frank@crawford.emu.id.au> - 5.2.6-1
 - New upstream release (bz2454385)
 

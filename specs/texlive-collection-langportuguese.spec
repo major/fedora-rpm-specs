@@ -5,7 +5,7 @@
 Name:           texlive-collection-langportuguese
 Epoch:          12
 Version:        svn73303
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Portuguese
 
 License:        LPPL-1.3c
@@ -410,6 +410,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/generic/xypic-tut-pt/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn73303-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73303-4
 - Update babel-portuges, hyphen-portuguese, latex-via-exemplos
 - Fix missing -doc provides/obsoletes

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langarabic
 Epoch:          12
 Version:        svn78033
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -1110,6 +1110,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78033-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-6
 - Update luabidi
 - add missing -doc provides/obsoletes

@@ -2,7 +2,7 @@
 
 Name:     wlr-sunclock
 Version:  1.0.0
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary:  Show the sun's shadows on earth
 
 # src/astro.[ch] are by John Walker in 1988 and placed in the Public Domain.
@@ -45,6 +45,9 @@ desktop, behind your windows.
 %license LICENCE
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

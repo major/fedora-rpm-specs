@@ -1,6 +1,6 @@
 Name:		spi-tools
 Version:	1.0.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Simple command line tools to help using Linux spidev devices
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -44,6 +44,9 @@ autoreconf -fi
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

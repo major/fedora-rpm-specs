@@ -2,7 +2,7 @@
 
 Name:           unar
 Version:        1.10.8
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Multi-format extractor
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -65,6 +65,9 @@ popd
 %{_datadir}/bash-completion/completions/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.10.8-16
 - Rebuilt for icu 78.3
 

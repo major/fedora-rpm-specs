@@ -1,6 +1,6 @@
 Name:             umockdev
 Version:          0.19.8
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Packit <hello@packit.dev> - 0.19.8-1
 - preload: Fix libc name on alpha architecture (Thanks Michael Cree!)
 - preload: Check dlopen(libc) failure

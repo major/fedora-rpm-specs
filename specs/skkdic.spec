@@ -5,7 +5,7 @@
 
 %global         githash_tools     0fe2106fbc052445c611e6c5b2a79899d740edcb
 
-%global         baserelease       6
+%global         baserelease       7
 
 %undefine        _changelog_trimtime
 
@@ -79,6 +79,9 @@ popd
 %{_datadir}/skk/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240131-7.gitb798a46b88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240131-6.gitb798a46b88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

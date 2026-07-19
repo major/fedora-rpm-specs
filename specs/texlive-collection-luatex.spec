@@ -5,7 +5,7 @@
 Name:           texlive-collection-luatex
 Epoch:          12
 Version:        svn78670
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LuaTeX packages
 
 License:        LPPL-1.3c
@@ -3246,6 +3246,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/lualatex/yamlvars/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78670-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78670-3
 - Update collection from svn77516 to svn78670
 - Add countwords

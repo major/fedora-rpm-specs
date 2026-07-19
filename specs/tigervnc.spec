@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -420,6 +420,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu Jun 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.16.2-5
 - Rebuilt for openssl 4.0
 

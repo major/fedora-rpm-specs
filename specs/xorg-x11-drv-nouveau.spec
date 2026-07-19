@@ -9,7 +9,7 @@ Name:      xorg-x11-drv-nouveau
 # need to set an epoch to get version number in sync with upstream
 Epoch:     1
 Version:   1.0.17
-Release:   14%{?dist}
+Release:   15%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -56,6 +56,9 @@ find %{buildroot} -name "*.la" -delete
 %{_mandir}/man4/nouveau.4*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.17-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

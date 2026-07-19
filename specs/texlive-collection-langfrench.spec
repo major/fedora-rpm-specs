@@ -5,7 +5,7 @@
 Name:           texlive-collection-langfrench
 Epoch:          12
 Version:        svn72499
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        French
 
 License:        LPPL-1.3c
@@ -1417,6 +1417,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/visualtikz/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72499-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-6
 - Update couleurs-fr
 - add missing -doc provides/obsoletes

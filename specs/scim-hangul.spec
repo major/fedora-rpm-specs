@@ -1,6 +1,6 @@
 Name:		scim-hangul
 Version:	0.4.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 
 License:	GPL-3.0-only
 URL:		https://github.com/libhangul/scim-hangul
@@ -50,6 +50,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/{IMEngine,SetupUI}/hangul*.la
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: NIS (or YP) client programs
 Name: yp-tools
 Version: 4.2.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPL-2.0-only
 
 URL: https://www.thkukuk.de/nis/nis/yp-tools/
@@ -80,6 +80,9 @@ make DESTDIR="$RPM_BUILD_ROOT" INSTALL_PROGRAM=install install
 /var/yp/nicknames
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

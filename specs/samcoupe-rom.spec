@@ -1,6 +1,6 @@
 Name:           samcoupe-rom
 Version:        3.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        SAM Coupé (Spectrum compatible homecomputer) ROM file
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://www.worldofsam.org/
@@ -37,6 +37,9 @@ install -p -m 644 %{SOURCE0} $RPM_BUILD_ROOT%{_datadir}/simcoupe
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

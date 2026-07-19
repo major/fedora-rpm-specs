@@ -1,18 +1,19 @@
-%if 0%{?fedora} > 35
-%global dict_dirname hunspell 
+%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
+%global dict_dirname hunspell
 %else
 %global dict_dirname myspell
 %endif
+
 Name: hunspell-pt
 Summary: Portuguese hunspell dictionaries
-%global upstreamid 20131030
+%global upstreamid 20251001
 Version: 0.%{upstreamid}
-Release: 17%{?dist}
-Source0: http://natura.di.uminho.pt/download/sources/Dictionaries/hunspell/hunspell-pt_PT-20130125.tar.gz
-Source1: https://pt-br.libreoffice.org/assets/Uploads/PT-BR-Documents/VERO/ptBR-2013-10-30AOC-2.zip
-URL: https://pt-br.libreoffice.org/projetos/vero
+Release: 1%{?dist}
+Source0: https://natura.di.uminho.pt/download/sources/Dictionaries/hunspell/hunspell-pt_PT-20251001.tar.gz
+Source1: https://downloads.sourceforge.net/project/aoo-extensions/18650/0/veroptbrv320aoc.oxt
+# URL: https://pt-br.libreoffice.org/projetos/vero
 # pt_BR dicts are under LGPLv3 or MPL, pt_PT under GPLv2 or LGPLv2 or MPLv1.1
-License: ( ( LGPL-3.0-only OR MPL-1.1 ) AND LGPL-2.1-only ) AND ( GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1 )
+License: (LGPL-3.0-only OR MPL-1.1) AND (GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1)
 BuildArch: noarch
 
 Requires: hunspell
@@ -30,9 +31,9 @@ Supplements: (hunspell and langpacks-pt_BR)
 Brazilian Portuguese hunspell dictionaries
 
 %prep
-%setup -q -n hunspell-pt_PT-20130125
+%autosetup -n hunspell-pt_PT-%{upstreamid}
 unzip -q -o %{SOURCE1}
-for i in README_pt_BR.TXT README_pt_PT.txt; do
+for i in pt_BR.dic README_pt_PT.txt; do
   if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
     iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
     touch -r $i $i.new
@@ -65,10 +66,13 @@ popd
 %exclude %{_datadir}/%{dict_dirname}/pt_BR.*
 
 %files BR
-%doc README_pt_BR.TXT README_en.TXT
+%doc README_pt_BR.txt README_en.txt
 %{_datadir}/%{dict_dirname}/pt_BR.*
 
 %changelog
+* Fri Jul 17 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20251001-1
+- Update pt_PT to new upstream release (rh#2501709)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20131030-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

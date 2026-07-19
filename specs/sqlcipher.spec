@@ -1,6 +1,6 @@
 Name:           sqlcipher
 Version:        4.5.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fork of the SQLite database library that adds 256 bit AES encryption
 
 License:        BSD-3-Clause
@@ -70,6 +70,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5.2-9
 - Rebuilt for openssl 4.0
 

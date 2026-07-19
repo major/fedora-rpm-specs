@@ -5,7 +5,7 @@
 Name:           texlive-collection-latex
 Epoch:          12
 Version:        svn78733
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        LaTeX fundamental packages
 
 License:        LPPL-1.3c
@@ -1652,6 +1652,9 @@ mv %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.map %{buildroot}%{_t
 %doc %{_texmf_main}/doc/latex/url/
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78733-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78733-4
 - Update collection from svn77034 to svn78733
 - Add pdfmanagement

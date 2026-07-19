@@ -1,9 +1,10 @@
+%bcond blake3 %{undefined rhel}
 %bcond stemming %{undefined rhel}
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 1.1.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -37,7 +38,9 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gi-docgen) >= 2021.1
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
+%if %{with blake3}
 BuildRequires: pkgconfig(libblake3)
+%endif
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libfyaml)
 BuildRequires: pkgconfig(librsvg-2.0)
@@ -104,6 +107,7 @@ Requires: pkgconfig(Qt6Core) >= 6.2.4
 %{meson} \
  -Dcompose=true \
  -Dqt=true \
+ -Dblake3-support=%{?with_blake3:true}%{!?with_blake3:false} \
  -Dstemming=%{?with_stemming:true}%{!?with_stemming:false} \
  -Dvapi=true
 
@@ -204,6 +208,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Fri Jul 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.3-3
+- Disable blake3 support on RHEL
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

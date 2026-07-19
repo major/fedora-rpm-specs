@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.30.14
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -739,6 +739,9 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Fri Jun 12 2026 Pavol Žáčik <pzacik@redhat.com> - 1.30.14-3
 - Add OpenSSL 4.0 compatibility patch
 

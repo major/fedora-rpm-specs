@@ -1,6 +1,6 @@
 Name:           voikko-fi
 Version:        2.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A description of Finnish morphology written for libvoikko
 
 License:        GPL-2.0-or-later
@@ -58,6 +58,9 @@ make vvfst-install DESTDIR=$RPM_BUILD_ROOT%{_prefix}/lib/voikko
 %{_prefix}/lib/voikko/5
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

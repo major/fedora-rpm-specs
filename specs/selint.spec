@@ -9,7 +9,7 @@
 Summary: Static code analysis tool for SELinux policy source files
 Name: selint
 Version: 1.5.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://github.com/SELinuxProject/selint
 License: Apache-2.0
 Source: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ autoreconf -fiv -Wall -Wno-portability
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

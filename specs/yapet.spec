@@ -2,7 +2,7 @@
 
 Name:           yapet
 Version:        2.6
-Release:        9%{?pre}%{?dist}
+Release:        10%{?pre}%{?dist}
 Summary:        Yet Another Password Encryption Tool
 # Automatically converted from old format: GPLv3+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv3+-with-exceptions
@@ -68,6 +68,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man*/*yapet*
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6-9
 - Rebuilt for openssl 4.0
 

@@ -1,6 +1,6 @@
 Name:           xpsk31
 Version:        3.6.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        GTK+ graphical version of lpsk31 for Ham Radio
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ install -pm 0755 %{SOURCE3} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

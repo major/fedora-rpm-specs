@@ -1,6 +1,6 @@
 Name:           test-drive
 Version:        0.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The simple testing framework
 # Automatically converted from old format: ASL 2.0 or MIT - review is highly recommended.
 License:        Apache-2.0 OR LicenseRef-Callaway-MIT
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_includedir}/test-drive/
 %{_libdir}/libtest-drive.so
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

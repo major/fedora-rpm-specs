@@ -15,7 +15,7 @@ Package sysutil provides cross platform system utilities.}
 
 Name:           sysutil
 Version:        0
-Release:        0.20%{?dist}
+Release:        0.21%{?dist}
 Summary:        Provides cross platform system utilities
 
 License:        MIT
@@ -53,6 +53,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.20
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

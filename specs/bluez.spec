@@ -6,15 +6,15 @@
 
 Name:    bluez
 Version: 5.87
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=5bc6aa79e53700d56fc1f9f9364573ba4c78da65
-Patch1: 0001-adapter-Fix-crash-on-dev_disconnected.patch
+# git format-patch --stdout 5.87...30db66dc971bd1cd95d4a7b0eea296367ab65b3b
+Patch1: 5.87-bug-fixes-1.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -340,6 +340,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Jul 17 2026 Bastien Nocera <bnocera@redhat.com> - 5.87-4
+- Update to latest upstream HEAD to fix a number of possible crashes
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.87-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

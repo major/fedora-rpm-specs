@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           tcputils
 Version:        0.6.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Utilities for TCP programming in shell-scripts
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -48,6 +48,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

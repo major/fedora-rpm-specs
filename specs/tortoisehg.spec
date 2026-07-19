@@ -3,7 +3,7 @@
 
 Name:           tortoisehg
 Version:        7.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mercurial GUI command line tool thg
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %exclude %{_datadir}/nautilus-python/extensions/__pycache__/nautilus-thg.cpython-*.pyc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 30 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.2-1
 - tortoisehg 7.2.2
 

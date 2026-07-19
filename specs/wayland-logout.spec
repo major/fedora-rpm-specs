@@ -1,6 +1,6 @@
 Name:           wayland-logout
 Version:        1.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simple program that sends SIGTERM to a wayland compositor
 
 License:        MIT
@@ -38,6 +38,9 @@ as the name implies.
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

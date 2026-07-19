@@ -2,7 +2,7 @@ Summary: The NIS (Network Information Service) server
 
 Name: ypserv
 Version: 4.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL-2.0-only
 URL: https://www.thkukuk.de/nis/nis/ypserv/
 
@@ -167,6 +167,9 @@ install -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/rpc.yppasswdd.env
 %{_includedir}/rpcsvc
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

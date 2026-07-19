@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        3.2.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            https://www.wxwidgets.org/
@@ -353,6 +353,9 @@ fi
 %doc html
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.2.9-3
 - Add loongarch64 to the condition for using lib64 in the wx-config file.
 - Skip failing tests on riscv64

@@ -238,12 +238,10 @@ Source49:       wasi.patch.template
 Source50:       wasi-sdk-30.tar.gz
 
 # Build patches
-Patch40:        build-aarch64-skia.patch
 Patch44:        build-arm-libopus.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch80:        wasi.patch
-Patch81:        firefox-gcc-15.0-s390.patch
 Patch85:        build-wasm32-wasip1.patch
 
 # Fedora specific patches
@@ -520,11 +518,9 @@ This package contains results of tests executed during build.
 # there is a compare of config and js/config directories and .orig suffix is
 # ignored during this compare.
 
-%patch -P40 -p1 -b .aarch64-skia
 %patch -P44 -p1 -b .build-arm-libopus
 %patch -P71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P78 -p1 -b .firefox-i686
-%patch -P81 -p1 -b .firefox-gcc-15.0-s390
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %patch -P85 -p1 -b .wasm32-wasip1
 %endif

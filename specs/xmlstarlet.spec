@@ -2,7 +2,7 @@
 
 Name: xmlstarlet
 Version: 1.6.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Command Line XML Toolkit
 License: MIT
 URL: http://xmlstar.sourceforge.net/
@@ -55,6 +55,9 @@ make check
 
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Wed May 27 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.1-30
 - Fix XXE (XML External Entity) vulnerability
 

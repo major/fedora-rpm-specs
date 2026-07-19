@@ -1,7 +1,7 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
 Version:        3.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 3.2.0-2
 - Rebuild (qt6)
 

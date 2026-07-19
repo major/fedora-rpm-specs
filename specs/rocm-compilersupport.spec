@@ -23,7 +23,7 @@
 # For building earlier snapshots of the compiler
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -830,7 +830,7 @@ sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' 
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
-sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangOptions -lclangFrontend -lclangFrontendTool -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangUnifiedSymbolResolution -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangScalableStaticAnalysisFrameworkAnalyses -lclangDependencyScanning -lclangOptions -lclangFrontend -lclangFrontendTool -lclangScalableStaticAnalysisFrameworkFrontend -lclangScalableStaticAnalysisFrameworkCore -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangUnifiedSymbolResolution -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %else
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
@@ -1106,7 +1106,6 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/bin/amdlld
 %{bundle_prefix}/bin/amdllvm
 %if %{with preview}
-%{bundle_prefix}/bin/ssaf-format
 %endif
 
 

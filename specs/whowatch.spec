@@ -1,7 +1,7 @@
 Summary: Display information about users currently logged on 
 Name: whowatch
 Version: 1.8.6
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPL-2.0-only
 URL: http://wizard.ae.krakow.pl/~mike/
 
@@ -45,6 +45,9 @@ touch aclocal.m4 Makefile.in src/config.h.in
 %{_bindir}/whowatch
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

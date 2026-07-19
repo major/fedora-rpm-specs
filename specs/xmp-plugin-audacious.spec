@@ -12,7 +12,7 @@
 
 Name: xmp-plugin-audacious
 Version: 4.0.0.3.8
-Release: 0.10.20250909git%{shortcommit}%{?dist}
+Release: 0.11.20250909git%{shortcommit}%{?dist}
 Summary: Multi-format module playback plugin for Audacious using libxmp
 Source: https://github.com/mschwendt/xmp-plugin-audacious/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 License: GPL-2.0-or-later
@@ -70,6 +70,9 @@ make install DESTDIR=%{buildroot}
 #exclude %%{plugin_dir}/Input/*.la
 
 %changelog
+* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0.3.8-0.11.20250909gita5fbde8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
 * Mon Jul 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 4.0.0.3.8-0.10.20250909gita5fbde8
 - RPM 6.1 changed %___build_pre macro - use %___build_pre_env instead.
 
