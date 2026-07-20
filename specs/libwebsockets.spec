@@ -6,7 +6,7 @@
 %endif
 
 Name:           libwebsockets
-Version:        4.5.7
+Version:        4.5.8
 Release:        %autorelease
 Summary:        Lightweight C library for Websockets
 
@@ -17,7 +17,6 @@ Summary:        Lightweight C library for Websockets
 License:        LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND Zlib
 URL:            http://libwebsockets.org
 Source0:        https://github.com/warmcat/libwebsockets/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         libwebsockets-openssl4.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-g++

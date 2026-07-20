@@ -1,5 +1,5 @@
 Name:		perl-Rose-DB
-Version:	0.787
+Version:	0.788
 Release:	%autorelease
 Summary:	DBI wrapper and abstraction layer
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl

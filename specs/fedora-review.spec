@@ -14,12 +14,14 @@
 
 Name:       fedora-review
 Version:    0.11.0
-Release:    5%{?build_nr}%{?git_tag}%{?dist}
+Release:    6%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
 URL:        https://pagure.io/FedoraReview
 Source0:    https://releases.pagure.org/FedoraReview/fedora_review-%{version}%{?git_tag}.tar.gz
+
+Patch:      https://forge.fedoraproject.org/packaging/FedoraReview/pulls/546.patch#/001-fix-emtpy-rpms.patch
 
 BuildArch:  noarch
 
@@ -154,6 +156,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Thu Jul 16 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 0.11.0-6
+- Fix crash on RPMs containing no files
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

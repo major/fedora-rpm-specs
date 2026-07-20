@@ -1,18 +1,12 @@
 %global pugixml_version 1.15
-
-%global         forgeurl0 https://github.com/pwsafe/pwsafe
-%global         version0  1.24.0
-# Using a more recent snapshot of `master` to pull in various
-# necessary patches until 1.25.0 is out
-%global         date      20260608
-%global         commit    0582bb5
-%forgemeta
+%global short pwsafe
 
 Summary:        Password Safe is a password management utility
 Name:           passwordsafe
-Version:        %forgeversion
-Source0:        %forgesource0
+Version:        1.25.0
+Source0:        https://github.com/%{short}/%{short}/archive/refs/tags/%{version}/%{short}-%{version}.tar.gz
 Release:        %autorelease
+Url:            https://pwsafe.org/
 
 # https://github.com/pwsafe/pwsafe/pull/1792
 # upstream wants to keep this libmagic reference since it will be needed
@@ -22,7 +16,10 @@ Patch2:         remove-unreferenced-libmagic.patch
 # upstream wants to keep utf8 bom since they seem to have Windows editors
 # that require it. I don't think any Fedora editor requires a utf-8 bom.
 Patch3:         bomless-utf8-output.patch
-Url:            https://pwsafe.org/
+#
+# S390 C++ does not allow variable length arrays
+Patch4:         https://github.com/pwsafe/pwsafe/pull/1875.patch
+
 #
 # most of the code is Artistic-2.0
 # src/core/crypto/external/Chromium is BSD-3-Clause
@@ -52,6 +49,7 @@ BuildRequires:  ykpers-devel
 # since we have icons
 Requires:       hicolor-icon-theme
 Obsoletes:      pwsafe < 2.0.0-1
+Recommends:     %{name}-doc
 
 # this package cannot directly use the fedora pugixml library, since
 # that is built for char, and we need the wchar version.
@@ -79,11 +77,11 @@ The passwordsafe-doc package contains the documentation
 and help files for Password Safe.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{short}-%{version}
 # make sure our binaries don't depend on any windows/mac stuff
-rm -rv src/ui/Windows
-rm -rv src/os/windows
-rm -rv src/os/mac
+rm -r src/ui/Windows
+rm -r src/os/windows
+rm -r src/os/mac
 
 
 %conf

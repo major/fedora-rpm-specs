@@ -47,8 +47,8 @@
 }
 
 Name:       copr-frontend
-Version:    2.7.hotfix.1
-Release:    2%{?dist}
+Version:    2.7.hotfix.2
+Release:    1%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -375,14 +375,16 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.hotfix.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue May 19 2026 Jakub Kadlcik <frostyx@email.cz> 2.7.hotfix.1-1
+* Sat Jul 18 2026 Jakub Kadlcik <frostyx@email.cz> 2.7.hotfix.2-1
+- frontend: list all owners that still have projects in some storage
+- frontend: cancel pending build chroots when a chroot is EOLed
+- frontend: add tests for build cancel vs pending-jobs race conditions
+- Change the URL to work with the new API
 - frontend: don't fail pending-actions when copr is None
-
-* Mon Apr 27 2026 Jakub Kadlcik <frostyx@email.cz> 2.7.hotfix.0-1
+- docs: clarify that pruning is based on RPM names, not Copr packages
 - frontend: preload build.pkg_version for detailed monitor
+- frontend: implement custom markdown/html for users and groups
+- frontend: limit the maximum avatar width
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.7-1
 - Don't require admin permissions to show the rebuild button

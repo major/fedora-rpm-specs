@@ -37,7 +37,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.5.1
+Version:          2.5.4
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
@@ -60,6 +60,7 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
+Patch01001:       0001-Disable-broken-test.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies

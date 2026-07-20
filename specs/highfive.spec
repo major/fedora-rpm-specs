@@ -36,6 +36,16 @@ Known flaws:
 - The support of fixed length strings isn’t ideal.}
 
 %bcond tests 1
+# Currently, tests for half-float support would fail to compile with:
+#
+# […]/highfive/half_float.hpp:9:8: error: ‘AtomicType’ does not name a type
+#     9 | inline AtomicType<float16_t>::AtomicType() {
+#       |        ^~~~~~~~~~
+#
+# …which makes sense since AtomicType is defined in another highfive header,
+# and this header only includes <half.hpp>. While we could offer a patch, this
+# suggests that the feature is not well-tested upstream anyway.
+%bcond half 0
 
 # Header only, so no debuginfo is generated
 %global debug_package %{nil}
@@ -69,6 +79,9 @@ BuildRequires:  boost-devel
 BuildRequires:  (cmake(eigen3) with eigen3-static)
 BuildRequires:  (cmake(xtensor) with xtensor-static)
 BuildRequires:  cmake(opencv)
+%if %{with half}
+BuildRequires:  half-devel half-static
+%endif
 
 %description %_description
 
@@ -86,6 +99,9 @@ Requires:       boost-devel
 Requires:       (cmake(eigen3) with eigen3-static)
 Requires:       (cmake(xtensor) with xtensor-static)
 Requires:       cmake(opencv)
+%if %{with half}
+Requires:       half-devel
+%endif
 
 %description    devel
 The highfive-devel package contains libraries and header files for
@@ -97,17 +113,22 @@ developing applications that use HighFive.
 
 
 %build
-# TODO: Remove in the 3.0 release
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %if %{with tests}
 # The unit tests intentionally test deprecated APIs; silence these warnings so
 # we are more likely to notice any real problems.
 CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 %endif
+%if %{with tests} && %{with half}
+%global half_tests 1
+%endif
 %cmake \
     -DHIGHFIVE_CMAKE_INSTALL_DIR=%{_lib}/cmake/HighFive \
     -DHIGHFIVE_EXAMPLES:BOOL=TRUE \
     -DHIGHFIVE_UNIT_TESTS:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
+    -DHIGHFIVE_TEST_BOOST:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
+    -DHIGHFIVE_TEST_OPENCV:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
+    -DHIGHFIVE_TEST_XTENSOR:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
+    -DHIGHFIVE_TEST_HALF_FLOAT:BOOL=%{?half_tests:TRUE}%{?!half_tests:FALSE} \
     -DHIGHFIVE_BUILD_DOCS:BOOL=FALSE \
     -GNinja
 %cmake_build
@@ -119,14 +140,7 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 %check
 %if %{with tests}
-
-# on RISC-V we do not get (0-byte long) files needed for those tests to pass
-# they pass if we fake files
-%ifarch riscv64
-%ctest -VV -E "^(test_boost_NOT_BUILT|test_opencv_NOT_BUILT|test_xtensor_NOT_BUILT)"
-%else
 %ctest -VV
-%endif
 %endif
 
 

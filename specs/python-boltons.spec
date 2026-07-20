@@ -1,5 +1,5 @@
 Name:           python-boltons
-Version:        26.0.0
+Version:        26.1.0
 Release:        %autorelease
 Summary:        Functionality that should be in the standard library
 

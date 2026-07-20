@@ -1,13 +1,14 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
 
 Name:           httrack
-Version:        3.49.12
+Version:        3.49.13
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://github.com/xroche/httrack/
 Source0:        https://github.com/xroche/httrack/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/xroche/coucal/archive/%{coucal_commit}/coucal-%{coucal_commit}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -118,7 +119,6 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/pixmaps/%{name}*x*.xpm
 %{_datadir}/%{name}/
-%{_libdir}/libhtsjava.so.*
 %{_libdir}/libhttrack.so.*
 %{_mandir}/man1/htsserver.1*
 %{_mandir}/man1/%{name}.1*
@@ -129,7 +129,6 @@ appstream-util validate-relax --nonet \
 %files devel
 %{_pkgdocdir}/libtest/
 %{_includedir}/%{name}/
-%{_libdir}/libhtsjava.so
 %{_libdir}/libhttrack.so
 
 %changelog

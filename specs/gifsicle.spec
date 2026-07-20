@@ -10,7 +10,8 @@ Source0:        http://www.lcdf.org/gifsicle/gifsicle-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libX11-devel
-BuildRequires: make
+BuildRequires:  make
+ExcludeArch:    %{ix86}
 
 
 %description

@@ -19,8 +19,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:			gpaw
-Version:		25.7.0
-Release:		7%{?dist}
+Version:		26.7.0
+Release:		1%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -39,11 +39,13 @@ BuildRequires:		flexiblas-devel
 BuildRequires:		openblas-devel
 %endif
 BuildRequires:		fftw-devel
+BuildRequires:		gcc-c++
 BuildRequires:		libxc-devel
 BuildRequires:		time
 BuildRequires:		which
 
 BuildRequires:		python3-devel
+BuildRequires:		python3-pybind11
 BuildRequires:		python3-pytest
 BuildRequires:		python3-scipy
 
@@ -116,17 +118,21 @@ This package contains the mpich Python 3 version.
 
 cp siteconfig_example.py siteconfig.py
 
+# Relax pybind version
+sed -i "s/'pybind11 .*'/'pybind11'/" pyproject.toml
+
+%if 0%{?el10}
+# Relax setuptools version to allow EPEL builds
+# https://gitlab.com/ase/ase/-/work_items/1726
+sed -i "s/'setuptools .*'/'setuptools'/" pyproject.toml
+sed -Ei "s/^license = '(.*)'/license = { text = \"\1\" }/" pyproject.toml
+sed -i "/^license-files =/d" pyproject.toml
+%endif
+
 # Remove dependency on gpaw-data,
 # https://gitlab.com/gpaw/gpaw-data would need to be packaged
 sed -i  "s|'gpaw-data'||" setup.py
-
-# fix the shebangs python version in the scripts
-find tools -type f | xargs sed -i '1s|^#!/usr/bin/env python.*|#!%{_bindir}/python3|'
-# Exclude python scripts from shebang mangling
-%global __brp_mangle_shebangs_exclude_from bin/gpaw.*$
-
-# workaround for "assert terminalreporter is not None" https://gitlab.com/gpaw/gpaw/-/issues/1026
-sed -i 's/except AttributeError:/except (AttributeError, AssertionError):/' gpaw/test/conftest.py
+sed -i  "s|'gpaw-data',||" pyproject.toml
 
 
 %build
@@ -139,6 +145,9 @@ unset CC \
 (%{pyproject_wheel}) && \
 mv build build$MPI_SUFFIX && \
 rm -rfv build dist *.dist-info
+
+# use g++
+sed -i 's/# compiler =.*/compiler = "g++"/' siteconfig.py
 
 # disable mpi
 sed -i 's/.*mpi =.*/mpi = False/' siteconfig.py
@@ -165,11 +174,11 @@ MPI_SUFFIX=_serial PYTHON=python3 %dobuild
 sed -i 's/.*mpi =.*/mpi = True/' siteconfig.py
 # enable scalapack
 sed -i 's/.*scalapack =.*/scalapack = True/' siteconfig.py
-# force mpicc
-sed -i 's/# compiler =.*/compiler = "mpicc"/' siteconfig.py
-which mpicc
-mpicc --version
-mpicc foo.c --showme
+# force mpic++
+sed -i 's/compiler =.*/compiler = "mpic++"/' siteconfig.py
+which mpic++
+mpic++ --version
+mpic++ foo.c --showme
 PYTHON=python3 %dobuild
 %{_openmpi_unload}
 
@@ -179,12 +188,12 @@ PYTHON=python3 %dobuild
 sed -i 's/.*mpi =.*/mpi = True/' siteconfig.py
 # enable scalapack
 sed -i 's/.*scalapack =.*/scalapack = True/' siteconfig.py
-# force mpicc
-sed -i 's/# compiler =.*/compiler = "mpicc"/' siteconfig.py
-which mpicc
-mpicc --version
-mpicc -compile_info
-mpicc -link_info
+# force mpic++
+sed -i 's/compiler =.*/compiler = "mpic++"/' siteconfig.py
+which mpic++
+mpic++ --version
+mpic++ -compile_info
+mpic++ -link_info
 PYTHON=python3 %dobuild
 %{_mpich_unload}
 
@@ -194,7 +203,6 @@ PYTHON=python3 %dobuild
 # copy python scripts and modules
 %global doinstall() \
 mkdir -p $RPM_BUILD_ROOT/$MPI_BIN&& \
-install -p -m 755 build$MPI_SUFFIX/scripts-*/* $RPM_BUILD_ROOT/$MPI_BIN/&& \
 install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT/$MPI_BIN/&& \
 mkdir -p $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH&& \
 cp -rpv build$MPI_SUFFIX/lib.*/%{name} $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/&& \
@@ -216,13 +224,6 @@ PYTHON=python3 %doinstall
 
 %check
 
-# https://wiki.fysik.dtu.dk/gpaw/devel/testing.html#testing
-# The command below runs two serial jobs
-# mpiexec -np 2 python3 -m pytest --pyargs gpaw -v
-# because it needs
-# module load mpi
-# export PYTHONPATH=$MPI_PYTHON3_SITEARCH
-
 export NPROC_PARALLEL=2 # test on 4 cores (scalapack test needs that)
 
 export TIMEOUT_OPTS='--preserve-status --kill-after 10 1800'
@@ -233,31 +234,30 @@ export TIMEOUT_OPTS='--preserve-status --kill-after 10 1800'
 GPAW_PLATFORM_GLOB=$($PYTHON -c "from distutils import util, sysconfig; print(util.get_platform()+'-*')")&& \
 . /etc/profile.d/gpaw-*.sh&& \
 export PYTHONPATH=$(echo $(pwd)/build$MPI_SUFFIX/lib.${GPAW_PLATFORM_GLOB}) \
-PATH=`pwd`/tools:${PATH} \
+export GPAW_MPI_BACKEND \
+PATH=$RPM_BUILD_ROOT/$MPI_BIN:${PATH} \
 timeout ${TIMEOUT_OPTS} time $GPAW_EXECUTABLE -m ci -v 2>&1 | tee gpaw-test${NPROC}$MPI_SUFFIX.log || true
 
 # check serial version
-MPI_SUFFIX="_serial" PYTHON="python3" GPAW_EXECUTABLE="pytest" NPROC=1 %docheck
-gpaw -T test
+GPAW_MPI_BACKEND=serial MPI_BIN=%{_bindir} MPI_SUFFIX="_serial" PYTHON="python3" GPAW_EXECUTABLE="pytest" NPROC=1 %docheck
+PATH=$RPM_BUILD_ROOT%{_bindir}:${PATH} gpaw test
+
+# How to run a selection of pytest -m ci in parallel?
+# https://gitlab.com/gpaw/gpaw/-/work_items/1605
 
 # check openmpi version
 %{_openmpi_load}
-PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
-# Exclude tests on f42
-# prterun noticed that process rank 0 with PID 31162 on node a5d2098df7854ae2848c183375b89c89 exited on
-# signal 4 (Illegal instruction).
-%ifnarch ppc64le
-mpiexec -np ${NPROC_PARALLEL} gpaw -T test
-%endif
+GPAW_MPI_BACKEND=cgpaw PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np 1 pytest" NPROC=${NPROC_PARALLEL} %docheck
+PATH=$RPM_BUILD_ROOT/$MPI_BIN:${PATH} mpiexec -np ${NPROC_PARALLEL} gpaw test
 %{_openmpi_unload}
 
 # check mpich version
 %{_mpich_load}
-PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
-# Exclude tests on f42
+GPAW_MPI_BACKEND=cgpaw PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np 1 pytest" NPROC=${NPROC_PARALLEL} %docheck
+# Exclude tests on f42 onwards
 # Fatal error in internal_Bcast
 %ifnarch s390x
-mpiexec -np ${NPROC_PARALLEL} gpaw -T test
+PATH=$RPM_BUILD_ROOT/$MPI_BIN:${PATH} mpiexec -np ${NPROC_PARALLEL} gpaw test
 %endif
 %{_mpich_unload}
 
@@ -286,6 +286,9 @@ mpiexec -np ${NPROC_PARALLEL} gpaw -T test
 
 
 %changelog
+* Fri Jul 17 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 26.7.0-1
+- New upstream release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

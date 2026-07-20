@@ -8,6 +8,7 @@ License:        GPL-3.0-only
 # Modernized URL to the project's GitHub repository
 URL:            https://github.com/pali/0xFFFF
 Source:         https://github.com/pali/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  libusb-compat-0.1-devel
 BuildRequires:  make

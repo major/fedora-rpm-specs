@@ -1,12 +1,16 @@
+# LTO miscompiles ocp, causing random internal plugins to be missing:
+# https://github.com/mywave82/opencubicplayer/issues/167
+%global _lto_cflags %nil
+
 #global snapshot 0
-%global commit d9d81d02d47499d0a7c96abb6a92fb152a118a58
-%global commitdate 20260208
-%global gittag v3.1.3
+%global commit 6c9e482994ab674c8785e9d90c5373f0a9132006
+%global commitdate 20260524
+%global gittag v3.3.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.1.3%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	2%{?dist}
+Version:	3.3.1%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -25,8 +29,7 @@ Source1:	ftp://ftp.cubic.org/pub/player/gfx/opencp25image1.zip
 Source2:	ftp://ftp.cubic.org/pub/player/gfx/opencp25ani1.zip
 Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
-Patch0:		ocp-0.2.106-ini-optimize.patch
-Patch1:		ocp-0.2.106-ini-rompaths.patch
+Patch1:		ocp-3.3.1-rompaths.patch
 Patch2:		ocp-3.1.1-timidity-config-file.patch
 
 BuildRequires:	alsa-lib-devel
@@ -51,7 +54,7 @@ BuildRequires:	libXxf86vm-devel
 BuildRequires:	make
 BuildRequires:	ncurses-devel
 BuildRequires:	perl-interpreter
-BuildRequires:	SDL2-devel
+BuildRequires:	SDL3-devel >= 3.2.0
 BuildRequires:	texinfo
 BuildRequires:	unifont-fonts
 BuildRequires:	unzip
@@ -66,26 +69,118 @@ Requires:	unifont-fonts
 Recommends:	soundfont2-default
 
 # Bundled code
-# AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
+
+# ocp-3.3.1/playtimidity/timidity-git/configure.ac:AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
 Provides:	bundled(timidity++) = 2.15.0
-# m4_define([lib_major], [3]) m4_define([lib_minor], [0]) m4_define([lib_level], [0a]) m4_define([lib_version], [lib_major.lib_minor.lib_level]) AC_INIT([libsidplayfp],[lib_version],[],[],[https://github.com/libsidplayfp/libsidplayfp/])
-Provides:	bundled(libsidplayfp) = 3.0.0a
-# AC_INIT([adplug], [2.4.1-beta])
+
+# ocp-3.3.1/playopl/adplug-git/configure.ac:AC_INIT([adplug], [2.4.1-beta])
 Provides:	bundled(adplug) = 2.4.1-beta
-# AC_INIT([binio],[1.5],[dn.tlp@gmx.net],[libbinio])
-# const char* residfpII_version_string = "3.1.0";
+
+# ocp-3.3.1/playopl/libbinio-git/configure.ac:AC_INIT([binio],[1.5],[dn.tlp@gmx.net],[libbinio])
 Provides:	bundled(libbinio) = 1.5
-Provides:	bundled(reSIDfp) = 3.1.0
-# AC_INIT([libexsid], [2.1], [], [], [https://github.com/libsidplayfp/exsid-driver])
+
+# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_major], [1])
+# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_minor], [0])
+# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_level], [2])
+# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
+# ocp-3.3.1/playsid/libresidfp-git/configure.ac:AC_INIT([libresidfp],[lib_version],[],[],[https://github.com/libsidplayfp/libresidfp/])
+# But: const char* residfp_version_string = "@PACKAGE_VERISON"; which resolves to just the ocp version.
+Provides:	bundled(reSIDfp) = 1.0.2
+
+# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_major], [3])
+# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_minor], [0])
+# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_level], [0])
+# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
+# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:AC_INIT([libsidplayfp],[lib_version],[],[],[https://github.com/libsidplayfp/libsidplayfp/])
+Provides:	bundled(libsidplayfp) = 3.0.0
+
+# ocp-3.3.1/playsid/libsidplayfp-git/src/builders/exsid-builder/driver/configure.ac:AC_INIT([libexsid], [2.1], [], [], [https://github.com/libsidplayfp/exsid-driver])
 Provides:	bundled(libexsid) = 2.1
 
 %description
 Open Cubic Player is a music file player ported from DOS that supports
-Amiga MOD module formats and many variants, such as MTM, STM, 669,
-S3M, XM, and IT.  It is also able to render MIDI files using sound
-patches and play SID, OGG Vorbis, FLAC, and WAV files.  OCP provides a
-nice text-based interface with several text-based and graphical
-visualizations.
+Amiga-style MOD tracker module formats and many variants, MIDI files,
+various vintage computer system and game music formats, and modern
+digital audio formats. It also has integrated support for modland.com
+to play files directly from that website.  OCP provides a nice text-
+based interface with several text-based and graphical visualizations.
+
+Amiga style modules files with more (Amiga compressed files will be
+decompressed using ancient):
+
+    *.AMS, Velvet Studio and Extreme's Tracker
+    *.DMF, X-Tracker
+    *.IT, Impulse Tracker or use the modern Schism Tracker
+    *.MDL, DigiTrakker, now developed as MilkyTracker
+    *.MOD, ProTracker or use the modern ProTracker Clone
+    *.MTM, MultiTracker Module Editor
+    *.NST, NoiseTracker
+    *.OKT, Oktalyzer
+    *.PTM, PolyTracker
+    *.STM, Scream Tracker 2
+    *.S3M, Scream Tracker 3
+    *.ULT, Ultra Tracker
+    *.WOW, Grave Composer
+    *.XM, FastTracker 2 or use the modern FastTracker 2 Clone
+    *.669, Composer 669
+
+Code from STYMulator to play music from Atari ST (Yamaha YM2149):
+
+    *.YM
+
+Fork of libsidplayfp to play music from C64 (SID 6581/8580):
+
+    *.SID
+    *.RSID
+
+Code from aylet to play music from ZX Spectrum/Amstrad CPC
+(Yamaha YM2149):
+
+    *.AY
+
+Audio Files (both compressed and PCM styled):
+
+    *.WAV
+    *.OGG
+    *.FLAC
+    *.MP2
+    *.MP3
+    *.QOA Quite OK Audio
+
+Audio CDs: Linux support only, using digital read out API
+
+    *.CDA
+
+Fork of TiMidity++ is used to play MIDI:
+
+    *.MID
+
+AdPlug can read a wide range of music formats designed for the
+OPL2/OPL3 Adlib sound chip. Examples:
+
+    *.HSC
+    *.SNG
+    *.D00
+    *.ADL
+    *.VGM
+    *.RAD Reality Adlib Tracker
+
+HivelyTracker tracked music, using code from the original tracker
+repository:
+
+    *.HVL Hively Tracker
+    *.AHX AHX or use the not yet existant modern AHX Clone
+
+Game Music Emulator Support for various retro game consoles:
+
+    *.GBS, GameBoy Sound System
+    *.GYM, Genesis YM2612
+    *.HES, Hudson Entertainment Sound
+    *.KSS, Konami Sound System?
+    *.NSF *.NSFe, Nintendo Sound Format
+    *.SAP, Slight Atari Player
+    *.SPC, Super Nintendo / Super Famicom SPC-700 co-processor
+    *.VGM *.VGZ, Video Game Music
 
 
 %prep
@@ -101,6 +196,7 @@ mv license.txt license-videos.txt
 
 
 %build
+#CFLAGS="$CFLAGS -DDEBUG=1" CPPFLAGS="$CPPFLAGS -DDEBUG=1"
 %configure --with-x11 \
 	   --with-alsa \
 	   --without-coreaudio \
@@ -110,23 +206,18 @@ mv license.txt license-videos.txt
 	   --with-libgme \
 	   --with-flac \
 	   --without-sdl \
-	   --with-sdl2 \
+	   --with-sdl3 \
 	   --with-mad \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
-%if 0%{?fedora} < 38
-	   --with-unifontdir-ttf=/usr/share/fonts/unifont \
-	   --without-unifont-csur-ttf \
-%else
 	   --with-unifont-otf=/usr/share/fonts/unifont/unifont.otf \
 	   --with-unifont-csur-otf=/usr/share/fonts/unifont/unifont_csur.otf \
 	   --with-unifont-upper-otf=/usr/share/fonts/unifont/unifont_upper.otf \
-%endif
 	   --with-dumptools \
 	   --without-update-mime-database \
 	   --without-update-desktop-database \
 	   --docdir=%{_pkgdocdir} \
-#	   --with-debug
+	   #--with-debug
 # Makefiles are not SMP-clean
 %global _smp_mflags -j1
 %make_build
@@ -154,6 +245,11 @@ desktop-file-install --add-category="Midi" \
 # install images and animations
 cp -p CPPIC*.TGA CPANI*.DAT %{buildroot}%{_datadir}/%{name}/data
 
+# create symlinks to externally-provided libsidplayfp ROM files
+ln -s ../../vice/C64/kernal-901227-03.bin %{buildroot}%{_datadir}/%{name}/data/KERNAL.ROM
+ln -s ../../vice/C64/basic-901226-01.bin %{buildroot}%{_datadir}/%{name}/data/BASIC.ROM
+ln -s ../../vice/C64/chargen-901225-01.bin %{buildroot}%{_datadir}/%{name}/data/CHARGEN.ROM
+
 # remove COPYING from buildroot/docdir as it will be installed as a license file below
 rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
@@ -166,7 +262,7 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 %{_libdir}/%{name}
 %{_bindir}/ocp
 %{_bindir}/ocp-curses
-%{_bindir}/ocp-sdl2
+%{_bindir}/ocp-sdl3
 %{_bindir}/ocp-vcsa
 %{_bindir}/ocp-x11
 %{_bindir}/dump*
@@ -186,8 +282,22 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Jul 17 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.3.1-1
+- Update to 3.3.1
+- Use SDL3
+- Maintain local symlinks to external libsidplayfp ROM paths
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Fri May 22 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.3.0-1
+- Update to 3.3.0
+
+* Sun Mar 01 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.2.0-1
+- Update to 3.2.0
+- Switch from SDL2 to SDL3
+- Remove Fedora < 38 support
+- Update description
 
 * Fri Feb 13 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.3-1
 - Update to 3.1.3

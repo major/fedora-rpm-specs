@@ -45,6 +45,10 @@ URL:            https://zeromq.org/languages/python/
 %global forgeurl https://github.com/zeromq/pyzmq
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
+# Fix TestFrame.test_buffer_numpy on numpy 2.5
+# https://github.com/zeromq/pyzmq/pull/2202
+Patch:          %{forgeurl}/pull/2202.patch
+
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): test-requirements.txt
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html

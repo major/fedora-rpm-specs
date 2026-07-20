@@ -113,33 +113,33 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Zlib
 # bzip2-1.0.6
 License:        %{shrink:
-                0BSD AND
-                (0BSD OR Apache-2.0 OR MIT) AND
-                Apache-2.0 AND
-                (Apache-2.0 OR BSD-2-Clause) AND
-                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
-                (Apache-2.0 OR BSL-1.0) AND
-                (Apache-2.0 OR ISC OR MIT) AND
-                (Apache-2.0 OR MIT) AND
-                (Apache-2.0 OR MIT OR Zlib) AND
-                (Apache-2.0 OR MIT-0) AND
-                (Apache-2.0 WITH LLVM-exception) AND
-                (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-                BSD-3-Clause AND
-                CC0-1.0 AND
-                CDLA-Permissive-2.0 AND
-                ISC AND
-                (LGPL-3.0-or-later OR MIT) AND
-                (LGPL-3.0-or-later OR MPL-2.0) AND
-                MIT AND
-                MIT-0 AND
-                (MIT OR Unlicense) AND
-                MPL-2.0 AND
-                Unicode-3.0 AND
-                Unicode-DFS-2016 AND
-                Zlib AND
-                bzip2-1.0.6
-                }
+    0BSD AND
+    (0BSD OR Apache-2.0 OR MIT) AND
+    Apache-2.0 AND
+    (Apache-2.0 OR BSD-2-Clause) AND
+    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 OR MIT OR Zlib) AND
+    (Apache-2.0 OR MIT-0) AND
+    (Apache-2.0 WITH LLVM-exception) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    BSD-3-Clause AND
+    CC0-1.0 AND
+    CDLA-Permissive-2.0 AND
+    ISC AND
+    (LGPL-3.0-or-later OR MIT) AND
+    (LGPL-3.0-or-later OR MPL-2.0) AND
+    MIT AND
+    MIT-0 AND
+    (MIT OR Unlicense) AND
+    MPL-2.0 AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    Zlib AND
+    bzip2-1.0.6
+    }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/astral-sh/uv
 Source0:        %{url}/archive/%{version}/uv-%{version}.tar.gz
@@ -168,15 +168,19 @@ ExcludeArch:    %{ix86}
 # https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
 %global rustflags_debuginfo 1
 
-# As a separate limitation, memory exhaustion can occur on builders with very
-# many CPUs. Typical workspace crates peak out at 2-4 GB per rustc invocation.
-# The uv crate needs much more memory to compile and link, but in practice it
-# is also compiled alone after all the other crates have finished, so it does
-# not need to influence (and does not benefit from) this setting. This setting
-# does not necessarily have to reflect the maximum memory required to compile a
-# workspace crate; keeping it well above the average suffices in practice on
-# many-core systems.  Increase as needed.
-%global _smp_tasksize_proc 4096
+# As a separate limitation, memory exhaustion (OOM) can occur during parallel
+# portions of the build.
+# - Because very many workspace crates can be built in parallel, builders with
+#   a very large number of CPUs may OOM. Typical workspace crates peak out at
+#   roughly 2–4 GB per rustc process.
+# - The uv crate needs much more memory to compile and link, at least 8 GB, and
+#   when building the tests we may be building bin and lib versions at the same
+#   time, along with the it (integration test) crate, which is also rather
+#   large. This is a problem for “low memory” builders (<20 GB or so).
+# Unfortunately, this means that we need to scale the memory per task based on
+# the memory requirements of the top-level uv crate in order to avoid OOM on
+# all kinds of builders.
+%global _smp_tasksize_proc 10240
 
 # Compilation may fail on builders with very many cores (e.g. 192 cores) due to
 # “too many open files.” Try to keep the files/core ratio from getting too low.

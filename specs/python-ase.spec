@@ -16,8 +16,8 @@ ase-3.23 requires pyproject.toml setuptools support
 %global upstream_name ase
 
 Name:			python-ase
-Version:		3.25.0
-Release:		7%{?dist}
+Version:		3.29.0
+Release:		1%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -77,6 +77,16 @@ analyzing simulations, etc.
 %prep
 %setup -qn %{upstream_name}-%{version}
 
+%if 0%{?el10}
+# Relax setuptools version to allow EPEL builds
+# https://gitlab.com/ase/ase/-/work_items/1726
+sed -i "s/requires = \['setuptools.*/requires = \['setuptools'\]/" pyproject.toml
+sed -Ei "s/^license = '(.*)'/license = { text = \"\1\" }/" pyproject.toml
+sed -i "/^license-files =/d" pyproject.toml
+# Relax typing-extensions version
+sed -i "s/'typing_extensions.*'/'typing_extensions'/" pyproject.toml
+%endif
+
 # https://gitlab.com/ase/ase/-/issues/1461
 rm -f ase/test/fio/test_espresso.py
 # Fixed some time after 3.25.0
@@ -131,13 +141,13 @@ cat files3.list
 
 
 %check
-export PYTHONPATH=`pwd`/build/lib
-export PATH=`pwd`/bin:${PATH}  # the tests assume Python 3 scripts are named the same as Python 2 scripts
-# the cli tests assume there is /usr/bin/env python
-ln -s `which python3` `pwd`/bin/python
+export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib}
+export PATH=$RPM_BUILD_ROOT%{_bindir}:${PATH}
+# Don't write pyc files under $RPM_BUILD_ROOT during tests
+export PYTHONDONTWRITEBYTECODE=1
 # Ignore pytest deprecation warnings treated as errors https://gitlab.com/ase/ase/-/issues/909
 LC_ALL=C.UTF-8 ase test --verbose --pytest -W ignore -W 'once::DeprecationWarning'
-cd -
+rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/%{upstream_name}/test/.pytest_cache
 
 
 %files -n python3-ase -f files3.list
@@ -149,6 +159,9 @@ cd -
 
 
 %changelog
+* Fri Jul 17 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 3.29.0-1
+- New upstream release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           x2gokdriveclient
 Version:        0.0.0.1
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        X2Go KDrive Client application
 License:        GPL-3.0-or-later
 URL:            https://www.x2go.org
@@ -32,10 +32,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  man2html-core
 BuildRequires:  pkgconfig
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Enhances:       x2goclient
-%endif
 
+ExcludeArch:    %{ix86}
 
 %description
 X2Go is a server-based computing environment with
@@ -87,28 +86,4 @@ export 'PATH=%{_qt6_bindir}:'"${PATH}"
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Sep 28 2023 Orion Poplawski <orion@nwra.com> - 0.0.0.1-2
-- Add BR for gcc-c++
-- Fix License tag
-- Use %%global
-
-* Thu Jun 15 2023 Orion Poplawski <orion@nwra.com> - 0.0.0.1-1
-- Initial Fedora package
+%autochangelog

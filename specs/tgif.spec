@@ -1,6 +1,6 @@
 Name:		tgif
 Version:	4.2.5
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	2-D drawing tool
 
 # convkinput.c	HPND
@@ -31,6 +31,11 @@ Requires:	ghostscript
 Requires:	netpbm-progs
 Requires:	xorg-x11-fonts-75dpi
 Requires:	xorg-x11-fonts-ISO8859-1-75dpi
+
+%if 0%{?fedora} >= 45
+# imake not available on i686
+ExcludeArch:	%{ix86}
+%endif
 
 %description
 Tgif  -  Xlib based interactive 2-D drawing facility under
@@ -167,6 +172,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jul 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-37
+- Drop ix86 on F45 unavoidably as imake stopped supporting on ix86
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

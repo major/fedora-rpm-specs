@@ -10,6 +10,11 @@ License:        MIT AND WTFNMFPL
 URL:            https://github.com/scipopt/PySCIPOpt
 Source:         %{url}/archive/v%{version}/PySCIPOpt-%{version}.tar.gz
 
+# Fix `test_markDoNotAggrVar_and_getStatus`
+# https://github.com/scipopt/PySCIPOpt/pull/1230
+# Cherry-picked on v6.2.1
+Patch:          0001-Make-test_markDoNotAggrVar_and_getStatus-robust-to-S.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license pyscipopt
 

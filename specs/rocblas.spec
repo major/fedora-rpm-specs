@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -177,7 +177,7 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
 Release:        9%{?dist}
 %endif

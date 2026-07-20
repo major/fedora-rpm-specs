@@ -18,6 +18,7 @@ Patch:          https://github.com/LudovicRousseau/pyscard/commit/54ef7f2ca636b8
 BuildRequires:  gcc
 BuildRequires:  pcsc-lite-devel
 BuildRequires:  swig >= 1.3.31
+ExcludeArch:    %{ix86}
 
 %description
 The pyscard smartcard library is a framework for building smart card aware

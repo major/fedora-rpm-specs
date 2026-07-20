@@ -7,7 +7,7 @@
 %bcond optional_tests 1
 
 Name:           python-scikit-build-core
-Version:        1.0.1
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
@@ -71,11 +71,7 @@ export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 %pyproject_check_import
 %if %{with tests}
 # Additional tests from optional_tests are automatically skipped/picked-up by pytest
-# TODO: drop %%{ix86} check after https://github.com/scikit-build/scikit-build-core/issues/1481
 %pytest \
-%ifarch %{ix86}
-    -k "not test_wheel_timestamp_clamps_epoch_beyond_zip_range" \
-%endif
     -m "not network"
 %endif
 

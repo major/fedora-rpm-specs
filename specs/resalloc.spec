@@ -50,8 +50,8 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    6.2
-Release:    3%{?dist}
+Version:    6.3
+Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -407,6 +407,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Sat Jul 18 2026 Jakub Kadlcik <frostyx@email.cz> - 6.3-1
+- New upstream version
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

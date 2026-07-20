@@ -13,6 +13,8 @@ BuildRequires:  automake
 BuildRequires:  octave-devel
 BuildRequires:  netcdf-devel
 
+ExcludeArch:    %{ix86}
+
 Requires:       octave(api) = %{octave_api}
 Requires(post): octave
 Requires(postun): octave

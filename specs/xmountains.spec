@@ -1,6 +1,6 @@
 Name:           xmountains
 Version:        2.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A fractal terrain generator
 
 # SPDX confirmed
@@ -19,6 +19,11 @@ BuildRequires:  xorg-x11-xbitmaps
 BuildRequires:  xorg-x11-proto-devel
 BuildRequires:  libX11-devel
 BuildRequires:  imake
+
+%if 0%{?fedora} >= 45
+# imake not available on i686
+ExcludeArch:	%{ix86}
+%endif
 
 %description
 Xmountains is a fractal terrain generator written by Stephen Booth.
@@ -79,6 +84,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sat Jul 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-8
+- Drop ix86 on F45 unavoidably as imake stopped supporting on ix86
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

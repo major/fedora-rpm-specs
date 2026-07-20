@@ -17,6 +17,7 @@ BuildRequires: systemd-rpm-macros
 # For tests
 BuildRequires: fakeroot
 BuildRequires: perl
+ExcludeArch: %{ix86}
 
 %description
 k5start is a modified version of kinit which can use keytabs to authenticate, 

@@ -6,9 +6,9 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.19
+Version: 3.6.2.20
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
 Patch1: ags-build-tests-with-cxx17.patch
@@ -148,6 +148,9 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Sat Jul 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.20-1
+- update to 3.6.2.20 (resolves rhbz#2498460)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

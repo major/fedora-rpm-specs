@@ -1,6 +1,6 @@
-%global pkgver 2.4.1
+%global pkgver 2.4.2
 #global prerel rc1
-%global baserelease 3
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,18 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Sat Jul 18 2026 Paul Howarth <paul@city-fan.org> - 2.4.2-1
+- Update to 2.4.2 (rhbz#2501999)
+  - Bluefish 2.4.2 has a few new features and a few fixes
+  - The most visible change is that Bluefish detects icon themes, and has
+    built-in icon themes for "Breeze" and "Breeze-dark"; this is a big
+    improvement for the visual integration of Bluefish on a KDE desktop
+  - The most important fix is for a segfault that could occur if a filename on
+    disk has a specific broken UTF-8 encoding
+  - Some small improvements are reduced memory usage when working with 100+
+    files simultaneously, some translation improvements, and the <meta>
+    author field is now configurable
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

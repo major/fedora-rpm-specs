@@ -1,6 +1,6 @@
 Name:		samtools
 Version:	1.24
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools for nucleotide sequence alignments in the SAM format
 
 License:	MIT
@@ -18,6 +18,8 @@ BuildRequires:	perl-interpreter
 BuildRequires:	perl(FindBin)
 BuildRequires:	perl(Getopt::Long)
 BuildRequires:	perl(lib)
+# Needed for seq_cache_populate.pl
+Requires:	perl(File::Find)
 
 %description
 SAM (Sequence Alignment/Map) is a flexible generic format for storing
@@ -91,6 +93,9 @@ make test
 
 
 %changelog
+* Sat Jul 18 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.24-2
+- Added missing Perl requirement
+
 * Fri Jul 17 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.24-1
 - Update to 1.24 (#2498633)
 

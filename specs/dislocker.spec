@@ -69,7 +69,9 @@ reading from it or writing to it is possible.
 %autosetup -p1
 
 %build
-%cmake -D WARN_FLAGS="-Wall -Wno-error -Wextra"
+%cmake \
+  -D WARN_FLAGS="-Wall -Wno-error -Wextra" \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install

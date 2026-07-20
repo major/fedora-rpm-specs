@@ -3,13 +3,13 @@
 %global forgeurl https://github.com/jbardin/scp.py
 
 Name:    python-%{srcname}
-Version: 0.15.0
+Version: 0.16.0
 %forgemeta
 Release: %autorelease
 Summary: Scp module for paramiko
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.1-or-later
 URL:     %{forgeurl}
 Source0: %{forgesource}
 
