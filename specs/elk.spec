@@ -35,23 +35,20 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 %global FFTW -L%{_libdir} -lfftw3 -lfftw3f
 %if 0%{?fedora} >= 25 || 0%{?rhel} >= 9
-%global LIBXC -L%{_libdir} -lxc -lxcf03
+%global LIBXC -L%{_libdir} -lxcf03 -lxc
 %else
 %global LIBXC -L%{_libdir} -lxc
 %endif
 
 Name:			elk
-Version:		9.2.12
-Release:		9%{?dist}
+Version:		11.0.2
+Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:		GPL-3.0-or-later
 URL:			http://elk.sourceforge.net/
 Source0:		https://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tgz
-
-# Patch for libxc 7 compatibility: standard Fortran interface has been called libxcf03 since libxc 3
-Patch0:                 elk-9.2.12-libxc7.patch
 
 BuildRequires:		patch
 BuildRequires:		time
@@ -130,12 +127,6 @@ This package contains the common binaries.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch 0 -p 1 -b .libxc7
-
-%if 0%{?fedora} >= 41
-# Libxc 7 split off the functionals into a different module
-sed -i 's|use xc_f03_lib_m|use xc_f03_lib_m\nuse xc_f03_funcs_m|g' src/libxcifc.f90
-%endif
 
 # create common make.inc.common
 # default serial fortran
@@ -319,6 +310,9 @@ mv tests.orig tests
 
 
 %changelog
+* Sat Jul 18 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 11.0.2-1
+- New upstream release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

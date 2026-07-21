@@ -1,20 +1,22 @@
-%global translate_c_version 1.0.0
-
-# From https://codeberg.org/ziglang/translate-c/src/tag/1.0.0/build.zig.zon#L12
-%global aro_commit 5f5a050569a95ecc40a426f0c3666ae7ef987ede
+%global translate_c_commit 119c5d0551c4b025d7a5d6963cf4dd32f9151a4b
+%global aro_commit c32de628ac29c765f8794e86374810ae5fb5c115
 
 %global zig_build_options -Dpie
 
+# Specify package directory using an absolute path
+# Required for translate-c to build
+%global _zig_system_integration --system %{builddir}/ncdu-%{version}/zig-pkg
+
 Name:           ncdu
-Version:        2.10.0
-Release:        4%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
 URL:            https://github.com/BratishkaErik/ncdu
-Source0:        https://github.com/BratishkaErik/ncdu/releases/download/v%{version}/ncdu-%{version}.tar.gz
-Source1:        https://codeberg.org/ziglang/translate-c/archive/%{translate_c_version}.tar.gz#/translate-c-%{translate_c_version}.tar.gz
-Source2:        https://github.com/Vexu/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
+Source0:        https://github.com/BratishkaErik/ncdu/releases/download/v%{version}/ncdu-%{version}-src.tar.gz
+Source1:        https://codeberg.org/vancluever/translate-c/archive/%{translate_c_commit}.tar.gz#/translate-c-%{translate_c_commit}.tar.gz
+Source2:        https://github.com/vancluever/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
 
 Patch0:         ncdu-allow-shlib-undefined.patch
 
@@ -51,6 +53,12 @@ and provides a fast way to see what directories are using your disk space.
 %{_bindir}/ncdu
 
 %changelog
+* Sun Jul 19 2026 Richard Fearn <richardfearn@gmail.com> - 2.11.0-1
+- Update to 2.11.0 (#2497359)
+
+* Sun Jul 19 2026 Richard Fearn <richardfearn@gmail.com> - 2.10.1-1
+- Update to 2.10.1 (#2497359)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

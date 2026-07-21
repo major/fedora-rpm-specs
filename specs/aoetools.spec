@@ -4,13 +4,11 @@ Release:        %autorelease
 Summary:        Tools for using ATA over Ethernet
 License:        GPL-2.0-only
 URL:            https://github.com/OpenAoE/aoetools
-
 %global git_tag %{name}-%{version}
 Source0:        https://github.com/OpenAoE/aoetools/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        60-aoe.rules
-
 Patch0:         %{name}-makefile.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros

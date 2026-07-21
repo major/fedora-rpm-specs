@@ -1,4 +1,4 @@
-%global blender_api 5.1
+%global blender_api 5.2
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %global _without_bundled_deps 1
 
@@ -27,14 +27,14 @@
     # x86_64 exclusive features
     %ifarch x86_64
     %bcond hip   1    # AMD HIP support
-    %bcond hiprt 1    # HIP ray tracing (requires Fedora 42+)
+    %bcond hiprt 0    # HIP ray tracing (requires Fedora 42+)
     %bcond oidn  1    # OpenImageDenoise
     %bcond oneapi 1   # Intel OneAPI support
     %bcond openshading 1  # OpenShadingLanguage support
     %bcond opgl  1    # OpenPGL
-    %global llvm_compat 18
+    %global llvm_compat 20
     %endif
-    %bcond usd   1    # Universal Scene Description
+    %bcond usd   0    # Universal Scene Description
 %else
     %bcond embree 0
     %bcond hidapi 0
@@ -48,7 +48,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        5.1.2
+Version:        5.2.0
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production

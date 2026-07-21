@@ -3,7 +3,7 @@
 
 Name:           nginx-mod-headers-more
 Version:        0.40
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        This module allows adding, setting, or clearing specified input/output headers
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ popd
 
 
 %changelog
+* Sun Jul 19 2026 Felix Kaechele <felix@kaechele.ca> - 0.40-3
+- Rebuild for 1.30.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

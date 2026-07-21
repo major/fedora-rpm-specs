@@ -801,8 +801,10 @@ ln -sf libpetsc.so.%{version} %{buildroot}%{_libdir}/libpetsc.so.%{releasever}
 ln -sf libpetsc.so.%{version} %{buildroot}%{_libdir}/libpetsc.so.%{majorver}
 
 install -pm 644 %{_arch}/include/*.h %{buildroot}%{_includedir}/%{name}/
+cp -a %{_arch}/include/petsc/finclude %{buildroot}%{_includedir}/%{name}/
 install -pm 644 %{_arch}/include/*.mod %{buildroot}%{_fmoddir}/%{name}/
-cp -a include/* %{buildroot}%{_includedir}/%{name}/
+install -pm 644 include/*.h %{buildroot}%{_includedir}/%{name}/
+cp -a include/petsc/private %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
@@ -835,8 +837,10 @@ ln -sf libpetsc64.so.%{version} %{buildroot}%{_libdir}/libpetsc64.so.%{releaseve
 ln -sf libpetsc64.so.%{version} %{buildroot}%{_libdir}/libpetsc64.so.%{majorver}
 
 install -pm 644 %{_arch}/include/*.h %{buildroot}%{_includedir}/%{name}64/
+cp -a %{_arch}/include/petsc/finclude %{buildroot}%{_includedir}/%{name}64/
 install -pm 644 %{_arch}/include/*.mod %{buildroot}%{_fmoddir}/%{name}64/
-cp -a include/* %{buildroot}%{_includedir}/%{name}64/
+install -pm 644 include/*.h %{buildroot}%{_includedir}/%{name}64/
+cp -a include/petsc/private %{buildroot}%{_includedir}/%{name}64/
 
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
@@ -853,8 +857,8 @@ sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}|g' -i %{buildroot}%{_libdir}/%{
 sed -e 's|-I%{_prefix}/%{_arch}/include/|-I%{_includedir}/%{name}64 -I%{_fmoddir}/%{name}64|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscvariables
 sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/variables
 sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/rules
-sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscrules
-sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscrules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscvariables
 popd
 %endif
 
@@ -872,8 +876,11 @@ ln -sf libpetsc.so.%{version} %{buildroot}$MPI_LIB/libpetsc.so.%{releasever}
 ln -sf libpetsc.so.%{version} %{buildroot}$MPI_LIB/libpetsc.so.%{majorver}
 
 install -pm 644 %{_arch}/include/*.h %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a %{_arch}/include/petsc/finclude %{buildroot}$MPI_INCLUDE/%{name}/
 install -pm 644 %{_arch}/include/*.mod %{buildroot}$MPI_FORTRAN_MOD_DIR/%{name}/
-cp -a include/* %{buildroot}$MPI_INCLUDE/%{name}/
+install -pm 644 include/*.h %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a include/petsc/private %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a include/petsc/mpiuni %{buildroot}$MPI_INCLUDE/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}$MPI_LIB/
 sed -e 's|-I${includedir}/petsc|-I%{_includedir}/openmpi-%{_arch}/petsc|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
@@ -938,8 +945,11 @@ ln -sf libpetsc.so.%{version} %{buildroot}$MPI_LIB/libpetsc.so.%{releasever}
 ln -sf libpetsc.so.%{version} %{buildroot}$MPI_LIB/libpetsc.so.%{majorver}
 
 install -pm 644 %{_arch}/include/*.h %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a %{_arch}/include/petsc/finclude %{buildroot}$MPI_INCLUDE/%{name}/
 install -pm 644 %{_arch}/include/*.mod %{buildroot}$MPI_FORTRAN_MOD_DIR/%{name}/
-cp -a include/* %{buildroot}$MPI_INCLUDE/%{name}/
+install -pm 644 include/*.h %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a include/petsc/private %{buildroot}$MPI_INCLUDE/%{name}/
+cp -a include/petsc/mpiuni %{buildroot}$MPI_INCLUDE/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}$MPI_LIB/
 sed -e 's|-I${includedir}/petsc|-I%{_includedir}/mpich-%{_arch}/petsc|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc

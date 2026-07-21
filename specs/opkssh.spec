@@ -6,7 +6,7 @@
 
 # https://github.com/openpubkey/opkssh
 %global goipath         github.com/openpubkey/opkssh
-Version:                0.15.0
+Version:                0.16.0
 
 %gometa -L -f
 

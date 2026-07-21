@@ -5,7 +5,7 @@ License:    GPL-2.0-or-later
 Summary:    Fast Audio Playlist Generator
 URL:        http://royale.zerezo.com/fapg/
 Source:     http://royale.zerezo.com/fapg/%{name}-%{version}.tar.gz
-
+ExcludeArch:   %{ix86}
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: uriparser-devel

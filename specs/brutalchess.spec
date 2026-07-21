@@ -2,7 +2,7 @@
 
 Name:           brutalchess
 Version:        0.5.2
-Release:        0.35.%{pre}%{?dist}
+Release:        %autorelease
 Summary:        Chess game with impressive 3D graphics
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -35,13 +35,14 @@ Patch12:        http://slackbuilds.org/slackbuilds/14.1/games/%{name}/%{name}-%{
 # disable feature: quake pieces are not available, http://bugs.debian.org/732227
 Patch20:        brutalchess-noquake.patch
 
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  SDL-devel SDL_image-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  freetype-devel
 BuildRequires:  doxygen
 BuildRequires:  desktop-file-utils
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       gnu-free-sans-fonts
 
@@ -105,124 +106,4 @@ cp -p %{SOURCE11} %{buildroot}%{_datadir}/pixmaps
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.35.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.34.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.33.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.32.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.31.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-0.30.alpha
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.29.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.28.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.27.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.26.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.25.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.24.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.23.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.22.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.21.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.20.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.19.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.18.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.17.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Dec 08 2018 Raphael Groner <projects.rg@smart.ms> - 0.5.2-0.16.alpha
-- mesa header moved to another subpackage, rhbz#1551313
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.15.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.14.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.13.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.12.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.11.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-0.10.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.2-0.9.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.5.2-0.8.alpha
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Mon Feb 09 2015 Raphael Groner <projects.rg (AT) smart.ms> - 0.5.2-0.7.alpha
-- apply patches from upstream tracker: PGN, -l option
-
-* Wed Jan 28 2015 Raphael Groner <projects.rg [AT] smart.ms> - 0.5.2-0.6.alpha
-- introduce license macro
-
-* Mon Dec 29 2014 Raphael Groner <projects.rg [AT] smart.ms> - 0.5.2-0.5.alpha
-- remove wrong and improve fonts logic
-- general files section
-- remove useless title macro
-- add noquake patch
-- preserve timestamps of doc files
-- remove confusing with-x flag
-
-* Sun Dec 28 2014 Rex Dieter <rdieter@fedoraproject.org> - 0.5.2-0.4.alpha
-- drop -doc subpkg (too small, not worth it)
-- omit non-html doc generation
-- add deps for font pkgs used
-
-* Mon Dec 15 2014 Rex Dieter <rdieter@fedoraproject.org> 0.5.2-0.3.alpha
-- fix Release: tag
-
-* Fri Dec 12 2014 Raphael Groner <projects.rg [AT] smart.ms> - 0.5.2-3.alpha
-- fixes for review
-
-* Thu Dec 11 2014 Raphael Groner <projects.rg [AT] smart.ms> - 0.5.2-2.alpha
-- fix broken BR for Xorg
-- remove subpackages
-- additional doc package
-
-* Sat Oct 25 2014 Raphael Groner <projects.rg [AT] smart.ms> - 0.5.2-1.alpha
-- original by Timur Kristóf (rhbz #701812)
-- desktop stuff and gcc patches from Slackware
-- link freetype2 properly
-- replace fonts, patch adopted from Debian
-- macro title in description
-- enhance documentation with doxygen and latex
+%autochangelog

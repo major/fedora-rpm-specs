@@ -5,8 +5,8 @@
 %global sonamebase 2
 
 Name:           libldac
-Version:        %{sonamebase}.0.2.3
-Release:        20%{?dist}
+Version:        %{sonamebase}.0.2.6
+Release:        %autorelease
 Summary:        A lossy audio codec for Bluetooth connections
 
 License:        Apache-2.0
@@ -16,7 +16,7 @@ Source0:        %{url}/releases/download/v%{version}/%{archivename}-%{version}.t
 # Upstream source throws error in a big-endian arch, see #1677491
 ExcludeArch:    s390x
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc
 
 %package        devel
@@ -33,17 +33,17 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{archivename}
+%autosetup -n %{archivename} -c
 
 %build
-%cmake3 \
+%cmake \
     -DLDAC_SOFT_FLOAT=OFF \
     -DINSTALL_LIBDIR=%{_libdir}
 
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %ldconfig_scriptlets
 
@@ -64,80 +64,4 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/ldacBT-enc.pc
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Gergely Gombos <gombosg@disroot.org> - 2.0.2.3-7
-- Fix cmake out-of-source FTBFS for F33/rawhide
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Apr 8 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.3-3
-- Move unversioned symlinks to the base package. Linked packages dynamically load (dlopen) this module with the name libldacBT_enc.so.
-
-* Tue Feb 19 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.3-2
-- Fixed changelog
-
-* Tue Feb 19 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.3-1
-- Bump to 2.0.2.3, upgrade .gitignore
-
-* Fri Feb 15 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.2-4
-- Add s390x ExcludeArch
-
-* Thu Feb 7 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.2-3
-- Minor fixes before Fedora submission
-
-* Wed Jan 30 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.2-2
-- Fix package reviewer suggestions
-
-* Tue Jan 29 2019 Gergely Gombos <gombosg@gmail.com> - 2.0.2.2-1
-- Update to 2.0.2.2, fix file listing
-
-* Sun Jan 27 2019 Gergely Gombos <gombosg@gmail.com>
-- Rename to libldac, prepare for RPMFusion submission
-
-* Sun Dec 16 2018 Gergely Gombos <gombosg@gmail.com>
-- Packaged 1.1
+%autochangelog

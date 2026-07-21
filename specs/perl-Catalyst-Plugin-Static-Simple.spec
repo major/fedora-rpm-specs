@@ -1,12 +1,12 @@
 Name:           perl-Catalyst-Plugin-Static-Simple
-Version:        0.37
-Release:        16%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Make serving static pages painless
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Catalyst-Plugin-Static-Simple
-Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/Catalyst-Plugin-Static-Simple-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Catalyst-Plugin-Static-Simple-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  coreutils
@@ -79,6 +79,9 @@ TEST_POD=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jul 19 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.38-1
+- Update to 0.38
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

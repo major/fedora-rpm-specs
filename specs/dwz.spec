@@ -1,7 +1,7 @@
 Summary: DWARF optimization and duplicate removal tool
 Name: dwz
 Version: 0.17
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND LGPL-2.0-or-later
 URL: https://sourceware.org/dwz/
 Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
@@ -10,6 +10,7 @@ BuildRequires: gcc, gcc-c++, gdb, elfutils-libelf-devel, dejagnu
 BuildRequires: make elfutils xxhash-devel xxhash-static
 
 # Patches
+Patch1: 0001-dwz-cleanup-allocatable-section-after-non-allocatabl.patch
 
 %description
 The dwz package contains a program that attempts to optimize DWARF
@@ -40,6 +41,9 @@ CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check
 %{_mandir}/man1/dwz.1*
 
 %changelog
+* Sun Jul 19 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.17-3
+- Add 0001-dwz-cleanup-allocatable-section-after-non-allocatabl.patch
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

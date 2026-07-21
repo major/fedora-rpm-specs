@@ -1,12 +1,12 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.6
-Release:        5%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 # {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://mimedefang.org/
-Source0:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz
-Source1:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz.sig
+Source0:        https://mimedefang.org/releases/Mail-MIMEDefang-%{version}.tar.gz
+Source1:        https://mimedefang.org/releases/Mail-MIMEDefang-%{version}.tar.gz.sig
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/9F9B564003DFF9E4D904301E3B6DDB11E78FEBD2
 Source3:        README.FEDORA
 Source4:        mimedefang.service
@@ -14,7 +14,6 @@ Source5:        mimedefang-multiplexor.service
 Source6:        mimedefang-wrapper
 Source7:        mimedefang.tmpfilesd
 Source8:        mimedefang.sysusersd
-Patch0:         https://github.com/The-McGrail-Foundation/MIMEDefang/commit/7379afce07b19c04a1927172ddd2ebb9213d87fa.patch#/mimedefang-3.6-tests.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -43,6 +42,9 @@ Requires(post): perl(Digest::SHA)
 # Testsuite in %%check
 %if 0%{!?_without_tests:1}
 BuildRequires:  %{_bindir}/prove
+BuildRequires:  perl(AnyEvent)
+BuildRequires:  perl(AnyEvent::DNS) 
+BuildRequires:  perl(AnyEvent::Socket)
 BuildRequires:  perl(HTML::Parser)
 BuildRequires:  perl(Mail::DKIM::ARC::Signer) >= 0.44
 BuildRequires:  perl(Mail::DKIM::Signer)
@@ -65,7 +67,7 @@ could cause problems, for example, with encrypted or signed messages.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup -n Mail-MIMEDefang-%{version} -p1
 cp -pf %{SOURCE3} .
 
 %build
@@ -163,6 +165,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Mon Jul 20 2026 Robert Scheck <robert@fedoraproject.org> 3.7.1-1
+- Upgrade to 3.7.1 (#2500792)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,28 +5,30 @@
 %global efi_vendor %{name}
 
 # Git commit mentioned at https://github.com/pbatard/efifs
-%global grub2_version    2.13-0
-%global grub2_commit     6811f6f09d61996a3acbc4fc0414e45964f0e2d9
+%global grub2_version    2.14-0
+%global grub2_commit     d38d6a1a9b79427848976f53d474392cd29c2a71
 
 # Preferrably the latest stable version shipped in Fedora
-%global edk2_stable_date 20250221
+%global edk2_stable_date 20260213
 %global edk2_stable_str  edk2-stable%(d=%{edk2_stable_date}; echo ${d:0:6})
 
 Summary:        Free software EFI/UEFI standalone file system drivers
 Name:           efifs
-Version:        1.11
-Release:        6%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://efi.akeo.ie/
 Source0:        https://github.com/pbatard/efifs/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fedora's grub2 RPM packages don't provide neither a -devel subpackage nor any
 # patched GRUB2 sources such as grub-core/{kern/{err,list,misc},fs/{fshelp,<fs>}.c
-Source1:        https://git.savannah.gnu.org/cgit/grub.git/snapshot/grub-%{grub2_commit}.tar.gz
+Source1:        https://gitlab.freedesktop.org/gnu-grub/grub/-/archive/%{grub2_commit}/grub-%{grub2_commit}.tar.gz
 # Fedora's edk2 RPM packages might be nice, but unusable for EfiFs depending on
 # EDK II build artifacts and files such as MdePkg/MdePkg.dec, ShellPkg/ShellPkg.dec
 Source2:        https://github.com/tianocore/edk2/archive/%{edk2_stable_str}.tar.gz
 # Small helper script to enable EfiFs drivers using efibootmgr
 Source3:        efifs-enable.sh
+Patch0:         https://github.com/pbatard/EfiFs/pull/53.patch#/efifs-1.12-edk2-20260213.patch
+Patch1:         https://github.com/tianocore/edk2/pull/12199.patch#/edk2-20260213-parallel-make.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 %if 0%{?rhel} == 8
@@ -59,6 +61,8 @@ mv -f EfiFs-%{version} %{name}-%{version}
 cp -p %{SOURCE3} .
 
 pushd %{name}-%{version}
+%patch -P0 -p1 -b .efifs-1.12-edk2-20260213
+
 # Extract GRUB2 into place (Git submodule)
 tar -xf %{SOURCE1} --strip-components=1 --directory grub
 
@@ -67,6 +71,7 @@ cd grub && patch -Np1 -i ../0001-GRUB-fixes.patch
 popd
 
 pushd edk2-%{edk2_stable_str}
+%patch -P1 -p1 -b .edk2-20260213-parallel-make
 
 # Do not build BrotliCompress (because it's unused)
 sed -e '/BrotliCompress/d' -i BaseTools/Source/C/GNUmakefile
@@ -111,6 +116,9 @@ install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC5/%{efi_arch_u
 %{efi_esp_dir}/
 
 %changelog
+* Sun Jul 19 2026 Robert Scheck <robert@fedoraproject.org> 1.12-1
+- Upgrade to 1.12 (#2434006, #2452299)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

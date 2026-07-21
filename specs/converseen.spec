@@ -6,7 +6,7 @@ Summary:	A batch image conversion and resizing tool written in C++ with Qt6 and 
 License:	GPL-3.0-only
 URL:		https://converseen.fasterland.net/
 Source0:	https://downloads.sourceforge.net/converseen/%{name}-%{version}.tar.bz2
-
+ExcludeArch:	%{ix86}
 BuildRequires:	cmake
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Gui)

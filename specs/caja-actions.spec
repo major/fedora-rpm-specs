@@ -8,6 +8,8 @@ License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL: https://github.com/raveit65/%{name}
 Source0: https://github.com/raveit65/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
+Patch1:        caja-actions_0001-Disable-da-help-language.patch
+
 BuildRequires: caja-devel
 BuildRequires: dblatex
 BuildRequires: desktop-file-utils
@@ -45,9 +47,11 @@ with caja-actions.
 %prep
 %autosetup -p1
 
+#Patch1
+NOCONFIGURE=1 ./autogen.sh
+
 %build
 %configure \
-    --disable-gtk-doc \
     --enable-html-manuals \
     --enable-pdf-manuals \
     --enable-deprecated

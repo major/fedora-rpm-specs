@@ -11,6 +11,7 @@ Patch0:         %{name}-makefile-modernize.patch
 Patch1:         %{name}-2.00a-warnings.patch
 # Address security issue: missing-call-to-setgroups-before-setuid
 Patch2:         %{name}-2.00a-security.patch
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make

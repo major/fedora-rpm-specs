@@ -2,13 +2,13 @@
 %global _summary Python bindings specific to Ansible use case for libssh
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        %{_summary}
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ansible/pylibssh
-Source0:        %{pypi_source}
+Source0:        %{pypi_source ansible_pylibssh}
 # Downstream patch to disable coverage tests
 Patch0:         python-ansible-pylibssh-nocov.patch
 # Force build inplace so that debuginfo can be generated
@@ -22,6 +22,7 @@ BuildRequires:  /usr/bin/ssh
 BuildRequires:  /usr/bin/ssh-keygen
 # Use package instead of /usr/sbin/sshd to deal with sbin merge
 BuildRequires:  openssh-server
+ExcludeArch:    %{ix86}
 
 %global _description %{expand:
 Python bindings to client functionality of libssh specific to Ansible use
@@ -37,7 +38,7 @@ Summary:        %{_summary}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n ansible_pylibssh-%{version}
 
 
 %generate_buildrequires

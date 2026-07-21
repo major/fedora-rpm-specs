@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.7.6
+%define radicale_version  3.7.7
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -36,7 +36,7 @@
 
 Name:           radicale
 Version:        %{radicale_version}
-Release:        %{radicale_release}%{?gittag}%{?dist}.1
+Release:        %{radicale_release}%{?gittag}%{?dist}
 Summary:        A simple CalDAV (calendar) and CardDAV (contact) server
 License:        GPL-3.0-or-later
 URL:            https://radicale.org
@@ -527,6 +527,9 @@ fi
 
 
 %changelog
+* Sun Jul 19 2026 Peter Bieringer <pb@bieringer.de> - 3.7.7-1
+- Update to 3.7.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.6-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

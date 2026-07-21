@@ -4,17 +4,14 @@ Name:           %{crate}
 Version:        2.1.2
 Release:        %autorelease
 Summary:        Daemon to regulate fan speed according to hard drive temperature on Linux
-
 License:        GPL-3.0-only AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND MIT AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND (Unlicense OR MIT)
 URL:            https://github.com/desbma/hddfancontrol
 Source0:        https://github.com/desbma/hddfancontrol/archive/v%{version}/%{crate}-%{version}.tar.gz
-
 # ExclusiveArch for Rust packages in Fedora
 ExclusiveArch:  %{rust_arches}
-
+ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
-
 Requires:       hdparm
 Requires:       smartmontools
 Recommends:     sdparm

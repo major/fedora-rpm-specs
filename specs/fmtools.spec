@@ -17,7 +17,7 @@ Source6: tkradio.py
 Source7: fmlircrc
 Source8: radio.gif
 Patch0:  fmcontrol-py3.patch
-
+ExcludeArch:   %{ix86}
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: desktop-file-utils

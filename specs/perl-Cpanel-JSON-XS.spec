@@ -7,8 +7,8 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.42
-Release:	2%{?dist}
+Version:	4.43
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
 Source0:	https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-%{version}.tar.gz
@@ -164,6 +164,19 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Sun Jul 19 2026 Paul Howarth <paul@city-fan.org> - 4.43-1
+- Update to 4.43
+  - Fix canonical sort: Compare by UTF-16 code units per RFC 8785 (GH#248)
+  - Fix canonical sort on Perl 5.8-5.18: utf16_cmp now always attempts UTF-8
+    decoding instead of checking SvUTF8 flag, since older Perls may store valid
+    UTF-8 hash keys without the flag set
+  - Fix quadmath encode dropping ".0" for large floats (GH #246)
+    - The .0 guard condition that suppressed appending for NV values > UV_MAX
+      was incorrect on high-precision FP (quadmath, 128-bit long double on
+      arm64) where %%g uses fixed-point notation for values like 1.01e30
+    - Guarded with #if NV_DIG < 31 to skip only on double/80-bit-ld where %%g
+      naturally uses %%e for large values
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

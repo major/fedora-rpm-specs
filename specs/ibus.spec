@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -58,7 +58,6 @@ Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch:         %%{name}-HEAD.patch
 Patch:          %{name}-HEAD.patch
-Patch:          %{name}-2444009-wayland-xkb-lv-tilde.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch:          %{name}-1385349-segv-bus-proxy.patch
 
@@ -545,6 +544,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sun Jul 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-4
+- Fix typo in ibus-compose
+- Merge ibus-2444009-wayland-xkb-lv-tilde.patch
+- Fix CapsLock between focus changes in Wayland
+
 * Thu Jul 16 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-3
 - Fix CI in GNOME 50
 

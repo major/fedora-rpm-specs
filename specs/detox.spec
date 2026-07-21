@@ -2,11 +2,10 @@ Name:		detox
 Version:	3.0.1
 Release:	%autorelease
 Summary:	Utility to replace problematic characters in file names
-
 License:	BSD-3-Clause
 URL:		https://github.com/dharple/detox
 Source0:	https://github.com/dharple/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-
+ExcludeArch:	%{ix86}
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	flex

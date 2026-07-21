@@ -18,13 +18,13 @@ Source0:	%{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 # Fedora specific patches:
 Patch:		0001-fix-test_-font.patch
 Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
-Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 Patch:		0001-tests-adjust-to-verbose-font-warning.patch
 Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
 Patch:		0001-tests-conftest-do-not-call-pip.patch
 # Upstream patches from main branch:
 Patch:		0001-src-__init__.py-fix-incorrect-generation-of-PDF-cont.patch
 # Upstreamable:
+# https://github.com/pymupdf/PyMuPDF/pull/5015
 Patch:		0001-remove-usage-of-typing.ByteString.patch
 
 # test dependencies not picked up by generator
@@ -40,12 +40,14 @@ BuildRequires:	python3-furo
 BuildRequires:	rst2pdf
 %endif
 BuildRequires:	gcc gcc-c++
-BuildRequires:	swig
 BuildRequires:	zlib-devel
 BuildRequires:	mupdf-devel mupdf-cpp-devel
 BuildRequires:	freetype-devel
 BuildRequires:	python3-mupdf
 Buildrequires:	python3-mypy
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description %{expand:
 This is PyMuPDF, a Python binding for MuPDF - a lightweight PDF and XPS
@@ -81,6 +83,7 @@ python-%{pypi_name}-doc contains documentation and examples for PyMuPDF
 sed -i -e "s/,'sphinxcontrib.googleanalytics'//" docs/conf.py
 
 %generate_buildrequires
+export PYMUPDF_SETUP_LIBCLANG='swig'
 %pyproject_buildrequires -R
 
 %build
@@ -90,8 +93,6 @@ export PYMUPDF_SETUP_MUPDF_BUILD_TYPE='release'
 export PYMUPDF_SETUP_MUPDF_BUILD=''
 # build rebased implementation only:
 export PYMUPDF_SETUP_IMPLEMENTATIONS='b'
-# build breaks on F39/EL9 with limited API, and we depend on py version anyways:
-export PYMUPDF_SETUP_PY_LIMITED_API=0
 CFLAGS="$CFLAGS -I/usr/include -I/usr/include/freetype2 -I/usr/include/mupdf"
 LDFLAGS="$LDFLAGS -lfreetype -lmupdf"
 %pyproject_wheel
@@ -149,10 +150,6 @@ SKIP="$SKIP and not test_4435"
 %endif
 # spuriously failing tests (several archs)
 SKIP="$SKIP and not test_insert and not test_3087"
-# tests apply to >= 1.27.x only
-%if %["%copr_projectname" == "mupdf-git-1.26.x"]
-SKIP="$SKIP and not test_4599 and not test_4790 and not test_4907"
-%endif
 # tests are known to fail on newer Fedoras (reported)
 SKIP="$SKIP and not test_layout and not test_pageids"
 export PYMUPDF_SYSINSTALL_TEST=1

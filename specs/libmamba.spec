@@ -170,7 +170,7 @@ help2man %{_vpath_builddir}/micromamba/micromamba > %{_vpath_builddir}/micromamb
 %cmake_build
 #cmake --install %{__cmake_builddir} --prefix install
 cd libmambapy
-export SKBUILD_CMAKE_VERBOSE=ON
+export SKBUILD_BUILD_VERBOSE=ON
 export CMAKE_BUILD_PARALLEL_LEVEL=%{_smp_build_ncpus}
 %{pyproject_wheel %{shrink:
   -C cmake.build-type=RelWithDebInfo

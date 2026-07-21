@@ -5,6 +5,10 @@
 %endif
 %bcond mpich %{undefined flatpak}
 
+# Ninja build fails with "multiple rules generate src/ptests/testing_utils.mod."
+# https://github.com/CGNS/CGNS/issues/968
+%global _cmake_generator "Unix Makefiles"
+
 Name:           cgnslib
 Version:        4.5.2
 Release:        2%{?dist}

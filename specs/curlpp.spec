@@ -5,11 +5,10 @@ Summary:        A C++ wrapper for libcURL
 License:        MIT
 URL:            http://curlpp.org/
 Source0:        https://github.com/jpbarrette/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
 Patch0:         curlpp-0.8.1-fix-curloption.patch
 Patch1:         curlpp-0.8.1-fix-pkgconfig.patch
 Patch2:         curlpp-0.8.1-cmake_minimum.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  curl-devel

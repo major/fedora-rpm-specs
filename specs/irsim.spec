@@ -4,14 +4,11 @@ Name:             irsim
 Version:          9.7.121
 Release:          %autorelease
 Summary:          Switch-level simulator used even for VLSI
-
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://opencircuitdesign.com/%{name}
 Source:           http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
-
 Patch:            0000-missing-headers.patch
-
+ExcludeArch:      %{ix86}
 BuildRequires:    gcc
 BuildRequires:    libXt-devel
 BuildRequires:    m4

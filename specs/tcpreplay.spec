@@ -9,8 +9,8 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.5.2
-Release:        3%{?dist}
+Version:        4.5.3
+Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -68,6 +68,9 @@ autoreconf -vif
 %{_bindir}/*
 
 %changelog
+* Mon Jul 20 2026 Bojan Smojver <bojan@rexursive com> - 4.5.3-1
+- Update to 4.5.3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

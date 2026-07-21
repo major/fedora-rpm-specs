@@ -1,13 +1,13 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
-%global	main_version	2.1.7
+%global	main_version	2.1.8
 
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
 Version:	%{main_version}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -172,6 +172,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sun Jul 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.8-1
+- 2.1.8
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

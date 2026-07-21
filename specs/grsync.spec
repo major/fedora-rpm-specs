@@ -5,7 +5,7 @@ Summary:        A Gtk+ GUI for rsync
 License:        GPL-2.0-only
 URL:            http://www.opbyte.it/grsync/
 Source0:        http://www.opbyte.it/release/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -13,7 +13,6 @@ BuildRequires:  gtk3-devel
 BuildRequires:  intltool
 BuildRequires:  make
 BuildRequires:  perl(XML::Parser)
-
 Requires:       polkit
 
 %description

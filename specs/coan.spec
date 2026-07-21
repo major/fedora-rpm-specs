@@ -10,7 +10,6 @@ Source0:	http://downloads.sourceforge.net/coan2/%{name}-%{version}.tar.gz
 Patch0:         expression_parser.patch
 # https://sourceforge.net/p/coan2/bugs/95/
 Patch1:         coan-autoconf-c99.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  perl-podlators
@@ -26,7 +25,7 @@ BuildRequires:  autoconf automake
 # checking for big-endian host... yes
 # RPM build errors:
 # configure: error: Sorry. Coan is buggy on big-endian systems
-ExcludeArch:	ppc64 s390x
+ExcludeArch:	ppc64 s390x %{ix86}
 
 
 %description

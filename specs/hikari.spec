@@ -2,11 +2,10 @@ Name:           hikari
 Version:        3.0.0
 Release:        %autorelease
 Summary:        Stacking Wayland compositor with tiling capabilities
-
 License:        BSD-2-Clause
 URL:            https://codeberg.org/thomasadam/hikari
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  bmake
 BuildRequires:  gcc
 BuildRequires:  glib2-devel

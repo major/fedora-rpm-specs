@@ -6,6 +6,7 @@ Release:        %autorelease
 License:        CC0-1.0
 URL:            https://github.com/Oblomov/clinfo
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ocl-icd-devel

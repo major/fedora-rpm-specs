@@ -6,6 +6,7 @@ License:        GPL-2.0-or-later
 URL:            https://bindfs.org/
 # Upstream: https://github.com/mpartel/bindfs
 Source0:        https://bindfs.org/downloads/bindfs-%{version}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  pkgconfig(fuse3) >= 3.4.0
 BuildRequires:  gcc
 BuildRequires:  make

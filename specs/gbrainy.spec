@@ -25,6 +25,7 @@ BuildRequires:  yelp-tools
 
 # Mono only available on these:
 ExclusiveArch: %mono_arches
+ExcludeArch:   %{ix86}
 
 %description
 gbrainy is a brain teaser game and trainer to have

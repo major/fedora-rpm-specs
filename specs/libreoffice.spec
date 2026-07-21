@@ -1,13 +1,13 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 26.8.0
 # This is the last (fourth) digit of LO version
-%global libo_min_version 0
+%global libo_min_version 1
 # Set this to 1 if this is a prerelease build
-%global prerelease 1
+%global prerelease 0
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
-%global libo_prerelease .beta1
+%global libo_prerelease %{nil}
 # Should contain any suffix of release tarball name, e.g., -buildfix1.
 %global libo_buildfix %{nil}
 %global libo_python python3
@@ -326,8 +326,8 @@ Patch12: cflags.patch
 # glyphs. This patch tries to adapt those tests for our needs instead of
 # fully excluding them from being run
 Patch13: fix_or_exclude-tests-with-missing-glyphs.patch
-# Backport patch from upstream to fix Box2D check
-Patch14: fix_external_box2d_discovery.patch
+# Patch for Box2D 3.x
+Patch14: fix_box2d_3.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
 

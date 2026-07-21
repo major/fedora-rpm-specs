@@ -5,6 +5,7 @@ Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later
 URL:            https://gethomebank.org/
 Source:         https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext

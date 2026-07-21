@@ -7,7 +7,7 @@ License: GPL-2.0-or-later
 URL:            https://cdw.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         0001-add-formatstring.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  libburn-devel
 BuildRequires:  libcdio-devel

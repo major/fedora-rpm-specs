@@ -5,10 +5,8 @@ Summary:        Modern unit test and mocking framework for C and C++
 License:        ISC
 URL:            https://github.com/cgreen-devs/%{name}
 Source0:        https://github.com/cgreen-devs/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=2068898
-ExcludeArch: s390x
-
+ExcludeArch:    %{ix86} s390x
 BuildRequires:  asciidoctor
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

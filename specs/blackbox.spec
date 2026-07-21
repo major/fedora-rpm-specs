@@ -7,12 +7,11 @@ URL:            https://github.com/bbidulock/blackboxwm
 Source0:        https://github.com/bbidulock/blackboxwm/releases/download/%{version}/%{name}-%{version}.tar.lz
 Source1:        blackbox.desktop
 Source2:        blackbox.session
-
 # Fix build with GCC 12 (missing <time.h> include)
 Patch0:         d3481ee7b7d104ef53ead4d35b9a9254c64bb87a.patch
 # Toolbar.cc: fix build for systems where time_t != long
 Patch1:         d45570b2317ff8f20642fbda5aa07e8f43b254b0.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  desktop-file-utils

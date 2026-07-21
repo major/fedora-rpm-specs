@@ -9,6 +9,7 @@ Patch0:		foremost-broken-jpeg.patch
 Patch1:		foremost-fix-permission-timestamp.patch
 Patch2:		foremost-1.5.7-format-security.patch
 Patch3:		foremost-1.5.7-gcc10.patch
+ExcludeArch:	%{ix86}
 BuildRequires:	gcc
 BuildRequires:	make
 

@@ -6,6 +6,7 @@ License:         GPL-3.0-or-later
 URL:             http://aime-embedded.sourceforge.net/
 Source0:         http://downloads.sourceforge.net/project/aime-embedded/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
 Patch0:          %{name}-8.20150211-ldflags.patch
+ExcludeArch:     %{ix86}
 BuildRequires:   gcc
 BuildRequires:   make
 

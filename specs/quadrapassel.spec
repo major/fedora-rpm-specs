@@ -1,5 +1,5 @@
 Name:           quadrapassel
-Version:        50.2
+Version:        51~alpha
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 License:        GPL-3.0-or-later AND CC0-1.0

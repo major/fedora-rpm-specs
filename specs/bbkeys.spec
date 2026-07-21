@@ -6,6 +6,7 @@ License: MIT
 URL: https://bbkeys.sourceforge.net/
 Source: https://downloads.sourceforge.net/bbkeys/bbkeys-%{version}.tar.gz
 Patch0: bbkeys-0.9.0-gcc43.patch
+ExcludeArch:    %{ix86}
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  blackbox-devel

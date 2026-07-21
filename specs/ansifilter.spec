@@ -20,10 +20,10 @@ Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
 Source1:        ansifilter.desktop
 Source2:        http://www.andre-simon.de/img/af_icon.png
 %endif
-
+ExcludeArch:    %{ix86}
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  desktop-file-utils
 
 %description
 Ansifilter handles text files containing ANSI terminal escape codes. The

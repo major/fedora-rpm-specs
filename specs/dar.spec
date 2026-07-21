@@ -5,7 +5,6 @@
 # latest versions of glibc don't seem to compile proper static binaries.  Use
 # "--with static" to enable the static subpackage
 %define with_static %{?_with_static: 1} %{?!_with_static: 0}
-
 Name:           dar
 Version:        2.8.5
 Release:        %autorelease
@@ -15,7 +14,7 @@ License:        GPL-2.0-or-later
 URL:            http://dar.linux.free.fr
 Source0:        ftp://ftp.dm3c.org/dar.linux.free.fr/Releases/Source_code/%{name}-%{version}.tar.gz
 Source1:        README.Fedora
-
+ExcludeArch:    %{ix86}
 BuildRequires:  bzip2-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  gcc-c++

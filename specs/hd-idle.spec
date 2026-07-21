@@ -9,6 +9,7 @@ Source1:        %{name}.service
 Source2:        %{name}.default
 Patch0:         %{name}-systemd-nodaemon.diff
 Patch1:         %{name}-fix-sbin.diff
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros

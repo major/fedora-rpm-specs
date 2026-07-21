@@ -9,7 +9,7 @@ URL:            https://github.com/emikulic/darkhttpd
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        darkhttpd.service
 Source2:        darkhttpd.sysconfig
-
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  systemd-rpm-macros
 Requires:       /etc/mime.types
