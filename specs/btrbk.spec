@@ -4,8 +4,8 @@
 %endif
 
 Name: btrbk
-Version: 0.32.6
-Release: 12%{?dist}
+Version: 0.32.7
+Release: 1%{?dist}
 Summary: Tool for creating snapshots and remote backups of btrfs sub-volumes
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -92,6 +92,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 
 %changelog
+* Mon Jul 20 2026 Juan Orti Alcaine <jortialc@redhat.com> - 0.32.7-1
+- Update to 0.32.7 (RHBZ#2502632) which includes fix for CVE-2026-62943
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

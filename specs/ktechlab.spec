@@ -5,6 +5,7 @@ Summary:        Development and simulation of micro-controllers and electronic c
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/ktechlab
 Source:         https://download.kde.org/unstable/ktechlab/%{name}-%{version}.tar.xz
+ExcludeArch:    %{ix86}
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules

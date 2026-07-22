@@ -21,6 +21,7 @@ Provides: MTA smtpd smtpdaemon server(smtp)
 Requires(post): %{_sbindir}/restorecon %{_sbindir}/alternatives systemd
 Requires(preun): %{_sbindir}/alternatives systemd
 Requires(postun): %{_sbindir}/alternatives systemd
+%{?sysusers_requires_compat}
 %if %{with clamav}
 BuildRequires: clamd
 %endif
@@ -41,6 +42,7 @@ Source23: trusted-configs
 Source24: exim.service
 Source25: exim-gen-cert
 Source26: clamd.exim.service
+Source30: exim.sysusers.conf
 
 Patch: exim-4.99-config.patch
 Patch: exim-4.94-libdir.patch
@@ -81,6 +83,7 @@ BuildRequires: libSM-devel
 BuildRequires: libICE-devel
 BuildRequires: libXpm-devel
 BuildRequires: libXt-devel
+BuildRequires: systemd-rpm-macros
 BuildRequires: systemd-units
 BuildRequires: libgsasl-devel
 # Workaround for NIS removal from glibc, bug 1534920
@@ -201,11 +204,7 @@ for f in $(ls -dp cve-* | grep -v '/\|\(\.txt\)$'); do
 done
 popd
 
-# Create a sysusers.d config file
-cat >exim.sysusers.conf <<EOF
-u exim 93 - %{_var}/spool/exim -
-m exim mail
-EOF
+# exim.sysusers.conf is now a static Source file (Source30)
 
 %build
 # https://bugs.exim.org/show_bug.cgi?id=3135
@@ -341,12 +340,13 @@ install -m755 %{SOURCE22} $RPM_BUILD_ROOT/%_sysconfdir/cron.daily/greylist-tidy.
 install -m644 %{SOURCE23} $RPM_BUILD_ROOT/%_sysconfdir/exim/trusted-configs
 touch $RPM_BUILD_ROOT/%_var/spool/exim/db/greylist.db
 
-install -m0644 -D exim.sysusers.conf %{buildroot}%{_sysusersdir}/exim.conf
+install -m0644 -D %{SOURCE30} %{buildroot}%{_sysusersdir}/exim.conf
 
 %check
 build-`scripts/os-type`-`scripts/arch-type`/exim -C src/configure.default -bV
 
 %pre
+%sysusers_create_compat %{SOURCE30}
 # Copy TLS certs from old location to new -- don't move them, because the
 # config file may be modified and may be pointing to the old location.
 if [ ! -f /etc/pki/tls/certs/exim.pem -a -f %{_datadir}/ssl/certs/exim.pem ] ; then

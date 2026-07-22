@@ -5,7 +5,10 @@
 
 Name:           tpm2-tss-engine
 Version:        1.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
+
+ExcludeArch:    %{ix86}
+
 Summary:        OpenSSL Engine for TPM2 devices using the tpm2-tss software stack
 
 License:        BSD-3-Clause
@@ -86,6 +89,9 @@ uses the tpm2-tss software stack
 
 
 %changelog
+* Sat Jul 18 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.2.0-13
+- Add ExcludeArch for i686 as this is a leaf package
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

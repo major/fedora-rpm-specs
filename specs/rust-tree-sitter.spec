@@ -6,7 +6,7 @@
 %global crate tree-sitter
 
 Name:           rust-tree-sitter
-Version:        0.26.9
+Version:        0.26.11
 Release:        %autorelease
 Summary:        Rust bindings to the Tree-sitter parsing library
 
@@ -19,8 +19,6 @@ Source:         %{crates_source}
 # * Fixup license for bundled ICU
 # * Drop 'wasmtime' features
 # * Make 'bindgen' required
-# * Bump 'bindgen' dependency to v0.72:
-#   https://github.com/tree-sitter/tree-sitter/commit/46309a1
 Patch:          tree-sitter-fix-metadata.diff
 # * Always generate bindings with bindgen
 Patch2:         tree-sitter-build-bindings-unconditionally.patch

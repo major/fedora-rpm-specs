@@ -7,6 +7,7 @@ License:	GPL-2.0-or-later
 URL:		http://boomerangsworld.de/worker
 Source0:	http://boomerangsworld.de/cms/%{name}/downloads/%{name}-%{version}.tar.zst
 Patch0:		Patch0-Fix-For-Python3.patch
+ExcludeArch:	%{ix86}
 BuildRequires:	dbus-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	file-devel

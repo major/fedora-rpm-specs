@@ -1,10 +1,10 @@
-%global commit0 8a97ebc88daa3495d6f57ec10bb515224400186f
-%global date 20250708
+%global commit0 6fe718c31a45fe25151362a72ef041c3a1047cbd
+%global date 20260512
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global cl_hpp_ver 2025.07.22
+%global cl_hpp_ver 2026.05.29
 
 Name:           opencl-headers
-Version:        3.0
+Version:        3.1
 Release:        %autorelease -s %{date}git%{shortcommit0}
 Summary:        OpenCL (Open Computing Language) header files
 

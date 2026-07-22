@@ -8,7 +8,6 @@ Summary:        Terminal and multi protocol client
 License:        GPL-2.0-only
 URL:            http://%{name}.sourceforge.net/
 Source:         https://sourceforge.net/projects/%{name}/files/1.5/%{name}-%{version}.tar.gz
-
 Patch:          lterm-c99.patch
 Patch:          lterm-c99-2.patch
 Patch:          lterm-c99-3.patch
@@ -18,7 +17,7 @@ Patch:          lterm-c99-6.patch
 Patch:          lterm-c99-7.patch
 Patch:          lterm-c99-8.patch
 Patch:          lterm-c99-9.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gtk2-devel

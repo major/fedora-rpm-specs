@@ -7,6 +7,7 @@ URL:            http://www.newlisp.org
 Source0:        http://www.newlisp.org/downloads/%{name}-%{version}.tgz
 Patch0:         %{name}-0000-Support-64bit.patch
 Patch1:         %{name}-0003-Don-t-strip-the-resulting-binary.patch
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  readline-devel

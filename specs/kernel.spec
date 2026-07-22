@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc3.260715g58717b2a1365.29
+%define pkgrelease 0.rc4.34
 %define kversion 7
-%define tarfile_release 7.2-rc3-89-g58717b2a1365
+%define tarfile_release 7.2-rc4
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260715g58717b2a1365.29%{?buildid}%{?dist}
+%define specrelease 0.rc4.34%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4962,9 +4962,26 @@ fi\
 #
 #
 %changelog
-* Wed Jul 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.58717b2a1365.29]
-- xfs: resample the data fork mapping after cycling ILOCK (Darrick J. Wong)
+* Mon Jul 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.34]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Jul 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.33]
+- Linux v7.2.0-0.rc4
+
+* Sun Jul 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.c6859eed755d.32]
+- Linux v7.2.0-0.rc3.c6859eed755d
+
+* Sat Jul 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.1229e2e57a5c.31]
+- Linux v7.2.0-0.rc3.1229e2e57a5c
+
+* Fri Jul 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.fce2dfa773ce.30]
+- Linux v7.2.0-0.rc3.fce2dfa773ce
+
+* Thu Jul 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.37e2f878a7a6.29]
+- redhat/configs: enable QCS615 pinctrl and interconnect drivers (Wu Fang)
+- redhat/configs: automotive: enable SENSORS_INA2XX (Jared Kangas)
+- redhat/configs: automotive: enable PWM_FSL_FTM as a module (Jared Kangas)
+- Linux v7.2.0-0.rc3.37e2f878a7a6
 
 * Wed Jul 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.58717b2a1365.28]
 - Add fedora entry in pending for weird mismatch in scripts (Justin M. Forbes)

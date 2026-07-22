@@ -8,7 +8,7 @@
 
 Name:           cube
 Version:        4.9.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -313,7 +313,7 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 %license cubegui-%ver/COPYING
 %{_bindir}/cube_server
 %exclude %{_libdir}/lib%{name}4gui*.so*
-%{_libdir}/lib%{name}*.so.13*
+%{_libdir}/libcube4.so.13*
 %{_libdir}/libcube4w.so.12*
 %{_datadir}/cubelib/
 %{_datadir}/cubew/
@@ -323,7 +323,8 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 %{_bindir}/cubew-config
 %{_includedir}/cubew
 %{_includedir}/cubelib
-%{_libdir}/lib%{name}*.so
+%{_libdir}/libcube4.so
+%{_libdir}/libcube4w.so
 %{_libdir}/cmake/CubeLib/CubeLibConfig.cmake
 %{_libdir}/cmake/CubeW/CubeWConfig.cmake
 %doc cubegui-%ver/examples
@@ -336,7 +337,8 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 %files guilib-devel
 %{_bindir}/cubegui-config
 %{_includedir}/cubegui
-%{_libdir}/lib%{name}4gui.so
+%{_libdir}/libcube4gui.so
+%{_libdir}/libcube_graphwidgetcommon_plugin.so
 %{_libdir}/cmake/CubeGui/CubeGuiConfig.cmake
 
 %files doc
@@ -347,6 +349,9 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
 %changelog
+* Mon Jul 20 2026 Dave Love <loveshack@fedoraproject.org> - 4.9.1-5
+- Don't include libcube4gui.so in cube-libs-devel
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

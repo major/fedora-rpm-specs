@@ -1,6 +1,6 @@
 Name:           python-docker
-Version:        7.1.0
-Release:        13%{?dist}
+Version:        7.2.0
+Release:        1%{?dist}
 Summary:        A Python library for the Docker Engine API
 License:        Apache-2.0
 URL:            https://github.com/docker/docker-py
@@ -54,6 +54,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Thu Jul 09 2026 Packit <hello@packit.dev> - 7.2.0-1
+- New upstream release 7.2.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

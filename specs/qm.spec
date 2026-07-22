@@ -42,7 +42,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 1.1
+Version: 1.2
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -64,12 +64,13 @@ BuildRequires: selinux-policy-devel >= %_selinux_policy_version
 BuildRequires: bluechi-selinux
 BuildRequires: python3-devel
 
+Recommends: selinux-policy-targeted >= %_selinux_policy_version
+
 Requires: parted
 Requires: containers-common
 Requires: selinux-policy >= %_selinux_policy_version
 Requires(post): selinux-policy-base >= %_selinux_policy_version
 Requires(post): selinux-policy-any >= %_selinux_policy_version
-Recommends: selinux-policy-targeted >= %_selinux_policy_version
 Requires(post): policycoreutils
 Requires(post): libselinux-utils
 Requires: podman >= %{podman_epoch}:4.5
@@ -169,6 +170,7 @@ fi
 %{_datadir}/qm/contexts
 %{_datadir}/qm/file_contexts
 %{_datadir}/qm/setup
+%{_datadir}/qm/userns
 %{_datadir}/qm/create-seccomp-rules
 %{_datadir}/qm/qm-rootfs
 %{_datadir}/qm/qm-storage-settings
@@ -190,6 +192,9 @@ fi
 %{python3_sitelib}/qmctl/
 
 %changelog
+* Mon Jul 20 2026 Packit <hello@packit.dev> - 101:1.2-1
+- Update to version 1.2
+
 * Tue Apr 07 2026 Packit <hello@packit.dev> - 101:1.1-1
 - Update to version 1.1
 

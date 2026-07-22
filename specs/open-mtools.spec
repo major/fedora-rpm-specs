@@ -1,17 +1,15 @@
 %global tarname mtools
 Name:       open-%{tarname}
 Version:    1.0
-Release:    30%{?dist}
+Release:    31%{?dist}
 Summary:    Tools for testing IP multicast
 # README.txt:           "These tools are offered to the general public for any
 #                        use without license." But the tools have a license.
 # mdump.c:              Informatica AND BSD-4-Clause-UC
-#                       TODO: Approve Informatica by Fedora
-#                       <https://forge.fedoraproject.org/legal/fedora-license-data/issues/1588>
 # mpong.c:              Informatica AND BSD-4-Clause-UC
 # msend.c:              Informatica AND BSD-4-Clause-UC
 # TestNet/docbook.css:  BSD-2-Clause
-License:    LicenseRef-Callaway-BSD AND BSD-4-Clause-UC AND BSD-2-Clause
+License:    Informatica AND BSD-4-Clause-UC AND BSD-2-Clause
 URL:        https://marketplace.informatica.com/solutions/informatica_%{tarname}
 # The source repository does not exist on Google Code anymore.
 # The homepage requires a registration for a download.
@@ -62,6 +60,9 @@ done
 %{_bindir}/msend
 
 %changelog
+* Mon Jul 20 2026 Petr Pisar <ppisar@redhat.com> - 1.0-31
+- Use a new identifier for the license
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

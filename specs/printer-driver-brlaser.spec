@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/Owl-Maintain/brlaser
 
 Name:           printer-driver-brlaser
-Version:        6.2.7
+Version:        6.2.8
 %forgemeta
 Release:        %autorelease
 Summary:        Brother laser printer driver

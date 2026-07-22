@@ -8,16 +8,14 @@ URL:            https://unetbootin.github.io/
 Source0:        https://sourceforge.net/projects/%{name}/files/UNetbootin/%{version}/%{name}-source-%{version}.tar.gz
 Patch0:         unetbootin-675-desktop.patch
 # Syslinux is only available on x86 architectures
-ExclusiveArch:  %{ix86} x86_64 aarch64
-
+ExclusiveArch:  x86_64 aarch64
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
-# Not picked up automatically, required for operation
 Requires:       p7zip-plugins
-%ifarch %{ix86} x86_64
+%ifarch x86_64 aarch64
 Requires:       syslinux
 Requires:       syslinux-extlinux
 %endif

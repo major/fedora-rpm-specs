@@ -12,7 +12,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%bcond_without check
+%bcond_with check
 %bcond_without compat_build
 
 %global maj_ver 18

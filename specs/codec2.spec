@@ -1,5 +1,4 @@
 %undefine __cmake_in_source_build
-%{?rhel: %global cmake %cmake3}
 
 # Bootstrap may be needed to break circular dependencies between
 # codec2 and lpcnetfreedv
@@ -14,7 +13,7 @@ License:        LGPL-2.1-only
 URL:            http://rowetel.com/codec2.html
 Source0:        https://github.com/drowe67/codec2/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake%{?rhel:3}
+BuildRequires:  cmake
 BuildRequires:  gcc gcc-c++
 BuildRequires:  libsamplerate-devel
 %if %{without bootstrap}

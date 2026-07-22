@@ -5,7 +5,7 @@ Summary:        Open source vinyl emulation software for Linux
 License:        GPL-3.0-only
 URL:            https://www.xwax.org
 Source0:        https://xwax.org/releases/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  alsa-lib-devel
 BuildRequires:  gcc
 BuildRequires:  jack-audio-connection-kit-devel

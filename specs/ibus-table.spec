@@ -12,6 +12,7 @@ Recommends: python3-simpleaudio
 BuildRequires:  gcc
 BuildRequires:  ibus-devel > 1.3.0
 BuildRequires:  python3-devel >= 3.6.0
+BuildRequires:  gobject-introspection
 # for the unit tests
 %if 0%{?fedora}
 BuildRequires:  appstream

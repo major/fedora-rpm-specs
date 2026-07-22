@@ -1,6 +1,6 @@
 Name:           cloc
-Version:        2.08
-Release:        2%{?dist}
+Version:        2.10
+Release:        1%{?dist}
 Summary:        Count lines of code
 License:        GPL-2.0-or-later
 URL:            https://github.com/AlDanial/cloc
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jul 20 2026 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.10-1
+- Update to 2.10 - Closes rhbz#2497088
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        1.16.1
-Release:        2%{?dist}
+Version:        1.16.2
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Jul 20 2026 Packit <hello@packit.dev> - 1.16.2-1
+- Add HTTP timeouts and make `get_monitoring_metadata()` unauthenticated which should improve the UX of `packit validate`. (#2730)
+- Resolves: rhbz#2502899
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

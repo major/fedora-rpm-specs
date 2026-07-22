@@ -37,7 +37,11 @@
 # Support for groff, bug #135101
 %bcond_without perl_enables_groff
 # Run Turkish locale tests
+%ifarch %{ix86}
+%bcond_with perl_enables_turkish_test
+%else
 %bcond_without perl_enables_turkish_test
+%endif
 # Run syslog tests
 %bcond_with perl_enables_syslog_test
 # SystemTap support

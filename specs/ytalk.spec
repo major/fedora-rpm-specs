@@ -1,13 +1,13 @@
-Summary: A chat program for multiple users
-Name: ytalk
-Version: 3.3.0
-Release: %autorelease
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
-URL: http://www.impul.se/ytalk/
-Source: http://www.impul.se/ytalk/%{name}-%{version}.tar.bz2
-Source1: ytalkrc
-Patch1: ytalk-c99.patch
+Summary:       A chat program for multiple users
+Name:          ytalk
+Version:       3.3.0
+Release:       %autorelease
+License:       GPL-2.0-or-later
+URL:           https://www.impul.se/ytalk/
+Source:        https://www.impul.se/ytalk/%{name}-%{version}.tar.bz2
+Source1:       ytalkrc
+Patch1:        ytalk-c99.patch
+ExcludeArch:   %{ix86}
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: ncurses-devel

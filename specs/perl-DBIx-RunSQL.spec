@@ -1,6 +1,6 @@
 Name:           perl-DBIx-RunSQL
-Version:        0.27
-Release:        2%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        Run SQL commands from a file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-RunSQL
@@ -15,6 +15,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 
 # Run-time:
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -24,7 +25,7 @@ BuildRequires:  perl(Module::Load)
 BuildRequires:  perl-experimental
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBD::SQLite)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Text::Table)
 
 Requires:       perl(Getopt::Long) >= 2.36
@@ -63,6 +64,9 @@ make test
 
 
 %changelog
+* Mon Jul 20 2026 Denis Fateyev <denis@fateyev.com> - 0.28-1
+- Update to 0.28 release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

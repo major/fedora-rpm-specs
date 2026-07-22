@@ -336,17 +336,17 @@ pushd output/build
     %{__cp} -ap webapps/* ${RPM_BUILD_ROOT}%{appdir}
 popd
 
-ln -sr $(build-classpath ecj/ecj) ${RPM_BUILD_ROOT}%{libdir}/ecj-x.jar
-ln -sr $(build-classpath tomcat-jakartaee-migration/jakartaee-migration) ${RPM_BUILD_ROOT}%{libdir}/jakartaee-migration-x.jar
-ln -sr $(build-classpath apache-commons-compress/commons-compress) ${RPM_BUILD_ROOT}%{libdir}/commons-compress.jar
-ln -sr $(build-classpath apache-commons-io/commons-io) ${RPM_BUILD_ROOT}%{libdir}/commons-io.jar
-ln -sr $(build-classpath bcel/bcel) ${RPM_BUILD_ROOT}%{libdir}/bcel.jar
-ln -sr $(build-classpath apache-commons-lang3/commons-lang3) ${RPM_BUILD_ROOT}%{libdir}/commons-lang3.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath ecj/ecj) ${RPM_BUILD_ROOT}%{libdir}/ecj-x.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath tomcat-jakartaee-migration/jakartaee-migration) ${RPM_BUILD_ROOT}%{libdir}/jakartaee-migration-x.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath apache-commons-compress/commons-compress) ${RPM_BUILD_ROOT}%{libdir}/commons-compress.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath apache-commons-io/commons-io) ${RPM_BUILD_ROOT}%{libdir}/commons-io.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath bcel/bcel) ${RPM_BUILD_ROOT}%{libdir}/bcel.jar
+ln -sr ${RPM_BUILD_ROOT}$(build-classpath apache-commons-lang3/commons-lang3) ${RPM_BUILD_ROOT}%{libdir}/commons-lang3.jar
 
-ln -sr %{confdir} ${RPM_BUILD_ROOT}%{baseconfdir}
-ln -sr %{cachedir} ${RPM_BUILD_ROOT}%{workdir}
-ln -sr %{logdir} ${RPM_BUILD_ROOT}%{baselogdir}
-ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
+ln -sr ${RPM_BUILD_ROOT}%{confdir} ${RPM_BUILD_ROOT}%{baseconfdir}
+ln -sr ${RPM_BUILD_ROOT}%{cachedir} ${RPM_BUILD_ROOT}%{workdir}
+ln -sr ${RPM_BUILD_ROOT}%{logdir} ${RPM_BUILD_ROOT}%{baselogdir}
+ln -sr ${RPM_BUILD_ROOT}%{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 
 %post
 # install but don't activate

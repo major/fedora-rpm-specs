@@ -1,5 +1,5 @@
 Name:           nwipe
-Version:        0.41
+Version:        0.42
 Release:        %autorelease
 Summary:        Securely erase disks using a variety of recognized methods
 

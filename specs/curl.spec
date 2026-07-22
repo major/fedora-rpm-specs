@@ -13,7 +13,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.21.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -325,7 +325,9 @@ export common_configure_opts="          \
         --disable-websockets            \
         --without-brotli                \
         --without-libpsl                \
-        --without-libssh
+        --without-libssh                \
+        --without-nghttp3               \
+        --without-ngtcp2
 )
 
 # configure full build
@@ -465,6 +467,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Jul 20 2026 Jan Macku <jamacku@redhat.com> - 8.21.0-3
+- explicitly disable HTTP/3 support in the minimal build
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

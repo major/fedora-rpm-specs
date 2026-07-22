@@ -157,7 +157,7 @@ BuildRequires:  llvm-libunwind-devel
 BuildRequires:  lttng-ust-devel
 %endif
 BuildRequires:  make
-%if 0%{?fedora} >= 45
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 BuildRequires:  openssl3-devel
 %else
 BuildRequires:  openssl-devel
@@ -430,7 +430,7 @@ Requires:       dotnet-sdk-%{dotnetver}%{?_isa} >= %{sdk_rpm_version}-%{release}
 # -lbrotlidec -lz ...`.
 Requires:       brotli-devel%{?_isa}
 Requires:       clang%{?_isa}
-%if 0%{?fedora} >= 45
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 Requires:       openssl3-devel%{?_isa}
 %else
 Requires:       openssl-devel%{?_isa}

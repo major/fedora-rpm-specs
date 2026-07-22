@@ -5,6 +5,7 @@ Release:	%autorelease
 License:	GPL-2.0-only
 URL:		https://github.com/Wargus/Stratagus
 Source0:	https://github.com/Wargus/Stratagus/archive/v%{version}/%{name}-%{version}.tar.gz
+ExcludeArch:	%{ix86}
 BuildRequires:	SDL2-devel
 BuildRequires:	SDL2_image-devel
 BuildRequires:	SDL2_mixer-devel

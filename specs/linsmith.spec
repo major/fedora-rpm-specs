@@ -5,11 +5,10 @@ Name:           linsmith
 Version:        0.99.33
 Release:        %autorelease
 Summary:        A Smith charting program
-
 License:        GPL-2.0-or-later
 URL:            http://jcoppens.com/soft/linsmith/index.en.php
 Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext

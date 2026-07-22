@@ -30,8 +30,8 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.650
-Release:        2%{?dist}
+Version:        1.651
+Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
@@ -266,6 +266,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.651-1
+- 1.651 bump (rhbz#2499925) - Fix CVE-2026-15043, CVE-2026-15392,
+  CVE-2026-60082 and CVE-2026-60081
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.650-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

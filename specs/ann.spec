@@ -43,7 +43,7 @@ Development files needed to use ANN library.
 
 
 %build
-%make_build linux CFLAGS="-fPIC -DPIC %{build_cxxflags}" LDFLAGS="%{build_ldflags} -L../lib"
+%make_build linux CFLAGS="-fPIC -DPIC %{build_cxxflags} -std=c++17" LDFLAGS="%{build_ldflags} -L../lib"
 
 
 %install

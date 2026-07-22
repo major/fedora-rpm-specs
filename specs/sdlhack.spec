@@ -2,12 +2,11 @@ Name:           sdlhack
 Version:        1.4
 Release:        %autorelease
 Summary:        Force full-screen games to minimize
-
-# Upstream files specify LGPL v2.1 or later
 License:        LGPL-2.1-or-later
 URL:            http://jspenguin.org:81/software/sdlhack/
 Source0:        http://jspenguin.org:81/software/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.1
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  SDL-devel
 

@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           atop
-Version:        2.12.1
-Release:        4%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Mon Jul 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.13.0-1
+- 2.13.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

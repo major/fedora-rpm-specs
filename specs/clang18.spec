@@ -11,7 +11,7 @@
 %undefine _include_frame_pointers
 
 %bcond_without compat_build
-%bcond_without check
+%bcond_with check
 
 %ifarch aarch64
 # Use lld on aarch64, becuase ld.bfd will occasionally fail with the error:

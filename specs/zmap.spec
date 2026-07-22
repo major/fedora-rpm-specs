@@ -9,6 +9,7 @@ License:        Apache-2.0
 URL:            https://zmap.io
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch:          zmap-bin-sbin-merge.patch
+ExcludeArch:    %{ix86}
 BuildRequires:  byacc
 BuildRequires:  cmake
 BuildRequires:  flex

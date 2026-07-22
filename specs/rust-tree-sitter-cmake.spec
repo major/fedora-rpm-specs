@@ -5,7 +5,7 @@
 %global crate tree-sitter-cmake
 
 Name:           rust-tree-sitter-cmake
-Version:        0.7.1
+Version:        0.7.4
 Release:        %autorelease
 Summary:        CMake grammar for tree-sitter
 

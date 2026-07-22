@@ -3,7 +3,7 @@
 
 # https://github.com/golang/mobile
 %global goipath         github.com/golang/mobile
-%global commit          d5bb5ecc55c03634c30adcf688f9a2482006dcb0
+%global commit          6129f5bee9d516e31842c9815bf24f60fa682b6e
 
 %gometa -L -f
 

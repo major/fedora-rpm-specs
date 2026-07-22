@@ -1,8 +1,8 @@
 Name:           perl-Module-CoreList
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        5.20260601
-Release:        2%{?dist}
+Version:        5.20260708
+Release:        1%{?dist}
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CoreList
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20260708-1
+- 5.20260708 bump (rhbz#2501230)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.20260601-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

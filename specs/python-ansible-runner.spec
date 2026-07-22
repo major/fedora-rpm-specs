@@ -64,6 +64,8 @@ sed -i 's/, <=8.0.4//' pyproject.toml
 
 sed -i '166 i \@pytest.mark.skip(reason="can not resolve example.com in build system")' test/integration/test_display_callback.py
 sed -i '/test_resolved_actions/i \@pytest.mark.skip(reason="ansible version lookup is blank in build")' test/integration/test_display_callback.py
+# uri module reaches out to example.org, which can not be resolved in the build system
+sed -i '/^def test_module_level_no_log.*/i @pytest.mark.skip(reason="uri module requires network access in build system")' test/integration/test_display_callback.py
 # there's a locale issue with ansible that makes these tests fail.
 sed -i '/^def test_worker_without_delete_no_dir.*/i @pytest.skip("Ansible could not initialize the preferred locale: unsupported locale setting", allow_module_level=True)' test/integration/test_transmit_worker_process.py
 sed -i '/^def test_worker_without_delete_dir_exists.*/i @pytest.skip("Ansible could not initialize the preferred locale: unsupported locale setting", allow_module_level=True)' test/integration/test_transmit_worker_process.py

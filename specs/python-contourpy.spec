@@ -50,18 +50,6 @@ Summary:        %{summary}
 %if %{with bootstrap}
 k="${k-}${k+ and }not image"
 %endif
-%ifarch s390x
-# See https://bugzilla.redhat.com/2434972
-# Skip the tests that fail and/or crash to unblock the Python 3.15 rebuild
-k="${k-}${k+ and }not test_filled_random"
-k="${k-}${k+ and }not test_filled_simple"
-k="${k-}${k+ and }not test_filled_z_nonfinite"
-k="${k-}${k+ and }not (test_config_filled and mpl2005)"
-k="${k-}${k+ and }not (test_filled_infinite_level and mpl2005)"
-k="${k-}${k+ and }not (test_lines and mpl2005)"
-k="${k-}${k+ and }not (test_minimal_filled and mpl2005)"
-k="${k-}${k+ and }not (test_minimal_lines and mpl2005)"
-%endif
 %pytest ${k:+-k "${k}"} -v
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -2,11 +2,10 @@ Name:           samurai
 Version:        1.3
 Release:        %autorelease
 Summary:        ninja-compatible build tool written in C
-
 License:        Apache-2.0
 URL:            https://github.com/michaelforney/samurai
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  make
 BuildRequires:  gcc
 

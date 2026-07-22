@@ -1,5 +1,5 @@
 Name:    fwts
-Version: 24.09.00
+Version: 26.07.00
 Release: %autorelease
 Summary: Firmware Test Suite
 URL: https://wiki.ubuntu.com/FirmwareTestSuite
@@ -10,8 +10,6 @@ URL: https://wiki.ubuntu.com/FirmwareTestSuite
 License: GPL-2.0-only AND LicenseRef-Callaway-LGPLv2 AND (GPL-2.0-only OR Intel-ACPI)
 
 Source0: http://fwts.ubuntu.com/release/fwts-V%{version}.tar.gz
-# Upstream refuses to remove -Werror: https://bugs.launchpad.net/bugs/1687052
-Patch0: fwts-Remove-Werror-from-build.patch
 
 # This package only builds on LE architectures because acpica-tools is LE only
 ExclusiveArch: x86_64 aarch64 riscv64 ppc64le

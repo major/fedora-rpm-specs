@@ -8,6 +8,7 @@ Source0:	https://ftp.gnu.org/gnu/mdk/v%{version}/%{name}-%{version}.tar.gz
 Source1:	mdk.desktop
 Patch0:		glib-deprecated.patch
 Patch1:		mdk-1.3.1-format-security.patch
+ExcludeArch:	%{ix86}
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	gettext

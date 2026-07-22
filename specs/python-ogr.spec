@@ -1,6 +1,6 @@
 Name:           python-ogr
-Version:        0.61.1
-Release:        3%{?dist}
+Version:        0.61.2
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Jul 20 2026 Packit <hello@packit.dev> - 0.61.2-1
+- The `ogr` library now correctly handles the Forgejo 'error' commit flag, resolving an issue that previously caused it to fail during internal mapping. (#991)
+- Resolves: rhbz#2502826
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.61.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -41,8 +41,8 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.34
-Release: 2%{?dist}
+Version: 1.35
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -462,6 +462,15 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Jul 20 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.35-1
+- New upstream release
+- CVE-2026-15811 (LOW): encryption key exposure in memory after cryptographic configuration changes. Wipe cryptographic keys with explicit_bzero() before freeing to prevent exposure through memory disclosure vulnerabilities. (Resolves rhbz#2500850)
+- CVE-2026-15812 (LOW): access control list bypass via link ID spoofing on unencrypted dynamic links. Validate source address against claimed link_id and enable ACL by default. (Resolves rhbz#2500852)
+- CVE-2026-15813 (MEDIUM): memory corruption and out-of-bounds access via malformed network packet defragmentation. Validate fragment sequence numbers before accessing defragmentation buffers. (Resolves rhbz#2500864)
+- tests: add coverage for connected named AF_UNIX SOCK_STREAM sockets
+- libnozzle: Introduce test macros similar to libknet
+- docs: convert README to markdown format
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

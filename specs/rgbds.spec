@@ -1,6 +1,6 @@
 Name:		rgbds
-Version:	1.0.1
-Release:	2%{?dist}
+Version:	1.0.2
+Release:	1%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
 License:	MIT
@@ -31,10 +31,23 @@ It consists of:
 %autosetup -S git
 
 %build
-%make_build Q="" CFLAGS="%{optflags}" VERSION_STRING=""
+for TARGET in "all" "test/gfx/rgbgfx_test" "test/gfx/randtilegen"; do
+	%make_build Q="" CFLAGS="%{optflags}" CXXFLAGS="%{optflags}" VERSION_STRING="" "${TARGET}"
+done
 
 %install
 %make_install PREFIX=%{_prefix} bindir=%{_bindir} mandir=%{_mandir} STRIP="-p" MANMODE="644 -p" Q=""
+
+%check
+# Some tests involve processing invalid/damaged png files.
+# On s390x, libpng seems to produce different error messages, causing those tests to fail.
+%ifarch s390x
+sed \
+	-e 's/IDAT: invalid code -- missing end-of-block$/IDAT: Operation-Ending-Supplemental Code is 0x27/g' \
+	-i test/gfx/*.err
+%endif
+
+./test/run-tests.sh --only-internal
 
 %files
 %{_bindir}/rgbasm
@@ -55,6 +68,9 @@ It consists of:
 %doc README.md
 
 %changelog
+* Mon Jul 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-1
+- Update to v1.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

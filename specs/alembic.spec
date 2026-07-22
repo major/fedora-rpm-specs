@@ -5,7 +5,7 @@
 # Python Module
 
 Name:           alembic
-Version:        1.8.11
+Version:        1.8.12
 Release:        %autorelease
 Summary:        Open framework for storing and sharing scene data
 License:        BSD-3-Clause AND BSL-1.0

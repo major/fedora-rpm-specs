@@ -2,110 +2,80 @@
 %bcond psutils_enables_unbundling_gnulib %{undefined rhel}
 
 Name:       psutils
-Version:    2.10
-Release:    11%{?dist}
-Summary:    PostScript utilities
-# COPYING:          GPLv3 text
-# epsffit.1:        GPLv3+
-# epsffit.in.in:    GPLv3+
-# extractres.in.in: psutils
-# includeres.in.in: psutils
-# psbook.1:         GPLv3+
-# psbook.in.in:     GPLv3+
-# psjoin.1:         GPLv3+
-# psjoin.in.in:     GPLv3+
-# psnup.in.in:      GPLv3+
-# psresize.1:       GPLv3+
-# psresize.in.in:   GPLv3+
-# psselect.1:       GPLv3+
-# psselect.in.in:   GPLv3+
-# pstops.1:         GPLv3+
-# pstops.in.in:     GPLv3+
-# PSUtils.pm:       GPLv3+
-# README:           GPLv3+
+Version:    3.3.15
+Release:    2%{?dist}
+Summary:    PDF and PostScript utilities
+# COPYING:          GPL-3.0 text
+# psutils/argparse.py:      GPL-3.0-or-later
+# psutils/command/epsffit.py:   GPL-3.0-or-later
+# psutils/command/extractres.py:    GPL-3.0-or-later
+# psutils/command/includeres.py:    GPL-3.0-or-later
+# psutils/command/psbook.py:    GPL-3.0-or-later
+# psutils/command/psjoin.py:    GPL-3.0-or-later
+# psutils/command/psnup.py:     GPL-3.0-or-later
+# psutils/command/psresize.py:  GPL-3.0-or-later
+# psutils/command/psselect.py:  GPL-3.0-or-later
+# psutils/command/pstops.py:    GPL-3.0-or-later
+# psutils/__init__.py:      GPL-3.0-or-later
+# psutils/io.py:            GPL-3.0-or-later
+# psutils/libpaper.py:      GPL-3.0-or-later
+# psutils/psresources.py:   GPL-3.0-or-later
+# psutils/readers.py:       GPL-3.0-or-later
+# psutils/transformers.py:  GPL-3.0-or-later
+# psutils/types.py:         GPL-3.0-or-later
+# psutils/warnings.py:      GPL-3.0-or-later
+# README.md:        GPL-3.0-or-later
 ## In tests subpackage
-# aclocal.m4:       FSFULLR
-# build-aux/compile:        GPLv2+ with Autoconf exception
-# build-aux/config.guess:   GPLv3+ with Autoconf exception
-# build-aux/config.sub:     GPLv3+ with Autoconf exception
-# build-aux/depcomp:        GPLv2+ with Autoconf exception
-# build-aux/install-sh:     MIT
-# build-aux/missing:        GPLv2+ with Autoconf exception
-# build-aux/mdate-sh:       GPLv2+ with Autoconf exception
-# build-aux/test-driver:    GPLv2+ with Autoconf exception
-# build-aux/texinfo.tex:    GPLv3+ with TeX exception
-# configure:                FSFULLR
-# m4/00gnulib.m4:           FSFULLR
-# m4/ax_check_gnu_make.m4:  FSFAP
-# m4/gnulib-common.m4:      FSFULLR
-# m4/gnulib-comp.m4:        GPLv3+ with Autoconf exception
-# m4/relocatable-lib.m4:    FSFULLR
-# Makefile.in:              FSFULLR
+# tests/conftest.py:        GPL-3.0-or-later
+# tests/COPYRIGHT:          "tiger.eps from Ghostscript"
+# tests/test_epsffit.py:    GPL-3.0-or-later
+# tests/test_extractres.py: GPL-3.0-or-later
+# tests/test-files/tiger.eps:   AGPL-3.0-or-later
+# tests/test_includeres.py: GPL-3.0-or-later
+# tests/test_pdfnup.py:     GPL-3.0-or-later
+# tests/test_psbook.py:     GPL-3.0-or-later
+# tests/test_psjoin.py:     GPL-3.0-or-later
+# tests/test_psnup.py:      GPL-3.0-or-later
+# tests/test_psresize:      GPL-3.0-or-later
+# tests/test_psselect.py:   GPL-3.0-or-later
+# tests/test_pstops.py:     GPL-3.0-or-later
+# tests/testutils.py:       GPL-3.0-or-later
 ## Not in any binary package
-# INSTALL:                  FSFAP
-# old-scripts/fixwfwps:     See LICENSE
-# pre-inst-env.in:          GPLv2+
+# PKG-INFO:                 GPL-3.0-or-later
+# psutils.egg-info/PKG-INFO:    GPL-3.0-or-later
+# pyproject.toml:           GPL-3.0-or-later
 License:    GPL-3.0-or-later
+SourceLicense:  GPL-3.0-or-later AND AGPL-3.0-or-later
 URL:        https://github.com/rrthomas/%{name}
 Source:     %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  autoconf
-BuildRequires:  automake >= 1.11
-BuildRequires:  bash
-# coreutils for chmod in Makefile.am
 BuildRequires:  coreutils
-# gcc is a default autoconf dependency and populates EXEEXT variable used in
-# Makefile.am.
-BuildRequires:  gcc
-%if %{with psutils_enables_unbundling_gnulib}
-BuildRequires:  gnulib-devel
-%endif
-BuildRequires:  grep
-BuildRequires:  make
-BuildRequires:  perl-generators
-BuildRequires:  sed
+BuildRequires:  python3-devel >= 3.12
 # Run-time:
 BuildRequires:  paper
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.14
-BuildRequires:  perl(base)
-BuildRequires:  perl(Exporter)
-BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::Copy)
-BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(IPC::Run3)
-BuildRequires:  perl(List::Util)
-BuildRequires:  perl(POSIX)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 # Tests:
-BuildRequires:  diffutils
-# Only for building
-Provides:       bundled(gnulib)%(perl -ne 'if($. == 1 and /\A(\d+)-(\d+)-(\d+)/) {print qq{ = $1$2$3}}' %{_defaultdocdir}/gnulib/ChangeLog 2>/dev/null)
+# Undeclared transitive dependency of python3-wand, bug #2502718
+BuildRequires:  ImageMagick-libs
 # psutils-perl was merged into psutils-2.03-1.fc34
 Provides:       %{name}-perl = %{version}-%{release}
 Obsoletes:      %{name}-perl < %{version}-%{release}
 Requires:       paper
 
-# Filter private modules
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(PSUtils\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(PSUtils\\)
-
 %description
-Utilities for manipulating PostScript documents.
-Page selection and rearrangement are supported, including arrangement into
-signatures for booklet printing, and page merging for n-up printing.
+PSUtils is a suite of utilities for manipulating PDF and PostScript documents.
+You can select and rearrange pages, including arrangement into signatures for
+booklet printing, combine multiple pages into a single page for n-up printing,
+and resize, flip and rotate pages.
 
 %package tests
 Summary:        Tests for %{name}
-License:        GPL-3.0-or-later and FSFULLR and MIT and FSFAP
+License:        GPL-3.0-or-later AND AGPL-3.0-or-later
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       coreutils
-Requires:       diffutils
-Requires:       make
+# Undeclared transitive dependency of python3-wand, bug #2502718
+Requires:       ImageMagick-libs
+Requires:       python3-pytest
+Requires:       python3dist(pytest-datafiles)
+Requires:       python3dist(wand)
 
 %description tests
 Tests from %{name}. Execute them
@@ -113,45 +83,39 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q
-%if %{with psutils_enables_unbundling_gnulib}
-gnulib-tool --import --no-changelog relocatable-perl
-%endif
-autoreconf -fi
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %build
-%configure --disable-relocatable
-%{make_build}
+%pyproject_wheel
  
 %install
-%{make_install}
+%pyproject_install
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
-cp -a aclocal.m4 build-aux config.status configure configure.ac m4 Makefile* tests %{buildroot}%{_libexecdir}/%{name}
-printf '#!/bin/sh\nexec "$@"\n' > %{buildroot}%{_libexecdir}/%{name}/pre-inst-env
-chmod +x %{buildroot}%{_libexecdir}/%{name}/pre-inst-env
+cp -a tests %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/bash
-set -e
-# Makefile writes into CWD
-DIR=$(mktemp -d)
-cp -a %{_libexecdir}/%{name}/* "$DIR"
-pushd "$DIR"
-unset PSUTILS_UNINSTALLED
-make -j "$(getconf _NPROCESSORS_ONLN)" check-TESTS
-popd
-rm -r "$DIR"
+#!/bin/sh
+# Override locale because upstream's PAPERSIZE override does not work.
+# <https://github.com/rrthomas/psutils/issues/91>.
+export LC_ALL=C.UTF-8
+export PYTHONDONTWRITEBYTECODE=1
+cd %{_libexecdir}/%{name} && exec /usr/bin/pytest
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset PSUTILS_UNINSTALLED
-make check %{?_smp_mflags}
+# Override locale because upsteam's PAPERSIZE override does not work.
+# <https://github.com/rrthomas/psutils/issues/91>.
+LC_ALL=C.UTF-8
+%pytest
 
 %files
 %license COPYING
-# ChangeLog is not helpful
-# old-scripts excluded intentionally
-%doc README
+%doc README.md
+%{python3_sitelib}/psutils/
+%{python3_sitelib}/psutils-%{version}.dist-info/
 %{_bindir}/epsffit
 %{_bindir}/extractres
 %{_bindir}/includeres
@@ -161,7 +125,6 @@ make check %{?_smp_mflags}
 %{_bindir}/psresize
 %{_bindir}/psselect
 %{_bindir}/pstops
-%{_datadir}/%{name}
 %{_mandir}/man1/epsffit.1*
 %{_mandir}/man1/extractres.1*
 %{_mandir}/man1/includeres.1*
@@ -177,6 +140,12 @@ make check %{?_smp_mflags}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 20 2026 Petr Pisar <ppisar@redhat.com> - 3.3.15-2
+- Readd psutils-perl RPM-Provides
+
+* Mon Jul 20 2026 Petr Pisar <ppisar@redhat.com> - 3.3.15-1
+- 3.3.15 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

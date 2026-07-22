@@ -1,8 +1,8 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        50.5
-Release:        2%{?dist}
+Version:        50.6
+Release:        1%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -195,6 +195,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Mon Jul 20 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 50.6-1
+- Update to 50.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

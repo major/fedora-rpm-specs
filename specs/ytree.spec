@@ -6,6 +6,7 @@ Release:	%autorelease
 License:	GPL-2.0-or-later
 URL:		https://www.han.de/~werner/ytree.html
 Source0:	https://www.han.de/~werner/%{name}-%{version}.tar.gz
+ExcludeArch:	%{ix86}
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	ncurses-devel >= 5.4

@@ -11,29 +11,29 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           42%{?dist}
+%global mscore_font_rel           43%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       42%{?dist}
+%global mscoretext_font_rel       43%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    42%{?dist}
+%global musescoreicon_font_rel    43%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         42%{?dist}
+%global mscorebc_font_rel         43%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 42%{?dist}
+%global mscoretabulature_font_rel 43%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         42%{?dist}
+%global musejazz_font_rel         43%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        42%{?dist}
+%global gootville_font_rel        43%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   42%{?dist}
+%global gootville_text_font_rel   43%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             42%{?dist}
+%global soundfont_rel             43%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
 # IMPORTANT: Change all the release numbers above, too!
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -241,6 +241,9 @@ Patch:          %{name}-fluidsynth-2.3.7.patch
 Patch:          %{name}-CVE-2025-56225.patch
 # Enable building with the Fedora VST 3 SDK package
 Patch:          %{name}-vst.patch
+# Fix a Qt 6.11 problem with StyledDropdown navigation
+# https://github.com/musescore/MuseScore/pull/34204
+Patch:          %{name}-styleddropdownnavigation.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -766,6 +769,12 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Mon Jul 20 2026 Jerry James <loganjerry@gmail.com> - 4.7.4-2
+- Add patch to fix StyledDropdown null references
+
+* Tue Jul 07 2026 Jerry James <loganjerry@gmail.com> - 4.7.4-1
+- Version 4.7.4
+
 * Thu Jun 11 2026 Jerry James <loganjerry@gmail.com> - 4.7.3-1
 - Version 4.7.3
 - Drop unneeded BuildRequires: dr_libs, gtest, libsndfile

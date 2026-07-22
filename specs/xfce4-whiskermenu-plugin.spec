@@ -4,26 +4,23 @@ Name:		xfce4-whiskermenu-plugin
 Version:	2.10.1
 Release:	%autorelease
 Summary:	An alternate application launcher for Xfce
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://gottcode.org/xfce4-whiskermenu-plugin/
 Source0:	https://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
+ExcludeArch:	%{ix86}
 
-BuildRequires:	gcc-c++
+BuildRequires:	accountsservice-devel
 BuildRequires:	cmake
 BuildRequires:	exo-devel
 BuildRequires:	garcon-devel
-BuildRequires:	xfce4-panel-devel
+BuildRequires:	gcc-c++
+BuildRequires:	gettext
+BuildRequires:	gtk-layer-shell-devel
 BuildRequires:	libxfce4ui-devel
 BuildRequires:	libxfce4util-devel
-BuildRequires:	accountsservice-devel
-BuildRequires:	gtk-layer-shell-devel
-BuildRequires:	gettext
+BuildRequires:	xfce4-panel-devel
 
 Requires:	xfce4-panel
-Requires:	hicolor-icon-theme
-
 
 %description
 Alternate application launcher for Xfce. When you open it you are shown 
@@ -42,7 +39,6 @@ that you have launched from it.
 
 %install
 %cmake_install
-
 %find_lang %{name}
 
 %check
@@ -61,4 +57,3 @@ that you have launched from it.
 
 %changelog
 %autochangelog
-

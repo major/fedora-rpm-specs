@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.6.0
+Version:        2.8.1
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 

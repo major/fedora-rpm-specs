@@ -2,13 +2,17 @@
 %undefine __cmake_in_source_build
 
 Name:		xrootd-s3-http
-Version:	0.6.8
-Release:	2%{?dist}
+Version:	0.6.9
+Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+#		Backport from git
+Patch0:		0001-Bump-user-agent.patch
+#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/160
+Patch1:		0001-Make-deadlock-test-setup-xrootd-version-agnostic.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -33,9 +37,18 @@ and HTTP backends through an XRootD server.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
 
+%if %{?rhel}%{!?rhel:0} == 8
 # Drop json version requirement for EPEL 8
 sed 's!nlohmann_json 3.11.2 QUIET!nlohmann_json QUIET!' -i CMakeLists.txt
+%endif
+
+%if %{?rhel}%{!?rhel:0} == 8 || %{?rhel}%{!?rhel:0} == 9
+# Older gtest in EPEL 8 and 9
+sed /GTEST_FLAG_SET/d -i test/deadlock_tests.cc
+%endif
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -57,8 +70,11 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 
 %files
 %{_libdir}/libXrdPelicanHttpCore.so.*
+%{_libdir}/libXrdAccDeadlock-%{pver}.so
+%{_libdir}/libXrdAccHttpCallout-%{pver}.so
 %{_libdir}/libXrdHTTPServer-%{pver}.so
 %{_libdir}/libXrdN2NPrefix-%{pver}.so
+%{_libdir}/libXrdOssDeadlock-%{pver}.so
 %{_libdir}/libXrdOssFilter-%{pver}.so
 %{_libdir}/libXrdOssGlobus-%{pver}.so
 %{_libdir}/libXrdOssHttp-%{pver}.so
@@ -69,6 +85,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Sun Jul 19 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 0.6.9-1
+- Update to version 0.6.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -51,6 +51,9 @@ and special mode for learning about references.
 rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonny.pot \
 thonny/locale/update_translations.py thonny/locale/register_updates.py
 
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
+
 
 # Remove the vendored python-filelock
 rm -r thonny/vendored_libs/filelock/

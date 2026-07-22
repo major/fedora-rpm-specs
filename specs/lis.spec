@@ -7,7 +7,7 @@ Summary:	A library for solving linear equations and eigenvalue problems
 License:	BSD-3-Clause
 URL:		http://www.ssisc.org/lis/index.en.html
 Source0:	http://www.ssisc.org/lis/dl/lis-%{version}.zip
-
+ExcludeArch:	%{ix86}
 BuildRequires:	autoconf
 BuildRequires:	chrpath
 BuildRequires:	gcc

@@ -5,6 +5,10 @@
 %global pkgver %{pkg_name}-%{version}
 %{?haskell_setup}
 
+# -j192 caused:
+# gcc: builderMainLoop: pipe: resource exhausted (Too many open files)
+%global _smp_ncpus_max 64
+
 Name:           ghc-%{pkg_name}
 Version:        3.3.4.1
 Release:        %autorelease

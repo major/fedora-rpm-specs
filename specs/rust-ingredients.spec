@@ -4,7 +4,7 @@
 %global crate ingredients
 
 Name:           rust-ingredients
-Version:        0.2.2
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Check ingredients of published Rust crates
 
@@ -57,6 +57,7 @@ Requires:       git-core
 %{bash_completions_dir}/ingredients.bash
 %{fish_completions_dir}/ingredients.fish
 %{zsh_completions_dir}/_ingredients
+%{_mandir}/man1/ingredients*
 
 %package        devel
 Summary:        %{summary}
@@ -111,13 +112,15 @@ use the "cli" feature of the "%{crate}" crate.
 
 %install
 %cargo_install -f cli
-# generate and install shell completions
+# generate and install shell completions and man pages
 target/rpm/ingredients completions bash > ingredients.bash
 target/rpm/ingredients completions fish > ingredients.fish
 target/rpm/ingredients completions zsh > _ingredients
+target/rpm/ingredients manual ./
 install -Dpm 0644 ingredients.bash -t %{buildroot}/%{bash_completions_dir}
 install -Dpm 0644 ingredients.fish -t %{buildroot}/%{fish_completions_dir}
 install -Dpm 0644 _ingredients -t %{buildroot}/%{zsh_completions_dir}
+install -Dpm 0644 *.1 -t %{buildroot}/%{_mandir}/man1
 
 %if %{with check}
 %check

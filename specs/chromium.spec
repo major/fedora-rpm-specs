@@ -271,8 +271,8 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.124
-Release: 2%{?dist}
+Version: 150.0.7871.128
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -530,6 +530,7 @@ Patch603: chromium-150-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
 Patch604: chromium-150-Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom.patch
 Patch605: chromium-150-Use-64px-css-pixels-absolute-threshold-for-dark-image-classification.patch
 Patch606: chromium-150-Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode.patch
+Patch607: chromium-150-Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -562,8 +563,6 @@ Source12: node-%{nodejs_version}-stripped.tar.gz
 Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
-# Disable AI Mode settings
-Source14: disable-ai.json
 
 BuildRequires: clang
 BuildRequires: clang-tools-extra
@@ -1231,9 +1230,7 @@ Qt6 UI for chromium.
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
 %patch -P420 -p1 -b .0005-blink-add-audio-vector-support
-%if 0%{?fedora} > 44 || 0%{?rhel} > 10 
 %patch -P450 -p1 -b .pt_regs-kernel-7.2.0
-%endif
 %endif
 
 %if 0%{?flatpak}
@@ -1254,6 +1251,7 @@ Qt6 UI for chromium.
 %patch -P604 -p1 -b .Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom
 %patch -P605 -p1 -b .Use-64px-css-pixels-absolute-threshold-for-dark-image-classification
 %patch -P606 -p1 -b .Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode
+%patch -P607 -p1 -b .Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1759,9 +1757,6 @@ popd
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/managed
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/recommended
 
-# disable AI
-cp -a %{SOURCE14} %{buildroot}%{_sysconfdir}/chromium/policies/managed/
-
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 cp -a chrome/app/theme/chromium/product_logo_256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
@@ -1808,7 +1803,6 @@ fi
 %dir %{chromium_path}/PrivacySandboxAttestationsPreloaded/
 %config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
 %config %{_sysconfdir}/%{name}/master_preferences
-%config %{_sysconfdir}/%{name}/policies/managed/disable-ai.json
 %{_bindir}/chromium-browser
 %{chromium_path}/chrome_*.pak
 %{chromium_path}/chrome_crashpad_handler
@@ -1928,6 +1922,18 @@ fi
 %endif
 
 %changelog
+* Mon Jul 20 2026 Than Ngo <than@redhat.com> - 150.0.7871.128-1
+- Update to 150.0.7871.128
+  * CVE-2026-15899: Use after free in CameraCapture
+  * CVE-2026-15900: Use after free in GPU
+  * CVE-2026-15901: Use after free in Network
+  * CVE-2026-15902: Use after free in Cast
+  * CVE-2026-15903: Out of bounds read and write in V8
+  * CVE-2026-15904: Use after free in Ozone
+  * CVE-2026-15905: Use after free in Aura
+- Fix rhbz#2501811, Drop AI policy which breaks DoH settings
+- Improve auto darkmode
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 150.0.7871.124-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

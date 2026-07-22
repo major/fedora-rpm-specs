@@ -5,8 +5,8 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.58~rc1
-Release: 2%{?dist}
+Version: 1.58.0
+Release: 1%{?dist}
 
 ###############################################################################
 
@@ -1063,6 +1063,9 @@ fi
 
 
 %changelog
+* Mon Jul 20 2026 Josephine Pfeiffer <josie@redhat.com> - 1:1.58.0-1
+- Update to 1.58.0 release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.58~rc1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

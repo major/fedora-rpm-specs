@@ -2,13 +2,11 @@ Name:           mbuffer
 Version:        20260511
 Release:        %autorelease
 Summary:        Measuring Buffer is an enhanced version of buffer
-
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://www.maier-komor.de/mbuffer.html
 Source:         https://www.maier-komor.de/software/mbuffer/mbuffer-%{version}.tgz
 Patch:          0001-fix-x86-configure.patch
-
+ExcludeArch:    %{ix86}
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc

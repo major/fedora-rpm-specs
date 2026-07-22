@@ -5,13 +5,14 @@ Summary:	Simple text editor for X
 URL:		https://xorg.freedesktop.org
 Source0:	https://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.xz
 Source1:	%{name}.desktop
+Patch:          xedit-hunspell.patch
 License:	MIT AND BSD-3-Clause
+ExcludeArch:    %{ix86}
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	libXaw-devel
 BuildRequires:	meson
 BuildRequires:	xorg-x11-util-macros
-Patch:		xedit-hunspell.patch
 Requires:	xorg-x11-xbitmaps
 Requires:	hunspell
 Requires:	hunspell-en

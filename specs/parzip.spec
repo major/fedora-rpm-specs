@@ -5,7 +5,7 @@ Summary:        High performance parallel PKZIP implementation
 License:        GPL-3.0-or-later
 URL:            https://github.com/jpakkane/parzip
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.xz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  pkgconfig(zlib)

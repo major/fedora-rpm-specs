@@ -5,6 +5,9 @@ Summary:       Provides routing functionality to PostGIS / PostgreSQL
 License:       GPL-2.0-or-later AND BSL-1.0 AND MIT
 URL:           https://pgrouting.org
 Source:        https://github.com/pgRouting/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+ExcludeArch:   %{ix86}
+
 BuildRequires: boost-devel
 BuildRequires: ninja-build
 BuildRequires: cmake

@@ -8,7 +8,7 @@ Summary: Applicative protocol(SSL/SSH) multiplexer
 License: GPL-2.0-only
 URL:     https://github.com/yrutschle/sslh
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
+ExcludeArch:    %{ix86}
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libconfig)

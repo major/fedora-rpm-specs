@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.5
-Release:        5%{?dist}
+Version:        19.9
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 #
@@ -28,7 +28,7 @@ Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 
 # Automatically converted from old format: zlib and CC-BY-SA and ASL 2.0 and MIT and Public Domain - review is highly recommended.
-License:        Zlib AND LicenseRef-Callaway-CC-BY-SA AND Apache-2.0 AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
+License:        Zlib AND CC-BY-SA-3.0 AND Apache-2.0 AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://ddnet.org/
 Source0:        https://github.com/ddnet/ddnet/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -67,13 +67,14 @@ BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  glslang
+BuildRequires:  spirv-tools
 #BuildRequires:  pkgconfig(libavcodec)
 #BuildRequires:  pkgconfig(libavformat)
 #BuildRequires:  pkgconfig(libavutil)
 #BuildRequires:  pkgconfig(libswscale)
 #BuildRequires:  pkgconfig(libswresample)
 #BuildRequires:  pkgconfig(x264)
-BuildRequires:  (crate(cxx/default) >= 1.0.0 with crate(cxx/default) < 2.0.0~)
+BuildRequires:  cxxbridge
 BuildRequires:  gmock-devel
 
 Requires:       %{name}-data = %{version}-%{release}
@@ -116,14 +117,22 @@ Standalone server for %{name}.
 %autosetup -p1 -n %{name}-%{version}
 find -type f -exec sed -i 's|engine/external/md5/md5.h|md5/md5.h|g' {} +
 find -type f -exec sed -i 's|engine/external/json-parser/json.h|json-parser/json.h|g' {} +
+find -type f -name Cargo.toml -exec sed -i '/^cxx\s=\s/s|"=|"|' {} +
+CXXBRIDGE_VERSION=$(cxxbridge --version | cut -d' ' -f2)
+sed -i "s|version=\".*\"|version=\"${CXXBRIDGE_VERSION}\"|" scripts/generate_rust_bridge.py
+python3 scripts/generate_rust_bridge.py
 
 %cargo_prep
 sed '/Cargo.lock/d' -i CMakeLists.txt
+sed '/RUST_CARGO/s/--locked/--offline/' -i CMakeLists.txt
+sed '/foreach.*VULKAN_SHADER_/s/FILE_LIST/OUTPUT_PATHS/' -i CMakeLists.txt
 touch CMakeLists.txt
 
 # Remove bundled stuff...
 rm -rf src/engine/external
 
+%generate_buildrequires
+%cargo_generate_buildrequires
 
 %build
 # ensure standard Rust compiler flags are set
@@ -177,6 +186,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 19 2026 Packit <hello@packit.dev> - 19.9-1
+- Update to version 19.9
+- Resolves: rhbz#2419773
+- migrated to SPDX license
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

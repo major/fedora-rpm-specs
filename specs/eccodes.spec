@@ -3,8 +3,8 @@
 %endif
 
 Name:           eccodes
-Version:        2.47.0
-Release:        2%{?dist}
+Version:        2.48.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -173,6 +173,13 @@ local definitions by ECMWF and other meteorological centers.
 # include a LUA scriptlet as suggested on:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
 # to assist in replacing a directory by a symlink
+
+# note: this script was introduced on 11-Aug-2025 to fix a problem
+#       in upgrading eccodes 2.41.0 to 2.42.0.
+#       At that time f41, f42, and f43 were used.
+#       So this script can be removed or disabled once f43 is end-of-life.
+#       (since in theory there could be a f43 used who did not apply
+#        any updates since 11-Aug-2025 ...)
 
 %pretrans -n eccodes-data -p <lua>
 
@@ -478,9 +485,12 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Mon Jul 20 2026 Jos de Kloe <josdekloe@gmail.com> - 2.48.0-1
+- Update to 2.48.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 
 * Sat May 02 2026 Jos de Kloe <josdekloe@gmail.com> - 2.47.0-1
 - Update to 2.47.0

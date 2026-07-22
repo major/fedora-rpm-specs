@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-elm
+%global crate cond_sync
 
-Name:           rust-tree-sitter-elm
-Version:        5.9.4
+Name:           rust-cond_sync
+Version:        0.2.2
 Release:        %autorelease
-Summary:        Elm grammar for tree-sitter
+Summary:        Hides the boilerplate code needed with std::sync::Condvar
 
-License:        MIT
-URL:            https://crates.io/crates/tree-sitter-elm
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/cond_sync
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          cond_sync-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Elm grammar for tree-sitter.}
+Hides the boilerplate code needed with std::sync::Condvar.}
 
 %description %{_description}
 
@@ -30,7 +32,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

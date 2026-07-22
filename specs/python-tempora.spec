@@ -4,11 +4,11 @@
 %bcond docs 0
 
 Name:           python-%{pypi_name}
-Version:        5.9.0
+Version:        5.12.0
 Release:        %autorelease
 Summary:        Objects and routines pertaining to date and time (tempora)
 
-License:        MIT
+License:        Apache-2.0
 URL:            https://github.com/jaraco/tempora
 Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -20,6 +20,12 @@ Objects and routines pertaining to date and time (tempora).
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+# The sdist's pyproject.toml drops the [project.optional-dependencies]
+# table, so the "test" extra is not visible to the build backend. Supply
+# the test dependencies explicitly.
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(freezegun)
+BuildRequires:  python3dist(pytest-freezer)
 
 %description -n python3-%{pypi_name}
 Objects and routines pertaining to date and time (tempora).
@@ -36,7 +42,7 @@ Documentation for tempora
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x %{?with_docs:doc,}test
+%pyproject_buildrequires %{?with_docs:-x doc}
 
 %build
 %pyproject_wheel
@@ -57,7 +63,8 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.md
+%license LICENSE
 %{_bindir}/calc-prorate
 
 %if %{with docs}

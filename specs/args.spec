@@ -2,8 +2,9 @@
 %global debug_package %{nil}
 
 Name:           args
-Version:        6.4.16
+Version:        6.5.0
 Release:        %autorelease
+ExcludeArch:    %{ix86}
 Summary:        Simple, small, flexible, single-header C++11 argument parsing library
 License:        MIT
 URL:            https://github.com/Taywee/args
@@ -38,6 +39,7 @@ use %{name}.
 
 %conf
 %cmake \
+    -DARGS_BUILD_UNITTESTS=ON \
     -DARGS_BUILD_EXAMPLE=OFF
 
 

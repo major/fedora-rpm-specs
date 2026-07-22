@@ -1,13 +1,11 @@
 Name:           scorep
-Version:        9.4
-Release:        4%{?dist}
+Version:        10.0
+Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
-License:        BSD-3-Clause
+# Various doc files are CC0-1.0
+License:        BSD-3-Clause AND CC0-1.0
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
-# GCC plug-in: Adopt API changes in GCC 16 dev;
-# https://gitlab.com/score-p/scorep/-/commit/469b1a129c19dd01e4aad40b6fd511e23a3d9cbd
-Patch1:         gcc16.diff
 BuildRequires:  make
 BuildRequires:  gcc-gfortran
 BuildRequires:  bison
@@ -17,7 +15,7 @@ BuildRequires:  chrpath
 BuildRequires:  cube-libs-devel >= 4.9
 BuildRequires:  ocl-icd-devel
 BuildRequires:  opari2 >= 2.0.9
-BuildRequires:  otf2-devel >= 3.1
+BuildRequires:  otf2-devel >= 3.2
 BuildRequires:  papi-devel
 BuildRequires:  gcc-plugin-devel
 # Required for cubelib to build scorep-score against cubew
@@ -28,6 +26,10 @@ BuildRequires:  clang-devel
 BuildRequires:  automake libtool
 BuildRequires:  libunwind-devel
 BuildRequires:  gotcha-devel%{?_isa} >= 1.0.5
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires:  roctracer-devel
+%endif
+BuildRequires:  libzstd-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       binutils-devel%{?_isa}
 Requires:       cube-libs-devel%{?_isa} >= 4.9
@@ -41,9 +43,13 @@ Requires:       libunwind-devel%{?_isa}
 # "cannot determine instruction set" in v7.0.
 ExcludeArch: s390 s390x armv7hl i686
 
+# In the past not all architectures supported both MPIs.  It's useful
+# to keep these to be able to a quicker build with a new version to
+# sort out issues with what the rpm installs, for instance.
 %global with_mpich 1
 %global with_openmpi 1
 
+%global mpi_list %nil
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
@@ -163,7 +169,6 @@ Score-P openmpi configuration files.
 
 %prep
 %setup -q
-%patch -P1 -p1 -b .gcc16
 # Bundled libs in vendor/
 rm -rf vendor/{opari2,otf2,cubew,cubelib}
 mkdir bin
@@ -181,7 +186,9 @@ popd
 
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes
+%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes --with-libroctracer64=yes
+# Workaround for #2493579
+export LIBBFD_EXTRA_LIBS=-lzstd
 
 cp /usr/lib/rpm/redhat/config.{sub,guess} build-config/
 
@@ -230,9 +237,12 @@ done
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 find %{buildroot} -name '*.a' -delete
 
-# Strip rpath
-chrpath -d %{buildroot}%{_libdir}/*.so.* %{buildroot}%{_bindir}/scorep-score
-chrpath -d %{buildroot}%{_libexecdir}/scorep/scorep-library-wrapper-generator
+# Strip rpath in serial and MPI binaries
+find %{buildroot} -name '*.so.*' | xargs chrpath -d
+find %{buildroot}  -name scorep -o -name scorep-backend-info \
+ -o -name scorep-config -o -name scorep-info -o -name scorep-score \
+ -o -name scorep-library-wrapper-generator  | \
+ grep /bin/ | xargs chrpath -d
 
 # Fixme: I haven't figured out how to get this re-built with the final
 # build-gcc-plugin result; kludge it for now.
@@ -251,11 +261,12 @@ make -C openmpi check V=1
 make -C serial check V=1
 %endif
 
+%global licence_files README.LICENSES.md LICENSES/BSD-3-Clause.txt LICENSES/CC0-1.0.txt
+%global docs ChangeLog README.md THANKS OPEN_ISSUES CITATION.cff
 
 %files
-%license COPYING
-#%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
-%doc AUTHORS README.md THANKS
+%license %licence_files 
+%doc README.md THANKS
 %{_bindir}/scorep
 %{_bindir}/scorep-backend-info
 %{_bindir}/scorep-g++
@@ -272,12 +283,14 @@ make -C serial check V=1
 %{_libexecdir}/scorep
 # Files required by scorep-info
 %{_defaultdocdir}/scorep/ChangeLog
-%{_defaultdocdir}/scorep/COPYING
 %{_defaultdocdir}/scorep/OPEN_ISSUES
 %{_defaultdocdir}/scorep/CITATION.cff
+%exclude %{_defaultdocdir}/scorep/*.txt
+%exclude %{_defaultdocdir}/scorep/REUSE.toml
+%exclude %{_defaultdocdir}/scorep/README.LICENSES.md
 
 %files doc
-%license COPYING
+%license %licence_files
 %{_defaultdocdir}/scorep/examples/
 %{_defaultdocdir}/scorep/html/
 %{_defaultdocdir}/scorep/pdf/
@@ -285,18 +298,19 @@ make -C serial check V=1
 %{_defaultdocdir}/scorep/tags/
 
 %files libs
-%license COPYING
+%license %licence_files
+%doc %docs
 %{_libdir}/libscorep_*.so*
 
 %files config
-%license COPYING
+%license %licence_files
 %{_bindir}/scorep-config
 %{_datadir}/scorep/
 
 %if %{with_mpich}
 %files mpich
-%license COPYING
-%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
+%license README.LICENSES.md
+%doc %docs
 %{_libdir}/mpich/bin/scorep
 %{_libdir}/mpich/bin/scorep-backend-info
 %{_libdir}/mpich/bin/scorep-g++
@@ -315,19 +329,21 @@ make -C serial check V=1
 %{_includedir}/mpich-%{_arch}/scorep/
 
 %files mpich-libs
-%license COPYING
+%license README.LICENSES.md
+%doc %docs
 %{_libdir}/mpich/lib/*.so*
 
 %files mpich-config
-%license COPYING
+%license README.LICENSES.md
+%doc %docs
 %{_libdir}/mpich/bin/scorep-config
 %{_libdir}/mpich/share/scorep
 %endif
 
 %if %{with_openmpi}
 %files openmpi
-%license COPYING
-%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
+%license README.LICENSES.md
+%doc %docs
 %{_libdir}/openmpi/bin/scorep
 %{_libdir}/openmpi/bin/scorep-backend-info
 %{_libdir}/openmpi/bin/scorep-g++
@@ -351,16 +367,23 @@ make -C serial check V=1
 %{_includedir}/openmpi-%{_arch}/scorep/
 
 %files openmpi-libs
-%license COPYING
+%license README.LICENSES.md
 %{_libdir}/openmpi/lib/*.so*
 
 %files openmpi-config
-%license COPYING
+%license README.LICENSES.md
 %{_libdir}/openmpi/bin/scorep-config
 %{_libdir}/openmpi/share/scorep
 %endif
 
 %changelog
+* Mon Jul 20 2026 Dave Love <loveshack@fedoraproject.org> - 10.0-1
+- Update to version 10.0 (resolves #2493585)
+- BR otf2 >= 3.2
+- Remove patch
+- Add AMD GPU support
+- Work around libbfd bug
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -11,17 +11,21 @@
 %bcond_with perl_YAML_enables_extra_test
 %endif
 
+# Not sure if v-string versioning will be long term
+%global package_version 1.32
+%global cpan_version %(LC_ALL=C; printf 'v%.3f.0' '%{package_version}')
+
 Name:           perl-YAML
-Version:        1.31
-Release:        8%{?dist}
-Summary:        YAML Ain't Markup Language (tm)
+Version:        %{package_version}
+Release:        1%{?dist}
+Summary:        YAML Ain't Markup Language (TM)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML
-# Tarball created from https://cpan.metacpan.org/modules/by-module/YAML/YAML-%%{version}.tar.gz
+# Tarball created from https://cpan.metacpan.org/modules/by-module/YAML/YAML-%%{cpan_version}.tar.gz
 # using script YAML-free (see https://bugzilla.redhat.com/show_bug.cgi?id=1813197)
-Source0:        YAML-free-%{version}.tar.gz
+Source0:        YAML-free-%{cpan_version}.tar.gz
 # Script to remove non-free content from upstream tarball
-# Usage: YAML-free YAML-%%{version}.tar.gz
+# Usage: YAML-free YAML-%%{cpan_version}.tar.gz
 Source1:        YAML-free
 BuildArch:      noarch
 # Module Build
@@ -85,7 +89,7 @@ Please consider using these first:
    YAML::PP API
 
 %prep
-%setup -q -n YAML-%{version}
+%setup -q -n YAML-%{cpan_version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -143,6 +147,12 @@ make test AUTHOR_TESTING=%{with perl_YAML_enables_extra_test}
 %{_mandir}/man3/YAML::Types.3*
 
 %changelog
+* Mon Jul 20 2026 Paul Howarth <paul@city-fan.org> - 1.32-1
+- Update to v1.320.0 (rhbz#2502797)
+  - Security: Avoid backtracking leading to exponential load time
+    (CVE-2026-63676)
+- Stick with existing version numbering scheme for now
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

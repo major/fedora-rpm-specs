@@ -145,6 +145,8 @@ Patch201: qtwebengine-chromium-ppc64.patch
 Patch202: qtwebengine-chromium-ppc64-highway.patch
 # disable musttail attribute for GCC build
 Patch203: qtwebengine-chromium-ppc64-skia-musttail.patch
+# update crashpad for kernel 7.2+
+Patch204: qtwebengine-chromium-ppc64-crashpad.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -498,6 +500,7 @@ popd
 %patch -P201 -p1
 %patch -P202 -p1
 %patch -P203 -p1
+%patch -P204 -p1
 
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we

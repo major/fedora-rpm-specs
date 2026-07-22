@@ -7,7 +7,7 @@
 # https://github.com/golang/oauth2
 %global goipath         golang.org/x/oauth2
 %global forgeurl        https://github.com/golang/oauth2
-Version:                0.25.0
+Version:                0.36.0
 
 %gometa -L
 
