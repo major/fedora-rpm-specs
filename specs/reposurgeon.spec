@@ -30,7 +30,6 @@ BuildRequires:  go-vendor-tools
 BuildRequires:  golang-bin
 BuildRequires:  make
 BuildRequires:  sed
-BuildRequires:  xmlto
 
 %if %{with check}
 BuildRequires:  git-core

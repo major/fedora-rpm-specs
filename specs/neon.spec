@@ -14,7 +14,7 @@ URL: https://notroj.github.io/neon/
 Source0: https://notroj.github.io/neon/neon-%{version}.tar.gz
 Patch0: neon-0.34.0-multilib.patch
 BuildRequires: expat-devel, openssl-devel, zlib-devel, krb5-devel
-BuildRequires: pkgconfig, make, gcc, xmlto, libntlm-devel
+BuildRequires: pkgconfig, make, gcc, libntlm-devel
 %if %{with pkcs11}
 BuildRequires: pakchois-devel
 %endif

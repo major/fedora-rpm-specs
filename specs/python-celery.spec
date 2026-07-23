@@ -17,6 +17,10 @@ Source0:        https://github.com/celery/celery/archive/v%{upstream_version}/%{
 Source1:        pytest.ini
 Summary:        Distributed Task Queue
 
+# Fix a test that fails with click 8.4; excerpted from:
+# Skip empty groups in chains
+# https://github.com/celery/celery/commit/bf1cf69e24e3ede7d7053c17d47e381be959880e
+Patch:          celery-5.6.3-click-8.4.patch
 
 %description
 An open source asynchronous task queue/job queue based on

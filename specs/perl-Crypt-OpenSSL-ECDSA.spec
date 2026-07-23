@@ -1,11 +1,13 @@
 Name:           perl-Crypt-OpenSSL-ECDSA
 Version:        0.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl extension for OpenSSL ECDSA (Elliptic Curve Digital Signature Algorithm)
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-ECDSA
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKEM/Crypt-OpenSSL-ECDSA-%{version}.tar.gz
+# Fix a spurious test failure, bug #2503155, CPAN RT#180191, proposed upstream
+Patch0:         Crypt-OpenSSL-ECDSA-0.10-tests-Fix-checking-for-an-OpenSSL-error-queue.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -52,7 +54,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Crypt-OpenSSL-ECDSA-%{version}
+%autosetup -p1 -n Crypt-OpenSSL-ECDSA-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -83,14 +85,22 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Crypt*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Crypt
+%dir %{perl_vendorarch}/auto/Crypt/OpenSSL
+%{perl_vendorarch}/auto/Crypt/OpenSSL/ECDSA
+%dir %{perl_vendorarch}/Crypt
+%dir %{perl_vendorarch}/Crypt/OpenSSL
+%{perl_vendorarch}/Crypt/OpenSSL/ECDSA.pm
+%{_mandir}/man3/Crypt::OpenSSL::ECDSA.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 21 2026 Petr Pisar <ppisar@redhat.com> - 0.10-22
+- Modernize a spec file
+- Fix a spurious test failure (bug #2503155)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 # https://github.com/golang/image
 %global goipath         golang.org/x/image
 %global forgeurl        https://github.com/golang/image
-Version:                0.23.0
+Version:                0.44.0
 
 %gometa
 

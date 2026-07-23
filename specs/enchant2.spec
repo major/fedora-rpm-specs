@@ -147,7 +147,7 @@ popd
 # MinGW build
 MINGW32_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw32_datadir}/hunspell" \
 MINGW64_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw64_datadir}/hunspell" \
-%mingw_configure --disable-static --without-hspell --enable-relocatable
+%mingw_configure --disable-static --without-hspell --without-winspell --enable-relocatable
 
 MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
 MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \

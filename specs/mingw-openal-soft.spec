@@ -10,11 +10,13 @@ Version:        1.25.0
 Release:        3%{?dist}
 Summary:        Open Audio Library
 
+BuildArch:      noarch
 # See native spec
 License:        LGPL-2.0-or-later AND BSD-3-Clause AND GPL-2.0-or-later AND Apache-2.0 AND (LGPL-2.0-or-later AND BSD-3-Clause) AND MIT AND NCL AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://openal-soft.org/
 Source0:        https://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
-BuildArch:      noarch
+# Add missing cstdint include
+Patch0:         openal-soft-cstdint.patch
 
 BuildRequires:  make
 BuildRequires:  cmake

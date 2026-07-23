@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 7.0.1
+%global upstream_version 7.0.2
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -15,7 +15,7 @@ Summary:    Blog tool and publishing platform
 URL:        https://wordpress.org/
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    2%{?dist}
+Release:    1%{?dist}
 # Wordpress     is GPL-2.0-or-later
 # php-simplepie is BSD-3-Clause
 # php-getid3    is LGPL-3.0-or-later (or some others)
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Tue Jul 21 2026 Remi Collet <remi@remirepo.net> -7.0.2-1
+- WordPress 7.0.2 Release
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

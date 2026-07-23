@@ -22,6 +22,10 @@ Source:         %{forgesource}
 
 # fix: Adjust tests for Pydantic 2.13
 Patch:          %{forgeurl}/commit/6f0217de5e26b99d09ffd9bb95da415779e6bef6.patch
+# Allow python-ulid version 4.x
+# https://github.com/pydantic/pydantic-extra-types/pull/412
+# (without changes to uv.lock, which we don’t use)
+Patch:          pydantic-extra-types-2.11.2-python-ulid-v4.patch
 
 BuildArch:      noarch
 

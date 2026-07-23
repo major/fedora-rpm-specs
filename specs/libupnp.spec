@@ -1,4 +1,4 @@
-Version: 2.0.2
+Version: 22.0.4
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 2%{?dist}
@@ -6,9 +6,9 @@ License: BSD-3-Clause AND ISC AND MIT
 URL: https://github.com/pupnp/pupnp
 Source: %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: libtool
+BuildRequires: cmake
 
 
 %description
@@ -29,35 +29,35 @@ the UPnP SDK libraries.
 
 
 %build
-autoreconf -vif
-%configure \
-  --enable-static=no \
-  --enable-ipv6
-
-# remove rpath from libtool
-sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
+%cmake
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
-%{__rm} %{buildroot}%{_libdir}/{libixml.la,libupnp.la}
+%{__rm} %{buildroot}%{_libdir}/{libixml.a,libupnp.a}
 
 %files
 %license COPYING
 %doc THANKS
-%{_libdir}/libixml.so.11*
+%{_libdir}/libixml.so.22*
 %{_libdir}/libupnp.so.22*
+%{_bindir}/tv_combo
+%{_bindir}/tv_ctrlpt
+%{_bindir}/tv_device
+%{_datadir}/upnp/
 
 %files devel
 %{_includedir}/upnp/
 %{_libdir}/libixml.so
 %{_libdir}/libupnp.so
 %{_libdir}/pkgconfig/libupnp.pc
+%{_libdir}/cmake/UPNP/
 
 %changelog
+* Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.4-1
+- 22.0.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

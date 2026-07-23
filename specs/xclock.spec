@@ -1,5 +1,5 @@
 Name:       xclock
-Version:    1.2.0
+Version:    1.2.1
 Release:    %autorelease
 Summary:    The classic X Window System clock utility
 
@@ -41,7 +41,9 @@ frequency which may be specified by the user.
 %{_bindir}/xclock
 %{_mandir}/man1/xclock.1*
 %{_datadir}/X11/app-defaults/XClock
+%{_datadir}/X11/app-defaults/XClock-ampm
 %{_datadir}/X11/app-defaults/XClock-color
+%{_datadir}/X11/app-defaults/XClock-grandfather
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
 Name:           python-virt-firmware
-Version:        26.7.1
+Version:        26.7.2
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
@@ -106,6 +106,8 @@ done
 %{_bindir}/virt-fw-measure
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
+%{_bindir}/virt-cloud-fetch
+%{_bindir}/virt-cloud-boot
 %{_bindir}/kernel-bootcfg
 %{_bindir}/uefi-boot-menu
 %{_bindir}/migrate-vars

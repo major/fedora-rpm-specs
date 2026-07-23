@@ -9,8 +9,6 @@ Source0: https://github.com/stephane/libmodbus/releases/download/v%{version}/lib
 # Patch 0: libmodbus-revert-CFLAGS-changes.patch
 
 BuildRequires: gcc
-BuildRequires: xmlto
-BuildRequires: asciidoc
 BuildRequires: make
 
 %description

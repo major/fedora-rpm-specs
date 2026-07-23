@@ -26,7 +26,6 @@ BuildRequires: libX11-devel >= 1.5.99.902
 BuildRequires: libXau-devel
 BuildRequires: xorg-x11-util-macros
 BuildRequires: autoconf automake libtool pkgconfig
-BuildRequires: xmlto
 
 %description
 X.Org X11 libXext runtime library

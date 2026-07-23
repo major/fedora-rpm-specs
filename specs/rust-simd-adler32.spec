@@ -6,7 +6,7 @@
 %global crate simd-adler32
 
 Name:           rust-simd-adler32
-Version:        0.3.8
+Version:        0.3.10
 Release:        %autorelease
 Summary:        SIMD-accelerated Adler-32 hash algorithm implementation
 

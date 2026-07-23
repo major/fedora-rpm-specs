@@ -21,10 +21,6 @@ ExcludeArch: i686
 # as the build is *very* slow.
 %global debug_build       0
 
-# See rhbz#2134527 - Use portal Gtk file dialog
-# Disabled due to various issues now.
-%global use_xdg_file_portal 0
-
 %global use_pipewire_camera 1
 
 %global system_nss        1
@@ -95,9 +91,9 @@ ExcludeArch: i686
 %ifarch x86_64
 %if %{release_build}
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
-%global build_with_pgo    1
+%global build_with_pgo    0
 %else
-%global build_with_pgo    1
+%global build_with_pgo    0
 %endif
 %endif
 %endif
@@ -190,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        153.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -361,9 +357,7 @@ BuildRequires:  python3.11-devel
 %if !0%{?flatpak}
 Requires:       u2f-hidraw-policy
 %endif
-%if %{?use_xdg_file_portal}
 Requires:       xdg-desktop-portal
-%endif
 
 BuildRequires:  desktop-file-utils
 %if !0%{?flatpak}
@@ -1069,9 +1063,6 @@ cp failures-* %{buildroot}/%{version}-%{release}/ || true
 
 # Default
 cp %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
-%if %{?use_xdg_file_portal}
-echo 'pref("widget.use-xdg-desktop-portal.file-picker", 1);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-%endif
 
 %if %{?use_pipewire_camera}
 echo 'pref("media.webrtc.camera.allow-pipewire", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
@@ -1210,6 +1201,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jul 21 2026 Martin Stransky <stransky@redhat.com> - 153.0-2
+- Temporary disable PGO
+
 * Thu Jul 16 2026 Martin Stransky <stransky@redhat.com> - 153.0-1
 - Updated to latest upstream (153.0)
 

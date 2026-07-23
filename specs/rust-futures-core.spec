@@ -6,7 +6,7 @@
 %global crate futures-core
 
 Name:           rust-futures-core
-Version:        0.3.32
+Version:        0.3.33
 Release:        %autorelease
 Summary:        Core traits and types in for the futures library
 

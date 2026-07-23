@@ -1,6 +1,6 @@
 Name:           methane
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Super Methane Brothers
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,6 +10,7 @@ Source1:        %{name}.desktop
 Source2:        %{name}.png
 
 Patch0:         0000-missing-includes.patch
+Patch1:         methane-3.0.0-ppc64-buildfix.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -114,6 +115,9 @@ EOF
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Tue Jul 21 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 3.0.0-3
+- Fix ppc64le and s390x FTBFS
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

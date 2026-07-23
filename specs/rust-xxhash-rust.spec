@@ -5,7 +5,7 @@
 %global crate xxhash-rust
 
 Name:           rust-xxhash-rust
-Version:        0.8.16
+Version:        0.8.18
 Release:        %autorelease
 Summary:        Implementation of xxhash
 

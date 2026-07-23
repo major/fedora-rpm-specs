@@ -52,11 +52,6 @@ Provides:       bundled(loki-lib)
 
 %install
 %pyproject_install
-# Remove the leftover from setuptools_scm that's not intended to be packaged
-# Per docs we should be able to suppress this via an envvar, but it doesn't work
-# Upstream issue: https://github.com/pypa/setuptools-scm/issues/1364
-rm %{buildroot}%{python3_sitearch}/src/version.h
-
 %pyproject_save_files -l %{srcname}
 
 %check

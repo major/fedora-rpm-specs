@@ -1,11 +1,11 @@
 Name:           pipx
-Version:        1.16.0
+Version:        1.16.1
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
 # SPDX
 License:        MIT
-URL:            https://pypa.github.io/pipx
+URL:            https://pipx.pypa.io
 # We need to use the GitHub source archive instead of the PyPI sdist in order
 # to get the script to generate the man page.
 %global forgeurl https://github.com/pypa/pipx

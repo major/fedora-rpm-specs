@@ -12,19 +12,12 @@
 %undefine _annotated_build
 
 Name: criu
-Version: 4.2
-Release: 22%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
 Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{version}.tar.gz
-Patch0: 0001-rseq-use-kernel-rseq.h-when-glibc-detects-it.patch
-Patch1: 0001-tty-fix-compiler-error.patch
-Patch2: 0002-net-Route-veth-restore-through-usernsd-for-userns-mode.patch
-Patch3: 0003-zdtm-Fix-rseq01-test-for-kernel-7.0-rseq-changes.patch
-Patch4: 0004-sockets-Treat-UDPLITE-as-optional-in-collect_err.patch
-Patch5: 0005-zdtm-Skip-socket_udplite-test-when-kernel-lacks-UDPLITE.patch
-Patch6: https://patch-diff.githubusercontent.com/raw/checkpoint-restore/criu/pull/3023.patch
 
 # Add protobuf-c as a dependency.
 # We use this patch because the protobuf-c package name
@@ -121,13 +114,6 @@ This script can help to workaround the so called "PID mismatch" problem.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
-%patch -P 5 -p1
-%patch -P 6 -p1
 %patch -P 99 -p1
 
 %build
@@ -216,6 +202,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Tue Jul 21 2026 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 4.2.1-1
+- Update to 4.2.1
+- Drop patches merged upstream
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

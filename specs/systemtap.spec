@@ -40,7 +40,6 @@
 %endif
 %{!?with_pyparsing: %global with_pyparsing 0%{?fedora} >= 18 || 0%{?rhel} >= 7}
 %{!?with_python3: %global with_python3 0%{?fedora} >= 23 || 0%{?rhel} > 7}
-%{!?with_python2_probes: %global with_python2_probes (0%{?fedora} <= 28 && 0%{?rhel} <= 7)}
 %{!?with_python3_probes: %global with_python3_probes (0%{?fedora} >= 23 || 0%{?rhel} > 7)}
 %{!?with_httpd: %global with_httpd 0}
 %{!?with_specific_python: %global with_specific_python 0%{?fedora} >= 31}
@@ -130,8 +129,8 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 
 Name: systemtap
 # PRERELEASE
-Version: 5.5
-Release: 4%{?release_override}%{?dist}
+Version: 5.6~pre17846435g2da140e3
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -149,7 +148,6 @@ Release: 4%{?release_override}%{?dist}
 # systemtap-runtime-java libHelperSDT.so, HelperSDT.jar, stapbm, req:-runtime
 # systemtap-runtime-virthost  /usr/bin/stapvirt, req:libvirt req:libxml2
 # systemtap-runtime-virtguest udev rules, init scripts/systemd service, req:-runtime
-# systemtap-runtime-python2 HelperSDT python2 module, req:-runtime
 # systemtap-runtime-python3 HelperSDT python3 module, req:-runtime
 # systemtap-jupyter      /usr/bin/stap-jupyter-* interactive-notebook req:systemtap
 #
@@ -167,7 +165,7 @@ Release: 4%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -179,6 +177,9 @@ BuildRequires: pkgconfig(avahi-client)
 %if %{with_debuginfod}
 BuildRequires: pkgconfig(libdebuginfod)
 BuildRequires: pkgconfig(json-c)
+%endif
+%if %{with_bpf}
+BuildRequires: pkgconfig(libbpf) >= 1.0
 %endif
 %if %{with_dyninst}
 BuildRequires: dyninst-devel >= 10.0
@@ -228,20 +229,11 @@ BuildRequires: pkgconfig(libvirt)
 BuildRequires: pkgconfig(libxml-2.0)
 %endif
 BuildRequires: readline-devel
-%if %{with_python2_probes}
-BuildRequires: python2-devel
-%if 0%{?fedora} >= 1
-BuildRequires: python2-setuptools
-%else
-BuildRequires: python-setuptools
-%endif
-%endif
-%if %{with_python3}
-BuildRequires: python3
-%endif
 %if %{with_python3_probes}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-pip
+BuildRequires: python3-wheel
 %endif
 
 %if %{with_httpd}
@@ -379,17 +371,10 @@ Summary: Systemtap Initscripts
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
 Requires: systemtap = %{version}-%{release}
-%if %{with_systemd}
 Requires: systemd
-%else
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
-Requires(postun): initscripts
-%endif
 
 %description initscript
-This package includes a SysVinit script to launch selected systemtap
+This package includes systemd service templates to launch systemtap
 scripts at system startup, along with a dracut module for early
 boot-time probing if supported.
 
@@ -473,9 +458,6 @@ Requires: crash
 %if %{with_java}
 Requires: systemtap-runtime-java = %{version}-%{release}
 %endif
-%if %{with_python2_probes}
-Requires: systemtap-runtime-python2 = %{version}-%{release}
-%endif
 %if %{with_python3_probes}
 Requires: systemtap-runtime-python3 = %{version}-%{release}
 %endif
@@ -525,18 +507,6 @@ This package includes support files needed to run systemtap scripts
 that probe Java processes running on the OpenJDK runtimes using Byteman.
 %endif
 
-%if %{with_python2_probes}
-%package runtime-python2
-Summary: Systemtap Python 2 Runtime Support
-License: GPL-2.0-or-later
-URL: https://sourceware.org/systemtap/
-Requires: systemtap-runtime = %{version}-%{release}
-
-%description runtime-python2
-This package includes support files needed to run systemtap scripts
-that probe python 2 processes.
-%endif
-
 %if %{with_python3_probes}
 %package runtime-python3
 Summary: Systemtap Python 3 Runtime Support
@@ -544,10 +514,7 @@ License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
 Requires: systemtap-runtime = %{version}-%{release}
 
-%if ! (%{with_python2_probes})
-# Provide an clean upgrade path when the python2 package is removed
 Obsoletes: %{name}-runtime-python2 < %{version}-%{release}
-%endif
 
 %description runtime-python3
 This package includes support files needed to run systemtap scripts
@@ -684,11 +651,6 @@ or within a container.
 %else
 %global python3_config --without-python3
 %endif
-%if %{with_python2_probes}
-%global python2_probes_config --with-python2-probes
-%else
-%global python2_probes_config --without-python2-probes
-%endif
 %if %{with_python3_probes}
 %global python3_probes_config --with-python3-probes
 %else
@@ -722,7 +684,7 @@ or within a container.
 # We don't ship compileworthy python code, just oddball samples
 %global py_auto_byte_compile 0
 
-%configure %{Werror_config} %{dyninst_config} %{sqlite_config} %{crash_config} %{docs_config} %{rpm_config} %{java_config} %{virt_config} %{dracut_config} %{python3_config} %{python2_probes_config} %{python3_probes_config} %{httpd_config} %{bpf_config} %{debuginfod_config} --disable-silent-rules --with-extra-version="rpm %{version}-%{release}"
+%configure %{Werror_config} %{dyninst_config} %{sqlite_config} %{crash_config} %{docs_config} %{rpm_config} %{java_config} %{virt_config} %{dracut_config} %{python3_config} %{python3_probes_config} %{httpd_config} %{bpf_config} %{debuginfod_config} --disable-silent-rules --with-extra-version="rpm %{version}-%{release}"
 make %{?_smp_mflags} V=1
 
 
@@ -792,28 +754,15 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/systemtap
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -m 644 initscript/logrotate.stap-server $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/stap-server
 
-# If using systemd systemtap.service file, retain the old init script in %{_libexecdir} as a helper.
-%if %{with_systemd}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
-touch $RPM_BUILD_ROOT%{_unitdir}/systemtap.service
-# RHBZ2070857
-mkdir -p $RPM_BUILD_ROOT%{_presetdir}
-echo 'enable systemtap.service' > $RPM_BUILD_ROOT%{_presetdir}/42-systemtap.preset
-install -m 644 initscript/systemtap.service $RPM_BUILD_ROOT%{_unitdir}/systemtap.service
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-install -m 755 initscript/systemtap $RPM_BUILD_ROOT%{_sbindir}/systemtap-service
-%else
-mkdir -p $RPM_BUILD_ROOT%{initdir}
-install -m 755 initscript/systemtap $RPM_BUILD_ROOT%{initdir}
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-ln -sf %{initdir}/systemtap $RPM_BUILD_ROOT%{_sbindir}/systemtap-service
-# TODO CHECK CORRECTNESS: symlink %{_sbindir}/systemtap-service to %{initdir}/systemtap
-%endif
+install -m 644 initscript/stap@.service $RPM_BUILD_ROOT%{_unitdir}/stap@.service
+install -m 644 initscript/staprun@.service $RPM_BUILD_ROOT%{_unitdir}/staprun@.service
+mkdir -p $RPM_BUILD_ROOT%{_libexecdir}/systemtap
+install -m 755 initscript/stap-service-prepare $RPM_BUILD_ROOT%{_libexecdir}/systemtap/stap-service-prepare
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/systemtap
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/systemtap/conf.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/systemtap/script.d
-install -m 644 initscript/config.systemtap $RPM_BUILD_ROOT%{_sysconfdir}/systemtap/config
 
 %if %{with_systemd}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
@@ -870,6 +819,14 @@ done
 %if %{with_specific_python}
 # Some files got ambiguous python shebangs, we fix them after everything else is done
 %py3_shebang_fix %{buildroot}%{python3_sitearch} %{buildroot}%{_bindir}/*
+%endif
+
+%if %{with_python3_probes}
+# setuptools may install classic egg-info or PEP 376 dist-info; package whichever exists
+: > helpersdt-metadata.files
+find %{buildroot}%{python3_sitearch} -mindepth 1 -maxdepth 1 \
+  \( -name 'HelperSDT-*.egg-info' -o -name 'helpersdt-*.dist-info' \) \
+  -printf '%%p\n' | sed "s|^%{buildroot}||" >> helpersdt-metadata.files
 %endif
 
 %check
@@ -1006,38 +963,13 @@ fi
 exit 0
 
 %post initscript
-%if %{with_systemd}
-    # RHBZ2070857 - use systemd presets instead
-    # /bin/systemctl enable systemtap.service >/dev/null 2>&1 || :
-%else
-    /sbin/chkconfig --add systemtap
-%endif
+# Nothing to do - systemd templates are instantiated on demand
 exit 0
 
 %preun initscript
-# Check that this is the actual deinstallation of the package, as opposed to
-# just removing the old package on upgrade.
-if [ $1 = 0 ] ; then
-    %if %{with_systemd}
-        /bin/systemctl --no-reload disable systemtap.service >/dev/null 2>&1 || :
-        /bin/systemctl stop systemtap.service >/dev/null 2>&1 || :
-    %else
-        /sbin/service systemtap stop >/dev/null 2>&1
-        /sbin/chkconfig --del systemtap
-    %endif
-fi
 exit 0
 
 %postun initscript
-# Check whether this is an upgrade of the package.
-# If so, restart the service if it's running
-if [ "$1" -ge "1" ] ; then
-    %if %{with_systemd}
-        /bin/systemctl condrestart systemtap.service >/dev/null 2>&1 || :
-    %else
-        /sbin/service systemtap condrestart >/dev/null 2>&1 || :
-    %endif
-fi
 exit 0
 
 %post runtime-virtguest
@@ -1187,10 +1119,9 @@ exit 0
 %{_emacs_sitestartdir}/systemtap-init.el
 %{_datadir}/vim/vimfiles
 %endif
-# Notice that the stap-resolve-module-function.py file is used by
-# *both* the python2 and python3 subrpms.  Both subrpms use that same
-# python script to help list python probes.
-%if %{with_python3_probes} || %{with_python2_probes}
+# The stap-resolve-module-function.py file is used by the
+# python3 subrpm to help list python probes.
+%if %{with_python3_probes}
 %{_libexecdir}/systemtap/python/stap-resolve-module-function.py
 %dir %{_libexecdir}/systemtap/python
 %exclude %{_libexecdir}/systemtap/python/stap-resolve-module-function.py?
@@ -1265,21 +1196,16 @@ exit 0
 
 
 %files initscript
-%if %{with_systemd}
-%{_presetdir}/42-systemtap.preset
-%{_unitdir}/systemtap.service
-%{_sbindir}/systemtap-service
-%else
-%{initdir}/systemtap
-%{_sbindir}/systemtap-service
-%endif
+%{_unitdir}/stap@.service
+%{_unitdir}/staprun@.service
+%{_libexecdir}/systemtap/stap-service-prepare
+%{_bindir}/stap-onboot
+%{_mandir}/man8/stap-onboot.8*
 %dir %{_sysconfdir}/systemtap
 %dir %{_sysconfdir}/systemtap/conf.d
 %dir %{_sysconfdir}/systemtap/script.d
-%config(noreplace) %{_sysconfdir}/systemtap/config
 %dir %{_localstatedir}/cache/systemtap
 %ghost %{_localstatedir}/run/systemtap
-%{_mandir}/man8/systemtap-service.8*
 %if %{with_dracut}
    %dir %{dracutstap}
    %{dracutstap}/*
@@ -1319,15 +1245,9 @@ exit 0
 %{_libexecdir}/systemtap/stapbm
 %endif
 
-%if %{with_python2_probes}
-%files runtime-python2
-%{python_sitearch}/HelperSDT
-%{python_sitearch}/HelperSDT-*.egg-info
-%endif
 %if %{with_python3_probes}
-%files runtime-python3
+%files runtime-python3 -f helpersdt-metadata.files
 %{python3_sitearch}/HelperSDT
-%{python3_sitearch}/HelperSDT-*.egg-info
 %endif
 
 %if %{with_virthost}
@@ -1375,6 +1295,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Jul 21 2026 Frank Ch. Eigler <fche@redhat.com> - 5.6-17846435g2da140e3
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

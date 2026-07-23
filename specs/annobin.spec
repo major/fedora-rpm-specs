@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.25
+Version: 13.26
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 21 2026 Nick Clifton  <nickc@redhat.com> - 13.26-1
+- GCC-Plugin: Only use a 64-bit pointer size for s390x binaries built by GCC 17+  (#2502729)
+
 * Thu Jul 16 2026 Nick Clifton  <nickc@redhat.com> - 13.25-1
 - Annocheck: Improve bad filename detection even more again!
 

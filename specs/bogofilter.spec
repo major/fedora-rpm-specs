@@ -13,7 +13,6 @@ BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: /usr/bin/iconv
-BuildRequires: /usr/bin/xmlto
 BuildRequires: perl-generators
 BuildRequires: make
 

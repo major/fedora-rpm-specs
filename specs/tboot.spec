@@ -76,7 +76,7 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
-* Tue Jul 14 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.12.0-1
+* Mon Jul 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.12.0-1
 - Update to v1.12.0 release
 - Fix build with openssl 4.0
 

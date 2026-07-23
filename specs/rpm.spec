@@ -26,9 +26,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 6.0.91
+%global rpmver 6.0.92
 #global snapver rc1
-%global baserelease 4
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -125,15 +125,7 @@ rpm-6.0-rpmformat.patch
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/298
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
-# Temporarily revert file trigger refactor for further investigation
-0001-Revert-Eliminate-the-now-redundant-rpmtriggers-wrapp.patch
-0002-Revert-Convert-file-trigger-structures-minimally-to-.patch
-
 # Patches already upstream:
-# Slightly modified from usptream commit due to not having the test,
-# because the test adds a binary that "patch" doesn't handle, argh
-0001-Fix-rubygem-extract-regression-from-b8b54f92c65bca7b.patch
-0001-Fix-a-dumb-regression-from-introducing-define-option.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -646,6 +638,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Jul 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.0.92-1
+- Rebase to 6.1 rc2 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.91-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

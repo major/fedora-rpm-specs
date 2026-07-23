@@ -17,7 +17,8 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 3
+%global mod_procfs_version 0.2
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
@@ -39,6 +40,7 @@ Source8:		proftpd-welcome.msg
 Source9:		proftpd.sysconfig
 Source10:		http://github.com/Castaglia/proftpd-mod_vroot/archive/v%{mod_vroot_version}.tar.gz
 Source11:		http://github.com/Castaglia/proftpd-mod_proxy/archive/v%{mod_proxy_version}.tar.gz
+Source12:		http://github.com/Castaglia/proftpd-mod_procfs/archive/v%{mod_procfs_version}.tar.gz
 
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
@@ -119,7 +121,7 @@ Summary:	ProFTPD - Tools and header files for developers
 Requires:	%{name} = %{version}-%{release}
 # devel package requires the same devel packages as were build-required
 # for the main package
-Requires:	gcc, libtool
+Requires:	gcc
 Requires:	libacl-devel
 Requires:	libcap-devel
 Requires:	%{libmemcached_pkg}-devel >= 0.41
@@ -195,11 +197,14 @@ ProFTPD server:
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
 
-# Extract mod_proxy and mod_vroot source into contrib/
+# Extract mod_procfs, mod_proxy and mod_vroot source into contrib/
 # Directories must be named mod_{proxy,vroot} for configure script to find them
+# The mod_procfs module is a single C file that just needs to be copied into contrib/
 cd contrib
 tar xfz %{SOURCE10}
 tar xfz %{SOURCE11}
+tar xfz %{SOURCE12}
+cp proftpd-mod_procfs-%{mod_procfs_version}/mod_procfs.c .
 mv proftpd-mod_proxy-%{mod_proxy_version} mod_proxy
 mv proftpd-mod_vroot-%{mod_vroot_version} mod_vroot
 cd -
@@ -245,7 +250,7 @@ SMOD3=mod_ldap:mod_ban:mod_ctrls_admin:mod_facl:mod_load:mod_vroot
 SMOD4=mod_radius:mod_ratio:mod_rewrite:mod_site_misc:mod_exec:mod_shaper
 SMOD5=mod_wrap2:mod_wrap2_file:mod_wrap2_sql:mod_copy:mod_deflate:mod_ifversion:mod_qos
 SMOD6=mod_sftp:mod_sftp_pam:mod_sftp_sql:mod_tls_shmcache:mod_tls_memcache
-SMOD7=mod_proxy:mod_unique_id
+SMOD7=mod_procfs:mod_proxy:mod_unique_id
 
 %configure \
 			--libexecdir="%{_libexecdir}/proftpd" \
@@ -268,6 +273,7 @@ SMOD7=mod_proxy:mod_unique_id
 			--with-includes="%{_includedir}/mysql" \
 			--with-modules=mod_readme:mod_auth_pam:mod_tls \
 			--with-shared=${SMOD1}:${SMOD2}:${SMOD3}:${SMOD4}:${SMOD5}:${SMOD6}:${SMOD7}:mod_ifsession
+
 %{make_build}
 
 %install
@@ -393,6 +399,7 @@ fi
 %{_libexecdir}/proftpd/mod_ifsession.so
 %{_libexecdir}/proftpd/mod_ifversion.so
 %{_libexecdir}/proftpd/mod_load.so
+%{_libexecdir}/proftpd/mod_procfs.so
 %{_libexecdir}/proftpd/mod_qos.so
 %{_libexecdir}/proftpd/mod_quotatab.so
 %{_libexecdir}/proftpd/mod_quotatab_file.so
@@ -461,6 +468,11 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue Jul 21 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-3
+- Add mod_procfs, enabled by default, to address CVE-2026-35025 (ACL bypass via
+  /proc/self/root path prefix); this module disallows file accesses via procfs
+  filesystems
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -477,9 +489,12 @@ fi
     to reject illegal characters (GH#2173)
   - SQL group name lookup concatenates client-provided group names without
     escaping (GH#2188)
-  - Authenticated SFTP sessions can overflow the SFTP packet buffer (GH#2190)
+  - Authenticated SFTP sessions can overflow the SFTP packet buffer
+    (GH#2190, CVE-2026-63090)
   - Default Controls socket ACLs unintentionally allow all users access for
     sending Controls requests (GH#2210)
+  - Exercise caution when reading the client-provided file size for SCP
+    uploads, as it could possibly overflow our size type (CVE-2026-63091)
 
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.9b-2
 - Rebuilt for openssl 4.0
@@ -500,7 +515,8 @@ fi
     mod_sftp (GH#2106)
   - Mismatched RSA/DSA algorithm signatures could lead to null dereference in
     mod_sftp (GH#2108)
-  - SFTP request payload length underflow calculation in mod_sftp (GH#2115)
+  - SFTP request payload length underflow calculation in mod_sftp
+    (GH#2115, CVE-2026-53994)
   - Several modules failed to build using OpenSSL 4.0 (GH#2120)
 - Update mod_proxy to 0.9.7
   - Add a check on the maximum allowed SSH payload (vs. packet) length (GH#291)

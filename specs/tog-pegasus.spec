@@ -5,14 +5,14 @@
 %global major_ver 2.14
 
 Name:           tog-pegasus
-Version:        %{major_ver}.1
-Release:        93%{?dist}
+Version:        %{major_ver}.4
+Release:        1%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
 License:        MIT
-URL:            http://www.openpegasus.org
-Source0:        https://collaboration.opengroup.org/pegasus/documents/27211/pegasus-%{version}.tar.gz
+URL:            https://github.com/OpenPegasus/OpenPegasus
+Source0:        https://github.com/OpenPegasus/OpenPegasus/archive/refs/tags/v%{version}.tar.gz#/OpenPegasus-%{version}.tar.gz
 #  1: Description of security enhacements
 Source1:        README.RedHat.Security
 #  3: Description of SSL settings
@@ -39,86 +39,80 @@ Source12:       repupgrade.1.gz
 # 13: sysusers conf file for dynamic creation of the 'pegasus' user and group
 Source13:       tog-pegasus.sysusers
 
-#  1: http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5011
-#     Removing insecure -rpath
+# Removing insecure -rpath
+# http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5011
 Patch1:         pegasus-2.9.0-no-rpath.patch
-#  2: Adding -fPIE
+# Adding -fPIE
 Patch2:         pegasus-2.7.0-PIE.patch
-#  3: http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5016
-#     Configuration variables
+# Configuration variables
+# http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5016
 Patch3:         pegasus-2.9.0-redhat-config.patch
-#  4: don't see how http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5099 fixed it
-#     Changing provider dir to the directory we use
+# Changing provider dir to the directory we use
+# http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5099
 Patch4:         pegasus-2.9.0-cmpi-provider-lib.patch
-#  5: http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5010
-#     We distinguish between local and remote user and behave adequately (will be upstream once)
+# We distinguish between local and remote user and behave adequately
+# http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5010
 Patch5:         pegasus-2.9.0-local-or-remote-auth.patch
-#  6: http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5012
-#     Modifies pam rules to use access cofiguration file and local/remote differences
+# Modifies pam rules to use access configuration file and local/remote differences
+# http://cvs.rdg.opengroup.org/bugzilla/show_bug.cgi?id=5012
 Patch6:         pegasus-2.5.1-pam-wbem.patch
-# 12: Adds snmp tests to the -test rpm, configures snmptrapd
-Patch12:        pegasus-2.7.0-snmp-tests.patch
-# 13: Changes to make package compile on sparc
-Patch13:        pegasus-2.9.0-sparc.patch
-# 16: Fixes "getpagesize" build error
-Patch16:        pegasus-2.9.1-getpagesize.patch
-# 19: Don't strip binaries, add -g flag
-Patch19:        pegasus-2.10.0-dont-strip.patch
-# 20: use posix locks on sparc arches
-Patch20:        pegasus-2.10.0-sparc-posix-lock.patch
-# 22: Fix CMPI enumGetNext function to change CMPI Data state from default CMPI_nullValue
+# Adds snmp tests to the -test rpm, configures snmptrapd
+Patch7:         pegasus-2.7.0-snmp-tests.patch
+# Changes to make package compile on sparc
+Patch8:         pegasus-2.9.0-sparc.patch
+# Fixes "getpagesize" build error
+Patch9:         pegasus-2.9.1-getpagesize.patch
+# Don't strip binaries, add -g flag
+Patch10:        pegasus-2.10.0-dont-strip.patch
+# use posix locks on sparc arches
+Patch11:        pegasus-2.10.0-sparc-posix-lock.patch
+# Fix CMPI enumGetNext function to change CMPI Data state from default CMPI_nullValue
 #     to CMPI_goodValue when it finds and returns next instance correctly
-Patch22:        pegasus-2.12.0-null_value.patch
-# 24: bz#883030, getPropertyAt() returns Null instead of empty array
-Patch24:        pegasus-2.12.0-empty_arrays.patch
-# 25: allow experimental schema registration with cimmofl during build
-Patch25:        pegasus-2.12.0-cimmofl-allow-experimental.patch
-# 26: use external schema and add missing includes there
-Patch26:        pegasus-2.12.0-schema-version-and-includes.patch
-# 29: bz#1049314, allow unprivileged users to subscribe to indications by default
-Patch29:        pegasus-2.13.0-enable-subscriptions-for-nonprivileged-users.patch
-# 33: fixes build with gcc5
-Patch33:        pegasus-2.13.0-gcc5-build.patch
-# 34: fixes various build problemss
-Patch34:        pegasus-2.14.1-build-fixes.patch
-# 35: add missing ssl.h include
-Patch35:        pegasus-2.14.1-ssl-include.patch
-# 36: fixes sending of SNMPv3 traps in cimserver
-Patch36:        pegasus-2.14.1-snmpv3-trap.patch
-# 37: fixes setupSDK in -devel
-Patch37:        pegasus-2.14.1-fix-setup-sdk.patch
-# 38: cimconfig man page fixes
-Patch38:        pegasus-2.14.1-cimconfig-man-page-fixes.patch
-# 39: fixes setupSDK in -devel for ppc64le
-Patch39:        pegasus-2.14.1-fix-setup-sdk-ppc64le.patch
-# 40: removes Beaker conflicting env variable
-Patch40:        pegasus-2.14.1-tesid.patch
-# 41: moves SSL certificates to /etc/pki/Pegasus
-Patch41:        pegasus-2.14.1-ssl-cert-path.patch
-# 42: port to openssl-1.1
-Patch42:        pegasus-2.14.1-openssl-1.1-fix.patch
-# 43: fix -Wreserved-user-defined-literal warnings which prevents building with clang
-Patch43:        pegasus-2.14.1-fix-Wreserved-user-defined-literal.patch
-# 44: comply with Fedora crypto policy
+Patch12:        pegasus-2.12.0-null_value.patch
+# bz#883030, getPropertyAt() returns Null instead of empty array
+Patch13:        pegasus-2.12.0-empty_arrays.patch
+# allow experimental schema registration with cimmofl during build
+Patch14:        pegasus-2.12.0-cimmofl-allow-experimental.patch
+# use external schema and add missing includes there
+Patch15:        pegasus-2.12.0-schema-version-and-includes.patch
+# bz#1049314, allow unprivileged users to subscribe to indications by default
+Patch16:        pegasus-2.13.0-enable-subscriptions-for-nonprivileged-users.patch
+# fixes build with gcc5
+Patch17:        pegasus-2.13.0-gcc5-build.patch
+# fixes sending of SNMPv3 traps in cimserver
+Patch18:        pegasus-2.14.1-snmpv3-trap.patch
+# fixes setupSDK in -devel
+Patch19:        pegasus-2.14.1-fix-setup-sdk.patch
+# cimconfig man page fixes
+Patch20:        pegasus-2.14.1-cimconfig-man-page-fixes.patch
+# fixes setupSDK in -devel for ppc64le
+Patch21:        pegasus-2.14.1-fix-setup-sdk-ppc64le.patch
+# removes Beaker conflicting env variable
+Patch22:        pegasus-2.14.1-tesid.patch
+# moves SSL certificates to /etc/pki/Pegasus
+Patch23:        pegasus-2.14.1-ssl-cert-path.patch
+# fix -Wreserved-user-defined-literal warnings which prevents building with clang
+Patch24:        pegasus-2.14.1-fix-Wreserved-user-defined-literal.patch
+# comply with Fedora crypto policy
 #  (use 'PROFILE=SYSTEM' instead of 'DEFAULT' in SSL_CTX_set_cipher_list calls)
-Patch44:        pegasus-2.14.1-crypto-policy-compliance.patch
-# 45: add required lib to fix FTBS
-Patch45:        pegasus-2.14.1-add-pegwsmserver-to-ldd-libs.patch
-# 46: fixes FTBFS
-Patch46:        pegasus-2.14.1-build-fixes-2.patch
-# 47: disable DES no longer supported in net-snmp
-Patch47:        pegasus-2.14.1-snmp-disable-des.patch
-# 48: add RISC-V support
-Patch48:        add-riscv64-support.patch
-# 49: bin and sbin unify
-Patch49:        tog-pegasus-2.14.1-bin-sbin-unify.patch
-# 50: use sscg to generate cert, openssl as fallback, obtain correct key length
+Patch25:        pegasus-2.14.1-crypto-policy-compliance.patch
+# add required lib to fix FTBS
+Patch26:        pegasus-2.14.1-add-pegwsmserver-to-ldd-libs.patch
+# fixes FTBFS
+Patch27:        pegasus-2.14.1-build-fixes-2.patch
+# disable DES no longer supported in net-snmp
+Patch28:        pegasus-2.14.1-snmp-disable-des.patch
+# add RISC-V support
+Patch29:        add-riscv64-support.patch
+# bin and sbin unify
+Patch30:        tog-pegasus-2.14.1-bin-sbin-unify.patch
+# use sscg to generate cert, openssl as fallback, obtain correct key length
 #  based upon crypto policy level
-Patch50:        pegasus-2.14.1-ssl-certs-gen-changes.patch
-# 51: add mechanism to load fall back certificate/key pair
-Patch51:        pegasus-2.14.1-post-quantum.patch
-# 52: fix OpenSSL 4.0 compatibility
-Patch52:        pegasus-2.14.1-openssl-4.0-fix.patch
+Patch31:        pegasus-2.14.1-ssl-certs-gen-changes.patch
+# add mechanism to load fall back certificate/key pair
+Patch32:        pegasus-2.14.1-post-quantum.patch
+# fix OpenSSL 4.0 compatibility
+Patch33:        pegasus-2.14.1-openssl-4.0-fix.patch
 
 BuildRequires:  libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -235,55 +229,56 @@ The OpenPegasus WBEM tests for the OpenPegasus %{version} Linux rpm.
 %global PEGASUS_PREV_REPOSITORY_DIR /var/lib/PegasusXXX/prev_repository
 %global PEGASUS_DOC_DIR /usr/share/doc/%{name}-%{version}
 
-%global PEGASUS_RPM_ROOT $RPM_BUILD_DIR/%{srcname}
+%global PEGASUS_RPM_ROOT $RPM_BUILD_DIR/OpenPegasus-%{version}/%{srcname}
 %global PEGASUS_RPM_HOME %PEGASUS_RPM_ROOT/build
 %global PEGASUS_INSTALL_LOG /var/lib/Pegasus/log/install.log
 
 
 %prep
-%setup -q -n %{srcname}
+%setup -q -n OpenPegasus-%{version}
 # convert DMTF schema for Pegasus
+# The new CreateDmtfSchema detects "Experimental" in the zip filename and
+# creates CIMExperimental238 instead of CIM238. Copy to a neutral name.
 export PEGASUS_ROOT=%PEGASUS_RPM_ROOT
-yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
-%patch -P1 -p1 -b .no-rpath
-%patch -P2 -p1 -b .PIE
-%patch -P3 -p1 -b .redhat-config
-%patch -P4 -p1 -b .cmpi-provider-lib
-%patch -P6 -p1 -b .pam-wbem
-%patch -P12 -p1 -b .snmp-tests
-%patch -P5 -p1 -b .local-or-remote-auth
-%patch -P13 -p1 -b .sparc
-%patch -P16 -p1 -b .getpagesize
-%patch -P19 -p1 -b .dont-strip
-%patch -P20 -p1 -b .sparc-locks
-%patch -P22 -p1 -b .null_value
-%patch -P24 -p1 -b .empty_arrays
-%patch -P25 -p1 -b .cimmofl-allow-experimental
-%patch -P26 -p1 -b .schema-version-and-includes
-%patch -P29 -p1 -b .enable-subscriptions-for-nonprivileged-users
-%patch -P33 -p1 -b .gcc5-build
-%patch -P34 -p1 -b .build-fixes
-%patch -P35 -p1 -b .ssl-include
-%patch -P36 -p1 -b .snmpv3-trap
-%patch -P37 -p1 -b .fix-setup-sdk
-%patch -P38 -p1 -b .cimconfig-man-page-fixes
-%patch -P39 -p1 -b .fix-setup-sdk-ppc64le
-%patch -P40 -p1 -b .testid
-%patch -P41 -p1 -b .ssl-cert-path
-%patch -P42 -p1 -b .openssl-1.1-fix
-%patch -P43 -p1 -b .Wreserved-user-defined-literal-fix
-%patch -P44 -p1 -b .crypto-policy-compliance
-%patch -P45 -p1 -b .add-pegwsmserver-to-ldd-libs
-%patch -P46 -p1 -b .build-fixes-2
-%patch -P47 -p1 -b .snmp-disable-des
-%patch -P48 -p1 -b .add-riscv64-support
-%patch -P49 -p1 -b .bin-sbin-unify
-%patch -P50 -p1 -b .ssl-certs-gen-changes
-%patch -P51 -p1 -b .post-quantum
-%patch -P52 -p1 -b .openssl-4.0-fix
+cp %{SOURCE9} %{_builddir}/cim_schema_2.38.0-MOFs.zip
+yes | pegasus/mak/CreateDmtfSchema 238 %{_builddir}/cim_schema_2.38.0-MOFs.zip cim_schema_2.38.0
+%patch -P1 -p0 -b .no-rpath
+%patch -P2 -p0 -b .PIE
+%patch -P3 -p0 -b .redhat-config
+%patch -P4 -p0 -b .cmpi-provider-lib
+%patch -P5 -p0 -b .local-or-remote-auth
+%patch -P6 -p0 -b .pam-wbem
+%patch -P7 -p0 -b .snmp-tests
+%patch -P8 -p0 -b .sparc
+%patch -P9 -p0 -b .getpagesize
+%patch -P10 -p0 -b .dont-strip
+%patch -P11 -p0 -b .sparc-locks
+%patch -P12 -p0 -b .null_value
+%patch -P13 -p0 -b .empty_arrays
+%patch -P14 -p0 -b .cimmofl-allow-experimental
+%patch -P15 -p0 -b .schema-version-and-includes
+%patch -P16 -p0 -b .enable-subscriptions
+%patch -P17 -p0 -b .gcc5-build
+%patch -P18 -p0 -b .snmpv3-trap
+%patch -P19 -p0 -b .fix-setup-sdk
+%patch -P20 -p0 -b .cimconfig-man-page-fixes
+%patch -P21 -p0 -b .fix-setup-sdk-ppc64le
+%patch -P22 -p0 -b .tesid
+%patch -P23 -p0 -b .ssl-cert-path
+%patch -P24 -p0 -b .fix-Wreserved-user-defined-literal
+%patch -P25 -p0 -b .crypto-policy-compliance
+%patch -P26 -p0 -b .add-pegwsmserver-to-ldd-libs
+%patch -P27 -p0 -b .build-fixes-2
+%patch -P28 -p0 -b .snmp-disable-des
+%patch -P29 -p0 -b .riscv64-support
+%patch -P30 -p0 -b .bin-sbin-unify
+%patch -P31 -p0 -b .ssl-certs-gen-changes
+%patch -P32 -p0 -b .post-quantum
+%patch -P33 -p0 -b .openssl-4.0-fix
 
 
 %build
+cd %{srcname}
 cp -fp %SOURCE1 doc
 cp -fp %SOURCE3 doc
 cp -fp %SOURCE6 rpm
@@ -314,6 +309,7 @@ export SYS_INCLUDES=-I/usr/kerberos/include
 
 
 %install
+cd %{srcname}
 # Create directory for SSL certificates
 mkdir -p $RPM_BUILD_ROOT/etc/pki/Pegasus
 
@@ -452,7 +448,7 @@ rm $RPM_BUILD_ROOT/usr/share/Pegasus/test/testtracer4.trace.0
 %defattr(0644, root, pegasus, 0755)
 /usr/share/man/man8/*
 /usr/share/man/man1/*
-%doc doc/license.txt doc/Admin_Guide_Release.pdf doc/PegasusSSLGuidelines.htm doc/SecurityGuidelinesForDevelopers.html doc/README.RedHat.Security src/Clients/repupgrade/doc/repupgrade.html doc/README.RedHat.SSL doc/cmpiOSBase_OperatingSystemProvider-cimprovagt.example OpenPegasusNOTICE.txt
+%doc %{srcname}/doc/license.txt %{srcname}/doc/Admin_Guide_Release.pdf %{srcname}/doc/PegasusSSLGuidelines.htm %{srcname}/doc/SecurityGuidelinesForDevelopers.html %{srcname}/doc/README.RedHat.Security %{srcname}/src/Clients/repupgrade/doc/repupgrade.html %{srcname}/doc/README.RedHat.SSL %{srcname}/doc/cmpiOSBase_OperatingSystemProvider-cimprovagt.example %{srcname}/OpenPegasusNOTICE.txt
 
 %files devel
 %defattr(0644,root,pegasus,0755)
@@ -580,6 +576,9 @@ fi
 
 
 %changelog
+* Tue Jul 21 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-1
+- Update to upstream version 2.14.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-93
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

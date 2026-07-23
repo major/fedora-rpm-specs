@@ -19,8 +19,6 @@ Release: 0.41.%{snapshot}%{?dist}
 License: LGPL-2.0-or-later
 URL: https://launchpad.net/libdbusmenu-qt/
 %if 0%{?snapshot}
-# bzr branch lp:libdbusmenu-qt && cd libdbusmenu-qt && bzr export --root=libdbusmenu-qt-%{version}-%{snapshot}bzr.tar.gz
-#Source0:  libdbusmenu-qt-%{version}-%{snapshot}bzr.tar.gz
 Source0:  https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libdbusmenu-qt/%{version}+%{ubuntu}.%{snapshot}-0ubuntu1/libdbusmenu-qt_%{version}+%{ubuntu}.%{snapshot}.orig.tar.gz
 %else
 Source0:  https://launchpad.net/libdbusmenu-qt/trunk/%{version}/+download/libdbusmenu-qt-%{version}.tar.bz2
@@ -98,10 +96,8 @@ pushd %{_target_platform}
   -DUSE_QT4:BOOL=ON \
   -DUSE_QT5:BOOL=OFF \
   -DWITH_DOC:BOOL=ON
-
+%cmake_build
 popd
-
-%make_build -C %{_target_platform}
 %endif # with_qt4
 
 mkdir %{_target_platform}-qt5
@@ -110,17 +106,21 @@ pushd %{_target_platform}-qt5
   -DUSE_QT4:BOOL=OFF \
   -DUSE_QT5:BOOL=ON \
   -DWITH_DOC:BOOL=OFF
-
+%cmake_build
 popd
 
-%make_build -C %{_target_platform}-qt5
 
 
 %install
 %if 0%{?with_qt4}
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+pushd %{_target_platform}
+%cmake_install
+popd
 %endif # with_qt4
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}-qt5
+
+pushd %{_target_platform}-qt5
+%cmake_install
+popd
 
 # unpackaged files
 rm -rfv %{buildroot}%{_docdir}/libdbusmenu-qt*-doc

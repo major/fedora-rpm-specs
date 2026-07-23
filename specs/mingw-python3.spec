@@ -216,8 +216,8 @@ rm -f Python/thread_nt.h
 
 %build
 # FIXME: avoid incompatible-pointer-types errors
-export MINGW32_CFLAGS="%{mingw32_cflags} -fpermissive"
-export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
+export MINGW32_CFLAGS="%{mingw32_cflags} -fpermissive -DTCL_NO_TOMMATH_H"
+export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive -DTCL_NO_TOMMATH_H"
 export MINGW32_MAKE_ARGS="WINDRES=%{mingw32_target}-windres LD=%{mingw32_target}-ld DLLWRAP=%{mingw32_target}-dllwrap"
 export MINGW64_MAKE_ARGS="WINDRES=%{mingw64_target}-windres LD=%{mingw64_target}-ld DLLWRAP=%{mingw64_target}-dllwrap"
 

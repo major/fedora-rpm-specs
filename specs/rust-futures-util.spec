@@ -6,7 +6,7 @@
 %global crate futures-util
 
 Name:           rust-futures-util
-Version:        0.3.32
+Version:        0.3.33
 Release:        %autorelease
 Summary:        Common utilities and extension traits for the futures-rs library
 
@@ -218,6 +218,42 @@ This package contains library source intended for building other packages which
 use the "portable-atomic" feature of the "%{crate}" crate.
 
 %files       -n %{name}+portable-atomic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+portable-atomic-alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable-atomic-alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable-atomic-alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable-atomic-alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+portable-atomic-util-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable-atomic-util-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable-atomic-util" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable-atomic-util-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+portable_atomic_crate-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable_atomic_crate-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable_atomic_crate" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable_atomic_crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sink-devel

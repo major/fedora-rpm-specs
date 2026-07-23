@@ -1,6 +1,6 @@
 Name:           v4l2ucp
 Version:        2.0.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Video4linux universal control panel
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -29,7 +29,7 @@ controls to their default state.
 
 
 %build
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -54,6 +54,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/%{name}.png \
 
 
 %changelog
+* Tue Jul 21 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.0.1-39
+- Fix FTBFS with cmake 4.x
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

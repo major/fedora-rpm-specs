@@ -8,7 +8,7 @@ Url:  http://point-at-infinity.org/%{name}
 Source: http://point-at-infinity.org/%{name}/%{name}-%{version}.tar.gz
 Source1: ssss.1.gz
 BuildRequires:  gcc
-BuildRequires: gmp-devel, xmlto
+BuildRequires: gmp-devel
 
 %description
 ssss is an implementation of Shamir's secret sharing scheme.  ssss does

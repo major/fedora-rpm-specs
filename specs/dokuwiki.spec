@@ -2,22 +2,18 @@ Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
 License:	GPL-2.0-only
 
-%global		releasenum 2025-05-14b
+%global		releasenum 2026-07-14
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	6%{?dist}
+Release:	1%{?dist}
 
-%global php_min_version 7.4
+%global php_min_version 8.2
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
 
 #Fedora specific patches to use Fedora packaged libraries
 Patch1:		dokuwiki-rm-bundled-libs.patch
-
-# Backport from upstream:
-# https://github.com/dokuwiki/dokuwiki/commit/bfc167db63967f8c872b3d797ca81138b9011ef4
-Patch2:		CVE-2026-26477.patch
 
 BuildArch:	noarch
 
@@ -40,7 +36,7 @@ BuildRequires: php-cli >= %{php_min_version}
 
 # Composer deps
 %depends_on php-composer(aziraphale/email-address-validator) >= 2.0.1
-%depends_on php-composer(kissifrot/php-ixr) >= 1.8.4
+%depends_on php-composer(kissifrot/php-ixr) >= 1.8.5
 %depends_on php-composer(geshi/geshi) >= 1.0.9.1
 %depends_on php-composer(openpsa/universalfeedcreator) >= 1.8.6
 %depends_on php-composer(paragonie/constant_time_encoding) >= 2.6.3
@@ -51,7 +47,7 @@ BuildRequires: php-cli >= %{php_min_version}
 %depends_on php-composer(splitbrain/php-archive) >= 1.3.1
 %depends_on php-composer(splitbrain/php-cli) >= 1.3.1
 %depends_on php-composer(splitbrain/php-jsstrip) >= 1.0.1
-%depends_on php-composer(splitbrain/slika) >= 1.0.6
+%depends_on php-composer(splitbrain/slika) >= 1.2.1
 
 # Deps that require extra handling
 
@@ -280,6 +276,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Tue Jul 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20260714-1
+- Update to version 2026-07-14 "Mort"
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250514b-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

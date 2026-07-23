@@ -20,6 +20,10 @@ Source1:        https://github.com/podofo/podofo-resources/archive/%{podofo_reso
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
 Patch1:         podofo_CVE-2019-20093.patch
+# Backport tentative support for openssl-4.x and dependent patches
+Patch2:         https://github.com/podofo/podofo/commit/aff6aa3866623cdce9dbefaee439dfc17b2d817c.patch
+Patch3:         https://github.com/podofo/podofo/commit/5ba0d826d325e5864d6adf4dea951124cf835adf.patch
+Patch4:         https://github.com/podofo/podofo/commit/c45b4b742274ad38011b7804df7f2340b544c29e.patch
 
 
 BuildRequires:  gcc-c++

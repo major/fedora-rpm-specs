@@ -31,7 +31,6 @@ BuildRequires:  gcc
 BuildRequires: bison
 BuildRequires: byacc
 BuildRequires: gettext-devel
-BuildRequires: xmlto
 Provides: bundled(md5-plumb)
 Provides: deprecated()
 

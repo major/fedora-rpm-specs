@@ -1,5 +1,5 @@
 Name:           orca
-Version:        50.2
+Version:        51~alpha.2
 Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 
@@ -55,7 +55,8 @@ provider interface (AT-SPI), e.g. the GNOME desktop.
 
 
 %build
-%meson
+# MathCAT (MathML support) requires cargo/Rust; disabled until properly packaged
+%meson -Dmathcat=false
 %meson_build
 
 

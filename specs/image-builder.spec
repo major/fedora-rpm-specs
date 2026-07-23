@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        74.0.0
+Version:        75.0.0
 
 %gometa
 
@@ -22,6 +22,10 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AN
 
 URL:            %{gourl}
 Source0:        https://github.com/osbuild/image-builder/releases/download/v%{version}/image-builder-%{version}.tar.gz
+
+# Fix distro detection
+# https://github.com/osbuild/image-builder/pull/2542
+Patch:          2542.patch
 
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -72,23 +76,23 @@ Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.42.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.14
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.27
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.26
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.29
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.28
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.30
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.2.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.3.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.30
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.30
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.31
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.311.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.316.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.13
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.23
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.30
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.31
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.104.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.2.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.31.5
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.8
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.43.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.105.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.4.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.32.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.37.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.44.0
 Provides: bundled(golang(github.com/aws/smithy-go)) = 1.27.3
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = 2.3.0
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
@@ -240,7 +244,7 @@ Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
 %if 0%{?rhel}
 %forgeautosetup -p1
 %else
-%goprep -k
+%goprep -k -p1
 %endif
 
 %build
@@ -291,7 +295,7 @@ export GOPATH=$PWD/_build:%{gopath}
 cd $PWD/_build/src/%{goipath}
 %gotest ./...
 %else
-%gocheck -s TestFsNodeUnmarshalBadFile
+%gocheck
 %endif
 
 %files
@@ -303,6 +307,63 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Tue Jul 21 2026 Adam Williamson <awilliam@redhat.com> - 75.0.0-2
+- Backport PR #2542 to fix distro detection
+
+* Tue Jul 21 2026 Packit <hello@packit.dev> - 75.0.0-1
+Changes with 75.0.0
+----------------
+  - Add hidden pkgsearch subcommand for querying available packages (HMS-11011) (#2515)
+    - Author: Gianluca Zuccarelli, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - Always use seed argument directly (#2516)
+    - Author: Achilleas Koutsou, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - Enable basic bootc-image-builder tests [HMS-10851] (#2467)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Tomáš Koscielniak
+  - Enable image-builder container builds [HMS-10851] (#2497)
+    - Author: Achilleas Koutsou, Reviewers: Florian Schüller, Simon de Vlieger
+  - Fedora ISO Modernization (HMS-9965) (#2533)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Sanne Raymaekers
+  - Improve error message for pkgsearch with no packages (#2526)
+    - Author: Gianluca Zuccarelli, Reviewers: Brian C. Lane, Lucas Garfield
+  - README: update deprecated information in docs (#2498)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Run more bootc-image-builder tests in gitlab [HMS-10854] (#2520)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Tomáš Hozza
+  - Update dependencies 2026-07-12 (#2513)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild dependency commit ID (#2512)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - Update snapshots to 20260705 (#2488)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - bootc: support grub2 serial console customization (#2403)
+    - Author: Jean-Baptiste Trystram, Reviewers: Brian C. Lane, Joel Capitao, Tomáš Hozza
+  - build(deps): bump actions/checkout from 6 to 7 (#2452)
+    - Author: dependabot, Reviewers: Anna Vítová, Simon de Vlieger
+  - ci: enable allow-unsafe-pr-checkout in checkout/7 (#2523)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - cmd/image-builder: mock simple integration tests (HMS-10857) (#2473)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - disk: systemd-repart compatibility (#2510)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - fedora: drop slirp4netns from the IoT image (#2478)
+    - Author: Peter Robinson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - image-builder: add hidden `--with-upload-result` option (#2521)
+    - Author: Sanne Raymaekers, Reviewers: Brian C. Lane, Tomáš Hozza
+  - pkg/disk: add XFS agcount option in `disk.yaml` (#2496)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - progress: add file progress (HMS-10977) (#2493)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Anna Vítová, Simon de Vlieger
+  - test: fix build info cache path creation to use correct runner_distro (#2495)
+    - Author: Achilleas Koutsou, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - test: fix vm.py import error [HMS-11012] (#2522)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - test: go 1.27 compatibility (#2504)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - test: mock cache dir (#2519)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+
+— Somewhere on the Internet, 2026-07-21
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 74.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

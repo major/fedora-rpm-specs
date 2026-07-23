@@ -1,18 +1,16 @@
 Name:           perl-App-grindperl
 Version:        0.004
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Command-line tool to help build and test blead perl
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://metacpan.org/release/App-grindperl
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/App-grindperl-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -29,7 +27,7 @@ BuildRequires:  perl(warnings)
 # CPAN::Meta not usefull
 # CPAN::Meta::Prereqs not usefull
 BuildRequires:  perl(Test::More)
-Requires:       git
+Requires:       git-core
 Requires:       make
 
 %description
@@ -40,12 +38,11 @@ grindperl tool helps automate some common configuration, build and test tasks.
 %setup -q -n App-grindperl-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -55,12 +52,16 @@ make test
 %license LICENSE
 # CONTRIBUTING.mkdn is a generic file not specific to this package
 %doc Changes README
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/grindperl
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/grindperl.pm
+%{_mandir}/man1/grindperl.*
+%{_mandir}/man3/App::grindperl.*
 
 %changelog
+* Tue Jul 21 2026 Petr Pisar <ppisar@redhat.com> - 0.004-32
+- Require git-core instead of full git
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate grep-pcre2
 
 Name:           rust-grep-pcre2
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Use PCRE2 with the 'grep' crate
 

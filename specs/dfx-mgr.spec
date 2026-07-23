@@ -1,6 +1,6 @@
 Name:    dfx-mgr
-Version: 2025.2
-Release: 4%{?dist}
+Version: 2026.1
+Release: 1%{?dist}
 Summary: A tool for managing programable logic accelerators
 License: MIT
 URL:     https://github.com/Xilinx/dfx-mgr
@@ -30,6 +30,7 @@ development applications using PL (programable logic).
 
 %prep
 %autosetup -p1 -n %{name}-xilinx_v%{version}
+sed -i 's/VERSION 3.5/VERSION 3.10/' CMakeLists.txt
 
 
 %build
@@ -55,6 +56,9 @@ development applications using PL (programable logic).
 
 
 %changelog
+* Tue Jul 21 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2026.1-1
+- Update to 2026.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

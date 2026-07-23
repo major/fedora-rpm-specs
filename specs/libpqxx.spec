@@ -30,7 +30,6 @@ BuildRequires:  postgresql-test-rpm-macros
 %if %{with doc}
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-BuildRequires:  xmlto
 %endif
 
 %description

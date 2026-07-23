@@ -29,7 +29,6 @@ BuildRequires:	make
 BuildRequires:	python3-gobject-devel
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtx11extras-devel
-BuildRequires:	xmlto
 %if %{JAVA}
 BuildRequires:	java-devel
 %endif

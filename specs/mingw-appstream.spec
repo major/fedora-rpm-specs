@@ -21,7 +21,6 @@ BuildRequires: gperf
 BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: itstool
-BuildRequires: xmlto
 BuildRequires: libxslt
 
 BuildRequires: mingw32-filesystem >= 95

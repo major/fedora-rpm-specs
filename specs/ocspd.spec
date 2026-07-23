@@ -4,7 +4,7 @@
 
 Name:		ocspd
 Version:	1.9.0
-Release:	38%{?alphatag:.}%{?alphatag}%{?dist}
+Release:	39%{?alphatag:.}%{?alphatag}%{?dist}
 Summary:	OpenCA OCSP Daemon
 License:	Apache-1.0
 Source:		http://downloads.sourceforge.net/openca/openca-ocspd-%{version}%{revision}.tar.gz
@@ -22,13 +22,14 @@ Patch10:	ocspd-1.7.0-setgroups.patch
 Patch11:	ocspd-1.9.0-stealthy.patch
 Patch12:	ocspd-1.9.0-noformat.patch
 Patch13:	ocspd-1.9.0-openssl11.patch
+Patch14:	ocspd-1.9.0-openssl4.patch
 URL:		http://www.openca.org/projects/ocspd
 Obsoletes:	openca-ocspd <= %{version}-%{release}
 Provides:	openca-ocspd = %{version}-%{release}
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	openssl-devel
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} <= 44
 BuildRequires:	openssl-devel-engine
 %endif
 BuildRequires:	openldap-devel
@@ -50,20 +51,7 @@ Mozilla/Firefox/Thunderbird/Apache).
 %prep
 #-------------------------------------------------------------------------------
 
-%setup -q -n openca-ocspd-%{version}%{revision}
-%patch -P1 -p1 -b .bufresponse
-%patch -P2 -p1 -b .misc
-%patch -P3 -p1 -b .openssl
-%patch -P4 -p1 -b .podsyntax
-%patch -P5 -p1 -b .badalgorcast
-%patch -P6 -p1 -b .badcasts
-%patch -P7 -p1 -b .deprecldap
-%patch -P8 -p1 -b .threadinit
-%patch -P9 -p1 -b .config
-%patch -P10 -p1 -b .setgroups
-%patch -P11 -p1 -b .stealthy
-%patch -P12 -p1 -b .noformat
-%patch -P13 -p1 -b .openssl11
+%autosetup -p1 -n openca-ocspd-%{version}%{revision}
 
 #	Create a sysusers.d config file.
 cat > ocspd.sysusers.conf <<EOF
@@ -88,7 +76,13 @@ autoconf
 %endif
 
 
-%configure ${ARCH_FLAGS} --enable-openssl-engine --with-ocspd-group=ocspd
+%configure ${ARCH_FLAGS}						\
+%if 0%{?fedora} <= 44
+	--enable-openssl-engine						\
+%else
+	--disable-openssl-engine					\
+%endif
+	--with-ocspd-group=ocspd
 make %{?_smp_mflags}
 
 
@@ -159,6 +153,12 @@ install -m 644 -D ocspd.sysusers.conf '%{buildroot}%{_sysusersdir}/ocspd.conf'
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Jul 21 2026 Patrick Monnerat <patrick@monnerat.net> 1.9.0-39
+- Patch "openssl4" for openssl version 4 compatibility.
+- Disable openssl engine.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -170,8 +170,6 @@ install -m 644 -D ocspd.sysusers.conf '%{buildroot}%{_sysusersdir}/ocspd.conf'
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Wed Feb 12 2025 Patrick Monnerat <patrick@monnerat.net> 1.9.0-34
 - Add sysusers.d config file to allow rpm to create users/groups automatically.

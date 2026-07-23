@@ -19,6 +19,8 @@ Source1:        omniORB-nameserver.init
 Source2:        omniORB-nameserver.logrotate
 Source3:        omniORB.cfg
 Source4:        omniNames.service
+# Fix build against openssl-4.x
+Patch0:         omniORB_openssl4.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

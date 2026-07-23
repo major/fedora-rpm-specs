@@ -1,7 +1,7 @@
 Summary: Converts text and other types of files to PostScript
 Name: a2ps
 Version: 4.15.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 # several files in afm/, lib/, liba2ps/, src/ - GPL3+
 # gnulib files in lib/ - LGPL-2.1+
 # several files in lib/ - LGPL-3+
@@ -61,8 +61,6 @@ BuildRequires: gc-devel
 BuildRequires: gettext
 # for ps2pdf - PDF output, pdf2ps - PDF delegation
 BuildRequires: ghostscript
-# bundles gnulib source library
-BuildRequires: gnulib-devel
 # used for generating hash function for configuration options
 BuildRequires: gperf
 # Perl parts of groff text processor - ROFF delegation for man pages
@@ -77,9 +75,7 @@ BuildRequires: libpaper-devel
 BuildRequires: libtool
 # make no longer in buildroot
 BuildRequires: make
-# for getting version of bundled gnulib
-BuildRequires: perl-interpreter
-# tools for manipulating with postscript docs
+# tools for manipulating with postscript docs - binaries needed includeres, psnup, psselect
 BuildRequires: psutils
 # makeinfo for info documentation
 BuildRequires: texinfo
@@ -97,8 +93,8 @@ BuildRequires: ImageMagick
 BuildRequires: html2ps
 %endif
 
-# bundles gnulib of certain version
-Provides: bundled(gnulib)%(perl -ne 'if($. == 1 and /\A(\d+)-(\d+)-(\d+)/) {print qq{ = $1$2$3}}' %{_defaultdocdir}/gnulib/ChangeLog 2>/dev/null)
+# bundles gnulib of certain version - use the gnulib from source tarball
+Provides: bundled(gnulib)
 
 # used during runtime for delegation
 Recommends: bzip2
@@ -124,9 +120,8 @@ Requires: emacs-filesystem
 Requires: file
 # for ps2pdf - PDF output, pdf2ps - PDF delegation
 Requires: ghostscript
-# postscript delegation
+# postscript delegation - needed for includeres, psnup, psselect
 Requires: psutils
-Requires: psutils-perl
 # set of recommended fonts, looks to be for postscript as well
 Requires: texlive-collection-fontsrecommended
 
@@ -317,6 +312,9 @@ exit 0
 %{_mandir}/man1/pdiff.1.gz
 
 %changelog
+* Tue Jul 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 4.15.8-5
+- drop the dependency on psutils-perl (fedora#2502827)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

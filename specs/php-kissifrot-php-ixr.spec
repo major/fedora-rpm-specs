@@ -2,8 +2,8 @@
 %global project  php-ixr
 Name: php-%{author}-%{project}
 
-Version: 1.8.4
-Release: 4%{?dist}
+Version: 1.8.5
+Release: 1%{?dist}
 
 Summary: XML-RPC library for PHP
 License: BSD
@@ -102,6 +102,12 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Tue Jul 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.5-1
+- Update to v1.8.5
+
+* Tue Jul 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.4-5
+- Add a patch removing deprecated code
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

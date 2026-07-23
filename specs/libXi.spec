@@ -23,7 +23,6 @@ BuildRequires: xorg-x11-proto-devel
 BuildRequires: pkgconfig(inputproto) >= 2.3.99.1
 BuildRequires: libX11-devel >= 1.5.99.902
 BuildRequires: libXext-devel libXfixes-devel
-BuildRequires: xmlto asciidoc >= 8.4.5
 
 Requires: libX11 >= 1.5.99.902
 

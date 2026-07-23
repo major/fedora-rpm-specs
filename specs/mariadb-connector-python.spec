@@ -40,6 +40,19 @@ It is written in C and uses MariaDB Connector/C client library for client server
 communication.
 
 
+%package test
+Summary: Upstream integration test suite for MariaDB Connector for Python
+BuildArch:  noarch
+Requires:   %{name} = %{version}-%{release}
+Requires:   python3-pytest
+
+%py_provides python3-mariadb-test
+
+%description test
+Upstream integration test suite for MariaDB Connector/Python.
+Requires a live MariaDB database connection and is executed via pytest.
+
+
 %prep
 %autosetup -p1
 # Strip out the web-specific Marketo form macro to prevent Sphinx build warnings
@@ -64,6 +77,12 @@ sphinx-build -M man %{_builddir}/%{name}-%{version}/docs/source/ %{_builddir}/do
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -p -m 0644 %{_builddir}/docs_out/man/mariadbconnectorpython.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
+# Install upstream test suite into python3_sitelib for the -test subpackage
+mkdir -p %{buildroot}%{python3_sitelib}/%{name}/
+cp -rp %{_builddir}/%{name}-%{version}/testing/test/ %{buildroot}%{python3_sitelib}/%{name}/
+
+# Remove shebangs from test files as they are not meant to be run as standalone scripts
+find %{buildroot}%{python3_sitelib}/%{name}/test/ -name "*.py" -exec sed -i '1{/^#!/d}' {} +
 
 %check
 # Ensure the module can be successfully imported in a clean environment. 
@@ -79,6 +98,8 @@ install -p -m 0644 %{_builddir}/docs_out/man/mariadbconnectorpython.1 %{buildroo
 %{python3_sitearch}/mariadb/
 %{python3_sitearch}/mariadb-%{version}.dist-info/
 
+%files test
+%{python3_sitelib}/%{name}/
 
 %changelog
 %autochangelog

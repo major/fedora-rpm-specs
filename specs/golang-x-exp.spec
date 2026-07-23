@@ -9,7 +9,7 @@
 # https://github.com/golang/exp
 %global goipath         golang.org/x/exp
 %global forgeurl        https://github.com/golang/exp
-%global commit          74f9aab9d74a4012175b91c1a8e1ba154982d891
+%global commit          764159d718efdc208c8aca89cf725febea120ec1
 
 %gometa
 

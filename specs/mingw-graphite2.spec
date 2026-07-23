@@ -4,14 +4,15 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.15
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # As per COPYING file this library is tri-licensed
 License:       LGPL-2.1-or-later OR MPL-2.0 OR GPL-2.0-or-later
 URL:           https://github.com/silnrsi/graphite
 Source0:       https://github.com/silnrsi/graphite/releases/download/%{version}/%{pkgname}-%{version}.tgz
-
+# Only build gr2fonttest if testing is enabled
+Patch0:        graphite2_fonttest.patch
 
 BuildArch:     noarch
 
@@ -43,6 +44,11 @@ Summary:       MinGW Windows %{pkgname} library
 %description -n mingw32-%{pkgname}
 MinGW Windows %{pkgname} library.
 
+%package -n mingw32-%{pkgname}-static
+Summary:       Static version of the MinGW Windows %{pkgname} library
+
+%description -n mingw32-%{pkgname}-static
+Static version of the MinGW Windows %{pkgname} library.
 
 # Win64
 %package -n mingw64-%{pkgname}
@@ -50,6 +56,12 @@ Summary:       MinGW Windows %{pkgname} library
 
 %description -n mingw64-%{pkgname}
 MinGW Windows %{pkgname} library.
+
+%package -n mingw64-%{pkgname}-static
+Summary:       Static version of the MinGW Windows %{pkgname} library
+
+%description -n mingw64-%{pkgname}-static
+Static version of the MinGW Windows %{pkgname} library.
 
 
 %{?mingw_debug_package}
@@ -60,11 +72,19 @@ MinGW Windows %{pkgname} library.
 
 
 %build
+export MINGW_BUILDDIR_SUFFIX=_shared
 %mingw_cmake -DGRAPHITE2_COMPARE_RENDERER=OFF
+%mingw_make_build
+
+export MINGW_BUILDDIR_SUFFIX=_static
+%mingw_cmake -DGRAPHITE2_COMPARE_RENDERER=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF
 %mingw_make_build
 
 
 %install
+export MINGW_BUILDDIR_SUFFIX=_shared
+%mingw_make_install
+export MINGW_BUILDDIR_SUFFIX=_static
 %mingw_make_install
 
 rm -rf %{buildroot}%{mingw32_datadir}
@@ -80,6 +100,10 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw32_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw32_includedir}/%{pkgname}/
 
+%files -n mingw32-%{pkgname}-static
+%license LICENSE COPYING
+%{mingw32_libdir}/lib%{pkgname}.a
+
 # Win64
 %files -n mingw64-%{pkgname}
 %license LICENSE COPYING
@@ -89,8 +113,15 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw64_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw64_includedir}/%{pkgname}/
 
+%files -n mingw64-%{pkgname}-static
+%license LICENSE COPYING
+%{mingw64_libdir}/lib%{pkgname}.a
+
 
 %changelog
+* Tue Jul 21 2026 Sandro Mani <manisandro@gmail.com> - 1.3.15-3
+- Read -static packages
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

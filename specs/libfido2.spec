@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.17.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -106,6 +106,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Tue Jul 21 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.17.0-5
+- Update the signing keys (remove expired, update to current)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global commit aca9d89481e13f583ce35a715be286c89c9e0161
-%global snapdate 20260602
+%global commit 1f1f6c2efc893eed31323caf3469dfe603e85243
+%global snapdate 20260620
 
 Name:           utest
 Version:        0^%{snapdate}.%{sub %{commit} 1 7}
@@ -14,6 +14,11 @@ Source:         %{url}/archive/%{commit}/utest.h-%{commit}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+
+# The file test/subprocess.h is a vendored copy of
+# https://github.com/sheredom/subprocess.h, but it is used only for testing and
+# does not contribute to the binary RPMs, so we do not treat it as a bundled
+# dependency.
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}

@@ -2,8 +2,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           koan
-Version:        3.0.1
-Release:        22%{?dist}
+Version:        3.2.2
+Release:        %autorelease
 Summary:        Kickstart over a network
 
 License:        GPL-2.0-or-later
@@ -52,113 +52,4 @@ koan python%{python3_pkgversion} module.
 %files -n python%{python3_pkgversion}-koan -f %{pyproject_files}
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.1-21
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-19
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.1-18
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 3.0.1-17
-- Use pyproject macros (rhbz#2377299)
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.1-15
-- Rebuilt for Python 3.14
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.1-13
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 3.0.1-11
-- Rebuilt for Python 3.13
-
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.1-6
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.0.1-3
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Sep 24 2021 Orion Poplawski <orion@nwra.com> - 3.0.1-1
-- Update to 3.0.1
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-0.15.20200917git4194967
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.9.0-0.14.20200917git4194967
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-0.13.20200917git4194967
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Sep 19 2020 Orion Poplawski <orion@nwra.com> - 2.9.0-0.12.202009017git4194967
-- Update to latest git
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-0.11.20200412gitc67b526
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.9.0-0.10.20200412gitc67b526
-- Rebuilt for Python 3.9
-
-* Wed Apr 15 2020 Orion Poplawski <orion@nwra.com> - 2.9.0-0.9.202004012gitc67b526
-- Update to latest git
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-0.8.20191125gitcff96a0
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec 10 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.7.20191125gitcff96a0
-- Add requirement on netifaces
-
-* Mon Nov 25 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.6.20191125gitcff96a0
-- Update to latest git
-
-* Fri Nov 15 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.5.20191115git18df5d4
-- Update to latest git
-- Use automatic python dependencies
-- Use proper snapshot release tag
-
-* Thu Nov  7 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.4.git
-- Update to latest git
-
-* Fri Oct 18 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.3.git
-- Add patch to support cobbler 2 servers
-- Add patch to fix quoting with grubby on EL8
-
-* Fri Oct 11 2019 Orion Poplawski <orion@nwra.com> - 2.9.0-0.2.git
-- Split out again from cobbler
+%autochangelog

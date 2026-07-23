@@ -12,19 +12,14 @@
 %bcond acceptance_ruby 1
 
 Name:           gherkin
-Version:        41.0.0
+Version:        42.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 41
-%global c_soversion 41
+%global cpp_soversion 42
+%global c_soversion 42
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
-
-# Fix a missing #include <cstring>; excerpted from a massive commit containing
-# other unrelated changes,
-# https://github.com/cucumber/gherkin/commit/39d5a71caaa2b6e90042a043525c8e6cd8a7be09.
-Patch:          gherkin-41.0.0-cstring.patch
 
 License:        MIT
 URL:            https://github.com/cucumber/gherkin
@@ -57,7 +52,7 @@ BuildRequires:  jq
 # For C++ only:
 BuildRequires:  gcc-c++
 BuildRequires:  cmake(nlohmann_json)
-BuildRequires:  cmake(cucumber_messages) >= 31
+BuildRequires:  cmake(cucumber_messages) >= 34.2
 
 # For Python only:
 # The “dev” dependency group contains test dependencies intermixed with
@@ -207,16 +202,6 @@ sed --regexp-extended --in-place 's@python -m@%{python3} -m@' python/Makefile
 # practice.
 %pyproject_patch_dependency uv_build:drop_upper
 
-pushd ruby
-# Ruby: Allow cucumber-messages 33 and 34. Since these packages have the same
-# upstream, we expect this to be updated upstream in due course. If too much
-# time goes by, we might suggest it in a PR similar to
-# https://github.com/cucumber/gherkin/pull/525, only also including the
-# language implementations that have been added since then.
-%gemspec_remove_dep -s cucumber-gherkin.gemspec -g cucumber-messages [">= 31", "< 33"]
-%gemspec_add_dep -s cucumber-gherkin.gemspec -g cucumber-messages [">= 31", "< 35"]
-popd
-
 
 %generate_buildrequires
 %pyproject_buildrequires --directory python
@@ -230,7 +215,7 @@ popd
 
 echo '==== Configuring C++ implementation ===='
 pushd cpp
-%cmake
+%cmake -DCUCUMBER_GHERKIN_FETCH_DEPS:BOOL=OFF
 popd
 
 
@@ -330,7 +315,7 @@ pushd cpp
 # any usable tests yet.
 %ctest
 %if %{with acceptance_cpp}
-# Keep make from trying to rebuild the C++ implementation or invoke cmate.
+# Keep make from trying to rebuild or reinstall the C++ implementation.
 mkdir --parents .built
 # The executables need to load libcucumber_gherkin, so we also set
 # LD_LIBRARY_PATH. The acceptance tests are not safe for parallel execution.
@@ -390,7 +375,7 @@ popd
 
 %files c-devel
 %doc c/README.md
-# Co-owned with packages for other cucumber projects:
+# Co-owned with packages for other cucumber projects, and with the C++ headers:
 %dir %{_includedir}/cucumber/
 # Unique to this package:
 %dir %{_includedir}/cucumber/gherkin/
@@ -408,14 +393,11 @@ popd
 %files cpp-devel
 %doc cpp/README.md
 # https://github.com/cucumber/messages/issues/267#issuecomment-2478224301
-# Co-owned with packages for other cucumber projects:
+# Co-owned with packages for other cucumber projects, and with the C headers:
 %dir %{_includedir}/cucumber/
-# Co-owned with packages for other cucumber projects in the cucumber C++
-# namespace:
-%dir %{_includedir}/cucumber/cucumber/
 # Unique to this package:
-%dir %{_includedir}/cucumber/cucumber/gherkin/
-%{_includedir}/cucumber/cucumber/gherkin/*.hpp
+%dir %{_includedir}/cucumber/gherkin/
+%{_includedir}/cucumber/gherkin/*.hpp
 
 %{_libdir}/libcucumber_gherkin.so
 %{_libdir}/cmake/cucumber_gherkin/

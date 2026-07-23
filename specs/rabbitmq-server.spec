@@ -1,5 +1,5 @@
 # Check here - https://www.rabbitmq.com/docs/which-erlang
-%global erlang_minver 26.2
+%global erlang_minver 27
 # We want to install into /usr/lib, even on 64-bit platforms
 %global _rabbit_libdir %{_exec_prefix}/lib/rabbitmq
 # Technically, we're noarch; but Elixir we're using is not.
@@ -7,7 +7,7 @@
 
 
 Name: rabbitmq-server
-Version: 4.3.2
+Version: 4.3.3
 Release: %autorelease
 Summary: The RabbitMQ server
 License: MPL-2.0

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	69%{?dist}
+Release:	70%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -414,6 +414,75 @@ else
     fi
 fi
 
+%if 0%{with_alt_efi_arch}
+%posttrans pc
+set -eu
+set -o pipefail
+
+SYS_FIRMWARE_EFI_DIR=/sys/firmware/efi
+BOOT_DIR=/boot
+
+find_grub_devices() {
+    local boot_device
+    local component_devs=()
+    local block_devs=()
+
+    # Exit if UEFI system running
+    if test -d $SYS_FIRMWARE_EFI_DIR ; then
+	exit 0
+    fi
+
+    # grub2-probe is required for device finding
+    if ! command -v grub2-probe &>/dev/null; then
+	exit 0;
+    fi
+
+    # Get block devices where GRUB is located. We assume GRUB is on the same device
+    # as /boot partition is. In case that device is an md (Multiple Device) device, all
+    # of the component devices of such a device are considered.
+    boot_device=$(grub2-probe --target=device $BOOT_DIR)
+
+    # Check if a given device is an md (Multiple Device) device
+    # It is expected that the "mdadm" command is available,
+    # if it's not it is assumed the device is not an md device.
+    if command -v mdadm &>/dev/null && \
+       mdadm --detail --verbose --brief "$boot_device" &> /dev/null; then
+	out=$(mdadm --detail --verbose --brief "$boot_device")
+	# output would look like:
+	#    ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2 name=localhost.localdomain:0 UUID=c4acea6e:d56e1598:91822e3f:fb26832c disable=line-too-long devices=/dev/vda1,/dev/vdb1
+	for d in $(echo "$out" | sed -n -e 's/.* devices=\([^ ]*\).*/\1/p' | sed 's/,/ /g'); do
+	    component_devs+=("$d")
+	done
+    else
+	component_devs+=("$boot_device")
+    fi
+
+    # Get blocks from partitions
+    for d in "${component_devs[@]}"; do
+	block_devs+=("$(lsblk -spnlo name "$d" | tail -1)")
+    done
+
+    # Filter those GRUB blocks
+    for d in "${block_devs[@]}"; do
+	if dd if="$d" bs=446 count=1 status=none | grep -aq "GRUB"; then
+	    echo "$d"
+	fi
+    done
+}
+
+grub_install () {
+    if ! command -v grub2-install &>/dev/null; then
+	exit 0
+    fi
+    for d in $(find_grub_devices); do
+	echo "Installing on $d" >&2
+	grub2-install "$d"
+    done
+}
+
+grub_install || :
+%endif
+
 %if 0%{with_efi_arch}
 %posttrans efi-%{efiarch}
 set -eu
@@ -625,6 +694,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 20 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-70
+- Run grub2-install automatically on grub2-pc posttrans
+
 * Tue Jul 07 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-69
 - mm: try allocating regions above defined limit as last resource
 - Revert 'verifiers: Allocate EFI pages instead of grub_malloc for verified buffer'

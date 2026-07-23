@@ -1,44 +1,33 @@
-%bcond_with html
-%bcond_without check
+%bcond html 0
+%bcond check 1
 # https://fedorahosted.org/fpc/ticket/381
-%bcond_without bundled_fonts
+%bcond bundled_fonts 1
 
-# No WX for EL8/ELN/EL9
-%if 0%{?rhel} >= 8
-%bcond_with wx
-%else
-%bcond_without wx
-%endif
+# No WX for ELN
+%bcond wx %{undefined rhel}
 
-# The default backend; one of GTK3Agg GTK3Cairo GTK4Agg GTK4Cairo MacOSX QtAgg
-# TkAgg WXAgg Agg Cairo PS PDF SVG
-%global backend                 TkAgg
-
-%if "%{backend}" == "TkAgg"
+# The default recommended backend; one of the subpackages.
 %global backend_subpackage tk
-%else
-%  if "%{backend}" == "Qt5Agg"
-%global backend_subpackage qt5
-%  else
-%    if "%{backend}" == "WXAgg"
-%global backend_subpackage wx
-%    endif
-%  endif
-%endif
 
-%global build_backend_args -Csetup-args="-Dsystem-freetype=true" -Csetup-args="-Dsystem-qhull=true" -Cinstall-args="--tags=data,python-runtime,runtime,tests"
+%global build_backend_args %{shrink:
+  -Csetup-args="-Dsystem-freetype=true"
+  -Csetup-args="-Dsystem-libraqm=true"
+  -Csetup-args="-Dsystem-qhull=true"
+  -Cinstall-args="--tags=data,python-runtime,runtime,tests"
+}
 
 # Use the same directory of the main package for subpackage licence and docs
 %global _docdir_fmt %{name}
 
+# Whether patching test images is necessary.
+%bcond patched_test_images 0
 # Updated test images for new FreeType.
-%global mpl_images_version 3.10.8
-
+%global mpl_images_version 3.11.0
 # The version of FreeType in this Fedora branch.
-%global ftver 2.14.1
+%global ftver 2.14.3
 
 Name:           python-matplotlib
-Version:        3.10.9
+Version:        3.11.1
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -50,30 +39,25 @@ Source0:        %pypi_source matplotlib %{Version}
 
 # Fedora-specific patches; see:
 # https://github.com/fedora-python/matplotlib/tree/fedora-patches
+%if %{with patched_test_images}
 # Updated test images for new FreeType.
 Source1000:     https://github.com/QuLogic/mpl-images/archive/v%{mpl_images_version}-with-freetype-%{ftver}/matplotlib-%{mpl_images_version}-with-freetype-%{ftver}.tar.gz
+%endif
 # Search in /etc/matplotlibrc:
 Patch1001:      0001-matplotlibrc-path-search-fix.patch
+%if %{with patched_test_images}
 # Increase tolerances for new FreeType everywhere:
 Patch1002:      0002-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patch
-# We don't need to use older meson-python/setuptools.
-Patch1003:      0003-Unpin-build-requirements.patch
-
-# https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
-Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
-
-# Temporary fix for some tests.
-Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
-
-# Fix Python 3.15 compatibility issues
-# Upstream issue: https://github.com/matplotlib/matplotlib/issues/31429
-Patch0003:      0006-Fix-Python-3.15-compatibility-issues.patch
+%endif
+# libraqm is still 0.10.1
+# https://src.fedoraproject.org/rpms/libraqm/pull-request/8
+Patch1003:      0002-Reduce-required-libraqm-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
 BuildRequires:  freetype-devel
-BuildRequires:  libpng-devel
+BuildRequires:  libraqm-devel
 BuildRequires:  qhull-devel
 %ifnarch %{ix86}
 BuildRequires:  xwayland-run
@@ -82,10 +66,7 @@ BuildRequires:  zlib-devel
 
 %ifnarch %{ix86}
 BuildRequires:  ghostscript
-# No ImageMagick for EL8/ELN/EL9
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} < 8)
 BuildRequires:  ImageMagick
-%endif
 BuildRequires:  inkscape
 %endif
 
@@ -162,11 +143,10 @@ Summary:        Fonts used by python-matplotlib
 # DejaVu is Bitstream Vera and Public Domain
 License:        OFL-1.1 AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
 %if %{without bundled_fonts}
-Requires:       stix-math-fonts
+Requires:       (stix-math-fonts >= 1 with stix-math-fonts < 2)
 %else
-Provides:       bundled(stix-math-fonts)
+Provides:       bundled(stix-math-fonts) = 1
 %endif
-Obsoletes:      python-matplotlib-data-fonts < 3
 
 %description -n python3-matplotlib-data-fonts
 %{summary}
@@ -195,10 +175,6 @@ BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pikepdf)
 %endif
 %endif
-# Remove in F45.
-Provides:       python3-matplotlib-data = %{version}-%{release}
-Obsoletes:      python3-matplotlib-data < 3.11~~~
-Obsoletes:      python-matplotlib-data < 3
 
 %description -n python3-matplotlib
 Matplotlib is a Python 2D plotting library which produces publication
@@ -215,13 +191,12 @@ errorcharts, scatterplots, etc, with just a few lines of code.
 Summary:        Qt5 backend for python3-matplotlib
 BuildRequires:  python3dist(cairocffi)
 %ifnarch %{ix86}
-BuildRequires:  python3dist(pyqt5)
+BuildRequires:  python3-qt5
 BuildRequires:  qt5-qtwayland
 %endif
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(cairocffi)
-Requires:       python3dist(pyqt5)
-Obsoletes:      python3-matplotlib-qt4 < 3.5.0-0
+Requires:       python3-qt5
 
 %description -n python3-matplotlib-qt5
 %{summary}
@@ -330,12 +305,15 @@ Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 %autosetup -n matplotlib-%{Version} -N
 
 # Fedora-specific patches follow:
-%autopatch -p1 -m 1000
+%pyproject_patch_dependency setuptools_scm:drop_upper
+%autopatch -q -p1 -m 1000
+%if %{with patched_test_images}
 # Updated test images for new FreeType.
 gzip -dc %SOURCE1000 | tar xf - --transform='s~^mpl-images-%{mpl_images_version}-with-freetype-%{ftver}/~~'
+%endif
 
 # Backports or reported upstream
-%autopatch -p1 -M 999
+%autopatch -q -p1 -M 999
 
 
 %generate_buildrequires
@@ -343,10 +321,7 @@ gzip -dc %SOURCE1000 | tar xf - --transform='s~^mpl-images-%{mpl_images_version}
 
 
 %build
-%set_build_flags
-export http_proxy=http://127.0.0.1/
-
-MPLCONFIGDIR=$PWD %pyproject_wheel %build_backend_args
+%pyproject_wheel %build_backend_args
 %if %{with html}
 # Need to make built matplotlib libs available for the sphinx extensions:
 MPLCONFIGDIR=$PWD \
@@ -361,11 +336,11 @@ find galleries -name '*.py' -exec chmod a-x '{}' \;
 %install
 export http_proxy=http://127.0.0.1/
 
-MPLCONFIGDIR=$PWD %pyproject_install
+%pyproject_install
 
 # Delete unnecessary files.
-rm %{buildroot}%{python3_sitearch}/matplotlib/tests/tinypages/.gitignore
-rm %{buildroot}%{python3_sitearch}/matplotlib/tests/tinypages/_static/.gitignore
+rm %{buildroot}%{python3_sitearch}/matplotlib/tests/data/tinypages/.gitignore
+rm %{buildroot}%{python3_sitearch}/matplotlib/tests/data/tinypages/_static/.gitignore
 
 # Move files to Fedora-specific locations.
 %if %{without bundled_fonts}
@@ -395,16 +370,9 @@ export http_proxy=http://127.0.0.1/
 k="${k-}${k+ and }not test_invisible_Line_rendering"
 # This test is flaky.
 k="${k-}${k+ and }not test_form_widget_get_with_datetime_and_date_fields"
-# test_auto_date_locator_intmult_tz fails with Python 3.15.0b1
-# reported: https://github.com/matplotlib/matplotlib/issues/31429#issuecomment-4508466829
-k="${k-}${k+ and }not test_auto_date_locator_intmult_tz"
-# test_pcolornearestunits and test_other_signal_before_sigint fail with Python 3.15.0b2
-k="${k-}${k+ and }not test_pcolornearestunits and not test_other_signal_before_sigint"
-
-%ifarch s390x
-# See https://src.fedoraproject.org/rpms/python-contourpy/c/c9e9d71643
-k="${k-}${k+ and }not (test_contour and algorithm)"
-%endif
+# Needs update for latest TeX Live.
+# https://github.com/matplotlib/matplotlib/pull/31785
+k="${k-}${k+ and }not test_rcupdate"
 
 env MPLCONFIGDIR=$PWD \
     %{pytest} -ra -n auto \

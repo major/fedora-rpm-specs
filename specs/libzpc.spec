@@ -30,7 +30,6 @@ main memory at any time.
 %ifarch s390x
 %package	provider
 Summary:	OpenSSL provider module for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	provider
 The %{name}-provider package contains a provider module for OpenSSL v3.0 (and
@@ -40,7 +39,6 @@ later), interfacing to the protected key feature of z/Architecture.
 
 %package	tools
 Summary:	Key management tool for %{name} keys
-Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	tools
 The %{name}-tools package contains a key management tool for key origins.
@@ -49,7 +47,7 @@ persistent protected key origins, from which protected keys can be (re-)derived.
 
 
 %prep
-%autosetup -p1 %{name}-%{version}
+%autosetup -p1
 %global modulesdir %(pkg-config --variable=modulesdir libcrypto)
 
 %build
@@ -67,12 +65,9 @@ install -m644 %_vpath_builddir/hbkzpcprovider.conf \
 %ctest
 
 
-%files
-%doc README.md CHANGES.md
-%license LICENSE
-
 %ifarch s390x
 %files provider
+%doc README.md CHANGES.md
 %license LICENSE
 %{modulesdir}/zpcprovider.so
 %{_mandir}/man5/hbkzpcprovider.conf.5*
@@ -81,6 +76,7 @@ install -m644 %_vpath_builddir/hbkzpcprovider.conf \
 %endif
 
 %files tools
+%doc README.md CHANGES.md
 %license LICENSE
 %{_bindir}/zpckey
 %{_mandir}/man1/zpckey.1*

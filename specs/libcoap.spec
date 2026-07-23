@@ -15,8 +15,13 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
 BuildRequires: libtool
-BuildRequires: openssl-devel
-BuildRequires: openssl-devel-engine
+%if 0%{?fedora} > 44
+BuildRequires:  openssl3-devel
+BuildRequires:  openssl3-devel-engine
+%else
+BuildRequires:  openssl-devel
+BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires: asciidoc
 BuildRequires: ctags
 BuildRequires: doxygen

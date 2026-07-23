@@ -16,11 +16,12 @@ URL:            http://www.catb.org/~esr/gif2png/
 Source0:        %{url}%{name}-%{version}.tar.gz
 Source1:        vendor.tar.bz2
 Source2:        go-vendor-tools.toml
+Patch:          gif2png-3.0.4-test-compare.patch
 
-BuildRequires:  go-vendor-tools
 BuildRequires:  compiler(go-compiler)
-BuildRequires:  make
 BuildRequires:  diffutils
+BuildRequires:  go-vendor-tools
+BuildRequires:  make
 
 %description
 The gif2png program converts files from the Graphic Interchange Format (GIF) to

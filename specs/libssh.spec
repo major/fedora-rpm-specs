@@ -1,5 +1,5 @@
 Name:           libssh
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later

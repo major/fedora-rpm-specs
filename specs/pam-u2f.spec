@@ -1,7 +1,10 @@
 
 Name:          pam-u2f
 Version:       1.4.0
-Release:       5%{?dist}
+Release:       7%{?dist}
+
+ExcludeArch:   %{ix86}
+
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -56,6 +59,12 @@ over U2F.
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Tue Jul 21 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.4.0-7
+- Update the signing keys (remove expired, update to current)
+
+* Sat Jul 18 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.4.0-6
+- Add ExcludeArch for i686 as this is a leaf package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

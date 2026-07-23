@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-496-gb5eecf35d9
+%global glibcsrcdir glibc-2.43.9000-536-ga5aa0df24a
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 24
+%global baserelease 25
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2404,6 +2404,50 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jul 21 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-25
+- Auto-sync with upstream branch master,
+  commit a5aa0df24ad61a7dbc0f7c0dc9da7387ec0e974d:
+- hurd: demangle pointers on fork's longjmp (Samuel Thibault)
+- hurd: Add __readlink and readlink to dl-sysdep.c (Samuel Thibault)
+- hurd: Add __fstatat64 to dl-sysdep.c (Samuel Thibault)
+- manual: Add stability warning regarding system-wide tunables (Florian Weimer)
+- contrib.texi: update (Andreas K. Hüttel)
+- NEWS: insert list of fixed bugs (Andreas K. Hüttel)
+- NEWS: editorial changes (Andreas K. Hüttel)
+- math: Update tanh from CORE-MATH (revision cf237fa0) (Adhemerval Zanella)
+- Revert "malloc: Remove dynamic mmap/trim threshold [BZ #30769]" (Peter Bergner)
+- Add RWF_NOSIGNAL from Linux 6.18 to bits/uio-ext.h (Adhemerval Zanella)
+- math: Fix inaccurate sin/cos/tan for large arguments (BZ 34376) (Adhemerval Zanella)
+- benchtests: Add path-oriented workloads to tan (Adhemerval Zanella)
+- benchtests: Add path-oriented workloads to sin (Adhemerval Zanella)
+- benchtests: Add path-oriented workloads to cos (Adhemerval Zanella)
+- sparc: Align THP tests to the 8MB huge-page size (Adhemerval Zanella)
+- elf: Defer arch PLT IFUNC relocations in the two-phase relocation split (Adhemerval Zanella)
+- sparc: Fix static IFUNC startup crash by redirecting __mempcpy (BZ #34396) (Adhemerval Zanella)
+- Revert "strace-tst-thp.sh: Allow unsupported THP tests" (H.J. Lu)
+- strace-tst-thp.sh: Allow unsupported THP tests (H.J. Lu)
+- thp: Disable THP if THP isn't supported by kernel (H.J. Lu)
+- thp: Link THP PDE tests with $(LOAD-THP-ADDRESS-LDFLAGS) (H.J. Lu)
+- Add advisory text for CVE-2026-6368 (Adhemerval Zanella)
+- posix: Fix wordexp WRDE_APPEND to preserve state on non-NOSPACE errors (BZ 34090, CVE-2026-6368) (Adhemerval Zanella)
+- ldconfig: add --install option (DJ Delorie)
+- po: Integrate translations (Andreas K. Hüttel)
+- s390: Use 64bit branch relative on count instruction in strncpy-z900.S [BZ #34398] (Stefan Liebler)
+- Use correct type for glibc.malloc.perturb in tst-tunconf1.c (Stefan Liebler)
+- benchtests: Build benchmarks in parallel (Adhemerval Zanella)
+- sparc: Fix static (non-PIE) executables when PIE is enabled by default (Adhemerval Zanella)
+- elf: Remove unused tunable_seclevel_t (Adhemerval Zanella)
+- elf: Remove _dl_unload_cache (Adhemerval Zanella)
+- manual: Document default AT_SECURE handling for system-wide tunables (Adhemerval Zanella)
+- elf: Let environment aliases override overridable system-wide tunables (Adhemerval Zanella)
+- elf: Avoid redundant ld.so.cache reload after first load (Adhemerval Zanella)
+- elf: Verify the tunable cache header signature and version (Adhemerval Zanella)
+- elf: Bound the tunable cache string table against the mapping size (Adhemerval Zanella)
+- localedata: Use libc-alpha ML as the canonical contact (Siddhesh Poyarekar)
+- posix: Use unique PID file in tst-spawn3 and tst-spawn3-pidfd (Florian Weimer)
+- localedata: Avoid concurrently written locales in gen-locale.sh (Florian Weimer)
+- Add system-wide tunables: implement overridability (DJ Delorie)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.9000-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

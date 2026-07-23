@@ -147,6 +147,9 @@ Patch:          0001-t-Skip-earlier-in-tests_dependencies.t.patch
 # https://github.com/os-autoinst/openQA/pull/7509
 # Support invent.kde.org as a bug tracker (for bug links)
 Patch:          0001-fix-Support-invent.kde.org-and-work_items-in-bug-URL.patch
+# https://github.com/os-autoinst/openQA/pull/7634
+# Drop token equality test that is invalid with Mojolicious 9.48+
+Patch:          0001-fix-test-Drop-test-for-token-equality.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}

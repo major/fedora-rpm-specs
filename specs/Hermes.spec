@@ -1,9 +1,8 @@
 Name:           Hermes
 Version:        1.3.3
-Release:        53%{?dist}
+Release:        55%{?dist}
 Summary:        Pixel format conversion library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-only
 # upstream is no more
 URL:            http://web.archive.org/web/20040202225109/http://www.clanlib.org/hermes/
 Source:         %{name}-%{version}.tar.bz2
@@ -50,7 +49,7 @@ autoreconf -ivf
 
 
 %build
-%configure --disable-dependency-tracking --disable-static
+%configure --disable-dependency-tracking --disable-static --disable-x86asm
 %make_build
 
 
@@ -75,6 +74,15 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.3.3-55
+- Fix FTBFS on i686: disable x86 assembly via '--disable-x86asm'
+  The 1990s-era MMX/x86 assembly routines use absolute addressing
+  from '.text' to '.data', creating text relocations that modern
+  linkers reject with '-z,relro' and '-z,now'
+
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.3.3-54
+- Fix the 'License' tag to use a valid SPDX expression
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

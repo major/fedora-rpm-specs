@@ -1,4 +1,4 @@
-%define _version_suffix -a155
+%define _version_suffix -e451
 
 # The mingw* RPMs are noarch, and the wxi data files are
 # arch independant, so it is a waste of CPU cycles to run
@@ -11,7 +11,7 @@
 %endif
 
 Name:           msitools
-Version:        0.106.58
+Version:        0.106.73
 Release:        %autorelease
 Summary:        Windows Installer tools
 
@@ -155,8 +155,8 @@ BuildRequires:  mingw32-libpsl
 BuildRequires:  mingw64-libpsl
 BuildRequires:  mingw32-librsvg2
 BuildRequires:  mingw64-librsvg2
-BuildRequires:  mingw32-libsoup
-BuildRequires:  mingw64-libsoup
+BuildRequires:  mingw32-libsoup3
+BuildRequires:  mingw64-libsoup3
 BuildRequires:  mingw32-libssh2
 BuildRequires:  mingw64-libssh2
 BuildRequires:  mingw32-libtasn1

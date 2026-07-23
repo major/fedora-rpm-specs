@@ -12,7 +12,6 @@ BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  git
-BuildRequires:  xmlto
 BuildRequires:  libappstream-glib
 BuildRequires:  rsync
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 77.0.0

@@ -1,6 +1,6 @@
 Name:    libdfx
-Version: 2025.2
-Release: 4%{?dist}
+Version: 2026.1
+Release: 1%{?dist}
 Summary: A lightweight user-space library that provides APIs to configure the PL
 License: MIT
 URL:     https://github.com/Xilinx/libdfx
@@ -33,6 +33,7 @@ for building PL (programable logic) applications.
 
 %prep
 %autosetup -p1 -n %{name}-xilinx_v%{version}
+sed -i 's/VERSION 2.8.9/VERSION 3.10/' CMakeLists.txt apps/CMakeLists.txt src/CMakeLists.txt
 
 
 %build
@@ -57,6 +58,9 @@ for building PL (programable logic) applications.
 
 
 %changelog
+* Tue Jul 21 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2026.1-1
+- Update to 2026.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

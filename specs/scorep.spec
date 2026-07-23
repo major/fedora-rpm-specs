@@ -1,3 +1,10 @@
+%global useroc 0
+%ifarch x86_64
+%if 0%{?fedora} || 0%{?rhel} >= 10
+%global useroc 1
+%endif
+%endif
+
 Name:           scorep
 Version:        10.0
 Release:        1%{?dist}
@@ -26,7 +33,7 @@ BuildRequires:  clang-devel
 BuildRequires:  automake libtool
 BuildRequires:  libunwind-devel
 BuildRequires:  gotcha-devel%{?_isa} >= 1.0.5
-%if 0%{?fedora} || 0%{?rhel} >= 10
+%if %useroc
 BuildRequires:  roctracer-devel
 %endif
 BuildRequires:  libzstd-devel
@@ -186,7 +193,7 @@ popd
 
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes --with-libroctracer64=yes
+%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes %{useroc:--with-libroctracer64=yes}
 # Workaround for #2493579
 export LIBBFD_EXTRA_LIBS=-lzstd
 

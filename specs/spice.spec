@@ -1,6 +1,6 @@
 Name:           spice
 Version:        0.16.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Implements the SPICE protocol
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -8,6 +8,7 @@ URL:            http://www.spice-space.org/
 Source0:        http://www.spice-space.org/download/releases/%{name}-%{version}.tar.bz2
 Patch0000:      0001-test-gst-Fix-compilation-error.patch
 Patch0001:      0001-test-display-base-Fix-C-designated-initializer-for-a.patch
+Patch0002:      0001-inputs-Fix-keyboard-and-mouse-state-leaks-on-interfa.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=613529
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -99,6 +100,9 @@ using spice-server, you will need to install spice-server-devel.
 
 
 %changelog
+* Tue Jul 21 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.16.0-9
+- Backport keyboad & mouse state leak fix.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

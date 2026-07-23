@@ -44,6 +44,8 @@ sed -i -e "/parc/d" CMakeLists.txt
 sed -i 's/\r$//' parc/{FS.csv,GIF_v3.csv}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381358)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 flags=( -std=gnu++11
         -Wno-unused-variable
         -Wno-unused-but-set-variable

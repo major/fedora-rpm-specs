@@ -2,8 +2,8 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  7.5
-Release:  4%{?dist}
+Version:  7.6
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -313,6 +313,9 @@ fi
 
 
 %changelog
+* Tue Jul 21 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.6-1
+- new version 7.6
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7:7.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global srcname puzzle-sets-%{puzzleset}
 
 Name:           crosswords-%{srcname}
-Version:        0.4.4
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Extra puzzles to go with GNOME Crosswords
 

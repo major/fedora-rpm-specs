@@ -1,9 +1,8 @@
 Name:           AllegroOGG
 Version:        1.0.3
-Release:        42%{?dist}
+Release:        44%{?dist}
 Summary:        Ogg library for use with the Allegro game library
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://www.allegro.cc/resource/Libraries/Audio/alogg
 Source0:        http://www.hero6.com/filereviver/alogg.zip
 Source1:        AllegroOGG.pc.in
@@ -37,7 +36,7 @@ the %{name} library.
 # makefile doesn't support creating an .so, and wants to use its own version
 # of libogg and libvorbis and there is only one source file so lets DIY
 gcc $RPM_OPT_FLAGS -fPIC -DPIC -Iinclude -c src/alogg.c -o src/alogg.o
-gcc -g -shared -Wl,-soname=lib%{name}.so.0 -o lib%{name}.so.0 \
+gcc -g -shared %{build_ldflags} -Wl,-soname=lib%{name}.so.0 -o lib%{name}.so.0 \
   src/alogg.o -logg -lvorbis -lvorbisfile $(allegro-config --libs)
 
 
@@ -65,6 +64,13 @@ install -m 644 include/* $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %changelog
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.0.3-44
+- Add '%{build_ldflags}' to the shared library link command to fix annocheck
+  'bind-now' test failure
+
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.0.3-43
+- Fix SPDX license tag: 'LicenseRef-Callaway-BSD' -> 'BSD-3-Clause'
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

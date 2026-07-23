@@ -5,7 +5,7 @@
 %global crate portable-atomic-util
 
 Name:           rust-portable-atomic-util
-Version:        0.2.6
+Version:        0.2.7
 Release:        %autorelease
 Summary:        Synchronization primitives built with portable-atomic
 
@@ -58,6 +58,18 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

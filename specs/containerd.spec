@@ -39,6 +39,8 @@ BuildRequires:  procps-ng
 BuildRequires:  git-core
 BuildRequires:  glibc-devel
 
+# Default for containerd-shim-runc-v2
+Requires:       runc
 
 %description
 An open and reliable container runtime.

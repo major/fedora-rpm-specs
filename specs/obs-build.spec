@@ -5,10 +5,10 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_Rawhide/src/
 # update the obsrel to match the upstream release number
-%global obsrel 1.8
+%global obsrel 1.2
 
 Name:           obs-build
-Version:        20260623
+Version:        20260721
 Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 
@@ -39,6 +39,7 @@ BuildRequires:  perl(POSIX)
 Requires:       bash, perl-interpreter, binutils, tar
 Requires:       gzip, bzip2, xz, zstd
 Requires:       python3-websocket-client
+Requires:       diffutils
 Recommends:     perl(Archive::Tar)
 Recommends:     /sbin/mkfs.ext3
 Recommends:     /usr/bin/qemu-kvm

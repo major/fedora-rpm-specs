@@ -4,7 +4,7 @@
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
-%{!?mariadb_default:%global mariadb_default 0}
+%{!?mariadb_default:%global mariadb_default 1}
 
 # Regression tests may take a long time (many cores recommended), skip them by
 %{!?runselftest:%global runselftest 1}
@@ -211,7 +211,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          100%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          Fast and robust SQL database server
@@ -1846,6 +1846,10 @@ fi
 %endif
 
 %changelog
+* Tue Jul 21 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-100
+- Disable the 'distribution default' in MariaDB 11.8 (package 'mariadb11.8')
+- Enable the 'distribution default' in MariaDB 12.3 in this package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:12.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

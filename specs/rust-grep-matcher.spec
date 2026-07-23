@@ -5,7 +5,7 @@
 %global crate grep-matcher
 
 Name:           rust-grep-matcher
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Trait for regular expressions, with a focus on line oriented search
 

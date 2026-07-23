@@ -141,6 +141,9 @@ tar -xf %{SOURCE5} -C %{_builddir}/SPIRV-Tools   --strip-components=1
 # adjust the directories if needed, when patches change.
 git config --global user.email "build@localhost"
 git config --global user.name "build"
+# Disable background gc/maintenance: it can mutate .git while IGC's cmake building
+git config --global gc.auto 0
+git config --global maintenance.auto false
 git -C %{_builddir}/llvm-project init -q
 git -C %{_builddir}/llvm-project add -f clang/ llvm/docs
 git -C %{_builddir}/llvm-project commit -q -m "llvmorg-%{llvm_ver}"

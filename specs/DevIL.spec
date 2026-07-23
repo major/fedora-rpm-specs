@@ -1,9 +1,8 @@
 Name:           DevIL
 Version:        1.7.8
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        A cross-platform image library
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.1-only AND GPL-3.0-or-later
 URL:            http://openil.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/openil/%{name}-%{version}.tar.gz
 Patch0:         DevIL-1.7.5-allegropicfix.patch
@@ -123,6 +122,10 @@ rm %{buildroot}%{_infodir}/dir
 
 
 %changelog
+* Wed Jul 15 2026 Michal Schorm <mschorm@redhat.com> - 1.7.8-55
+- Fix SPDX license tag:
+  'LicenseRef-Callaway-LGPLv2' -> 'LGPL-2.1-only AND GPL-3.0-or-later'
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

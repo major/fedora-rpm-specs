@@ -4,8 +4,8 @@
 
 %global crate spin
 
-Name:           rust-spin
-Version:        0.12.2
+Name:           rust-spin0.10
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Spin-based synchronization primitives
 
@@ -85,18 +85,6 @@ This package contains library source intended for building other packages which
 use the "lazy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lazy-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+lazylock-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+lazylock-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "lazylock" feature of the "%{crate}" crate.
-
-%files       -n %{name}+lazylock-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+lock_api-devel
