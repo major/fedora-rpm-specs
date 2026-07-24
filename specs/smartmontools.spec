@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		https://www.smartmontools.org/
@@ -175,6 +175,9 @@ fi
 
 
 %changelog
+* Wed Jul 22 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-8
+- update selinux policy
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

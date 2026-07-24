@@ -2,7 +2,7 @@
 Name:       python-igraph
 Version:    1.0.0
 %global igraph_version 0.9
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPL-2.0-or-later
@@ -84,6 +84,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.0.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

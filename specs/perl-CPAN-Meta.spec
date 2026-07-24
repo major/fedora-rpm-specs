@@ -1,7 +1,7 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
 Version:        2.150013
-Release:        2%{?dist}
+Release:        527%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
@@ -94,6 +94,9 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.150013-527
+- Increase release to favour standalone package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.150013-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Hash-FieldHash
 Version:        0.15
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Lightweight field hash implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-FieldHash
@@ -77,6 +77,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Hash::FieldHash.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-35
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

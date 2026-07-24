@@ -12,7 +12,7 @@
 
 Name:       mod_psgi
 Version:    0.0.1
-Release:    0.28.%{snapshot}git%{shortcommit}%{?dist}
+Release:    0.29.%{snapshot}git%{shortcommit}%{?dist}
 Summary:    Apache httpd plugin for handling PSGI applications
 # Automatically converted from old format: ASL 2.0
 License:    Apache-2.0
@@ -99,6 +99,9 @@ make test
 %{_httpd_moddir}/%{name}.so
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.0.1-0.29.20120822git9732348
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.28.20120822git9732348
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Math-Int64
 Version:        0.57
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Manipulate 64 bits integers in Perl
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 URL:            https://metacpan.org/release/Math-Int64
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.57-9
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

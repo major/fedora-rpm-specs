@@ -10,7 +10,7 @@
 
 Name:           perl-CPAN
 Version:        2.38
-Release:        523%{?dist}
+Release:        527%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
@@ -336,6 +336,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.38-527
+- Increase release to favour standalone package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-523
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,12 +4,14 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.9.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
 Source1:	xca-2.5.0-README.IMPORTANT
+
+Patch1:		xca-2.9.0-openssl4.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -20,7 +22,7 @@ BuildRequires:	cmake(Qt6Help)
 BuildRequires:	cmake(Qt6LinguistTools)
 BuildRequires:	cmake(Qt6Test)
 BuildRequires:	openssl-devel
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} <= 44
 BuildRequires:	openssl-devel-engine
 %endif
 BuildRequires:	desktop-file-utils
@@ -44,10 +46,10 @@ OpenSSL library for the cryptographic operations.
   Certificate signing requests (PKCS#10), certificates (X509v3), the signing
 of requests, the creation of self-signed certificates, certificate revocation
 lists and SmartCards are supported. For an easy company-wide use, customizable
-templates can be used for certificate and request generation. The PKI structures
-can be imported and exported in several formats like PKCS#7, PKCS#12, PEM,
-DER, PKCS#8. All cryptographic data are stored in a byte order agnostic file
-format, portable across operating systems.
+templates can be used for certificate and request generation. The PKI
+structures can be imported and exported in several formats like PKCS#7,
+PKCS#12, PEM, DER, PKCS#8. All cryptographic data are stored in a byte order
+agnostic file format, portable across operating systems.
 
 
 #-------------------------------------------------------------------------------
@@ -88,11 +90,24 @@ install -d -m 755 '%{buildroot}%{_datadir}/mime/packages'
 install -p -m 644 misc/xca.xml '%{buildroot}%{_datadir}/mime/packages/'
 
 #	Validate desktop files.
-desktop-file-validate %{buildroot}%{_datadir}/applications/de.hohnstaedt.xca.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/de.hohnstaedt.xca.metainfo.xml
+desktop-file-validate							\
+	'%{buildroot}%{_datadir}/applications/de.hohnstaedt.xca.desktop'
+appstream-util validate-relax --nonet					\
+	'%{buildroot}%{_metainfodir}/de.hohnstaedt.xca.metainfo.xml'
+
+#	Template contains neither translations nor language code.
+rm -f '%{buildroot}%{_datadir}/xca/i18n/xca.qm'
 
 #	Tag translation files.
 %find_lang '%{name}' --with-qt
+
+
+#-------------------------------------------------------------------------------
+%check
+#-------------------------------------------------------------------------------
+
+#	Do not test GUI.
+%ctest -E '^testxca$' || :
 
 
 #-------------------------------------------------------------------------------
@@ -111,12 +126,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/de.hohnstaedt.
 %{_datadir}/bash-completion/
 %{_metainfodir}/de.hohnstaedt.xca.metainfo.xml
 %attr(0644, root, root) %{_mandir}/*/*
-# template, contains no translations or language code
-%exclude %{_datadir}/xca/i18n/xca.qm
 
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Wed Jul 22 2026 Patrick Monnerat <patrick@monnerat.net> 2.9.0-5
+- Patch "openssl4" for openssl version 4 compatibility.
+- Remove BR openssl-devel-engine for Fedora > 44.
+- Perform tests.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -134,8 +154,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/de.hohnstaedt.
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Fri Sep  6 2024 Patrick Monnerat <patrick@monnerat.net> 2.7.0-1
 - New upstream release.

@@ -9,7 +9,7 @@ Python 3.6.
 
 Name:           python-atpublic
 Version:        7.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Decorator for populating a Python module's __all__
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ export ATPUBLIC_BUILD_EXTENSION=1
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.0.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

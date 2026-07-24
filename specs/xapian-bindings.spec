@@ -3,7 +3,7 @@
 
 Name:          xapian-bindings
 Version:       1.4.31
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.4.31-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 03 2026 Karolina Surma <ksurma@redhat.com> - 1.4.31-3
 - Regenerate SWIG wrapper at build time with swig >= 4.4.0 (rhbz#2417021)
 

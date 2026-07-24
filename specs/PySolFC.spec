@@ -1,12 +1,13 @@
 %global cardsets_minimal_ver 3.0.0
+%global arcbase pysolfc
 
 Name:           PySolFC
-Version:        3.4.0
-Release:        9%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
-Source0:        https://downloads.sourceforge.net/pysolfc/%{name}-%{version}.tar.xz
+Source0:        https://downloads.sourceforge.net/pysolfc/%{arcbase}-%{version}.tar.xz
 Source1:        pysol-start-script
 Source2:        https://downloads.sourceforge.net/pysolfc/PySolFC-Cardsets--Minimal-%{cardsets_minimal_ver}.tar.xz
 Patch0:         PySolFC-desktop-exec.patch
@@ -15,8 +16,8 @@ BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl-interpreter
-BuildRequires:  tcl-devel < 1:9
-BuildRequires:  tk-devel < 1:9
+BuildRequires:  tcl-devel
+BuildRequires:  tk-devel
 
 %if 0%{?fedora}
 # optional but nice to have but not available in any epel branch
@@ -30,11 +31,11 @@ Requires:       tile
 # used to get sound working with PulseAudio
 Requires:       python%{python3_pkgversion}-pygame
 # really required
-# Requires:       tcl >= 9
-# Requires:       tk >= 9
-Requires:       tix
+Requires:       tcl
+Requires:       tk
+# Requires:       tix
 Requires:       python%{python3_pkgversion}-tkinter
-Requires:       python%{python3_pkgversion}-imaging-tk
+Requires:       python%{python3_pkgversion}-pillow-tk
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     PySolFC-cardsets
 Recommends:     PySolFC-music
@@ -55,7 +56,7 @@ statistics, a hint system, demo games, a solitaire wizard, support for user
 written plug-ins, an integrated HTML help browser, and lots of documentation.
 
 %prep
-%autosetup -p1 -a2
+%autosetup -p1 -a2 -n %{arcbase}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -91,6 +92,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Wed Jul 22 2026 Shlomi Fish <shlomif@cpan.org> 3.6.1-1
+- New version 3.6.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

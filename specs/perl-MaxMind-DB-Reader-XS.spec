@@ -3,7 +3,7 @@
 
 Name:           perl-MaxMind-DB-Reader-XS
 Version:        1.000009
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Fast XS implementation of MaxMind DB reader
 # Build.PL:                 Artistic-2.0
 # c/perl_math_int128.c:     LicenseRef-Fedora-Public-Domain
@@ -153,6 +153,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.000009-18
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.000009-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

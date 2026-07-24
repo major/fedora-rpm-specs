@@ -52,7 +52,7 @@ install -m0644 docs/man/pygeoif.1 %{buildroot}%{_mandir}/man1/
 
 %check
 %pyproject_check_import
-%pytest -k "not test_interiors and not test_from_wkt_epsg_4326 and not test_repr_eval and not test_convex_hull_bounds and not test_shape_2d and not test_shape_3d and not test_shape"
+%pytest -k "not test_interiors and not test_from_wkt_epsg_4326 and not test_repr_eval and not test_convex_hull_bounds and not test_shape_2d and not test_shape_3d and not test_shape and not test_bounds"
 
 %files -n python3-pygeoif -f %{pyproject_files}
 %license docs/LICENSE.GPL

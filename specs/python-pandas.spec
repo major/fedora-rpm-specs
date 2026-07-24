@@ -15,8 +15,8 @@
 %bcond_with single_tests
 
 Name:     python-pandas
-Version:  3.0.4
-Release:  1%{?dist}
+Version:  3.0.5
+Release:  0%{?dist}
 Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -693,6 +693,12 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Jul 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.5-0
+- Update to 3.0.5 (bootstrap)
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.0.4-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

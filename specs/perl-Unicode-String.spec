@@ -1,6 +1,6 @@
 Name:           perl-Unicode-String
 Version:        2.10
-Release:        34%{?dist}
+Release:        35%{?dist}
 
 Summary:        Perl modules to handle various Unicode issues
 
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.10-35
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

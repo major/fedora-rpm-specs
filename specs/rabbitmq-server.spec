@@ -23,6 +23,7 @@ Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
 Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
 Patch: rabbitmq-server-0003-force-python3.patch
 Patch: rabbitmq-server-0004-Greatly-simplified-wrapper-script-which-works-proper.patch
+Patch: rabbitmq-server-0005-rabbit_plugins-demote-duplicate-plugin-warnings-from.patch
 
 URL: https://www.rabbitmq.com/
 BuildRequires: elixir

@@ -2,7 +2,7 @@
 
 Name:           compizconfig-python
 Version:        0.8.18
-Release:        22%{?dist}
+Release:        23%{?dist}
 Epoch:          1
 Summary:        Python bindings for the Compiz Configuration System
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -53,6 +53,9 @@ find %{buildroot} -type f -name "*.a" -o -name "*.la" | xargs rm -f
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:0.8.18-23
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Taint-Runtime
 Version:        0.03
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Runtime enable taint checking
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Taint-Runtime
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Taint::Runtime.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-60
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

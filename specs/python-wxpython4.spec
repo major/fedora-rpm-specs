@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -157,6 +157,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.5-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

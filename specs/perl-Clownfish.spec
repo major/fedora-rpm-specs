@@ -1,6 +1,6 @@
 Name:           perl-Clownfish
 Version:        0.6.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apache Clownfish symbiotic object system
 # The LICENSE file declares sinces 0.5.0 that portions of the libcmark libary
 # from the CommonMark project are bundled. But I cannot find any of the code
@@ -92,6 +92,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_mandir}/man3/Clownfish::*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.6.4-3
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

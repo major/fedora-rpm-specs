@@ -3,18 +3,21 @@
 %endif
 
 Name: pdns-recursor
-Version: 5.4.3
+Version: 5.4.4
 Release: %autorelease
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPL-2.0-only
 URL: https://powerdns.com
 Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz
+Source1: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz.sig
+Source2: https://doc.powerdns.com/powerdns-keyblock.asc
 ExcludeArch: %{arm} %{ix86}
 
 Provides: powerdns-recursor = %{version}-%{release}
 BuildRequires: make
 BuildRequires: boost-devel
 BuildRequires: gcc-c++
+BuildRequires: gnupg2
 %ifarch %{ix86} x86_64 aarch64
 BuildRequires: luajit-devel
 %else
@@ -49,6 +52,7 @@ package if you need a dns cache for your network.
 
 
 %prep
+%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -n %{name}-%{version} -p1
 
 # Create a sysusers.d config file

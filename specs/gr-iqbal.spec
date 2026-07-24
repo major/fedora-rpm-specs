@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       46.%{git_suffix}%{?dist}
+Release:       47.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -85,6 +85,9 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.38.2-47.20210210gitfbee239a
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-46.20210210gitfbee239a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

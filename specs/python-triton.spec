@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -256,6 +256,9 @@ cd python
 %{python3_sitearch}/%{pypi_name}*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.7.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

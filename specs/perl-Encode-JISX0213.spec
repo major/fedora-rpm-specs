@@ -1,6 +1,6 @@
 Name:           perl-Encode-JISX0213
 Version:        0.04
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        JIS X 0213 encoding
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-38
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-Random
 Version:        0.17
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OpenSSL/LibreSSL pseudo-random number generator access
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Random
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-9
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

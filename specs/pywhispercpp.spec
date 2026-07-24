@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for whisper.cpp with a simple Pythonic API
 # Architecture-specific due to C/C++ extensions
 ExcludeArch: %{ix86}
@@ -97,6 +97,9 @@ rm -rf %{buildroot}%{python3_sitearch}/__pycache__/_version.*
 %{python3_sitearch}/libwhisper.so.1
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

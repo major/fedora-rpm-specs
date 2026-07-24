@@ -1,6 +1,6 @@
 Name:           perl-Proc-Wait3
 Version:        0.05
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Perl extension for wait3 system call
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Proc-Wait3
@@ -51,6 +51,9 @@ mv Changes~ Changes
 %{_mandir}/man3/Proc::Wait3.3pm*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-39
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

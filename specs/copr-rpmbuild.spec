@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.8
 Summary: Run COPR build tasks
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -304,6 +304,9 @@ EOF
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.8-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

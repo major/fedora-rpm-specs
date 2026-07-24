@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 
@@ -16,6 +16,10 @@ Source6: zshrc.rhs
 Source7: zshenv.rhs
 Source8: dotzshrc
 Source9: dotzprofile
+
+# https://sourceforge.net/p/zsh/code/ci/7708d466dfab8dd29f9ae5de12c74af37bf99a4d/
+# fix crash with bracketed-paste-magic and undo (rhbz#2484692)
+Patch: zsh-memcpy-sigsegv-bracketed-paste.patch
 
 BuildRequires: coreutils
 BuildRequires: gawk
@@ -46,7 +50,7 @@ mechanism, and more.
 
 %package html
 Summary: Zsh shell manual in html format
-BuildArch:	noarch
+BuildArch: noarch
 
 %description html
 The zsh shell is a command interpreter usable as an interactive login
@@ -154,6 +158,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Wed Jul 22 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.2-3
+- fix crash with bracketed-paste-magic and undo (rhbz#2484692)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

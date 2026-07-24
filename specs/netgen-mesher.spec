@@ -28,7 +28,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2606
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
 ExcludeArch:    %{ix86} aarch64
@@ -414,6 +414,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.2.2606-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2606-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -40,6 +40,7 @@ Source1:        makesrc.sh
 
 # Fix command for autoload
 Patch0:         %{name}-rpm.patch
+Patch1:         upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
@@ -55,7 +56,7 @@ BuildRequires:  (php-composer(sebastian/cli-parser) >= 5.0.0          with php-c
 BuildRequires:  (php-composer(sebastian/comparator) >= 8.3.0          with php-composer(sebastian/comparator) < 9)
 BuildRequires:  (php-composer(sebastian/diff) >= 9.0                  with php-composer(sebastian/diff) < 10)
 BuildRequires:  (php-composer(sebastian/environment) >= 9.3.2         with php-composer(sebastian/environment) < 10)
-BuildRequires:  (php-composer(sebastian/exporter) >= 8.1.0            with php-composer(sebastian/exporter) < 9)
+BuildRequires:  (php-composer(sebastian/exporter) >= 8.1.1            with php-composer(sebastian/exporter) < 9)
 BuildRequires:  (php-composer(sebastian/file-filter) >= 1.0           with php-composer(sebastian/file-filter) < 2)
 BuildRequires:  (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
 BuildRequires:  (php-composer(sebastian/global-state) >= 9.0.1        with php-composer(sebastian/global-state) < 10)
@@ -93,7 +94,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/comparator": "^8.3.0",
 #        "sebastian/diff": "^9.0",
 #        "sebastian/environment": "^9.3.2",
-#        "sebastian/exporter": "^8.1.0",
+#        "sebastian/exporter": "^8.1.1",
 #        "sebastian/file-filter": "^1.0",
 #        "sebastian/git-state": "^1.0",
 #        "sebastian/global-state": "^9.0.1",
@@ -121,7 +122,7 @@ Requires:       (php-composer(sebastian/cli-parser) >= 5.0.0          with php-c
 Requires:       (php-composer(sebastian/comparator) >= 8.3.0          with php-composer(sebastian/comparator) < 9)
 Requires:       (php-composer(sebastian/diff) >= 9.0                  with php-composer(sebastian/diff) < 10)
 Requires:       (php-composer(sebastian/environment) >= 9.3.2         with php-composer(sebastian/environment) < 10)
-Requires:       (php-composer(sebastian/exporter) >= 8.1.0            with php-composer(sebastian/exporter) < 9)
+Requires:       (php-composer(sebastian/exporter) >= 8.1.1            with php-composer(sebastian/exporter) < 9)
 Requires:       (php-composer(sebastian/file-filter) >= 1.0           with php-composer(sebastian/file-filter) < 2)
 Requires:       (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
 Requires:       (php-composer(sebastian/global-state) >= 9.0.1        with php-composer(sebastian/global-state) < 10)
@@ -160,6 +161,7 @@ Documentation: https://phpunit.de/documentation.html
 %prep
 %setup -q -n %{gh_project}-%{version}
 %patch -P0 -p0 -b .rpm
+%patch -P1 -p1 -b .upstream
 
 find . -name \*.rpm -delete -print
 
@@ -291,6 +293,10 @@ exit $ret
 
 
 %changelog
+* Wed Jul 22 2026 Remi Collet <remi@remirepo.net> - 13.2.4-2
+- add upstream patch for sebastian/exporter 8.1.1 FTBFS #2504411
+- raise dependency on sebastian/exporter 8.1.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

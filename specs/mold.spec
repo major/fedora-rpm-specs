@@ -20,6 +20,10 @@ Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
 # Fix `textrel2` test on Fedora 44 (https://github.com/rui314/mold/pull/1547)
 Patch1:         0002-Fix-textrel2-test-on-Fedora-44.patch
 
+# Fix `gdb-index-dwarf5` test on Fedora 45
+# (https://github.com/rui314/mold/pull/1586)
+Patch2:         0003-Fix-ambiguous-readelf-option-in-gdb-index-dwarf5-tes.patch
+
 BuildRequires:  blake3-devel
 BuildRequires:  cmake
 %if %{use_gcc_toolset}

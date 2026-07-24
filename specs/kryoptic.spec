@@ -37,6 +37,8 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 # * Update quick-xml dependency to 0.41:
 #   https://github.com/latchset/kryoptic/pull/475
 Patch:          kryoptic-fix-metadata.diff
+# https://github.com/latchset/kryoptic/pull/476
+Patch:          kryoptic-fix-deadlock.patch
 
 
 BuildRequires:  cargo-rpm-macros >= 26

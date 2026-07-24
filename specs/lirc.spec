@@ -9,7 +9,7 @@
 
 Name:           lirc
 Version:        0.10.2
-Release:        7%{?tag:.}%{?tag}%{?dist}
+Release:        8%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -421,6 +421,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.10.2-8
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

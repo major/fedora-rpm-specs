@@ -20,7 +20,7 @@
 
 Name: GraphicsMagick
 Version: 1.3.45
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: An ImageMagick fork, offering faster image generation and better quality
 Url: http://www.graphicsmagick.org/
 License: MIT
@@ -322,6 +322,9 @@ exit 1
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.45-9
+- Perl 5.44 rebuild
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.45-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

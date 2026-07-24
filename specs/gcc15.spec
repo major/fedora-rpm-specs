@@ -1,10 +1,10 @@
-%global DATE 20260123
-%global gitrev 226e8310eed1ce10784f98f199e1aa4b12ca86b7
-%global gcc_version 15.2.1
+%global DATE 20260722
+%global gitrev 329099441ab8919d12caf14e25d1eb6ed7c40bc8
+%global gcc_version 15.3.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 7
+%global gcc_release 1
 %global _performance_build 1
 # Hardening slows the compiler way too much.
 %undefine _hardened_build
@@ -41,7 +41,7 @@
 Summary: Various compatibility compilers (C, C++, Fortran, ...)
 Name: gcc%{gcc_major}
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.1
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -123,9 +123,6 @@ Patch8: gcc15-no-add-needed.patch
 Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch12: gcc15-pr119006.patch
-Patch13: gcc15-pr123273.patch
-Patch14: gcc15-pr123667.patch
-Patch15: gcc15-pr123737.patch
 
 %global _gnu %{nil}
 %global gcc_target_platform %{_target_platform}
@@ -919,8 +916,8 @@ rm -rf testlogs-%{_target_platform}-%{version}-%{release}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/plugin/gcc-annobin.so.0.0.0
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.2.1-7.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Wed Jul 22 2026 Jakub Jelinek <jakub@redhat.com> 15.3.1-1
+- update from 15.3.1-1
 
 * Mon Mar  2 2026 Jakub Jelinek <jakub@redhat.com> 15.2.1-7
 - initial package

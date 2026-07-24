@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.128
+Version: 150.0.7871.181
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1922,6 +1922,21 @@ fi
 %endif
 
 %changelog
+* Wed Jul 22 2026 Than Ngo <than@redhat.com> - 150.0.7871.181-1
+- Update to 150.0.7871.181
+  * CVE-2026-16413: Out of bounds write in ANGLE
+  * CVE-2026-16414: Insufficient validation of untrusted input in Chromecast
+  * CVE-2026-16415: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-16416: Integer overflow in Chromecast
+  * CVE-2026-16417: Uninitialized Use in Skia
+  * CVE-2026-16418: Stack buffer overflow in V8
+  * CVE-2026-16419: Out of bounds read and write in ANGLE
+  * CVE-2026-16420: Type Confusion in WebAudio
+  * CVE-2026-16421: Inappropriate implementation in WebAudio
+  * CVE-2026-16422: Insufficient validation of untrusted input in Certificate
+  * CVE-2026-16423: Use after free in UI
+  * CVE-2026-16424: Use after free in GPU
+
 * Mon Jul 20 2026 Than Ngo <than@redhat.com> - 150.0.7871.128-1
 - Update to 150.0.7871.128
   * CVE-2026-15899: Use after free in CameraCapture

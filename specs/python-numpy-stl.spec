@@ -39,6 +39,8 @@ Documentation for %{name}.
 %autosetup -n numpy-stl-%{version} -p1
 # Drop all coverage options from pytest invocation
 sed -i '/-cov[-=]/d' pyproject.toml
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -52,7 +54,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files stl
+%pyproject_save_files --assert-license stl
 
 %check
 %pytest -v

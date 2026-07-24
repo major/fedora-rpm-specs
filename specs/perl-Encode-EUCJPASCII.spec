@@ -1,6 +1,6 @@
 Name:           perl-Encode-EUCJPASCII
 Version:        0.03
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        EucJP-ascii - An eucJP-open mapping
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Encode-EUCJPASCII
@@ -51,6 +51,9 @@ make test
 %exclude %dir %{perl_vendorarch}/auto/
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-51
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

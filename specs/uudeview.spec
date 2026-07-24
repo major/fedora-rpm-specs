@@ -2,14 +2,14 @@
 %global snapshot 1
 %global OWNER hannob
 %global PROJECT uudeview
-%global commit 7ef9e26532b39bdcedd319c07b6b77fc70e270dd
-%global commitdate 20241111
+%global commit 7640bc56aa5016cdc9c139eb1ab3ec874e47c744
+%global commitdate 20250320
 #global gittag 0.5.20
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           uudeview
 Version:        0.5.20%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:        7%{?dist}
+Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -23,10 +23,13 @@ Source1:        xdeview.desktop
 Patch0:         uudeview-threads.patch
 URL:            http://www.fpx.de/fp/Software/UUDeview/
 Summary:        Applications for uuencoding, uudecoding, ...
+BuildRequires:  desktop-file-utils
 BuildRequires:  make
 BuildRequires:  inews
 BuildRequires:  texlive-collection-latexextra
-BuildRequires:  transfig, desktop-file-utils
+BuildRequires:  texlive-courier
+BuildRequires:  texlive-times
+BuildRequires:  transfig
 BuildRequires:  tk-devel
 BuildRequires:  gcc
 Requires:       %{_sbindir}/sendmail
@@ -82,7 +85,7 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 
 
 %files
-%doc COPYING HISTORY IAFA-PACKAGE README uudeview.lsm
+%doc COPYING HISTORY IAFA-PACKAGE README.md uudeview.lsm
 %{_mandir}/man1/*.1*
 %{_bindir}/uudeview
 %{_bindir}/uuenview
@@ -96,6 +99,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Wed Jul 22 2026 Charles R. Anderson <cra@alum.wpi.edu> - 0.5.20^20250320git7640bc5-1
+- Update to latest git snapshot
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20^20241111git7ef9e26-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

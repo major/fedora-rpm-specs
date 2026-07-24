@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -237,6 +237,7 @@ Patch:		0059-iso646.patch
 Patch:		0062-src-rgw-driver-dbstore-CMakeLists.txt.patch
 Patch:		0063-src-jaegertracing-opentelemetry-cpp-CMakeLists.txt.patch
 Patch:		0065-src-os-memstore-CMakelists.txt.patch
+Patch:		0066-src-lss-linux_syscall_support.h.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -3200,6 +3201,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2:21.1.0-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Mon Jul 20 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.0-1
 - ceph-21.1.0 RC0
 

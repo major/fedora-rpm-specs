@@ -1,6 +1,6 @@
 Name:           sigil
-Version:        2.8.0
-Release:        2%{?dist}
+Version:        2.8.1
+Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -151,6 +151,12 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 22 2026 Dan Horák <dan[at]danny.cz> - 2.8.1-1
+- New upstream release 2.8.1 (rhbz#2502084)
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.8.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

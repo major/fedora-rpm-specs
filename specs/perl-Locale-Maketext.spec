@@ -2,7 +2,7 @@
 
 Name:           perl-Locale-Maketext
 Version:        1.33
-Release:        524%{?dist}
+Release:        527%{?dist}
 Summary:        Framework for localization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Maketext
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-527
+- Increase release to favour standalone package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-524
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

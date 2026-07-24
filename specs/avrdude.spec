@@ -91,7 +91,7 @@ sed -i 's|^find_package(SWIG|\# find_package(SWIG|' CMakeLists.txt
 %build
 %cmake \
        -D CMAKE_INSTALL_SYSCONFDIR:PATH=%{_sysconfdir} \
-       -D CMAKE_BUILD_TYPE=build_type=RelWithDebInfo \
+       -D CMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 %if %{with docs}
        -D BUILD_DOC:BOOL=ON \
 %else

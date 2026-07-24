@@ -3,7 +3,7 @@
 %bcond network_tests 0
 
 Name:           pre-commit
-Version:        4.6.0
+Version:        4.6.1
 Release:        %autorelease
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 

@@ -43,6 +43,7 @@ Patch7:		mail-notification-incompatible-pointer-types.patch
 Patch8:		mail-notification-maybe-uninitialized.patch
 Patch9:		mail-notification-libxml2.patch
 Patch10:	mail-notification-gint64.patch
+Patch11:	mail-notification-openssl4.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -114,6 +115,7 @@ Evolution support for Mail Notification.
 %patch -P8 -p1 -b .maybe-uninitialized
 %patch -P9 -p1 -b .libxml2
 %patch -P10 -p0 -b .gint64
+%patch -P11 -p0 -b .openssl4
 
 # update config.{guess,sub} manually
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} jbsrc/tools/
@@ -232,8 +234,8 @@ desktop-file-install \
 
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-118.git.9ae8768
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Wed Jul 22 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 5.4-118.git.9ae8768
+- add patch for openssl4 (#2504317)
 
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4-117.git.9ae8768
 - Rebuilt for openssl 4.0

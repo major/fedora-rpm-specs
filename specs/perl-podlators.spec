@@ -1,7 +1,7 @@
 Name:           perl-podlators
 Epoch:          1
 Version:        6.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Format POD source into various output formats
 # pod/perlpodstyle.pod:     FSFAP
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -147,6 +147,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:6.1.0-2
+- Perl 5.44 rebuild
+
 * Mon Jul 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:6.1.0-1
 - 6.1.0 bump (rhbz#2502696)
 

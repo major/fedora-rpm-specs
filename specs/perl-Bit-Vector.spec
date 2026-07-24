@@ -1,6 +1,6 @@
 Name:           perl-Bit-Vector
 Version:        7.4
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Efficient bit vector, set of integers and "big int" math library
 # Outdated FSF address reported, rt#85827
 # Clarified by a private mail from the author:
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 7.4-42
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

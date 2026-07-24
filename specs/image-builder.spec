@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        75.0.0
+Version:        76.0.0
 
 %gometa
 
@@ -11,7 +11,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -22,10 +22,6 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AN
 
 URL:            %{gourl}
 Source0:        https://github.com/osbuild/image-builder/releases/download/v%{version}/image-builder-%{version}.tar.gz
-
-# Fix distro detection
-# https://github.com/osbuild/image-builder/pull/2542
-Patch:          2542.patch
 
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -244,7 +240,7 @@ Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
 %if 0%{?rhel}
 %forgeautosetup -p1
 %else
-%goprep -k -p1
+%goprep -k
 %endif
 
 %build
@@ -307,6 +303,24 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Jul 22 2026 Packit <hello@packit.dev> - 76.0.0-1
+Changes with 76.0.0
+----------------
+  - Restore anaconda-iso/iso type to bootc-image-builder (#2527)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2531)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - anaconda: enable shell shenanigans for anaconda (#2544)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - build(deps): bump actions/setup-go from 6 to 7 (#2532)
+    - Author: dependabot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - eln: set runner to eln11 (#2535)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - image-builder: distro detection for `build` and `manifest` (#2542)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Ondřej Budai
+
+— Somewhere on the Internet, 2026-07-22
+
 * Tue Jul 21 2026 Adam Williamson <awilliam@redhat.com> - 75.0.0-2
 - Backport PR #2542 to fix distro detection
 

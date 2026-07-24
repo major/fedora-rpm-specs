@@ -33,7 +33,7 @@
 
 Name:           rocm-stinkytofu
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A LLVM-inspired pass-based IR optimizer for AMD GPU assembly kernels
 License:        MIT AND BSD-3-Clause
 # https://github.com/ROCm/rocm-libraries/issues/7864
@@ -155,6 +155,9 @@ mv %{buildroot}/usr/lib/python%{python3_version}/dist-packages/stinkytofu %{buil
 %{python3_sitearch}/stinkytofu/
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.13.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

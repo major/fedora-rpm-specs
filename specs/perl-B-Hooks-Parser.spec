@@ -1,6 +1,6 @@
 Name:		perl-B-Hooks-Parser
 Version:	0.21
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Interface to perl's parser variables
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/B-Hooks-Parser
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/B::Hooks::Parser.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-27
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

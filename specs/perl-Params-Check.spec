@@ -2,7 +2,7 @@ Name:           perl-Params-Check
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        0.38
-Release:        522%{?dist}
+Release:        527%{?dist}
 Summary:        Generic input parsing/checking mechanism
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Params-Check
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.38-527
+- Increase release to favour standalone package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.38-522
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

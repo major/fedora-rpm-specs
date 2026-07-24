@@ -91,9 +91,9 @@ ExcludeArch: i686
 %ifarch x86_64
 %if %{release_build}
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
-%global build_with_pgo    0
+%global build_with_pgo    1
 %else
-%global build_with_pgo    0
+%global build_with_pgo    1
 %endif
 %endif
 %endif
@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        153.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -255,12 +255,10 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
 
-
 # PGO/LTO patches
 Patch600:        pgo.patch
 Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
-
 
 %if %{?system_nss}
 BuildRequires:  pkgconfig(nspr) >= %{nspr_version}
@@ -1201,6 +1199,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Jul 22 2026 Martin Stransky <stransky@redhat.com> - 153.0-3
+- Disabled dom.ipc.forkserver.enable due to mzbz#2056004.
+
 * Tue Jul 21 2026 Martin Stransky <stransky@redhat.com> - 153.0-2
 - Temporary disable PGO
 

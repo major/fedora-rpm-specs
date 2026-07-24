@@ -29,7 +29,7 @@
 %endif
 
 Name:           slurm
-Version:        25.11.4
+Version:        26.05.2
 Release:        %autorelease
 Summary:        Simple Linux Utility for Resource Management
 # ./src/common/log.c: BSD 2-Clause License
@@ -72,7 +72,11 @@ BuildRequires:  pkgconfig(lua)
 BuildRequires:  python3
 BuildRequires:  systemd
 
+%if 0%{?rhel}
+BuildRequires:  bash-completion
+%else
 BuildRequires:  bash-completion-devel
+%endif
 BuildRequires:  freeipmi-devel
 BuildRequires:  gtk2-devel
 BuildRequires:  hdf5-devel
@@ -104,7 +108,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  ucx-devel
 %endif
 
-BuildRequires:  http-parser-devel
+BuildRequires:  llhttp-devel
 BuildRequires:  json-c-devel
 BuildRequires:  libjwt-devel
 BuildRequires:  libyaml-devel
@@ -470,6 +474,7 @@ popd
 %{_bindir}/sshare
 %{_bindir}/sstat
 %{_bindir}/strigger
+%{_bindir}/swait
 %{_bindir}/%{name}-setuser
 %{_datadir}/bash-completion/completions/*
 %{_libdir}/%{name}/accounting_storage_*.so
@@ -483,12 +488,15 @@ popd
 %{_libdir}/%{name}/cgroup_v1.so
 %{_libdir}/%{name}/cgroup_v2.so
 %{_libdir}/%{name}/cli_filter_*.so
+%{_libdir}/%{name}/compress_lz4.so
+%{_libdir}/%{name}/compress_none.so
 %{_libdir}/%{name}/cred_*.so
 %{_libdir}/%{name}/data_parser_*.so
 %{_libdir}/%{name}/gpu_*.so
 %{_libdir}/%{name}/gres_*.so
 %{_libdir}/%{name}/hash_*.so
-%{_libdir}/%{name}/http_parser_libhttp_parser.so
+%{_libdir}/%{name}/http_auth_local.so
+%{_libdir}/%{name}/http_parser_llhttp_parser.so
 # %%{_libdir}/%%{name}/job_container_*.so
 %{_libdir}/%{name}/job_submit_*.so
 %{_libdir}/%{name}/jobacct_gather_*.so
@@ -509,6 +517,7 @@ popd
 %{_libdir}/%{name}/task_*.so
 %{_libdir}/%{name}/tls_none.so
 %{_libdir}/%{name}/topology_*.so
+%{_libdir}/%{name}/url_parser_internal.so
 %{_mandir}/man1/sacct.1*
 %{_mandir}/man1/sacctmgr.1*
 %{_mandir}/man1/salloc.1*
@@ -530,6 +539,7 @@ popd
 %{_mandir}/man1/sshare.1*
 %{_mandir}/man1/sstat.1*
 %{_mandir}/man1/strigger.1*
+%{_mandir}/man1/swait.1*
 %{_mandir}/man5/acct_gather.conf.5*
 %{_mandir}/man5/burst_buffer.conf.5*
 %{_mandir}/man5/cgroup.conf.5*

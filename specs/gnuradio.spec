@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	18%{?alphatag:.%{alphatag}}%{?dist}
+Release:	19%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -226,6 +226,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.10.12.0-19
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.12.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

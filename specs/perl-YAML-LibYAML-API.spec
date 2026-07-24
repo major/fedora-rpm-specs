@@ -1,6 +1,6 @@
 Name:           perl-YAML-LibYAML-API
 Version:        0.14.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Wrapper around the C libyaml library
 License:        MIT
 URL:            https://metacpan.org/release/YAML-LibYAML-API
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.14.0-11
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

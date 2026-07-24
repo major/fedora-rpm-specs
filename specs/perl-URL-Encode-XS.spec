@@ -1,6 +1,6 @@
 Name:           perl-URL-Encode-XS
 Version:        0.03
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        XS implementation of URL::Encode
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/URL::Encode::XS.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-39
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

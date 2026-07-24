@@ -1,6 +1,6 @@
 Name:           python-xeddsa
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
@@ -73,6 +73,9 @@ install -pDm0644 docs/texinfo/xeddsa.xml \
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.2.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -253,6 +253,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.43.17-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.43.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

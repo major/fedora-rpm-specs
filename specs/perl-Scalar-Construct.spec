@@ -1,6 +1,6 @@
 Name:           perl-Scalar-Construct
 Version:        0.000
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Build custom kinds of scalar
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.000-47
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.000-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

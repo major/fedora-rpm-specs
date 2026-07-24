@@ -1,7 +1,7 @@
 Summary: A library for password generation and password quality checking
 Name: libpwquality
 Version: 1.4.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL: https://github.com/libpwquality/libpwquality/
 Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 
@@ -108,6 +108,9 @@ mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.4.5-18
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

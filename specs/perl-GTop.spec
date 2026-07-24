@@ -1,6 +1,6 @@
 Name:           perl-GTop
 Version:        0.18
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Perl interface to libgtop
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GTop
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-50
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

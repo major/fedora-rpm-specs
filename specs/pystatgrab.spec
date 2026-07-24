@@ -2,7 +2,7 @@
 
 Name:           pystatgrab
 Version:        0.7.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python bindings for libstatgrab
 
 License:        LGPL-2.0-or-later
@@ -45,6 +45,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitearch} %{__python3} test.py
 %{python3_sitearch}/*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.3-9
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

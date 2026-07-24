@@ -3,7 +3,7 @@
 
 Name:           perl-Image-Sane
 Version:        5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Perl extension for the SANE (Scanner Access Now Easy) Project
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Sane
@@ -140,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5-28
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

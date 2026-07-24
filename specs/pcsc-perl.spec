@@ -8,7 +8,7 @@
 
 Name:           pcsc-perl
 Version:        1.4.16
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl interface to the PC/SC smart card library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ fi
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.16-10
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

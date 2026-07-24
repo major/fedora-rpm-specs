@@ -3,7 +3,7 @@
 
 Name:		%{srcname}
 Version:	0.2.13
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	MIT
 Url:		http://people.csail.mit.edu/hubert/pyaudio/
 Source0:	https://files.pythonhosted.org/packages/91/a0/f439da954d78a987298cb8d1ca1b141c53b1d1d1c7a50e17198ed061b9ac/PyAudio-0.2.13.tar.gz
@@ -49,6 +49,9 @@ sed -i 's/setuptools<=65.1.1/setuptools/' pyproject.toml
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.2.13-14
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

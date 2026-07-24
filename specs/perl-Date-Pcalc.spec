@@ -1,6 +1,6 @@
 Name: 		perl-Date-Pcalc
 Version:	6.1
-Release:	50%{?dist}
+Release:	51%{?dist}
 Summary:	Gregorian calendar date calculations
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Date-Pcalc
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 6.1-51
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fast and tasty cookies handling
 
 License:        MIT
@@ -56,6 +56,9 @@ make compile
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.3.1-12
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

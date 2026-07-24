@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cover
 Version:        1.52
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
@@ -132,6 +132,9 @@ make test
 %{_mandir}/man3/Devel::Cover*.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.52-5
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

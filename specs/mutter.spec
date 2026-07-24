@@ -30,6 +30,11 @@ Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/
 # Two separate fixes are needed
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5143
 Patch:         5143.patch
+# Fix crashes on hybrid graphics systems
+# https://bugzilla.redhat.com/show_bug.cgi?id=2498847
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/4890
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5153
+Patch:         5153.patch
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5169
 Patch:         5169.patch
 

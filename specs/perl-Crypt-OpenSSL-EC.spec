@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-EC
 Version:        1.34
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl extension for OpenSSL EC (Elliptic Curves) library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-EC
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-4
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

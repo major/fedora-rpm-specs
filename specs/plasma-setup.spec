@@ -8,7 +8,7 @@
 
 Name:           plasma-setup
 Version:        6.7.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -17,6 +17,10 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 # Backported changes
+# Improve language search
+# https://invent.kde.org/plasma/plasma-setup/-/merge_requests/109
+# https://invent.kde.org/plasma/plasma-setup/-/work_items/51
+Patch0:         0001-Improve-language-search-in-Plasma-Setup.patch
 
 # Proposed changes
 
@@ -134,6 +138,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 22 2026 Adam Williamson <awilliam@redhat.com> - 6.7.3-3
+- Backport MR #109 to fix language search
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

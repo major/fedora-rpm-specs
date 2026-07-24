@@ -23,7 +23,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -300,6 +300,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.3.1-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 # Should we run tests that require specific Python interpreter versions
 # (major.minor, not major.minor.patch)? This adds a few dozen tests, but adds
 # BuildRequires on more Python interpreters (which aren’t available in EPEL).
-%bcond other_python_versions %{undefined el10}
+%bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.11.28
+Version:        0.11.31
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -155,6 +155,9 @@ Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
+
+BuildSystem:    pyproject
+BuildOption(install): --assert-license uv
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -354,9 +357,7 @@ Requires:       uv = %{version}-%{release}
 This package provides an importable Python module for uv.
 
 
-%prep
-%autosetup -p1
-
+%prep -a
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \
     --target=LICENSE.bundled/packaging \
@@ -531,7 +532,7 @@ sed --regexp-extended --in-place \
 %cargo_prep
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 # For unclear reasons, maturin checks for all crate dependencies when it is
 # invoked as part of %%pyproject_buildrequires – including those corresponding
 # to optional features.
@@ -543,20 +544,14 @@ sed --regexp-extended --in-place \
 # Since maturin always checks for dev-dependencies, we need -t so that they are
 # generated even when the “check” bcond is disabled.
 %cargo_generate_buildrequires -a -t
-%pyproject_buildrequires
 
 
-%build
-%pyproject_wheel
-
+%build -a
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 
-%install
-%pyproject_install
-%pyproject_save_files -L uv
-
+%install -a
 if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
 then
   # Maturin is really designed to build compiled Python extensions, but (when
@@ -587,7 +582,7 @@ install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_sysconfdir}/uv' '%{SOURCE1}'
 
 
-%check
+%check -a
 %if %{with check}
 # These tests rely on debug assertions, and fail when tests are compiled in
 # release mode:
@@ -682,8 +677,6 @@ skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
 
 %cargo_test -- -- --exact ${skip-}
 %endif
-
-%pyproject_check_import
 
 
 %files

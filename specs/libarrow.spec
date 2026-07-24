@@ -34,7 +34,7 @@
 
 Name:		libarrow
 Version:	23.0.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -884,6 +884,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 23.0.1-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Mon Jul 20 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.1-9
 - rebuild with liborc-2.3.1, (side tag f45-build-side-144275)
 

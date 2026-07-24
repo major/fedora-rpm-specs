@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        17.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -59,6 +59,9 @@ is data from Unicode 13.0.0.
 %doc README.md
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 17.0.1-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

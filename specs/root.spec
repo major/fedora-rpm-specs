@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.40.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3542,6 +3542,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.40.02-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.40.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

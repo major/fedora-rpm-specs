@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc4.34
+%define pkgrelease 0.rc4.260722g248951ddc14d.37
 %define kversion 7
-%define tarfile_release 7.2-rc4
+%define tarfile_release 7.2-rc4-61-g248951ddc14d
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.34%{?buildid}%{?dist}
+%define specrelease 0.rc4.260722g248951ddc14d.37%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -459,6 +459,7 @@ Summary: The Linux kernel
 %define with_debug 0
 %ifarch s390x ppc64le riscv64
 %define with_debuginfo 0
+%define with_base 0
 %endif
 %define with_vdso_install 0
 %define with_perf 0
@@ -4962,8 +4963,33 @@ fi\
 #
 #
 %changelog
-* Mon Jul 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.34]
+* Wed Jul 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.248951ddc14d.37]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Wed Jul 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.248951ddc14d.36]
+- redhat/configs: Enable deadline and stall monitors (Gabriele Monaco)
+- Linux v7.2.0-0.rc4.248951ddc14d
+
+* Tue Jul 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.b95f03f04d47.35]
+- redhat/kernel.spec: fix build for rtonly (Jan Stancek)
+
+* Tue Jul 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.b95f03f04d47.34]
+- redhat: filtermods.py: document exact_pkg and ignore_deps rule attributes (Jan Stancek)
+- redhat: filtermods.py: make pick_best() deterministic on tied packages (Jan Stancek)
+- redhat: filtermods.py: add ignore_deps rule option (Jan Stancek)
+- redhat: filtermods.py: don't create logfile automatically (Jan Stancek)
+- redhat: filtermods.py: clean up logging imports (Jan Stancek)
+- redhat: filtermods.py: strip lines when parsing depmod file (Jan Stancek)
+- redhat: filtermods.py: fix typo in _check_preffered_pkg (Jan Stancek)
+- redhat: filtermods.py: error on unknown package dependency (Jan Stancek)
+- redhat: filtermods.py: avoid mutable default arguments (Jan Stancek)
+- redhat: filtermods.py: handle .zst and .gz compressed modules (Jan Stancek)
+- redhat: filtermods.py: fix Exception string formatting (Jan Stancek)
+- redhat: filtermods.py: detect dependency cycles in get_topo_order() (Jan Stancek)
+- redhat: filtermods.py: fix do_rpm_mapping_test() (Jan Stancek)
+- redhat: filtermods.py: simplify algorithm (Jan Stancek)
+- redhat: filtermods.py: add new tests (Jan Stancek)
+- Linux v7.2.0-0.rc4.b95f03f04d47
 
 * Mon Jul 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.33]
 - Linux v7.2.0-0.rc4

@@ -31,7 +31,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.63.0
-Release:        6%{?dist}
+Release:        9%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -205,6 +205,15 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.63.0-9
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.63.0-8
+- Bootstrap for Python 3.15.0b4 ABI change
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.63.0-7
+- Bootstrap for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.63.0-6
 - Avoid removed `glob.glob1` API; fixes RHBZ#2488354
 

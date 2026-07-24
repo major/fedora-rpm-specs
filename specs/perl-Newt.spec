@@ -1,7 +1,7 @@
 Summary: Perl bindings for the Newt library
 Name: perl-Newt
 Version: 1.08
-Release: 77%{?dist}
+Release: 78%{?dist}
 URL: https://metacpan.org/release/Newt-1.08
 Source: https://cpan.metacpan.org/authors/id/A/AM/AMEDINA/Newt-1.08.tar.gz
 Patch0: newt-perl-1.08-debian.patch
@@ -62,6 +62,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/Newt*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-78
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-77
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

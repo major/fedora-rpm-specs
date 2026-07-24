@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -421,6 +421,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.8.1-18
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

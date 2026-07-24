@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
@@ -118,6 +118,9 @@ mv redhat-linux-build-python redhat-linux-build
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2:5.1.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        2.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 # main project is MIT
 # basemap-data* is LGPL-3.0-or-later AND MIT AND (MIT AND LicenseRef-Fedora-Public-Domain)
@@ -86,6 +86,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.0.0-12
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

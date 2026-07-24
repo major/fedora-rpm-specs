@@ -4,7 +4,7 @@
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.78
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later OR MPL-1.1
 URL: http://zziplib.sourceforge.net/
 Source: https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
@@ -64,20 +64,18 @@ zziplib library.
 %build
 # TODO: Please submit an issue to upstream (rhbz#2381654)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake -B "%{_vpath_builddir}"
+%cmake
 
-%make_build -C "%{_vpath_builddir}"
+%cmake_build
 
 %install
-%make_install -C "%{_vpath_builddir}"
+%cmake_install
 
 %ldconfig_scriptlets
 
 %files
 %doc docs/COPYING* ChangeLog README TODO
 %{_libdir}/*.so.*
-%exclude %{_datadir}/zziplib/*.cmake
-%exclude %{_libdir}/cmake/zziplib/*.cmake
 
 %files utils
 %{_bindir}/*
@@ -85,13 +83,18 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %files devel
 %doc docs/README.SDL docs/*.htm
 %{_includedir}/*
-%exclude %{_libdir}/*.la
+%{_libdir}/cmake/zziplib/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 22 2026 Jakub Sencak <jsencak@redhat.com> - 0.13.78-6
+- Replaced make macros with cmake macros; the cmake macro defaults to ninja generator instead of make
+- Removed obsolete files
+- Ship CMake config files in -devel package
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.78-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

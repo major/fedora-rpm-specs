@@ -4,7 +4,7 @@ a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
@@ -98,6 +98,9 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.3.13-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PyWavelets, wavelet transform module
 License:        MIT
 URL:            https://pywavelets.readthedocs.io/en/latest
@@ -93,6 +93,9 @@ popd
 %doc README.rst
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.8.0-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

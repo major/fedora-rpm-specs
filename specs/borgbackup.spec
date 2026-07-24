@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -139,6 +139,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.4.4-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

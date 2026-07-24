@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -402,6 +402,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 32.1.1-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 32.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

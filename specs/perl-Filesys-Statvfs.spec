@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Statvfs
 Version:        0.82
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl extension for statvfs() and fstatvfs()
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filesys-Statvfs
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.82-35
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Compress-LZF
 Version:        3.8
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Extremely light-weight Lempel-Ziv-Free compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in the binary packages
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Compress::LZF.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.8-38
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -55,6 +55,8 @@ sed -i 's/lapack;blas/flexiblas;flexiblas/g' CMakeLists.txt
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380698)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DLINSOLVERS_RETAIN_MEMORY:BOOL=OFF -DNEED_F2C:BOOL=OFF
 %cmake_build
 

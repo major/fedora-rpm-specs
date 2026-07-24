@@ -1,15 +1,13 @@
 %bcond_without tests
 
 Name:           jimtcl
-Version:        0.83
+Version:        0.84
 Release:        %autorelease
 Summary:        A small embeddable Tcl interpreter
 
 License:        BSD-2-Clause-Views
 URL:            http://jim.tcl.tk
 Source:         https://github.com/msteveb/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# readline expects applications to include stdio.h, jimtcl was not
-Patch:          https://github.com/msteveb/jimtcl/commit/35e0e1f9b1f018666e5170a35366c5fc3b97309c.patch#/jimtcl-stdio-for-readline.diff
 
 BuildRequires:  gcc-c++
 BuildRequires:  asciidoc
@@ -86,7 +84,7 @@ make test
 %files
 %license LICENSE
 %doc AUTHORS README README.*
-%doc EastAsianWidth.txt
+%doc jim_tcl.txt
 %doc %{_datadir}/doc/%{name}/Tcl.html
 %{_bindir}/jimdb
 %{_bindir}/jimsh

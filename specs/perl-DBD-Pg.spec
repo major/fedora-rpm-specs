@@ -4,7 +4,7 @@
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
 Version:        3.20.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -155,6 +155,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.20.2-3
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

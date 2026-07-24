@@ -2,7 +2,7 @@
 
 Name:           xapps
 Version:        3.3.3^unstable
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -122,6 +122,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.3.3^unstable-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3^unstable-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

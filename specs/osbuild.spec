@@ -11,7 +11,7 @@ Version:        187
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -488,6 +488,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 187-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 187-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

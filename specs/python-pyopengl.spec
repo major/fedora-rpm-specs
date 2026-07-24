@@ -2,7 +2,7 @@
 
 Name:           python-pyopengl
 Version:        3.1.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
@@ -131,6 +131,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.1.10-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

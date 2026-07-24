@@ -3,7 +3,7 @@
 
 # https://github.com/go-acme/lego
 %global goipath         github.com/go-acme/lego/v5
-Version:                5.2.2
+Version:                5.3.1
 
 %gometa -L -f
 

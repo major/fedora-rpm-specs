@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.2.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -280,6 +280,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.2.3-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

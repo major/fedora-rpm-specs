@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.127
-Release:	2%{?dist}
+Version:	3.3.128
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -31,6 +31,8 @@ BuildRequires:	zlib-devel
 Recommends:	gedit
 Requires:	hicolor-icon-theme
 Requires:	shared-mime-info
+# Bundled lz4
+Provides:	bundled(lz4) = 1.10.0
 
 # Judy-devel missing on EL-8 s390x
 # https://lists.fedoraproject.org/archives/list/epel-devel@lists.fedoraproject.org/thread/O4JISZYIVXXPIB6OZIE2TNKR2EIQZWBL/
@@ -190,6 +192,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Wed Jul 22 2026 Paul Howarth <paul@city-fan.org> - 3.3.128-1
+- Update to 3.3.128
+  - Hurd compile fix
+  - Update lz4 to 1.10.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.127-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

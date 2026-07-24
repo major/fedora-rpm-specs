@@ -1,6 +1,6 @@
 Name:           createrepo-agent
 Version:        0.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Rapidly and repeatedly generate RPM repository metadata
 
 License:        Apache-2.0
@@ -69,6 +69,9 @@ gives createrepo-agent its name.
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.5.1-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

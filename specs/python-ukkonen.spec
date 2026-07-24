@@ -1,6 +1,6 @@
 Name:           python-ukkonen
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of bounded Levenshtein distance (Ukkonen)
 
 License:        MIT
@@ -46,6 +46,9 @@ cp -p licenses/LICENSE LICENSE-upstream
 %{python3_sitearch}/_ukkonen.abi3.so
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.1.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

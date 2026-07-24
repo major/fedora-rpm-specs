@@ -1,6 +1,6 @@
 Name:           perl-Crypt-RC4-XS
 Version:        0.02
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Perl implementation of the RC4 encryption algorithm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/Crypt::RC4::XS.3pm.gz
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.02-50
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

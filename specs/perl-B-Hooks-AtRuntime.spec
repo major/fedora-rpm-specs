@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-AtRuntime
 Version:        8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Lower blocks from compile time to runtime
 # 2-clause BSD licence
 # cf. lib/B/Hooks/AtRuntime.pm
@@ -73,6 +73,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/B::Hooks::AtRuntime.3pm*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8-16
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

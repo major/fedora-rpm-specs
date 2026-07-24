@@ -7,7 +7,7 @@
 
 Name:           perl-Glib
 Version:        1.3294
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl interface to GLib
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib
@@ -121,6 +121,9 @@ make test
 %{_mandir}/man3/Glib::xsapi.3pm.gz
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.3294-11
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3294-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

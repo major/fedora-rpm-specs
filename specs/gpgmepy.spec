@@ -1,7 +1,7 @@
 Name:           gpgmepy
 Version:        2.0.0
 Epoch:          1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for GPGME
 
 # library LGPL-2.1-or-later, tests and examples use GPL-2.0-or-later
@@ -62,6 +62,9 @@ make check
 %license COPYING*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:2.0.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

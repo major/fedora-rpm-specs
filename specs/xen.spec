@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -882,6 +882,9 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.21.1-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

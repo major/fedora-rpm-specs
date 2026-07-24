@@ -1,6 +1,6 @@
 Name:           perl-Net-LibIDN2
 Version:        1.02
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl binding for GNU Libidn2
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-LibIDN2
@@ -86,6 +86,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-14
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

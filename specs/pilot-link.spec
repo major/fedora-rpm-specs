@@ -4,7 +4,7 @@
 Summary: File transfer utilities between Linux and PalmPilots
 Name: pilot-link
 Version: 0.12.5
-Release: 68%{?dist}
+Release: 69%{?dist}
 Epoch: 2
 # libpisock/md5.c       Public Domain
 # libpisock/blob.c      LGPLv2+
@@ -206,6 +206,9 @@ install -p -m644 %{SOURCE4} %{buildroot}/lib/udev/rules.d/
 /lib/udev/rules.d/69-pilot-link.rules
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:0.12.5-69
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.12.5-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

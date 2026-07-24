@@ -2,7 +2,7 @@ Name:           Silo
 Version:        4.12.1~pre2
 %global         uversion 4.12.1-pre2
 %global sover   412
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mesh and Field I/O Library and Scientific Database
 
 License:        BSD-3-Clause 
@@ -114,6 +114,9 @@ This package contains the python module of the %{name} package.
 %{python3_sitelib}/Silo.so
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.12.1~pre2-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1~pre2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

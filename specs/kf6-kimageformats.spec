@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version:        6.28.0
-Release:        2%{?dist}
+Version:        6.28.1
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -14,7 +14,7 @@ Source1: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{fr
 
 # upstream patches
 
-BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  extra-cmake-modules >= %{majmin_ver_kf6}.0
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  kf6-rpm-macros
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6ImageFormats/
 
 %changelog
+* Wed Jul 22 2026 Steve Cossette <farchord@gmail.com> - 6.28.1-1
+- 6.28.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

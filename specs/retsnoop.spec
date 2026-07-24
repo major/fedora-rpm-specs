@@ -47,15 +47,15 @@ Source3:        README.Fedora
 # (Without changes to Cargo.lock)
 Patch:          retsnoop-0.11-gimli-0.32-etc.patch
 
+# needs to be applied after we unpack libbpf
+Source4:        https://github.com/libbpf/libbpf/commit/99bf90957ae767842646effa29da8c9a9ecdb696.diff#/libbpf-fix-ppc-stack-reg-definition.diff
+
 # has a Rust component
 ExclusiveArch:  %{rust_arches}
 # bpftool not compiling on ix86
 # we don't ship 32-bit binaries anyway, but it'd be good to test compilation
 # once this is fixed https://github.com/libbpf/bpftool/issues/158
 ExcludeArch:    %{ix86}
-# retsnoop 0.11 FTBFS on ppc64le
-# rhbz#2402550
-ExcludeArch:    ppc64le
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang
@@ -90,6 +90,7 @@ mv libbpf-%{libbpf_commit} libbpf
 mv libbpf/LICENSE libbpf-LICENSE
 mv libbpf/LICENSE.BSD-2-Clause  libbpf-LICENSE.BSD-2-Clause
 mv libbpf/LICENSE.LGPL-2.1 libbpf-LICENSE.LGPL-2.1
+(cd libbpf && cat %{SOURCE4} | patch -p1)
 
 # README.Fedora
 cp -p %{SOURCE3} .

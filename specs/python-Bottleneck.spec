@@ -4,7 +4,7 @@
 
 Name:		python-Bottleneck
 Version:	1.6.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD-2-Clause
@@ -87,6 +87,9 @@ cd -
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.6.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

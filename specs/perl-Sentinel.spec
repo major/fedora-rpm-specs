@@ -1,6 +1,6 @@
 Name:           perl-Sentinel
 Version:        0.07
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Create lightweight SCALARs with get/set callbacks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -59,6 +59,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/Sentinel*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-11
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

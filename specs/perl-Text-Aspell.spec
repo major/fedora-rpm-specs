@@ -2,7 +2,7 @@
 
 Name:		perl-%{base}
 Version:	0.09
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	Perl interface to the GNU Aspell library
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ make test TEST_POD=t
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-59
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

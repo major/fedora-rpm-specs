@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
 Version:        0.26
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.26-4
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

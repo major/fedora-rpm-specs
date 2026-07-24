@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 45.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -523,6 +523,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 45.13-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Tue Jul 21 2026 Packit <hello@packit.dev> - 45.13-1
 - Allow reboot from the live OS installation (k.koukiou)
   Resolves: rhbz#2326672

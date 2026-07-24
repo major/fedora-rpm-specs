@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-Sexy
 Version:        0.05
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Perl interface to the sexy widget collection 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -79,6 +79,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-60
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

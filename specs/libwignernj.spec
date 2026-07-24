@@ -6,7 +6,7 @@
 
 Name:           libwignernj
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Exact Wignernj 3j/6j/9j symbols and related coefficients via prime factorization
 License:        BSD-3-Clause
 URL:            https://github.com/susilehtola/libwignernj
@@ -159,6 +159,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc docs/optimization_notes.md
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

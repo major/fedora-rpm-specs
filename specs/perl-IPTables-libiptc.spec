@@ -1,6 +1,6 @@
 Name:           perl-IPTables-libiptc
 Version:        0.52
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        Perl extension for iptables libiptc
 # iptables/iptables.c*:             GPL-2.0-or-later
 # iptables/iptables-blocking.c:     GPL-2.0-or-later
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.52-56
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

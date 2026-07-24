@@ -15,7 +15,7 @@ Name:           gpsd-epel
 Name:           gpsd
 %endif
 Version:        3.27.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -385,6 +385,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:3.27.5-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.27.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

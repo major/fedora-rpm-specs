@@ -1,7 +1,7 @@
 Summary:        Python bindings for wc(s)width
 Name:           python-cwcwidth
 Version:        0.1.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        MIT
 URL:            https://github.com/sebastinas/cwcwidth
 Source0:        %{pypi_source cwcwidth}
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.1.12-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

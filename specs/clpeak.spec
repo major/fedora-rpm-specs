@@ -5,6 +5,7 @@ Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
 URL:        https://github.com/krrishnarraj/%{name}
 Source:     %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:      clpeak-fix-amx-tf32.patch
 
 
 BuildRequires: cmake
@@ -12,10 +13,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: glslc
 BuildRequires: opencl-headers
-BuildRequires: vulkan-headers
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(OpenCL)
 BuildRequires: pkgconfig(vulkan)
+BuildRequires: vulkan-headers
 
 
 %description
@@ -32,7 +33,7 @@ scheduling, extension exposure) become visible alongside the raw peak
 numbers.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build

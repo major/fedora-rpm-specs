@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -322,6 +322,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:1.4.4-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

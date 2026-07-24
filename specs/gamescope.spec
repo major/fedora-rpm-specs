@@ -5,7 +5,7 @@
 %global vkroots_shortcommit %(c=%{vkroots_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.16.23
+Version:        3.16.25
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -39,6 +39,7 @@ BuildRequires:  libXcursor-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
+BuildRequires:  pkgconfig(catch2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(libavif)
 BuildRequires:  pkgconfig(libcap)
@@ -56,7 +57,7 @@ BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wlroots-0.18)
+BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -129,7 +130,7 @@ export PKG_CONFIG_PATH=pkgconfig
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/gamescope
+%caps(CAP_SYS_NICE=pe) %{_bindir}/gamescope
 %{_bindir}/gamescopectl
 %{_bindir}/gamescopereaper
 %{_bindir}/gamescopestream

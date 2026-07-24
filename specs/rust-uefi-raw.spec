@@ -8,7 +8,7 @@
 %global unsupported_arches ppc64le s390x
 
 Name:           rust-uefi-raw
-Version:        0.14.0
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Raw UEFI types and bindings for protocols, boot, and runtime services
 

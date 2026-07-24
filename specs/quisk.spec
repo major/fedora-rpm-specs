@@ -1,6 +1,6 @@
 Name:           quisk
 Version:        4.2.53
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
@@ -91,6 +91,9 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.53-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.53-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

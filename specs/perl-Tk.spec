@@ -6,7 +6,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -276,6 +276,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-26
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 804.036-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

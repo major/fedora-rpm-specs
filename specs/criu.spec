@@ -13,7 +13,7 @@
 
 Name: criu
 Version: 4.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -202,6 +202,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.1-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Tue Jul 21 2026 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 4.2.1-1
 - Update to 4.2.1
 - Drop patches merged upstream

@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -337,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 8.6.5-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Sandro Mani <manisandro@gmail.com> - 8.6.5-1
 - Update to 8.6.5
 

@@ -5,7 +5,7 @@
 %global crate astral-version-ranges
 
 Name:           rust-astral-version-ranges
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Performance-optimized type for generic version ranges and operations on them
 

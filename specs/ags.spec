@@ -145,7 +145,6 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/crm2ash
 %{_bindir}/crmpak
 %{_bindir}/trac
-%{_bindir}/ags
 
 %changelog
 * Sat Jul 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.20-1

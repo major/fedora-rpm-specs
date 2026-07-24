@@ -3,7 +3,7 @@
 
 Name:           perl-Sereal-Decoder
 Version:        5.009
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -117,6 +117,9 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.009-2
+- Perl 5.44 rebuild
+
 * Fri Jul 17 2026 Paul Howarth <paul@city-fan.org> - 5.009-1
 - Update to 5.009 (rhbz#2501693)
   - Only use Perl's $Config{ccflags} when building bundled zstd on AIX/IBM

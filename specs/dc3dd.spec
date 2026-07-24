@@ -19,16 +19,18 @@ Patch2:         dc3dd-configure-c99.patch
 # Patch2:         dc3dd-02_fix-FTBFS-with-glibc-2.28.patch
 
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  git
 BuildRequires:  gettext
 BuildRequires:  gettext-devel
-BuildRequires:  gnulib-devel
-BuildRequires:  perl(Locale::gettext)
-BuildRequires:  perl(I18N::Langinfo)
-BuildRequires:  p7zip
-BuildRequires:  m4, readline-devel, autoconf, automake
+BuildRequires:  git
+BuildRequires:  m4
 BuildRequires:  make
+BuildRequires:  p7zip
+BuildRequires:  perl(I18N::Langinfo)
+BuildRequires:  perl(Locale::gettext)
+BuildRequires:  readline-devel
 
 %description
 dc3dd is a patched version of GNU dd to include a number of features useful
@@ -51,7 +53,7 @@ were rewritten for dc3dd.
 
 
 %prep
-%autosetup -S git
+%autosetup -p1
 
 #Missing x flag in version 7.2.646 makes the build fail
 chmod +x build-aux/git-version-gen configure
@@ -65,11 +67,13 @@ export CFLAGS="${CFLAGS} -std=gnu99"
 autoreconf -vif #BZ925238 - support aarch64
 # TODO check the --enable-hdparm option
 %configure 
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
+
+%check
+%make_build check
 
 %find_lang %{name}
 

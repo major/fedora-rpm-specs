@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -209,6 +209,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.2.4-13
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

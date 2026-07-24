@@ -1,6 +1,6 @@
 Name:		python-isal
 Version:	1.8.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Faster zlib and gzip compatible (de)compression using the ISA-L library
 #		src/isal/crc32_combine.h is Zlib
 License:	PSF-2.0 AND Zlib
@@ -75,6 +75,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ISAL=%{version}
 %license LICENSE
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.8.0-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

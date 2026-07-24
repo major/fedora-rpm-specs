@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump probe dependency to 0.5
 # * bump num_enum dependency to 0.7
+# * bump serial_test dev-dependency from 0.5 to 3
 Patch:          libbpf-rs-fix-metadata.diff
 # * Remove unneeded IntoError trait methods
 # * https://github.com/libbpf/libbpf-rs/commit/2c3dae6e77726122ee2bbba8340beae74b823287

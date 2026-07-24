@@ -1,6 +1,6 @@
 Name:           perl-Devel-Callsite
 Version:        1.0.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Get caller return OP address and Perl interpreter context
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release//Devel-Callsite
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.1-26
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

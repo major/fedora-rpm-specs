@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        45.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -187,6 +187,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 45.2-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 45.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

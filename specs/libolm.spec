@@ -2,7 +2,7 @@
 
 Name: libolm
 Version: 3.2.16
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -82,6 +82,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.2.16-14
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

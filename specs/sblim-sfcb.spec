@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -46,6 +46,18 @@ Patch10: sblim-sfcb-1.4.9-docdir-license.patch
 # Patch11: adds configuration options to specify fallback SSL cert/key pair
 #   and disables default ECDH ephemeral key generation
 Patch11: sblim-sfcb-1.4.9-post-quantum.patch
+# Patch12: fix stack buffer overflows in query operation toString functions
+Patch12: sblim-sfcb-1.4.9-fix-query-buffer-overflow.patch
+# Patch13: fix stack buffer overflow in MOF preprocessor include handling
+Patch13: sblim-sfcb-1.4.9-fix-mof-buffer-overflow.patch
+# Patch14: fix heap overflow from tainted size in class repository loading
+Patch14: sblim-sfcb-1.4.9-fix-tainted-size-allocation.patch
+# Patch15: fix integer overflow from unchecked ftell return value
+Patch15: sblim-sfcb-1.4.9-fix-ftell-overflow.patch
+# Patch16: fix double-free in property qualifier iteration
+Patch16: sblim-sfcb-1.4.9-fix-double-free.patch
+# Patch17: fix incorrect free of non-allocated pointer
+Patch17: sblim-sfcb-1.4.9-fix-incorrect-free.patch
 Provides: cim-server = 0
 Requires: cim-schema
 Requires: sblim-sfcCommon
@@ -87,6 +99,12 @@ Programming Interface (CMPI).
 %patch -P9 -p1 -b .fix-ppc-optimization-level
 %patch -P10 -p1 -b .docdir-license
 %patch -P11 -p1 -b .post-quantum
+%patch -P12 -p1 -b .fix-query-buffer-overflow
+%patch -P13 -p1 -b .fix-mof-buffer-overflow
+%patch -P14 -p1 -b .fix-tainted-size-allocation
+%patch -P15 -p1 -b .fix-ftell-overflow
+%patch -P16 -p1 -b .fix-double-free
+%patch -P17 -p1 -b .fix-incorrect-free
 
 # Create a sysusers.d config file
 cat >sblim-sfcb.sysusers.conf <<EOF
@@ -155,6 +173,9 @@ fi
 %{_tmpfilesdir}/sblim-sfcb.conf
 
 %changelog
+* Wed Jul 22 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-43
+- Fix multiple issues discovered by static analysis
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

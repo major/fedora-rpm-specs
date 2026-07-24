@@ -7,7 +7,7 @@
 
 Name:		perl-List-MoreUtils-XS
 Version:	0.430
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Provide compiled List::MoreUtils functions
 # Code from List-MoreUtils < 0.417 is GPL-1.0-or-later OR Artistic-1.0-Perl
 # Anything after that is Apache-2.0
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/List::MoreUtils::XS.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.430-21
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-OP-Check-EntersubForCV
 Version:        0.10
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Invoke callbacks on construction of entersub OPs for certain CVs
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -76,6 +76,9 @@ make test
 %{perl_vendorarch}/B/Hooks/OP/Check/EntersubForCV/Install
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.10-30
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -21,8 +21,6 @@ BuildRequires: systemd-rpm-macros
 %endif
 BuildRequires: perl-generators
 BuildRequires: rubygem-asciidoctor
-BuildRequires: asciidoc
-BuildRequires: xmlto
 BuildRequires: make
 Requires: btrfs-progs >= 4.12
 %if 0%{?rhel} && 0%{?rhel} <= 7

@@ -1,7 +1,7 @@
 Name:           perl-Net-IDN-Encode
 Summary:        Internationalizing Domain Names in Applications (IDNA)
 Version:        2.500
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Encode
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Net-IDN-Encode-%{version}.tar.gz
@@ -90,6 +90,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.500-29
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.500-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

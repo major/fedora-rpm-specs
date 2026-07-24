@@ -1,6 +1,6 @@
 Name:              dropbear
-Version:           2026.92
-Release:           2%{?dist}
+Version:           2026.93
+Release:           1%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -82,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Jul 22 2026 Federico Pellegrin <fede@evolware.org> - 2026.93-1
+- Update to 2026.93 (rhbz#2503720)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.92-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

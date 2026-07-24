@@ -1,8 +1,12 @@
 %global appdefaultsdir /usr/share/X11/app-defaults
 
+# Required packages to build the program are no longer available on
+# 32-bit x86
+ExcludeArch: %{ix86}
+
 Name:               x11-ssh-askpass
 Version:            1.2.4.1
-Release:            45%{?dist}
+Release:            46%{?dist}
 Summary:            A passphrase dialog for X and not only for OpenSSH
 License:            LicenseRef-Fedora-Public-Domain
 
@@ -76,6 +80,9 @@ rm -f %{buildroot}%{_mandir}/man1/ssh-askpass.1x*
 %{_mandir}/man1/x11-ssh-askpass.1x.gz
 
 %changelog
+* Wed Jul 22 2026 Dave Cantrell <dcantrell@redhat.com> - 1.2.4.1-46
+- ExcludeArch: %%{ix86}
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -544,6 +544,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha2-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Sun Jul 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-4
 - Fix typo in ibus-compose
 - Merge ibus-2444009-wayland-xkb-lv-tilde.patch

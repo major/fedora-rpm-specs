@@ -16,13 +16,14 @@ Patch:          0002-update-to-zig-0.15.2.patch
 # Updates to 0.16.0
 # https://github.com/nolanderc/glsl_analyzer/pull/94
 Patch:          0003-update-to-zig-0.16.0.patch
+# compatibility with pytest 9
+Patch:          https://github.com/nolanderc/glsl_analyzer/pull/93.patch
 
 BuildRequires:  (zig >= 0.16 with zig < 0.17)
 BuildRequires:  zig-rpm-macros
 # testing
 BuildRequires:  pytest
 BuildRequires:  python3-lsprotocol
-BuildRequires:  python3-pytest-subtests
 BuildRequires:  python3-pytest-lsp
 BuildRequires:  python3-typeguard
 

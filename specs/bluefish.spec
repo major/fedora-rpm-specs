@@ -1,6 +1,6 @@
 %global pkgver 2.4.2
 #global prerel rc1
-%global baserelease 1
+%global baserelease 2
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.4.2-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Sat Jul 18 2026 Paul Howarth <paul@city-fan.org> - 2.4.2-1
 - Update to 2.4.2 (rhbz#2501999)
   - Bluefish 2.4.2 has a few new features and a few fixes

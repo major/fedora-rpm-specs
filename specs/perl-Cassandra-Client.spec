@@ -3,7 +3,7 @@
 
 Name:           perl-Cassandra-Client
 Version:        0.21
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl library for accessing Cassandra using its binary network protocol
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Cassandra-Client
@@ -118,6 +118,9 @@ make test
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-6
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

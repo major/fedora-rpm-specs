@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.64
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -131,6 +131,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.64-21
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

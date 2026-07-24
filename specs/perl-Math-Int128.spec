@@ -1,6 +1,6 @@
 Name:           perl-Math-Int128
 Version:        0.22
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Manipulate 128-bit integers in Perl
 # lib/Math/Int128.pm:                   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Math/Int128/die_on_overflow.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-22
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

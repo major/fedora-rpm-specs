@@ -1,4 +1,4 @@
-%global perl_version    5.42.2
+%global perl_version    5.44.0
 %global perl_epoch      4
 %global perl_arch_stem -thread-multi
 %global perl_archname %{_arch}-%{_os}%{perl_arch_stem}
@@ -121,7 +121,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        525%{?dist}
+Release:        526%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -250,7 +250,7 @@ BuildRequires:  rsyslog
 
 
 # compat macro needed for rebuild
-%global perl_compat perl(:MODULE_COMPAT_5.42.2)
+%global perl_compat perl(:MODULE_COMPAT_5.44.0)
 
 Requires:       %perl_compat
 Requires:       perl-interpreter%{?_isa} = %{perl_epoch}:%{perl_version}-%{release}
@@ -433,8 +433,7 @@ Summary:        The libraries for the perl run-time
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier AND Spencer-86 AND MIT AND Unicode-3.0 AND LicenseRef-Fedora-Public-Domain
 # Compat provides
 Provides:       %perl_compat
-Provides:       perl(:MODULE_COMPAT_5.42.1)
-Provides:       perl(:MODULE_COMPAT_5.42.0)
+#Provides:       perl(:MODULE_COMPAT_5.44.0)
 # Interpreter version to fulfil required genersted from "require 5.006;"
 Provides:       perl(:VERSION) = %{perl_version}
 # Integeres are 64-bit on all platforms
@@ -572,7 +571,7 @@ packages like perldoc by perl-Pod-Perldoc and splain by perl-diagnostics.
 Summary:        A module for Perl manipulation of .tar files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        3.04
+Version:        3.12
 BuildArch:      noarch
 Requires:       perl(IO::Zlib) >= 1.01
 # Optional run-time:
@@ -702,7 +701,7 @@ and substitute themselves with the correct definitions.
 Summary:        Perl compiler backend
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.89
+Version:        1.92
 Requires:       perl(Data::Dumper)
 Requires:       perl(overloading)
 Requires:       perl(XSLoader)
@@ -840,7 +839,7 @@ Perl 5 class that implements a struct-like data structure.
 Summary:        Low-Level Interface to bzip2 compression library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.213
+Version:        2.218
 Requires:       perl(Exporter), perl(File::Temp)
 %if %{defined perl_bootstrap}
 %gendep_perl_Compress_Raw_Bzip2
@@ -886,7 +885,7 @@ core extensions that were enabled for this perl.
 Summary:        Structured data retrieval of perl -V output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.38
+Version:        0.39
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Config_Perl_V
@@ -1009,7 +1008,7 @@ external download clients to fetch distributions from the net.
 %package CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
 Epoch:          0
-Version:        2.150010
+Version:        2.150013
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       perl(CPAN::Meta::YAML) >= 0.011
 Requires:       perl(Encode)
@@ -1098,7 +1097,7 @@ structures correctly.
 Summary:        Perl5 access to Berkeley DB version 1.x
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.859
+Version:        1.860
 Requires:       perl(Fcntl)
 Requires:       perl(XSLoader)
 %if %{defined perl_bootstrap}
@@ -1423,7 +1422,7 @@ see XSLoader module.
 Summary:        Character encodings in Perl
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
 Epoch:          4
-Version:        3.21
+Version:        3.24
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Encode
@@ -1507,7 +1506,7 @@ supported; and the module will do nothing thereafter.
 Summary:        Nice English or awk names for ugly punctuation variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.11
+Version:        1.12
 Requires:       perl(Carp)
 Requires:       perl(warnings)
 %if %{defined perl_bootstrap}
@@ -1544,7 +1543,7 @@ variables to be treated as scalar or array variables.
 Summary:        System errno constants
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.38
+Version:        1.39
 # Errno.pm bakes in kernel version at build time and compares it against
 # $Config{osvers} at run time. Match exact interpreter build. Bug #1393421.
 Requires:       perl-libs%{?_isa} = %{perl_epoch}:%{perl_version}-%{release}
@@ -1565,7 +1564,7 @@ which will export all POSIX defined error numbers.
 Summary:        Experimental features made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.035
+Version:        0.036
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_experimental
@@ -1606,7 +1605,7 @@ Summary:        Compile and link C code for Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
-Version:        0.280242
+Version:        0.280243
 BuildArch:      noarch
 # C and C++ compilers are highly recommended because compiling code is the
 # purpose of ExtUtils::CBuilder, bug #1547165
@@ -1653,7 +1652,7 @@ Perl modules to AUTOLOAD constants defined in C library header files.
 Summary:        Perl routines to replace common UNIX commands in Makefiles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
-Version:        7.76
+Version:        7.78
 BuildArch:      noarch
 Conflicts:      perl < 4:5.20.1-312
 Requires:       perl(File::Find)
@@ -1710,7 +1709,7 @@ pages, etc.
 Summary:        Create a module Makefile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
-Version:        7.76
+Version:        7.78
 # These dependencies are weak in order to relieve building noarch
 # packages from perl-devel and gcc. See bug #1547165.
 # If an XS module is built, the generated Makefile executes gcc.
@@ -1768,7 +1767,7 @@ BuildArch:      noarch
 Summary:        Write the C code for perlmain.c
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.14
+Version:        1.15
 Requires:       perl-devel
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
@@ -1812,7 +1811,7 @@ Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
-Version:        3.57
+Version:        3.63
 Requires:       perl(fields)
 Requires:       perl(Hash::Util)
 %if %{defined perl_bootstrap}
@@ -1901,7 +1900,7 @@ files specified by a file name or a file handle.
 Summary:        Copy files or file handles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.41
+Version:        2.43
 BuildArch:      noarch
 Requires:       perl(Carp)
 Requires:       perl(File::Basename)
@@ -1937,7 +1936,7 @@ wild cards in directory components.
 Summary:        Generic file fetching mechanism
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.04
+Version:        1.08
 Requires:       perl(IPC::Cmd) >= 0.36
 Requires:       perl(Module::Load::Conditional) >= 0.04
 Requires:       perl(Params::Check) >= 0.07
@@ -1991,7 +1990,7 @@ depth and to delete an entire directory subtree from the file system.
 Summary:        By-name interface to Perl built-in stat functions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.14
+Version:        1.15
 BuildArch:      noarch
 Requires:       perl(Symbol)
 %if %{defined perl_bootstrap}
@@ -2011,7 +2010,7 @@ Summary:        Return name and handle of a temporary file safely
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 # Normalized version
-Version:        0.231.100
+Version:        0.231.200
 BuildArch:      noarch
 Requires:       perl(File::Path) >= 2.06
 Requires:       perl(POSIX)
@@ -2091,7 +2090,7 @@ with other tools.
 Summary:        Perl source filters
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
-Version:        1.64
+Version:        1.65
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Filter
@@ -2108,7 +2107,7 @@ sees it.
 Summary:        Simplified Perl source filtering
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.96
+Version:        0.97
 BuildArch:      noarch
 Conflicts:      perl < 4:5.20.1-312
 Requires:       perl(Text::Balanced) >= 1.97
@@ -2188,7 +2187,7 @@ enabled by default.
 Summary:        Process single-character switches with switch clustering
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.14
+Version:        1.15
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Getopt_Std
@@ -2254,7 +2253,7 @@ The "if" module is used to conditionally load another module.
 Summary:        Perl input/output modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.55
+Version:        1.56
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_IO
@@ -2269,7 +2268,7 @@ This is a collection of Perl input/output modules.
 Summary:        IO::Compress wrapper for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.213
+Version:        2.223
 Obsoletes:      perl-Compress-Zlib <= 2.020
 Provides:       perl(IO::Uncompress::Bunzip2)
 %if %{defined perl_bootstrap}
@@ -2289,7 +2288,7 @@ purpose is to to be sub-classed by IO::Compress modules.
 Summary:        Drop-in replacement for IO::Socket::INET supporting both IPv4 and IPv6
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.43
+Version:        0.44
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_IO_Socket_IP
@@ -2447,7 +2446,7 @@ as they are needed in a variety of protocols and applications.
 Summary:        A small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.090
+Version:        0.096
 Requires:       perl(bytes)
 Requires:       perl(Carp)
 Requires:       perl(IO::Socket)
@@ -2629,9 +2628,10 @@ to alleviate the need of creating Language Classes for module authors.
 Summary:        Arbitrary-size integer and float mathematics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-# Real version 2.005002
-Version:        2.0050.02
+# Real version 2.005003
+Version:        2.0050.03
 Requires:       perl(Carp)
+Requires:       perl(Math::Complex)
 # File::Spec not used on recent perl
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
@@ -2744,7 +2744,7 @@ encoder/decoder. These encoding methods are specified in RFC 2045 - MIME
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        5.20260329
+Version:        5.20260708
 Requires:       perl(List::Util)
 Requires:       perl(version) >= 0.88
 %if %{defined perl_bootstrap}
@@ -2761,7 +2761,7 @@ are shipped with each version of perl.
 Summary:        Tool for listing modules shipped with perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        5.20260329
+Version:        5.20260708
 Requires:       perl(feature)
 Requires:       perl(version) >= 0.88
 Requires:       perl-Module-CoreList = %{epoch}:%{version}-%{release}
@@ -2840,7 +2840,7 @@ offers you a very simple way to mark modules as loaded and/or unloaded.
 %package Module-Metadata
 Summary:        Gather package and POD information from perl module files
 Epoch:          0
-Version:        1.000038
+Version:        1.000039
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 %if %{defined perl_bootstrap}
@@ -2856,7 +2856,7 @@ Gather package and POD information from perl module files
 Summary:        Method resolution order
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.29
+Version:        1.30
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_mro
@@ -2908,7 +2908,7 @@ getnet*(), getproto*(), and getserv*() functions.
 Summary:        Check a remote host for reachability
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.76
+Version:        2.77
 Requires:       perl(IO::Socket::INET)
 # Keep Net::Ping::External optional
 Suggests:       perl(Net::Ping::External)
@@ -2964,7 +2964,7 @@ be used the next time your program runs.
 Summary:        Disable named opcodes when compiling a perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.69
+Version:        1.71
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Opcode
@@ -3020,7 +3020,7 @@ POD instead.
 Summary:        Perl pragma to lexically control overloading
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.02
+Version:        0.03
 BuildArch:      noarch
 Requires:       perl(Carp)
 %if %{defined perl_bootstrap}
@@ -3081,7 +3081,7 @@ Params::Check is a generic input parsing/checking mechanism.
 Summary:        PathTools Perl module (Cwd, File::Spec)
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 Epoch:          0
-Version:        3.94
+Version:        3.95
 Requires:       perl(Carp)
 Requires:       perl(Errno)
 Requires:       perl(Scalar::Util)
@@ -3238,7 +3238,7 @@ This module enumerates the Perl functions that are documented in perlfunc POD.
 Summary:        Convert POD files to HTML
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.35
+Version:        1.36
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Pod_Html
@@ -3293,7 +3293,7 @@ Summary:        Framework for parsing POD documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
-Version:        3.45
+Version:        3.48
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Pod_Simple
@@ -3357,7 +3357,7 @@ with various capabilities.
 Summary:        Perl interface to IEEE Std 1003.1
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.23
+Version:        2.26
 Requires:       perl(Carp)
 Requires:       perl(locale)
 %if %{defined perl_bootstrap}
@@ -3392,7 +3392,7 @@ security purposes.
 Summary:        A selection of general-utility scalar and list subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          5
-Version:        1.69
+Version:        1.70
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Scalar_List_Utils
@@ -3426,7 +3426,7 @@ or equal (string-wise) to a key.
 Summary:        Save and restore selected file handle
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.02
+Version:        1.03
 BuildArch:      noarch
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
@@ -3443,7 +3443,7 @@ file handle that was selected when it was created.
 Summary:        Load functions only on demand
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.28
+Version:        1.29
 BuildArch:      noarch
 Requires:       perl(Carp)
 %if %{defined perl_bootstrap}
@@ -3479,7 +3479,7 @@ The sigtrap pragma is a simple interface for installing signal handlers.
 Summary:        C socket.h defines and structure manipulators
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
-Version:        2.038
+Version:        2.041
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Socket
@@ -3516,7 +3516,7 @@ function.
 Summary:        Persistence for Perl data structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        3.37
+Version:        3.41
 # Carp substitutes missing Log::Agent
 Requires:       perl(Carp)
 Requires:       perl(Config)
@@ -3682,7 +3682,7 @@ on CPAN (under the "Term::ReadLine::*" name space).
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.024
+Version:        0.028
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Term_Table
@@ -3717,7 +3717,7 @@ such that their output is in the format that Test::Harness expects to see.
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        3.50
+Version:        3.52
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Test_Harness
@@ -3734,7 +3734,7 @@ Use TAP::Parser, Test::Harness package was whole rewritten.
 Summary:        Basic utilities for writing tests
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
 Epoch:          3
-Version:        1.302210
+Version:        1.302219
 Requires:       perl(Data::Dumper)
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
@@ -3767,7 +3767,7 @@ an associative array. The values are the original list elements.
 Summary:        Extract delimited text sequences from strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        2.06
+Version:        2.07
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Text_Balanced
@@ -3963,7 +3963,7 @@ and localtime () functions.
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
-Version:        1.9778
+Version:        1.9780
 Requires:       perl(Carp)
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
@@ -4004,8 +4004,8 @@ so dates before the system's epoch may not work on all operating systems.
 Summary:        Time objects from localtime and gmtime
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause-Views
 Epoch:          0
-# Real version 1.36
-Version:        1.3600
+# Real version 1.41
+Version:        1.4100
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_Time_Piece
@@ -4044,7 +4044,7 @@ multiple resources at once.
 Summary:        Perl interpreter-based threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        2.43
+Version:        2.45
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_threads
@@ -4068,7 +4068,7 @@ variables, you need to also load threads::shared.
 Summary:        Perl extension for sharing data structures between threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        1.70
+Version:        1.73
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_threads_shared
@@ -4124,7 +4124,7 @@ Unicode normalization forms as defined in Unicode Standard Annex #15.
 Summary:        Unicode character database
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
-Version:        0.81
+Version:        0.83
 BuildArch:      noarch
 Requires:       perl(Storable)
 %if %{defined perl_bootstrap}
@@ -4183,8 +4183,8 @@ Summary:        Perl extension for Version Objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          9
-# real version 0.9933
-Version:        0.99.33
+# real version 0.9934
+Version:        0.99.34
 %if %{defined perl_bootstrap}
 Requires:       %perl_compat
 %gendep_perl_version
@@ -5175,6 +5175,7 @@ rm %{buildroot}%{_mandir}/man3/Test2::Event.*
 rm %{buildroot}%{_mandir}/man3/Test2::Event::*
 rm %{buildroot}%{_mandir}/man3/Test2::EventFacet*
 rm %{buildroot}%{_mandir}/man3/Test2::Formatter*
+rm %{buildroot}%{_mandir}/man3/Test2::Handle*
 rm %{buildroot}%{_mandir}/man3/Test2::Hub*
 rm %{buildroot}%{_mandir}/man3/Test2::IPC*
 rm %{buildroot}%{_mandir}/man3/Test2::Tools::Tiny*
@@ -5209,7 +5210,10 @@ rm %{buildroot}%{privlib}/Test2/Util/Table.pm
 rm %{buildroot}%{privlib}/Test2/Util/Term.pm
 rm %{buildroot}%{privlib}/Test2/Util/Times.pm
 rm -rf %{buildroot}%{privlib}/Test2/Util
+rm %{buildroot}%{privlib}/Test2/Handle.pm
 rm %{buildroot}%{privlib}/Test2/V0.pm
+rm %{buildroot}%{privlib}/Test2/V1.pm
+rm -rf %{buildroot}%{privlib}/Test2/V1
 rm -rf %{buildroot}%{privlib}/Test2/Workflow*
 rm %{buildroot}%{_mandir}/man3/Test2::AsyncSubtest*
 rm %{buildroot}%{_mandir}/man3/Test2::Bundle*
@@ -5231,6 +5235,7 @@ rm %{buildroot}%{_mandir}/man3/Test2::Util::Sub.*
 rm %{buildroot}%{_mandir}/man3/Test2::Util::Table*
 rm %{buildroot}%{_mandir}/man3/Test2::Util::Times.*
 rm %{buildroot}%{_mandir}/man3/Test2::V0.*
+rm %{buildroot}%{_mandir}/man3/Test2::V1*
 rm %{buildroot}%{_mandir}/man3/Test2::Workflow*
 
 # Text-Balanced
@@ -6991,6 +6996,7 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 %{privlib}/Test2/Event/*
 %{privlib}/Test2/EventFacet*
 %{privlib}/Test2/Formatter*
+%{privlib}/Test2/Handle.pm
 %{privlib}/Test2/Hub*
 %{privlib}/Test2/IPC*
 %dir %{privlib}/Test2/Tools
@@ -7016,6 +7022,7 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 %{_mandir}/man3/Test2::Event::*
 %{_mandir}/man3/Test2::EventFacet*
 %{_mandir}/man3/Test2::Formatter*
+%{_mandir}/man3/Test2::Handle*
 %{_mandir}/man3/Test2::Hub*
 %{_mandir}/man3/Test2::IPC*
 %{_mandir}/man3/Test2::Tools::Tiny*
@@ -7070,6 +7077,8 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 %{privlib}/Test2/Util/Term.pm
 %{privlib}/Test2/Util/Times.pm
 %{privlib}/Test2/V0.pm
+%{privlib}/Test2/V1.pm
+%{privlib}/Test2/V1/*
 %{privlib}/Test2/Workflow*
 %{_mandir}/man3/Test2::AsyncSubtest*
 %{_mandir}/man3/Test2::Bundle*
@@ -7110,6 +7119,7 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 %{_mandir}/man3/Test2::Util::Table*
 %{_mandir}/man3/Test2::Util::Times.*
 %{_mandir}/man3/Test2::V0.*
+%{_mandir}/man3/Test2::V1*
 %{_mandir}/man3/Test2::Workflow*
 %endif
 
@@ -7288,6 +7298,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Tue Jul 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.44.0-526
+- 5.44.0 bump (see <https://metacpan.org/release/LEONT/perl-5.44.0/view/pod/perldelta.pod>)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.42.2-525
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.127.%{git_suffix}%{?dist}
+Release:          0.128.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 BuildRequires:    cmake
@@ -91,6 +91,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0-0.128.20200807git9e2515a5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.127.20200807git9e2515a5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

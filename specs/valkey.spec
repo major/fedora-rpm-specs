@@ -5,16 +5,16 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.0.2
+%global doc_version 9.1.1
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
-%global upstream_version 9.1.0
+%global upstream_version 9.1.1
 #%%global upstream_prever
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           5%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -36,8 +36,6 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 Patch0:            %{name}-conf.patch
 # Workaround to https://github.com/valkey-io/valkey/issues/2678
 Patch1:            %{name}-loadmod.patch
-# Fix OpenSSL 4.0 compatibility
-Patch2:            %{name}-openssl4.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -189,10 +187,9 @@ Provides:          redis-doc = %{version}-%{release}
 
 %prep
 # no autosetup due to no support for multiple source extraction
-%setup -n %{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}} -a50
+%setup -q -n %{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}} -a50
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
-%patch -P2 -p1 -b .openssl4
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -402,6 +399,7 @@ fi
 %license COPYING-hdrhistogram
 %license LICENSE-fpconv
 %license COPYING-libvalkey
+%dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0750, valkey, root) %dir %{_sysconfdir}/%{name}
 %attr(0750, valkey, root) %dir %{valkey_modules_cfg}
@@ -452,6 +450,14 @@ fi
 
 
 %changelog
+* Wed Jul 22 2026 Remi Collet <remi@remirepo.net> - 9.1.1-1
+- Valkey 9.1.1 - Released Tue 21 July 2026
+- Upgrade urgency SECURITY: This release includes security fixes
+  CVE-2026-56684 CVE-2026-63639
+- own /etc/logrotate.d as its owner is an optional dependency
+- refresh the documentation
+- drop OpenSSL 4 patch merged upstream
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

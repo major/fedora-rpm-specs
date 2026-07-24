@@ -1,5 +1,5 @@
 %bcond_without openmpi
-%bcond mpich %[!(0%{?rhel} >= 10)]
+%bcond_without mpich
 
 Summary: Intel MPI benchmarks
 Name:    intel-mpi-benchmarks

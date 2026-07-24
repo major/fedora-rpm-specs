@@ -1,6 +1,6 @@
 Name:           perl-String-Similarity
 Version:        1.04
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Calculate the similarity of two strings
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/String-Similarity
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.04-51
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

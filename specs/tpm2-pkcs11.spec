@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.10.0
-Release:	4%{?candidate:.%{candidate}}%{?dist}
+Release:	5%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -114,6 +114,9 @@ make check
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.10.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

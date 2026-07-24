@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -87,6 +87,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.5.16-17
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.16-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

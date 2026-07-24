@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %if 0%{?rhel}
 %global mysql_default 0
 %else
-%{!?mysql_default:%global mysql_default 0}
+%{!?mysql_default:%global mysql_default 1}
 %endif
 
 # Regression tests may take a long time (many cores recommended), skip them by
@@ -100,7 +100,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          100%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1115,6 +1115,10 @@ popd
 %endif
 
 %changelog
+* Wed Jul 22 2026 Michal Schorm <mschorm@redhat.com> - 9.7.1-100
+- Disable the 'distribution default' in MySQL 8.4 (package 'mysql8.4')
+- Enable the 'distribution default' in MySQL 9.7 in this package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

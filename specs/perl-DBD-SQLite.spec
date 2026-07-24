@@ -3,7 +3,7 @@
 
 Name:           perl-DBD-SQLite
 Version:        1.78
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SQLite DBI Driver
 # lib/DBD/SQLite.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.78-4
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

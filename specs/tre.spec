@@ -5,7 +5,7 @@
 
 Name: tre
 Version: 0.9.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD-2-Clause
 %if 0%{?git}
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
@@ -123,6 +123,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.9.0-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

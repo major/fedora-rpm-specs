@@ -6,7 +6,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2023.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
@@ -150,6 +150,9 @@ ctest --output-on-failure --force-new-ctest-process
 %doc python/README.md
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2023.0.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

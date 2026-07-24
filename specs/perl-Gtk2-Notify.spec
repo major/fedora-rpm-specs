@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-Notify
 Version:        0.05
-Release:        60%{?dist}
+Release:        61%{?dist}
 Summary:        Perl interface to libnotify
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-61
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

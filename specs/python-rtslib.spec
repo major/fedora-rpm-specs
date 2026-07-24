@@ -1,82 +1,51 @@
 %global pypi_name rtslib_fb
 %global upstream_name rtslib-fb
 
-# epydoc is gone, so disable for now
-%bcond_with apidocs
+Name:           python-rtslib
+Version:        2.2.4
+Release:        %autorelease
+Summary:        API for Linux kernel LIO SCSI target
+License:        Apache-2.0
+URL:            https://github.com/open-iscsi/%{upstream_name}
+# TODO, use pypi_source once upstream gitignore fix is resolved
+Source:         %{url}/archive/v%{version}/%{upstream_name}-%{version}.tar.gz
+Patch0:         0001-disable-xen_pvscsi.patch
 
-Name:             python-rtslib
-License:          Apache-2.0
-Summary:          API for Linux kernel LIO SCSI target
-Version:          2.2.3
-Release:          %autorelease
-URL:              https://github.com/open-iscsi/%{upstream_name}
-Source:           %{pypi_source %{pypi_name}}
-Patch0:           0001-disable-xen_pvscsi.patch
-BuildArch:        noarch
-%if %{with apidocs}
-BuildRequires:    epydoc
-%endif
-BuildRequires:    systemd
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  systemd-rpm-macros
 
-
-%global _description\
-API for generic Linux SCSI kernel target. Includes the 'target'\
-service and targetctl tool for restoring configuration.
+%global _description %{expand:
+API for generic Linux SCSI kernel target. Includes the 'target'
+service and targetctl tool for restoring configuration.}
 
 %description %_description
 
-
-%if %{with apidocs}
-%package doc
-Summary:        Documentation for python-rtslib
-Requires:       python3-rtslib = %{version}-%{release}
-
-%description doc
-API documentation for rtslib, to configure the generic Linux SCSI
-multiprotocol kernel target.
-%endif
-
 %package -n python3-rtslib
-Summary:        API for Linux kernel LIO SCSI target
-
-BuildRequires:  python3-devel
-# Optional dependency, not declared in pyproject.toml
-BuildRequires:  python3-kmod
-
+Summary:        %{summary}
 Requires:       python3-kmod
-%if ! %{with apidocs}
-Obsoletes:      %{name}-doc < %{version}-%{release}
-%endif
 
-%description -n python3-rtslib
-API for generic Linux SCSI kernel target.
-
+%description -n python3-rtslib %_description
 
 %package -n target-restore
 Summary:          Systemd service for targetcli/rtslib
 Requires:         python3-rtslib = %{version}-%{release}
-Requires(post):   systemd
-Requires(preun):  systemd
-Requires(postun): systemd
+Requires:         systemd
 
 %description -n target-restore
 Systemd service to restore the LIO kernel target settings
 on system restart.
 
-
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{upstream_name}-%{version}
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-
-%if %{with apidocs}
-mkdir -p doc/html
-epydoc --no-sourcecode --html -n rtslib -o doc/html rtslib/*.py
-%endif
 
 %install
 %pyproject_install
@@ -118,11 +87,6 @@ install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 %dir %{_localstatedir}/target/alua
 %{_mandir}/man8/targetctl.8*
 %{_mandir}/man5/saveconfig.json.5*
-
-%if %{with apidocs}
-%files doc
-%doc doc/html
-%endif
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.28.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtCore
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND MPL-1.1 AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -116,6 +116,9 @@ cat *.lang > all.lang
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.28.0-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

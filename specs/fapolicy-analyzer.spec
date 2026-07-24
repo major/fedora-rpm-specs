@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -212,6 +212,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.1-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-5
 - Update PyO3 to 0.29: fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195
 

@@ -5,7 +5,7 @@
 %global crate astral-pubgrub
 
 Name:           rust-astral-pubgrub
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        PubGrub version solving algorithm
 

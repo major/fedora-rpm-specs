@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -195,6 +195,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.15.1-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

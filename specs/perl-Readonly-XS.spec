@@ -3,7 +3,7 @@
 
 Name:		perl-Readonly-XS
 Version:	1.05
-Release:	57%{?dist}
+Release:	58%{?dist}
 Summary:	Companion module for Readonly
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Readonly-XS
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Readonly::XS.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-58
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

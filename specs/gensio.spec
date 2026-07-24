@@ -1,4 +1,4 @@
-Version:        3.0.2
+Version:        3.0.3
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -25,6 +25,7 @@ BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(libsctp)
 BuildRequires:  python3-devel
+BuildRequires:  SoapySDR-devel
 BuildRequires:  swig
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
@@ -89,6 +90,14 @@ The %{name}-mdns package contains additional libraries for Avahi (mDNS)
 support in %{name}.
 
 
+%package     -n libgensio-soapy
+Summary:        SoapySDR support for %{name}
+
+%description -n libgensio-soapy
+The %{name}-soapy package contains additional libraries for SoapySDR
+support in %{name}.
+
+
 %package     -n libgensio-sound
 Summary:        ALSA support for %{name}
 
@@ -132,7 +141,6 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %install
 %make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-sed -i 's|/usr/local/sbin|%{sbindir}|g' tools/gtlsshd.service
 install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 
 
@@ -183,16 +191,19 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_libdir}/lib%{name}oshcpp.so.*
 %dir %{_libexecdir}/%{name}
 %dir %{_libexecdir}/%{name}/%{version}
-%{_libexecdir}/%{name}/%{version}/lib%{name}_afskmdm.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_ax25.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_axfec.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_certauth.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_chardelay.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_cm108gpio.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_conacc.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_convcode.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_dgram.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_dummy.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_echo.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_file.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_fsk.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_hdlc.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_keepopen.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_kiss.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_msgdelim.so
@@ -236,6 +247,11 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_libdir}/lib%{name}mdns.so.*
 %{_libdir}/lib%{name}mdnscpp.so.*
 %{_libexecdir}/%{name}/%{version}/lib%{name}_mdns.so
+
+
+%files -n libgensio-soapy
+%license COPYING COPYING.LIB
+%{_libexecdir}/%{name}/%{version}/lib%{name}_soapy.so
 
 
 %files -n libgensio-sound

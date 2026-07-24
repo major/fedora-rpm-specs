@@ -2,7 +2,7 @@
 
 Name:           perl-OpenGL
 Version:        %{cpanversion}00
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl OpenGL bindings
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -92,6 +92,9 @@ make test
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.7000-35
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7000-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

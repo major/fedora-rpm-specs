@@ -1,6 +1,6 @@
 Name:           perl-PDF-API2-XS
 Version:        1.002
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Optional PDF::API2 add-on using XS to speed up expensive operations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PDF-API2-XS
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.002-20
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

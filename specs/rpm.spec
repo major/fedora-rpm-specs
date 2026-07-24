@@ -28,7 +28,7 @@
 
 %global rpmver 6.0.92
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -638,6 +638,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.0.92-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Mon Jul 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.0.92-1
 - Rebase to 6.1 rc2 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
 

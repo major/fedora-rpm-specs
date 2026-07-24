@@ -1,7 +1,7 @@
 %global libname Perlbal-XS-HTTPHeaders
 Name:           perl-%{libname}
 Version:        0.20
-Release:        56%{?dist}
+Release:        57%{?dist}
 Summary:        Perlbal extension for processing HTTP headers
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Perlbal::XS::HTTPHeaders.*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.20-57
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

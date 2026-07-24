@@ -1,6 +1,6 @@
 Name:           perl-Digest-Nilsimsa
 Version:        0.06
-Release:        65%{?dist}
+Release:        66%{?dist}
 Summary:        Perl interface to the Nilsima Algorithm
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Digest-Nilsimsa
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Digest*.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-66
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-65
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

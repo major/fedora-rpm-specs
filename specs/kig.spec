@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 Name:    kig
 Summary: Interactive Geometry 
 Version: 26.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/education/%{name}
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 26.04.3-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

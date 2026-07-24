@@ -1,6 +1,6 @@
 Name:		perl-Data-UUID
 Version:	1.227
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Globally/Universally Unique Identifiers (GUIDs/UUIDs)
 # Makefile.PL says BSD but LICENSE file is HP-1989
 # LICENSE: HP-1989
@@ -93,6 +93,9 @@ perl smp-test/collision.t
 %{_mandir}/man3/Data::UUID.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.227-9
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.227-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

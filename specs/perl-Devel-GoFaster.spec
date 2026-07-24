@@ -1,6 +1,6 @@
 Name:           perl-Devel-GoFaster
 Version:        0.001
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Optimise executable Perl ops
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-GoFaster
@@ -55,6 +55,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.001-32
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

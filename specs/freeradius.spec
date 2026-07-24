@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -933,6 +933,9 @@ fi
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.2.8-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

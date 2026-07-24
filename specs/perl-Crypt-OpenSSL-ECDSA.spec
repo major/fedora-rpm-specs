@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-ECDSA
 Version:        0.10
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl extension for OpenSSL ECDSA (Elliptic Curve Digital Signature Algorithm)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-ECDSA
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.10-23
+- Perl 5.44 rebuild
+
 * Tue Jul 21 2026 Petr Pisar <ppisar@redhat.com> - 0.10-22
 - Modernize a spec file
 - Fix a spurious test failure (bug #2503155)

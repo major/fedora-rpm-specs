@@ -9,7 +9,7 @@
 %global unsupported_arches ppc64le s390x
 
 Name:           rust-uefi
-Version:        0.37.0
+Version:        0.39.0
 Release:        %autorelease
 Summary:        Safe, convenient, and performant abstractions for UEFI
 
@@ -80,6 +80,18 @@ use the "global_allocator" feature of the "%{crate}" crate.
 %files       -n %{name}+global_allocator-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+jiff02-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff02-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff02" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff02-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+log-debugcon-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -114,6 +126,18 @@ This package contains library source intended for building other packages which
 use the "panic_handler" feature of the "%{crate}" crate.
 
 %files       -n %{name}+panic_handler-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+time03-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+time03-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "time03" feature of the "%{crate}" crate.
+
+%files       -n %{name}+time03-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unstable-devel

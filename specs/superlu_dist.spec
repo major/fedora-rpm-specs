@@ -65,7 +65,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 9.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD-3-Clause
@@ -517,6 +517,9 @@ popd
 
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:9.2.1-6
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

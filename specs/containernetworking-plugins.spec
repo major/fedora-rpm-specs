@@ -27,7 +27,6 @@ BuildRequires:  go-vendor-tools
 BuildRequires:  golang >= 1.23
 BuildRequires:  systemd-devel
 BuildRequires:  go-rpm-macros
-BuildRequires:  go-md2man
 
 Requires:       systemd
 

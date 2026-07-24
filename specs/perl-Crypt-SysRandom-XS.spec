@@ -1,6 +1,6 @@
 Name:           perl-Crypt-SysRandom-XS
 Version:        0.011
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl interface to system randomness, XS version
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Crypt-SysRandom-XS
@@ -79,6 +79,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.011-3
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

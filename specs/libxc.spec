@@ -16,7 +16,7 @@
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
 Version:        7.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 URL:            http://www.tddft.org/programs/octopus/wiki/index.php/Libxc
@@ -134,6 +134,9 @@ sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.1.2-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Mon Jul 20 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 7.1.2-1
 - Update to 7.1.2.
 

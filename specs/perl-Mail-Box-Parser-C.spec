@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-Parser-C
 Version:        4.01
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parsing folders for MailBox with C routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-Parser-C
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Mail::Box::Parser::C*.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-3
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

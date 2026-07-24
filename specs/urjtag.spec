@@ -6,7 +6,7 @@
 
 Name:           urjtag
 Version:        2021.03
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A tool for communicating over JTAG with flash chips and CPUs
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -104,6 +104,9 @@ pushd bindings/python/
 %doc bindings/python/t_srst.py
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2021.03-23
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2021.03-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

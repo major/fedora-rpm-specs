@@ -1,6 +1,6 @@
 Name:           mrchem
 Version:        1.1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPL-3.0-or-later
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -132,6 +132,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.1.4-12
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

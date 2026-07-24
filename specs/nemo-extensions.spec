@@ -7,7 +7,7 @@
 
 Name:           nemo-extensions
 Version:        6.7.0^unstable
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -339,6 +339,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.7.0^unstable-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.0^unstable-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

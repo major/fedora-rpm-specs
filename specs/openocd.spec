@@ -4,7 +4,7 @@
 
 Name:       openocd
 Version:    0.12.0
-Release:    4%{?rcVer:.rc%{rcVer}}%{?snapshot:.git%{snapshot}}%{?dist}.1
+Release:    4%{?rcVer:.rc%{rcVer}}%{?snapshot:.git%{snapshot}}%{?dist}.2
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPL-2.0-or-later
@@ -111,6 +111,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 22 2026 Michel Lind <salimma@fedoraproject.org> - 0.12.0-4.gitcb52502.2
+- Rebuild for jimtcl 0.84
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4.gitcb52502.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

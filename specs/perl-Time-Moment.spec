@@ -2,7 +2,7 @@
 
 Name:           perl-Time-Moment
 Version:        0.46
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Represents a date and time of day with an offset from UTC
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-BSD
 URL:            https://metacpan.org/release/Time-Moment
@@ -95,6 +95,9 @@ make test
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.46-3
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

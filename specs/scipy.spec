@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.16.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -69,6 +69,10 @@ Release:    6%{?dist}
 License:    BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0 AND Boehm-GC AND Qhull AND LicenseRef-Fedora-Public-Domain
 Url:        https://scipy.org/
 Source0:    https://github.com/scipy/scipy/releases/download/v%{version}/scipy-%{version}.tar.gz
+
+# Fix NumPy 2.5 deprecation of setting .shape on arrays
+Patch:      https://github.com/scipy/scipy/commit/4bdac888ec.patch
+Patch:      https://github.com/scipy/scipy/commit/e90159476a.patch
 
 BuildRequires: %{blaslib}-devel
 BuildRequires: gcc-gfortran, gcc-c++
@@ -299,6 +303,9 @@ popd
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.16.2-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-perlfaq
 Version:        5.20250619
-Release:        522%{?dist}
+Release:        527%{?dist}
 Summary:        Frequently asked questions about Perl
 # Code examples are Public Domain
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250619-527
+- Increase release to favour standalone package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.20250619-522
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

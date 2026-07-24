@@ -32,7 +32,7 @@ URL:            http://github.com/EttusResearch/uhd
 Version:        4.10.0.0
 #%%global images_ver %%{version}
 %global images_ver 4.10.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -278,6 +278,9 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.10.0.0-4
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

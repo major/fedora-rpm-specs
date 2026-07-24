@@ -84,9 +84,9 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    0%{?dist}
+Release:    1%{?dist}
 %else
-Release:    7%{?dist}
+Release:    8%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -383,6 +383,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.2.1-8
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

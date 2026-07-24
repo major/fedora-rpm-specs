@@ -10,7 +10,7 @@
 
 Name:           mod_wsgi
 Version:        5.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
@@ -153,6 +153,9 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.0.2-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

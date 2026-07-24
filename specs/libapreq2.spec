@@ -6,7 +6,7 @@
 
 Name:           libapreq2
 Version:        2.17
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Apache HTTP request library
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -173,6 +173,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.17-16
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

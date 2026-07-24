@@ -2,7 +2,7 @@
 
 Name:           kdevelop-python
 Version:        26.04.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDevelop Python language support
 
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 %{_kf6_datadir}/qlogging-categories6/kdevpythonsupport.categories
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 26.04.3-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

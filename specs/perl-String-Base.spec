@@ -1,6 +1,6 @@
 Name:           perl-String-Base
 Version:        0.003
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        String index offsetting
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.003-30
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -9,7 +9,6 @@ URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	10_%{name}-cinnamon.gschema.override.in
 Source2:	%{name}.conf
-Patch0:     0001-Fix-all-the-vala-deprecated-and-meson-warnings.patch
 
 ExcludeArch:    %{ix86}
 

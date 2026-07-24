@@ -1,6 +1,6 @@
 Name:		perl-B-COW
 Version:	0.007
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Additional B helpers to check Copy On Write status
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/B-COW
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/B::COW.3*
 
 %changelog
+* Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.007-14
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

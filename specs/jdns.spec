@@ -76,6 +76,8 @@ be used to test functionality.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380662)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_JDNS_TOOL:BOOL=ON \

@@ -1,13 +1,10 @@
 Name:          libcec
-Version:       7.1.1
-Release:       7%{?dist}
+Version:       8.0.0
+Release:       2%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
 Source0:       https://github.com/Pulse-Eight/%{name}/archive/%{name}-%{version}.tar.gz
-
-# https://github.com/knight-of-ni/libcec/commit/ec1c9acc29636ccfc0686493868a7daeae903339.patch
-Patch1:        libcec-pythonlib.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -19,7 +16,6 @@ BuildRequires: cmake
 BuildRequires: libXrandr-devel
 BuildRequires: lockdev-devel
 BuildRequires: ncurses-devel
-BuildRequires: platform-devel
 BuildRequires: python3-devel
 BuildRequires: swig
 BuildRequires: systemd-devel
@@ -82,6 +78,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 
 %ldconfig_scriptlets
 
+%check
+%ctest
+
 %post
 %systemd_post cec-active-source.service cec-active-source.timer cec-poweroff-tv.service
 
@@ -106,12 +105,22 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{_includedir}/libcec
 %{_libdir}/pkgconfig/libcec.pc
 %{_libdir}/libcec.so
+%{_libdir}/cmake/libcec
 
 %files -n python3-libcec
 %{_bindir}/pyCecClient
-%{python3_sitearch}/cec/
+%{python3_sitearch}/*
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 8.0.0-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Wed Jul 22 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 8.0.0-1
+- 8.0.0 release
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.1.1-8
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

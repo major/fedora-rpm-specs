@@ -1,6 +1,6 @@
 Name:           pyodbc
 Version:        5.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT-0
 URL:            https://github.com/mkleehammer/pyodbc
@@ -55,6 +55,9 @@ decimal.
 %{python3_sitearch}/%{name}.pyi
 
 %changelog
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.1.0-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
