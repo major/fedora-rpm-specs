@@ -5,7 +5,7 @@
 %global crate zbus_xml
 
 Name:           rust-zbus_xml
-Version:        5.1.1
+Version:        5.2.1
 Release:        %autorelease
 Summary:        API to handle D-Bus introspection XML
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/zbus_xml
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump quick-xml dependency from v0.39 to v0.41
+# * drop unused, benchmark-only codspeed-criterion-compat dev-dependency
 Patch:          zbus_xml-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

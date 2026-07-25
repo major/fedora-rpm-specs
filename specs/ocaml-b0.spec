@@ -60,6 +60,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-tools%{?_isa} = %{version}-%{release}
 Requires:       ocaml-cmdliner-devel%{?_isa}
+Requires:       xxhash-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature

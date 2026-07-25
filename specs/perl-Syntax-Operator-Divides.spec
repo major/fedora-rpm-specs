@@ -10,7 +10,7 @@
 
 Name:           perl-Syntax-Operator-Divides
 Version:        0.08
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Infix operator for division test
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-Divides
@@ -119,6 +119,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-9
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-8
 - Perl 5.44 rebuild
 

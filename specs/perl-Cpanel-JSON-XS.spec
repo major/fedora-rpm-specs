@@ -8,7 +8,7 @@
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
 Version:	4.43
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
 Source0:	https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-%{version}.tar.gz
@@ -164,6 +164,9 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.43-3
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.43-2
 - Perl 5.44 rebuild
 

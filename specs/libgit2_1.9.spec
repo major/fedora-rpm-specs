@@ -2,7 +2,7 @@
 %bcond libssh2 %{undefined rhel}
 
 Name:           libgit2_1.9
-Version:        1.9.4
+Version:        1.9.6
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 # The main code is GPL-2.0-only WITH GCC-exception-2.0
@@ -40,8 +40,9 @@ BuildRequires:  zlib-devel
 
 Provides:       bundled(libxdiff)
 
-# renamed in Fedora 45
-Obsoletes:      libgit2 < 1.9.4-3
+# renamed in Fedora 45:
+# keep this ahead of the version of libgit2 in Fedora 44 and 43
+Obsoletes:      libgit2 < 1.9.6-2
 
 %description
 libgit2 is a portable, pure C implementation of the Git core methods
@@ -56,8 +57,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 # explicitly conflict with other libgit2 devel packages
 Conflicts:      pkgconfig(libgit2)
 
-# renamed in Fedora 45
-Obsoletes:      libgit2-devel < 1.9.4-3
+# renamed in Fedora 45:
+# keep this ahead of the version of libgit2 in Fedora 44 and 43
+Obsoletes:      libgit2-devel < 1.9.6-2
 
 %description    devel
 This package contains libraries and header files for

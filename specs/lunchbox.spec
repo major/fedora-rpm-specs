@@ -69,6 +69,14 @@ rm -f bitOperation.cpp intervalSet.cpp result.cpp string.cpp
 popd
 %endif
 
+# drop tests failing on ppc64le
+# https://github.com/Eyescale/Lunchbox/issues/338
+%ifarch ppc64le
+pushd tests
+rm -f lfQueue.cpp
+popd
+%endif
+
 # drop failing debug test
 # https://github.com/Eyescale/Lunchbox/issues/336
 pushd tests

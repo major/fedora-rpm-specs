@@ -49,14 +49,14 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.5.3
-Release: 1%{?dist}
+Release: 3%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
 # License identifiers taken from: https://fedoraproject.org/wiki/Licensing
 License: LicenseRef-Callaway-BSD AND BSD-3-Clause-LBNL AND Apache-2.0
 URL: https://apptainer.org
-Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
+Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}-2.tar.gz
 
 %if "%{?gocryptfs_version}" != ""
 # use the release asset that includes vendor directory
@@ -346,7 +346,7 @@ Requires: fuse3-libs >= 3.3.0
 Provides the optional setuid-root portion of Apptainer.
 
 %prep
-%setup -n %{name}-%{package_version}
+%setup -n %{name}-%{package_version}-2
 # don't need to setup dependent source packages and patches because
 # that is done by the compile-dependencies script
 %if "%{?PRoot_version}" == ""
@@ -523,6 +523,12 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Thu Jul 23 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-3
+- Rebuild for libsubid library version bump
+
+* Thu Jul 23 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-2
+- Apply patch to avoid golang-1.27-rc2 compilation error
+
 * Tue Jul 21 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3
 - Update to upstream 1.5.3
 

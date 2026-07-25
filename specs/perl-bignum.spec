@@ -1,6 +1,6 @@
 Name:           perl-bignum
 Version:        0.67
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Transparent big number support for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/bignum
@@ -108,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.67-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.67-527
 - Increase release to favour standalone package
 

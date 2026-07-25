@@ -17,7 +17,7 @@ Source0:        https://github.com/YACReader/%{name}/releases/download/%{version
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  systemd-rpm-macros
 

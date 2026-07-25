@@ -17,8 +17,8 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.24.0
-Release:        2%{?dist}
+Version:        3.24.1
+Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -497,6 +497,9 @@ cd -
 %files -n ocaml-top-closure-devel -f .ofiles-top-closure-devel
 
 %changelog
+* Thu Jul 23 2026 Jerry James <loganjerry@gmail.com> - 3.24.1-1
+- Version 3.24.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

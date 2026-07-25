@@ -1,5 +1,5 @@
 Name:              dropbear
-Version:           2026.93
+Version:           2026.94
 Release:           1%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
@@ -82,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Jul 23 2026 Federico Pellegrin <fede@evolware.org> - 2026.94-1
+- Update to 2026.94 (rhbz#2506522)
+
 * Wed Jul 22 2026 Federico Pellegrin <fede@evolware.org> - 2026.93-1
 - Update to 2026.93 (rhbz#2503720)
 

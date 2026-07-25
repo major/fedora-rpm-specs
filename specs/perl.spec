@@ -121,7 +121,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        526%{?dist}
+Release:        527%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -7298,6 +7298,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.44.0-527
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Tue Jul 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.44.0-526
 - 5.44.0 bump (see <https://metacpan.org/release/LEONT/perl-5.44.0/view/pod/perldelta.pod>)
 

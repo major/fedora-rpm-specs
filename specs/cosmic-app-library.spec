@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit ce33b9e1ccbebc2108eddee405a485cb92cb83e3
 %global commitdatestring 2026-07-09 17:40:20 -0600
-%global cosmic_minver 1.3.0
+%global cosmic_minver 1.4.0
 
 Name:           cosmic-app-library
-Version: 1.3.0
+Version: 1.4.0
 Release:        %autorelease
 Summary:        App Library program for the COSMIC Desktop Environment
 

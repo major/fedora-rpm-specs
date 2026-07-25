@@ -14,7 +14,7 @@
 
 Name:           perl-XS-Parse-Sublike
 Version:        0.41
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Sublike
@@ -167,6 +167,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.41-5
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.41-4
 - Perl 5.44 rebuild
 

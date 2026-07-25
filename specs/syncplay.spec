@@ -7,6 +7,9 @@ License:        Apache-2.0 AND MIT AND BSD-3-Clause AND CC-BY-3.0
 URL:            https://syncplay.pl
 Source0:        https://github.com/Syncplay/syncplay/archive/refs/tags/v%{version}/syncplay-%{version}.tar.gz
 
+# https://github.com/Syncplay/syncplay/pull/775
+Patch: https://github.com/Syncplay/syncplay/pull/775.patch
+
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel

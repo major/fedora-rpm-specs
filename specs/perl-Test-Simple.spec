@@ -15,7 +15,7 @@ Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
 Version:        1.302222
-Release:        3%{?dist}
+Release:        4%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -409,6 +409,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.302222-4
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.302222-3
 - Perl 5.44 rebuild
 

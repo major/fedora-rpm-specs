@@ -28,8 +28,8 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.23.0
-Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}.1
+Version:        2.23.1
+Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -345,6 +345,8 @@ Recommends:     perl(Net::Facebook::Oauth2)
 # OpenID
 Recommends:     perl(Net::OAuth)
 Recommends:     perl(Net::OpenID::Consumer)
+# LDAP mtls
+Recommends:     perl(Authen::SASL)
 Provides:       bundled(fontawesome-fonts) = 4.7.0
 Provides:       bundled(js-bootstrap) = 4.6.2
 Provides:       bundled(js-fingerprint2) = 2.1.4
@@ -747,6 +749,9 @@ fi
 
 
 %changelog
+* Wed Jul 22 2026 Clement Oudot <clement.oudot@worteks.com> - 2.23.1-1
+- Update to 2.23.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

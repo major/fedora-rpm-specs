@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libgit2-sys
-%global crate_version 0.18.5+1.9.4
+%global crate_version 0.18.7+1.9.6
 
 Name:           rust-libgit2-sys
-Version:        0.18.5
+Version:        0.18.7
 Release:        %autorelease
 Summary:        Native bindings to the libgit2 library
 
@@ -23,7 +23,7 @@ Patch:          libgit2-sys-fix-metadata.diff
 Patch2:         0001-Link-against-system-libgit2-unconditionally.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  (pkgconfig(libgit2) >= 1.9.3 with pkgconfig(libgit2) < 1.10.0~)
+BuildRequires:  (pkgconfig(libgit2) >= 1.9.6 with pkgconfig(libgit2) < 1.10.0~)
 
 %global _description %{expand:
 Native bindings to the libgit2 library.}
@@ -33,7 +33,7 @@ Native bindings to the libgit2 library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       (pkgconfig(libgit2) >= 1.9.3 with pkgconfig(libgit2) < 1.10.0~)
+Requires:       (pkgconfig(libgit2) >= 1.9.6 with pkgconfig(libgit2) < 1.10.0~)
 
 %description    devel %{_description}
 

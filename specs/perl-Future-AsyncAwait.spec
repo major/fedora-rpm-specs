@@ -14,7 +14,7 @@
 
 Name:           perl-Future-AsyncAwait
 Version:        0.71
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Deferred subroutine syntax for futures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Future-AsyncAwait
@@ -272,6 +272,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.71-5
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.71-4
 - Perl 5.44 rebuild
 

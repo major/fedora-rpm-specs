@@ -1,5 +1,5 @@
 Name:           python-oracledb
-Version:        4.0.1
+Version:        4.0.2
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 

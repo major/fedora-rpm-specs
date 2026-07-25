@@ -9,7 +9,7 @@
 
 Name:           perl-Object-Pad
 Version:        0.825
-Release:        3%{dist}
+Release:        4%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -230,6 +230,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.825-4
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.825-3
 - Perl 5.44 rebuild
 

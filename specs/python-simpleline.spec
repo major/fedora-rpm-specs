@@ -3,7 +3,7 @@
 Name: python-%{srcname}
 Summary: A Python library for creating text UI
 Url: https://github.com/rhinstaller/python-%{srcname}
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 # This tarball was created from upstream git:
 #   git clone https://github.com/rhinstaller/python-simpleline
@@ -60,6 +60,9 @@ make test
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jul 23 2026 Packit <hello@packit.dev> - 1.9.2-1
+- Update to version 1.9.2
+
 * Tue Jul 21 2026 Packit <hello@packit.dev> - 1.9.1-1
 - Update to version 1.9.1
 - Resolves: rhbz#2503151

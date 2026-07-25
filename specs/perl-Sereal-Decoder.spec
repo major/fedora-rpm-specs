@@ -3,7 +3,7 @@
 
 Name:           perl-Sereal-Decoder
 Version:        5.009
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -117,6 +117,9 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.009-3
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.009-2
 - Perl 5.44 rebuild
 

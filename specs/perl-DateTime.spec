@@ -8,7 +8,7 @@
 Name:           perl-DateTime
 Epoch:          2
 Version:        1.66
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Date and time object for Perl
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime
@@ -114,6 +114,9 @@ make test
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.66-8
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.66-7
 - Perl 5.44 rebuild
 

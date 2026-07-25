@@ -8,7 +8,7 @@
 Name:           perl-Compress-Raw-Bzip2
 Summary:        Low-level interface to bzip2 compression library
 Version:        2.218
-Release:        527%{?dist}
+Release:        528%{?dist}
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unbundled
 # bzip2-src:    BSD
@@ -157,6 +157,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.218-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.218-527
 - Increase release to favour standalone package
 

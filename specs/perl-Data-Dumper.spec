@@ -2,7 +2,7 @@
 
 Name:           perl-Data-Dumper
 Version:        2.192
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Stringify perl data structures, suitable for printing and eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.192-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.192-527
 - Increase release to favour standalone package
 

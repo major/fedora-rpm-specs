@@ -2,7 +2,7 @@
 
 Name:           perl-Pango
 Version:        1.227
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Perl interface to the pango library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -84,6 +84,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.227-46
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.227-45
 - Perl 5.44 rebuild
 

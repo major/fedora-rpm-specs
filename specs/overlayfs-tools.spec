@@ -12,6 +12,7 @@ Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Patch0: %{name}-missing-errno-h.patch
 # https://patch-diff.githubusercontent.com/raw/kmxz/overlayfs-tools/pull/13
 Patch1: https://patch-diff.githubusercontent.com/raw/kmxz/overlayfs-tools/pull/13.diff
+Patch2: %{name}-sys-xattr-h.patch
 License: WTFPL
 BuildRequires: gcc
 BuildRequires: help2man
@@ -71,6 +72,7 @@ install -pm644 overlay.1 %{buildroot}%{_mandir}/man1
 %changelog
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20200817git77bf3f7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+- fix FTBFS with recent libattr
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20200817git77bf3f7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

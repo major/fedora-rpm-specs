@@ -9,12 +9,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 346a34b0bed5c91778a0f2ee008d0459084b1c70
-%global commitdatestring 2026-07-14 13:50:11 -0400
-%global cosmic_minver 1.3.0
+%global commit 4b3b177092348c88eedf46f41567df59753fa38a
+%global commitdatestring 2026-07-20 16:36:11 -0600
+%global cosmic_minver 1.4.0
 
 Name:           cosmic-monitor
-Version: 1.3.0
+Version: 1.4.0
 Release:        %autorelease
 Summary:        System monitor built with Libcosmic
 

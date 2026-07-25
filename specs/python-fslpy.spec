@@ -8,7 +8,7 @@ FSLeyes.}
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.28.1
+Version:        3.29.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -79,6 +79,7 @@ for binary in \
     fsl_convert_x5 \
     fsl_ents \
     fslchfiletype \
+    fslchpixdim \
     imcp \
     imln \
     immv \
@@ -181,6 +182,7 @@ sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
 %{_bindir}/fsl_convert_x5
 %{_bindir}/fsl_ents
 %{_bindir}/fslchfiletype
+%{_bindir}/fslchpixdim
 %{_bindir}/imcp
 %{_bindir}/imglob
 %{_bindir}/imln
@@ -199,6 +201,7 @@ sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
 %{_mandir}/man1/fsl_convert_x5.1*
 %{_mandir}/man1/fsl_ents.1*
 %{_mandir}/man1/fslchfiletype.1*
+%{_mandir}/man1/fslchpixdim.1*
 %{_mandir}/man1/imcp.1*
 %{_mandir}/man1/imglob.1*
 %{_mandir}/man1/imln.1*

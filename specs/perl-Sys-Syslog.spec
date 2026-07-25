@@ -6,7 +6,7 @@
 %endif
 Name:           perl-Sys-Syslog
 Version:        0.36
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-527
 - Increase release to favour standalone package
 

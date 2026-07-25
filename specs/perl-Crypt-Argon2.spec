@@ -1,6 +1,6 @@
 Name:		perl-Crypt-Argon2
 Version:	0.032
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Perl interface to the Argon2 key derivation functions
 License:	Apache-2.0
 
@@ -67,6 +67,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.032-2
+- Perl 5.44 re-rebuild updated packages
+
 * Wed Jul 22 2026 Charles R. Anderson <cra@alum.wpi.edu> - 0.032-1
 - Update to 0.032 #2506163
 

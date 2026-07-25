@@ -5,12 +5,13 @@
 
 Name:           python-pyqtgraph
 Version:        0.14.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
 Patch0:         drop-unpackaged-sphinx-extensions.patch
+Patch1:         https://github.com/pyqtgraph/pyqtgraph/commit/0c23cbe65ccddc36e377695396854b4fc28e44dd.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -80,6 +81,9 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Thu Jul 23 2026 Scott Talbert <swt@techie.net> - 0.14.0-5
+- Fix FTBFS with newer numpy (#2504567)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

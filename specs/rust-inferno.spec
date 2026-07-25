@@ -4,7 +4,7 @@
 %global crate inferno
 
 Name:           rust-inferno
-Version:        0.12.7
+Version:        0.12.8
 Release:        %autorelease
 Summary:        Rust port of the FlameGraph performance profiling tool suite
 

@@ -16,6 +16,7 @@ Source2:        %{name}.sysusers
 Source3:        %{name}.tmpfiles
 
 Patch: 0001-Fix-efivar-availability-check-in-test_create_mb_poli.patch
+Patch: 0002-algorithms-do-not-require-crypto-backend-support-to-.patch
 
 # Main program: Apache-2.0
 # Icons: MIT

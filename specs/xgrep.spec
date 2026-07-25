@@ -7,10 +7,7 @@ Summary:        A grep-like utility for XML files
 License:        GPL-2.0-or-later
 URL:            http://www.wohlberg.net/public/software/xml/xgrep/
 Source0:        http://www.wohlberg.net/public/software/xml/xgrep/%{name}-%{version}.tar.gz
-ExcludeArch:    %{ix86}
-
 BuildRequires:  gcc
-BuildRequires:  imake
 BuildRequires:  libxml2-devel
 BuildRequires:  make
 
@@ -22,11 +19,11 @@ syntax including extended regular expressions via the -s flag.
 
 %prep
 %autosetup
+sed -i 's/all: depend/all:/' Makefile.in
 
 
 %build
 %configure
-make depend
 %make_build
 
 

@@ -1,6 +1,6 @@
 Name:           json-fortran
-Version:        8.3.0
-Release:        13%{?dist}
+Version:        9.3.1
+Release:        1%{?dist}
 Summary:        A Modern Fortran JSON API
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -28,6 +28,17 @@ developing applications that use %{name}.
 %setup -q
 
 %build
+# json_value_module.F90 passes internal procedures as actual arguments, for
+# which gfortran emits stack trampolines. These mark the object as requiring an
+# executable stack, which makes the resulting library undlopenable: glibc
+# refuses to flip the stack to executable at dlopen time, so anything loading
+# it indirectly from Python (e.g. python3-dftd4) fails to import. Allocate the
+# trampolines on the heap instead (GCC >= 14).
+# NB: CMake reads the Fortran flags from FFLAGS, not FCFLAGS, and %%cmake only
+# fills in the defaults for variables that are still unset, so FFLAGS is the one
+# that has to be set here for the flag to reach the compiler.
+export FFLAGS="%{build_fflags} -I%{_fmoddir} -Wtrampolines -ftrampoline-impl=heap"
+export FCFLAGS="$FFLAGS"
 %cmake -DUSE_GNU_INSTALL_CONVENTION=TRUE
 %cmake_build
 
@@ -42,7 +53,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/libjsonfortran.so.8*
+%{_libdir}/libjsonfortran.so.9*
 
 %files devel
 %{_libdir}/cmake/jsonfortran-gnu-%{version}/
@@ -51,6 +62,11 @@ rm -f %{buildroot}%{_libdir}/*.a
 %{_fmoddir}/json_*.mod
 
 %changelog
+* Thu Jul 23 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 9.3.1-1
+- Update to 9.3.1.
+- Build with -ftrampoline-impl=heap so that the library no longer requires an
+  executable stack and can be dlopened.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

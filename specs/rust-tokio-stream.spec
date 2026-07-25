@@ -6,7 +6,7 @@
 %global crate tokio-stream
 
 Name:           rust-tokio-stream
-Version:        0.1.18
+Version:        0.1.19
 Release:        %autorelease
 Summary:        Utilities to work with Stream and tokio
 
@@ -94,6 +94,18 @@ This package contains library source intended for building other packages which
 use the "net" feature of the "%{crate}" crate.
 
 %files       -n %{name}+net-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+signal-devel

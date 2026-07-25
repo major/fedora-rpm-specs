@@ -1,8 +1,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.50
-Release:        3%{?dist}
+Version:        3.1.55
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -59,6 +59,12 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Thu Jul 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.55-1
+- Update to 3.1.55: Fixes GHSA-2f96-g7mh-g2hx, GHSA-v396-v7q4-x2qj,
+  GHSA-956x-8gvw-wg5v, GHSA-rwj8-pgh3-r573, GHSA-3rp5-jjmw-4wv2,
+  GHSA-r9mr-m37c-5fr3, GHSA-fjr4-x663-mwxc, GHSA-6p8h-3wgx-97gf, and
+  GHSA-94p4-4cq8-9g67
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.50-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

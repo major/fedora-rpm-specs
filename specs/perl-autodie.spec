@@ -3,7 +3,7 @@
 
 Name:           perl-autodie
 Version:        2.37
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Replace functions with ones that succeed or die
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autodie
@@ -151,6 +151,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.37-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.37-527
 - Increase release to favour standalone package
 

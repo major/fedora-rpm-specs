@@ -1,20 +1,15 @@
-# git commit appears in the directory name of the tarball...
-%global commit 3cb6f2cd61a5d482611d85c47dcb61f8d51d50ba
-
 Name:           OpenMolcas
-Version:        26.02
-Release:        4%{?dist}
+Version:        26.06
+Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPL-2.1-only
 URL:            https://gitlab.com/Molcas/OpenMolcas
-Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 
 # Fedora patches
-Patch0:         OpenMolcas-23.06-fedora.patch
+Patch0:         OpenMolcas-26.06-fedora.patch
 # Read python modules from system directory
 Patch1:         OpenMolcas-19.11-pymodule.patch
-# Disable trampoline code that causes FTBFS in Fedora rawhide (f34)
-Patch3:         https://gitlab.com/Molcas/OpenMolcas/-/merge_requests/803.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -25,6 +20,7 @@ BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  libxc-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  CheMPS2-devel
+BuildRequires:  libwignernj-devel
 
 # Required by runtime
 BuildRequires:  python3-devel
@@ -51,7 +47,9 @@ decision of their authors (or impossibility to reach them), and are
 therefore not included in OpenMolcas.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}-%{commit}
+%setup -q -n %{name}-v%{version}
+%patch -P 0 -p1 -b .fedora
+%patch -P 1 -p1 -b .pymodule
 
 # Name of OpenBLAS library to use is
 %if 0%{?__isa_bits} == 64
@@ -68,8 +66,12 @@ sed -i 's|@MOLCAS_PYTHON@|%{_libdir}/%{name}/python|g' Tools/pymolcas/pymolcas.p
 
 
 %build
-export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -Wtrampolines"
-export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -Wtrampolines"
+# Nested internal procedures used as actual arguments (e.g. sorting.F90,
+# desym.F90) make gfortran emit stack trampolines, which force an executable
+# stack and break the hardened link. Allocate the trampolines on the heap
+# instead (GCC >= 14) to keep the reentrant closure code path.
+export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -ftrampoline-impl=heap"
+export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -ftrampoline-impl=heap"
 
 # GCC10 compatibility
 %if 0%{?fedora} > 31
@@ -115,6 +117,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Thu Jul 23 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 26.06-1
+- Update to 26.06.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

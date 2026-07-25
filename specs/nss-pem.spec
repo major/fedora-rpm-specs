@@ -1,9 +1,8 @@
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 Name:       nss-pem
 Version:    1.1.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    PEM file reader for Network Security Services (NSS)
 
 # See README for details
@@ -18,7 +17,7 @@ Source1:    https://github.com/kdudka/nss-pem/releases/download/%{name}-%{versio
 # gpg --output kdudka.pgp --armor --export kdudka@redhat.com
 Source2:    kdudka.pgp
 
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gnupg2
 BuildRequires: make
@@ -36,20 +35,24 @@ module.
 %setup -q
 
 %build
-%cmake3 -S src
-%cmake3_build
+%cmake -S src
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %check
-%ctest3
+%ctest
 
 %files
 %{_libdir}/libnsspem.so
 %license COPYING.{GPL,MPL}
 
 %changelog
+* Thu Jul 23 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.1.1-5
+- Build with CMake 4
+- fix FTBFS (rhbz#2504373)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

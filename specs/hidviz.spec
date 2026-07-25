@@ -14,6 +14,8 @@ BuildRequires:	libusbx-devel
 BuildRequires:	asio-devel
 # Already fixed in upstream
 Patch:		hidviz-0.2.1-cmake-4-fix.patch
+# https://github.com/hidviz/hidviz/pull/47
+Patch:		hidviz-0.2.1-boost-1.90-fix.patch
 
 %description
 Hidviz is a GUI application for in-depth analysis of USB HID class devices.

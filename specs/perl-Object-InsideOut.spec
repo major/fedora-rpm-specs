@@ -1,6 +1,6 @@
 Name:           perl-Object-InsideOut
 Version:        4.05
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Comprehensive inside-out object support module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-InsideOut
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/Object::InsideOut::Metadata.3*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.05-34
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.05-33
 - Perl 5.44 rebuild
 

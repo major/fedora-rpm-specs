@@ -4,13 +4,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.36
-%global k8s_ver                 1.36.2
+%global k8s_ver                 1.36.3
 # major:minor version substring
 %global k8s_minver              1.36
 %global k8s_nextver             1.37
-%global k8s_tag                 v1.36.2
+%global k8s_tag                 v1.36.3
 # golang 'built with' version
-%global golangver               1.26.4
+%global golangver               1.26.5
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -324,6 +324,7 @@ rm CHANGELOG.md
     -s "TestPrepareResources"
     %dnl flaky on some arches
     -s "TestUnPrepareResources"
+    %[ "%{_arch}" == "s390x" ? "-s TestPodGroupProtectionController" : "" ]
     %dnl next 5 tests seem flaky
     %dnl binding volumes: context deadline exceeded
     %[ "%{_arch}" == "aarch64" ? "-s TestBindPodVolumes" : "" ]

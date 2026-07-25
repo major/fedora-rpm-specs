@@ -1,12 +1,12 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.19.3
-Release: 4%{?dist}
+Version: 4.20.0.rc3
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
-Source0: https://github.com/shadow-maint/shadow/releases/download/4.19.3/shadow-4.19.3.tar.xz
-Source1: https://github.com/shadow-maint/shadow/releases/download/4.19.3/shadow-4.19.3.tar.xz.asc
+Source0: https://github.com/shadow-maint/shadow/releases/download/4.20.0-rc3/shadow-4.20.0-rc3.tar.xz
+Source1: https://github.com/shadow-maint/shadow/releases/download/4.20.0-rc3/shadow-4.20.0-rc3.tar.xz.asc
 Source2: shadow-utils.useradd
 Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
@@ -20,14 +20,6 @@ Source7: passwd.pamd
 %global _ld_strict_symbol_defs 1
 
 ### Patches ###
-# Misc manual page changes - non-upstreamable
-Patch0: shadow-4.15.0-manfix.patch
-# https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
-Patch2: shadow-4-19-useradd-support-btrfs.patch
-# https://github.com/shadow-maint/shadow/commit/6be13b2f84a2c1a0d0f4129b5258b4b443e7f86c
-Patch3: shadow-4.19.3-chkhash.patch
-# https://github.com/shadow-maint/shadow/commit/827f69b864461ab6d7549762bef06ab4495d2587
-Patch4: shadow-4.19.3-useradd-fix-btrfs.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -106,7 +98,7 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%autosetup -p 1 -S git -n shadow-4.19.3
+%autosetup -p 1 -S git -n shadow-4.20.0-rc3
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -163,26 +155,20 @@ mv -v $RPM_BUILD_ROOT/usr/sbin/* $RPM_BUILD_ROOT%{_bindir}/
 # Remove binaries we don't use.
 rm $RPM_BUILD_ROOT%{_bindir}/chfn
 rm $RPM_BUILD_ROOT%{_bindir}/chsh
-rm $RPM_BUILD_ROOT%{_bindir}/expiry
 rm $RPM_BUILD_ROOT%{_bindir}/login
 rm $RPM_BUILD_ROOT%{_bindir}/su
 rm $RPM_BUILD_ROOT%{_bindir}/faillog
-rm $RPM_BUILD_ROOT%{_sbindir}/logoutd
 rm $RPM_BUILD_ROOT%{_sbindir}/nologin
 rm $RPM_BUILD_ROOT%{_mandir}/man1/chfn.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/chfn.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/chsh.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/chsh.*
-rm $RPM_BUILD_ROOT%{_mandir}/man1/expiry.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man1/expiry.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/login.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/login.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/man5/passwd.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man5/passwd.*
-rm $RPM_BUILD_ROOT%{_mandir}/man8/logoutd.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man8/logoutd.*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/nologin.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man8/nologin.*
 rm $RPM_BUILD_ROOT%{_mandir}/man3/getspnam.*
@@ -195,7 +181,6 @@ rm $RPM_BUILD_ROOT%{_mandir}/*/man8/faillog.*
 # Remove PAM service files we don't use.
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chfn
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chsh
-rm $RPM_BUILD_ROOT%{_pam_confdir}/groupmems
 rm $RPM_BUILD_ROOT%{_pam_confdir}/login
 rm $RPM_BUILD_ROOT%{_pam_confdir}/su
 
@@ -279,6 +264,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Jul 22 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.20.0-rc3-1
+- Rebase to version 4.20.0-rc3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.19.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 
 Name: rabbitmq-server
-Version: 4.3.3
+Version: 4.3.4
 Release: %autorelease
 Summary: The RabbitMQ server
 License: MPL-2.0
@@ -19,6 +19,7 @@ Source3: rabbitmq-server.logrotate
 # curl -O https://raw.githubusercontent.com/rabbitmq/rabbitmq-server-release/rabbitmq_v3_6_16/packaging/RPMS/Fedora/rabbitmq-server.tmpfiles
 Source5: rabbitmq-server.tmpfiles
 Source6: rabbitmq-server-cuttlefish
+Source7: rabbitmq-server.sysusers.conf
 Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
 Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
 Patch: rabbitmq-server-0003-force-python3.patch
@@ -36,6 +37,7 @@ BuildRequires: make
 BuildRequires: python3
 BuildRequires: rsync
 BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 BuildRequires: xmlto
 BuildRequires: zip
 Requires: erlang-eldap%{?_isa} >= %{erlang_minver}
@@ -65,11 +67,6 @@ scalable implementation of an AMQP broker.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-
-# Create a sysusers.d config file
-cat >rabbitmq-server.sysusers.conf <<EOF
-u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
-EOF
 
 
 %build
@@ -119,11 +116,15 @@ install -p -D -m 0644 ./deps/rabbit/docs/rabbitmq.conf.example %{buildroot}%{_sy
 
 install -d %{buildroot}%{_localstatedir}/run/rabbitmq
 install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_prefix}/lib/tmpfiles.d/%{name}.conf
-install -m0644 -D rabbitmq-server.sysusers.conf %{buildroot}%{_sysusersdir}/rabbitmq-server.conf
+install -m0644 -D %{SOURCE7} %{buildroot}%{_sysusersdir}/rabbitmq-server.conf
 
 
 %check
 #make check
+
+
+%pre
+%sysusers_create_package %{name} %{SOURCE7}
 
 
 %post

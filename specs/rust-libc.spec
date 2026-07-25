@@ -5,7 +5,7 @@
 %global crate libc
 
 Name:           rust-libc
-Version:        0.2.186
+Version:        0.2.189
 Release:        %autorelease
 Summary:        Raw FFI bindings to platform libraries like libc
 
@@ -38,6 +38,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/etc/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

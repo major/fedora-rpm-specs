@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -350,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.4.9.3-4
+- Perl 5.44 rebuild
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.4.9.3-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

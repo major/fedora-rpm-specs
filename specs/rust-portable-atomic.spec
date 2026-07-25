@@ -5,7 +5,7 @@
 %global crate portable-atomic
 
 Name:           rust-portable-atomic
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Portable atomic types including support for 128-bit atomics, atomic float, etc
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          portable-atomic-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax crossbeam-utils and libc dev-dependencies
+# * relax libc dev-dependency
 Patch:          portable-atomic-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,5 +1,5 @@
 Name:           python-brukerapi
-Version:        0.2.5
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Python package providing I/O interface for Bruker data sets
 
@@ -9,10 +9,7 @@ URL:            https://github.com/isi-nmr/brukerapi-python
 Source0:        %{url}/archive/v%{version}/brukerapi-python-%{version}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
-# output; see:
-#
-# Interest in man pages?
-# https://github.com/isi-nmr/brukerapi-python/issues/19
+# output; see https://github.com/isi-nmr/brukerapi-python/issues/19, declined.
 Source10:       bruker.1
 Source11:       bruker-filter.1
 Source12:       bruker-report.1
@@ -68,7 +65,7 @@ ignore="${ignore-} --ignore=test/test_random_access.py"
 ignore="${ignore-} --ignore=test/test_dataset.py"
 
 # We are not left with a great many tests, but we run what we can.
-%pytest --verbose ${ignore-}
+%pytest --verbose ${ignore-} -rs
 
 
 %files -n python3-brukerapi -f %{pyproject_files}

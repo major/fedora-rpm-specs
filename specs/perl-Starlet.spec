@@ -1,51 +1,59 @@
 Name:           perl-Starlet
 Version:        0.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple, high-performance PSGI/Plack HTTP server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Starlet
+URL:            https://metacpan.org/dist/Starlet
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Starlet-%{version}.tar.gz
 BuildArch:      noarch
 
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  /usr/bin/start_server
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-
-BuildRequires:  perl(base)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
+# runtime requirements
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTTP::Date)
-BuildRequires:  perl(HTTP::Message::PSGI)
-BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Status)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(LWP::UserAgent) >= 5.8
-BuildRequires:  perl(Net::EmptyPort)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Parallel::Prefork) >= 0.18
 BuildRequires:  perl(Plack) >= 0.992
 BuildRequires:  perl(Plack::HTTPParser)
-BuildRequires:  perl(Plack::Loader)
 BuildRequires:  perl(Plack::TempBuffer)
-BuildRequires:  perl(Plack::Test)
-BuildRequires:  perl(Plack::Test::Server)
 BuildRequires:  perl(Plack::Util)
-BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Server::Starter) >= 0.06
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::TCP) >= 2.1
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(Try::Tiny)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(HTTP::Message::PSGI)
+BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(HTTP::Request::Common)
+BuildRequires:  perl(IO::Socket::UNIX)
+BuildRequires:  perl(LWP::UserAgent) >= 5.8
+BuildRequires:  perl(Net::EmptyPort)
+BuildRequires:  perl(Plack::Loader)
+BuildRequires:  perl(Plack::Runner)
+BuildRequires:  perl(Plack::Test)
+BuildRequires:  perl(Plack::Test::Server)
+BuildRequires:  perl(Plack::Test::Suite)
+BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::TCP) >= 2.1
 
 # Eliminate inc/*
 BuildRequires:  perl(inc::Module::Install)
@@ -71,7 +79,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%{__make} test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -80,6 +88,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/Starlet*
 
 %changelog
+* Mon Jul 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.32-2
+- Recreated for Fedora
+
 * Thu Jun 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.32-1
 - 0.32 bump (rhbz#2483211)
 - Fix CVE-2026-40561 (prevent HTTP request smuggling)

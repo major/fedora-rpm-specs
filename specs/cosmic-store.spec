@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 8419488a1d3bfca6cfbd6c015aaddaf5ba50e023
-%global commitdatestring 2026-07-13 09:42:26 -0600
-%global cosmic_minver 1.3.0
+%global commit e5822a1c51825afa11a95baa48483c695ea95828
+%global commitdatestring 2026-07-20 16:36:03 -0600
+%global cosmic_minver 1.4.0
 
 Name:           cosmic-store
-Version: 1.3.0
+Version: 1.4.0
 Release:        %autorelease
 Summary:        App store for the COSMIC Desktop Environment
 
@@ -29,8 +29,6 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
-# Fix building with aws-lc-rs,sys
-Patch1: 0001-Downgrade-aws-lc-rs-sys-to-fix-build.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

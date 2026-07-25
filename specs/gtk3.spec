@@ -26,6 +26,8 @@ Summary: GTK+ graphical user interface library
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk/%{gnome_major_minor_version}/gtk-%{version}.tar.xz
+Patch0:  9852_export_xdg_toplevel.patch
+Patch1:  9956_pointer_focus.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)

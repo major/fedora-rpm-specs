@@ -6,66 +6,87 @@
 %bcond_without flexiblas
 %endif
 
+%global version_major_minor 5.4
+%global version_patch 6
+
 Name:           InsightToolkit
 Summary:        Insight Toolkit library for medical image processing
-%global version_major_minor 4.13
-Version:        %{version_major_minor}.3
-%global version_doc_major_minor 4.13
-%global version_doc %{version_doc_major_minor}.0
-Release:        34%{?dist}
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License:        Apache-2.0
+Version:        %{version_major_minor}.%{version_patch}
+Release:        1%{?dist}
+# Bundled library licenses:
+#   Apache-2.0       - ITK core (upstream)
+#   BSD-3-Clause     - DICOMParser (Copyright.txt), GoogleTest (source headers),
+#                      KWSys (Copyright.txt), MetaIO (License.txt)
+#   BSD-2-Clause     - OpenJPEG (LICENSE)
+#   MIT              - libLBFGS (lbfgs.h header)
+#   Zlib             - NrrdIO (source headers, from Teem library)
+#   LicenseRef-Fedora-Public-Domain - GIFTI (LICENSE.gifti), Netlib/SLATEC
+#                      (public domain via netlib.org), NIFTI (nifti1_io.c header)
+License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND Zlib AND LicenseRef-Fedora-Public-Domain
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
-Source1:        https://downloads.sourceforge.net/project/itk/itk/%{version_doc_major_minor}/InsightSoftwareGuide-Book1-%{version_doc}.pdf
-Source2:        https://downloads.sourceforge.net/project/itk/itk/%{version_doc_major_minor}/InsightSoftwareGuide-Book2-%{version_doc}.pdf
+Source1:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightSoftwareGuide-Book1-%{version}.pdf
+Source2:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightSoftwareGuide-Book2-%{version}.pdf
 Source3:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightData-%{version}.tar.gz
 URL:            https://www.itk.org/
-Patch0:         InsightToolkit-0001-Set-lib-lib64-according-to-the-architecture.patch
-Patch2:         InsightToolkit-sse.patch
-Patch3:         remove-test.diff
-# https://github.com/InsightSoftwareConsortium/ITK/pull/1599
-Patch4:         InsightToolkit-pr1599-fix-invalid-const-member-func.patch
-# https://github.com/InsightSoftwareConsortium/ITK/pull/1920/files: remove use of triangle from vxl (patched out in vxl system package also)
-# backported
-Patch5:         InsightToolkit-remove-vxl-netlib.patch
 
-# fix __riscv define
-Patch6:         fix-riscv.patch
+Patch:         0001-remove-vxl-netlib.patch
+
+# Bundled libraries that have no way to use system versions.
+# Version info extracted from the upstream ITK source tree at the time of
+# the 5.4.6 release.
+# DICOMParser, GIFTI, KWSys, MetaIO, Netlib, VNLInstantiation: no version
+#   info available in ITK source
+Provides: bundled(DICOMParser)
+Provides: bundled(gifticlib) = 1.16
+#   Source: Modules/ThirdParty/GIFTI/src/gifticlib/gifti_io.c:145
+Provides: bundled(kwsys)
+Provides: bundled(MetaIO)
+Provides: bundled(nifti) = 2.1.0
+#   Source: Modules/ThirdParty/NIFTI/src/nifti/niftilib/nifti1_io_version.h:4-6
+Provides: bundled(NrrdIO) = 1.11.1
+#   Source: Modules/ThirdParty/NrrdIO/src/NrrdIO/NrrdIO.h.in:51-56 (Teem version)
+Provides: bundled(netlib)
+Provides: bundled(openjpeg) = 1.2.0
+#   Source: Modules/ThirdParty/OpenJPEG/src/openjpeg/openjpeg.h:90
+Provides: bundled(liblbfgs) = 1.10
+#   Source: Modules/ThirdParty/libLBFGS/include/lbfgs.h:605
+Provides: bundled(googletest) = 1.13.0
+#   Source: Modules/ThirdParty/GoogleTest/UpdateFromUpstream.sh:11
+Provides: bundled(VNLInstantiation)
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-BuildRequires:  cmake
-BuildRequires:  doxygen
-BuildRequires:  fftw-devel
 BuildRequires:  castxml
+BuildRequires:  cmake
+BuildRequires:  clang-tools-extra
+BuildRequires:  dcmtk
+BuildRequires:  doxygen
+BuildRequires:  double-conversion-devel
+BuildRequires:  eigen3-devel
+BuildRequires:  expat-devel
+BuildRequires:  fftw-devel
+BuildRequires:  freetype-devel
 BuildRequires:  gdcm-devel
+BuildRequires:  git-core
 BuildRequires:  graphviz
 BuildRequires:  hdf5-devel
+BuildRequires:  jsoncpp-devel
 BuildRequires:  libjpeg-devel
-BuildRequires:  libxml2-devel
+BuildRequires:  libminc-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
-BuildRequires:  libjpeg-devel
-%if 0%{?fedora} >= 30
-BuildRequires:  qt5-qtwebkit-devel
-%else
-BuildRequires:  qtwebkit-devel
-%endif
-BuildRequires:  vxl-devel
+BuildRequires:  libxml2-devel
+BuildRequires:  netcdf-cxx-devel
 BuildRequires:  vtk-devel
+BuildRequires:  vxl-devel
 BuildRequires:  zlib-devel
 %if %{with flexiblas}
-BuildRequires:	flexiblas-devel
+BuildRequires:  flexiblas-devel
 %else
-BuildRequires:	blas-devel
+BuildRequires:  blas-devel
 BuildRequires:  lapack-devel
 %endif
-BuildRequires:  netcdf-cxx-devel
-BuildRequires:  jsoncpp-devel
-BuildRequires:  expat-devel
-BuildRequires:  libminc-devel
-BuildRequires:  dcmtk
 
 %description
 ITK is an open-source software toolkit for performing registration and 
@@ -134,7 +155,7 @@ Requires:       vtk-devel%{?_isa}
 Libraries and header files for development of ITK-VTK bridge
 
 %prep
-%autosetup -p1
+%autosetup -S git
 
 # copy guide into the appropriate directory
 cp -a %{SOURCE1} %{SOURCE2} .
@@ -143,47 +164,33 @@ cp -a %{SOURCE1} %{SOURCE2} .
 rm -rf Applications/
 
 # remove source files of external dependencies that itk gets linked against
-# DICOMParser, GIFTI, KWSys, MetaIO, NrrdIO, Netlib, VNLInstantiation are not
-# yet in Fedora
-# DoubleConversion still seems to need the source present
-# NIFTI needs support - https://issues.itk.org/jira/browse/ITK-3349
-# OpenJPEG - https://issues.itk.org/jira/browse/ITK-3350
-find Modules/ThirdParty/* \( -name DICOMParser -o -name DoubleConversion -o -name GIFTI -o -name KWSys -o -name MetaIO -o -name NIFTI -o -name NrrdIO -o -name Netlib -o -name OpenJPEG -o name VNLInstantiation \) \
+# Libraries kept (pruned) because they are not available in Fedora or ITK
+# has no mechanism to use the system version:
+#   DICOMParser, GIFTI, KWSys, MetaIO, NrrdIO, Netlib, VNLInstantiation - not in Fedora
+#   NIFTI - no ITK_USE_SYSTEM_NIFTI option (bundled nifti_clib)
+#   OpenJPEG - no ITK_USE_SYSTEM_OPENJPEG option (bundles OpenJPEG 1.x)
+#   libLBFGS - in Fedora but ITK has no system option
+#   GoogleTest - in Fedora but ITK_USE_SYSTEM_GOOGLETEST is OFF
+find Modules/ThirdParty/* \( -name DICOMParser -o -name GIFTI -o -name KWSys -o -name MetaIO -o -name NIFTI -o -name NrrdIO -o -name Netlib -o -name OpenJPEG -o -name VNLInstantiation -o -name libLBFGS -o -name GoogleTest \) \
     -prune -o -regextype posix-extended -type f \
-    -regex ".*\.(h|hxx|hpp|c|cc|cpp|cxx|txx)$" -not -iname "itk*" -print0 | xargs -0 rm -fr
+    -regex ".*\.(h|hxx|hpp|c|cc|cpp|cxx|txx)$" -not -iname "itk*" -print0 | xargs -0 rm -fvr
 
 tar xvf %{SOURCE3} -C ..
 
-# short-circuit a wrapper header that causes declaration conflicts
-echo '#include "vnl/vnl_complex_traits.h"' >Modules/ThirdParty/VNLInstantiation/include/vnl_complex_traits+char-.h
-
-# get rid of use of poisoned define
-grep -e VCL_CHAR_IS_SIGNED -r -l . | xargs sed -r -i 's/VCL_CHAR_IS_SIGNED/CHAR_MIN < 0/'
-
-# comment out problematic cast
-# error: cannot convert ‘double’ to ‘itk::ResampleImageFilter<itk::Image<itk::Vector<double, 3>, 2>, itk::Image<itk::Vector<double, 3>, 2> >::PixelType’ {aka ‘itk::Vector<double, 3>’}
-#   270 |   resample->SetDefaultPixelValue( itk::NumericTraits<FixedImageType::PixelType::ValueType>::ZeroValue() );
-#       |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
-#       |                                                                                                      |
-#       |                                                                                                      double
-sed -r -i 's/resample->SetDefaultPixelValue/\/\/\0/' \
-    Modules/Registration/Metricsv4/test/itkMeanSquaresImageToImageMetricv4VectorRegistrationTest.cxx
-
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380458)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
+# conflicts with castxml, needs debugging
 extra_cflags=(
-	-DITK_LEGACY_FUTURE_REMOVE # fix build with new vtk
-	-Wno-deprecated-copy       # reduce noise in the logs...
-	-Wno-maybe-uninitialized
-	-Wno-ignored-qualifiers
-	)
-%cmake .. \
+    -DITK_LEGACY_FUTURE_REMOVE # fix build with new vtk
+    -Wno-deprecated-copy       # reduce noise in the logs...
+    -Wno-maybe-uninitialized
+    -Wno-ignored-qualifiers
+    )
+%cmake \
        -DBUILD_SHARED_LIBS:BOOL=ON \
        -DBUILD_EXAMPLES:BOOL=ON \
        -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"\
        -DCMAKE_VERBOSE_MAKEFILE=ON\
-       -DCMAKE_CXX_FLAGS:STRING="-std=gnu++14 %{optflags} ${extra_cflags[*]}" \
+       -DCMAKE_CXX_FLAGS:STRING="%{optflags} ${extra_cflags[*]}" \
        -DBUILD_TESTING=ON\
        %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS} \
        -DITK_USE_GOLD_LINKER:BOOL=OFF \
@@ -201,11 +208,13 @@ extra_cflags=(
        -DITK_USE_SYSTEM_LIBRARIES:BOOL=ON \
        -DITK_USE_SYSTEM_CASTXML=ON \
        -DITK_USE_SYSTEM_DCMTK=ON \
+       -DITK_USE_SYSTEM_DOUBLECONVERSION=ON \
        -DITK_USE_SYSTEM_EXPAT=ON \
        -DITK_USE_SYSTEM_FFTW=ON \
        -DITK_USE_SYSTEM_GDCM=ON \
        -DITK_USE_SYSTEM_GOOGLETEST=OFF \
        -DITK_USE_SYSTEM_HDF5=ON \
+       -DHDF5_NO_FIND_PACKAGE_CONFIG=ON \
        -DITK_USE_SYSTEM_JPEG=ON \
        -DITK_USE_SYSTEM_MINC=ON \
        -DITK_USE_SYSTEM_PNG=ON \
@@ -213,46 +222,62 @@ extra_cflags=(
        -DITK_USE_SYSTEM_TIFF=ON \
        -DITK_USE_SYSTEM_ZLIB=ON \
        -DITK_USE_SYSTEM_VXL=ON \
+       -DITK_USE_SYSTEM_EIGEN=ON \
        -DITK_INSTALL_LIBRARY_DIR=%{_lib}/ \
        -DITK_INSTALL_INCLUDE_DIR=include/%{name} \
        -DITK_INSTALL_PACKAGE_DIR=%{_lib}/cmake/%{name}/ \
        -DITK_INSTALL_RUNTIME_DIR:PATH=%{_bindir} \
        -DITK_INSTALL_DOC_DIR=share/doc/%{name}/
 
+
 %cmake_build
 
 %install
 %cmake_install
+
+# Install bundled library license files (avoid filename collisions)
+mkdir -p %{buildroot}%{_defaultlicensedir}/%{name}
+cp -a Modules/ThirdParty/DICOMParser/src/DICOMParser/Copyright.txt \
+   %{buildroot}%{_defaultlicensedir}/%{name}/LICENSE.dicomparser
+cp -a Modules/ThirdParty/GIFTI/src/gifticlib/LICENSE.gifti \
+   %{buildroot}%{_defaultlicensedir}/%{name}/
+cp -a Modules/ThirdParty/KWSys/src/KWSys/Copyright.txt \
+   %{buildroot}%{_defaultlicensedir}/%{name}/LICENSE.kwsys
+cp -a Modules/ThirdParty/MetaIO/src/MetaIO/License.txt \
+   %{buildroot}%{_defaultlicensedir}/%{name}/LICENSE.metaio
+cp -a Modules/ThirdParty/OpenJPEG/src/LICENSE \
+   %{buildroot}%{_defaultlicensedir}/%{name}/LICENSE.openjpeg
 
 # Install examples
 mkdir -p %{buildroot}%{_datadir}/%{name}/examples
 cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 
 %check
-# There are a couple of tests randomly failing on f19 and rawhide and I'm debugging
-# it with upstream. Making the tests informative for now
+# There are a couple of tests randomly failing. Needs debugging with upstream.
 %ctest || exit 0
 
-# In F31 rawhide (some most likely related to the patching done above):
+# In F45 rawhide
 # The following tests FAILED:
-#	234 - itkNumericTraitsTest (Failed)
-#	2395 - itkVtkMedianImageFilterTest (Child aborted)
-#	2399 - QuickViewTest (Child aborted)
-#	2400 - itkVtkConnectedComponentImageFilterTest (Child aborted)
-
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets vtk
-
+#1238 - itkTIFFImageIOPlannarConfig2 (SEGFAULT)           ITKIOTIFF
+#1241 - itkTIFFImageIOInfoTest2 (SEGFAULT)                ITKIOTIFF
+#1257 - itkLargeTIFFImageWriteReadTest2 (Failed)          BigIO RUNS_LONG
+#1258 - itkLargeTIFFImageWriteReadTest3 (Failed)          BigIO RUNS_LONG
+#1259 - itkLargeTIFFImageWriteReadTest4 (Failed)          BigIO RUNS_LONG
 
 %files
-%doc LICENSE NOTICE README.md
-%{_libdir}/*.so.*
+%doc NOTICE README.md
+%license LICENSE
+%license %{_defaultlicensedir}/%{name}/LICENSE.dicomparser
+%license %{_defaultlicensedir}/%{name}/LICENSE.gifti
+%license %{_defaultlicensedir}/%{name}/LICENSE.kwsys
+%license %{_defaultlicensedir}/%{name}/LICENSE.metaio
+%license %{_defaultlicensedir}/%{name}/LICENSE.openjpeg
+%{_libdir}/*-%{version_major_minor}.so.1
 %exclude %{_libdir}/libITKVtkGlue*.so.*
 %{_bindir}/itkTestDriver
 
 %files devel
-%{_libdir}/*.so
+%{_libdir}/*-%{version_major_minor}.so
 %exclude %{_libdir}/libITKVtkGlue*.so
 %{_libdir}/cmake/%{name}/
 %{_includedir}/%{name}/
@@ -268,8 +293,8 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %files doc
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/*
-%doc InsightSoftwareGuide-Book1-%{version_doc}.pdf
-%doc InsightSoftwareGuide-Book2-%{version_doc}.pdf
+%doc InsightSoftwareGuide-Book1-%{version}.pdf
+%doc InsightSoftwareGuide-Book2-%{version}.pdf
 
 %files vtk
 %{_libdir}/libITKVtkGlue*.so.*
@@ -283,6 +308,18 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Thu Jul 16 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 5.4.6-1
+- Update to 5.4.6
+- Switch to system double-conversion, Eigen3 (add double-conversion-devel,
+  eigen3-devel BRs)
+- Fix HDF5/NetCDF cmake target conflict (HDF5_NO_FIND_PACKAGE_CONFIG=ON)
+- Add Provides: bundled() for all bundled libraries
+- Update License: to SPDX with all bundled library licenses
+- Install bundled library license files with unique names
+- Drop unused patches (fix-riscv.patch), disable LTO, fix find syntax
+- Remove stale Jira issue links from comments
+- Drop qt5-qtwebkit-devel BuildRequires (no longer needed upstream)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

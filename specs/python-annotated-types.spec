@@ -6,8 +6,8 @@
 %bcond tests 1
 
 Name:           python-annotated-types
-Version:        0.7.0
-Release:        11%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Reusable constraint types to use with typing.Annotated
 
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jul 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.0-1
+- Update to 0.8.0 (close RHBZ#2506626)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -26,9 +26,7 @@ BuildRequires: doxygen
 BuildRequires: transfig
 BuildRequires: latex2html
 BuildRequires: texlive
-BuildRequires: texlive-SIunits
 BuildRequires: texlive-relsize
-BuildRequires: texlive-IEEEtran
 BuildRequires: texlive-savesym
 BuildRequires: texlive-subfigure
 BuildRequires: texlive-keystroke

@@ -1,11 +1,15 @@
+%global soversion 0
+
 Name:           test-drive
-Version:        0.4.0
-Release:        12%{?dist}
+Version:        0.6.1
+Release:        %autorelease
 Summary:        The simple testing framework
-# Automatically converted from old format: ASL 2.0 or MIT - review is highly recommended.
-License:        Apache-2.0 OR LicenseRef-Callaway-MIT
+License:        MIT OR Apache-2.0
 URL:            https://github.com/fortran-lang/test-drive
 Source0:        https://github.com/fortran-lang/test-drive/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Better control of the module dir install path
+Patch:          https://github.com/fortran-lang/test-drive/pull/69.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  cmake
@@ -22,64 +26,41 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+
 %prep
-%setup -q
+%autosetup -p1
+
+
+%conf
+# TODO: Account for absolute path CMAKE_INSTALL_INCLUDEDIR so we can use %%{_fmoddir}
+%cmake \
+  -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_lib}/gfortran/modules \
+  -Dtest-drive-module-dir:STRING=test-drive
+
 
 %build
-%cmake
 %cmake_build
+
 
 %install
 %cmake_install
-# Move module files
-mkdir -p %{buildroot}%{_fmoddir}
-mv %{buildroot}%{_includedir}/test-drive/*/*.mod %{buildroot}%{_fmoddir}
-rm -rf %{buildroot}%{_includedir}/test-drive/
+
+
+%check
+%ctest
+
 
 %files
 %license LICENSE-Apache LICENSE-MIT
 %doc README.md
-%{_libdir}/libtest-drive.so.0*
+%{_libdir}/libtest-drive.so.%{soversion}{,.*}
 
 %files devel
-%{_fmoddir}/testdrive*.mod
+%{_fmoddir}/test-drive/
 %{_libdir}/pkgconfig/test-drive.pc
 %{_libdir}/cmake/test-drive/
 %{_libdir}/libtest-drive.so
 
+
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.0-8
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 09 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.4.0-2
-- Use %%{_fmoddir} macro.
-
-* Tue May 24 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.4.0-1
-- Initial release.
+%autochangelog

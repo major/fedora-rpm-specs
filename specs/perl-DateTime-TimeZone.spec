@@ -6,7 +6,7 @@
 
 Name:           perl-DateTime-TimeZone
 Version:        2.69
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Time zone object base class and factory
 # tzdata%%{tzversion}.tar.gz archive:   LicenseRef-Fedora-Public-Domain
 # other files:                          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -180,6 +180,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.69-4
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.69-3
 - Perl 5.44 rebuild
 

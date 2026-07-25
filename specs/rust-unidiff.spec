@@ -5,7 +5,7 @@
 %global crate unidiff
 
 Name:           rust-unidiff
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Unified diff parsing/metadata extraction library for Rust
 

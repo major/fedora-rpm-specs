@@ -1,7 +1,7 @@
 Version: 22.0.4
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-3-Clause AND ISC AND MIT
 URL: https://github.com/pupnp/pupnp
 Source: %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
@@ -35,8 +35,6 @@ the UPnP SDK libraries.
 %install
 %cmake_install
 
-%{__rm} %{buildroot}%{_libdir}/{libixml.a,libupnp.a}
-
 %files
 %license COPYING
 %doc THANKS
@@ -53,9 +51,15 @@ the UPnP SDK libraries.
 %{_libdir}/libupnp.so
 %{_libdir}/pkgconfig/libupnp.pc
 %{_libdir}/cmake/UPNP/
+%{_libdir}/libixml.a
+%{_libdir}/libupnp.a
+
 
 %changelog
-* Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.4-1
+* Wed Jul 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.4-3
+- Ship .a files to resolve bz 2506210
+
+* Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.4-2
 - 22.0.4
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2

@@ -8,7 +8,7 @@
 %global crate assert_cmd
 
 Name:           rust-assert_cmd
-Version:        2.2.0
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Test CLI Applications
 

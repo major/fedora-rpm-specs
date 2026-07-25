@@ -5,7 +5,7 @@
 %global crate target-triple
 
 Name:           rust-target-triple
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        TARGET and HOST triples
 

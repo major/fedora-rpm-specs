@@ -5,7 +5,7 @@
 %global crate dua-cli
 
 Name:           rust-dua-cli
-Version:        2.34.0
+Version:        2.38.1
 Release:        %autorelease
 Summary:        Tool to conveniently learn about the disk usage of directories
 
@@ -13,10 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/dua-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump gix-glob dependency to 0.26
-# * bump gix-path dependency to 0.12
+# * bump gix dependency to 0.85
 # * relax trash dependency to >=3,<6
-# * drop atty dependency to use stdlib instead
 Patch:          dua-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -28,24 +26,33 @@ A tool to conveniently learn about the disk usage of directories, fast!.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
+# MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
+# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
-    MIT AND
-    Unicode-3.0 AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (MIT OR Zlib OR Apache-2.0) AND
-    (Unlicense OR MIT) AND
-    Zlib
+    MIT
+    AND Apache-2.0
+    AND MPL-2.0
+    AND Unicode-3.0
+    AND (0BSD OR MIT OR Apache-2.0)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (MIT OR Apache-2.0 OR Zlib)
+    AND (Unlicense OR MIT)
+    AND Zlib
 }
 # LICENSE.dependencies contains a full license breakdown
 

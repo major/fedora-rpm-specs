@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.13
-Release: 7%{?dist}
+Version: %{majorversion}.14
+Release: 3%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 15
-%global prevversion %{prevmajorversion}.17
+%global prevversion %{prevmajorversion}.18
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1347,6 +1347,26 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 16.14-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 16.14-2
+- Perl 5.44 rebuild
+
+* Thu Jul 23 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 16.14-1
+- Update to version 16.14
+- Resolves: rhbz#2477451
+- Resolves: rhbz#2499964
+- Resolves: rhbz#2499726
+- Resolves: rhbz#2499705
+- Resolves: rhbz#2489304
+- Resolves: rhbz#2487460
+- Resolves: rhbz#2484513
+- Resolves: rhbz#2484512
+- Resolves: rhbz#2484431
+- Resolves: rhbz#2482515
+- Resolves: rhbz#2499705
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 16.13-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

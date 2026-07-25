@@ -29,7 +29,7 @@ Patch:          cmake-locale-install.patch
 BuildRequires:  automake
 BuildRequires:  autoconf
 %else
-BuildRequires:  cmake3 >= 3.5
+BuildRequires:  cmake >= 3.5
 %endif
 
 BuildRequires:  asciidoc

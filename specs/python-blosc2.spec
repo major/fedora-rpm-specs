@@ -11,6 +11,9 @@ BuildRequires:  gcc-g++
 BuildRequires:  blosc2-devel >= 2.21.0
 BuildRequires:  tomcli
 
+# Fix NumPy 2.5 deprecation of setting .shape on arrays
+Patch:          https://github.com/Blosc/python-blosc2/commit/d5300ab0.patch
+
 ExcludeArch:    %{ix86}
 
 %global _description %{expand:

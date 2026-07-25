@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.4
 %global prever %{nil}
-Release: 4%{?dist}
+Release: 6%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -52,6 +52,9 @@ Patch24: dovecot-2.4.2-fixbuild.patch
 # temporary workaround for s390x build test failure
 # https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/FZBVU55TK5332SMZSSDNWIVJCWGUAJQS/
 Patch25: dovecot-2.4.2-ftbfs-workaround.patch
+# openssl 4.0 FTBFS fix, form upsteam, for <= 2.4.4
+# https://github.com/dovecot/core/commit/fda272dc196d368625c425d309ca77241dbf50a1
+Patch26: dovecot-2.4.4-openssl4.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
@@ -102,7 +105,7 @@ BuildRequires: make
 # as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-%if 0%{?fedora} > 45
+%if 0%{?fedora} >= 45
 # fts_flatcurve is a good replacement for fts-xapian, which no longer seems to
 # have an upstream
 Obsoletes: dovecot-fts-xapian < 1.10
@@ -163,6 +166,7 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
 %patch -P 25 -p1 -b .ftbfs-workaround
+%patch -P 26 -p1 -b .openssl4
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
@@ -489,6 +493,13 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Thu Jul 23 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.4-6
+- fix FTBFS caused by openssl 4.0
+
+* Thu Jul 16 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.4-5
+- F45+ obsolete dovecot-fts-xapian (PR#9) as it is no longer maintained,
+  included fts flatcurve is a possible replacement
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

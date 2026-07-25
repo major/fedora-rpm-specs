@@ -8,7 +8,7 @@
 Name:           perl-YAML-LibYAML
 Epoch:          1
 Version:        0.910.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -162,6 +162,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.910.0-4
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.910.0-3
 - Perl 5.44 rebuild
 

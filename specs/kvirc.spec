@@ -1,6 +1,6 @@
 Name:             kvirc
 Version:          5.2.10
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Free portable IRC client
 License:          GPL-2.0-or-later WITH kvirc-openssl-exception
 URL:              https://www.kvirc.net/
@@ -131,6 +131,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.10-7
+- Perl 5.44 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

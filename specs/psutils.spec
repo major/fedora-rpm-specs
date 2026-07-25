@@ -1,9 +1,9 @@
-# Unbundle gnulib
-%bcond psutils_enables_unbundling_gnulib %{undefined rhel}
+# tests require python-wand which binds ImageMagick
+%bcond psutils_enables_tests %{undefined rhel}
 
 Name:       psutils
 Version:    3.3.15
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    PDF and PostScript utilities
 # COPYING:          GPL-3.0 text
 # psutils/argparse.py:      GPL-3.0-or-later
@@ -53,9 +53,11 @@ BuildRequires:  coreutils
 BuildRequires:  python3-devel >= 3.12
 # Run-time:
 BuildRequires:  paper
+%if %{with psutils_enables_tests}
 # Tests:
 # Undeclared transitive dependency of python3-wand, bug #2502718
 BuildRequires:  ImageMagick-libs
+%endif
 # psutils-perl was merged into psutils-2.03-1.fc34
 Provides:       %{name}-perl = %{version}-%{release}
 Obsoletes:      %{name}-perl < %{version}-%{release}
@@ -67,6 +69,7 @@ You can select and rearrange pages, including arrangement into signatures for
 booklet printing, combine multiple pages into a single page for n-up printing,
 and resize, flip and rotate pages.
 
+%if %{with psutils_enables_tests}
 %package tests
 Summary:        Tests for %{name}
 License:        GPL-3.0-or-later AND AGPL-3.0-or-later
@@ -80,18 +83,21 @@ Requires:       python3dist(wand)
 %description tests
 Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
+%endif
 
 %prep
 %setup -q
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires %{?with_psutils_enables_tests:-x test}
 
 %build
 %pyproject_wheel
  
 %install
 %pyproject_install
+%pyproject_save_files -l %{name}
+%if %{with psutils_enables_tests}
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a tests %{buildroot}%{_libexecdir}/%{name}
@@ -104,18 +110,20 @@ export PYTHONDONTWRITEBYTECODE=1
 cd %{_libexecdir}/%{name} && exec /usr/bin/pytest
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%endif
 
 %check
+%pyproject_check_import
+%if %{with psutils_enables_tests}
 # Override locale because upsteam's PAPERSIZE override does not work.
 # <https://github.com/rrthomas/psutils/issues/91>.
 LC_ALL=C.UTF-8
 %pytest
+%endif
 
-%files
+%files -f %{pyproject_files}
 %license COPYING
 %doc README.md
-%{python3_sitelib}/psutils/
-%{python3_sitelib}/psutils-%{version}.dist-info/
 %{_bindir}/epsffit
 %{_bindir}/extractres
 %{_bindir}/includeres
@@ -136,10 +144,15 @@ LC_ALL=C.UTF-8
 %{_mandir}/man1/pstops.1*
 %{_mandir}/man1/psutils.1*
 
+%if %{with psutils_enables_tests}
 %files tests
 %{_libexecdir}/%{name}
+%endif
 
 %changelog
+* Wed Jul 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.15-3
+- Disable tests on RHEL
+
 * Mon Jul 20 2026 Petr Pisar <ppisar@redhat.com> - 3.3.15-2
 - Readd psutils-perl RPM-Provides
 

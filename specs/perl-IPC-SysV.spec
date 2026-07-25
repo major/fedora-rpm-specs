@@ -7,7 +7,7 @@
 
 Name:           perl-IPC-SysV
 Version:        2.09
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Object interface to System V IPC
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-SysV
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.09-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.09-527
 - Increase release to favour standalone package
 

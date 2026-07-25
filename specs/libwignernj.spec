@@ -6,11 +6,13 @@
 
 Name:           libwignernj
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        7%{?dist}
 Summary:        Exact Wignernj 3j/6j/9j symbols and related coefficients via prime factorization
 License:        BSD-3-Clause
 URL:            https://github.com/susilehtola/libwignernj
 Source0:        https://github.com/susilehtola/libwignernj/archive/v%{version}/%{name}-%{version}.tar.gz
+# Make the Fortran .mod install directory configurable
+Patch0:         libwignernj-0.7.0-moddir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -46,7 +48,9 @@ Python 3.}
 Summary:        Development files for libwignernj
 Requires:       libwignernj%{?_isa} = %{version}-%{release}
 Requires:       mpfr-devel%{?_isa}
+%if %{quad}
 Requires:       libquadmath-devel%{?_isa}
+%endif
 Requires:       libstdc++-devel%{?_isa}
 Requires:       gcc-gfortran%{?_isa}
 
@@ -90,6 +94,7 @@ The reference manual (Markdown) for libwignernj.
 
 %prep
 %setup -q
+%patch -P 0 -p 1 -b .moddir
 
 %build
 quadmath=""
@@ -104,14 +109,13 @@ quadmath="-DBUILD_QUADMATH:BOOL=ON"
     -DBUILD_PYTHON:BOOL=ON \
     -DBUILD_TESTS:BOOL=ON \
     -DBUILD_CXX_TESTS:BOOL=ON \
-    -DBUILD_EXAMPLES:BOOL=ON $quadmath
+    -DBUILD_EXAMPLES:BOOL=ON \
+    -DWIGNERNJ_INSTALL_MODDIR:STRING=%{_fmoddir} $quadmath
 %cmake_build
 
 %install
 %cmake_install
 %py_byte_compile %{python3} %{buildroot}%{python3_sitearch}/wignernj
-mkdir -p %{buildroot}%{_fmoddir}
-mv %{buildroot}%{_includedir}/wignernj/fortran/*.mod %{buildroot}%{_fmoddir}/
 
 %check
 %ctest
@@ -159,6 +163,17 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc docs/optimization_notes.md
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 0.7.0-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 23 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.7.0-6
+- Fix gating on BR: libquadmath-devel.
+
+* Thu Jul 23 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.7.0-5
+- Install the Fortran modules into %%{_fmoddir} via CMake instead of moving
+  them after the fact, fixing the non-existent include directory in the
+  exported wignernj::wignernj_f03 target and in libwignernj_f03.pc.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

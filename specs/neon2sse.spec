@@ -1,7 +1,7 @@
 %global debug_package %{nil}
-%global gitdate 20240908
-%global commit 504231850f206696faa58e3511e305a67fd4e565
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global gitdate 20260428
+%global commit ed59be8546632d5126ff69c87122ae5de20ffe4f
+%global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 Name:		neon2sse
 Version:	0.0^%{gitdate}git%{shortcommit}

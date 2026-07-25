@@ -1,13 +1,13 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   3
+%define prerelnum   4
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
 Version:        %{basever}~%{prerel}.%{prerelnum}
 Release:        %autorelease
 ExcludeArch:    %{ix86}
-Summary:        Sleek and minimal desktop shell thoughtfully crafted for Wayland
+Summary:        A sleek, customizable desktop shell crafted for Wayland
 
 # The main source code is MIT.  Other licenses:
 # Apache-2.0:
@@ -55,6 +55,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libsodium)
 BuildRequires:  pkgconfig(polkit-agent-1)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(libpipewire-0.3)
@@ -62,17 +64,17 @@ BuildRequires:  pkgconfig(wireplumber-0.5)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libqalculate)
 BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(md4c)
+BuildRequires:  json-static
+BuildRequires:  pkgconfig(tomlplusplus)
 BuildRequires:  pam-devel
 BuildRequires:  glibc-devel
 BuildRequires:  pkgconfig(jemalloc)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(glesv2)
-BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(tomlplusplus)
-BuildRequires:  pkgconfig(md4c)
-BuildRequires:  json-static
 BuildRequires:  stb_image_resize2-static
 BuildRequires:  stb_image_write-static
+BuildRequires:  pkgconfig(libwebp)
 
 # Needed by plugin_git_export_test
 BuildRequires:  git-core
@@ -92,7 +94,7 @@ Requires:       git-core
 # Optional requirements for various functionality
 Recommends:     upower
 Recommends:     ddcutil
-Recommends:     wtype
+Recommends:     gnome-keyring
 
 # Upstream doesn't currently offer a mechanism for building against system
 # copies of these libraries.
@@ -119,7 +121,7 @@ sed -e '/fallback/ s/unknown/%{tag}/' -i meson.build
 
 # Remove shebangs and execute permissions from template apply scripts to avoid
 # rpmlint errors/warnings.
-find assets/templates -type f -regextype egrep -regex '.*\.(sh|py)' \
+find assets/templates -type f -name '*.sh' \
     -exec sed -e '1 {/^#!/d}' -i '{}' + \
     -exec chmod -x '{}' +
 

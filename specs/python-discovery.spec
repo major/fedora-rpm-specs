@@ -2,7 +2,7 @@
 %bcond tkinter 1
 
 Name:           python-discovery
-Version:        1.4.4
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Python interpreter discovery
 
@@ -17,7 +17,7 @@ Patch:          python3.6.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license python_discovery
-BuildOption(generate_buildrequires): --extras testing
+BuildOption(generate_buildrequires): --dependency-groups test
 
 BuildArch:      noarch
 

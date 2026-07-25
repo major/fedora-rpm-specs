@@ -5,7 +5,7 @@ Name:           perl-IPC-Cmd
 # Epoch to compete with perl.spec
 Epoch:          2
 Version:        1.04
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Finding and running system commands made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Cmd
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.04-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.04-527
 - Increase release to favour standalone package
 

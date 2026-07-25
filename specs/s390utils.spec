@@ -16,8 +16,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.43.0
-Release:        2%{?dist}
+Version:        2.43.1
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -1141,6 +1141,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Jul 23 2026 Dan Horák <dan[at]danny.cz> - 2:2.43.1-1
+- rebased to 2.43.1 (rhbz#2506343)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

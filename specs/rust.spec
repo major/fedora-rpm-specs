@@ -134,6 +134,10 @@ Patch6:         rustc-1.97.0-unbundle-sqlite.patch
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 
+# https://fedoraproject.org/wiki/Changes/ShadowStack
+# This patch enables `-Zcf-protection=return` for SHSTK by default
+Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -712,6 +716,7 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
+%patch -P8 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1

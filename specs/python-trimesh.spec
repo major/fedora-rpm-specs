@@ -9,13 +9,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460576
 # https://github.com/nschloe/meshio/issues/1558
 %bcond meshio %{defined fc44}
-# Python bindings for manifold are not yet built in F44:
-# https://src.fedoraproject.org/rpms/manifold/pull-request/1#comment-321943
-#
 # Since the tests for manifold’s Python bindings depend on trimesh, a
 # dependency cycle exists: trimesh → manifold → blender, and then trimesh
 # normally depends on both manifold and blender.
-%bcond manifold %[ %{without bootstrap} && %{undefined fc44} ]
+%bcond manifold %{without bootstrap}
 
 Name:           python-trimesh
 Version:        4.12.2
@@ -303,15 +300,16 @@ deselect="${deselect-} --deselect=tests/test_color.py::test_data_model"
 k="${k-}${k+ and }not test_contains_cavity"
 %endif
 
-# This test fails if it doesn’t finish within 30 seconds, and executing it in
-# parallel with other tests tends to slow it down too much. We exclude it here,
-# then run it serially on its own.
+# This test fails if it doesn’t finish within 60 seconds, and executing it in
+# parallel with other tests tends to slow it down too much. Furthermore, the
+# only assertion in the test is the one on execution time, and builder hardware
+# may be quite different (and potentially slower) than what upstream is using
+# for development and CI, so it provides no real value downstream.
 # tests/test_bounds.py::BoundsTest::test_obb_mesh_large
 k="${k-}${k+ and }not (BoundsTest and test_obb_mesh_large)"
 
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 %pytest -v -k "${k-}" -n auto ${deselect-}
-%pytest -v -k '(BoundsTest and test_obb_mesh_large)'
 
 
 %files -n python3-trimesh -f %{pyproject_files}

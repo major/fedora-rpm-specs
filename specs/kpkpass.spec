@@ -61,7 +61,6 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %endif
 %{_kf6_libdir}/libKPim6PkPass.so.*
 %{_kf6_qmldir}/org/kde/pkpass/
-%{_datadir}/mime/packages/application-vnd-apple-pkpasses.xml
 
 %files devel
 %{_includedir}/KPim6/KPkPass/

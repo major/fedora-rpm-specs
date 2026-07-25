@@ -14,7 +14,7 @@
 
 Name:		perl-CPAN-Meta-YAML
 Version:	0.020
-Release:	527%{?dist}
+Release:	528%{?dist}
 Summary:	Read and write a subset of YAML for CPAN Meta files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-YAML
@@ -93,6 +93,9 @@ make test TEST_FILES="xt/*/*.t"
 %{_mandir}/man3/CPAN::Meta::YAML.3*
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.020-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.020-527
 - Increase release to favour standalone package
 

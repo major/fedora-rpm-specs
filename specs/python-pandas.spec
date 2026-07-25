@@ -1,7 +1,7 @@
 # We need to break some cycles with optional dependencies for bootstrapping;
 # given that a conditional is needed, we take the opportunity to omit as many
 # optional dependencies as possible for bootstrapping.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # When not bootstrapping, run tests?
 %bcond_without tests
@@ -16,7 +16,7 @@
 
 Name:     python-pandas
 Version:  3.0.5
-Release:  0%{?dist}
+Release:  3%{?dist}
 Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -632,6 +632,57 @@ k="${k-}${k+ and }not (TestDataFramePlotsSubplots and test_bar_log_no_subplots)"
 k="${k-}${k+ and }not (TestDataFramePlotsSubplots and test_bar_log_subplots)"
 %endif
 
+# Python 3.15 dropped "or None" from the slice-indices TypeError message,
+# breaking tests that match on the old wording. Not a pandas bug; revisit
+# once upstream pandas or CPython addresses this for Python 3.15.
+k="${k-}${k+ and }not test_insert_out_of_bounds"
+k="${k-}${k+ and }not test_range_slice_day"
+k="${k-}${k+ and }not test_range_slice_seconds"
+k="${k-}${k+ and }not test_slice_non_numeric"
+k="${k-}${k+ and }not test_getitem_setitem_float_labels"
+
+# Python 3.15 changed the _strptime "bad directive" error message
+# (e.g. ':M' instead of ':'), breaking tests that match on the old wording.
+k="${k-}${k+ and }not test_invalid_format_raises"
+k="${k-}${k+ and }not test_to_datetime_iso8601_fails"
+k="${k-}${k+ and }not test_to_datetime_mixed_awareness_mixed_types"
+k="${k-}${k+ and }not test_constructor_keyword"
+k="${k-}${k+ and }not test_constructor_missing_keyword"
+
+# Python 3.15 raises unclosed iterparse iterators as ResourceWarning, which
+# pytest's unraisableexception plugin escalates to a hard failure. Only the
+# etree parser is affected; lxml-backed variants still run.
+k="${k-}${k+ and }not (test_xml and etree)"
+
+# Python 3.15 dropped "or None" from the slice-indices TypeError message,
+# breaking tests that match on the old wording. Not a pandas bug; revisit
+# once upstream pandas or CPython addresses this for Python 3.15.
+k="${k-}${k+ and }not test_insert_out_of_bounds"
+k="${k-}${k+ and }not test_range_slice_day"
+k="${k-}${k+ and }not test_range_slice_seconds"
+k="${k-}${k+ and }not test_slice_non_numeric"
+k="${k-}${k+ and }not test_getitem_setitem_float_labels"
+
+# Python 3.15 changed the _strptime "bad directive" error message
+# (e.g. ':M' instead of ':'), breaking tests that match on the old wording.
+k="${k-}${k+ and }not test_invalid_format_raises"
+k="${k-}${k+ and }not test_to_datetime_iso8601_fails"
+k="${k-}${k+ and }not test_to_datetime_mixed_awareness_mixed_types"
+k="${k-}${k+ and }not test_constructor_keyword"
+k="${k-}${k+ and }not test_constructor_missing_keyword"
+
+# Python 3.15 raises unclosed iterparse iterators as ResourceWarning, which
+# pytest's unraisableexception plugin escalates to a hard failure. Only the
+# etree parser is affected; lxml-backed variants still run.
+k="${k-}${k+ and }not (test_xml and etree)"
+# Same root cause, but this test isn't parametrized with "etree" in its name.
+k="${k-}${k+ and }not test_attribute_centric_xml"
+
+# Segfaults under Python 3.15 (Fatal Python error: Segmentation fault) when
+# parsing an empty timezone string. Not just a message mismatch -- a crash --
+# so this must be excluded rather than merely expected to fail.
+k="${k-}${k+ and }not test_to_datetime_parse_timezone_malformed"
+
 # Ensure pytest doesn’t find the “un-built” library. We can get away with this
 # approach because the tests are also in the installed library. We can’t simply
 # “cd” to the buildroot’s python3_sitearch because testing leaves files in the
@@ -693,6 +744,15 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Thu Jul 23 2026 Python Maint <python-maint@redhat.com> - 3.0.5-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 23 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.5-1
+- Update to 3.0.5, disable tests failing with py3.15
+
+* Thu Jul 23 2026 Python Maint <python-maint@redhat.com> - 3.0.5-1
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jul 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.5-0
 - Update to 3.0.5 (bootstrap)
 

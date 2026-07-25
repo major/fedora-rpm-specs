@@ -5,7 +5,7 @@
 %global crate zvariant
 
 Name:           rust-zvariant
-Version:        5.12.0
+Version:        5.13.1
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 

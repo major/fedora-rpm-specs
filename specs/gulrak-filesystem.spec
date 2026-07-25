@@ -10,7 +10,7 @@
 %bcond system_catch2 1
 
 Name:           gulrak-filesystem
-Version:        1.5.14
+Version:        1.5.16
 Release:        %autorelease
 Summary:        Implementation of C++17 std::filesystem for C++11/14/17/20
 

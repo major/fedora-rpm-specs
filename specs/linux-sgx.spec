@@ -315,6 +315,7 @@ Patch0013: 0013-linux-installer-drop-PCCS-package-from-BOM.patch
 Patch0014: 0014-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
 Patch0015: 0015-fix-BOM-for-mpa_manage-mpa_registration-files.patch
 Patch0016: 0016-fix-missing-def-of-uncaught_exception.patch
+Patch0017: 0017-sdk-adapt-to-openssl4-API-changes.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 
@@ -353,6 +354,8 @@ Patch0122: 0122-Disable-PcsClientTool-package-build.patch
 Patch0123: 0123-disable-building-of-WASM-SIMDE-code.patch
 Patch0124: 0124-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
 Patch0125: 0125-Support-for-26.04-enabled-in-SGXSDK-and-DCAP.patch
+Patch0126: 0126-qpl-fix-const-correctness-for-ASN1_STRING-X509_NAME_.patch
+Patch0127: 0127-qal-force-compat-with-CMake-3.5.patch
 
 
 # 0200-0299 -> against intel-sgx-ssl.git
@@ -363,6 +366,7 @@ Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
 Patch0201: 0201-Workaround-missing-output-directory.patch
 Patch0202: 0202-Disable-various-EC-crypto-features.patch
 Patch0203: 0203-Disable-sm2-and-sm4-crypto-algorithms.patch
+Patch0204: 0204-Update-patches-for-openssl-3.0.19.patch
 
 
 # 0300-0399 -> against ipp-crypto.git
@@ -372,6 +376,12 @@ Patch0203: 0203-Disable-sm2-and-sm4-crypto-algorithms.patch
 Patch0300: 0300-Drop-min-openssl-from-3.0.8-to-3.0.7.patch
 Patch0301: 0301-Drop-Werror-from-build-flags.patch
 
+
+# 0400-0499 -> against confidential-computing.tee.dcap.qvl.git
+#
+# Maintained in https://github.com/berrange/confidential-computing.tee.dcap.qvl
+#
+Patch0400: 0400-Fix-constness-for-OpenSSL4-X509-ASN1-APIs.patch
 
 BuildRequires: sgx-rpm-macros
 BuildRequires: autoconf
@@ -640,6 +650,7 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
     cd QuoteVerification/QVL
 
     tar zxf %{SOURCE7} --strip 1
+    %autopatch -m 400 -M 499 -p1
   )
 
   (

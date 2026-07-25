@@ -12,6 +12,7 @@
   hs-meetings
   hs-relmon
   koji-diff
+  koji-lag
   poi-tracker
   sandogasa-hattrack
   sandogasa-pkg-acl
@@ -20,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.18.0
+Version:        0.18.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -135,6 +136,7 @@ done
 %{_bindir}/hs-meetings
 %{_bindir}/hs-relmon
 %{_bindir}/koji-diff
+%{_bindir}/koji-lag
 %{_bindir}/poi-tracker
 %{_bindir}/sandogasa-hattrack
 %{_bindir}/sandogasa-pkg-acl

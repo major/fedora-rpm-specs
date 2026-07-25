@@ -1,5 +1,5 @@
 Name:           python-quart
-Version:        0.20.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        A Python ASGI web microframework with the same API as Flask
 
@@ -22,7 +22,7 @@ Source13:       quart-shell.1
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): --extras dotenv requirements/tests.in
+BuildOption(generate_buildrequires): --extras dotenv --dependency-groups tests
 BuildOption(install): --assert-license quart
 
 BuildArch:      noarch

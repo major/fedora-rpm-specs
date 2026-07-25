@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           koan
-Version:        3.2.2
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Kickstart over a network
 
@@ -31,7 +31,6 @@ koan python%{python3_pkgversion} module.
 
 %prep
 %autosetup -p1
-%py3_shebang_fix bin
 
 %generate_buildrequires
 %pyproject_buildrequires

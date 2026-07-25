@@ -2,11 +2,11 @@
 %bcond_with tests
 # The *.py files we ship are not python scripts, #813651
 %global _python_bytecompile_errors_terminate_build 0
-%define upstream_version 2.17.0
+%define upstream_version 2.18.0
 
 Name:           bash-completion
-Version:        2.17
-Release:        3%{?dist}
+Version:        2.18
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -51,19 +51,19 @@ autoreconf -fi -v
 %make_install
 
 # Updated completion shipped in cowsay package:
-rm %{buildroot}%{_datadir}/bash-completion/completions/{cowsay,cowthink}
+rm %{buildroot}%{_datadir}/bash-completion/completions-core/{cowsay,cowthink}.bash
 
 # Bug 1819867 - conflict over the makepkg name with pacman
-rm %{buildroot}%{_datadir}/bash-completion/completions/makepkg
+rm %{buildroot}%{_datadir}/bash-completion/completions-core/makepkg.bash
 
 # Bug 2088307 - Remove completions for prelink
-rm %{buildroot}%{_datadir}/bash-completion/completions/prelink
+rm %{buildroot}%{_datadir}/bash-completion/completions-core/prelink.bash
 
 # Bug 2188865 - Remove bash completions for javaws as it's not shipped with Fedora
-rm %{buildroot}%{_datadir}/bash-completion/completions/javaws
+rm %{buildroot}%{_datadir}/bash-completion/completions-core/javaws.bash
 
 # Bug 2391218 - patchutils package contains its own completion for this
-rm %{buildroot}%{_datadir}/bash-completion/completions/interdiff
+rm %{buildroot}%{_datadir}/bash-completion/completions-fallback/interdiff.bash
 
 %check
 # For some tests involving non-ASCII filenames
@@ -86,7 +86,6 @@ make -C completions check
 %doc AUTHORS CHANGELOG.md CONTRIBUTING.md README.md
 %doc doc/configuration.md doc/styleguide.md
 %config(noreplace) %{_sysconfdir}/profile.d/bash_completion.sh
-%{_sysconfdir}/bash_completion.d/000_bash_completion_compat.bash
 %{_datadir}/bash-completion/
 
 %files devel
@@ -94,6 +93,10 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Thu Jul 23 2026 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.18-1
+- Update to version 2.18
+  Resolves: #2499654
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

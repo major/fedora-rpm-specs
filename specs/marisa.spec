@@ -1,6 +1,6 @@
 Name:          marisa
 Version:       0.3.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -188,6 +188,9 @@ popd
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.3.0-11
+- Perl 5.44 rebuild
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.3.0-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

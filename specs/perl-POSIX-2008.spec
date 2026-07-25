@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
-Version:        0.26
-Release:        4%{?dist}
+Version:        0.27
+Release:        2%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -17,7 +17,9 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.9
 BuildRequires:  perl(Config)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Devel::PPPort)
+BuildRequires:  perl(Errno)
 BuildRequires:  perl(ExtUtils::Constant)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Fcntl)
@@ -25,29 +27,29 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(sigtrap)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-# Makefile.PL loads ./lib/POSIX/2008.pm without XSLoader
+BuildRequires:  perl(XSLoader)
+# Symbols.PL loads POSIX::2008
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(IO::File)
-BuildRequires:  perl(Time::HiRes)
 # Run-time:
-BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(bigrat)
-BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Errno)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(integer)
-BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
 Requires:       perl(XSLoader)
+
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(POSIX::2008::symbols.pl\\)
 
 %description
 POSIX::2008 Perl module contains many of the interfaces specified by
@@ -88,7 +90,7 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
-# t/02_at.t writes into CWD
+# t/02_fs.t writes into CWD
 DIR=$(mktemp -d)
 cp -a %{_libexecdir}/%{name}/* "$DIR"
 pushd "$DIR"
@@ -108,6 +110,7 @@ make test
 %dir %{perl_vendorarch}/auto/POSIX
 %{perl_vendorarch}/auto/POSIX/2008
 %dir %{perl_vendorarch}/POSIX
+%{perl_vendorarch}/POSIX/2008
 %{perl_vendorarch}/POSIX/2008.*
 %{_mandir}/man3/POSIX::2008.*
 
@@ -115,6 +118,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-2
+- Perl 5.44 re-rebuild updated packages
+
+* Thu Jul 23 2026 Petr Pisar <ppisar@redhat.com> - 0.27-1
+- 0.27 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.26-4
 - Perl 5.44 rebuild
 

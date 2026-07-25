@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        3.2.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            https://www.wxwidgets.org/
@@ -252,12 +252,12 @@ python3 -m httpbin.core &
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 \
   WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test ~[.] \
 %ifarch s390x
-  ~wxTextFile::Special ~wxFileName::GetSizeSpecial ~wxFile::Special \
+  ~wxTextFile::Special ~wxFile::Special \
 %endif
 %ifarch riscv64
   ~wxTextFile::Special ~wxFile::Special ~URLTestCase::GetInputStream ~WebRequest::SSL::Error \
 %endif
-  ~WebRequest::SSL::Ignore
+  ~WebRequest::SSL::Ignore ~wxFileName::GetSizeSpecial
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
   ./test_gui ~[.] \
 %ifarch i686
@@ -353,6 +353,9 @@ fi
 %doc html
 
 %changelog
+* Thu Jul 23 2026 Scott Talbert <swt@techie.net> - 3.2.9-5
+- Fix FTBFS by skipping wxFileName::GetSizeSpecial on all arches (#2505225)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

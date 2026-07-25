@@ -8,7 +8,7 @@
 Name:           perl-Test-Harness
 Epoch:          1
 Version:        3.52
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Harness
@@ -156,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.52-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.52-527
 - Increase release to favour standalone package
 

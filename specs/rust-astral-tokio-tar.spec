@@ -12,6 +12,10 @@ Summary:        Rust implementation of an async TAR file reader and writer
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/astral-tokio-tar
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Exclude release script from published crate:
+#   https://github.com/astral-sh/tokio-tar/pull/106
+Patch:          astral-tokio-tar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

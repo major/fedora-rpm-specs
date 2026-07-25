@@ -21,6 +21,9 @@ Patch0:         Coro-Multicore-0.02-Declare-POD-encoding.patch
 # 1.05 provided a fix, but forgot to return a value from thread_proc().
 # Keep the patch until upstream resolves it.
 Patch1:         Coro-Multicore-1.04-Fix-passing-context.patch
+# Rename atfork_child to coro_atfork_child to avoid collision with perl
+# 5.43.2+, bug #2506490, CPAN RT#180241, proposed upstream
+Patch2:         Coro-Multicore-1.07-Rename-atfork_child-to-avoid-collision-with-perl-5.43.2.patch
 BuildRequires:  coreutils
 BuildRequires:  perl-podlators
 %if %{with perl_Coro_Multicore_enables_coro}

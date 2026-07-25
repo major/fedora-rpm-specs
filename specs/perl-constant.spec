@@ -9,7 +9,7 @@
 
 Name:           perl-constant
 Version:        1.33
-Release:        527%{?dist}
+Release:        528%{?dist}
 Summary:        Perl pragma to declare constants
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/constant
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-528
+- Perl 5.44 re-rebuild of bootstrapped packages
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-527
 - Increase release to favour standalone package
 
