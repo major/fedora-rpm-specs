@@ -6,7 +6,7 @@ Name:           qgpgme
 Summary:        Qt API bindings/wrapper for GPGME
 Epoch:          1
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://gnupg.org/related_software/gpgme/
@@ -62,6 +62,9 @@ BuildRequires:  pkgconfig(Qt6Test)
 %package -n %{name}-qt5-devel
 Summary:        Development libraries and header files for %{name}-qt5
 Requires:       %{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       pkgconfig(gpgme) >= %{version}
+Requires:       pkgconfig(gpgmepp) >= %{version}
+Requires:       pkgconfig(gpg-error) >= 1.47
 # for fedora 39
 Obsoletes:      %{name}-devel < 1.20.0
 
@@ -73,6 +76,9 @@ Obsoletes:      %{name}-devel < 1.20.0
 %package -n %{name}-qt6-devel
 Summary:        Development libraries and header files for %{name}-qt6
 Requires:       %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       pkgconfig(gpgme) >= %{version}
+Requires:       pkgconfig(gpgmepp) >= %{version}
+Requires:       pkgconfig(gpg-error) >= 1.47
 
 %description -n %{name}-qt6-devel
 %{summary}.
@@ -131,6 +137,9 @@ chrpath -d %{buildroot}%{_libdir}/lib%{name}qt6.so*
 %endif
 
 %changelog
+* Fri Jul 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.0.0-4
+- Fix devel subpackage dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

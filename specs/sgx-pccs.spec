@@ -1,6 +1,6 @@
 
 # Change after running pccs-nodejs-bundler
-%global node_modules_date 20260318
+%global node_modules_date 20260723
 
 %global with_sysusers_scripts 0
 %if 0%{?rhel} == 9
@@ -9,7 +9,7 @@
 
 
 Name: sgx-pccs
-Version: 1.25
+Version: 1.26
 Release: %autorelease
 # The PCCS service was previously bundled in linux-sgx RPMs,
 # whose versioning follows the SGX versions.
@@ -75,10 +75,9 @@ Source4: pccs-%{version}-%{node_modules_date}-node-modules.tar.xz
 # Maintained in https://github.com/berrange/confidential-computing.tee.dcap.pccs/tree/dist-git-<version>
 #
 Patch: 0001-service-sanitize-paths-to-all-resources.patch
-Patch: 0002-pccsadmin-remove-leftover-debugging-print-args-state.patch
-Patch: 0003-pccsadmin-make-keyring-module-optional.patch
-Patch: 0004-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
-Patch: 0005-service-update-sqlite3-to-6.0.0-series-override-seri.patch
+Patch: 0002-pccsadmin-make-keyring-module-optional.patch
+Patch: 0003-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
+Patch: 0004-service-update-sqlite3-to-6.0.0-series-override-seri.patch
 
 
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11

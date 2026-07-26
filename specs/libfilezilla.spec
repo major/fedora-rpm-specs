@@ -1,6 +1,6 @@
 Name: libfilezilla
-Version: 0.54.1
-Release: 2%{?dist}
+Version: 0.56.1
+Release: 1%{?dist}
 URL: https://lib.filezilla-project.org/
 Summary: C++ Library for FileZilla
 License: GPL-2.0-or-later
@@ -51,7 +51,7 @@ This package contains files needed to compile code using libfilezilla.
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
-%{_libdir}/libfilezilla.so.53*
+%{_libdir}/libfilezilla.so.58*
 
 %files devel
 %doc doc/*
@@ -60,6 +60,9 @@ This package contains files needed to compile code using libfilezilla.
 %{_libdir}/pkgconfig/libfilezilla.pc
 
 %changelog
+* Fri Jul 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.56.1-1
+- 0.56.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

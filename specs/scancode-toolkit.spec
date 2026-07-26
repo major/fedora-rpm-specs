@@ -21,6 +21,9 @@ Patch:          0001-tests-fix-pytest-traceback.patch
 # See note in https://github.com/aboutcode-org/scancode-toolkit/issues/4541
 # about why pkginfo2 was removed.
 Patch:          0002-Replace-pkginfo2-with-pkginfo.patch
+# Make 'no such option' assertion tolerant of newer click error format
+# https://github.com/aboutcode-org/scancode-toolkit/commit/a1c6435375866ae2fead2df2c967f2ba150f18e9
+Patch:          https://github.com/aboutcode-org/scancode-toolkit/commit/a1c6435375866ae2fead2df2c967f2ba150f18e9.patch
 
 # scancode has dependencies that are not compatible with ix86
 ExcludeArch:    %{ix86}

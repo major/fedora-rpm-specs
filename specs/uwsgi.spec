@@ -274,7 +274,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2100,6 +2100,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 2.0.31-15
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.31-14
 - Perl 5.44 rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-grpc-xs
 Version:        0.38
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl binding to a client part of the gRPC library
 # examples/route_guide/route_guide.proto:   BSD-3-Clause
 # LICENSE:      Apache-2.0 text
@@ -8,6 +8,9 @@ Summary:        Perl binding to a client part of the gRPC library
 License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 URL:            https://metacpan.org/dist/grpc-xs
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/grpc-xs-%{version}.tar.gz
+# Fix dereferencing arguments in Grpc::XS::Call->startBatch() subroutine,
+# bug #2506505, proposed upstream, <https://github.com/joyrex2001/grpc-perl/pull/31>
+Patch1:         grpc-xs-0.38-Fix-dereferencing-hashes-in-Grpc-XS-Call-startBatch.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -79,6 +82,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+perl -Iblib/{lib,arch} t/15-xs_end_to_end.t
 make test
 
 %files
@@ -97,6 +101,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 24 2026 Petr Pisar <ppisar@redhat.com> - 0.38-13
+- Fix dereferencing arguments in Grpc::XS::Call->startBatch() subroutine
+  (bug #2506505)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.38-12
 - Perl 5.44 rebuild
 

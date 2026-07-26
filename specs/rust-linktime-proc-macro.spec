@@ -2,21 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate font-types
+%global crate linktime-proc-macro
 
-Name:           rust-font-types
-Version:        0.12.2
+Name:           rust-linktime-proc-macro
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Scalar types used in fonts
+Summary:        Proc-macro helpers for linktime crates (ctors, dtors, linker sections)
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/font-types
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/linktime-proc-macro
 Source:         %{crates_source}
+# * The excluded tests assume a directory layout that do not match the unpacked
+#   crate;
+# * additionally, one test has a mismatch only on i686 and is ignored there
+Patch2:         disable-failing-doctests.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Scalar types used in fonts.}
+Proc-macro helpers for linktime crates (ctors, dtors, linker sections).}
 
 %description %{_description}
 
@@ -47,40 +51,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytemuck-devel
+%package     -n %{name}+ctor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytemuck-devel %{_description}
+%description -n %{name}+ctor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytemuck" feature of the "%{crate}" crate.
+use the "ctor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytemuck-devel
+%files       -n %{name}+ctor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+dtor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+dtor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "dtor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+dtor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+link_section-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+link_section-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "link_section" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+link_section-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+scattered_collect-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+scattered_collect-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "scattered_collect" feature of the "%{crate}" crate.
+
+%files       -n %{name}+scattered_collect-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

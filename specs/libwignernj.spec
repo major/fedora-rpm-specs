@@ -5,14 +5,14 @@
 %endif
 
 Name:           libwignernj
-Version:        0.7.0
-Release:        7%{?dist}
+Version:        0.8.0
+Release:        2%{?dist}
 Summary:        Exact Wignernj 3j/6j/9j symbols and related coefficients via prime factorization
 License:        BSD-3-Clause
 URL:            https://github.com/susilehtola/libwignernj
 Source0:        https://github.com/susilehtola/libwignernj/archive/v%{version}/%{name}-%{version}.tar.gz
 # Make the Fortran .mod install directory configurable
-Patch0:         libwignernj-0.7.0-moddir.patch
+Patch0:         libwignernj-0.8.0-moddir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -100,16 +100,16 @@ The reference manual (Markdown) for libwignernj.
 quadmath=""
 %if %{quad}
 # quadmath not available on these architectures
-quadmath="-DBUILD_QUADMATH:BOOL=ON"
+quadmath="-DWIGNERNJ_BUILD_QUADMATH:BOOL=ON"
 %endif
 %cmake \
     -GNinja \
-    -DBUILD_FORTRAN:BOOL=ON \
-    -DBUILD_MPFR:BOOL=ON \
-    -DBUILD_PYTHON:BOOL=ON \
-    -DBUILD_TESTS:BOOL=ON \
-    -DBUILD_CXX_TESTS:BOOL=ON \
-    -DBUILD_EXAMPLES:BOOL=ON \
+    -DWIGNERNJ_BUILD_FORTRAN:BOOL=ON \
+    -DWIGNERNJ_BUILD_MPFR:BOOL=ON \
+    -DWIGNERNJ_BUILD_PYTHON:BOOL=ON \
+    -DWIGNERNJ_BUILD_TESTS:BOOL=ON \
+    -DWIGNERNJ_BUILD_CXX_TESTS:BOOL=ON \
+    -DWIGNERNJ_BUILD_EXAMPLES:BOOL=ON \
     -DWIGNERNJ_INSTALL_MODDIR:STRING=%{_fmoddir} $quadmath
 %cmake_build
 
@@ -163,6 +163,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc docs/optimization_notes.md
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 0.8.0-2
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Fri Jul 24 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.8.0-1
+- Update to 0.8.0.
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 0.7.0-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

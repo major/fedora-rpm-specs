@@ -4,9 +4,10 @@
 
 Name: freecell-solver
 Version: 6.16.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
+Patch1: fc-solve-fix-trailspace.patch
 URL: https://fc-solve.shlomifish.org/
 Summary: The Freecell Solver Executable
 
@@ -147,7 +148,8 @@ Freecell Solver from within your programs.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -N
+%patch -P 1 -p3
 
 %build
 # The game limit flags are recommended by the PySolFC README.
@@ -190,6 +192,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Fri Jul 24 2026 Shlomi Fish <shlomif@cpan.org> 6.16.0-5
+- Fix build by not testing ".ninja_deps" for trailing whitespace
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

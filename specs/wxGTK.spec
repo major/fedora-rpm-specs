@@ -5,8 +5,8 @@
 %bcond_without tests
 
 Name:           wxGTK
-Version:        3.2.9
-Release:        5%{?dist}
+Version:        3.2.11
+Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            https://www.wxwidgets.org/
@@ -49,22 +49,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-httpbin
 BuildRequires:  vulkan-loader
 %endif
-
-# Can be removed in Fedora 42
-Provides:       wxGTK3 = %version-%{release}
-Obsoletes:      wxGTK3 < %version-%{release}
-Obsoletes:      compat-wxGTK3-gtk2 < %version-%{release}
-Obsoletes:      compat-wxGTK3-gtk2-devel < %version-%{release}
-Obsoletes:      compat-wxGTK3-gtk2-gl < %version-%{release}
-Obsoletes:      compat-wxGTK3-gtk2-media < %version-%{release}
-Obsoletes:      wxBase3 < %version-%{release}
-Obsoletes:      wxBase3-devel < %version-%{release}
-Obsoletes:      wxGTK3-devel < %version-%{release}
-Obsoletes:      wxGTK3-docs < %version-%{release}
-Obsoletes:      wxGTK3-gl < %version-%{release}
-Obsoletes:      wxGTK3-i18n < %version-%{release}
-Obsoletes:      wxGTK3-media < %version-%{release}
-Obsoletes:      wxGTK3-webview < %version-%{release}
 
 Provides:       %{srcname} = %{version}-%{release}
 Provides:       bundled(scintilla) = 3.7.2
@@ -353,6 +337,10 @@ fi
 %doc html
 
 %changelog
+* Fri Jul 24 2026 Scott Talbert <swt@techie.net> - 3.2.11-1
+- Update to new upstream release 3.2.11
+- Remove wxGTK3 obsoletes
+
 * Thu Jul 23 2026 Scott Talbert <swt@techie.net> - 3.2.9-5
 - Fix FTBFS by skipping wxFileName::GetSizeSpecial on all arches (#2505225)
 

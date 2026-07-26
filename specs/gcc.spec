@@ -2649,7 +2649,7 @@ echo ====================TESTING=========================
 %endif
 echo ====================TESTING END=====================
 mkdir testlogs-%{_target_platform}-%{version}-%{release}
-for i in `find . -name \*.log | grep -F testsuite/ | grep -v 'config.log\|acats.*/tests/'`; do
+for i in `find . -name \*.log -o -name \*.sum | grep -F testsuite/ | grep -v 'config.log\|acats.*/tests/'`; do
   ln $i testlogs-%{_target_platform}-%{version}-%{release}/ || :
 done
 tar cf - testlogs-%{_target_platform}-%{version}-%{release} | xz -9e \

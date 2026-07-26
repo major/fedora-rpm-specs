@@ -10,7 +10,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.2.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -141,8 +141,12 @@ BuildArch: noarch
 
 
 %build
+# FIXME: woob was broken with Python 3.15, can be re-enabled with the next release
 %cmake_kf6 \
   -DBUILD_WITH_QT6:BOOL=ON \
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+  -DENABLE_WOOB:BOOL=OFF \
+%endif
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -195,6 +199,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 
 %changelog
+* Fri Jul 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.2.2-6
+- Disable woob plugin with Python 3.15
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           coturn
-Version:        4.14.0
-Release:        3%{?dist}
+Version:        4.15.0
+Release:        1%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -11,6 +11,7 @@ Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
 Patch0:         https://github.com/coturn/coturn/raw/refs/tags/%{version}/patches/openssl-1.1.1/0001-restore-openssl-1.1.1-support.patch#/coturn-4.14.0-openssl-1.1.patch
+Patch1:         https://github.com/coturn/coturn/pull/2001.patch#/coturn-4.15.0-hiredis-legacy.patch
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
@@ -227,6 +228,10 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Fri Jul 24 2026 Robert Scheck <robert@fedoraproject.org> - 4.15.0-1
+- Upgrade to 4.15.0 (#2506022)
+- Add patch to build successfully using hiredis < 1.1.0 on RHEL 9
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

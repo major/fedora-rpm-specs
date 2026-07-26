@@ -10,11 +10,16 @@ Summary:       Vietnamese engine for IBus input platform
 License:       GPL-3.0-only
 URL:           https://github.com/vn-input/ibus-unikey/
 Source0:       https://github.com/vn-input/ibus-unikey/archive/refs/tags/%{source_version}.tar.gz#/%{name}-%{source_version}.tar.gz
-Patch1:        %{name}-2267853-super-space.patch
-Patch2:        %{name}-2257688-segv-load-config.patch
-Patch3:        %{name}-2380650-cmake-4.patch
+# https://gitlab.gnome.org/GNOME/gnome-control-center/-/blob/main/panels/keyboard/cc-input-source-ibus.c?ref_type=heads
+# cc_input_source_ibus_get_app_info() find ibus-setup-Unikey.desktop file
+# to launch the engine setup.
+Source1:       ibus-setup-Unikey.desktop
+Patch:         %{name}-2267853-super-space.patch
+Patch:         %{name}-2257688-segv-load-config.patch
+Patch:         %{name}-2380650-cmake-4.patch
 
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: ibus-devel
@@ -38,12 +43,16 @@ A Vietnamese engine for IBus input platform that uses Unikey.
 %install
 %cmake_install
 %find_lang %{name}
+desktop-file-install \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  %{SOURCE1}
 
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSE
 %{_datadir}/%{name}/
+%{_datadir}/applications/ibus-setup-Unikey.desktop
 %{_datadir}/ibus/component/unikey.xml
 %{_libexecdir}/ibus-engine-unikey
 %{_libexecdir}/ibus-setup-unikey

@@ -8,6 +8,7 @@ URL:              https://www.kvirc.net/
 Source:           %{forgeurl}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch:            kvirc-5.0.0_enforce_system_crypto.patch
+Patch:            https://github.com/kvirc/KVIrc/commit/d1de244fe7b45355237a871192d2680d9d9f1e86.patch
 
 BuildRequires:    enchant2-devel
 BuildRequires:    audiofile-devel

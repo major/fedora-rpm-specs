@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-MakeMaker-CPANfile
-Version:        0.09
-Release:        23%{?dist}
+Version:        0.11
+Release:        1%{?dist}
 Summary:        CPANfile support for ExtUtils::MakeMaker
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-MakeMaker-CPANfile
@@ -14,6 +14,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(CPAN::Meta::Converter) >= 2.141170
+BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Module::CPANfile)
 BuildRequires:  perl(version) >= 0.76
@@ -88,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 24 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.11-1
+- 0.11 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

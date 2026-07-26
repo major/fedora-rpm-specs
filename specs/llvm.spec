@@ -1328,6 +1328,9 @@ Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
 # flang implicitly calls ld.bfd when linking and depends on the gcc runtime objects.
 Requires: binutils
 Requires: gcc
+# While flang itself does not require libgcc, most programs compiled by flang
+# will need libgcc.
+Requires: libgcc
 # Up to version 17.0.6-1, flang used to provide a flang-devel package.
 # This changed in 17.0.6-2 and all development-related files are now
 # distributed in the main flang package.

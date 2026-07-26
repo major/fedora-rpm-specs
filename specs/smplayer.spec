@@ -6,7 +6,7 @@
 Name:           smplayer
 Version:        25.6.0
 Release:        %autorelease
-Summary:        Graphical frontend for mplayer and mpv
+Summary:        Graphical front-end for mplayer and mpv
 
 License:        GPL-2.0-or-later
 URL:            https://www.smplayer.info/
@@ -17,6 +17,8 @@ Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpl
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-21.08.0-desktop-files.patch
 Patch1:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
+# mongoose.c - num_fds set but not used -Werror=unused-but-set-variable
+Patch2:         smplayer-25.6.0-mongoose-unused-variable.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -48,9 +50,6 @@ Suggests:       yt-dlp
 
 Provides:       bundled(mongoose) = 6.11
 Provides:       bundled(libmaia) = 0.9.0
-
-Requires(post): desktop-file-utils
-Requires(postun): desktop-file-utils
 
 %description
 SMPlayer is a graphical user interface (GUI) for the award-winning mplayer
@@ -84,13 +83,14 @@ rm -rf src/qtsingleapplication/
 %if %{with system_qtsingleapplication}
 %patch -P1 -p1 -b .qtsingleapplication
 %endif
+%patch -P2 -p1
 
 # correction for wrong-file-end-of-line-encoding
-%{__sed} -i 's/\r//' *.txt
+sed -i 's/\r//' *.txt *.md
 
 # change rcc binary
-%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-themes-%{smplayer_themes_ver}/themes/Makefile
-%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
+sed -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-themes-%{smplayer_themes_ver}/themes/Makefile
+sed -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
 pushd src
@@ -112,7 +112,7 @@ pushd smplayer-skins-%{smplayer_skins_ver}
     %make_build
 popd
 pushd webserver
-export CFLAGS_EXTRA="%{optflags}"
+export CFLAGS_EXTRA="%{optflags} %{?__global_ldflags}"
 %make_build
 popd
 

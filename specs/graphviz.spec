@@ -108,7 +108,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		15.1.0
-Release:		4%{?dist}
+Release:		5%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -747,6 +747,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 15.1.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 15.1.0-4
 - Perl 5.44 rebuild
 

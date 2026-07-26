@@ -15,7 +15,7 @@
 %bcond test 0
 
 Name:           z3
-Version:        4.16.0
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -28,8 +28,6 @@ VCS :           git:%{giturl}.git
 Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
 # Do not try to build or install native OCaml artifacts on bytecode-only arches
 Patch:          %{name}-ocaml.patch
-# Fix up the s390x docs so they look like other arches
-Patch:          %{name}-s390x-doc.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -159,7 +157,7 @@ sed \
   -e "s/\(['\"]\)cp\([^[:alnum:]]\)/\1cp -p\2/" \
   -e "s/\(SLIBEXTRAFLAGS = '\)'/\1-Wl,--no-whole-archive'/" \
   -e '/SLIBFLAGS/s|-shared|& %{build_ldflags} -Wl,--whole-archive|' \
-  -e 's/\(libz3$(SO_EXT)\)\(\\n\)/\1 -Wl,--no-whole-archive\2/' \
+  -e 's/\(libz3$(SO_EXT)\)\( \$(SLINK\)/\1 -Wl,--no-whole-archive\2/' \
   -e "s/OCAML_FLAGS = ''/OCAML_FLAGS = '-g'/" \
   -i scripts/mk_util.py
 
@@ -181,12 +179,6 @@ sed -ri 's/, handle [0-9a-fA-F]+//' \
     %{_vpath_builddir}/doc/api/html/z3{,.z3{,num,poly,printer,rcf,util}}.html
 sed -ri 's/ at 0x[0-9a-fA-F]+//g' \
     %{_vpath_builddir}/doc/api/html/z3.z3core.html
-# For unknown reasons, the s390x documentation build has fewer newlines than
-# the builds on other architectures.  Make the outputs match so the doc
-# package can be noarch.
-%ifarch s390x
-patch -p1 -T -d %{_vpath_builddir} < %{PATCH1}
-%endif
 
 # The cmake build system does not build the OCaml interface.  Do that manually.
 #
@@ -252,7 +244,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.16{,.*}
+%{_libdir}/libz3.so.5.0{,.*}
 
 %files devel
 %{_includedir}/z3/
@@ -267,7 +259,7 @@ cd -
 %ifarch %{java_arches}
 %files -n java-z3
 %{_libdir}/z3/
-%{_jnidir}/com.microsoft.z3*jar
+%{_jnidir}/com.microsoft.z3.jar
 %endif
 
 %files -n ocaml-z3
@@ -278,7 +270,7 @@ cd -
 %ifarch %{ocaml_native_compiler}
 %{ocamldir}/Z3/*.cmxs
 %endif
-%{ocamldir}/stublibs/*.so
+%{ocamldir}/stublibs/dllz3ml.so
 
 %files -n ocaml-z3-devel
 %{ocamldir}/Z3/*.a

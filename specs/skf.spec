@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	23
+%global	baserelease	24
 
 %undefine        _changelog_trimtime
 
@@ -365,6 +365,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 2.10.16-24
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.10.16-23
 - Perl 5.44 rebuild
 

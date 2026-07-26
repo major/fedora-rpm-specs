@@ -1,13 +1,13 @@
 %global pypi_name rarfile
 
 Name:           python-%{pypi_name}
-Version:        4.3
+Version:        4.4
 Release:        %autorelease
 Summary:        RAR archive reader for Python
 
 License:        ISC
 URL:            https://github.com/markokr/rarfile
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 Buildarch:      noarch
 
 %description

@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.14
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1347,6 +1347,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 16.14-4
+- Rebuilt for Python 3.15.0b4 ABI change and Perl 5.44
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 16.14-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

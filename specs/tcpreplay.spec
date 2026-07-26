@@ -9,7 +9,7 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.5.4
+Version:        4.5.5
 Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
@@ -68,6 +68,9 @@ autoreconf -vif
 %{_bindir}/*
 
 %changelog
+* Fri Jul 24 2026 Bojan Smojver <bojan@rexursive com> - 4.5.5-1
+- Update to 4.5.5
+
 * Thu Jul 23 2026 Bojan Smojver <bojan@rexursive com> - 4.5.4-1
 - Update to 4.5.4
 

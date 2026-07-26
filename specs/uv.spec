@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.11.31
+Version:        0.11.32
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -613,6 +613,16 @@ skip="${skip-} --skip python_list::python_list_with_mirrors"
 #   hint: A managed Python download is available for PyPy, but Python downloads
 #   are set to 'never'
 # This might be worth reporting upstream, but is not a serious issue.
+skip="${skip-} --skip python_pin::python_pin_resolve"
+%endif
+%ifarch riscv64
+# These expect managed interpreters of the form
+# cpython-3.##-linux-riscv64gc-any, but crates/uv-python/download-metadata.json
+# only has them for cpython-3.##-linux-riscv64-gnu. It’s not weird to find
+# holes in the managed interpreter support matrix for less common
+# architectures.
+skip="${skip-} --skip python_find::python_find"
+skip="${skip-} --skip python_list::python_list"
 skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
 # Test registry_client::tests::test_redirect_to_server_with_credentials is

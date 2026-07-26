@@ -1,8 +1,8 @@
 %global _unitdir /usr/lib/systemd/system
 Summary: Analyzes and Reports on system logs
 Name: logwatch
-Version: 7.14
-Release: 2%{?dist}
+Version: 7.15
+Release: 1%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -130,6 +130,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Fri Jul 24 2026 Frank Crawford <frank@crawford.emu.id.au> - 7.15-1
+- Update to 7.15 (bz2506024)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

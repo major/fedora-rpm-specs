@@ -28,8 +28,6 @@ Provides:       desktop-backgrounds-kde = %{version}-%{release}
 Obsoletes:      desktop-backgrounds-kde
 Provides:       desktop-backgrounds-compat = %{version}-%{release}
 Obsoletes:      desktop-backgrounds-compat
-Provides:       desktop-backgrounds-basic = %{version}-%{release}
-Obsoletes:      desktop-backgrounds-basic
 %endif
 
 

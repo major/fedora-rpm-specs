@@ -3,7 +3,7 @@
 
 Name:       psutils
 Version:    3.3.15
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    PDF and PostScript utilities
 # COPYING:          GPL-3.0 text
 # psutils/argparse.py:      GPL-3.0-or-later
@@ -122,7 +122,6 @@ LC_ALL=C.UTF-8
 %endif
 
 %files -f %{pyproject_files}
-%license COPYING
 %doc README.md
 %{_bindir}/epsffit
 %{_bindir}/extractres
@@ -150,6 +149,9 @@ LC_ALL=C.UTF-8
 %endif
 
 %changelog
+* Fri Jul 24 2026 Petr Pisar <ppisar@redhat.com> - 3.3.15-4
+- Deduplicate COPYING file
+
 * Wed Jul 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.15-3
 - Disable tests on RHEL
 

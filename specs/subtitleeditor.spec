@@ -17,6 +17,7 @@ BuildRequires:  gstreamer1-plugins-good
 BuildRequires:  gstreamer1-plugins-base-devel
 BuildRequires:  gtkmm30-devel
 BuildRequires:  libappstream-glib
+# Note: do not switch to libxml++40 until gtkmm3.0 and gstreamermm switch to glibmm2.6
 BuildRequires:  libxml++30-devel
 BuildRequires:  libtool
 BuildRequires:  intltool

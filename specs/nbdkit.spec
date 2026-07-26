@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.48.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 1.48.0-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.48.0-4
 - Perl 5.44 rebuild
 

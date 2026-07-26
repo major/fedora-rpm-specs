@@ -1,11 +1,13 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
+Patch1: audit-2.0-tmp.patch
+Patch2: audit-2.0-comm.patch
 BuildRequires: make gcc
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 5.0
@@ -98,6 +100,8 @@ The audit rules package contains the rules and utilities to load audit rules.
 %prep
 %setup -q -n %{name}-userspace-%{version}
 cp %{SOURCE1} .
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 autoreconf -fv --install
@@ -301,6 +305,12 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 4.2-3
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Fri Jul 24 2026 Steve Grubb <sgrubb@redhat.com> 4.2-2
+- Truncate comm instead of rejecting invalid length
+
 * Thu Jul 23 2026 Steve Grubb <sgrubb@redhat.com> 4.2-1
 - New upstream release
 

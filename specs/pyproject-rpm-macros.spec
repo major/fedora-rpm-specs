@@ -14,8 +14,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.23.0
-Release:        2%{?dist}
+Version:        1.23.1
+Release:        1%{?dist}
 
 # Macro files
 Source:         macros.pyproject
@@ -179,6 +179,12 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Thu Jul 23 2026 Miro Hrončok <mhroncok@redhat.com> - 1.23.1-1
+- getopt: Fix global macro clobbering with save/restore stack
+- %%pyproject_extras_subpkg: Add long options support
+- %%pyproject_extras_subpkg: Make -D/--dist-name mutually exclusive with -i/-f/-F
+- Set PIP_CONFIG_FILE=/dev/null by default when invoking pip to build the wheel
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

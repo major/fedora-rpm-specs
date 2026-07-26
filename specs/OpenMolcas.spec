@@ -10,6 +10,10 @@ Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{nam
 Patch0:         OpenMolcas-26.06-fedora.patch
 # Read python modules from system directory
 Patch1:         OpenMolcas-19.11-pymodule.patch
+# Don't pass internal procedures as actual arguments; gfortran implements
+# these with stack trampolines, which force an executable stack and break
+# the hardened link.
+Patch2:         OpenMolcas-26.06-intprocarg.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -50,6 +54,7 @@ therefore not included in OpenMolcas.
 %setup -q -n %{name}-v%{version}
 %patch -P 0 -p1 -b .fedora
 %patch -P 1 -p1 -b .pymodule
+%patch -P 2 -p1 -b .intprocarg
 
 # Name of OpenBLAS library to use is
 %if 0%{?__isa_bits} == 64
@@ -66,12 +71,10 @@ sed -i 's|@MOLCAS_PYTHON@|%{_libdir}/%{name}/python|g' Tools/pymolcas/pymolcas.p
 
 
 %build
-# Nested internal procedures used as actual arguments (e.g. sorting.F90,
-# desym.F90) make gfortran emit stack trampolines, which force an executable
-# stack and break the hardened link. Allocate the trampolines on the heap
-# instead (GCC >= 14) to keep the reentrant closure code path.
-export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -ftrampoline-impl=heap"
-export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -ftrampoline-impl=heap"
+# Warn if any trampolines slip through Patch2; they force an executable stack
+# and break the hardened link
+export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -Wtrampolines"
+export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -Wtrampolines"
 
 # GCC10 compatibility
 %if 0%{?fedora} > 31

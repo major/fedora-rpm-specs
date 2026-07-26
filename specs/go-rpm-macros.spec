@@ -10,14 +10,14 @@ Version:   3.8.0
 %global _docdir_fmt     %{name}
 
 # Master definition that will be written to macro files
-%global golang_arches_future x86_64 %{arm} aarch64 ppc64le s390x riscv64
+%global golang_arches_future x86_64 %{arm} aarch64 ppc64le s390x riscv64 loongarch64
 %global golang_arches   %{ix86} %{golang_arches_future}
 %global gccgo_arches    %{mips}
 %if 0%{?rhel} >= 9
 %global golang_arches   x86_64 aarch64 ppc64le s390x
 %endif
 %if 0%{?rhel} >= 10
-%global golang_arches   x86_64 aarch64 ppc64le s390x riscv64
+%global golang_arches   x86_64 aarch64 ppc64le s390x riscv64 loongarch64
 %endif
 # Go sources can contain arch-specific files and our macros will package the
 # correct files for each architecture. Therefore, move gopath to _libdir and

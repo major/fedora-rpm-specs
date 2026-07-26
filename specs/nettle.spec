@@ -124,11 +124,12 @@ popd
 autoreconf -ifv
 # For annocheck
 export ASM_FLAGS="-Wa,--generate-missing-build-notes=yes"
+%if %{with bundle_gmp}
+export CFLAGS="$CFLAGS -I${PWD}/bundled_gmp"
+export LDFLAGS="$LDFLAGS -L${PWD}/bundled_gmp/.libs"
+%endif
 %configure --enable-shared --enable-fat \
 --disable-sm3 --disable-sm4 --disable-ecc-secp192r1 --disable-ecc-secp224r1 \
-%if %{with bundle_gmp}
---with-include-path=$PWD/bundled_gmp --with-lib-path=$PWD/bundled_gmp/.libs \
-%endif
 %{nil}
 %make_build
 
