@@ -4,8 +4,8 @@
 
 
 Name:           python-%{modname}
-Version:        1.6.1
-Release:        16%{?dist}
+Version:        1.7.0
+Release:        %autorelease
 Summary:        %{sum}
 
 License:        MIT
@@ -15,18 +15,14 @@ ExclusiveArch:  %{java_arches}
 
 Source0:        %{url}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 
-# Fix compatibility with Cython >= 3.1
-# Backported from upstream:
-# https://github.com/kivy/pyjnius/pull/753
-# https://github.com/kivy/pyjnius/pull/756
-Patch:          fix-cython-3.1-build.patch
+Patch:          pyjnius-safe-setup-remove.patch
+
 
 BuildRequires:  make
 # avoid strict pointer checks with gcc 14, https://bugs.gentoo.org/917562
 BuildRequires:  clang
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(pytest)
 
@@ -36,7 +32,6 @@ BuildRequires:  python3dist(furo)
 BuildRequires:  ant-openjdk25 
 BuildRequires:  java-25-devel
 
-ExclusiveArch:  %{java_arches}
 
 # https://github.com/kivy/pyjnius/issues/307
 #ExcludeArch:    ppc64 s390x
@@ -47,9 +42,7 @@ ExclusiveArch:  %{java_arches}
 %package     -n python3-%{srcname}
 Summary:        %{sum}
 Requires:       java-25-headless
-Requires:       python3-six
-%{?python_provide:%python_provide python3-%{srcname}}
-Provides:       python3-%{modname}
+Provides:       python3-%{modname} = %{version}-%{release}
 
 
 %description -n python3-%{srcname}
@@ -65,10 +58,16 @@ BuildArch:      noarch
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+%pyproject_patch_dependency Cython:drop_upper
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-CC=%{_bindir}/clang %py3_build
+export CC=%{_bindir}/clang
+%pyproject_wheel
 
 make %{_smp_mflags} -C docs SPHINXBUILD='sphinx-build-3 %{_smp_mflags}' html
 
@@ -79,7 +78,10 @@ ant all
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files jnius jnius_config
+rm -f docs/build/html/.buildinfo
+rm -f docs/build/html/_static/scripts/furo-extensions.js
 
 
 %check
@@ -96,15 +98,8 @@ k='not test_hierharchy_arraylist'
 popd
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc *.md
-%{python3_sitearch}/%{modname}/
-%{python3_sitearch}/%{modname}_config.py*
-%{python3_sitearch}/%{srcname}-%{version}-py*.egg-info/
-%{python3_sitearch}/__pycache__/%{modname}_config.cpython-*.pyc
-%exclude %{python3_sitearch}/__pycache__
-%exclude %{python3_sitearch}/setup_sdist.py
 
 %files doc
 %license LICENSE
@@ -112,162 +107,4 @@ popd
 
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6.1-15
-- Rebuilt for Python 3.15
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Mon Jan 05 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.6.1-13
-- Disable jvm_options on riscv64
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.1-12
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.1-11
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Mon Aug 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.6.1-10
-- Fix compatibility with Cython >= 3.1
-  Fixes: rhbz#2377043
-
-* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.6.1-9
-- Rebuilt for java-25-openjdk as preffered jdk
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.6.1-7
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Oct 08 2024 Karolina Surma <ksurma@redhat.com> - 1.6.1-5
-- Skip failing test to enable build with Python 3.13
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 09 2024 Python Maint <python-maint@redhat.com> - 1.6.1-3
-- Rebuilt for Python 3.13
-
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.6.1-2
-- Rebuilt for java-21-openjdk as system jdk
-
-* Mon Feb 26 2024 Raphael Groner <raphgro@fedoraproject.org> - 1.6.1-1
-- bump to latest version
-- migrate to Cython 3, rhbz#2254033
-- use clang instead of gcc 14 to avoid strict pointer checks
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 02 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-17
-- exclude i686, rhbz#2104095
-- use pytest macro 
-
-* Sat Jul 29 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-16
-- avoid Cython 3 
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.0-14
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.0-11
-- Rebuilt for Python 3.11
-
-* Sat Feb 05 2022 Jiri Vanek <jvanek@redhat.com> - 1.3.0-10
-- Rebuilt for java-17-openjdk as system jdk
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.3.0-7
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Oct 01 2020 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-5
-- use pytest instead of nose as upstream decided, see changes in Makefile
-- skip useless additional setup
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jul 11 2020 Jiri Vanek <jvanek@redhat.com> - 1.3.0-2
-- Rebuilt for JDK-11, see https://fedoraproject.org/wiki/Changes/Java11
-
-* Sat Jun 06 2020 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-1
-- bump to v1.3.0 
-
-* Sat Jun 06 2020 Raphael Groner <raphgro@fedoraproject.org> - 1.2.0-6
-- rebuilt
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-5
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-3
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-2
-- Rebuilt for Python 3.8
-
-* Mon Jul 29 2019 Raphael Groner <projects.rg@smart.ms> - 1.2.0-1
-- new version
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Dec 13 2018 Raphael Groner <projects.rg@smart.ms> - 1.1.4-1
-- new version
-
-* Mon Nov 12 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-7
-- Subpackage python2-pyjnius has been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Wed Jul 18 2018 Raphael Groner <projects.rg@smart.ms> - 1.1.1-6
-- several fixes for Python
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
--- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-4
-- Rebuilt for Python 3.7
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Oct 24 2017 Raphael Groner <projects.rg@smart.ms> - 1.1.1-2
-- be more precisely about owned files
-
-* Sun Oct 22 2017 Raphael Groner <projects.rg@smart.ms> - 1.1.1-1
-- initial
+%autochangelog

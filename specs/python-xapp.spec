@@ -3,11 +3,14 @@ Version:        3.0.3
 Release:        3%{?dist}
 Summary:        Python bindings for xapps
 
-License:        LGPL-2.0-or-later
+License:        LGPL-2.0-only
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  gettext
+BuildRequires:  meson
+BuildRequires:  python3-rpm-macros
 
 %description
 %{summary}.
@@ -15,9 +18,6 @@ BuildArch:      noarch
 
 %package -n python3-xapp
 Summary:       %{summary}
-
-BuildRequires: meson
-BuildRequires: python3-rpm-macros
 
 Requires:      gtk3
 Requires:      python3-gobject-base
@@ -39,9 +39,10 @@ Requires:      xapps
 
 %install
 %meson_install
+%find_lang python-xapp
 
 
-%files -n python3-xapp
+%files -n python3-xapp -f python-xapp.lang
 %license COPYING debian/copyright
 %doc PKG-INFO debian/changelog
 %{python3_sitelib}/xapp/

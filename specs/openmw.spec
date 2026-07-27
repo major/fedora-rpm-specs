@@ -24,7 +24,7 @@ Summary:        OpenMW is an open-source game engine
 # Latest bullet3 release tag
 %global         tag1 3.25
 # Latest OSG OpenMW fork commit tag
-%global         commit2 43faf6fa88bd236e0911a5340bfbcbc25b3a98d9
+%global         commit2 638f0a1e73687633fd99bf110d04226e78ff69c6
 # Preferred commit by upstream for recastnavigation
 %global         commit3 c393777d26d2ff6519ac23612abf8af42678c9dd
 %forgemeta -a
@@ -46,9 +46,6 @@ Source0:        %{forgesource0}
 Source1:        %{forgesource1}
 Source2:        %{forgesource2}
 Source3:        %{forgesource3}
-# openmw-cs currently runs under wayland, but there's bugs that make it basically unusable
-# this patches the default desktop file to add QT_QPA_PLATFORM=xcb
-Patch0:         csxcb.patch
 
 # OpenMW Build Dependencies
 BuildRequires:  boost-devel
@@ -165,7 +162,6 @@ Various utility tools for developing and debugging with OpenMW
 # into separate directories in %%{_builddir}.
 # Then, switch into the unpacked Source0 directory.
 %setup -q %{forgesetupargs0} -b1 -b2 -b3
-%autopatch -p1
 
 %conf
 # Prepare the cmake

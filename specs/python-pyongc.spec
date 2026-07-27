@@ -9,6 +9,10 @@ License:        MIT AND CC-BY-SA-4.0
 URL:            https://pypi.python.org/pypi/PyOngc
 Source:         %{pypi_source pyongc}
 
+# Adapt tests for click 8.4
+# https://github.com/mattiaverga/PyOngc/pull/63
+Patch:          https://github.com/mattiaverga/PyOngc/pull/63.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

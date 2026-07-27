@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          sequoia-cert-store-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * exclude integration tests, test data, and scripts from installed files
+# * swap sequoia-openpgp backend for tests to crypto-openssl
 Patch:          sequoia-cert-store-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -72,8 +73,8 @@ use the "keyserver" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+# build with the default Fedora crypto backend (OpenSSL)
+%cargo_build -f sequoia-openpgp/crypto-openssl
 
 %install
 %cargo_install

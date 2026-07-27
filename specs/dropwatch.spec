@@ -1,6 +1,6 @@
 Name: dropwatch
 Version: 1.5.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Kernel dropped packet monitor
 
 License: GPL-2.0-or-later
@@ -17,6 +17,7 @@ BuildRequires: kernel-headers
 BuildRequires: binutils-devel
 BuildRequires: libnl3-devel
 BuildRequires: libpcap-devel
+BuildRequires: libzstd-devel
 BuildRequires: readline-devel
 
 Requires: libnl3
@@ -28,10 +29,10 @@ network packets.
 
 %prep
 %autosetup -p1
+./autogen.sh
 
 %build
-./autogen.sh
-%configure
+%configure LIBS="-lzstd"
 %make_build
 
 %install
@@ -46,6 +47,9 @@ network packets.
 %license COPYING
 
 %changelog
+* Sat Jul 25 2026 Hangbin Liu <liuhangbin@gmail.com> - 1.5.5-5
+- Fix missing libzstd build error on f45 (bz 2503856)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

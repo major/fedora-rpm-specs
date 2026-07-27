@@ -15,7 +15,7 @@ Name:           cinnamon
 Version:        6.7.4^unstable
 Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
-License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        10_cinnamon-common.gschema.override
@@ -123,7 +123,7 @@ Recommends:     %{name}-translations >= %{cinnamon_translations_version}
 # needed for theme overrides
 Requires:       desktop-backgrounds-basic
 Requires:       desktop-backgrounds-gnome
-Requires:       gnome-backgrounds
+Recommends:     gnome-backgrounds
 Recommends:     paper-icon-theme
 Requires:       system-logos
 
@@ -141,7 +141,7 @@ Recommends:     metacity%{?_isa}
 Recommends:     mate-panel%{?_isa}
 
 # required for keyboard applet
-Requires:       gucharmap%{?_isa}
+Recommends:     gucharmap%{?_isa}
 Requires:       ibus-libs%{?_isa}
 Requires:       ibus-gtk3%{?_isa}
 Recommends:     ibus%{?_isa}
@@ -165,13 +165,13 @@ Requires:       python3-inotify
 Requires:       keybinder3%{?_isa}
 
 # required for sound applet
-Requires:       wget%{?_isa}
+Recommends:     wget%{?_isa}
 
 # required for power applet
 Recommends:     tuned-ppd
 
 # required for printer applet
-Requires:       cups-client%{?_isa}
+Recommends:     cups-client%{?_isa}
 
 # required for spice
 Requires:       gettext

@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          sequoia-keystore-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused OpenPGP card and TPM backend support (missing dependencies)
+# * swap sequoia-openpgp backend for tests to crypto-openssl
 Patch:          sequoia-keystore-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -83,8 +84,8 @@ use the "softkeys" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+# build with the default Fedora crypto backend (OpenSSL)
+%cargo_build -f sequoia-openpgp/crypto-openssl
 
 %install
 %cargo_install

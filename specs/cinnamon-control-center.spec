@@ -11,7 +11,7 @@ Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
 Version: 6.7.2^unstable
 Release: 2%{?dist}
-License: GPL-2.0-or-later AND MIT
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 Requires: cinnamon-settings-daemon >= %{csd_version}
 Requires: redhat-menus >= %{redhat_menus_version}
 Requires: hicolor-icon-theme
-Requires: cinnamon-translations
+Recommends: cinnamon-translations
 Requires: %{name}-filesystem%{?_isa} = %{version}-%{release}
 # For the network panel
 Requires: nm-connection-editor
@@ -39,13 +39,15 @@ BuildRequires: pkgconfig(gio-unix-2.0) >= 2.44.0
 BuildRequires: pkgconfig(libnotify) >= 0.7.3
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(polkit-gobject-1) >= 0.103
+BuildRequires: pkgconfig(gudev-1.0) >= 232
 BuildRequires: pkgconfig(upower-glib) >= 0.99.8
 BuildRequires: pkgconfig(xproto)
-BuildRequires: pkgconfig(libnm) >= 1.2.0
-BuildRequires: pkgconfig(libnma) >= 1.2.0
+BuildRequires: pkgconfig(libnm) >= 1.26
+BuildRequires: pkgconfig(libnma) >= 1.8.36
 BuildRequires: pkgconfig(mm-glib) >= 0.7
-BuildRequires: pkgconfig(colord)
-BuildRequires: pkgconfig(libwacom)
+BuildRequires: pkgconfig(colord) >= 0.1.14
+BuildRequires: pkgconfig(libwacom) >= 0.7
+BuildRequires: pkgconfig(xi) >= 1.2
 
 %description
 This package contains configuration utilities for the Cinnamon desktop, which
@@ -70,8 +72,9 @@ Summary: Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and libraries for developing Muffin plugins. Also includes
-utilities for testing Metacity/Muffin themes.
+Development files for the cinnamon-control-center panels library.
+Install this package to build control-center panels or applications
+that link against libcinnamon-control-center.
 
 %prep
 %autosetup -a1 -p1 -n %{name}-%{upstream_version}

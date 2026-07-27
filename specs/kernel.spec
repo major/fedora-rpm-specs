@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc4.260722g248951ddc14d.37
+%define pkgrelease 0.rc4.260725g0ce37745d4bf.39
 %define kversion 7
-%define tarfile_release 7.2-rc4-61-g248951ddc14d
+%define tarfile_release 7.2-rc4-471-g0ce37745d4bf
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260722g248951ddc14d.37%{?buildid}%{?dist}
+%define specrelease 0.rc4.260725g0ce37745d4bf.39%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4963,8 +4963,15 @@ fi\
 #
 #
 %changelog
-* Wed Jul 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.248951ddc14d.37]
+* Sat Jul 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.0ce37745d4bf.39]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Sat Jul 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.0ce37745d4bf.38]
+- Linux v7.2.0-0.rc4.0ce37745d4bf
+
+* Thu Jul 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.4539944e5151.37]
+- fedora: updates for the 7.2 merge window (Peter Robinson)
+- Linux v7.2.0-0.rc4.4539944e5151
 
 * Wed Jul 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.248951ddc14d.36]
 - redhat/configs: Enable deadline and stall monitors (Gabriele Monaco)

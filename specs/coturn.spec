@@ -11,7 +11,7 @@ Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
 Patch0:         https://github.com/coturn/coturn/raw/refs/tags/%{version}/patches/openssl-1.1.1/0001-restore-openssl-1.1.1-support.patch#/coturn-4.14.0-openssl-1.1.patch
-Patch1:         https://github.com/coturn/coturn/pull/2001.patch#/coturn-4.15.0-hiredis-legacy.patch
+Patch1:         https://github.com/coturn/coturn/commit/313b24fe1404981e4341cd667f7efe62c37bd807.patch#/coturn-4.15.0-hiredis-legacy.patch
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0

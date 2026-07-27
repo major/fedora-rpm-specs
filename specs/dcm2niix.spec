@@ -39,7 +39,7 @@
 %bcond jnifti 1
 
 Name:           dcm2niix
-Version:        1.0.20260416
+Version:        1.0.20260724
 Release:        %autorelease
 Summary:        DICOM to NIfTI converter
 
@@ -88,6 +88,9 @@ SourceLicense:  %{license} AND Unlicense
 URL:            https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage
 %global forgeurl https://github.com/rordenlab/dcm2niix
 Source:         %{forgeurl}/archive/v%{version}/dcm2niix-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++

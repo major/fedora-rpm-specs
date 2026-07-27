@@ -4,7 +4,7 @@ Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
 Version: 6.7.1^unstable
 Release: 2%{?dist}
-License: GPL-2.0-or-later AND LGPL-2.0-or-later
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
@@ -27,13 +27,13 @@ BuildRequires: pkgconfig(xrandr)
 BuildRequires: pkgconfig(libxdo)
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(pam)
+BuildRequires: pkgconfig(xinerama)
 BuildRequires: python3-packaging
 
 Recommends: caribou%{?_isa}
 Requires: cinnamon-desktop%{?_isa} >= 6.7.0
-Requires: cinnamon-translations >= 6.7.0
+Recommends: cinnamon-translations >= 6.7.0
 Requires: accountsservice-libs%{?_isa}
-Requires: libgnomekbd%{?_isa}
 Requires: python3-gobject%{?_isa}
 Requires: python3-setproctitle%{?_isa}
 Requires: python3-xapp
@@ -77,8 +77,6 @@ chmod a+x %{buildroot}%{_datadir}/cinnamon-screensaver/pamhelper/authClient.py
 # Delete development files
 rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 
-%ldconfig_scriptlets
-
 %files
 %doc AUTHORS NEWS README.md
 %license COPYING COPYING.LIB
@@ -98,7 +96,7 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.0-unstable
+- Update to 6.7.1-unstable
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

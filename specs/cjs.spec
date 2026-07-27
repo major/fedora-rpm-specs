@@ -1,5 +1,4 @@
 %global glib2_version 2.86.0
-%global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
 %global mozjs140_version 140.6.0
 
@@ -9,7 +8,7 @@ Version:       140.0
 Release:       2%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
-License:       MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
+License:       MIT AND BSD-3-Clause AND MPL-2.0 AND CC-BY-3.0 AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -18,10 +17,13 @@ ExcludeArch:   %{ix86}
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: meson
+BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(cairo-gobject)
 BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
+BuildRequires: pkgconfig(girepository-2.0) >= %{glib2_version}
+BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires: pkgconfig(libffi)
 BuildRequires: pkgconfig(mozjs-140) >= %{mozjs140_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
@@ -36,7 +38,7 @@ BuildRequires: mutter
 BuildRequires: xwayland-run
 
 Requires: glib2%{?_isa} >= %{glib2_version}
-Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
+Requires: gobject-introspection%{?_isa}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: mozjs140%{?_isa} >= %{mozjs140_version}
 

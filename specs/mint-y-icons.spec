@@ -3,7 +3,7 @@ Version:        1.9.1
 Release:        3%{?dist}
 Summary:        The Mint-Y icon theme
 
-License:        CC-BY-SA-4.0
+License:        CC-BY-SA-4.0 AND GPL-3.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -13,7 +13,7 @@ BuildRequires:  fdupes
 
 Requires:       filesystem
 Requires:       mint-x-icons
-Requires:       gnome-icon-theme
+Requires:       adwaita-icon-theme
 Requires:       hicolor-icon-theme
 
 %description

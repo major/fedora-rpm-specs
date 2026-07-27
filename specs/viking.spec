@@ -12,6 +12,9 @@ License:        GPL-2.0-or-later
 URL:            %forgeurl
 
 Source0:        %forgesource
+# https://github.com/viking-gps/viking/issues/387
+# https://github.com/viking-gps/viking/pull/388
+Patch0:         nettle-4.patch
 
 # Fails to build on s390x, not needed for multilib
 ExcludeArch:    s390x %{ix86}
@@ -30,7 +33,7 @@ BuildRequires:  gnome-doc-utils
 BuildRequires:  libexif-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  file-devel
-BuildRequires:  libgexiv2-devel
+BuildRequires:  libgexiv2_0.14-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  docbook-utils
 BuildRequires:  docbook-style-xsl
@@ -58,7 +61,7 @@ geotag images, create routes using OSRM, see real-time GPS position, make maps
 using Mapnik, control items, etc.
 
 %prep
-%forgeautosetup
+%forgeautosetup -p 1
 NOCONFIGURE=1 ./autogen.sh
 # Convert TODO to utf-8
 mv TODO timestamp

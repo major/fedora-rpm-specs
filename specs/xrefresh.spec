@@ -1,18 +1,14 @@
 Name:           xrefresh
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Refresh all or part of an X screen
-
 License:        MIT
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz
-
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.8
-
-Obsoletes:      xorg-x11-server-utils < 7.7-40
 
 %description
 xrefresh is a simple X program that causes all or part of your screen to be
@@ -22,11 +18,14 @@ repainted.
 %autosetup
 
 %build
-%configure --disable-silent-rules
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
+
+%check
+%meson_test
 
 %files
 %license COPYING

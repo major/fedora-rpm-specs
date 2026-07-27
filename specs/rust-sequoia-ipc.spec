@@ -14,7 +14,10 @@ URL:            https://crates.io/crates/sequoia-ipc
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-ipc-fix-metadata-auto.diff
-Patch:          0001-Change-default-backend-server-search-path-to-usr-lib.patch
+# Manually created patch for downstream crate metadata changes
+# * swap sequoia-openpgp backend for tests to crypto-openssl
+Patch:          sequoia-ipc-fix-metadata.diff
+Patch2:         0001-Change-default-backend-server-search-path-to-usr-lib.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -57,8 +60,8 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+# build with the default Fedora crypto backend (OpenSSL)
+%cargo_build -f sequoia-openpgp/crypto-openssl
 
 %install
 %cargo_install

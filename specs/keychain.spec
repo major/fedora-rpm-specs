@@ -1,19 +1,17 @@
 Name:           keychain
 Summary:        Agent manager for OpenSSH, ssh.com, Sun SSH, and GnuPG
-Version:        2.9.8
+Version:        3.0.0
 Release:        %autorelease
-License:        GPL-2.0-only
-URL:            https://github.com/danielrobbins/%{name}
+License:        GPL-3.0-only
+URL:            https://kernel-seeds.org/projects/keychain/
 Source:         https://github.com/danielrobbins/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.sh
 Source2:        %{name}.csh
 Source3:        README.Fedora
 BuildArch:      noarch
-BuildRequires:  bash-completion
-BuildRequires:  make
-BuildRequires:  perl-podlators
-Requires:       findutils
-
+BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  help2man
 
 %description
 Keychain is a manager for OpenSSH, ssh.com, Sun SSH and GnuPG agents.
@@ -26,35 +24,34 @@ local machine is rebooted.
 %prep
 %autosetup
 cp %{SOURCE3} .
-# Remove /usr/ucb from PATH as it's not used in Fedora
-sed -i -e 's|/usr/ucb:||' %{name}.sh
-# Remove shebang from bash completion script
-sed -i -e '1{\@^#!/usr/bin/env bash@d}' completions/%{name}.bash
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%make_build %{name} %{name}.1
+%pyproject_wheel
 
 %install
-install -D -p -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
+%pyproject_install
+%pyproject_save_files keychain
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/profile.d/%{name}.csh
-install -D -p -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
-# Bash completion
-install -D -p -m 0644 completions/%{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
+# Generate man page
+mkdir -p %{buildroot}%{_mandir}/man1
+PYTHONPATH=%{buildroot}%{python3_sitelib} help2man --no-info --name="Agent manager for OpenSSH, ssh.com, Sun SSH, and GnuPG" --version-string="%{version}" %{buildroot}%{_bindir}/%{name} -o %{buildroot}%{_mandir}/man1/%{name}.1
 
-%files
-%license COPYING.txt
+%files -f %{pyproject_files}
+%license LICENSE
 %doc ChangeLog.md README.md README.Fedora
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.csh
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{bash_completions_dir}/%{name}
 
 %check
-# Basic check to ensure the binary was built correctly and to silent rpmlint
-./%{name} --version
+%pyproject_check_import
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/%{name} --version
 
 %changelog
 %autochangelog

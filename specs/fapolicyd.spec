@@ -4,8 +4,8 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.6
-Release: 3%{?dist}
+Version: 2.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -18,11 +18,13 @@ Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/rele
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.4.5
+# $ git format-patch -N v2.0
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.1/ --dst-prefix=b/fapolicyd-selinux-1.1/ v1.1
 # $ for j in [0-9]*.patch; do printf "Patch: %s\n" $j; done
 # Patch list start
+Patch: 0002-Fix-large-file-support-on-32-bit-builds.patch
+# Patch: 0003-update-changelog.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -116,7 +118,7 @@ make
 popd
 
 %check
-make check
+make check VERBOSE=yes
 
 # selinux
 %pre selinux
@@ -195,10 +197,10 @@ fi
 %attr(644,root,root) %{_unitdir}/%{name}.service
 %attr(644,root,root) %{_tmpfilesdir}/%{name}.conf
 %attr(644,root,root) %{_sysusersdir}/%{name}.conf
-%attr(755,root,root) %{_bindir}/%{name}-rpm-loader
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}-cli
 %attr(755,root,root) %{_sbindir}/fagenrules
+%attr(755,root,root) %{_libexecdir}/%{name}-rpm-loader
 %attr(644,root,root) %{_mandir}/man8/*
 %attr(644,root,root) %{_mandir}/man5/*
 %ghost %attr(440,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}-access.log
@@ -227,6 +229,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Jul 23 2026 Petr Lautrbach <lautrbach@redhat.com> - 2.0-1
+- fapolicyd-2.0
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v2.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global crate tree-sitter-generate
 
 Name:           rust-tree-sitter-generate
-Version:        0.26.9
+Version:        0.26.11
 Release:        %autorelease
 Summary:        Library for generating C source code from a tree-sitter grammar
 

@@ -82,7 +82,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:261.1}
+Version:        %{?version_override}%{!?version_override:261.2}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -91,7 +91,7 @@ Release:        %autorelease
 %global stable %(c="%version"; [ "$c" = "${c#*.*}" ]; echo $?)
 
 # Temporary macro to enable systemd-report.standalone
-%bcond report_standalone %[ v"%{version}" >= v"261.999" ]
+%bcond report_standalone %[ v"%{version}" >= v"261.999" || %{defined commit} ]
 
 # For a breakdown of the licensing, see README
 License:        LGPL-2.1-or-later AND MIT AND GPL-2.0-or-later

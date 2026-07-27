@@ -7,7 +7,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           pygsl
-Version:        2.6.4
+Version:        2.6.5
 Release:        %autorelease
 Summary:        %{sum}
 
@@ -136,6 +136,7 @@ export FLEXIBLAS=netlib
 %files -n python3-pygsl -f %{pyproject_files}
 %doc ChangeLog README.html CREDITS.html TODO.html
 %license COPYING
+%{python3_sitearch}/pygsl/cfg/__pycache__/
 
 %files -n python3-pygsl-devel
 %{_includedir}/python%{python3_version}/pygsl/

@@ -12,7 +12,7 @@
 
 Summary:        Free firewire audio driver library
 Name:           libffado
-Version:        2.4.9
+Version:        2.5.0
 Release:        %autorelease
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -33,13 +33,12 @@ BuildRequires:  python3-dbus
 BuildRequires:  python3-rpm-macros
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-BuildRequires:  glibmm24-devel
 BuildRequires:  graphviz
 BuildRequires:  libappstream-glib
 BuildRequires:  libconfig-devel
 BuildRequires:  libiec61883-devel
 BuildRequires:  libraw1394-devel
-BuildRequires:  libxml++-devel
+BuildRequires:  libxml++30-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-qt5-devel
 BuildRequires:  python3-devel
@@ -131,7 +130,8 @@ install -m 755 tests/ffado-test %{buildroot}%{_bindir}
 %files
 %license LICENSE.*
 %doc AUTHORS ChangeLog README
-%{_libdir}/libffado.so.*
+%{_libdir}/libffado.so.2
+%{_libdir}/libffado.so.2.*
 %dir %{_datadir}/libffado/
 %{_datadir}/libffado/configuration
 %{_prefix}/lib/udev/rules.d/*

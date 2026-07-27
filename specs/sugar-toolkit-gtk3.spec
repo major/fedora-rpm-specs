@@ -2,7 +2,7 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.121
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Sugar toolkit GTK+ 3
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Jul 25 2026 Python Maint <python-maint@redhat.com> - 0.121-15
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.121-14
 - Rebuilt for Python 3.15
 

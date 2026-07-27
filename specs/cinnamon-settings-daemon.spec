@@ -7,7 +7,7 @@ Version:        6.7.2^unstable
 Release:        2%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
-License:        GPL-2.0-or-later AND LGPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
@@ -33,12 +33,12 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(kbproto)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(libnotify) >= 0.7.3
 BuildRequires:  pkgconfig(pango) >= 1.20.0
 BuildRequires:  pkgconfig(polkit-gobject-1) >= 0.97
 BuildRequires:  pkgconfig(libpulse) >= 0.9.16
-BuildRequires:  pkgconfig(upower-glib) >= 0.9.11
+BuildRequires:  pkgconfig(upower-glib) >= 0.99.11
 %ifnarch s390 s390x %{?rhel:ppc ppc64}
 BuildRequires:  pkgconfig(libwacom) >= 0.7
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.36.2
@@ -84,7 +84,7 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %doc AUTHORS
 %license COPYING COPYING.LIB
 %{_bindir}/csd-*
-%config %{_sysconfdir}/xdg/autostart/*
+%config(noreplace) %{_sysconfdir}/xdg/autostart/*
 %{_libexecdir}/csd-a11y-settings
 %{_libexecdir}/csd-automount
 %{_libexecdir}/csd-background

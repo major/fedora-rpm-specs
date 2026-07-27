@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        19%{?dist}
+Release:        20%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -37,6 +37,10 @@ Patch1:         %{name}-0.10.0-Set-sane-defaults.patch
 Patch2:         %{name}-0.9.13-Fix-path-to-storage-schemas.conf.patch
 # Python 3.12 support https://github.com/graphite-project/carbon/issues/946
 Patch3:         %{name}-1.1.10-Py3.12-support.patch
+# Regenerate the checked-in protobuf gencode; the old descriptor-based
+# carbon_pb2.py predates protobuf 3.20 and fails under current protobuf
+# with "Descriptors cannot be created directly."
+Patch4:         %{name}-1.1.10-Regenerate-protobuf-bindings.patch
 
 BuildArch:      noarch
 
@@ -222,6 +226,12 @@ install -m0644 -D python-carbon.sysusers.conf %{buildroot}%{_sysusersdir}/python
 
 
 %changelog
+* Sat Jul 25 2026 Jonathan Steffan <jsteffan@fedoraproject.org> - 1.1.10-20
+- Regenerate carbon_pb2.py gencode for current protobuf
+- The checked-in carbon_pb2.py predated protobuf 3.20 and used the old
+  descriptor-based API, which protobuf 6.33 refuses to load, raising
+  "TypeError: Descriptors cannot be created directly." at test collection
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

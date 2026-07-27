@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/sequoia-gpg-agent
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * swap sequoia-openpgp backend for tests to crypto-openssl
+Patch:          sequoia-gpg-agent-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -59,8 +62,8 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+# build with the default Fedora crypto backend (OpenSSL)
+%cargo_build -f sequoia-openpgp/crypto-openssl
 
 %install
 %cargo_install

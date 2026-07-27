@@ -194,7 +194,7 @@ for type in separate single; do
   if test $type = 'single'; then
     config_single='--enable-single-binary'
     config_single="$config_single --without-openssl"  # smaller/slower sha*sum
-    config_single="$config_single --without-libgmp"   # expr/factor machine ints
+    config_single="$config_single --without-libgmp"   #  "  basenc,expr,factor
   else
     config_single='--with-openssl'  # faster sha*sum
   fi

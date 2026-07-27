@@ -1,6 +1,6 @@
 Name:             kvirc
 Version:          5.2.10
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Free portable IRC client
 License:          GPL-2.0-or-later WITH kvirc-openssl-exception
 URL:              https://www.kvirc.net/
@@ -132,6 +132,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Sat Jul 25 2026 Python Maint <python-maint@redhat.com> - 5.2.10-8
+- Rebuilt for Python 3.15.0b4 ABI change
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.10-7
 - Perl 5.44 rebuild
 

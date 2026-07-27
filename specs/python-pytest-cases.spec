@@ -14,6 +14,7 @@ BuildRequires:  python3dist(decopatch)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-harvest) > 1.10
 BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3-pkg-resources
 
 %description
 %{summary}.

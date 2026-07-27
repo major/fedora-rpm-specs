@@ -1,5 +1,5 @@
 Name:           python-pillow-jxl-plugin
-Version:        1.3.7
+Version:        1.3.8
 Release:        %autorelease
 Summary:        Pillow plugin for JPEG-XL
 # GPL-3.0-or-later for code
@@ -10,30 +10,30 @@ SourceLicense:  GPL-3.0-or-later AND CC-BY-4.0 AND CC-BY-SA-4.0
 # GPL-3.0-or-later
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-or-later AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+# Zlib OR Apache-2.0 OR MIT
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 OR MIT OR Zlib) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT)
+    }
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/Isotr0py/pillow-jpegxl-plugin
 Source:         %{url}/archive/v%{version}/pillow-jpegxl-plugin-%{version}.tar.gz
 
-# upstream commit to update jpegxl-rs dependency from 0.11 to 0.12:
-# https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/0ecab6b
-Patch:          0001-Update-jpegxl-rs-dependency-from-0.11.2-to-0.12.0.patch
-
 # drop custom build system that is unnecessary and only breaks stuff
-Patch:          0002-Unconditionally-dynamically-link-libjxl.patch
+Patch:          0001-Unconditionally-dynamically-link-libjxl.patch
 
-# Update PyO3 to 0.29
+# Allow older jpgegxl-rs 0.12–0.14; upstream has updated to 0.15 without
+# source-code changes, but coordination with glycin is needed to avoid a compat
+# package.
 #
-# https://pyo3.rs/main/changelog.html#0290---2026-06-11
-#
-# Fixes:
-#
-#     https://rustsec.org/advisories/RUSTSEC-2026-0176.html
-#     https://rustsec.org/advisories/RUSTSEC-2026-0177.html
-#
-# https://github.com/Isotr0py/pillow-jpegxl-plugin/pull/156
-Patch:          0003-Update-PyO3-to-0.29.patch
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/3b36d36d7593ab524745aba6d456bcc11b7b97b8
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/042967a1ee8d819ef053e9822349363db5c920e9
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/c5369ab39bec720399a7aeefe0f48087ab7cb578
+Patch:          0002-Allow-jpegxl-rs-as-old-as-0.12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

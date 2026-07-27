@@ -10,7 +10,7 @@
 %global app_id org.workrave.Workrave
 
 Name:          workrave
-Version:       1.11.0~rc.4
+Version:       1.11.1
 Release:       %autorelease
 Summary:       Program that assists in the recovery and prevention of RSI
 # Based on older packages by Dag Wieers <dag@wieers.com> and Steve Ratcliffe
@@ -22,7 +22,8 @@ License:       GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND H
 URL:           https://workrave.org/
 %global tag %(echo %{version} | sed -e 's/[\\.~]/_/g')
 Source:        https://github.com/rcaelers/workrave/archive/v%{tag}/%{name}-v%{tag}.tar.gz
- 
+Patch:         https://github.com/rcaelers/workrave/pull/710.patch
+
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -189,9 +190,6 @@ rm -f %{buildroot}%{_datadir}/gir-1.0/*.gir
 rm -f %{buildroot}%{_libdir}/*.so
 # indicators need to be enabled to build GIR but are not needed otherwise
 rm -f %{buildroot}%{_libdir}/*indicators3/7/libworkrave.so*
-
-# fix appstream ID
-appstream-util modify %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml id %{app_id}
 
 # remove zero-length to silence rpmlint
 rm -f %{buildroot}%{_datadir}/gnome-shell/extensions/workrave@workrave.org/stylesheet.css
