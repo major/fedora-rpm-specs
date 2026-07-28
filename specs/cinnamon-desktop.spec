@@ -78,13 +78,10 @@ libcinnamon-desktop.
 %install
 %meson_install
 
-mkdir -p %buildroot%{_datadir}/applications/
+mkdir -p %{buildroot}%{_datadir}/applications/
 install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.list
 
 %find_lang %{po_package} --all-name --with-gnome
-
-
-%ldconfig_scriptlets
 
 
 %files -f %{po_package}.lang

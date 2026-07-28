@@ -5,6 +5,8 @@ Summary:        Password Safe is a password management utility
 Name:           passwordsafe
 Version:        1.25.0
 Source0:        https://github.com/%{short}/%{short}/archive/refs/tags/%{version}/%{short}-%{version}.tar.gz
+Source1:        https://github.com/%{short}/%{short}/releases/download/%{version}/%{version}.tar.gz.sig
+Source2:        ronys-at-pwsafe-dot-org.gpg
 Release:        %autorelease
 Url:            https://pwsafe.org/
 
@@ -32,6 +34,8 @@ BuildRequires:  cmake gcc-c++ perl-interpreter
 BuildRequires:  desktop-file-utils libappstream-glib
 # for line ending fixups
 BuildRequires:  dos2unix
+# for source file verification
+BuildRequires:  gpgverify
 # system libraries used by this package
 BuildRequires:  file-devel
 BuildRequires:  gtest-devel
@@ -50,14 +54,28 @@ BuildRequires:  ykpers-devel
 Requires:       hicolor-icon-theme
 Obsoletes:      pwsafe < 2.0.0-1
 Recommends:     %{name}-doc
+Suggests:       xvkbd
 
 # this package cannot directly use the fedora pugixml library, since
 # that is built for char, and we need the wchar version.
 Provides:       bundled(pugixml) = %{pugixml_version}
 
+%global doc_files %{shrink:
+    README.md
+    README.LINUX.md
+    docs/ChangeLog.md
+    docs/ReleaseNotes.md
+    docs/ReleaseNotesWX.md
+    docs/config.txt
+    docs/formatV1.txt
+    docs/formatV2.txt
+    docs/formatV3.txt
+    docs/formatV4.txt
+    docs/help.txt
+    docs/pwsafe-state-machine.rtf
+}
 
 %description
-
 Password Safe is a password manager.  It stores your passwords in an
 encrypted file, allowing you to remember only one password (the
 "master password"), instead of all the username/password combinations
@@ -68,15 +86,19 @@ Password Safe runs on Windows, Linux, macOS and FreeBSD.
 
 
 %package doc
-Summary:   Documentation and help files for Password Safe
+Summary:   Password Safe help files
 BuildArch: noarch
 License:   Artistic-2.0
-Requires:  %{name} = %version-%release
+
 %description doc
-The passwordsafe-doc package contains the documentation
-and help files for Password Safe.
+The passwordsafe-doc package contains the help files for Password Safe.
+They are ZIP archives whose contents can be accessed directly (without
+extraction) from the Password Safe GUI (Help menu or button).
+
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+
 %autosetup -p1 -n %{short}-%{version}
 # make sure our binaries don't depend on any windows/mac stuff
 rm -r src/ui/Windows
@@ -93,30 +115,16 @@ rm -r src/os/mac
 #
 cp -a src/core/crypto/external/Chromium/LICENSE Chromium.LICENSE
 #
-cd docs
-# fedora automated review complains about line endings
-dos2unix -k config.txt
-dos2unix -k help.txt
 # actually in .md format
-mv ChangeLog.txt ChangeLog.md
+mv docs/ChangeLog.txt docs/ChangeLog.md
+# fedora automated review complains about line endings
+dos2unix --info %{doc_files} | cat -n
+dos2unix --info=c %{doc_files} | xargs dos2unix --verbose --keepdate
 
 
 %install
 %cmake_install
 %find_lang pwsafe
-install -m 644 -D README.md      %{buildroot}%{_datadir}/doc/%{name}-%{version}/README.md
-for x in ChangeLog.md \
-         config.txt \
-         formatV1.txt \
-         formatV2.txt \
-         formatV3.txt \
-         formatV4.txt \
-         help.txt \
-         pwsafe-state-machine.rtf \
-         ReleaseNotes.md \
-         ReleaseNotesWX.md; do
-    install -m 644 docs/$x  %{buildroot}%{_datadir}/doc/%{name}-%{version}/$x
-done
 
 
 %check
@@ -125,24 +133,23 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/pwsafe.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.pwsafe.pwsafe.metainfo.xml
 
 
-
 %files -f pwsafe.lang
-%{_bindir}/pwsafe
-%{_bindir}/pwsafe-cli
 %license LICENSE
 %license Chromium.LICENSE
 %license pugixml.LICENSE
-%{_mandir}/man1/pwsafe.1.gz
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/xml
+%doc %{doc_files}
+%{_bindir}/pwsafe
+%{_bindir}/pwsafe-cli
+%{_mandir}/man1/pwsafe.1*
 %{_datadir}/applications/pwsafe.desktop
 %{_datadir}/icons/*/*/*/pwsafe.png
 %{_metainfodir}/org.pwsafe.pwsafe.metainfo.xml
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/xml
 
 %files doc
-%docdir %{_datadir}/doc/%{name}-%{version}
 %license LICENSE
-%{_datadir}/doc/%{name}-%{version}
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/help
 
 

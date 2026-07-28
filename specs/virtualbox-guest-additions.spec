@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.2.12
-Release:    2%{?dist}
+Version:    7.2.14
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -45,7 +45,7 @@ BuildRequires: systemd
 Obsoletes:      VirtualBox-guest-additions < %{version}-%{release}
 Provides:       VirtualBox-guest-additions = %{version}-%{release}
 # VirtualBox guests are always x86, no need to build for other archs
-ExclusiveArch:  i686 x86_64
+ExclusiveArch:  x86_64
 
 # kernel 5.6.14 have the fixes for vboxguest on VBox 6.1.x
 Requires: kernel >= 5.6.14
@@ -199,11 +199,16 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Sat Jul 25 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.14-1
+- Update Virtualbox Guest Additions to 7.2.14 (rhbz#2503394)
+- Drop i686 architecture builds as no longer relevant (rhbz#2499679)
+- Correct Bugzilla record number reference in the changelog for 7.2.12 update (rhbz#2499698)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
 * Sun Jul 12 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.12-1
-- Update Virtualbox Guest Additions to 7.2.12 (rhbz#2460053)
+- Update Virtualbox Guest Additions to 7.2.12 (rhbz#2489301)
 - Switch to building with nasm instead of yasm
 
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.2.8-2

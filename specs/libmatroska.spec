@@ -1,12 +1,10 @@
 Summary:	Open audio/video container format library
 Name:		libmatroska
-Version:	1.7.1
-Release:	14%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+Version:	1.7.2
+Release:	1%{?dist}
+License:	LGPL-2.1-or-later
 URL:		https://www.matroska.org/
 Source0:	https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
-Patch0:		%{name}-cmake-4.0.patch
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	libebml-devel >= 1.4.4
@@ -38,7 +36,6 @@ will use the Matroska container format.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .cmake4
 
 
 %build
@@ -67,6 +64,11 @@ will use the Matroska container format.
 
 
 %changelog
+* Thu Jul 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.7.2-1
+- update to 1.7.2 (resolves rhbz#2502271)
+- drop merged patch
+- correct license field
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

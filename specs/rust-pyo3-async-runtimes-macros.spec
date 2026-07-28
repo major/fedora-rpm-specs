@@ -5,7 +5,7 @@
 %global crate pyo3-async-runtimes-macros
 
 Name:           rust-pyo3-async-runtimes-macros
-Version:        0.27.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Proc Macro Attributes for pyo3-async-runtimes
 

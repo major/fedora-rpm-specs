@@ -3,10 +3,9 @@
 %global optflags %(echo %{optflags} -I%{_includedir}/libev)
 
 Name:          python-%{modname}
-Version:       25.9.1
+Version:       26.7.0
 Release:       %autorelease
 Summary:       A coroutine-based Python networking library
-
 License:       MIT
 URL:           http://www.gevent.org/
 Source0:       %{pypi_source %{modname} %{version} tar.gz}
@@ -15,11 +14,9 @@ BuildRequires: gcc
 BuildRequires: c-ares-devel
 BuildRequires: libev-devel
 BuildRequires: libuv-devel
-
 %description
 gevent is a coroutine-based Python networking library that uses greenlet to
 provide a high-level synchronous API on top of libevent event loop.
-
 Features include:
 
   * convenient API around greenlets
@@ -34,11 +31,9 @@ Summary:       %{summary}
 BuildRequires: python3-devel
 BuildRequires: python3-greenlet-devel >= 3.2.2
 BuildRequires: python3-zope-event
-
 %description -n python3-%{modname}
 gevent is a coroutine-based Python networking library that uses greenlet to
 provide a high-level synchronous API on top of libevent event loop.
-
 Features include:
 
   * convenient API around greenlets

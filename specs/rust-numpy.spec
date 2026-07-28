@@ -5,16 +5,16 @@
 %global crate numpy
 
 Name:           rust-numpy
-Version:        0.27.1
+Version:        0.29.0
 Release:        %autorelease
 Summary:        PyO3-based Rust bindings of the NumPy C-API
 
 License:        BSD-2-Clause
 URL:            https://crates.io/crates/numpy
 Source:         %{crates_source}
-# * Fix tests under Python 3.14
-# * Commenting out the docs hunk that doesn't apply cleanly
-Patch2:         https://patch-diff.githubusercontent.com/raw/PyO3/rust-numpy/pull/524.patch
+# Manually created patch for downstream crate metadata changes
+# * Remove unused benchmark-only dev-dependency on criterion
+Patch:          numpy-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

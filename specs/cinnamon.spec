@@ -1,20 +1,16 @@
-%global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
+%global __requires_exclude ^libcinnamon\.so|^libst\.so
 
 %global cjs_version 140.0
 %global cinnamon_desktop_version 6.7.1
 %global cinnamon_translations_version 6.7.0
-%global gobject_introspection_version 1.38.0
 %global muffin_version 6.7.1
-%global json_glib_version 0.13.2
-
-%global __python %{__python3}
 
 %global upstream_version 6.7.4-unstable
 
 Name:           cinnamon
 Version:        6.7.4^unstable
 Release:        2%{?dist}
-Summary:        Window management and application launching for GNOME
+Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -23,10 +19,9 @@ Source2:        10_cinnamon-apps.gschema.override.in
 Source3:        22_fedora.styles
 
 Patch0:         set_wheel.patch
-#Patch1:         revert_25aef37.patch
-Patch2:         default_panal_launcher.patch
-Patch3:         remove_crap_from_menu.patch
-Patch4:         set_menu_defaults.patch
+Patch1:         default_panal_launcher.patch
+Patch2:         remove_crap_from_menu.patch
+Patch3:         set_menu_defaults.patch
 
 ExcludeArch:    %{ix86}
 
@@ -44,29 +39,22 @@ BuildRequires:  pkgconfig(lib%{name}-menu-3.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxdo)
 BuildRequires:  pkgconfig(%{name}-desktop) >= %{cinnamon_desktop_version}
-BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
-BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
+BuildRequires:  pkgconfig(girepository-2.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(libnm)
 BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(polkit-agent-1)
-BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(xapp)
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(x11)
 
 # for screencast recorder functionality
 BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(gstreamer-base-1.0)
 
-# used in unused BigThemeImage
 BuildRequires:  pkgconfig(libmuffin-0) >= %{muffin_version}
-BuildRequires:  pkgconfig(libpulse)
-
-# media keys
-BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(colord)
-%ifnarch s390 s390x
-BuildRequires:  pkgconfig(libwacom)
-%endif
-BuildRequires:  pkgconfig(xtst)
 
 Obsoletes:      cinnamon-screensaver < %{version}-%{release}
 Provides:       cinnamon-screensaver = %{version}-%{release}
@@ -78,13 +66,11 @@ Requires:       gnome-menus%{?_isa} >= 3.0.0-2
 
 # wrapper script used to restart old GNOME session if run --replace
 # from the command line
-Requires:       gobject-introspection%{?_isa} >= %{gobject_introspection_version}
+Requires:       gobject-introspection%{?_isa}
 
 # needed for loading SVG's via gdk-pixbuf
 Requires:       librsvg2%{?_isa}
 
-# needed as it is now split from Clutter
-Requires:       json-glib%{?_isa} >= %{json_glib_version}
 Requires:       upower%{?_isa}
 Requires:       polkit%{?_isa} >= 0.100
 
@@ -101,7 +87,7 @@ Requires:       accountsservice-libs%{?_isa}
 Requires: gnome-keyring-pam%{?_isa}
 
 # needed for settings
-Requires:       gsound
+Requires:       gsound%{?_isa}
 Requires:       libtimezonemap%{?_isa}
 Requires:       python3-babel
 Requires:       python3-distro
@@ -153,6 +139,7 @@ Requires:       python3-xapps-overrides%{?_isa}
 
 # required for calendar applet events
 Recommends:     %{name}-calendar-server%{?_isa} = %{version}-%{release}
+Recommends:     gnome-calendar
 
 # required for network applet
 Requires:       nm-connection-editor%{?_isa}
@@ -204,7 +191,6 @@ them with an easy to use and comfortable desktop experience.
 Summary:        Calendar server for Cinnamon
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       evolution-data-server%{?_isa}
-Requires:       gnome-calendar%{?_isa}
 
 %description calendar-server
 Calendar server for Cinnamon.
@@ -212,10 +198,10 @@ Calendar server for Cinnamon.
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
-%{__sed} -i -e 's@gksu@pkexec@g' files%{_bindir}/%{name}-settings-users
-%{__sed} -i -e 's@gnome-orca@orca@g' files%{_datadir}/%{name}/%{name}-settings/modules/cs_accessibility.py
+sed -i -e 's@gksu@pkexec@g' files%{_bindir}/%{name}-settings-users
+sed -i -e 's@gnome-orca@orca@g' files%{_datadir}/%{name}/%{name}-settings/modules/cs_accessibility.py
 # remove mintlocale im from settings
-%{__sed} -i -e 's@mintlocale im@mintlocale_im_removed@g' files%{_datadir}/%{name}/%{name}-settings/%{name}-settings.py
+sed -i -e 's@mintlocale im@mintlocale_im_removed@g' files%{_datadir}/%{name}/%{name}-settings/%{name}-settings.py
 
 # Fix rpmlint errors
 for file in files%{_datadir}/%{name}/applets/settings-example@cinnamon.org/*.py \
@@ -240,34 +226,31 @@ chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
 %meson_install
 
 # install common gschema override
-%{__install} --target-directory=%{buildroot}%{_datadir}/glib-2.0/schemas \
+install --target-directory=%{buildroot}%{_datadir}/glib-2.0/schemas \
     -Dpm 0644 %{SOURCE1}
 
 # install gschema-override for apps
-%{__sed} -e 's!@pkg_manager@!org.mageia.dnfdragora.desktop!g' \
+sed -e 's!@pkg_manager@!org.mageia.dnfdragora.desktop!g' \
     < %{SOURCE2} > %{buildroot}%{_datadir}/glib-2.0/schemas/10_%{name}-apps.gschema.override
 
 # install gschema-override for wallpaper
-%{__cat} >> %{buildroot}%{_datadir}/glib-2.0/schemas/10_%{name}-wallpaper.gschema.override << EOF
+cat >> %{buildroot}%{_datadir}/glib-2.0/schemas/10_%{name}-wallpaper.gschema.override << EOF
 [org.cinnamon.desktop.background]
 picture-uri='file:///usr/share/backgrounds/tiles/default_blue.jpg'
 EOF
 
 # install style file for mint-x and mint-y
-%{__install} --target-directory=%{buildroot}%{_datadir}/%{name}/styles.d/ \
+install --target-directory=%{buildroot}%{_datadir}/%{name}/styles.d/ \
     -Dpm 0644 %{SOURCE3}
 
 # Provide symlink for the background-propeties.
-%{__ln_s} %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
+ln -s %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
 # Delete useless gir files
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/*.gir
+rm -rf %{buildroot}%{_datadir}/%{name}/*.gir
 
-# Delete cinnamon2d session files
-%{__rm} -rf %{buildroot}%{_bindir}/cinnamon2d
-%{__rm} -rf %{buildroot}%{_bindir}/cinnamon-session-cinnamon2d
-%{__rm} -rf %{buildroot}%{_datadir}/applications/cinnamon2d.desktop
-%{__rm} -rf %{buildroot}%{_datadir}/xsessions/cinnamon2d.desktop
-%{__rm} -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
+# Delete cinnamon2d files
+rm -rf %{buildroot}%{_bindir}/cinnamon2d
+rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 
 %check
 %{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop

@@ -1,6 +1,6 @@
 Name:           icemon
 Version:        3.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Icecream GUI monitor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -11,6 +11,7 @@ Source1:        icemon.metainfo.xml
 # Backport of docbook -> asciidoc from upstream
 # https://github.com/icecc/icemon/commit/479490ffbe0d13ed3059b67241671cb78521a10a
 Patch1:         icemon-asciidoc.patch
+Patch2:         cmake-version.patch
 
 BuildRequires:    gcc-c++
 BuildRequires:    pkgconfig(icecc) >= 1.3
@@ -54,6 +55,9 @@ install -m644 -D %{SOURCE1} %{buildroot}/%{_metainfodir}/%{name}.metainfo.xml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Sun Jul 26 2026 Jan Kratochvil <jan@jankratochvil.net> - 3.3-20
+- Fix rhbz#2504133 - icemon: FTBFS in Fedora rawhide/f45
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

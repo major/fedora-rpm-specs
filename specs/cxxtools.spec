@@ -1,6 +1,6 @@
 Name:           cxxtools
 Version:        3.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A collection of general-purpose C++ classes
 Epoch:          1
 
@@ -17,6 +17,7 @@ Patch4:         %{name}-%{version}-timer.patch
 # fix assertion with GLIBCXX_ASSERTIONS (upstream patch)
 Patch5:         0001-fix-for-possible-crash-in-cxxtools-Connectable.patch
 Patch6:         cxxtools-cxx20.patch
+Patch7:         cxxtools-ssl-api.patch
 
 BuildRequires:  make
 BuildRequires:  automake
@@ -87,6 +88,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/cxxtools/
 
 %changelog
+* Sun Jul 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:3.0-22
+- Add cxxtools-ssl-api.patch
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

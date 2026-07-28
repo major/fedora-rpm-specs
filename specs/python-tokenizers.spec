@@ -1,10 +1,10 @@
 %bcond check 1
 # Recent versions of python-datasets require a recent libarrow, so it was not
 # branched to all releases.
-%bcond datasets %[ %{undefined fc43} && %{undefined fc42} ]
+%bcond datasets %{undefined fc43}
 
 Name:           python-tokenizers
-Version:        0.22.2
+Version:        0.23.1
 Release:        %autorelease
 Summary:        Implementation of today's most used tokenizers
 
@@ -45,9 +45,11 @@ SourceLicense:  Apache-2.0
 License:        %{license_expression}
 URL:            https://github.com/huggingface/tokenizers
 Source:         %{pypi_source tokenizers}
-# A patch I wrote, updating the sources for PyO3 0.27 support
-# https://github.com/huggingface/tokenizers/pull/1941.patch
-Patch:          1941.patch
+
+# chore: bump pyo3 to version 0.29 (#2115)
+# https://github.com/huggingface/tokenizers/commit/2032f7fbc5baacbc1bc3c0d1af649b7299fecb90
+# cherry-picked to v0.23.1; re-created on the PyPI sdist
+Patch:          tokenizers-0.23.1-pyo3-0.29.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24

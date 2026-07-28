@@ -5,7 +5,7 @@
 %global crate pyo3-async-runtimes
 
 Name:           rust-pyo3-async-runtimes
-Version:        0.27.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        PyO3 bridges from Rust runtimes to Python's Asyncio library
 

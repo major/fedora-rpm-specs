@@ -7,15 +7,19 @@ ExcludeArch: %{ix86}
 # Disable leak tests
 %bcond_with perl_DBD_MySQL_enables_leak_test
 
-%if 0%{?rhel} >= 10
+%if 0%{?rhel} >= 11
+%global mysqlname mysql9.7
+%else
+%if 0%{?rhel} == 10
 %global mysqlname mysql8.4
 %else
 %global mysqlname mysql
 %endif
+%endif
 
 Name:           perl-DBD-MySQL
 Version:        5.013
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -196,6 +200,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.013-7
+- Rebuilt for MySQL 9.7
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.013-6
 - Perl 5.44 rebuild
 

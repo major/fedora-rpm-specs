@@ -294,7 +294,7 @@ rm -rf $RPM_BUILD_ROOT
 make -C build-dpdk install-exec DESTDIR=$RPM_BUILD_ROOT
 
 # We only need ovs-vswitchd-dpdk and some libraries for dpdk subpackage
-%if 0%{?fedora} < 42
+%if ( 0%{?rhel} && 0%{?rhel} < 11 ) || ( 0%{?fedora} && 0%{?fedora} < 42)
 rm -rf $RPM_BUILD_ROOT%{_bindir}
 %endif
 find $RPM_BUILD_ROOT%{_sbindir} -mindepth 1 -maxdepth 1 -not -name ovs-vswitchd.dpdk -delete

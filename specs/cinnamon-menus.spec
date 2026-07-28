@@ -44,8 +44,6 @@ writing applications that use the Cinnamon menu system.
 %install
 %meson_install
 
-%ldconfig_scriptlets
-
 %files
 %doc AUTHORS NEWS
 %license COPYING COPYING.LIB

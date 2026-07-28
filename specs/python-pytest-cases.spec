@@ -1,5 +1,5 @@
 Name:           python-pytest-cases
-Version:        3.9.1
+Version:        3.10.1
 Release:        %autorelease
 Summary:        Separate test code from test cases in pytest
 
@@ -9,12 +9,13 @@ Source0:        %{pypi_source pytest_cases}
 
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3dist(makefun) > 1.7
-BuildRequires:  python3dist(decopatch)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-harvest) > 1.10
-BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3-pkg-resources
+BuildRequires:  python3dist(decopatch)
+BuildRequires:  python3dist(makefun) > 1.7
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pytest-harvest) > 1.10
+BuildRequires:  python3dist(pytest-steps)
 
 %description
 %{summary}.
@@ -27,16 +28,6 @@ Summary: %{summary}
 
 %prep
 %autosetup -n pytest_cases-%{version}
-cat >pyproject.toml <<EOF
-[build-system]
-requires = [
-    "decopatch",
-    "pytest-steps",
-    "setuptools_scm",
-    "pypandoc",
-    "six"]
-build-backend = "setuptools.build_meta"
-EOF
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,15 +37,14 @@ EOF
 
 %install
 %pyproject_install
+%pyproject_save_files -l pytest_cases
 
 %check
-PYTHONPATH=build/lib %{python3} -m pytest -v
+%pyproject_check_import
+%pytest
 
-%files -n python3-pytest-cases
-%license LICENSE
+%files -n python3-pytest-cases -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/pytest_cases/
-%{python3_sitelib}/pytest_cases-%{version}.dist-info/
 
 %changelog
 %autochangelog

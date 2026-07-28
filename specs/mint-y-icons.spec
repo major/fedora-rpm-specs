@@ -11,8 +11,6 @@ BuildArch:      noarch
 
 BuildRequires:  fdupes
 
-Requires:       filesystem
-Requires:       mint-x-icons
 Requires:       adwaita-icon-theme
 Requires:       hicolor-icon-theme
 
@@ -25,7 +23,7 @@ Requires:       hicolor-icon-theme
 %build
 
 %install
-%{__cp} -pr ${PWD}%{_prefix} %{buildroot}
+cp -pr ${PWD}%{_prefix} %{buildroot}
 %fdupes -s %{buildroot}
 
 %transfiletriggerin -- %{_datadir}/icons/Mint-Y

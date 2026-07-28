@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.23.1
+Version:        1.23.2
 Release:        1%{?dist}
 
 # Macro files
@@ -179,6 +179,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Sun Jul 26 2026 Miro Hrončok <mhroncok@redhat.com> - 1.23.2-1
+- Fixup a regression in %%pyproject_extras_subpkg
+
 * Thu Jul 23 2026 Miro Hrončok <mhroncok@redhat.com> - 1.23.1-1
 - getopt: Fix global macro clobbering with save/restore stack
 - %%pyproject_extras_subpkg: Add long options support

@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.13.1
-Release:       3%{?dist}
+Version:       3.13.2
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -912,6 +912,9 @@ done
 
 
 %changelog
+* Sat Jul 25 2026 Sandro Mani <manisandro@gmail.com> - 3.13.2-1
+- Update to 3.13.2
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.13.1-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

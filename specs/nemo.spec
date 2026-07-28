@@ -13,7 +13,7 @@ ExcludeArch:   %{ix86}
 
 Requires:       redhat-menus
 Requires:       gvfs-fuse%{?_isa}
-Requires:       gvfs-goa%{?_isa}
+Recommends:     gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required by nemo-action-layout-editor
 Requires:       libxmlb%{?_isa}
@@ -65,7 +65,6 @@ It is also responsible for handling the icons on the Cinnamon desktop.
 %package extensions
 Summary: Nemo extensions library
 License:    LGPL-2.0-or-later
-Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description extensions
 This package provides the libraries used by nemo extensions.
@@ -127,7 +126,8 @@ mkdir -p %{buildroot}%{_libdir}/nemo/extensions-3.0/
 rm %{buildroot}%{_datadir}/nemo/search-helpers/id3.nemo_search_helper
 rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 
-%ldconfig_scriptlets extensions
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files
 %doc AUTHORS NEWS

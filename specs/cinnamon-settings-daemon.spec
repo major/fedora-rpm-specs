@@ -39,7 +39,7 @@ BuildRequires:  pkgconfig(pango) >= 1.20.0
 BuildRequires:  pkgconfig(polkit-gobject-1) >= 0.97
 BuildRequires:  pkgconfig(libpulse) >= 0.9.16
 BuildRequires:  pkgconfig(upower-glib) >= 0.99.11
-%ifnarch s390 s390x %{?rhel:ppc ppc64}
+%ifnarch s390 s390x
 BuildRequires:  pkgconfig(libwacom) >= 0.7
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.36.2
 %endif
@@ -60,7 +60,7 @@ handles global keybindings, and many of desktop-wide settings.
 %meson \
  -Duse_smartcard=disabled \
  -Dgtk_layer_shell=true \
-%ifarch s390 s390x %{?rhel:ppc ppc64}
+%ifarch s390 s390x
  -Duse_wacom=disabled
 %endif
 
@@ -79,6 +79,9 @@ rm -rf %{buildroot}%{_datadir}/cinnamon-settings-daemon-3.0/
 # Delete csd symlinks
 rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 
+
+%check
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/*.desktop
 
 %files
 %doc AUTHORS
@@ -102,7 +105,7 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_libexecdir}/csd-screensaver-proxy
 %{_libexecdir}/csd-settings-remap
 %{_libexecdir}/csd-xsettings
-%ifnarch s390 s390x %{?rhel:ppc ppc64}
+%ifnarch s390 s390x
 %{_libexecdir}/csd-wacom-oled-helper
 %{_libexecdir}/csd-wacom-led-helper
 %{_libexecdir}/csd-wacom

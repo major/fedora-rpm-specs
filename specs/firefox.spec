@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        153.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -354,8 +354,8 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3.11-devel
 %if !0%{?flatpak}
 Requires:       u2f-hidraw-policy
-%endif
 Requires:       xdg-desktop-portal
+%endif
 
 BuildRequires:  desktop-file-utils
 %if !0%{?flatpak}
@@ -1199,6 +1199,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sun Jul 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 153.0-4
+- Do not require xdg-desktop-portal in flatpak builds
+
 * Wed Jul 22 2026 Martin Stransky <stransky@redhat.com> - 153.0-3
 - Disabled dom.ipc.forkserver.enable due to mzbz#2056004.
 

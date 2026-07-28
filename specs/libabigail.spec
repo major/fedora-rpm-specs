@@ -6,12 +6,13 @@
 
 Name: libabigail
 Version: 2.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
+Patch1: 0001-tests-mockfedabipkgdiff.in-Fix-python-module-loading.patch
 
 BuildRequires: git
 BuildRequires: libbpf-devel
@@ -130,7 +131,8 @@ make -C doc/manuals install-man-and-info-doc DESTDIR=%{buildroot}
 %endif
 
 %check
-time make %{?_smp_mflags} check check-self-compare || (cat tests/test-suite.log && exit 2)
+time make %{?_smp_mflags} check || (cat tests/test-suite.log && exit 2)
+time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exit 2)
 
 %ldconfig_scriptlets
 
@@ -169,6 +171,13 @@ time make %{?_smp_mflags} check check-self-compare || (cat tests/test-suite.log 
 %endif
 
 %changelog
+* Sun Jul 26 2026 Dodji Seketeli <dodji@seketeli.org> - 2.10-3
+- Apply patch 0001-tests-mockfedabipkgdiff.in-Fix-python-module-loading.patch
+  to fix FTBS https://bugzilla.redhat.com/show_bug.cgi?id=2504261
+  The patch comes from upstream mainline at https://sourceware.org/cgit/libabigail/commit/?id=b0f3f49a735bf8f8f49bfaa5131b2a9f0b437e3c
+- Separate the two testing targets to get an untangled build/test-suite.log
+  in case of errors.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

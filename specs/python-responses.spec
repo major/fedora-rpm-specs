@@ -1,8 +1,8 @@
 %global pypi_name responses
 
 Name:           python-%{pypi_name}
-Version:        0.26.1
-Release:        3%{?dist}
+Version:        0.26.2
+Release:        1%{?dist}
 Summary:        Python library to mock out calls with Python requests
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -57,6 +57,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Sun Jul 26 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.26.2-1
+- update to 0.26.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

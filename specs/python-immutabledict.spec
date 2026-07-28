@@ -50,8 +50,7 @@ Summary:        %{summary}
 %if %{with check}
 %check
 %pyproject_check_import
-
-%pytest
+%pytest -k "not test_performance"
 %endif
 
 

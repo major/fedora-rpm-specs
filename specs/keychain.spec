@@ -9,9 +9,8 @@ Source1:        %{name}.sh
 Source2:        %{name}.csh
 Source3:        README.Fedora
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  help2man
+BuildRequires:  pyproject-rpm-macros
 
 %description
 Keychain is a manager for OpenSSH, ssh.com, Sun SSH and GnuPG agents.
@@ -23,7 +22,7 @@ local machine is rebooted.
 
 %prep
 %autosetup
-cp %{SOURCE3} .
+cp -p %{SOURCE3} .
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -34,8 +33,8 @@ cp %{SOURCE3} .
 %install
 %pyproject_install
 %pyproject_save_files keychain
-install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
-install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/profile.d/%{name}.csh
+install -d -m 0755 %{buildroot}%{_sysconfdir}/profile.d
+install -p -m 0644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_sysconfdir}/profile.d/
 
 # Generate man page
 mkdir -p %{buildroot}%{_mandir}/man1

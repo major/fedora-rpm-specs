@@ -5,7 +5,7 @@
 %global crate tokenizers
 
 Name:           rust-tokenizers
-Version:        0.22.2
+Version:        0.23.1
 Release:        %autorelease
 Summary:        Implementation of today's most used tokenizers in Rust
 
@@ -13,13 +13,15 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/tokenizers
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow newer (but still compatible) monostate versions
-# * Allow all fancy-regex versions from 0.13 through 0.17:
-#   https://github.com/huggingface/tokenizers/pull/1940
-# * Upgrade indicatif dependency from 0.17 to 0.18
-# * Downgrade onig dependency from 6.5.1 to 6.4.0
+# * Update monostate dependency to v1:
+#   https://github.com/huggingface/tokenizers/pull/2242
+# * Update fancy-regex dependency to 0.18:
+#   https://github.com/huggingface/tokenizers/pull/2243; also allow older 0.16,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2321464
 # * Drop criterion dev-dependency
 Patch:          tokenizers-fix-metadata.diff
+# * Downstream-only: don’t run doctests that require data files
+Patch10:        0001-Downstream-only-don-t-run-doctests-that-require-data.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -167,10 +169,11 @@ use the "rustls-tls" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip doctest that's missing a data file
-# * skip failing tests that are missing data files
-# * skip unigram test_sample which is flaky:
-# * https://github.com/huggingface/tokenizers/issues/461
+# * Everything in test:documentation, test:offsets, test:stream, and
+#   test:training requires data files downloaded from huggingface hub.
+# * Most tests in test:unigram require data files downloaded from huggingface
+#   hub, and the remaining test (test_sample) is known to be flaky,
+#   https://github.com/huggingface/tokenizers/issues/461.
 %cargo_test -- --doc -- --skip 926
 %{cargo_test -- --test added_tokens -- --exact %{shrink:
     --skip lstrip_tokens

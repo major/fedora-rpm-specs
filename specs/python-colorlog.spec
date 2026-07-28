@@ -1,14 +1,14 @@
-%global srcname colorlog
+%global pypi_name colorlog
 %global desc "colorlog.ColoredFormatter is a formatter for use with Python's logging module that outputs records using terminal colors."
 
-Name:           python-%{srcname}
-Version:        6.11.0
+Name:           python-%{pypi_name}
+Version:        6.12.0
 Release:        %autorelease
 Summary:        Colored formatter for the Python logging module
 
 License:        MIT
 URL:            https://github.com/borntyping/python-colorlog
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -20,14 +20,14 @@ BuildRequires:  python3-pytest
 %description
 %{desc}
 
-%package -n python3-%{srcname}
+%package -n python3-%{pypi_name}
 Summary:        %{summary}
 
-%description -n python3-%{srcname}
+%description -n python3-%{pypi_name}
 %{desc}
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 %build
 %pyproject_wheel
@@ -38,11 +38,11 @@ Summary:        %{summary}
 %check
 %{pytest} -v
 
-%files -n python3-%{srcname}
+%files -n python3-%{pypi_name}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}*.dist-info/
+%{python3_sitelib}/%{pypi_name}/
+%{python3_sitelib}/%{pypi_name}*.dist-info/
 
 %changelog
 %autochangelog
