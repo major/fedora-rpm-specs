@@ -1,6 +1,6 @@
 Name:		fcitx-ui-light
 Version:	0.1.3
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Light UI for fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -21,6 +21,8 @@ Light UI is a light-weight user interface for fcitx.
 %setup -q -n %{name}-%{version}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380581)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -44,6 +46,9 @@ EOF
 %{_datadir}/applications/fcitx-light.desktop
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.1.3-36
+- Allow to build with CMake 4.0 (rhbz#2380581)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

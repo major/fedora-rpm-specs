@@ -1,6 +1,6 @@
 Name:			fcitx-sunpinyin
 Version:		0.4.2
-Release:		25%{?dist}
+Release:		26%{?dist}
 Summary:		Sunpinyin Wrapper for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:		GPL-2.0-or-later
@@ -33,6 +33,8 @@ trigram language model.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380578)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -61,6 +63,9 @@ trigram language model.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.4.2-26
+- Allow to build with CMake 4.0 (rhbz#2380578)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

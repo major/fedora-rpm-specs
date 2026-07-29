@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -127,6 +127,10 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Mon Jul 27 2026 Miro Hrončok <mhroncok@redhat.com> - 8.4.0-4
+- Rebuilt with pyproject-rpm-macros 1.23.2+
+- Reintroduce accidentally dropped python-streamlink+decompress
+
 * Sun Jul 26 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 8.4.0-3
 - Fix build with requests >= 2.34
 

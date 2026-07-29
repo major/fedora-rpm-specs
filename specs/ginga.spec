@@ -16,7 +16,7 @@ panning and zooming windows, star catalog access, cuts, star pick/fwhm,
 thumbnails, etc.}
 
 Name:           ginga
-Version:        5.5.1
+Version:        7.0.0
 Release:        %autorelease
 Summary:        %{sum}
 # License breakdown
@@ -36,6 +36,8 @@ BuildRequires:  fontpackages-devel
 Requires:       python3-%{name} = %{version}-%{release}
 
 BuildArch:      noarch
+Recommends:     google-roboto-fonts
+Recommends:     google-roboto-condensed-fonts
 
 %description %_description
 
@@ -58,7 +60,7 @@ Examples for %{name}
 
 %prep
 %autosetup
-sed -i -e s/opencv-python-headless/opencv/ -e s/python-magic.*/file-magic/ setup.cfg
+sed -i -e s/opencv-python-headless/opencv/ setup.cfg
 # we don't have pillow-heif packaged
 sed -i -e /pillow-heif/d setup.cfg
 
@@ -66,6 +68,7 @@ sed -i -e /pillow-heif/d setup.cfg
 %pyproject_buildrequires -x recommended -x qt5 -t
 
 %build
+%py3_shebang_fix ginga/examples
 %pyproject_wheel
 
 %install
@@ -93,19 +96,13 @@ ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Italic.ttf %{buildroot}/%{p
 ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Regular.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
 # TODO - Bundled Ubuntu_Mono
 
-# ginga/web/pgw/ipg.py has wrong permissions
-chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/web/pgw/ipg.py
-chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
-
-# Fix wrong interpreters in some scripts...
-%py3_shebang_fix %{buildroot}/%{python3_sitelib}/ginga/web/pgw/ipg.py %{buildroot}/%{python3_sitelib}/ginga/examples
-
 %check
 %tox
 
 %files
 %doc README.md LONG_DESC.txt doc/WhatsNew.rst
-%{_bindir}/*
+%{_bindir}/ggrc
+%{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 
 %files -n python3-%{name} -f %{pyproject_files}

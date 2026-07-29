@@ -20,7 +20,8 @@ ExclusiveArch:  x86_64 aarch64 ppc64le
 # OpenVINO only supports x86_64 and aarch64
 # Presently, Fedora only packages it on x86_64
 %ifarch x86_64
-%bcond_without openvino
+# FTBFS 7/27/26 openvino needs rebuilding at least
+%bcond_with openvino
 %bcond_without rocm
 %else
 %bcond_with openvino

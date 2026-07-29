@@ -19,6 +19,12 @@ URL: https://ostreedev.github.io/ostree/
 ExcludeArch:    %{ix86}
 %endif
 
+# Backport https://github.com/ostreedev/ostree/pull/3614
+Patch0: 0001-lib-commit-Report-whether-committed-object-already-existed.patch
+Patch1: 0002-lib-commit-Fix-min-free-space-accounting-for-duplicate-content-objects.patch
+# Backport https://github.com/ostreedev/ostree/pull/3615
+Patch2: 0003-lib-commit-Fix-min-free-space-accounting-for-reflinked-content-objects.patch
+
 BuildRequires: make
 BuildRequires: git
 # We always run autogen.sh

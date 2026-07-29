@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        14%{?dist}
+Release:        %autorelease
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -26,6 +26,11 @@ Patch6:         %{name}-cryptography-decrepit.patch
 # Drop redundant BuildRequires for python3-wheel
 # https://github.com/fedora-eln/eln/issues/284
 Patch7:         https://github.com/tpm2-software/tpm2-pytss/commit/3107f615.patch
+# cd433019cf109986d523ab4dc644af723f6f0d59
+# dba34b3a0af39122381d613a7beb3a0d46b7ae21
+# 6e02235e03eaab003d0bb94fd70ea16c684e6ff4
+# 9cc11edbe174dc71cf77c841b5a99717a85b7471
+Patch8:         python-tpm2-pytss-raw-regex.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -91,84 +96,4 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Mon Jun 29 2026 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-13
-- Drop redundant BuildRequires for python3-wheel
-
-* Mon Jun 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.0-12
-- Fix build with latest python-cryptography
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.3.0-11
-- Rebuilt for Python 3.15
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-9
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-8
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jun 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.0-6
-- Patch for cryptography 45; fixes RHBZ#2372172
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.0-5
-- Rebuilt for Python 3.14
-
-* Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.0-4
-- Fix build with gcc15 (#2341227)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jul 03 2024 Jakub Jelen <jjelen@redhat.com> - 2.3.0-1
-- New upstream release (#2295581)
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.2.1-3
-- Rebuilt for Python 3.13
-
-* Mon May 27 2024 Jakub Jelen <jjelen@redhat.com> - 2.2.1-2
-- Fix build issue in rawhide (#2283520)
-
-* Tue Mar 05 2024 Jakub Jelen <jjelen@redhat.com> - 2.2.1-1
-- New upstream release (#2149103)
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 16 2023 Jakub Jelen <jjelen@redhat.com> - 2.1.0-3
-- Enable tests on i686 again
-
-* Wed Aug 16 2023 Jakub Jelen <jjelen@redhat.com> - 2.1.0-2
-- Enable builds on i686 again
-- Fix another test issues
-
-* Mon Aug 07 2023 Jakub Jelen <jjelen@redhat.com> - 2.1.0-1
-- New upstream release (#2149103)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Oct 26 2022 Jakub Jelen <jjelen@redhat.com> - 1.2.0-1
-- Official Fedora package (#2135713)
-
-* Tue Apr 12 2022 Traxtopel <traxtopel@gmail.com> - 1.1.0-1
-- Initial package.
+%autochangelog

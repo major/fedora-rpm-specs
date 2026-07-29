@@ -1,4 +1,4 @@
-%bcond_with devel
+%bcond_without devel
 
 # Recent so-version, so we do not bump accidentally.
 %global nettle_so_ver 8
@@ -110,7 +110,7 @@ popd
 autoreconf -ifv
 # For annocheck
 export ASM_FLAGS="-Wa,--generate-missing-build-notes=yes"
-%configure --enable-shared --enable-fat \
+%configure --disable-documentation --enable-shared --enable-fat \
 --disable-sm3 --disable-sm4 --disable-ecc-secp192r1 --disable-ecc-secp224r1 \
 %if %{with bundle_gmp}
 --with-include-path=$PWD/bundled_gmp --with-lib-path=$PWD/bundled_gmp/.libs \
@@ -139,7 +139,6 @@ export ASM_FLAGS="-Wa,--generate-missing-build-notes=yes"
 %make_install
 make install-shared DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 mkdir -p $RPM_BUILD_ROOT%{_infodir}
-install -p -m 644 nettle.info $RPM_BUILD_ROOT%{_infodir}/
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_bindir}/nettle-lfib-stream
@@ -153,7 +152,6 @@ chmod 0755 $RPM_BUILD_ROOT%{_libdir}/libhogweed.so.%{hogweed_so_ver}.*
 
 %if %{without devel}
 # Delete devel files
-rm -rf $RPM_BUILD_ROOT%{_infodir}/nettle.info
 rm -rf $RPM_BUILD_ROOT%{_includedir}/nettle
 rm -rf $RPM_BUILD_ROOT%{_libdir}/*.so
 rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
@@ -176,8 +174,7 @@ make check
 
 %if %{with devel}
 %files devel
-%doc descore.README nettle.html nettle.pdf
-%{_infodir}/nettle.info.*
+%doc descore.README
 %{_includedir}/nettle
 %{_libdir}/libnettle.so
 %{_libdir}/libhogweed.so

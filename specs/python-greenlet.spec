@@ -1,8 +1,8 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        3.5.3
-Release:        3%{?dist}
+Version:        3.5.4
+Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
 URL:            https://github.com/python-greenlet/greenlet
@@ -67,6 +67,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Wed Jul 22 2026 Federico Pellegrin <fede@evolware.org> - 3.5.4-1
+- Update to 3.5.4. Fixes rhbz#2506078
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.5.3-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

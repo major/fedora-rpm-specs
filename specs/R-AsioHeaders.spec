@@ -6,6 +6,8 @@ Summary:        Asio C++ Header Files
 License:        BSL-1.0
 URL:            %{cran_url}
 Source:         %{cran_source}
+# Backport fix for failure with OpenSSL 4.
+Patch:          https://github.com/chriskohlhoff/asio/commit/ae27080e5eab4ab41b1784a927248bf2933186b5.patch
 
 BuildArch:      noarch
 BuildRequires:  R-devel
@@ -24,7 +26,9 @@ compiler). 'Asio' is written and maintained by Christopher M. Kohlhoff, and
 released under the 'Boost Software License', Version 1.0.
 
 %prep
-%autosetup -c
+%autosetup -c -N
+cd AsioHeaders/inst/include
+%autopatch -p3
 
 %generate_buildrequires
 %R_buildrequires

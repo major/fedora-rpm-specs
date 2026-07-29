@@ -1,8 +1,8 @@
 Name:           fedora-easy-karma
-Version:        0.56
-Release:        4%{?dist}
+Version:        0.57
+Release:        1%{?dist}
 Summary:        Fedora update feedback made easy
-License:        GPL-2.0-or-later
+License:        GPL-3.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
 
 # git clone https://pagure.io/fedora-easy-karma.git
@@ -21,6 +21,7 @@ Requires:       python3dist(colored)
 Requires:       python3dist(dnf)
 Requires:       python3dist(munch)
 Requires:       python3dist(requests)
+Requires:       python3dist(ipdb)
 
 
 %description
@@ -38,12 +39,15 @@ updates that you have currently installed.
 
 
 %files
-%license gpl-2.0.txt gpl-3.0.txt
+%license gpl-3.0.txt
 %doc README.md
 %{_bindir}/fedora-easy-karma
 
 
 %changelog
+* Mon Jul 27 2026 Lukas Ruzicka <lruzicka@redhat.con> - 0.57-1
+- release 0.57
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

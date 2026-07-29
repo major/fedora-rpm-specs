@@ -7,12 +7,13 @@
 
 Name:           perl-Module-Pluggable
 Epoch:          2
-Version:        6.3
-Release:        5%{?dist}
+Version:        6.4
+Release:        1%{?dist}
 Summary:        Automatically give your module the ability to have plugins
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Pluggable
 Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMONW/Module-Pluggable-%{version}.tar.gz
+Patch0:         Module-Pluggable-6.4-MANIFEST.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -41,6 +42,7 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::More) >= 0.62
 # IncTest is a locally overloaded module in t/lib/Text/Abbrev.pm
 %if %{with perl_Module_Pluggable_enables_optional_test}
@@ -78,6 +80,11 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Module-Pluggable-%{version}
+
+# Fix broken commit in MANIFEST
+# https://github.com/simonwistow/Module-Pluggable/issues/42
+%patch -P0
+
 find -type f -exec chmod -x {} +
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -106,13 +113,31 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Devel/
+%{perl_vendorlib}/Module/
+%{_mandir}/man3/Devel::InnerPackage.3*
+%{_mandir}/man3/Module::Pluggable.3*
+%{_mandir}/man3/Module::Pluggable::Object.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 27 2026 Paul Howarth <paul@city-fan.org> - 2:6.4-1
+- Update to 6.4
+  - Add a CI/CD pipeline for the first time in 26 years
+  - Add the ability to make search search "strict" and only walk the given
+    search_dirs
+  - Add much more documentation to Module::Pluggable::Object
+  - Make it so that you can give each search_path its own custom options
+  - Finally fix spurious test failure because of already installed modules
+  - Remove optional_features from Makefile.PL META_MERGE that sometimes caused
+    installation confusion
+  - Add the ability to have different sorting algorithms
+  - Fix the issues with OSX extended-attributes on files
+  - Clean up old stale core-lib
+- Make %%files list more explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

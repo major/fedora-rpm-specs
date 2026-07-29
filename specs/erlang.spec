@@ -69,8 +69,8 @@
 
 
 Name:		erlang
-Version:	27.3.4.14
-Release:	2%{?dist}
+Version:	27.3.4.15
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -351,9 +351,13 @@ Provides: erlang(erl_drv_version) = 3.3
 # See erts/emulator/beam/erl_nif.h or call erlang:system_info(nif_version).
 #Provides: erlang(erl_nif_version) = %%(%%{buildroot}/bin/erl -noshell -eval 'io:format(erlang:system_info(nif_version)).' -s erlang halt)
 Provides: erlang(erl_nif_version) = 2.17
-Provides: bundled(pcre) = 8.44
-# git commit 965d19506ff2aed72e039b8c650b6ef5e9446b8c
+# git commit a465fe71ab3d0e224b2b4bd0fac69ae68ab9239d, see erts/emulator/asmjit.version
 Provides: bundled(asmjit)
+# Bundled parts of openssl in commit 609a562ff60e5456739dfd62bb395b9083a78cba
+Provides: bundled(openssl) = 3.1.4
+Provides: bundled(pcre) = 8.45
+# Taken from https://github.com/ulfjack/ryu
+Provides: bundled(ryu)
 Obsoletes: %{name}-appmon
 Obsoletes: %{name}-docbuilder
 Obsoletes: %{name}-erl_docgen
@@ -1940,6 +1944,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+8 Mon Jul 27 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.15-1
+- Ver. 27.3.4.15
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 27.3.4.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

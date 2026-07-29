@@ -10,7 +10,7 @@ An OpenStack library for representing objects in transmittable and
 storable formats.}
 
 Name:           python-%{pkg_name}
-Version:        5.10.0
+Version:        5.11.0
 Release:        %autorelease
 Summary:        OpenStack oslo.serialization library
 
@@ -113,7 +113,7 @@ export OS_TEST_PATH="./oslo_serialization/tests"
 
 
 %files -n python3-%{pkg_name}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %{python3_sitelib}/oslo_serialization
 %{python3_sitelib}/*.dist-info

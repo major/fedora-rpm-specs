@@ -8,7 +8,7 @@
 %global crate lddtree
 
 Name:           rust-lddtree
-Version:        0.3.8
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Read the ELF dependency tree
 
@@ -67,12 +67,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%ifarch aarch64
-# * skip test that doesn't work on aarch64
-%cargo_test -- -- --exact --skip test_lddtree
-%else
 %cargo_test
-%endif
 %endif
 
 %changelog

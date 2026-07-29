@@ -35,6 +35,7 @@ Source4:        geotiler-route.1
 Patch:          %{url}/pull/39.patch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  make
 
 BuildArch:      noarch
@@ -67,6 +68,7 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist numpy}
 %endif
 
+Requires:  python3-pkg-resources
 # For geotiler-route command-line tool:
 Requires:       %{py3_dist pycairo}
 Requires:       %{py3_dist lxml}

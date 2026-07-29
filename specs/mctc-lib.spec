@@ -1,21 +1,19 @@
+%global soversion 0
+
 Name:           mctc-lib
-Version:        0.3.2
-Release:        5%{?dist}
+Version:        0.5.2
+Release:        %autorelease
 Summary:        Modular computation tool chain library
 License:        Apache-2.0
 URL:            https://grimme-lab.github.io/mctc-lib/
 Source0:        https://github.com/grimme-lab/mctc-lib/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  python3-devel
 BuildRequires:  gcc-gfortran
-BuildRequires:  meson
-BuildRequires:  ninja-build
-BuildRequires:  json-fortran-devel
+BuildRequires:  cmake
+BuildRequires:  cmake(jonquil)
+BuildRequires:  cmake(toml-f)
 # For docs
 BuildRequires:  rubygem-asciidoctor
-
-# Patch to use python3 instead of env python3
-Patch0:         mctc-lib-0.3.2-python3.patch
 
 %description
 Common tool chain for working with molecular structure data in various
@@ -32,79 +30,42 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .python3
+%autosetup -p1
+
+
+%conf
+# TODO: Account for absolute path CMAKE_INSTALL_INCLUDEDIR so we can use %%{_fmoddir}
+%cmake \
+  -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_lib}/gfortran/modules \
+  -Dmctc-lib-module-dir:STRING=mctc-lib \
+  -DMCTCLIB_WITH_OpenMP:BOOL=ON \
+  -DMCTCLIB_WITH_JSON:BOOL=ON
+
 
 %build
-export FFLAGS="%{optflags} -I%{_fmoddir} -fPIC"
-export FCLAGS="%{optflags} -I%{_fmoddir} -fPIC"
-%meson
-%meson_build
+%cmake_build
+
 
 %install
-%meson_install
-# Remove static libraries
-rm -f %{buildroot}%{_libdir}/*.a
+%cmake_install
 
-# Move module files
-mkdir -p %{buildroot}%{_fmoddir}
-mv %{buildroot}%{_includedir}/mctc-lib/*/*.mod %{buildroot}%{_fmoddir}
-rm -rf %{buildroot}%{_includedir}/mctc-lib/
+
+%check
+%ctest
+
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/mctc-convert
-%{_mandir}/man1/mctc-convert.1*
-%{_libdir}/libmctc-lib*.so.0*
+%{_libdir}/libmctc-lib.so.%{soversion}{,.*}
 
 %files devel
-%{_fmoddir}/mctc_*.mod
+%{_fmoddir}/mctc-lib/
+%{_libdir}/cmake/mctc-lib/
 %{_libdir}/pkgconfig/mctc-lib.pc
 %{_libdir}/libmctc-lib.so
 
+
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Sep 06 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.2-1
-- Update to 0.3.2.
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-10
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-3
-- Use %%{_fmoddir} in spec.
-
-* Thu Jun 09 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-2
-- Fix build in mock.
-
-* Tue May 24 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-1
-- Initial release.
+%autochangelog

@@ -10,6 +10,10 @@ URL:            https://github.com/matplotlib/mplcairo
 Source:         %pypi_source %{srcname}
 # Skip upstream's -Werror configuration.
 Patch:          0001-Don-t-error-on-all-warnings-in-tests.patch
+# Backport https://github.com/matplotlib/mplcairo/commit/f0cd8536fe34935491e6a5e18bb682614a0272d9
+# which fixes: `pybind11::handle::dec_ref() is being called while the GIL is
+# either not held or invalid` error.
+Patch:          0002-Use-pybind11-3.0-native-enums.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -153,7 +157,7 @@ EOF
 
 # 50 is upstream recommended tolerance since results won't match MPL exactly.
 %{python3} run-mpl-test-suite.py --tolerance=50 -m 'not network' -v -n auto \
-    -k 'not test_backends_interactive'
+    -k 'not test_backends_interactive and not test_rcupdate'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

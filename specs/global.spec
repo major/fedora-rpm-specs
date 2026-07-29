@@ -48,13 +48,13 @@ BuildRequires:  m4
 BuildRequires:  perl-interpreter
 BuildRequires:  texinfo
 %endif
-%if 0%{?fedora} < 36
+%if 0%{?rhel} == 8
 BuildRequires:  xemacs
 %endif
 BuildRequires:  sqlite-devel
 BuildRequires:  make
 Requires:       emacs-filesystem >= %{_emacs_version}
-%if 0%{?fedora} < 36
+%if 0%{?rhel} == 8
 Requires:       xemacs-filesystem >= %{_xemacs_version}
 %endif
 Obsoletes:      emacs-global <= 6.5.1-1
@@ -113,7 +113,7 @@ mkdir -p %{buildroot}%{_emacs_sitelispdir}
 install gtags.el -p -t %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_bytecompile} %{buildroot}%{_emacs_sitelispdir}/gtags.el
 chmod -x %{buildroot}%{_emacs_sitelispdir}/gtags.el
-%if 0%{?fedora} < 36
+%if 0%{?rhel} == 8
 mkdir -p %{buildroot}%{_xemacs_sitelispdir}
 install gtags.el -p -t %{buildroot}%{_xemacs_sitelispdir}
 %{_xemacs_bytecompile} %{buildroot}%{_xemacs_sitelispdir}/gtags.el
@@ -133,7 +133,7 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_mandir}/man*/*
 %{_datadir}/gtags
 %{_emacs_sitelispdir}/gtags.el*
-%if 0%{?fedora} < 36
+%if 0%{?rhel} == 8
 %{_xemacs_sitelispdir}/gtags.el*
 %endif
 

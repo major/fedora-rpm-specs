@@ -1,8 +1,9 @@
 # Run optional test
 %{bcond_without perl_Alien_Build_enables_optional_test}
 # Support Alien::cmake3, this works only with cmake < 4,
+# or support Alien::cmake4, this works only with cmake >= 4,
 # <https://github.com/PerlAlien/Alien-Build/issues/432>.
-%if 0%{?fedora} < 44
+%if 0%{?fedora} != 44
 %{bcond_without perl_Alien_Build_enables_cmake}
 %else
 %{bcond_with perl_Alien_Build_enables_cmake}
@@ -15,7 +16,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.84
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -29,6 +30,9 @@ Patch0:         Alien-Build-2.83-Remove-redundant-pkgconfig-implementations.patc
 # Support only the most common SHA implementation,
 # the files are deleted in prep section
 Patch1:         Alien-Build-2.65-Remove-redundant-SHA-implementations.patch
+# Replace Alien::cmake3 with Alien::cmake4, proposed upstream
+# <https://github.com/PerlAlien/Alien-Build/pull/435>
+Patch2:         Alien-Build-2.84-Replace-Alien-cmake3-with-Alien-cmake4.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -50,8 +54,13 @@ BuildRequires:  perl(warnings)
 # Run-time:
 %if %{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
 # t/alien_build_plugin_build_cmake.t executes gcc via cmake (bug #923024)
+%if 0%{?fedora} < 44
 # Build cycle: perl-Alien-cmake3 → perl-Alien-Build
 BuildRequires:  perl(Alien::cmake3) >= 0.02
+%else
+# Build cycle: perl-Alien-cmake4 → perl-Alien-Build
+BuildRequires:  perl(Alien::cmake4)
+%endif
 %endif
 # Archive::Tar or (tar and bzip2 and gzip and xz)
 BuildRequires:  perl(Archive::Tar)
@@ -150,8 +159,13 @@ Requires:       make
 # dependencies.
 Requires:       perl-Alien-Base = %{?epoch:%{epoch}:}%{version}-%{release}
 %if %{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
+%if 0%{?fedora} < 44
 # Build cycle: perl-Alien-cmake3 → perl-Alien-Build
 Requires:       perl(Alien::cmake3) >= 0.02
+%else
+# Build cycle: perl-Alien-cmake4 → perl-Alien-Build
+Requires:       perl(Alien::cmake4)
+%endif
 %endif
 # Alien::Build::Plugin::Download::Negotiate defaults to Decode::Mojo instead
 # of Decode::HTML
@@ -308,7 +322,10 @@ rm t/alien_build_plugin_pkgconfig_{commandline,makestatic,pp}.t
 %patch -p1 -P 1
 rm lib/Alien/Build/Plugin/Digest/SHAPP.pm
 rm t/alien_build_plugin_digest_shapp.t
-%if !%{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
+%if ! (0%{?fedora} < 44)
+%patch -p1 -P 2
+%endif
+%if !%{with perl_Alien_Build_enables_cmake} || %{defined perl_bootstrap}
     # Remove CMake support
     rm lib/Alien/Build/Plugin/Build/CMake.pm
     perl -i -ne 'print $_ unless m{\b\Qlib/Alien/Build/Plugin/Build/CMake.pm\E\b}' Makefile.PL MANIFEST
@@ -460,6 +477,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 27 2026 Petr Pisar <ppisar@redhat.com> - 2.84-7
+- Support CMake with Alien::cmake4 (bug #2507309)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.84-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

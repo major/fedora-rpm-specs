@@ -1,6 +1,6 @@
 Name:		fcitx-fbterm
 Version:	0.2.0
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Fbterm Support for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -22,6 +22,8 @@ a fast Framebuffer based terminal emulator.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380582)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -36,6 +38,9 @@ a fast Framebuffer based terminal emulator.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.2.0-35
+- Allow to build with CMake 4.0 (rhbz#2380582)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

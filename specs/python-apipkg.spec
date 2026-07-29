@@ -29,6 +29,8 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 # https://github.com/pytest-dev/apipkg/issues/43
 sed -i '/distribution_version("py")/d' test_apipkg.py
+# Fix pytest 9 deprecation warning in conftest.py
+sed -i 's/pytest_report_header(startdir)/pytest_report_header(start_path)/' conftest.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -44,7 +46,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_save_files apipkg
 
 %check
-%tox
+%pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG README.rst

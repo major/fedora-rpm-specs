@@ -8,7 +8,7 @@
 %global with_doc 1
 
 Name:       python-%{library}
-Version:    4.6.0
+Version:    4.7.0
 Release:    %autorelease
 Summary:    OpenStack library for writing OSC plugins
 License:    Apache-2.0
@@ -77,7 +77,6 @@ sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
     -e "/^osprofiler[[:space:]]*[!><=]/d" \
     -e "/^reno[[:space:]]*[!><=]/d" \
-    -e "/^testrepository[[:space:]]*[!><=]/d" \
     test-requirements.txt doc/requirements.txt
  
 

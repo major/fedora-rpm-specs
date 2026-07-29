@@ -17,7 +17,7 @@ It is a thin wrapper to the stock python-*client modules that implement the
 actual REST API client actions.}
 
 Name:             python-%{sname}
-Version:          10.1.0
+Version:          10.2.1
 Release:          %autorelease
 Summary:          OpenStack Command-line Client
 
@@ -184,7 +184,7 @@ export PYTHON=%{__python3}
 
 %files -n python%{python3_pkgversion}-%{sname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst ChangeLog
 %{_bindir}/%{cname}
 %if %{without bootstrap}
 %{_mandir}/man1/%{cname}.1*

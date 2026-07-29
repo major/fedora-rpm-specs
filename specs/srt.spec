@@ -15,7 +15,8 @@ BuildRequires:  gmock-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  gtest-devel
 BuildRequires:  make
-BuildRequires:  nettle-devel
+# https://github.com/Haivision/srt/issues/3316
+BuildRequires:  nettle3.10-devel
 
 Requires: srt-libs%{?_isa} = %{version}-%{release}
 

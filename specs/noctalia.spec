@@ -1,6 +1,6 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   5
+%define prerelnum   6
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
@@ -75,6 +75,8 @@ BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  stb_image_resize2-static
 BuildRequires:  stb_image_write-static
 BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(libjxl)
+BuildRequires:  pkgconfig(libjxl_threads)
 
 # Needed by plugin_git_export_test
 BuildRequires:  git-core

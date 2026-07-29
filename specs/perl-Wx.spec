@@ -23,6 +23,7 @@ Patch0:         Wx-0.9932-Undefine-BOM_UTF8.patch
 Patch1:         gtk3.patch
 Patch2:         wxWidgets_3.2_MakeMaker.patch
 Patch3:         wxWidgets_3.2_port.patch
+Patch4:         wxWidgets_3.2.9_port.patch
 BuildRequires:  make
 BuildRequires:  wxGTK-devel
 BuildRequires:  coreutils
@@ -691,6 +692,7 @@ dos2unix MANIFEST
 dos2unix typemap
 
 %patch -P3 -p1 -b .port
+%patch -P4 -p1
 
 chmod -c a-x README.txt docs/todo.txt samples/*/*.pl
 find . -type f -name "*.pm" -o -name "*.h" -o -name "*.cpp" |
@@ -744,6 +746,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jul 24 2026 Jerry James <loganjerry@gmail.com> - 0.9932-45
+- Add patch for Wx 3.2.9 compatibility
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.9932-45
 - Perl 5.44 rebuild
 

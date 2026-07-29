@@ -17,7 +17,8 @@ Summary:        Dynamic version generation
 # SPDX
 License:        MIT
 URL:            https://pypi.org/pypi/dunamai
-Source0:        https://github.com/mtkennerly/dunamai/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/mtkennerly/dunamai/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          fossil-2.28.patch
 
 BuildArch:      noarch
 
@@ -27,7 +28,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 
@@ -46,11 +46,10 @@ BuildRequires:  help2man
 %description -n python3-dunamai %_description
 
 %prep
-%autosetup -n dunamai-%{version}
+%autosetup -p1 -n dunamai-%{version}
 
-# Comment out to remove /usr/bin/env shebangs
-# Can use something similar to correct/remove /usr/bin/python shebangs also
-# find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
+# Fix CRLF line endings in documentation
+sed -i 's/\r$//' CHANGELOG.md
 
 # see pyproject-rpm-macros documentation for more forms
 %generate_buildrequires
@@ -74,6 +73,8 @@ done
 
 
 %check
+%pyproject_check_import
+
 # set up git
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
@@ -88,8 +89,7 @@ export DARCS_EMAIL="Yep something <name@example.com>"
 %pytest -n auto -v -k "not test__version__from_git__shallow"
 
 %files -n python3-dunamai -f %{pyproject_files}
-%doc README.md CHANGELOG.md CONTRIBUTING.md
-%license LICENSE
+%doc README.md CHANGELOG.md
 %{_bindir}/dunamai
 %{_mandir}/man1/dunamai*.1*
 

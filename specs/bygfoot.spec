@@ -1,20 +1,24 @@
 Name:           bygfoot
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Football management game
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.bygfoot.com
 Source0:        https://gitlab.com/bygfoot/bygfoot/-/archive/%{version}/bygfoot-%{version}.tar.bz2
 Source1:        bygfoot.desktop
+Source2:        bygfoot.metainfo.xml
+Patch0:         bygfoot-export-dynamic.patch
 
-BuildRequires:  gcc
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
-BuildRequires:  gtk2-devel gettext
-BuildRequires:  ninja-build cmake
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  gtk2-devel
 BuildRequires:  json-c-devel
+BuildRequires:  libappstream-glib
+BuildRequires:  ninja-build
 BuildRequires:  sqlite-devel
-Requires: bygfoot-data
+Requires: %{name}-data = %{version}-%{release}
 
 %description
 Bygfoot is a small and simple graphical football (a.k.a. soccer) manager game 
@@ -23,12 +27,12 @@ league: you form the team, buy and sell players, get promoted or relegated and
 of course try to be successful.
 
 %package data
-Summary: bygfoot country definitions and other game files.
-BuildArch:	noarch
+Summary: Bygfoot country definitions and other game files.
+BuildArch: noarch
 
 
 %description data
-bygfoot country definitions and other game files.
+Bygfoot country definitions and other game files.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -51,16 +55,32 @@ bygfoot country definitions and other game files.
 %find_lang %{name}
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
+# Install icon to standard directory
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install -p -m 0644 %{buildroot}%{_datadir}/bygfoot/support_files/pixmaps/bygfoot_icon.png %{buildroot}%{_datadir}/pixmaps/bygfoot.png
+
+# Install metainfo file
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_metainfodir}/bygfoot.metainfo.xml
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/bygfoot.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/bygfoot.metainfo.xml
+
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog README TODO UPDATE
 %license COPYING
 %{_bindir}/bygfoot*
 %{_datadir}/applications/bygfoot.desktop
+%{_datadir}/pixmaps/bygfoot.png
+%{_metainfodir}/bygfoot.metainfo.xml
 
 %files data
 %{_datadir}/bygfoot
 
 %changelog
+* Fri Jul 24 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 3.0.0-3
+- fix symbol export for rawhide / Xfce, fixes rhbz#2380484
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

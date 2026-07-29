@@ -1,6 +1,6 @@
 Name:		fcitx-kkc
 Version:	0.1.4
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Japanese Kana Kanji Engine for Fcitx
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -21,6 +21,8 @@ input method using libkkc.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380586)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -47,6 +49,9 @@ rm -f $RPM_BUILD_ROOT%{_includedir}/fcitx/module/kkc/fcitx-kkc.h
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.1.4-16
+- Allow to build with CMake 4.0 (rhbz#2380586)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

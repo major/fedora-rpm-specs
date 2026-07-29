@@ -12,7 +12,7 @@ The request context is usually populated in the
 WSGI pipeline and used by various modules such as logging.}
 
 Name:           python-%{pkg_name}
-Version:        6.4.0
+Version:        6.5.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Context library
 
@@ -90,9 +90,9 @@ sed -i \
 %generate_buildrequires
 
 %if 0%{?with_doc}
-%pyproject_buildrequires -t -e docs
+%pyproject_buildrequires -t -e docs,%{default_toxenv}
 %else
-%pyproject_buildrequires -t
+%pyproject_buildrequires -t -e %{default_texenv}
 %endif
 
 
@@ -115,12 +115,12 @@ rm -r doc/build/html/.{doctrees,buildinfo}
 # The tests are not being loaded here, the testenvs environment
 # never seems to run ... confused.
 %check
-%tox
+%tox -e %{default_toxenv}
 
 
 %files -n python3-%{pkg_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst ChangeLog
 %exclude %{python3_sitelib}/oslo_context/tests
 
 

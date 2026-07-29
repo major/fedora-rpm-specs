@@ -9,7 +9,8 @@ License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3
 URL:            https://metacpan.org/dist/grpc-xs
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/grpc-xs-%{version}.tar.gz
 # Fix dereferencing arguments in Grpc::XS::Call->startBatch() subroutine,
-# bug #2506505, proposed upstream, <https://github.com/joyrex2001/grpc-perl/pull/31>
+# bug #2506505, in upstream after 0.38,
+# <https://github.com/joyrex2001/grpc-perl/pull/31>
 Patch1:         grpc-xs-0.38-Fix-dereferencing-hashes-in-Grpc-XS-Call-startBatch.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -82,7 +83,6 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
-perl -Iblib/{lib,arch} t/15-xs_end_to_end.t
 make test
 
 %files

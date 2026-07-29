@@ -1,6 +1,6 @@
 Name:		fcitx-table-other
 Version:	0.2.4
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Other tables for Fcitx
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -20,6 +20,8 @@ provides additional tables.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380580)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -39,6 +41,9 @@ provides additional tables.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.2.4-25
+- Allow to build with CMake 4.0 (rhbz#2380580)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

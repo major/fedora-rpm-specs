@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 8.0.5
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -45,7 +45,7 @@ BuildRequires: hiredis-devel
 BuildRequires: libevent-devel
 BuildRequires: pkgconfig(gnutls)
 
-%if 0%{?fedora} >= 25 || 0%{?epel} >= 8
+%if 0%{?fedora} >= 25 || 0%{?rhel} >= 8
 %ifarch x86_64 aarch64
 BuildRequires: vectorscan-devel
 %endif
@@ -55,13 +55,12 @@ Requires: python3-pyyaml
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-%if 0%{?fedora} < 42 || 0%{?epel} >= 8
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 Requires(pre): /usr/sbin/useradd
 %endif
 
-# Rust is not working on ppc64le systems (bz 1757548)
-# Or i686 (bz 2047425)
-ExcludeArch: ppc64le i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 
 %description
@@ -140,7 +139,7 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 
 cp suricata-update/README.rst doc/suricata-update-README.rst
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 # Create a sysusers.d config file
 cat >suricata.sysusers.conf <<EOF
 u suricata - - - -
@@ -152,7 +151,7 @@ install -m0644 -D suricata.sysusers.conf %{buildroot}%{_sysusersdir}/suricata.co
 make check
 
 %pre
-%if 0%{?fedora} < 42 || 0%{?epel} >= 8
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 getent passwd suricata >/dev/null || useradd -r -M -s /sbin/nologin suricata
 %endif
 
@@ -195,11 +194,17 @@ fi
 %attr(2770,suricata,suricata) %dir /run/%{name}/
 %{_tmpfilesdir}/%{name}.conf
 %{_datadir}/%{name}/rules
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 %{_sysusersdir}/suricata.conf
 %endif
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.0.5-4
+- Enable sysusers.d on EPEL 11
+
+* Sun Jul 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.0.5-3
+- Enable on ppc64le
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

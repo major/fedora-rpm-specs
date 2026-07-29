@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.32
+Version:        0.2.35
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -230,13 +230,15 @@ tomcli set Cargo.toml del 'target."cfg(any())".dependencies.jiff-static'
 # but not included in the released crate. By doing so here in %%check rather
 # than in %%prep, we prove that the binary RPMs are derived solely from the
 # published crate sources.
-tar -xzvf '%{SOURCE10}' --strip-components=1 \
-    jiff-%{version}/src/tz/snapshots \
-    jiff-%{version}/src/tz/testdata \
-    jiff-%{version}/tests
+tar --extract --gzip --verbose --file '%{SOURCE10}' \
+    --strip-components=3 \
+    jiff-%{version}/crates/jiff/src/tz/snapshots \
+    jiff-%{version}/crates/jiff/src/tz/testdata \
+    jiff-%{version}/crates/jiff/tests
 # These tests would require the "static"/"static-tz" features:
-rm -rv tests/procmacro/
-sed -r -i 's@^mod procmacro;@// &@' tests/lib.rs
+rm --recursive --verbose tests/procmacro/
+sed --regexp-extended --in-place 's@^mod procmacro;@// &@' \
+    tests/lib.rs
 %cargo_test -f serde
 %endif
 

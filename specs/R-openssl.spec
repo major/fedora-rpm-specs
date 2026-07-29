@@ -1,5 +1,5 @@
 Name:           R-openssl
-Version:        %R_rpm_version 2.3.4
+Version:        %R_rpm_version 2.4.2
 Release:        %autorelease
 Summary:        Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
 
@@ -12,7 +12,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  openssl-devel-engine
 
 %description
 Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers.
@@ -40,9 +39,6 @@ rm -f openssl/tests/testthat/test_google.R # network
 %R_save_files
 
 %check
-# Allow tests with SHA1 signatures to pass.
-# https://github.com/jeroen/openssl/issues/125
-export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 %R_check \--no-examples
 
 %files -f %{R_files}

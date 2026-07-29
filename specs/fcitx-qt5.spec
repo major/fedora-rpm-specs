@@ -2,7 +2,7 @@
 
 Name:           fcitx-qt5
 Version:        1.2.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Fcitx IM module for Qt5
 
 # The entire source code is GPLv2+ except
@@ -43,6 +43,8 @@ developing programs using fcitx-qt5 libraries.
 %setup -q
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380585)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -67,6 +69,9 @@ developing programs using fcitx-qt5 libraries.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2.6-33
+- Allow to build with CMake 4.0 (rhbz#2380585)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

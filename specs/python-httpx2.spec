@@ -1,10 +1,12 @@
-# To break a dependency loop between httpx2 -> uvicorn -> a2wsgi -> starlette -> httpx2,
-# we disable tests when bootstrapping new Python version.
+# To break dependency loops, including:
+#   - httpx2 → starlette → httpx
+#   - httpx2 → uvicorn → a2wsgi → starlette → httpx2
+# … we disable tests when bootstrapping a new Python version.
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}
 
 Name:           python-httpx2
-Version:        2.5.0
+Version:        2.9.1
 Release:        %autorelease
 Summary:        A next-generation HTTP client for Python
 
@@ -13,12 +15,24 @@ Summary:        A next-generation HTTP client for Python
 # numbers, and they share a test suite. Therefore, this source RPM produces
 # both python3-httpx2 and python3-httpcore2.
 
+# The entire source is BSD-3-Clause, except:
+#
+# MIT:
+#   - src/httpx2/httpx2/websockets/ (httpx2.websockets), derived from httpx-ws
+#   - src/httpx2/httpx2/_sse.py (httpx2._sse), derived from httpx-sse
+#
+# Since these are only in the python3-httpx2 subpackage (not python3-httpcore2
+# or any of the extras metapackages), we only include the MIT term in that
+# subpackage’s License field and in SourceLicense.
 License:        BSD-3-Clause
+SourceLicense:  %{license} AND MIT
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
 
-# Fix logging tests with pytest >= 9.1
-Patch:          https://github.com/pydantic/httpx2/pull/1054.patch
+# Add MIT license texts for vendored `httpx-ws` and `httpx-sse`
+# https://github.com/pydantic/httpx2/pull/1087
+# See also https://github.com/pydantic/httpx2/discussions/1086.
+Patch:          %{url}/pull/1087.patch
 
 BuildArch:      noarch
 
@@ -46,9 +60,11 @@ BuildRequires:  %{py3_dist cryptography}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-httpbin}
 BuildRequires:  %{py3_dist pytest-trio}
+BuildRequires:  %{py3_dist starlette}
 BuildRequires:  %{py3_dist trio}
 BuildRequires:  %{py3_dist trustme}
 BuildRequires:  %{py3_dist uvicorn}
+BuildRequires:  %{py3_dist websockets}
 BuildRequires:  %{py3_dist werkzeug}
 %endif
 
@@ -62,9 +78,25 @@ provides both sync and async APIs.}
 
 %package -n python3-httpx2
 Summary:        %{summary}
+# See notes above the base package’s License field.
+License:       %{license} AND MIT
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-httpcore2 = %{version}-%{release}
+
+# A version of httpx-ws was vendored into httpx2 as httpx2.websockets in
+# https://github.com/pydantic/httpx2/pull/1042. It was rebased on httpx-ws
+# 0.9.0 in https://github.com/pydantic/httpx2/pull/1067.
+#
+# Mandatory upstream unbundling query, per
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling:
+# https://github.com/pydantic/httpx2/pull/1042#issuecomment-5087946615
+# (Upstream confirmed there is no path to using an external dependency.)
+Provides:       bundled(python3dist(httpx-ws)) = 0.9
+# Similarly for httpx-sse, which was vendored as httpx2._sse in
+# https://github.com/pydantic/httpx2/pull/1046. We believe that this was based
+# on the latest release of httpx-sse at the time, 0.4.3.
+Provides:       bundled(python3dist(httpx-sse)) = 0.4.3
 
 %description -n python3-httpx2 %{common_description}
 
@@ -74,7 +106,7 @@ Requires:       python3-httpcore2 = %{version}-%{release}
 %{pyproject_extras_subpkg %{shrink:
     -i %{python3_sitelib}/httpx2-%{version}.dist-info
     -n python3-httpx2
-    brotli http2 socks zstd
+    brotli http2 socks ws zstd
     }}
 
 # Ship the command-line tool in the cli extras package (which would otherwise
@@ -144,7 +176,7 @@ cp --preserve --update=none-fail README.md LICENSE.md src/httpx2/
 %generate_buildrequires
 %{pyproject_buildrequires %{shrink:
     --directory src/httpx2
-    --extras brotli,cli,http2,socks,zstd
+    --extras brotli,cli,http2,socks,ws,zstd
     }}
 %{pyproject_buildrequires %{shrink:
     --directory src/httpcore2

@@ -1,6 +1,6 @@
 Name:		rteval
-Version:	3.11
-Release:	3%{?dist}
+Version:	3.12
+Release:	1%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -9,8 +9,6 @@ URL:		https://git.kernel.org/pub/scm/utils/rteval/rteval.git
 Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.xz
 # https://lore.kernel.org/linux-rt-users/20251126231223.100316-1-yselkowi@redhat.com/T/#u
 Patch0:         rteval-do-not-require-wheel-for-building.patch
-Patch2:         rteval-cyclictest-Improve-handling-of-truncated-hist.patch
-Patch3:         rteval-timerlat-Improve-handling-of-truncated-histog.patch
 
 BuildRequires:	python3-devel
 Requires:	python3-libxml2
@@ -83,6 +81,9 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_bindir}/rteval
 
 %changelog
+* Mon Jul 27 2026 John Kacur <jkacur@redhat.com> - 3.12-1
+- Upgrade to rteval-3.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

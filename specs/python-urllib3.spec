@@ -31,6 +31,10 @@ Source0:        %{url}/archive/%{version}/urllib3-%{version}.tar.gz
 %global hypercorn_commit d1719f8c1570cbd8e6a3719ffdb14a4d72880abb
 Source1:        %{hypercorn_url}/archive/%{hypercorn_commit}/hypercorn-%{hypercorn_commit}.tar.gz
 
+# Deal with ssl.PROTOCOL_TLSv1 removal from Python built with OpenSSL 4+
+# https://github.com/urllib3/urllib3/pull/5097
+Patch:          python-urllib3-py315-ssl.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -82,7 +86,7 @@ Recommends:     python3-urllib3+socks
 
 
 %prep
-%autosetup -n urllib3-%{version}
+%autosetup -p1 -n urllib3-%{version}
 %setup -q -n urllib3-%{version} -T -D -b 1
 
 # Allow setuptools-scm 10+

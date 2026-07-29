@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    calendarsupport
 Version: 26.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -35,7 +35,6 @@ BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KPim6IdentityManagementCore)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KPim6AkonadiCalendar)
-BuildRequires:  cmake(KPim6AkonadiNotes)
 BuildRequires:  cmake(KF6TextCustomEditor)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 
@@ -86,6 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Mon Jul 27 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-3
+- Removed Akonadi Notes as a BR
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

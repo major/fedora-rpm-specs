@@ -15,7 +15,7 @@ external processes.}
 Tests for the Oslo concurrency library.}
 
 Name:           python-oslo-concurrency
-Version:        7.5.0
+Version:        7.6.1
 Release:        %autorelease
 Summary:        OpenStack Oslo concurrency library
 
@@ -146,7 +146,7 @@ sed -i \
 
 
 %files -n python3-%{pkg_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %{_bindir}/lockutils-wrapper
 %exclude %{python3_sitelib}/oslo_concurrency/tests

@@ -1,6 +1,6 @@
 Name:		fcitx-unikey
 Version:	0.2.7
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Vietnamese Engine for Fcitx
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -20,6 +20,8 @@ A Vietnamese engine for Fcitx that uses Unikey.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380588)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -39,6 +41,9 @@ A Vietnamese engine for Fcitx that uses Unikey.
 %{_datadir}/icons/hicolor/256x256/apps/fcitx-unikey.png
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.2.7-25
+- Allow to build with CMake 4.0 (rhbz#2380588)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

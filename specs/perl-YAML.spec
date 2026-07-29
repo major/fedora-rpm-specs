@@ -11,9 +11,9 @@
 %bcond_with perl_YAML_enables_extra_test
 %endif
 
-# Not sure if v-string versioning will be long term
-%global package_version 1.32
-%global cpan_version %(LC_ALL=C; printf 'v%.3f.0' '%{package_version}')
+# Not sure if 3-digit versioning will be long term
+%global cpan_version 1.321
+%global package_version %(LC_ALL=C printf '%s' '%{cpan_version}' | sed -e 's/\\(\\...\\)/\\1./')
 
 Name:           perl-YAML
 Version:        %{package_version}
@@ -21,7 +21,7 @@ Release:        1%{?dist}
 Summary:        YAML Ain't Markup Language (TM)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML
-# Tarball created from https://cpan.metacpan.org/modules/by-module/YAML/YAML-%%{cpan_version}.tar.gz
+# Tarball created from https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-%%{cpan_version}.tar.gz
 # using script YAML-free (see https://bugzilla.redhat.com/show_bug.cgi?id=1813197)
 Source0:        YAML-free-%{cpan_version}.tar.gz
 # Script to remove non-free content from upstream tarball
@@ -147,6 +147,12 @@ make test AUTHOR_TESTING=%{with perl_YAML_enables_extra_test}
 %{_mandir}/man3/YAML::Types.3*
 
 %changelog
+* Mon Jul 27 2026 Petr Pisar <ppisar@redhat.com> - 1.32.1-1
+- 1.321 bump (rhbz#2506297, rhbz#2507397)
+  - Going back to decimal version numbering to make existing comparisons
+    like 'if $YAML::VERSION >= 1.15' work (GH#233)
+- Stick with existing version numbering scheme for now
+
 * Mon Jul 20 2026 Paul Howarth <paul@city-fan.org> - 1.32-1
 - Update to v1.320.0 (rhbz#2502797)
   - Security: Avoid backtracking leading to exponential load time

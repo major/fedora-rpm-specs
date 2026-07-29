@@ -1,6 +1,6 @@
 Name: libcdio-paranoia
 Version: 10.2+2.0.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: CD paranoia on top of libcdio
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -64,9 +64,6 @@ cp -a $RPM_BUILD_ROOT%{_includedir}/cdio/paranoia/*.h $RPM_BUILD_ROOT%{_included
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
-%check
-%make_build check
-
 %files
 %license COPYING
 %doc AUTHORS NEWS.md README.md THANKS
@@ -84,6 +81,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 
 %changelog
+* Mon Jul 27 2026 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-8
+- disable "make check"; not supported from released tar archive (#2504265)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2+2.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

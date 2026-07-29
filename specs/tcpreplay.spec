@@ -9,7 +9,7 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.5.5
+Version:        4.6.0
 Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
@@ -17,12 +17,9 @@ Summary:        Replay captured network traffic
 License:        GPL-3.0-only
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
-Patch0:         tcpreplay-4.5.2-txring_h.patch
-Patch1:         tcpreplay-4.5.1-configure_ac.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  automake autoconf libtool
 BuildRequires:  %{pcapdep} >= 0.8.0, tcpdump
 %if ! 0%{?rhel}
 BuildRequires:  libdnet-devel
@@ -36,19 +33,29 @@ a tool to pre-process capture files to allow increased performance under
 certain conditions as well as capinfo which provides basic information about
 capture files.
 
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Header files and pkgconfig data for building applications against
+libtcpreplay, the replay engine %{name} %{version} now installs as
+a standalone library.
+
+%package static
+Summary:        Static library for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description static
+The static (%{_libdir}/libtcpreplay.a) build of libtcpreplay.
+
 %prep
 %autosetup -p1
 
 %build
-autoreconf -vif
 %configure --enable-local-libopts \
            --disable-libopts-install \
            --disable-maintainer-mode
-
-# make sure we use proper CFLAGS
-%{__sed} -i \
-         -e 's/^CFLAGS.*/CFLAGS=${RPM_OPT_FLAGS} -std=gnu99 -D_U_="__attribute__((unused))" -Wno-format-contains-nul/' \
-         $(find . -name Makefile)
 
 # remove unneeded docs
 %{__rm} -f docs/INSTALL docs/Makefile*
@@ -67,7 +74,18 @@ autoreconf -vif
 %doc %{_mandir}/man1/*
 %{_bindir}/*
 
+%files devel
+%{_includedir}/%{name}/
+%{_libdir}/pkgconfig/libtcpreplay.pc
+
+%files static
+%{_libdir}/libtcpreplay.a
+
 %changelog
+* Tue Jul 28 2026 Bojan Smojver <bojan@rexursive.com> - 4.6.0-1
+- Update to 4.6.0
+- Add -devel and -static for headers, pkgconfig file and static library
+
 * Fri Jul 24 2026 Bojan Smojver <bojan@rexursive com> - 4.5.5-1
 - Update to 4.5.5
 

@@ -1,6 +1,6 @@
-%global         jqversion 1.8.1
+%global         jqversion 1.8.2
 Name:           python-jq
-Version:        1.11.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Python bindings for jq
 
@@ -56,7 +56,7 @@ export JQPY_USE_SYSTEM_LIBS=1
 
 
 %check
-%tox
+%pytest
 
 
 %files -n python3-jq -f %{pyproject_files}

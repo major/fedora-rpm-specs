@@ -205,8 +205,10 @@ fi
 %attr(644,root,root) %{_mandir}/man5/*
 %ghost %attr(440,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}-access.log
 %attr(770,root,%{name}) %dir %{_localstatedir}/lib/%{name}
-%attr(770,root,%{name}) %dir /run/%{name}
-%ghost %attr(660,root,%{name}) /run/%{name}/%{name}.fifo
+%ghost %attr(770,root,%{name}) %dir %{_rundir}/%{name}
+%ghost %attr(660,root,%{name}) %{_rundir}/%{name}/%{name}.fifo
+%ghost %attr(600,root,root) %verify(not md5 size mtime) %{_rundir}/%{name}/%{name}.pid
+%ghost %attr(640,%{name},%{name}) %verify(not md5 size mtime) %{_rundir}/%{name}/%{name}.state
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/data.mdb
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/lock.mdb
 

@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.46.90
-Release: 2%{?dist}
+Version: 2.47
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -122,9 +122,9 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-# %%define source official-release
+%define source official-release
 # %%define source even-pre-release
-%define source odd-pre-release
+# %%define source odd-pre-release
 # %%define source snapshot
 # %%define source tarball
 
@@ -220,8 +220,8 @@ URL: https://sourceware.org/binutils
 #----------------------------------------------------------------------------
 
 %if "%{source}" == "official-release"
-Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
-# Source0: https://ftp.gnu.org/gnu/binutils/binutils-%%{version}.tar.xz
+# Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%%{version}.tar.xz
+Source0: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %elif "%{source}" == "even-pre-release"
 Source0: binutils-with-gold-%{version}.tar.xz
 %elif "%{source}" == "odd-pre-release"
@@ -342,11 +342,16 @@ Patch18: binutils-gold-i386-gnu-property-notes.patch
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
 # Lifetime: Fixed in 2.46 (maybe)
 Patch19: binutils-gold-empty-dwp.patch
+
+# Purpose:  Enable building the gold linker with the target is s390x-linux.
+# Lifetime: Fixed in 2.48 (maybe)
+Patch20: binutils-gold-s390-configure.patch
+
 %endif
 
 # Purpose:  Fix ld testsuite failures when enable_textrel is set.
 # Lifetime: Permanent.
-Patch20: binutils-ld-default-z-text.patch
+Patch21: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
 
@@ -434,15 +439,6 @@ Requires(post): %{_sbindir}/alternatives
 Requires(preun): %{_sbindir}/alternatives
 # We also need rm.
 Requires(post): coreutils
-
-# %%if %%{with gold}
-# # For now we make the binutils package require the gold sub-package.
-# # That way other packages that have a requirement on "binutils" but
-# # actually want gold will not have to be changed.  In the future, if
-# # we decide to deprecate gold, we can remove this requirement, and
-# # then update other packages as necessary.
-# Requires: binutils-gold >= %%{version}
-# %%endif
 
 # On ARM EABI systems, we do want -gnueabi to be part of the
 # target triple.
@@ -806,16 +802,12 @@ compute_global_configuration()
     CARGS="$CARGS --enable-textrel-check=error"
 %endif
 
-%if "%{source}" != "official-release"
-# Since non official release tarballs are created directly from development
-# sources they will have "development=true" set in the bfd/development.sh file.
-# This enables -Werror by default, which is a problem because there is a
-# known issue with the libiberty library:
+# The binutils build system enables -Werror by default, which is a problem
+# because there is a known issue with the libiberty library sources:
 #   libiberty/cp-demangle.c: In function 'd_demangle_callback.constprop':
 #   libiberty/cp-demangle.c:6794:1: error: stack usage might be unbounded [-Werror=stack-usage=]
-# So we explicitly disable werror for builds from these tarballs.
+# So we explicitly disable werror for builds.
     CARGS="$CARGS --enable-werror=no"
-%endif
 }
 
 # run_target_configuration()
@@ -880,12 +872,8 @@ run_target_configuration()
         #
         # Also enable the BPF target so that strip will work on BPF files.
         case $target in
-        s390*)
-            # Note - The s390-linux target is there so that the GOLD linker will
-            # build.  By default, if configured for just s390x-linux, the GOLD
-            # configure system will only include support for 64-bit targets, but
-            # the s390x gold backend uses both 32-bit and 64-bit templates.
-            TARGS="--enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none --enable-obsolete"
+        s390x*)
+            TARGS="--enable-targets=s390x-linux,x86_64-pep,bpf-unknown-none"
             ;;
         ia64*)
             TARGS="--enable-targets=ia64-linux,x86_64-pep,bpf-unknown-none"
@@ -1509,6 +1497,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jul 27 2026 Nick Clifton <nickc@redhat.com> - 2.47-1
+- Rebase to 2.47 release.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.46.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

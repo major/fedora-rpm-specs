@@ -19,7 +19,6 @@
 # some dependencies are not yet in EPEL 10
 %bcond daala 1
 %bcond lirc 1
-%bcond schro %[!(0%{?rhel} >= 10)]
 %bcond sdl %[!(0%{?rhel} >= 10)]
 
 %ifnarch s390x
@@ -215,9 +214,6 @@ BuildRequires:	pkgconfig(Qt5Svg) >= 5.5
 BuildRequires:	pkgconfig(Qt5Widgets) >= 5.5
 BuildRequires:	pkgconfig(Qt5X11Extras) >= 5.5
 BuildRequires:	pkgconfig(samplerate)
-%if %{with schro}
-BuildRequires:	pkgconfig(schroedinger-1.0) >= 1.0.10
-%endif
 %if %{with sdl}
 BuildRequires:	pkgconfig(SDL_image) >= 1.2.10
 %endif
@@ -676,7 +672,6 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-theora						\
 	--enable-oggspots					\
 	--enable-daala%{!?with_daala:=no}			\
-	--enable-schroedinger%{!?with_schro:=no}		\
 	--enable-png						\
 	--enable-jpeg						\
 	--disable-bpg						\
@@ -1158,9 +1153,6 @@ make check
 %{vlc_plugindir}/codec/liblibass_plugin.so
 %if %{with vpl}
 %{vlc_plugindir}/codec/libqsv_plugin.so
-%endif
-%if %{with schro}
-%{vlc_plugindir}/codec/libschroedinger_plugin.so
 %endif
 %if %{with sdl}
 %{vlc_plugindir}/codec/libsdl_image_plugin.so

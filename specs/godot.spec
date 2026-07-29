@@ -13,8 +13,8 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.7
-Release:        2%{?dist}
+Version:        4.7.1
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -27,8 +27,6 @@ Source1:        https://github.com/godotengine/godot-builds/releases/download/%{
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
-# https://github.com/godotengine/godot/pull/120568
-Patch1:         pr-120568-system-harfbuzz-flags.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -41,10 +39,6 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(harfbuzz)
-BuildRequires:  pkgconfig(harfbuzz-icu)
-BuildRequires:  pkgconfig(harfbuzz-raster)
-BuildRequires:  pkgconfig(harfbuzz-vector)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(graphite2)
 BuildRequires:  pkgconfig(icu-i18n)
@@ -93,10 +87,18 @@ BuildRequires:  python3-scons
 
 # See bundled section for explanations.
 %define system_glslang 0
+%define system_harfbuzz %{expr:0%{?fedora} >= 44 || 0%{?mageia} >= 11}
 %define system_recastnavigation 0%{?mageia}
 
 %if %{system_glslang}
 BuildRequires:  glslang-devel
+%endif
+
+%if %{system_harfbuzz}
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(harfbuzz-icu)
+BuildRequires:  pkgconfig(harfbuzz-raster)
+BuildRequires:  pkgconfig(harfbuzz-vector)
 %endif
 
 %if %{system_recastnavigation}
@@ -131,6 +133,10 @@ Provides:       bundled(enet) = 1.3.18
 %if ! %{system_glslang}
 # Fedora package only provides static libs, needs more work to be usable.
 Provides:       bundled(glslang) = 16.1.0
+%endif
+%if ! %{system_harfbuzz}
+# Requires harfbuzz >= 13.0 for vector and raster APIs.
+Provides:       bundled(harfbuzz) = 14.2.0
 %endif
 # Has custom changes to support seeking in zip archives.
 # Should not be unbundled.
@@ -215,10 +221,13 @@ end}
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="brotli embree freetype graphite harfbuzz icu4c libjpeg_turbo libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc openxr pcre2 sdl wslay zlib zstd"
+to_unbundle="brotli embree freetype graphite icu4c libjpeg_turbo libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc openxr pcre2 sdl wslay zlib zstd"
 
 %if %{system_glslang}
 to_unbundle+=" glslang"
+%endif
+%if %{system_harfbuzz}
+to_unbundle+=" harfbuzz"
 %endif
 %if %{system_recastnavigation}
 to_unbundle+=" recastnavigation"
@@ -278,6 +287,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Jul 27 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.7.1-1
+- Version 4.7.1-stable
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	71%{?dist}
+Release:	72%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -694,6 +694,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.12-72
+- Fix %%grub_efi_dir in ELN
+
 * Mon Jul 20 2026 Josue Hernandez <josherna@redhat.com> - 2.12-71
 - Remove creation of /boot/loader/entries
 

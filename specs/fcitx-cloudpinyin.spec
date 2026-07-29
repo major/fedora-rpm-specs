@@ -1,6 +1,6 @@
 Name:		fcitx-cloudpinyin
 Version:	0.3.7
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Cloudpinyin module for fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -21,6 +21,8 @@ list. It current support four provider, Sogou, QQ, Baidu, Google.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380577)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake 
 %cmake_build
 
@@ -37,6 +39,9 @@ list. It current support four provider, Sogou, QQ, Baidu, Google.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.3.7-20
+- Allow to build with CMake 4.0 (rhbz#2380577)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

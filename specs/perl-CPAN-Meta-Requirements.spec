@@ -111,7 +111,7 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 - Update to 2.144 (rhbz#2432229)
   - Remove code meant to cope with running on v5.8, when v5.10 is the minimum
     required perl
-  - Normalize away ">= 0" in compount version requirements; it's meaningless
+  - Normalize away ">= 0" in compound version requirements; it's meaningless
 - Use %%{make_build} and %%{make_install}
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.143-14

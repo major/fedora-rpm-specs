@@ -64,6 +64,9 @@ Requires: openSUSE-release
 %bcond_with mooshika
 %global use_mooshika %{on_off_switch mooshika}
 
+%bcond_with statd
+%global internal_statd %{on_off_switch statd}
+
 %bcond_with 9P
 %global use_9P %{on_off_switch 9P}
 
@@ -152,7 +155,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	12.0
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -605,6 +608,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DENABLE_QOS=%{use_qos}				\
 	-DUSE_MONITORING=%{use_monitoring}		\
 	-DUSE_TLS=%{use_tls}				\
+	-DUSE_PRIO_INHERIT=%{use_prio_inherit}		\
 	-DUSE_OPENSSL=%{use_openssl}			\
 	-DUSE_GNUTLS=%{use_gnutls}			\
 	-DUSE_9P_RDMA=%{use_mooshika}			\
@@ -620,6 +624,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_PROXY_V4=ON				\
 	-DUSE_FSAL_PROXY_V3=ON				\
 	-DUSE_DBUS=ON					\
+	-DINTERNAL_STATD=%{internal_statd}		\
 	-DUSE_9P=%{use_9P}				\
 	-DDISTNAME_HAS_GIT_DATA=OFF			\
 	-DUSE_MAN_PAGE=%{use_man_page}			\
@@ -1006,6 +1011,10 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Jul 27 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 12.0-1
+- NFS-Ganesha 12.0, options for PRIO_INHERIT and INTERNAL_STATD,
+  including Python 3.15.0b4 ABI change
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 12.0-2
 - Rebuilt for Python 3.15.0b4 ABI change
 

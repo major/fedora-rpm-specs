@@ -1,21 +1,21 @@
-# libxsmm is designed for x86_64 architectures only, see project's README
-%bcond libxsmm %[ "%{_arch}" == "x86_64" ]
+# libxs is not packaged yet
+# https://bugzilla.redhat.com/show_bug.cgi?id=2493314
+%bcond libxs 0
 
 # Disable LTO due to https://bugzilla.redhat.com/show_bug.cgi?id=2243158
 %global _lto_cflags %nil
 
 Name:          cp2k
-Version:       2025.1
+Version:       2026.2
 Release:       %autorelease
 Summary:       Ab Initio Molecular Dynamics
 License:       GPL-2.0-or-later
 URL:           https://www.cp2k.org/
 Source0:       https://github.com/cp2k/cp2k/releases/download/v%{version}/cp2k-%{version}.tar.bz2
 
-# Fix testsuite
-Patch:         https://github.com/cp2k/cp2k/pull/3968.patch
-# Adjust test tolerances
-Patch:         https://github.com/cp2k/cp2k/pull/3972.patch
+# Drop march and mtune flags
+# TODO: Use the options exposed in upstream https://github.com/cp2k/cp2k/pull/5602
+Patch:         drop-native.patch
 
 # Drop 32bit architectures
 # Flaky MPI issues on s390x, and upstream do not officially support it yet
@@ -32,8 +32,9 @@ BuildRequires: python3-fypp
 # Project dependencies
 BuildRequires: flexiblas-devel
 BuildRequires: cmake(DBCSR)
+BuildRequires: cmake(libint2)
 BuildRequires: pkgconfig(fftw3)
-%if %{with libxsmm}
+%if %{with libxs}
 BuildRequires: pkgconfig(libxsmm)
 %endif
 # cmake(Libxc) technically fails
@@ -130,7 +131,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 rm tools/build_utils/fypp
-rm -r exts/dbcsr
 
 # $MPI_SUFFIX will be evaluated in the loops below, set by mpi modules
 %global _vpath_builddir %{_vendor}-%{_target_os}-build${MPI_SUFFIX:-_serial}
@@ -139,32 +139,34 @@ rm -r exts/dbcsr
 %build
 cmake_common_args=(
   "-G Ninja"
-  "-DCP2K_DEBUG_MODE:BOOL=OFF"
+  "-DCMAKE_BUILD_TYPE:STRING=Generic"
   "-DCP2K_BLAS_VENDOR:STRING=FlexiBLAS"
+  "-DCP2K_USE_EVERYTHING:BOOL=OFF"
   "-DCP2K_USE_STATIC_BLAS:BOOL=OFF"
   # Dependencies equivalent with Default
   "-DCP2K_USE_FFTW3:BOOL=ON"
-  "-DCP2K_USE_COSMA:BOOL=OFF"  # Not packaged
-  "-DCP2K_USE_LIBXSMM:BOOL=%{?with_libxsmm:ON}%{?without_libxsmm:OFF}"
+  "-DCP2K_USE_LIBINT2:BOOL=ON"
   "-DCP2K_USE_LIBXC:BOOL=ON"
-  "-DCP2K_USE_LIBINT2:BOOL=OFF"  # Detection is broken
   "-DCP2K_USE_SPGLIB:BOOL=ON"
+  "-DCP2K_USE_LIBXS:BOOL=%{with libxs}"
 )
 for mpi in '' mpich openmpi; do
   if [ -n "$mpi" ]; then
     module load mpi/${mpi}-%{_arch}
     cmake_mpi_args=(
       "-DCMAKE_INSTALL_PREFIX:PATH=${MPI_HOME}"
+      "-DCMAKE_PREFIX_PATH:PATH=${MPI_HOME};%{_prefix}"
       "-DCMAKE_INSTALL_Fortran_MODULES:PATH=${MPI_FORTRAN_MOD_DIR}/cp2k"
       "-DCMAKE_INSTALL_LIBDIR:PATH=lib"
-      "-DCP2K_CMAKE_SUFFIX:STRING=${MPI_SUFFIX}"
       "-DCP2K_DATA_DIR:PATH=%{_datadir}/cp2k/data"
+      "-DCP2K_USE_MPI:BOOL=ON"
       "-DCP2K_USE_MPI_F08:BOOL=ON"
     )
   else
     cmake_mpi_args=(
-      "-DCP2K_USE_MPI:BOOL=OFF"
       "-DCMAKE_INSTALL_Fortran_MODULES:PATH=%{_fmoddir}/cp2k"
+      "-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}"
+      "-DCP2K_USE_MPI:BOOL=OFF"
     )
   fi
 
@@ -188,30 +190,32 @@ rm -f %{_buildrootdir}/**/%{_bindir}/*_unittest.*
 rm -f %{_buildrootdir}/**/%{_libdir}/openmpi/bin/*_unittest.*
 rm -f %{_buildrootdir}/**/%{_libdir}/mpich/bin/*_unittest.*
 
-
 %check
 export CP2K_DATA_DIR=%{buildroot}%{_datadir}/cp2k/data
 # See %%_openmpi_load
 export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
-test_common_args=(
-  "--skip_regtests"
-  "--ompthreads 2"
-)
 for mpi in '' mpich openmpi ; do
   if [ -n "$mpi" ]; then
     # Another module load is done inside the do_regtest.sh. will use that instead
     module load mpi/${mpi}-%{_arch}
     bindir=${MPI_BIN}
     libdir=${MPI_LIB}
+    test_common_args=(
+      "--skip_regtests"
+      "--ompthreads 2"
+      "--mpiranks 2")
     # Note, final position arguments are also here
-    test_mpi_args=(
-      "--mpiranks 2"
+    final_args=(
       "psmp"
     )
   else
     bindir=%{_bindir}
     libdir=%{_libdir}
-    test_mpi_args=(
+    test_common_args=(
+      "--skip_regtests"
+      "--ompthreads 2"
+    )
+    final_args=(
       "ssmp"
     )
   fi
@@ -220,7 +224,7 @@ for mpi in '' mpich openmpi ; do
   # so the binary folder should point to the build directory
   env PATH=%{buildroot}${bindir}:${PATH} \
     LD_LIBRARY_PATH=%{buildroot}${libdir} \
-    tests/do_regtest.py ${test_common_args[@]} %{_vpath_builddir}/bin ${test_mpi_args[@]}
+    tests/do_regtest.py ${test_common_args[@]} %{_vpath_builddir}/bin ${final_args[@]}
   [ -n "$mpi" ] && module unload mpi/${mpi}-%{_arch}
 done
 
@@ -231,6 +235,7 @@ done
 
 %files
 %{_bindir}/cp2k.ssmp
+%{_bindir}/cp2k.sopt
 %{_bindir}/dbm_miniapp.ssmp
 %{_bindir}/dumpdcd.ssmp
 %{_bindir}/graph.ssmp
@@ -247,6 +252,7 @@ done
 
 %files openmpi
 %{_libdir}/openmpi/bin/cp2k.psmp
+%{_libdir}/openmpi/bin/cp2k.popt
 %{_libdir}/openmpi/bin/dumpdcd.psmp
 %{_libdir}/openmpi/bin/dbm_miniapp.psmp
 %{_libdir}/openmpi/bin/graph.psmp
@@ -263,6 +269,7 @@ done
 
 %files mpich
 %{_libdir}/mpich/bin/cp2k.psmp
+%{_libdir}/mpich/bin/cp2k.popt
 %{_libdir}/mpich/bin/dbm_miniapp.psmp
 %{_libdir}/mpich/bin/dumpdcd.psmp
 %{_libdir}/mpich/bin/graph.psmp

@@ -1,15 +1,15 @@
 %bcond_with tests
 
 Name:           adb-enhanced
-Version:        2.10.0
+Version:        2.11.0
 Release:        %autorelease
 Summary:        Tool for Android testing and development
-
 License:        Apache-2.0
 URL:            https://github.com/ashishb/adb-enhanced
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        remove-classpath.sh
+Patch0:         remove-classpath-manifest.patch
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
 
 %if %{with tests}
@@ -22,7 +22,7 @@ command-line interface to trigger various scenarios like screen rotation,
 battery saver mode, data saver mode, doze mode, permission grant/revocation.
 
 %prep
-%autosetup
+%autosetup -N
 # Relax strict dependency pins (==) to >= to avoid build failures with newer system libraries
 sed -i 's/==/>=/g' pyproject.toml
 
@@ -37,20 +37,8 @@ EOF
 # Remove shebang from python libraries that are not directly executed
 sed -i -e '1{\@^#!/usr/bin/env python@d}' adbe/adb_enhanced.py adbe/main.py
 
-# Remove Class-Path entry from the prebuilt jar manifest to silence rpmlint warning
-python3 -c "
-import zipfile, os
-jar_path = 'adbe/abe.jar'
-with zipfile.ZipFile(jar_path, 'r') as z_in:
-    with zipfile.ZipFile(jar_path + '.new', 'w') as z_out:
-        for item in z_in.infolist():
-            data = z_in.read(item.filename)
-            if item.filename == 'META-INF/MANIFEST.MF':
-                lines = [line for line in data.decode('utf-8').splitlines() if not line.startswith('Class-Path:')]
-                data = '\n'.join(lines).encode('utf-8') + b'\n'
-            z_out.writestr(item, data)
-os.replace(jar_path + '.new', jar_path)
-"
+# Remove Class-Path entry from the prebuilt jar manifest
+bash %{SOURCE1} %{PATCH0}
 
 
 

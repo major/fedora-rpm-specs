@@ -1,6 +1,6 @@
 Name:		fcitx-table-extra
 Version:	0.3.8
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Extra tables for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -23,6 +23,8 @@ Boshiamy table and its icon are released under their own license.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380589)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -41,6 +43,9 @@ Boshiamy table and its icon are released under their own license.
 
 
 %changelog
+* Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.3.8-25
+- Allow to build with CMake 4.0 (rhbz#2380589)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

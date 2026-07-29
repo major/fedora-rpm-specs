@@ -6,7 +6,7 @@
 Summary: A utility for unpacking zip files
 Name: unzip
 Version: 6.0
-Release: 70%{?dist}
+Release: 71%{?dist}
 License: Info-ZIP
 Source: http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 
@@ -75,6 +75,15 @@ Patch34: unzip-zipbomb-switch.patch
 
 Patch35: unzip-gnu89-build.patch
 Patch36: unzip-6.0-wcstombs-fortify.patch
+
+Patch37: unzip-6.0-fix-warning-messages-on-big-files.patch
+Patch38: unzip-6.0-sast.patch
+Patch39: unzip-6.0-RHEL-86228.patch
+#From Debian
+Patch40: unzip-6.0-CVE-2022-0529-and-0530.patch
+
+
+
 URL: http://infozip.sourceforge.net
 BuildRequires: make
 BuildRequires:  bzip2-devel, gcc
@@ -129,6 +138,10 @@ a zip archive.
 %patch -P34 -p1
 %patch -P35 -p1
 %patch -P36 -p1
+%patch -P37 -p1
+%patch -P38 -p1
+%patch -P39 -p1
+%patch -P40 -p1
 
 %build
 # IZ_HAVE_UXUIDGID is needed for right functionality of unzip -X
@@ -147,6 +160,11 @@ make -f unix/Makefile prefix=$RPM_BUILD_ROOT%{_prefix} MANDIR=$RPM_BUILD_ROOT%{_
 %{_mandir}/*/*
 
 %changelog
+* Wed Jul 22 2026 Jakub Martisko <jamartis@redhat.com> - 6.0-71
+- Port some RHEL downstream patches to fedora
+- Fixes for RHEL-86228, RHEL-45997 + some issues found by coverity and other scans
+- Fixes for CVE-2022-0529 and 2022-0530 (Thanks Stewart Smith for the Heads up about these)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

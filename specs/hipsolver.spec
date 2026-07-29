@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -90,7 +90,7 @@
 Name:           hipsolver%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
 Release:        6%{?dist}
 %endif
@@ -134,6 +134,18 @@ BuildRequires:  lapack-devel
 BuildRequires:  blas-static
 BuildRequires:  lapack-static
 %endif
+%endif
+
+%if %{with preview}
+# needed for geev
+# https://www.netlib.org/lapack/explore-html/d4/d68/group__geev.html
+#
+# Trying just lapack-devel, gives this error
+# CMake Error at /usr/lib64/cmake/lapack-3.12.0/lapack-targets.cmake:102 (message):
+#  The imported target "blas" references the file
+#     "/usr/lib64/libblas.a"
+BuildRequires:  blas-static
+BuildRequires:  lapack-static
 %endif
 
 Provides:       hipsolver%{pkg_suffix} = %{version}-%{release}
@@ -204,7 +216,8 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DBUILD_CLIENTS_TESTS=%{build_test}
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DHIPSOLVER_INTERNAL_LAPACK_BUILD=OFF
 
 %cmake_build
 
