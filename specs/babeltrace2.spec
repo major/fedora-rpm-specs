@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -10,6 +10,9 @@ Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 
 Patch0:         0001-Fix-bt2.TraceCollectionMessageIterator-avoid-circula.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch1:         babeltrace2-swig45.patch
 
 BuildRequires:  autoconf >= 2.69
 BuildRequires:  automake >= 1.13
@@ -123,6 +126,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 
 %changelog
+* Mon Jul 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.1.2-10
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.1.2-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

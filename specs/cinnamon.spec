@@ -1,4 +1,5 @@
 %global __requires_exclude ^libcinnamon\.so|^libst\.so
+%global __provides_exclude ^libcinnamon\.so|^libst\.so
 
 %global cjs_version 140.0
 %global cinnamon_desktop_version 6.7.1
@@ -49,6 +50,9 @@ BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(atk-bridge-2.0)
 
 # for screencast recorder functionality
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -62,7 +66,7 @@ Provides:       cinnamon-screensaver = %{version}-%{release}
 Requires:       %{name}-desktop%{?_isa} >= %{cinnamon_desktop_version}
 Requires:       muffin%{?_isa} >= %{muffin_version}
 Requires:       cjs%{?_isa} >= %{cjs_version}
-Requires:       gnome-menus%{?_isa} >= 3.0.0-2
+Requires:       gnome-menus%{?_isa}
 
 # wrapper script used to restart old GNOME session if run --replace
 # from the command line
@@ -72,13 +76,10 @@ Requires:       gobject-introspection%{?_isa}
 Requires:       librsvg2%{?_isa}
 
 Requires:       upower%{?_isa}
-Requires:       polkit%{?_isa} >= 0.100
+Requires:       polkit%{?_isa}
 
 # needed for session files
 Requires:       %{name}-session%{?_isa}
-
-# needed for schemas
-Requires:       at-spi2-atk%{?_isa}
 
 # needed for the user menu
 Requires:       accountsservice-libs%{?_isa}
@@ -165,9 +166,6 @@ Requires:       gettext
 
 # required for gesture support
 Recommends:     touchegg
-
-# required to fix system-info
-Recommends:     bluez-deprecated
 
 # required for flatpak support
 Recommends:     xdg-desktop-portal-xapp

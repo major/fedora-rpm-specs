@@ -26,8 +26,6 @@ Source2:        pydata-sphinx-theme-%{version}-vendor-licenses.txt
 # docs/_static/gallery.yaml for a list of images to download.
 Source3:        pydata-gallery.tar.xz
 %endif
-# Fedora-only patch: unbundle the fontawesome fonts
-Patch:          %{name}-fontawesome.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -35,16 +33,11 @@ BuildOption(install): -L pydata_sphinx_theme
 BuildOption(generate_buildrequires): -x test%{?with_docs:,doc}
 
 BuildRequires:  babel
-BuildRequires:  fontawesome-fonts-all
-BuildRequires:  fontawesome-fonts-web
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  /usr/bin/node
 BuildRequires:  /usr/bin/npm
-BuildRequires:  yarnpkg
-
-Provides:       bundled(npm(bootstrap)) = 5.3.8
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -74,7 +67,8 @@ See https://pydata-sphinx-theme.readthedocs.io/ for documentation.}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 Requires:       fontawesome-fonts-all
 Requires:       fontawesome-fonts-web
-Provides:       bundled(js-bootstrap) = 5.3.8
+
+Provides:       bundled(npm(bootstrap)) = 5.3.8
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -116,8 +110,7 @@ sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 sed -i 's/\(sphinx\)\[test\]/\1/' pyproject.toml
 
 %build -p
-export YARN_CACHE_FOLDER="$PWD/.package-cache"
-yarn install --offline
+export npm_config_cache="$PWD/.package-cache"
 nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
 %install -a
@@ -126,23 +119,25 @@ nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 sed -i '/\.gitignore/d' %{pyproject_files}
 rm %{themedir}/.gitignore
 
-# More work is required to fully unbundle the fontawesome fonts
-sed -i 's,pydata_sphinx_theme/\.\.,,g' \
-    %{themedir}/scripts/fontawesome.js.map
-sed -e 's,pydata_sphinx_theme/\.\./\.\./\.\./\.\./\.\.,,g' \
-    -e 's,url(\\"\.\./webfonts/fa-solid-900\.woff2\\"),local("fontawesome-7-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
-    -e 's,url(\\"\.\./webfonts/fa-regular-400\.woff2\\"),local("fontawesome-7-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
-    -e 's,url(\\"\.\./webfonts/fa-brands-400\.woff2\\"),local("fontawesome-7-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
-    -e "s,url('#{v\.\$font-path}/fa-solid-900\.woff2')"',local("fontawesome-7-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
-    -e "s,url('#{v\.\$font-path}/fa-regular-400\.woff2')"',local("fontawesome-7-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
-    -e "s,url('#{v\.\$font-path}/fa-brands-400\.woff2')"',local("fontawesome-7-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
-    -i %{themedir}/styles/pydata-sphinx-theme.css.map
-sed -e 's,url([.-/[:alnum:]]*fa-solid-900\.woff2),local("fontawesome-7-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
-    -e 's,url([.-/[:alnum:]]*fa-regular-400\.woff2),local("fontawesome-7-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
-    -e 's,url([.-/[:alnum:]]*fa-brands-400\.woff2),local("fontawesome-7-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
-    -i %{themedir}/styles/pydata-sphinx-theme.css
-sed -i '/vendor/d' %{pyproject_files}
-rm -fr %{themedir}/vendor
+# Clean up build-host paths leaking into the source maps
+sed -i 's|pydata_sphinx_theme/\.\.||g' %{themedir}/scripts/fontawesome.js.map
+sed -i 's|pydata_sphinx_theme/\.\./\.\./\.\./\.\./\.\.||g' \
+    %{themedir}/styles/pydata-sphinx-theme.css.map
+
+# Unbundle the FontAwesome fonts: webpack already vendors the woff2 files
+# referenced by the (Fedora-patched) SCSS/JS imports into
+# vendor/fontawesome/webfonts/, copying them from the system
+# fontawesome-fonts-web package.  Replace those copies with symlinks back to
+# that package instead of shipping duplicate binaries.  The CSS/JS keep
+# referencing them with the same relative url()/path, so nothing else needs to
+# change; Sphinx dereferences the symlinks (real files, real bytes) when it
+# copies the static assets into a project's own build output, so the generated
+# documentation stays fully self-contained.
+for font in fa-brands-400.woff2 fa-regular-400.woff2 fa-solid-900.woff2; do
+    rm -f %{themedir}/vendor/fontawesome/webfonts/$font
+    ln -s %{_datadir}/fontawesome/webfonts/$font \
+        %{themedir}/vendor/fontawesome/webfonts/$font
+done
 
 %if %{with docs}
 # We need an installed tree before documentation building works properly

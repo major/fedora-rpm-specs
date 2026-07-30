@@ -43,7 +43,7 @@
 %bcond_without pmix
 
 # Run autogen - needed for some patches
-%bcond autogen 0
+%bcond autogen 1
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        5.0.10
@@ -71,6 +71,8 @@ Source4:        macros.openmpi
 Patch:          openmpi-inline.patch
 # Fix brace initialization - https://github.com/open-mpi/ompi/pull/13758
 Patch:          openmpi-braces.patch
+# Drop unused recommonmark - https://github.com/open-mpi/ompi/pull/14215
+Patch:          openmpi-drop-recommonmark.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -125,7 +127,6 @@ BuildRequires:  rpm-mpi-hooks
 %if %{with sphinx}
 # For docs
 BuildRequires:  /usr/bin/sphinx-build
-BuildRequires:  python3-recommonmark
 BuildRequires:  python3-sphinx_rtd_theme
 %endif
 

@@ -7,8 +7,8 @@ Name:           jss
 
 # Upstream version number:
 %global         major_version 5
-%global         minor_version 9
-%global         update_version 0
+%global         minor_version 10
+%global         update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
@@ -30,7 +30,7 @@ Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND Apache-2.0
 Version:        %{major_version}.%{minor_version}.%{update_version}
-Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/jss.git
@@ -52,6 +52,30 @@ Source:         https://github.com/dogtagpki/jss/archive/v%{version}%{?phase:-}%
 ExclusiveArch: %{java_arches}
 %else
 ExcludeArch: i686
+%endif
+
+################################################################################
+# NSS
+################################################################################
+
+%if 0%{?rhel}
+
+# the current NSS on RHEL only supports ML-DSA
+#define nss_version 3.112
+%global with_mldsa 1
+#undefine with_mlkem
+
+# temporarily enable ML-KEM on RHEL using NSS COPR build
+%define nss_version 3.123
+%global with_mlkem 1
+
+%else
+
+# the current NSS on Fedora supports both ML-DSA and ML-KEM
+%define nss_version 3.123
+%global with_mldsa 1
+%global with_mlkem 1
+
 %endif
 
 ################################################################################
@@ -103,8 +127,8 @@ BuildRequires:  zip
 BuildRequires:  unzip
 
 BuildRequires:  gcc-c++
-BuildRequires:  nss-devel >= 3.118
-BuildRequires:  nss-tools >= 3.118
+BuildRequires:  nss-devel >= %{nss_version}
+BuildRequires:  nss-tools >= %{nss_version}
 
 BuildRequires:  %{java_devel}
 BuildRequires:  %{maven_local}
@@ -123,7 +147,7 @@ This only works with gcj. Other JREs require that JCE providers be signed.
 
 Summary:        Java Security Services (JSS)
 
-Requires:       nss >= 3.118
+Requires:       nss >= %{nss_version}
 
 Requires:       %{java_headless}
 Requires:       mvn(org.apache.commons:commons-lang3)
@@ -396,6 +420,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Tue Jul 28 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.10.1-1
+- Rebase to JSS 5.10.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

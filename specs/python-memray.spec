@@ -76,7 +76,7 @@ sed -r \
     -i docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs -x extra -x tests
+%pyproject_buildrequires -x docs %{?with_tests:-x test}
 
 %build
 %pyproject_wheel

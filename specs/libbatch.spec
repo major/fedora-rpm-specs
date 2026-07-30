@@ -1,6 +1,6 @@
 Name:           libbatch
 Version:        2.4.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Generic batch management library
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -11,6 +11,9 @@ Source0:        http://files.salome-platform.org/Salome/other/libBatch-%{version
 Patch0:         libbatch_libdir.patch
 # Set a library soversion
 Patch1:         libbatch_soversion.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch2:         libbatch-swig45.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -70,6 +73,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.4.5-25
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.4.5-24
 - Rebuilt for Python 3.15.0b4 ABI change
 

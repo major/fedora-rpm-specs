@@ -1,8 +1,8 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.4.4
-Release:        5%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -19,9 +19,6 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         borgbackup-disable-guzzle-theme.patch
-
-# https://github.com/borgbackup/borg/issues/9521
-Patch2:         borgbackup-144-hashindex-fix-new-checks-for-big-endian.patch
 
 BuildRequires:  gnupg2
 # build
@@ -139,6 +136,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Tue Jul 28 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.5-1
+- update to 1.4.5
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.4.4-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

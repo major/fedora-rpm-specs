@@ -2,49 +2,57 @@
 
 Name:    python3-mallard-ducktype
 Version: 1.0.2
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Parse Ducktype files and convert them to Mallard
 
 License: MIT
 URL:     https://pypi.python.org/pypi/%{srcname}
 # The PyPI tarball does not have AUTHORS or COPYING.
 Source0: https://github.com/projectmallard/%{srcname}/archive/%{version}/%{version}.tar.gz
+# Change way of using namespaces to be Python 3.14+ compatible
+Patch0:  https://github.com/projectmallard/mallard-ducktype/pull/22.patch
 
 BuildArch:     noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %description
 Parse Ducktype files and convert them to Mallard.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mallard
 
 
 %check
+%pyproject_check_import
 pushd tests
 %{py3_test_envvars} ./runtests
 popd
 
 
-%files
+%files -f %{pyproject_files}
 %doc AUTHORS README.md
-%license COPYING
 %{_bindir}/ducktype
-%{python3_sitelib}/*
-
 
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.2-30
+- Convert to pyproject macros
+- Change way of using namespaces to be Python 3.14+ compatible
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

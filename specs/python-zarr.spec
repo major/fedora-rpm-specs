@@ -19,6 +19,8 @@ Patch:          0002-Fix-compatibility-with-latest-numcodecs.patch
 Patch:          0003-Fix-invalid-escape-sequences-for-Python-3.15.patch
 # Ignore h5py deprecation warning in tests
 Patch:          0004-Ignore-h5py-deprecation-warning.patch
+# Ignore NumPy 2.x generic unit deprecation warnings in pytest
+Patch:          0005-Ignore-NumPy-2.x-deprecation-warnings-in-pytest.patch
 
 BuildArch:      noarch
 
@@ -32,6 +34,7 @@ BuildRequires:  python3dist(h5py)
 #BuildRequires:  python3dist(lmdb)
 BuildRequires:  python3dist(msgpack)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(requests)
 
 %description
 Zarr is a Python package providing an implementation of compressed, chunked,
@@ -53,11 +56,11 @@ Summary:        zarr documentation
 BuildArch:      noarch
 
 BuildRequires:  python3dist(numpydoc)
+BuildRequires:  python3dist(pydata-sphinx-theme)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-copybutton)
 BuildRequires:  python3dist(sphinx-design)
 BuildRequires:  python3dist(sphinx-issues)
-BuildRequires:  python3dist(pydata-sphinx-theme)
 
 %description -n python-%{srcname}-doc
 Documentation for zarr

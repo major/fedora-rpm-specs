@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -22,6 +22,9 @@ Patch3:         med-swig-4.3.0.patch
 Patch4:         med-gcc15.patch
 # Fix build with cmake-4.3
 Patch5:         med-cmake43.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch6:         med-swig45.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -136,6 +139,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.0.0-15
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.0.0-14
 - Rebuilt for Python 3.15.0b4 ABI change
 

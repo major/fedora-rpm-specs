@@ -625,6 +625,15 @@ skip="${skip-} --skip python_find::python_find"
 skip="${skip-} --skip python_list::python_list"
 skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
+
+# It’s not clear what causes the trivial discrepancy, but we find that this
+# fails when building in qemu-user-static emulated chroots.
+#    4       │-  Caused by: Failed to query Python interpreter at `[TEMP_DIR]/bar`
+#    5       │-  Caused by: [PERMISSION DENIED]
+#          4 │+  Caused by: Querying Python at `[TEMP_DIR]/bar` failed with
+#                exit status exit status: 127
+skip="${skip-} --skip python_find::python_find_path"
+
 # Test registry_client::tests::test_redirect_to_server_with_credentials is
 # flaky
 # https://github.com/astral-sh/uv/issues/16447

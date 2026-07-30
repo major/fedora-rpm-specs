@@ -25,6 +25,7 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  pyproject-rpm-macros
 
 %if %{with tests}
@@ -34,7 +35,8 @@ BuildRequires:  python3dist(pytest)
 %description %{common_description}
 
 %package -n python3-%{slugname}
-Summary: %{summary}
+Summary:        %{summary}
+Requires:       python3-pkg-resources
 
 %description -n python3-%{slugname} %{common_description}
 
@@ -42,7 +44,7 @@ Summary: %{summary}
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test}
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel

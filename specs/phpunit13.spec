@@ -28,8 +28,8 @@
 %global ver_minor    2
 
 Name:           %{pk_project}%{ver_major}
-Version:        13.2.4
-Release:        2%{?dist}
+Version:        13.2.5
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -40,7 +40,6 @@ Source1:        makesrc.sh
 
 # Fix command for autoload
 Patch0:         %{name}-rpm.patch
-Patch1:         upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
@@ -161,7 +160,6 @@ Documentation: https://phpunit.de/documentation.html
 %prep
 %setup -q -n %{gh_project}-%{version}
 %patch -P0 -p0 -b .rpm
-%patch -P1 -p1 -b .upstream
 
 find . -name \*.rpm -delete -print
 
@@ -293,6 +291,9 @@ exit $ret
 
 
 %changelog
+* Sun Jul 26 2026 Remi Collet <remi@remirepo.net> - 13.2.5-1
+- update to 13.2.5
+
 * Wed Jul 22 2026 Remi Collet <remi@remirepo.net> - 13.2.4-2
 - add upstream patch for sebastian/exporter 8.1.1 FTBFS #2504411
 - raise dependency on sebastian/exporter 8.1.1

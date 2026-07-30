@@ -1,9 +1,13 @@
 # Perform optional tests
+%if 0%{?rhel}
+%bcond_with perl_Compress_Raw_Lzma_enables_optional_test
+%else
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
+%endif
 
 Name:		perl-Compress-Raw-Lzma
 Version:	2.221
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -129,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.221-4
+- Disable optional dependencies in RHEL
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.221-3
 - Perl 5.44 rebuild
 

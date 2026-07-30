@@ -1,8 +1,8 @@
 %global		_hardened_build 1
 
 Name:		libdkimpp
-Version:	2.0.0
-Release:	24%{?dist}
+Version:	2.4.1
+Release:	1%{?dist}
 Summary:	Lightweight and portable DKIM (RFC4871) library
 
 License:	LGPL-3.0-or-later
@@ -39,7 +39,6 @@ with %{name}.
 sed -i 's|/usr/local/lib|%{_libdir}|g' CMakeLists.txt
 
 %build
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -65,6 +64,9 @@ chmod +x $RPM_BUILD_ROOT/%{_libdir}/*.so*
 
 
 %changelog
+* Tue Jul 28 2026 Denis Fateyev <denis@fateyev.com> - 2.4.1-1
+- Update to 2.4.1 release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

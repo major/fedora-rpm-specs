@@ -7,7 +7,7 @@
 Name:           CImg
 Epoch:          1
 Version:        4.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
 # plugins/cimgmatlab.h: LGPLv3
@@ -79,6 +79,9 @@ make -C examples linux %{?_smp_mflags}
 %{_includedir}/%{name}/
 
 %changelog
+* Wed Jul 22 2026 josef radinger <cheese@nosuchhost.net> - 1:4.0.3-2
+- rebuild in side-tag
+
 * Wed Jul 22 2026 josef radinger <cheese@nosuchhost.net> - 1:4.0.3-1
 - bump version
 

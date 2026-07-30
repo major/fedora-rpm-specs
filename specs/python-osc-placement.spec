@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global docs 1
 
@@ -10,7 +10,7 @@ to use the REST API directly, CLI is provided only for convenience of users.}
 
 
 Name:             python-osc-placement
-Version:          4.8.0
+Version:          4.9.0
 Release:          %{autorelease}
 Summary:          OpenStackClient plugin for the Placement service
 License:          Apache-2.0

@@ -101,21 +101,12 @@ Provides:       bundled(python3dist(httpx-sse)) = 0.4.3
 %description -n python3-httpx2 %{common_description}
 
 
-# TODO: Avoid the -i option once better multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
-%{pyproject_extras_subpkg %{shrink:
-    -i %{python3_sitelib}/httpx2-%{version}.dist-info
-    -n python3-httpx2
-    brotli http2 socks ws zstd
-    }}
+%{pyproject_extras_subpkg -n python3-httpx2 --dist-name httpx2 %{shrink:
+    brotli http2 socks ws zstd}}
 
 # Ship the command-line tool in the cli extras package (which would otherwise
 # be a metapackage), since the extra is required for the tool to function.
-%{pyproject_extras_subpkg %{shrink:
-    -i %{python3_sitelib}/httpx2-%{version}.dist-info
-    -n python3-httpx2
-    cli
-    }}
+%pyproject_extras_subpkg -n python3-httpx2 --dist-name httpx2 cli
 %{_bindir}/httpx2
 %{_mandir}/man1/httpx2.1*
 
@@ -134,13 +125,8 @@ charset decoding, handling JSON, environment based configuration defaults, or
 any of that Jazz.
 
 
-# TODO: Avoid the -i option once better multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
-%{pyproject_extras_subpkg %{shrink:
-    -i %{python3_sitelib}/httpcore2-%{version}.dist-info
-    -n python3-httpcore2
-    http2 socks trio asyncio
-    }}
+%{pyproject_extras_subpkg -n python3-httpcore2 --dist-name httpcore2 %{shrink:
+    http2 socks trio asyncio}}
 
 
 %prep
@@ -191,9 +177,8 @@ cp --preserve --update=none-fail README.md LICENSE.md src/httpx2/
 
 %install
 %pyproject_install
-# TODO: Use %%pyproject_save_files and %%{pyproject_files} once better
-# multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
+%pyproject_save_files --assert-license --dist-name httpcore2 httpcore2
+%pyproject_save_files --assert-license --dist-name httpx2 httpx2
 
 install --directory '%{buildroot}%{_mandir}/man1'
 %{py3_test_envvars} help2man \
@@ -206,38 +191,21 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check
-# TODO: Use %%pyproject_check_import once better multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
-%py3_check_import httpx2 httpcore2
+%pyproject_check_import --dist-name httpcore2
+%pyproject_check_import --dist-name httpx2
 %if %{with tests}
 %pytest -m 'not network' -rs --verbose --ignore=tests/test_benchmark.py
 %endif
 
 
-%files -n python3-httpcore2
-# This results in a harmless “file listed twice” warning from fedora-review; we
-# can easily avoid this once better multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
-%license %{python3_sitelib}/httpcore2-%{version}.dist-info/licenses/LICENSE.md
-
+%files -n python3-httpcore2 -f %{pyproject_files --dist-name httpcore2}
 %doc src/httpcore2/CHANGELOG.md
 %doc src/httpcore2/README.md
 
-%{python3_sitelib}/httpcore2/
-%{python3_sitelib}/httpcore2-%{version}.dist-info/
 
-
-%files -n python3-httpx2
-# This results in a harmless “file listed twice” warning from fedora-review; we
-# can easily avoid this once better multi-package support is available,
-# https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
-%license %{python3_sitelib}/httpx2-%{version}.dist-info/licenses/LICENSE.md
-
+%files -n python3-httpx2 -f %{pyproject_files --dist-name httpx2}
 %doc src/httpx2/CHANGELOG.md
 %doc README.md
-
-%{python3_sitelib}/httpx2/
-%{python3_sitelib}/httpx2-%{version}.dist-info/
 
 
 %changelog

@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.4.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -9,6 +9,9 @@ VCS:            git:https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/openscap/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:         2343.patch
 Patch1:         2360.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch2:         openscap-swig45.patch
 
 %global         common_description %{expand:
 OpenSCAP is a set of open source libraries providing an easier path
@@ -322,6 +325,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.4.4-9
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 1:1.4.4-8
 - Rebuilt for Python 3.15.0b4 ABI change
 

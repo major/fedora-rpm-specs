@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     cellbroadcastd
-Version:  0.0.2
+Version:  0.0.3
 Release:  %autorelease
 Summary:  DBus service for cellular broadcast messages
 License:  GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -52,7 +52,7 @@ mkdir subprojects/gvdb
 tar -xf %{S:1} -C subprojects/gvdb --strip-components 1
 
 %conf
-%meson -Dsystemd_user_unit_dir="%{_userunitdir}"
+%meson -Dsystemd_user_unit_dir="%{_userunitdir}" -Dvapi=false
 
 %build
 %meson_build

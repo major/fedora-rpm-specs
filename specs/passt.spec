@@ -10,12 +10,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 090d739bd16ed0d810bf2fe9603229aad74adc62
+%global git_hash f8df3f1b228fe19a74a269334fdfe6cc7d0605ce
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20260716.g090d739
+Version:	0^20260728.gf8df3f1
 Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -118,12 +118,10 @@ fi
 %doc %{_docdir}/%{name}/demo.sh
 %{_bindir}/passt
 %{_bindir}/pasta
-%{_bindir}/qrap
 %{_bindir}/passt-repair
 %{_bindir}/pesto
 %{_mandir}/man1/passt.1*
 %{_mandir}/man1/pasta.1*
-%{_mandir}/man1/qrap.1*
 %{_mandir}/man1/passt-repair.1*
 %{_mandir}/man1/pesto.1*
 %ifarch x86_64
@@ -141,6 +139,12 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pesto.pp
 
 %changelog
+* Tue Jul 28 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260728.gf8df3f1-1
+- qrap(1) is no longer shipped upstream as it has been obsoleted a
+  while ago and presumably nobody is using it anymore (not needed
+  starting from QEMU 7.2): drop it from the package as well
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_07_16.090d739..2026_07_28.f8df3f1
+
 * Thu Jul 16 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260716.g090d739-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_06_11.a9c61ff..2026_07_16.090d739
 

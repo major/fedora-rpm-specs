@@ -3,11 +3,15 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?rhel} && 0%{?rhel} > 9
-%bcond schroedinger 0
 %bcond libdv 0
 %else
-%bcond schroedinger 1
 %bcond libdv 1
+%endif
+
+%if 0%{?fedora} >= 45 || 0%{?rhel} > 9
+%bcond schroedinger 0
+%else
+%bcond schroedinger 1
 %endif
 
 %if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
@@ -19,7 +23,7 @@
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4^%{date}git%{shortcommit}
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{commit}.zip
@@ -138,6 +142,9 @@ rm -v %{buildroot}%{_libdir}/%{name}{,/lqt_*}.la
 %{_libdir}/%{name}.so
 
 %changelog
+* Tue Jul 28 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.2.4^20240202git2213b76-6
+- Disable retired schroedinger on F45+ (resolves rhbz#2507938)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4^20240202git2213b76-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

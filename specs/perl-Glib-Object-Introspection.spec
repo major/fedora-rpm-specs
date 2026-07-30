@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.052
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -9,6 +9,9 @@ Patch1:         perl-Glib-Object-Introspection_lib_pattern.patch
 # Use system-wide compiler flags when building test libraries. It silents
 # annocheck gating tests, CPAN RT#147466, proposed to the upstream.
 Patch2:         Glib-Object-Introspection-0.050-Use-CFLAGS-and-LDFLAGS-from-the-envirnoment-for-buil.patch
+# Work around a test crash with glib >= 2.89.0, bug #2486187, propsed upstream
+# <https://gitlab.gnome.org/GNOME/perl-glib-object-introspection/-/work_items/8>
+Patch3:         Glib-Object-Introspection-0.052-Skip-allocating-memory-if-an-output-argument-is-not-.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -134,6 +137,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 28 2026 Petr Pisar <ppisar@redhat.com> - 0.052-5
+- Work around a test crash with glib >= 2.89.0 (bug #2486187)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.052-4
 - Perl 5.44 rebuild
 

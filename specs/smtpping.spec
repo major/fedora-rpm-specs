@@ -1,9 +1,8 @@
 Name:		smtpping
-Version:	1.1.4
-Release:	12%{?dist}
+Version:	1.1.5
+Release:	1%{?dist}
 Summary:	Small tool for measuring SMTP parameters
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/halonsecurity/smtpping
 Source0:	https://github.com/halonsecurity/smtpping/archive/v%{version}.tar.gz
@@ -37,6 +36,9 @@ delay variation and throughput.
 
 
 %changelog
+* Tue Jul 28 2026 Denis Fateyev <denis@fateyev.com> - 1.1.5-1
+- Update to 1.1.5 release
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

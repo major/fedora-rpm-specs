@@ -1,7 +1,10 @@
+# optional dependency
+%bcond perl_Module_Build_Tiny_enables_dynamic_prereqs %{undefined rhel}
+
 Summary:	A tiny replacement for Module::Build
 Name:		perl-Module-Build-Tiny
 Version:	0.053
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Build-Tiny
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Build-Tiny-%{version}.tar.gz
@@ -12,7 +15,9 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 # Module
 BuildRequires:	perl(CPAN::Meta)
+%if %{with perl_Module_Build_Tiny_enables_dynamic_prereqs}
 BuildRequires:	perl(CPAN::Requirements::Dynamic)
+%endif
 BuildRequires:	perl(DynaLoader)
 BuildRequires:	perl(Exporter) >= 5.57
 BuildRequires:	perl(ExtUtils::CBuilder)
@@ -41,7 +46,9 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(XSLoader)
 # Dependencies
+%if %{with perl_Module_Build_Tiny_enables_dynamic_prereqs}
 Requires:	perl(CPAN::Requirements::Dynamic)
+%endif
 Requires:	perl(DynaLoader)
 Requires:	perl(ExtUtils::CBuilder)
 Requires:	perl(ExtUtils::ParseXS)
@@ -85,6 +92,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Module::Build::Tiny.3*
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.053-3
+- Conditionalize CPAN::Requirements::Dynamic dependency
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.053-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -25,6 +25,9 @@ Patch:          %{name}-rng-test.patch
 Patch:          %{name}-incompatible-pointer.patch
 # Fix warnings due to printf format mismatches
 Patch:          %{name}-format-mismatch.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch:          %{name}-swig45.patch
 
 # Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -7,10 +7,14 @@ URL:              http://trousers.sourceforge.net
 Source0:          http://downloads.sourceforge.net/trousers/%{name}-%{version}.tar.gz
 BuildRequires:    make gcc
 BuildRequires:    trousers-devel openssl-devel opencryptoki-devel gettext-devel autoconf automake libtool
-Patch0001:        0003-Allocate-OpenSSL-cipher-contexts-for-seal-unseal.patch
-Patch0002:        0001-tpm_version-avoid-outputting-NULL-bytes-from-tpmVend.patch
-Patch0003:        0001-tpm_version-avoid-outputting-undefined-data-on-stder.patch
-Patch0004:        0001-tpm-tools-fix-outdated-function-signature-in-tpmUnse.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+%patchlist
+0003-Allocate-OpenSSL-cipher-contexts-for-seal-unseal.patch
+0001-tpm_version-avoid-outputting-NULL-bytes-from-tpmVend.patch
+0001-tpm_version-avoid-outputting-undefined-data-on-stder.patch
+0001-tpm-tools-fix-outdated-function-signature-in-tpmUnse.patch
 
 %description
 tpm-tools is a group of tools to manage and utilize the Trusted Computing

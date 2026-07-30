@@ -28,8 +28,8 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        12.5.31
-Release:        2%{?dist}
+Version:        12.5.32
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -283,6 +283,9 @@ exit $ret
 
 
 %changelog
+* Sun Jul 26 2026 Remi Collet <remi@remirepo.net> - 12.5.32-1
+- update to 12.5.32
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.5.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

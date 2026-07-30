@@ -1183,8 +1183,8 @@ function buildjdk() {
     mkdir -p ${outputdir}
     pushd ${outputdir}
 
-    # Note: zlib and freetype use %{link_type}
-    # rather than ${link_opt} as the system versions
+    # Note: zlib and freetype use link_type (macro)
+    # rather than link_opt (shell var) as the system versions
     # are always used in a system_libs build, even
     # for the static library build
     LD_LIBRARY_PATH=${LIBPATH} \

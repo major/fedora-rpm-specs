@@ -8,7 +8,7 @@
 
 Name:           cube
 Version:        4.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -16,15 +16,15 @@ Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortv/dist/cu
 Source1:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubew-%{cubew_vers}.tar.gz
 Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortv/dist/cubelib-%{version}.tar.gz
 BuildRequires:  dbus-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 BuildRequires:  zlib-devel
 BuildRequires: 	make
 BuildRequires:  gcc-c++
-%ifarch %qt5_qtwebengine_arches
+%ifarch %qt6_qtwebengine_arches
 # Not in ppc64le el9, for instance
-BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  qt6-qtwebengine-devel
 %endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -144,10 +144,6 @@ make install DESTDIR=$(pwd)/inst
 # Wrong paths in .la cause trouble
 #rm inst%_libdir/*.la
 cd ../cubegui-%ver
-# Kludge: For some reason the Qt dependencies are found as .so paths
-# in Fedora (only), and libtool re-orders them with libcube4gui after what it
-# should link against, and linking fails.
-%{?fedora:export LIBS="$LIBS -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Concurrent -lQt5Core"}
 %configure --disable-static \
   --disable-silent-rules \
   --with-platform=linux \
@@ -349,6 +345,9 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.1-6
+- Switch to Qt6
+
 * Mon Jul 20 2026 Dave Love <loveshack@fedoraproject.org> - 4.9.1-5
 - Don't include libcube4gui.so in cube-libs-devel
 

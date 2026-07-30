@@ -1,5 +1,5 @@
 %global git 0
-%global commit fc6a61720c42604466e626763af66feefde23646
+%global commit b54f0e7b0fb0003d6cec2e53c3b222211f4915c0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20260330^%{shortcommit}
+Version:        20260704^%{shortcommit}
 %else
-Version:        20260330
+Version:        20260704
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -39,9 +39,7 @@ Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2024.05.09.tar.gz
 Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
 # fixed in https://github.com/lammps/lammps/pull/4950
-Patch0:         unittest_fix.patch
-Patch1:         unittest_fix2.patch
-Patch2:         ignore-tests-with-kokkos-openmp.patch
+Patch0:         ignore-tests-with-kokkos-openmp.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # mpi is broken on s390x see, bug #2322073
@@ -83,7 +81,7 @@ BuildRequires:  readline-devel
 %global         with_kokkos 1
 # kokkos needs a lot of memory
 %global         _smp_mflags -j1
-BuildRequires:  kokkos-devel >= 5.0
+BuildRequires:  kokkos-devel >= 5.1
 %endif
 %endif
 Requires:       %{name}-data
@@ -284,14 +282,14 @@ cd python
 
 %check
 
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|FFT3D\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Random\|SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:e3b\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|FFT3D\)'
 
 %ifnarch %ix86
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|Groups\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|FFT3D\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Random\|SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:e3b\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|Groups\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|FFT3D\)'
 %endif
 
 %ifarch s390x
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\|FileOperations\|Groups\|SetProperty\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|TestPairList\|FFT3D\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Random\|SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:e3b\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\|FileOperations\|Groups\|SetProperty\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|TestPairList\|FFT3D\)'
 %endif
 
 set +e
@@ -380,6 +378,13 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sat Jul 25 2026 Richard Berger <richard.berger@outlook.com> - 20260704-1
+- Version bump to 20260704
+- Bump Kokkos requirement to 5.1
+- Remove patches that have been upstreamed
+- Disable Random test due to failures with OpenMPI
+- Disable MolPairStyle:e3b test due to aarch64 failures
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 20260330-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

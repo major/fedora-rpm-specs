@@ -1079,9 +1079,6 @@ Requires: %{name}-dcerpc = %{samba_depver}
 Provides: samba4-winbind = %{samba_depver}
 Obsoletes: samba4-winbind < %{samba_depver}
 
-# Old NetworkManager expects the dispatcher scripts in a different place
-Conflicts: NetworkManager < 1.20
-
 Provides: bundled(libreplace) = %{samba_depver}
 
 %description winbind

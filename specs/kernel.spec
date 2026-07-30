@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc5.41
+%define pkgrelease 0.rc5.260728g62cc90241548.42
 %define kversion 7
-%define tarfile_release 7.2-rc5
+%define tarfile_release 7.2-rc5-31-g62cc90241548
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.41%{?buildid}%{?dist}
+%define specrelease 0.rc5.260728g62cc90241548.42%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -1099,6 +1099,8 @@ Source74: partial-clang_lto-x86_64-snip.config
 Source75: partial-clang_lto-x86_64-debug-snip.config
 Source76: partial-clang_lto-aarch64-snip.config
 Source77: partial-clang_lto-aarch64-debug-snip.config
+Source78: partial-clang-s390x-snip.config
+Source79: partial-clang-s390x-debug-snip.config
 Source80: generate_all_configs.sh
 Source81: process_configs.sh
 
@@ -2261,7 +2263,7 @@ PARTIAL_CONFIGS=""
 PARTIAL_CONFIGS="$PARTIAL_CONFIGS %{SOURCE70} %{SOURCE71}"
 %endif
 %if %{with toolchain_clang}
-PARTIAL_CONFIGS="$PARTIAL_CONFIGS %{SOURCE72} %{SOURCE73}"
+PARTIAL_CONFIGS="$PARTIAL_CONFIGS %{SOURCE72} %{SOURCE73} %{SOURCE78} %{SOURCE79}"
 %endif
 %if %{with clang_lto}
 PARTIAL_CONFIGS="$PARTIAL_CONFIGS %{SOURCE74} %{SOURCE75} %{SOURCE76} %{SOURCE77}"
@@ -2878,6 +2880,14 @@ BuildKernel() {
     if [ -f tools/objtool/fixdep ]; then
       cp -a tools/objtool/fixdep $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/tools/objtool/ || :
     fi
+    if ls rust/*.rmeta >/dev/null 2>&1; then
+      mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust
+      cp -a rust/*.rmeta $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust/ || :
+    fi
+    if ls rust/*.so >/dev/null 2>&1; then
+      mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust
+      cp -a rust/*.so $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust/ || :
+    fi
     if [ -d arch/$Arch/scripts ]; then
       cp -a arch/$Arch/scripts $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/arch/%{_arch} || :
     fi
@@ -3444,6 +3454,9 @@ fi
 %endif
 %ifarch s390x
 %global perf_build_extra_ldflags -Wl,-z,notext
+%if %{with toolchain_clang}
+%global perf_build_extra_opts %{?perf_build_extra_opts} LD="ld.lld -m elf64_s390"
+%endif
 %endif
 %global perf_make \
   %{__make} %{?make_opts} HOST_EXTRACFLAGS="${RPM_OPT_FLAGS}" EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" LDFLAGS="%{__global_ldflags} -Wl,-E %{?perf_build_extra_ldflags}" %{?cross_opts} -C tools/perf V=1 NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 WERROR=0 NO_LIBUNWIND=1 HAVE_CPLUS_DEMANGLE=1 NO_GTK2=1 NO_STRLCPY=1 NO_BIONIC=1 LIBTRACEEVENT_DYNAMIC=1 %{?perf_build_extra_opts} prefix=%{_prefix} PYTHON=%{__python3}
@@ -4963,8 +4976,20 @@ fi\
 #
 #
 %changelog
-* Mon Jul 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.41]
+* Tue Jul 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc5.260728g62cc90241548.42]
+- kernel.spec.template: add Rust artifacts to kernel-devel (Augusto Caringi)
+
+* Tue Jul 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.62cc90241548.42]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Tue Jul 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.62cc90241548.41]
+- redhat: always overwrite spec template copy (Jan Stancek)
+- gitlab-ci: enable ELN clang builds (Scott Weaver)
+- Turn on CONFIG_REGMAP for RHEL s390x (Justin M. Forbes)
+- Turn ACPI_PLATFORM_PROFILE to built-in for RHEL x86 (Justin M. Forbes)
+- Turn on CONFIG_RESCTRL_FS for RHEL x86 (Justin M. Forbes)
+- redhat: configs: rhel: Enable AMD ISP4 MIPI camera solution (Kate Hsuan)
+- Linux v7.2.0-0.rc5.62cc90241548
 
 * Mon Jul 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.40]
 - Linux v7.2.0-0.rc5

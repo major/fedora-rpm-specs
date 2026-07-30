@@ -17,8 +17,11 @@ Source:         %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # downstream-only disable tests that fail in the buildsystem or due to sha1
 Patch:          python-twisted-26.4.0-disable-tests.patch
 # Fix Python 3.15 compatibility issues
-# https://github.com/twistWed/twisted/pull/12602
+# https://github.com/twisted/twisted/pull/12602
 Patch:          0001-Fix-Python-3.15-compatibility-issues.patch
+# Replace OpenSSL.crypto.X509Req with pyca/cryptography CSR
+# https://github.com/twisted/twisted/pull/12661
+Patch:          0002-Replace-OpenSSL-crypto-X509Req-with-pyca-cryptography-CSR.patch
 
 BuildArch:      noarch
 

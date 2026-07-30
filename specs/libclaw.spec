@@ -1,22 +1,12 @@
 Name:           libclaw
-Version:        1.7.4
-Release:        47%{?dist}
+Version:        1.9.1
+Release:        1%{?dist}
 Summary:        C++ Library of various utility functions
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
-URL:            http://libclaw.sourceforge.net/
-Source0:        http://dl.sourceforge.net/project/%{name}/%{version}/%{name}-%{version}.tar.gz
-Patch0:         libclaw-1.6.1-nostrip.patch
-Patch1:         libclaw-1.7.4-libdir.patch
-Patch2:         libclaw-1.7.4-gcc62.patch
-# Make documentation the same on different arches
-Patch3:         libclaw-1.7.4-noarch.patch
-# Fix errors found by GCC 7 (and Clang)
-Patch4:         libclaw-1.7.4-gcc7.patch
-# Fix example build with C++20 by avoiding reserved keyword 'concept' 
-Patch5:         libclaw-c++20-no-concept-keyword.patch
-# fix static library
-Patch6:         libclaw-1.7.4-fix-static-library.patch
+License:        LGPL-2.1-or-later
+URL:            https://github.com/j-jorge/%{name}/
+Source0:        https://github.com/j-jorge/%{name}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# PATCH-FIX lib64-installation-path.diff
+Patch0:         lib64-installation-path.diff
 
 BuildRequires:  gcc-c++
 BuildRequires:  libjpeg-devel
@@ -32,6 +22,13 @@ Claw (C++ Library Absolutely Wonderful) is a C++ library of various utility
 functions. In doesn't have a particular objective but being useful to
 anyone.
 
+%package        %{name}
+Summary:        C++ library of various utility functions
+Group:          System/Libraries
+
+%description    %{name}
+Claw is a generalist library written in C++ and providing various
+structures (multitype map, AVL binary tree) and algorithms.
 
 %package devel
 Summary:        Development files for Claw library
@@ -45,7 +42,6 @@ Requires:       libpng-devel%{?_isa}
 This package contains files needed to develop and build software against
 Claw (C++ Library Absolutely Wonderful).
 
-
 %package doc
 Summary:        Documentation for Claw library
 BuildArch:      noarch
@@ -57,14 +53,8 @@ Wonderful).
 
 %prep
 %autosetup -p1
-
-
-%build
-# TODO: Please submit an issue to upstream (rhbz#2380711)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake
-%cmake_build
-find examples -type f |
+# Fix encoding of examples
+find example -type f |
 while read F
 do
         iconv -f iso8859-1 -t utf-8 $F |sed 's/\r//' >.utf8
@@ -72,14 +62,28 @@ do
         mv .utf8 $F
 done
 
+%build
+# TODO: Please submit an issue to upstream (rhbz#2380711)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+pushd cmake
+%cmake -DCMAKE_BUILD_TYPE=Release
+
+%cmake_build
+popd
+
 
 %install
+pushd cmake
 %cmake_install
+popd
+
+cp -R example %{buildroot}%{_datadir}/doc/%{name}1/examples
+
 %find_lang %{name}
 
 
 %ldconfig_scriptlets
-
 
 %files -f %{name}.lang
 %license COPYING
@@ -87,20 +91,19 @@ done
 
 
 %files devel
-%{_bindir}/claw-config
 %{_includedir}/claw
-%{_libdir}/cmake/%{name}
+%{_libdir}/cmake/claw
 %{_libdir}/*.so
-%exclude %{_libdir}/*.a
 
 
 %files doc
-%license COPYING
-%doc %{_datadir}/doc/libclaw1
-%doc examples
+%doc %{_datadir}/doc/%{name}1
 
 
 %changelog
+* Tue Jul 28 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.9.1-1
+- Update to 1.9.1-1
+
 * Mon Jul 27 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.7.4-47
 - Add libclaw-1.7.4-fix-static-library.patch
 

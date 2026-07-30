@@ -1,8 +1,10 @@
 Name: hyphen-fr
 Summary: French hyphenation rules
-Version: 3.0
-Release: 21%{?dist}
-Source: http://www.dicollecte.org/download/fr/hyph-fr-v3.0.zip
+Version: 4.0
+Release: 1%{?dist}
+# https://github.com/LibreOffice/dictionaries/issues/65#issuecomment-5082940776
+Source: https://github.com/user-attachments/files/30385387/hyph_fr.zip
+# following URL is dead now
 URL: http://www.dicollecte.org/download.php?prj=fr
 License: LGPL-2.1-or-later
 BuildArch: noarch
@@ -31,10 +33,13 @@ popd
 
 
 %files
-%doc README_hyph_fr-3.0.txt
+%doc README_hyph_fr.txt
 %{_datadir}/hyphen/*
 
 %changelog
+* Tue Jul 28 2026 Parag Nemade <panemade AT redhat DOT com> - 4.0-2
+- Update to new release 4.0 (rh#2507863)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

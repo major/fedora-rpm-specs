@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -32,6 +32,9 @@ License:        MIT
 URL:            https://mapserver.org
 
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:         mapserver-swig45.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -337,6 +340,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8.6.5-5
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 8.6.5-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

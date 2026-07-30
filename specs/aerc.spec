@@ -7,7 +7,7 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-%global version0        0.21.0
+%global version0        0.22.0
 
 %gometa -L -f
 
@@ -100,6 +100,7 @@ LANG=en_US.UTF-8 ./filters/test.sh
 %{_bindir}/carddav-query
 %{_datadir}/aerc/
 %{_datadir}/applications/aerc.desktop
+%{_datadir}/icons/hicolor/scalable/apps/aerc.svg
 %{_libexecdir}/aerc/
 %{_mandir}/man1/aerc-*.1.*
 %{_mandir}/man1/carddav-query.1*

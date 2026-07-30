@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        76.0.0
+Version:        77.0.0
 
 %gometa
 
@@ -303,6 +303,36 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Tue Jul 28 2026 Packit <hello@packit.dev> - 77.0.0-1
+Changes with 77.0.0
+----------------
+  - Generate bootc-image-builder test jobs dynamically and enable all tests [HMS-11073] (#2539)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Simon de Vlieger
+  - Refactor CLI setup (#2503)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2555)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - anaconda: rectify comment (#2548)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová, Lukáš Zapletal
+  - bib: Replace logrus usage with olog (#2543)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - bib_legacy: Use functions from bootc (#2540)
+    - Author: Brian C. Lane, Reviewers: Anna Vítová, Lukáš Zapletal, Simon de Vlieger
+  - build(deps): bump actions/setup-python from 6 to 7 (#2556)
+    - Author: dependabot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - eln: enable `aarch64` for `gce` (HMS-11095) (#2558)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - github: enable building the bootc-image-builder container [HMS-11005] (#2549)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - gitlab: remove setup-show option for pytest (#2551)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Brian C. Lane
+  - manifest/raw_bootc: support subscription registration on first boot (HMS-10897) (#2528)
+    - Author: Lucas Garfield, Reviewers: Brian C. Lane, Simon de Vlieger
+  - pkg/koji/upload: session credentials to headers (#2550)
+    - Author: Anna Vítová, Reviewers: Florian Schüller, Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-07-28
+
 * Wed Jul 22 2026 Packit <hello@packit.dev> - 76.0.0-1
 Changes with 76.0.0
 ----------------

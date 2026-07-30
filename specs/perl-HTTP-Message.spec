@@ -1,7 +1,7 @@
 %bcond perl_HTTP_Message_enables_IO_Compress_Brotli %{undefined rhel}
 
 Name:           perl-HTTP-Message
-Version:        7.03
+Version:        7.04
 Release:        1%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 28 2026 Michal Josef Špaček <mspacek@redhat.com> - 7.04-1
+- 7.04 bump
+
 * Thu Jul 23 2026 Michal Josef Špaček <mspacek@redhat.com> - 7.03-1
 - 7.03 bump
 

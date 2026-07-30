@@ -21,7 +21,6 @@ BuildOption(install): -L sphinx_book_theme
 BuildRequires:  nodejs-devel
 BuildRequires:  /usr/bin/node
 BuildRequires:  /usr/bin/npm
-BuildRequires:  yarnpkg
 
 %global _description %{expand:
 This is a lightweight Sphinx theme designed to mimic the look-and-feel of an
@@ -61,8 +60,7 @@ sed -i 's/==/>=/g' pyproject.toml
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
 %build -p
-export YARN_CACHE_FOLDER="$PWD/.package-cache"
-yarn install --offline
+export npm_config_cache="$PWD/.package-cache"
 nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
 %check

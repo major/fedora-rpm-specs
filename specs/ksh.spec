@@ -4,7 +4,7 @@ URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
 Version:      1.0.10
-Release:      9%{?dist}
+Release:      10%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
@@ -49,6 +49,9 @@ with "sh" (the Bourne Shell).
 
 # /dev/fd test does not work because of mock
 sed -i 's|ls /dev/fd|ls /proc/self/fd|' src/cmd/ksh93/features/options
+
+# disable flaky subshell pipe output test (https://github.com/ksh93/ksh/issues/975)
+sed -i '/should be 96011/s/err_exit/: # DISABLED (ksh93#975) err_exit/' src/cmd/ksh93/tests/subshell.sh
 
 %build
 XTRAFLAGS=""
@@ -148,6 +151,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Mon Jul 27 2026 Vincent Mihalkovic <vmihalko@redhat.com> - 3:1.0.10-10
+- disable flaky subshell pipe output test (ksh#975)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.0.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

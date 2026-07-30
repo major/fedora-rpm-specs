@@ -9,7 +9,7 @@
 
 Name:           hamlib
 Version:        4.6.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -23,6 +23,9 @@ Source0:        https://github.com/Hamlib/Hamlib/archive/%{githash}/%{name}-%{sh
 Patch0:         hamlib-4.0-perl_install.patch
 # -lpython is not needed, https://github.com/Hamlib/Hamlib/issues/253
 Patch1:         hamlib-4.0-drop-libpython.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch2:         hamlib-swig45.patch
 
 ExcludeArch:    i686
 
@@ -243,6 +246,9 @@ make V=1 check
 
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.6.5-9
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 4.6.5-8
 - Rebuilt for Python 3.15.0b4 ABI change
 

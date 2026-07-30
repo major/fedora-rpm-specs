@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.43.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -78,7 +78,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-#Patch100:       s390utils-%%{version}-fedora.patch
+Patch100:       s390utils-%{version}-fedora.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -104,6 +104,7 @@ Requires:       s390utils-ziomon = %{epoch}:%{version}-%{release}
 Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 %endif
 
+BuildRequires:  git
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
@@ -124,7 +125,8 @@ The s390utils packages contain a set of user space utilities that should to
 be used together with the zSeries (s390) Linux kernel and device drivers.
 
 %prep
-%autosetup -n s390-tools-%{version} -p1
+# git_am method needed for the patchset with file renamings
+%autosetup -n s390-tools-%{version} -p1 -S git_am
 
 %if 0%{?rhel}
 pushd rust
@@ -462,6 +464,7 @@ BuildRequires:  json-c-devel
 BuildRequires:  rpm-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libnl3-devel
+BuildRequires:  libnvme-devel
 
 
 %description base
@@ -645,6 +648,7 @@ For more information refer to the following publications:
 %{_sbindir}/zmemtopo
 %{_sbindir}/znetconf
 %{_sbindir}/zpcictl
+%{_sbindir}/zpcimon
 %{_bindir}/cpacfinfo
 %{_bindir}/dump2tar
 %{_bindir}/genprotimg
@@ -663,6 +667,7 @@ For more information refer to the following publications:
 %{_bindir}/zpwr
 %{_unitdir}/dumpconf.service
 %{_unitdir}/opticsmon.service
+%{_unitdir}/zpcimon.service
 %ghost %config(noreplace) %{_sysconfdir}/zipl.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/dumpconf
 %{_sysconfdir}/mdevctl.d/*
@@ -764,6 +769,7 @@ For more information refer to the following publications:
 %{_mandir}/man8/zmemtopo.8*
 %{_mandir}/man8/znetconf.8*
 %{_mandir}/man8/zpcictl.8*
+%{_mandir}/man8/zpcimon.8*
 %dir %{_datadir}/s390-tools
 %{_datadir}/s390-tools/netboot/
 %{bash_completions_dir}/*.bash
@@ -1141,6 +1147,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Jul 27 2026 Dan Horák <dan[at]danny.cz> - 2:2.43.1-2
+- include zpcimon feature
+
 * Thu Jul 23 2026 Dan Horák <dan[at]danny.cz> - 2:2.43.1-1
 - rebased to 2.43.1 (rhbz#2506343)
 

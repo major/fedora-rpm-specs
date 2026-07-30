@@ -1,6 +1,8 @@
+%bcond book %{undefined rhel}
+
 Name:           wayland
 Version:        1.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
 # SPDX
@@ -10,6 +12,9 @@ Source0:        https://gitlab.freedesktop.org/%{name}/%{name}/-/releases/%{vers
 Source1:        https://gitlab.freedesktop.org/%{name}/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz.sig
 Source2:        emersion-gpg-key.asc
 
+# https://gitlab.freedesktop.org/wayland/wayland/-/merge_requests/548
+Patch0:         0001-doc-add-option-to-not-build-the-book.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  docbook-style-xsl
@@ -18,7 +23,9 @@ BuildRequires:  expat-devel
 BuildRequires:  graphviz
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt
+%if %{with book}
 BuildRequires:  mdbook
+%endif
 BuildRequires:  meson
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  xmlto
@@ -64,9 +71,11 @@ developing applications that use %{name}.
 %package doc
 Summary: Wayland development documentation
 BuildArch: noarch
+%if %{with book}
 # Required for mdbook generated docs
 Requires: adobe-source-code-pro-fonts
 Requires: open-sans-fonts
+%endif
 
 %description doc
 Wayland development documentation
@@ -131,7 +140,7 @@ Wayland server library
 %autosetup -p1
 
 %conf
-%meson
+%meson %{!?with_book:-Dbook=false}
 
 %build
 %meson_build
@@ -143,6 +152,9 @@ Wayland server library
 %meson_test
 
 %changelog
+* Fri Jul 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.0-2
+- Conditionalize book documentation
+
 * Thu Jul 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.26.0-1
 - Update to 1.26.0
 
