@@ -36,6 +36,7 @@ Provides:       logdetective
 
 %prep
 %autosetup -p1 -n logdetective-%{version}
+%pyproject_patch_dependency huggingface-hub:drop_upper
 
 
 %generate_buildrequires

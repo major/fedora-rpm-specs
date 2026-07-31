@@ -9,7 +9,7 @@ optimize system hardware settings to achieve energy efficiency and/or
 performance objectives.}
 
 Name:		libgeopm
-Version:	3.2.1
+Version:	3.2.2
 Release:	%autorelease
 Summary:	C/C++ implementation of the GEOPM runtime service
 
@@ -28,7 +28,7 @@ BuildRequires:	gmock-devel
 BuildRequires:	gtest-devel
 BuildRequires:	libtool
 BuildRequires:	elfutils-libelf-devel
-BuildRequires:	libgeopmd-devel >= 3.2.1
+BuildRequires:	libgeopmd-devel >= 3.2.2
 
 %description
 %{desc}

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-ppx/ppx_deriving
 
 Name:           ocaml-ppx-deriving
-Version:        6.1.2
+Version:        6.1.3
 Release:        %autorelease
 Summary:        Type-driven code generation for OCaml
 
@@ -14,7 +14,7 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/ppx_deriving-%{version}.tbz
 
 BuildSystem:    dune
-BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-dune >= 1.6.3
 BuildRequires:  ocaml-findlib-devel

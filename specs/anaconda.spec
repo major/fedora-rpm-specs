@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.12
-Release: 3%{?dist}
+Version: 45.14
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -523,6 +523,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 29 2026 Packit <hello@packit.dev> - 45.14-1
+- fix(live): don't reboot when exiting to the live desktop (k.koukiou)
+- gui: explicitly set KS_REBOOT in the progress spoke (k.koukiou)
+- Add read-only fstab options for OSTree root and boot (tfratrik)
+- fix(storage): ensure discard option in crypttab for all LUKS devices
+  (k.koukiou)
+  Resolves: rhbz#2367388
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 45.12-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

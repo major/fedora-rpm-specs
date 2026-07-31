@@ -3,7 +3,7 @@
 
 Summary:   Local caching server
 Name:      passim
-Version:   0.1.11
+Version:   0.1.12
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}
@@ -40,6 +40,13 @@ Obsoletes: %{name} < 0.1.1-3
 %description libs
 libpassim is a library that allows software to share files on your local network
 using the passimd daemon.
+
+%package tests
+Summary: Installed tests for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description tests
+Installed tests for %{name}.
 
 %package devel
 Summary: Development package for %{name}
@@ -96,6 +103,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files libs
 %license LICENSE
 %{_libdir}/libpassim.so.1*
+
+%files tests
+%dir %{_datadir}/installed-tests/passim
+%{_datadir}/installed-tests/passim/passim-self-test.test
+%dir %{_libexecdir}/installed-tests/passim
+%{_libexecdir}/installed-tests/passim/passim-self-test
 
 %files devel
 %{_datadir}/gir-1.0/Passim-1.0.gir

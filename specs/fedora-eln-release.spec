@@ -108,10 +108,10 @@ Suggests: maven4-openjdk25
 
 # Default Node.js version, prefer over other versions for
 # nodejs(api), nodejs(engine), /usr/bin/node, /usr/bin/npm
-Suggests: nodejs24
-Suggests: nodejs24-bin
-Suggests: nodejs24-npm
-Suggests: nodejs24-npm-bin
+Suggests: nodejs26
+Suggests: nodejs26-bin
+Suggests: nodejs26-npm
+Suggests: nodejs26-npm-bin
 
 # Prefer over Fedora freeipa (same code, different name, each Provides the other)
 Suggests: ipa-client

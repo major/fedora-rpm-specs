@@ -69,12 +69,12 @@
 # of new tarballs after updating the versions, as well as stripping
 # non-permitted content from some tarballs.
 #
-%global linux_sgx_version 2.28
+%global linux_sgx_version 2.29
 # From submodule: external/dcap_source
-%global dcap_version 1.25
+%global dcap_version 1.26
 # From submodule: external/dcap_source/QuoteVerification/QVL
 # NB: follows DCAP versioning, but may skip releases
-%global dcap_qvl_version 1.25
+%global dcap_qvl_version 1.26
 # From script: external/sgxssl/prepare_sgxssl.sh
 # Should match: external/dcap_source/QuoteVerification/prepare_sgxssl.sh
 %global sgx_ssl_version 3.0_Rev5.2
@@ -90,8 +90,9 @@
 %global openssl_version 3.0.19
 # From submodule: external/cbor/libcbor
 %global libcbor_version 0.10.2
-# From submodule: external/protobuf/protobuf_code/third_party/abseil-cpp
-%global abseil_cpp_version 20230125.3
+# Obsolete: From submodule: external/protobuf/protobuf_code/third_party/abseil-cpp]
+# Override: From submodule: external/protobuf/protobuf_code/abseil-cpp
+%global abseil_cpp_version 20250512.1
 # From submodule: external/dcap_source/external/jwt-cpp
 %global jwt_cpp_version 0.6.0
 # From submodule: external/dcap_source/external/wasm-micro-runtime
@@ -238,7 +239,7 @@ Provides: bundled(ipp-crypto) = %{ipp_crypto_version}
 Source6: https://github.com/intel/sgx-emm/archive/refs/tags/sgx-emm-%{sgx_emm_version}.tar.gz
 Provides: bundled(sgx-emm) = %{sgx_emm_version}
 
-Source7: https://github.com/intel/confidential-computing.tee.dcap.qvl/archive/refs/tags/DCAP_%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
+Source7: https://github.com/intel/confidential-computing.tee.dcap.qvl/archive/refs/tags/v%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
 Provides: bundled(dcap-qvl) = %{dcap_qvl_version}
 
 
@@ -306,19 +307,17 @@ Patch0005: 0005-disable-openmp-protobuf-sample_crypto-builds.patch
 # https://github.com/intel/linux-sgx/pull/1064
 Patch0006: 0006-psw-prefer-dev-sgx_provision-dev-sgx_enclave.patch
 Patch0007: 0007-psw-fix-soname-for-libuae_service.so-library.patch
-Patch0008: 0008-pcl-remove-redundant-use-of-bool-type.patch
-Patch0009: 0009-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
-Patch0010: 0010-psw-make-aesm_service-build-verbose.patch
-Patch0011: 0011-Fix-modern-C-function-prototype-compliance.patch
-Patch0012: 0012-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
-Patch0013: 0013-linux-installer-drop-PCCS-package-from-BOM.patch
-Patch0014: 0014-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
-Patch0015: 0015-fix-BOM-for-mpa_manage-mpa_registration-files.patch
-Patch0016: 0016-fix-missing-def-of-uncaught_exception.patch
-Patch0017: 0017-sdk-adapt-to-openssl4-API-changes.patch
+Patch0008: 0008-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
+Patch0009: 0009-psw-make-aesm_service-build-verbose.patch
+Patch0010: 0010-Fix-modern-C-function-prototype-compliance.patch
+Patch0011: 0011-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
+Patch0012: 0012-linux-installer-drop-PCCS-package-from-BOM.patch
+Patch0013: 0013-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
+Patch0014: 0014-fix-BOM-for-mpa_manage-mpa_registration-files.patch
+Patch0015: 0015-fix-missing-def-of-uncaught_exception.patch
+Patch0016: 0016-sdk-adapt-to-openssl4-API-changes.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
-
 
 # 0100-0199 -> against confidential-computing.tee.dcap.git
 #
@@ -335,27 +334,22 @@ Patch0104: 0104-pcsclient-only-import-pypac-module-on-Windows.patch
 Patch0105: 0105-Look-for-PCKRetrievalTool-config-file-in-etc.patch
 Patch0106: 0106-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/428
-Patch0107: 0107-qgs-add-space-between-program-name-first-arg-in-usag.patch
-Patch0108: 0108-qgs-protect-against-format-strings-in-QL-log-message.patch
-Patch0109: 0109-qgs-add-debug-parameter-to-control-logging.patch
-Patch0110: 0110-pcsclient-remove-leftover-debugging-print-args-state.patch
-Patch0111: 0111-Fix-soname-version-for-libsgx_qe3_logic.so-library.patch
-Patch0112: 0112-Workaround-broken-GCC-15.patch
-Patch0113: 0113-Don-t-disable-cf-protection-for-qgs.patch
-Patch0114: 0114-Delete-broken-checks-for-GCC-version-that-break-fsta.patch
-#Patch0115: 0115-Use-distro-provided-rapidjson-package.patch
-Patch0116: 0116-Don-t-stomp-on-VERBOSE-variable.patch
-Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
-Patch0118: 0118-pcsclient-make-keyring-module-optional.patch
-Patch0119: 0119-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
-Patch0120: 0120-pcsclient-ignore-errors-trying-to-clear-the-keyring.patch
-Patch0121: 0121-use-system-gtest-gmock-libraries.patch
-Patch0122: 0122-Disable-PcsClientTool-package-build.patch
-Patch0123: 0123-disable-building-of-WASM-SIMDE-code.patch
-Patch0124: 0124-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
-Patch0125: 0125-Support-for-26.04-enabled-in-SGXSDK-and-DCAP.patch
-Patch0126: 0126-qpl-fix-const-correctness-for-ASN1_STRING-X509_NAME_.patch
-Patch0127: 0127-qal-force-compat-with-CMake-3.5.patch
+Patch0107: 0107-pcsclient-remove-leftover-debugging-print-args-state.patch
+Patch0108: 0108-Fix-soname-version-for-libsgx_qe3_logic.so-library.patch
+Patch0109: 0109-Workaround-broken-GCC-15.patch
+Patch0110: 0110-Don-t-disable-cf-protection-for-qgs.patch
+#Patch0111: 0111-Use-distro-provided-rapidjson-package.patch
+Patch0112: 0112-Don-t-stomp-on-VERBOSE-variable.patch
+Patch0113: 0113-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
+Patch0114: 0114-pcsclient-make-keyring-module-optional.patch
+Patch0115: 0115-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
+Patch0116: 0116-pcsclient-ignore-errors-trying-to-clear-the-keyring.patch
+Patch0117: 0117-use-system-gtest-gmock-libraries.patch
+Patch0118: 0118-Disable-PcsClientTool-package-build.patch
+Patch0119: 0119-disable-building-of-WASM-SIMDE-code.patch
+Patch0120: 0120-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
+Patch0121: 0121-qpl-fix-const-correctness-for-ASN1_STRING-X509_NAME_.patch
+Patch0122: 0122-qal-force-compat-with-CMake-3.5.patch
 
 
 # 0200-0299 -> against intel-sgx-ssl.git
@@ -812,21 +806,12 @@ do
     MITIGATION-CVE-2020-0551=$mitigation \
     clean
 
-  %__make %{?_smp_mflags} \
-    -C external/dcap_source/QuoteVerification/dcap_tvl \
-    MITIGATION-CVE-2020-0551=$mitigation \
-    clean
-
   # XXX temp override -j1 due to race conditions that have not yet been diagnosed
   %__make %{?_smp_mflags} -j1 \
     -C sdk/ V=1 \
     MITIGATION-CVE-2020-0551=$mitigation \
     USE_HOST_OPENSSL_CRYPTO=1 \
     USE_HOST_TINYXML2=%{with_host_tinyxml2}
-
-  %__make %{?_smp_mflags} \
-    -C external/dcap_source/QuoteVerification/dcap_tvl \
-    MITIGATION-CVE-2020-0551=$mitigation
 done
 
 NATIVE="sign_tool/SignTool"
@@ -1237,6 +1222,7 @@ rmdir %{buildroot}/root
 cp ./external/dcap_source/tools/PCKCertSelection/include/pck_cert_selection.h %{buildroot}%{_includedir}
 cp ./external/dcap_source/QuoteGeneration/qpl/inc/sgx_default_quote_provider.h %{buildroot}%{_includedir}
 cp ./external/dcap_source/QuoteGeneration/quote_wrapper/quote/inc/sgx_ql_core_wrapper.h %{buildroot}%{_includedir}
+cp ./external/dcap_source/QuoteVerification/appraisal/qal/sgx_dcap_qal.h %{buildroot}%{sgx_includedir}
 
 mv %{buildroot}%{_libdir}/libsgx_qe3_logic.so \
    %{buildroot}%{_libdir}/libsgx_qe3_logic.so.1.0.0
@@ -1287,6 +1273,12 @@ fi
 %endif
 
 %post -n tdx-qgs
+# --debug/--verbose were added by previous downstream patches.
+# Upstream introduced '-l <LEVEL>' for logging control, so
+# convert to new command line syntax
+sed -i -e 's/--debug/-l=debug/' \
+       -e 's/--verbose/-l=info/' \
+       /etc/sysconfig/qgs
 %systemd_post qgs.service
 
 %preun -n tdx-qgs
@@ -1341,7 +1333,9 @@ fi
 %{sgx_includedir}/sgx_attributes.h
 %{sgx_includedir}/sgx_capable.h
 %{sgx_includedir}/sgx_cpuid.h
+%{sgx_includedir}/sgx_dcap_constant_val.h
 %{sgx_includedir}/sgx_dcap_qae_tvl.h
+%{sgx_includedir}/sgx_dcap_qal_types.h
 %{sgx_includedir}/sgx_dcap_qal.h
 %{sgx_includedir}/sgx_dcap_tvl.h
 %{sgx_includedir}/sgx_defs.h
@@ -1440,6 +1434,7 @@ fi
 %{_includedir}/mp_uefi.h
 %{_includedir}/pck_cert_selection.h
 %{_includedir}/sgx_attributes.h
+%{_includedir}/sgx_dcap_qal_types.h
 %{_includedir}/sgx_dcap_ql_wrapper.h
 %{_includedir}/sgx_dcap_quoteverify.h
 %{_includedir}/sgx_default_quote_provider.h

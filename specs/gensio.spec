@@ -14,6 +14,10 @@ License:        GPL-2.0-only AND LGPL-2.1-only AND Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:         gensio-swig45.patch
+
 BuildRequires:  alsa-lib-devel
 BuildRequires:  avahi-devel
 BuildRequires:  gcc-c++

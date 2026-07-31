@@ -1,24 +1,20 @@
 %bcond oscilloscope %{undefined rhel}
 
 Name: tuna
-Version: 0.20
-Release: 6%{?dist}
+Version: 0.21
+Release: 1%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
 URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
-BuildRequires: python3-devel, gettext
+BuildRequires: python3-devel
 Requires: python3-linux-procfs >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
 
 # Patches
-Patch: tuna-Update-pyproject.toml-license-format-for-modern.patch
-Patch: tuna-Disable-the-tuna-apply-functionality.patch
-Patch: tuna-Remove-tuna-apply-from-the-man-page.patch
-Patch: tuna-Print-warning-if-setting-affinity-results-in-EP.patch
-Patch: tuna-Add-testing-infrastructure-using-unittest-frame.patch
+Patch:	tuna-Add-error-handling-to-cpuset-profile-save-funct.patch
 
 %description
 Provides interface for changing scheduler and IRQ tunables, at whole CPU and at
@@ -83,17 +79,7 @@ install -p -m644 org.tuna.policy %{buildroot}/%{_datadir}/polkit-1/actions/
 rm %{buildroot}%{_bindir}/oscilloscope
 %endif
 
-# l10n-ed message catalogues
-for lng in `cat po/LINGUAS`; do
-        po=po/"$lng.po"
-        mkdir -p %{buildroot}/%{_datadir}/locale/${lng}/LC_MESSAGES
-        msgfmt $po -o %{buildroot}/%{_datadir}/locale/${lng}/LC_MESSAGES/%{name}.mo
-done
-
-%find_lang %name
-
-%files -f %{name}.lang -f %{pyproject_files}
-%doc ChangeLog
+%files -f %{pyproject_files}
 %{_bindir}/tuna
 %{_datadir}/tuna/
 %{_mandir}/man8/tuna.8.gz
@@ -109,6 +95,11 @@ done
 %endif
 
 %changelog
+* Wed Jul 29 2026 John Kacur <jkacur@redhat.com> - 0.21-1
+- Rebased to upstream tuna-0.21
+- Added patch to improve error handling for cpuset save
+- Removed translations (po/ files)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

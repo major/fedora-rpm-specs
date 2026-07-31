@@ -663,13 +663,13 @@ echo "%{_libdir}/mysql" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arc
 
 # for back-ward compatibility and SELinux, let's keep the mysqld in libexec
 # and just create a symlink in /usr/sbin
-mv %{buildroot}%{_bindir}/mysqld %{buildroot}%{_libexecdir}/mysqld
-mkdir -p %{buildroot}%{_sbindir}
-ln -s ../libexec/mysqld %{buildroot}%{_sbindir}/mysqld
-
 %if %{with debug}
 mv %{buildroot}%{_bindir}/mysqld-debug %{buildroot}%{_libexecdir}/mysqld
+%else
+mv %{buildroot}%{_bindir}/mysqld %{buildroot}%{_libexecdir}/mysqld
 %endif
+mkdir -p %{buildroot}%{_sbindir}
+ln -s ../libexec/mysqld %{buildroot}%{_sbindir}/mysqld
 
 # copy additional docs into build tree so %%doc will find them
 install -p -m 0644 %{SOURCE6} %{_vpath_srcdir}/%{basename:%{SOURCE6}}

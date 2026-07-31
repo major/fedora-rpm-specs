@@ -1,6 +1,6 @@
 Name:           mstore
 Version:        0.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Molecular structure store for testing
 License:        Apache-2.0
 URL:            https://github.com/grimme-lab/mstore
@@ -8,7 +8,7 @@ Source0:        https://github.com/grimme-lab/mstore/archive/v%{version}/%{name}
 
 BuildRequires:  meson
 BuildRequires:  gcc-gfortran
-BuildRequires:  mctc-lib-devel
+BuildRequires:  mctc-lib-devel >= 0.5.2
 
 %description
 Molecular structure store for testing
@@ -50,6 +50,9 @@ mv %{buildroot}%{_includedir}/mstore/gcc-*/*.mod %{buildroot}%{_libdir}/gfortran
 %{_libdir}/pkgconfig/mstore.pc
 
 %changelog
+* Wed Jul 29 2026 Susi Lehtola <susi.lehtola@iki.fi> - 0.3.0-7
+- Rebuild against mctc-lib update.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

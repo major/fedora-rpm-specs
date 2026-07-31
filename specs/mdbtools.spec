@@ -1,10 +1,11 @@
 Name:           mdbtools
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Access data stored in Microsoft Access databases
 License:        GPL-2.0-or-later
 URL:            https://github.com/mdbtools/mdbtools/
 Source0:        https://github.com/mdbtools/mdbtools/releases/download/v%{version}/mdbtools-%{version}.tar.gz
+Source3:        10-mdbtools.ini
 BuildRequires:  make gcc
 BuildRequires:  libxml2-devel glib2-devel unixODBC-devel readline-devel gettext-devel
 BuildRequires:  bison flex txt2man rarian-compat bash-completion
@@ -62,6 +63,10 @@ autoreconf -vif
 %make_install
 find %{buildroot} -type f -name "*.la" -delete
 
+# ODBC driver registration drop-in snippet
+mkdir -p %{buildroot}%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE3} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
+
 
 %ldconfig_scriptlets libs
 
@@ -85,9 +90,15 @@ find %{buildroot} -type f -name "*.la" -delete
 
 %files odbc
 %{_libdir}/odbc
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-mdbtools.ini
 
 
 %changelog
+* Mon Jul 20 2026 Michal Schorm <mschorm@redhat.com> - 1.0.1-3
+- Ship drop-in snippet for ODBC driver self-registration
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

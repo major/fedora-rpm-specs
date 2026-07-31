@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -14,6 +11,9 @@ License:        ISC
 URL:            https://github.com/patricoferris/ppx_deriving_yaml
 VCS:            git:%{url}.git
 Source:         %{url}/releases/download/v%{version}/ppx_deriving_yaml-%{version}.tbz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildSystem: dune
 BuildOption(build): -p ppx_deriving_yaml

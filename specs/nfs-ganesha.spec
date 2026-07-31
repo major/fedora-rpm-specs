@@ -154,8 +154,8 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	12.0
-Release:	3%{?dev:%{dev}}%{?dist}
+Version:	13.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -1011,6 +1011,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Jul 29 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 13.0-1
+- NFS-Ganesha 13.0 GA
+
 * Mon Jul 27 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 12.0-1
 - NFS-Ganesha 12.0, options for PRIO_INHERIT and INTERNAL_STATD,
   including Python 3.15.0b4 ABI change

@@ -75,7 +75,9 @@ desktop must be running.
 %package mysql
 Summary:    NCID mysql module inputs Caller ID information into a SQL database
 BuildArch:  noarch
-Requires:   %{name}-client = %{version}-%{release}, mysql
+Requires:   %{name}-client = %{version}-%{release}
+Requires:   mysql-any
+Recommends: mysql
 
 %description mysql
 The NCID mysql module inputs NCID Caller information into a SQL database

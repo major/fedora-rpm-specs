@@ -1,5 +1,5 @@
 Name:           python-types-docutils
-Version:        0.22.3.20260518
+Version:        0.22.3.20260724
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 
@@ -10,6 +10,8 @@ Source:         %{pypi_source types_docutils}
 
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+
 %global _description %{expand:
 This is a PEP 561 type stub package for the docutils package. It can be
 used by type-checking tools like mypy, PyCharm, pytype etc. to check
@@ -19,7 +21,6 @@ code that uses docutils.}
 
 %package -n python3-types-docutils
 Summary:        %{summary}
-BuildRequires:  python3-devel
 
 %description -n python3-types-docutils %_description
 

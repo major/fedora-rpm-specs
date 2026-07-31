@@ -150,6 +150,9 @@ Patch:          0001-fix-Support-invent.kde.org-and-work_items-in-bug-URL.patch
 # https://github.com/os-autoinst/openQA/pull/7634
 # Drop token equality test that is invalid with Mojolicious 9.48+
 Patch:          0001-fix-test-Drop-test-for-token-equality.patch
+# https://github.com/os-autoinst/openQA/pull/7688
+# Add forge.fp.o support for bugurl/bugref stuff
+Patch:          0001-fix-Add-forge.fedoraproject.org-to-the-bugurl-bugref.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}

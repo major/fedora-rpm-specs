@@ -10,7 +10,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools >= 80
-BuildRequires:  python3-setuptools-scm >= 8
+BuildRequires:  python3-setuptools_scm >= 8
 BuildRequires:  python3-wheel
 
 %global _description %{expand:

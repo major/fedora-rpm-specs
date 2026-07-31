@@ -47,8 +47,6 @@ BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  ocaml-zarith-devel
 BuildRequires:  ocaml-zip-devel
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
 BuildRequires:  rocq
 BuildRequires:  texlive-latex
 BuildRequires:  vim-filesystem

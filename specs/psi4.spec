@@ -14,19 +14,20 @@ ExcludeArch: %{ix86}
 
 Name:           psi4
 Epoch:          1
-Version:        1.10.0
-Release:        0.2.alpha%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        An ab initio quantum chemistry package
 # Automatically converted from old format: LGPLv3 and MIT - review is highly recommended.
 License:        LGPL-3.0-only AND LicenseRef-Callaway-MIT
 URL:            http://www.psicode.org/
-#Source0:        https://github.com/psi4/psi4/archive/v%{version}/psi4-%{version}.tar.gz
-Source0:        https://github.com/psi4/psi4/archive/refs/heads/master.zip
+Source0:        https://github.com/psi4/psi4/archive/v%{version}/psi4-%{version}.tar.gz
 
-# Make qcmanybody optional
-Patch0:         https://github.com/psi4/psi4/pull/3389.patch
-# Fix the propagation of cmake flags to the deeper build
-Patch1:         https://github.com/psi4/psi4/pull/3400.patch
+# Make qcmanybody optional, from https://github.com/psi4/psi4/pull/3389.patch
+Patch0:         3389_new.patch
+# Patch for libxc 7.1.x compatibility
+Patch1:         https://github.com/psi4/psi4/pull/3464.patch
+# Don't strip the debuginfo
+Patch2:         psi4-1.11-nostrip.patch
 
 BuildRequires:  cmake
 BuildRequires:  bison-devel
@@ -80,6 +81,7 @@ Requires:       python3-qcengine
 Requires:       python3-qcelemental
 Requires:       python3-deepdiff
 Requires:       python3-optking
+Requires:       python3-dftd4
 # For directory ownership
 Requires:       cmake
 
@@ -116,10 +118,10 @@ This package contains necessary data files for PSI4, e.g., basis sets
 and the quadrature grids.
 
 %prep
-#setup -q
-%setup -q -n psi4-master
+%setup -q
 %patch -P 0 -p 1 -b .noqcmb
-%patch -P 1 -p 1 -b .cmakeflags
+%patch -P 1 -p 1 -b .libxc710
+%patch -P 2 -p 1 -b .nostrip
 # Prevent versioner from seeing any top-level git directories
 sed -i 's/if is_git_repo(cwd=cwd, extraneous_toplevel_patterns=.*):/if False:/' psi4/versioner.py
 
@@ -174,6 +176,9 @@ ctest -L smoketests --output-on-failure
 %{_datadir}/psi4/
 
 %changelog
+* Wed Jul 29 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.11-1
+- Update to 1.11.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.0-0.2.alpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

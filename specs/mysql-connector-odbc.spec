@@ -13,6 +13,7 @@ License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
 
 Source0:        https://cdn.mysql.com/Downloads/Connector-ODBC/9.7/%{name}-%{version}-src.tar.gz
+Source1:        10-mysql.ini
 Patch0:         myodbc-64bit.patch
 Patch3:         mysql-connector-odbc-rpath.patch
 
@@ -73,12 +74,19 @@ mv %{buildroot}%{_libdir}/libmyodbc*.so %{buildroot}%{_libdir}/odbc/
 # We don't include the test suite until it works fine.
 rm -rf %{buildroot}/usr/test
 
+# ODBC driver registration drop-in snippet
+mkdir -p %{buildroot}%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
+
 %files
 %license LICENSE.txt
 %doc ChangeLog README.txt
 %{_libdir}/odbc/libmyodbc9.so
 %{_libdir}/odbc/libmyodbc9a.so
 %{_libdir}/odbc/libmyodbc9w.so
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-mysql.ini
 
 %changelog
 %autochangelog

@@ -18,10 +18,8 @@ Patch:          https://github.com/SELinuxProject/setools/pull/156.patch
 Patch:          https://github.com/SELinuxProject/setools/pull/157.patch
 
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
-BuildRequires:  flex,  bison
 BuildRequires:  glibc-devel, gcc, git-core
-BuildRequires:  libsepol-devel >= %{sepol_ver}, libsepol-static >= %{sepol_ver}
-BuildRequires:  swig
+BuildRequires:  libsepol-devel >= %{sepol_ver}
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  libselinux-devel

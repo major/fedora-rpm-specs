@@ -3,13 +3,16 @@
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
 Version: 1.4.23
-Release: 6%{?dist}
+Release: 8%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.freetds.org/
 
 Source0: https://www.freetds.org/files/stable/%{name}-%{version}.tar.bz2
 Source1: freetds-tds_sysdep_public.h
+Source2: 10-freetds.ini
+
+Patch0: freetds-1.4.23-nettle4.patch
 
 BuildRequires: unixODBC-devel, readline-devel, gnutls-devel, krb5-devel
 BuildRequires: libgcrypt-devel
@@ -61,6 +64,7 @@ If you like to develop programs using %{name}, you will need to install
 
 %prep 
 %setup -q
+%patch -P0 -p1
 
 #  correct perl path
 sed -i '1 s,#!.*/perl,#!%{__perl},' samples/*.pl
@@ -118,6 +122,10 @@ mv -f samples/unixodbc.freetds.driver.template \
 mkdir samples-odbc
 mv -f samples/*odbc* samples-odbc
 
+# ODBC driver registration drop-in snippet
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_prefix}/lib/odbc/odbcinst.d/
+
 #  deinstall it for our own way...
 mv -f $RPM_BUILD_ROOT%{_docdir}/%{name} docdir
 find docdir -type f -print0 | xargs -0 chmod -x
@@ -140,6 +148,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
 %{_libdir}/*.so.*
 %dir %{_libdir}/odbc
 %{_libdir}/odbc/libtdsodbc.so
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-freetds.ini
 %doc samples-odbc
 %config(noreplace) %{_sysconfdir}/*.conf
 %{_mandir}/man5/*
@@ -158,6 +169,12 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Wed Jul 29 2026 Michal Schorm <mschorm@redhat.com> - 1.4.23-8
+- Fix FTBFS with nettle 4.0: 'sha1_digest()' also lost length parameter
+
+* Mon Jul 20 2026 Michal Schorm <mschorm@redhat.com> - 1.4.23-7
+- Ship drop-in snippet for ODBC driver self-registration
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

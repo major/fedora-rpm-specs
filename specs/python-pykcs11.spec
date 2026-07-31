@@ -18,6 +18,9 @@ Source:         %{pypi_source}
 # Add Fedora PyKCS11 library location search path
 # https://github.com/LudovicRousseau/PyKCS11/pull/113
 Patch:          %{url}/pull/113.patch#/Add-Fedora-PyKCS11-library-location-search-path.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch:          python-pykcs11-swig45.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -51,7 +54,7 @@ BuildArch:      noarch
 Documentation for %{pypi_name}.
 
 %prep
-%autosetup -n pykcs11-%{version}
+%autosetup -p1 -n pykcs11-%{version}
 # rpmlint fixes
 #   * E: env-script-interpreter
 #     - Remove shebang from Python libraries

@@ -10,13 +10,13 @@ Name:             dogtag-pki
 
 # Upstream version number:
 %global           major_version 11
-%global           minor_version 9
+%global           minor_version 10
 %global           update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 2
+%global           release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 
 # To create a tarball from a version tag:
@@ -42,9 +42,6 @@ Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timesta
 #     -o pki-<version>.tar.gz \
 #     <version tag>
 Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}/pki-%{version}%{?phase:-}%{?phase}.tar.gz
-
-# https://github.com/dogtagpki/pki/pull/5390
-Patch: eln-build.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -105,8 +102,8 @@ ExcludeArch: i686
 # Use external build dependencies unless --without build_deps is specified.
 %bcond_without build_deps
 
-# Use bundled runtime dependencies unless --with runtime_deps is specified.
-%bcond_with runtime_deps
+# Use external runtime dependencies unless --with runtime_deps is specified.
+%bcond_without runtime_deps
 
 # Build with Maven unless --without maven is specified.
 %bcond_without maven
@@ -131,9 +128,17 @@ ExcludeArch: i686
 %bcond_without meta
 %bcond_without tests
 %bcond_without debug
+%bcond_with apiv1
 
 # Don't build console unless --with console is specified.
 %bcond_with console
+
+# Build API v1 if not excluded
+%if %{with apiv1}
+%global build_api_v1 1
+%else
+%global build_api_v1 0
+%endif
 
 %if ! %{with debug}
 %define debug_package %{nil}
@@ -187,7 +192,7 @@ BuildRequires:    gcc-c++
 BuildRequires:    zip
 
 BuildRequires:    nspr-devel
-BuildRequires:    nss-devel >= 3.101
+BuildRequires:    nss-devel >= 3.123
 
 BuildRequires:    openldap-devel
 BuildRequires:    pkgconfig
@@ -208,26 +213,26 @@ BuildRequires:    xmlstarlet
 BuildRequires:    tomcat-lib >= 1:10.1.36
 BuildRequires:    tomcat-jakartaee-migration
 
-BuildRequires:     pki-resteasy-core                 >= 3.0.26
-BuildRequires:     pki-resteasy-client               >= 3.0.26
-BuildRequires:     pki-resteasy-servlet-initializer  >= 3.0.26
-BuildRequires:     pki-resteasy-jackson2-provider    >= 3.0.26
+BuildRequires:    dogtag-jss >= 5.10.1
 
-BuildRequires:     dogtag-jss >= 5.9
-
-BuildRequires:    mvn(commons-cli:commons-cli)
-BuildRequires:    mvn(commons-codec:commons-codec)
-BuildRequires:    mvn(commons-io:commons-io)
-BuildRequires:    mvn(commons-logging:commons-logging)
-BuildRequires:    mvn(commons-net:commons-net)
-BuildRequires:    mvn(org.apache.commons:commons-lang3)
-BuildRequires:    mvn(org.apache.httpcomponents:httpclient)
-BuildRequires:    mvn(org.slf4j:slf4j-api)
 BuildRequires:    mvn(xml-apis:xml-apis)
 BuildRequires:    mvn(xml-resolver:xml-resolver)
 BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-api)
 
 %if %{with build_deps}
+BuildRequires:    mvn(commons-cli:commons-cli)
+BuildRequires:    mvn(commons-codec:commons-codec)
+BuildRequires:    mvn(commons-io:commons-io)
+BuildRequires:    mvn(org.apache.commons:commons-lang3)
+BuildRequires:    mvn(commons-logging:commons-logging)
+BuildRequires:    mvn(commons-net:commons-net)
+
+BuildRequires:    mvn(org.apache.httpcomponents:httpclient)
+BuildRequires:    mvn(org.apache.httpcomponents:httpcore)
+
+BuildRequires:    mvn(org.slf4j:slf4j-api)
+BuildRequires:    mvn(org.slf4j:slf4j-jdk14)
+
 BuildRequires:    mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:    mvn(jakarta.annotation:jakarta.annotation-api)
 BuildRequires:    mvn(jakarta.xml.bind:jakarta.xml.bind-api)
@@ -236,9 +241,10 @@ BuildRequires:    mvn(com.fasterxml.jackson.core:jackson-annotations)
 BuildRequires:    mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires:    mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires:    mvn(com.fasterxml.jackson.module:jackson-module-jaxb-annotations)
+
+%if %{build_api_v1}
 BuildRequires:    mvn(com.fasterxml.jackson.jaxrs:jackson-jaxrs-base)
 BuildRequires:    mvn(com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider)
-
 BuildRequires:    mvn(org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec)
 BuildRequires:    mvn(org.jboss.logging:jboss-logging)
 
@@ -246,6 +252,7 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-jaxrs)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-client)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
+%endif
 
 %endif
 
@@ -254,8 +261,8 @@ BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.36
 BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.36
 BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.36
 
-BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.9
-BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.9
+BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.10
+BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.10
 BuildRequires:    mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 
 # Python build dependencies
@@ -496,7 +503,7 @@ BuildArch:        noarch
 Obsoletes:        pki-base < %{version}-%{release}
 Provides:         pki-base = %{version}-%{release}
 
-Requires:         nss >= 3.101
+Requires:         nss >= 3.123
 
 Requires:         python3-pki = %{version}-%{release}
 Requires(post):   python3-pki = %{version}-%{release}
@@ -567,15 +574,17 @@ Requires:         mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 Requires:         mvn(com.fasterxml.jackson.core:jackson-annotations)
 Requires:         mvn(com.fasterxml.jackson.core:jackson-core)
 Requires:         mvn(com.fasterxml.jackson.core:jackson-databind)
+
+%if %{build_api_v1}
 Requires:         mvn(com.fasterxml.jackson.jaxrs:jackson-jaxrs-base)
 Requires:         mvn(com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider)
-
 Requires:         mvn(org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec)
 Requires:         mvn(org.jboss.logging:jboss-logging)
 
 Requires:         mvn(org.jboss.resteasy:resteasy-jaxrs)
 Requires:         mvn(org.jboss.resteasy:resteasy-client)
 Requires:         mvn(org.jboss.resteasy:resteasy-jackson2-provider)
+%endif
 %else
 Provides:         bundled(jakarta-activation)
 Provides:         bundled(jakarta-annotations)
@@ -585,6 +594,8 @@ Provides:         bundled(jackson-annotations)
 Provides:         bundled(jackson-core)
 Provides:         bundled(jackson-databind)
 Provides:         bundled(jackson-modules-base)
+
+%if %{build_api_v1}
 Provides:         bundled(jackson-jaxrs-providers)
 Provides:         bundled(jackson-jaxrs-json-provider)
 
@@ -595,8 +606,8 @@ Provides:         bundled(resteasy-jaxrs)
 Provides:         bundled(resteasy-client)
 Provides:         bundled(resteasy-jackson2-provider)
 %endif
-
-Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.9.0
+%endif
+Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.10
 Requires:         mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 Requires:         %{product_id}-base = %{version}-%{release}
 
@@ -613,7 +624,7 @@ Obsoletes:        pki-tools < %{version}-%{release}
 Provides:         pki-tools = %{version}-%{release}
 
 Requires:         openldap-clients
-Requires:         nss-tools >= 3.101
+Requires:         nss-tools >= 3.123
 Requires:         %{product_id}-java = %{version}-%{release}
 Requires:         p11-kit-trust
 Requires:         file
@@ -665,15 +676,17 @@ Requires:         python3-policycoreutils
 
 Requires:         selinux-policy-targeted >= 3.13.1-159
 
+%if %{build_api_v1}
 %if %{with runtime_deps}
 Requires:         mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 %else
 Provides:         bundled(resteasy-servlet-initializer)
 %endif
+%endif
 
 Requires:         tomcat >= 1:10.1.36
 
-Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.9.0
+Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.10
 
 Requires:         systemd
 Requires(post):   systemd-units
@@ -905,7 +918,7 @@ Requires(postun): systemd-units
 # additional runtime requirements needed to run native 'tpsclient'
 # REMINDER:  Revisit these once 'tpsclient' is rewritten as a Java app
 
-Requires:         nss-tools >= 3.101
+Requires:         nss-tools >= 3.123
 Requires:         openldap-clients
 
 %description -n   %{product_id}-tps
@@ -1055,132 +1068,332 @@ This package provides test suite for %{product_name}.
 
 %autosetup -n pki-%{version}%{?phase:-}%{?phase} -p 1
 
-#migrate the source first because we are starting with tomcat 9 code, so we can build against either tomcat 9 or 10.1, based on the build platform
-/usr/bin/javax2jakarta -profile=EE -exclude=./base/tomcat-9.0 ./base ./base 
 %if %{without runtime_deps}
 
-if [ ! -d base/common/lib ]
+if [ -d base/common/lib ]
 then
-    # import common libraries from RPMs
+    pushd base/common/lib
 
+    # get JAR versions
+    COMMONS_CLI_VERSION=$(ls commons-cli-*.jar | sed 's/^commons-cli-\(.*\)\.jar$/\1/')
+    COMMONS_CODEC_VERSION=$(ls commons-codec-*.jar | sed 's/^commons-codec-\(.*\)\.jar$/\1/')
+    COMMONS_IO_VERSION=$(ls commons-io-*.jar | sed 's/^commons-io-\(.*\)\.jar$/\1/')
+    COMMONS_LANG3_VERSION=$(ls commons-lang3-*.jar | sed 's/^commons-lang3-\(.*\)\.jar$/\1/')
+    COMMONS_LOGGING_VERSION=$(ls commons-logging-*.jar | sed 's/^commons-logging-\(.*\)\.jar$/\1/')
+    COMMONS_NET_VERSION=$(ls commons-net-*.jar | sed 's/^commons-net-\(.*\)\.jar$/\1/')
+    HTTPCLIENT_VERSION=$(ls httpclient-*.jar | sed 's/^httpclient-\(.*\)\.jar$/\1/')
+    HTTPCORE_VERSION=$(ls httpcore-*.jar | sed 's/^httpcore-\(.*\)\.jar$/\1/')
+    SLF4J_VERSION=$(ls slf4j-api-*.jar | sed 's/^slf4j-api-\(.*\)\.jar$/\1/')
+    JAKARTA_ACTIVATION_API_VERSION=$(ls jakarta.activation-api-*.jar | sed 's/^jakarta\.activation-api-\(.*\)\.jar$/\1/')
+    JAKARTA_ANNOTATION_API_VERSION=$(ls jakarta.annotation-api-*.jar | sed 's/^jakarta\.annotation-api-\(.*\)\.jar$/\1/')
+    JAXB_API_VERSION=$(ls jakarta.xml.bind-api-*.jar | sed 's/^jakarta\.xml\.bind-api-\(.*\)\.jar$/\1/')
+    JACKSON_ANNOTATIONS_VERSION=$(ls jackson-annotations-*.jar | sed 's/^jackson-annotations-\(.*\)\.jar$/\1/')
+    JACKSON_CORE_VERSION=$(ls jackson-core-*.jar | sed 's/^jackson-core-\(.*\)\.jar$/\1/')
+%if %{build_api_v1}
+    JAXRS_VERSION=$(ls jboss-jaxrs-api_2.0_spec-*.jar | sed 's/^jboss-jaxrs-api_2\.0_spec-\(.*\)\.jar$/\1/')
+    JBOSS_LOGGING_VERSION=$(ls jboss-logging-*.jar| sed 's/^jboss-logging-\(.*\)\.jar$/\1/')
+    RESTEASY_VERSION=$(ls resteasy-jaxrs-*.jar | sed 's/^resteasy-jaxrs-\(.*\)\.jar$/\1/')
+%endif
+
+    popd
+
+else
     mkdir -p base/common/lib
     pushd base/common/lib
 
+    # get RPM versions
+    COMMONS_CLI_VERSION=$(rpm -q apache-commons-cli | sed -n 's/^apache-commons-cli-\([^-]*\)-.*$/\1/p')
+    COMMONS_CODEC_VERSION=$(rpm -q apache-commons-codec | sed -n 's/^apache-commons-codec-\([^-]*\)-.*$/\1/p')
+    COMMONS_IO_VERSION=$(rpm -q apache-commons-io | sed -n 's/^apache-commons-io-\([^-]*\)-.*$/\1/p')
+    COMMONS_LANG3_VERSION=$(rpm -q apache-commons-lang3 | sed -n 's/^apache-commons-lang3-\([^-]*\)-.*$/\1/p')
+    COMMONS_LOGGING_VERSION=$(rpm -q apache-commons-logging | sed -n 's/^apache-commons-logging-\([^-]*\)-.*$/\1/p')
+    COMMONS_NET_VERSION=$(rpm -q apache-commons-net | sed -n 's/^apache-commons-net-\([^-]*\)-.*$/\1/p')
+    HTTPCLIENT_VERSION=$(rpm -q httpcomponents-client | sed -n 's/^httpcomponents-client-\([^-]*\)-.*$/\1/p')
+    HTTPCORE_VERSION=$(rpm -q httpcomponents-core | sed -n 's/^httpcomponents-core-\([^-]*\)-.*$/\1/p')
+    SLF4J_VERSION=$(rpm -q slf4j | sed -n 's/^slf4j-\([^-]*\)-.*$/\1/p')
     JAKARTA_ACTIVATION_API_VERSION=$(rpm -q jakarta-activation | sed -n 's/^jakarta-activation-\([^-]*\)-.*$/\1/p')
-    echo "JAKARTA_ACTIVATION_API_VERSION: $JAKARTA_ACTIVATION_API_VERSION"
-
-    cp /usr/share/java/jakarta-activation/jakarta.activation-api.jar \
-        jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar
-
     JAKARTA_ANNOTATION_API_VERSION=$(rpm -q jakarta-annotations | sed -n 's/^jakarta-annotations-\([^-]*\)-.*$/\1/p')
-    echo "JAKARTA_ANNOTATION_API_VERSION: $JAKARTA_ANNOTATION_API_VERSION"
-
-    cp /usr/share/java/jakarta-annotations/jakarta.annotation-api.jar \
-        jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar
-
     JAXB_API_VERSION=$(rpm -q jaxb-api | sed -n 's/^jaxb-api-\([^-]*\)-.*$/\1/p')
-    echo "JAXB_API_VERSION: $JAXB_API_VERSION"
+    JACKSON_ANNOTATIONS_VERSION=$(rpm -q jackson-annotations | sed -n 's/^jackson-annotations-\([^-]*\)-.*$/\1/p')
+    JACKSON_CORE_VERSION=$(rpm -q jackson-core | sed -n 's/^jackson-core-\([^-]*\)-.*$/\1/p')
+%if %{build_api_v1}
+    JAXRS_VERSION=$(rpm -q jboss-jaxrs-2.0-api | sed -n 's/^jboss-jaxrs-2.0-api-\([^-]*\)-.*$/\1.Final/p')
+    JBOSS_LOGGING_VERSION=$(rpm -q jboss-logging | sed -n 's/^jboss-logging-\([^-]*\)-.*$/\1.Final/p')
+    RESTEASY_VERSION=$(rpm -q pki-resteasy-core | sed -n 's/^pki-resteasy-core-\([^-]*\)-.*$/\1.Final/p')
+%endif
+
+    # import common libraries from RPMs
+    cp /usr/share/java/commons-cli.jar commons-cli-$COMMONS_CLI_VERSION.jar
+    cp /usr/share/java/commons-codec.jar commons-codec-$COMMONS_CODEC_VERSION.jar
+    cp /usr/share/java/commons-io.jar commons-io-$COMMONS_IO_VERSION.jar
+    cp /usr/share/java/commons-lang3.jar commons-lang3-$COMMONS_LANG3_VERSION.jar
+    cp /usr/share/java/commons-logging.jar commons-logging-$COMMONS_LOGGING_VERSION.jar
+    cp /usr/share/java/commons-net.jar commons-net-$COMMONS_NET_VERSION.jar
+    cp /usr/share/java/httpcomponents/httpclient.jar httpclient-$HTTPCLIENT_VERSION.jar
+    cp /usr/share/java/httpcomponents/httpcore.jar httpcore-$HTTPCORE_VERSION.jar
+    cp /usr/share/java/slf4j/slf4j-api.jar slf4j-api-$SLF4J_VERSION.jar
+    cp /usr/share/java/slf4j/slf4j-jdk14.jar slf4j-jdk14-$SLF4J_VERSION.jar
+    cp /usr/share/java/jakarta-activation/jakarta.activation-api.jar jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar
+    cp /usr/share/java/jakarta-annotations/jakarta.annotation-api.jar jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar
 
     if [ -f /usr/share/java/jaxb-api.jar ]
     then
-        cp /usr/share/java/jaxb-api.jar \
-            jakarta.xml.bind-api-$JAXB_API_VERSION.jar
+        cp /usr/share/java/jaxb-api.jar jakarta.xml.bind-api-$JAXB_API_VERSION.jar
     elif [ -f /usr/share/java/jaxb-api/jakarta.xml.bind-api.jar ]
     then
-        cp /usr/share/java/jaxb-api/jakarta.xml.bind-api.jar \
-            jakarta.xml.bind-api-$JAXB_API_VERSION.jar
+        cp /usr/share/java/jaxb-api/jakarta.xml.bind-api.jar jakarta.xml.bind-api-$JAXB_API_VERSION.jar
     fi
 
-    JACKSON_VERSION=$(rpm -q jackson-annotations | sed -n 's/^jackson-annotations-\([^-]*\)-.*$/\1/p')
-    echo "JACKSON_VERSION: $JACKSON_VERSION"
-
-    cp /usr/share/java/jackson-annotations.jar \
-        jackson-annotations-$JACKSON_VERSION.jar
-    cp /usr/share/java/jackson-core.jar \
-        jackson-core-$JACKSON_VERSION.jar
-    cp /usr/share/java/jackson-databind.jar \
-        jackson-databind-$JACKSON_VERSION.jar
-    cp /usr/share/java/jackson-jaxrs-providers/jackson-jaxrs-base.jar \
-        jackson-jaxrs-base-$JACKSON_VERSION.jar
-    cp /usr/share/java/jackson-jaxrs-providers/jackson-jaxrs-json-provider.jar \
-        jackson-jaxrs-json-provider-$JACKSON_VERSION.jar
-    cp /usr/share/java/jackson-modules/jackson-module-jaxb-annotations.jar \
-        jackson-module-jaxb-annotations-$JACKSON_VERSION.jar
-
-    JAXRS_VERSION=$(rpm -q jboss-jaxrs-2.0-api | sed -n 's/^jboss-jaxrs-2.0-api-\([^-]*\)-.*$/\1.Final/p')
-    echo "JAXRS_VERSION: $JAXRS_VERSION"
-
-    cp /usr/share/java/jboss-jaxrs-2.0-api.jar \
-        jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
-
-    JBOSS_LOGGING_VERSION=$(rpm -q jboss-logging | sed -n 's/^jboss-logging-\([^-]*\)-.*$/\1.Final/p')
-    echo "JBOSS_LOGGING_VERSION: $JBOSS_LOGGING_VERSION"
-
-    cp /usr/share/java/jboss-logging/jboss-logging.jar \
-        jboss-logging-$JBOSS_LOGGING_VERSION.jar
-
-    RESTEASY_VERSION=$(rpm -q pki-resteasy-core | sed -n 's/^pki-resteasy-core-\([^-]*\)-.*$/\1.Final/p')
-    echo "RESTEASY_VERSION: $RESTEASY_VERSION"
-
-    cp /usr/share/java/resteasy/resteasy-jaxrs.jar \
-        resteasy-jaxrs-$RESTEASY_VERSION.jar
-    cp /usr/share/java/resteasy/resteasy-client.jar \
-        resteasy-client-$RESTEASY_VERSION.jar
-    cp /usr/share/java/resteasy/resteasy-jackson2-provider.jar \
-        resteasy-jackson2-provider-$RESTEASY_VERSION.jar
-
-    #migrate necessary files being copied around to jakarta 9.0 ee
-
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar  jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar 
-
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-json-provider-$JACKSON_VERSION.jar jackson-jaxrs-json-provider-$JACKSON_VERSION.jar
-
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-annotations-$JACKSON_VERSION.jar jackson-annotations-$JACKSON_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-core-$JACKSON_VERSION.jar  jackson-core-$JACKSON_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-databind-$JACKSON_VERSION.jar jackson-databind-$JACKSON_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-base-$JACKSON_VERSION.jar  jackson-jaxrs-base-$JACKSON_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-json-provider-$JACKSON_VERSION.jar jackson-jaxrs-json-provider-$JACKSON_VERSION.jar 
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-module-jaxb-annotations-$JACKSON_VERSION.jar jackson-module-jaxb-annotations-$JACKSON_VERSION.jar
-
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar  jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar  
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.xml.bind-api-$JAXB_API_VERSION.jar jakarta.xml.bind-api-$JAXB_API_VERSION.jar 
-
-    # Now migrate the required resteasy jars, in case we are using an existing resteasy version.
-
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-client-$RESTEASY_VERSION.jar  resteasy-client-$RESTEASY_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-jackson2-provider-$RESTEASY_VERSION.jar resteasy-jackson2-provider-$RESTEASY_VERSION.jar
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-jaxrs-$RESTEASY_VERSION.jar  resteasy-jaxrs-$RESTEASY_VERSION.jar
-
-    # Add local artifact so we can compile against the migrated jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
-    # We could have used the maven install plugin but it's not available with standard rpms.
-
-    # Create the local artifact structure
-    mkdir -p ~/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION
-    # Copy over the jaxrs api so we can compile
-    cp jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar  ~/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION/jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
+    cp /usr/share/java/jackson-annotations.jar jackson-annotations-$JACKSON_ANNOTATIONS_VERSION.jar
+    cp /usr/share/java/jackson-core.jar jackson-core-$JACKSON_CORE_VERSION.jar
+    cp /usr/share/java/jackson-databind.jar jackson-databind-$JACKSON_CORE_VERSION.jar
+    cp /usr/share/java/jackson-modules/jackson-module-jaxb-annotations.jar jackson-module-jaxb-annotations-$JACKSON_CORE_VERSION.jar
+%if %{build_api_v1}
+    cp /usr/share/java/jackson-jaxrs-providers/jackson-jaxrs-base.jar jackson-jaxrs-base-$JACKSON_CORE_VERSION.jar
+    cp /usr/share/java/jackson-jaxrs-providers/jackson-jaxrs-json-provider.jar jackson-jaxrs-json-provider-$JACKSON_CORE_VERSION.jar
+    cp /usr/share/java/jboss-jaxrs-2.0-api.jar jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
+    cp /usr/share/java/jboss-logging/jboss-logging.jar jboss-logging-$JBOSS_LOGGING_VERSION.jar
+    cp /usr/share/java/resteasy/resteasy-jaxrs.jar resteasy-jaxrs-$RESTEASY_VERSION.jar
+    cp /usr/share/java/resteasy/resteasy-client.jar resteasy-client-$RESTEASY_VERSION.jar
+    cp /usr/share/java/resteasy/resteasy-jackson2-provider.jar resteasy-jackson2-provider-$RESTEASY_VERSION.jar
+%endif
 
     popd
 fi
 
+%if %{build_api_v1}
 if [ ! -d base/server/lib ]
 then
-    # import server libraries from RPMs
-
     mkdir -p base/server/lib
     pushd base/server/lib
 
-    RESTEASY_VERSION=$(rpm -q pki-resteasy-servlet-initializer | sed -n 's/^pki-resteasy-servlet-initializer-\([^-]*\)-.*$/\1.Final/p')
-    echo "RESTEASY_VERSION: $RESTEASY_VERSION"
+    # import server libraries from RPMs
+    cp /usr/share/java/resteasy/resteasy-servlet-initializer.jar resteasy-servlet-initializer-$RESTEASY_VERSION.jar
 
-    cp /usr/share/java/resteasy/resteasy-servlet-initializer.jar \
-        resteasy-servlet-initializer-$RESTEASY_VERSION.jar
-
-    # Migrate the resteasy servlet initializer, in case we are using an existing resteasy version.
-    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-servlet-initializer-$RESTEASY_VERSION.jar resteasy-servlet-initializer-$RESTEASY_VERSION.jar
-    ls -l
     popd
 fi
+%endif
+%endif
+
+# migrate PKI sources to Jakarta for Tomcat 10
+javax2jakarta \
+    -logLevel=FINE \
+    -profile=EE \
+    -exclude=./base/tomcat-9.0 \
+    ./base \
+    ./base
+
+if [ -d base/common/lib ]
+then
+    # migrate common libraries
+    pushd base/common/lib
+
+    # migrate jakarta.activation
+    jar tvf jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar \
+        jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar
+
+    # migrate javax.annotation and jakarta.annotation
+    jar tvf jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar \
+        jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar
+
+    # migrate jakarta.xml.bind
+    jar tvf jakarta.xml.bind-api-$JAXB_API_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jakarta.xml.bind-api-$JAXB_API_VERSION.jar \
+        jakarta.xml.bind-api-$JAXB_API_VERSION.jar
+
+    # migrate com.fasterxml.jackson.annotation
+    jar tvf jackson-annotations-$JACKSON_ANNOTATIONS_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-annotations-$JACKSON_ANNOTATIONS_VERSION.jar \
+        jackson-annotations-$JACKSON_ANNOTATIONS_VERSION.jar
+
+    # migrate com.fasterxml.jackson.core
+    jar tvf jackson-core-$JACKSON_CORE_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-core-$JACKSON_CORE_VERSION.jar \
+        jackson-core-$JACKSON_CORE_VERSION.jar
+
+    # migrate com.fasterxml.jackson.databind
+    jar tvf jackson-databind-$JACKSON_CORE_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-databind-$JACKSON_CORE_VERSION.jar \
+        jackson-databind-$JACKSON_CORE_VERSION.jar
+
+    # migrate com.fasterxml.jackson.module.jaxb
+    jar tvf jackson-module-jaxb-annotations-$JACKSON_CORE_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-module-jaxb-annotations-$JACKSON_CORE_VERSION.jar \
+        jackson-module-jaxb-annotations-$JACKSON_CORE_VERSION.jar
+
+%if %{build_api_v1}
+    # migrate javax.ws.rs to jakarta.ws.rs
+    # this also renames org.jboss.spec.javax.ws.r into org.jboss.spec.jakarta.ws.rs
+    jar tvf jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar \
+        jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
+
+    # migrate com.fasterxml.jackson.jaxrs
+    jar tvf jackson-jaxrs-base-$JACKSON_CORE_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-jaxrs-base-$JACKSON_CORE_VERSION.jar \
+        jackson-jaxrs-base-$JACKSON_CORE_VERSION.jar
+
+    # migrate com.fasterxml.jackson.jaxrs.json
+    jar tvf jackson-jaxrs-json-provider-$JACKSON_CORE_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        jackson-jaxrs-json-provider-$JACKSON_CORE_VERSION.jar \
+        jackson-jaxrs-json-provider-$JACKSON_CORE_VERSION.jar
+
+    # migrate org.jboss.resteasy.client.jaxrs
+    jar tvf resteasy-client-$RESTEASY_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        resteasy-client-$RESTEASY_VERSION.jar \
+        resteasy-client-$RESTEASY_VERSION.jar
+
+    # migrate org.jboss.resteasy.annotations.providers
+    jar tvf resteasy-jackson2-provider-$RESTEASY_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        resteasy-jackson2-provider-$RESTEASY_VERSION.jar \
+        resteasy-jackson2-provider-$RESTEASY_VERSION.jar
+
+    # migrate org.jboss.resteasy
+    jar tvf resteasy-jaxrs-$RESTEASY_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        resteasy-jaxrs-$RESTEASY_VERSION.jar \
+        resteasy-jaxrs-$RESTEASY_VERSION.jar
+%endif
+
+    popd
+fi
+
+%if %{build_api_v1}
+if [ -d base/server/lib ]
+then
+    # migrate server libraries
+    pushd base/server/lib
+
+    # migrate org.jboss.resteasy.plugins.servlet
+    jar tvf resteasy-servlet-initializer-$RESTEASY_VERSION.jar \
+        | sed -n 's/.* \([^ ]\+\)\/[^\/]*\.class$/\1/p' \
+        | sort \
+        | uniq
+
+    javax2jakarta \
+        -logLevel=FINE \
+        -profile=EE \
+        resteasy-servlet-initializer-$RESTEASY_VERSION.jar \
+        resteasy-servlet-initializer-$RESTEASY_VERSION.jar
+
+    popd
+fi
+%endif
+
+%if %{without runtime_deps}
+%if %{build_api_v1}
+if [ -d base/common/lib ]
+then
+    # install migrated common libraries
+    pushd base/common/lib
+
+    # org.jboss.spec.jakarta.ws.rs cannot be used with xmvn
+    # so it's replaced with pki-local
+    mkdir -p $HOME/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION
+    cp jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar $HOME/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION
+
+    popd
+
+    # rename org.jboss.spec.jakarta.ws.rs into pki-local
+    cat base/common/pom.xml
+    %pom_change_dep org.jboss.spec.jakarta.ws.rs: pki-local: base/common
+fi
+
+# without runtime_deps
+%endif
+
 %endif
 
 %if ! %{with base}
@@ -1296,7 +1509,8 @@ export JAVA_HOME=%{java_home}
 # build Java binaries and run unit tests with Maven
 %pom_disable_module tomcat-9.0 base
 %pom_remove_dep :pki-tomcat-9.0 base/server
-%mvn_build %{!?with_test:-f} -j
+
+%mvn_build %{!?with_test:-f} -j -- -Dapi.v1=%{?with_apiv1:true}%{!?with_apiv1:false}
 
 # create links to Maven-built JAR files for CMake
 mkdir -p %{_vpath_builddir}/dist
@@ -1397,6 +1611,7 @@ pkgs=base\
     --with-pkgs=$pkgs \
     %{?with_console:--with-console} \
     --without-test \
+    %{!?with_apiv1:--without-apiv1} \
     dist
 
 ################################################################################
@@ -1436,164 +1651,261 @@ fi
 %if %{with maven}
 
 %if %{with meta}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}.xml
 %endif
 
 %if %{with base}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-java.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-java.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-java.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
-    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-java.xml
 
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-tools.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tools.xml"
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tools.xml
 %endif
 
 %if %{with server}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-server.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-server.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-server.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-server.xml
 %endif
 
 %if %{with ca}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-ca.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ca.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ca.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ca.xml
 %endif
 
 %if %{with kra}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-kra.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata//%{name}-pki-kra.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-kra.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-kra.xml
 %endif
 
 %if %{with ocsp}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-ocsp.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ocsp.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ocsp.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-ocsp.xml
 %endif
 
 %if %{with tks}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-tks.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tks.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tks.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tks.xml
 %endif
 
 %if %{with tps}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-tps.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tps.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tps.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-tps.xml
 %endif
 
 %if %{with acme}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-acme.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-acme.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-acme.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-acme.xml
 %endif
 
 %if %{with est}
-echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/pki-pki-est.xml"
+echo "Removing RPM deps from %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-est.xml"
+cat %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-est.xml
 xmlstarlet edit --inplace \
+    -d "//_:dependency[_:groupId='commons-cli']" \
+    -d "//_:dependency[_:groupId='commons-codec']" \
+    -d "//_:dependency[_:groupId='commons-io']" \
+    -d "//_:dependency[_:groupId='org.apache.commons']" \
+    -d "//_:dependency[_:groupId='commons-logging']" \
+    -d "//_:dependency[_:groupId='commons-net']" \
+    -d "//_:dependency[_:groupId='org.apache.httpcomponents']" \
+    -d "//_:dependency[_:groupId='org.slf4j']" \
     -d "//_:dependency[_:groupId='jakarta.activation']" \
     -d "//_:dependency[_:groupId='jakarta.annotation']" \
     -d "//_:dependency[_:groupId='jakarta.xml.bind']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.core']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
-    -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-est.xml
@@ -1672,6 +1984,28 @@ fi
 # CVE-2021-3551
 # Remove world access from existing installation logs
 find /var/log/pki -maxdepth 1 -type f -exec chmod o-rwx {} \;
+
+%if ! %{build_api_v1}
+# Remove v1 API JAX-RS/RESTEasy JARs from existing instances when v1 API is dropped
+if [ -d %{_datadir}/pki/server/common/lib ]; then
+    rm -f %{_datadir}/pki/server/common/lib/jackson-jaxrs-base-*.jar
+    rm -f %{_datadir}/pki/server/common/lib/jackson-jaxrs-json-provider-*.jar
+    rm -f %{_datadir}/pki/server/common/lib/jboss-jaxrs-api_2.0_spec-*.jar
+    rm -f %{_datadir}/pki/server/common/lib/jboss-logging-*.jar
+    rm -f %{_datadir}/pki/server/common/lib/resteasy-*.jar
+fi
+
+# Clean up instance-specific library directories
+for instance_dir in /var/lib/pki/*/common/lib; do
+    if [ -d "$instance_dir" ]; then
+        rm -f "$instance_dir"/jackson-jaxrs-base-*.jar
+        rm -f "$instance_dir"/jackson-jaxrs-json-provider-*.jar
+        rm -f "$instance_dir"/jboss-jaxrs-api_2.0_spec-*.jar
+        rm -f "$instance_dir"/jboss-logging-*.jar
+        rm -f "$instance_dir"/resteasy-*.jar
+    fi
+done
+%endif
 
 # Reload systemd daemons on upgrade only
 if [ "$1" == "2" ]
@@ -1834,7 +2168,11 @@ fi
 %{_mandir}/man1/PKCS10Client.1.gz
 %{_mandir}/man1/PKICertImport.1.gz
 %{_mandir}/man1/tpsclient.1.gz
+
+%if %{without maven}
 %{_javadir}/pki/pki-tools.jar
+%endif
+
 %{_jnidir}/pki/pki-tools.jar
 
 # with base
@@ -2090,6 +2428,10 @@ fi
 
 ################################################################################
 %changelog
+* Wed Jul 29 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.10.1-1
+- Rebase to 11.10.1
+- Drop REST API v1 and resteasy dependency
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.9.1-2.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc5.260728g62cc90241548.42
+%define pkgrelease 0.rc5.260729gfc02acf6ac0c.43
 %define kversion 7
-%define tarfile_release 7.2-rc5-31-g62cc90241548
+%define tarfile_release 7.2-rc5-48-gfc02acf6ac0c
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.260728g62cc90241548.42%{?buildid}%{?dist}
+%define specrelease 0.rc5.260729gfc02acf6ac0c.43%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4976,11 +4976,14 @@ fi\
 #
 #
 %changelog
-* Tue Jul 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc5.260728g62cc90241548.42]
+* Wed Jul 29 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc5.260729gfc02acf6ac0c.43]
 - kernel.spec.template: add Rust artifacts to kernel-devel (Augusto Caringi)
 
-* Tue Jul 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.62cc90241548.42]
+* Wed Jul 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.fc02acf6ac0c.43]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Wed Jul 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.fc02acf6ac0c.42]
+- Linux v7.2.0-0.rc5.fc02acf6ac0c
 
 * Tue Jul 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.62cc90241548.41]
 - redhat: always overwrite spec template copy (Jan Stancek)

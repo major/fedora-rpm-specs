@@ -1,6 +1,6 @@
 Name: imsprog
-Version: 1.8.5
-Release: 2%dist
+Version: 1.8.6
+Release: 1%dist
 
 Summary: I2C, SPI and MicroWire EEPROM/Flash chip programmer for CH341a/CH347t devices
 Summary(ru_RU.UTF-8): I2C, SPI and MicroWire EEPROM/Flash программатор для CH341a/CH347t устройств
@@ -172,16 +172,12 @@ pushd IMSProg_database_update
 %cmake_install
 popd
 
-# rename README
-cp IMSProg_editor/README.md IMSProg_editor.md
-cp IMSProg_programmer/README.md IMSProg_programmer.md
-
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 
 %files
-%doc README.md IMSProg_editor.md IMSProg_programmer.md ChangeLog
+%doc README.md ChangeLog
 %_docdir/imsprog/
 %_bindir/IMSProg
 %_bindir/IMSProg_editor
@@ -199,8 +195,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Wed Jul 29 2026 Mikhail Medvedev 1.8.6-1
+- Removed unused files
+- Copyright added/changed
+- Fixed: if an error was detected, the sequence of operations was not interrupted
+- Fixed: when erasing I2C or SPI Flash, the STOP button did not stop the chip erasing
+- Fixed: the programmer version is not displayed after any chip operation
+- Fixed: chip database updater crashed when the internet connection was lost
+- Fixed: issues on macOS when using file selection dialogs
+- Added: support for 24LC515, 24LC1025
 
 * Fri Jun 05 2026 Mikhail Medvedev 1.8.5-1
 - Fixed: the first highlighted area in HexEdit was not being cleared

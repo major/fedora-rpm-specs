@@ -5,10 +5,11 @@
 
 Name:           mariadb-connector-odbc
 Version:        3.2.8
-Release:        5%{?with_debug:.debug}%{?dist}
+Release:        6%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
+Source1:        10-mariadb.ini
 Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
 
@@ -63,6 +64,9 @@ cmake -B %_vpath_builddir -N -LAH
 %install
 %cmake_install
 
+# ODBC driver registration drop-in snippet
+mkdir -p %{buildroot}%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
 
 
 %files
@@ -75,6 +79,11 @@ cmake -B %_vpath_builddir -N -LAH
 
 # Example configuration file for UnixODBC
 %{_pkgdocdir}/maodbc.ini
+
+# ODBC driver registration drop-in snippet
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-mariadb.ini
 
 %files    devel
 %dir %{_includedir}/mariadb/

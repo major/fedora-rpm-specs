@@ -1,13 +1,13 @@
 %global nspr_version 4.39.0
-%global nss_version 3.125.0
+%global nss_version 3.126.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 3
+%global baserelease 1
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+1]
+%global nspr_release %[%baserelease+4]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -144,6 +144,10 @@ Patch65:          nss-3.118-ml-dsa-test-for-sign-verify-pkcs12.patch
 Patch66:          nss-3.118-ml-dsa-tls-test.patch
 Patch67:          nss-3.118-ml-dsa-unittests.patch
 Patch68:          nss-3.123-fix-mldsa-import-regeneration.patch
+
+# Reseed the freebl DRBG in the child after fork(), so forked children do not
+# replay the parent's random stream (mozbz#2056509)
+Patch70:          nss-3.125-drbg-reseed-after-fork.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -1093,6 +1097,13 @@ fi
 
 
 %changelog
+* Tue Jul 28 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.126.0-1
+- Update NSS to 3.126.0
+
+* Sat Jul 25 2026 Rostislav Krasny <rostiprodev@gmail.com> - 3.125.0-2
+- Reseed the freebl DRBG after fork() so forked children do not replay the
+  parent's random stream (Firefox fork server duplicate UUIDs / crypto output)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.125.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

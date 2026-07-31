@@ -7,8 +7,6 @@ License:	MIT
 Url:		https://github.com/opencryptoki/libzpc
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Requires:	openssl >= 3.0.7
-
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	g++
@@ -16,7 +14,7 @@ BuildRequires:	make
 BuildRequires:	clang-tools-extra
 BuildRequires:	pandoc
 BuildRequires:	json-c-devel
-BuildRequires:	openssl-devel >= 3.0.7
+BuildRequires:	openssl-devel
 
 
 %description

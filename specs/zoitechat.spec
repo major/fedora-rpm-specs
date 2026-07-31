@@ -1,10 +1,10 @@
 Name:           zoitechat
-Version:        2.18.3
+Version:        2.19.0
 Release:        %autorelease
 Summary:        HexChat-based IRC client
 License:        GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://github.com/ZoiteChat/zoitechat
-Source0:        %{url}/archive/refs/tags/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

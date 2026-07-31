@@ -42,7 +42,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.2
-Release: 6%{?dist}
+Release: 8%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -77,6 +77,8 @@ Source15: sendmail-etc-mail-mailertable
 Source16: sendmail-etc-mail-trusted-users
 # default /etc/mail/virtusertable
 Source17: sendmail-etc-mail-virtusertable
+# /var/spool workaround for Image mode
+Source18: sendmail.tmpfiles
 # fix man path and makemap man page
 Patch3: sendmail-8.17.2-makemapman.patch
 # fix smrsh paths
@@ -525,11 +527,14 @@ touch %{buildroot}%{_sysconfdir}/pam.d/smtp
 
 # create stub man pages
 for m in man8/hoststat.8 man8/purgestat.8; do
-	[ -f %{buildroot}%{_mandir}/$m ] || 
+	[ -f %{buildroot}%{_mandir}/$m ] ||
 		echo ".so man8/sendmail.8" > %{buildroot}%{_mandir}/$m
 done
 
 install -m0644 -D sendmail.sysusers.conf %{buildroot}%{_sysusersdir}/sendmail.conf
+
+# systemd-tmpfiles
+install -p -D -m 0644 %{SOURCE18} %{buildroot}%{_tmpfilesdir}/sendmail.conf
 
 %pre
 # hack to turn sbin/makemap and man8/makemap.8.gz into alternatives symlink
@@ -594,13 +599,6 @@ test -h /usr/sbin || ln -s ../bin/editmap /usr/sbin/editmap 2>/dev/null || :
   %{_libdir}/sasl2/Sendmail.conf ] && mv -f %{_libdir}/sasl2/Sendmail.conf \
   %{_sysconfdir}/sasl2 2>/dev/null || :
 %endif
-
-# Create sm-client.st if it doesn't exist
-if [ ! -f %{spooldir}/clientmqueue/sm-client.st ]; then
-	touch %{spooldir}/clientmqueue/sm-client.st
-	chown smmsp:smmsp %{spooldir}/clientmqueue/sm-client.st
-	chmod 0660 %{spooldir}/clientmqueue/sm-client.st
-fi
 
 # Create self-signed SSL certificate
 if [ ! -f %{sslkey} ]; then
@@ -691,8 +689,8 @@ exit 0
 %dir %{stdir}
 %dir %{_sysconfdir}/smrsh
 %dir %{maildir}
-%attr(0770,smmsp,smmsp) %dir %{spooldir}/clientmqueue
-%attr(0700,root,mail) %dir %{spooldir}/mqueue
+%ghost %attr(0770,smmsp,smmsp) %dir %{spooldir}/clientmqueue
+%ghost %attr(0700,root,mail) %dir %{spooldir}/mqueue
 
 %config(noreplace) %verify(not size mtime md5) %{stdir}/statistics
 %config(noreplace) %{maildir}/Makefile
@@ -727,6 +725,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/sasl2/Sendmail.conf
 %endif
 %{_sysusersdir}/sendmail.conf
+%{_tmpfilesdir}/sendmail.conf
 
 %files cf
 %doc %{sendmailcf}/README
@@ -765,6 +764,12 @@ exit 0
 
 
 %changelog
+* Wed Jul 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.2-8
+- Fixed post scriptlet not to output error about nonexistent clientmqueue
+
+* Wed Jul 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.2-7
+- Used workaround for /var/mqueue to support Image mode
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

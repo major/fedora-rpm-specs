@@ -11,6 +11,10 @@ Summary:    Light command line download accelerator for Linux and Unix
 License:    GPL-2.0-or-later
 URL:        %forgeurl
 Source0:    %forgesource
+
+# https://github.com/axel-download-accelerator/axel/pull/482.patch
+Patch0: 482.patch
+
 BuildRequires: gettext-devel
 BuildRequires: pkgconfig(libssl)
 BuildRequires: autoconf
@@ -28,6 +32,7 @@ be useful as a wget clone on byte-critical systems.
 
 %prep
 %forgesetup
+%autopatch -p1
 
 %build
 autoreconf -vfi

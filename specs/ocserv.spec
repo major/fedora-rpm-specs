@@ -59,6 +59,7 @@ BuildRequires:	rubygem-ronn-ng
 
 Recommends:		gnutls-utils
 Recommends:		iproute
+Recommends:		nftables
 Recommends:		pam
 %if %{use_systemd}
 Requires(post):		systemd

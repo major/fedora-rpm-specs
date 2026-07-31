@@ -1,7 +1,7 @@
 %global pypi_name zeroconf
 
 Name:           python-%{pypi_name}
-Version:        0.149.17
+Version:        0.150.0
 Release:        %autorelease
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
@@ -28,7 +28,7 @@ supporting Bonjour/Avahi.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 # Remove benchmarks
 rm -rf tests/benchmarks/
 sed -i '#_BENCHMARKS_DIR = "tests/benchmarks"#d' tests/conftest.py

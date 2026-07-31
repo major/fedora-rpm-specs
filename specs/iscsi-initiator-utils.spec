@@ -1,8 +1,8 @@
 %global open_iscsi_version	2.1
-%global open_iscsi_build	11
-%global commit0			4b3e853ab468a95d8a035efa8fc4298a6c6318a3
+%global open_iscsi_build	12
+%global commit0			7e00642c40123e0b3f949e74c3945872c17a407e
 %global shortcommit0		%(c=%{commit0}; echo ${c:0:7})
-%global commitdate0		20250215
+%global commitdate0		20260715
 # set this to 1 if commit0 is a snapshot after the tagged version
 %global with_snapshot		0
 
@@ -20,7 +20,6 @@ Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/ope
 Source4: 04-iscsi
 Source5: iscsi-tmpfiles.conf
 
-Patch00: 0001-Fix-incorrect-parsing-of-node.discovery_type-static-.patch
 Patch01: 0001-meson-don-t-hide-things-with-Wno-all.patch
 
 # https://github.com/open-iscsi/open-iscsi/pull/394/
@@ -35,8 +34,6 @@ Patch07: 0007-Disable-Data-Digests.patch
 Patch08: 0008-Revert-iscsiadm-return-error-when-login-fails.patch
 Patch09: 0009-Coverity-scan-fixes.patch
 Patch10: 0010-use-Red-Hat-version-string-to-match-RPM-package-vers.patch
-Patch11: 0011-iscsi-gen-initiatorname-use-IQN_PREFIX-as-default.patch
-Patch12: 0012-iscsi-init.service-Use-iscsi-gen-initiatorname.patch
 
 # libiscsi, deprecated but still needed until UDisks2 is converted to libopeniscsiusr
 Patch101: 0101-libiscsi.patch
@@ -140,7 +137,6 @@ rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_fw_login
 rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_offload
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_discovery.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_fw_login.8
-rm $RPM_BUILD_ROOT/var/lib/iscsi/ifaces/iface.example
 
 %{__install} -d $RPM_BUILD_ROOT%{_libexecdir}
 %{__install} -pm 755 etc/systemd/iscsi-mark-root-nodes $RPM_BUILD_ROOT%{_libexecdir}

@@ -71,7 +71,7 @@ Provides: /usr/sbin/semodule
 
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
-BuildRequires: desktop-file-utils dbus-devel glib2-devel
+BuildRequires: dbus-devel glib2-devel
 BuildRequires: python3-devel python3-setuptools python3-pip python3-build
 BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd

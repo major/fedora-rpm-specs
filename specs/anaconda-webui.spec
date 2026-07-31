@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        75
+Version:        76
 Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -40,23 +40,21 @@ Requires: system-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
-Provides: bundled(npm(focus-trap)) = 7.6.4
+Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(luxon)) = 3.7.2
-Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -69,7 +67,7 @@ Provides: bundled(npm(stack-generator)) = 2.0.10
 Provides: bundled(npm(stackframe)) = 1.3.4
 Provides: bundled(npm(stacktrace-gps)) = 3.1.2
 Provides: bundled(npm(stacktrace-js)) = 2.0.2
-Provides: bundled(npm(tabbable)) = 6.4.0
+Provides: bundled(npm(tabbable)) = 6.5.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -108,6 +106,10 @@ exit 0
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
 %{_datadir}/cockpit/anaconda-webui/VERSION.txt
 %{_libexecdir}/anaconda/cockpit-coproc-wrapper.sh
+%{_libexecdir}/anaconda/anaconda-cockpit-conf-merge
+%dir /etc/anaconda/cockpit
+%config(noreplace) /etc/anaconda/cockpit/cockpit.conf
+%dir /etc/anaconda/cockpit/conf.d
 %dir %{_datadir}/anaconda/firefox-theme
 %dir %{_datadir}/anaconda/firefox-theme/default
 %dir %{_datadir}/anaconda/firefox-theme/default/chrome
@@ -129,6 +131,18 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 29 2026 Packit <hello@packit.dev> - 76-1
+- Move cockpit-ws config to anaconda-owned path with conf.d support
+- Stop D-Bus event monitors when installation starts
+- Add Restart button to post-installation screen for live media
+  (Resolves: rhbz#2326672)
+- storage: sync destination modal selection with backend disk changes (Resolves:
+  rhbz#2459685)
+- storage: Skip partitioning reset for kickstart scenarios
+- storage: Compare raw required space against filesystem free space
+- Rename "Reboot" button to installed system" to "Reboot"
+- Use the D-Bus Exit API for proper backend cleanup on exit
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 75-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

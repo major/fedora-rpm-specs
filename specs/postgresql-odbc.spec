@@ -5,11 +5,12 @@
 Name: postgresql-odbc
 Summary: PostgreSQL ODBC driver
 Version: 16.00.0000
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: LGPL-2.0-or-later
 URL: https://odbc.postgresql.org/
 
 Source0: https://ftp.postgresql.org/pub/odbc/versions/src/%{upstream_name}-%{version}.tar.gz
+Source3: 10-postgresql.ini
 
 Patch0: postgresql-odbc-09.06.0200-revert-money-fix.patch
 Patch1: postgresql-odbc-09.05.0400-revert-money-testsuite-fix.patch
@@ -65,6 +66,10 @@ pushd ${RPM_BUILD_ROOT}%{_libdir}/odbc
 	rm psqlodbcw.la psqlodbca.la
 popd
 
+# ODBC driver registration drop-in snippet
+mkdir -p ${RPM_BUILD_ROOT}%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE3} ${RPM_BUILD_ROOT}%{_prefix}/lib/odbc/odbcinst.d/
+
 %if %{with check}
 %check
 %postgresql_tests_run
@@ -104,6 +109,9 @@ the PostgreSQL unixODBC driver.
 %{_libdir}/odbc/psqlodbca.so
 %{_libdir}/odbc/psqlodbcw.so
 %doc license.txt readme.txt docs/* README.rpmdist
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-postgresql.ini
 
 
 %files tests

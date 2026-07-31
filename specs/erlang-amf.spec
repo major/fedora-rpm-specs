@@ -10,7 +10,8 @@ Summary:	Erlang Action Message Format Library
 License:	BSD-2-Clause
 URL:		https://github.com/abuibrahim/erlang-%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{git_commit}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/%{git_commit}/%{realname}-%{version}.tar.gz
+Patch:		erlang-amf-0001-Fix-gb_trees-iterator-exhaustion-for-OTP-27.patch
 BuildSystem:	rebar3
 
 %description

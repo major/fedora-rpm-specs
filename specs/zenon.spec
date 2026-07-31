@@ -4,7 +4,7 @@
 
 Name:		zenon
 Version:	0.8.5
-Release:	42%{?dist}
+Release:	43%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -92,6 +92,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Wed Jul 29 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-43
+- Rebuild to fix rocq dependencies
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

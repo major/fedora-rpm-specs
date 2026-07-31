@@ -5,6 +5,9 @@ Summary:        Generally Applicable Atomic-Charge Dependent London Dispersion C
 License:        LGPL-3.0-or-later
 URL:            https://dftd4.readthedocs.io/
 Source0:        https://github.com/dftd4/dftd4/archive/v%{version}/%{name}-%{version}.tar.gz
+# get_numerical_hessian_api is missing from the public list of the dftd4_api
+# module, so gcc >= 16.1.1-4 drops the dftd4_get_numerical_hessian symbol
+Patch0:         dftd4-4.2.0-export-numerical-hessian.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc-gfortran
@@ -36,6 +39,7 @@ This package contains the Python 3 interface for dftd4.
 
 %prep
 %setup -q
+%patch -P 0 -p 1 -b .numhess
 
 %build
 %ifarch %{ix86}
@@ -55,8 +59,9 @@ mv %{buildroot}%{_includedir}/dftd4/gcc-*/*.mod %{buildroot}%{_libdir}/gfortran/
 \rm %{buildroot}%{_libdir}/libdftd4.a
 
 %check
-# Reduce parallellism and increase the timeout multiplier since the default is not enough on some architectures
-MESON_TESTTHREADS=2 %meson_test --timeout-multiplier 4
+# The tests are parallel code, so only run one at a time
+export RPM_BUILD_NCPUS=1
+%meson_test --timeout-multiplier 4
 
 %files
 %license COPYING COPYING.LESSER

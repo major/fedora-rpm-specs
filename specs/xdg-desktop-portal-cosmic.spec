@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 969f3ca5995d157f78da60231af9e59641dae44d
-%global commitdatestring 2026-07-20 14:43:08 -0700
-%global cosmic_minver 1.4.0
+%global commit f211aa37d45e443c9060b08c725d6fa73431565f
+%global commitdatestring 2026-07-28 16:39:41 +0200
+%global cosmic_minver 1.5.0
 
 Name:           xdg-desktop-portal-cosmic
-Version: 1.4.0
+Version: 1.5.0
 Release:        %autorelease
 Summary:        XDG Desktop Portals for the COSMIC Desktop Environment
 

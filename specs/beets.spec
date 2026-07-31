@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.12.0
+Version:        2.13.1
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -8,16 +8,7 @@ Source0:        %{pypi_source beets}
 
 Patch:          allow-python3.15-build.patch
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-pydata-sphinx-theme
-BuildRequires:  python3dist(poetry-core) >= 1
 BuildRequires:  python-requests-ratelimiter
-
-# Sphinx extras used by upstream docs
-BuildRequires:  python3dist(sphinxcontrib-htmlhelp)
-BuildRequires:  python3dist(sphinxcontrib-serializinghtml)
-BuildRequires:  python-sphinx-design
-BuildRequires:  python-sphinx-copybutton
 
 # Tests
 BuildRequires:  python3-jellyfish
@@ -26,8 +17,6 @@ BuildRequires:  python3-responses
 BuildRequires:  pytest
 BuildRequires:  python3-pytest-timeout
 
-
-BuildRequires:  make
 BuildArch:      noarch
 
 Requires:       python-packaging
@@ -54,39 +43,15 @@ imagine for your music collection. Via plugins, beets becomes a panacea:
 - Browse your music library graphically through a Web browser and play it in
   any browser that supports HTML5 Audio.
 
-%package doc
-Summary:        Documentation for beets
-
-%description doc
-The beets-doc package provides useful information on the
-beets Music Library Manager. Documentation is shipped in
-both text and html formats.
-
 %prep
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}
-
-# Drop optional sphinx_toolbox extension (not packaged in Fedora)
-sed -i '/sphinx_toolbox/d' docs/conf.py
-
-# Temporarily relax mediafile requirement
-sed -i 's/^mediafile = ">=0\.16\.2"$/mediafile = ">=0.12.0"/' pyproject.toml
-
-echo "==== mediafile dependency after patch ===="
-grep -n '^mediafile' pyproject.toml
-echo "========================================="
 
 %generate_buildrequires
 %pyproject_buildrequires -r
 
 %build
 %pyproject_wheel
-
-pushd docs
-env PYTHONPATH=.. sphinx-build-3 -b man  -d _build/doctrees . _build/man
-env PYTHONPATH=.. sphinx-build-3 -b html -d _build/doctrees . _build/html
-env PYTHONPATH=.. sphinx-build-3 -b text -d _build/doctrees . _build/text
-popd
 
 %check
 PYTHONPATH=. python3 - <<'PY'
@@ -101,19 +66,15 @@ PY
   --deselect test/test_importer.py::ImportTest::test_skip_non_album_dirs \
   --ignore test/plugins
 
-
 %install
 %pyproject_install
 %pyproject_save_files -l beets beetsplug -L
-install -Dm0644 docs/_build/man/beet.1 \
-  %{buildroot}%{_mandir}/man1/beet.1
-install -Dm0644 docs/_build/man/beetsconfig.5 \
-  %{buildroot}%{_mandir}/man5/beetsconfig.5
 
-# Copy only HTML docs
-mkdir -p %{buildroot}%{_docdir}/%{name}
-cp -a docs/_build/html %{buildroot}%{_docdir}/%{name}/html
-rm -f %{buildroot}%{_docdir}/%{name}/html/.buildinfo
+# Manpages are pre-generated and included in the upstream sdist since 2.13.1.
+install -Dm0644 man/beet.1 \
+  %{buildroot}%{_mandir}/man1/beet.1
+install -Dm0644 man/beetsconfig.5 \
+  %{buildroot}%{_mandir}/man5/beetsconfig.5
 
 %files -n beets -f %{pyproject_files}
 %{_bindir}/beet
@@ -121,9 +82,5 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/.buildinfo
 %{_mandir}/man5/beetsconfig.5*
 %license LICENSE
 %doc README.rst
-
-%files doc
-%doc %{_docdir}/%{name}/html
-%license LICENSE
 
 %autochangelog

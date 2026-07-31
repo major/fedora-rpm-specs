@@ -44,7 +44,6 @@ BuildRequires:  nodejs-devel
 BuildRequires:  /usr/bin/node
 BuildRequires:  /usr/bin/npm
 BuildRequires:  python3-docs
-BuildRequires:  yarnpkg
 
 %global _desc %{expand:Nbdime provides tools for diffing and merging of Jupyter notebooks.
 
@@ -272,11 +271,9 @@ sed -e "s|\('https://docs\.python\.org/3\.5', \)None|\1'%{_docdir}/python3-docs/
     -i docs/source/conf.py
 
 %build -p
-export YARN_CACHE_FOLDER="$PWD/.package-cache"
-export npm_config_nodedir=%{_includedir}/node
+export npm_config_cache="$PWD/.package-cache"
 export CFLAGS='%{build_cflags} -I%{_includedir}/node'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
-yarn install --offline
 
 %build -a
 # Build the documentation

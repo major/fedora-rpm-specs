@@ -20,7 +20,7 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
-ExcludeArch:    aarch64 ppc64le s390x
+ExcludeArch:    s390x
 
 BuildRequires:  go-vendor-tools
 

@@ -9,7 +9,9 @@ Summary:	A NIF wrapper around a basic bloom filter
 License:	Apache-2.0 AND CPL-1.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Patch:		erlang-ebloom-0001-bloom_filter-replace-custom-serializer-with-portable.patch
+Patch:		erlang-ebloom-0002-Drop-compat-script.patch
 BuildRequires:	erlang-rebar3-pc
 BuildRequires:	gcc-c++
 BuildSystem:	rebar3

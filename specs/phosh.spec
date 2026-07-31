@@ -24,6 +24,7 @@ ExcludeArch:  s390x
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pam-devel
+BuildRequires:  pkgconfig(appstream) >= 1.0.0
 BuildRequires:  pkgconfig(libecal-2.0) >= 3.33.1
 BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.33.1
 BuildRequires:  pkgconfig(fribidi)

@@ -9,8 +9,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           mingw-filesystem
-Version:        151
-Release:        2%{?dist}
+Version:        152
+Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPL-2.0-or-later
@@ -381,6 +381,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Wed Jul 29 2026 Sandro Mani <manisandro@gmail.com> - 152-1
+- Fix setting CMAKE_RC_COMPILER (#2507374)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 151-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

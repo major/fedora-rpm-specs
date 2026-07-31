@@ -1,5 +1,5 @@
 %global majorver 53
-%global releasever 53.1.0
+%global releasever 53.2.0
 %global desc %{expand: \
 The Compute Library is a collection of low-level machine learning functions
 optimized for Arm Cortex-A, Arm Neoverse and Arm Mali GPUs architectures.
@@ -8,7 +8,7 @@ The library provides superior performance to other open source alternatives
 and immediate support for new Arm technologies e.g. SVE2.}
 
 Name:		arm-compute-library
-Version:	53.1.0
+Version:	53.2.0
 Release:	%autorelease
 Summary:	ARM compute library
 
@@ -37,7 +37,7 @@ ExclusiveArch:	%{arm64} %{x86_64}
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	bundle(opencl-headers) = 3.0
-Provides:	bundle(stb_image-devel) = 2.19
+Provides:	bundle(stb_image-devel) = 2.30
 Provides:	bundle(half-devel) = 1.12.0
 Provides:	bundle(libnpy) = 0.1.0
 

@@ -10,6 +10,7 @@ Patch:    Require-appstreamcli-to-validate-appstream-file.patch
 
 ExcludeArch:  %{ix86}
 
+BuildRequires:  appstream
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= 2.74
@@ -17,7 +18,6 @@ BuildRequires:  pkgconfig(gio-2.0) >= 2.74
 BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.4
 BuildRequires:  pkgconfig(gmobile) >= 0.1.0
-BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  systemd-rpm-macros
 

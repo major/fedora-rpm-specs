@@ -1,6 +1,6 @@
 Name:           glob2
 Version:        0.9.4.4
-Release:        74%{?dist}
+Release:        75%{?dist}
 Summary:        An innovative RTS game
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -59,8 +59,8 @@ Online Gaming (or YOG for short).
 
 %prep
 %setup -q
-#%patch 0 -p0
-#%patch 2 -p0
+#%%patch 0 -p0
+#%%patch 2 -p0
 %patch 3 -p0
 %patch 4 -p1
 %patch 5 -p1
@@ -154,6 +154,9 @@ EOF
 
 
 %changelog
+* Wed Jul 29 2026 josef radinger <cheese@nosuchhost.net> - 0.9.4.4-75
+- fix build-error BZ#2506011
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4.4-74
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

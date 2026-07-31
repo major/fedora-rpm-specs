@@ -30,6 +30,8 @@ Patch:          wbr_element_support.patch
 # https://github.com/mozilla/bleach/commit/970df58e
 # https://github.com/mozilla/bleach/security/advisories/GHSA-gj48-438w-jh9v
 Patch:          formaction_uri.patch
+# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
+Patch:          %{url}/pull/600.patch
 
 BuildArch:      noarch
 

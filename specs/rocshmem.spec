@@ -21,7 +21,7 @@
 #
 %global upstreamname rocshmem
 
-%global rocm_release 7.12
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -32,7 +32,7 @@
 
 Name:       rocshmem
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm OpenSHMEM runtime
 
 License:    MIT AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR Linux-OpenIB)
@@ -108,7 +108,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p3 -n %{upstreamname}
 
 # install location of rocm_version
-sed -i -e 's@rocm-core/@@' src/tools/rocshmem_info.cpp
+sed -i -e 's@rocm-core/@@' src/build_info.cpp
 
 %build
 %cmake \
@@ -139,6 +139,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocshmem/LICENSE.md
 %{_libdir}/librocshmem.so
 
 %changelog
+* Wed Jul 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

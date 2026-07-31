@@ -5,8 +5,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       8.3.3
-Release:       2%{?dist}
+Version:       8.4.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Wed Jul 29 2026 Sandro Mani <manisandro@gmail.com> - 8.4.2-1
+- Update to 8.4.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

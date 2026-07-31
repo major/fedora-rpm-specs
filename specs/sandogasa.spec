@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.18.1
+Version:        0.18.2
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -112,6 +112,7 @@ associated with "slum" or post-apocalyptic robots in popular culture.
 for tool in %{tools}; do
   install -Dpm 0755 target/rpm/${tool} -t %{buildroot}%{_bindir}
   cp -p tools/${tool}/README.md README.${tool}.md
+  install -dm 0755 %{buildroot}%{_sysconfdir}/${tool}
 done
 
 %check
@@ -142,6 +143,36 @@ done
 %{_bindir}/sandogasa-pkg-acl
 %{_bindir}/sandogasa-pkg-health
 %{_bindir}/sandogasa-report
+%dir %{_sysconfdir}/cpu-sig-tracker
+%dir %{_sysconfdir}/ebranch
+%dir %{_sysconfdir}/fedora-cve-triage
+%dir %{_sysconfdir}/fedora-review-digest
+%dir %{_sysconfdir}/fesco-chair
+%dir %{_sysconfdir}/hs-intake
+%dir %{_sysconfdir}/hs-meetings
+%dir %{_sysconfdir}/hs-relmon
+%dir %{_sysconfdir}/koji-diff
+%dir %{_sysconfdir}/koji-lag
+%dir %{_sysconfdir}/poi-tracker
+%dir %{_sysconfdir}/sandogasa-hattrack
+%dir %{_sysconfdir}/sandogasa-pkg-acl
+%dir %{_sysconfdir}/sandogasa-pkg-health
+%dir %{_sysconfdir}/sandogasa-report
+%ghost %config(noreplace) %{_sysconfdir}/cpu-sig-tracker/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/ebranch/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/fedora-cve-triage/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/fedora-review-digest/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/fesco-chair/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/hs-intake/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/hs-meetings/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/hs-relmon/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/koji-diff/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/koji-lag/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/poi-tracker/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/sandogasa-hattrack/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-acl/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-health/config.toml
+%ghost %config(noreplace) %{_sysconfdir}/sandogasa-report/config.toml
 
 
 %changelog

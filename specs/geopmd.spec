@@ -9,7 +9,7 @@ optimize system hardware settings to achieve energy efficiency and/or
 performance objectives.}
 
 Name:		geopmd
-Version:	3.2.1
+Version:	3.2.2
 Release:	%autorelease
 Summary:	GEOPM daemon
 
@@ -21,28 +21,10 @@ ExclusiveArch:	x86_64
 
 BuildRequires:	gcc
 BuildRequires:	grpc-plugins
-BuildRequires:	libgeopmd-devel >= 3.2.1
+BuildRequires:	libgeopmd-devel >= 3.2.2
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-setuptools_scm
-BuildRequires:	python3-cffi
-BuildRequires:	python3-dasbus
-BuildRequires:	python3-docstring-parser
 BuildRequires:	python3-defusedxml
-BuildRequires:	python3-jsonschema
-BuildRequires:	python3-prometheus_client
-BuildRequires:	python3-psutil
-BuildRequires:	python3-pyyaml
 BuildRequires:	systemd-units
-Requires:	python3-cffi
-Requires:	python3-dasbus
-Requires:	python3-docstring-parser
-Requires:	python3-grpcio
-Requires:	python3-jsonschema
-Requires:	python3-prometheus_client
-Requires:	python3-protobuf
-Requires:	python3-psutil
-Requires:	python3-pyyaml
 Requires:	python3-%{prj_name} = %{version}-%{release}
 Requires:	geopmd-cli
 Requires:	geopm-cli
@@ -58,19 +40,21 @@ Summary:        Python bindings for libgeopmd
 
 %prep
 %autosetup -p1 -n geopm-%{version}
-
-pushd %{prj_name}
-echo %{version} > %{prj_name}/VERSION
-popd
+echo %{version} > %{prj_name}/%{prj_name}/VERSION
+	
+%generate_buildrequires
+cd %{prj_name}
+%pyproject_buildrequires
 
 %build
-pushd %{prj_name}
-%py3_build
-popd
+cd %{prj_name}
+%pyproject_wheel
 
 %install
-pushd %{prj_name}
-%py3_install
+cd %{prj_name}
+%pyproject_install
+%pyproject_save_files %{prj_name}
+
 mkdir -p %{buildroot}%{_sysconfdir}/geopm
 chmod 0700 %{buildroot}%{_sysconfdir}/geopm
 install -D -p -m 644 io.github.geopm.xml %{buildroot}%{_datadir}/dbus-1/interfaces/io.github.geopm.xml
@@ -83,12 +67,19 @@ protoc \
 	--plugin=protoc-gen-grpc=/usr/bin/grpc_python_plugin \
 	geopm_service.proto
 cp geopm_service.proto %{buildroot}%{python3_sitearch}/%{prj_name}
-popd
 
 %check
-pushd %{prj_name}
+cd %{prj_name}
 PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m unittest discover -p 'Test*.py' -v
-popd
+
+%post
+%systemd_post geopm.service
+
+%preun
+%systemd_preun geopm.service
+
+%postun
+%systemd_postun_with_restart geopm.service
 
 %files
 %license LICENSE-BSD-3-Clause
@@ -99,15 +90,14 @@ popd
 %{_datadir}/dbus-1/system.d/io.github.geopm.conf
 %{_unitdir}/geopm.service
 
-%files -n python3-%{prj_name}
+%files -n python3-%{prj_name} -f %{pyproject_files}
 %{_bindir}/geopmaccess
 %{_bindir}/geopmexporter
 %{_bindir}/geopmread
 %{_bindir}/geopmwrite
 %{_bindir}/geopmsession
 %{python3_sitearch}/_libgeopmd_py_cffi.abi3.so
-%{python3_sitearch}/%{prj_name}
-%{python3_sitearch}/%{prj_name}-*.egg-info
+%{python3_sitearch}/%{prj_name}/geopm_service.proto
 
 %changelog
 %autochangelog

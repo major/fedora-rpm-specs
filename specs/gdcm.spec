@@ -25,6 +25,9 @@ Patch2: 0002-Fix-export-variables.patch
 Patch3: 0003-fix-set-C-23-for-poppler-usage.patch
 # Sent upstream: https://github.com/malaterre/GDCM/pull/205
 Patch4: 0004-fix-GooString-use-std-string-size.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch5: gdcm-swig45.patch
 
 BuildRequires:  CharLS-devel >= 2.2
 BuildRequires:  cmake

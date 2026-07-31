@@ -1,12 +1,12 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.20.0.rc3
+Version: 4.20.0
 Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
-Source0: https://github.com/shadow-maint/shadow/releases/download/4.20.0-rc3/shadow-4.20.0-rc3.tar.xz
-Source1: https://github.com/shadow-maint/shadow/releases/download/4.20.0-rc3/shadow-4.20.0-rc3.tar.xz.asc
+Source0: https://github.com/shadow-maint/shadow/releases/download/4.20.0/shadow-4.20.0.tar.xz
+Source1: https://github.com/shadow-maint/shadow/releases/download/4.20.0/shadow-4.20.0.tar.xz.asc
 Source2: shadow-utils.useradd
 Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
@@ -98,7 +98,7 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%autosetup -p 1 -S git -n shadow-4.20.0-rc3
+%autosetup -p 1 -S git -n shadow-4.20.0
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -264,6 +264,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Jul 29 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.20.0-1
+- Rebase to version 4.20.0
+
 * Wed Jul 22 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.20.0-rc3-1
 - Rebase to version 4.20.0-rc3
 

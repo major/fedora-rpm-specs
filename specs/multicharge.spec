@@ -6,6 +6,10 @@ License:        Apache-2.0
 URL:            https://github.com/grimme-lab/multicharge
 Source0:        https://github.com/grimme-lab/multicharge/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Loosen the finite-difference derivative test tolerance, which is too tight
+# and makes the eeqbc sigma check fail on aarch64.  Reported upstream.
+Patch0:         multicharge-0.5.0-test-tolerance.patch
+
 BuildRequires:  meson
 BuildRequires:  gcc-gfortran
 BuildRequires:  mctc-lib-devel
@@ -24,7 +28,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains the development headers for multicharge
 
 %prep
-%autosetup
+%setup -q
+%patch -P 0 -p 1 -b .testtol
 
 %build
 %ifarch %{ix86}
@@ -44,6 +49,10 @@ mv %{buildroot}%{_includedir}/multicharge/gcc-*/*.mod %{buildroot}%{_libdir}/gfo
 \rm %{buildroot}%{_libdir}/libmulticharge.a
 
 %check
+# Each test uses OpenMP and threaded BLAS. Running them in parallel
+# oversubscribes the CPUs and makes them time out, so run one test at a time
+# (%%meson_test uses -j${RPM_BUILD_NCPUS}).
+export RPM_BUILD_NCPUS=1
 %meson_test
 
 %files

@@ -1,9 +1,6 @@
-# Perform tests that need the Internet
-%bcond_with perl_LWP_Protocol_https_enables_internet_test
-
 Name:           perl-LWP-Protocol-https
-Version:        6.15
-Release:        2%{?dist}
+Version:        6.17
+Release:        1%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-https
@@ -34,9 +31,6 @@ BuildRequires:  perl(LWP::UserAgent) >= 6.06
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs) >= 0.002010
-%if %{with perl_LWP_Protocol_https_enables_internet_test}
-BuildRequires:  perl(Test::RequiresInternet)
-%endif
 # Optional tests:
 BuildRequires:  perl(IO::Socket::SSL) >= 1.953
 BuildRequires:  perl(IO::Socket::SSL::Utils)
@@ -64,10 +58,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n LWP-Protocol-https-%{version}
-%if !%{with perl_LWP_Protocol_https_enables_internet_test}
-rm t/example.t
-perl -i -ne 'print $_ unless m{^t/example.t}' MANIFEST
-%endif
 # Help generators to recognize Perl scripts
 for F in $(find t/ -name '*.t'); do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -104,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 29 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.17-1
+- 6.17 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
