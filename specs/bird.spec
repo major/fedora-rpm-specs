@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          3.3.1
-Release:          3%{?dist}
+Version:          3.3.2
+Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -11,7 +11,6 @@ Source0:          https://bird.nic.cz/download/bird-%{version}.tar.gz
 Source1:          bird.service
 Source2:          bird.tmpfilesd
 Source3:          bird.sysusersd
-Patch0:           https://gitlab.nic.cz/labs/bird/-/commit/d1306a8d71aec820c672620fde70d5af4e30916d.patch#/bird-3.3.1-show-route-for.patch
 
 BuildRequires:    flex
 BuildRequires:    bison
@@ -112,6 +111,9 @@ make test
 %endif
 
 %changelog
+* Fri Jul 31 2026 Robert Scheck <robert@fedoraproject.org> - 3.3.2-1
+- Upgrade to 3.3.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

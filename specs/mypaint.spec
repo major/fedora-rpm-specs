@@ -18,6 +18,9 @@ Patch2:         0003-fix-deprecations.patch
 Patch3:         0004-pygobject352.patch
 # Backport of https://github.com/mypaint/mypaint/pull/1300
 Patch4:         0005-numpy23.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch5:         mypaint-swig45.patch
 
 BuildRequires:  gcc, gcc-c++
 

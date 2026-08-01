@@ -108,7 +108,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -125,9 +125,14 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
+# Allow to build with decklink
+Patch3:         ffmpeg-allow-decklink.patch
 
 # Backport fix for CVE-2026-30998
 Patch10:        https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/18b83f2d0a0f9bcbafb0001a2911327c4b8df056#/ffmpeg-CVE-2026-30998.patch
+
+# Add upstream commit to address firefox vulkan direct-export rendering issue
+Patch11:         https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/25e187f8494966377a4b9d077260ce7b501a911c#/ffmpeg-vulkan-direct-export.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -144,6 +149,7 @@ Requires:       libswresample%{?pkg_suffix}%{_isa} = %{version}-%{release}
 Requires:       libswscale%{?pkg_suffix}%{_isa} = %{version}-%{release}
 
 BuildRequires:  AMF-devel
+BuildRequires:  decklink-static
 BuildRequires:  fdk-aac-free-devel
 %if %{with flite}
 BuildRequires:  flite-devel >= 2.2
@@ -714,6 +720,8 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --mandir=%{_mandir} \
     --arch=%{_target_cpu} \
     --optflags="%{build_cflags}" \
+    --extra-cflags="-I%{_includedir}/decklink" \
+    --extra-cxxflags="-I%{_includedir}/decklink" \
     --extra-ldflags="%{build_ldflags}" \
     --disable-htmlpages \
     --disable-static \
@@ -738,7 +746,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %if %{with ffnvcodec}
     --enable-cuvid \
 %endif
-    --disable-decklink \
+    --enable-decklink \
     --enable-frei0r \
     --enable-gcrypt \
     --enable-gmp \
@@ -979,6 +987,10 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Jul 30 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.2-4
+- enable DeckLink support
+- fix Firefox vulkan direct-export rendering issue
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

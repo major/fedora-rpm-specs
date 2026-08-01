@@ -3,8 +3,8 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        128
-Release:        2%{?dist}
+Version:        129
+Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
 URL:            https://github.com/cockpit-project/cockpit-podman
@@ -43,12 +43,12 @@ Requires:       criu-libs
 Requires:       libcriu2
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.5.2
-Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(docker-names)) = 1.2.1
@@ -92,6 +92,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jul 30 2026 Packit <hello@packit.dev> - 129-1
+- Bugfixes
+- Translations and dependency updates
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 128-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

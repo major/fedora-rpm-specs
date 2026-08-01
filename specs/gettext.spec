@@ -8,7 +8,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -28,6 +28,7 @@ URL: https://www.gnu.org/software/gettext/
 Source: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source2: msghack.py
 Source3: msghack.1
+Patch1: gettext-1.0-gnulib-posix_addchdr.patch
 
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
@@ -194,6 +195,7 @@ Substitutes the values of environment variables.
 
 %prep
 %setup -q
+%patch 1 -p1 -b .orig~
 autoreconf
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
@@ -459,6 +461,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Jul 29 2026 Manish Tiwari <matiwari@redhat.com> - 1.0-3
+- https://lists.gnu.org/archive/html/bug-gnulib/2026-07/msg00165.html
+- Upstream patch to fix gnulib posix_spawn_file_actions_addchdir detection on glibc 2.44
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 22
+%global micro 23
 #global pre ...
 %global pyversion 3.11
 Name:           pypy%{pyversion}
@@ -104,6 +104,11 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
+# Fix "seeing a prebuilt rpython.rlib.rthread.Lock instance" during translation
+# caused by 7.3.23's exception table changes exposing Lock objects as prebuilt constants
+# https://github.com/pypy/pypy/issues/5527
+Patch10: https://github.com/pypy/pypy/commit/9e483cf9.patch
+Patch11: https://github.com/pypy/pypy/commit/ea804f98.patch
 
 # Build-time requirements:
 

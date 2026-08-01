@@ -3,18 +3,15 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/activerecord
-# git archive -v -o activerecord-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o activerecord-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: activerecord-%{version}%{?prerelease}-tests.tar.gz
-# Fix undefined `Rails` constant in sqlite3 dbconsole.
-# https://github.com/rails/rails/pull/54498
-Patch0: rubygem-activerecord-8.0.1-Fix-sqlite3-dbconsole-not-working-outside-Rails.patch
 
 # Database dump/load reuires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -30,14 +27,13 @@ BuildRequires: rubygem(rack)
 BuildRequires: rubygem(pg)
 BuildRequires: rubygem(zeitwerk)
 BuildRequires: %{_bindir}/sqlite3
-BuildRequires: tzdata
 BuildArch: noarch
 
 %description
-Implements the ActiveRecord pattern (Fowler, PoEAA) for ORM. It ties database
-tables and classes together for business objects, like Customer or
-Subscription, that can find, save, and destroy themselves without resorting to
-manual SQL.
+Databases on Rails. Build a persistent domain model by mapping database tables
+to Ruby classes. Strong conventions for associations, validations,
+aggregations, migrations, and testing come baked-in.
+
 
 %package doc
 Summary: Documentation for %{name}
@@ -49,8 +45,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b 1
-
-%patch 0 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -83,10 +77,6 @@ ARCONN=sqlite3 ruby -Itest:lib -e '
 # and sqlite3_mem does not have specific test cases.
 for adapter in sqlite3; do
 ARCONN=sqlite3 ruby -Itest:lib -e "
-  # Rails is not defined for some reason :(
-  # https://github.com/rails/rails/issues/54579
-  module Rails; end
-
   Dir.glob %|./test/cases/adapters/${adapter}/**/*_test.rb|, &method(:require)
 "
 done
@@ -106,6 +96,10 @@ done
 %{gem_instdir}/examples
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
+- Update to Active Record 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 9.7.1
+%global package_version 9.7.2
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -25,7 +25,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 9.7.1
+%global last_tested_version 9.7.2
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -100,7 +100,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          100%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1106,6 +1106,7 @@ popd
 %{_libdir}/mysql/plugin/test_services_host_application_signal.so
 %{_libdir}/mysql/plugin/test_services_plugin_registry.so
 %{_libdir}/mysql/plugin/test_udf_services.so
+%{_libdir}/mysql/plugin/thread_pool.so
 %{_libdir}/mysql/plugin/udf_example.so
 
 %files -n %{pkgname}-test-data
@@ -1115,6 +1116,9 @@ popd
 %endif
 
 %changelog
+* Tue Jul 28 2026 Michal Schorm <mschorm@redhat.com> - 9.7.2-1
+- Rebase to 9.7.2
+
 * Wed Jul 22 2026 Michal Schorm <mschorm@redhat.com> - 9.7.1-100
 - Disable the 'distribution default' in MySQL 8.4 (package 'mysql8.4')
 - Enable the 'distribution default' in MySQL 9.7 in this package

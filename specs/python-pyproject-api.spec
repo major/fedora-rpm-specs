@@ -1,5 +1,5 @@
 Name:           python-pyproject-api
-Version:        1.10.1
+Version:        1.11.0
 Release:        %autorelease
 Summary:        API to interact with the python pyproject.toml based projects
 

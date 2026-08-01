@@ -6,14 +6,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.3
-Release: 4%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionpack
-# git archive -v -o actionpack-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o actionpack-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # https://github.com/rails/rails/issues/57282
 # https://github.com/rails/rails/pull/57283
@@ -33,12 +33,14 @@ BuildRequires: rubygem(msgpack)
 BuildRequires: rubygem(railties) = %{version}
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(rack-cache)
+BuildRequires: rubygem(rack-session)
 BuildRequires: rubygem(rack-test)
+BuildRequires: rubygem(rexml)
 BuildRequires: rubygem(capybara) >= 3.26
 BuildRequires: rubygem(selenium-webdriver)
 BuildRequires: rubygem(useragent)
 BuildRequires: rubygem(zeitwerk)
-BuildRequires: chromedriver chromium chromium-headless
+BuildRequires: chromedriver chromium
 # Chromium availability is limited:
 # https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_800
 # and chrome-headless even more:
@@ -91,7 +93,7 @@ touch ../tools/strict_warnings.rb
 
 # Use `:remote` option to surpres preload of Selenium drivers.
 sed -i '/driven_by/ s/$/, :options => {browser: :remote}/' \
-  test/abstract_unit.rb
+  test/support/system_helper.rb
 
 # Required on various palces such as:
 # https://github.com/rails/rails/blob/3235827585d87661942c91bc81f64f56d710f0b2/actionpack/test/dispatch/system_testing/driver_test.rb#L34
@@ -102,13 +104,6 @@ chmod a+x bin/test
 
 sed -r -i '/driver = ActionDispatch::SystemTesting::Driver.new\(:selenium, .*using: :(headless_)?firefox.*\)/i \
     skip "gecko driver is not available on Fedora"' \
-  test/dispatch/system_testing/driver_test.rb
-
-# `"binary" => "/usr/bin/chromium-browser"` entry randomly appears in result.
-# It is not clear how this instability happens, but it might be caused by the
-# `:remote` option used above. Or it might be due to `selenium-manager`.
-# https://github.com/rails/rails/issues/54740
-sed -r -i '/capabilities.slice\(\*expected_capabilities\.keys\)$/ s/$/.tap {|h| h["goog:chromeOptions"].delete("binary")}/' \
   test/dispatch/system_testing/driver_test.rb
 
 # Tests need to run in isolation
@@ -135,6 +130,10 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
+- Update to Action Pack 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

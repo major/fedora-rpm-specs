@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -55,6 +55,9 @@ Patch8:		openwsman-2.7.2-ssl-certs-gen-changes.patch
 Patch9:		openwsman-2.8.1-rdoc-ruby34.patch
 Patch10:	openwsman-2.8.1-fix-ruby-io.patch
 Patch11:	openwsman-2.8.1-rdoc-6_16.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch12:	openwsman-swig45.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -421,6 +424,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.8.1-21
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 2.8.1-20
 - Rebuilt for Python 3.15.0b4 ABI change
 

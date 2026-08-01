@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ignore
+%global crate async-openssl
 
-Name:           rust-ignore
-Version:        0.4.31
+Name:           rust-async-openssl
+Version:        0.2.8
 Release:        %autorelease
-Summary:        Fast library for efficiently matching ignore files
+Summary:        Implementation of SSL streams for async IO backed by OpenSSL
 
-License:        Unlicense OR MIT
-URL:            https://crates.io/crates/ignore
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/async-openssl
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          ignore-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A fast library for efficiently matching ignore files such as
-`.gitignore` against file paths.}
+An implementation of SSL streams for async IO backed by OpenSSL.}
 
 %description %{_description}
 
@@ -33,9 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/UNLICENSE
+%doc %{crate_instdir}/AGENTS.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+simd-accel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simd-accel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simd-accel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simd-accel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -78,7 +63,8 @@ use the "simd-accel" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * The test sends requests to external hosts
+%cargo_test -- --lib -- --skip test::google
 %endif
 
 %changelog

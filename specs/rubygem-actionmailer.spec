@@ -3,14 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Email composition and delivery framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionmailer
-# git archive -v -o actionmailer-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o actionmailer-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: actionmailer-%{version}%{?prerelease}-tests.tar.gz
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
@@ -57,7 +57,7 @@ mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
 # `force_skip` alias.
 touch ../tools/test_common.rb
-# Netiher strict_warnings.rb appears to be useful.
+# Neither strict_warnings.rb appears to be useful.
 touch ../tools/strict_warnings.rb
 
 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
@@ -76,6 +76,10 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
+- Update to Action Mailer 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

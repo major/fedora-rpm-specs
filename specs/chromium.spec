@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 150.0.7871.186
+Version: 151.0.7922.71
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -334,7 +334,7 @@ Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-142-el9-ffmpeg-5.1.x.patch
+Patch133: chromium-151-el9-ffmpeg-5.1.x.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -400,10 +400,8 @@ Patch315: chromium-145-rustc-ftbfs.patch
 
 # llvm <= 22
 # clang++: error: unknown argument: '-fno-lifetime-dse'
-Patch316: chromium-149-clang++-unknown-argument.patch
-
 # unknown warning option -Wno-nontrivial-memcall
-Patch317: chromium-142-clang++-unknown-argument.patch
+Patch316: chromium-151-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
 
@@ -412,6 +410,12 @@ Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
 # Fix build error on fedora aarch64
 Patch320: chromium-149-aarch64-log-error.patch
+
+# Replace with system golang
+Patch321: chromium-151-system-golang.patch
+
+# Fix build error caused by Unresolved dependencies
+Patch322: chromium-151-histograms_xml-build-error.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -481,7 +485,6 @@ Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
-Patch404: fix-partition-alloc-compile.patch
 Patch405: fix-study-crash.patch
 Patch407: fix-different-data-layouts.patch
 Patch408: 0002-Add-ppc64-trap-instructions.patch
@@ -522,13 +525,7 @@ Patch520: build-with-wasm-rollup.patch
 Patch521: disable-ai.patch
 
 # Upstream patches
-Patch600: chromium-150-sysroot.patch
-Patch601: chromium-150-Omit-ar-from-inputs-when-resolved-via-PATH.patch
-Patch602: chromium-150-Fix-get_path_info-on-empty-ar-in-unbundle-toolchain.patch
 # Darkmode
-Patch603: chromium-150-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode.patch
-Patch604: chromium-150-Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom.patch
-Patch605: chromium-150-Use-64px-css-pixels-absolute-threshold-for-dark-image-classification.patch
 Patch606: chromium-150-Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode.patch
 Patch607: chromium-150-Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag.patch
 
@@ -564,6 +561,7 @@ Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
 
+BuildRequires: golang
 BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
@@ -1157,16 +1155,15 @@ Qt6 UI for chromium.
 
 %patch -P316 -p1 -b .clang++-unknown-argument
 
-%if 0%{?fedora} && 0%{?fedora} < 42 || 0%{?rhel} && 0%{?rhel} < 10
-%patch -P317 -p1 -b .clang++-unsupported-argument
-%endif
-
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
 
 %ifarch aarch64 && 0%{?fedora}
 %patch -P320 -p1 -b .aarch64-log-error
 %endif
+
+%patch -P321 -p1 -b .system-golang
+%patch -P322 -p1 -b .histograms_xml-build-error
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1216,7 +1213,6 @@ Qt6 UI for chromium.
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
-%patch -P404 -p1 -b .fix-partition-alloc-compile
 %patch -P405 -p1 -b .fix-study-crash
 %patch -P407 -p1 -b .fix-different-data-layouts
 %patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
@@ -1243,13 +1239,6 @@ Qt6 UI for chromium.
 %patch -P521 -p1 -b .disable-ai
 
 # Upstream patches
-%patch -P600 -p1 -b .sysroot
-%patch -P601 -p1 -b .Omit-ar-from-inputs-when-resolved-via-PATH
-%patch -P602 -p1 -b .Fix-get_path_info-on-empty-ar-in-unbundle-toolchain
-# Darkmode
-%patch -P603 -p1 -b .Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
-%patch -P604 -p1 -b .Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom
-%patch -P605 -p1 -b .Use-64px-css-pixels-absolute-threshold-for-dark-image-classification
 %patch -P606 -p1 -b .Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode
 %patch -P607 -p1 -b .Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag
 
@@ -1922,6 +1911,379 @@ fi
 %endif
 
 %changelog
+* Thu Jul 30 2026 Than Ngo <than@redhat.com> - 151.0.7922.71-1
+- Update to 151.0.7922.71
+  * CVE-2026-17650: Use after free in Compositing
+  * CVE-2026-17651: Insufficient validation of untrusted input in Dawn
+  * CVE-2026-17652: Use after free in Views
+  * CVE-2026-17653: Use after free in Skia
+  * CVE-2026-17654: Race in Updater
+  * CVE-2026-17655: Insufficient validation of untrusted input in ANGLE
+  * CVE-2026-17656: Use after free in Ozone
+  * CVE-2026-17657: Use after free in Navigation
+  * CVE-2026-17658: Use after free in V8
+  * CVE-2026-17659: Inappropriate implementation in SiteIsolation
+  * CVE-2026-17660: Insufficient validation of untrusted input in Network
+  * CVE-2026-17661: Use after free in Loader
+  * CVE-2026-17662: Insufficient policy enforcement in Prefetch
+  * CVE-2026-17663: Insufficient validation of untrusted input in GPU
+  * CVE-2026-17664: Insufficient validation of untrusted input in Loader
+  * CVE-2026-17665: Use after free in V8
+  * CVE-2026-17666: Cryptographic Flaw in Enterprise
+  * CVE-2026-17667: Uninitialized Use in ANGLE
+  * CVE-2026-17668: Uninitialized Use in ANGLE
+  * CVE-2026-17669: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17670: Use after free in Views
+  * CVE-2026-17671: Insufficient validation of untrusted input in ANGLE
+  * CVE-2026-17672: Insufficient validation of untrusted input in Chromecast
+  * CVE-2026-17673: Integer overflow in QUIC
+  * CVE-2026-17674: Inappropriate implementation in HTML
+  * CVE-2026-17675: Out of bounds write in ANGLE
+  * CVE-2026-17676: Inappropriate implementation in ANGLE
+  * CVE-2026-17677: Inappropriate implementation in ANGLE
+  * CVE-2026-17678: Out of bounds read in ANGLE
+  * CVE-2026-17679: Insufficient validation of untrusted input in Print Preview
+  * CVE-2026-17680: Heap buffer overflow in Color
+  * CVE-2026-17681: Insufficient validation of untrusted input in Web Authentication
+  * CVE-2026-17682: Integer overflow in ANGLE
+  * CVE-2026-17683: Inappropriate implementation in ANGLE
+  * CVE-2026-17684: Insufficient validation of untrusted input in Chrome for iOS
+  * CVE-2026-17685: Use after free in Autofill
+  * CVE-2026-17686: Insufficient validation of untrusted input in Passwords
+  * CVE-2026-17687: Type Confusion in ANGLE
+  * CVE-2026-17688: Use after free in Input
+  * CVE-2026-17689: Uninitialized Use in ANGLE
+  * CVE-2026-17690: Insufficient validation of untrusted input in PDF
+  * CVE-2026-17691: Out of bounds write in ANGLE
+  * CVE-2026-17692: Use after free in DataTransfer
+  * CVE-2026-17693: Inappropriate implementation in FileSystem
+  * CVE-2026-17694: Use after free in DOM
+  * CVE-2026-17695: Inappropriate implementation in ANGLE
+  * CVE-2026-17696: Side-channel information leakage in Media
+  * CVE-2026-17697: Type Confusion in ANGLE
+  * CVE-2026-17698: Insufficient validation of untrusted input in UI
+  * CVE-2026-17699: Use after free in Views
+  * CVE-2026-17700: Insufficient validation of untrusted input in Actor
+  * CVE-2026-17701: Out of bounds read in ANGLE
+  * CVE-2026-17702: Inappropriate implementation in Skia
+  * CVE-2026-17703: Policy bypass in Chrome for iOS
+  * CVE-2026-17704: Use after free in ANGLE
+  * CVE-2026-17705: Integer overflow in libxml
+  * CVE-2026-17706: Insufficient validation of untrusted input in Media
+  * CVE-2026-17707: Uninitialized Use in Media
+  * CVE-2026-17708: Use after free in Audio
+  * CVE-2026-17709: Race in Downloads
+  * CVE-2026-17710: Inappropriate implementation in MHTML
+  * CVE-2026-17711: Race in Downloads
+  * CVE-2026-17712: Race in Skia
+  * CVE-2026-17713: Insufficient validation of untrusted input in Accessibility
+  * CVE-2026-17714: Uninitialized Use in ANGLE
+  * CVE-2026-17715: Inappropriate implementation in Passwords
+  * CVE-2026-17716: Use after free in Updater
+  * CVE-2026-17717: Integer overflow in ANGLE
+  * CVE-2026-17718: Use after free in ANGLE
+  * CVE-2026-17719: Use after free in Input
+  * CVE-2026-17720: Insufficient policy enforcement in Passwords
+  * CVE-2026-17721: Out of bounds write in ANGLE
+  * CVE-2026-17722: Object lifecycle issue in WebView
+  * CVE-2026-17723: Use after free in Media
+  * CVE-2026-17724: Race in Chrome for iOS
+  * CVE-2026-17725: Type Confusion in V8
+  * CVE-2026-17726: Integer overflow in WebGL
+  * CVE-2026-17727: Out of bounds write in WebGL
+  * CVE-2026-17728: Inappropriate implementation in Extensions
+  * CVE-2026-17758: Heap buffer overflow in Dawn
+  * CVE-2026-17732: Inappropriate implementation in SVG
+  * CVE-2026-17729: Use after free in V8
+  * CVE-2026-17730: Side-channel information leakage in Autofill
+  * CVE-2026-17731: Inappropriate implementation in Autofill
+  * CVE-2026-17733: Inappropriate implementation in QUIC
+  * CVE-2026-17734: Inappropriate implementation in Autofill
+  * CVE-2026-17735: Insufficient validation of untrusted input in BFCache
+  * CVE-2026-17736: Insufficient validation of untrusted input in WebView
+  * CVE-2026-17737: Use after free in Bluetooth
+  * CVE-2026-17738: Insufficient validation of untrusted input in Payments
+  * CVE-2026-17739: Insufficient policy enforcement in Extensions
+  * CVE-2026-17740: Uninitialized Use in ANGLE
+  * CVE-2026-17741: Insufficient validation of untrusted input in WebView
+  * CVE-2026-17742: Insufficient policy enforcement in Payments
+  * CVE-2026-17743: Insufficient policy enforcement in ControlledFrame
+  * CVE-2026-17744: Inappropriate implementation in File Input
+  * CVE-2026-17745: Out of bounds read in Skia
+  * CVE-2026-17746: Use after free in GPU
+  * CVE-2026-17747: Insufficient validation of untrusted input in Payments
+  * CVE-2026-17748: Inappropriate implementation in Extensions
+  * CVE-2026-17749: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-17750: Use after free in ANGLE
+  * CVE-2026-17751: Inappropriate implementation in AdFilter
+  * CVE-2026-17752: Use after free in Views
+  * CVE-2026-17753: Inappropriate implementation in Autofill
+  * CVE-2026-17754: Inappropriate implementation in Blink
+  * CVE-2026-17755: Incorrect security UI in Extensions
+  * CVE-2026-17756: Insufficient policy enforcement in Presentation
+  * CVE-2026-17757: Uninitialized Use in Skia
+  * CVE-2026-17759: Uninitialized Use in Codecs
+  * CVE-2026-17760: Side-channel information leakage in NoStatePrefetch
+  * CVE-2026-17761: Insufficient validation of untrusted input in Chrome for iOS
+  * CVE-2026-17762: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17763: Inappropriate implementation in GPU
+  * CVE-2026-17764: Inappropriate implementation in FedCM
+  * CVE-2026-17765: Inappropriate implementation in WebProtect
+  * CVE-2026-17766: Insufficient validation of untrusted input in Clipboard
+  * CVE-2026-17767: Insufficient validation of untrusted input in WebView
+  * CVE-2026-17768: Insufficient validation of untrusted input in WebSockets
+  * CVE-2026-17769: Insufficient validation of untrusted input in Cast
+  * CVE-2026-17770: Out of bounds read in Media
+  * CVE-2026-17771: Uninitialized Use in Skia
+  * CVE-2026-17772: Out of bounds read in WebGL
+  * CVE-2026-17773: Insufficient validation of untrusted input in Cast
+  * CVE-2026-17774: Insufficient validation of untrusted input in Variations
+  * CVE-2026-17775: Inappropriate implementation in PresentationAPI
+  * CVE-2026-17776: Policy bypass in Receiver
+  * CVE-2026-17777: Inappropriate implementation in Autofill
+  * CVE-2026-17778: Use after free in Extensions
+  * CVE-2026-17779: Inappropriate implementation in Site Isolation
+  * CVE-2026-17780: Inappropriate implementation in Isolated Web Apps
+  * CVE-2026-17781: Inappropriate implementation in Extensions
+  * CVE-2026-17782: Incorrect security UI in Chrome for iOS
+  * CVE-2026-17783: Inappropriate implementation in Loader
+  * CVE-2026-17784: Use after free in Audio
+  * CVE-2026-17785: Uninitialized Use in ANGLE
+  * CVE-2026-17786: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17787: Inappropriate implementation in DevTools
+  * CVE-2026-17788: Inappropriate implementation in Blink
+  * CVE-2026-17789: Insufficient validation of untrusted input in Chrome for iOS
+  * CVE-2026-17790: Uninitialized Use in ANGLE
+  * CVE-2026-17791: Insufficient validation of untrusted input in Payments
+  * CVE-2026-17792: Inappropriate implementation in Credential Management
+  * CVE-2026-17793: Inappropriate implementation in Messages
+  * CVE-2026-17794: Insufficient validation of untrusted input in Mobile
+  * CVE-2026-17795: Insufficient validation of untrusted input in GetUserMedia
+  * CVE-2026-17796: Side-channel information leakage in WebXR
+  * CVE-2026-17797: Inappropriate implementation in CSS
+  * CVE-2026-17798: Inappropriate implementation in Cast
+  * CVE-2026-17799: Insufficient validation of untrusted input in Safe Browsing
+  * CVE-2026-17800: Side-channel information leakage in MediaRecording
+  * CVE-2026-17801: Out of bounds memory access in ANGLE
+  * CVE-2026-17802: Side-channel information leakage in GPU
+  * CVE-2026-17803: Insufficient validation of untrusted input in Save to Drive
+  * CVE-2026-17804: Use after free in Media
+  * CVE-2026-17805: Insufficient policy enforcement in Glic
+  * CVE-2026-17806: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-17807: Use after free in V8
+  * CVE-2026-17808: Uninitialized Use in WebGL
+  * CVE-2026-17809: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-17810: Uninitialized Use in Dawn
+  * CVE-2026-17811: Use after free in ANGLE
+  * CVE-2026-17812: Inappropriate implementation in DigitalCredentials
+  * CVE-2026-17813: Insufficient policy enforcement in Chrome for iOS
+  * CVE-2026-17814: Insufficient validation of untrusted input in Chrome for iOS
+  * CVE-2026-17815: Insufficient policy enforcement in GuestView
+  * CVE-2026-17816: Inappropriate implementation in Speech
+  * CVE-2026-17817: Inappropriate implementation in ReportingAndNEL
+  * CVE-2026-17818: Inappropriate implementation in Network
+  * CVE-2026-17819: Inappropriate implementation in WebAppInstalls
+  * CVE-2026-17820: Insufficient policy enforcement in Autofill
+  * CVE-2026-17821: Insufficient policy enforcement in Extensions
+  * CVE-2026-17822: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17823: Insufficient policy enforcement in WebXR
+  * CVE-2026-17824: Insufficient policy enforcement in ServiceWorker
+  * CVE-2026-17825: Insufficient policy enforcement in Passwords
+  * CVE-2026-17826: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17827: Inappropriate implementation in CSS
+  * CVE-2026-17828: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17829: Insufficient policy enforcement in Passwords
+  * CVE-2026-17830: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17831: Insufficient validation of untrusted input in Passwords
+  * CVE-2026-17832: Use after free in ANGLE
+  * CVE-2026-17833: Inappropriate implementation in Passwords
+  * CVE-2026-17834: Inappropriate implementation in Passwords
+  * CVE-2026-17835: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17836: Use after free in V8
+  * CVE-2026-17837: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17838: Incorrect security UI in Chrome for iOS
+  * CVE-2026-17839: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17840: Incorrect security UI in Passwords
+  * CVE-2026-17841: Race in Chrome for iOS
+  * CVE-2026-17842: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17843: Inappropriate implementation in CSS
+  * CVE-2026-17844: Insufficient validation of untrusted input in Cast
+  * CVE-2026-17845: Inappropriate implementation in CSS
+  * CVE-2026-17846: Inappropriate implementation in Media
+  * CVE-2026-17847: Insufficient validation of untrusted input in ANGLE
+  * CVE-2026-17848: Insufficient validation of untrusted input in Codecs
+  * CVE-2026-17849: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17850: Inappropriate implementation in Permissions
+  * CVE-2026-17851: Side-channel information leakage in Autofill
+  * CVE-2026-17852: Inappropriate implementation in Media Router
+  * CVE-2026-17853: Inappropriate implementation in DevTools
+  * CVE-2026-17854: Insufficient policy enforcement in WebMCP
+  * CVE-2026-17855: Race in DevTools
+  * CVE-2026-17856: Inappropriate implementation in Network
+  * CVE-2026-17857: Inappropriate implementation in Network
+  * CVE-2026-17858: Uninitialized Use in WebNN
+  * CVE-2026-17859: Side-channel information leakage in Favicons
+  * CVE-2026-17860: Insufficient validation of untrusted input in Mobile
+  * CVE-2026-17861: Insufficient validation of untrusted input in Updater
+  * CVE-2026-17862: Use after free in Tracing
+  * CVE-2026-17863: Inappropriate implementation in Browser
+  * CVE-2026-17864: Inappropriate implementation in Updater
+  * CVE-2026-17865: Inappropriate implementation in Crypto
+  * CVE-2026-17866: Type Confusion in Tab
+  * CVE-2026-17867: Insufficient validation of untrusted input in Dawn
+  * CVE-2026-17868: Insufficient policy enforcement in USB
+  * CVE-2026-17869: Out of bounds read in WebXR
+  * CVE-2026-17870: Insufficient validation of untrusted input in Cast
+  * CVE-2026-17871: Inappropriate implementation in Passwords
+  * CVE-2026-17872: Cryptographic Flaw in WebAppInstalls
+  * CVE-2026-17873: Insufficient policy enforcement in Chrome for iOS
+  * CVE-2026-17874: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17875: Use after free in PDFium
+  * CVE-2026-17876: Inappropriate implementation in Payments
+  * CVE-2026-17877: Inappropriate implementation in Chromoting
+  * CVE-2026-17878: Inappropriate implementation in CSS
+  * CVE-2026-17879: Inappropriate implementation in Autofill
+  * CVE-2026-17880: Inappropriate implementation in Autofill
+  * CVE-2026-17881: Use after free in WebXR
+  * CVE-2026-17882: Policy bypass in Extensions
+  * CVE-2026-17883: Inappropriate implementation in Headless
+  * CVE-2026-17884: Object lifecycle issue in WebRTC
+  * CVE-2026-17885: Inappropriate implementation in Paint
+  * CVE-2026-17886: Use after free in Enterprise
+  * CVE-2026-17887: Use after free in TabStrip
+  * CVE-2026-17888: Insufficient validation of untrusted input in WebUI
+  * CVE-2026-17889: Uninitialized Use in WebXR
+  * CVE-2026-17890: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17891: Use after free in ANGLE
+  * CVE-2026-17892: Inappropriate implementation in WebXR
+  * CVE-2026-17893: Insufficient validation of untrusted input in Updater
+  * CVE-2026-17894: Use after free in Views
+  * CVE-2026-17895: Inappropriate implementation in DataTransfer
+  * CVE-2026-17896: Use after free in DevTools
+  * CVE-2026-17897: Inappropriate implementation in ORB
+  * CVE-2026-17898: Use after free in DevTools
+  * CVE-2026-17899: Insufficient policy enforcement in DevTools
+  * CVE-2026-17900: Inappropriate implementation in Enterprise
+  * CVE-2026-17901: Inappropriate implementation in Sharing
+  * CVE-2026-17902: Inappropriate implementation in Editing
+  * CVE-2026-17903: Insufficient policy enforcement in Chromecast
+  * CVE-2026-17904: Insufficient policy enforcement in NFC
+  * CVE-2026-17905: Inappropriate implementation in SurfaceCapture
+  * CVE-2026-17906: Insufficient validation of untrusted input in Bluetooth
+  * CVE-2026-17907: Side-channel information leakage in Network
+  * CVE-2026-17908: Insufficient validation of untrusted input in Printing
+  * CVE-2026-17909: Insufficient validation of untrusted input in Isolated Web Apps
+  * CVE-2026-17910: Insufficient policy enforcement in NFC
+  * CVE-2026-17911: Insufficient policy enforcement in SVG
+  * CVE-2026-17912: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17913: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17914: Side-channel information leakage in Skia
+  * CVE-2026-17915: Inappropriate implementation in WebView
+  * CVE-2026-17916: Insufficient policy enforcement in Settings
+  * CVE-2026-17917: Policy bypass in Chrome for iOS
+  * CVE-2026-17918: Use after free in Sync
+  * CVE-2026-17919: Insufficient policy enforcement in Enterprise
+  * CVE-2026-17920: Use after free in V8
+  * CVE-2026-17921: Insufficient validation of untrusted input in Navigation
+  * CVE-2026-17922: Inappropriate implementation in Enterprise
+  * CVE-2026-17923: Policy bypass in Enterprise
+  * CVE-2026-17924: Use after free in DNS
+  * CVE-2026-17925: Inappropriate implementation in Cast
+  * CVE-2026-17926: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17927: Insufficient policy enforcement in DevTools
+  * CVE-2026-17928: Inappropriate implementation in DataTransfer
+  * CVE-2026-17929: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17930: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-17931: Inappropriate implementation in DevTools
+  * CVE-2026-17932: Use after free in DataTransfer
+  * CVE-2026-17933: Inappropriate implementation in DOMStorage
+  * CVE-2026-17934: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-17935: Heap buffer overflow in Codecs
+  * CVE-2026-17936: Inappropriate implementation in DevTools
+  * CVE-2026-17937: Inappropriate implementation in DevTools
+  * CVE-2026-17938: Inappropriate implementation in FullScreen
+  * CVE-2026-17939: Inappropriate implementation in Passwords
+  * CVE-2026-17940: Insufficient validation of untrusted input in Picture-in-Picture
+  * CVE-2026-17941: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17942: Side-channel information leakage in SVG
+  * CVE-2026-17943: Inappropriate implementation in Parser
+  * CVE-2026-17944: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17945: Inappropriate implementation in Navigation
+  * CVE-2026-17946: Uninitialized Use in Dawn
+  * CVE-2026-17947: Use after free in WebSockets
+  * CVE-2026-17948: Type Confusion in V8
+  * CVE-2026-17949: Uninitialized Use in GPU
+  * CVE-2026-17950: Policy bypass in Safebrowsing
+  * CVE-2026-17951: Heap buffer overflow in WebRTC
+  * CVE-2026-17952: Inappropriate implementation in V8
+  * CVE-2026-17953: Insufficient policy enforcement in WebView
+  * CVE-2026-17954: Policy bypass in MHTML
+  * CVE-2026-17955: Insufficient validation of untrusted input in Payments
+  * CVE-2026-17956: Inappropriate implementation in Scheduling
+  * CVE-2026-17957: Inappropriate implementation in CORS
+  * CVE-2026-17958: Inappropriate implementation in Views
+  * CVE-2026-17959: Inappropriate implementation in Network
+  * CVE-2026-17960: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17961: Inappropriate implementation in Session
+  * CVE-2026-17962: Inappropriate implementation in Blink
+  * CVE-2026-17963: Inappropriate implementation in SVG
+  * CVE-2026-17964: Incorrect security UI in UI
+  * CVE-2026-17965: Incorrect security UI in Chrome for iOS
+  * CVE-2026-17966: Inappropriate implementation in Views
+  * CVE-2026-17967: Use after free in Chrome for iOS
+  * CVE-2026-17968: Uninitialized Use in WebXR
+  * CVE-2026-17969: Inappropriate implementation in Passwords
+  * CVE-2026-17970: Insufficient validation of untrusted input in Passwords
+  * CVE-2026-17971: Inappropriate implementation in Frame
+  * CVE-2026-17972: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-17973: Inappropriate implementation in Views
+  * CVE-2026-17974: Insufficient policy enforcement in DevTools
+  * CVE-2026-17975: Inappropriate implementation in IME
+  * CVE-2026-17976: Policy bypass in Extensions
+  * CVE-2026-17977: Policy bypass in CSS
+  * CVE-2026-17978: Side-channel information leakage in WebCodecs
+  * CVE-2026-17979: Race in V8
+  * CVE-2026-17980: Inappropriate implementation in UI
+  * CVE-2026-17981: Inappropriate implementation in Blink
+  * CVE-2026-17982: Insufficient validation of untrusted input in Cast
+  * CVE-2026-17983: Incorrect security UI in Global Media Controls
+  * CVE-2026-17984: Inappropriate implementation in Browser
+  * CVE-2026-17985: Insufficient policy enforcement in Speech
+  * CVE-2026-17986: Insufficient policy enforcement in Bluetooth
+  * CVE-2026-17987: Insufficient validation of untrusted input in Notifications
+  * CVE-2026-17988: Insufficient validation of untrusted input in Navigation
+  * CVE-2026-17989: Type Confusion in V8
+  * CVE-2026-17990: Insufficient validation of untrusted input in WebAuthn
+  * CVE-2026-17991: Insufficient validation of untrusted input in AI
+  * CVE-2026-17992: Uninitialized Use in Skia
+  * CVE-2026-17993: Race in Updater
+  * CVE-2026-17994: Inappropriate implementation in Media
+  * CVE-2026-17995: Out of bounds read in Dawn
+  * CVE-2026-17996: Inappropriate implementation in Browser
+  * CVE-2026-17997: Inappropriate implementation in Passwords
+  * CVE-2026-17998: Incorrect security UI in Extensions
+  * CVE-2026-17999: Incorrect security UI in PictureInPicture
+  * CVE-2026-18000: Insufficient policy enforcement in USB
+  * CVE-2026-18001: Inappropriate implementation in WebGL
+  * CVE-2026-18002: Insufficient validation of untrusted input in Google Lens
+  * CVE-2026-18003: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-18004: Insufficient policy enforcement in Speech
+  * CVE-2026-18005: Inappropriate implementation in WebXR
+  * CVE-2026-18006: Inappropriate implementation in Google Lens
+  * CVE-2026-18007: Inappropriate implementation in Input
+  * CVE-2026-18008: Inappropriate implementation in Settings
+  * CVE-2026-18009: Insufficient validation of untrusted input in Passwords
+  * CVE-2026-18010: Inappropriate implementation in Passwords
+  * CVE-2026-18011: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-18012: Use after free in PDFium
+  * CVE-2026-18013: Inappropriate implementation in Chrome for iOS
+  * CVE-2026-18014: Insufficient validation of untrusted input in DevTools
+  * CVE-2026-18015: Inappropriate implementation in Tint
+  * CVE-2026-18016: Insufficient policy enforcement in Chrome for iOS
+  * CVE-2026-18017: Use after free in Dawn
+  * CVE-2026-18018: Inappropriate implementation in Updater
+  * CVE-2026-18019: Side-channel information leakage in Media
+
 * Fri Jul 24 2026 Than Ngo <than@redhat.com> - 150.0.7871.186-1
 - Update to 150.0.7871.186
   * CVE-2026-16807: Out of bounds write in Codecs

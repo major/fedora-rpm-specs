@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc1
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,15 +9,15 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2026.07
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Version:  2026.10
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
 License:  GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:      https://u-boot-project.org/
 ExcludeArch: s390x
-Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
+Source0:  https://git.u-boot-project.org/u-boot/u-boot/-/archive/v%{version}%{?candidate:-%{candidate}}/u-boot-v%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
 Source2:  riscv64-boards
 Source3:  x86_64-boards
@@ -41,7 +41,6 @@ Patch7:   uefi-enable-https-boot-by-default.patch
 Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
-Patch12:  rockchip-rk3568-nanopi-r5-Drop-duplicated-extra-sdhc.patch
 Patch13:  rockchip-rk356x-Stop-overriding-sdhci-mmc-aliases.patch
 # Jetson fixes
 Patch14:  p3450-fix-board.patch
@@ -122,7 +121,7 @@ U-Boot firmware binaries for x86_64 boards
 %endif
 
 %prep
-%autosetup -p1 -n u-boot-%{version}%{?candidate:-%{candidate}}
+%autosetup -p1 -n u-boot-v%{version}%{?candidate:-%{candidate}}
 
 cp %SOURCE1 %SOURCE2 %SOURCE3 .
 
@@ -314,6 +313,10 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Thu Jul 30 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-0.1.rc1
+- Update to 2026.10 RC1
+- Update source URL
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2026.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

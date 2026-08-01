@@ -1,11 +1,14 @@
 Name:		python-pycdio
 Version:	2.1.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	A Python interface to the CD Input and Control library
 
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/libcdio/
 Source0:	%pypi_source pycdio
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:		python-pycdio-swig45.patch
 
 BuildRequires:	gcc
 BuildRequires:	python3-devel
@@ -53,6 +56,9 @@ chmod 755 %{buildroot}/%{python3_sitearch}/*.so
 %{python3_sitearch}/_pyiso9660.cpython-*linux-gnu.so
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.1.1-14
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.1.1-13
 - Rebuilt for Python 3.15.0b4 ABI change
 

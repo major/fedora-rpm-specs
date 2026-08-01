@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        187
+Version:        189
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -11,7 +11,7 @@ Version:        187
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -488,6 +488,32 @@ fi
 %endif
 
 %changelog
+* Wed Jul 29 2026 Packit <hello@packit.dev> - 189-1
+Changes with 189
+----------------
+  - Added new stage org.osbuild.idmap to enable shifting UIDs/GIDs (#2495)
+    - Author: Michael Engel, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update images dependency ref to latest (#2517)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild-ci container images (#2508)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - Update snapshots to 20260712 (#2505)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - Update snapshots to 20260719 (#2511)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Lukáš Zapletal
+  - Update snapshots to 20260726 (#2516)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - add Oracle as datasource to cloud init (#2519)
+    - Author: src-up, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - ci: enable allow-unsafe-pr-checkout (#2515)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Brian C. Lane, Simon de Vlieger
+  - stage/rpm: include additional header digests (#2478)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - test: adapt to image-builder cache new layout (HMS-10855) (#2514)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Brian C. Lane
+
+— Somewhere on the Internet, 2026-07-29
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 187-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

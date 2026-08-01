@@ -2,7 +2,7 @@
 
 Name:           cppcodec
 Version:        0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Header-only C++11 library to encode/decode base64/base64url/base32/base32hex/hex
 
 License:        MIT
@@ -34,7 +34,9 @@ Provides:       %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 rm -vrf test/catch
 
 %build
-%cmake -DBUILD_TESTING=TRUE
+%cmake \
+	-DCMAKE_POLICY_VERSION_MINIMUM="3.5.0" \
+	-DBUILD_TESTING=TRUE
 %cmake_build
 
 %install
@@ -50,6 +52,9 @@ rm -vrf test/catch
 %{_datadir}/pkgconfig/%{name}-1.pc
 
 %changelog
+* Thu Jul 30 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.2-19
+- Fix FTBFS (rhbz#2503829)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
-%global forgeurl    https://github.com/CatharsisFonts/Cormorant
-%global commit      3f27825ce7aa990dc65761a7b323b92aecc84446
+%global forgeurl https://github.com/CatharsisFonts/Cormorant
+%global tag %{version}
 %forgemeta
 
-Version: 3.604
-Release: 17%{?dist}
+Version: 4.002
+Release: 1%{?dist}
 URL:     https://www.behance.net/gallery/28579883/Cormorant-an-open-source-display-font-family
 
 %global foundry           Catharsis Fonts
@@ -41,8 +41,8 @@ alternates, small capitals, and alternate figure sets.}
 
 %global fontfamily0       Cormorant
 %global fontsummary0      Cormorant, a display serif font family inspired by the Garamond heritage
-%global fonts0            2.*OpenType*Files/*otf
-%global fontsex0          2.*OpenType*Files/CormorantSC*.otf %{fonts1} %{fonts2} %{fonts3} %{fonts4}
+%global fonts0            fonts/otf/*otf
+%global fontsex0          fonts/otf/CormorantSC*.otf %{fonts1} %{fonts2} %{fonts3} %{fonts4}
 %global fontconfngs0      %{SOURCE10}
 %global fontdescription0  %{expand:
 %{common_description}
@@ -53,7 +53,7 @@ alternates, small capitals, and alternate figure sets.}
 %global fontpkgheader1    %{expand:
 Suggests: font(cormorant)
 }
-%global fonts1            2.*OpenType*Files/CormorantGaramond*.otf
+%global fonts1            fonts/otf/CormorantGaramond*.otf
 %global fontconfngs1      %{SOURCE11}
 %global fontdescription1  %{expand:
 %{common_description}
@@ -71,7 +71,7 @@ shapes for a few key characters to achieve more reading comfort.}
 %global fontpkgheader2    %{expand:
 Suggests: font(cormorant)
 }
-%global fonts2            2.*OpenType*Files/CormorantInfant*.otf
+%global fonts2            fonts/otf/CormorantInfant*.otf
 %global fontconfngs2      %{SOURCE12}
 %global fontdescription2  %{expand:
 %{common_description}
@@ -85,7 +85,7 @@ by gentle schoolbook-style single-storey shapes.}
 %global fontpkgheader3    %{expand:
 Suggests: font(cormorant)
 }
-%global fonts3            2.*OpenType*Files/CormorantUpright*.otf
+%global fonts3            fonts/otf/CormorantUpright*.otf
 %global fontconfngs3      %{SOURCE13}
 %global fontdescription3  %{expand:
 %{common_description}
@@ -97,7 +97,7 @@ Cormorant Upright is an un-slanted cursive of the main Cormorant font family.}
 %global fontpkgheader4    %{expand:
 Suggests: font(cormorant)
 }
-%global fonts4            2.*OpenType*Files/CormorantUnicase*.otf
+%global fonts4            fonts/otf/CormorantUnicase*.otf
 %global fontconfngs4      %{SOURCE14}
 %global fontdescription4  %{expand:
 %{common_description}
@@ -117,11 +117,11 @@ Source14: 60-%{fontpkgname4}.xml
 %fontmetapkg
 
 %package doc
-Summary:   Optional documentation files of %{source_name}
+Summary:   Optional documentation files of %{name}
 BuildArch: noarch
 %description doc
 This package provides optional documentation files shipped with
-%{source_name}.
+%{name}.
 
 %prep
 %forgesetup
@@ -141,9 +141,15 @@ This package provides optional documentation files shipped with
 %files doc
 %defattr(644, root, root, 0755)
 %license OFL.txt
-%doc 5.*Specimens*Test*Files/*pdf
+%doc README.md FONTLOG.txt
 
 %changelog
+* Thu Jul 30 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 4.002-1
+- Update to 4.002 (rhbz#2479499)
+
+* Wed Jul 15 2026 Tim Landscheidt <tim@tim-landscheidt.de> - 3.604-14-18
+- Fix summary and description for doc subpackage
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.604-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

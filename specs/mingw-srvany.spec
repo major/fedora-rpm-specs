@@ -22,7 +22,6 @@ BuildRequires:  automake autoconf libtool
 
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
-BuildRequires:  mingw32-gcc-c++
 
 
 %description

@@ -18,11 +18,13 @@ Patch290:       https://github.com/3MFConsortium/lib3mf/pull/290.patch
 # Fix build with GCC 15, #include <cstdint> for uint64_t definition
 Patch407:       https://github.com/3MFConsortium/lib3mf/pull/407.patch
 
+# https://github.com/3MFConsortium/lib3mf/issues/446
+Patch:          cmake4.0.patch
+
 BuildRequires:  act
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libzip-devel
-BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 
@@ -39,9 +41,6 @@ ExcludeArch:    %{ix86}
 # See Source/Libraries/cpp-base64/base64.cpp
 # https://github.com/ReneNyffenegger/cpp-base64
 Provides:       bundled(cpp-base64) = 1.01.00
-
-# Get the pre-Fedora 33 behavior for now until diverged from EPEL 7
-%define __cmake_in_source_build 1
 
 %global _description %{expand:
 lib3mf is a C++ implementation of the 3D Manufacturing Format standard.
@@ -81,23 +80,18 @@ sed -i -e 's|Libraries/libzip/zip.h|zip.h|' \
 
 
 %build
-mkdir -p build
-cd build
-%cmake3 %{!?with_tests:-DLIB3MF_TESTS=OFF} \
+%cmake \
+  %{!?with_tests:-DLIB3MF_TESTS=OFF} \
   -DUSE_INCLUDED_ZLIB=OFF \
   -DUSE_INCLUDED_LIBZIP=OFF \
   -DUSE_INCLUDED_GTEST=OFF \
   -DUSE_INCLUDED_SSL=OFF \
-  -DSTRIP_BINARIES=OFF \
-  -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-  -DCMAKE_INSTALL_INCLUDEDIR=include/%{name} \
-  ..
-%make_build
-cd ..
+  -DSTRIP_BINARIES=OFF
+%cmake_build
 
 
 %install
-%make_install -C build
+%cmake_install
 
 # Also include the other headers
 cp -a Include/* %{buildroot}%{_includedir}/%{name}/
@@ -119,13 +113,8 @@ ln -s lib3mf.pc %{buildroot}%{_libdir}/pkgconfig/lib3MF.pc
 
 %if %{with tests}
 %check
-cd build
 %ctest --rerun-failed --output-on-failure
-cd ..
 %endif
-
-
-%ldconfig_scriptlets
 
 
 %files

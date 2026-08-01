@@ -1,5 +1,5 @@
 Name:           glib2
-Version:        2.89.2
+Version:        2.89.3
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
@@ -142,7 +142,8 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %check
-%meson_test
+# give more leeway on test timeouts to slower builders e.g. on current riscv64
+%meson_test --timeout-multiplier 3
 
 %files -f glib20.lang
 %license LICENSES/LGPL-2.1-or-later.txt

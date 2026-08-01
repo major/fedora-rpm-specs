@@ -1,7 +1,7 @@
 %global xfceversion 4.20
 
 Name:           xfce4-settings
-Version:        4.20.2
+Version:        4.20.5
 Release:        %autorelease
 Summary:        Settings Manager for Xfce
 
@@ -13,24 +13,26 @@ Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-
 # Use Fedora theme and font settings
 Patch10:        xfce4-settings-%{xfceversion}-fedora.patch
 
-BuildRequires:  make
+BuildRequires:  colord-devel
+BuildRequires:  desktop-file-utils >= 0.7
+BuildRequires:  exo-devel >= 0.5.0
+BuildRequires:  garcon-devel >= %{xfceversion}
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  gtk-layer-shell-devel
 BuildRequires:  intltool
-BuildRequires:  exo-devel >= 0.5.0
+BuildRequires:  libXrandr-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  libnotify-devel
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  libxfce4util-devel >= %{xfceversion}
-BuildRequires:  xfconf-devel >= %{xfceversion}
-BuildRequires:  desktop-file-utils >= 0.7
-BuildRequires:  libnotify-devel
-BuildRequires:  colord-devel
-BuildRequires:  libcanberra-devel
 BuildRequires:  libxklavier-devel
+BuildRequires:  make
+BuildRequires:  xfconf-devel >= %{xfceversion}
 %ifnarch s390 s390x
 BuildRequires:  xorg-x11-drv-libinput-devel
 %endif
-BuildRequires:  libXrandr-devel
-BuildRequires:  garcon-devel >= %{xfceversion}
+
 Requires:       xfconf
 %if 0%{?rhel} <= 7
 Requires:       gnome-icon-theme
@@ -40,16 +42,17 @@ Requires:       gnome-icon-theme
 This package includes the settings manager applications for the Xfce desktop. 
 
 %prep
-%setup -q
-%patch 10
-
+%autosetup -p0
 
 %build
-%configure --enable-sound-settings --enable-pluggable-dialogs --enable-maintainer-mode --enable-xorg-libinput
+%configure --enable-sound-settings --enable-xorg-libinput
 %make_build
 
 %install
 %make_install
+
+# Remove invalid locale directory to silence rpmlint
+rm -rf %{buildroot}%{_datadir}/locale/hye
 
 for file in %{buildroot}%{_datadir}/applications/*.desktop ; do
     desktop-file-install \
@@ -59,7 +62,6 @@ for file in %{buildroot}%{_datadir}/applications/*.desktop ; do
         --dir=%{buildroot}%{_datadir}/applications \
         $file
 done
-
 
 %find_lang %{name}
 

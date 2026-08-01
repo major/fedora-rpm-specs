@@ -1,9 +1,9 @@
 # Generated from activestorage-0.1.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name activestorage
 
-# openh264 coded is not available in buildroot, while it can be obtained e.g.
-# from:
-# https://codecs.fedoraproject.org/openh264/43/x86_64/Packages/o/openh264-2.6.0-2.fc43.x86_64.rpm
+# While openh264 coded is not available in buildroot, it can be obtained from:
+# * repo: https://codecs.fedoraproject.org/openh264/43/x86_64/
+# * rpm: https://codecs.fedoraproject.org/openh264/43/x86_64/Packages/o/openh264-2.6.0-2.fc43.x86_64.rpm
 %bcond_with openh264
 
 # TODO: Re-enable recompilation if possible. Currently, we don't have rollup.js
@@ -12,22 +12,19 @@
 %bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 4%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone https://github.com/rails/rails.git && cd rails/activestorage
-# git archive -v -o activestorage-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o activestorage-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Source code of pregenerated JS files.
 # git clone https://github.com/rails/rails.git && cd rails/activestorage
-# git archive -v -o activestorage-8.0.3-js.tar.gz v8.0.3 package.json rollup.config.js
+# git archive -v -o activestorage-8.1.2-js.tar.gz v8.1.2 package.json rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
-# Fix a test failing with FFmpeg 8
-# https://github.com/rails/rails/issues/56069
-Patch0: %{gem_name}-ffmpeg8.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -40,6 +37,7 @@ BuildRequires: rubygem(marcel)
 BuildRequires: rubygem(railties) = %{version}
 BuildRequires: rubygem(sprockets-rails)
 BuildRequires: rubygem(image_processing)
+BuildRequires: rubygem(webmock)
 BuildRequires: rubygem(sqlite3)
 # Required to pass some of the test/models/variant_test.rb
 # https://github.com/rails/rails/issues/44395
@@ -74,8 +72,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-cd ..
-%patch -P0 -p0 -b .ffmpeg8
 
 %build
 %if %{with js_recompilation}
@@ -115,7 +111,7 @@ mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
 # `force_skip` alias.
 touch ../tools/test_common.rb
-# Netiher strict_warnings.rb appears to be useful.
+# Neither strict_warnings.rb appears to be useful.
 touch ../tools/strict_warnings.rb
 
 touch Gemfile
@@ -126,12 +122,8 @@ echo 'gem "sprockets-rails"' >> Gemfile
 echo 'gem "image_processing"' >> Gemfile
 echo 'gem "marcel"' >> Gemfile
 echo 'gem "railties"' >> Gemfile
+echo 'gem "webmock"' >> Gemfile
 echo 'gem "sqlite3"' >> Gemfile
-
-# `ActiveStorage::Service::AzureStorageService` is deprecated and we would need
-# `azure-storage-blob` gem to make this work => just ignore the test.
-sed -i '/test "azure service is deprecated" do/a\    skip' \
-  test/service/configurator_test.rb
 
 # test/javascript_package_test.rb requires rollup.js, which we don't have.
 # OTOH, if we had it, we would recomplie the sources and the test would have
@@ -181,6 +173,10 @@ bundle exec ruby -Itest -ractive_storage/engine -e 'Dir.glob "./test/**/*_test.r
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Active Storage 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,12 +1,13 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		http://www.ch-werner.de/sqliteodbc
 Source:		http://www.ch-werner.de/sqliteodbc/%{name}-%{version}.tar.gz
+Source1:	10-sqlite.ini
 Patch0:		sqliteodbc-0.99991-Fix-too-many-args-to-gpps-compilation-error.patch
 Patch1:		sqliteodbc-0.99991-Fix-incompatible-pointer-compilation-error.patch
 
@@ -19,7 +20,6 @@ BuildRequires:	unixODBC-devel
 BuildRequires:	zlib-devel
 BuildRequires:	/usr/bin/iconv
 
-Requires:	%{_bindir}/odbcinst
 
 
 %description
@@ -79,75 +79,9 @@ cat > odbc.ini.sample <<- 'EOD'
 	# BigInt = No|Yes
 EOD
 
-%post
-if [ -x %{_bindir}/odbcinst ] ; then
-	INST=$(mktemp)
-
-	if [ -r %{_libdir}/odbc/libsqliteodbc.so ] ; then
-		cat > $INST <<- 'EOD'
-			[SQLITE]
-			Description=SQLite ODBC 2.X
-			Driver=%{_libdir}/odbc/libsqliteodbc.so
-			Setup=%{_libdir}/odbc/libsqliteodbc.so
-			Threading=2
-			FileUsage=1
-		EOD
-
-		%{_bindir}/odbcinst -q -d -n SQLITE | grep '^\[SQLITE\]' >/dev/null || {
-			%{_bindir}/odbcinst -i -d -n SQLITE -f $INST || true
-		}
-
-		cat > $INST <<- 'EOD'
-			[SQLite Datasource]
-			Driver=SQLITE
-		EOD
-
-		%{_bindir}/odbcinst -q -s -n "SQLite Datasource" | \
-		grep '^\[SQLite Datasource\]' >/dev/null || {
-			%{_bindir}/odbcinst -i -l -s -n "SQLite Datasource" -f $INST || true
-		}
-	fi
-
-	if [ -r %{_libdir}/odbc/libsqlite3odbc.so ] ; then
-		cat > $INST <<- 'EOD'
-			[SQLITE3]
-			Description=SQLite ODBC 3.X
-			Driver=%{_libdir}/odbc/libsqlite3odbc.so
-			Setup=%{_libdir}/odbc/libsqlite3odbc.so
-			Threading=2
-			FileUsage=1
-		EOD
-
-		%{_bindir}/odbcinst -q -d -n SQLITE3 | grep '^\[SQLITE3\]' >/dev/null || {
-			%{_bindir}/odbcinst -i -d -n SQLITE3 -f $INST || true
-		}
-
-		cat > $INST <<- 'EOD'
-			[SQLite3 Datasource]
-			Driver=SQLITE3
-		EOD
-
-		%{_bindir}/odbcinst -q -s -n "SQLite3 Datasource" | \
-		grep '^\[SQLite3 Datasource\]' >/dev/null || {
-			%{_bindir}/odbcinst -i -l -s -n "SQLite3 Datasource" -f $INST || true
-		}
-	fi
-
-	rm -f $INST || true
-fi
-
-
-%preun
-if [ "$1" = "0" ] ; then
-	test -x %{_bindir}/odbcinst && {
-		%{_bindir}/odbcinst -u -d -n SQLITE || true
-		%{_bindir}/odbcinst -u -l -s -n "SQLite Datasource" || true
-		%{_bindir}/odbcinst -u -d -n SQLITE3 || true
-		%{_bindir}/odbcinst -u -l -s -n "SQLite3 Datasource" || true
-	}
-
-	true
-fi
+# ODBC driver registration drop-in snippet
+mkdir -p %{buildroot}%{_prefix}/lib/odbc/odbcinst.d
+install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
 
 
 %files
@@ -157,9 +91,15 @@ fi
 %{_libdir}/odbc/libsqliteodbc*.so*
 %{_libdir}/odbc/libsqlite3odbc*.so*
 %{_libdir}/libsqlite3_mod_*.so*
+%dir %{_prefix}/lib/odbc
+%dir %{_prefix}/lib/odbc/odbcinst.d
+%{_prefix}/lib/odbc/odbcinst.d/10-sqlite.ini
 
 
 %changelog
+* Mon Jul 20 2026 Michal Schorm <mschorm@redhat.com> - 0.99991-11
+- Ship drop-in snippet for ODBC driver self-registration
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99991-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

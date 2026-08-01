@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: Python-2.0.1
 
 
@@ -474,6 +474,22 @@ Patch484: 00484-cve-2026-3644.patch
 #
 # Stack overflow parsing XML with deeply nested DTD content models
 Patch485: 00485-cve-2026-4224.patch
+
+# 00490 # 3e8c5ad70d6a515107352d8779269240a0553f54
+# gh-153030: Fix quadratic complexity in incremental parsing in HTMLParser
+#
+# When an unterminated construct (e.g. a tag or comment) spanned many
+# feed() calls, rescanning the growing buffer and concatenating new data
+# onto it were both quadratic.  New data is now accumulated in a list and
+# only joined and parsed once enough has piled up.
+Patch490: 00490-cve-2026-15308.patch
+
+# 00491 # 1ad95144c42a6933283352245c5df5a4c142e75f
+# gh-149776: Skip UDP Lite tests if it's not supported
+#
+# Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
+# it's not supported.
+Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
 
 # (New patches go here ^^^)
 #
@@ -1811,6 +1827,14 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Jul 28 2026 Lukáš Zachar <lzachar@redhat.com> - 3.12.13-6
+- Security fix for CVE-2026-15308
+Resolves: rhbz#2498688
+
+* Tue Jul 28 2026 Miro Hrončok <mhroncok@redhat.com> - 3.12.13-5
+- Skip UDP Lite tests if it's not supported
+- Fixes FTBFS on Linux kernel 7.1 and newer
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        354
-Release:        2%{?dist}
+Version:        355
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -69,16 +69,16 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.6
-Provides: bundled(npm(ipaddr.js)) = 2.3.0
+Provides: bundled(npm(ipaddr.js)) = 2.4.0
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -118,6 +118,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jul 30 2026 Packit <hello@packit.dev> - 355-1
+- Translations and dependency updates
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 354-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

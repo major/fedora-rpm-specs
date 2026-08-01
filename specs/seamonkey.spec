@@ -18,7 +18,7 @@
 
 %global nspr_version	4.35.0
 %global nss_version	3.112.0
-%global libvpx_version	1.5.0
+%global libvpx_version	1.10.0
 %global webp_version	1.0.2
 %global icu_version	63.1
 %global ffi_version	3.0.9
@@ -34,8 +34,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.23
-Release:        5%{?dist}
+Version:        2.53.24
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -55,8 +55,6 @@ Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
 Patch4:		seamonkey-2.53.18-mozilla-1862601.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
-Patch8:		seamonkey-2.53.22-mozilla-1882209.patch
-Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
 Patch11:	seamonkey-2.53.16-mozilla-1434478.patch
 Patch13:	seamonkey-2.53.10-mozilla-1460295.patch
 Patch14:	seamonkey-2.53.11-adjacent-sibling.patch
@@ -83,6 +81,12 @@ Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
+
+Patch50:	seamonkey-2.53.24-mozilla-1882209.patch
+Patch51:	seamonkey-2.53.24-mozilla-1866191.patch
+Patch52:	seamonkey-2.53.24-mozilla-2033279.patch
+Patch53:	seamonkey-2.53.24-rust_version.patch
+Patch54:	seamonkey-2.53.24-rust_u2fhid.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -182,8 +186,6 @@ cp %{SOURCE3} GNUmakefile
 %{?with_system_icu:%patch 4 -p1 -b .1862601}
 %patch 5 -p2 -b .1173156
 %patch 7 -p1 -b .1005640
-%patch 8 -p1 -b .1882209
-%{?with_system_libvpx:%patch 9 -p1 -b .1332139}
 %patch 11 -p1 -b .1434478
 %patch 13 -p1 -b .1460295
 %patch 14 -p1 -b .adjacent-sibling
@@ -211,6 +213,12 @@ cp %{SOURCE3} GNUmakefile
 %patch 39 -p1 -b .dateformat
 %patch 40 -p0 -b .slowscript
 %patch 42 -p1 -b .postmessage-event
+
+%patch 50 -p1
+%patch 51 -p1
+%patch 52 -p1
+%patch 53 -p1
+%patch 54 -p1
 
 %patch 60 -p1 -b .ua-update
 %patch 61 -p1 -b .ua-update-preload
@@ -337,7 +345,7 @@ pref("calendar.useragent.extra", "", locked);
 
 /* Completely mimic to Firefox for compatibility with this World nowadays...  */
 pref("general.useragent.compatMode.strict-firefox", true);
-pref("general.useragent.compatMode.version", "128.0");
+pref("general.useragent.compatMode.version", "140.0");
 
 pref("network.http.sendOriginHeader", 1);
 
@@ -499,8 +507,8 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.23-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Thu Jul 30 2026 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.24-1
+- update to 2.53.24
 
 * Wed Apr 15 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.53.23-4
 - Rebuilt for vmaf-3.1.0

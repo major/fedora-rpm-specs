@@ -80,21 +80,29 @@ Patch: 0003-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
 Patch: 0004-service-update-sqlite3-to-6.0.0-series-override-seri.patch
 
 
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+Requires: nodejs26
+%else
+%if 0%{?fedora} == 44
 Requires: nodejs24
 %else
 Requires: nodejs
+%endif
 %endif
 
 # XXX nodejs-packaging needs fixing to auto-add 'Requires: nodejs(abi) == XX'
 # then this can be reduced to only 'BuildRequires: nodejs, /usr/bin/node'
 # See also https://src.fedoraproject.org/rpms/linux-sgx/pull-request/6
 # Match this version with later 'Requires: nodejsXX' against sgx-pccs
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+BuildRequires: nodejs26-devel, /usr/bin/node, /usr/bin/npm
+%else
+%if 0%{?fedora} == 44
 BuildRequires: nodejs24-devel, /usr/bin/node, /usr/bin/npm
 %else
 # npm in RHEL 9, nodejs-npm in RHEL 10 and F<44
 BuildRequires: nodejs-devel, /usr/bin/node, /usr/bin/npm
+%endif
 %endif
 BuildRequires: nodejs-packaging
 BuildRequires: python3-rpm-macros

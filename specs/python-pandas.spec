@@ -16,7 +16,7 @@
 
 Name:     python-pandas
 Version:  3.0.5
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -80,6 +80,10 @@ License:        BSD-3-Clause AND (Apache-2.0 OR BSD-2-Clause) AND (BSD-3-Clause 
 URL:            https://pandas.pydata.org/
 # The GitHub archive contains tests; the PyPI sdist does not.
 Source0:        https://github.com/pandas-dev/pandas/archive/v%{version}/pandas-%{version}.tar.gz
+
+# Wrap non-Collection iterables (chain, permutations, zip, etc.) in list()
+# for pytest 9.1+ compatibility
+Patch:          https://github.com/pandas-dev/pandas/pull/65888.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -461,6 +465,10 @@ sed -r -i '/\boldest-supported-numpy\b/d' pyproject.toml
 # We don't need the python tzdata package because we have the system tzdata package
 sed -i '/tzdata>=2022.7/d' pyproject.toml
 
+# Upstream pins pytest < 9.1, the fix for newer pytest is already merged upstream
+# This can be removed once pandas 3.1+ is released
+%pyproject_patch_dependency pytest:set_upper:10
+
 %generate_buildrequires
 %pyproject_buildrequires -p
 
@@ -744,6 +752,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Thu Jul 30 2026 Tomas Hrnciar <thrnciar@redhat.com> - 3.0.5-4
+- Backport upstream patch to add compatibility with pytest 9.1.1
+
 * Thu Jul 23 2026 Python Maint <python-maint@redhat.com> - 3.0.5-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

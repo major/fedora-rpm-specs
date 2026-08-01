@@ -6,7 +6,7 @@
 %global goipath         code.forgejo.org/forgejo/runner/v12
 %global forgeurl        https://code.forgejo.org/forgejo/runner
 %global archivename     %{name}-%{version}
-Version:                12.10.1
+Version:                12.13.2
 
 %gometa -L -f
 
@@ -71,6 +71,8 @@ install -m 755 -p %{gobuilddir}/bin/forgejo-runner %{buildroot}%{_bindir}/forgej
 install -m 644 -p config.yml %{buildroot}%{_sysconfdir}/forgejo-runner/config.yml
 install -m 644 -p %{S:3} %{buildroot}%{_sysusersdir}/forgejo-runner.conf
 install -m 644 -p contrib/forgejo-runner.service %{buildroot}%{_unitdir}/forgejo-runner.service
+
+cat %{go_vendor_license_filelist}
 
 %check
 %go_vendor_license_check -c %{S:2}

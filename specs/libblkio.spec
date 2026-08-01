@@ -26,7 +26,6 @@ BuildRequires: meson
 BuildRequires: rust-toolset
 %else
 BuildRequires: rust-packaging >= 21
-BuildRequires: rustfmt
 BuildRequires: cargo
 %endif
 BuildRequires: python3-docutils

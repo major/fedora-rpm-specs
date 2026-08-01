@@ -126,11 +126,6 @@ tomcli-set pyproject.toml list 'tool.pytest.ini_options.markers' \
 # Remove Windows-only dependencies
 tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-import-lib'
 
-# Allow an older maturin for now; see the commit where it was bumped:
-# https://github.com/pydantic/pydantic/commit/41f6776e61ebafe01f48b2b4296ff6aa5cc62543
-# https://bugzilla.redhat.com/show_bug.cgi?id=2413756
-%pyproject_patch_dependency maturin:set_lower:1.9.4
-
 %cargo_prep
 
 

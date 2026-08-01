@@ -4,7 +4,7 @@
 %global kaldi_commit 93ef0019b847272a239fbb485ef97f29feb1d587 
 Name:           vosk-api
 Version:        0.3.50
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Offline speech recognition toolkit
 # vosk-api depends on Kaldi, which itself relies on OpenFST that uses 
 # floating-point optimizations specific to 64-bit systems
@@ -84,6 +84,9 @@ install -Dpm 755 %{_builddir}/vosk-api-%{version}/src/libvosk.so %{buildroot}%{_
 %{_libdir}/libvosk.so
 
 %changelog
+* Thu Jul 30 2026 Manish Tiwari <matiwari@redhat.com> - 0.3.50-5
+- Rebuilt for openfst F45 rebuild
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.50-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

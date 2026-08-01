@@ -21,8 +21,17 @@
 #
 %global upstreamname HIPIFY
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -45,12 +54,16 @@
 
 Name:           hipify%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
+%endif
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
 License:        MIT
-Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/%{upstreamname}/archive/%{pkg_src}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:         0001-prepare-hipify-cmake-for-fedora.patch
 
 BuildRequires:  chrpath
@@ -77,7 +90,7 @@ HIPIFY is a set of tools to translate CUDA source code into portable
 HIP C++ automatically.
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
 # Remove meddling with rpath
 sed -i -e '/INSTALL_RPATH/,+2d' CMakeLists.txt
@@ -123,6 +136,9 @@ rm -f %{buildroot}%{pkg_prefix}/libexec/hipify/hipify-perl
 %{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Tue Jul 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Add --with preview
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -7,6 +7,10 @@ License:        MPL-2.0
 URL:            http://czmq.zeromq.org
 Source0:        https://github.com/zeromq/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+# Allow to build with CMake 4.0 and use GNUInstallDirs pattern
+# Cherry-picked from: https://github.com/zeromq/czmq/pull/2310
+Patch:          2310.patch
+
 BuildRequires:  gcc
 BuildRequires:  libuuid-devel
 BuildRequires:  pkgconfig(libzmq)
@@ -69,7 +73,7 @@ rm -f %{buildroot}%{_libdir}/libczmq.{a,la}
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
-%{_datadir}/cmake/%{name}/
+%{_libdir}/cmake/%{name}/
 %{_mandir}/man1/*.1*
 %{_mandir}/man3/*.3*
 %{_mandir}/man7/*.7*

@@ -435,7 +435,7 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 * Thu May 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.3-1
 - New upstream release: A security relase
-- Includes fix for VSV00019
+- Includes fix for VSV00019 aka CVE-2026-50052
 
 * Fri May 15 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.2-1
 - New upstream release: A bugfix release

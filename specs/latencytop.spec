@@ -6,15 +6,20 @@ Summary:        System latency monitor (with GUI)
 License:        GPL-2.0-only
 URL:            http://www.latencytop.org/
 Source0:        http://www.latencytop.org/download/%{name}-%{version}.tar.gz
-Patch0:         latencytop-Makefile-fixes.patch
-Patch1:         latencytop-Makefile-default-to-no-gtk.patch
-Patch2:         latencytop-remove-the-fsync-view.patch
-Patch3:         latencytop-better-error-message.patch
-Patch4:         latencytop-add-return-type-c99.patch
 
 BuildRequires:  gcc make
 BuildRequires:  ncurses-devel glib2-devel gtk2-devel pkgconfig
 Requires:       %{name}-common = %{version}-%{release}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+%patchlist
+latencytop-Makefile-fixes.patch
+latencytop-Makefile-default-to-no-gtk.patch
+latencytop-remove-the-fsync-view.patch
+latencytop-better-error-message.patch
+latencytop-add-return-type-c99.patch
 
 %description
 LatencyTOP is a tool for software developers (both kernel and userspace), aimed
@@ -50,15 +55,14 @@ This package contains files needed by both the GUI and TUI builds of LatencyTOP.
 %autosetup -p1
 
 %build
-export CFLAGS="${CFLAGS:-%{optflags}}"
 # make two builds, first without GUI, then with
-make %{?_smp_mflags}
+%make_build
 mv latencytop latencytop-tui
 make clean
-make %{?_smp_mflags} HAS_GTK_GUI=1
+%make_build HAS_GTK_GUI=1
 
 %install
-make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
+%make_install SBINDIR=%{_sbindir}
 install -m 0755 latencytop-tui %{buildroot}%{_sbindir}/
 ln -s latencytop.8 %{buildroot}%{_mandir}/man8/latencytop-tui.8
 

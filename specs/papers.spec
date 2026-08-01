@@ -66,6 +66,7 @@ Source1:        papers-%{gnome_tarball_version}-vendor.tar.xz
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  appstream
 BuildRequires:  blueprint-compiler
 BuildRequires:  gcc
 BuildRequires:  itstool

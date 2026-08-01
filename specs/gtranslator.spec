@@ -11,6 +11,8 @@ License:	GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Gtranslator
 Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
+Patch0:	    gtranslator-fix-includes.patch
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	itstool

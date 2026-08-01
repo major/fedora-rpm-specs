@@ -5,7 +5,7 @@
 %bcond tests %[%{undefined rhel}]
 
 Name:           python-%{modname}
-Version:        4.68.4
+Version:        4.69.0
 Release:        %autorelease
 Summary:        Fast, Extensible Progress Meter
 

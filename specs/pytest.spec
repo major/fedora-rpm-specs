@@ -1,14 +1,11 @@
 Name:           pytest
-Version:        9.0.3
+Version:        9.1.1
 Release:        %autorelease
 Summary:        Simple powerful testing with Python
 # SPDX
 License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{version}}
-
-# Fix test_dont_write_bytecode for Python 3.15 (__cached__ no longer set)
-Patch:          https://github.com/pytest-dev/pytest/commit/7202c3af8.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable

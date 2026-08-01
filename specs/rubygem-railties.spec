@@ -1,27 +1,27 @@
 # Generated from railties-3.0.3.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name railties
 
-# Circular dependency with rubygem-{rails,jquery-rails,uglifier}.
+# Circular dependency with rubygem-rails
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 5%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/railties
-# git archive -v -o railties-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o railties-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
-
-# Fix test compatibility with Propshaft 1.3+
-# https://github.com/rails/rails/pull/55746
-Patch0: rubygem-railties-8.0.3-Fix-tests-now-that-Propshaft-Server-is-a-middleware.patch
-# MT6: Fix LineFiltering to work with both MT5 & MT6
-# https://github.com/rails/rails/pull/56202
-# https://github.com/rails/rails/commit/99395e1ea401acbc23d4f6b2a8657cdb82f921bd
-Patch1: rubygem-railties-pr56202-linefiltering-minitest6.patch
+# Fix random test failures:
+# ~~~
+#   1) Failure:
+# ApplicationTests::SprocketsAssetsTest#test_precompile_shouldn't_use_the_digests_present_in_manifest.json [test/application/sprockets_assets_test.rb:322]:
+# Expected "application-c56ef81d122dffa8b257b0546ba1b09bd2d8b97e4aef881de8db9f760b903af6.css" to not be equal to "application-c56ef81d122dffa8b257b0546ba1b09bd2d8b97e4aef881de8db9f760b903af6.css".
+# ~~~
+# https://github.com/rails/rails/pull/58148
+Patch0: rubygem-railties-8.1.3-Fix-test_precompile_shouldnt_use_the_digests_present_in_manifest-json-failure.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -37,15 +37,18 @@ BuildRequires: rubygem(actioncable) = %{version}
 BuildRequires: rubygem(actionmailbox) = %{version}
 BuildRequires: rubygem(actionmailer) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
+BuildRequires: rubygem(action_text-trix)
 BuildRequires: rubygem(actiontext) = %{version}
 BuildRequires: rubygem(activejob) = %{version}
 BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(activestorage) = %{version}
 BuildRequires: rubygem(activesupport) = %{version}
+BuildRequires: rubygem(bcrypt)
 BuildRequires: rubygem(bootsnap)
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(capybara)
 BuildRequires: rubygem(dalli)
+BuildRequires: rubygem(image_processing)
 BuildRequires: rubygem(importmap-rails)
 BuildRequires: rubygem(listen)
 BuildRequires: rubygem(minitest-mock)
@@ -62,7 +65,7 @@ BuildRequires: rubygem(sqlite3)
 BuildRequires: rubygem(thor)
 BuildRequires: rubygem(zeitwerk)
 BuildRequires: rubygem(webrick)
-BuildRequires: chromedriver chromium chromium-headless
+BuildRequires: chromedriver chromium
 # Chromium availability is limited:
 # https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_800
 # and chrome-headless even more:
@@ -91,7 +94,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
-%patch 1 -p2
 
 ( cd %{builddir}
 %patch 0 -p2
@@ -126,8 +128,6 @@ mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
 # `force_skip` alias.
 touch ../tools/test_common.rb
-# Netiher strict_warnings.rb appears to be useful.
-touch ../tools/strict_warnings.rb
 
 # Expected by InfoTest#test_rails_version
 echo '%{version}%{?prerelease}' > ../RAILS_VERSION
@@ -137,14 +137,17 @@ echo 'gem "actioncable"' >> ../Gemfile
 echo 'gem "actionmailbox"' >> ../Gemfile
 echo 'gem "actionmailer"' >> ../Gemfile
 echo 'gem "actionpack"' >> ../Gemfile
+echo 'gem "action_text-trix"' >> ../Gemfile
 echo 'gem "actiontext"' >> ../Gemfile
 echo 'gem "activejob"' >> ../Gemfile
 echo 'gem "activerecord"' >> ../Gemfile
 echo 'gem "activestorage"' >> ../Gemfile
 echo 'gem "activesupport"' >> ../Gemfile
+echo 'gem "bcrypt"' >> ../Gemfile
 echo 'gem "bootsnap"' >> ../Gemfile
 echo 'gem "capybara"' >> ../Gemfile
 echo 'gem "dalli"' >> ../Gemfile
+echo 'gem "image_processing"' >> ../Gemfile
 echo 'gem "importmap-rails"' >> ../Gemfile
 echo 'gem "listen"' >> ../Gemfile
 echo 'gem "minitest-mock"' >> ../Gemfile
@@ -181,11 +184,6 @@ pg_ctl -o "-p 5432 -k ${PG_DIR}" -D ${PG_DATA_DIR} -l ${PG_DIR}/logfile start
 sed -i -e '/require..minitest.retry./ s/^/#/' \
   test/isolation/abstract_unit.rb
 
-# This test seems to fail due to specific sqlite3 configuration.
-# https://github.com/rails/rails/issues/49928
-sed -i '/test "db:drop failure because bad permissions" do$/a\          skip' \
-  test/application/rake/dbs_test.rb
-
 # TODO: Configure MySQL server to run MySQL test cases. There seems to be two
 # test cases ATM:
 #   railties/test/application/test_runner_test.rb:        use_mysql2
@@ -202,10 +200,6 @@ sed -i -r '/require\s.solid_(cable|queue)./i\    skip' test/commands/devcontaine
 # Do not connect to the internet.
 sed -i -r 's/\[bundle install\]/[bundle install --local]/' test/plugin_helpers.rb
 
-# Skip `rubocop-rails-omakase` dependency.
-sed -i -r 's/"--mountable"/"--mountable", "--skip-rubocop"/' test/engine/commands_test.rb
-sed -i -r 's/"--mountable"/"--mountable", "--skip-rubocop"/' test/engine/test_test.rb
-
 # TODO: Mismatch in RAILS_FRAMEWORK_ROOT, not sure how to fix it.
 sed -i '/test "i18n files have lower priority than application ones" do$/,/^    end$/ s/^/#/' \
   test/railties/engine_test.rb
@@ -215,28 +209,46 @@ sed -i '/test "i18n files have lower priority than application ones" do$/,/^    
 sed -i '/test "displays statement invalid template correctly" do/a\
     skip' test/application/middleware/exceptions_test.rb
 
-# It seems that ActionMailbox does not work properly. Why?
-sed -i '/^\s*def test_create_migrations/ a \  skip' \
-  test/generators/action_mailbox_install_generator_test.rb
+# There is a diff between expected and real source locations, probably related
+# to the original Git repo setup:
+# ~~~
+#   1) Failure:
+# Rails::Command::RoutesTest#test_rails_routes_with_expanded_option [test/commands/routes_test.rb:251]:
+# --- expected
+# +++ actual
+# @@ -9,137 +9,137 @@
+#  Verb              | POST
+#  URI               | /rails/action_mailbox/postmark/inbound_emails(.:format)
+#  Controller#Action | action_mailbox/ingresses/postmark/inbound_emails#create
+# -Source Location   | /builddir/build/BUILD/rubygem-railties-8.1.2-build/railties-8.1.2/usr/share/gems/gems/actionmailbox/config/routes.rb:XX
+# +Source Location   | actionmailbox (X.X.X) config/routes.rb:XX
+#
+# ... snip ...
+# ~~~
+sed -i "/rails_gem_root/i\\
+    skip 'This is somehow taylored to the Git Rails repo'" \
+  test/commands/routes_test.rb
 
 # Requires `solid_cache`.
 sed -i '/test_app_update_does_not_generate_public_files/a\
     skip' test/generators/api_app_generator_test.rb
 
 # We don't have {turbo,tailwindcss,cssbundling}-rails in Fedora.
-sed -r -i '/test_(hotwire|css_option_with_(asset_pipeline_tailwind|cssbundling_gem)|app_update|application_name_is_detected_if_it_exists_and_app_folder_renamed)/a\
+sed -r -i '/test_app_update/a\
+    skip' test/generators/app_generator_test.rb
+sed -r -i '/test_application_name_is_detected_if_it_exists_and_app_folder_renamed/a\
+    skip' test/generators/app_generator_test.rb
+sed -r -i '/test_ci_workflow_does_not_include_db_test_prepare_when_skip_active_record_is_given/a\
     skip' test/generators/app_generator_test.rb
 
-# We don't have Rubycop in Fedora.
+# We don't have Rubocop in Fedora.
 sed -r -i '/def test_generated_files_have_no_rubocop_warnings$/a\
     skip' test/generators/shared_generator_tests.rb
 
-# The `bcrypt` gem is not re-added into Gemfile for some reason. Propably some
-# mismatch with GEMFILE path.
-sed -i '/def test_authentication_generator_without_bcrypt_in_gemfile$/a\    skip' \
-  test/generators/authentication_generator_test.rb
-
 # Drop `rubocop-rails-omakase` dependency.
+sed -i -r 's/"--mountable"/"--mountable", "--skip-rubocop"/' test/engine/commands_test.rb
+sed -i -r 's/"--mountable"/"--mountable", "--skip-rubocop"/' test/engine/test_test.rb
+
 sed -i -r \
   -e '/def test_ensure_that_migration_tasks_work_with_mountable_option$/,/^  end/ s/"--mountable"/"--mountable", "--skip-rubocop"/' \
   -e '/def test_plugin_passes_generated_test$/,/^  end/ s/(run_generator)/\1 [destination_root, "--skip-rubocop"]/' \
@@ -250,14 +262,9 @@ sed -i -r '/with_new_plugin\(/ s/\)/, "--skip-rubocop")/' \
 sed -i -r '/generate_plugin\(/ s/\)$/, "--skip-rubocop")/' \
   test/generators/test_runner_in_engine_test.rb
 
-# ActiveMailbox routes are generated for some reason :/ Might be related to the
-# issues in test/generators/action_mailbox_install_generator_test.rb
-mv test/commands/routes_test.rb{,.disable}
-
-# This test is reaching for Active Storage test fixtures. While they could be
-# included among sources, ignore the test for the moment.
-# https://github.com/rails/rails/issues/54806
-mv test/application/active_storage/uploads_integration_test.rb{,.disable}
+# This would deserve similar upstream fix as:
+# https://github.com/rails/rails/pull/54864
+sed -i '/file_fixture_path/ s|".*"|"test/fixtures/files"|' test/application/active_storage/analyzers_integration_test.rb
 
 # Tests needs to be executed in isolation. Also, use `bundle exec`, there
 # is nothing to loose here and some tests depends on the Bundler (e.g.
@@ -294,6 +301,10 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Railties 8.1.2.
+  Related: rhzb#2405582
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

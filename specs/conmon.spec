@@ -26,20 +26,19 @@ Summary: OCI container runtime monitor
 URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/v%{version}.tar.gz
+
+# available only on golang supported arches
+ExclusiveArch: %{golang_arches_future}
+
 %if %{with docs}
 BuildRequires: go-md2man
 %endif
 BuildRequires: gcc
 BuildRequires: git-core
-BuildRequires: glib2-devel
-BuildRequires: libseccomp-devel
-BuildRequires: pkgconfig
-BuildRequires: systemd-devel
-BuildRequires: systemd-libs
 BuildRequires: make
-Requires: glib2
-Requires: systemd-libs
-Requires: libseccomp
+BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(libseccomp)
 
 %description
 %{summary}.
@@ -49,10 +48,10 @@ Requires: libseccomp
 sed -i 's/install.bin: bin\/conmon/install.bin:/' Makefile
 
 %build
-%{__make} DEBUGFLAG="-g" bin/conmon
+%make_build bin/conmon CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
 
 %if %{with docs}
-%{__make} GOMD2MAN=go-md2man -C docs
+%make_build GOMD2MAN=go-md2man -C docs
 %endif
 
 %install
@@ -61,9 +60,6 @@ sed -i 's/install.bin: bin\/conmon/install.bin:/' Makefile
 %if %{with docs}
 %{__make} PREFIX=%{buildroot}%{_prefix} -C docs install
 %endif
-
-#define license tag if not already defined
-%{!?_licensedir:%global license %doc}
 
 %files
 %license LICENSE

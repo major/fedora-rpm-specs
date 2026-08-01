@@ -7,18 +7,18 @@
 %bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: WebSocket framework for Rails
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone https://github.com/rails/rails.git && cd rails/actioncable
-# git archive -v -o actioncable-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o actioncable-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Source code of pregenerated JS files.
 # git clone https://github.com/rails/rails.git && cd rails/actioncable
-# git archive -v -o actioncable-8.0.3-js.tar.gz v8.0.3 app/javascript package.json rollup.config.js
+# git archive -v -o actioncable-8.1.2-js.tar.gz v8.1.2 app/javascript package.json rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 
 BuildRequires: ruby(release)
@@ -27,6 +27,7 @@ BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(actionpack) = %{version}
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(puma)
+BuildRequires: rubygem(rack)
 BuildRequires: rubygem(websocket-driver)
 BuildRequires: rubygem(zeitwerk)
 BuildRequires: %{_bindir}/redis-server
@@ -90,7 +91,7 @@ mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
 # `force_skip` alias.
 touch ../tools/test_common.rb
-# Netiher strict_warnings.rb appears to be useful.
+# Neither strict_warnings.rb appears to be useful.
 touch ../tools/strict_warnings.rb
 
 # We don't have websocket-client-simple in Fedora yet.
@@ -129,6 +130,10 @@ kill -INT $(cat $REDIS_DIR/redis.pid)
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Action Cable 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

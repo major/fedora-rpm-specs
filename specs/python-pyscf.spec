@@ -15,8 +15,8 @@
 %endif
 
 Name:           python-pyscf
-Version:        2.13.0
-Release:        4%{?dist}
+Version:        2.14.0
+Release:        1%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -24,7 +24,7 @@ URL:            https://github.com/pyscf/pyscf/
 Source0:        https://github.com/pyscf/pyscf/archive/v%{version}/pyscf-%{version}.tar.gz
 
 # Disable rpath
-Patch1:         pyscf-2.6.0-rpath.patch
+Patch1:         pyscf-2.14.0-rpath.patch
 # Need to load libpbc before libdft, https://github.com/pyscf/pyscf/pull/2273
 Patch2:         2273.patch
 
@@ -134,6 +134,9 @@ done
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Thu Jul 30 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.14.0-1
+- Update to 2.14.0.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.13.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

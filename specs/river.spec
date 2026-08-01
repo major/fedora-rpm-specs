@@ -14,7 +14,7 @@
 }
 
 Name:           river
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Non-monolithic Wayland compositor
 

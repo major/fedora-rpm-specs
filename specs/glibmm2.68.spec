@@ -12,6 +12,12 @@ License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/glibmm/%{gnome_major_minor_version}/glibmm-%{version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/glibmm/-/commit/d26083c41219958e802d5da733d4b4d3c342ec89
+# Fix type definition conflict with GLib 2.89.2
+# NOTE: Remove -Dmaintainer-mode=true from meson config, added Perl dependencies
+# and make -doc again noarch when dropping this patch
+Patch1:         glibmm2.68-2.88.1-glib_2.89.2-dont-derive-gtkmm-gxxx-types.patch
+
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -22,7 +28,12 @@ BuildRequires:  meson
 BuildRequires:  mm-common
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(feature)
 BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(open)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(XML::Parser)
 
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       libsigc++30%{?_isa} >= %{libsigc_version}
@@ -48,7 +59,8 @@ developing glibmm applications.
 
 %package        doc
 Summary:        Documentation for %{name}, includes full API docs
-BuildArch:      noarch
+# FIXME: Restore noarch once -Dmaintainer-mode=true is removed
+# BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       libsigc++30-doc
 
@@ -61,7 +73,8 @@ This package contains the full API documentation for %{name}.
 
 
 %build
-%meson -Dbuild-documentation=true
+%meson -Dbuild-documentation=true \
+    -Dmaintainer-mode=true
 %meson_build
 
 

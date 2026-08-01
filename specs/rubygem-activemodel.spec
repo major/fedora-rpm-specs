@@ -4,15 +4,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # git clone https://github.com/rails/rails.git && cd rails/activemodel
-# git archive -v -o activemodel-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o activemodel-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -57,7 +57,7 @@ mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
 # `force_skip` alias.
 touch ../tools/test_common.rb
-# Netiher strict_warnings.rb appears to be useful.
+# Neither strict_warnings.rb appears to be useful.
 touch ../tools/strict_warnings.rb
 
 %if %{with bootstrap}
@@ -82,6 +82,10 @@ ruby -Ilib:test -e "Dir.glob('./test/**/*_test.rb').sort.each {|t| require t}"
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Active Model 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

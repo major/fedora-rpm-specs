@@ -1,6 +1,6 @@
 Name:		bleachbit
-Version:	6.0.0
-Release:	3%{?dist}
+Version:	6.0.2
+Release:	1%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
 License:	GPL-3.0-or-later
@@ -84,7 +84,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 	--ignore=tests/TestWinapp.py \
 	--ignore=tests/TestWindows.py \
 	--ignore=tests/TestNetwork.py \
-	-k 'not (test_Chaff or test_have_models or test_clean_ini_kde or test_detect_encoding or test_run_external_nowait or test_expanduser or test_make_source or test_update_url or test_update_winapp2 or test_download_url_to_fn or test_get_ip_for_url)'
+	-k 'not (test_Chaff or test_have_models or test_clean_ini_kde or test_detect_encoding or test_run_external_nowait or test_expanduser or test_make_source or test_update_url or test_update_winapp2 or test_download_url_to_fn or test_get_ip_for_url or test_default_vars_windows_system)'
 
 
 %files -f %{name}.lang
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Thu Jul 30 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 6.0.2-1
+- Update to 6.0.2 (RHBZ#2238260)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

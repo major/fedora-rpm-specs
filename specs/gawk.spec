@@ -46,8 +46,8 @@
 
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
-Version:          5.4.0
-Release:          4%{?dist}
+Version:          5.4.1
+Release:          1%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 
@@ -116,11 +116,6 @@ BuildRequires: make
 #Patch000: example000.patch
 
 #Parts of the patch dealing with .info files, were removed, some parts of documentation might be broken
-
-#Patch008: gawk-api-version.patch
-Patch001: gawk-5.4.0-pma_performance.patch
-Patch002: gawk-5.4.0-back_references.patch
-Patch003: gawk-5.4.0-charset.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -297,6 +292,9 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Wed Jul 29 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.1-1
+- New upstream release - 5.4.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

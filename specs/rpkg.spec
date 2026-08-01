@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.69
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - reviewed
@@ -125,12 +125,14 @@ Obsoletes:      python2-rpkg < %{version}-%{release}
 BuildRequires:  python3-devel
 BuildRequires:  python3-GitPython
 BuildRequires:  python3-koji
+%if 0%{?rhel} < 11
 %if 0%{?rhel}
 BuildRequires:  python3-gobject-base
 BuildRequires:  libmodulemd
 BuildRequires:  python3-requests-gssapi
 %else
 BuildRequires:  python3-libmodulemd
+%endif
 %endif
 BuildRequires:  python3-argcomplete
 BuildRequires:  python3-cccolutils
@@ -160,12 +162,16 @@ Requires:       python3-argcomplete
 Requires:       python3-GitPython
 Requires:       python3-cccolutils
 Requires:       python3-koji
+%if 0%{?rhel} < 11
 %if 0%{?rhel}
 Requires:       python3-gobject-base
 Requires:       libmodulemd
 Requires:       python3-requests-gssapi
 %else
 Requires:       python3-libmodulemd
+%endif
+%endif
+%if !0%{?rhel}
 Requires:       python3-rpmautospec
 %endif
 Requires:       python3-rpm
@@ -283,6 +289,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Jul 31 2026 Petr Pisar <ppisar@redhat.com> - 1.69-9
+- Disable modularity on RHEL >= 11
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -320,7 +329,7 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 - `patch`: Execute subprocess in text mode (ferdnyc)
 - Fix mockbuild --srpm-mock specfile_path (wngtk)
 - `pre-push-check`: bogus error - file wasn't listed - #747 (onosek)
-- Switch to %pyproject_* macros (onosek)
+- Switch to %%pyproject_* macros (onosek)
 - Use the spec name to assemble src.rpm name (sergio)
 - Jenkinsfile: use local declaration instead the global (onosek)
 - `srpm`: --offline arg to prevent connecting to Koji - 600 (onosek)

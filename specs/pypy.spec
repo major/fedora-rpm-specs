@@ -4,7 +4,7 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.22
+Version:        %{basever}.23
 %global pyversion 2.7
 Release:        %autorelease
 Summary:        Python implementation with a Just-In-Time compiler

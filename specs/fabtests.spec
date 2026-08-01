@@ -14,6 +14,8 @@ BuildRequires:  valgrind-devel
 BuildRequires:  gcc
 BuildRequires:  make
 Requires:       python3-pytest
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description
 Fabtests provides a set of examples that uses libfabric - a high-performance

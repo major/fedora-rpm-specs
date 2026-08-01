@@ -1,6 +1,6 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   6
+%define prerelnum   7
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
@@ -29,9 +29,7 @@ Summary:        A sleek, customizable desktop shell crafted for Wayland
 #   third_party/luau
 # Apache-2.0 AND MIT:
 #   third_party/wuffs
-# MIT-0 OR Unlicense:
-#   third_party/dr_wav
-License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later AND (MIT-0 OR Unlicense)
+License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later
 URL:            https://noctalia.dev
 Source:         https://github.com/noctalia-dev/noctalia/archive/%{tag}/noctalia-%{tag}.tar.gz
 
@@ -67,6 +65,7 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(md4c)
 BuildRequires:  json-static
 BuildRequires:  pkgconfig(tomlplusplus)
+BuildRequires:  pkgconfig(libical)
 BuildRequires:  pam-devel
 BuildRequires:  glibc-devel
 BuildRequires:  pkgconfig(jemalloc)
@@ -77,6 +76,7 @@ BuildRequires:  stb_image_write-static
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libjxl_threads)
+BuildRequires:  pkgconfig(sndfile)
 
 # Needed by plugin_git_export_test
 BuildRequires:  git-core
@@ -100,7 +100,6 @@ Recommends:     gnome-keyring
 
 # Upstream doesn't currently offer a mechanism for building against system
 # copies of these libraries.
-Provides:       bundled(dr_wav)
 Provides:       bundled(fzy)
 Provides:       bundled(luau)
 Provides:       bundled(material_color_utilities)
@@ -129,7 +128,6 @@ find assets/templates -type f -name '*.sh' \
 
 # Move bundled licenses to the top level to make inclusion in %%files easier.
 mv assets/fonts/tabler-icons-license.txt        LICENSE.tabler
-mv third_party/dr_wav/LICENSE                   LICENSE.dr_wav
 mv third_party/fzy/LICENSE                      LICENSE.fzy
 mv third_party/luau/LICENSE.txt                 LICENSE.luau
 mv third_party/luau/lua_LICENSE.txt             LICENSE.luau_lua

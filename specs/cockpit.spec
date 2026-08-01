@@ -55,8 +55,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        364
-Release:        2%{?dist}
+Version:        365
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
@@ -369,12 +369,12 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.5.2
-Provides: bundled(npm(@patternfly/react-core)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.5.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.5.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -665,6 +665,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jul 30 2026 Packit <hello@packit.dev> - 365-1
+- Translations and dependency updates
+- Fix btrfs subvolume mount option parsing (rhbz#2483145)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 364-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

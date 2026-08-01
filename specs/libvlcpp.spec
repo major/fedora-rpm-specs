@@ -2,23 +2,21 @@
 # main package has no files, -devel is noarch
 %global debug_package %{nil}
 
-%global commit0 44c1f48e56a66c3f418175af1e1ef3fd1ab1b118
-%global gitdate 20240204
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 Name:           libvlcpp
-Version:        0.1.0^%{gitdate}git%{shortcommit0}
-Release:        5%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        C++ bindings for libvlc
 
 License:        LGPL-2.1-or-later
 URL:            https://code.videolan.org/videolan/libvlcpp
-Source0:        %{url}/-/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Patch0:         libvlcpp-pkgconfig.patch
 
-BuildRequires: libtool
+BuildRequires: meson
 BuildRequires: gcc-c++
 BuildRequires: vlc-devel
+# required for tests
+BuildRequires: vlc-plugin-ffmpeg
 
 %description
 C++ bindings for libvlc.
@@ -34,20 +32,22 @@ C++ bindings for libvlc.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{commit0}
+%autosetup -p1 -n %{name}-v%{version}
+
+%conf
+%meson \
+  -Dexamples=enabled \
+  -Dtests=enabled \
 
 
 %build
-./bootstrap
-%configure --enable-examples
-%make_build
-
+%meson_build
 
 %install
-%make_install
-find %{buildroot} -name '*.la' -delete
+%meson_install
 
-
+%check
+%meson_test
 
 %files devel
 %doc AUTHORS NEWS
@@ -57,6 +57,10 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 29 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.0.0-1
+- update to latest stable release (resolves rhbz#2495868)
+- enable tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0^20240204git44c1f48-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
