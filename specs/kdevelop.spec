@@ -3,8 +3,8 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        26.04.3
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -217,7 +217,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{_qt6_qmldir}/org/kde/plasma/private/kdevelopsessions/qmldir
 
 %files libs
-%{_libdir}/libKDev*.so.{61,62,63,64,65,6.*}
+%{_libdir}/libKDev*.so.{61,62,63,64,65,66,6.*}
 %{_libdir}/libKDevelopSessionsWatch.so
 %{_kf6_qtplugindir}/kdevplatform/
 %{_kf6_plugindir}/krunner/kdevelopsessions.so
@@ -233,6 +233,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 9:26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 9:26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9:26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

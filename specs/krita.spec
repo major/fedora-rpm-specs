@@ -7,8 +7,8 @@
 %global gmic_version 3.7.4.1
 
 Name:           krita
-Version:        6.0.2.1
-Release:        3%{?dist}
+Version:        6.0.3
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -234,6 +234,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sat Aug 01 2026 Steve Cossette <farchord@gmail.com> - 6.0.3-1
+- 6.0.3
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.0.2.1-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

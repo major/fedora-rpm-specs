@@ -5,7 +5,7 @@
 %global crate rustdoc-types
 
 Name:           rust-rustdoc-types
-Version:        0.60.0
+Version:        0.61.0
 Release:        %autorelease
 Summary:        Types for rustdoc's json output
 

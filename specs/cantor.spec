@@ -24,8 +24,8 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 26.04.3
-Release: 3%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/cantor/
@@ -265,6 +265,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 26.04.3-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

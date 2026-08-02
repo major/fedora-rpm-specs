@@ -6,7 +6,7 @@
 Summary: iODBC Driver Manager
 Name: libiodbc
 Version: 3.52.16
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-only OR BSD-3-Clause
 URL: http://www.iodbc.org/
 VCS: git:%{giturl}.git
@@ -28,6 +28,8 @@ BuildRequires: gcc
 # Needed for autogen.sh
 BuildRequires: libtool
 BuildRequires: make
+
+Requires: odbcinst-generate
 
 %description
 The iODBC Driver Manager is a free implementation of the SAG CLI and
@@ -120,6 +122,9 @@ rm -rfv %{buildroot}%{_datadir}/libiodbc/samples
 
 
 %changelog
+* Mon Jul 20 2026 Michal Schorm <mschorm@redhat.com> - 3.52.16-6
+- Add dependency on 'odbcinst-generate' for drop-in driver registration
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.52.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

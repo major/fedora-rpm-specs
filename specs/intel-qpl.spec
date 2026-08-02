@@ -16,10 +16,9 @@ BuildRequires:	cmake >= 3.1
 BuildRequires:	gcc-c++
 BuildRequires:	gtest-devel
 BuildRequires:	libuuid-devel
-BuildRequires:	libtsan
 BuildRequires:	nasm
 
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 %description
 The Intel Query Processing Library (Intel QPL) is an open-source library to

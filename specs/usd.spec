@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.26.5
+%global downstream_so_version 0.26.8
 
 %bcond alembic       1
 %bcond draco         1
@@ -25,7 +25,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        26.05
+Version:        26.08
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -151,6 +151,14 @@ Patch:          0006-Downstream-only-use-the-system-libavif.patch
 # Backport fixes for CVE-2025-64181 etc. in OpenEXRCore
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/3903
 Patch:          %{forgeurl}/pull/3903.patch
+
+# Replace PyWeakref_GetObject with PyWeakref_GetRef
+# Fixes RHBZ#2433881. This patch is LLM-generated and needs expert human
+# review, but it at least builds. See discussion in
+# https://bugzilla.redhat.com/show_bug.cgi?id=2433881.
+# Mentioned upstream in
+# https://github.com/PixarAnimationStudios/OpenUSD/issues/3966#issuecomment-5128542913.
+Patch:          0001-Replace-PyWeakref_GetObject-with-PyWeakref_GetRef.patch
 
 # Base
 BuildRequires:  gcc-c++
@@ -714,6 +722,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_bindir}/usdstitch
 %{_bindir}/usdstitchclips
 %{_bindir}/usdtree
+%{_bindir}/usdupdatecrate
 %{_bindir}/usdzip
 %if %{with usdview}
 %{_datadir}/applications/org.openusd.usdview.desktop
@@ -745,6 +754,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_mandir}/man1/usdstitch.1*
 %{_mandir}/man1/usdstitchclips.1*
 %{_mandir}/man1/usdtree.1*
+%{_mandir}/man1/usdupdatecrate.1*
 %{_mandir}/man1/usdzip.1*
 %if %{with usdview}
 %{_mandir}/man1/testusdview.1*

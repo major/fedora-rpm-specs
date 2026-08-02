@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    akonadi-calendar
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -32,7 +32,7 @@ BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 
 BuildRequires:  cmake(KPim6Libkdepim)
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KPim6IdentityManagementCore)
 BuildRequires:  cmake(KPim6CalendarUtils)
 BuildRequires:  cmake(KPim6MessageCore)
@@ -44,6 +44,16 @@ BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6MailTransport)
 BuildRequires:  cmake(KF6TextTemplate)
 BuildRequires:  cmake(KF6Crash)
+
+BuildRequires:  python3-devel
+BuildRequires:  cmake(Shiboken6)
+BuildRequires:  cmake(PySide6)
+BuildRequires:  python3dist(build)
+BuildRequires:  python3dist(setuptools)
+# shiboken spawns clang++ to locate clang's builtin header (resource) dir;
+# without the driver, #include_next <limits.h> fails to find clang's limits.h
+BuildRequires:  clang
+
 
 Obsoletes:      kf5-akonadi-calendar < 24.01.80-1
 
@@ -97,6 +107,8 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{_kf6_qtplugindir}/kf6/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf6_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
 %{_kf6_libdir}/libKPim6AkonadiCalendarCore.so.*
+%{python3_sitearch}/AkonadiCalendar.cpython-*-linux-gnu.so
+%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi_calendar.xml
 
 %files devel
 %{_includedir}/KPim6/AkonadiCalendar/Akonadi/
@@ -110,11 +122,18 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{_kf6_libdir}/cmake/KPim6AkonadiCalendarCore/
 %{_kf6_libdir}/libKPim6AkonadiCalendarCore.so
 %{_kf6_libdir}/libKPim6AkonadiCalendar.so
+%{_includedir}/PySide6/AkonadiCalendar/akonadicalendar_python.h
 
 %files doc
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

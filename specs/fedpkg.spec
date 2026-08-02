@@ -6,14 +6,14 @@
 %endif
 
 Name:           fedpkg
-Version:        1.47
-Release:        7%{?dist}
+Version:        1.48
+Release:        1%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            https://pagure.io/fedpkg
-Source0:        https://pagure.io/releases/fedpkg/%{name}-%{version}.tar.gz
+URL:            https://forge.fedoraproject.org/packaging/fedpkg
+Source0:        https://forge.fedoraproject.org/packaging/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -29,7 +29,7 @@ Requires:       redhat-rpm-config
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.69-2
+BuildRequires:  python3-rpkg >= 1.70-1
 BuildRequires:  python3-distro
 %if 0%{?with_hatchling}
 BuildRequires:  pyproject-rpm-macros
@@ -45,7 +45,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.69-2
+Requires:       python3-rpkg >= 1.70-1
 Requires:       python3-distro
 Requires:       python3-openidc-client >= 0.6.0
 Requires:       python3-bodhi-client
@@ -54,9 +54,6 @@ Requires:       python3-setuptools
 %endif
 Recommends:     fedora-packager
 Recommends:     fedpkg-completion
-
-Patch0:         0001-request-unretirement-fix-unittests.patch
-Patch1:         0002-Check-the-correct-sorting-of-imports-from-now-on.patch
 
 %description
 Provides the fedpkg command for working with dist-git
@@ -73,7 +70,7 @@ Summary:        The command-line completion support for fedpkg based on python-a
 Requires:       %{name} = %{version}-%{release}
 
 %description    -n fedpkg-completion
-This subpackage provides the command-line completion for the fedpkg CLI
+This sub-package provides the command-line completion for the fedpkg CLI
 via the python-argcomplete framework.
 
 %prep
@@ -115,7 +112,7 @@ register-python-argcomplete --shell zsh fedpkg > fedpkg.zsh
 %if 0%{?rhel} != 9
 %{__install} -D -p -m 0644 fedpkg.zsh %{buildroot}%{zsh_completions_dir}/_fedpkg
 %endif
-# config file /etc/rpkg/fedpkg.conf is extracted to %{buildroot}/usr/etc/... by pyproject_install
+# config file /etc/rpkg/fedpkg.conf is extracted to %%{buildroot}/usr/etc/... by pyproject_install
 %{__install} -d %{buildroot}%{_sysconfdir}
 mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 %endif
@@ -156,6 +153,35 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Jul 31 2026 Ondřej Nosek <onosek@redhat.com> - 1.48-1
+- Handle repo-status API errors (artur)
+- Add --package option to fedpkg repo-status (artur)
+- Omit unused repos in repo-status (artur)
+- Separate Fedora and EPEL in repo-status (artur)
+- Add initial version of repo-status command (artur)
+- Migrate SCM requests from Pagure to Forgejo (patrik)
+- Clean up unnecessary Python 2 compatibility code (onosek)
+- Fixing ruff and flake8 complaints (onosek)
+- feat(new-package): add tests (sanjay.ankur)
+- feat(new-package): add util functions (sanjay.ankur)
+- feat(new-package): add new command (sanjay.ankur)
+- Unittests for PR#631 (onosek)
+- Allow detecting release from EPEL minor version feature branches
+  (carlwgeorge)
+- Fix Jenkinsfile for a Jenkins CI triggered from the Forge (onosek)
+- Web documentation at Readthedocs.io (onosek)
+- Post-migration steps (onosek)
+- `request_unretirement`: split branches into koji_tags and distgit_branches
+  (amedvede)
+- Add lookaside_http_version config option (onosek)
+- docs: modernize Sphinx conf.py (onosek)
+- `update`: Add --notes-file option to read notes from file (onosek)
+- License file without physical address (onosek)
+- Modularity retired - remove corresponding commands (onosek)
+- Various code linter issues fixed (onosek)
+- Check the correct sorting of imports from now on (onosek)
+- `request-unretirement`: fix unittests (onosek)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.47-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -182,7 +208,7 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 - `update`: Add unspecified update type (priv.luk@gmail.com)
 - `request-unretirement`: Added a new command (amedvede)
 - `request-repo`: creating project and package in Anitya (amedvede)
-- Switch to %pyproject_* macros (onosek)
+- Switch to %%pyproject_* macros (onosek)
 - `retire`: extend the command's console help - `rhbz#2189969`_ (onosek)
 - Jenkinsfile: use local declaration instead of global (onosek)
 - `srpm`: --offline arg to prevent connecting to Koji – `#600`_ (onosek)

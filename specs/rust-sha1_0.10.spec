@@ -5,7 +5,7 @@
 %global crate sha1
 
 Name:           rust-sha1_0.10
-Version:        0.10.6
+Version:        0.10.7
 Release:        %autorelease
 Summary:        SHA-1 hash function
 
@@ -106,18 +106,6 @@ This package contains library source intended for building other packages which
 use the "oid" feature of the "%{crate}" crate.
 
 %files       -n %{name}+oid-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sha1-asm-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha1-asm-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha1-asm" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha1-asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

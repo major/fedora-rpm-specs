@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -116,11 +116,6 @@ Documentation for %{name}.
 %{_kf6_datadir}/qlogging-categories6/*
 %{_kf6_metainfodir}/org.kde.kio_audiocd.*.xml
 %{_kf6_libdir}/libaudiocdplugins.so.5*
-%{_qt6_plugindir}/libaudiocd_encoder_flac.so
-%{_qt6_plugindir}/libaudiocd_encoder_lame.so
-%{_qt6_plugindir}/libaudiocd_encoder_opus.so
-%{_qt6_plugindir}/libaudiocd_encoder_vorbis.so
-%{_qt6_plugindir}/libaudiocd_encoder_wav.so
 %{_kf6_plugindir}/kio/audiocd.so
 %{_kf6_datadir}/config.kcfg/audiocd_*_encoder.kcfg
 %dir %{_kf6_datadir}/konqsidebartng/
@@ -130,6 +125,7 @@ Documentation for %{name}.
 %{_kf6_datadir}/solid/actions/solid_audiocd.desktop
 %{_kf6_datadir}/applications/kcm_audiocd.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_audiocd.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_*.so
 
 %files devel
 %{_kf6_libdir}/libaudiocdplugins.so
@@ -140,6 +136,12 @@ Documentation for %{name}.
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

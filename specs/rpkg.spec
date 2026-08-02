@@ -1,14 +1,14 @@
 Name:           rpkg
-Version:        1.69
-Release:        9%{?dist}
+Version:        1.70
+Release:        1%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - reviewed
 # and converted to SPDX license expression
 License:        GPL-2.0-or-later AND LGPL-2.1-only
-URL:            https://pagure.io/rpkg
+URL:            https://forge.fedoraproject.org/packaging/rpkg
 BuildArch:      noarch
-Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
+Source0:        https://forge.fedoraproject.org/packaging/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # RHEL7 is currently the only release that is built for Python 2.
 %if 0%{?rhel} == 7
@@ -47,12 +47,6 @@ Patch0:         remove-koji-and-rpm-py-installer-from-requires.patch
 %if 0%{?with_python2}
 Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
-Patch2:         0002-Execute-shell-command-Non-interactive-stdin.patch
-Patch3:         0003-Use-ruff-code-checker-instead-of-bandit.patch
-Patch4:         0004-update-interactive-editor-is-broken.patch
-Patch5:         0005-Check-the-correct-sorting-of-imports-from-now-on.patch
-Patch6:         0006-_run_command-timeout-is-not-supported-in-Python-2.patch
-Patch7:         0007-Submitting-the-module-build-duplicate-timeout.patch
 
 %description
 Python library for interacting with rpm+git
@@ -289,6 +283,27 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Jul 31 2026 Ondřej Nosek <onosek@redhat.com> - 1.70-1
+- Fix SRPM import for files with a backslash in the name - unittests (onosek)
+- Fixing ruff and flake8 complaints (onosek)
+- Add verrel --json support (onosek)
+- Fix Jenkinsfile for a Jenkins CI triggered from the Forge (onosek)
+- Links to a new documentation at Readthedocs.io (onosek)
+- Web documentation at Readthedocs.io (onosek)
+- Post-migration steps (onosek)
+- Fix SRPM import for files with a backslash in the name (pavel)
+- Remove deprecated 'clean --dry-run' argument - rhbz#2458827 (onosek)
+- Add configurable HTTP version for lookaside transfers (onosek)
+- docs: modernize Sphinx conf.py (onosek)
+- pre_push_check: unset GIT_DIR to fix worktree support - #769 (vashirov)
+- Various code linter issues fixed (onosek)
+- Submitting the module build - duplicate timeout - #766 (onosek)
+- _run_command: timeout is not supported in Python 2 (onosek)
+- Check the correct sorting of imports from now on (onosek)
+- `update`: interactive editor is broken - #762 (onosek)
+- Use ruff code checker instead of bandit (onosek)
+- Execute shell command: Non-interactive stdin (onosek)
+
 * Fri Jul 31 2026 Petr Pisar <ppisar@redhat.com> - 1.69-9
 - Disable modularity on RHEL >= 11
 

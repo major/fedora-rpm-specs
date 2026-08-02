@@ -4,8 +4,8 @@
 %global srcname obs-service-source_validator
 
 Name:           osc-source_validator
-Version:        0.42
-Release:        4%{?dist}
+Version:        0.43
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 Summary:        OBS source service to validate sources
 URL:            https://github.com/openSUSE/obs-service-source_validator
@@ -14,6 +14,8 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Build)
+# for tests
+BuildRequires:  git
 Requires:       gnupg2
 Requires:       obs-build
 Requires:       osc
@@ -47,6 +49,8 @@ used via project wide defined services.
 %make_install
 
 %check
+# tests need a git repo for the gitignore test
+git init
 %make_build test
 
 %files
@@ -54,6 +58,9 @@ used via project wide defined services.
 %{obssvcroot}/*
 
 %changelog
+* Fri Jul 31 2026 Dan Čermák <dan.cermak@posteo.net> - 0.43-1
+- New upstream release 0.43
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

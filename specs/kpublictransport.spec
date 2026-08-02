@@ -1,6 +1,6 @@
 Name:           kpublictransport
-Version:        26.04.3
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 License:        CC0-1.0 AND ODbL-1.0 AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT AND LGPL-2.0-or-later AND BSD-3-Clause
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -62,7 +62,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKPublicTransportOnboard.so.%{version}
 %{_kf6_qmldir}/org/kde/kpublictransport/*
 %{_kf6_datadir}/qlogging-categories6/org_kde_kpublictransport_onboard.categories
-
+%{_kf6_libdir}/qt6/metatypes/qt6kpublictransport*.json
 
 %files devel
 %{_includedir}/*
@@ -74,6 +74,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

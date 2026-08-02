@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.16
-Release:        2%{?dist}
+Version:        9.17
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -56,7 +56,7 @@ Requires: python3dist(azure-mgmt-subscription) >= 3.1.1
 Requires: python3dist(bcrypt) >= 4.3
 Requires: python3dist(boto3) >= 1.43
 Requires: python3dist(certifi) >= 2026.1.4
-Requires: python3dist(cryptography) >= 48
+Requires: python3dist(cryptography) >= 49
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
 Requires: python3dist(flask-login) >= 0
@@ -83,7 +83,7 @@ Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2026
 Requires: python3dist(qrcode) >= 8
-Requires: python3dist(setuptools) >= 82
+Requires: python3dist(setuptools) >= 83
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
@@ -249,6 +249,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 31 2026 Sandro Mani <manisandro@gmail.com> - 9.17-1
+- Update to 9.17
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    akonadi-search
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 # Rust crate licensing:
@@ -24,7 +24,7 @@ BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KF6Contacts)
 BuildRequires:  cmake(KF6CalendarCore)
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6TextUtils)
@@ -48,7 +48,7 @@ Requires:       cmake(KF6CoreAddons)
 Requires:       cmake(KPim6Akonadi)
 Requires:       cmake(KPim6AkonadiMime)
 Requires:       cmake(KF6Contacts)
-Requires:       cmake(KPim6Mime)
+Requires:       cmake(KF6Mime)
 Requires:       cmake(KF6CalendarCore)
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -110,6 +110,12 @@ cd ../../..
 %files doc
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

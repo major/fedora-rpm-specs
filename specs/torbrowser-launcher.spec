@@ -4,8 +4,8 @@ Version:	0.3.9
 Release:	5%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
-URL:		https://github.com/micahflee/torbrowser-launcher/
-Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:		https://gitlab.torproject.org/tpo/applications/torbrowser-launcher
+Source0:	%{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 ExclusiveArch: %{ix86} x86_64
 BuildRequires:	desktop-file-utils

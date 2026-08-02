@@ -1,7 +1,7 @@
 Name:    kmail
 Summary: Mail client
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/internet/kmail
@@ -57,7 +57,7 @@ BuildRequires: cmake(KPim6LdapWidgets)
 BuildRequires: cmake(KPim6MailTransport)
 BuildRequires: cmake(KPim6TextEdit)
 BuildRequires: cmake(KPim6KontactInterface)
-BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KF6Mime)
 BuildRequires: cmake(KPim6Gravatar)
 BuildRequires: cmake(KPim6Libkdepim)
 BuildRequires: cmake(KPim6Libkleo)
@@ -151,6 +151,7 @@ done
 %{_kf6_datadir}/knotifications6/akonadi_sendlater_agent.notifyrc
 %{_kf6_bindir}/ktnef
 %{_kf6_datadir}/applications/org.kde.ktnef.desktop
+%{_kf6_datadir}/knotifications6/kontact.notifyrc
 
 %files libs
 %{_kf6_libdir}/libkmailprivate.so.*
@@ -165,6 +166,12 @@ done
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

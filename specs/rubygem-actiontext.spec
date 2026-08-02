@@ -7,23 +7,32 @@
 %bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Rich text framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone https://github.com/rails/rails.git --no-checkout && cd rails/actiontext
-# git archive -v -o actiontext-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o actiontext-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Source code of pregenerated JS files.
 # git clone https://github.com/rails/rails.git && cd rails/actiontext
-# git archive -v -o actiontext-8.0.3-js.tar.gz v8.0.3 app/javascript rollup.config.js
+# git archive -v -o actiontext-8.1.2-js.tar.gz v8.1.2 rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
+# Fix compatiblity with 6.0.6+ preventig error such as:
+# ~~~
+# Failure:
+# ActionText::ModelTest#test_without_content [test/unit/model_test.rb:19]:
+# Expected #<ActionText::RichText id: nil, name: "content", body: nil, record_type: "Message", record_id: 926854805, created_at: nil, updated_at: nil> to be nil.
+# ~~~
+# https://github.com/rails/rails/pull/57283
+Patch0: rubygem-actiontext-8.1.3-Avoid-assert-nil-when-testing-objects-that-override-nil-.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 3.2.0
+BuildRequires: rubygem(action_text-trix)
 BuildRequires: rubygem(actionmailer) = %{version}
 BuildRequires: rubygem(activestorage) = %{version}
 BuildRequires: rubygem(bundler)
@@ -35,22 +44,12 @@ BuildRequires: rubygem(sqlite3)
 BuildRequires: rubygem(capybara) >= 3.26
 BuildRequires: rubygem(puma)
 BuildRequires: rubygem(selenium-webdriver)
-BuildRequires: chromedriver chromium chromium-headless
+BuildRequires: chromedriver chromium
 # Chromium availability is limited:
 # https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_800
-# and chrome-headless even more:
-# https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_46-48
 ExclusiveArch: x86_64 aarch64 noarch
 %{?with_js_recompilation:BuildRequires: %{_bindir}/npm}
 BuildArch: noarch
-
-# Bundles Trix editor.
-# https://trix-editor.org/
-# https://github.com/basecamp/trix
-# app/assets/javascripts/trix.js
-# TODO: would be nice to check the version. Althoug the bundled Trix is going
-# to be extracted into independent gem: https://github.com/rails/rails/pull/55058
-Provides: bundled(js-trix) = 2.1.12
 
 %description
 Edit and display rich text in Rails applications.
@@ -65,7 +64,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b 1 -b 2
+
+( cd %{builddir}
+%patch 0 -p2
+)
 
 %build
 %if %{with js_recompilation}
@@ -78,15 +81,11 @@ find app/assets/ -type f -exec sha512sum {} \;
 
 rm -rf app/assets/javacripts/actiontext.*
 
-ln -s %{builddir}/app/javascript ./app/javascript
 cp -a %{builddir}/rollup.config.js .
 
 # TODO: This requires network access. Use Fedora rollup.js if it becomes
 # available eventually
-# `rollup-plugin-terser` is missing from package.json, otherwise `npm install`
-# would be enough.
-# https://github.com/rails/rails/issues/54795
-npm install rollup-plugin-terser
+npm install
 npx rollup --config rollup.config.js
 
 # For comparison with the orginal checksum above.
@@ -117,6 +116,7 @@ export BUNDLE_GEMFILE=${PWD}/../Gemfile
 # The `Gemfiles` is unavoidable, otherwise `importmap-rails` are not properly
 # loaded.
 cat > $BUNDLE_GEMFILE <<EOF
+gem "action_text-trix"
 gem "actionmailer"
 gem "activestorage"
 gem "capybara"
@@ -153,6 +153,10 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 31 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Action Text 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

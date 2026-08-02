@@ -8,8 +8,8 @@
 
 Name:    konsole
 Summary: KDE Terminal emulator
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://www.kde.org/applications/system/konsole/
@@ -62,6 +62,7 @@ BuildRequires: cmake(Qt6PrintSupport)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Core5Compat)
 BuildRequires: libicu-devel
+BuildRequires: cmake(libssh)
 
 %if 0%{?tests}
 BuildRequires: pkgconfig(x11)
@@ -138,6 +139,12 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

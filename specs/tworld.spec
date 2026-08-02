@@ -2,18 +2,20 @@ Name:	 tworld
 %global fullname Tile World
 
 Version: 1.3.2
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Intellectually engaging puzzle game
 
 License: GPL-2.0-or-later
 URL:     http://www.muppetlabs.com/~breadbox/software/tworld/
-Source0: http://www.muppetlabs.com/~breadbox/pub/software/tworld/tworld-%{version}-CCLPs.tar.gz	
+Source0: http://www.muppetlabs.com/~breadbox/pub/software/tworld/tworld-%{version}-CCLPs.tar.gz
+Source4: https://bitbusters.club/cclp4/CCLP4.zip
+Source5: https://bitbusters.club/downloads/CCLP5.zip
 
-Source1: tworld-icon-16px.png
-Source2: tworld-icon-32px.png
-Source3: tworld-icon-48px.png
-Source4: tworld.desktop
-Source5: tworld.appdata.xml
+Source11: tworld-icon-16px.png
+Source12: tworld-icon-32px.png
+Source13: tworld-icon-48px.png
+Source14: tworld.desktop
+Source15: tworld.appdata.xml
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
@@ -54,18 +56,21 @@ License: LicenseRef-CCLP1 AND LicenseRef-CCLP2
 
 Requires: %{name}-data = %{version}-%{release}
 
-
 %description cclp
 Community-created level packs for %{fullname}.
 
 
 %prep
 %setup -q
-cp -p %{SOURCE1} .
-cp -p %{SOURCE2} .
-cp -p %{SOURCE3} .
-cp -p %{SOURCE4} .
-cp -p %{SOURCE5} .
+
+unzip %{SOURCE4}
+mkdir CCLP5 && pushd CCLP5 && unzip %{SOURCE5} && popd
+
+cp -p %{SOURCE11} .
+cp -p %{SOURCE12} .
+cp -p %{SOURCE13} .
+cp -p %{SOURCE14} .
+cp -p %{SOURCE15} .
 
 
 %build
@@ -75,6 +80,24 @@ make %{?_smp_mflags} prefix=%{_prefix}
 
 %install
 make install prefix=%{buildroot}%{_prefix} bindir=%{buildroot}%{_bindir} mandir=%{buildroot}%{_mandir}
+
+cp -a CCLPs %{buildroot}%{_datadir}/%{name}/
+cat > %{buildroot}%{_datadir}/%{name}/sets/CCLP2-MS.dac <<EOF
+file=CCLP2.dat
+lastlevel=149
+ruleset=ms
+EOF
+
+for EXTRA in 4 5; do
+  pushd "CCLP${EXTRA}"
+  cp -a "./data/CCLP${EXTRA}.dat" -t %{buildroot}%{_datadir}/%{name}/data
+  cp -a "./sets/CCLP${EXTRA}-Lynx.dac" -t %{buildroot}%{_datadir}/%{name}/sets
+  cp -a "./sets/CCLP${EXTRA}-MS.dac"   -t %{buildroot}%{_datadir}/%{name}/sets
+
+  cp -a "./CCLP${EXTRA}.html" -t %{buildroot}%{_datadir}/%{name}/CCLPs
+  cp -a "./cclp${EXTRA}res"   -t %{buildroot}%{_datadir}/%{name}/CCLPs
+  popd
+done
 
 install -m 755 -d %{buildroot}%{_datadir}/applications/
 desktop-file-install  --dir=%{buildroot}%{_datadir}/applications/  %{name}.desktop
@@ -89,14 +112,6 @@ for SIZE in 16 32 48; do
     tworld-icon-${SIZE}px.png \
     %{buildroot}%{_datadir}/icons/hicolor/${SIZE}x${SIZE}/apps/%{name}.png
 done
-
-
-cp -a CCLPs %{buildroot}%{_datadir}/%{name}/
-cat > %{buildroot}%{_datadir}/%{name}/sets/CCLP2-MS.dac <<EOF
-file=CCLP2.dat
-lastlevel=149
-ruleset=ms
-EOF
 
 
 %files
@@ -128,6 +143,9 @@ EOF
 
 
 %changelog
+* Fri Jul 31 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.3.2-28
+- Add CCLP4 and CCLP5 (rhbz#2485409)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %bcond adblock 0
 
 Name:    kdepim-addons
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
 # MIT
@@ -56,8 +56,7 @@ BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6KCMUtils)
 
-BuildRequires:  cmake(KPim6Mime)
-BuildRequires:  cmake(KPim6AkonadiNotes)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KPim6CalendarUtils)
 BuildRequires:  cmake(KPim6WebEngineViewer)
@@ -184,7 +183,6 @@ popd
 
 # KMail
 %{_kf6_bindir}/kmail_*.sh
-%{_kf6_libdir}/libkmailmarkdown.so.*
 %{_kf6_libdir}/libkmailquicktextpluginprivate.so.*
 %{_kf6_qtplugindir}/pim6/akonadi/
 %{_kf6_qtplugindir}/pim6/importwizard/
@@ -203,6 +201,12 @@ popd
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

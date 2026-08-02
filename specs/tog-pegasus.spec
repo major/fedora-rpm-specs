@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -113,6 +113,8 @@ Patch31:        pegasus-2.14.1-ssl-certs-gen-changes.patch
 Patch32:        pegasus-2.14.1-post-quantum.patch
 # fix OpenSSL 4.0 compatibility
 Patch33:        pegasus-2.14.1-openssl-4.0-fix.patch
+# fix buffer overflows in sample CMPI providers (CWE-120)
+Patch34:        pegasus-2.14.4-sample-provider-buffer-overflows.patch
 
 BuildRequires:  libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -275,6 +277,7 @@ yes | pegasus/mak/CreateDmtfSchema 238 %{_builddir}/cim_schema_2.38.0-MOFs.zip c
 %patch -P31 -p0 -b .ssl-certs-gen-changes
 %patch -P32 -p0 -b .post-quantum
 %patch -P33 -p0 -b .openssl-4.0-fix
+%patch -P34 -p0 -b .sample-provider-buffer-overflows
 
 
 %build
@@ -576,6 +579,9 @@ fi
 
 
 %changelog
+* Fri Jul 31 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-2
+- Fix buffer overflows in sample CMPI providers (CWE-120)
+
 * Tue Jul 21 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-1
 - Update to upstream version 2.14.4
 

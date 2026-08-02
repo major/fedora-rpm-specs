@@ -17,8 +17,8 @@ Name:               libpst
 Version:            0.6.76
 Release:            31%{?dist}
 License:            GPL-2.0-or-later
-URL:                http://www.five-ten-sg.com/%{name}/
-Source:             %{url}/packages/%{name}-%{version}.tar.gz
+URL:                https://github.com/pst-format/%{name}/
+Source:             %{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 # https://github.com/autoconf-archive/autoconf-archive/pull/235
 Patch0:             m4-python310.patch
 Patch1:             0002-incompatible-pointer-i686.patch

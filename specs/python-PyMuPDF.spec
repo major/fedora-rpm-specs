@@ -26,6 +26,9 @@ Patch:		0001-src-__init__.py-fix-incorrect-generation-of-PDF-cont.patch
 # Upstreamable:
 # https://github.com/pymupdf/PyMuPDF/pull/5015
 Patch:		0001-remove-usage-of-typing.ByteString.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch:		python-PyMuPDF-swig45.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)

@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kweather
-Version:        26.04.3
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Convergent KDE weather application
@@ -39,6 +39,7 @@ BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KWeatherCore)
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Runner)
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
@@ -87,11 +88,18 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf6_datadir}/dbus-1/services/org.kde.%{name}.service
+%{_kf6_plugindir}/krunner/krunnerkweather.so
 
 %files plasma-applet
 %{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.%{name}_1x4.so
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

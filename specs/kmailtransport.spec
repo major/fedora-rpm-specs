@@ -1,6 +1,6 @@
 Name:    kmailtransport
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -15,7 +15,7 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Wallet)
 
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6SMTP)
@@ -36,7 +36,7 @@ Conflicts:      kf5-kmailtransport < 23.08.5-2
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KPim6Mime)
+Requires:       cmake(KF6Mime)
 Requires:       cmake(KPim6AkonadiMime)
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -81,6 +81,12 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %files doc
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

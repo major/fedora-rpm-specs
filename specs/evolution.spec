@@ -43,7 +43,7 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.61.1
+Version: 3.61.2
 Release: %autorelease
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later

@@ -34,7 +34,7 @@
     %bcond opgl  1    # OpenPGL
     %global llvm_compat 20
     %endif
-    %bcond usd   0    # Universal Scene Description
+    %bcond usd   1    # Universal Scene Description
 %else
     %bcond embree 0
     %bcond hidapi 0

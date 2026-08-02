@@ -46,6 +46,9 @@ Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
 Patch:		0001-pdf_font-report-font-name-in-warning.patch
 # Upstreamable:
 Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch:		mupdf-swig45.patch
 
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils

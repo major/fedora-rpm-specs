@@ -9,7 +9,7 @@
 m1n1 is the bootloader developed by the Asahi Linux project to bridge the Apple
 (XNU) boot ecosystem to the Linux boot ecosystem.}
 
-%global srcversion 1.6.0-rc1
+%global srcversion 1.6.0
 
 Name:           m1n1
 Version:        %(echo '%{srcversion}' | tr '-' '~')
@@ -28,12 +28,7 @@ URL:            https://github.com/AsahiLinux/m1n1
 Source:         %{url}/archive/v%{srcversion}/%{name}-%{srcversion}.tar.gz
 Source:         https://github.com/rafalh/rust-fatfs/archive/%{fatfs_commit}/rust-fatfs-%{fatfs_commit}.tar.gz
 # * Ensure all required rust dependencies are pulled in
-# * Bump uuid to 1.23: https://github.com/AsahiLinux/m1n1/pull/600
 Patch:          m1n1-rust-deps.patch
-# convert -> magick
-Patch:          %{url}/commit/42349e5e2e4a552054fc1b73c99016bd8cfa4d98.patch
-# proxyclient: add missing xml namespace declaration
-Patch:          %{url}/pull/569.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -105,6 +100,10 @@ This package contains various developer tools for m1n1.
 %autosetup -N -n %{name}-%{srcversion}
 tar -xf %{SOURCE1} -C rust/vendor/rust-fatfs --strip-components 1
 %autopatch -p1
+%dnl delete rust/Cargo.lock to avoid the locked versions and drop it from
+%dnl RUST_LIB's dependencies as the package build is one shot
+/usr/bin/rm -f rust/Cargo.lock
+sed -ie 's;\(^build/$(RUST_LIB):.*\) rust/Cargo.lock$;\1;' Makefile
 
 # Use our logos
 pushd data
@@ -127,6 +126,7 @@ popd
 
 # Generate rust dependencies
 %cargo_prep
+
 %generate_buildrequires
 cd rust
 %cargo_generate_buildrequires -f chainload

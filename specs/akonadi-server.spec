@@ -4,8 +4,8 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 26.04.3
-Release: 3%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -18,9 +18,6 @@ Source11:       akonadiserverrc.sqlite
 
 
 ## upstreamable patches
-## MySQL is killed by akonadi too fast
-## https://invent.kde.org/pim/akonadi/-/merge_requests/400
-Patch0:         400.patch
 
 ## upstream patches
 
@@ -50,6 +47,14 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(sqlite3) >= 3.6.23
+BuildRequires:  python3-devel
+BuildRequires:  cmake(Shiboken6)
+BuildRequires:  cmake(PySide6)
+BuildRequires:  python3dist(build)
+BuildRequires:  python3dist(setuptools)
+# shiboken spawns clang++ to locate clang's builtin header (resource) dir;
+# without the driver, #include_next <limits.h> fails to find clang's limits.h
+BuildRequires:  clang
 
 ## (some) optional deps
 BuildRequires:  pkgconfig(Qt6Designer)
@@ -145,6 +150,7 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
 %install
 %cmake_install
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.configdialog.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.desktop
 %find_lang libakonadi6 --all-name --with-html --with-qt
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
@@ -221,6 +227,9 @@ fi
 %{_kf6_qmldir}/org/kde/akonadi/
 %{_kf6_datadir}/applications/org.kde.akonadi.configdialog.desktop
 %{_userunitdir}/akonadi_control.service
+%{python3_sitearch}/AkonadiCore.cpython-*-linux-gnu.so
+%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi.xml
+%{_datadir}/applications/org.kde.akonadi.desktop
 
 %files devel
 %{_kf6_datadir}/dbus-1/interfaces/org.freedesktop.Akonadi.*.xml
@@ -237,6 +246,7 @@ fi
 %{_kf6_qtplugindir}/designer/akonadi6widgets.so
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
+%{_includedir}/PySide6/AkonadiCore/akonadicore_python.h
 
 %files doc
 
@@ -261,6 +271,12 @@ fi
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

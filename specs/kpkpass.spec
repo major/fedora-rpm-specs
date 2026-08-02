@@ -1,6 +1,6 @@
 Name:    kpkpass
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -61,6 +61,10 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %endif
 %{_kf6_libdir}/libKPim6PkPass.so.*
 %{_kf6_qmldir}/org/kde/pkpass/
+%{_kf6_libdir}/qt6/metatypes/qt6kpim6pkpass_metatypes.json
+%if 0%{?fedora} <= 44
+%{_kf6_datadir}/mime/packages/application-vnd-apple-pkpasses.xml
+%endif
 
 %files devel
 %{_includedir}/KPim6/KPkPass/
@@ -71,6 +75,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

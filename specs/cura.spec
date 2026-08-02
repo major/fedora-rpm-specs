@@ -111,6 +111,10 @@ dos2unix docs/How_to_use_the_flame_graph_profiler.md
 # Wrong shebang
 sed -i '1s=^#!/usr/bin/\(python\|env python\)3*=#!%{python3}=' cura_app.py
 
+# https://github.com/Ultimaker/Cura/issues/21418
+# https://bugzilla.redhat.com/2507983
+sed -i 's/numpy.fromstring/numpy.frombuffer/g' plugins/CuraEngineBackend/ProcessSlicedLayersJob.py plugins/3MFReader/ThreeMFReader.py
+
 %build
 %cmake \
   -DCURA_VERSION:STRING=%{version} \

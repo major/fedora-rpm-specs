@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -37,7 +37,7 @@ BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6Package)
 BuildRequires: cmake(KF6IconThemes)
 
-BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KF6Mime)
 BuildRequires: cmake(KPim6Akonadi)
 BuildRequires: cmake(KPim6IdentityManagementCore)
 BuildRequires: cmake(KPim6MailTransport)
@@ -80,6 +80,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

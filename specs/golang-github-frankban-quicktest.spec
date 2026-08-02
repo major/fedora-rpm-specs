@@ -4,7 +4,7 @@
 
 # https://github.com/frankban/quicktest
 %global goipath         github.com/frankban/quicktest
-Version:                1.14.3
+Version:                1.14.6
 
 %gometa
 
@@ -21,6 +21,7 @@ Summary:        Quick helpers for testing Go applications
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch0:         fix-go127-jsonv2-compat.patch
 
 %description
 %{common_description}
@@ -29,6 +30,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

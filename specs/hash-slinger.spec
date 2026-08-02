@@ -3,19 +3,34 @@
 Summary: Generate and verify various DNS records such as SSHFP, TLSA and OPENPGPKEY
 Name: hash-slinger
 Version: 3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Url:  https://github.com/letoams/%{name}/
-Source:  %{url}archive/%{version}/%{name}-%{version}.tar.gz
+Source0:  %{url}archive/%{version}/%{name}-%{version}.tar.gz
+# back port tlsa from v3.4 for RHEL systems as python < 3.13 except RHEL10
+# https://github.com/letoams/hash-slinger/issues/54
+Source1:  tlsa-v3.4
 %if %{with man}
 # Only to regenerate the man page, which is shipped per default
 Buildrequires: xmlto
 %endif
 BuildRequires: python3-devel, make
+%if 0%{?rhel} && 0%{?rhel} <= 9
 Requires: python3 >= 3.4
+%else
+%if 0%{?rhel} == 10
+# This is not quite right for tlsa, but will work for most uses
+Requires: python3 >= 3.12
+%else
+Requires: python3 >= 3.13
+%endif
+%endif
 Requires: python3-dns, python3-unbound
 Requires: openssh-clients >= 4, python3-gnupg >= 0.3.7
 Requires: python3-cryptography
+%if 0%{?rhel} && 0%{?rhel} <= 9
+Requires: python3-m2crypto
+%endif
 BuildArch: noarch
 Obsoletes: sshfp < 2.0
 Provides: sshfp  = %{version}
@@ -35,6 +50,9 @@ This package has incorporated the old 'sshfp' and 'swede' commands/packages
 
 %prep
 %autosetup -p1
+%if 0%{?rhel} && 0%{?rhel} <= 9
+cp %{SOURCE1} tlsa
+%endif
 
 %build
 %make_build all
@@ -49,6 +67,9 @@ This package has incorporated the old 'sshfp' and 'swede' commands/packages
 %doc %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 31 2026 Frank Crawford <frank@crawford.emu.id.au> - 3.6-2
+- Backport tlsa from v3.4 for older RHEL systems as python < 3.13
+
 * Sat Jul 25 2026 Frank Crawford <frank@crawford.emu.id.au> - 3.6-1
 - Updated to 3.6
 

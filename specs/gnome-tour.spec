@@ -23,6 +23,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
 
+# Fix build with gtk4-rs 0.11.4: bump to v4_10 feature for Accessible
+Patch0:         gnome-tour-50.0-fix-gtk4-rs-0.11.4.patch
+
 %gnome_check_version
 
 BuildRequires:  meson

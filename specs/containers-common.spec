@@ -25,7 +25,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.68.1
+Version: 0.69.0
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -68,7 +68,7 @@ Summary: Extra dependencies for Podman and Buildah
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: container-network-stack
 Requires: oci-runtime
-Requires: passt
+Requires: passt >= 0:0^20260716.g090d739
 %if %{defined fedora}
 Recommends: composefs
 Recommends: crun

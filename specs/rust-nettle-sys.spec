@@ -20,7 +20,7 @@ Patch:          nettle-sys-fix-metadata-auto.diff
 Patch2:         0001-build-drop-unavailable-ECC-functions.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(nettle)
+BuildRequires:  pkgconfig(nettle) < 4.0
 
 %global _description %{expand:
 Low-level Rust bindings for the Nettle cryptographic library.}
@@ -30,7 +30,7 @@ Low-level Rust bindings for the Nettle cryptographic library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(nettle)
+Requires:       pkgconfig(nettle) < 4.0
 
 %description    devel %{_description}
 

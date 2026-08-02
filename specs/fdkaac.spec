@@ -1,8 +1,8 @@
 %global _distro_extra_ldflags -L%{_libdir}/fdk-aac
 
 Name:           fdkaac
-Version:        1.0.7
-Release:        2%{?dist}
+Version:        1.0.8
+Release:        1%{?dist}
 Summary:        Command line frontend for libfdk-aac encoder
 
 # Most files are under Zlib, except:
@@ -54,6 +54,9 @@ autoreconf -fiv
 
 
 %changelog
+* Thu Jul 30 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.8-1
+- update to 1.0.8 (resolves rhbz#2502090)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

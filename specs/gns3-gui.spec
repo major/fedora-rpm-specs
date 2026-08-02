@@ -4,7 +4,7 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.60
+Version:        2.2.61
 Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
@@ -17,14 +17,15 @@ Source3:        %{name}.appdata.xml
 BuildArch:      noarch
 
 BuildRequires:  python3-devel 
-BuildRequires:  python3-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+BuildRequires:  python3-pyqt6
+BuildRequires:  python3-sip-devel
 
 Requires: telnet 
 Requires: socat
 Requires: python3-jsonschema 
-Requires: python3-psutil 
+Requires: python3-psutil
 Requires: python3-pyqt6
 
 %description
@@ -50,21 +51,25 @@ sed -i -r '/jsonschema>=4.25.1/d' requirements.txt
 # Disable update alerts
 sed -i 's/"check_for_update": True,/"check_for_update": False,/' gns3/settings.py
 
+# Remove empty files
+find  .  -name '.keep' -type f -delete
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l gns3
 
 # Remove shebang
 for lib in `find %{buildroot}/%{python3_sitelib}/ -name '*.py'`; do
  echo $lib
  sed -i '1{\@^#!/usr/bin/env python@d}' $lib
 done
-
-# Remove empty files
-find %{buildroot}/%{python3_sitelib}/ -name '.keep' -type f -delete
 
 # Remove exec perm
 find %{buildroot}/%{python3_sitelib}/ -type f -exec chmod -x {} \;
@@ -75,15 +80,14 @@ install -m 644 %{SOURCE3} %{buildroot}/%{_datadir}/appdata/
 
 
 %check
+%pyproject_check_import
+
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 
 
-%files 
-%license LICENSE
+%files -f %{pyproject_files}
 %doc README.md AUTHORS CHANGELOG
-%{python3_sitelib}/gns3/
-%{python3_sitelib}/gns3_gui*.egg-info/
 %{_bindir}/gns3
 %{_datadir}/applications/gns3*.desktop
 %{_datadir}/icons/hicolor/*/apps/*gns3*
@@ -92,6 +96,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Jul 31 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.61-1
+- Update to 2.2.61
+
+* Fri Jul 31 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.2.60-2
+- Convert to pyproject
+
 * Wed Jul 15 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.60-1
 - Update to 2.2.60
 

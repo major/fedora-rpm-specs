@@ -1,11 +1,11 @@
 Name:           keepsecret
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 Summary:        Client for a Secret Service compatible provider
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://apps.kde.org/keepsecret/
-Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -32,6 +32,7 @@ BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  cmake(KF6KirigamiAppComponents)
 
 Requires:       qt6qml(org.kde.kirigamiaddons.components)
 Requires:       qt6qml(org.kde.kirigamiaddons.formcard)
@@ -72,6 +73,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.keepsecre
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.keepsecret.svg
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

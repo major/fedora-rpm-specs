@@ -1,5 +1,5 @@
 Name:           python-engineio
-Version:        4.13.3
+Version:        4.13.4
 Release:        %autorelease
 Summary:        Python Engine.IO server and client
 

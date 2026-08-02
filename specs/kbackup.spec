@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kbackup
-Version:        26.04.3
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
 Summary(ru):    Простое, дружественное к пользователю резервное копирование
@@ -91,6 +91,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

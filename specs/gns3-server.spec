@@ -5,7 +5,7 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.60
+Version:        2.2.61
 Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
@@ -19,9 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  git-core
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %{?systemd_requires}
 BuildRequires: systemd
+BuildRequires: python3-prompt-toolkit
 BuildRequires: python3-sphinx
 BuildRequires: make
 
@@ -71,17 +71,26 @@ cat >gns3-server.sysusers.conf <<EOF
 u gns3 - 'gns3 server' /var/lib/gns3 -
 EOF
 
+# Remove empty file
+rm gns3server/symbols/.gitkeep
+
+# Don't bundle OVMF_CODE.fd OVMF_VARS.fd with the package
+rm gns3server/disks/OVMF_CODE.fd
+rm gns3server/disks/OVMF_VARS.fd
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l gns3server
 
 # Remove shebang
 find %{buildroot}/%{python3_sitelib}/ -name '*.py' -print \
    -exec sed -i '1{\@^#!/usr/bin/env python@d}' {} \;
-# Remove empty file
-rm -f %{buildroot}/%{python3_sitelib}/gns3server/symbols/.gitkeep
 
 # Build the doc1834283s
 %{make_build} -C docs html
@@ -92,45 +101,28 @@ mkdir -p %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE1} %{buildroot}%{_unitdir}
 mkdir -p  %{buildroot}%{_sharedstatedir}/gns3
 
-# Don't bundle OVMF_CODE.fd OVMF_VARS.fd with the package
-rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
-rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
-
-%if 0%{?fedora} >= 42
 install -m0644 -D gns3-server.sysusers.conf %{buildroot}%{_sysusersdir}/gns3-server.conf
-%endif
 
 %check
+# Missing prompt_toolkit.key_binding.input_processor and tests works on MSW
+%pyproject_check_import || :
 
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %doc README.md AUTHORS CHANGELOG
-%{python3_sitelib}/gns3_server*.egg-info/
 %ghost %{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
 %ghost %{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
-%{python3_sitelib}/gns3server/
 %{_bindir}/gns3server
 %{_bindir}/gns3vmnet
 %{_bindir}/gns3loopback
 %{_unitdir}/gns3.service
 %dir %attr(0755,gns3,gns3) %{_sharedstatedir}/gns3
-%if 0%{?fedora} >= 42
 %{_sysusersdir}/gns3-server.conf
-%endif
 
 %files doc
 %license LICENSE
 %doc docs/_build/html
-
-%if 0%{?fedora} < 42
-%pre
-getent group gns3 >/dev/null || groupadd -r gns3
-getent passwd gns3 >/dev/null || \
-       useradd -r -g gns3 -d /var/lib/gns3 -s /sbin/nologin \
-               -c "gns3 server" gns3
-exit 0
-%endif
 
 %post
 [ -d "/var/lib/gns3" ] && chown -R gns3:gns3 %{_sharedstatedir}/gns3
@@ -147,6 +139,12 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Fri Jul 31 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.61-1
+- Update to 2.2.61
+
+* Fri Jul 31 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.2.60-2
+- Pyprojectize and spec clean-up
+
 * Wed Jul 15 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.60-1
 - Update to 2.2.60
 

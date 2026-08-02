@@ -4,7 +4,7 @@
 
 Name:           rtmpdump
 Version:        2.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Toolkit for RTMP streams
 
 SourceLicense:  GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -13,6 +13,8 @@ URL:            https://rtmpdump.mplayerhq.hu/
 # git clone https://git.ffmpeg.org/rtmpdump.git && cd rtmpdump
 # git archive --prefix rtmpdump-2.6/ -o ../rtmpdump-2.6.tar.gz v2.6
 Source0:        rtmpdump-%{version}.tar.gz
+# port to nettle 4.0 API
+Patch0:         rtmpdump-nettle4.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnutls-devel
@@ -77,6 +79,9 @@ rm -v %{buildroot}%{_libdir}/librtmp.a
 %{_mandir}/man3/librtmp.3*
 
 %changelog
+* Fri Jul 31 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6-6
+- port to nettle 4.0 API
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

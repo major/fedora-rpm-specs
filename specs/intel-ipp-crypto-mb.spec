@@ -1,7 +1,5 @@
-%global debug_package %{nil}
-%global srctag ippcp_2021.10.0
-%global mbx_int_major 11
-%global mbx_int_minor 11
+%global ipp_int_major 13
+%global ipp_int_minor 3
 %global desc %{expand: \
 Intel IPP Cryptography library provides optimized versions of RSA, ECDSA, ECDH
 and x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 
@@ -10,21 +8,21 @@ Intel Advanced Vector Extensions 512 (Intel AVX-512) GFNI and SM3 based on
 Intel Advanced Vector Extensions 512 (Intel AVX-512) instructions.}
 
 Name:		intel-ipp-crypto-mb
-Version:	1.0.10
-Release:	8%{?dist}
+Version:	2.3.0
+Release:	1%{?dist}
 Summary:	Intel IPP Cryptography multi-buffer library
 
 License:	Apache-2.0
-URL:		https://github.com/intel/ipp-crypto
-Source0:	%{url}/archive/%{srctag}/%{name}-%{srctag}.tar.gz
+URL:		https://github.com/intel/cryptography-primitives
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Upstream exclusively uses x86_64-specific intrinsics
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	openssl-devel >= 1.1.0
+BuildRequires:	openssl-devel >= 3.5.5
 
 %description
 %{desc}
@@ -47,15 +45,16 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Static library.
 
 %prep
-%autosetup -n ipp-crypto-%{srctag}
-# library path fix
-sed -i 's/"lib\"/"lib64"/g' sources/ippcp/crypto_mb/src/CMakeLists.txt
+%autosetup -n cryptography-primitives-%{version}
+# library path fix and remove PRIVATE_HEADERs
+sed -i 's|MBX_LIB_INSTALL_DIR "lib"|MBX_LIB_INSTALL_DIR "lib64"|g' sources/ippcp/crypto_mb/src/CMakeLists.txt
+sed -i 's|PRIVATE_HEADER "${MBX_ONE_CPU_HEADERS}"|PRIVATE_HEADER ""|' sources/ippcp/crypto_mb/src/CMakeLists.txt
 
 %build
 pushd sources/ippcp/crypto_mb
 %cmake \
-	-DARCH=intel64 \
-	-DMERGED_BLD:BOOL=off
+	-DCMAKE_BUILD_TYPE=Debug \
+	-DARCH=intel64
 %cmake_build
 popd
 
@@ -69,8 +68,8 @@ popd
 %files
 %license LICENSE
 %doc sources/ippcp/crypto_mb/Readme.md
-%{_libdir}/libcrypto_mb.so.%{mbx_int_major}
-%{_libdir}/libcrypto_mb.so.%{mbx_int_major}.%{mbx_int_minor}
+%{_libdir}/libcrypto_mb.so.%{ipp_int_major}
+%{_libdir}/libcrypto_mb.so.%{ipp_int_major}.%{ipp_int_minor}
 
 %files devel
 %{_includedir}/crypto_mb
@@ -81,6 +80,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Fri Jul 31 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.3.0-1
+- Update to 2.3.0 (rhbz#2504142)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

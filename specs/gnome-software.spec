@@ -27,7 +27,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   51~alpha
+Version:   51~beta
 Release:   %autorelease
 Summary:   A software center for GNOME
 
@@ -278,7 +278,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fwupd.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_generic-updates.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_hardcoded-blocklist.so
-%{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_icons.so
 %if %{with malcontent}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_malcontent.so
 %endif

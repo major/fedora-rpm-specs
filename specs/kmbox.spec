@@ -1,6 +1,6 @@
 Name:    kmbox
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: The KMbox Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -11,7 +11,7 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 BuildRequires: make
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  cmake(KF6Codecs)
 
@@ -21,7 +21,7 @@ BuildRequires:  cmake(KF6Codecs)
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KPim6Mime)
+Requires:       cmake(KF6Mime)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -57,6 +57,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

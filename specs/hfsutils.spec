@@ -1,7 +1,7 @@
 Summary: Tools for reading and writing Macintosh HFS volumes
 Name: hfsutils
 Version: 3.2.6
-Release: 56%{?dist}
+Release: 57%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: ftp://ftp.mars.org/pub/hfs/%{name}-%{version}.tar.gz
@@ -9,6 +9,12 @@ Patch0: hfsutils-3.2.6-errno.patch
 Patch1: hfsutils-3.2.6-largefile.patch
 Patch2: hfsutils-3.2.6-configure-c99.patch
 Patch3: hfsutils-3.2.6-include-c99.patch
+# Tcl 9 made Tcl_Interp opaque; use Tcl_SetResult()/Tcl_GetStringResult()
+# instead of poking interp->result directly
+Patch4: hfsutils-3.2.6-tcl9-interp-result.patch
+# Tcl 9 type fixes (Tcl_Size, const argv) and Tcl_Free/free pairing, so we
+# can drop -Wno-incompatible-pointer-types
+Patch5: hfsutils-3.2.6-tcl9-pointer-types.patch
 URL: http://www.mars.org/home/rob/proj/hfs/
 BuildRequires: libXft-devel tcl-devel tk-devel gcc
 BuildRequires: make
@@ -44,7 +50,7 @@ hfsutils-devel package.
 %autosetup -p1
 
 %build
-CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64 -DUSE_INTERP_RESULT -Wno-incompatible-pointer-types -Wno-deprecated-declarations -Wno-deprecated-declarations -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-int-to-pointer-cast"
+CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64 -Wno-deprecated-declarations -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-int-to-pointer-cast"
 %{configure} --with-tcl=%{_libdir}  --with-tk=%{_libdir}
 make
 make hfsck/hfsck
@@ -111,6 +117,10 @@ install -p -m 0755 hfsck/hfsck $RPM_BUILD_ROOT/%{_bindir}
 %{_includedir}/rsrc.h
 
 %changelog
+* Mon Jul 20 2026 Michel Lind <salimma@fedoraproject.org> - 3.2.6-57
+- Port tclhfs.c and hfswish.c to the Tcl 9 result API
+- Fix pointer-type mismatches with the Tcl 9 API and allocator pairing
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -9,8 +9,6 @@ Summary:        Iteration for datetime object with cron like format
 License:        MIT
 URL:            https://github.com/kiorky/croniter
 Source0:        %{pypi_source}
-# Maintainers, please upstream
-#Patch0:         python-croniter-rm-python-mock-usage.diff
 BuildArch:      noarch
 
 BuildRequires:  python3-pytz
@@ -33,6 +31,8 @@ Requires:       python3-dateutil
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 # Relax packaging version requirement
+%pyproject_patch_dependency hatchling:drop_constraints
+
 %pyproject_patch_dependency packaging:ignore
 %pyproject_patch_dependency pathspec:ignore
 %pyproject_patch_dependency trove-classifiers:ignore
@@ -51,7 +51,7 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 
 %check

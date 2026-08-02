@@ -1,6 +1,6 @@
 Name:    mimetreeparser
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: Parser for MIME trees
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFULLR AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -22,7 +22,7 @@ BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KPim6Mbox)
 BuildRequires:  cmake(KPim6Libkleo)
 BuildRequires:  cmake(QGpgmeQt6)
@@ -74,6 +74,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

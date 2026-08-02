@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.61.2
+Version:        0.62.3
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Jul 31 2026 Packit <hello@packit.dev> - 0.62.3-1
+- Emoji reactions on GitLab comments now work reliably
+- Resolves: rhbz#2509741
+
 * Mon Jul 20 2026 Packit <hello@packit.dev> - 0.61.2-1
 - The `ogr` library now correctly handles the Forgejo 'error' commit flag, resolving an issue that previously caused it to fail during internal mapping. (#991)
 - Resolves: rhbz#2502826

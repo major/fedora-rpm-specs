@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        26.5.0
+Version:        26.7.0
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause
@@ -68,8 +68,8 @@ BuildRequires:  /usr/bin/python
 sed -i -e '/lief/d' pyproject.toml
 # Unpackaged and unneeded test deps
 sed -i -E -e '/^(py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' -e '/rattler-build/d' tests/requirements.txt
-# do not run coverage/xdoctest in pytest
-sed -i -E -e '/--(no-)?cov/d' -e '/xdoctest/d' pyproject.toml
+# do not run coverage/durations/xdoctest in pytest
+sed -i -E -e '/--(no-)?cov|durations|xdoctest/d' pyproject.toml
 # Not needed for man pages
 sed -i -E -e '/linkify/d' -e '/sphinx_(design|sitemap)/d' docs/source/conf.py
 

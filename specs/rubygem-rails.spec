@@ -3,8 +3,8 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
 URL: https://rubyonrails.org
@@ -40,6 +40,9 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
+%check
+# rubygem-rails is only metapackage.
+
 %files
 %dir %{gem_instdir}
 %license %{gem_instdir}/MIT-LICENSE
@@ -51,6 +54,10 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 31 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Rails 8.1.2.
+  Resolves: rhzb#2405582
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

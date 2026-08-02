@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    kleopatra
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -46,12 +46,13 @@ BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6GuiAddons)
 
 BuildRequires:  cmake(KPim6Libkleo)
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KPim6IdentityManagementCore)
 BuildRequires:  cmake(KPim6MailTransport)
 BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6MimeTreeParserWidgets)
 BuildRequires:  cmake(KPim6Mbox)
+BuildRequires:  cmake(KDSingleApplication-qt6)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -110,6 +111,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/repsn
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.1.2
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Representations of finite groups
 

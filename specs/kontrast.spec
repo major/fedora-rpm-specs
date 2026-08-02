@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:          kontrast
-Version:       26.04.3
-Release:       2%{?dist}
+Version:       26.07.90
+Release:       1%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
 License:       GPL-3.0-only AND GPL-3.0-or-later AND CC-BY-SA-4.0
@@ -75,6 +75,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

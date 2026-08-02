@@ -10,7 +10,7 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.6.2
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Command line parser for C++11
 
@@ -24,7 +24,7 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildSystem:    cmake
 BuildOption(conf): -DCLI11_BUILD_DOCS:BOOL=TRUE
 BuildOption(conf): -DCLI11_BUILD_TESTS:BOOL=TRUE
-BuildOption(conf): -DCMAKE_CXX_STANDARD=20
+BuildOption(conf): -DCMAKE_CXX_STANDARD=23
 
 BuildRequires:  boost-devel
 BuildRequires:  doxygen
@@ -76,15 +76,14 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %cmake_build --target docs
 
 %files devel
-%doc CHANGELOG.md README.md docs/CLI11_300.png
+%doc CHANGELOG.md README.md docs/CLI11_300.png docs/CLI11.svg
 %license LICENSE
 %{_includedir}/CLI/
 %{_datadir}/cmake/CLI11/
 %{_datadir}/pkgconfig/CLI11.pc
 
 %files docs
-%doc %{_vpath_builddir}/docs/html
-%doc docs/CLI11.svg docs/CLI11_100.png
+%doc html
 
 %changelog
 %autochangelog

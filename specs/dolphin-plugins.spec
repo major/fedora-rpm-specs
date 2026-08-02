@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    dolphin-plugins
 Summary: Dolphin plugins
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/sdk/%{name}
@@ -66,9 +66,15 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 %{_kf6_datadir}/config.kcfg/fileviewgitpluginsettings.kcfg
 %{_kf6_datadir}/config.kcfg/fileviewsvnpluginsettings.kcfg
 %{_kf6_datadir}/config.kcfg/fileviewhgpluginsettings.kcfg
-
+%{_kf6_plugindir}/overlayicon/mountedisooverlay.so
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -19,6 +19,8 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 # https://pagure.io/fedora-workstation/issue/442
 Patch:          default-terminal.patch
+# https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/2074
+Patch:          nautilus-put-g_set_date_time-behind-guard.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

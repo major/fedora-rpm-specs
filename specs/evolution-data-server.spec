@@ -53,7 +53,7 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.61.1
+Version: 3.61.2
 Release: %autorelease
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
@@ -330,8 +330,8 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_libdir}/libedata-book-1.2.so.27.0.0
 %{_libdir}/libedata-cal-2.0.so.2
 %{_libdir}/libedata-cal-2.0.so.2.0.0
-%{_libdir}/libedataserver-1.2.so.27
-%{_libdir}/libedataserver-1.2.so.27.0.0
+%{_libdir}/libedataserver-1.2.so.28
+%{_libdir}/libedataserver-1.2.so.28.0.0
 %{_libdir}/libedataserverui-1.2.so.4
 %{_libdir}/libedataserverui-1.2.so.4.0.0
 %{_libdir}/libedataserverui4-1.0.so.0

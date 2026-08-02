@@ -1,14 +1,14 @@
 %global gem_name actionmailbox
 
 Name: rubygem-%{gem_name}
-Version: 8.0.3
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Summary: Inbound email handling framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionmailbox
-# git archive -v -o actionmailbox-8.0.3-tests.tar.gz v8.0.3 test/
+# git archive -v -o actionmailbox-8.1.2-tests.tar.gz v8.1.2 test/
 Source1: actionmailbox-%{version}%{?prerelease}-tests.tar.gz
 
 BuildRequires: ruby(release)
@@ -78,19 +78,23 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %files
 %dir %{gem_instdir}
 %license %{gem_instdir}/MIT-LICENSE
+%{gem_instdir}/app
+%{gem_instdir}/config
+%{gem_instdir}/db
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%{gem_instdir}/app
-%{gem_instdir}/config
-%{gem_instdir}/db
 %doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 31 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
+- Update to Action Mailbox 8.1.2.
+  Related: rhzb#2405582
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

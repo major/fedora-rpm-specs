@@ -92,6 +92,11 @@ cp -a %{SOURCE6} %{SOURCE7} %{SOURCE8} .
 # fix compile-shaders
 sed -i 's|qsb |qsb-qt6 |g' scripts/compile-shaders
 
+# https://github.com/Ultimaker/Cura/issues/21418
+# https://bugzilla.redhat.com/2507983
+sed -i 's/tostring/tobytes/g' UM/View/GL/OpenGL.py
+
+
 %build
 # there is no arch specific content, so we set LIB_SUFFIX to nothing
 # see https://github.com/Ultimaker/Uranium/commit/862a246bdfd7e25541b04a35406957612c6f4bb7

@@ -1,10 +1,13 @@
 Summary: GNU macro processor
 Name: m4
 Version: 1.4.21
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND GFDL-1.3-or-later AND FSFULLR AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND MIT
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
+# Fix SIGSEGV in gnulib posix_spawn_file_actions_addchdir tests
+# https://lists.gnu.org/archive/html/bug-gnulib/2026-07/msg00165.html
+Patch0:  m4-1.4.21-gnulib-posix_addchdr.patch
 URL: https://www.gnu.org/software/m4/
 BuildRequires: make
 BuildRequires: gcc autoconf automake
@@ -28,6 +31,8 @@ Install m4 if you need a macro processor.
 
 %prep
 %setup -q
+%patch -P0 -p1
+autoreconf
 chmod 644 COPYING
 
 %build
@@ -50,6 +55,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Thu Jul 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.21-3
+- Fix SIGSEGV in gnulib posix_spawn_file_actions_addchdir tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

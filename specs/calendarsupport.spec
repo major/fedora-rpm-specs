@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    calendarsupport
-Version: 26.04.3
-Release: 3%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -28,7 +28,7 @@ BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KF6Mime)
 BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KPim6CalendarUtils)
 BuildRequires:  cmake(KF6CalendarCore)
@@ -44,7 +44,7 @@ BuildRequires:  cmake(KF6SyntaxHighlighting)
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KPim6Mime)
+Requires:       cmake(KF6Mime)
 Requires:       cmake(KPim6IdentityManagementCore)
 Requires:       cmake(KPim6AkonadiCalendar)
 %description    devel
@@ -85,6 +85,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Mon Jul 27 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-3
 - Removed Akonadi Notes as a BR
 

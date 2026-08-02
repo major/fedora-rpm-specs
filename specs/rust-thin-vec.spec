@@ -5,7 +5,7 @@
 %global crate thin-vec
 
 Name:           rust-thin-vec
-Version:        0.2.18
+Version:        0.2.19
 Release:        %autorelease
 Summary:        Vec that takes up less space on the stack
 

@@ -10,7 +10,6 @@ Source0:	https://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{na
 ExcludeArch:	%{ix86}
 
 BuildRequires:	accountsservice-devel
-BuildRequires:	cmake
 BuildRequires:	exo-devel
 BuildRequires:	garcon-devel
 BuildRequires:	gcc-c++
@@ -18,7 +17,9 @@ BuildRequires:	gettext
 BuildRequires:	gtk-layer-shell-devel
 BuildRequires:	libxfce4ui-devel
 BuildRequires:	libxfce4util-devel
+BuildRequires:	meson
 BuildRequires:	xfce4-panel-devel
+BuildRequires:	xfconf-devel
 
 Requires:	xfce4-panel
 
@@ -34,11 +35,11 @@ that you have launched from it.
 %autosetup
 
 %build
-%cmake
-%cmake_build
+%meson
+%meson_build
 
 %install
-%cmake_install
+%meson_install
 %find_lang %{name}
 
 %check

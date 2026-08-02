@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           minuet
-Version:        26.04.3
-Release:        2%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
 #and BSD license for cmake/FindFluidSynth.cmake
@@ -24,6 +24,9 @@ BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Gui)
@@ -31,12 +34,16 @@ BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Multimedia)
 
 BuildRequires:  pkgconfig(fluidsynth)
 BuildRequires:  libappstream-glib
+BuildRequires:  pkgconfig(aubio)
 # Runtime requirement
 Requires:       hicolor-icon-theme
 Requires:       %{name}-data
+BuildRequires:  qt6qml(org.kde.kirigamiaddons.onboarding)
+Requires:       qt6qml(org.kde.kirigamiaddons.onboarding)
 
 Provides:       bundled(font(bravura))
 
@@ -105,6 +112,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desk
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

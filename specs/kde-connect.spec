@@ -1,8 +1,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.07.90
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -14,9 +14,6 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 ExcludeArch: %{ix86}
 
 ## upstream patches
-# Fix build against OpenSSL 4.0
-# https://invent.kde.org/network/kdeconnect-kde/-/merge_requests/988
-Patch0:         988.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -181,6 +178,8 @@ done
 %{_kf6_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
 %{_kf6_plugindir}/kio/kdeconnect.so
 %{_qt6_archdatadir}/qml/org/kde/kdeconnect/
+%{_kf6_datadir}/remoteview/kdeconnect-network.desktop
+%{_kf6_datadir}/solid/actions/solid_kdeconnect.desktop
 
 %files -n kdeconnectd
 %{_kf6_libdir}/udev/rules.d/40-kdeconnect-uinput.rules
@@ -198,6 +197,12 @@ done
 
 
 %changelog
+* Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
+* Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 26.07.80-1
+- 26.07.80
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
