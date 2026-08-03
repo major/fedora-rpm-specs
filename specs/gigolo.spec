@@ -1,24 +1,23 @@
-%global minorversion 0.5
+# VCS   https://gitlab.xfce.org/apps/gigolo.git/
+
+%global minorversion 0.6
 
 Name:           gigolo
-Version:        0.5.4
+Version:        0.6.0
 Release:        %autorelease
 Summary:        GIO/GVFS management application
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
-URL:            http://goodies.xfce.org/projects/applications/gigolo/
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+URL:            https://docs.xfce.org/apps/gigolo/start
+Source0:        https://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires:  gettext
-BuildRequires:  gtk3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
-BuildRequires:  make
-
+BuildRequires:  gettext
+BuildRequires:  glib2-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  meson
 Requires:       gvfs-fuse
-
-Obsoletes: sion < 0.1.0-3
 
 %description
 A frontend to easily manage connections to remote filesystems using GIO/GVFS. 
@@ -29,21 +28,26 @@ bookmarks of such.
 %setup -q
 
 %build
-#rm -f waf
-%configure
-%make_build
-
+%meson
+%meson_build
 
 %install
-%make_install
-%find_lang %{name}
+%meson_install
 
 # remove duplicate docs
-rm -rf %{buildroot}/%{_datadir}/doc/gigolo
+rm -rf %{buildroot}%{_docdir}/%{name}
+
+# Rename invalid hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
+
+%check
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING

@@ -1,6 +1,6 @@
 Name:           libnitrokey
-Version:        3.7
-Release:        11%{?dist}
+Version:        3.8
+Release:        1%{?dist}
 Summary:        Communicate with Nitrokey stick devices in a clean and easy manner
 
 License:        LGPL-3.0-or-later
@@ -28,11 +28,15 @@ to develop using libnitrokey.
 %autosetup
 
 %build
-%cmake
+%cmake \
+	-DCMAKE_POLICY_VERSION_MINIMUM="3.5.0"
 %cmake_build
 
 %install
 %cmake_install
+
+%check
+%ctest
 
 %post	
 %udev_rules_update
@@ -44,7 +48,7 @@ to develop using libnitrokey.
 %license LICENSE
 %doc README.md
 %{_libdir}/libnitrokey.so.*
-%{_udevrulesdir}/*-nitrokey.rules
+%{_udevrulesdir}/41-nitrokey.rules
 
 %files devel
 %{_libdir}/libnitrokey.so
@@ -52,6 +56,9 @@ to develop using libnitrokey.
 %{_includedir}/libnitrokey/
 
 %changelog
+* Sat Aug 01 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.8-1
+- Update to 3.8 (rhbz#2504287)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

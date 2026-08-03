@@ -1,5 +1,5 @@
 Name:		rgbds
-Version:	1.0.2
+Version:	1.0.3
 Release:	1%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
@@ -68,6 +68,9 @@ sed \
 %doc README.md
 
 %changelog
+* Sat Aug 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
+- Update to v1.0.3 (rhbz#2510048)
+
 * Mon Jul 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-1
 - Update to v1.0.2
 

@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 8.0.5
-Release: 4%{?dist}
+Version: 8.0.6
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -199,6 +199,9 @@ fi
 %endif
 
 %changelog
+* Sat Aug 1 2026 Jason Taylor <jtfas90@proton.me> - 8.0.6-1
+- Upstream security/bugfix release
+
 * Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.0.5-4
 - Enable sysusers.d on EPEL 11
 

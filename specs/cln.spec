@@ -1,6 +1,6 @@
 Name:           cln
-Version:        1.3.6
-Release:        11%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Summary:        Class Library for Numbers
 
 License:        GPL-2.0-or-later
@@ -9,12 +9,8 @@ Source0:        http://www.ginac.de/CLN/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
-BuildRequires:  texi2html
-%if 0%{?fedora} && 0%{?fedora} > 20
-BuildRequires:  perl(Unicode::EastAsianWidth)
-%endif
 BuildRequires:  texinfo-tex
-BuildRequires: make
+BuildRequires:  make
 
 %description
 A collection of C++ math classes and functions, which are designed for
@@ -51,10 +47,7 @@ make html
 
 %install
 %make_install
-
-find %{buildroot} -type f -name "*.la" -delete -print
 rm -f %{buildroot}%{_infodir}/dir
-rm -rf %{buildroot}%{_bindir} %{buildroot}%{_mandir}/man1/pi.*
 
 %check
 make %{_smp_mflags} check
@@ -63,16 +56,21 @@ make %{_smp_mflags} check
 
 %files
 %doc COPYING NEWS README TODO
-%{_libdir}/*.so.*
+%{_bindir}/pi
+%{_datadir}/man/man1/pi.1*
+%{_libdir}/libcln.so.*
 
 %files devel
-%{_libdir}/*.so
+%doc doc/cln.pdf doc/cln.html
+%{_libdir}/libcln.so
 %{_libdir}/pkgconfig/cln.pc
 %{_includedir}/cln/
-%{_infodir}/*.info*
-%doc doc/cln.pdf doc/cln.html
+%{_infodir}/cln.info*
 
 %changelog
+* Sat Aug 01 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.3.7-1
+- Update to 1.3.7 (rhbz#2259544)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

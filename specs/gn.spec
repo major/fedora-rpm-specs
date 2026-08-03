@@ -1,4 +1,7 @@
-%bcond bundled_cxx 0
+# We ought to be able to re-generate source files that come from cxxbridge, but
+# this currently fails with an “unsupported attribute” error for
+# #[cxx_return_type = "…"] in src/gn/starlark/crates/ffi/src/bridge.rs.
+%bcond regenerate_bridge 0
 
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
@@ -23,10 +26,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 8d35b83847d1bf61bad0b8176a8aab6afc052ae1
-%global access 20260708
+%global commit 3fd3b0624d8cba16927853600130b2c33d4e7928
+%global access 20260731
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2459
+%global position 2501
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -38,8 +41,10 @@ Summary:        Meta-build system that generates build files for Ninja
 #   src/base/third_party/icu/icu_utf.h.
 # - src/gn/starlark/vendor/cxx/include/cxx.h is (MIT OR Apache-2.0); per
 #   src/gn/starlark/vendor/cxx/README.md, it is
-#   https://github.com/dtolnay/cxx/blob/1.0.194/include/cxx.h.
-%global bundled_cxx_version 1.0.194
+#   https://github.com/dtolnay/cxx/blob/1.0.194/include/cxx.h, but it is most
+#   likely actually based on the version in src/gn/starlark/Cargo.lock at any
+#   given time.
+%global bundled_cxx_version 1.0.196
 #   The license texts for this are missing,
 #   https://gn.issues.chromium.org/issues/529413117.
 # - gn/src/util/test/gn_test.cc, gn/infra/recipes/gn.py, and
@@ -95,12 +100,8 @@ BuildRequires:  gcc-c++
 BuildRequires:  emacs-common
 
 BuildRequires:  help2man
-%if %{without bundled_cxx}
-BuildRequires:  cargo-rpm-macros
-# We express this as rust-cxx-devel rather than crate(cxx) because we don’t use
-# the package as a Rust crate, only for the C++ header file it contains, and
-# this better reflectes our intent.
-BuildRequires:  (rust-cxx-devel >= 1.0.0 with rust-cxx-devel < 2.0.0~)
+%if %{with regenerate_bridge}
+BuildRequires:  cxxbridge
 %endif
 
 Requires:       vim-filesystem
@@ -123,7 +124,7 @@ Provides:       emacs-gn = %{version}-%{release}
 # See src/base/third_party/icu/README.chromium, from which the version number
 # is taken.
 Provides:       bundled(icu) = 60
-%if %{with bundled_cxx}
+%if %{without regenerate_bridge}
 # src/gn/starlark/vendor/cxx/include/cxx.h
 Provides:       bundled(crate(cxx)) = %{bundled_cxx_version}
 %endif
@@ -169,17 +170,15 @@ cp --preserve src/base/third_party/icu/LICENSE LICENSE-ICU
 rm src/gn/starlark/Cargo.lock
 
 %conf
-%if %{without bundled_cxx}
-# Unbundle this in %%conf rather than %%prep to ensure that the dependency we
-# are trying to symlink is installed.
-cxx_header='src/gn/starlark/vendor/cxx/include/cxx.h'
-# Explicit removal asserts that we still have the right path, failing if the
-# file does not exist.
-rm "${cxx_header}"
-system_cxx_header="$(
-    rpm --query --list rust-cxx-devel | grep -E '/cxx\.h$' | head -n 1
-)"
-ln --symbolic --verbose "${system_cxx_header}" "${cxx_header}"
+%if %{with regenerate_bridge}
+# Trick src/gn/ffi/update_bridge.sh into finding the system-wide cxxbridge
+# executable and not trying to build one with cargo.
+ln -s /usr src/gn/ffi/.bin
+# Re-generate:
+#   - src/gn/starlark/vendor/cxx/include/cxx.h
+#   - src/gn/ffi/bridge.h
+#   - src/gn/ffi/bridge.cc
+bash -x src/gn/ffi/update_bridge.sh
 %endif
 
 AR='gcc-ar'; export AR

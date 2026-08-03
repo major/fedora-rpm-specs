@@ -56,6 +56,8 @@ Patch0:         0001-fix-drop-RUSTFLAGS-override-from-cargo-clippy-test.patch
 Patch1:         0001-Bump-git2-dependency-from-0.19-to-0.20.patch
 # https://gitlab.com/gabmus/envision/-/merge_requests/145
 Patch2:         envision-fix-wivrn-apk-download-location.patch
+# Fix FTBFS with libmonado 1.6: DeviceLogic trait must be imported
+Patch3:         0001-fix-import-DeviceLogic-trait-for-libmonado-1.6.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 26

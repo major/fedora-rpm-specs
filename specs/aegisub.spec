@@ -1,13 +1,15 @@
 %global         altname         Aegisub
 
 Name:           aegisub
-Version:        3.4.2
+Version:        3.5.0~beta
 Release:        %autorelease
 Summary:        Tool for creating and modifying subtitles
 License:        BSD-3-Clause AND ISC AND MIT
 # BSD-3-Clause license except the following file:
 # ISC:
-# ./tools/*
+# ./tools/* except the following BSD-3-Clause:
+# - ./tools/combine-config.py
+# - ./tools/respack.py
 # ./tests/*
 # ./libaegisub/* except the following BSD-3-Clause:
 # - ./libaegisub/common/cajun/{elements,reader}.cpp
@@ -93,14 +95,14 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/include/aegisub/toolbar.h
 # ./src/initial_line_state.cpp
 # ./src/initial_line_state.h
-# ./src/libass_gdi_fontselect.cpp
 # ./src/libresrc/libresrc.cpp
 # ./src/libresrc/libresrc.h
 # ./src/menu.cpp
 # ./src/mkv_wrap.h
 # ./src/options.h
 # ./src/osx/osx_utils.mm
-# ./src/osx/retina_helper.mm
+# ./src/osx/scintilla_ime.mm
+# ./src/osx/screenpicker.mm
 # ./src/pen.cpp
 # ./src/pen.h
 # ./src/persist_location.cpp
@@ -117,7 +119,6 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/res/strings.rc
 # ./src/resolution_resampler.cpp
 # ./src/resolution_resampler.h
-# ./src/retina_helper.h
 # ./src/search_replace_engine.cpp
 # ./src/search_replace_engine.h
 # ./src/selection_controller.cpp
@@ -144,6 +145,7 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/thesaurus.cpp
 # ./src/thesaurus.h
 # ./src/toolbar.cpp
+# ./src/tooltip_binding.{cpp,h}
 # ./src/validators.cpp
 # ./src/validators.h
 # ./src/value_event.h
@@ -172,6 +174,7 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/visual_tool_vector_clip.h
 # ./src/visual_tool.cpp
 # ./src/visual_tool.h
+# ./src/xdg_desktop_portal_utils.{cpp,h}
 #
 # MIT:
 # ./subprojects/luabins/
@@ -185,12 +188,13 @@ License:        BSD-3-Clause AND ISC AND MIT
 # Licensed to BSDL with permission from the author:
 # ./src/MatroskaParser.{c,h}
 
+%global upstream_version %{gsub %{version} ~ -}
+%global upstream_package_version %{gsub %{version} %~.*$ %{quote:}}
+%global upstream_tag v%{upstream_version}
+
 URL:            https://github.com/TypesettingTools/%{name}
 
-Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# https://github.com/TypesettingTools/Aegisub/pull/375
-# Merged in main, will be incorporated in source in next release
-Patch1:         0001-fix-Fallback-to-X11-if-lacks-EGL-support.patch
+Source0:        %{url}/releases/download/%{upstream_tag}/%{name}-%{upstream_version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
@@ -216,18 +220,19 @@ BuildRequires:  pkgconfig(luajit)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(uchardet)
+BuildRequires:  pkgconfig(libportal-gtk3)
 
 Requires: hicolor-icon-theme
 
 # luajit does not support ppc64le
-# FTBFS on s390x due to upstream endianness bug (fedora#2367466)
-ExcludeArch: ppc64le s390x
+ExcludeArch: ppc64le
 
 # Heavily modified upon the original project
 Provides: bundled(cajun-jsonapi) = 2.0.1
 # Major ABI change making patching out impossible
 Provides: bundled(lua-lpeg) = 0.1.0
 # Discontinued project, not included in Fedora Package registry
+# Has been deprecated upstream, will be removed in future release
 Provides: bundled(lua-luabins) = 0.3
 
 %description
@@ -236,14 +241,14 @@ subtitles, timing, and editing of subtitle files. It supports a wide range
 of formats and provides powerful visual typesetting tools.
 
 %prep
-%autosetup -n %{altname}-%{version} -p1
+%autosetup -n %{altname}-%{upstream_package_version}
 
 # Strip out unused bundled library
 find subprojects/ -mindepth 1 -depth ! -path "subprojects/luabins*" -exec rm -rv {} +
 # Bundled: src/gl/glext.h (Provided by `libglvnd-devel`, unable to patch out due to upstream cross-platform modification)
 # Strip unused packaging artifacts for other platform, which contains GPL code
 rm -rv packages/{osx_bundle,osx_dmg,win_installer}
-rm -rv tools/{osx-*,apply-manifest.py,*.ps1}
+rm -rv tools/{osx-*,*.ps1}
 rm -rv osx-bundle.sed
 # ./docs consists of project related document and tools, but not application manual
 rm -rv docs/

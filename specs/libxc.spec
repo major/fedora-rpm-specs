@@ -3,20 +3,13 @@
 %global _lto_cflags %nil
 %endif
 
-# Turn off 4th derivatives for 32-bit targets
-%ifarch %{arm} %{ix86}
-%global lxcflag -DDISABLE_LXC=ON
-%else
-%global lxcflag -DDISABLE_LXC=OFF
-%endif
-
 # Shared library version
 %global soversion 15
 
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
 Version:        7.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 URL:            http://www.tddft.org/programs/octopus/wiki/index.php/Libxc
@@ -83,13 +76,9 @@ This package contains the Python3 interface library to libxc.
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
 %build
-# single file cc1 compiles and lto jobs take up to 5G of RSS
-%constrain_build -m 5632
-# TODO: Please submit an issue to upstream (rhbz#2380769)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Disable var tracking assignments for C sources, since it fails anyhow due to the size of the sources
 export CFLAGS="%{optflags} -fno-var-tracking-assignments"
-%cmake -DDISABLE_VXC=OFF -DDISABLE_FXC=OFF -DDISABLE_KXC=OFF %{lxcflag} -DENABLE_FORTRAN=ON -DENABLE_PYTHON=ON -DENABLE_XHOST=OFF
+%cmake -DMAXORDER=4 -DENABLE_FORTRAN=ON -DENABLE_PYTHON=ON -DENABLE_XHOST=OFF
 %cmake_build
 
 %install
@@ -134,6 +123,10 @@ sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Sat Aug 01 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 7.1.2-3
+- The 7.1.x updates unwillingly lacked 3rd and 4th derivatives,
+  which are now restored.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.1.2-2
 - Rebuilt for Python 3.15.0b4 ABI change
 

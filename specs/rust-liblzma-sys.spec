@@ -30,6 +30,7 @@ stream encoding/decoding. High level Rust bindings are available in the
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       xz-devel
 
 %description    devel %{_description}
 

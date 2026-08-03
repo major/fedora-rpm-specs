@@ -3,10 +3,10 @@
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=179202
 
 %global minorversion 1.11
-%global xfceversion 4.16
+%global xfceversion 4.20
 
 Name:           xfce4-screenshooter
-Version:        1.11.2
+Version:        1.11.3
 Release:        %autorelease
 Summary:        Screenshot utility for the Xfce desktop
 
@@ -15,18 +15,17 @@ License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/applications/%{name}
 Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires:  make
-BuildRequires:  gcc-c++
+BuildRequires:  desktop-file-utils
 BuildRequires:  exo-devel
-BuildRequires:  libxfce4ui-devel >= %{xfceversion}
-BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  libsoup-devel >= 2.26.0
+BuildRequires:  gcc
+BuildRequires:  gtk-layer-shell-devel
 BuildRequires:  libXext-devel >= 1.0.0
 BuildRequires:  libXfixes-devel >= 4.0.0
-BuildRequires:  meson
-BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+BuildRequires:  libxfce4ui-devel >= %{xfceversion}
+BuildRequires:  meson
 BuildRequires:  wayland-protocols-devel
+BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 
 %description
 The Xfce Screenshooter utility allows you to capture the entire screen, the 
@@ -37,8 +36,8 @@ application.
 
 %package        plugin
 Summary:        Screenshot utility for the Xfce panel
-Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       xfce4-panel >= %{xfceversion}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    plugin
 The Xfce Screenshooter plugin allows you to take screenshots from the Xfce 
@@ -59,8 +58,8 @@ echo "NotShowIn=KDE;GNOME;" >> src/xfce4-screenshooter.desktop.in.in
 %install
 %meson_install
 
-# remove la file
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+# Remove non-standard hye locale to prevent invalid-lc-messages-dir rpmlint error
+rm -rf %{buildroot}%{_datadir}/locale/hye
 
 %find_lang %{name}
 

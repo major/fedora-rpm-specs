@@ -335,6 +335,7 @@ Patch131: chromium-107-proprietary-codecs.patch
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
 Patch133: chromium-151-el9-ffmpeg-5.1.x.patch
+Patch134: chromium-151-el9-build-error-system-ffmpeg5.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -1102,6 +1103,7 @@ Qt6 UI for chromium.
 %patch -P130 -p1 -b .el9-ffmpeg-build-error
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
+%patch -P134 -p1 -b .el9-ffmpeg-5.1.x
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing

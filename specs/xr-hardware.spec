@@ -1,10 +1,10 @@
 %global forgeurl  https://gitlab.freedesktop.org/monado/utilities/xr-hardware
-%global commit    56084b46e80935a3c2e2ab7b7703a2e3f75070ce
-%global date      20241211
+%global commit    ace82a207017af66fe4d93216a1f9659f2075c5f
+%global date      20260731
 %forgemeta
 
 Name:           xr-hardware
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Udev rules files for normal user access to XR input devices
 

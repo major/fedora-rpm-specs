@@ -10,7 +10,7 @@ in various contexts.}
 
 %global base_version 1.8.0
 # Comment this line out when updating to stable
-%global prerel rc1
+# _global prerel rc1
 %global upstream_version %{base_version}%{?prerel}
 
 Name: python-scikit-learn
@@ -60,6 +60,7 @@ BuildRequires: %{py3_dist threadpoolctl} >= 2.0.0
 %prep
 %autosetup -n scikit_learn-%{upstream_version} -p1
 sed -i -e 's|numpy>=2,<2.4.0|numpy|' pyproject.toml
+sed -i -e 's|scipy>=1.10.0,<1.17.0|scipy|' pyproject.toml
 # EPEL 10 has Cython 3.0.9, and the only reason Cython 3.0.10
 # is required upstream is for Windows, see
 # https://github.com/scikit-learn/scikit-learn/pull/28743

@@ -5,7 +5,7 @@
 %bcond mysqlclient 0
 
 Name:           python-wsgidav
-Version:        4.3.4
+Version:        4.3.5
 Release:        %autorelease
 Summary:        Generic and extendable WebDAV server based on WSGI
 

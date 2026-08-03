@@ -19,6 +19,9 @@ Source:         %pypi_source %{srcname}
 Patch:          0001-Drop-pydap-from-dependencies.patch
 # Fix failures with latest dependencies.
 Patch:          https://github.com/pydata/xarray/pull/11204.patch
+# [PATCH] Fix Upstream CI NaT issues (#11340) - backported from upstream
+# https://github.com/pydata/xarray/commit/c3a398e856f7fcff1c18bc72bfd1ab9c64d5a2e7.patch
+Patch:          c3a398e856f7fcff1c18bc72bfd1ab9c64d5a2e7.patch
 
 BuildArch:      noarch
 

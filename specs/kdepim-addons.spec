@@ -191,6 +191,7 @@ popd
 %{_kf6_qtplugindir}/pim6/templateparser/
 %{_kf6_sysconfdir}/xdg/kmail.antispamrc
 %{_kf6_sysconfdir}/xdg/kmail.antivirusrc
+%{_kf6_libdir}/libkmailmarkdown.so.*
 
 # PimCommon
 %{_kf6_libdir}/libshorturlpluginprivate.so*

@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           conda
-Version:        26.5.3
+Version:        26.7.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -137,7 +137,6 @@ pkgs_dirs:
  - ~/.conda/pkgs
 EOF
 
-mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{_datadir}/conda/
 cp -rp tests/data %{buildroot}%{_datadir}/conda/tests/
 
 mkdir -p %{buildroot}%{_localstatedir}/cache/conda/pkgs/cache
@@ -297,6 +296,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/test_activate.py::test_build_stack_shlvl_1 \
     --deselect=tests/test_activate.py::test_get_env_vars_big_whitespace \
     --deselect=tests/test_activate.py::test_get_env_vars_empty_file \
+    --deselect=tests/test_activate.py::test_plugin_hooks_skipped_when_manager_not_loaded[hook] \
     --deselect=tests/test_activate.py::test_pre_post_command_invoked[hook] \
     --deselect=tests/test_activate.py::test_pre_post_command_raises[hook] \
     --deselect=tests/test_cli.py::TestJson::test_list \
@@ -360,6 +360,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[True] \
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[False] \
     --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_not_supported \
+    --deselect=tests/plugins/test_health_checks.py::test_fix_override_frozen_reaches_plugin_fixer \
     --deselect=tests/plugins/test_health_checks.py::test_fix_user_cancels_no_warning \
     --deselect=tests/plugins/test_transaction_hooks.py::test_transaction_hooks_invoked \
     --deselect=tests/plugins/test_transaction_hooks.py::test_pre_transaction_raises_exception \
@@ -371,6 +372,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_config.py::test_conda_config_validate_sslverify_truststore \
     --deselect=tests/cli/test_conda_argparse.py::test_list_through_python_api \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_env_create.py::test_env_create_with_invalid_installer \
     --deselect=tests/cli/test_main_info.py::test_compute_prefix_size \
     --deselect=tests/cli/test_main_info.py::test_info_python_output \
     --deselect=tests/cli/test_main_info.py::test_info_conda_json \
@@ -386,6 +388,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_main_remove.py::test_remove_all_keep_env \
     --deselect=tests/cli/test_main_rename.py \
     --deselect=tests/cli/test_main_run.py \
+    --deselect=tests/cli/test_startup_benchmarks.py::test_module_count_budget[shell_hook] \
     --deselect=tests/cli/test_subcommands.py::test_create[libmamba] \
     --deselect=tests/cli/test_subcommands.py::test_doctor \
     --deselect=tests/cli/test_subcommands.py::test_env_create \

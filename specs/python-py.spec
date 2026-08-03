@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
 # Automatically converted from old format: MIT and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -26,6 +26,7 @@ following tools and modules:
 %package -n python3-%{srcname}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
 Requires:       python3-setuptools
+Requires:       python3-pkg-resources
 Provides:       bundled(python3-apipkg) = 2.0
 Provides:       bundled(python3-iniconfig) = 1.1.1
 Obsoletes:      platform-python-%{srcname} < %{version}-%{release}
@@ -81,6 +82,10 @@ sed -i -r -e '/\/py\/_vendored_packages\/.*(dist|egg)-info/d' %{pyproject_files}
 
 
 %changelog
+* Sat Aug 01 2026 Thomas Moschny  <thomas.moschny@gmx.de> - 1.11.0-23
+- Add runtime dependency on python3-pkg-resources (fix by
+  Miro Hrončok <mhroncok@redhat.com>)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

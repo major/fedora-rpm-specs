@@ -1,30 +1,29 @@
-%global majorversion 1.0
-%global libversion 0.10000.0
+%global majorversion 1.1
+%global libversion 0.10100.0
 
-Name:		xfdashboard
-Version:	1.0.0
-Release:	%autorelease
-Summary:	GNOME shell like dashboard for Xfce
+Name:       xfdashboard
+Version:    1.1.0
+Release:    %autorelease
+Summary:    GNOME shell like dashboard for Xfce
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
-URL:		http://goodies.xfce.org/projects/applications/%{name}/start
-Source0:	http://archive.xfce.org/src/apps/xfdashboard/%{majorversion}/%{name}-%{version}.tar.bz2
+License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/apps/xfdashboard/start
+Source0:    https://archive.xfce.org/src/apps/xfdashboard/%{majorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
-BuildRequires:	libwnck3-devel
-BuildRequires:	clutter-devel
-BuildRequires:	xfconf-devel
-BuildRequires:	garcon-devel
-BuildRequires:	libxfce4util-devel
-BuildRequires:	libtool
-BuildRequires:	xfce4-dev-tools
-BuildRequires:	libICE-devel
-BuildRequires:	desktop-file-utils
-BuildRequires:	libXcomposite-devel
-BuildRequires:	libXdamage-devel
-BuildRequires:	libXinerama-devel
-BuildRequires:	libappstream-glib
+BuildRequires:  clutter-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  garcon-devel
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  libXcomposite-devel
+BuildRequires:  libXdamage-devel
+BuildRequires:  libXinerama-devel
+BuildRequires:  libappstream-glib
+BuildRequires:  libwnck3-devel
+BuildRequires:  libxfce4ui-devel
+BuildRequires:  libxfce4util-devel
+BuildRequires:  meson
+BuildRequires:  xfconf-devel
 
 %description
 Xfdashboard provides a GNOME shell dashboard like interface for use with Xfce
@@ -34,34 +33,33 @@ between different applications. The search feature works like Xfce's app finder
 which makes it convenient to search for and start applications.
 
 %package themes
-Summary:	Themes for xfdashboard
-Requires:	%{name}
+Summary:    Themes for xfdashboard
+BuildArch:  noarch
+Requires:   %{name}
 
 %description themes
 Additional themes for use with xfdashboard
 
 %package devel
-Summary:	Devel files for xfdashboard
-Requires:	%{name} = %{version}-%{release}
+Summary:    Devel files for xfdashboard
+Requires:   %{name} = %{version}-%{release}
 
 %description devel
 Development related files for xfdashboard
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-export CFLAGS="%{optflags}"
-
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name}
 
-# remove .la files
+# remove .la files if any (meson shouldn't produce them, but let's keep it safe or remove it)
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %check

@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.11.0
+Version:        9.12.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -20,7 +20,7 @@ Patch:          calibre-no-update.patch
 Patch:          calibre-nodisplay.patch
 
 # fix openssl test
-Patch:          calibre-9.11.0-openssl.patch
+Patch:          calibre-9.12.0-openssl.patch
 
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 

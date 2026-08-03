@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -27,6 +27,13 @@ Source0:        https://github.com/pyscf/pyscf/archive/v%{version}/pyscf-%{versi
 Patch1:         pyscf-2.14.0-rpath.patch
 # Need to load libpbc before libdft, https://github.com/pyscf/pyscf/pull/2273
 Patch2:         2273.patch
+# Skip tests that need integrals qcint does not implement, and relax two
+# tolerances that are tighter than the numerics of the tests allow
+# Tolerances in https://github.com/pyscf/pyscf/pull/3368; missing integrals in https://github.com/sunqm/qcint/pull/24
+Patch3:         pyscf-2.14.0-tests.patch
+# Fix a stack buffer overflow in the Dirac-Hartree-Fock (SS|LL) J/K build,
+# which segfaults on s390x. https://github.com/pyscf/pyscf/pull/3369
+Patch4:         pyscf-2.14.0-dhf-dms-cond.patch
 
 # i686 disabled since this is a leaf package; see
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -95,6 +102,8 @@ chemistry programs.
 %setup -q -n pyscf-%{version}
 %patch 1 -p1 -b .rpath
 %patch 2 -p1 -b .2273
+%patch 3 -p1 -b .tests
+%patch 4 -p1 -b .dmscond
 
 # Remove shebangs
 find pyscf -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' '{}' \;
@@ -125,8 +134,7 @@ done
 
 %check
 # Use the same test setup as upstream.
-# Disabled for now since the tests don't pass; https://github.com/pyscf/pyscf/issues/3021
-#bash .github/workflows/run_tests.sh
+bash .github/workflows/run_tests.sh
 
 %files -n python3-pyscf
 %license LICENSE
@@ -134,6 +142,10 @@ done
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Sat Aug 01 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.14.0-2
+- Enable tests, patching the suite to pass with qcint and FlexiBLAS.
+- Fix a stack buffer overflow in the Dirac-Hartree-Fock (SS|LL) J/K build.
+
 * Thu Jul 30 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.14.0-1
 - Update to 2.14.0.
 

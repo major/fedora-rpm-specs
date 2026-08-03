@@ -1,44 +1,34 @@
+# VCS   https://gitlab.xfce.org/apps/parole
+
 %global fullname org.xfce.Parole
-%global minorversion 4.18
+%global xfceversion  4.20
+%global minorversion 4.20
 
 Name:           parole
-Version:        4.18.2
+Version:        4.20.0
 Release:        %autorelease
 Summary:        Media player for the Xfce desktop
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://goodies.xfce.org/projects/applications/parole
-#VCS: git:git://git.xfce.org/apps/parole
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+URL:            https://docs.xfce.org/apps/parole/start
+Source0:        https://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  gtk3-devel >= 3.2.0
-BuildRequires:  glib2-devel >= 2.32.0
-BuildRequires:  clutter-devel >= 1.16.4
-BuildRequires:  clutter-gtk-devel >= 1.4.4
-BuildRequires:  gstreamer1-plugins-base-devel >= 0.10.11
 BuildRequires:  dbus-devel >= 0.60
 BuildRequires:  dbus-glib-devel >= 0.70
-BuildRequires:  libxfce4ui-devel
-BuildRequires:  libxfce4util-devel
-BuildRequires:  xfconf-devel
-BuildRequires:  libnotify-devel >= 0.4.1
-BuildRequires:  libappstream-glib
-BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext 
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  glib2-devel >= 2.38.0
+BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
 BuildRequires:  gtk-doc
-
-# If you checkout from git rather than using a release tarball, uncomment these
-# so that ./autogen.sh runs.
-# BuildRequires:  xfce4-dev-tools
-# BuildRequires:  libtool
-
+BuildRequires:  gtk3-devel >= 3.22.0
+BuildRequires:  libappstream-glib
+BuildRequires:  libnotify-devel >= 0.7.8
+BuildRequires:  libxfce4ui-devel >= %{xfceversion}
+BuildRequires:  libxfce4util-devel >= %{xfceversion}
+BuildRequires:  meson
+BuildRequires:  taglib-devel >= 1.4
+BuildRequires:  xfconf-devel >= %{xfceversion}
 Requires:       gstreamer1-plugins-good
-# Obsolete the dead mozilla plugin
-Obsoletes:      %{name}-mozplugin <= 2.0.2-7
 
 %description
 Parole is a modern simple media player based on the GStreamer framework and 
@@ -62,19 +52,20 @@ The %{name}-devel package contains header files for developing plugins for
 
 
 %prep
-%setup -q
+%autosetup
 
 %build
-# If you checkout from git rather than using a release tarball, uncomment this.
-# The tarballs contain ./configure & friends INSTEAD of ./autogen.sh
-# ./autogen.sh
-
-%configure --disable-static --enable-gtk-doc --enable-clutter
-%{make_build}
+%meson -Dgtk-doc=true
+%meson_build
 
 %install
-%make_install
-find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
+%meson_install
+
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
+
 %find_lang %{name}
 
 desktop-file-install                                    \
@@ -83,13 +74,10 @@ desktop-file-install                                    \
   --dir=%{buildroot}%{_datadir}/applications            \
   %{buildroot}/%{_datadir}/applications/%{fullname}.desktop
 
-# clean up appdata file
-sed -i 's/<\/em>//' %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
-sed -i 's/<em>//' %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
-
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
-%ldconfig_scriptlets
+%check
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING

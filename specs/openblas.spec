@@ -14,8 +14,8 @@
 # "obsoleted" features are still kept in the spec.
 
 Name:           openblas
-Version:        0.3.29
-Release:        4%{?dist}
+Version:        0.3.34
+Release:        1%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 
 License:        BSD-3-Clause
@@ -30,31 +30,20 @@ Patch1:         openblas-0.2.5-libname.patch
 Patch2:         openblas-0.2.15-constructor.patch
 # Supply the proper flags to the test makefile
 Patch3:         openblas-0.3.11-tests.patch
+# Fix a bare C11 type-qualifier
+Patch4:         openblas-0.3.34-fix-commonh.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  perl-devel
 BuildRequires:  multilib-rpm-config
+BuildRequires:  /usr/bin/execstack
 
 # Rblas library is no longer necessary
 %if 0%{?fedora} >= 31 || 0%{?rhel} >= 8
 Obsoletes:      %{name}-Rblas < %{version}-%{release}
-%endif
-
-# Do we have execstack?
-%if 0%{?rhel} == 7
-%ifarch ppc64le aarch64
-%global execstack 0
-%else
-%global execstack 1
-%endif
-%else
-%global execstack 1
-%endif
-%if %{execstack}
-BuildRequires:  /usr/bin/execstack
 %endif
 
 # LAPACK
@@ -243,6 +232,7 @@ cd OpenBLAS-%{version}
 %patch 2 -p1 -b .constructor
 %endif
 %patch 3 -p1 -b .tests
+%patch 4 -p1 -b .fix-c++
 
 # Fix source permissions
 find -name \*.f -exec chmod 644 {} \;
@@ -556,12 +546,10 @@ ln -sf ${pname64_}.so lib%{name}p64_.so
 ln -sf ${pname64_}.so lib%{name}p64_.so.0
 %endif
 
-%if %{execstack}
 # Get rid of executable stacks
 for lib in %{buildroot}%{_libdir}/libopenblas*.so; do
  execstack -c $lib
 done
-%endif
 
 # Get rid of generated CMake config
 rm -rf %{buildroot}%{_libdir}/cmake
@@ -655,6 +643,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Mon Jul 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.34-1
+- Update to 0.3.34 (fixes rhbz#2273704, rhbz#2374021)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.29-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

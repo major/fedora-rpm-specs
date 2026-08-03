@@ -1,6 +1,6 @@
 %global forgeurl0   https://gitlab.freedesktop.org/mateosss/basalt/
-%global commit0     bec83db20507dd044caf1b8a3d7a77e10610239b
-%global date        20260325
+%global commit0     df6e970c8da7636eb401a09e3317fbeaaf829b9a
+%global date        20260724
 
 # Submodules in forgeurl0
 %global forgeurl1   https://gitlab.freedesktop.org/mateosss/basalt-headers/
@@ -46,10 +46,9 @@ Patch4:         basalt-monado-system-cli11.patch
 # Use system magic_enum via find_package instead of the bundled thirdparty copy
 Patch5:         basalt-monado-system-magic_enum.patch
 # Use system GTest via find_package instead of the empty bundled googletest
-# submodule (not included in the tarball)
 Patch6:         basalt-monado-headers-system-gtest.patch
 
-ExclusiveArch:  aarch64 x86_64
+ExclusiveArch:  aarch64 %{ix86} x86_64
 
 BuildRequires:  boost-devel
 BuildRequires:  cereal-devel

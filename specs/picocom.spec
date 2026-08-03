@@ -3,7 +3,7 @@
 
 Name:           picocom
 Version:        2024.07
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Minimal serial communications program
 
 License:        GPL-2.0-or-later
@@ -11,9 +11,8 @@ URL:            https://gitlab.com/wsakernel/picocom/
 Source0:        https://gitlab.com/wsakernel/picocom/-/archive/%{upstreamversion}/picocom-%{upstreamversion}.tar.bz2
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: golang-github-cpuguy83-md2man
-
-# for groupadd
+BuildRequires: go-md2man
+ExcludeArch: %{ix86}
 
 %description
 As its name suggests, [picocom] is a minimal dumb-terminal emulation
@@ -58,6 +57,10 @@ install -m0644 -D picocom.sysusers.conf %{buildroot}%{_sysusersdir}/picocom.conf
 %{_sysusersdir}/picocom.conf
 
 %changelog
+* Sat Aug 01 2026 Kevin Fenzi <kevin@scrye.com> - 2024.07-7
+- use correct go-md2man in BuildRequires
+- Drop 32bit build as a leaf node since go-md2man doesn't exist there.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.07-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

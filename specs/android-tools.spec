@@ -1,24 +1,16 @@
 Name:          android-tools
-Version:       35.0.2
+Version:       37.0.0
 Release:       %autorelease
 Epoch:         1
 Summary:       Android platform tools(adb, fastboot)
 
-# The entire source code is ASL 2.0 except boringssl which is BSD
-# Automatically converted from old format: ASL 2.0 and (ASL 2.0 and BSD) - review is highly recommended.
-License:       Apache-2.0 AND (Apache-2.0 AND LicenseRef-Callaway-BSD)
+License:       Apache-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:           http://developer.android.com/guide/developing/tools/
 
 #  Sources with all needed patches and cmakelists live there now: 
 Source0:       https://github.com/nmeum/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-# https://github.com/nmeum/android-tools/issues/153
-Patch0:        0001-Fix-libusb-enumeration.patch
-# https://github.com/nmeum/android-tools/pull/172
-Patch1:        0002-extras-libjsonpb-Fix-incompatibility-with-protobuf-v30.patch
-# https://github.com/nmeum/android-tools/pull/190
-Patch2:        0003-Make-legacy-USB-driver-default-on-Linux.patch
-# https://github.com/nmeum/android-tools/pull/191
-Patch3:        0004-Add-missing-cstdint-includes-for-GCC-16-Fedora.patch
+# https://github.com/nmeum/android-tools/pull/208
+Patch:         https://github.com/nmeum/android-tools/pull/208.patch
 
 BuildRequires: brotli-devel
 BuildRequires: cmake
@@ -29,11 +21,8 @@ BuildRequires: gtest-devel
 BuildRequires: libusbx-devel
 BuildRequires: libzstd-devel
 BuildRequires: lz4-devel
-BuildRequires: multilib-rpm-config
 BuildRequires: pcre2-devel
-BuildRequires: perl
 BuildRequires: protobuf-devel
-BuildRequires: systemd-rpm-macros
 
 Provides:      adb = %{epoch}:%{version}-%{release}
 Provides:      fastboot = %{epoch}:%{version}-%{release}
@@ -43,8 +32,7 @@ Provides:      mke2fs.android = %{epoch}:%{version}-%{release}
 Provides: bundled(boringssl)
 
 # Bundled boringssl doesn't support the big endian architectures rhbz 1431379
-# And dropped ppc64le support: https://github.com/google/boringssl/commit/7d2338d000eb1468a5bbf78e91854236e18fb9e4
-ExcludeArch: ppc ppc64 s390x ppc64le
+ExcludeArch: ppc ppc64 s390x
 
 %description
 
@@ -77,9 +65,7 @@ setup between the host and the target phone as adb.
 %cmake_install
 
 %files
-#ASL2.0 and BSD
 %{_bindir}/adb
-#ASL2.0
 %{_bindir}/avbtool
 %{_bindir}/mke2fs.android
 %{_bindir}/simg2img
@@ -105,6 +91,8 @@ setup between the host and the target phone as adb.
 %{_datadir}/android-tools/mkbootimg/mkbootimg.py
 %{_datadir}/bash-completion/completions/adb
 %{_datadir}/bash-completion/completions/fastboot
+%{_datadir}/zsh/site-functions/_adb
+%{_datadir}/zsh/site-functions/_fastboot
 %{_mandir}/man1/adb.1.*
 
 %changelog

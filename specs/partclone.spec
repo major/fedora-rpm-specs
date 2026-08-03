@@ -3,8 +3,8 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.47
-Release:        3%{?dist}
+Version:        0.3.48
+Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -101,7 +101,6 @@ autoreconf -i -f
 
 %install
 %make_install
-mv -f $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/%{name}{-completion,}
 
 %find_lang %{name}
 
@@ -134,6 +133,9 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Sat Aug 01 2026 Robert Scheck <robert@fedoraproject.org> 0.3.48-1
+- Upgrade to 0.3.48
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.47-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

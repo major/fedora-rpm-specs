@@ -101,6 +101,9 @@ Patch15:        https://sourceforge.net/p/plplot/support-requests/_discuss/threa
 # Replace removed Python 2 C API macros with Python 3 equivalents
 # for compatibility with SWIG 4.5.0
 Patch16:        plplot-swig45.patch
+# Tcl/Tk 9 support
+# https://sourceforge.net/p/plplot/plplot/merge-requests/9/
+Patch17:        plplot-tcl9.patch
 
 
 BuildRequires:  cmake >= 3.13.2
@@ -138,8 +141,8 @@ Obsoletes:      %{name}-java-devel < %{version}-%{release}
 %endif
 BuildRequires:  freetype-devel, qhull-devel , ncurses-devel
 BuildRequires:  gd-devel
-BuildRequires:  tcl-devel < 1:9
-BuildRequires:  tk-devel < 1:9
+BuildRequires:  tcl-devel
+BuildRequires:  tk-devel
 %if %{with itcl}
 BuildRequires:  itcl-devel, itk-devel
 BuildRequires:  iwidgets
@@ -185,6 +188,7 @@ BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  mesa-dri-drivers
 %endif
 BuildRequires:  chrpath
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gnu-free-mono-fonts
 Requires:       gnu-free-sans-fonts
 Requires:       gnu-free-serif-fonts
@@ -433,6 +437,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch -P14 -p1
 %patch -P15 -p1
 %patch -P16 -p1
+%patch -P17 -p1 -b .tcl9
 # Use cmake FindLua
 rm cmake/modules/FindLua.cmake
 

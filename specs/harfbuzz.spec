@@ -1,8 +1,8 @@
 %bcond gpu_demo %{undefined rhel}
 
 Name:           harfbuzz
-Version:        14.2.1
-Release:        5%{?dist}
+Version:        14.3.0
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -95,7 +95,7 @@ This package contains Harfbuzz Vector support library.
 
 %check
 # harfbuzz:check-symbols failing for 14.2.1 release
-%meson_test ||:
+%meson_test
 
 
 %ldconfig_scriptlets
@@ -167,6 +167,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Sat Aug 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.3.0-1
+- Update to 14.3.0 version (#2509856)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

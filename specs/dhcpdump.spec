@@ -1,6 +1,6 @@
 Name:           dhcpdump
-Version:        1.10
-Release:        2%{?dist}
+Version:        2.00
+Release:        1%{?dist}
 Summary:        Parse DHCP packets
 
 License:        BSD-2-Clause
@@ -11,13 +11,16 @@ Source2:        https://raw.githubusercontent.com/bbonev/%{name}/v%{version}/deb
 
 
 BuildRequires:  gcc
-BuildRequires:  libpcap-devel
+BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  perl-podlators
-BuildRequires:  gnupg2
+BuildRequires:  pkgconfig(libpcap)
+BuildRequires:  pkgconfig(yascreen)
 
 %description
 A utility to analyze sniffed DHCP packets.
+
+Version 2.00 introduces a TUI to see packets grouped by session.
 
 %global _hardened_build 1
 
@@ -40,6 +43,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Sat Aug 2 2026 Boian Bonev <bbonev@ipacct.com> - 2.00-1
+- New upstream release 2.00
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

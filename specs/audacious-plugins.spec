@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -35,6 +35,8 @@ Source102: audacious-plugins-jack.metainfo.xml
 Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
 # Fedora customization: add default system-wide module_path
 Patch2: audacious-plugins-3.6-ladspa.patch
+# upstream fix for the accidental Turkish translations in en_GB
+Patch3: audacious-plugins-4.6.1-en_GB.patch
 
 BuildRequires: gcc-c++
 BuildRequires: meson
@@ -350,6 +352,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Sat Aug 01 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-3
+- merge the fix for the accidental Turkish translations in en_GB
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

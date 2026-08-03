@@ -1,9 +1,24 @@
-%global commit      876018610f2c2909b66b3d37b1fc55975c11a7e5
-%global date        20260711
+%global commit      db2786bd608424b51b83d051fd3d6fc3a891b2ab
+%global date        20260801
 %global shortcommit %{sub %{commit} 1 7}
 
 %global libmonado_somajor 25
 %global libmonado_sover   25.1.0
+
+# dependency arches
+# results in perfetto tracing not enabled
+%global percetto_arches    aarch64 x86_64
+# results in handtracking not enabled for ix86
+%global onnxruntime_arches aarch64 x86_64
+
+# steamvr plugin directories
+%ifarch %{ix86}
+%global steamvr_bindir bin/linux32
+%global openvr_bindir  bin
+%else
+%global steamvr_bindir bin/linux64
+%global openvr_bindir  bin/linux64
+%endif
 
 Name:           monado
 Version:        25.1.0^%{date}git%{shortcommit}
@@ -58,7 +73,9 @@ BuildRequires:  pkgconfig(libbsd)
 BuildRequires:  pkgconfig(libcjson)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libjpeg)
+%ifarch %{onnxruntime_arches}
 BuildRequires:  pkgconfig(libonnxruntime)
+%endif
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libuvc)
@@ -66,7 +83,9 @@ BuildRequires:  pkgconfig(opencv)
 BuildRequires:  pkgconfig(openhmd)
 BuildRequires:  pkgconfig(openvr)
 BuildRequires:  pkgconfig(openxr)
+%ifarch %{percetto_arches}
 BuildRequires:  pkgconfig(percetto)
+%endif
 BuildRequires:  pkgconfig(realsense2)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(survive)
@@ -95,8 +114,7 @@ Provides:       bundled(tinyceres)
 # RPM advertise it as if it were a linkable library. Nothing links against it.
 %global __provides_exclude ^libopenxr_monado\\.so
 
-# Build on x86_64 and aarch64 only, missing dependencies on other architectures.
-ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  aarch64 %{ix86} x86_64
 
 
 %description
@@ -124,6 +142,13 @@ Devel information for Monado.
 %cmake -GNinja \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_LIBDIR=%{_lib}/%{name} \
+%ifarch %{percetto_arches}
+  -DXRT_HAVE_PERCETTO:BOOL=ON \
+  -DXRT_FEATURE_TRACING:BOOL=ON \
+%else
+  -DXRT_HAVE_PERCETTO:BOOL=OFF \
+  -DXRT_FEATURE_TRACING:BOOL=OFF \
+%endif
 
 %cmake_build
 
@@ -132,21 +157,21 @@ Devel information for Monado.
 %cmake_install
 # driver_monado.so is an arch-dependent ELF; move it to %%{_libdir} and
 # leave a relative symlink so SteamVR can still find it at its expected path.
-install -d %{buildroot}%{_libdir}/steamvr-monado/bin/linux64
-mv %{buildroot}%{_datadir}/steamvr-monado/bin/linux64/driver_monado.so \
-   %{buildroot}%{_libdir}/steamvr-monado/bin/linux64/driver_monado.so
-chmod 0755 %{buildroot}%{_libdir}/steamvr-monado/bin/linux64/driver_monado.so
-ln -sr %{buildroot}%{_libdir}/steamvr-monado/bin/linux64/driver_monado.so \
-   %{buildroot}%{_datadir}/steamvr-monado/bin/linux64/driver_monado.so
+install -d %{buildroot}%{_libdir}/steamvr-monado/%{steamvr_bindir}
+mv %{buildroot}%{_datadir}/steamvr-monado/%{steamvr_bindir}/driver_monado.so \
+   %{buildroot}%{_libdir}/steamvr-monado/%{steamvr_bindir}/driver_monado.so
+chmod 0755 %{buildroot}%{_libdir}/steamvr-monado/%{steamvr_bindir}/driver_monado.so
+ln -sr %{buildroot}%{_libdir}/steamvr-monado/%{steamvr_bindir}/driver_monado.so \
+   %{buildroot}%{_datadir}/steamvr-monado/%{steamvr_bindir}/driver_monado.so
 
 # vrclient.so is an arch-dependent ELF; move it to %%{_libdir} and
 # leave a relative symlink so SteamVR can still find it at its expected path.
-install -d %{buildroot}%{_libdir}/st-openvr/bin/linux64
-mv %{buildroot}%{_datadir}/st-openvr/bin/linux64/vrclient.so \
-   %{buildroot}%{_libdir}/st-openvr/bin/linux64/vrclient.so
-chmod 0755 %{buildroot}%{_libdir}/st-openvr/bin/linux64/vrclient.so
-ln -sr %{buildroot}%{_libdir}/st-openvr/bin/linux64/vrclient.so \
-   %{buildroot}%{_datadir}/st-openvr/bin/linux64/vrclient.so
+install -d %{buildroot}%{_libdir}/st-openvr/%{openvr_bindir}
+mv %{buildroot}%{_datadir}/st-openvr/%{openvr_bindir}/vrclient.so \
+   %{buildroot}%{_libdir}/st-openvr/%{openvr_bindir}/vrclient.so
+chmod 0755 %{buildroot}%{_libdir}/st-openvr/%{openvr_bindir}/vrclient.so
+ln -sr %{buildroot}%{_libdir}/st-openvr/%{openvr_bindir}/vrclient.so \
+   %{buildroot}%{_datadir}/st-openvr/%{openvr_bindir}/vrclient.so
 
 # Configure to use the DSO linker for the runtime.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Unversioned_shared_objects/

@@ -1,31 +1,26 @@
 # Review at https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=238348
-%global _hardened_build 1
-%global minor_version 2.0
+# VCS   https://gitlab.xfce.org/panel-plugins/xfce4-verve-plugin
+%global minor_version 2.1
 
-Name:		xfce4-verve-plugin
-Version:	2.0.4
-Release:	%autorelease
-Summary:	Comfortable command line plugin for the Xfce panel
+Name:           xfce4-verve-plugin
+Version:        2.1.0
+Release:        %autorelease
+Summary:        Comfortable command line plugin for the Xfce panel
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
-URL:		http://goodies.xfce.org/projects/panel-plugins/%{name}
-Source0:	http://archive.xfce.org/src/panel-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
+License:        GPL-2.0-or-later
+URL:            https://docs.xfce.org/panel-plugins/xfce4-verve-plugin/start
+Source0:        https://archive.xfce.org/src/panel-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 
-BuildRequires:	make
-BuildRequires:	gcc-c++
-BuildRequires:	xfce4-panel-devel
-BuildRequires:	libxfce4ui-devel
-BuildRequires:	exo-devel >= 0.5.0
-BuildRequires:	pcre2-devel >= 10.0
-BuildRequires:	libxml2-devel, gettext, intltool, perl(XML::Parser)
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  libxfce4ui-devel
+BuildRequires:  libxfce4util-devel
+BuildRequires:  meson
+BuildRequires:  pcre2-devel >= 10.0
+BuildRequires:  xfce4-panel-devel
 
-Requires:	xfce4-panel
-Provides:	verve-plugin = %{version}
-# Retire xfce4-minicmd-plugin
-Provides:	xfce4-minicmd-plugin = 0.4-9
-Obsoletes:	xfce4-minicmd-plugin =< 0.4-8.fc9
-
+Requires:       xfce4-panel
+Provides:       verve-plugin = %{version}
 
 %description
 This plugin is like the (quite old) xfce4-minicmd-plugin, except that it ships 
@@ -36,24 +31,29 @@ more cool features, such as:
 * Focus grabbing via D-BUS (so you can bind a shortcut to it)
 * Custom input field width
 
-
 %prep
 %autosetup
 
 %build
-%configure --disable-static --enable-dbus
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
-rm -f %{buildroot}/%{_libdir}/xfce4/panel/plugins/libverve.la
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
+
 %find_lang %{name}
 
+%check
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog THANKS
+%doc AUTHORS NEWS README.md THANKS
 %{_libdir}/xfce4/panel/plugins/libverve.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 

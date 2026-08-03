@@ -1,5 +1,5 @@
 Name:           R-Rcpp
-Version:        %R_rpm_version 1.1.1-1.1
+Version:        %R_rpm_version 1.1.2
 Release:        %autorelease
 Summary:        Seamless R and C++ Integration
 
@@ -50,14 +50,6 @@ dos2unix -k \
 
 %install
 %R_install
-
-chmod 755 %{buildroot}%{_R_libdir}/Rcpp/discovery/cxx0x.R
-
-for f in ConvolveBenchmarks/overhead.r ConvolveBenchmarks/overhead.sh \
-         Misc/ifelseLooped.r Misc/newFib.r OpenMP/OpenMPandInline.r ; do
-    chmod 755 %{buildroot}%{_R_libdir}/Rcpp/examples/$f
-done
-
 %R_save_files
 grep -vE "examples|tinytest" %{R_files} > %{R_files}.main
 grep examples %{R_files} > %{R_files}.examples

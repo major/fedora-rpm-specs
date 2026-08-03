@@ -43,6 +43,8 @@ imagine for your music collection. Via plugins, beets becomes a panacea:
 - Browse your music library graphically through a Web browser and play it in
   any browser that supports HTML5 Audio.
 
+%pyproject_extras_subpkg -a -n %{name} aura beatport embedart fetchart lastgenre lastimport lyrics metasync mpdstats reflink scrub tidal thumbnails web
+
 %prep
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}

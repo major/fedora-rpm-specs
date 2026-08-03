@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/permut
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.0.5
+Version:        2.0.6
 Release:        %autorelease
 Summary:        Permutability in finite groups for GAP
 
@@ -18,11 +18,11 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2019.07.17
 BuildRequires:  gap(format) >= 1.3
-BuildRequires:  gap-devel >= 4.7.4
+BuildRequires:  gap-devel >= 4.11
 BuildRequires:  gap-pkg-format-doc >= 1.3
 
 Requires:       gap(format) >= 1.3
-Requires:       gap-core >= 4.7.4
+Requires:       gap-core >= 4.11
 
 Provides:       gap(permut) = %{version}-%{release}
 
@@ -50,8 +50,8 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %files
-%doc CHANGES README.md
-%license LICENSE
+%doc CHANGES.md README.md
+%license GPL LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g
 %{gap_libdir}/pkg/%{gap_upname}/lib/

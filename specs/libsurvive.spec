@@ -53,9 +53,17 @@ Source1:        %{extras_data_url}/archive/%{extras_data_commit}/%{name}-extras-
 Patch:          %{name}-no-external-project.patch
 # Adapt eigen version detection for eigen3-5.0.0
 Patch:          %{name}-eigen3.patch
+# fopencookie's seek callback is int(void *, __off64_t *, int) on every arch;
+# using z_off_t breaks the i686 build
+# https://github.com/collabora/libsurvive/pull/368
+Patch:          %{name}-fopencookie-off64.patch
+# Replay's IMU timecode is parsed as a signed int with %%d; on i686 (32-bit
+# long) sscanf saturates at INT32_MAX for the back half of any recording,
+# freezing the lightcap/IMU desync correction and failing 6 ctest cases
+# https://github.com/collabora/libsurvive/pull/368
+Patch:          %{name}-i686-imu-timecode.patch
 
-# Build fails on i686 due to incompatible pointer types
-ExcludeArch:    %{ix86}
+ExclusiveArch:  aarch64 %{ix86} x86_64
 
 BuildRequires:  cmake
 BuildRequires:  blas-devel
