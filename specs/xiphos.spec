@@ -1,13 +1,14 @@
 %undefine __cmake_in_source_build
 
 Name:           xiphos
-Version:        4.3.2
-Release:        7%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://xiphos.org/
 Source0:        https://github.com/crosswire/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+BuildRequires:  appstream
 BuildRequires:  biblesync-devel >= 2.0.1-3
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -23,6 +24,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  libuuid-devel
 BuildRequires:  minizip-ng-compat-devel
 BuildRequires:  rarian-compat
+BuildRequires:  speech-dispatcher-devel
 BuildRequires:  sword-devel >= 1.8
 BuildRequires:  util-linux
 BuildRequires:  webkit2gtk4.1-devel
@@ -59,6 +61,7 @@ export CFLAGS
 
 LDFLAGS='%{?__global_ldflags}' \
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DGTKTVEDITOR=ON \
     %{nil}
 %cmake_build
 
@@ -94,6 +97,11 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Sun Aug 02 2026 Greg Hellings <greg.hellings@gmail.com> - 4.4.0-1
+- New upstream release 4.4.0
+- Introduction of speech services for TTS
+- Restoration of editor through GTK-native technologies
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

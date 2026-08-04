@@ -2,7 +2,7 @@
 
 Name:      perl-Schedule-Cron
 Summary:   Provides a simple but complete cron like scheduler
-Version:   1.06
+Version:   1.07
 Release:   1%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -89,6 +89,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 02 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.07-1
+- 1.07 release
+
 * Mon Jul 20 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.06-1
 - 1.06 release
 

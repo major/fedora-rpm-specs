@@ -1,21 +1,19 @@
 # This breaks several dependency cycles involving test dependencies.
 %bcond bootstrap 0
 
-# usd fails to build with Python 3.15: […]
-# https://bugzilla.redhat.com/show_bug.cgi?id=2433881
-%bcond blender %[ %{without bootstrap} && 0%{?fedora} < 45 ]
+%bcond blender %{without bootstrap}
 %bcond cascadio %{without bootstrap}
 %bcond skimage 1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460576
 # https://github.com/nschloe/meshio/issues/1558
-%bcond meshio %{defined fc44}
+%bcond meshio 0
 # Since the tests for manifold’s Python bindings depend on trimesh, a
 # dependency cycle exists: trimesh → manifold → blender, and then trimesh
 # normally depends on both manifold and blender.
 %bcond manifold %{without bootstrap}
 
 Name:           python-trimesh
-Version:        4.12.2
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -31,9 +29,17 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # output and on the docstring of trimesh.__main__.main
 Source1:        trimesh.1
 
-BuildSystem:            pyproject
-# With v4, [all] = [easy,recommend,test,test_more,deprecated].
-BuildOption(generate_buildrequires): -x easy,recommend,test,test_more
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras easy,recommend,test,test_more
+BuildOption(install): --assert-license trimesh
+# Some dependencies are unavailable; see the %%prep section.
+# - trimesh.viewer.widget requires glooey
+# - trimesh.viewer.windowed requires pyglet
+BuildOption(check): %{shrink:
+    %{?!arch_has_embree:--exclude trimesh.ray.ray_pyembree}
+    --exclude trimesh.viewer.widget
+    --exclude trimesh.viewer.windowed
+    }
 
 # The combination of an arched package with a noarch binary packages makes it
 # easier for us to detect arch-dependent test failures, since the tests will
@@ -81,25 +87,17 @@ analysis, in the style of the Polygon object in the Shapely library.}
 %description %{_description}
 
 
-%package -n     python3-trimesh
+%package -n python3-trimesh
 Summary:        %{summary}
+
 BuildArch:      noarch
 
 Recommends:     python3-trimesh+easy = %{version}-%{release}
 Recommends:     python3-trimesh+recommend = %{version}-%{release}
 
-# The source trimesh-4.10.0/trimesh/viewer/trackball.py is copied from an
-# unspecified version of pyrender.
+# The source trimesh/viewer/trackball.py is copied from an unspecified version
+# of pyrender.
 Provides:       bundled(python3dist(pyrender))
-
-# The [recommends] extra was renamed to [recommend] for v4.
-Obsoletes:      python3-trimesh+recommends < 4.0.0~~dev0-1
-# In v4, the [all] extra became the same as [easy,recommend,test]. Since we
-# don’t want to package the [test] extra, we no longer package [all]. If any
-# package depends on it (unlikely), the dependency should be changed to
-# [easy,recommend], and it should be suggested to upstream that this is really
-# what they needed anyway.
-Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 
 # A number of external command-line executables provide optional functionality.
 # We choose to make these weak dependencies (Recommends). Hints (Suggests)
@@ -161,8 +159,15 @@ Recommends:     /usr/bin/openscad
 # dependencies, and therefore they must not be noarch.
 %pyproject_extras_subpkg -n python3-trimesh easy
 %pyproject_extras_subpkg -n python3-trimesh recommend
-# We skip packaging the “deprecated” extra, since we no longer wish to maintain
-# python-openctm. We therefore cannot package the “all” extra, either.
+# We don’t want to expose test extras as metapackages; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_handling_extras.
+#
+# Since:
+#   all = ["trimesh[easy,recommend,test,test_more,deprecated]"]
+# …we don’t expose “all”, either.
+#
+# We *could* expose “deprecated”, but it’s currently empty, and nothing depends
+# on it, so we prefer to avoid that as well.
 
 
 # We elect not to build a documentation package, for the following reasons:
@@ -215,10 +220,7 @@ EOF
 # Patch out unavailable dependencies from extras:
 
 # easy extra:
-#   manifold3d: not yet packaged, https://github.com/elalish/manifold/;
-#               in either “easy” or “recommend” depending on Python version
 %if %{without manifold}
-#   manifold3d: in either “easy” or “recommend” depending on Python version
 %pyproject_patch_dependency manifold3d:ignore
 %endif
 %if !0%{?arch_has_embree}
@@ -226,8 +228,10 @@ EOF
 %endif
 
 # recommend extra:
-#   pyglet: incompatible version 2.x, beginning with F41. See “Path to
-#           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
+#
+# Incompatible version 2.x, beginning with F41.
+# See “Path to supporting Pyglet 2?”
+# https://github.com/mikedh/trimesh/issues/2155
 %pyproject_patch_dependency pyglet:ignore
 %if %{without skimage}
 %pyproject_patch_dependency scikit-image:ignore
@@ -237,55 +241,41 @@ EOF
 %endif
 
 # test extra:
+#
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-#   pytest-cov: linters/coverage/etc.
-#   pyinstrument: not packaged; see “stub” workaround in %%prep
-#   ruff: linters/coverage/etc.
 %pyproject_patch_dependency pytest-cov:ignore
+# not packaged; see “stub” workaround in %%prep
 %pyproject_patch_dependency pyinstrument:ignore
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 %pyproject_patch_dependency ruff:ignore
 
 # test_more extra:
+#
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-#   coveralls: linters/coverage/etc.
-#   pyright: linters/coverage/etc.
-#   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
-#           depends on https://github.com/jpcy/xatlas, also not yet packaged
-#   pytest-beartype: linters/coverage/etc.
-#   pymeshlab: not yet packaged
-#   triangle: nonfree license
-#   marimo: not yet packaged
-%pyproject_patch_dependency coveralls:ignore
 %pyproject_patch_dependency pyright:ignore
+# Not yet packaged, https://github.com/mworchel/xatlas-python; depends on
+# https://github.com/jpcy/xatlas, also not yet packaged.
 %pyproject_patch_dependency xatlas:ignore
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 %pyproject_patch_dependency pytest-beartype:ignore
+# Not yet packaged.
 %pyproject_patch_dependency pymeshlab:ignore
+# Nonfree license.
 %pyproject_patch_dependency triangle:ignore
+# Not yet packaged.
 %pyproject_patch_dependency marimo:ignore
 %if %{without meshio}
-#   meshio: apparently unmaintained,
-#           https://github.com/nschloe/meshio/issues/1558
+# Apparently unmaintained, https://github.com/nschloe/meshio/issues/1558.
 %pyproject_patch_dependency meshio:ignore
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l trimesh
-
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
+%install -a
+install -D --target='%{buildroot}%{_mandir}/man1' \
+    --preserve-timestamps --mode=0644 '%{SOURCE1}'
 
 
-%check
-# Some dependencies are unavailable; see the prep section above.
-# trimesh.viewer.widget requires glooey.
-# trimesh.viewer.windowed requires pyglet.
-%{pyproject_check_import \
-  %{?!arch_has_embree:-e trimesh.ray.ray_pyembree} \
-  -e trimesh.viewer.widget \
-  -e trimesh.viewer.windowed \
-}
-
+%check -a
 # Hangs flakily since 4.10.0; cannot reproduce in a git checkout
 deselect="${deselect-} --deselect=tests/test_primitives.py::test_primitives"
 # This has been observed failing on at least x86_64, ppc64le, and s390x.
@@ -309,7 +299,7 @@ k="${k-}${k+ and }not test_contains_cavity"
 k="${k-}${k+ and }not (BoundsTest and test_obb_mesh_large)"
 
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
-%pytest -v -k "${k-}" -n auto ${deselect-}
+%pytest --verbose -k "${k-}" --numprocesses auto ${deselect-}
 
 
 %files -n python3-trimesh -f %{pyproject_files}

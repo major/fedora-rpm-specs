@@ -10,7 +10,7 @@ continuous integration and releasing new versions of your software simply by
 creating a tag.}
 
 Name:           python-dunamai
-Version:        1.26.1
+Version:        1.26.2
 Release:        %{autorelease}
 Summary:        Dynamic version generation
 
@@ -18,7 +18,6 @@ Summary:        Dynamic version generation
 License:        MIT
 URL:            https://pypi.org/pypi/dunamai
 Source:         https://github.com/mtkennerly/dunamai/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          fossil-2.28.patch
 
 BuildArch:      noarch
 

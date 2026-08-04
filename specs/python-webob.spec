@@ -8,8 +8,8 @@ environment.
 
 Name:           python-webob
 Summary:        WSGI request and response object
-Version:        1.8.10
-Release:        4%{?dist}
+Version:        1.8.11
+Release:        1%{?dist}
 License:        MIT
 URL:            https://webob.org
 Source:         %{pypi_source webob}
@@ -75,6 +75,9 @@ rm docs/_static/.empty
 
 
 %changelog
+* Sun Aug 02 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.8.11-1
+- Update to upstream - CVE-2024-42353.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

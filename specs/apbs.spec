@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 37%{datecommit}%{shortcommit}%{?dist}
+Release: 38%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPL-2.0-or-later AND BSD-3-Clause
 URL: https://www.poissonboltzmann.org/
@@ -27,6 +27,10 @@ Patch1: %{name}-exclude_tests.patch
 Patch2: %{name}-python311.patch
 
 Patch3: apbs-c99.patch
+
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch4: apbs-swig45.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -112,6 +116,7 @@ Python interface of APBS.
 %endif
 
 %patch -P 3 -p1
+%patch -P 4 -p1
 
 cp -p contrib/iapbs/COPYING contrib/iapbs/iapbs-COPYING
 cp -p %{SOURCE1} contrib/iapbs/iapbs-LGPLv2
@@ -213,6 +218,9 @@ export PATH=%{buildroot}%{_bindir}
 %doc %_vpath_builddir/doc
 
 %changelog
+* Mon Jul 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.0.0-38
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.0.0-37
 - Rebuilt for Python 3.15.0b4 ABI change
 

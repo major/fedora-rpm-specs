@@ -1,14 +1,10 @@
 Name:          libcec
-Version:       8.0.0
-Release:       3%{?dist}
+Version:       8.1.3
+Release:       1%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
 Source0:       https://github.com/Pulse-Eight/%{name}/archive/%{name}-%{version}.tar.gz
-
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch0:        libcec-swig45.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -59,8 +55,8 @@ rm -rf driver
 
 %build
 %cmake \
-    -DHAVE_LINUX_API=on \
-    .
+    -DHAVE_LINUX_API=ON \
+    -DDISABLE_STATIC=ON
 
 %cmake_build
 
@@ -71,9 +67,6 @@ rm -rf driver
 install -Dm 644 systemd/cec-active-source.service %{buildroot}%{_unitdir}/cec-active-source.service
 install -Dm 644 systemd/cec-active-source.timer %{buildroot}%{_unitdir}/cec-active-source.timer
 install -Dm 644 systemd/cec-poweroff-tv.service %{buildroot}%{_unitdir}/cec-poweroff-tv.service
-
-#Remove static libraries and libtool archives.
-find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 # Remove versioned binaries
 rm %{buildroot}%{_bindir}/cec-client %{buildroot}%{_bindir}/cecc-client
@@ -106,16 +99,22 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{_unitdir}/cec-poweroff-tv.service
 
 %files devel
-%{_includedir}/libcec
+%{_includedir}/libcec/
 %{_libdir}/pkgconfig/libcec.pc
 %{_libdir}/libcec.so
-%{_libdir}/cmake/libcec
+%{_libdir}/cmake/libcec/
 
 %files -n python3-libcec
 %{_bindir}/pyCecClient
 %{python3_sitearch}/*
 
 %changelog
+* Sun Aug 02 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 8.1.3-1
+- 8.1.3 release RHBZ# 2509770
+
+* Sun Aug 02 2026 Leigh Scott <leigh123linux@gmail.com> - 8.0.0-4
+- Fix broken cmake file, disable static instead of just deleting it
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8.0.0-3
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

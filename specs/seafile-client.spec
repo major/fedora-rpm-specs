@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        9.0.18
-Release:        3%{?dist}
+Version:        9.0.20
+Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache-2.0
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.20-1
+- Update to 9.0.20
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

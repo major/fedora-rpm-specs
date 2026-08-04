@@ -20,6 +20,10 @@ Source0: http://download.kde.org/stable/qca/%{version}/qca-%{version}.tar.xz
 Patch0:  qca-qt6-pkgconfig.patch
 ## upstream patches
 
+# Build for openssl4
+# https://invent.kde.org/libraries/qca/-/commit/6a7ddd76aa54ecc14d13151cca008137b0aa25d8
+Patch10: 6a7ddd76aa54ecc14d13151cca008137b0aa25d8.patch
+
 ## upstreamable patches
 
 BuildRequires: cmake >= 2.8.12

@@ -130,11 +130,6 @@
 %endif
 
 
-%global have_block_gluster 1
-%if 0%{?rhel} >= 9
-%global have_block_gluster 0
-%endif
-
 %global have_block_nfs 0
 %if 0%{?fedora}
 %global have_block_nfs 1
@@ -189,7 +184,6 @@
 %global have_daxctl 0
 %global have_multipath 0
 %global have_xdp 0
-%global have_block_gluster 0
 %global have_block_iscsi 0
 %global have_block_rbd 0
 %global have_block_nfs 0
@@ -217,13 +211,7 @@
 %endif
 %define requires_block_curl Requires: %{name}-block-curl = %{evr}
 %define requires_block_dmg Requires: %{name}-block-dmg = %{evr}
-%if %{have_block_gluster}
-%define requires_block_gluster Requires: %{name}-block-gluster = %{evr}
-%define obsoletes_block_gluster %{nil}
-%else
-%define requires_block_gluster %{nil}
 %define obsoletes_block_gluster Obsoletes: %{name}-block-gluster < %{evr}
-%endif
 %if %{have_block_nfs}
 %define requires_block_nfs Requires: %{name}-block-nfs = %{evr}
 %define obsoletes_block_nfs %{nil}
@@ -340,7 +328,6 @@
 %{requires_block_blkio} \
 %{requires_block_curl} \
 %{requires_block_dmg} \
-%{requires_block_gluster} \
 %{requires_block_iscsi} \
 %{requires_block_nfs} \
 %{requires_block_rbd} \
@@ -404,10 +391,10 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 11.0.0
+Version: 11.1.0
 
 # Set for release candidate builds
-#global rcver rc3
+%global rcver rc2
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -456,9 +443,8 @@ Source31: kvm-x86.conf
 Source36: README.tests
 Source37: qemu.sysusers
 
-# Skip failing test in copr
-# https://gitlab.com/qemu-project/qemu/-/issues/2541
-Patch: 0001-Disable-9p-local-tests-that-fail-on-copr-aarch64.patch
+# Disable busted tests, see commit message
+Patch: 0001-disable-busted-tests.patch
 # Increase test-replication timeout
 # NOT upstream, but see https://gitlab.com/qemu-project/qemu/-/issues/3035
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
@@ -575,10 +561,6 @@ BuildRequires: libjpeg-devel
 # Braille device support
 BuildRequires: brlapi-devel
 %endif
-%if %{have_block_gluster}
-# gluster block driver
-BuildRequires: glusterfs-api-devel
-%endif
 # GTK frontend
 BuildRequires: gtk3-devel
 BuildRequires: vte291-devel
@@ -690,6 +672,7 @@ Requires: %{name}-img = %{evr}
 Requires: %{name}-tools = %{evr}
 Requires: %{name}-system-aarch64 = %{evr}
 Requires: %{name}-system-alpha = %{evr}
+Requires: %{name}-system-hexagon = %{evr}
 Requires: %{name}-system-loongarch64 = %{evr}
 Requires: %{name}-system-s390x = %{evr}
 
@@ -842,17 +825,6 @@ Requires: %{name}-common%{?_isa} = %{evr}
 This package provides the additional DMG block driver for QEMU.
 
 Install this package if you want to open '.dmg' files.
-
-
-%if %{have_block_gluster}
-%package  block-gluster
-Summary: QEMU Gluster block driver
-Requires: %{name}-common%{?_isa} = %{evr}
-%description block-gluster
-This package provides the additional Gluster block driver for QEMU.
-
-Install this package if you want to access remote Gluster storage.
-%endif
 
 
 %if %{have_block_nfs}
@@ -1369,6 +1341,20 @@ Requires: %{name}-common = %{evr}
 This package provides the QEMU system emulator for HPPA.
 
 
+%package system-hexagon
+Summary: QEMU system emulator for Hexagon
+Requires: %{name}-system-hexagon-core = %{evr}
+%{requires_all_modules}
+%description system-hexagon
+This package provides the QEMU system emulator for Hexagon.
+
+%package system-hexagon-core
+Summary: QEMU system emulator for Hexagon
+Requires: %{name}-common = %{evr}
+%description system-hexagon-core
+This package provides the QEMU system emulator for Hexagon.
+
+
 %package system-loongarch64
 Summary: QEMU system emulator for LoongArch (LA64)
 Requires: %{name}-system-loongarch64-core = %{evr}
@@ -1633,10 +1619,8 @@ mkdir -p %{static_builddir}
   --disable-gcrypt                 \\\
   --disable-gettext                \\\
   --disable-gio                    \\\
-  --disable-glusterfs              \\\
   --disable-gnutls                 \\\
   --disable-gtk                    \\\
-  --disable-gtk-clipboard          \\\
   --disable-guest-agent            \\\
   --disable-guest-agent-msi        \\\
   --disable-hv-balloon             \\\
@@ -1686,6 +1670,7 @@ mkdir -p %{static_builddir}
   --disable-pvg                    \\\
   --disable-qcow1                  \\\
   --disable-qed                    \\\
+  --disable-qemu-vnc               \\\
   --disable-qom-cast-debug         \\\
   --disable-qpl                    \\\
   --disable-rbd                    \\\
@@ -1902,9 +1887,6 @@ run_configure \
   --enable-dmg \
   --enable-fuse \
   --enable-gio \
-%if %{have_block_gluster}
-  --enable-glusterfs \
-%endif
   --enable-gtk \
   --enable-hv-balloon \
 %if %{have_daxctl}
@@ -1931,6 +1913,7 @@ run_configure \
 %endif
   --enable-qcow1 \
   --enable-qed \
+  --enable-qemu-vnc \
   --enable-qom-cast-debug \
   --enable-replication \
 %if %{have_rutabaga_gfx}
@@ -2487,6 +2470,7 @@ popd
 %attr(4755, -, -) %{_libexecdir}/qemu-bridge-helper
 %dir %{_libdir}/%{name}/
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/qemu-vnc.1*
 %{_mandir}/man7/qemu-block-drivers.7*
 %{_mandir}/man7/qemu-cpu-models.7*
 %{_mandir}/man7/qemu-ga-ref.7*
@@ -2535,10 +2519,6 @@ popd
 
 %files block-dmg
 %{_libdir}/%{name}/block-dmg-bz2.so
-%if %{have_block_gluster}
-%files block-gluster
-%{_libdir}/%{name}/block-gluster.so
-%endif
 %if %{have_block_nfs}
 %files block-nfs
 %{_libdir}/%{name}/block-nfs.so
@@ -3086,6 +3066,15 @@ popd
 %{_mandir}/man1/qemu-system-hppa.1*
 %{_datadir}/%{name}/hppa-firmware.img
 %{_datadir}/%{name}/hppa-firmware64.img
+
+
+%files system-hexagon
+%files system-hexagon-core
+%{_bindir}/qemu-system-hexagon
+%{_datadir}/systemtap/tapset/qemu-system-hexagon.stp
+%{_datadir}/systemtap/tapset/qemu-system-hexagon-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-hexagon-simpletrace.stp
+%{_mandir}/man1/qemu-system-hexagon.1*
 
 
 %files system-loongarch64

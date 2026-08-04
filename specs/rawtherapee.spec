@@ -13,7 +13,7 @@ Name:           rawtherapee
 %if 0%{?development}
 Version:        5.9~20221002git%{shortcommit}
 %else
-Version:        5.12
+Version:        5.13
 %endif
 Release:        %autorelease
 Summary:        Raw image processing software
@@ -31,10 +31,6 @@ Source2:        ReleaseInfo.cmake
 Source0:        https://github.com/Beep6581/RawTherapee/releases/download/%{version}/rawtherapee-%{version}.tar.xz
 %endif
 
-# Patch to fix segfault at startup
-# See upstream ticket https://github.com/RawTherapee/RawTherapee/issues/7532
-Patch:          0001-Fix-static-init-order-fiasco-crashes.patch
-Patch:          0001-Fix-typos.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -46,6 +42,7 @@ BuildRequires:  libatomic
 BuildRequires:  pkgconfig(exiv2) >= 0.24
 BuildRequires:  pkgconfig(expat) >= 2.1
 BuildRequires:  pkgconfig(fftw3f)
+BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.48
 BuildRequires:  pkgconfig(glibmm-2.4) >= 2.48
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.3
@@ -104,6 +101,7 @@ rm -rf rtengine/libraw/
 %endif
         -DWITH_SYSTEM_KLT=ON \
         -DWITH_SYSTEM_LIBRAW="ON" \
+        -DWITH_SYSTEM_FMT="ON" \
         -DWITH_JXL="ON"
 
 %cmake_build
@@ -114,7 +112,16 @@ rm -rf rtengine/libraw/
 
 
 # These file are taken from the root already
-rm -rf %{buildroot}/%{_datadir}/doc 
+rm -rf %{buildroot}%{_datadir}/doc
+# Remove license files which don't pertain to Fedora binaries
+# Font only installed on Windows builds
+rm -rf %{buildroot}%{_datadir}/licenses/%{name}/licenses/DroidSansMonoDotted.txt
+# These libraries are linked to system's provided
+# No need to install license files - https://github.com/RawTherapee/RawTherapee/issues/7718
+rm -rf %{buildroot}%{_datadir}/licenses/%{name}/licenses/{Expat,Lensfun,LibRaw,LunaSVG,cJSON,gtkmm,lcms2,libcanberra,libiptcdata,libjxl,librsvg,libtiff,tcmalloc}_LICENSE
+# Only related to OSX builds
+rm -rf %{buildroot}%{_datadir}/licenses/%{name}/licenses/osx_libiomp_LICENSE.txt
+
 
 
 %check
@@ -124,7 +131,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/com.%{na
 
 %files
 %doc AUTHORS.txt RELEASE_NOTES.txt
-%license LICENSE licenses/DroidSansMonoDotted.txt licenses/sleef_LICENSE.txt licenses/jdatasrc
+%license LICENSE licenses/sleef_LICENSE.txt licenses/jpeg_ijg_LICENSE
 %{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 %{_bindir}/%{name}-cli

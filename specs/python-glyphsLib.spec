@@ -9,7 +9,7 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.13.1
+Version:        6.14.0
 Release:        %autorelease
 Summary:        A bridge from Glyphs source files to UFOs
 
@@ -29,9 +29,17 @@ Source:         %{pypi_source glyphslib}
 # https://github.com/googlefonts/glyphsLib/pull/1073
 Patch:          %{url}/pull/1073.patch
 
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    %{?with_ufo_normalization:--extras ufo_normalization}
+    --extras defcon
+    %{?with_colr:--extras colr}
+    %{?with_check:requirements-dev.in}
+    }
+BuildOption(install): --assert-license glyphsLib
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  help2man
 
 %global common_description %{expand:
@@ -53,57 +61,38 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-glyphsLib colr
 %endif
 
-%prep
-%autosetup -n glyphslib-%{version} -p1
-# - Do not generate linting/coverage dependencies:
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r \
+%prep -a
 %if %{without ufo_normalization}
-    -e 's/^(ufo[Nn]ormalizer)\b/# &/' \
+%pyproject_patch_dependency ufonormalizer:ignore
 %endif
 %if %{without colr}
-    -e 's/^(skia-pathops)\b/# &/' \
+%pyproject_patch_dependency skia-pathops:ignore
 %endif
 %if %{without xmldiff}
-    -e 's/^(xmldiff)\b/# &/' \
+%pyproject_patch_dependency xmldiff:ignore
 %endif
-    -e 's/^(coverage|flake8.*|black)\b/# &/' \
-    requirements-dev.in |
-  tee requirements-dev-filtered.txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency black:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency flake8-bugbear:ignore
+%pyproject_patch_dependency flake8:ignore
 
-%generate_buildrequires
-%{pyproject_buildrequires \
-    %{?with_ufo_normalization:-x ufo_normalization} \
-    -x defcon \
-    %{?with_colr:-x colr} \
-    %{?with_check:requirements-dev-filtered.txt}}
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l glyphsLib
-
-install -d '%{buildroot}%{_mandir}/man1'
+%install -a
+install --directory '%{buildroot}%{_mandir}/man1'
 for bin in glyphs2ufo ufo2glyphs
 do
   # We do this in %%install rather than in %%build because we need to use the
   # script entry point that was generated during installation.
-  env PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-      PYTHONDONTWRITEBYTECODE=1 \
-      help2man \
-          --no-info \
-          --name '%{summary}' \
-          --output="%{buildroot}%{_mandir}/man1/${bin}.1" \
-          "%{buildroot}%{_bindir}/${bin}"
+  %{py3_test_envvars} help2man --no-info --name='%{summary}' \
+      --output="%{buildroot}%{_mandir}/man1/${bin}.1" \
+      "%{buildroot}%{_bindir}/${bin}"
 done
 
 # Mark GlyphData license files in-place rather than installing duplicates.
-sed -r -i 's/^(.*GlyphData(_AGL)?_LICENSE)/%%license &/' %{pyproject_files}
+sed --regexp-extended --in-place \
+    's/^(.*GlyphData(_AGL)?_LICENSE)/%%license &/' %{pyproject_files}
 
-%check
-%pyproject_check_import
+%check -a
 %if %{with check}
 %if %{without ufo_normalization}
 ignore="${ignore-} --ignore=tests/builder/builder_test.py"
@@ -116,7 +105,7 @@ ignore="${ignore-} --ignore=tests/writer_test.py"
 ignore="${ignore-} --ignore=tests/builder/designspace_gen_test.py"
 ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %endif
-%pytest -v -rs ${ignore-}
+%pytest --verbose -rs ${ignore-}
 %endif
 
 %files -n python3-glyphsLib -f %{pyproject_files}

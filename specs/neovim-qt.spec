@@ -58,7 +58,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %if %{with tests}
 # UI component tests require running display server
 %global __ctest xwfb-run -c %{test_compositor} -- %{__ctest}
-%ctest
+%ctest -E tst_qsettings
 %endif
 
 %files

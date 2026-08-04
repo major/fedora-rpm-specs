@@ -31,6 +31,7 @@ Release: %autorelease
 License: EPL-2.0
 URL:  https://coin-or.github.io/%{module}/
 Source0: https://github.com/coin-or/Ipopt/archive/releases/%{version}/Ipopt-releases-%{version}.tar.gz
+Patch: fix-sigsegv-mpich.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -139,6 +140,7 @@ use %{name}-mpich.
 %setup -qc
 
 pushd Ipopt-releases-%{version}
+%autopatch -p1
 
 # Generate a doxygen tag file, disabled upstream in the 3.13.0 release
 sed -i 's/#\(GENERATE_TAGFILE\)/\1/' doc/Doxyfile.in

@@ -62,7 +62,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKPim6PkPass.so.*
 %{_kf6_qmldir}/org/kde/pkpass/
 %{_kf6_libdir}/qt6/metatypes/qt6kpim6pkpass_metatypes.json
-%if 0%{?fedora} <= 44
+%if ! (0%{?fedora} >= 45 || 0%{?rhel} >= 11)
 %{_kf6_datadir}/mime/packages/application-vnd-apple-pkpasses.xml
 %endif
 

@@ -1,5 +1,5 @@
 Name:           shippy
-Version:        1.5.5
+Version:        1.5.6
 Release:        %autorelease
 Summary:        Space invaders / Galaxians like game with powerups
 License:        GPL-2.0-or-later
@@ -25,7 +25,7 @@ mv docs html
 
 
 %build
-%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake
 %cmake_build
 
 

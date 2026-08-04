@@ -1,6 +1,6 @@
 Name:           perl-Devel-MAT-Dumper
-Version:        0.51
-Release:        3%{?dist}
+Version:        0.52
+Release:        1%{?dist}
 Summary:        Write a heap dump file for later analysis
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -57,6 +57,9 @@ function which is not exported, which writes a file to the given path.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 02 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.52-1
+- Update to 0.52
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.51-3
 - Perl 5.44 rebuild
 

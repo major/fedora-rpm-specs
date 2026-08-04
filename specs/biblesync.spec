@@ -2,14 +2,13 @@
 %global __soversion 2.0
 
 Name:		biblesync
-Version:	2.1.0
-Release:	18%{?dist}
+Version:	2.2.0
+Release:	1%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.xiphos.org
 Source0:	https://github.com/karlkleinpaste/biblesync/releases/download/%{version}/%{name}-%{version}.tar.gz
-Patch0:		4b00f9fd3d0c858947eee18206ef44f9f6bd2283.patch
 
 BuildRequires:	intltool
 BuildRequires:	libuuid-devel
@@ -70,6 +69,9 @@ popd
 %{_mandir}/man7/biblesync.7*
 
 %changelog
+* Sat Aug 01 2026 Greg fhellings <greg.hellings@gmail.com> - 2.2.0-1
+- New upstream release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond  tests   1
 
 Name:           swayimg
-Version:        5.4
+Version:        5.5
 Release:        %autorelease
 Summary:        Lightweight image viewer for Wayland display servers
 

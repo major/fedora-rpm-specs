@@ -145,6 +145,11 @@ bash .github/workflows/run_tests.sh
 * Sat Aug 01 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.14.0-2
 - Enable tests, patching the suite to pass with qcint and FlexiBLAS.
 - Fix a stack buffer overflow in the Dirac-Hartree-Fock (SS|LL) J/K build.
+- Read the FCI test Hamiltonian in the native byte order, since the solvers
+  reject the little-endian arrays h5py hands out on big-endian machines.
+- Loosen the DKS veff fingerprints, whose reference values depend on how libxc
+  rounds the correlation potential in the fully polarized limit, and drop the
+  EA-CCSD* assertion that divides by a vanishing left-right overlap.
 
 * Thu Jul 30 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.14.0-1
 - Update to 2.14.0.

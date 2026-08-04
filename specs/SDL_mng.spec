@@ -30,8 +30,12 @@ developing applications that use %{name}.
 %setup -q
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export CXXFLAGS="%{optflags} -Wl,--as-needed"
-%cmake
+%cmake \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64}
+%endif
 %cmake_build
 
 %install

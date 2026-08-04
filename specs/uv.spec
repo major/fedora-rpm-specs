@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.11.33
+Version:        0.12.1
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -111,7 +111,6 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# bzip2-1.0.6
 License:        %{shrink:
     0BSD AND
     (0BSD OR Apache-2.0 OR MIT) AND
@@ -137,8 +136,7 @@ License:        %{shrink:
     MPL-2.0 AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
-    Zlib AND
-    bzip2-1.0.6
+    Zlib
     }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/astral-sh/uv
@@ -152,6 +150,10 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+# Downstream-only: revert source-code changes from “Upgrade BLAKE2 to unify
+# hashing digest versions”, https://github.com/astral-sh/uv/pull/20834. We do
+# not wish to upgrade rust-blake2 to a pre-release.
+Patch:          uv-0.12.1-revert-blake2-beta.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
@@ -427,14 +429,6 @@ tomcli set Cargo.toml append workspace.exclude crates/uv-bench
 # needed here. It also brings extra dependencies that we would prefer to avoid.
 tomcli set Cargo.toml append workspace.exclude crates/uv-dev
 
-# Do not request static linking of anything (particularly, liblzma)
-tomcli set Cargo.toml lists delitem \
-    workspace.dependencies.xz2.features 'static'
-tomcli set crates/uv/Cargo.toml lists delitem \
-    features.default 'uv-distribution/static'
-tomcli set crates/uv-distribution/Cargo.toml del features.static
-tomcli set crates/uv-extract/Cargo.toml del features.static
-
 # Disable several default features that control which tests are compiled and
 # executed, and which are not usable in offline builds:
 #
@@ -528,6 +522,15 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 sed --regexp-extended --in-place \
     's/^(tikv-jemallocator\b.*version = ")0\.6\.0"/\1>=0.6.0, <0.8.0"/' \
     crates/uv-performance-memory-allocator/Cargo.toml
+
+# blake2
+#   wanted: 0.11.0-rc.6
+#   currently packaged: 0.10.6
+#   https://github.com/astral-sh/uv/pull/19735
+# Downstream-only: revert “Upgrade BLAKE2 to unify hashing digest versions”,
+# https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
+# rust-blake2 to a pre-release. There is an anccompanying source-code patch.
+tomcli set Cargo.toml str workspace.dependencies.blake2.version 0.10.6
 
 %cargo_prep
 

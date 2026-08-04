@@ -12,22 +12,24 @@ URL:            https://docs.xfce.org/apps/xfburn/start
 #VCS: git:https://gitlab.xfce.org/apps/xfburn.git
 Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  meson
-BuildRequires:  gcc
-BuildRequires:  libxfce4ui-devel >= 4.18.0
+BuildRequires:  desktop-file-utils
+BuildRequires:  docbook-style-xsl
 BuildRequires:  exo-devel >= 4.18.0
-BuildRequires:  libburn-devel
-BuildRequires:  libisofs-devel
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  glib2-devel
 BuildRequires:  gstreamer1-devel
 BuildRequires:  gstreamer1-plugins-base-devel
 BuildRequires:  gtk3-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  intltool
-BuildRequires:  libgudev1-devel
 BuildRequires:  libappstream-glib
-BuildRequires:  docbook-style-xsl
+BuildRequires:  libburn-devel
+BuildRequires:  libgudev-devel
+BuildRequires:  libisofs-devel
+BuildRequires:  libxfce4ui-devel >= 4.18.0
+BuildRequires:  libxfce4util-devel
+BuildRequires:  meson
 Requires:       hicolor-icon-theme
+
 
 %description
 Xfburn is a simple CD/DVD burning tool based on libburnia libraries. It can 
@@ -46,8 +48,22 @@ compositions of data to either CD or DVD.
 %meson_build
 
 
+%check
+%meson_test
+
+
 %install
 %meson_install
+
+# Rename invalid locale directory hye to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    if [ -d %{buildroot}%{_datadir}/locale/hy ]; then
+        mv %{buildroot}%{_datadir}/locale/hye/LC_MESSAGES/*.mo %{buildroot}%{_datadir}/locale/hy/LC_MESSAGES/
+        rm -rf %{buildroot}%{_datadir}/locale/hye
+    else
+        mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+    fi
+fi
 
 %find_lang %{name}
 desktop-file-install --vendor ""                            \

@@ -38,6 +38,7 @@ Requires:	iso-codes
 Requires:	libpeas1-loader-python3%{?_isa}
 Requires:	python%{python3_pkgversion}-gobject%{?_isa}
 Requires:	xapps%{?_isa}
+Requires:	xapp-symbolic-icons
 Suggests:	hunspell-en
 
 %description

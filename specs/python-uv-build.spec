@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.11.33
+Version:        0.12.1
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -35,7 +35,6 @@ Summary:        The uv build backend
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# bzip2-1.0.6
 License:        %{shrink:
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR BSD-2-Clause) AND
@@ -55,8 +54,7 @@ License:        %{shrink:
     (MIT OR Unlicense) AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
-    Zlib AND
-    bzip2-1.0.6
+    Zlib
     }
 URL:            https://pypi.org/project/uv-build
 Source:         %{pypi_source uv_build}
@@ -134,10 +132,6 @@ find -L . -type f -name Cargo.toml -print \
 # this intentionally, so this change makes sense to keep downstream-only.
 tomcli set pyproject.toml false tool.maturin.strip
 tomcli set Cargo.toml false profile.release.strip
-
-# Do not request static linking of anything (particularly, liblzma)
-tomcli set Cargo.toml lists delitem \
-    workspace.dependencies.xz2.features 'static'
 
 # We retain the following example even when there are currently no dependencies
 # that need to be adjusted.

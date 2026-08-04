@@ -36,6 +36,9 @@ URL:     http://openmeeg.github.io/
 Source0: https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:  %{name}-use_builtin_find_blas_lapack.patch
 Patch1:  %{name}-fix-cmake4.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch2:  %{name}-swig45.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -166,6 +169,7 @@ BuildArch:      noarch
 %patch -P 0 -p1 -b .backup
 %endif
 %patch -P 1 -p1 -b .backup
+%patch -P 2 -p1
 
 %build
 %if %{with debug}

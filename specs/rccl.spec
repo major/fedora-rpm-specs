@@ -22,7 +22,7 @@
 %bcond_with preview
 %if %{with preview}
 %global upstreamname rccl
-%global rocm_release 7.12
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -94,7 +94,7 @@
 Name:           %{rccl_name}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        2%{?dist}
+Release:        0%{?dist}
 %else
 Release:        6%{?dist}
 %endif
@@ -110,6 +110,7 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 %if %{with preview}
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Patch1:         0001-rccl-multiple-nccl_domain.patch
 %else
 Url:            https://github.com/ROCm/rccl
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
@@ -277,8 +278,22 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 # Switch to bfd
 sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
 
+%if %{with preview}
+# need iostream to use std::cerr
+sed -i '/#include <cuda_runtime.h>/a #include <iostream>' src/ipc_init.cu
+# need std::map
+sed -i '/#include <mutex>/a #include <map>' src/transport/net.cc
+%endif
 
 %build
+
+%if %{with preview}
+# to find rocm things, setting -DROCM_PATH broken
+export ROCM_PATH=%{pkg_prefix}
+# to find amdclang++
+export PATH=%rocmllvm_bindir:$PATH
+%endif
+
 %cmake \
     -DGPU_TARGETS=%{gpu_list} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -317,10 +332,19 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %{pkg_prefix}/include/rccl/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rccl/
 %{pkg_prefix}/%{pkg_libdir}/librccl.so
+%if %{with preview}
+%{pkg_prefix}/include/nccl.h
+%{pkg_prefix}/include/nccl_device.h
+%{pkg_prefix}/include/nccl_device/
+%endif
+
 
 %if %{with test}
 %files test
-%{pkg_prefix}/bin/rccl-UnitTests
+%{pkg_prefix}/bin/rccl-UnitTests*
+%if %{with preview}
+%{pkg_prefix}/bin/rccl/*.cmake
+%endif
 %endif
 
 %changelog
