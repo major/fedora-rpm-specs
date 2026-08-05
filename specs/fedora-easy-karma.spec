@@ -1,52 +1,61 @@
 Name:           fedora-easy-karma
-Version:        0.57
+Version:        1.0
 Release:        1%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-3.0-or-later
-URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
 
-# git clone https://pagure.io/fedora-easy-karma.git
-# cd fedora-easy-karma
-# export PROJ=fedora-easy-karma VER=0.57
-# git archive -o "$PROJ-$VER.tar.gz" --prefix "$PROJ-$VER/" v$VER
-Source0:        %{name}-%{version}.tar.gz
+URL:            https://forge.fedoraproject.org/quality/fedora-easy-karma
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  make
+BuildRequires:  python3-dnf
+BuildRequires:  pyproject-rpm-macros
 
 Requires:       python3dist(bodhi-client) >= 6
 Requires:       python3dist(colored)
 Requires:       python3dist(dnf)
 Requires:       python3dist(munch)
 Requires:       python3dist(requests)
-Requires:       python3dist(ipdb)
-
 
 %description
-Fedora-easy-karma helps you to easily and fast provide feedback for all testing
-updates that you have currently installed.
+Fedora Easy Karma is a command-line tool to submit feedback
+for Fedora updates installed from the updates-testing repository.
+
+The application finds testing packages installed on the local system,
+fetches corresponding updates from Bodhi, displays their information,
+and allows users to submit karma and comments.
 
 
 %prep
-%autosetup -p1
+%autosetup -n fedora-easy-karma -p1
 %py3_shebang_fix fedora-easy-karma.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
 
 %install
-%make_install prefix=%{_prefix}
+%pyproject_install
+%pyproject_save_files fedora_easy_karma
+
+%check
+%pyproject_check_import
 
 
-%files
-%license gpl-3.0.txt
+%files -f %{pyproject_files}
+%license LICENSE.txt
 %doc README.md
 %{_bindir}/fedora-easy-karma
 
 
 %changelog
-* Mon Jul 27 2026 Lukas Ruzicka <lruzicka@redhat.con> - 0.57-1
-- release 0.57
+
+* Mon Aug 3 2026 Lukas Ruzicka <lruzicka@redhat.con> - 1.0-1
+- release 1.0
 
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

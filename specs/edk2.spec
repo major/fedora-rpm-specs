@@ -144,6 +144,8 @@ Patch0017: 0017-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
 Patch0018: 0018-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
 Patch0019: 0019-CryptoPkg-TlsLib-downgrade-security-level-from-3-to-.patch
 Patch0020: 0020-OvmfPkg-PlatformDxe-proper-addr-masking.patch
+Patch0021: 0021-OvmfPkg-EmuVariableFvbRuntimeDxe-fix-ValidateFvHeade.patch
+Patch0022: 0022-OvmfPkg-IntelTdx-Move-BootManagerMenuApp-from-NCCFV-.patch
 
 
 # needed by %prep

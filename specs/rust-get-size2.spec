@@ -8,7 +8,7 @@
 %global crate get-size2
 
 Name:           rust-get-size2
-Version:        0.10.1
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Determine the size in bytes an object occupies inside RAM
 
@@ -17,7 +17,6 @@ URL:            https://crates.io/crates/get-size2
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Determine the size in bytes an object occupies inside RAM.}
@@ -194,6 +193,18 @@ use the "parking_lot" feature of the "%{crate}" crate.
 %files       -n %{name}+parking_lot-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+portable-atomic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable-atomic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable-atomic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable-atomic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+smallvec-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -232,7 +243,6 @@ use the "url" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

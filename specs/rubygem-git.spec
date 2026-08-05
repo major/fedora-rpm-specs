@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 5.0.1
+Version: 5.0.2
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to manipulate Git repositories
 License: MIT
@@ -13,8 +13,6 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # in particular this includes the tests and bin directory which was not
 # included in the gemfile.
 Source1: https://github.com/ruby-git/ruby-git/archive/v%{version}/ruby-git-%{version}.tar.gz
-# https://github.com/ruby-git/ruby-git/pull/1648
-Patch0: rubygem-git-coverage-flag.patch
 
 
 BuildRequires: ruby(release)
@@ -49,8 +47,6 @@ Documentation for %{name}.
 
 # unpack only the test files from SOURCE1.
 tar zxf %{SOURCE1} ruby-git-%{version}/spec --strip-components 1
-
-%patch 0 -p1
 
 # Disable fancy formatter which requires unavailble fuubar gem.
 sed -i '/--format Fuubar/d' .rspec

@@ -1,22 +1,14 @@
 %global apiversion 0.6
 
 Name: libcmis
-Version: 0.6.2
+Version: 0.6.3
 Release: %autorelease
 Summary: A C/C++ client library for CM interfaces
 
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
 URL: https://github.com/tdf/libcmis
 Source: https://github.com/tdf/libcmis/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# https://github.com/tdf/libcmis/issues/51
-Patch:  libxmis-0.6.2-libxml2-2.12.0-includes.patch
-# https://github.com/tdf/libcmis/pull/68 and followups
-# Fixes build with boost 1.86+, followups address some issues
-Patch:  0001-Fix-boost-1.86-breakage.patch
-Patch:  0002-sha1-test-fails-with-older-boost.patch
-Patch:  0003-Fix-build-with-boost-1.66-and-simplify-a-bit.patch
-Patch:  0004-Fix-comment-and-sync-the-if-BOOST_VERSION.patch
-
+Patch0:  e00b5b849e467fd3661ebdbfb7e49db5abb5c313.patch
 
 BuildRequires: boost-devel
 BuildRequires: gcc-c++
@@ -26,6 +18,7 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: xmlto
 BuildRequires: make
 BuildRequires: chrpath
+BuildRequires: autoconf automake libtool
 
 %description
 LibCMIS is a C/C++ client library for working with CM (content management)
@@ -54,6 +47,7 @@ command line.
 %autosetup -p1
 
 %build
+autoreconf -fi
 %configure --disable-silent-rules --disable-static --disable-werror \
     DOCBOOK2MAN='xmlto man'
 sed -i \
@@ -66,6 +60,7 @@ sed -i \
 %make_install
 rm -f %{buildroot}/%{_libdir}/*.la
 find %{buildroot}/%{_libdir} -type f -name '*.so.*' -print0 | xargs -0 chrpath --delete
+chrpath --delete %{buildroot}%{_bindir}/cmis-client
 
 %ldconfig_scriptlets
 

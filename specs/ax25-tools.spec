@@ -13,25 +13,19 @@ URL:		http://www.linux-ax25.org/wiki/LinuxAX25
 
 # Official upstream is not active, moving to supported fork.
 # https://github.com/ve7fet/linuxax25
-Source0:        https://github.com/ve7fet/linuxax25/archive/ax25tools-%{version}.tar.gz
-Source1:	smdiag.desktop
-Source2:	xfhdlcchpar.desktop
-Source3:	xfhdlcsd.desktop
-Source4:	xfsmdiag.desktop
-Source5:	xfsmmixer.desktop
-#Temporary Icon
-Source6:	%{name}.png
+Source0:	https://github.com/ve7fet/linuxax25/archive/ax25tools-%{version}.tar.gz
 
-BuildRequires:	automake gcc gcc-c++
+# this patch disabled the compilation of the legacy X/GUI tools in hdlcutil/
+# which rely on linux/hdlcdrv.h (removed from modern kernel headers)
+Patch:		ax25tools-disable-hdlcutil.patch
+
+BuildRequires:	automake
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
 BuildRequires:	libax25-devel
+BuildRequires:	make
 BuildRequires:	ncurses-devel
-BuildRequires:	libXt-devel
-BuildRequires:	libXi-devel
-BuildRequires:	fltk1.3-devel
-BuildRequires:	libX11-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:	desktop-file-utils
-BuildRequires: make
+BuildRequires:	zlib-devel
 
 
 %description
@@ -78,31 +72,13 @@ line programs; the GUI programs are contained in ax25-tools-x package.
  * yamcfg - configure a YAM interface
 
 
-%package x
-Summary:	X tools used to configure an AX.25 enabled computer
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description x
-ax25-tools-x is a collection of tools that are used to configure an ax.25 enabled
-computer.  This package contains the GUI programs to configure Baycom modem
-and sound modem.
-
- * smdiag - Linux soundcard packet radio modem driver diagnostics utility
- * xfhdlcchpar - kernel HDLC radio modem driver channel parameter utility
- * xfhdlcst - kernel HDLC radio modem driver status display utility
- * xfsmdiag - kernel soundcard radio modem driver diagnostics utility
- * xfsmmixer - kernel soundcard radio modem driver mixer utility
-
-
 %package docs
-Summary:	Documentation for ax25-tools and ax25-tools-x
-BuildArch:      noarch
+Summary:	Documentation for ax25-tools
+BuildArch:	noarch
 
 %description docs
 ax25-tools is a collection of tools that are used to configure an ax.25 enabled
-computer.  This package contains the GUI programs to configure Baycom modem
-and sound modem. This package contains the documentation for ax25-tools and
-ax25-tools-x
+computer. This package contains the documentation for ax25-tools.
 
 
 %prep
@@ -111,27 +87,12 @@ ax25-tools-x
 
 %build
 ./autogen.sh
-%configure --with-xutils
-make %{?_smp_mflags} CFLAGS="%{optflags}"
+%configure
+%make_build
 
 
 %install
 %make_install
-
-# no upstream .desktop or icon yet so we'll use a temporary one
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/
-cp %{SOURCE6} ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/%{name}.png
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/applications
-desktop-file-install	\
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
-desktop-file-install	\
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE2}
-desktop-file-install	\
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE3}
-desktop-file-install	\
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE4}
-desktop-file-install	\
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE5}
 
 #don't include these twice
 rm -rf $RPM_BUILD_ROOT%{_docdir}/ax25tools
@@ -142,7 +103,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ax25tools
 %doc doc/README*
 %license COPYING
 %{_bindir}/*
+%if "%{_bindir}" != "%{_sbindir}"
 %{_sbindir}/*
+%endif
 %{_localstatedir}/ax25/mheard/
 %config(noreplace) %{_sysconfdir}/ax25/ax25.profile
 %config(noreplace) %{_sysconfdir}/ax25/ax25d.conf
@@ -154,25 +117,11 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ax25tools
 %config(noreplace) %{_sysconfdir}/ax25/rsports
 %config(noreplace) %{_sysconfdir}/ax25/rxecho.conf
 %config(noreplace) %{_sysconfdir}/ax25/ttylinkd.conf
-%exclude %{_bindir}/smdiag
-%exclude %{_sbindir}/xfhdlcchpar
-%exclude %{_sbindir}/xfhdlcst
-%exclude %{_sbindir}/xfsmdiag
-%exclude %{_sbindir}/xfsmmixer
 
-%files x
-%{_bindir}/smdiag
-%{_sbindir}/xfhdlcchpar
-%{_sbindir}/xfhdlcst
-%{_sbindir}/xfsmdiag
-%{_sbindir}/xfsmmixer
-%{_datadir}/pixmaps/%{name}.png
-%{_datadir}/applications/*.desktop
 
 %files docs
 %doc COPYING
 %{_mandir}/man?/*
-
 
 %changelog
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18

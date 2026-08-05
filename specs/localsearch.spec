@@ -35,7 +35,7 @@
 %global __requires_exclude ^(libtracker-extract\.so|libtracker-extract-zip\.so|libextract-.*\.so|libwriteback-.*\.so)
 
 Name:           localsearch
-Version:        3.12~alpha
+Version:        3.12~beta
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 

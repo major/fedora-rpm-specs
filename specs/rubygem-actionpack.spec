@@ -6,14 +6,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionpack
-# git archive -v -o actionpack-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o actionpack-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # https://github.com/rails/rails/issues/57282
 # https://github.com/rails/rails/pull/57283
@@ -130,6 +130,10 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
+- Update to Action Pack 8.1.3.1.
+  Related: rhzb#2405582
+
 * Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
 - Update to Action Pack 8.1.2.
   Related: rhzb#2405582

@@ -1,8 +1,8 @@
-%global modname repoze.lru
+%global modname repoze_lru
 
 Name:           python-repoze-lru
-Version:        0.7
-Release:        32%{?dist}
+Version:        0.8
+Release:        1%{?dist}
 Summary:        A tiny LRU cache implementation and decorator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
 
 %global _description\
 repoze.lru is a LRU (least recently used) cache implementation. Keys and values\
@@ -33,7 +34,6 @@ and values that are used frequently.
 
 %prep
 %setup -q -n %{modname}-%{version}
-rm -rf %{modname}.egg-info
 
 
 %generate_buildrequires
@@ -48,13 +48,16 @@ rm -rf %{modname}.egg-info
 %pyproject_save_files repoze
 
 %check
-%pytest repoze/lru/tests.py
+%pyproject_check_import
+%pytest
 
 %files -n python3-repoze-lru -f %{pyproject_files}
 %doc README.rst LICENSE.txt COPYRIGHT.txt CONTRIBUTORS.txt
-%{python3_sitelib}/repoze.lru-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Mon Aug 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8-1
+- 0.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

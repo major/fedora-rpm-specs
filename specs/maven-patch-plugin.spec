@@ -1,18 +1,16 @@
 Name:           maven-patch-plugin
-Version:        1.2
-Release:        34%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        Maven Patch Plugin
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
-URL:            http://maven.apache.org/plugins/maven-patch-plugin/
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
+URL:            https://maven.apache.org/plugins/maven-patch-plugin/
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugins:pom:)
@@ -37,12 +35,14 @@ API documentation for %{name}.
 
 %files -f .mfiles
 %license LICENSE NOTICE
-%dir %{_javadir}/%{name}
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog
+* Mon Aug 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.3-1
+- Update to version 1.3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

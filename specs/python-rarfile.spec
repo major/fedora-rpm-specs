@@ -1,7 +1,7 @@
 %global pypi_name rarfile
 
 Name:           python-%{pypi_name}
-Version:        4.4
+Version:        4.5
 Release:        %autorelease
 Summary:        RAR archive reader for Python
 

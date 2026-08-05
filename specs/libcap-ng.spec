@@ -2,10 +2,13 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
+# https://github.com/stevegrubb/libcap-ng/pull/81.patch
+Patch0: 0001-cap-audit-allow-supplying-vmlinux.h-for-reproducible.patch
+
 BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
@@ -15,6 +18,7 @@ BuildRequires: libattr-devel
 BuildRequires: clang
 BuildRequires: bpftool libbpf-devel
 BuildRequires: audit-libs-devel
+BuildRequires: kernel-devel
 %endif
 
 %description
@@ -58,13 +62,21 @@ to determine the necessary capabilities for a program.
 
 %prep
 %setup -q
-touch NEWS
-autoreconf -fv --install
+touch -d @${SOURCE_DATE_EPOCH:?} NEWS
+%patch -P 0 -p1
 
 %build
+# Locate suitable vmlinux.h. In normal builds under mock,
+# there'll be just one. But in case multiple kernel-devel packages
+# are installed, sort alphabetically and pick the last version.
+vmlinux_h="$(ls -1 /usr/src/kernels/*/vmlinux.h | sort -g | tail -n 1)"
+
+autoreconf -fv --install
 %configure --libdir=%{_libdir} \
 %ifarch %{bpf_supported_arches}
 	 --enable-cap-audit=yes \
+	--with-vmlinux-h-path="${vmlinux_h}" \
+	--with-vmlinux-h=provided \
 %endif
 	--with-python3
 
@@ -118,6 +130,9 @@ make check
 %endif
 
 %changelog
+* Mon Aug 03 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 0.9.4-5
+- Use provided vmlinux.h to improve build reproducibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.9.3-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

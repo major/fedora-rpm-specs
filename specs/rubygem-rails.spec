@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
@@ -54,6 +54,10 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
+- Update to Rails 8.1.3.1.
+  Resolves: rhzb#2405582
+
 * Fri Jul 31 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
 - Update to Rails 8.1.2.
   Resolves: rhzb#2405582

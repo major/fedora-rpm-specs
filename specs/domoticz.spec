@@ -1,6 +1,6 @@
 Name:		domoticz
-Version:	2026.2
-Release:	4%{?dist}
+Version:	2026.3
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -13,8 +13,8 @@ Source2:	%{name}.conf
 Source3:	%{name}-appversion
 # https://github.com/Thalhammer/jwt-cpp/tree/3e037df3e669633a3044618e30550ea2f212e915
 Source4:	jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915.zip
-# https://github.com/domoticz/libwebem/tree/0aa092796657c7007f04eca66471c164bbec7ada
-Source5:	libwebem-0aa092796657c7007f04eca66471c164bbec7ada.zip
+# https://github.com/domoticz/libwebem/tree/9126af0ce3456c24b936dfb20d1b5a8bdb797104
+Source5:	libwebem-9126af0ce3456c24b936dfb20d1b5a8bdb797104.zip
 
 # Use system tinyxpath (https://github.com/domoticz/domoticz/pull/1759)
 Patch1:		%{name}-tinyxpath.patch
@@ -80,7 +80,7 @@ Provides:	bundled(js-less) = 1.3.0
 Provides:	bundled(js-ion-sound) = 3.0.6
 Provides:	bundled(js-zeroclipboard) = 1.0.4
 Provides:	bundled(jwt-cpp) = 0.0-git20260324
-Provides:	bundled(libwebem) = 0.0-git20260505
+Provides:	bundled(libwebem) = 0.0-git20260802
 
 %global _python_bytecompile_extra 0
 
@@ -107,7 +107,7 @@ rmdir extern/jwtcpp/
 mv extern/jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915/ extern/jwtcpp/
 unzip -d extern %{SOURCE5}
 rmdir extern/libwebem
-mv extern/libwebem-0aa092796657c7007f04eca66471c164bbec7ada/ extern/libwebem/
+mv extern/libwebem-9126af0ce3456c24b936dfb20d1b5a8bdb797104/ extern/libwebem/
 
 # Create a sysusers.d config file
 cat >domoticz.sysusers.conf <<EOF
@@ -252,6 +252,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Sun Aug 02 2026 Michael Cronenworth <mike@cchtml.com> - 2026.3-1
+- New stable release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.8
+Version:        5.8.1
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 

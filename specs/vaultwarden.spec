@@ -9,8 +9,8 @@
 %global rustflags_debuginfo 1
 
 Name:           vaultwarden
-Version:        1.36.0
-Release:        3%{?dist}
+Version:        1.37.1
+Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -30,10 +30,6 @@ ExcludeArch:    ppc64le s390x
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # BSD-3-Clause AND MIT
-# BSD-3-Clause OR MIT
-# CDLA-Permissive-2.0
-# ISC
-# MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR BSD-1-Clause
 # MIT OR Apache-2.0 OR LGPL-2.1-or-later
@@ -157,6 +153,11 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Mon Aug 03 2026 Jonathan Wright <jonathan@almalinux.org> - 1.37.1-1
+- update to 1.37.1 rhbz#2510094
+- Fix CVE-2026-31812 vaultwarden: quinn-proto: Denial of Service via crafted QUIC Initial packet rhbz#2446376
+- Fix 8 cited but yet-to-be-listed medium-severity vulnerabilities
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

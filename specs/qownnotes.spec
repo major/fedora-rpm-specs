@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        4f6e531e72e1d3b480e2c5604b61486ba475175d
+%global qmarkdowntextedit_commit        43f049ba54695e26ea96ecc5cd2ff5009a8f421b
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 %global md4c_commit                     c64ee9ab326c53962b5bd8cca98c086461bbdd6b
 %global md4c_shortcommit                %(c=%{md4c_commit}; echo ${c:0:7})
 
-%global qhotkey_commit                  f64d15c9f7e0b7457604f54c10c2fc6e2b1b936b
+%global qhotkey_commit                  4ebf343ec5dbae725ee3b3f68186c14a2836fae4
 %global qhotkey_shortcommit             %(c=%{qhotkey_commit}; echo ${c:0:7})
 
 
@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        26.1.14
+Version:        26.7.9
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support
@@ -58,8 +58,8 @@ Source7:        https://github.com/%{name}/md4c/archive/%{md4c_commit}/md4c-%{md
 Source8:        https://github.com/%{name}/QHotkey/archive/%{qhotkey_commit}/qhotkey-%{qhotkey_shortcommit}.tar.gz
 # AppData manifest
 Source100:      https://raw.githubusercontent.com/flathub/org.qownnotes.%{appname}/master/org.qownnotes.%{appname}.appdata.xml
-# Build with system Botan
-Patch:          0001-Revert-2786-botan-use-botan3-with-cmake.patch
+
+Patch1000:      system-qtkeychain.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -79,8 +79,9 @@ BuildRequires:  cmake(Qt6Sql)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Keychain)
 
-BuildRequires:  pkgconfig(botan-2)
+BuildRequires:  pkgconfig(botan-3)
 
 Requires:       hicolor-icon-theme
 Requires:       qt6-qtbase%{?_isa}
@@ -154,6 +155,7 @@ pushd src/%{_target_platform}
 %qmake_qt6                        \
     PREFIX=%{buildroot}%{_prefix} \
     USE_SYSTEM_BOTAN=1            \
+    CONFIG+=c++20                 \
     ..
 popd
 %make_build -C src/%{_target_platform}

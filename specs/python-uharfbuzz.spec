@@ -1,5 +1,5 @@
 Name:           python-uharfbuzz
-Version:        0.55.0
+Version:        0.56.0
 Release:        %autorelease
 Summary:        Streamlined Cython bindings for the harfbuzz shaping engine
 
@@ -99,6 +99,7 @@ k="${k-}${k+ and }not test_sparsefont_coretext"
 k="${k-}${k+ and }not test_paint"
 # Require test_glyphs-glyf_colr_1.ttf, omitted from the source archive, via the
 # colorv1font fixture:
+k="${k-}${k+ and }not (TestPaintFuncs and test_fill_glyph_fallback)"
 k="${k-}${k+ and }not (TestRasterPaint and test_render_bgra32)"
 k="${k-}${k+ and }not TestOTColor"
 k="${k-}${k+ and }not test_color_palette_color_get_name_id"

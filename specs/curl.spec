@@ -13,7 +13,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.21.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -54,6 +54,7 @@ BuildRequires: libnghttp3-devel
 BuildRequires: libpsl-devel
 BuildRequires: libssh-devel
 BuildRequires: libtool
+BuildRequires: libzstd-devel
 BuildRequires: make
 %if %{with http3}
 BuildRequires: ngtcp2-crypto-ossl-devel
@@ -170,13 +171,17 @@ Requires: libcurl%{?_isa} >= %{version}-%{release}
 # (we need to translate 4.0.0-beta1 -> 4.0.0~beta1 though)
 %global openssl_version %({ pkg-config --modversion openssl 2>/dev/null || echo 0;} | sed 's|-|~|')
 
+# require at least the version of libzstd that we were built against,
+# to ensure that we have the necessary symbols available
+%global libzstd_version %(pkg-config --modversion libzstd 2>/dev/null || echo 0)
+
 %description
 curl is a command line tool for transferring data with URL syntax, supporting
 FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, IMAP,
 SMTP, POP3 and RTSP.  curl supports SSL certificates, HTTP POST, HTTP PUT, FTP
 uploading, HTTP form based upload, proxies, cookies, user+password
 authentication (Basic, Digest, NTLM, Negotiate, kerberos...), file transfer
-resume, proxy tunneling and a busload of other useful tricks. 
+resume, proxy tunneling and a busload of other useful tricks.
 
 %package -n libcurl
 Summary: A library for getting files from web servers
@@ -192,6 +197,7 @@ Requires: ngtcp2%{?_isa} >= %{ngtcp2_version}
 Requires: openssl-libs%{?_isa} >= 1:%{openssl_version}
 Provides: libcurl-full = %{version}-%{release}
 Provides: libcurl-full%{?_isa} = %{version}-%{release}
+Requires: libzstd%{?_isa} >= %{libzstd_version}
 
 %description -n libcurl
 libcurl is a free and easy-to-use client-side URL transfer library, supporting
@@ -295,7 +301,6 @@ export common_configure_opts="          \
     --enable-ipv6                       \
     --enable-symbol-hiding              \
     --enable-threaded-resolver          \
-    --without-zstd                      \
     --with-gssapi                       \
     --with-libidn2                      \
     --with-nghttp2                      \
@@ -327,7 +332,8 @@ export common_configure_opts="          \
         --without-libpsl                \
         --without-libssh                \
         --without-nghttp3               \
-        --without-ngtcp2
+        --without-ngtcp2                \
+        --without-zstd
 )
 
 # configure full build
@@ -352,6 +358,7 @@ export common_configure_opts="          \
         --with-brotli                   \
         --with-libpsl                   \
         --with-libssh                   \
+        --with-zstd                     \
 %if %{with http3}
         --with-nghttp3                  \
         --with-ngtcp2                   \
@@ -467,6 +474,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Jul 21 2026 Owen Zimmerman <owen@fyralabs.com> - 8.21.0-4
+- Enable zstd in full config
+
 * Mon Jul 20 2026 Jan Macku <jamacku@redhat.com> - 8.21.0-3
 - explicitly disable HTTP/3 support in the minimal build
 

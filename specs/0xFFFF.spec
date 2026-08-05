@@ -1,13 +1,17 @@
-Name:           0xFFFF
+%global forgeurl https://github.com/pali/0xFFFF
 Version:        0.10
+%global tag     %{version}
+%forgemeta
+
+Name:           0xFFFF
 Release:        %autorelease
 Summary:        The Open Free Fiasco Firmware Flasher
 # Modernized spec file to meet Fedora Rawhide, Fedora 45, and EPEL 10 guidelines
 # License available here https://github.com/pali/0xFFFF/blob/master/COPYING
 License:        GPL-3.0-only
 # Modernized URL to the project's GitHub repository
-URL:            https://github.com/pali/0xFFFF
-Source:         https://github.com/pali/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  libusb-compat-0.1-devel
@@ -20,7 +24,7 @@ utilities for the Nokia Internet Tablets like flashing setting device
 options, packing/unpacking FIASCO firmware format and more.
 
 %prep
-%autosetup
+%forgeautosetup
 
 %build
 # Use SOURCE_DATE_EPOCH for reproducible builds

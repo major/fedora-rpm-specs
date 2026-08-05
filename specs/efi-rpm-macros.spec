@@ -1,7 +1,7 @@
 Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 6
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
@@ -13,6 +13,9 @@ Source0: https://github.com/rhboot/%{name}/releases/download/%{version}/%{name}-
 # https://github.com/rhboot/efi-rpm-macros/pull/3
 Patch0001: 0001-add-riscv64-support.patch
 Patch0002: 0002-Re-enable-ia32-as-an-alt-for-x86_64.patch
+# Not upstream, but submitted as a PR upstream like riscv.
+# https://github.com/rhboot/efi-rpm-macros/pull/5
+Patch0003: 0001-Add-loongarch64-support.patch
 
 %global debug_package %{nil}
 %global _efi_vendor_ %(eval echo $(sed -n -e 's/rhel/redhat/' -e 's/eln/fedora/' -e 's/^ID=//p' /etc/os-release))
@@ -41,7 +44,7 @@ machine bootloaders and tools.
 %autosetup -S git_am -n %{name}-6
 git config --local --add efi.vendor "%{_efi_vendor_}"
 git config --local --add efi.esp-root /boot/efi
-git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86} riscv64"
+git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86} riscv64 loongarch64"
 
 %build
 %make_build clean all
@@ -70,6 +73,9 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86} riscv64"
 %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
+* Wed Jul  1 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 6-9
+- Add loongarch64 support.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

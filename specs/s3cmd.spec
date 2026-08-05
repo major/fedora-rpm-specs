@@ -1,42 +1,20 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-%define	name	s3cmd
-%define	version	2.4.0
-%define	release	13
-
-Name:           %{name}
-Version:        %{version}
-Release:        %{release}%{?dist}
+Name:           s3cmd
+Version:        2.4.0
+Release:        14%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
 License:        GPL-2.0-or-later
-URL:            https://s3tools.org/%{name}
+URL:            https://s3tools.org/s3cmd
 Source0:        https://github.com/s3tools/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-%if %{with python3}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-dateutil
-Requires:       ( python3-magic or python3-file-magic )
 
-# Disable auto dependencies as sources match Python2
+Requires:       python3-dateutil
+Requires:       (python3-magic or python3-file-magic)
+
+# Disable auto dependencies as sources has a selection
 %{?python_disable_dependency_generator}
-%else
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires:       python-dateutil
-Requires:       python-magic
-%else
-Requires:       python2-dateutil
-Requires:       python2-magic
-%endif
-%endif
 
 %description
 S3cmd lets you copy files from/to Amazon S3
@@ -44,46 +22,49 @@ S3cmd lets you copy files from/to Amazon S3
 command line client.
 
 %prep
-%setup -q
-rm -rf *.egg-info
-%if %{without python3}
-# Not needed on Py2, RPM fails to Bytecompile it
-rm -f S3/Custom_httplib3x.py
+%autosetup
+
+%if ! 0%{?rhel} || 0%{?rhel} >= 9
+%generate_buildrequires
+%pyproject_buildrequires -R
 %endif
 
 %build
 export S3CMD_PACKAGING=1
-%if %{with python3}
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %py3_build
 %else
-%py2_build
+%pyproject_wheel
 %endif
 
 %install
+%if 0%{?rhel} && 0%{?rhel} <= 8
 export S3CMD_PACKAGING=1
-%if %{with python3}
 %py3_install
 %else
-%py2_install
+%pyproject_install
+%pyproject_save_files S3
 %endif
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %files
+%{python3_sitelib}/%{name}-*.egg-info/
+%{python3_sitelib}/S3/
+%else
+%files -f %{pyproject_files}
+%endif
 %license LICENSE
 %doc NEWS README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%if %{with python3}
-%{python3_sitelib}/%{name}-*.egg-info/
-%{python3_sitelib}/S3/
-%else
-%{python2_sitelib}/%{name}-*.egg-info/
-%{python2_sitelib}/S3/
-%endif
 
 %changelog
+* Mon Aug 03 2026 Frank Crawford <frank@crawford.emu.id.au> - 2.4.0-14
+- Adopt pyproject-rpm-macros and drop EL7 and python2
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    10.5.0
+Version:    10.6.0
 Release:    %autorelease
 Summary:    OpenStack common configuration library
 
@@ -114,13 +114,6 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %pyproject_save_files -l oslo_config
 
-pushd %{buildroot}/%{_bindir}
-for i in generator validator
-do
-ln -s oslo-config-$i oslo-config-$i-3
-done
-popd
-
 
 %check
 %if %{with tests}
@@ -135,9 +128,7 @@ popd
 %doc README.rst
 %license LICENSE
 %{_bindir}/oslo-config-generator
-%{_bindir}/oslo-config-generator-3
 %{_bindir}/oslo-config-validator
-%{_bindir}/oslo-config-validator-3
 
 
 %if %{with doc}

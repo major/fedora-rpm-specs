@@ -7,7 +7,7 @@
 %global pango_version 1.45.1
 
 Name:           pangomm
-Version:        2.46.4
+Version:        2.46.5
 Release:        %autorelease
 Summary:        C++ interface for Pango
 

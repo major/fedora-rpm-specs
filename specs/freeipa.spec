@@ -196,8 +196,8 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.13.1
-%global TARBALL_IPA_VERSION 4.13.1
+%define IPA_VERSION 4.13.2
+%global TARBALL_IPA_VERSION 4.13.2
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
 %define AT_SIGN @
@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        17%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -228,12 +228,6 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSIO
 #   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
-Patch0001:      0001-SELinux-expand-policy-coverage-for-Kerberos-usage.patch
-Patch0002:      0002-ipa-sam-use-internal-Samba-method-to-populate-in-mem.patch
-Patch0003:      freeipa-fix-passkey-crash.patch
-Patch0004:      freeipa-sssd-mfa-selinux-policy-update.patch
-Patch0005:      0005-Add-path-to-identify-the-tomcat-version-for-Tomcat-10.patch
-Patch0006:      freeipa-4.13-mspac-warnings.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1734,6 +1728,8 @@ fi
 %{_usr}/share/ipa/ui/js/freeipa/core.js
 %dir %{_usr}/share/ipa/ui/js/plugins
 %dir %{_usr}/share/ipa/ui/images
+%dir %{_usr}/share/ipa/ui/js/inline
+%{_usr}/share/ipa/ui/js/inline/*.js
 %if 0%{?rhel}
 %{_usr}/share/ipa/ui/images/facet-*.png
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1775,6 +1771,7 @@ fi
 %attr(0644,root,root) %{_usr}/share/ipa/schema.d/README
 %attr(0644,root,root) %{_usr}/share/ipa/gssapi.login
 %{_usr}/share/ipa/ipakrb5.aug
+%attr(0644,root,root) %{_sysusersdir}/ipa.conf
 
 %files server-dns
 %doc README.md Contributors.txt
@@ -1969,6 +1966,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 3 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.2-1
+- FreeIPA 4.13.2
+
 * Thu Jul 2 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-17
 - Rebuilt for Samba-4.24.4
 

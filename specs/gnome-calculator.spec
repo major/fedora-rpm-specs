@@ -2,7 +2,7 @@
 %global libadwaita_version 1.6~beta
 
 Name:           gnome-calculator
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        A desktop calculator
 

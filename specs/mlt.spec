@@ -16,19 +16,12 @@
 %bcond_without  opencv
 %endif
 
-# Temporarily restore Qt5 support
-%if 0%{?fedora} && 0%{?fedora} < 44
-%bcond_without qt5
-%else
-%bcond_with qt5
-%endif
-
 # needs nonfree/ndi-sdk
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.36.1
-Release:        7%{?dist}
+Version:        7.40.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -42,11 +35,7 @@ Source0:        https://github.com/mltframework/mlt/releases/download/v%{version
 
 # Proposed fixes (501~1000)
 
-# Downstream only changes (1001~2000)
-
-# Temporary fixes (2001+)
-## Only for 7.36.x and for F43 and older
-Patch2001:      mlt-7.36-restore-qt5-support.patch
+# Downstream only changes (1001+)
 
 %if 0%{?fedora} > 43
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -116,6 +105,7 @@ BuildRequires:  ndi-sdk-devel
 BuildRequires:  opencv-devel
 %endif
 BuildRequires:  pkgconfig(libarchive)
+BuildRequires:  pkgconfig(rnnoise)
 
 %if %{with ruby}
 BuildRequires:  ruby-devel
@@ -129,11 +119,7 @@ BuildRequires: php-devel
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 %endif
 
-%if %{with qt5}
-Requires:      (%{name}-qt5%{?_isa} = %{version}-%{release} if qt5-qtbase%{?_isa})
-%else
 Obsoletes:      mlt-qt5 < %{version}-%{release}
-%endif
 
 Requires:      (%{name}-qt6%{?_isa} = %{version}-%{release} if qt6-qtbase%{?_isa})
 
@@ -145,14 +131,6 @@ It provides a toolkit for broadcasters, video editors,media players,
 transcoders, web streamers and many more types of applications. The
 functionality of the system is provided via an assortment of ready to use
 tools, xml authoring components, and an extendible plug-in based API.
-
-%if %{with qt5}
-%package qt5
-Summary:        Qt5 support for MLT
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description qt5
-This packages includes Qt5 support modules to MLT.
-%endif
 
 %package qt6
 Summary:        Qt6 support for MLT
@@ -204,12 +182,7 @@ This module allows to work with MLT using PHP.
 
 
 %prep
-%autosetup -N
-%autopatch -p1 -M 2000
-
-%if %{with qt5}
-%patch -p1 -P 2001
-%endif
+%autosetup -p1
 
 chmod 644 src/modules/qt/kdenlivetitle_wrapper.cpp
 chmod 644 src/modules/kdenlive/filter_freeze.c
@@ -228,7 +201,6 @@ rm -r src/win32/
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
        -DMOD_GLAXNIMATE:BOOL=%{?with_qt5:ON}%{!?with_qt5:OFF}  \
        -DMOD_GLAXNIMATE_QT6:BOOL=ON  \
-       -DMOD_QT:BOOL=%{?with_qt5:ON}%{!?with_qt5:OFF} \
        -DMOD_QT6:BOOL=ON \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
 
@@ -278,12 +250,6 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %{_libdir}/mlt-7/libmltndi.so
 %endif
 
-%if %{with qt5}
-%files qt5
-%{_libdir}/mlt-7/libmltglaxnimate.so
-%{_libdir}/mlt-7/libmltqt.so
-%endif
-
 %files qt6
 %{_libdir}/mlt-7/libmltglaxnimate-qt6.so
 %{_libdir}/mlt-7/libmltqt6.so
@@ -314,6 +280,10 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon Aug 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 7.40.0-1
+- Update to version 7.40.0
+- Resolves: rhbz#2461053
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.36.1-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

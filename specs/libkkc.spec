@@ -2,7 +2,7 @@
 
 Name:		libkkc
 Version:	0.3.5
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Japanese Kana Kanji conversion library
 
 License:	GPL-3.0-or-later
@@ -20,6 +20,9 @@ Patch3:         libkkc-pr40-int-conversion-fix.patch
 # Fix invalid escape on default.json
 Patch4:         libkkc-Fix-invalid-escape-on-json-file.patch
 Patch5:         libkkc-use-gettext.patch
+# gcc16 postdeps_CXX adds -latomic_asneeded, but g-ir-scanner cannot handle this
+# as this is wrapper library written in text. Workaround this.
+Patch6:         libkkc-0.3.5-girscanner-gcc16-workaround.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	marisa-devel
@@ -121,6 +124,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/kkc
 
 
 %changelog
+* Thu Jul 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-36
+- Workaround for girscanner with gcc16 -latomic_asneeded
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

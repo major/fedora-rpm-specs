@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -76,6 +76,10 @@ Source28:       https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/
 # change the defaults to match Fedora environment
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
+
+# temporary fixes
+# https://github.com/ibm-s390-linux/s390-tools/issues/208
+Patch90:        s390utils-2.44.0-pvics-return.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
@@ -1145,6 +1149,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Aug 03 2026 Dan Horák <dan[at]danny.cz> - 2:2.44.0-2
+- fix pvics return code
+
 * Fri Jul 31 2026 Dan Horák <dan[at]danny.cz> - 2:2.44.0-1
 - rebased to 2.44.0 (rhbz#2509807)
 

@@ -49,12 +49,13 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.5.3
-Release: 4%{?dist}
-# See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
-# See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
+Release: 6%{?dist}
+# See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
+# See LICENSE_THIRD_PARTY.md for incorporated code (Apache-2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
-# License identifiers taken from: https://fedoraproject.org/wiki/Licensing
-License: LicenseRef-Callaway-BSD AND BSD-3-Clause-LBNL AND Apache-2.0
+# This list was generated using "go_vendor_license report"
+# plus BSD-3-Clause-LBNL was added because it missed that from LICENSE.md
+License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-3-Clause-LBNL AND ISC AND MIT AND MPL-2.0 AND Unlicense
 URL: https://apptainer.org
 Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}-2.tar.gz
 
@@ -523,6 +524,12 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Mon Aug  3 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-6
+- Rebuild again for fc45 side tag because it hadn't yet been merged.
+
+* Mon Aug  3 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-5
+- Migrated to SPDX licenses
+
 * Thu Jul 31 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-4
 - Another rebuild for the libsubid library version bump, first time had a
   problem on fc45 side tag build

@@ -16,7 +16,7 @@
 %global mutter_api_version 51
 
 Name:          mutter
-Version:       51~alpha
+Version:       51~beta
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -24,19 +24,6 @@ Summary:       Window and compositing manager based on Clutter
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
-
-# Fix crashes in gnome-remote-desktop
-# https://gitlab.gnome.org/GNOME/mutter/-/work_items/4907
-# Two separate fixes are needed
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5143
-Patch:         5143.patch
-# Fix crashes on hybrid graphics systems
-# https://bugzilla.redhat.com/show_bug.cgi?id=2498847
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/4890
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5153
-Patch:         5153.patch
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5169
-Patch:         5169.patch
 
 %gnome_check_version
 
@@ -201,6 +188,7 @@ Viewer for nested mutter instances.
 %files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.mutter.experimental.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.wayland.gschema.xml
 %{_datadir}/gnome-control-center/keybindings/50-mutter-*.xml
 %{_udevrulesdir}/61-mutter.rules

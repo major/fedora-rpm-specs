@@ -5,14 +5,14 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/railties
-# git archive -v -o railties-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o railties-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Fix random test failures:
 # ~~~
@@ -301,6 +301,10 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
+- Update to Railties 8.1.3.1.
+  Related: rhzb#2405582
+
 * Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
 - Update to Railties 8.1.2.
   Related: rhzb#2405582

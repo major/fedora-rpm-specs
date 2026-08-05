@@ -3,7 +3,9 @@ Version:        2.5
 Release:        %autorelease
 Summary:        Libraries for foreign function call interfaces
 
-License:        GPL-2.0-or-later
+# GPL-2.0-or-later: the project as a whole
+# LGPL-2.1-or-later: the bundled gnulib code
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.gnu.org/software/libffcall/
 VCS:            git:https://git.savannah.gnu.org/git/libffcall.git
 Source:         https://ftp.gnu.org/gnu/libffcall/lib%{name}-%{version}.tar.gz
@@ -12,7 +14,6 @@ Patch:          configure.patch
 Patch:          %{name}-ppc64le.patch
 
 BuildRequires:  gcc
-BuildRequires:  gnulib-devel
 BuildRequires:  make
 
 %description
@@ -32,12 +33,20 @@ Summary:        Files needed to develop programs with %{name}
 License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-no-invariants-or-later)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
+# ffcall contains a copy of gnulib, which has been granted a bundling exception:
+# https://forge.fedoraproject.org/packaging/guidelines/issues/174
+Provides:       bundled(gnulib)
+
 %description devel
 Files needed to develop programs with %{name}.
 
 %package static
 Summary:        Static libraries for foreign function call interfaces
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+# ffcall contains a copy of gnulib, which has been granted a bundling exception:
+# https://forge.fedoraproject.org/packaging/guidelines/issues/174
+Provides:       bundled(gnulib)
 
 %description static
 Static libraries for foreign function call interfaces.

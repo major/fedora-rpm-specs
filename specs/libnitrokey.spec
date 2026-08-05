@@ -1,16 +1,19 @@
 Name:           libnitrokey
 Version:        3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Communicate with Nitrokey stick devices in a clean and easy manner
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/Nitrokey/libnitrokey
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch0:		catch2-test.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(hidapi-libusb)
 BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(catch2) < 3
 
 %description
 Libnitrokey is a project to communicate with Nitrokey Pro and Storage devices
@@ -25,11 +28,12 @@ This package contains development libraries and header files are needed
 to develop using libnitrokey.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake \
-	-DCMAKE_POLICY_VERSION_MINIMUM="3.5.0"
+	-DCMAKE_POLICY_VERSION_MINIMUM="3.5.0" \
+	-DCOMPILE_OFFLINE_TESTS=ON
 %cmake_build
 
 %install
@@ -56,8 +60,11 @@ to develop using libnitrokey.
 %{_includedir}/libnitrokey/
 
 %changelog
+* Mon Aug 03 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.8-2
+- Enable Offline tests
+
 * Sat Aug 01 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.8-1
-- Update to 3.8 (rhbz#2504287)
+- Update to 3.7 (rhbz#2504287)
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

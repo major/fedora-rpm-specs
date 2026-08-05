@@ -4,14 +4,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/activesupport
-# git archive -v -o activesupport-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o activesupport-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # `RailsStrictWarnings` is needed by test/event_reporter_test.rb
 # https://github.com/rails/rails/blob/main/tools/strict_warnings.rb
@@ -129,6 +129,10 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
+- Update to Active Support 8.1.3.1.
+  Related: rhzb#2405582
+
 * Wed Jul 29 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
 - Update to Active Support 8.1.2.
   Related: rhzb#2405582

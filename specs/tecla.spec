@@ -1,5 +1,5 @@
 Name:           tecla
-Version:        50.0
+Version:        51~beta
 Release:        %autorelease
 Summary:        Keyboard layout viewer
 

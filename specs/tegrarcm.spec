@@ -5,15 +5,11 @@ Version:        1.9
 Release:        %autorelease
 Summary:        Send code to a Tegra device in recovery mode
 
-# Most of the code here is BSD, except for the firmware in
-# tegra20-miniloader.h and tegra30-miniloader.h, which is under
-# specific licensing that is acceptable under the Fedora Binary
-# Firmware Exception:
-# https://fedoraproject.org/wiki/Licensing#Binary_Firmware
-# See "LICENSE" for details.
-License:        BSD-3-Clause AND LicenseRef-Fedora-Firmware
+License:        BSD-3-Clause
 URL:            https://gitlab.com/grate-driver/tegrarcm
 Source0:        %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:           0001-Disable-pre-built-miniloader-support.patch
+Patch1:           0001-Fix-warning-comparison-of-integer-expressions-of-dif.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -36,11 +32,13 @@ device.
 
 %prep
 %autosetup -p1 -n %{name}-v%{version}-%{gitcommit0}
+# Disable the bundled miniloaders
+rm -rf src/miniloader
 ./autogen.sh
 
 
 %build
-%configure
+%configure --disable-tegra-miniloader-bundled
 %make_build
 
 

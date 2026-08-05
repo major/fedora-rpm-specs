@@ -1,14 +1,14 @@
 %global gem_name actionmailbox
 
 Name: rubygem-%{gem_name}
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: Inbound email handling framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionmailbox
-# git archive -v -o actionmailbox-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o actionmailbox-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: actionmailbox-%{version}%{?prerelease}-tests.tar.gz
 
 BuildRequires: ruby(release)
@@ -91,6 +91,10 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
+- Update to Action Mailbox 8.1.3.1.
+  Related: rhzb#2405582
+
 * Fri Jul 31 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
 - Update to Action Mailbox 8.1.2.
   Related: rhzb#2405582

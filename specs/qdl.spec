@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/linux-msm/qdl/
 
 Name:           qdl
-Version:        2.7
+Version:        2.8
 Release:        %autorelease
 
 %forgemeta
@@ -12,8 +12,6 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        51-qcom-usb.rules
 BuildRequires:  gcc
-# meson.build uses git. Fixed in upstream git, drop for 2.8 release.
-BuildRequires:  git-core
 BuildRequires:  help2man
 BuildRequires:  meson
 BuildRequires:  ninja-build
@@ -32,7 +30,7 @@ IDs 9008, 900e, 901d) to upload a flash loader and use it to flash images.
 
 
 %conf
-%meson
+%meson -Dnbdkit=disabled
 
 
 %build

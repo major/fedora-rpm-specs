@@ -8,7 +8,7 @@
 
 Name:           gitg
 %if 0%{?git}
-Version:        45~%{gitdate}git%{shortcommit}
+Version:        50
 %else
 Version:        50
 %endif

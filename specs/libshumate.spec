@@ -1,5 +1,5 @@
 Name:           libshumate
-Version:        1.7~alpha
+Version:        1.7~beta
 Release:        %autorelease
 Summary:        GTK widget to display maps
 

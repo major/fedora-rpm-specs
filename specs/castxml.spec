@@ -2,7 +2,7 @@
 
 Name:		castxml
 Version:	0.7.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
@@ -60,6 +60,10 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Aug 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.7.0-3
+- Rebuild for llvm/clang 21 (EPEL 8/9)
+- Rebuild for llvm/clang 22 (fedora 44)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

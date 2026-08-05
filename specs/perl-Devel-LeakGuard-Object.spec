@@ -1,12 +1,13 @@
 Name:           perl-Devel-LeakGuard-Object
-Version:        0.08
-Release:        30%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Scoped checks for object leaks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-LeakGuard-Object
 Source0:        https://cpan.metacpan.org/authors/id/P/PT/PTC/Devel-LeakGuard-Object-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -22,6 +23,7 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Scalar::Util)
 # Tests only
+BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Class::Load)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(latest)
@@ -50,10 +52,15 @@ make test
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Devel
+%dir %{perl_vendorlib}/Devel/LeakGuard
+%{perl_vendorlib}/Devel/LeakGuard/Object*
+%{_mandir}/man3/Devel::LeakGuard::Object*
 
 %changelog
+* Mon Aug 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-1
+- 0.09 bump (rhbz#2510677)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

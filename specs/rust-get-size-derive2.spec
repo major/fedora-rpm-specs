@@ -6,7 +6,7 @@
 %global crate get-size-derive2
 
 Name:           rust-get-size-derive2
-Version:        0.10.1
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Derives the GetSize trait
 
@@ -15,7 +15,6 @@ URL:            https://crates.io/crates/get-size-derive2
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Derives the GetSize trait.}
@@ -50,7 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

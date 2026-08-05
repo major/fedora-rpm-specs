@@ -2,16 +2,19 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Unicode to 8-bit charset transliteration codec
 
 License:        MIT
 URL:            http://pypi.python.org/pypi/translitcodec/
 Source0:        %{pypi_source}
+
+# Fix unknown encoding LookupError with Python 3.15
+# https://github.com/claudep/translitcodec/pull/7
+Patch0:         translitcodec-python315.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 
 %description
@@ -22,7 +25,6 @@ Best-effort representations using smaller coded character sets
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Best-effort representations using smaller coded character sets
@@ -30,23 +32,30 @@ Best-effort representations using smaller coded character sets
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
+%pyproject_check_import
 %pytest
 
-%files -n python3-%{pypi_name}
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Sat Aug 01 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.7.0-20
+- Fix F45FTBS + spec cleanup and modernization
+- Resolves: rhbz#2378287
+- Resolves: rhbz#2414561
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

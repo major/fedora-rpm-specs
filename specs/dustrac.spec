@@ -17,14 +17,18 @@ Summary: Traditional top-down car racing game
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT
 
 Version: 2.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://juzzlin.github.io/DustRacing2D/
 Source0: https://github.com/juzzlin/DustRacing2D/archive/%{version}/DustRacing2D-%{version}.tar.gz
 Source6: %{name}-game.6
 
-# Unbundle glew and glm libraries
+# Unbundle glm library
 Patch0: 0000-unbundle-libs.patch
+
+# Fix buffer overflow.
+# https://github.com/juzzlin/DustRacing2D/pull/145
+Patch1: 0001-buffer-overflow.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -40,7 +44,6 @@ BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt6Test)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Xml)
-BuildRequires: glew-devel
 BuildRequires: glm-devel
 BuildRequires: pkgconfig(glu)
 BuildRequires: pkgconfig(vorbisfile)
@@ -102,6 +105,8 @@ install -m 644 -p %{SOURCE6} %{buildroot}%{_mandir}/man6/%{name}-game.6
 
 
 %check
+%ctest
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-game.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-editor.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
@@ -127,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Mon Aug 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.0-3
+- Fix rendering issues
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

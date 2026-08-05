@@ -22,7 +22,7 @@
 %define gnome_settings_daemon_version 3.37.1
 
 Name:           gnome-shell
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -34,10 +34,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch: gnome-shell-favourite-apps-firefox.patch
-
-# Some users might have a broken PAM config, so we really need this
-# downstream patch to stop trying on configuration errors.
-Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
@@ -215,6 +211,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_bindir}/gnome-shell-extension-tool
 %{_bindir}/gnome-shell-test-tool
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.gschema.override
+%{_datadir}/applications/org.gnome.Shell.CalendarServer.desktop
 %{_datadir}/applications/org.gnome.Shell.Extensions.desktop
 %{_datadir}/bash-completion/completions/gnome-extensions
 %{_datadir}/gnome-control-center/keybindings/50-gnome-shell-launchers.xml

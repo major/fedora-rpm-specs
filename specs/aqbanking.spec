@@ -1,9 +1,9 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
-Version: 6.9.1
-Release: 5%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
-Source0: https://www.aquamaniac.de/rdm/attachments/download/652/aqbanking-%{version}.tar.gz
+Source0: https://www.aquamaniac.de/rdm/attachments/download/654/aqbanking-%{version}.tar.gz
 License: GPL-2.0-only AND GPL-3.0-only
 URL: https://www.aquamaniac.de/rdm/projects/aqbanking
 
@@ -116,6 +116,9 @@ make check ||:
 
 
 %changelog
+* Mon Aug 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.9.2-1
+- 6.9.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

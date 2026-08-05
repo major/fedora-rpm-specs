@@ -13,6 +13,10 @@ License:        BSD-3-Clause
 URL:            http://flask.pocoo.org/
 Source0:        %{pypi_source}
 
+# Compatibility with pytest >= 9.1
+# Upstream PR: https://github.com/pallets/flask/pull/6095
+Patch:          Replace-the-use-of-private-monkeypatch-fixture-API.patch
+
 BuildArch:      noarch
 
 %global _description \
@@ -50,7 +54,7 @@ Documentation and examples for %{name}.
 %pyproject_buildrequires -x async -g tests %{?with_doc:-g docs}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 # Allow to use python-sphinx>=9
 sed -i 's/sphinx<9/sphinx/g' pyproject.toml
 

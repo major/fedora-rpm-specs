@@ -7,18 +7,18 @@
 %bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: WebSocket framework for Rails
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone https://github.com/rails/rails.git && cd rails/actioncable
-# git archive -v -o actioncable-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o actioncable-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Source code of pregenerated JS files.
 # git clone https://github.com/rails/rails.git && cd rails/actioncable
-# git archive -v -o actioncable-8.1.2-js.tar.gz v8.1.2 app/javascript package.json rollup.config.js
+# git archive -v -o actioncable-8.1.3.1-js.tar.gz v8.1.3.1 app/javascript package.json rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 
 BuildRequires: ruby(release)
@@ -130,6 +130,10 @@ kill -INT $(cat $REDIS_DIR/redis.pid)
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
+- Update to Action Cable 8.1.3.1.
+  Related: rhzb#2405582
+
 * Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.2-1
 - Update to Action Cable 8.1.2.
   Related: rhzb#2405582

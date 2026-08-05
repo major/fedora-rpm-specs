@@ -23,7 +23,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.60-stable
+%global source_directory 1.61-development
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.60.1
-Release:       5%{?dist}
+Version:       1.61.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1031,6 +1031,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Aug 03 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.61.1-1
+- New upstream development version 1.61.1
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 1:1.60.1-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

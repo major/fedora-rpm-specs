@@ -66,7 +66,9 @@ BuildRequires: pkgconfig(fwupd) >= %{fwupd_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
+%if %{with webapps}
 BuildRequires: pkgconfig(glib-testing-0)
+%endif
 BuildRequires: pkgconfig(gmodule-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}

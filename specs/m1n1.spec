@@ -148,6 +148,15 @@ popd
 %install
 install -Dpm0644 -t %{buildroot}%{_libdir}/%{name} \
   build/%{name}.{bin,macho} build/%{name}-asahi.bin
+# install backwards compatibility symlink since update-m1n1 hardcodes
+# `/usr/lib64/m1n1/m1n1.bin` as m1n1 binary
+# check if the dir exists since %{_libdir} expands to "/usr/lib64" for
+# aarch64 builds in mock
+if [ ! -d %{buildroot}%{_exec_prefix}/lib64/%{name} ]; then
+  mkdir -p %{buildroot}%{_exec_prefix}/lib64/%{name}
+  ln -s %{_libdir}/%{name}/%{name}.bin \
+    %{buildroot}%{_exec_prefix}/lib64/m1n1/%{name}.bin
+fi
 install -Dpm0644 -t %{buildroot}%{_libdir}/%{name}-stage1 \
   build-stage1/%{name}.{bin,macho} build-stage1/%{name}-asahi.bin
 install -Ddpm0755 %{buildroot}%{_libexecdir}/%{name}
@@ -160,6 +169,7 @@ install -Dpm0644 m1n1.conf.example %{buildroot}%{_sysconfdir}/m1n1.conf
 %doc README.md
 %doc m1n1.conf.example
 %{_libdir}/%{name}/
+%{_exec_prefix}/lib64/%{name}
 %config(noreplace) %{_sysconfdir}/m1n1.conf
 
 %files stage1

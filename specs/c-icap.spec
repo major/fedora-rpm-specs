@@ -39,7 +39,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 
 Requires:       logrotate
-%if 0%{?fedora} < 42
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 Requires(pre):	shadow-utils
 %endif
 
@@ -121,7 +121,7 @@ mkdir -p %{buildroot}%{_localstatedir}/log/%{name}/
 mkdir -p %{buildroot}/run/%{name}/
 
 # Required before bin/sbin merge in F42
-%if 0%{?fedora} < 42
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 mv -f %{buildroot}%{_bindir}/%{name} %{buildroot}%{_sbindir}/
 %endif
 
@@ -129,7 +129,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.service
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
@@ -141,7 +141,7 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 
 
 # Required prior to sysusers.d support in F42
-%if 0%{?fedora} < 42
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 %pre
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null ||
@@ -197,7 +197,7 @@ exit 0
 %{_unitdir}/%{name}.service
 %attr(750,%{name},%{name}) %dir %{_localstatedir}/log/%{name}
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 %{_sysusersdir}/%{name}.conf
 %endif
 

@@ -3,14 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.1.2
+Version: 8.1.3.1
 Release: 1%{?dist}
 Summary: Email composition and delivery framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionmailer
-# git archive -v -o actionmailer-8.1.2-tests.tar.gz v8.1.2 test/
+# git archive -v -o actionmailer-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: actionmailer-%{version}%{?prerelease}-tests.tar.gz
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
@@ -76,6 +76,10 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
+- Update to Action Mailer 8.1.3.1.
+  Related: rhzb#2405582
+
 * Thu Jul 30 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.2-1
 - Update to Action Mailer 8.1.2.
   Related: rhzb#2405582

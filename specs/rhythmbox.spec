@@ -5,7 +5,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*/.*\\.so.*$
 
 Name:    rhythmbox
-Version: 3.4.9
+Version: 3.5.0
 Release: %autorelease
 Summary: Music Management Application
 
@@ -119,7 +119,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_datadir}/glib-2.0/schemas/org.gnome.rhythmbox.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Rhythmbox3.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Rhythmbox3-symbolic.svg
-%{_metainfodir}/org.gnome.Rhythmbox3.appdata.xml
+%{_metainfodir}/org.gnome.Rhythmbox3.metainfo.xml
 %{_libdir}/librhythmbox-core.so*
 %dir %{_libdir}/rhythmbox
 %dir %{_libdir}/rhythmbox/plugins
@@ -133,6 +133,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_libdir}/rhythmbox/plugins/dbus-media-server/
 %{_libdir}/rhythmbox/plugins/fmradio/
 %{_libdir}/rhythmbox/plugins/generic-player/
+%{_libdir}/rhythmbox/plugins/gpodder/
 %{_libdir}/rhythmbox/plugins/im-status/
 %{_libdir}/rhythmbox/plugins/ipod/
 %{_libdir}/rhythmbox/plugins/iradio/

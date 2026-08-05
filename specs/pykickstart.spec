@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.76
+Version:   3.77
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -85,6 +85,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Mon Aug 03 2026 Brian C. Lane <bcl@redhat.com> - 3.77-1
+- Add commands for manual partitioning for Stratis (vtrefny)
+
 * Fri Jul 17 2026 Brian C. Lane <bcl@redhat.com> - 3.76-1
 - Add support for Stratis storage to autopart (vtrefny)
 

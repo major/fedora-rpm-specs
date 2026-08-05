@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.15.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -21,6 +21,9 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 #  - Remove several modules from the config
 #  - Switch font to monospace
 Patch:          waybar-fedora-config-changes.patch
+# Downstream changes to the systemd service:
+#  - Check that the environment is Wayland and is not listed as unsupported
+Patch:          waybar-fedora-systemd-target-conflicts.patch
 
 # Fix for hot update loop that can spike CPU and
 # destabilize rendering in drawer/group setups
@@ -107,6 +110,9 @@ Recommends:     font(fontawesome7brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.0-6
+- systemd: declare known incompatible desktop environments
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           vaultwarden-web
-Version:        2026.4.1
-Release:        2%{?dist}
+Version:        2026.6.4
+Release:        1%{?dist}
 Summary:        Web vault for vaultwarden
 
 License:        GPL-3.0-only AND MIT AND BSD-3-Clause AND (MIT OR GPL-3.0-only)
@@ -58,6 +58,9 @@ install -pm644 %{SOURCE1} %{_builddir}/web-vault/
 
 
 %changelog
+* Mon Aug 03 2026 Jonathan Wright <jonathan@almalinux.org> - 2026.6.4-1
+- update to 2026.6.4 rhbz#2498218
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

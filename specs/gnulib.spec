@@ -1,7 +1,7 @@
-%global commit 4a3650d88725e8fda6387fbdbaa0ed98cdca76ce
+%global commit 9748dc45ec242476fcb8567e34612b996134454c
 # %%global tag 11 #disabled due to unarragment release line after mass rebuild.
 %global githead %(printf %%.7s %commit)
-%global gitdate 20260302
+%global gitdate 20260801
 
 # epel7 compatibility mode
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -51,7 +51,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  59.%{gitdate}git%{githead}%{?dist}
+Release:  60.%{gitdate}git%{githead}%{?dist}
 Summary:  GNU Portability Library
 License:  LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 URL:      https://www.gnu.org/software/gnulib
@@ -302,6 +302,9 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Mon Aug  3 2026 Peter Lemenkov <lemenkov@gmail.com> - 0-60.20260801git9748dc4
+- Update (required for PSPP, python-obspy, etc)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-59.20260302git4a3650d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

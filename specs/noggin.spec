@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.9.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -124,6 +124,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Mon Aug 03 2026 Kevin Fenzi <kevin@scrye.com> - 1.9.0-12
+- Rebuild for new python-translitcodec
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

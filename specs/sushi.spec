@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           sushi
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        A quick previewer for Nautilus
 

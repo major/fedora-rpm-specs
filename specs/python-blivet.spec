@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storaged.org/blivet
-Version: 3.14.0
+Version: 3.14.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -133,6 +133,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Mon Aug 03 2026 Packit <hello@packit.dev> - 1:3.14.1-1
+- Update to version 3.14.1
+
 * Wed Jul 22 2026 Packit <hello@packit.dev> - 1:3.14.0-1
 - Update to version 3.14.0
 

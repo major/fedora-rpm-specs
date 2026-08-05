@@ -1,16 +1,13 @@
 %global upstream_name kdev-python
 
 Name:           kdevelop-python
-Version:        26.04.3
-Release:        3%{?dist}
+Version:        26.07.90
+Release:        1%{?dist}
 Summary:        KDevelop Python language support
 
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
 URL:            https://kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{upstream_name}-%{version}.tar.xz
-
-# Fixes to build against python 3.15
-Patch0:         65.patch
 
 # kdevelop depends on qt6-qtwebengine, which is only available on some arches
 ExclusiveArch:  %{qt6_qtwebengine_arches}
@@ -66,14 +63,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 %license LICENSES/*
 %doc DESIGN INSTALL README README.packagers
 %{_kf6_libdir}/libkdevpython*.so
-%{_kf6_qtplugindir}/kdevplatform/65/kdevpdb.so
-%{_kf6_qtplugindir}/kdevplatform/65/kdevpythonlanguagesupport.so
+%{_kf6_qtplugindir}/kdevplatform/*/kdevpdb.so
+%{_kf6_qtplugindir}/kdevplatform/*/kdevpythonlanguagesupport.so
 %{_kf6_datadir}/kdevappwizard/templates/*.tar.bz2
 %{_kf6_datadir}/kdevpythonsupport/
 %{_kf6_metainfodir}/org.kde.kdev-python.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/kdevpythonsupport.categories
 
 %changelog
+* Mon Aug 03 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
+- 26.07.90
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 26.04.3-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

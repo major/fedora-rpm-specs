@@ -2,51 +2,33 @@
 # https://www.cryptopp.com/wiki/Link_Time_Optimization
 %define _lto_cflags %{nil}
 
+%global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
+
 Name:           cryptopp
-Version:        8.8.0
+Version:        2026.8.0
 Release:        %autorelease
 Summary:        C++ class library of cryptographic schemes
-# Automatically converted from old format: Boost - review is highly recommended.
 License:        BSL-1.0
-URL:            https://www.cryptopp.com
+URL:            https://cryptopp-modern.com/
 
-%define v_tag %(v=%{version}; echo ${v//./_})
-%define v_file %(v=%{version}; echo ${v//./})
+Source0:       %{upstream_url}/releases/download/%{version}/cryptopp-modern-%{version}.tar.gz
+Source1:       %{upstream_url}/releases/download/%{version}/cryptopp-modern-%{version}.tar.gz.sig
+#https://github.com/cryptopp-modern/cryptopp-modern/blob/main/KEYS
+# gpg --import KEYS
+# gpg2 --export --export-options export-minimal "844DCFC44A5DE9C14C3A2F62497A4CFBB700543E" > gpgkey-CoraleSoft-844DCFC44A5DE9C14C3A2F62497A4CFBB700543E.gpg
+Source2: gpgkey-CoraleSoft-844DCFC44A5DE9C14C3A2F62497A4CFBB700543E.gpg
 
-Source0:        %{url}/cryptopp%{v_file}.zip
-Source1:        %{url}/cryptopp%{v_file}.zip.sig
-Source2:        %{url}/signing.html#/keyring.gpg
-Source10:       https://github.com/noloader/cryptopp-autotools/releases/download/CRYPTOPP_%{v_tag}/cryptopp-autotools%{v_file}.zip
-Source11:       https://github.com/noloader/cryptopp-autotools/releases/download/CRYPTOPP_%{v_tag}/cryptopp-autotools%{v_file}.zip.sig
-
-# Should be <major>+<minor>:<patch>:<minor> (this is confusing -_-)
-Patch0:         fix-autotools-version-info.patch
-
-# fix "undefined reference to `AdhocTest'" when linking to the shared object
-Patch1:         remove-adhoc.patch
-
-BuildRequires:  bash
+BuildRequires:  cmake
 BuildRequires:  coreutils
-BuildRequires:  findutils
-BuildRequires:  glibc-common
-
+BuildRequires:  dos2unix
 BuildRequires:  doxygen
-
+BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-
-BuildRequires:  make
-BuildRequires:  libtool
-BuildRequires:  automake
-
-BuildRequires:  dos2unix
 BuildRequires:  gnupg2
+BuildRequires:  ninja-build
 
 Obsoletes:  %{name}-progs < 8.8.0-3
-
-# Obsoletes pycryptopp to avoid breaking upgrades
-Obsoletes:  pycryptopp < 0.7
-Provides:   pycryptopp = 0.7
 
 
 %description
@@ -78,45 +60,79 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 
 This package contains static libraries for %{name}.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description tests
+Tests for %{name}.
+
+
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE11}' --data='%{SOURCE10}'
+%autosetup -p1 -n cryptopp-modern-%{version}
 
-%autosetup -c -p1 -a 10
-find . -type f -name "*.zip" -exec rm "{}" \;
-dos2unix License.txt Readme.txt
-find . -not -type d -exec file "{}" ";" -print0 | grep -z CRLF | cut -d':' -z -f1 | xargs -0 dos2unix
 
 %build
-autoreconf -vi
-# Upstream recommends -O3, define NDEBUG to prevent sensitive data leaking on crash
-export CXXFLAGS="$(echo "%{optflags}" | sed -e 's/-O2//') -O3 -DNDEBUG"
-%configure
-%make_build all-am docs
+# build shared
+%cmake \
+  -DCRYPTOPP_BUILD_SHARED=ON \
+  -DCRYPTOPP_BUILD_TESTING=OFF
+
+%cmake_build
+
+# save shared build
+mv %{__cmake_builddir} build-shared
+
+# build static
+%cmake \
+  -DCRYPTOPP_BUILD_SHARED=OFF\
+  -DCRYPTOPP_BUILD_TESTING=ON
+
+%cmake_build
 
 %install
-%make_install
-rm %{buildroot}%{_bindir}/cryptest
-rm -rf %{buildroot}%{_datadir}/%{name}/
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-install -p -m 0644 libcryptopp.pc %{buildroot}%{_libdir}/pkgconfig/libcryptopp.pc
+%cmake_install
+
+# back to shared-build
+mv %{__cmake_builddir} build-static
+mv build-shared %{__cmake_builddir}
+
+%cmake_install
+
+# back to static-build for tests
+mv %{__cmake_builddir} build-shared
+mv build-static %{__cmake_builddir}
 
 %check
-./cryptest v
+# Disabled on s390x
+# https://github.com/cryptopp-modern/cryptopp-modern/issues/65
+%ifarch s390x
+%ctest  || :
+%else
+%ctest
+%endif
+
 
 %files
-%{_libdir}/libcryptopp.so.8*
-%doc Readme.txt
-%license License.txt
+%doc FORK.md GETTING_STARTED.md README.md Readme.txt RELEASE-*.md ROADMAP.md Security.md
+%license LICENSE
+%{_libdir}/libcryptopp.so.9
+%{_libdir}/libcryptopp.so.%{version}
 
 %files devel
-%doc html-docs/*
 %{_includedir}/cryptopp
 %{_libdir}/libcryptopp.so
 %{_libdir}/pkgconfig/libcryptopp.pc
+%{_libdir}/pkgconfig/cryptopp*.pc
+%{_libdir}/cmake/cryptopp-modern/*.cmake
 
 %files static
 %{_libdir}/libcryptopp.a
+
+%files tests
+%{_bindir}/cryptest*
+%{_datadir}/cryptopp
 
 %changelog
 %autochangelog

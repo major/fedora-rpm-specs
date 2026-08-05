@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/liepring
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.9.1
+Version:        2.9.2
 Release:        %autorelease
 Summary:        Database and algorithms for Lie p-rings
 
@@ -10,6 +10,8 @@ License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/liepring/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+# Fix italics that go on and on and on...
+Patch:          %{giturl}/pull/35.patch
 
 BuildArch:      noarch
 BuildSystem:    gap
@@ -18,6 +20,7 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(liering) >= 2.1
 BuildRequires:  gap(singular) >= 10
+BuildRequires:  gap(smallgrp) >= 1.0
 BuildRequires:  gap-devel >= 4.8
 BuildRequires:  tth
 
@@ -49,7 +52,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{gap_upname}-%{version}
+%autosetup -n %{gap_upname}-%{version} -p1
 
 %conf
 # Fix paths

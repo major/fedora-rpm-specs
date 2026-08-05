@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Pytest plugin for testing figure output from Matplotlib
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -11,6 +11,8 @@ URL:            https://github.com/matplotlib/pytest-mpl
 Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 # Probably not going upstream.
 Patch0001:      0001-Increase-tolerance-for-new-FreeType.patch
+# Fix pytest 9.1 compatibility (removed startdir from hook spec)
+Patch0002:      0002-fix-pytest-9.1-remove-startdir.patch
 
 BuildArch:      noarch
 
@@ -65,6 +67,9 @@ MPLBACKEND=Agg %{pytest} tests -k 'not test_succeeds_remote and not test_succeed
 
 
 %changelog
+* Mon Aug 03 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.13-23
+- Fix pytest 9.1 compatibility (remove deprecated startdir hook parameter)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

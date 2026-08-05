@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc5.260731g8ba098e6b6ff.45
+%define pkgrelease 0.rc6.48
 %define kversion 7
-%define tarfile_release 7.2-rc5-300-g8ba098e6b6ff
+%define tarfile_release 7.2-rc6
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.260731g8ba098e6b6ff.45%{?buildid}%{?dist}
+%define specrelease 0.rc6.48%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -1614,7 +1614,7 @@ AutoReqProv: no\
 %description %{?1:%{1}-}debuginfo\
 This package provides debug information for package %{name}%{?1:-%{1}}.\
 This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
-%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} --keep-section '.BTF' -p '.*\/usr\/src\/kernels/.*|XXX' -o ignored-debuginfo.list -p '/.*/%%{KVERREL_RE}%{?1:[+]%{1}}/.*|/.*%%{KVERREL_RE}%{?1:\+%{1}}(\.debug)?' -o debuginfo%{?1}.list}\
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} --keep-section '.BTF' --keep-section '.rustc' -p '.*\/usr\/src\/kernels/.*|XXX' -o ignored-debuginfo.list -p '/.*/%%{KVERREL_RE}%{?1:[+]%{1}}/.*|/.*%%{KVERREL_RE}%{?1:\+%{1}}(\.debug)?' -o debuginfo%{?1}.list}\
 %{nil}
 
 #
@@ -2887,8 +2887,6 @@ BuildKernel() {
     if ls rust/*.so >/dev/null 2>&1; then
       mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust
       cp -a rust/*.so $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/rust/ || :
-      # Note: saving these .so files to buildroot_unstripped must happen after the
-      # mv/ln-sf below converts build/ into a symlink, see the comment there.
     fi
     if [ -d arch/$Arch/scripts ]; then
       cp -a arch/$Arch/scripts $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/arch/%{_arch} || :
@@ -3317,15 +3315,6 @@ BuildKernel() {
     # when kernel-devel is installed, and a relative link doesn't work across
     # the F17 UsrMove feature.
     ln -sf $DevelDir $RPM_BUILD_ROOT/lib/modules/$KernelVer/build
-
-    # Preserve .rustc section in proc macro .so files — required by rustc.
-    # This must happen after the mv/ln-sf above because __restore_unstripped_root_post
-    # cannot restore files through a symlink; saving from the final usr/src/kernels/
-    # path avoids that conflict. Note: buildroot_save_unstripped macro is not used
-    # here because it wraps the argument in double quotes, preventing glob expansion.
-    if ls $RPM_BUILD_ROOT/$DevelDir/rust/*.so >/dev/null 2>&1; then
-      (cd $RPM_BUILD_ROOT; cp -rav --parents -t %{buildroot_unstripped}/ usr/src/kernels/$KernelVer/rust/*.so || true)
-    fi
 
 %if %{with_debuginfo}
     # Generate vmlinux.h and put it to kernel-devel path
@@ -4987,12 +4976,18 @@ fi\
 #
 #
 %changelog
-* Fri Jul 31 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc5.260731g8ba098e6b6ff.45]
-- kernel.spec.template: add Rust artifacts to kernel-devel (Augusto Caringi)
-- Last configs for 7.2 Fedora (Justin M. Forbes)
-
-* Fri Jul 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.8ba098e6b6ff.45]
+* Mon Aug 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.48]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Aug 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.47]
+- Linux v7.2.0-0.rc6
+
+* Sun Aug 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.2d2338c93da7.46]
+- Linux v7.2.0-0.rc5.2d2338c93da7
+
+* Sat Aug 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.02dc699f83d0.45]
+- Last configs for 7.2 Fedora (Justin M. Forbes)
+- Linux v7.2.0-0.rc5.02dc699f83d0
 
 * Fri Jul 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.8ba098e6b6ff.44]
 - redhat: Disable the CRYPTO_LIB_AESCFB config switch (Thomas Huth)

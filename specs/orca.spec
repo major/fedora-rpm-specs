@@ -1,5 +1,5 @@
 Name:           orca
-Version:        51~alpha.2
+Version:        51~beta
 Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 

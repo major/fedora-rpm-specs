@@ -5,8 +5,8 @@
 
 %global crate compact_str
 
-Name:           rust-compact_str
-Version:        0.10.0
+Name:           rust-compact_str0.9
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Memory efficient string type
 
@@ -14,9 +14,7 @@ License:        MIT
 URL:            https://crates.io/crates/compact_str
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Drop support/integrations for crates that are not packaged: bevy-reflect,
-#   borsh, defmt, garde, markup, utoipa, and valuable
-# * Drop support/integrations that are simply not used (yet): diesel, pyo3, sqlx
+# * Drop unused support for borsh, diesel, markup, and sqlx
 Patch:          compact_str-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -111,18 +109,6 @@ This package contains library source intended for building other packages which
 use the "rkyv" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rkyv-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+schemars-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+schemars-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "schemars" feature of the "%{crate}" crate.
-
-%files       -n %{name}+schemars-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
