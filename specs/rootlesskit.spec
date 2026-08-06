@@ -7,7 +7,7 @@
 
 # https://github.com/rootless-containers/rootlesskit
 %global goipath         github.com/rootless-containers/rootlesskit/v3
-Version:                3.0.2
+Version:                3.1.0
 
 %gometa -L -f
 

@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           pytz
-Version:        2026.1
-Release:        3%{?dist}
+Version:        2026.3
+Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 %{python3_sitelib}/pytz-%{version}.dist-info
 
 %changelog
+* Tue Aug 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.3-1
+- 2026.3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

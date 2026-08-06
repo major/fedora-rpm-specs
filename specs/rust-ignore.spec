@@ -5,7 +5,7 @@
 %global crate ignore
 
 Name:           rust-ignore
-Version:        0.4.31
+Version:        0.4.33
 Release:        %autorelease
 Summary:        Fast library for efficiently matching ignore files
 

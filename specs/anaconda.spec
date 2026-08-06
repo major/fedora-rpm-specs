@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.14
-Release: 2%{?dist}
+Version: 45.15
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -523,6 +523,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 04 2026 Packit <hello@packit.dev> - 45.15-1
+- feat(boss): track installation status with enum (bciconel)
+- refactor: change InstallationErrorDialogType from Enum to StrEnum (bciconel)
+- fix(flatpak): do not explicitly install runtimes to avoid pinning (k.koukiou)
+  Resolves: rhbz#2344161
+- fix(storage): use disklabel_types parameter in _is_valid_disklabel
+  (k.koukiou)
+  Resolves: rhbz#2497003
+- gui: switch default font from Cantarell to Noto Sans (tfratrik)
+- Handle timezone-not-set for GetSystemDateTime DBus method (mkolman)
+
 * Wed Jul 29 2026 Packit <hello@packit.dev> - 45.14-1
 - fix(live): don't reboot when exiting to the live desktop (k.koukiou)
 - gui: explicitly set KS_REBOOT in the progress spoke (k.koukiou)

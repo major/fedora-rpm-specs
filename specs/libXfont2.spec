@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXfont2 runtime library
 Name: libXfont2
-Version: 2.0.8
-Release: 3%{?dist}
+Version: 2.0.9
+Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-4-Clause-UC AND HPND-sell-variant AND MIT-open-group AND SMLNJ AND X11
 URL: http://www.x.org
 
@@ -55,6 +55,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xfont2.pc
 
 %changelog
+* Wed Aug 05 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.0.9-1
+- libXfont2 2.0.9 (CVE-2026-59679, CVE-2026-44950)
+
 * Thu Jul 23 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.0.8-3
 - Disable X fontserver support. Deprecated for decades and this rules out a set
   of potential vulnerabilities.

@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.5.12
-Release:        4%{?dist}
+Version:        4.5.13
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -491,6 +491,9 @@ fi
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/nagios.conf
 
 %changelog
+* Tue Aug 04 2026 Guido Aulisi <guido.aulisi@inps.it> - 4.5.13-1
+- Update to 4.5.13
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate amq-protocol-types
 
 Name:           rust-amq-protocol-types
-Version:        10.6.2
+Version:        10.6.3
 Release:        %autorelease
 Summary:        AMQP specifications - types
 

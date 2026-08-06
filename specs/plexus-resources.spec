@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-resources
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Plexus Resource Manager
 License:        Apache-2.0 AND MIT

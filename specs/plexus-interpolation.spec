@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-interpolation
-Version:        1.27
+Version:        1.28
 Release:        %autorelease
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           httpcomponents-project
-Version:        13
+Version:        14
 Release:        %autorelease
 Summary:        Common POM file for HttpComponents
 License:        Apache-2.0
@@ -9,7 +9,7 @@ URL:            https://hc.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-parent/%{version}/httpcomponents-parent-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

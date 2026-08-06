@@ -1,27 +1,27 @@
 Name:		ipmctl
 Version:	03.00.00.0468
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Utility for managing Intel Optane DC persistent memory modules
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
-URL:		https://github.com/intel/ipmctl
-Source:		https://github.com/intel/ipmctl/archive/v%{version}/%{name}-%{version}_with_edk2.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=1628752
-ExclusiveArch:	x86_64
 
-Requires:	libipmctl%{?_isa} = %{version}-%{release}
-BuildRequires:	pkgconfig(libndctl)
+License:	BSD-3-Clause AND BSD-2-Clause-Patent
+URL:		https://github.com/intel/ipmctl
+Source:		%{url}/archive/v%{version}/%{name}-%{version}_with_edk2.tar.gz
+
+Patch0:		ipmctl-remove-uefi-spec-code.patch
+Patch1:		ipmctl-remove-always-true-conditional.patch
+Patch2:		ipmctl_remove_unused_functions.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1628752
+ExclusiveArch:	%{x86_64}
+
 BuildRequires:	cmake
-BuildRequires:	python3
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
+BuildRequires:	pkgconfig(libndctl)
 BuildRequires:	asciidoctor
-BuildRequires:	systemd
 Obsoletes:	ixpdimm-cli < 01.00.00.3000
-
-Patch1: ipmctl-remove-uefi-spec-code.patch
-Patch2: ipmctl-remove-always-true-conditional.patch
-Patch3: ipmctl_remove_unused_functions.patch
+Requires:	libipmctl%{?_isa} = %{version}-%{release}
+Provides:	bundled(edk2)
 
 %description
 Utility for managing Intel Optane DC persistent memory modules
@@ -33,14 +33,10 @@ Configure data-at-rest security on DCPMMs.
 Track health and performance of DCPMMs.
 Debug and troubleshoot DCPMMs.
 
-%prep
-%setup -q -n %{name}-%{version}
-%patch -P1 -p1 
-%patch -P2 -p1 
-%patch -P3 -p1 
-
 %package -n libipmctl
 Summary:	Library for Intel DCPMM management
+# edk2 sources are bundled in the upstream _with_edk2 tarball
+Provides:	bundled(edk2) = 202108
 Obsoletes:	ixpdimm_sw < 01.00.00.3000
 Obsoletes:	libixpdimm-common < 01.00.00.3000
 Obsoletes:	libixpdimm-core < 01.00.00.3000
@@ -62,42 +58,40 @@ Obsoletes:	ixpdimm_sw-devel < 01.00.00.3000
 %description -n libipmctl-devel
 API for development of Intel Optane DC persistent memory management utilities.
 
+%prep
+%autosetup -p1
+
+# -pie with -shared breaks the link on gcc16
+sed -i 's/-z noexecstack -z relro -z now -pie/-z noexecstack -z relro -z now/' CMakeLists.txt
+# drop -Werror
+sed -i 's/_FLAGS_RELEASE} -Werror")/_FLAGS_RELEASE}")/' CMakeLists.txt
+
 %build
-%cmake -DBUILDNUM=%{version} -DCMAKE_INSTALL_PREFIX=/ \
-    -DLINUX_PRODUCT_NAME=%{name} \
-    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-    -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
-    -DCMAKE_INSTALL_BINDIR=%{_bindir} \
+%cmake \
+    -DCMAKE_POLICY_VERSION_MINIMUM="3.5.0" \
+    -DBUILDNUM=%{version} \
     -DCMAKE_INSTALL_DATAROOTDIR=%{_datarootdir} \
-    -DCMAKE_INSTALL_MANDIR=%{_mandir} \
     -DCMAKE_INSTALL_LOCALSTATEDIR=%{_localstatedir} \
     -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
-    -DRELEASE=ON \
-    -DRPM_BUILD=ON
+    -DRELEASE=ON
 %cmake_build
 
 %install
-%{!?_cmake_version: cd build}
 %cmake_install
 
-%post -n libipmctl -p /sbin/ldconfig
+%ldconfig_scriptlets
 
-%postun -n libipmctl -p /sbin/ldconfig
-
-%files -n ipmctl
+%files
+%license LICENSE opensource/edk2_License.txt
 %{_bindir}/ipmctl
 %{_mandir}/man1/ipmctl*
 
 %files -n libipmctl
 %{_libdir}/libipmctl.so.5*
-%dir %{_datadir}/doc/ipmctl
-%doc %{_datadir}/doc/ipmctl/ipmctl_default.conf
-%doc %{_datadir}/doc/ipmctl/LICENSE
-%doc %{_datadir}/doc/ipmctl/edk2_License.txt
-%doc %{_datadir}/doc/ipmctl/thirdpartynotice.txt
+%{_datadir}/doc/ipmctl
+%config(noreplace) %{_sysconfdir}/logrotate.d/ipmctl
 %config(noreplace) %{_datadir}/ipmctl/ipmctl.conf
 %dir %{_localstatedir}/log/ipmctl
-%config(noreplace) %{_sysconfdir}/logrotate.d/ipmctl
 
 %files -n libipmctl-devel
 %{_libdir}/libipmctl.so
@@ -108,6 +102,9 @@ API for development of Intel Optane DC persistent memory management utilities.
 %{_libdir}/pkgconfig/libipmctl.pc
 
 %changelog
+* Tue Aug 04 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 03.00.00.0468-12
+- FTBFS fix for F45 and F44(rhbz#2504143 and #2434684)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 03.00.00.0468-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

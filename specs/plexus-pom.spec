@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-pom
-Version:        18
+Version:        25
 Release:        %autorelease
 Summary:        Root Plexus Projects POM
 License:        Apache-2.0
@@ -29,6 +29,7 @@ cp -p %{SOURCE1} LICENSE
 
 %pom_remove_dep org.junit:junit-bom
 %pom_remove_plugin :maven-site-plugin
+%pom_xpath_remove "pom:build/pom:extensions"
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :taglist-maven-plugin
 %pom_remove_plugin :spotless-maven-plugin

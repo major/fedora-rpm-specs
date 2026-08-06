@@ -9,7 +9,7 @@
 #global snapdate YYYYMMDD
 
 Name:           openshadinglanguage
-Version:        1.15.5.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+Version:        1.15.6.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
 # This is based on the first two components of the version, so we could produce
 # it automatically, but we rewrite it manually here as a reminder, to reduce
 # the likelihood of undetected SONAME version bumps.
@@ -148,9 +148,7 @@ Summary:        OSL standard library and auxiliary headers
 # doesn’t contain and isn’t derived from anything enumerated there as falling
 # outside the “overall” license.
 License:        BSD-3-Clause AND Apache-2.0
-
 BuildArch:      noarch
-
 Requires:       %{name} = %{version}-%{release}
 
 %description common-headers %{common_description}
@@ -166,7 +164,6 @@ Summary:        OpenImageIO input plugin
 # outside the “overall” license. Headers are only from shaders/, and don’t
 # include src/include/OSL/oslnoise.h.
 License:        BSD-3-Clause AND Apache-2.0
-
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description -n OpenImageIO-plugin-osl %{common_description}
@@ -184,7 +181,6 @@ Summary:        Development files for %{name}
 # See the comment above the base package’s License field. This subpackage
 # doesn’t contain documentation, so nothing is CC-BY-4.0.
 License:        BSD-3-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel %{common_description}
@@ -198,11 +194,9 @@ Summary:        %{summary}
 # See the comment above the base package’s License field. This subpackage
 # doesn’t contain documentation, so nothing is CC-BY-4.0.
 License:        BSD-3-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-
 BuildRequires:  cmake(pybind11)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  python3dist(numpy)
-
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    -n python3-%{name} %{common_description}

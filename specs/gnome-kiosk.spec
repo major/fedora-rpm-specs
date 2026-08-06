@@ -2,19 +2,13 @@
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
 %global gtk4_version                            4.0.0
-%global mutter_version                          51~alpha
+%global mutter_version                          51~beta
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
 
-%if 0%{?fedora} && 0%{?fedora} < 43
-%bcond x11 1
-%else
-%bcond x11 0
-%endif
-
 Name:           gnome-kiosk
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -23,10 +17,6 @@ URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 %gnome_check_version
-
-%if %{with x11}
-Provides:       firstboot(windowmanager) = %{name}
-%endif
 
 BuildRequires:  dconf
 BuildRequires:  desktop-file-utils
@@ -94,20 +84,28 @@ BuildArch:      noarch
 %description notification-daemon
 A basic notification daemon for gnome-kiosk.
 
+%package root-menu
+Summary:        A sample root menu application for gnome-kiosk
+Requires:       %{name} = %{version}-%{release}
+Requires:       python3-gobject
+Requires:       gtk4
+BuildRequires:  python3-devel
+BuildArch:      noarch
+
+%description root-menu
+A basic application for gnome-kiosk demonstrating how to create a root
+menu to launch applications with GNOME Kiosk. The menu is configurable
+via its own configuration file.
+
 %prep
 %autosetup -S git -n %{name}-%{gnome_tarball_version}
 
 %build
-%meson -Daccessibility-panel=true -Dnotification-daemon=true
+%meson -Daccessibility-panel=true -Dnotification-daemon=true -Dkiosk-menu=true
 %meson_build
 
 %install
 %meson_install
-
-%if !%{with x11}
-rm -rf %{buildroot}%{_datadir}/xsessions
-rm -f %{buildroot}%{_userunitdir}/org.gnome.Kiosk@x11.service
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.desktop
@@ -123,9 +121,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/gnome-kiosk/window-config.ini
 %{_userunitdir}/org.gnome.Kiosk.target
 %{_userunitdir}/org.gnome.Kiosk@wayland.service
-%if %{with x11}
-%{_userunitdir}/org.gnome.Kiosk@x11.service
-%endif
 
 %files -n gnome-kiosk-search-appliance
 %{_userunitdir}/gnome-session@org.gnome.Kiosk.SearchApp.target.d/session.conf
@@ -133,9 +128,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/applications/org.gnome.Kiosk.SearchApp.desktop
 %{_datadir}/gnome-session/sessions/org.gnome.Kiosk.SearchApp.session
 %{_datadir}/wayland-sessions/org.gnome.Kiosk.SearchApp.Session.desktop
-%if %{with x11}
-%{_datadir}/xsessions/org.gnome.Kiosk.SearchApp.Session.desktop
-%endif
 
 %files -n gnome-kiosk-script-session
 %{_bindir}/gnome-kiosk-script
@@ -144,9 +136,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/applications/org.gnome.Kiosk.Script.desktop
 %{_datadir}/gnome-session/sessions/gnome-kiosk-script.session
 %{_datadir}/wayland-sessions/gnome-kiosk-script-wayland.desktop
-%if %{with x11}
-%{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
-%endif
 
 %files -n gnome-kiosk-a11y
 %{_bindir}/gnome-kiosk-accessibility-panel
@@ -159,6 +148,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/dbus-1/services/org.freedesktop.Notifications.service
 %{_datadir}/dbus-1/services/org.gtk.Notifications.service
 %{_userunitdir}/gnome-kiosk-notification-daemon.service
+
+%files -n gnome-kiosk-root-menu
+%doc kiosk-menu/kiosk-menu.md
+%{_bindir}/gnome-kiosk-menu
+%{_datadir}/applications/org.gnome.Kiosk.Menu.desktop
+%{_datadir}/gnome-kiosk/kiosk-menu.css
+%{_datadir}/gnome-kiosk/kiosk-menu.conf
+%{_userunitdir}/gnome-session@gnome-kiosk-menu.target.d/session.conf
+%{_userunitdir}/org.gnome.Kiosk.Menu.service
+%{_datadir}/gnome-session/sessions/gnome-kiosk-menu.session
+%{_datadir}/wayland-sessions/gnome-kiosk-menu-wayland.desktop
 
 %changelog
 %autochangelog

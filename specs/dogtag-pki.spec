@@ -16,7 +16,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -103,7 +103,11 @@ ExcludeArch: i686
 %bcond_without build_deps
 
 # Use external runtime dependencies unless --with runtime_deps is specified.
+%if 0%{?rhel}
+%bcond_with runtime_deps
+%else
 %bcond_without runtime_deps
+%endif
 
 # Build with Maven unless --without maven is specified.
 %bcond_without maven
@@ -2428,6 +2432,9 @@ fi
 
 ################################################################################
 %changelog
+* Thu Jul 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.10.1-2
+- Build without runtime deps on RHEL
+
 * Wed Jul 29 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.10.1-1
 - Rebase to 11.10.1
 - Drop REST API v1 and resteasy dependency

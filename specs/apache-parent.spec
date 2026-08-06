@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-parent
-Version:        35
+Version:        38
 Release:        %autorelease
 Summary:        Parent POM file for Apache projects
 License:        Apache-2.0

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-enforcer
-Version:        3.5.0
+Version:        3.6.3
 Release:        %autorelease
 Summary:        Maven Enforcer
 License:        Apache-2.0

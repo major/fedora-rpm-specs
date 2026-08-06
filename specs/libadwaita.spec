@@ -12,6 +12,9 @@ License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/1802
+Patch0:         fix-sassc-requirement-for-tarball-builds.patch
+
 %gnome_check_version
 
 BuildRequires:  desktop-file-utils
@@ -21,7 +24,6 @@ BuildRequires:  gi-docgen
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.63.0
 BuildRequires:  vala
-BuildRequires:  /usr/bin/sassc
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib_version}

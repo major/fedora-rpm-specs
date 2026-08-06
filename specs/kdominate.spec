@@ -1,6 +1,6 @@
 Name:       kdominate
-%global shortcommit ecc0e858
-%global gitdate  20260706.012156
+%global shortcommit 98240e03
+%global gitdate 20260721.014343
 Version:    26.11.70~%{gitdate}.%{shortcommit}
 Release:    %autorelease
 Summary:    KDominate is a tactical game for one or two players

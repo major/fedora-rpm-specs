@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/utils
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.96
+Version:        0.98
 Release:        %autorelease
 Summary:        Utility functions for GAP
 
@@ -18,14 +18,14 @@ BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc)
-BuildRequires:  gap(curlInterface) >= 2.3.0
-BuildRequires:  gap-devel >= 4.10.1
-BuildRequires:  gap-pkg-curlinterface-doc >= 2.3.0
-BuildRequires:  gap-pkg-io-doc
+BuildRequires:  gap(curlInterface) >= 2.4.0
+BuildRequires:  gap-devel >= 4.12
+BuildRequires:  gap-pkg-curlinterface-doc >= 2.4.0
+BuildRequires:  gap-pkg-io-doc >= 4.7.0
 
-Requires:       gap-core >= 4.10.1
+Requires:       gap-core >= 4.12
 
-Recommends:     gap-pkg-curlinterface >= 2.3.0
+Recommends:     gap-pkg-curlinterface >= 2.4.0
 
 Provides:       gap(utils) = %{version}-%{release}
 
@@ -46,13 +46,16 @@ Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 Requires:       gap-pkg-curlinterface-doc >= 2.3.0
-Requires:       gap-pkg-io-doc
+Requires:       gap-pkg-io-doc >= 4.7.0
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
+
+%install -a
+cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
 
 %check -p
 # Skip tests that require network access.

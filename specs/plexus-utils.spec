@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-utils
-Version:        3.5.1
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/

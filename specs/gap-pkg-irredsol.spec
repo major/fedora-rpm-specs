@@ -2,14 +2,14 @@
 %global giturl      https://github.com/bh11/irredsol
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.4
+Version:        1.4.5
 Release:        %autorelease
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
 URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/IRREDSOL-%{version}/%{gap_upname}-%{version}.tar.bz2
+Source:         %{giturl}/releases/download/IRREDSOL-%{version}/%{gap_upname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    gap

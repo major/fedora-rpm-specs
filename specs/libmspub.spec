@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libmspub
-Version: 0.1.4
+Version: 0.1.5
 Release: %autorelease
 Summary: A library for import of Microsoft Publisher documents
 
@@ -10,7 +10,6 @@ URL: http://wiki.documentfoundation.org/DLP/Libraries/libmspub
 Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
 
 Patch0: gcc10.patch
-Patch1: includes.patch
 
 BuildRequires: boost-devel
 BuildRequires: doxygen
@@ -55,6 +54,7 @@ Currently supported: XHTML, raw.
 %autosetup -p1
 
 %build
+export CXXFLAGS="$CXXFLAGS -fpermissive"
 %configure --disable-static --disable-silent-rules
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \

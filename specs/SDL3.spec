@@ -20,8 +20,8 @@
 
 
 Name:           SDL3
-Version:        3.4.12
-Release:        2%{?dist}
+Version:        3.4.14
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -172,6 +172,10 @@ mv %{buildroot}%{_includedir}/SDL3/SDL_revision.h %{buildroot}%{_includedir}/SDL
 install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
+%check
+%ctest
+
+
 %files
 %license LICENSE.txt
 %doc BUGS.txt CREDITS.md README.md
@@ -202,6 +206,10 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Tue Aug 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.14-1
+- Update to v3.4.14
+- Run tests in %%check
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

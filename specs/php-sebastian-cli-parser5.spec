@@ -10,11 +10,8 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    48a4654fa5e48c1c81214e9930048a572d4b23ca
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   cli-parser
-%global gh_date      2026-02-06
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,14 +22,14 @@
 %global ns_project   CliParser
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.0
-Release:        3%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Library for parsing CLI options, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -41,8 +38,8 @@ BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.0"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.2.6"
+BuildRequires:  phpunit13 >= 13.2.6
 %endif
 
 # from composer.json, "require": {
@@ -64,7 +61,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -105,6 +102,9 @@ exit $ret
 
 
 %changelog
+* Mon Aug  3 2026 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate crypto-auditing-log-parser
 
 Name:           rust-crypto-auditing-log-parser
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Event log parser for crypto-auditing project
 

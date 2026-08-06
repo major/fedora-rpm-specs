@@ -11,17 +11,20 @@
 %bcond_without vqsim
 %bcond_without runautogen
 %bcond_without userflags
+%bcond_with unencrypted
+%bcond_with udpu
 
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 Patch0: 0001-totemsrp-Return-error-if-sanity-check-fails.patch
 Patch1: 0002-totemsrp-Fix-integer-overflow-in-memb_join_sanity.patch
+Patch2: 0001-Enforce-encryption-at-compile-time.patch
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -102,6 +105,12 @@ BuildRequires: git
 %endif
 %if %{with vqsim}
 	--enable-vqsim \
+%endif
+%if %{with unencrypted}
+	--enable-unencrypted \
+%endif
+%if %{with udpu}
+	--enable-udpu \
 %endif
 %if %{with userflags}
 	--enable-user-flags \
@@ -292,6 +301,9 @@ network splits)
 %endif
 
 %changelog
+* Tue Aug 04 2026 Jan Friesse <jfriesse@redhat.com> - 3.1.10-7
+- Enforce encryption at compile time
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

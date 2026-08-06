@@ -6,7 +6,7 @@
 
 Name:		zbar
 Version:	0.23.93
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
@@ -34,6 +34,8 @@ BuildRequires:	java-devel
 %endif
 BuildRequires:	python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  xmlto
+BuildRequires:  gobject-introspection-devel
 
 %description
 ZBar Bar Code Reader is an open source software suite for reading bar
@@ -165,6 +167,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %files libs -f zbar.lang
 %license COPYING LICENSE.md
 %{_libdir}/libzbar.so.0*
+%{_libdir}/girepository-1.0/ZBar-1.0.typelib
 
 %files devel
 %doc HACKING.md TODO.md
@@ -181,6 +184,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_includedir}/zbar/Video.h
 %{_includedir}/zbar/Window.h
 %{_includedir}/zbar/Processor.h
+%{_datadir}/gir-1.0/ZBar-1.0.gir
 
 %files gtk
 %{_libdir}/libzbargtk.so.*
@@ -211,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Tue Aug 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.23.93-13
+- Rebuild for Python 3.15.0b4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.93-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

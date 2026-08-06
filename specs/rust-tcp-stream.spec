@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate globset
+%global crate tcp-stream
 
-Name:           rust-globset
-Version:        0.4.20
+Name:           rust-tcp-stream
+Version:        0.34.14
 Release:        %autorelease
-Summary:        Cross platform single glob and glob set matching
+Summary:        Std::net::TcpStream on steroids
 
-License:        Unlicense OR MIT
-URL:            https://crates.io/crates/globset
+License:        BSD-2-Clause
+URL:            https://crates.io/crates/tcp-stream
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Remove rustls from the default feature set (not allowed) and replace with
+#   openssl
+Patch:          tcp-stream-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Cross platform single glob and glob set matching. Glob set matching is
-the process of matching one or more glob patterns against a single
-candidate path simultaneously, and returning all of the globs that
-matched.}
+Std::net::TcpStream on steroids.}
 
 %description %{_description}
 
@@ -33,9 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
-%license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/UNLICENSE
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/AGENTS.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,64 +51,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arbitrary-devel
+%package     -n %{name}+async-global-executor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+arbitrary-devel %{_description}
+%description -n %{name}+async-global-executor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "arbitrary" feature of the "%{crate}" crate.
+use the "async-global-executor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+arbitrary-devel
+%files       -n %{name}+async-global-executor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+log-devel
+%package     -n %{name}+futures-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+log-devel %{_description}
+%description -n %{name}+futures-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
+use the "futures" feature of the "%{crate}" crate.
 
-%files       -n %{name}+log-devel
+%files       -n %{name}+futures-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+openssl-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+openssl-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "openssl" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde1-devel
+%package     -n %{name}+openssl-futures-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde1-devel %{_description}
+%description -n %{name}+openssl-futures-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde1" feature of the "%{crate}" crate.
+use the "openssl-futures" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde1-devel
+%files       -n %{name}+openssl-futures-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+simd-accel-devel
+%package     -n %{name}+smol-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+simd-accel-devel %{_description}
+%description -n %{name}+smol-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "simd-accel" feature of the "%{crate}" crate.
+use the "smol" feature of the "%{crate}" crate.
 
-%files       -n %{name}+simd-accel-devel
+%files       -n %{name}+smol-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -126,7 +138,8 @@ use the "simd-accel" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * The doctests send requests to external hosts (www.rust-lang.org)
+%cargo_test -- --lib
 %endif
 
 %changelog

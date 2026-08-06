@@ -1,21 +1,14 @@
-# Note that our versioning is a touch different here...  I'm choosing to stick
-# with the version as reported by cpan directly, for a number of reasons: 1) 
-# it's what v0.0.3 translates into when qv{}'ed, 2) it's easier on rpm, 3) it's
-# what the author intended by versioning it that way within the CPAN system.
-
-# note we have a CPAN version != the version embedded in the tarball
-%global tarver v0.0.3
+%global cpan_version 0.003
 
 Name:           perl-Module-Starter-PBP
-Version:        0.000003        
-Release:        52%{?dist}
-Summary:        Create a module as recommended in "Perl Best Practices" 
+Version:        %{cpan_version}.000
+Release:        1%{?dist}
+Summary:        Create a module as recommended in "Perl Best Practices"
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Starter-PBP
 
-# note different macro!
-Source0: https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Module-Starter-PBP-%{tarver}.tar.gz        
+Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Module-Starter-PBP-%{cpan_version}.tar.gz
 
 BuildArch:      noarch
 
@@ -32,17 +25,14 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::Command)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Module::Starter::Simple)
-BuildRequires:  perl(version)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 
-
-
 %description
 This module implements a simple approach to creating modules and their support
-files, based on the Module::Starter approach. 
+files, based on the Module::Starter approach.
 
 When used as a Module::Starter plugin, this module allows you to specify a
 simple directory of templates which are filled in with module-specific
@@ -51,27 +41,30 @@ information, and thereafter form the basis of your new module.
 The default templates that this module initially provides are based on the
 recommendations in the book "Perl Best Practices".
 
-
 %prep
-%setup -q -n Module-Starter-PBP-%{tarver}
+%setup -q -n Module-Starter-PBP-%{cpan_version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-chmod -R u+w %{buildroot}/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
 %doc README Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/Module
+%{perl_vendorlib}/Module/Starter
+%{_mandir}/man3/Module::Starter::PBP.3*
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.003.000-1
+- 0.003 bump (rhbz#2510964)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.000003-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

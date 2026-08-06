@@ -5,11 +5,11 @@
 # pygrib module it self. Therefore it is safe to set this next switch
 # to 0 to unblock the build if the build of cartopy is delayed
 # at a mayor python upgrade in rawhide.
-%bcond cartopy 0
+%bcond cartopy 1
 
 Name:       pygrib
 Version:    2.1.8
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -204,6 +204,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Mon Aug 03 2026 Miro Hrončok <mhroncok@redhat.com> - 2.1.8-7
+- Enable cartopy use in tests now when it is available in rawhide again
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.1.8-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

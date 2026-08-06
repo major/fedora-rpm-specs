@@ -11,7 +11,7 @@
 %global with_py3     1
 
 # Guile version
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 %global guile_ver    3.0
 %endif
 %global guile_pkg    %(echo guile%{?guile_ver} | sed -e 's!\\\.!!g')

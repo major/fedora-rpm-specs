@@ -5,7 +5,7 @@
 %global crate crypto-auditing-agent
 
 Name:           rust-crypto-auditing-agent
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Event collector agent for crypto-auditing project
 
@@ -15,10 +15,6 @@ Source:         %{crates_source}
 Source2:        agent.conf
 Source3:        crau-agent.service
 Source4:        crypto-auditing.sysusers
-# Manually created patch for downstream crate metadata changes
-# * Remove unused direct dependency on nix:
-#   https://github.com/latchset/crypto-auditing/pull/257
-Patch:          crypto-auditing-agent-fix-metadata.diff
 Patch10:        rust-crypto-auditing-agent-0.2.4-no-probe.patch
 
 BuildRequires:  cargo-rpm-macros >= 24

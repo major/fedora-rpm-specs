@@ -162,6 +162,9 @@ Patch103: qtbase-QTBUG-112136.patch
 # https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
 Patch104: 0001-Update-SSL-trust-store-locations-for-modern-Red-Hat-.patch
 
+# Fix build with OpenSSL 4.0
+Patch105: qtbase-openssl4-opaque-structs.patch
+
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
 # https://bugzilla.redhat.com/show_bug.cgi?id=1732129
@@ -482,6 +485,9 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P102 -p1
 %patch -P103 -p1
 %patch -P104 -p1
+%if 0%{?fedora} >= 45
+%patch -P105 -p1
+%endif
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8

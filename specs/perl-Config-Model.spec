@@ -2,8 +2,8 @@
 %bcond_with test_fuse
 
 Name:           perl-Config-Model
-Version:        2.163
-Release:        2%{?dist}
+Version:        2.166
+Release:        1%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
@@ -32,7 +32,6 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::HomeDir)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(Filesys::Fuse3)
 BuildRequires:  perl(Hash::Merge) >= 0.12
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(JSON)
@@ -77,12 +76,12 @@ BuildRequires:  perl(TOML::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(XXX)
 BuildRequires:  perl(YAML::PP)
 BuildRequires:  perl(YAML::Tiny)
 %if %{with test_fuse}
 BuildRequires:  fuse
 BuildRequires:  kmod
+BuildRequires:  perl(Filesys::Fuse3)
 %endif
 Requires:       perl(MouseX::NativeTraits)
 Requires:       perl(Text::Levenshtein::Damerau)
@@ -130,6 +129,9 @@ modprobe fuse
 %{_mandir}/man3/Config::Model*
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.166-1
+- 2.166 bump (rhbz#2510692)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.163-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

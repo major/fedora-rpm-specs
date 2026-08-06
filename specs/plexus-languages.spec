@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-languages
-Version:        1.2.0
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Plexus Languages
 License:        Apache-2.0

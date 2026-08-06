@@ -2,14 +2,14 @@
 %global giturl      https://github.com/bh11/crisp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.8
+Version:        1.4.9
 Release:        %autorelease
 Summary:        Computing subgroups of finite soluble groups
 
 License:        BSD-2-Clause
 URL:            http://www.icm.tu-bs.de/~bhoeflin/crisp/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/CrISP-%{version}/%{gap_upname}-%{version}.tar.bz2
+Source:         %{giturl}/releases/download/CRISP-%{version}/%{gap_upname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    gap

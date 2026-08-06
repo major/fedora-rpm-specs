@@ -4,7 +4,7 @@ BuildRequires:  fonts-rpm-macros
 
 Name:    adwaita-fonts
 Summary: Adwaita fonts
-Version: 50.0
+Version: 51.0
 Release: %autorelease
 License: OFL-1.1
 URL:     https://gitlab.gnome.org/GNOME/adwaita-fonts.git

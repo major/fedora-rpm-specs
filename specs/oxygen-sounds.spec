@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           oxygen-sounds
-Version:        6.7.3
-Release:        2%{?dist}
+Version:        6.7.4
+Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
 License:        LGPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0 AND BSD-2-Clause
@@ -45,6 +45,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Tue Aug 04 2026 Steve Cossette <farchord@gmail.com> - 6.7.4-1
+- 6.7.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

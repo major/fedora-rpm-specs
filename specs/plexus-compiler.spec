@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-compiler
-Version:        2.15.0
+Version:        2.16.2
 Release:        %autorelease
 Summary:        Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
@@ -57,8 +57,6 @@ find -name '.class' -delete
 
 cp %{SOURCE1} LICENSE
 cp %{SOURCE2} LICENSE.MIT
-
-%pom_remove_dep :junit-bom
 
 %pom_disable_module plexus-compiler-aspectj plexus-compilers
 # missing com.google.errorprone:error_prone_core

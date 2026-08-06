@@ -7,7 +7,7 @@
 %endif
 
 Name:           picocli
-Version:        4.7.6
+Version:        4.7.7
 Release:        %autorelease
 Summary:        Java command line parser with both an annotations API and a programmatic API
 License:        Apache-2.0

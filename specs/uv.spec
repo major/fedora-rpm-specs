@@ -45,6 +45,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # MIT
 #   - crates/uv-virtualenv/src/activator/ is vendored and forked from
 #     python3dist(virtualenv)
+#   - crates/uv-netrc/ is vencored from crate(rust-netrc)
 #
 # Additionally, the following are bundled/forked but happen to be under the
 # same (Apache-2.0 OR MIT) terms as uv itself:
@@ -273,6 +274,16 @@ Provides:       bundled(crate(r-shquote)) = 0.1.1
 # necessary changes merged upstream. Based on this explanation, there does not
 # appear to be any prospect of unbundling.
 Provides:       bundled(crate(keyring)) = 4.0.0~rc2
+
+# crates/uv-netrc
+# From crates/uv-netrc/README.md, “This crate vendors the rust-netrc parser for
+# use by uv. The source was vendored from gribouille/netrc, as published in
+# rust-netrc 0.1.2[…]”
+#
+# Upstream justifies the bundling in
+# https://github.com/astral-sh/uv/pull/19409, and the mandatory
+# path-to-unbundling query appears in a comment on that PR.
+Provides:       bundled(crate(rust-netrc)) = 0.1.2
 
 # The contents of crates/uv-virtualenv/src/activator/ are a bundled and
 # slightly forked copy of a subset of https://pypi.org/project/virtualenv; see

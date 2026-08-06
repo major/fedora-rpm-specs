@@ -2,7 +2,7 @@
 
 Name:           maven-file-management
 Epoch:          1
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Maven File Management API
 License:        Apache-2.0
@@ -17,7 +17,7 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)

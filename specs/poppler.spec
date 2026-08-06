@@ -16,7 +16,7 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 26.01.0
+Version: 26.08.0
 Release: %autorelease
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
@@ -30,8 +30,6 @@ Source3: %{name}-test-%{test_date}-%{test_sha}.tar.xz
 Patch1:  poppler-0.90.0-position-independent-code.patch
 
 Patch2:  poppler-21.01.0-glib-introspection.patch
-
-Patch3:  poppler-26.01.0-climits.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -240,7 +238,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.156*
+%{_libdir}/libpoppler.so.163*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc

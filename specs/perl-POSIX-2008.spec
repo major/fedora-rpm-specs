@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
-Version:        0.27
-Release:        2%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 04 2026 Petr Pisar <ppisar@redhat.com> - 0.28-1
+- 0.28 bump
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-2
 - Perl 5.44 re-rebuild updated packages
 

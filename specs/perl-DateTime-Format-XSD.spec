@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-XSD
-Version:        0.4
-Release:        16%{?dist}
+Version:        0.5
+Release:        1%{?dist}
 Summary:        Format DateTime according to xsd:dateTime
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-XSD
@@ -14,7 +14,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(base)
-BuildRequires:  perl(DateTime::Format::ISO8601)
+BuildRequires:  perl(DateTime::Format::ISO8601) >= 0.19
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test Suite
@@ -45,11 +45,17 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc Changes README SECURITY.md
 %{perl_vendorlib}/DateTime/
 %{_mandir}/man3/DateTime::Format::XSD.3*
 
 %changelog
+* Tue Aug  4 2026 Paul Howarth <paul@city-fan.org> - 0.5-1
+- Update to 0.5
+  - DateTime::Format::ISO8601 minimum update for nanoseconds fix
+  - Added a SECURITY Policy
+  - Minor packaging updates
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

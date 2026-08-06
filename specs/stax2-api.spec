@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           stax2-api
-Version:        4.2.2
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Streaming API for XML
 License:        BSD-2-Clause
@@ -10,9 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
-
-# From upstream commit 67d5988
-Patch:          0001-Add-BSD-2-license-file.patch
 
 %if %{without bootstrap}
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)

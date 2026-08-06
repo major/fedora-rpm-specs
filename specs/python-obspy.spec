@@ -17,10 +17,14 @@ ExcludeArch:   s390x
 URL:           https://github.com/obspy/obspy
 VCS:           git:%{url}.git
 Source:        %{pypi_source %pypi_name}
-# Bacported from upstream's master branch
+# Backported from upstream's master branch
 Patch:         python-obspy-0001-fix-Replace-unused-capture-groups-in-taup-seismic_ph.patch
 # Fedora-specific. Builds against system libmseed.
 Patch:         python-obspy-0002-Build-against-a-system-wide-libmseed.patch
+# Cherry-picked from upstream's maintenance_1.5.x branch
+Patch:         python-obspy-0003-work-around-a-behavior-change-in-numpy-eig-in-2.5.patch
+# Cherry-picked from upstream's maintenance_1.5.x branch
+Patch:         python-obspy-0004-add-helper-function-with-numpy.linalg.eig-2.5-behavi.patch
 BuildRequires: libmseed-devel
 #BuildRequires: python3-cartopy
 BuildRequires: python3-pytest

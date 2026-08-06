@@ -18,7 +18,8 @@ Patch:          https://github.com/pylint-dev/astroid/pull/3047.patch
 # Fix is_namespace() crash with namespace packages on Python 3.15
 # https://github.com/pylint-dev/astroid/pull/3035
 Patch:          fix-py315-is-namespace.patch
-
+# Fix test_ssl with openssl 4
+Patch:          3161.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

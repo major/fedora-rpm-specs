@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-graph-tool
-Version:        3.0
+Version:        3.6
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 

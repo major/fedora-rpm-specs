@@ -435,8 +435,8 @@ rm PerlMagick/demo/Generic.ttf
 * Mon Jul 13 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.27-1
 - Update to version 7.1.2.27
 
-* Sat Jul 11 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.23-2
-- Update source URL address
+* Sun Jul 12 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.23-2
+- Update source URL
 
 * Thu Jun 04 2026 Packit <hello@packit.dev> - 1:7.1.2.23-1
 - Update to version 7.1.2.23

@@ -6,8 +6,8 @@
 
 Name:      elinks
 Summary:   A text-mode Web browser
-Version:   0.19.1
-Release:   3%{?dist}
+Version:   0.20.0
+Release:   1%{?dist}
 License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -73,16 +73,11 @@ autoconf
 autoheader
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS) -D_GNU_SOURCE"
-
-# make the code build with lua-5.4.x
-CFLAGS="$CFLAGS -DLUA_COMPAT_5_3"
-
 %configure \
     --enable-256-colors             \
     --enable-bittorrent             \
     --with-gssapi                   \
-    --with-lua                      \
+    --with-luapkg=lua               \
     --with-openssl                  \
     %{?with_gpm:--with-gpm}         \
     %{!?with_gpm:--without-gpm}     \
@@ -90,7 +85,7 @@ CFLAGS="$CFLAGS -DLUA_COMPAT_5_3"
     --without-spidermonkey          \
     --without-x
 
-%make_build -j1
+%make_build
 
 %install
 %make_install
@@ -136,6 +131,10 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Tue Aug 04 2026 Lukáš Zaoral <lzaoral@redhat.com> - 0.20.0-1
+- rebase to the latest upstream release
+- correct configure option for lua integration
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

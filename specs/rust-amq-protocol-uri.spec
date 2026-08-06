@@ -5,7 +5,7 @@
 %global crate amq-protocol-uri
 
 Name:           rust-amq-protocol-uri
-Version:        10.6.2
+Version:        10.6.3
 Release:        %autorelease
 Summary:        AMQP URI manipulation
 

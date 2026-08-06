@@ -1,12 +1,12 @@
 Name:           perl-DateTime-Format-W3CDTF
-Version:        0.08
-Release:        16%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Parse and format W3CDTF datetime strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-W3CDTF
 Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/DateTime-Format-W3CDTF-%{version}.tar.gz
 # Simplify Makefile.PL to skip unwanted dependencies
-Patch0:         DateTime-Format-W3CDTF-0.08-Disable-author-features.patch
+Patch0:         DateTime-Format-W3CDTF-0.09-Disable-author-features.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -22,6 +22,7 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::TimeZone)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
@@ -52,10 +53,15 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/DateTime
+%dir %{perl_vendorlib}/DateTime/Format
+%{perl_vendorlib}/DateTime/Format/*
+%{_mandir}/man3/DateTime::Format::W3CDTF*
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-1
+- 0.09 bump (rhbz#2510887)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,23 +2,24 @@
 
 Name:		memstomp
 Version:	0.1.4
-Release:	46%{?dist}
+Release:	48%{?dist}
 Summary:	Warns of memory argument overlaps to various functions
 # The entire source code is LGPLV3+ with the exception of backtrace-symbols.c which
 # is GPLv2+ by way of being a hacked up old version of binutils's addr2line.
 # backtrace-symbols.c is built into an independent .so to avoid license contamination
 # Automatically converted from old format: LGPLv3+ and GPLv2+ - review is highly recommended.
 License:	LGPL-3.0-or-later AND GPL-2.0-or-later
-URL:		git://fedorapeople.org/home/fedora/wcohen/public_git/memstomp
+URL:		https://github.com/wcohen/memstomp.git
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
 # git glone git://fedorapeople.org/home/fedora/wcohen/public_git/memstomp
 # cd memstomp
 # git archive --prefix memstomp-0.1.4-38573e7d/ master | gzip > memstomp-0.1.4-3867e37d.tar.gz
-Source0:	%{name}-%{version}-%{githash}.tar.gz
+Source0:	https://github.com/wcohen/memstomp/archive/%{githash}/%{name}-%{version}-%{githash}.tar.gz
 Requires:	util-linux
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	libzstd-devel
 BuildRequires:	binutils-devel autoconf automake dejagnu
 
 Patch0: memstomp-testsuite.patch
@@ -32,6 +33,7 @@ Patch7: memstomp-implicit-int.patch
 Patch8: bfd-api-change.patch
 Patch9: memstomp-PTR.patch
 Patch10: memstomp-sframe.patch
+Patch11: memstomp-undefs.patch
 
 
 %description 
@@ -54,9 +56,12 @@ overlapping memory arguments to certain library calls.
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
 
 
 %build
+%set_build_flags
+CFLAGS="$CFLAGS -lzstd"
 autoreconf
 %configure
 # We force -O0 here because memstomp essentially relies on GCC
@@ -78,6 +83,13 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/memstomp.1.gz
 
 %changelog
+* Tue Aug 04 2026 William Cohen <wcohen@redhat.com> - 0.1.4-48
+- Add libzstd-devel buildrequire.
+
+* Tue Aug 04 2026 William Cohen <wcohen@redhat.com> - 0.1.4-47
+- Add zstd in configure tests to fix FTBFS. (rhbz#2504325)
+- Clean up rpmlint complaints in memstomp.spec.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

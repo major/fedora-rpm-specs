@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.43.9000-536-ga5aa0df24a
-%global glibcversion 2.43.9000
+%global glibcsrcdir glibc-2.44-7-g9bcb85688e
+%global glibcversion 2.44
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 25
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2404,6 +2404,28 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Aug 04 2026 Frédéric Bérat <fberat@redhat.com> - 2.44-1
+- Auto-sync with upstream branch release/2.44/master,
+  commit 9bcb85688e58847191deb42bfc68d60802078df4:
+- io: fix ftw ABI on MIPS n64 (Xi Ruoyao)
+- math: Fix x86_64 tanh _FloatN aliases binding to the FMA variant [BZ 34465] (Adhemerval Zanella)
+- math: Fix sinh worst-case results for |x| > 36.736801 [BZ 34441] (Adhemerval Zanella)
+- hurd: fix fork's longjmp demangling on i386 (Samuel Thibault)
+- hurd: Make the readlink __fstatat64 references optional (Samuel Thibault)
+- NEWS: start 2.44.1 section (Andreas K. Hüttel)
+- advisories: replace with ADVISORIES text file (Andreas K. Hüttel)
+- ChangeLog.old/ChangeLog.33: add (Andreas K. Hüttel)
+- version.h, include/features.h: Increase version number (Andreas K. Hüttel)
+- NEWS: drop empty section (Andreas K. Hüttel)
+- po: update (only line number changes) (Andreas K. Hüttel)
+- libc.pot: regenerate (Andreas K. Hüttel)
+- hurd: Make setitimer clear interval on value being 0 (Samuel Thibault)
+- hurd: xfail more tests waiting for barrier setpshared support (Samuel Thibault)
+- manual/install.texi, INSTALL: update version numbers (Andreas K. Hüttel)
+- resolv: Disable TCP servers in tst-resolv-res_init-failure (Florian Weimer)
+- NEWS: mention more recent developments (Andreas K. Hüttel)
+- math: test: Fix unsupported check in test-narrowing-trap (Yury Khrustalev)
+
 * Tue Jul 21 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-25
 - Auto-sync with upstream branch master,
   commit a5aa0df24ad61a7dbc0f7c0dc9da7387ec0e974d:

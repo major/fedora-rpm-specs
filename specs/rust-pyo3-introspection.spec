@@ -4,7 +4,7 @@
 %global crate pyo3-introspection
 
 Name:           rust-pyo3-introspection
-Version:        0.29.0
+Version:        0.29.1
 Release:        %autorelease
 Summary:        Introspect dynamic libraries built with PyO3
 
@@ -13,6 +13,9 @@ URL:            https://crates.io/crates/pyo3-introspection
 Source:         %{crates_source}
 # * Man page hand-written for Fedora in groff_man(7) format based on main.rs
 Source10:       pyo3-introspection.1
+# * Restore pyo3-introspection license files
+# * https://github.com/PyO3/pyo3/pull/6289
+Patch10:        0001-Restore-pyo3-introspection-license-files.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,6 +1,6 @@
 Name:          plasma-bigscreen
-Version:       6.7.3
-Release:       3%{?dist}
+Version:       6.7.4
+Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue Aug 04 2026 Steve Cossette <farchord@gmail.com> - 6.7.4-1
+- 6.7.4
+
 * Fri Jul 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.7.3-3
 - Rebuild(libcec)
 

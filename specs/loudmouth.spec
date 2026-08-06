@@ -16,7 +16,7 @@ BuildRequires:  glib2-devel
 # for gpg source verification
 BuildRequires:  gpg
 BuildRequires:  gtk-doc
-BuildRequires:  openssl-devel
+BuildRequires:  openssl3-devel
 BuildRequires:  libasyncns-devel
 BuildRequires:  libidn-devel
 BuildRequires: make

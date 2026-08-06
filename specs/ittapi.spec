@@ -4,7 +4,7 @@ to generate and control the collection of trace data during its execution
 across different Intel tools.}
 
 Name:		ittapi
-Version:	3.25.4
+Version:	3.28.2
 Release:	%autorelease
 Summary:	Intel Instrumentation and Tracing Technology and Just-In-Time API
 
@@ -19,7 +19,7 @@ BuildRequires:	cmake >= 3.1
 BuildRequires:	gcc-c++
 
 # C header file library for x86 processors.
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 %description
 %{desc}

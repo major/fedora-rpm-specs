@@ -1,9 +1,9 @@
-%global cpan_version 3.63
+%global cpan_version 3.64
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.63
-Release:        527%{?dist}
+Version:        3.64
+Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
@@ -117,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.64-1
+- 3.64 bump (rhbz#2510954)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.63-527
 - Increase release to favour standalone package
 

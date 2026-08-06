@@ -229,6 +229,14 @@ skip="${skip-} --skip=integration::pyo3_cffi_build_script"
 skip="${skip-} --skip=pep517::pep517_default_profile"
 skip="${skip-} --skip=pep517::pep517_editable_profile"
 
+# This relies on a hard-coded PyO3 version number, which needs to match the one
+# in test-crates/pyo3-pure/Cargo.lock. This is correct upstream as long as the
+# two versions are kept synchronized; it doesn’t work downstream where we use
+# system-packaged crates to build test crates, and we don’t respect the
+# Cargo.lock files. Since only this test relies on a particular patch version
+# specified in the upstream lock files, it’s best to simply skip it.
+skip="${skip-} --skip=build_options::tests::test_find_bridge_pyo3_abi3"
+
 # Don’t attempt WASM-related tests.
 # (“Failed to build a native library through cargo”)
 skip="${skip-} --skip=integration::integration_wasm_hello_world"

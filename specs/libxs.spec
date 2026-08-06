@@ -1,0 +1,85 @@
+%bcond tests 1
+
+%global soversion 1
+
+Name:           libxs
+Version:        1.0.0
+Release:        %autorelease
+Summary:        Portable C library for numerics, memory operations, and utilities
+
+License:        BSD-3-Clause
+URL:            https://github.com/hfp/libxs
+Source0:        https://github.com/hfp/libxs/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-backport-cmake-path-variable-improvements.patch
+Patch1:         0002-cmake-install-layout-options.patch
+
+BuildRequires:  cmake
+BuildRequires:  gcc
+BuildRequires:  gcc-gfortran
+%if %{with tests}
+BuildRequires:  flexiblas-devel
+BuildRequires:  gawk
+%endif
+ExclusiveArch:  x86_64 aarch64
+
+%description
+LIBXS is a portable C library providing building blocks for memory operations,
+numerics, synchronization, hashing, random number generation, and related
+low-level utilities. It was originally developed as part of LIBXSMM.
+
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       gcc-gfortran%{?_isa}
+
+%description devel
+This package contains headers, the Fortran module interface, pkg-config
+metadata, and CMake package files for developing applications that use LIBXS.
+
+%package doc
+Summary:        Documentation for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+%description doc
+This package contains the API and usage documentation for LIBXS.
+
+%prep
+%autosetup -p1
+
+%conf
+%cmake \
+    -DBUILD_TESTING:BOOL=%{with tests} \
+    -DCMAKE_INSTALL_Fortran_MODULES:PATH=%{_fmoddir}/%{name} \
+    -DLIBXS_FORTRAN:BOOL=ON \
+    -DLIBXS_INSTALL_HEADER_ONLY:BOOL=OFF
+
+%build
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+%if %{with tests}
+%ctest --output-on-failure
+%endif
+
+%files
+%license LICENSE.md
+%{_libdir}/libxs.so.%{soversion}
+%{_libdir}/libxs.so.%{soversion}.*
+
+%files devel
+%{_includedir}/%{name}/
+%{_fmoddir}/%{name}/
+%{_libdir}/libxs.so
+%{_libdir}/pkgconfig/libxs*.pc
+%{_libdir}/cmake/libxs/
+
+%files doc
+%dir %{_docdir}/%{name}
+%doc %{_docdir}/%{name}/
+
+%changelog
+%autochangelog

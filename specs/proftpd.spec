@@ -17,8 +17,8 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
-%global mod_procfs_version 0.2
+%global baserelease 4
+%global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
@@ -468,6 +468,10 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue Aug  4 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-4
+- Update mod_procfs to 0.3
+  - Also block access to sysfs filesystems
+
 * Tue Jul 21 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-3
 - Add mod_procfs, enabled by default, to address CVE-2026-35025 (ACL bypass via
   /proc/self/root path prefix); this module disallows file accesses via procfs

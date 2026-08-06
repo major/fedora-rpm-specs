@@ -1,6 +1,6 @@
 Name:           perlbrew
-Version:        1.01
-Release:        5%{?dist}
+Version:        1.02
+Release:        1%{?dist}
 Summary:        Manage perl installations in your $HOME
 License:        MIT
 URL:            https://metacpan.org/release/App-perlbrew
@@ -9,11 +9,11 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Module::Build::Tiny) >= 0.039
+BuildRequires:  perl(Module::Build::Tiny) >= 0.044
 # Run-time
 BuildRequires:  perl(Capture::Tiny) >= 0.48
 BuildRequires:  perl(Config)
-BuildRequires:  perl(CPAN::Perl::Releases) >= 5.20230720
+BuildRequires:  perl(CPAN::Perl::Releases) >= 5.20240920
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Devel::PatchPerl) >= 2.08
 BuildRequires:  perl(Exporter)
@@ -37,37 +37,30 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(English)
 BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(File::Which)
+BuildRequires:  perl(File::Which) >= 1.21
 BuildRequires:  perl(lib)
 BuildRequires:  perl(ok)
 BuildRequires:  perl(Path::Class) >= 0.33
-BuildRequires:  perl(Test2::Plugin::IOEvents)
-BuildRequires:  perl(Test2::Plugin::NoWarnings)
+BuildRequires:  perl(Test2::Plugin::IOEvents) >= 0.001001
+BuildRequires:  perl(Test2::Plugin::NoWarnings) >= 0.10
 BuildRequires:  perl(Test2::Tools::Basic)
 BuildRequires:  perl(Test2::Tools::ClassicCompare)
 BuildRequires:  perl(Test2::Tools::Compare)
 BuildRequires:  perl(Test2::Tools::Mock)
 BuildRequires:  perl(Test2::Tools::Spec)
-BuildRequires:  perl(Test2::V0)
-BuildRequires:  perl(Test::Deep)
-BuildRequires:  perl(Test::Exception) >= 0.32
-BuildRequires:  perl(Test::More) >= 1.001002
-BuildRequires:  perl(Test::NoWarnings) >= 1.04
-BuildRequires:  perl(Test::Output) >= 1.03
-BuildRequires:  perl(Test::Spec) >= 0.47
-#BuildRequires:  perl(Test::TempDir::Tiny) >= 0.016
+BuildRequires:  perl(Test2::V0) >= 0.000163
 BuildRequires:  wget
 Requires:       perl(Capture::Tiny) >= 0.48
-Requires:       perl(CPAN::Perl::Releases) >= 5.20230720
+Requires:       perl(CPAN::Perl::Releases) >= 5.20240920
 Requires:       perl(Cwd)
 Requires:       perl(Data::Dumper)
-Requires:       perl(Devel::PatchPerl) >= 2.00
+Requires:       perl(Devel::PatchPerl) >= 2.08
 Requires:       perl(ExtUtils::MakeMaker) >= 7.22
 Requires:       perl(File::Spec)
-Requires:       perl(File::Temp)
+Requires:       perl(File::Temp) >= 0.2304
 Requires:       perl(FindBin)
 Requires:       perl(local::lib) >= 2.000014
-Requires:       perl(Pod::Usage) >= 1.68
+Requires:       perl(Pod::Usage) >= 1.69
 Requires:       curl
 
 # maybe someone expects to find
@@ -78,6 +71,8 @@ Provides:       perl-App-perlbrew = %{version}-%{release}
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(test2_helpers.pl\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\(PerlbrewTestHelpers\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Capture::Tiny\\)\s*$
+%global __requires_exclude %{__requires_exclude}|^perl\\(CPAN::Perl::Releases\\)\s*$
 
 
 %description
@@ -100,6 +95,10 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n App-perlbrew-%{version}
 
+# Fix t/20.patchperl.t failing since 1.02
+# https://github.com/gugod/App-perlbrew/issues/852
+perl -i -pe 's|\$ENV{PATH} = "/bin";|\$ENV{PATH} = "";|g' t/20.patchperl.t
+
 # Help file to recognise the Perl scripts
 for F in t/*.t t/*.pl; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -112,8 +111,8 @@ perl Build.PL --installdirs=vendor
 
 %install
 perl -V
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
 
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -134,15 +133,20 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/Perlbrew*
+%{perl_vendorlib}/App/perlbrew.pm
 %{_bindir}/%{name}
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/perlbrew*
+%{_mandir}/man3/App::perlbrew*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-1
+- 1.02 bump (rhbz#2382331)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

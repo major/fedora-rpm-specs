@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/loops
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.4.4
+Version:        3.4.5
 Release:        %autorelease
 Summary:        Computing with quasigroups and loops
 
@@ -17,9 +17,13 @@ BuildOption(install): data gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap-devel >= 4.8
+BuildRequires:  gap(smallgrp) >= 1.0
+BuildRequires:  gap(transgrp) >= 3.1
+BuildRequires:  gap-devel >= 4.12
 
-Requires:       gap-core >= 4.8
+Requires:       gap(smallgrp) >= 1.0
+Requires:       gap(transgrp) >= 3.1
+Requires:       gap-core >= 4.12
 
 Provides:       gap(loops) = %{version}-%{release}
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-parent
-Version:        43
+Version:        48
 Release:        %autorelease
 Summary:        Apache Maven parent POM
 License:        Apache-2.0
@@ -31,6 +31,7 @@ Apache Maven parent POM file used by other Maven projects.
 %pom_remove_plugin :maven-checkstyle-plugin
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :spotless-maven-plugin
+%pom_remove_plugin -r :maven-dependency-plugin
 %pom_remove_plugin -r :maven-site-plugin
 %pom_remove_plugin -r :maven-scm-publish-plugin
 %pom_remove_dep :junit-bom

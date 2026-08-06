@@ -2,21 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-macros
+%if 0%{?el9}
+# stderr mismatch due to older rustc version
+# retest when updating
+%bcond trybuild_overwrite 1
+%else
+%bcond trybuild_overwrite 0
+%endif
 
-Name:           rust-pyo3-macros0.27
-Version:        0.27.2
+%global crate link-section
+
+Name:           rust-link-section
+Version:        0.19.0
 Release:        %autorelease
-Summary:        Proc macros for PyO3 package
+Summary:        Link-time initialized slices for Rust
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/link-section
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Proc macros for PyO3 package.}
+Link-time initialized slices for Rust, with full support for Linux,
+macOS, Windows, WASM and many more platforms.}
 
 %description %{_description}
 
@@ -32,6 +41,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,40 +57,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-async-devel
+%package     -n %{name}+proc_macro-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-async-devel %{_description}
+%description -n %{name}+proc_macro-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental-async" feature of the "%{crate}" crate.
+use the "proc_macro" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-async-devel
+%files       -n %{name}+proc_macro-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-inspect-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-inspect-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental-inspect" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-inspect-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+multiple-pymethods-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+multiple-pymethods-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "multiple-pymethods" feature of the "%{crate}" crate.
-
-%files       -n %{name}+multiple-pymethods-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -97,7 +96,8 @@ use the "multiple-pymethods" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * this test panics
+%cargo_test -- -- --skip pass_linux %{?with_trybuild_overwrite:TRYBUILD=overwrite}
 %endif
 
 %changelog

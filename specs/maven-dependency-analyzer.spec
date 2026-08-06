@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-dependency-analyzer
-Version:        1.13.2
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Maven dependency analyzer
 License:        Apache-2.0
@@ -15,15 +15,18 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
+BuildRequires:  mvn(org.mockito:mockito-core)
+BuildRequires:  mvn(org.mockito:mockito-junit-jupiter)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)

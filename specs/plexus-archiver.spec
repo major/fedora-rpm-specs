@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-archiver
-Version:        4.10.0
+Version:        4.12.0
 Release:        %autorelease
 Summary:        Plexus Archiver Component
 License:        Apache-2.0
@@ -11,8 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/plexus-archiver/archive/plexus-archiver-%{version}.tar.gz
 
-Patch:          0001-Remove-support-for-snappy.patch
-Patch:          0002-Remove-support-for-zstd.patch
+Patch:          0001-Remove-support-for-snappy-and-zstd.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -51,11 +50,12 @@ is like a J2EE application server, without all the baggage.
 
 %mvn_file :%{name} plexus/archiver
 
-%pom_remove_dep io.airlift:aircompressor
 rm -r src/main/java/org/codehaus/plexus/archiver/snappy
 rm -r src/test/java/org/codehaus/plexus/archiver/snappy
 rm src/main/java/org/codehaus/plexus/archiver/tar/SnappyTarFile.java
 rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTarSnappyFileResourceCollection.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TarSnappyArchiver.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TarSnappyUnArchiver.java
 rm src/test/java/org/codehaus/plexus/archiver/tar/TarSnappyUnArchiverTest.java
 
 %pom_remove_dep com.github.luben:zstd-jni
@@ -64,6 +64,10 @@ rm -r src/test/java/org/codehaus/plexus/archiver/zstd
 rm src/main/java/org/codehaus/plexus/archiver/tar/ZstdTarFile.java
 rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTarZstdFileResourceCollection.java
 rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTZstdFileResourceCollection.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TarZstdArchiver.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TarZstdUnArchiver.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TZstdArchiver.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/TZstdUnArchiver.java
 rm src/test/java/org/codehaus/plexus/archiver/tar/TarZstdUnArchiverTest.java
 
 # Fails due to previously removed compressors

@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.29.0
+Version:        0.29.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -21,8 +21,6 @@ Patch:          pyo3-fix-metadata.diff
 # * make unsafe subinterpreter support available via cfg flag:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
-# * pending upstream fix for Python 3.15 on 32-bit / big-endian architectures
-Patch3:         https://github.com/PyO3/pyo3/pull/6150.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix
@@ -615,7 +613,7 @@ dos2unix --keepdate src/impl_/deprecated.rs
 dos2unix --keepdate src/pyclass/guard.rs
 dos2unix --keepdate tests/test_class_init.rs
 # drop files that are not useful
-rm -r emscripten/ newsfragments/
+rm -r newsfragments/ wasm/
 
 %generate_buildrequires
 # unit tests require optional dependencies

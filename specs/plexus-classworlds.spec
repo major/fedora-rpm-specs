@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-classworlds
-Version:        2.8.0
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Plexus Classworlds Classloader Framework
 License:        Apache-2.0 AND Plexus
@@ -36,10 +36,13 @@ classworlds.
 %mvn_alias : classworlds:classworlds
 
 %pom_remove_plugin :maven-dependency-plugin
+%pom_remove_plugin :jacoco-maven-plugin
+%pom_xpath_inject pom:properties '<argLine/>'
 
 # These tests depend on artifacts that are not packaged
-sed -i /testConfigure_Valid/s/./@org.junit.jupiter.api.Disabled/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
-sed -i /testConfigure_Optionally_Existent/s/./@org.junit.jupiter.api.Disabled/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i '/void configureValid/s/./@org.junit.jupiter.api.Disabled /' src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i '/void configureOptionallyExistent/s/./@org.junit.jupiter.api.Disabled /' src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i '/void fromFromFrom/s/./@org.junit.jupiter.api.Disabled /' src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
 
 %build
 %mvn_build -j

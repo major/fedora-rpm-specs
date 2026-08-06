@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jsoup
-Version:        1.22.1
+Version:        1.22.2
 Release:        %autorelease
 Summary:        Java library for working with real-world HTML
 License:        MIT
@@ -61,6 +61,7 @@ tree.
 
 # Remove optional re2j dependency (not yet packaged in Fedora)
 %pom_remove_dep com.google.re2j:re2j
+%pom_remove_dep io.netty:netty-bom
 
 # Remove jspecify annotations which are used for static analysis only
 %pom_remove_dep :jspecify

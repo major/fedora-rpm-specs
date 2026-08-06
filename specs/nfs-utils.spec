@@ -1,8 +1,8 @@
 Summary: NFS utilities and supporting clients and daemons for the kernel NFS server
 Name: nfs-utils
 URL: http://linux-nfs.org/
-Version: 2.9.1
-Release: 5.rc5%{?dist}.1
+Version: 2.9.2
+Release: 0%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -14,9 +14,6 @@ Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
 Source5: 10-nfsv3.conf
-
-Patch001: nfs-utils-2.9.2-rc5.patch
-Patch002: nfs-utils-2.9.1-export-ignore-hosts.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch102: nfs-utils-1.2.5-idmap-errmsg.patch
@@ -477,6 +474,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Tue Aug 4 2026 Steve Dickson <steved@redhat.com> 2.9.2-0
+- Updated to the latest upstream release nfs-utils-2-9-2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.9.1-5.rc5.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,10 +1,5 @@
 Name:           opentype-sanitizer
-# The following dependent packages have their versions kept in sync with
-# opentype-sanitizer, and should be updated at the same time, ideally as a
-# multi-build update (i.e., using a side tag).
-#
-# - python-opentype-sanitizer
-Version:        9.2.0
+Version:        9.3.0
 Release:        %autorelease
 Summary:        Parses and serializes OpenType/WOFF/WOFF2 font files
 

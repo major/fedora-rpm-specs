@@ -97,6 +97,8 @@ install -Dpm 0755 misc/watcher.py %{buildroot}%{_bindir}/%{srcname}-watcher
 
 %check
 k="${k-}${k+ and }not test_tesseract_config_invalid"
+# Fails with Ghostscript 10.07.
+k="${k-}${k+ and }not test_xml_metadata_preserved[3small.pdf-pdfa]"
 
 %{pytest} -ra -n auto --runslow -k "${k-}"
 

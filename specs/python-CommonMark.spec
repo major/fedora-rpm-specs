@@ -11,14 +11,14 @@ I’ve converted the 3.4 implementation into a single file, entitytrans.py which
 so far seems to work (all tests pass on 2.7, 3.3, and 3.4).
 
 Name:           python-%{pypi_name}
-Version:        0.9.1
-Release:        27%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        Python parser for the CommonMark Markdown spec
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz
+Source0:        https://files.pythonhosted.org/packages/3e/e4/0800832e530c88a8f80cb9e486879ea74257062dfe03a38c1ad535c2860e/commonmark-0.9.2.tar.gz
 
 Patch0:         0001-Rename-cmark-entrypoint.patch
 
@@ -99,6 +99,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Tue Aug 04 2026 Nieves Montero <nmontero@redhat.com> - 0.9.2-1
+- Update to 0.9.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-dependency-tree
-Version:        3.2.1
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Maven dependency tree artifact
 License:        Apache-2.0
@@ -18,6 +18,7 @@ BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.eclipse.aether:aether-api)
 BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)

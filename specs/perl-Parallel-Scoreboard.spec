@@ -1,14 +1,14 @@
 Name:           perl-Parallel-Scoreboard
-Version:        0.08
-Release:        29%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Scoreboard for monitoring status of many processes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Scoreboard
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Parallel-Scoreboard-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
+BuildRequires:  perl
+BuildRequires:  make
 
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -17,20 +17,19 @@ BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Test::More)
 
 # Run-time deps
-BuildRequires: perl(Class::Accessor::Lite)
-BuildRequires: perl(Digest::MD5)
-BuildRequires: perl(Fcntl)
-BuildRequires: perl(File::Path)
-BuildRequires: perl(HTML::Entities)
-BuildRequires: perl(IO::Handle)
-BuildRequires: perl(JSON)
-BuildRequires: perl(POSIX)
-BuildRequires: perl(strict)
-BuildRequires: perl(warnings)
+BuildRequires:  perl(Class::Accessor::Lite)
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(HTML::Entities)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(JSON)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 
-BuildRequires: perl(inc::Module::Install)
-BuildRequires: perl(Module::Install::ReadmeFromPod)
-
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::ReadmeFromPod)
 
 %description
 Parallel::Scoreboard is a pure-perl implementation of a process scoreboard.
@@ -40,20 +39,18 @@ like the status module of the Apache HTTP server.
 %prep
 %setup -q -n Parallel-Scoreboard-%{version}
 rm -r inc
-sed -i -e '/^inc\/.*$/d' MANIFEST
-
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
-
 
 %install
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%{__make} test
+make test
 
 %files
 %doc Changes README
@@ -61,6 +58,9 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-1
+- 0.09 bump (rhbz#2510980)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-bytecode
-Version:        0.17.0
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Python module to generate and modify bytecode
 
@@ -7,17 +7,18 @@ License:        MIT
 URL:            https://github.com/MatthieuDartiailh/bytecode
 Source:         %{pypi_source bytecode}
 
+# rebase from https://github.com/MatthieuDartiailh/bytecode/pull/192
+Patch:          192.patch
+
 BuildArch:      noarch
-BuildRequires:  python3-devel
-# Tests
-BuildRequires:  python3dist(pytest)
-# Documentation
 BuildRequires:  make
-BuildRequires:  texinfo
+BuildRequires:  python3-devel
 BuildRequires:  python3dist(docutils)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(sphinx-tabs)
+BuildRequires:  texinfo
 
 %global _description %{expand:
 bytecode is a Python module to generate and modify bytecode.}
@@ -26,7 +27,6 @@ bytecode is a Python module to generate and modify bytecode.}
 
 %package -n     python3-bytecode
 Summary:        %{summary}
-Requires:       python3-libs
 
 %description -n python3-bytecode %_description
 
@@ -46,8 +46,8 @@ make texinfo
 pushd build
 pushd texinfo
 makeinfo --docbook bytecode.texi
-popd	
-popd	
+popd
+popd
 popd
 
 %install
