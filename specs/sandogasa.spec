@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.18.2
+Version:        0.19.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -109,11 +109,15 @@ associated with "slum" or post-apocalyptic robots in popular culture.
 %{cargo_license} > LICENSE.dependencies
 
 %install
+install -dm 0755 %{buildroot}%{_bindir}
+install -dm 0755 %{buildroot}%{_mandir}/man1
 for tool in %{tools}; do
-  install -Dpm 0755 target/rpm/${tool} -t %{buildroot}%{_bindir}
+  install -pm 0755 target/rpm/${tool} %{buildroot}%{_bindir}/
   cp -p tools/${tool}/README.md README.${tool}.md
+  cp -p tools/${tool}/man/${tool}.1 %{buildroot}%{_mandir}/man1/
   install -dm 0755 %{buildroot}%{_sysconfdir}/${tool}
 done
+cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
 
 %check
 %if %{with build_and_test_all}
@@ -143,6 +147,21 @@ done
 %{_bindir}/sandogasa-pkg-acl
 %{_bindir}/sandogasa-pkg-health
 %{_bindir}/sandogasa-report
+%{_mandir}/man1/cpu-sig-tracker.1*
+%{_mandir}/man1/ebranch.1*
+%{_mandir}/man1/fedora-cve-triage.1*
+%{_mandir}/man1/fedora-review-digest.1*
+%{_mandir}/man1/fesco-chair.1*
+%{_mandir}/man1/hs-intake.1*
+%{_mandir}/man1/hs-meetings.1*
+%{_mandir}/man1/hs-relmon.1*
+%{_mandir}/man1/koji-diff.1*
+%{_mandir}/man1/koji-lag.1*
+%{_mandir}/man1/poi-tracker.1*
+%{_mandir}/man1/sandogasa-hattrack.1*
+%{_mandir}/man1/sandogasa-pkg-acl.1*
+%{_mandir}/man1/sandogasa-pkg-health.1*
+%{_mandir}/man1/sandogasa-report.1*
 %dir %{_sysconfdir}/cpu-sig-tracker
 %dir %{_sysconfdir}/ebranch
 %dir %{_sysconfdir}/fedora-cve-triage
@@ -161,6 +180,7 @@ done
 %ghost %config(noreplace) %{_sysconfdir}/cpu-sig-tracker/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/ebranch/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/fedora-cve-triage/config.toml
+%config(noreplace) %{_sysconfdir}/fedora-cve-triage/run.toml
 %ghost %config(noreplace) %{_sysconfdir}/fedora-review-digest/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/fesco-chair/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/hs-intake/config.toml

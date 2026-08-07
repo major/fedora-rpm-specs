@@ -1,7 +1,8 @@
 %global desc %{expand: \
 A collection of Benchmark functions for numerical optimization problems.
 
-Current information can always be found from the repository - https://github.com/thieu1995/opfunu}
+Current information can always be found from the repository:
+https://github.com/thieu1995/opfunu}
 
 # enable when new Sphinx stack is available on all platforms
 %bcond_with docs
@@ -11,7 +12,7 @@ Current information can always be found from the repository - https://github.com
 %global forgeurl https://github.com/thieu1995/opfunu
 
 Name:           python-opfunu
-Version:        1.0.0
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Benchmark functions for numerical optimization problems
 
@@ -21,14 +22,6 @@ License:        GPL-3.0-only
 URL:            https://github.com/thieu1995/opfunu
 Source0:        %forgesource
 
-# This patch is intended not to package tests.
-# It was not submitted to the upstream since this is optional
-# for the upstream to apply this.
-Patch:          0001-do-not-package-tests-examples.patch
-# Do not import numpy.int, which was deprecated and removed
-# https://github.com/thieu1995/opfunu/pull/12
-Patch:          %{url}/pull/12.patch
-
 BuildArch:      noarch
 
 %description
@@ -36,37 +29,37 @@ BuildArch:      noarch
 
 %package -n python3-opfunu
 Summary:        %{summary}
-BuildRequires:      python3-devel
-BuildRequires:      %{py3_dist requests}
+BuildRequires:  hardlink
+BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
+BuildRequires:  %{py3_dist Pillow}
+BuildRequires:  %{py3_dist pandas}
+BuildRequires:  %{py3_dist requests}
+BuildRequires:  %{py3_dist scipy}
 
 %if %{with tests}
-BuildRequires:      %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest}
 %endif
 
 %if %{with docs}
+BuildRequires:  latexmk
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 %endif
 
-# scipy, Pillow, requests and pandas are missing in setup file
-BuildRequires: %{py3_dist scipy}
-BuildRequires: %{py3_dist Pillow}
-BuildRequires: %{py3_dist pandas}
-Requires:      %{py3_dist Pillow}
-Requires:      %{py3_dist pandas}
-Requires:      %{py3_dist requests}
-Requires:      %{py3_dist scipy}
-BuildRequires:  hardlink
+Requires:       %{py3_dist Pillow}
+Requires:       %{py3_dist pandas}
+Requires:       %{py3_dist requests}
+Requires:       %{py3_dist scipy}
 
 %description -n python3-opfunu
 %{desc}
 
 %package doc
 BuildArch:      noarch
-Summary:        %{summary}
+Summary:        %{summary} (documentation)
 
 %description doc
 Documentation for %{name}.
@@ -80,6 +73,9 @@ find examples -type f -name '*.py' ! -name '__init__.py' \
     -execdir chmod +x '{}' '+'
 find opfunu tests -type f -name '*.py' \
     -execdir sed -r -i '1{/^#!/d}' '{}' '+'
+
+# Strip Python version restriction in setup.py
+sed -i "s/python_requires='>=3.7, <3.12'/python_requires='>=3.7'/" setup.py
 
 %py3_shebang_fix examples
 
@@ -101,6 +97,8 @@ find opfunu tests -type f -name '*.py' \
 hardlink '%{buildroot}%{python3_sitelib}/opfunu'
 
 %check
+%pyproject_check_import
+
 
 %if %{with tests}
 %pytest

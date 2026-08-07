@@ -2,12 +2,17 @@
 
 %if 0%{?fedora}
 %global with_brz 1
+%endif
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} < 11)
+%global with_dnf 1
+%endif
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %global with_dnf5 1
 %endif
 
 Name:      etckeeper
 Version:   1.18.22
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -38,7 +43,9 @@ Requires:  crontabs
 Requires:  findutils
 Requires:  hostname
 Requires:  which
+%if 0%{?with_dnf}
 Requires:  %{name}-dnf = %{version}-%{release}
+%endif
 %if 0%{?with_dnf5}
 Requires:  %{name}-dnf5 = %{version}-%{release}
 %endif # with_dnf5
@@ -77,6 +84,7 @@ etckeeper with (bzr) bazaar repositories, install this package.
 %endif # with_brz
 
 
+%if 0%{?with_dnf}
 %package dnf
 Summary:  DNF plugin for etckeeper support
 BuildRequires: python3-devel
@@ -89,6 +97,7 @@ Requires: dnf-plugins-core
 %description dnf
 This package provides a DNF plugin for etckeeper. If you want to use
 etckeeper with DNF, install this package.
+%endif # with_dnf
 
 
 %if 0%{?with_dnf5}
@@ -138,9 +147,11 @@ cd brz-plugin
 cd ..
 %endif # with_brz
 
+%if 0%{?with_dnf}
 cd dnf-plugin
 %pyproject_buildrequires
 cd ..
+%endif # with_dnf
 
 
 %build
@@ -152,9 +163,11 @@ cd brz-plugin
 cd ..
 %endif # with_brz
 
+%if 0%{?with_dnf}
 cd dnf-plugin
 %pyproject_wheel
 cd ..
+%endif # with_dnf
 
 markdown_py -f README.html README.md
 
@@ -168,9 +181,11 @@ cd brz-plugin
 cd ..
 %endif # with_brz
 
+%if 0%{?with_dnf}
 cd dnf-plugin
 %pyproject_install
 cd ..
+%endif # with_dnf
 
 install -D -p %{SOURCE2} %{buildroot}%{_sysconfdir}/cron.daily/%{name}
 install -d  %{buildroot}%{_localstatedir}/cache/%{name}
@@ -231,6 +246,7 @@ fi
 %endif # with_brz
 
 
+%if 0%{?with_dnf}
 %files dnf
 %{python3_sitelib}/dnf-plugins/%{name}.py
 %exclude %{python3_sitelib}/dnf-plugins/__init__.py
@@ -238,6 +254,7 @@ fi
 %exclude %{python3_sitelib}/dnf-plugins/__pycache__/__init__.*
 # exclude egg-info dir, doesn't contain meaningful information
 %exclude %{python3_sitelib}/dnf_%{name}-*.dist-info
+%endif # with_dnf
 
 
 %if 0%{?with_dnf5}
@@ -247,6 +264,9 @@ fi
 
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.18.22-10
+- Enable dnf5, disable dnf plugin in EPEL 11
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.22-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

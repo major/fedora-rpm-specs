@@ -5,7 +5,7 @@
 %global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
 
 Name:           cryptopp
-Version:        2026.8.0
+Version:        2026.8.1
 Release:        %autorelease
 Summary:        C++ class library of cryptographic schemes
 License:        BSL-1.0
@@ -105,13 +105,7 @@ mv %{__cmake_builddir} build-shared
 mv build-static %{__cmake_builddir}
 
 %check
-# Disabled on s390x
-# https://github.com/cryptopp-modern/cryptopp-modern/issues/65
-%ifarch s390x
-%ctest  || :
-%else
 %ctest
-%endif
 
 
 %files

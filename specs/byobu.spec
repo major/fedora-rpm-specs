@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.15
+Version:	7.17
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -144,11 +144,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{bash_completions_dir}/trustmux
 %{trustmuxlibdir}/trustmux/__init__.py
 %{trustmuxlibdir}/trustmux/__main__.py
+%{trustmuxlibdir}/trustmux/_advertise.py
 %{trustmuxlibdir}/trustmux/_ctl.py
 %{trustmuxlibdir}/trustmux/_daemon.py
 %{trustmuxlibdir}/trustmux/_disable.py
 %{trustmuxlibdir}/trustmux/_enable.py
 %{trustmuxlibdir}/trustmux/_pair.py
+%{trustmuxlibdir}/trustmux/_paths.py
 %{trustmuxlibdir}/trustmux/_unpair.py
 %{_mandir}/man1/trustmux.1.gz
 %{_mandir}/man1/trustmuxd.1.gz

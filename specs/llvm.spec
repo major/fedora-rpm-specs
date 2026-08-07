@@ -579,6 +579,10 @@ Patch2302: 0001-22-polly-shared-libs.patch
 Patch2401: 0001-22-polly-shared-libs.patch
 #endregion polly patches
 
+#region libclc patches
+Patch2217: 207264.patch
+#endregion libclc patches
+
 #region RHEL patches
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch

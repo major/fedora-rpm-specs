@@ -1,12 +1,19 @@
+%global forgeurl https://github.com/mrijken/toml-cli
+Version:        0.8.2
+%forgemeta
+
 Name:           python-toml-cli
-Version:        0.7.0
 Release:        %autorelease
 Summary:        Read and write keys/values to/from toml files
 
-License:        MIT
-URL:            https://github.com/mrijken/toml-cli
-# PyPI tarball doesn't include tests
-Source:         %{url}/archive/v%{version}/toml-cli-%{version}.tar.gz
+License:        Apache-2.0
+URL:            %{forgeurl}
+Source:         %{forgesource}
+
+# Lower tomlkit dependency to match Fedora Rawhide (0.13.2)
+Patch0:         0002-lower-tomlkit-dependency.patch
+# Skip test_set_in_out_of_order_table on tomlkit < 0.13.3 due to lack of upstream fix
+Patch1:         0003-skip-out-of-order-table-test-on-older-tomlkit.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

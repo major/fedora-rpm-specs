@@ -12,6 +12,9 @@ Summary:	Share mouse and keyboard between multiple computers over the network
 License:	GPL-2.0-only
 URL:		https://github.com/%{name}/%{name}
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Backported from upstream patch, our downstream patch is slightly different
+# https://github.com/deskflow/deskflow/commit/fdb100649b44af1ac7f0a9ec83dc7805430aada8.patch
+Patch:		deskflow-1.26.0-openssl4-compat.patch
 ExcludeArch:	%{ix86}
 
 BuildRequires:	cmake >= 3.24

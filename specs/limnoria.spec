@@ -1,8 +1,8 @@
-%global upstreamver 2026-01-16
+%global upstreamver 2026-05-08
 
 Name:           limnoria
-Version:        20260116
-Release:        3%{?dist}
+Version:        20260508
+Release:        1%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -108,6 +108,9 @@ export SOURCE_DATE_EPOCH
 %{_mandir}/man1/limnoria-reset-password.1.gz
 
 %changelog
+* Wed Aug 05 2026 Kevin Fenzi <kevin@scrye.com> - 20260508-1
+- Update to 2026-05-08
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260116-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

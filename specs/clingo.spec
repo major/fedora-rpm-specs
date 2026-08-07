@@ -1,5 +1,5 @@
 Name:       clingo
-Version:    5.8.0
+Version:    5.8.1
 Release:    %autorelease
 Summary:    A grounder and solver for logic programs
 

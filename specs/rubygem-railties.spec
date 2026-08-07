@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
@@ -22,6 +22,16 @@ Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # ~~~
 # https://github.com/rails/rails/pull/58148
 Patch0: rubygem-railties-8.1.3-Fix-test_precompile_shouldnt_use_the_digests_present_in_manifest-json-failure.patch
+# Use local fixtures to fix test errors such as:
+# ~~~
+#   1) Error:
+# ApplicationTests::ActiveStorageEngineTest#test_analyzers_not_empty:
+# ArgumentError: the directory '/builddir/build/BUILD/rubygem-railties-8.1.2-build/railties-8.1.2/usr/share/gems/gems/activestorage/test/fixtures/files' does not contain a file named 'racecar.jpg'
+#     /usr/share/gems/gems/activesupport-8.1.2/lib/active_support/testing/file_fixtures.rb:33:in 'ActiveSupport::Testing::FileFixtures#file_fixture'
+#     test/application/active_storage/analyzers_integration_test.rb:53:in 'ApplicationTests::ActiveStorageEngineTest#test_analyzers_not_empty'
+# ~~~
+# https://github.com/rails/rails/pull/58360
+Patch1: rubygem-railties-8.1.3.1-Use-local-fixtures.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -97,6 +107,7 @@ Documentation for %{name}.
 
 ( cd %{builddir}
 %patch 0 -p2
+%patch 1 -p2
 )
 
 %build
@@ -262,10 +273,6 @@ sed -i -r '/with_new_plugin\(/ s/\)/, "--skip-rubocop")/' \
 sed -i -r '/generate_plugin\(/ s/\)$/, "--skip-rubocop")/' \
   test/generators/test_runner_in_engine_test.rb
 
-# This would deserve similar upstream fix as:
-# https://github.com/rails/rails/pull/54864
-sed -i '/file_fixture_path/ s|".*"|"test/fixtures/files"|' test/application/active_storage/analyzers_integration_test.rb
-
 # Tests needs to be executed in isolation. Also, use `bundle exec`, there
 # is nothing to loose here and some tests depends on the Bundler (e.g.
 # test/generators/app_generator_test.rb).
@@ -301,6 +308,9 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Wed Aug 05 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-2
+- Properly patch ActiveStorage analyzers integration tests.
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
 - Update to Railties 8.1.3.1.
   Related: rhzb#2405582

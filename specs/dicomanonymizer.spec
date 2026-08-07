@@ -51,6 +51,7 @@ operation performed is a de-identification (permits a later re-identification).
 %autosetup -n %{real_name}-%{commit}
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_EXE_LINKER_FLAGS="%{optflags} -fPIE"
 %cmake_build
 

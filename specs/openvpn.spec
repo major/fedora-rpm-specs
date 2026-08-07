@@ -19,8 +19,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7.5
-Release:           2%{?dist}
+Version:           2.7.6
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -31,7 +31,6 @@ Source3:           roadwarrior-client.conf
 Source10:          gpgkey-F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7.gpg
 Patch1:            fedora-crypto-policy-compliance.patch
 Patch50:           openvpn-2.4-change-tmpfiles-permissions.patch
-Patch51:           0001-test_tls_crypt-Fix-issue-with-temp-file-name-on-big-.patch
 License:           GPL-2.0-only
 BuildRequires:     gnupg2
 BuildRequires:     gcc
@@ -237,6 +236,10 @@ done
 
 
 %changelog
+* Wed Aug 5 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.6-1
+- Update to upstream 2.7.6 release
+- Drop obsolete patch 0001-test_tls_crypt-Fix-issue-with-temp-file-name-on-big-.patch
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

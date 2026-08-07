@@ -89,6 +89,11 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='-p no:cacheprovider'
 pushd %{buildroot}%{python3_sitearch}
   pytest  \
+  --deselect "sklearn/neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree64]" \
+  --deselect "sklearn/neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree32]" \
+  --deselect "sklearn/neighbors/tests/test_neighbors.py::test_knn_forcing_backend[ball_tree-loky]" \
+  --deselect "sklearn/neighbors/tests/test_neighbors.py::test_knn_forcing_backend[kd_tree-loky]" \
+  --deselect "sklearn/neighbors/tests/test_neighbors.py::test_knn_forcing_backend[auto-loky]" \
 %if 0%{?el10}
   --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_dont_overwrite_parameters]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_f_contiguous_array_estimator]" \

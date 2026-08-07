@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/profiling
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.6.2
+Version:        2.6.3
 Release:        %autorelease
 Summary:        Line by line profiling and code coverage for GAP
 
@@ -26,7 +26,6 @@ BuildRequires:  elinks
 BuildRequires:  flamegraph
 BuildRequires:  flamegraph-stackcollapse
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap(io) >= 4.4.4
 BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++

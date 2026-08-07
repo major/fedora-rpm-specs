@@ -20,6 +20,7 @@ BuildRequires:  autoconf
 Source0:        http://www.fpx.de/fp/Software/UUDeview/download/uudeview-%{version}.tar.gz
 %endif
 Source1:        xdeview.desktop
+ExcludeArch:    %{ix86}
 Patch0:         uudeview-threads.patch
 URL:            http://www.fpx.de/fp/Software/UUDeview/
 Summary:        Applications for uuencoding, uudecoding, ...

@@ -45,7 +45,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # MIT
 #   - crates/uv-virtualenv/src/activator/ is vendored and forked from
 #     python3dist(virtualenv)
-#   - crates/uv-netrc/ is vencored from crate(rust-netrc)
+#   - crates/uv-netrc/ is vendored from crate(rust-netrc)
 #
 # Additionally, the following are bundled/forked but happen to be under the
 # same (Apache-2.0 OR MIT) terms as uv itself:
@@ -281,8 +281,11 @@ Provides:       bundled(crate(keyring)) = 4.0.0~rc2
 # rust-netrc 0.1.2[…]”
 #
 # Upstream justifies the bundling in
-# https://github.com/astral-sh/uv/pull/19409, and the mandatory
-# path-to-unbundling query appears in a comment on that PR.
+# https://github.com/astral-sh/uv/pull/19409: they want unreleased bug fixes,
+# including those pertaining to https://github.com/astral-sh/uv/issues/16083,
+# and to avoid a dependency on thiserror v1. In response to the mandatory
+# query, they report they are open to de-vendoring if a new rust-netrc release
+# with the desired changes appears.
 Provides:       bundled(crate(rust-netrc)) = 0.1.2
 
 # The contents of crates/uv-virtualenv/src/activator/ are a bundled and
@@ -371,7 +374,7 @@ This package provides an importable Python module for uv.
 
 
 %prep -a
-# Collect license files of vendored dependencies in the main source archive
+# Collect license files of vendored dependencies
 install -D --preserve-timestamps --mode=0644 \
     --target=LICENSE.bundled/packaging \
     crates/uv-python/python/packaging/LICENSE.*
@@ -384,6 +387,8 @@ install -D --preserve-timestamps --mode=0644 \
     crates/uv-build-frontend/src/pipreqs/LICENSE
 install -D --preserve-timestamps --mode=0644 \
     --target=LICENSE.bundled/ripunzip crates/uv-extract/src/vendor/LICENSE
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/rust-netrc crates/uv-netrc/LICENSE
 # The original license text from rattler_installs_packages is present in a
 # comment, but we want it in a separate file so we can ensure it is present in
 # the binary RPM.
@@ -707,6 +712,13 @@ skip="${skip-} --skip network::retry_read_timeout_python_downloads_json"
 skip="${skip-} --skip user_agent_version::test_user_agent_has_linehaul"
 skip="${skip-} --skip user_agent_version::test_user_agent_has_subcommand"
 skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
+# Similarly, with an error like:
+#   Client::new(): reqwest::Error {
+#     kind: Builder,
+#     source: General("No CA certificates were loaded from the system")
+#   }
+# There are probably more of these.
+skip="${skip-} --skip retry::tests::retried_status_codes"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

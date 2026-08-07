@@ -25,8 +25,13 @@ BuildRequires: systemd
 %else
 BuildRequires: systemd-rpm-macros
 %endif
+%if 0%{?fedora} > 44
+BuildRequires: openssl3-devel
+BuildRequires: openssl3-devel-engine
+%else
 BuildRequires: openssl-devel
 BuildRequires: openssl-devel-engine
+%endif
 BuildRequires: bind-utils
 BuildRequires: wget
 Requires: logrotate

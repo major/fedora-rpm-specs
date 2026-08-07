@@ -2,17 +2,21 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        3.5.0
-Release:        3%{?dist}
+Version:        3.5.2
+Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
 URL:            https://github.com/Microsoft/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
-Patch1:         0001-tests-Remove-unused-variable-work_time-from-stress_c.patch
 Patch2:         0002-Initialize-TerminalState-structure-properly.patch
 Patch3:         0003-CMake-Add-ability-to-use-system-installed-libbpf-rat.patch
 Patch4:         0004-cmake-Include-install-section-for-procdump-and-its-m.patch
+Patch5:         0005-corex-Remove-unused-variable-num_mappings-from-elf_w.patch
+Patch6:         0006-corex-Replace-strncpy-with-memcpy-in-note_builder-to.patch
+Patch7:         0007-EventPipeHelper-Remove-unused-variable-and-function.patch
+Patch8:         0008-Monitor-Remove-unused-variable-found-in-histogram-pa.patch
+Patch9:         0009-Logging-Fix-buffer-size-in-LogFormatter-snprintf-vsnprintf.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -43,6 +47,7 @@ general process dump utility that you can embed in other scripts.
 
 
 %build
+export VERSION=%{version}
 %cmake
 %cmake_build
 
@@ -61,6 +66,11 @@ general process dump utility that you can embed in other scripts.
 
 
 %changelog
+* Wed Aug 05 2026 Julio Faracco <jfaracco@redhat.com> - 3.5.2-1
+- Adds .NET counter integration (3.5.2)
+- Adds a custom core dumper (corex) (3.5.2)
+- Add support for RHEL10, Debian 13, Ubuntu 26.04, Fedora 43 and updated dependencies (3.5.1)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -74,12 +84,12 @@ general process dump utility that you can embed in other scripts.
 - Add manual trigger support for restrack snapshots
 - Use prctl syscall to enable ptrace + replace stress-ng with custom stress cpu/mem code
 
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Julio Faracco <jfaracco@redhat.com> - 3.4.1-1
 - Removes the ':' separator for the date/time section of the generated core dump filename, aligning across operating systems
 - Monitor: remove useless variables
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Tue Feb 04 2025 Julio Faracco <jfaracco@redhat.com> - 3.4.0-1
 - Add ARM64 support

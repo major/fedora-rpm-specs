@@ -4,7 +4,7 @@
 %global crate crypto-auditing-event-monitor
 
 Name:           rust-crypto-auditing-event-monitor
-Version:        0.3.0
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Event monitor for crypto-auditing project
 

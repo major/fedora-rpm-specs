@@ -5,7 +5,7 @@
 %global crate crypto-bigint
 
 Name:           rust-crypto-bigint
-Version:        0.5.5
+Version:        0.7.5
 Release:        %autorelease
 Summary:        Pure Rust bigint implementation for use in cryptographic applications
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop optional rlp dependency (not packaged yet)
 # * drop unused, benchmark-only criterion dev-dependency
-# * Allow hex-literal 1.0:
-#   https://github.com/RustCrypto/crypto-bigint/commit/bd1728e313c8c1f29c0d392a349eae8f74ed4f1d
 Patch:          crypto-bigint-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -94,28 +92,28 @@ use the "extra-sizes" feature of the "%{crate}" crate.
 %files       -n %{name}+extra-sizes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+generic-array-devel
+%package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+generic-array-devel %{_description}
+%description -n %{name}+getrandom-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "generic-array" feature of the "%{crate}" crate.
+use the "getrandom" feature of the "%{crate}" crate.
 
-%files       -n %{name}+generic-array-devel
+%files       -n %{name}+getrandom-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand-devel
+%package     -n %{name}+hybrid-array-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand-devel %{_description}
+%description -n %{name}+hybrid-array-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
+use the "hybrid-array" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand-devel
+%files       -n %{name}+hybrid-array-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rand_core-devel
@@ -140,6 +138,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+subtle-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+subtle-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "subtle" feature of the "%{crate}" crate.
+
+%files       -n %{name}+subtle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zeroize-devel

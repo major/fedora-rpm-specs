@@ -4,30 +4,32 @@
 %undefine _auto_set_build_flags
 
 Name:           mingw-gsm
-Version:        1.0.16
-Release:        23%{?dist}
+Version:        1.0.24
+Release:        1%{?dist}
 Summary:        Shared libraries for GSM speech compressor
 
 License:        MIT
 URL:            http://www.quut.com/gsm/
 Source:         http://www.quut.com/gsm/gsm-%{version}.tar.gz
-# patches from gsm package
+# from gsm package
+Patch0:         gsm-makefile.patch
+# from gsm package
 Patch1:         gsm-warnings.patch
-Patch2:         gsm-64bit.patch
-# patch for MinGW (build dll, .exe suffix)
-# (stdin/out in tools not supported for now)
-Patch3:         gsm-mingw.patch
+# MinGW port sources
+Patch2:         gsm-mingw-config.patch
+# MinGW port build
+Patch3:         gsm-mingw-makefile.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 
-%global srcver 1.0-pl16
+%global srcver 1.0-pl24
 
 %description
 Contains runtime shared libraries for libgsm, an implementation of
@@ -131,8 +133,9 @@ This package are MinGW compiled gsm tools for the Win64 target.
 %prep
 %setup -qc
 pushd gsm-%{srcver}
+%patch -P0 -p1 -b .mk
 %patch -P1 -p1 -b .warn
-%patch -P2 -p1 -b .64bit
+%patch -P2 -p1
 %patch -P3 -p1
 popd
 
@@ -216,7 +219,6 @@ popd
 %doc gsm-%{srcver}/README
 %dir %{mingw32_includedir}/gsm
 %exclude %{mingw32_mandir}
-%exclude %{mingw32_libdir}/libgsm.a
 %{mingw32_bindir}/libgsm-1.dll
 %{mingw32_libdir}/libgsm.dll.a
 %{mingw32_includedir}/gsm.h
@@ -231,7 +233,6 @@ popd
 %doc gsm-%{srcver}/README
 %dir %{mingw64_includedir}/gsm
 %exclude %{mingw64_mandir}
-%exclude %{mingw64_libdir}/libgsm.a
 %{mingw64_bindir}/libgsm-1.dll
 %{mingw64_libdir}/libgsm.dll.a
 %{mingw64_includedir}/gsm.h
@@ -242,6 +243,9 @@ popd
 
 
 %changelog
+* Wed Aug 05 2026 František Dvořák <valtri@civ.zcu.cz> - 1.0.24-1
+- Update to 1.0.24
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

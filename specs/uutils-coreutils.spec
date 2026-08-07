@@ -78,6 +78,8 @@ Source:         https://github.com/uutils/coreutils/archive/%{version}/%{name}-%
 # loosen notify version bound from =8.2.0 to 8.2.0 and drop macos_kqueue feature
 # loosen selinux version bound from =0.6.0 to 0.6.0
 Patch:          coreutils-fix-metadata.diff
+# bump ctor from 0.6 to 1
+Patch:          coreutils-ctor-1_x.diff
 
 # leaf package, SIGABRT on compile
 ExcludeArch:    %{ix86}

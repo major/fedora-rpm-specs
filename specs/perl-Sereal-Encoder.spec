@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.009
-Release:        2%{?dist}
+Version:        5.010
+Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -124,6 +124,10 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Aug  5 2026 Paul Howarth <paul@city-fan.org> - 5.010-1
+- Update to 5.010 (rhbz#2511546)
+  - Released to match Decoder version
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.009-2
 - Perl 5.44 rebuild
 

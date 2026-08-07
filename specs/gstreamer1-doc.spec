@@ -1,8 +1,8 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-doc
-Version:        1.28.5
-Release:        2%{?dist}
+Version:        1.28.6
+Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        GStreamer documentation
 
@@ -42,6 +42,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/GStreamer.dev
 %{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/
 
 %changelog
+* Wed Aug 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.6-1
+- 1.28.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

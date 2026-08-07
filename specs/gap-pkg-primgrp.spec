@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/primgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.0.2
+Version:        4.0.3
 Release:        %autorelease
 Summary:        Primitive permutation groups library
 
@@ -18,7 +18,6 @@ BuildOption(install): data lib tst
 BuildOption(check): --bare tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2019.04.10
-BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap-devel >= 4.10.0
 
 Requires:       gap-core >= 4.10.0

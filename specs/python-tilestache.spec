@@ -1,7 +1,9 @@
 %global pkgname tilestache
 %global srcname TileStache
 
+%global forgeurl https://github.com/TileStache/TileStache
 %global commit e96532bf59bf79c9991dcc06628f28b27bb19c08
+%forgemeta
 
 Name:           python-%{pkgname}
 Version:        1.51.14
@@ -9,8 +11,8 @@ Release:        27%{?dist}
 Summary:        A stylish alternative for caching your map tiles
 
 License:        BSD-3-Clause
-URL:            http://tilestache.org
-Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 # Modify font search to find the system DejaVuSansMono.ttf - Not submitted upstream
 Patch0:         %{name}-1.49.11-use-system-fonts.patch
@@ -56,13 +58,12 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-gdal
 BuildRequires:  python%{python3_pkgversion}-memcached
 BuildRequires:  python%{python3_pkgversion}-modestmaps >= 1.3.0
+BuildRequires:  python%{python3_pkgversion}-pkg-resources
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-shapely
 BuildRequires:  python%{python3_pkgversion}-werkzeug
 Requires:       font(dejavusansmono)
 Conflicts:      python2-%{pkgname} < %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
 
 %if %{undefined __pythondist_requires}
 Requires:       python%{python3_pkgversion}-imaging
@@ -86,12 +87,17 @@ sed -i '1i #!%{_bindir}/bash' examples/zoom_example/run_server.sh
 sed -i '1{s@^#!/usr/bin/env python@#!%{__python3}@}' examples/geotiff/server.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 install -d %{buildroot}%{_mandir}/man1
 install -p -m0644 man/tilestache-clean.1 %{buildroot}%{_mandir}/man1/
@@ -106,6 +112,8 @@ cp -a examples %{buildroot}%{_datadir}/%{srcname}/
 
 
 %check
+%pyproject_check_import -e 'TileStache.Goodies.Proj4Projection' -e 'TileStache.Goodies.Providers.Composite' -e 'TileStache.Goodies.Providers.MapnikGrid' -e 'TileStache.Goodies.Providers.MirrorOSM' -e 'TileStache.Goodies.StatusServer' -e 'TileStache.Goodies.VecTiles*'
+
 NO_DATABASE=1 OFFLINE_TESTS=1 %pytest \
   --override-ini 'python_files=*_tests.py' \
   --ignore tests/vectiles_tests.py \
@@ -117,11 +125,8 @@ NO_DATABASE=1 OFFLINE_TESTS=1 %pytest \
 %doc README.md
 %{_datadir}/%{srcname}
 
-%files -n python%{python3_pkgversion}-%{pkgname}
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %doc API.html CHANGELOG README.md
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 %{_bindir}/tilestache-clean.py
 %{_bindir}/tilestache-compose.py
 %{_bindir}/tilestache-list.py

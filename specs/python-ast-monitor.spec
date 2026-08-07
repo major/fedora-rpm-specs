@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 

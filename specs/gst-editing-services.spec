@@ -3,8 +3,8 @@
 #global shortcommit %%(c=%%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
-Version:        1.28.5
-Release:        3%{?dist}
+Version:        1.28.6
+Release:        1%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -90,6 +90,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Wed Aug 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.6-1
+- 1.28.6
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.28.5-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

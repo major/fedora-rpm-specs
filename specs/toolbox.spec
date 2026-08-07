@@ -42,7 +42,7 @@ Version:       0.3
 %endif
 %endif
 
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -65,7 +65,7 @@ BuildRequires: go-md2man
 BuildRequires: golang >= %{toolbx_go}
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
-BuildRequires: shadow-utils-subid-devel >= 4.16.0
+BuildRequires: shadow-utils-subid-devel >= 4.20.0
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 %if ! 0%{?rhel}
@@ -84,7 +84,7 @@ Recommends:    fuse-overlayfs
 Requires:      containers-common
 Requires:      flatpak-session-helper
 Requires:      podman >= 1.6.4
-Requires:      shadow-utils-subid%{?_isa} >= 4.16.0
+Requires:      shadow-utils-subid%{?_isa} >= 4.20.0
 
 
 %description
@@ -197,6 +197,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Wed Aug 05 2026 Debarshi Ray <rishi@fedoraproject.org> - 0.3-7
+- Rebuild against shadow-utils-subid ABI version 6.0.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/sj14/astral
 %global goipath         github.com/sj14/astral
-Version:                0.2.2
+Version:                0.2.3
 
 %gometa
 

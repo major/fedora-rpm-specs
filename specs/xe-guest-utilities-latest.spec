@@ -31,13 +31,13 @@ This package follows the latest version of %{upstream_name} upstream.
 
 %prep
 %autosetup -p1 -n %{upstream_name}-%{version}
-mkdir -p src/github.com/xenserver
-ln -s $PWD src/github.com/xenserver/xe-guest-utilities
+mkdir -p $PWD/build/gobuild/src/github.com/xenserver
+ln -s $PWD/build/gobuild /$PWD/build/gobuild/src/github.com/xenserver/xe-guest-utilities
 
 sed -i -e 's:/usr/share/oem/xs:%{_sbindir}:' mk/%{service_name}.service
 
 %build
-GOPATH=$PWD:%{gopath} %{gomodulesmode} make \
+GOPATH=$PWD/build/gobuild:%{gopath} %{gomodulesmode} make \
      GO_FLAGS='-a -ldflags "${LDFLAGS:-}%{?currentgoldflags} -B 0x$$(head -c20 /dev/urandom|od -An -tx1|tr -d '"'"' \n'"'"') -extldflags '"'"'%__global_ldflags %{?__golang_extldflags}'"'"' -compressdwarf=false" -v -x'
 
 %install

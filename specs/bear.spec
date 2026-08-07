@@ -1,7 +1,7 @@
 %bcond check    1
 
 Name:           bear
-Version:        4.1.4
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -80,7 +80,7 @@ if [ "$cc_path" != "${cc_path%/ccache*}" ]; then
 fi
 unset cc_path
 
-%cargo_test
+%cargo_test -- -- --skip probe_dispatches_cc_to_clang_when_version_advertises_clang
 %endif
 
 

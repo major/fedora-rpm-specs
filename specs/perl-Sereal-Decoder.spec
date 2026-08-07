@@ -2,8 +2,8 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        5.009
-Release:        3%{?dist}
+Version:        5.010
+Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -117,6 +117,11 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Wed Aug  5 2026 Paul Howarth <paul@city-fan.org> - 5.010-1
+- Update to 5.010 (rhbz#2511545)
+  - Reset the pending frozen-object state (thaw_av and ref_thawhash) at the
+    start of every decode (Sereal GH#316)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.009-3
 - Perl 5.44 re-rebuild of bootstrapped packages
 

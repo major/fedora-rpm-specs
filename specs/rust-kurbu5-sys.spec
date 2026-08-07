@@ -5,7 +5,7 @@
 %global crate kurbu5-sys
 
 Name:           rust-kurbu5-sys
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Raw FFI bindings to the MIT Kerberos libkrb5 and KDB plugin API
 

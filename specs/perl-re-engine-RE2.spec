@@ -1,7 +1,7 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
 Version:        0.18
-Release:        17%{?dist}
+Release:        18%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:               GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -112,8 +112,6 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%{ve
 Patch0:         re-engine-RE2-0.18-Unbundle-re2.patch
 # Adapt to re2-20240702, bug #2304727, CPAN RT#83467
 Patch1:         re-engine-RE2-0.18-Use-C-17.patch
-# Adapt to changes in Perl 5.43.11
-Patch2:         re-engine-RE2-0.18-Adapt-to-perl-5.43.11.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # (This is a leaf package on i686 because all dependent packages are noarch,
 # and noarch packages no longer build on i686.)
@@ -207,6 +205,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 05 2026 Petr Pisar <ppisar@redhat.com> - 0.18-18
+- Remove patch defining PERL_EXT, resolved in perl 5.44.0-RC2 (Perl GH#24541)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-17
 - Perl 5.44 rebuild
 

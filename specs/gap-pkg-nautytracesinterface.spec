@@ -1,17 +1,8 @@
-# When bootstrapping a new architecture, there is no gap-pkg-digraphs package
-# yet.  It is only needed for testing this package, but it requires this package
-# to function at all.  Therefore, do the following:
-# 1. Build this package in bootstrap mode.
-# 2. Build gap-pkg-digraphs.
-# 3. Build this package in non-bootstrap mode.
-%bcond bootstrap 0
-
 # There have been no official releases yet, so we pull from git
-%global date           20260518
-%global commit         7e220749d34e968a89612f434b1700cb55780087
+%global date           20260728
+%global commit         096e41a84eca7dcf332f64fafdaf03432ba0205c
 %global user           gap-packages
 %global gap_pkgname    nautytracesinterface
-%global gap_skip_check %{?with_bootstrap}
 %global forgeurl       https://github.com/gap-packages/NautyTracesInterface
 
 Name:           gap-pkg-%{gap_pkgname}
@@ -37,18 +28,15 @@ BuildOption(check): tst/testall.g
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gap(autodoc) >= 2019.04.10
-BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(digraphs) >= 1.6
+BuildRequires:  gap(grape) >= 4.9.0
 BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  pkgconfig(libnauty)
 
-%if %{without bootstrap}
-BuildRequires:  gap(digraphs)
-BuildRequires:  gap(grape)
-%endif
-
 Requires:       gap-core%{?_isa} >= 4.12
+Requires:       gap(digraphs) >= 1.6
 
 Provides:       gap(NautyTracesInterface) = %{version}-%{release}
 Provides:       gap(nautytracesinterface) = %{version}-%{release}

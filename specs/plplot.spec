@@ -158,7 +158,7 @@ BuildRequires:  doxygen
 BuildRequires:  texlive-xmltex
 BuildRequires:  tex(ulem.sty)
 # RHEL8 does not ship xmlto-tex
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  xmlto-tex
 %else
 BuildRequires:  xmlto
@@ -182,10 +182,15 @@ BuildRequires:  python3dist(pyqt-builder)
 BuildRequires:  python3dist(sip) >= 5
 BuildRequires:  python3-qt5-devel
 BuildRequires:  shapelib-devel
-# For %check
+# For %%check
 %if %{with check}
+%if 0%{?fedora} || 0%{?rhel} >= 10
+%global __ctest xwfb-run -- %{__ctest}
+BuildRequires:  xwayland-run
+%else
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  mesa-dri-drivers
+%endif
 %endif
 BuildRequires:  chrpath
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -443,7 +448,7 @@ rm cmake/modules/FindLua.cmake
 
 
 %build
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 export LDFLAGS='%{build_ldflags} -Wl,--no-warn-execstack'
 %endif
 export PATH="%{_qt5_bindir}:$PATH"
@@ -517,6 +522,7 @@ find $RPM_BUILD_ROOT%{_datadir}/plplot%{version}/examples -type f | xargs chmod 
 
 %if %{with check}
 %check
+%if ! (0%{?fedora} || 0%{?rhel} >= 10)
 cp %SOURCE1 .
 if [ -x /usr/libexec/Xorg ]; then
    Xorg=/usr/libexec/Xorg
@@ -525,6 +531,7 @@ else
 fi
 $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -nolisten tcp -nolisten unix -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
 export DISPLAY=:99
+%endif
 # Help bytecode-only arches find the OCaml stublib
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_libdir}
 # Exclude ocaml from ppc/ppc64/ppc64le, arm, riscv64

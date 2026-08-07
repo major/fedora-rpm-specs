@@ -1,5 +1,5 @@
 Name:       python-numpoly
-Version:    1.3.8
+Version:    1.3.9
 Release:    %autorelease
 Summary:    Polynomials as a numpy datatype
 
@@ -11,9 +11,7 @@ Summary:    Polynomials as a numpy datatype
 License:    BSD-2-Clause
 URL:        %forgeurl
 Source:     %forgesource
-# As of NumPy 2.3.0 `numpy.count_nonzero` returns a scalar instead of int
-# https://github.com/jonathf/numpoly/issues/126
-Patch:      %{forgeurl}/pull/127.patch
+
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -78,7 +76,10 @@ sed -r \
 
 %install
 %pyproject_install
+find %{buildroot}%{python3_sitearch} -name '*.c' -delete
+find %{buildroot}%{python3_sitearch} -name '*.pyx' -delete
 %pyproject_save_files -l numpoly
+sed -i -e '/\.c$/d' -e '/\.pyx$/d' %{pyproject_files}
 
 %check
 %pytest -r fEs --import-mode=importlib

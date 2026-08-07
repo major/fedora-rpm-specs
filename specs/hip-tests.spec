@@ -20,8 +20,17 @@
 # THE SOFTWARE.
 #
 %global upstreamname hip-tests
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 1
+%global pkg_src rocm-%{rocm_version}
+%endif
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -66,7 +75,11 @@
 
 Name:       hip-tests%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+%if %{with preview}
+Release:    0%{?dist}
+%else
+Release:    3%{?dist}
+%endif
 Summary:    HIP tests
 
 License:    MIT AND BSL-1.0 AND Apache-2.0
@@ -81,20 +94,31 @@ License:    MIT AND BSL-1.0 AND Apache-2.0
 #  catch/unit/memory/hipSVMTestSharedAddressSpaceFineGrain.cp
 
 URL:        https://github.com/ROCm/rocm-systems
-Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%if %{with preview}
+Patch1:     0001-hip-tests-preview-fix-build.patch
+%else
 Patch1:     0001-hip-tests-build-on-fedora.patch
 Patch2:     0001-hip-tests-link-with-libamd64.patch
 Patch3:     0001-hip-tests-disable-spv.patch
+%endif
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  boost-devel
+%if %{with preview}
+BuildRequires:  catch-devel
+%endif
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  numactl-devel
+%if %{with preview}
+BuildRequires:  python3dist(pyyaml)
+%endif
 BuildRequires:  pkgconfig(opengl)
 %if 0%{?fedora}
 BuildRequires:  picojson-devel
@@ -105,9 +129,11 @@ BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
+%if %{without preview}
 # Boost Software License 1.0
 # https://github.com/catchorg/Catch2/blob/v2.13.4/LICENSE.txt
 Provides:       bundled(catch2) = 2.13.4
+%endif
 
 %if %{with check}
 BuildRequires:  rocminfo
@@ -120,7 +146,11 @@ Requires:       rocminfo
 This repository provides unit tests for HIP implementation.
 
 %prep
+%if %{with preview}
+%autosetup -n %{upstreamname} -p3
+%else
 %autosetup -n %{upstreamname} -p1
+%endif
 
 # Change path to clang-cpp
 sed -i -e 's@${ROCM_PATH}/llvm/bin/clang-cpp@%{rocmllvm_bindir}/clang-cpp@' catch/CMakeLists.txt
@@ -140,14 +170,30 @@ sed -i -e 's@-lamdhip64@-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64@' catch/unit/c
 rm -rf catch/external/picojson
 %endif
 
+%if %{without preview}
 # Rename the catch2 license so we can pick it up
 mv catch/external/Catch2/LICENSE.txt catch/external/Catch2/LICENSE.catch2.txt
+%endif
+
+%if %{with preview}
+# hrr depends on clr source dir
+sed -i -e 's@add_subdirectory(hrr)@#add_subdirectory(hrr)@' catch/unit/CMakeLists.txt
+# some spriv and other things
+sed -i -e 's@NOT WIN32@FALSE@' catch/unit/module/CMakeLists.txt
+# require catch2
+sed -i -e 's@find_package(Catch2 3.8.1 QUIET)@find_package(Catch2 REQUIRED)@' catch/CMakeLists.txt
+%endif
 
 %build
 cd catch
 
 # hip is built with hipcc, append the location of the runtime headers
 export HIPCC_COMPILE_FLAGS_APPEND="-I %{pkg_prefix}/include"
+
+%if %{with preview}
+# To find clang bits
+export PATH=%{rocmllvm_bindir}:$PATH
+%endif
 
 %cmake \
     -DCMAKE_BUILD_TYPE=%{build_type} \
@@ -196,13 +242,24 @@ rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/saxpy.h
 # Clean up dupes:
 %fdupes %{buildroot}%{pkg_prefix}
 
+%if %{with preview}
+# rpath issues
+chrpath -d %{buildroot}%{pkg_prefix}/libexec/hip-tests/catch_tests/hipSquareGenericTargetOnly
+chrpath -d %{buildroot}%{pkg_prefix}/libexec/hip-tests/catch_tests/hipSquareGenericTargetOnlyCompressed
+%endif
+
 %files
 %doc README.md
 %license LICENSE.md
+%if %{without preview}
 %license catch/external/Catch2/LICENSE.catch2.txt
+%endif
 %{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Mon Aug 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
+- Add --with preview
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

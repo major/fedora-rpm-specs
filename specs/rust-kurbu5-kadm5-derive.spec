@@ -5,7 +5,7 @@
 %global crate kurbu5-kadm5-derive
 
 Name:           rust-kurbu5-kadm5-derive
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Proc-macro derives for KADM5_AUTH and KADM5_HOOK plugin interfaces
 

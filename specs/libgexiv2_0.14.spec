@@ -1,5 +1,5 @@
 Name:           libgexiv2_0.14
-Version:        0.14.6
+Version:        0.14.7
 Release:        %autorelease
 Summary:        Gexiv2 is a GObject-based wrapper around the Exiv2 library
 

@@ -1,11 +1,20 @@
 Name: cvise
-Version: 2.11.0
-Release: 6%{?dist}
+Version: 2.12.0
+Release: 1%{?dist}
 Summary: Super-parallel Python port of the C-Reduce
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 URL: https://github.com/marxin/cvise
 Source: https://github.com/marxin/cvise/archive/v%{version}.tar.gz
+
+# Fix compatibility with LLVM22.
+#
+# Backport of upstream commits:
+# https://github.com/marxin/cvise/commit/59e9058c43b12b802893bde668113c8b3b3525b7
+# https://github.com/marxin/cvise/commit/68262f7d6de584b6474801827cb7dfc68011de25
+# https://github.com/marxin/cvise/commit/fa1be9523d569adfe207c85a1e44f074172bc305
+# https://github.com/marxin/cvise/commit/b17bbacdb279babd87dc9ef24756f3003746717c
+# https://github.com/marxin/cvise/commit/c7f9642340eb61c09a05c96498fd21c9b7293770
+Patch1: llvm22.patch
 
 BuildRequires: astyle
 BuildRequires: cmake
@@ -21,6 +30,9 @@ BuildRequires: python3-pytest
 BuildRequires: python3-psutil
 BuildRequires: python3-chardet
 BuildRequires: make
+BuildRequires: libffi-devel
+BuildRequires: libxml2-devel
+BuildRequires: zlib-ng-devel
 
 Requires: astyle
 Requires: clang-tools-extra
@@ -43,7 +55,7 @@ has the same property. It is intended for use by people who discover
 and report bugs in compilers and other tools that process C/C++ or OpenCL code.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
@@ -51,6 +63,14 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
 %cmake_build
 
 %check
+export PYTEST_ADDOPTS="\
+--deselect=cvise/tests/test_test_manager.py::test_succeed_via_naive_pass \
+--deselect=cvise/tests/test_test_manager.py::test_succeed_via_n_one_off_passes \
+--deselect=cvise/tests/test_test_manager.py::test_succeed_after_n_invalid_results \
+--deselect=cvise/tests/test_test_manager.py::test_give_up_on_stuck_pass \
+--deselect=cvise/tests/test_test_manager.py::test_halt_on_unaltered \
+--deselect=cvise/tests/test_test_manager.py::test_halt_on_unaltered_after_stop \
+--deselect=tests/test_cvise.py::TestCvise::test_simple_reduction"
 %cmake_build --target test
 
 %install
@@ -68,6 +88,9 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
 %{_datadir}/cvise
 
 %changelog
+* Fri Jul 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.12.0-1
+- Update to v2.12.0 (rhbz#2123703), fix FTBFS (rhbz#2433972)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

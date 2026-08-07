@@ -7,9 +7,9 @@
 %global crate dtor
 
 Name:           rust-dtor
-Version:        0.1.1
+Version:        1.0.5
 Release:        %autorelease
-Summary:        __attribute__((destructor)) for Rust
+Summary:        Global, no_std-compatible destructors for all platforms that run after main
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/dtor
@@ -18,7 +18,8 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-__attribute__((destructor)) for Rust.}
+Global, no_std-compatible destructors for all platforms that run after
+main (like C/C++ __attribute__((destructor))).}
 
 %description %{_description}
 
@@ -34,6 +35,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,18 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+__no_warn_on_missing_unsafe-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__no_warn_on_missing_unsafe-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__no_warn_on_missing_unsafe" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__no_warn_on_missing_unsafe-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+proc_macro-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -73,16 +63,16 @@ use the "proc_macro" feature of the "%{crate}" crate.
 %files       -n %{name}+proc_macro-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+used_linker-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+used_linker-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "used_linker" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+used_linker-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,3 +1,11 @@
+# When bootstrapping a new architecture there is no gap-pkg-nautytracesinterface
+# package yet.  It is only needed for testing this package, but it requires
+# this package to provide optional functionality.  Therefore, do the following:
+# 1. Build this package in bootstrap mode.
+# 2. Build gap-pkg-nautytracesinterface.
+# 3. Build this package in non-bootstrap mode.
+%bcond bootstrap 0
+
 %global gap_pkgname digraphs
 %global giturl      https://github.com/digraphs/Digraphs
 
@@ -26,7 +34,9 @@ BuildRequires:  gap(datastructures) >= 0.2.5
 BuildRequires:  gap(gapdoc) >= 1.6.3
 BuildRequires:  gap(grape) >= 4.8.1
 BuildRequires:  gap(io) >= 4.5.1
+%if %{without bootstrap}
 BuildRequires:  gap(nautytracesinterface) >= 0.2
+%endif
 BuildRequires:  gap(orb) >= 4.8.2
 BuildRequires:  gap-devel >= 4.11.0
 BuildRequires:  gcc-c++
@@ -40,6 +50,7 @@ Requires:       gap(io) >= 4.5.1
 Requires:       gap(orb) >= 4.8.2
 Requires:       gap-core%{?_isa} >= 4.11.0
 
+Recommends:     gap(gapdoc) >= 1.6.3
 Recommends:     gap(grape) >= 4.8.1
 Recommends:     gap(nautytracesinterface) >= 0.2
 Recommends:     graphviz

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        5.009
+Version:        5.010
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -99,6 +99,10 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Wed Aug  5 2026 Paul Howarth <paul@city-fan.org> - 5.010-1
+- Update to 5.010 (rhbz#2511543)
+  - Reset the pending frozen-object state at the start of every decode
+
 * Fri Jul 17 2026 Paul Howarth <paul@city-fan.org> - 5.009-1
 - Update to 5.009 (rhbz#2501694)
   - Only use Perl's $Config{ccflags} when building bundled zstd on AIX/IBM

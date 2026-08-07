@@ -146,6 +146,7 @@ Patch0019: 0019-CryptoPkg-TlsLib-downgrade-security-level-from-3-to-.patch
 Patch0020: 0020-OvmfPkg-PlatformDxe-proper-addr-masking.patch
 Patch0021: 0021-OvmfPkg-EmuVariableFvbRuntimeDxe-fix-ValidateFvHeade.patch
 Patch0022: 0022-OvmfPkg-IntelTdx-Move-BootManagerMenuApp-from-NCCFV-.patch
+Patch0023: 0023-OvmfPkg-PlatformInitLib-restore-below-4G-low-memory-.patch
 
 
 # needed by %prep

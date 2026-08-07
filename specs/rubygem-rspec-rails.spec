@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
@@ -18,6 +18,8 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 # dependency on chromedriver.
 # https://github.com/rspec/rspec-rails/pull/2856
 Patch0: rubygem-rspec-rails-8.0.1-Drop-driven-by-selenium.patch
+# https://github.com/rspec/rspec-rails/pull/2866/commits/8e0df8df128121d1e21260dd50de55fb7b068d6e
+Patch1: rubygem-rspec-rails-pr2866-update-specs-for-rails.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -54,6 +56,7 @@ Documentation for %{name}.
 (
 cd %{builddir}
 %patch 0 -p1
+%patch 1 -p1
 )
 
 %build
@@ -109,6 +112,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.1-5
+- Backport upstream BR to support rails 8.1 for spec testsuite
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

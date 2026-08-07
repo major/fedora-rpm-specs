@@ -71,7 +71,7 @@
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
 Version: 0.20.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -90,9 +90,9 @@ Source1: https://repo1.maven.org/maven2/org/apache/thrift/lib%{name}/%{version}/
 Source2: https://raw.github.com/apache/%{name}/%{version}/bootstrap.sh
 
 # fix configure.ac insistence on using /usr/local/lib for JAVA_PREFIX
-Patch2: configure-java-prefix.patch
+Patch: configure-java-prefix.patch
 # fix build with GCC 15: https://github.com/apache/thrift/pull/3078
-Patch3: gcc15.patch
+Patch: gcc15.patch
 
 
 # BuildRequires for language-specific bindings are listed under these
@@ -114,7 +114,7 @@ BuildRequires: glib2-devel
 BuildRequires: libevent-devel
 BuildRequires: libstdc++-devel
 BuildRequires: libtool
-BuildRequires: openssl-devel
+BuildRequires: openssl3-devel
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive
 BuildRequires: zlib-devel
@@ -449,6 +449,9 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Wed Aug 5 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 0.20.0-13
+- rhbz#2491640, failing to build w/ openssl4, revert to openssl3
+ 
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

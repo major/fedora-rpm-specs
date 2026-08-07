@@ -117,6 +117,7 @@ Conflicts:      %{name}-config-fedora
 %description    config
 This is the upstream/vanilla configuration file of i3.
 
+%if 0%{?fedora}
 %package        config-fedora
 RemovePathPostfixes: .fedora
 Summary:        Configuration of %{name} for the Fedora i3 Spin
@@ -130,6 +131,7 @@ Conflicts:      %{name}-config
 
 %description    config-fedora
 This is the configuration file of i3 used for the Fedora i3 Spin.
+%endif
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -171,8 +173,10 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps/
 install -Dpm0644 %{SOURCE3} \
         %{buildroot}%{_datadir}/pixmaps/
 
+%if 0%{?fedora}
 install -Dpm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}/config.fedora
 install -Dpm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/%{name}/config.keycodes.fedora
+%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
@@ -199,9 +203,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
 %config(noreplace) %{_sysconfdir}/%{name}/config
 %config %{_sysconfdir}/%{name}/config.keycodes
 
+%if 0%{?fedora}
 %files config-fedora
 %config(noreplace) %{_sysconfdir}/%{name}/config.fedora
 %config %{_sysconfdir}/%{name}/config.keycodes.fedora
+%endif
 
 %files doc
 %license LICENSE

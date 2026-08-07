@@ -5,7 +5,7 @@
 %global crate dtor-proc-macro
 
 Name:           rust-dtor-proc-macro
-Version:        0.0.6
+Version:        0.0.13
 Release:        %autorelease
 Summary:        Proc-macro support for the dtor crate
 

@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -22,6 +22,10 @@ Patch001: 0001-configure.ac-Make-CJK-fonts-name-configurable.patch
 Patch002: lcf-CVE-2025-57812.patch
 # CVE-2025-64503
 Patch003: 0001-Fix-out-of-bounds-write-in-cfFilterPDFToRaster.patch
+# CVE-2026-64611
+Patch004: 0001-ieee.c-Fix-possible-infinite-loop-and-avoid-empty-de.patch
+# CVE-2026-64612
+Patch005: 0001-image-png.c-Handle-libpng-errors-via-longjmp-setjmp-.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -200,6 +204,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Aug 05 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-9
+- fixes CVE-2026-64611 and CVE-2026-64612 (fedora#2506364)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

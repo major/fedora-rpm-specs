@@ -1,26 +1,26 @@
 %global pypi_name sport-activities-features
-
+%global forgeurl https://github.com/firefly-cpp/sport-activities-features
+Version:        0.5.4
+%forgemeta
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.5.2
 Release:        %autorelease
 Summary:        A minimalistic toolbox for extracting features from sports activity files
-
-%global forgeurl https://github.com/firefly-cpp/sport-activities-features
-%global tag %{version}
-%forgemeta
-
-# SPDX
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
+Patch:          numpy-2.0.patch
 
 BuildArch:      noarch
+ExclusiveArch:  %{qt6_qtwebengine_arches} noarch
 BuildRequires:  python3-devel
+BuildRequires:  qt6-srpm-macros
 BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-qt}
+BuildRequires:  %{py3_dist pyside6}
 %endif
 
 %global _description %{expand:

@@ -1,7 +1,7 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
 
 Name:           httrack
-Version:        3.49.13
+Version:        3.49.18
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -117,7 +117,8 @@ appstream-util validate-relax --nonet \
 %{_datadir}/applications/*WebHTTrack.desktop
 %{_datadir}/applications/*WebHTTrack-Websites.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/pixmaps/%{name}*x*.xpm
+%{_datadir}/icons/hicolor/*/apps/%{name}.svg
+%{_datadir}/pixmaps/%{name}*.xpm
 %{_datadir}/%{name}/
 %{_libdir}/libhttrack.so.*
 %{_mandir}/man1/htsserver.1*
@@ -130,6 +131,7 @@ appstream-util validate-relax --nonet \
 %{_pkgdocdir}/libtest/
 %{_includedir}/%{name}/
 %{_libdir}/libhttrack.so
+%{_libdir}/pkgconfig/libhttrack.pc
 
 %changelog
 %autochangelog

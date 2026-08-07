@@ -1,12 +1,10 @@
 Name:           perl-Crypt-SMIME
-Version:        0.33
+Version:        0.34
 Release:        %autorelease
 Summary:        S/MIME message signing, verification, encryption and decryption
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-SMIME
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKAGE/Crypt-SMIME-%{version}.tar.gz
-# https://rt.cpan.org/Ticket/Display.html?id=180472
-Patch0:         perl-Crypt-SMIME-openssl4-asn1-string.patch
 
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -51,7 +49,6 @@ verify, encrypt and decrypt messages. It requires libcrypto
 # As part of the rpm process we generate some files which
 # then cause t/manifest.t to fail.
 printf '\\.list$\n^\\.package_note\n' >> MANIFEST.SKIP
-%patch 0 -p1
 
 
 %build

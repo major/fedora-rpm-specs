@@ -4,19 +4,23 @@
 %global pypi_name nashpy
 %global pretty_name Nashpy
 
+%global forgeurl https://github.com/drvinceknight/Nashpy
+Version:        0.0.43
+%global tag     v%{version}
+%forgemeta
+
 %global _description %{expand:
 This library implements the following algorithms for Nash equilibria
 on 2 player games: Support enumeration, Best response polytope vertex
 enumeration, Lemke Howson algorithm.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.43
 Release:        %autorelease
 Summary:        A library to compute equilibria of 2 player normal form games
 
 License:        MIT
-URL:            https://github.com/drvinceknight/%{pretty_name}
-Source0:        %{url}/archive/v%{version}/%{pretty_name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
@@ -35,7 +39,7 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 # See testenv.deps in tox.ini, but note that it is mostly linters etc.,
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(pytest-subtests)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-randomly)
 %endif
 
@@ -55,9 +59,9 @@ Documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n %{pretty_name}-%{version}
+%forgeautosetup
 
-%generate_buildrequires	
+%generate_buildrequires
 %pyproject_buildrequires
 
 
@@ -75,7 +79,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_install
 %pyproject_save_files nashpy
 
-%check	
+%check
 %if %{with tests}
 %pytest --ignore-glob='benchmarks/*' -v
 %endif
