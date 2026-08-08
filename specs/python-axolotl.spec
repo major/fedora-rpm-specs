@@ -14,6 +14,7 @@ Patch1:         python-axolotl-remove-nose.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  protobuf-compiler
 
 %global _description %{expand:
 This is a ratcheting forward secrecy protocol
@@ -29,6 +30,12 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1
+
+# Regenerate python protobuf files with system protoc to avoid compatibility issues with newer protobuf versions
+cp axolotl/protobuf/LocalStorageProtocol.proto axolotl/protobuf/storageprotos.proto
+cp axolotl/protobuf/WhisperTextProtocol.proto axolotl/protobuf/whisperprotos.proto
+protoc --proto_path=axolotl/protobuf --python_out=axolotl/state storageprotos.proto
+protoc --proto_path=axolotl/protobuf --python_out=axolotl/protocol whisperprotos.proto
 
 %generate_buildrequires
 %pyproject_buildrequires -t

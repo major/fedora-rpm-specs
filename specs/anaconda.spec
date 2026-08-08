@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.15
+Version: 45.16
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -37,7 +37,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.73-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.13.0-1
+%define pythonblivetver 1:3.14.0-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
@@ -523,6 +523,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 06 2026 Packit <hello@packit.dev> - 45.16-1
+- Fix a shutdown (Quit) race condition (rvykydal)
+- spec: Bump required blivet version to 3.14.0 (vtrefny)
+- storage: Make unlock_device work with both LUKS and Stratis (vtrefny)
+- storage: Introduce encrypted and has_key attrs for Stratis (vtrefny)
+- refactor: drop unnecessary .value call from StrEnum (bciconel)
+- feat(boss): persist pending errors for client reconnection (bciconel)
+
 * Tue Aug 04 2026 Packit <hello@packit.dev> - 45.15-1
 - feat(boss): track installation status with enum (bciconel)
 - refactor: change InstallationErrorDialogType from Enum to StrEnum (bciconel)

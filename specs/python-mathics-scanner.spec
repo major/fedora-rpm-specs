@@ -12,6 +12,7 @@ Source:         %{pypi_source}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pkg-resources
 
 %global _description %{expand:
 This package provides character tables and a tokenizer for Mathics and the

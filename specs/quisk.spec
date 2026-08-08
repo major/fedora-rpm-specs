@@ -1,6 +1,6 @@
 Name:           quisk
-Version:        4.2.53
-Release:        3%{?dist}
+Version:        4.2.54
+Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
@@ -9,8 +9,7 @@ URL:            http://james.ahlstrom.name/quisk/
 #Source0:        https://files.pythonhosted.org/packages/source/q/%%{name}/%%{name}-%%{version}.tar.gz
 Source0:        https://github.com/jimahlstrom/quisk/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        quisk.desktop
-Source2:        quisk.png
-Source3:        name.ahlstrom.james.Quisk.metainfo.xml
+Source2:        name.ahlstrom.james.Quisk.metainfo.xml
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -28,7 +27,7 @@ Requires:       python3-wxpython4
 Requires:       wdsp
 Suggests:       codec2-devel
 
-Patch:          quisk-4.2.53-build-fix.patch
+Patch:          quisk-4.2.54-utf-fix.patch
 
 %description
 QUISK is a Software Defined Radio (SDR) which can control various
@@ -74,10 +73,13 @@ done
 desktop-file-install \
   --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
-install -Dpm 0644 %{SOURCE2} \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/quisk.png
+for i in 16 32 48 64 128 256 512
+do
+  install -Dpm 0644 icons/quisk_${i}.png \
+    %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/quisk.png
+done
 
-install -Dpm 0644 %{SOURCE3} \
+install -Dpm 0644 %{SOURCE2} \
   %{buildroot}%{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
 
 %files -f %{pyproject_files}
@@ -86,11 +88,15 @@ install -Dpm 0644 %{SOURCE3} \
 %doc help.html help_vna.html
 %{_bindir}/%{name}{,_vna}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
 
 
 %changelog
+* Thu Aug 06 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.54-1
+- New version
+  Resolves: rhbz#2511114
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.53-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

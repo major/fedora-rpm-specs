@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.15.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -19,6 +19,9 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 Source4:        lttng-tools.sysusers.conf
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:         lttng-tools-swig45.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -195,6 +198,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.15.1-4
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.15.1-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

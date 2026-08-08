@@ -31,6 +31,9 @@ URL:            https://www.openvdb.org/
 
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/AcademySoftwareFoundation/openvdb/pull/2200
+Patch0:		2200.patch
+
 # OpenVDB no longer builds on 32bits with latest TBB due to OOM.
 ExcludeArch:    %{ix86}
 

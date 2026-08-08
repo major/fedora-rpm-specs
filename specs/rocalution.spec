@@ -19,13 +19,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname rocALUTION
 
 %global pkg_library_name rocalution
 %global pkg_library_version 1
 
+%bcond_with preview
+%if %{with preview}
+%global upstreamname rocalution
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+%global upstreamname rocALUTION
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_version}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -89,12 +99,22 @@
 
 Name:           rocalution%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        6%{?dist}
+%endif
+
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -184,7 +204,11 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%if %{with preview}
+%autosetup -p3 -n %{upstreamname}
+%else
+%autosetup -p1 -n %{upstreamname}-%{pkg_src}
+%endif
 
 %if 0%{?suse_version}
 # On TW

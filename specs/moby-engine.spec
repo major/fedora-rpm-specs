@@ -16,7 +16,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        29.7.1
+%global version0        29.7.2
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
     rpm.define("tag0 " .. "docker-v" .. version0)
@@ -69,7 +69,6 @@ Source201:      cli_go-vendor-tools.toml
 
 # Patches 0-999 are for moby/moby
 Patch0:         0001-systemd-adjust-docker.service-for-downstream.patch
-Patch1:		0001-Fix-Go-1.27-json-issues.patch
 
 # Patches 1000+ are for docker/cli
 # Patch1000:

@@ -1,22 +1,36 @@
 %global pypi_name spyder-kernels
 
+%global forgeurl https://github.com/spyder-ide/spyder-kernels
+Version:        3.1.5
+%global tag     v%{version}
+%forgemeta
+
 Name:           python-%{pypi_name}
-Version:        3.1.1
 Release:        %autorelease
 Epoch:          2
 Summary:        Jupyter kernels for Spyder's console
-
-%global forgeurl https://github.com/spyder-ide/spyder-kernels
-%global tag v%{version_no_tilde %{quote:%nil}}
-%forgemeta
 
 # SPDX
 License:        MIT
 URL:            %forgeurl
 Source0:        %forgesource
+
+# Allow ipykernel 7
+Patch:          https://github.com/spyder-ide/spyder-kernels/pull/589.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-flaky
+BuildRequires:  python3-h5py
+BuildRequires:  python3-ipython
+BuildRequires:  python3-matplotlib
+BuildRequires:  python3-numpy
+BuildRequires:  python3-pandas
+BuildRequires:  python3-pillow
+BuildRequires:  python3-pytest
+BuildRequires:  python3-scipy
+BuildRequires:  python3-xarray
 
 %global _description %{expand:
 Package that provides Jupyter kernels for use with the consoles of
@@ -36,7 +50,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgesetup
+%autosetup -n %{pypi_name}-%{version} -p1
 
 
 %generate_buildrequires
@@ -53,8 +67,8 @@ Summary:        %{summary}
 
 
 %check
-# Package doesn't provide any tests
 %pyproject_check_import
+%pytest -k "not test_get_value_with_polars and not test_matplotlib_inline and not test_do_complete and not test_django_settings and not test_load_dicom_files and not test_polars_dataframe"
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

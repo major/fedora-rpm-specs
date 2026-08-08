@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        50.2
+Version:        50.3
 Release:        %autorelease
 Summary:        Binary editor for GNOME
 

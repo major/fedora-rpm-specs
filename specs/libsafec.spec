@@ -1,6 +1,6 @@
 Name:			libsafec
-Version:		3.7.1
-Release:		9%{?dist}
+Version:		3.9.2
+Release:		1%{?dist}
 Summary:		Safec fork with all C11 Annex K functions
 
 License:		MIT
@@ -43,6 +43,9 @@ autoreconf -Wall --install
 %install
 %make_install
 
+%check
+%make_build check
+
 %files -n libsafec
 %license COPYING
 %{_libdir}/libsafec.so.*
@@ -57,6 +60,9 @@ autoreconf -Wall --install
 %{_bindir}/check_for_unsafe_apis
 
 %changelog
+* Thu Aug 06 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.9.2-1
+- Update to 3.9.2 (rhbz#2504293)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

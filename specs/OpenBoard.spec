@@ -35,6 +35,8 @@ Patch:         %{name}-use-system-fonts.patch
 # Disable software update check and hide the checkbox in Preferences, based on OpenSUSE patch:
 # https://build.opensuse.org/projects/home:letsfindaway:experimental/packages/OpenBoard-Qt6/files/9117-disable-software-update.patch
 Patch:         %{name}-disable-software-update.patch
+# A patch to fix build with poppler 26.04.0 and newer
+Patch:         %{name}-poppler-26.04.0.patch
 BuildRequires: cmake
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Concurrent)

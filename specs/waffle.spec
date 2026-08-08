@@ -1,26 +1,27 @@
-%global gitver 49abc7cb5f73cc6852136c91da49ea3a338960e4
 Name:          waffle
-Version:       1.8.1
+Version:       1.8.3
 Release:       %autorelease
 Summary:       Platform independent GL API layer
 
 License:       MIT
 URL:           http://www.waffle-gl.org/releases.html
-Source0:       https://gitlab.freedesktop.org/mesa/waffle/-/archive/v%{version}/waffle-%{version}.tar.bz2
+Source0:       https://gitlab.freedesktop.org/mesa/waffle/-/archive/v%{version}/waffle-%{version}.tar.xz
 
-BuildRequires: meson ninja-build
-BuildRequires: libxslt docbook-style-xsl libxcb-devel
-BuildRequires: gcc-c++
-BuildRequires: libX11-devel mesa-libGL-devel mesa-libGLU-devel
-BuildRequires: chrpath
-BuildRequires: mesa-libEGL-devel
-%if 0%{?rhel} > 6 || 0%{?fedora} > 0
-BuildRequires: mesa-libGLES-devel
-BuildRequires: systemd-devel
-%endif
-BuildRequires: mesa-libgbm-devel
-BuildRequires: wayland-devel
-BuildRequires: wayland-protocols-devel
+BuildRequires:  cmake
+BuildRequires:  docbook-style-xsl
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libX11-devel
+BuildRequires:  libxcb-devel
+BuildRequires:  libxslt
+BuildRequires:  mesa-libEGL-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  mesa-libGLES-devel
+BuildRequires:  mesa-libgbm-devel
+BuildRequires:  meson
+BuildRequires:  ninja-build
+BuildRequires:  wayland-devel
+BuildRequires:  wayland-protocols-devel
 
 %description
 Waffle is a cross-platform C library that allows one to defer
@@ -41,7 +42,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description doc
 Contains HTML version of the developer documentation for development of
-%{name}-related software (manpages are in the -devel package).
+%{name}-related software (man pages are in the -devel package).
 
 
 %package examples
@@ -53,39 +54,46 @@ Example programs using %{name}.
 
 
 %prep
-%autosetup -n waffle-v%{version}-%{gitver} -p1
+%autosetup -p1
+ln -sf waffle-1.5.0.txt doc/release-notes/waffle-1.5.0-rc2.txt
 
 
 %build
-%meson
+%meson -Dbuild-manpages=true
 %meson_build
+
 
 %install
 %meson_install
-# Fedora now uses unversioned doc dirs, make install shouldn’t try to
+# Fedora now uses unversioned doc dirs, make install shouldn't try to
 # install there anyway.
 rm -rf %{buildroot}%{_docdir}/%{name}*
 
-%ldconfig_scriptlets
+
+%check
+%meson_test
 
 
 %files
 %license LICENSE.txt
 %doc README.md
-%{_libdir}/lib%{name}*.so.*
 %{_bindir}/wflinfo
+%{_libdir}/lib%{name}-1.so.0*
 %{_datadir}/bash-completion/completions/wflinfo
 %{_datadir}/zsh/site-functions/_wflinfo
+%{_mandir}/man1/wflinfo.1*
 
 %files doc
 %doc doc/html/
 
 %files devel
 %doc doc/release-notes/
-%{_includedir}/waffle*
-%{_libdir}/lib%{name}*.so
-%{_libdir}/pkgconfig/%{name}*
-#{_mandir}/man*/*
+%{_includedir}/waffle-1/
+%{_libdir}/lib%{name}-1.so
+%{_libdir}/pkgconfig/%{name}-1.pc
+%{_libdir}/cmake/Waffle/
+%{_mandir}/man3/waffle*.3*
+%{_mandir}/man7/waffle*.7*
 
 
 %files examples

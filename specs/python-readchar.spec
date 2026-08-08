@@ -1,7 +1,7 @@
 %global srcname readchar
 
 Name:           python-%{srcname}
-Version:        4.0.5
+Version:        4.2.2
 Release:        %autorelease
 Summary:        Library to easily read single chars and key strokes
 
@@ -9,8 +9,6 @@ License:        MIT
 URL:            https://github.com/magmax/python-readchar
 # The PyPI tarball doesn't include tests so use GitHub instead
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix pytest 9 compatibility: py.path.local arguments deprecated
-Patch:          https://github.com/magmax/python-readchar/commit/5165992.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -18,7 +16,7 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
 
 %global _description %{expand:
-This is package provides a library to easily read single chars and keystrokes.}
+This package provides a library to easily read single chars and keystrokes.}
 
 %description %_description
 
@@ -41,6 +39,7 @@ Summary:        %{summary}
 %pyproject_save_files %{srcname}
 
 %check
+%pyproject_check_import
 %pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}

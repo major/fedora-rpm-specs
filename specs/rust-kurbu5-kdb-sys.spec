@@ -5,7 +5,7 @@
 %global crate kurbu5-kdb-sys
 
 Name:           rust-kurbu5-kdb-sys
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        KDB plugin API re-export — thin wrapper over kurbu5-sys adding libkdb5 linkage
 
@@ -37,7 +37,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 %exclude %{crate_instdir}/rust2rpm.toml
-%exclude %{crate_instdir}/rust-kurbu5-derive.spec
+%exclude %{crate_instdir}/rust-kurbu5-kdb-sys.spec
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

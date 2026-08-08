@@ -126,7 +126,7 @@ OPTIONS=(
     # Console testing seems to always fail, not tracked down yet...
     --deselect=mpmath/tests/test_demos.py
 )
-xwfb-run -c mutter -- pytest-3 -v "${OPTIONS[@]}"
+xwfb-run -c mutter -- pytest-3 -v -W default "${OPTIONS[@]}"
 
 %files -n python3-mpmath -f %{pyproject_files}
 %doc CHANGES README.rst

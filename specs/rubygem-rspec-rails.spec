@@ -5,14 +5,14 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 8.0.1
-Release: 5%{?dist}
+Version: 8.0.4
+Release: 1%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rspec/rspec-rails.git && cd rspec-rails
-# git archive -v -o rspec-rails-8.0.1-tests.tar.gz v8.0.1 features/ spec/
+# git archive -v -o rspec-rails-8.0.4-tests.tar.gz v8.0.4 features/ spec/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 # Fix Ruby on Rails 7.2+ compatibility. This mainly avoids additional
 # dependency on chromedriver.
@@ -112,6 +112,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 06 2026 Vít Ondruch <vondruch@redhat.com> - 8.0.4-1
+- Update to rspec-rails 8.0.4.
+  Resolves: rhbz#2387797
+
 * Thu Aug 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.1-5
 - Backport upstream BR to support rails 8.1 for spec testsuite
 

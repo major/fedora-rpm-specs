@@ -1,33 +1,35 @@
-# Packager: Paul Pfeister <code@pfeister.dev> (GitHub @ppfeister)
+%global forgeurl https://github.com/sherlock-project/sherlock
+Version:        0.16.0
+%forgemeta
 Name:           sherlock-project
-Version:        0.15.0
 Release:        %autorelease
 Summary:        Hunt down social media accounts by username across social networks
-
 License:        MIT
-URL:            https://github.com/sherlock-project/sherlock
-Source:         %{url}/archive/v%{version}/sherlock-%{version}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 Patch0:         0001-Remove-tor.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
 BuildRequires:  help2man
+BuildRequires:  python3-devel
 
 %global _description %{expand:
 Hunt down social media accounts by username across 400+ social networks and
-websites. New targets are tested and implemented regularly.
-}
+websites. New targets are tested and implemented regularly.}
 
 %description %{_description}
 
 
 %prep
-%autosetup -p1 -n sherlock-%{version}
+%forgeautosetup -p1
 sed -i '/torrequest/d' 'pyproject.toml' # Pending upstream removal
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x dev
+# Relax requirements on pandas and requests, since Fedora Rawhide has newer versions
+# Also remove torrequest since we patch out tor.
+sed -i 's/pandas = "\^2.2.1"/pandas = ">=2.2.1"/' pyproject.toml
+%pyproject_buildrequires -t
 
 
 %build
@@ -66,8 +68,4 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
 
 
 %changelog
-* Mon Jul 08 2024 Paul Pfeister <code@pfeister.dev> - 0.15.0-1
-- Importable module renamed to sherlock_project (see Debian 1072733).
-- --dump-response flag added to aid in debugging.
-* Tue May 14 2024 Paul Pfeister <code@pfeister.dev> - 0.14.4-1
-- Initial package.
+%autochangelog

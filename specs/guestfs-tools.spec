@@ -8,15 +8,15 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.56-stable
+%global source_directory 1.57-development
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.56.0
-Release:       3%{?dist}
+Version:       1.57.1
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -43,7 +43,7 @@ BuildRequires: autoconf, automake, libtool, gettext-devel
 BuildRequires: gcc, gcc-c++
 BuildRequires: make
 BuildRequires: glibc-utils
-BuildRequires: libguestfs-devel >= 1:1.59.7-1
+BuildRequires: libguestfs-devel >= 1:1.61.1-1
 BuildRequires: libguestfs-xfs
 BuildRequires: perl(Pod::Simple)
 BuildRequires: perl(Pod::Man)
@@ -90,7 +90,7 @@ BuildRequires: gnupg2
 %endif
 
 # Ensure a minimum version of libguestfs is installed.
-Requires:      libguestfs%{?_isa} >= 1:1.59.7-1
+Requires:      libguestfs%{?_isa} >= 1:1.61.1-1
 
 # For virt-builder:
 Requires:      curl
@@ -393,6 +393,10 @@ end
 
 
 %changelog
+* Thu Aug 06 2026 Richard W.M. Jones <rjones@redhat.com> - 1.57.1-1
+- New upstream development version 1.57.1
+- Requires libguestfs 1.61.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.56.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

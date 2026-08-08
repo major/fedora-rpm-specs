@@ -20,8 +20,18 @@
 # THE SOFTWARE.
 #
 %global upstreamname rdc
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 1
+%global pkg_src rocm-%{rocm_version}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -55,10 +65,18 @@
 
 Name:           rocm-rdc%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        5%{?dist}
+%endif
 Summary:        ROCm Data Center Tool
 
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-systems
+%else
 URL:            https://github.com/ROCm/%{upstreamname}
+%endif
 License:        MIT AND NCSA
 # The main license is MIT
 # These are the files that are NCSA
@@ -70,7 +88,11 @@ License:        MIT AND NCSA
 # tests/rdc_tests/test_utils.h
 # tools/run_github_actions_locally.sh
 
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%if %{with preview}
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
+Source0:        %{url}/archive/%{pkg_src}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
 
 # ROCm is only x86_64 for now
 ExclusiveArch:  x86_64
@@ -113,7 +135,11 @@ Requires:       rocm-filesystem%{pkg_suffix}
 The headers of libraries for %{name}.
 
 %prep
+%if %{with preview}
+%autosetup -p3 -n %{upstreamname}
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # Use the system gRPC
 sed -i -e 's@${GRPC_DESIRED_VERSION}@@' CMakeLists.txt
@@ -179,6 +205,9 @@ chmod a+x %{buildroot}%{pkg_prefix}/libexec/rdc/authentication/*.sh
 %{pkg_prefix}/%{pkg_libdir}/cmake/rdc/
 
 %changelog
+* Mon Aug 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
+- Add --with preview
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

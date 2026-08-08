@@ -1,7 +1,7 @@
 %global srcname inquirer
 
 Name:           python-%{srcname}
-Version:        3.1.3
+Version:        3.4.1
 Release:        %autorelease
 Summary:        Collection of common interactive command line user interfaces
 
@@ -18,7 +18,7 @@ BuildRequires:  sed
 
 %global _description %{expand:
 This package provides a collection of common interactive command line user
-interfaces, based on Inquirer.js.}
+interfaces, based on the Inquirer JavaScript library.}
 
 %description %_description
 
@@ -33,6 +33,15 @@ Summary:        %{summary}
 # Fix interpreter invocations in tests
 sed -i 's:python:python3:g' tests/acceptance/*.py
 
+# PyPI package name is editor, but Fedora packages it as python-editor
+sed -i 's/editor = ">=1.6.0"/python-editor = ">=1.0.4"/' pyproject.toml
+
+# Fedora packages readchar as 4.0.5, but inquirer 3.4.1 asks for >=4.2.0
+# The API is compatible enough, so relax the version requirement to >=4.0.0
+# This workaround can be removed when readchar is upgraded to 4.2.2
+# https://src.fedoraproject.org/rpms/python-readchar/pull-request/2
+sed -i 's/readchar = ">=4.2.0"/readchar = ">=4.0.0"/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -44,10 +53,10 @@ sed -i 's:python:python3:g' tests/acceptance/*.py
 %pyproject_save_files %{srcname}
 
 %check
+%pyproject_check_import
 %pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license %{python3_sitelib}/%{srcname}-%{version}.dist-info/LICENSE
 %doc README.md
 
 %changelog

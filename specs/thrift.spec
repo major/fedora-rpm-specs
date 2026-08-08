@@ -70,8 +70,8 @@
 # NOTE: thrift versions their libraries by package version, so each version
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
-Version: 0.20.0
-Release: 13%{?dist}
+Version: 0.24.0
+Release: 1%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -87,12 +87,12 @@ URL:     https://thrift.apache.org/
 Source0: https://archive.apache.org/dist/%{name}/%{version}/%{name}-%{version}.tar.gz
 
 Source1: https://repo1.maven.org/maven2/org/apache/thrift/lib%{name}/%{version}/lib%{name}-%{version}.pom
-Source2: https://raw.github.com/apache/%{name}/%{version}/bootstrap.sh
+Source2: https://raw.githubusercontent.com/apache/%{name}/%{version}/bootstrap.sh
 
 # fix configure.ac insistence on using /usr/local/lib for JAVA_PREFIX
 Patch: configure-java-prefix.patch
-# fix build with GCC 15: https://github.com/apache/thrift/pull/3078
-Patch: gcc15.patch
+# fix python install to not require pip (not in buildroot)
+Patch: no-pip-install.patch
 
 
 # BuildRequires for language-specific bindings are listed under these
@@ -449,6 +449,10 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Wed Aug 5 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 0.24.0-1
+- Thrift 0.24.0 GA, h/t to Justin Caratzas <jcaratza@ibm.com>
+  https://src.fedoraproject.org/rpms/thrift/pull-request/7
+ 
 * Wed Aug 5 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 0.20.0-13
 - rhbz#2491640, failing to build w/ openssl4, revert to openssl3
  

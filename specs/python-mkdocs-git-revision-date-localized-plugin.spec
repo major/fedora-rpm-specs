@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/timvink/mkdocs-git-revision-date-localized-plugin
 
 Name:           python-mkdocs-git-revision-date-localized-plugin
-Version:        1.5.0
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Mkdocs plugin to display the last git modification date
 
@@ -47,7 +47,7 @@ sed -i 's:setuptools>=70.0:setuptools>=69.0:' pyproject.toml
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -x dev
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

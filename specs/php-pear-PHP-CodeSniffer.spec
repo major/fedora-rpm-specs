@@ -1,6 +1,6 @@
 # spec file for php-pear-PHP-CodeSniffer
 #
-# Copyright (c) 2013-2025 Remi Collet
+# Copyright (c) 2013-2026 Remi Collet
 # Copyright (c) 2009-2013 Christof Damian
 # Copyright (c) 2006-2009 Konstantin Ryabitsev
 #
@@ -13,26 +13,20 @@
 
 %bcond_without       tests
 
-%global gh_commit    0525c73950de35ded110cffafb9892946d7771b5
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-11-10
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
 %global pear_phpdir  %{_datadir}/pear
 
-%global upstream_version 4.0.1
-#global upstream_prever  rc1
-
 Name:           php-pear-PHP-CodeSniffer
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Version:        4.0.4
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to retrieve test suite
-Source0:        %{name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # RPM installation path
@@ -81,7 +75,7 @@ certain standards, such as PEAR, or user-defined.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 %patch -P0 -p1 -b .rpm
 
 
@@ -123,11 +117,12 @@ for cmdarg in \
     "php82 %{_bindir}/phpunit11" \
     "php83 %{_bindir}/phpunit11" \
     "php84 %{_bindir}/phpunit11" \
-    "php85 %{_bindir}/phpunit11"
+    "php85 %{_bindir}/phpunit11" \
+    "php86 %{_bindir}/phpunit11"
   do if which $cmdarg; then
     set $cmdarg
     $1 -d memory_limit=-1 $2 \
-       --filter '^((?!(testBrokenRulesetMultiError)).)*$' \
+       --filter '^((?!(testBrokenRulesetMultiError|testFilenameParameterInjection)).)*$' \
        --no-coverage || ret=1
   fi
 done
@@ -144,6 +139,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug  6 2026 Remi Collet <remi@remirepo.net> - 4.0.4-1
+- update to 4.0.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

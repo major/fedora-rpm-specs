@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/smallgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.5.4
+Version:        1.5.5
 Release:        %autorelease
 Summary:        Small groups library
 
@@ -18,7 +18,6 @@ BuildOption(install): gap id* small* tst
 BuildOption(check): --bare tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.02.16
-BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap-devel >= 4.9
 BuildRequires:  parallel
 
@@ -49,10 +48,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
-
-%conf
-# Fix permissions
-chmod a-x id9/idgrp9.g id10/idgrp10.g
 
 %build -a
 # Compress large group files

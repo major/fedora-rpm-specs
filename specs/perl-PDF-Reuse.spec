@@ -1,6 +1,6 @@
 Name:           perl-PDF-Reuse
-Version:        0.43
-Release:        2%{?dist}
+Version:        0.44
+Release:        1%{?dist}
 Summary:        Reuse and mass produce PDF documents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/PDF-Reuse
@@ -23,11 +23,15 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::PDF::TTFont0)
+BuildRequires:  perl(Text::PDF::Utils)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Font::TTF)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Deep)
@@ -35,6 +39,7 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Text::PDF::TTFont0)
+Requires:       perl(Text::PDF::Utils)
 
 %description
 This module allows you to reuse PDF-files. You can use pages, images,
@@ -95,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 06 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.44-1
+- 0.44 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

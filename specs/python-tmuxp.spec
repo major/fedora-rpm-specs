@@ -4,7 +4,7 @@
 %global srcname tmuxp
 
 Name:           python-%{srcname}
-Version:        1.52.2
+Version:        1.74.0
 Release:        %autorelease
 Summary:        Tmux session manager
 
@@ -12,6 +12,7 @@ Summary:        Tmux session manager
 License:        MIT
 URL:            https://tmuxp.git-pull.com/
 Source:         %{pypi_source}
+Patch0:         fix-python315-argparse-theme.patch
 
 BuildArch:      noarch
 
@@ -22,14 +23,15 @@ through simple configuration files.}
 %description %_description
 
 %package -n python3-%{srcname}
-Summary:	%{summary}
+Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(docutils)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(pytest-rerunfailures)
-BUildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  tmux
 BuildRequires:  python3dist(typing-extensions)
 %endif
 
@@ -37,7 +39,8 @@ BuildRequires:  python3dist(typing-extensions)
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
+sed -i -e '/^#!\//d' src/tmuxp/log.py
 
 
 %generate_buildrequires
@@ -55,9 +58,11 @@ BuildRequires:  python3dist(typing-extensions)
 
 %check
 %pyproject_check_import
-PYTHONPATH=src %pytest -v \
+%pytest -v tests \
 %if %{without all_tests}
-  --deselect tests/workspace/test_builder.py::test_window_shell
+  --deselect tests/workspace/test_builder.py::test_window_shell \
+  --deselect tests/workspace/test_builder.py::test_pane_readiness_call_count \
+  --deselect tests/workspace/test_builder.py::test_pane_readiness_custom_shell_skips_under_always
 %else
 %nil
 %endif

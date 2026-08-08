@@ -1,24 +1,22 @@
-%global pypi_name ast-monitor
+%bcond_without tests
 
-%bcond tests 1
+%global pypi_name ast-monitor
+%global forgeurl https://github.com/firefly-cpp/AST-Monitor
+Version:        0.5.6
+%forgemeta
 
 Name:           python-%{pypi_name}
-Version:        0.5.6
 Release:        %autorelease
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
-%global forgeurl https://github.com/firefly-cpp/AST-Monitor
-%global tag %{version}
-%forgemeta
-
 License:        MIT
-URL:            %forgeurl
-Source:         %forgesource
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildArch:      noarch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies
 # This package requires python3dist(pyqtwebengine).
-ExclusiveArch: %{qt6_qtwebengine_arches} noarch
+ExclusiveArch:  %{qt6_qtwebengine_arches} noarch
 
 BuildRequires:  python3-devel
 # For qt6_qtwebengine_arches macro:
@@ -40,6 +38,7 @@ system.}
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 Obsoletes:      python-ast-monitor-doc < 0.5.2-2
+Provides:       python-ast-monitor-doc = %{version}-%{release}
 
 %description -n python3-%{pypi_name} %_description
 

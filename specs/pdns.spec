@@ -2,15 +2,15 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 5.0.6
-Release: 2%{?dist}
+Version: 5.0.7
+Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
 ExcludeArch: %{arm} %{ix86}
 
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 Requires(pre): shadow-utils
 %endif
 Requires(post): systemd
@@ -152,7 +152,7 @@ This package contains the ixfrdist program.
 %prep
 %autosetup -p1
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 # Create a sysusers.d config file
 cat >pdns.sysusers.conf <<EOF
 u pdns - 'PowerDNS Authoritative Server' /var/lib/pdns -
@@ -221,14 +221,14 @@ sed -i \
 %{__rm} %{buildroot}/%{_bindir}/stubquery
 %{__install} -d %{buildroot}/%{_sharedstatedir}/%{name}
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 install -m0644 -D pdns.sysusers.conf %{buildroot}%{_sysusersdir}/pdns.conf
 %endif
 
 %check
 make %{?_smp_mflags} -C pdns check
 
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 %pre
 getent group pdns >/dev/null || groupadd -r pdns
 getent passwd pdns >/dev/null || \
@@ -267,7 +267,7 @@ getent passwd pdns >/dev/null || \
 %dir %attr(-,pdns,pdns) %{_sharedstatedir}/%{name}
 %dir %attr(-,root,pdns) %{_sysconfdir}/%{name}/
 %attr(0640,root,pdns) %config(noreplace) %{_sysconfdir}/%{name}/pdns.conf
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %{_sysusersdir}/pdns.conf
 %endif
 
@@ -370,6 +370,12 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Aug 06 2026 Morten Stevens <mstevens@fedoraproject.org> - 5.0.7-1
+- Update to 5.0.7
+
+* Tue Jul 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.6-3
+- Use sysusers.d config file for RHEL 11
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

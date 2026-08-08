@@ -24,15 +24,11 @@
 
 Name:    udisks2
 Summary: Disk Manager
-Version: 2.11.1
-Release: 3%{?dist}
+Version: 2.11.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2403452
-# Please set sys_tz by default for udisks2 exfat mounts
-Patch0:  udisks-2.11.90-exfat_mount_opts.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -345,6 +341,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 06 2026 Tomas Bzatek <tbzatek@redhat.com> - 2.11.2-1
+- Version 2.11.2
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

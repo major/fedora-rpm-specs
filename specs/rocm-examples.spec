@@ -20,8 +20,17 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocm-examples
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -64,7 +73,11 @@
 
 Name:           rocm-examples%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
+%endif
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -74,7 +87,7 @@ License:        MIT AND Apache-2.0
 # HIP-Basic/assembly_to_executable/hip_obj_gen_win.mcin
 # HIP-Basic/llvm_ir_to_executable/hip_obj_gen.mcin
 # HIP-Basic/llvm_ir_to_executable/hip_obj_gen_win.mcin
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/archive/%{pkg_src}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -134,7 +147,7 @@ The examples are structured in several categories:
   repository contents.
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
 # No External, not going to bundle things outside of this project.
 # Not having glfw-devel turns off building examples that use External/glad
@@ -145,9 +158,11 @@ rm -rf External/{glad,KHR}
 # https://github.com/ROCm/rocm-examples/issues/217
 for f in `find . -name 'CMakeLists.txt'`; do
     sed -i -e 's@/opt/rocm@%{pkg_prefix}@' $f
+    sed -i -e 's@${ROCM_PATH}/bin/@%{pkg_prefix}/bin/@' $f
 done
 for f in `find . -name 'Makefile'`; do
     sed -i -e 's@/opt/rocm@%{pkg_prefix}@' $f
+    sed -i -e 's@${ROCM_PATH}/bin/@%{pkg_prefix}/bin/@' $f
 done
 
 # On SLE 15.6
@@ -168,6 +183,10 @@ sed -i '/hipTensor/d' Libraries/CMakeLists.txt
 sed -i '/rocProfiler-SDK/d' Libraries/CMakeLists.txt
 # Do not want to fight through open mp requirement
 sed -i '/rocWMMA/d' Libraries/CMakeLists.txt
+%if %{with preview}
+# optical_flow uses tex2D API not supported by HIP/ROCm
+sed -i '/add_subdirectory(optical_flow)/d' Applications/CMakeLists.txt
+%endif
 
 %build
 
@@ -197,12 +216,21 @@ export ROCM_ROOT=%{pkg_prefix}
 # rocm-examples.x86_64: W: non-executable-in-bin /usr/bin/vcpy_isa.hsaco 644
 rm -f %{buildroot}%{pkg_prefix}/bin/*.hsaco
 
+%if %{with preview}
+# some extra install items
+rm -f %{buildroot}%{pkg_prefix}/*.txt
+rm -f %{buildroot}%{pkg_prefix}/*.jpg
+%endif
+
 %files
 %license LICENSE.md
 %doc README.md
 %{pkg_prefix}/bin/*
 
 %changelog
+* Mon Aug 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Add --with preview
+
 * Wed Jul 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Increase gpus
 

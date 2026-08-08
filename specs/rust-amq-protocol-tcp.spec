@@ -2,23 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate kurbu5-kadm5-rs
+%global crate amq-protocol-tcp
 
-Name:           rust-kurbu5-kadm5-rs
-Version:        0.1.3
+Name:           rust-amq-protocol-tcp
+Version:        10.6.3
 Release:        %autorelease
-Summary:        Rust API for writing MIT Kerberos KADM5_AUTH and KADM5_HOOK plugins
+Summary:        AMQP URI TCP connection handling
 
 License:        BSD-2-Clause
-URL:            https://crates.io/crates/kurbu5-kadm5-rs
+URL:            https://crates.io/crates/amq-protocol-tcp
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          amq-protocol-tcp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  krb5-devel
 
 %global _description %{expand:
-Safe, idiomatic Rust API for writing MIT Kerberos KADM5_AUTH and
-KADM5_HOOK plugin modules.}
+AMQP URI TCP connection handling.}
 
 %description %{_description}
 
@@ -33,11 +33,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/rust2rpm.toml
-%exclude %{crate_instdir}/rust-kurbu5-kadm5-rs.spec
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -51,76 +48,64 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+admin-devel
+%package     -n %{name}+async-global-executor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+admin-devel %{_description}
+%description -n %{name}+async-global-executor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "admin" feature of the "%{crate}" crate.
+use the "async-global-executor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+admin-devel
+%files       -n %{name}+async-global-executor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+hickory-dns-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+hickory-dns-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "hickory-dns" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+hickory-dns-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+full-devel
+%package     -n %{name}+openssl-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+full-devel %{_description}
+%description -n %{name}+openssl-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "full" feature of the "%{crate}" crate.
+use the "openssl" feature of the "%{crate}" crate.
 
-%files       -n %{name}+full-devel
+%files       -n %{name}+openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+kadm5_auth-devel
+%package     -n %{name}+smol-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+kadm5_auth-devel %{_description}
+%description -n %{name}+smol-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "kadm5_auth" feature of the "%{crate}" crate.
+use the "smol" feature of the "%{crate}" crate.
 
-%files       -n %{name}+kadm5_auth-devel
+%files       -n %{name}+smol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+kadm5_hook-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+kadm5_hook-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "kadm5_hook" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+kadm5_hook-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+kurbu5-kadm5-derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+kurbu5-kadm5-derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "kurbu5-kadm5-derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+kurbu5-kadm5-derive-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -138,9 +123,7 @@ use the "kurbu5-kadm5-derive" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * The documentation tests are currently failing
-# * https://codeberg.org/abbra/kurbu5/issues/24
-%cargo_test -- --lib
+%cargo_test
 %endif
 
 %changelog

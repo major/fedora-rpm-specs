@@ -1,11 +1,11 @@
+%global forgeurl https://github.com/spyder-ide/spyder
+%global tag v%{version}
+Version:        6.1.6
+%forgemeta
+
 Name:           spyder
-Version:        6.1.0
 Release:        %autorelease
 Summary:        Scientific Python Development Environment
-
-%global forgeurl https://github.com/spyder-ide/spyder/
-%global tag v%{version_no_tilde %{quote:%nil}}
-%forgemeta
 
 # Spyder is licensed under MIT with the exception of the following
 # code, which is licensed BSD-3-Clause.
@@ -19,9 +19,7 @@ Summary:        Scientific Python Development Environment
 License:        MIT AND BSD-3-Clause
 URL:            https://www.spyder-ide.org/
 Source:         %forgesource
-# Drop dependency on atomicwrites (deprecated and retired)
-# https://github.com/spyder-ide/spyder/pull/24698
-Patch:          %{forgeurl}/pull/24698.patch
+
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -32,16 +30,11 @@ ExcludeArch:    %{ix86}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies
 ExclusiveArch:  %{qt5_qtwebengine_arches} noarch
 
-BuildRequires:  python3-devel
-
-BuildRequires:  dos2unix
-
-BuildRequires:  desktop-file-utils
-# Still required by guidelines for now since Fedora uses appstream-builder
-# (https://pagure.io/packaging-committee/issue/1053):
-BuildRequires:  libappstream-glib
-# Matches what gnome-software and others use:
 BuildRequires:  appstream
+BuildRequires:  desktop-file-utils
+BuildRequires:  dos2unix
+BuildRequires:  libappstream-glib
+BuildRequires:  python3-devel
 
 %global appname org.spyder_ide.spyder
 
@@ -64,13 +57,14 @@ components, such as the interactive console, in your own software.}
 %package -n python3-spyder
 Summary:    %{summary}
 
-# For %%{_datadir}/icons
 Requires:       hicolor-icon-theme
-# Unbundled from spyder/plugins/help/utils/js/mathjax
 Requires:       mathjax
-# Required for the plugins (but not for building Spyder)
 Requires:       python3-pylint
 Requires:       python3-pylint-venv
+Requires:       python3dist(python-lsp-black) >= 2
+Requires:       python3dist(python-lsp-ruff) >= 2.3
+Requires:       python3dist(python-lsp-server) >= 1.13
+Requires:       python3dist(spyder-kernels) >= 3.1
 
 %description -n python3-spyder %_description
 
@@ -93,6 +87,16 @@ find . -type f \( \
 sed -i \
 -e '/pylint>.*/d' \
 -e '/pylint-venv>.*/d' setup.py
+
+# Drop runtime requirements from setup.py to avoid build-time dependency issues
+sed -i \
+    -e '/python-lsp-black/d' \
+    -e '/python-lsp-ruff/d' \
+    -e '/python-lsp-server/d' \
+    -e '/spyder-kernels/d' setup.py
+sed -i -e "s/PYLSP_REQVER = .*/PYLSP_REQVER = '>=1.13.0'/g" spyder/dependencies.py
+sed -i -e "s/SPYDER_KERNELS_REQVER = .*/SPYDER_KERNELS_REQVER = '>=3.1.0'/g" spyder/dependencies.py
+
 
 # Don't show warning regarding newer version
 sed -r -i "s|(PYLINT_REQVER.*),<.*'|\1'|" spyder/dependencies.py
@@ -139,7 +143,7 @@ appstreamcli validate --no-net --explain \
 
 # A backed-up bundled mathjax directory from a previous upgrade (from Fedora 34
 # or older) may be present; if so, we should continue to own it.
-%ghost %{python3_sitelib}/spyder/plugins/help/utils/js/mathjax.rpmmoved
+%ghost %attr(0644,root,root) %{python3_sitelib}/spyder/plugins/help/utils/js/mathjax.rpmmoved
 %{python3_sitelib}/spyder/plugins/help/utils/js/mathjax
 
 %{_bindir}/spyder

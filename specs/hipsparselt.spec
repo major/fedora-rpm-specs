@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -125,7 +125,7 @@
 Name:           hipsparselt%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
 Release:        6%{?dist}
 %endif
@@ -137,17 +137,6 @@ Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{up
 
 # Force sync to same version of hipblaslt
 Source1:        %{url}/releases/download/rocm-%{version}/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
-# This are patches from the hiblaslt package for patching tensile
-Patch1:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
-Patch2:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
-# This patch uses find_package rather than assume we are in full rocm-libraries source dir
-%if %{with preview}
-Patch3:        0001-hipblaslt-preview-find-origami-package.patch
-%else
-Patch4:        0001-hipblaslt-find-origami-package.patch
-%endif
-# do not try to fetch, point to the nanobind tarball
-Patch5:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 
 %global nanobind_version 2.9.2
 %global nanobind_giturl https://github.com/wjakob/nanobind
@@ -156,11 +145,28 @@ Source10:       %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanob
 %global robinmap_giturl https://github.com/Tessil/robin-map
 Source11:       %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
 
+%if %{with preview}
+Source3:        %{url}/releases/download/%{pkg_src}/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
+Source4:        %{url}/releases/download/%{pkg_src}/origami.tar.gz#/origami-%{version}.tar.gz
+%endif
+
+%if %{with preview}
+Patch1:         0001-hipblaslt-preview-tensilelit-remove-yappi-dependency.patch
+Patch4:         0001-hipblaslt-preview-tensilelit-use-nanobind-tarball.patch
+%else
+# This are patches from the hiblaslt package for patching tensile
+Patch1:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
+Patch2:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
+Patch4:        0001-hipblaslt-find-origami-package.patch
+# do not try to fetch, point to the nanobind tarball
+Patch5:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
+%endif
 
 %if %{with ninja}
 BuildRequires:  ninja-build
 %endif
 
+BuildRequires:  amdsmi%{pkg_suffix}-devel
 BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -174,6 +180,7 @@ BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-llvm%{pkg_suffix}-devel
+BuildRequires:  rocm-omp-devel
 BuildRequires:  rocm-origami%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -213,7 +220,6 @@ BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
-BuildRequires:  rocm-omp-devel
 %endif
 
 Provides:       hipsparselt%{pkg_suffix} = %{version}-%{release}
@@ -261,6 +267,51 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
+%if %{with preview}
+# Make a sparse rocm-libraries
+mkdir shared projects
+cd shared
+# stinkytofu
+tar xf %{SOURCE3}
+cd stinkytofu
+# src/serialization/asm/PatternParser.cpp:794:13: error: unknown type name 'uint32_t'
+sed -i -e '/#include <sstream>.*/a#include <stdint.h>' src/serialization/asm/PatternParser.cpp
+sed -i -e '/#include <vector>.*/a#include <stdint.h>' include/stinkytofu/serialization/logical/IRSerializer.hpp
+# src/transforms/asm/dag/ReadyQueue.hpp:49:31: error: use of undeclared identifier 'UINT_MAX'
+sed -i -e '/#include <queue>.*/a#include <limits.h>' src/transforms/asm/dag/ReadyQueue.hpp
+sed -i -e '/#include <string_view>.*/a#include <limits.h>' src/serialization/asm/IRParser.cpp
+sed -i -e '/#include <utility>.*/a#include <limits.h>' src/transforms/asm/StinkyWmmaVgprReorderPass.cpp
+# No clang-tidy
+sed -i -e 's@include(ClangTidy)@@' CMakeLists.txt
+sed -i -e 's@add_clang_tidy_custom_target()@@' CMakeLists.txt
+# No ../../cmake/modues/default_amdclang.cmake
+sed -i -e '/default_amdclang/d' CMakeLists.txt
+cd ..
+tar xf %{SOURCE4}
+cd ../projects
+# hipsparselt
+tar xf %{SOURCE0}
+# hipblaslt
+tar xf %{SOURCE1}
+cd hipblaslt
+# tensile path to tools need to change
+sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/Tensile/Common/GlobalParameters.py
+sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/Tensile/Toolchain/Validators.py
+sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/Tensile/Toolchain/Validators.py
+
+# nanobind bundle
+tar xf %{SOURCE10}
+mv nanobind-* nanobind
+cd nanobind
+tar xf %{SOURCE11}
+cp -r robin-map-*/* ext/robin_map/
+cd ..
+tar czf nanobind.tar.gz nanobind
+cd ../..
+%patch 1 -p1
+%patch 4 -p1
+%else
+
 %setup -q -n %{upstreamname}
 
 tar xf %{SOURCE1}
@@ -305,8 +356,13 @@ sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' client
 # We are building from a tarball, not a git repo
 sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipblaslt/cmake/dependencies.cmake
 %endif
+%endif
 
 %build
+%if %{with preview}
+cd projects/hipsparselt
+HIPBLASLT_PATH=${PWD}/../hipblaslt
+%else
 
 HIPBLASLT_PATH=$PWD/hipblaslt
 cd hipblaslt
@@ -335,6 +391,7 @@ export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
 export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Uncomment and see if the path is sane
 # TensileGetPath
+%endif
 
 %cmake %{cmake_generator} \
        -DGPU_TARGETS=%{gpu_list} \
@@ -365,28 +422,36 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DVIRTUALENV_SITE_PATH=${TL}%{python3_sitelib} \
        %{nil}
 
+%if %{with preview}
+# To find the just built stinkytofu
+export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/hipblaslt/tensilelite/rocisa/stinkytofu:$LD_LIBRARY_PATH
+%endif
+
 %cmake_build
 
 %install
+%if %{with preview}
+cd projects/hipsparselt
+%endif
+
 %cmake_install
 
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparselt/LICENSE.md
 
 # hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.hsaco
+find %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/ \
+     -name 'Kernels*.hsaco' -exec %{rocmllvm_bindir}/llvm-strip {} +
+# hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/extop_gfx942.co
+find %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/ \
+     -name 'extop_*.co' -exec %{rocmllvm_bindir}/llvm-strip {} +
 
 # hipsparselt.x86_64: E: ldd-failed /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8): No such file or directory
 # ldd: warning: you do not have execution permission for `/usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco'
 # not a dynamic executable
 # Do something about the prems
-chmod a+x %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.hsaco
-# But not much to do about the rest, this is not a normal *.so
-# file /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco
-# /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco: ELF 64-bit LSB shared object, AMD GPU architecture version 1, dynamically linked, BuildID[sha1]=99e2194d9647da308804928d27ea1f336bfd76cc, stripped
-
-# hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/extop_gfx942.co
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/extop_*.co
+find %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/ \
+     -name 'Kernels*.hsaco' -exec chmod a+x {} +
 
 %if %{without compat}
 # hipsparselt.x86_64: E: binary-or-shlib-defines-rpath /usr/lib64/libhipsparselt.so.0.2 (RUNPATH: $ORIGIN/../lib:$ORIGIN/../llvm/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt/lib)
@@ -407,8 +472,13 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %files
+%if %{with preview}
+%doc projects/hipsparselt/README.md
+%license projects/hipsparselt/LICENSE.md
+%else
 %doc README.md
 %license LICENSE.md
+%endif
 %{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.0{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipsparselt/
 

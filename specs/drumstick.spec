@@ -2,30 +2,34 @@
 
 Summary: C++/Qt6 wrapper around multiple MIDI interfaces
 Name:    drumstick
-Version: 2.10.0
+Version: 2.11.0
 Release: %autorelease
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL:     https://drumstick.sourceforge.io/
-Source0: https://sourceforge.net/projects/drumstick/files/%{version}/drumstick-%{version}.tar.bz2
+Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 
-BuildRequires: gcc-c++
-BuildRequires: cmake >= 3.9
+# Relax sonivox requirement version from 4.0 to 3.6 to support building
+# with Fedora's sonivox-devel package which is currently 3.6.12.
+# The API remains compatible for drumstick's usage.
+Patch0:  drumstick-sonivox-version.patch
+
 BuildRequires: alsa-lib-devel
+BuildRequires: cmake >= 3.9
 BuildRequires: desktop-file-utils
+BuildRequires: docbook-style-xsl
+BuildRequires: doxygen
+BuildRequires: fluidsynth-devel
+BuildRequires: gcc-c++
+BuildRequires: libxslt
+BuildRequires: pipewire-devel
+BuildRequires: pulseaudio-libs-devel
+BuildRequires: qt6-qt5compat-devel
 BuildRequires: qt6-qtbase-devel >= 6.2
 BuildRequires: qt6-qtsvg-devel
-BuildRequires: fluidsynth-devel
-BuildRequires: pulseaudio-libs-devel
-BuildRequires: sonivox-devel >= 3.6.12
 BuildRequires: qt6-qttools-devel
-BuildRequires: qt6-qt5compat-devel
-# For building manpages
-BuildRequires: docbook-style-xsl
-BuildRequires: libxslt
-# For building API documents
-BuildRequires: doxygen
+BuildRequires: sonivox-devel >= 3.6.12
 
 Obsoletes: aseqmm < %{version}-%{release}
 Provides: aseqmm = %{version}-%{release}
@@ -37,9 +41,8 @@ interfaces are also supported by this library.
 
 %package devel
 Summary: Developer files for %{name}
-Requires: %{name} = %{version}-%{release}
-# cmake(drumstick-alsa) requires FindALSA
 Requires: alsa-lib-devel
+Requires: %{name} = %{version}-%{release}
 Obsoletes: aseqmm-devel < %{version}-%{release}
 Provides: aseqmm-devel = %{version}-%{release}
 %description devel
@@ -78,7 +81,7 @@ Requires: %{name}-examples = %{version}-%{release}
 Standard RIFF MIDI File dump program.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
@@ -94,8 +97,7 @@ for i in $RPM_BUILD_ROOT%{_datadir}/applications/* ; do
 done
 
 %check
-# Tests require an alsa system, which may not be available within the mock env
-#make %{?_smp_mflags} -C %{_vpath_builddir} test
+%ctest
 
 %ldconfig_scriptlets
 

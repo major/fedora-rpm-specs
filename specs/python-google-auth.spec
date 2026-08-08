@@ -16,7 +16,7 @@
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.56.2
+Version:        2.56.3
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
@@ -210,6 +210,10 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Thu Aug 06 2026 Packit <hello@packit.dev> - 1:2.56.3-1
+- Update to version 2.56.3
+- Resolves: rhbz#2423777
+
 * Wed Jul 22 2026 Packit <hello@packit.dev> - 1:2.56.2-1
 - Update to version 2.56.2
 - Resolves: rhbz#2423777

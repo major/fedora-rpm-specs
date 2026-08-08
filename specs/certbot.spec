@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        5.6.0
-Release:        4%{?dist}
+Version:        5.7.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -35,6 +35,8 @@ Source15:       certbot.logrotate
 # disable one test which tries to access the network
 # https://github.com/certbot/certbot/issues/10354
 Patch1:         certbot-disable-test_lock_order-renew.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2466655
+Patch2:         certbot-python315-deprecation-warning.patch
 
 BuildArch:      noarch
 
@@ -212,6 +214,9 @@ Plugin for certbot that allows for automatic configuration of ngnix
 # Remove bundled egg-info
 rm -rf %{name}.egg-info
 
+%if 0%{?rhel} && 0%{?rhel} >= 10
+find . -name pyproject.toml -exec sed -i -e s'@license = "Apache-2.0"@license = { text = "Apache-2.0" }@' {} \;
+%endif
 
 %generate_buildrequires
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx
@@ -381,6 +386,10 @@ fi
 
 
 %changelog
+* Thu Aug  6 2026 Andreas Haupt <andreas.haupt@desy.de> - 5.7.0-1
+- update to 5.7.0 rhbz#2497869
+- added certbot-python315-deprecation-warning.patch rhbz#2466655
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

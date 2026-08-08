@@ -1,12 +1,11 @@
-# https://github.com/Boomaga/boomaga/commit/7f7ad4754b20a1027c5095b660c5229353b64c8d
-%global commit0 7f7ad4754b20a1027c5095b660c5229353b64c8d
+%global commit0 34bc51c79c6d0aeaae61c642cfb302594b1939b6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global modulename %{name}
 %global __cmake_in_source_build 1
 
 Name:           boomaga
 Version:        3.3.0
-Release:        29.git%{shortcommit0}%{?dist}
+Release:        30.git%{shortcommit0}%{?dist}
 Summary:        A virtual printer for viewing a document before printing
 
 # Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
@@ -19,8 +18,8 @@ BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  poppler-devel
 BuildRequires:  poppler-cpp-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qttools-devel
 BuildRequires:  snappy-devel
 Requires:       cups
 Requires:       shared-mime-info
@@ -60,7 +59,7 @@ Requires(postun): policycoreutils
 SELinux policy module supporting boomaga
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup -n %{name}-%{commit0} -p1
 
 # delete unused directories and files
 find -name .gitignore -type f -or -name .travis.yml -type f | xargs rm -rfv
@@ -69,7 +68,7 @@ sed -i -e 's|find "/usr/local/lib" "/usr/lib" -name|find "/usr/local/lib" "%{_li
 
 %build
 # TODO: Please submit an issue to upstream (rhbz#2380483)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
+##export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DUSE_QT5=Yes \
     -DCUPS_BACKEND_DIR=%{_cups_serverbin}/backend \
@@ -166,6 +165,9 @@ fi
 %{_datadir}/selinux/*/%{modulename}.pp
 
 %changelog
+* Thu Aug 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.3.0-30.git34bc51c
+- qt6 support was added
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-29.git7f7ad47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

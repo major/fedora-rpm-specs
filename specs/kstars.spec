@@ -4,8 +4,8 @@ ExcludeArch:    %{ix86}
 
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.8.3
-Release: 3%{?dist}
+Version: 3.8.4.1
+Release: 1%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Thu Aug 06 2026 Steve Cossette <farchord@gmail.com> - 1:3.8.4.1-1
+- 3.8.4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

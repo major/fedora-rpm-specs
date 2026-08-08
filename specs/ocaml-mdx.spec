@@ -1,7 +1,7 @@
 %global giturl  https://github.com/realworldocaml/mdx
 
 Name:           ocaml-mdx
-Version:        2.5.2
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Executable code blocks inside markdown files
 
@@ -9,8 +9,6 @@ License:        ISC
 URL:            https://realworldocaml.github.io/mdx/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/mdx-%{version}.tbz
-# Fix the target called by the mdx test runner
-Patch:          %{giturl}/pull/478.patch
 # Adapt to pathname changes in dune 3.24
 Patch:          %{name}-dune-3.24.patch
 
@@ -25,7 +23,7 @@ BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-csexp-devel >= 1.3.2
-BuildRequires:  ocaml-dune >= 3.5
+BuildRequires:  ocaml-dune >= 3.21
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-logs-devel >= 0.7.0

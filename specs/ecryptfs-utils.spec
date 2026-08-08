@@ -16,7 +16,7 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 44%{?dist}
+Release: 45%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPL-2.0-or-later
 URL: https://launchpad.net/ecryptfs
@@ -86,6 +86,12 @@ Patch926: %{name}-111-authselect.patch
 
 # do not use ENGINE api, openssl 3 deprecated it
 Patch927: ecryptfs-utils-111-noengine.patch
+
+# openssl 4.0 compatibility
+Patch928:ecryptfs-utils-111-openssl40.patch
+
+# we should use sys/xattr.h instead of attr/xattr.h as workaround is gone now
+Patch929:ecryptfs-utils-111-sysxattr.patch
 
 ### patches for general cleanup, should be kept and executed after all others
 # allow building with -Werror
@@ -172,6 +178,8 @@ Obsoletes:  %{name}-python < %{version}-%{release}
 %patch -P925 -p1 -b .nopasswd
 %patch -P926 -p1 -b .authselect
 %patch -P 927 -p1 -b .noengine
+%patch -P 928 -p1 -b .openssl40
+%patch -P 929 -p1 -b .sysxattr
 
 %patch -P999 -p1 -b .werror
 
@@ -343,6 +351,10 @@ fi
 
 
 %changelog
+* Thu Aug 06 2026 Michal Hlavinka <mhlavink@redhat.com> - 111-45
+- use sys/xattr.h instead of attr/xattr.h as attr dropped the workaround
+- fix FTBFS due to openssl 4.0 changes
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 111-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

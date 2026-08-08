@@ -16,6 +16,13 @@ License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gtkmm/%{gnome_major_minor_version}/gtkmm-%{version}.tar.xz
 
+# Fix type definition conflict with GTK
+# NOTE: when removing also remove all BR: perl(foo) and -Dmaintainer-mode=true meson option
+# https://gitlab.gnome.org/GNOME/gtkmm/-/commit/38a18a447880643964e6e352d1a364237830815e
+# https://gitlab.gnome.org/GNOME/gtkmm/-/commit/1ed5e281dcd9d59d4f98cdfc0e0aa303e3205fd5
+Patch0:         gtkmm-gdk-dont-derive-gtkmm_gdkxx-gtypes-from-internal-types.patch
+Patch1:         gtkmm-gtk-remove-api-as-in-gtk-4_23_3.patch
+
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libxslt
@@ -28,6 +35,13 @@ BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf2_version}
 BuildRequires:  pkgconfig(glibmm-2.68) >= %{glibmm_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(pangomm-2.48) >= %{pangomm_version}
+
+BuildRequires:  perl(feature)
+BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(open)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(XML::Parser)
 
 Requires:       cairomm1.16%{?_isa} >= %{cairomm_version}
 Requires:       gdk-pixbuf2%{?_isa} >= %{gdk_pixbuf2_version}
@@ -61,7 +75,7 @@ This package contains the full API documentation for %{name}.
 
 
 %prep
-%setup -q -n gtkmm-%{version}
+%autosetup -p1 -n gtkmm-%{version}
 
 # Copy demos before build to avoid including built binaries in -doc package
 mkdir -p _docs
@@ -69,7 +83,7 @@ cp -a demos/ _docs/
 
 
 %build
-%meson -Dbuild-documentation=true
+%meson -Dbuild-documentation=true -Dmaintainer-mode=true
 %meson_build
 
 

@@ -2,8 +2,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	10.0
-Release:	4%{?dev:%{dev}}%{?dist}
+Version:	14.1
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -12,7 +12,6 @@ Url:		https://github.com/nfs-ganesha/ntirpc
 %global prometh_ver_short	48d09c45
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
 Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
-Patch:		0001-CMakeLists.txt.patch
 
 BuildRequires:	cmake gcc gcc-c++
 %ifarch x86_64 aarch64
@@ -94,6 +93,12 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Thu Aug 6 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 14.1-2
+- build in side-tag f45-build-side-146171
+
+* Thu Aug 6 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 14.1-1
+- ntirpc-14.1 GA
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

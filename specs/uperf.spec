@@ -1,18 +1,19 @@
 Summary:       Network performance tool with modelling and replay support
 Name:          uperf
 Version:       1.0.8
-Release:       10%{?dist}
+Release:       11%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 URL:           http://www.uperf.org/
 Source0:       https://github.com/uperf/uperf/archive/v%{version}.tar.gz
+Patch:         0001-Remove-obsolete-SSL-engine-support.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
 BuildRequires: lksctp-tools-devel
 BuildRequires: make
 BuildRequires: openssl-devel
-%if 0%{?fedora} > 40
+%if 0%{?fedora} > 40 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
 %endif
 %description
@@ -20,7 +21,10 @@ Network performance tool that supports modelling and replay of various
 networking patterns.
 
 %prep
-%autosetup
+%autosetup -N
+%if 0%{?fedora} > 44
+%autopatch -p1
+%endif
 chmod 0644 workloads/{tcp-change-cc.xml,sctp-over-udp.xml,tcp-freebsd-change-stack.xml}
 
 %build
@@ -49,6 +53,9 @@ rm -rf %{buildroot}%{_datadir}/*.xml %{buildroot}%{_datadir}/doc
 %{_datadir}/uperf
 
 %changelog
+* Thu Aug 06 2026 Terje Røsten <terjeros@gmail.com> - 1.0.8-11
+- Newer OpenSSL has removed engine support
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

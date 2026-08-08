@@ -8,6 +8,7 @@ URL: http://www.viewizard.com/
 Source0: https://github.com/viewizard/astromenace/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: astromenace.desktop
 Source2: astromenace.png
+Patch0:  53.patch
 ExcludeArch: ppc64 s390x
 
 BuildRequires: gcc
@@ -35,6 +36,8 @@ Go ahead and make alien aggressors regret their insolence.
 
 %prep
 %setup -q
+
+%patch -P 0 -p1
 
 %build
 %cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_datadir}/astromenace" -DCMAKE_POLICY_VERSION_MINIMUM=3.5

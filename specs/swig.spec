@@ -46,8 +46,7 @@
 %else
 %{!?guile:%global guile 1}
 %{!?octave:%global octave 1}
-# R-core requires tcl < 9.0.0
-%{!?Rlang:%global Rlang 0}
+%{!?Rlang:%global Rlang 1}
 %bcond_without build_ccache_swig
 %endif
 
@@ -68,8 +67,8 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.4.1
-Release: 8%{?dist}
+Version: 4.5.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -80,8 +79,6 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
-
-Patch0: swig-R-Fix-compilation-with-R-4.6.0-which-removed-non-API.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -400,6 +397,9 @@ _EOF
 %endif
 
 %changelog
+* Thu Aug 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.5.0-1
+- 4.5.0 bump (rhbz#2511871)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

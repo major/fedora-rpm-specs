@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate kurbu5-kdb-rs
+%global crate des
 
-Name:           rust-kurbu5-kdb-rs
-Version:        0.1.3
+Name:           rust-des0.8
+Version:        0.8.1
 Release:        %autorelease
-Summary:        Safe, idiomatic Rust API for writing MIT Kerberos KDB driver plugins
+Summary:        DES and Triple DES (3DES, TDES) block ciphers implementation
 
-License:        BSD-2-Clause
-URL:            https://crates.io/crates/kurbu5-kdb-rs
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/des
 Source:         %{crates_source}
-# * Fix building on aarch64 - https://codeberg.org/abbra/kurbu5/pulls/25
-Patch2:         kurbu5-kdb-rs-fix-aarch64.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  krb5-devel
 
 %global _description %{expand:
-Safe, idiomatic Rust API for writing MIT Kerberos KDB driver plugins.}
+DES and Triple DES (3DES, TDES) block ciphers implementation.}
 
 %description %{_description}
 
@@ -33,12 +30,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/rust2rpm.toml
-%exclude %{crate_instdir}/rust-kurbu5-kdb-rs.spec
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -52,16 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+zeroize-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+zeroize-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "zeroize" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

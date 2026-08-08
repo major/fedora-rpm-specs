@@ -2,8 +2,8 @@
 %bcond psutils_enables_tests %{undefined rhel}
 
 Name:       psutils
-Version:    3.3.15
-Release:    4%{?dist}
+Version:    3.3.16
+Release:    1%{?dist}
 Summary:    PDF and PostScript utilities
 # COPYING:          GPL-3.0 text
 # psutils/argparse.py:      GPL-3.0-or-later
@@ -48,6 +48,8 @@ License:    GPL-3.0-or-later
 SourceLicense:  GPL-3.0-or-later AND AGPL-3.0-or-later
 URL:        https://github.com/rrthomas/%{name}
 Source:     %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Disable unhelful linters
+Patch0:     psutils-3.3.16-Revert-Move-tox-config-to-pyproject.toml.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  python3-devel >= 3.12
@@ -86,7 +88,7 @@ with "%{_libexecdir}/%{name}/test".
 %endif
 
 %prep
-%setup -q
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_psutils_enables_tests:-x test}
@@ -103,9 +105,6 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a tests %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-# Override locale because upstream's PAPERSIZE override does not work.
-# <https://github.com/rrthomas/psutils/issues/91>.
-export LC_ALL=C.UTF-8
 export PYTHONDONTWRITEBYTECODE=1
 cd %{_libexecdir}/%{name} && exec /usr/bin/pytest
 EOF
@@ -115,9 +114,6 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %check
 %pyproject_check_import
 %if %{with psutils_enables_tests}
-# Override locale because upsteam's PAPERSIZE override does not work.
-# <https://github.com/rrthomas/psutils/issues/91>.
-LC_ALL=C.UTF-8
 %pytest
 %endif
 
@@ -149,6 +145,9 @@ LC_ALL=C.UTF-8
 %endif
 
 %changelog
+* Thu Aug 06 2026 Petr Pisar <ppisar@redhat.com> - 3.3.16-1
+- 3.3.16 bump
+
 * Fri Jul 24 2026 Petr Pisar <ppisar@redhat.com> - 3.3.15-4
 - Deduplicate COPYING file
 

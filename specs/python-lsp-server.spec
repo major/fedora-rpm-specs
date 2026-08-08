@@ -1,5 +1,5 @@
 Name:           python-lsp-server
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 

@@ -15,12 +15,13 @@ Release:       %autorelease
 License:       Apache-2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
+Patch:         zsh-global-completion-fix.patch
 
 BuildRequires: python3-devel
 
 %if %{with check}
-BuildRequires: tcsh
 BuildRequires: fish
+BuildRequires: tcsh
 BuildRequires: zsh
 %endif
 

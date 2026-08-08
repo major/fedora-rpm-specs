@@ -21,7 +21,7 @@
 %global php_xml         1
 %endif
 
-%if 0%{?fedora}  > 42
+%if 0%{?fedora}  > 42 || 0%{?rhel} > 10
 %global sysusers        1
 %else
 %global legacy_users    1
@@ -34,7 +34,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            66%{?dist}
+Release:            67%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                https://github.com/ganglia
@@ -501,6 +501,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.2-67
+- Use sysusers on RHEL 11
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.7.2-66
 - Rebuilt for Python 3.15.0b4 ABI change
 

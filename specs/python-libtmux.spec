@@ -1,11 +1,11 @@
-# most tests currently fail
-%bcond tests 0
+# Most tests require an active tmux session and fail in chroot
+%bcond_with tests
 
 %global srcname libtmux
 %global tmux_minver 1.8
 
 Name:           python-%{srcname}
-Version:        0.42.0
+Version:        0.61.0
 Release:        %autorelease
 Summary:        Scripting library for tmux
 
@@ -39,8 +39,6 @@ Requires:       tmux >= %{tmux_minver}
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-%if %{without tests}
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires

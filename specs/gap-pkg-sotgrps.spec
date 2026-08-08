@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/sotgrps
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.3
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Construct and identify groups of small order type
 
@@ -17,9 +17,11 @@ BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2018.02.14
-BuildRequires:  gap-devel >= 4.10
+BuildRequires:  gap(smallgrp) >= 1.3
+BuildRequires:  gap-devel >= 4.11
 
-Requires:       gap-core >= 4.10
+Requires:       gap(smallgrp) >= 1.3
+Requires:       gap-core >= 4.11
 
 Provides:       gap(SOTGrps) = %{version}-%{release}
 Provides:       gap(sotgrps) = %{version}-%{release}

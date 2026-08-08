@@ -27,7 +27,7 @@ Epoch: 102
 %else
 Epoch: 2
 %endif
-Version: 2.0.0
+Version: 2.1.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT

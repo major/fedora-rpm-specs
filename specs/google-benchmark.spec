@@ -93,6 +93,9 @@ A library to support the benchmarking of functions, similar to unit-tests.
 Summary:        Development files for %{name}
 
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if %{with libpfm}
+Requires:       libpfm-devel%{?_isa}
+%endif
 # Removed for Fedora 43; we can drop the Obsoletes after Fedora 45.
 Obsoletes:      %{name}-doc < 1.9.4-9
 

@@ -4,7 +4,7 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.18.2
+Version:	2.18.3
 Release:	%autorelease
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
@@ -23,8 +23,6 @@ Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
 # Fedora specific
 Patch7:		%{name}-update-fcgenericfamily.patch
-# Backport
-Patch8:		%{name}-fix-system-ui.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}

@@ -5,7 +5,7 @@
 %global crate kurbu5-rs
 
 Name:           rust-kurbu5-rs
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Safe, idiomatic Rust API for writing MIT Kerberos non-KDB plugin modules
 

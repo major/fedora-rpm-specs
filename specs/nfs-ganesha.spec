@@ -61,6 +61,9 @@ Requires: openSUSE-release
 %bcond_with kvsfs
 %global use_fsal_kvsfs %{on_off_switch kvsfs}
 
+%bcond_with lizardfs
+%global use_fsal_lizardfs %{on_off_switch lizardfs}
+
 %bcond_with mooshika
 %global use_mooshika %{on_off_switch mooshika}
 
@@ -88,6 +91,9 @@ Requires: openSUSE-release
 
 %bcond_without qos
 %global use_qos %{on_off_switch_qos}
+
+%bcond_without cluster_qos
+%global use_cluster_qos %{on_off_switch_cluster_qos}
 
 %bcond_without man_page
 %global use_man_page %{on_off_switch man_page}
@@ -154,7 +160,7 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	13.0
+Version:	14.1
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -176,6 +182,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	userspace-rcu-devel
 BuildRequires:	krb5-devel
 BuildRequires:	openssl-devel
+BuildRequires:	libacl-devel
 %if ( 0%{?with_nfs_rdma} || 0%{?with_rpc_rdma} )
 # for RDMA:
 BuildRequires:	rdma-core-devel
@@ -199,7 +206,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc gcc-c++
 %if ( 0%{?with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 10.0
+BuildRequires:	libntirpc-devel >= 14.1
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -326,8 +333,13 @@ BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
 %if ( ! 0%{?with_legacy_python_install} )
 BuildRequires:	python3-wheel
+%if ( 0%{?fedora} >= 43 )
+BuildRequires:	python3-build+virtualenv
+%else
 BuildRequires:	python3-build
+%endif
 BuildRequires:	python3-installer
+BuildRequires:	python3-setuptools
 %endif
 %if ( 0%{?suse_version} )
 Requires:	dbus-1-python
@@ -429,7 +441,6 @@ be used with NFS-Ganesha to support GPFS backend
 Summary: The NFS-GANESHA CephFS FSAL
 Requires:	nfs-ganesha = %{version}-%{release}
 BuildRequires:	libcephfs-devel >= 12.2.0
-BuildRequires:	libacl-devel
 
 %description ceph
 This package contains a FSAL shared object to
@@ -493,7 +504,7 @@ be used with NFS-Ganesha to support KVSFS/libkvsns
 Summary: The NFS-GANESHA GLUSTER FSAL
 Requires:	nfs-ganesha = %{version}-%{release}
 BuildRequires:	libgfapi-devel >= 7.0
-BuildRequires:	libattr-devel, libacl-devel
+BuildRequires:	libattr-devel
 
 %description gluster
 This package contains a FSAL shared object to
@@ -593,6 +604,7 @@ export VERBOSE=1
 mv ../libkmip-%{kmip_ver_long}/* ./src/libkmip/
 cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DBUILD_CONFIG=rpmbuild				\
+	-DWITH_PYTHON3=%{python3_version}		\
 	-DCMAKE_COLOR_MAKEFILE:BOOL=OFF			\
 	-DUSE_FSAL_NULL=%{use_fsal_null}		\
 	-DUSE_FSAL_MEM=%{use_fsal_mem}			\
@@ -602,10 +614,12 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_RGW=%{use_fsal_rgw}			\
 	-DUSE_FSAL_GPFS=%{use_fsal_gpfs}		\
 	-DUSE_FSAL_KVSFS=%{use_fsal_kvsfs}		\
+	-DUSE_FSAL_LIZARDFS=%{use_fsal_lizardfs}	\
 	-DUSE_FSAL_GLUSTER=%{use_fsal_gluster}		\
 	-DUSE_FSAL_SAUNAFS=%{use_fsal_saunafs}		\
 	-DUSE_SYSTEM_NTIRPC=%{use_system_ntirpc}	\
 	-DENABLE_QOS=%{use_qos}				\
+	-DENABLE_CLUSTER_QOS=%{use_cluster_qos}		\
 	-DUSE_MONITORING=%{use_monitoring}		\
 	-DUSE_TLS=%{use_tls}				\
 	-DUSE_PRIO_INHERIT=%{use_prio_inherit}		\
@@ -730,14 +744,8 @@ install -m 0644 selinux/ganesha.pp.bz2 %{buildroot}%{_selinux_store_path}/packag
 %endif
 
 rm -f %{buildroot}/%{python3_sitelib}/__init__.*
-rm -rf %{buildroot}/%{python3_sitelib}/__pycache__
 rm -f %{buildroot}/%{python3_sitelib}/Ganesha/__init__.*
 rm -f %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__init__.*
-rm -rf %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__pycache__
-
-%if ( 0%{?with_gpfs} )
-mv %{buildroot}/usr/bin/gpfs-epoch %{buildroot}/usr/libexec/ganesha/
-%endif
 
 install -m0644 -D ../nfs-ganesha.sysusers.conf %{buildroot}%{_sysusersdir}/nfs-ganesha.conf
 
@@ -893,9 +901,6 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %if ( 0%{?with_man_page} )
 %{_mandir}/*/ganesha-gpfs-config.8.gz
 %endif
-%if ( 0%{?with_utils} )
-%{python3_sitelib}/gpfs_epoch*-info
-%endif
 %endif
 
 %if ( 0%{?with_xfs} )
@@ -1011,6 +1016,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Aug 6 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 14.1-1
+- NFS-Ganesha 14.1 GA
+
 * Wed Jul 29 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 13.0-1
 - NFS-Ganesha 13.0 GA
 

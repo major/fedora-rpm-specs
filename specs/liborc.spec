@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 2.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -136,6 +136,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Thu Aug 6 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.3.1-2
+- rebuild with thrift-0.24.0, side-tag f45-build-side-146163
+
 * Mon Jul 20 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.3.1-1
 - Apache ORC 2.3.1 GA
 

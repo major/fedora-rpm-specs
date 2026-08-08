@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.14
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -115,7 +115,7 @@
 Name:           %{miopen_name}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
 Release:        3%{?dist}
 %endif
@@ -200,6 +200,11 @@ BuildRequires:  ninja
 %endif
 %endif
 
+%if %{with preview}
+BuildRequires:  gmock-devel
+BuildRequires:  gtest-devel
+%endif
+
 Provides:       miopen%{pkg_suffix} = %{version}-%{release}
 
 # MIOpen compiles on the fly, so it needs ROCm devel at runtime
@@ -251,9 +256,10 @@ sed -i -e 's@include(${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@i
 
 # problem with trying to use ck for tests even when disabled
 # https://github.com/ROCm/rocm-libraries/issues/6518
-sed -i -e '/implicitgemm_ck_util/d' src/include/miopen/conv/heuristics/ai_conv_3d_kernel_tuning_utils.hpp
-sed -i -e '/implicitgemm_ck_util/d' test/gtest/conv_ai_3d_kernel_tuning_utils.cpp
+sed -i -e '/implicitgemm_ck_util/d' src/include/miopen/conv/heuristics/ai_conv_nd_kernel_tuning_utils.hpp
 
+# No Werror, that is too strict
+sed -i '/Werror/d' cmake/EnableCompilerWarnings.cmake
 %endif
 
 # Readme has executable bit

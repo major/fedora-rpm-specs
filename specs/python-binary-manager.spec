@@ -9,6 +9,7 @@ Source:         %{pypi_source binary-manager}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  sed
 
 BuildRequires:  python3dist(jsonschema)

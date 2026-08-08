@@ -21,7 +21,7 @@
 #
 
 %global upstreamname stinkytofu
-%global rocm_release 7.13
+%global rocm_release 7.14
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -33,7 +33,7 @@
 
 Name:           rocm-stinkytofu
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A LLVM-inspired pass-based IR optimizer for AMD GPU assembly kernels
 License:        MIT AND BSD-3-Clause
 # https://github.com/ROCm/rocm-libraries/issues/7864
@@ -115,11 +115,17 @@ sed -i -e '/#include <vector>.*/a#include <stdint.h>' include/stinkytofu/seriali
 # src/transforms/asm/dag/ReadyQueue.hpp:49:31: error: use of undeclared identifier 'UINT_MAX'
 sed -i -e '/#include <queue>.*/a#include <limits.h>' src/transforms/asm/dag/ReadyQueue.hpp
 sed -i -e '/#include <string_view>.*/a#include <limits.h>' src/serialization/asm/IRParser.cpp
+sed -i -e '/#include <utility>.*/a#include <limits.h>' src/transforms/asm/StinkyWmmaVgprReorderPass.cpp
 # Install to lib64 not lib
 sed -i -e 's@LIBRARY DESTINATION lib@LIBRARY DESTINATION lib64@' CMakeLists.txt
 sed -i -e 's@ARCHIVE DESTINATION lib@ARCHIVE DESTINATION lib64@' CMakeLists.txt
 sed -i -e 's@DESTINATION lib/cmake/stinkytofu@DESTINATION lib64/cmake/stinkytofu@' CMakeLists.txt
 sed -i -e 's@DESTINATION lib@DESTINATION lib64@' tools/intrinsic-compiler/CMakeLists.txt
+# No clang-tidy
+sed -i -e 's@include(ClangTidy)@@' CMakeLists.txt
+sed -i -e 's@add_clang_tidy_custom_target()@@' CMakeLists.txt
+# No ../../cmake/modues/default_amdclang.cmake
+sed -i -e '/default_amdclang/d' CMakeLists.txt
 
 %build
 %cmake \
@@ -155,6 +161,9 @@ mv %{buildroot}/usr/lib/python%{python3_version}/dist-packages/stinkytofu %{buil
 %{python3_sitearch}/stinkytofu/
 
 %changelog
+* Mon Jul 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.13.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

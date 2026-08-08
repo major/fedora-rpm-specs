@@ -47,7 +47,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b4
+%global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -123,30 +123,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.1.2
+%global pip_version 26.2
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.2.25
-Provides: bundled(python3dist(distlib)) = 0.4
+Provides: bundled(python3dist(certifi)) = 2026.6.17
+Provides: bundled(python3dist(distlib)) = 0.4.2
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.11
+Provides: bundled(python3dist(idna)) = 3.18
 Provides: bundled(python3dist(msgpack)) = 1.1.2
 Provides: bundled(python3dist(packaging)) = 26.2
-Provides: bundled(python3dist(platformdirs)) = 4.5.1
-Provides: bundled(python3dist(pygments)) = 2.19.2
+Provides: bundled(python3dist(platformdirs)) = 4.10
+Provides: bundled(python3dist(pygments)) = 2.20
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.33.1
+Provides: bundled(python3dist(requests)) = 2.34.2
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
 Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.3.1
+Provides: bundled(python3dist(tomli)) = 2.4.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 2.6.3
+Provides: bundled(python3dist(urllib3)) = 2.7
 }
 # setuptools
 # vendor.txt not in .whl
@@ -543,7 +543,7 @@ Summary:        Python runtime libraries
 # Combined manually from https://docs.python.org/3.15/license.html
 # Hash of Doc/license.rst which is compared in %%prep, generated with:
 # $ sha256sum Doc/license.rst | cut -f1 -d" "
-%global license_file_hash d7d3d162f6922e1940695c3f2e99235bce968f54765f8c0d72dbdce749db8cb5
+%global license_file_hash 456f5eb35022a9eb7bb15986cacaf70a4d5bf1537d0d917d6d18381e76aff163
 # Licenses of incorporated software:
 # Mersenne Twister in _random C extension contains code under BSD-3-Clause
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
@@ -569,7 +569,8 @@ Summary:        Python runtime libraries
 # Zstandard bindings in Modules/_zstd and Lib/compression/zstd are BSD-3-Clause
 # d3-flamegraph in Lib/profiling/sampling/_vendor is Apache-2.0
 # d3.js in Lib/profiling/sampling/_vendor is ISC
-%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa AND Apache-2.0 AND ISC
+# An extract of the `Unicode Character Database` converted to an internal format is Unicode-3.0
+%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa AND Apache-2.0 AND ISC AND Unicode-3.0
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 License: %{libs_license}
@@ -2032,6 +2033,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Aug 05 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~rc1-1
+- Update to Python 3.15.0rc1
+
 * Sat Jul 18 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b4-1
 - Update to Python 3.15.0b4
 

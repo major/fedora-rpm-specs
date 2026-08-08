@@ -13,7 +13,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.21.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -21,6 +21,9 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# add multi_wakeup_internal for threaded resolving (#2509107)
+Patch001: 0001-curl-8.21.0-lib-add-multi_wakeup_internal.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -474,6 +477,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Aug 06 2026 Jan Macku <jamacku@redhat.com> - 8.21.0-5
+- add multi_wakeup_internal for threaded resolving (#2509107)
+
 * Tue Jul 21 2026 Owen Zimmerman <owen@fyralabs.com> - 8.21.0-4
 - Enable zstd in full config
 

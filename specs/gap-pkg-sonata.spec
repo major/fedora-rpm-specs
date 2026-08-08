@@ -3,7 +3,7 @@
 %global giturl        https://github.com/gap-packages/sonata
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.9.7
+Version:        2.9.8
 Release:        %autorelease
 Summary:        GAP package for systems of nearrings
 
@@ -18,10 +18,12 @@ BuildOption(install): grp lib nr nri tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel >= 4.9
+BuildRequires:  gap(smallgrp) >= 1.3
 BuildRequires:  parallel
 BuildRequires:  tth
 
 Requires:       gap-core >= 4.9
+Requires:       gap(smallgrp) >= 1.3
 
 Suggests:       xgap
 

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc6.260805gc21bb4193868.50
+%define pkgrelease 0.rc6.260806g0d8395707651.51
 %define kversion 7
-%define tarfile_release 7.2-rc6-34-gc21bb4193868
+%define tarfile_release 7.2-rc6-59-g0d8395707651
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.260805gc21bb4193868.50%{?buildid}%{?dist}
+%define specrelease 0.rc6.260806g0d8395707651.51%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4976,8 +4976,11 @@ fi\
 #
 #
 %changelog
-* Wed Aug 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.c21bb4193868.50]
+* Thu Aug 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.0d8395707651.51]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Aug 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.0d8395707651.50]
+- Linux v7.2.0-0.rc6.0d8395707651
 
 * Wed Aug 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.c21bb4193868.49]
 - redhat/configs: automotive: debug: enable KASAN_INLINE (Jared Kangas)

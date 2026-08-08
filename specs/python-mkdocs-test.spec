@@ -1,15 +1,16 @@
 %bcond tests 1
+
 %global forgeurl https://github.com/fralau/mkdocs-test
+Version:        0.6.0
+%forgemeta
 
 Name:           python-mkdocs-test
-Version:        0.5.3
 Release:        %autorelease
 Summary:        Test framework for MkDocs projects
 
 License:        MIT
-URL:            https://mkdocs-test-plugin.readthedocs.io
-# PyPI tarball doesn't include test artifacts
-Source:         %{forgeurl}/archive/v%{version}/mkdocs-test-%{version}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,7 +31,7 @@ Summary:        %{summary}
 %description -n python3-mkdocs-test %_description
 
 %prep
-%autosetup -p1 -n mkdocs-test-%{version}
+%forgeautosetup -p1
 
 %generate_buildrequires
 %if %{with tests}
@@ -45,6 +46,9 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files -l mkdocs_test
+# Exclude/remove the 'test' package installed in site-packages
+rm -rf %{buildroot}%{python3_sitelib}/test
+
 
 %check
 %if %{with tests}
