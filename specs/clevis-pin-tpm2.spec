@@ -6,8 +6,8 @@
 %global cargo_install_lib 0
 
 Name:           clevis-pin-tpm2
-Version:        0.5.4
-Release:        3%{?dist}
+Version:        0.5.5
+Release:        1%{?dist}
 Summary:        Clevis PIN for unlocking with TPM2 supporting Authorized Policies
 
 SourceLicense:  MIT
@@ -85,6 +85,9 @@ ln -s /usr/bin/clevis-pin-tpm2 %{buildroot}/usr/bin/clevis-decrypt-tpm2plus
 %{_bindir}/clevis-*-tpm2plus
 
 %changelog
+* Fri Aug 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.5-1
+- Update to 0.5.5
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

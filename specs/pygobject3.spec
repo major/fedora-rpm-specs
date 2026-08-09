@@ -4,15 +4,13 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.56.3
+Version:        3.57.0
 Release:        %autorelease -b6
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
 Source0:        https://download.gnome.org/sources/pygobject/%{gnome_major_minor_version}/pygobject-%{version}.tar.gz
-# Don't raise GLib.unix_signal_add_full deprecation warnings on import (merged upstream)
-Patch:          https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/545.patch
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}
@@ -43,8 +41,8 @@ Requires:       python3-gobject-base%{?_isa} = %{version}-%{release}
 Requires:       python3-cairo%{?_isa} >= %{pycairo_version}
 
 %description -n python3-gobject
-The python3-gobject package provides a convenient wrapper for the GObject 
-library and and other libraries that are compatible with GObject Introspection, 
+The python3-gobject package provides a convenient wrapper for the GObject
+library and and other libraries that are compatible with GObject Introspection,
 for use in Python 3 programs.
 
 %package     -n python3-gobject-base

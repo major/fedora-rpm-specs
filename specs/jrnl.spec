@@ -1,5 +1,5 @@
 Name:           jrnl
-Version:        4.3
+Version:        4.6
 Release:        %autorelease
 Summary:        Collect your thoughts and notes without leaving the command line
 
@@ -13,16 +13,6 @@ Source:         %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
 # We must integrate with new Python interpreter versions whether upstream
 # is ready or not.
 Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
-# Downstream-only: do not upper-bound the version of rich
-#
-# Upstream limits this to the current minor version, but we must integrate
-# with new releases whether upstream is ready or not. We would rather deal
-# with a few possible, usually-minor test failures than a sudden failure
-# to install.
-Patch:          0002-Downstream-only-do-not-upper-bound-the-version-of-ri.patch
-# test: fix version string mismatch between pyproject.toml and __version__.py
-# https://github.com/jrnl-org/jrnl/commit/6ff5b53f1e9891fde289713cee053cb401b43d10
-Patch:          %{forgeurl}/commit/6ff5b53f1e9891fde289713cee053cb401b43d10.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jrnl
@@ -42,6 +32,16 @@ encryption.
 
 
 %prep -a
+# Downstream-only: do not upper-bound the version of rich
+#
+# Upstream limits this to the current minor version, but we must integrate with
+# new releases whether upstream is ready or not. We would rather deal with a
+# few possible, usually-minor test failures than a sudden failure to install.
+%pyproject_patch_dependency rich:drop_upper
+# Also, change the minimum version from 15 to 14 so we can try to ship the
+# security fix for GHSA-rhx6-37mm-5q9r in F44.
+%pyproject_patch_dependency rich:set_lower:14
+
 dos2unix --keepdate \
     SECURITY.md \
     docs/external-editors.md \

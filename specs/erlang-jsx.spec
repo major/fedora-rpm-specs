@@ -8,8 +8,9 @@ Summary:	A streaming, evented json parsing toolkit
 License:	MIT
 URL:		https://github.com/talentdeficit/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 Patch:		erlang-jsx-0001-Adapt-to-OTP-24.patch
+Patch:		erlang-jsx-0002-Fix-tests-under-Erlang-27.patch
 BuildSystem:	rebar3
 
 %description

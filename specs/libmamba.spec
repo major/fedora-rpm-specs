@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.8.1
+Version:        2.9.0
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
@@ -243,8 +243,8 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/libmamba.so.4
-%{_libdir}/libmamba.so.4.*
+%{_libdir}/libmamba.so.5
+%{_libdir}/libmamba.so.5.*
 
 %files devel
 %{_includedir}/mamba/

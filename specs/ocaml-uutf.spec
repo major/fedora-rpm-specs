@@ -21,6 +21,7 @@ BuildOption(build): --tests true
 BuildOption(build): --with-cmdliner true
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
@@ -64,6 +65,9 @@ done
 # Build the documentation
 mkdir html
 ocamldoc -html -d html -I _build/src _build/src/uutf.mli
+
+%check
+b0 test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

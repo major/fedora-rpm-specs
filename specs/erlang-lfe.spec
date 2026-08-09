@@ -1,7 +1,7 @@
 %global realname lfe
 
 Name:		erlang-%{realname}
-Version:	2.2.0
+Version:	2.2.2
 Release:	%autorelease
 Summary:	Lisp Flavoured Erlang
 License:	Apache-2.0

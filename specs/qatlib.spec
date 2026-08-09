@@ -3,8 +3,8 @@
 %global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          26.02.0
-Release:          4%{?dist}
+Version:          26.08.0
+Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -15,7 +15,6 @@ BuildRequires:    systemd gcc make autoconf autoconf-archive automake libtool sy
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
 ExcludeArch:      %{arm} aarch64 %{power64} s390x i686 riscv64
-Patch0:           force-32-bit-MMIO-CSR-reads.patch
 
 %description
 Intel QuickAssist Technology (Intel QAT) provides hardware acceleration
@@ -54,6 +53,15 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 %description   service
 This package contains a daemon that manages QAT resources for the Intel
 QuickAssist Technology user space library (qatlib).
+
+%package       tools
+Summary:       Utilities for Intel QAT device configuration
+Requires:      %{name}%{?_isa} = %{version}-%{release}
+Requires:      python3
+
+%description   tools
+This package provides command-line utilities for managing Intel QuickAssist
+Technology (QAT) devices.
 
 %prep
 %autosetup -p1
@@ -111,6 +119,8 @@ fi
 %attr(0754,-,qat) %{_bindir}/cpa_sample_code
 %attr(0754,-,qat) %{_bindir}/dc_dp_sample
 %attr(0754,-,qat) %{_bindir}/dc_stateless_sample
+%attr(0754,-,qat) %{_bindir}/dc_stateless_sample_dict
+%attr(0754,-,qat) %{_bindir}/decomp_stateless_sample
 %attr(0754,-,qat) %{_bindir}/chaining_sample
 %attr(0754,-,qat) %{_bindir}/dc_stateless_multi_op_sample
 %attr(0754,-,qat) %{_bindir}/algchaining_sample
@@ -124,14 +134,19 @@ fi
 %attr(0754,-,qat) %{_bindir}/sym_dp_sample
 %attr(0754,-,qat) %{_bindir}/dh_sample
 %attr(0754,-,qat) %{_bindir}/eddsa_sample
+%attr(0754,-,qat) %{_bindir}/kpt_rsa_sample
+%attr(0754,-,qat) %{_bindir}/kpt_ecdsa_sample
 %attr(0754,-,qat) %{_bindir}/prime_sample
 %attr(0754,-,qat) %{_bindir}/hkdf_sample
 %attr(0754,-,qat) %{_bindir}/ec_montedwds_sample
-%attr(0754,-,qat) %{_bindir}/zuc_sample
+%attr(0754,-,qat) %{_bindir}/zuc128_sample
 %attr(0754,-,qat) %{_bindir}/update_sample
 %{_datadir}/qat/calgary
 %{_datadir}/qat/calgary32
 %{_datadir}/qat/canterbury
+%{_datadir}/qat/paper4
+%{_datadir}/qat/paper4.dict
+%{_datadir}/qat/paper4.gz
 %{_mandir}/man7/cpa_sample_code.7*
 
 %files         service
@@ -142,7 +157,16 @@ fi
 %{_mandir}/man8/qatmgr.8*
 %{_mandir}/man8/qat_init.sh.8*
 
+%files         tools
+%{_sbindir}/qat_sla_mgr
+%{_sbindir}/qat_sla_rl.py
+%{_mandir}/man8/qat_sla_mgr.8*
+
 %changelog
+* Fri Aug 07 2026 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 26.08.0-1
+- Update to qatlib 26.08.0
+- Remove force-32-bit-MMIO-CSR-reads.patch as included in qatlib 26.08.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.02.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

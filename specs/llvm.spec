@@ -3320,7 +3320,6 @@ fi
     llvm-reduce
     llvm-remarkutil
     llvm-rtdyld
-    llvm-sim
     llvm-size
     llvm-split
     llvm-stress
@@ -3352,6 +3351,12 @@ fi
 %else
 %{expand_bins %{expand:
     bugpoint
+}}
+%endif
+
+%if %{maj_ver} < 24
+%{expand_bins %{expand:
+    llvm-sim
 }}
 %endif
 

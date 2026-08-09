@@ -1,8 +1,8 @@
 %global pypi_name tldextract
 
 Name:           python-%{pypi_name}
-Version:        5.3.0
-Release:        8%{?dist}
+Version:        5.3.1
+Release:        1%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
 License:        BSD-3-Clause
@@ -13,7 +13,7 @@ Source0:        %{pypi_source %{pypi_name}}
 # ignores the file by default.
 # This patch declares the file as "package_data" explicitly.
 # The code assumes this file is always present and uses it as a fallback.
-Patch1:         python-tldextract-include-.tld_set_snapshot.patch
+#Patch1:         python-tldextract-include-.tld_set_snapshot.patch
 
 BuildArch:      noarch
 
@@ -76,6 +76,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 5.3.1-1
+- Update to 5.3.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

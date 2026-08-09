@@ -79,6 +79,10 @@ Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460586
 Patch:         0001-src-image.c-svg_load_image-Fix-off-by-one-mistake-bu.patch
 
+# Nullify 'read-symbol-shorthands' around risky 'intern' calls.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80574#227
+Patch:         0001-Mitigate-arbitrary-code-execution-vulnerability.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

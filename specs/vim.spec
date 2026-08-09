@@ -28,7 +28,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 843
+%define patchlevel 920
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -315,6 +315,9 @@ Conflicts: %{name}-common < 2:9.1.1706-2
 # devel of libICE, gtk, libSM, libX11, libXpm and libXt are needed in buildroot
 # so configure script can have correct macros enabled for GUI (#1603272)
 # generic gnome toolkit for graphical support
+# - new printing backend requires cairo-ps, cairo-pdf, pango and pangocairo.
+# So far those should be included in gtk4-devel and gtk3-devel, but in case
+# they get separated, I mention the dependency as comment
 %if %{with gtk4}
 BuildRequires: gtk4-devel
 %else
@@ -449,6 +452,7 @@ cp -f os_unix.h os_unix.h.save
 # --disable-libsodium - disable additional encryption support
 # --without-wayland - without Wayland protocol support
 # --enable-fips-warning - shows warning when using Vim encryption, which is not FIPS certified
+# --disable-harcopy-pango - enable/disable GTK printing backend
 
 perl -pi -e "s/vimrc/virc/"  os_unix.h
 %configure \
@@ -461,6 +465,7 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --exec-prefix=/ \
   --disable-canberra \
   --disable-gpm \
+  --disable-hardcopy-pango \
   --disable-libsodium \
   --disable-netbeans \
   --disable-perlinterp \
@@ -502,6 +507,7 @@ mv -f os_unix.h.save os_unix.h
   --enable-year2038 \
   --exec-prefix=%{_prefix} \
   --disable-canberra \
+  --disable-hardcopy-pango \
   --disable-tclinterp \
   --prefix=%{_prefix} \
   --with-compiledby="%{bugurl}" \
@@ -565,6 +571,7 @@ cp vim enhanced-vim
   --enable-cscope \
   --enable-fail-if-missing \
   --enable-fips-warning \
+  --enable-hardcopy-pango \
   --enable-multibyte \
   --enable-python3interp=dynamic \
   --enable-socketserver \
@@ -1054,6 +1061,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Fri Aug 07 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.920-1
+- patchlevel 920
+
 * Fri Jul 24 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.843-1
 - patchlevel 843
 

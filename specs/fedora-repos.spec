@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        45
-Release:        0.1%{?eln:.eln%{eln}}
+Release:        0.2%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -409,6 +409,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Fri Aug 07 2026 Kevin Fenzi <kevin@scrye.com> - 45-0.2
+- Add Extensions to ELN repos
+
 * Wed Feb 04 2026 Patrik Polakovic <patrik@alphamail.org> - 45-0.1
 - Rawhide is now F45
 

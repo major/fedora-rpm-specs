@@ -1,13 +1,15 @@
 %define glib2_version 2.44.0
 
 Name:           dconf
-Version:        0.49.0
+Version:        51~beta
 Release:        %autorelease
 Summary:        A configuration system
 
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/dconf
-Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+%gnome_check_version
 
 Patch1:         dconf-override.patch
 
@@ -37,7 +39,7 @@ dconf development package. Contains files needed for doing software
 development using dconf.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{gnome_tarball_version}
 
 %build
 %meson -Dgtk_doc=true -Dsystemduserunitdir=%{_userunitdir}

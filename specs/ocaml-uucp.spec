@@ -11,6 +11,9 @@ License:        ISC
 URL:            https://erratique.ch/software/uucp
 VCS:            git:https://erratique.ch/repos/uucp.git
 Source:         %{url}/releases/uucp-%{version}.tbz
+# Unicode character database, used by the tests
+# See B0.ml for the supported Unicode version
+Source:         https://www.unicode.org/Public/17.0.0/ucdxml/ucd.all.grouped.zip
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -22,13 +25,15 @@ BuildOption(build): --with-cmdliner true
 BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uunf-devel
+BuildRequires:  ocaml-uucd-devel >= 17.0.0
+BuildRequires:  ocaml-uunf-devel >= 17.0.0
 
 %description
 Uucp is an OCaml library providing efficient access to a selection of
@@ -48,6 +53,11 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n uucp-%{version}
+unzip -d support %{SOURCE1}
+mv support/ucd.all.grouped.xml support/ucd.xml
+
+%check
+b0 test
 
 %files -f .ofiles
 %license LICENSE.md

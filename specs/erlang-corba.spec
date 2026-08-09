@@ -10,7 +10,7 @@
 # default.
 %bcond_with doc
 %else
-%bcond_without doc
+%bcond_with doc
 %endif
 
 
@@ -30,7 +30,9 @@ Patch:		erlang-corba-0004-Do-not-install-Java-sources.patch
 Patch:		erlang-corba-0005-Do-not-install-erlang-sources.patch
 Patch:		erlang-corba-0006-Do-not-install-examples.patch
 Patch:		erlang-corba-0007-Fix-javadoc.patch
+%if %{with doc}
 BuildRequires:	erlang-erl_docgen
+%endif
 BuildRequires:	erlang-erl_interface
 BuildRequires:	erlang-erts
 BuildRequires:	erlang-ftp
@@ -40,10 +42,11 @@ BuildRequires:	erlang-rpm-macros
 BuildRequires:	gcc
 BuildRequires:	java-25-devel
 %if %{with doc}
+BuildRequires:	erlang-erl_docgen
 BuildRequires:	fop
 BuildRequires:	libxslt
 %endif
-BuildRequires: make
+BuildRequires:	make
 # FIXME no autodetect yet
 #BuildRequires:	erlang-cosEvent
 #BuildRequires:	erlang-cosNotification

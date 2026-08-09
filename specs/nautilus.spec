@@ -6,7 +6,7 @@
 %global libadwaita_version 1.8~alpha
 
 Name:           nautilus
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        File manager for GNOME
 
@@ -19,8 +19,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 # https://pagure.io/fedora-workstation/issue/442
 Patch:          default-terminal.patch
-# https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/2074
-Patch:          nautilus-put-g_set_date_time-behind-guard.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

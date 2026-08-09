@@ -52,9 +52,13 @@
 %global hldflags %{_hardening_ldflags} -Wl,-z,relro,-z,now
 %endif
 
+%ifarch aarch64
+%global hcflags %{_hardening_cflags} -mbranch-protection=standard
+%endif
+
 Name:		busybox
 Version:	1.37.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -359,6 +363,9 @@ ln -s ./busybox %{buildroot}%{_sbindir}/udhcpc
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Fri Aug 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:1.37.0-9
+- Build with -mbranch-protection=standard on aarch64
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.37.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,10 +8,11 @@ Summary:	Erlang client for Riak
 License:	Apache-2.0
 URL:		https://github.com/basho/riak-erlang-client
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/riak_client-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/riak_client-%{version}.tar.gz
 Patch:		erlang-riak_client-0001-Allow-more-Erlang-versions.patch
 Patch:		erlang-riak_client-0002-Add-deprecation-for-Erlang-20-as-well.patch
 Patch:		erlang-riak_client-0003-Fix-edoc-generation.patch
+Patch:		erlang-riak_client-0004-Do-not-use-wors-reserved-in-OTP-27.patch
 BuildRequires:	erlang-rebar3
 BuildRequires:	erlang-riak_pb
 

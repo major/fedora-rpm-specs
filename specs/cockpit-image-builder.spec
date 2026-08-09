@@ -1,6 +1,6 @@
 Name:           cockpit-image-builder
-Version:        94
-Release:        2%{?dist}
+Version:        106
+Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
@@ -15,10 +15,12 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  /usr/bin/node
+# for _tmpfilesdir macro
+BuildRequires:  systemd-rpm-macros
 
 Requires:       cockpit
 Requires:       cockpit-files
-Requires:       osbuild-composer >= 131
+Requires:       image-builder >= 76.0.0
 
 Recommends:     cockpit-machines
 
@@ -38,6 +40,9 @@ as a frontend for osbuild.
 # drop source maps, they are large and just for debugging
 find %{buildroot}%{_datadir}/cockpit/ -name '*.map' | xargs --no-run-if-empty rm --verbose
 
+install -m 0755 -vd %{buildroot}%{_tmpfilesdir}
+install -m 0644 -vp cockpit/tmpfiles.d/cockpit-image-builder.conf %{buildroot}%{_tmpfilesdir}/cockpit-image-builder.conf
+
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
@@ -46,8 +51,84 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %license LICENSE
 %{_datadir}/cockpit/cockpit-image-builder
 %{_datadir}/metainfo/*
+%{_tmpfilesdir}/cockpit-image-builder.conf
+%ghost %attr(0700, root, root) %dir /var/cache/cockpit-image-builder
 
 %changelog
+* Wed Aug 5 2026 Packit <hello@packit.dev> - 106-1
+Changes with 106
+----------------
+  - Clean up redux deps (HMS-11143) (#4699)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Deprecate msw (HMS-11094) (#4671)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Enable `--fileParallelism` for all vitest runs (HMS-11136) (#4677)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Refactor RegistryAuth and optimize login cache update (#4662)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Remove more unused deps (HMS-11137) (#4687)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Replace `moment` with `date-fns` (HMS-11142) (#4694)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Split on-prem image source into official and custom flows (HMS-11081) (#4664)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Streamline on-prem registry auth UX and extract shared helpers (#4657)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Update Konflux references (#4673)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Update build-tools digest to c13c57f (#4676)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Update build-tools digest to fcbeac5 (#4690)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Update dependency node to v24.18.1 (#4691)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Wizard/AAP: Improve validation (HMS-10759) (#4683)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Wizard: Remove unused validators (HMS-11135) (#4686)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Wizard: add "single target migration" banner on-prem (HMS-11066) (#4682)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - Wizard: add banner with a new announce (#4660)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - Wizard: fix adding LabelInput values (HMS-10877) (#4646)
+    - Author: Katarína Sieklová, Reviewers: Anna Vítová
+  - build(deps): bump fast-uri from 3.1.2 to 3.1.4 (#4669)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump fast-uri from 3.1.4 to 3.1.5 (#4698)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump postcss from 8.5.22 to 8.5.25 (#4695)
+    - Author: dependabot, Reviewers: Gianluca Zuccarelli
+  - build(deps): bump the minor-and-patch group across 1 directory with 10 updates (#4681)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group with 5 updates (#4697)
+    - Author: dependabot, Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump @currents/playwright from 1.24.0 to 2.5.0 (#4679)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps-dev): bump brace-expansion from 1.1.16 to 1.1.18 (#4696)
+    - Author: dependabot, Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump immutable from 5.1.5 to 5.1.9 (#4666)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps-dev): bump ws from 8.19.0 to 8.21.1 (#4668)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#4689)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - cockpit: use image-builder-cli (#4688)
+    - Author: Sanne Raymaekers, Reviewers: Nobody
+  - deps: Remove uuid (HMS-11145) (#4700)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - store: remove blank line between imports (#4702)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - test: Add comment to false positives (HMS-11084) (#4667)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - test: Clean up test directory (HMS-11091) (#4670)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - test: Migrate Blueprints test to co-located unit tests (HMS-11086) (#4663)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - test: Migrate ImagesTable tests to co-located unit tests (HMS-11085) (#4659)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-08-05
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 94-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

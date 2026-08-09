@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.1.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
@@ -81,6 +81,8 @@ cd %{builddir}
 %gemspec_remove_dep -g diff-lcs "~> 1.4", ">= 1.4.4"
 %gemspec_add_dep -g diff-lcs ">= 1.3"
 
+%gemspec_remove_dep -g cucumber-core "~> 10.1"
+
 %gemspec_remove_dep -g cucumber-gherkin "~> 22.0", ">= 22.0.0"
 %gemspec_add_dep -g cucumber-gherkin ">= 20.0"
 
@@ -154,6 +156,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Fri Aug 07 2026 Vít Ondruch <vondruch@redhat.com> - 7.1.0-18
+- Relax cucumber-core dependency.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

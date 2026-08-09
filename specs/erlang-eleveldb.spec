@@ -20,8 +20,9 @@ Patch101:	basho-leveldb-0001-Fix-least-byte-extraction.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:	erlang-cuttlefish
-BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-erl_interface
 BuildRequires:	erlang-os_mon
+BuildRequires:	erlang-rebar3
 #BuildRequires:	leveldb-devel
 BuildRequires:	make
 # Requires for using ps utility in tests

@@ -42,11 +42,13 @@ tar -xf %{S:1}
 %go_vendor_license_install -c %{S:2}
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/gif2png %{buildroot}%{_bindir}/gif2png
-ln -sf gif2png                          %{buildroot}%{_bindir}/webpng
+# rename webpng to gowebpng due conflict with gd-progs
+# https://bugzilla.redhat.com/show_bug.cgi?id=2507562
+ln -sf gif2png                          %{buildroot}%{_bindir}/gowebpng
 
 install -m 0755 -vd                     %{buildroot}%{_mandir}/man1
 install -m 0644 -vp gif2png.1           %{buildroot}%{_mandir}/man1/gif2png.1
-ln -sf gif2png.1                        %{buildroot}%{_mandir}/man1/webpng.1
+ln -sf gif2png.1                        %{buildroot}%{_mandir}/man1/gowebpng.1
 
 %check
 %go_vendor_license_check -c %{S:2}
@@ -58,9 +60,9 @@ cp %{gobuilddir}/bin/gif2png .
 %files -f %{go_vendor_license_filelist}
 %doc README.adoc NEWS.adoc
 %{_bindir}/gif2png
-%{_bindir}/webpng
+%{_bindir}/gowebpng
 %{_mandir}/man1/gif2png.1*
-%{_mandir}/man1/webpng.1*
+%{_mandir}/man1/gowebpng.1*
 
 %changelog
 %autochangelog

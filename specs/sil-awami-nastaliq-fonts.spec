@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-Version: 2.000
-Release: 19%{?dist}
+Version:	3.400
+Release:	2%{?dist}
+URL:		https://software.sil.org/awami
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -10,9 +11,6 @@ Release: 19%{?dist}
 
 %global fontfamily        Awami Nastaliq
 %global fontsummary       Awami Nastaliq, a Nastaliq-style Arabic script font family
-%global projectname       awami
-%global archivename       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), "[%p%s]+", ""); print(t)}-%{version}
-URL:                      https://software.sil.org/%{projectname}/
 %global fontpkgheader     %{expand:
 Recommends: font(charissil)
 }
@@ -36,27 +34,33 @@ of dots and diacritics. In order to account for the seemingly infinite
 variations, the Graphite rendering engine has been extended just to handle
 these complexities properly.}
 
-Source0:  https://github.com/silnrsi/font-%{projectname}/releases/download/v%{version}/%{archivename}.tar.xz
-Source10: 65-%{fontpkgname}.xml
+Source0:	https://github.com/silnrsi/font-awami/releases/download/v%{version}/AwamiNastaliq-%{version}.tar.xz
+Source10:	65-%{fontpkgname}.xml
 
-%fontpkg
+%fontpkg -a
 
 %prep
-%setup -q -n %{archivename}
+%autosetup -n AwamiNastaliq-%{version}
 %linuxtext *.txt documentation/*.txt
 
 %build
-%fontbuild
+%fontbuild -a
 
 %install
-%fontinstall
+%fontinstall -a
 
 %check
-%fontcheck
+%fontcheck -a
 
-%fontfiles
+%fontfiles -a
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.400-2
+- Source url change
+
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.400-1
+- Update to 3.400 (rhbz#2402608)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

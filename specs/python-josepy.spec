@@ -5,8 +5,8 @@
 %bcond_without docs
 
 Name:           python-%{pypi_name}
-Version:        2.0.0
-Release:        10%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        JOSE protocol implementation in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -16,7 +16,7 @@ Source0:        %{pypi_source}
 Source2:        https://dl.eff.org/certbot.pub
 # patch by Marc Mueller / cdce8p
 # https://github.com/certbot/josepy/commit/8ddcaaed99a61e9277df1ec00157f0aea53378d4
-Patch1:         python-josepy-support-py314.patch
+#Patch1:         python-josepy-support-py314.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -104,6 +104,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 2.2.0-1
+- Update to 2.2.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

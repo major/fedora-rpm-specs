@@ -28,6 +28,8 @@ Patch4: 0004-fix-GooString-use-std-string-size.patch
 # Replace removed Python 2 C API macros with Python 3 equivalents
 # for compatibility with SWIG 4.5.0
 Patch5: gdcm-swig45.patch
+# Fixes build with poppler 26.08.0
+Patch6: gdcm-3.0.24-poppler-26.08.0.patch
 
 BuildRequires:  CharLS-devel >= 2.2
 BuildRequires:  cmake

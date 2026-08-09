@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-Version: 6.101
-Release: 10%{?dist}
+Version:	7.000
+Release:	1%{?dist}
+URL:		https://software.sil.org/andika
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -10,7 +11,6 @@ Release: 10%{?dist}
 
 %global fontfamily        Andika
 %global fontsummary       SIL Andika, a font family for literacy and beginning readers
-URL:                      https://software.sil.org/andika
 %global fontpkgheader     %{expand:
 Suggests: font(andikanewbasic)
 }
@@ -31,13 +31,13 @@ order to get all of the characters they need for their particular language
 project, resulting in confusing and unattractive publications. Andika
 addresses those issues.}
 
-Source0: https://github.com/silnrsi/font-andika/releases/download/v%{version}/Andika-%{version}.tar.xz
-Source10: 61-%{fontpkgname}.xml
+Source0:	https://github.com/silnrsi/font-andika/releases/download/v%{version}/Andika-%{version}.tar.xz
+Source10:	61-%{fontpkgname}.xml
 
 %fontpkg -a
 
 %prep
-%setup -q -n Andika-%{version}
+%autosetup -n Andika-%{version}
 %linuxtext *.txt
 
 %build
@@ -52,6 +52,9 @@ Source10: 61-%{fontpkgname}.xml
 %fontfiles -a
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 7.000-1
+- Update to 7.000 (rhbz#2166360)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.101-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

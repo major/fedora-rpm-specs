@@ -22,6 +22,7 @@ BuildOption(build): --with-base-unix true
 BuildOption(build): --with-cmdliner true
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
@@ -60,6 +61,9 @@ sed -i 's/safe_string/&, cclib(-lm)/' _tags
 # Build the documentation
 mkdir html
 ocamldoc -html -d html -I +cmdliner -I _build/src _build/src/*.mli
+
+%check
+b0 test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

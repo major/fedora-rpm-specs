@@ -1,11 +1,10 @@
 Summary:        Python function for condensing JSON using replacement strings
 Name:           python-condense-json
-Version:        0.1.3
+Version:        1.1
 Release:        %autorelease
 License:        Apache-2.0
 URL:            https://pypi.python.org/project/condense-json/
 Source:         %{pypi_source condense_json}
-Patch:          python-condense-json-0.1.3-toml.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

@@ -7,7 +7,9 @@ Summary:	Multi-Paxos framework in Erlang
 License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
+Patch:		erlang-riak_ensemble-0001-We-do-not-have-eqc-rebar3-plugin-yet.patch
+Patch:		erlang-riak_ensemble-0002-Do-not-use-a-keyword-reserved-in-Erlang-27.patch
 BuildRequires:	erlang-eleveldb
 BuildRequires:	erlang-lager
 BuildRequires:	erlang-rebar3

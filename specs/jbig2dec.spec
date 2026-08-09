@@ -1,3 +1,12 @@
+# update this when there is a new version
+# !BEWARE! all dependent packages have to rebuilt and released
+# together with new jbig2dec version - use side tags
+%if 0%{?fedora} >= 40 || 0%{?rhel} > 9
+%global current_version 0.20
+%else
+%global current_version 0.19
+%endif
+
 Name:		jbig2dec
 Version:	0.20
 Release:	%autorelease
@@ -49,6 +58,13 @@ which requires the jbig2dec library.
 
 
 %build
+%if "x%{version}" != "x%{current_version}"
+  echo "Versions mismatch - update current_version macro, build jbig2dec\
+ in side tag and then dependent packages with it too. Push them all \
+ in the same update to prevent breakages"
+ exit 1
+%endif
+
 autoreconf -fi
 %configure --disable-static
 %make_build

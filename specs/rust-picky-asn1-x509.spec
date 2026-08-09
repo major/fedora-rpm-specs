@@ -5,7 +5,7 @@
 %global crate picky-asn1-x509
 
 Name:           rust-picky-asn1-x509
-Version:        0.14.6
+Version:        0.15.4
 Release:        %autorelease
 Summary:        ASN1 types defined by X.509 related RFCs
 
@@ -48,6 +48,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+crypto-bigint-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-bigint-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-bigint" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-bigint-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+ctl-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -70,18 +82,6 @@ This package contains library source intended for building other packages which
 use the "legacy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+legacy-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+num-bigint-dig-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+num-bigint-dig-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "num-bigint-dig" feature of the "%{crate}" crate.
-
-%files       -n %{name}+num-bigint-dig-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pkcs12-devel

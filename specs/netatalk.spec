@@ -1,4 +1,4 @@
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 %global tracker localsearch
 %global trackerdevel tinysparql-devel
 %else

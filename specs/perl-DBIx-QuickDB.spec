@@ -2,8 +2,8 @@
 %bcond_with perl_DBIx_QuickDB_duckdb
 
 Name:           perl-DBIx-QuickDB
-Version:        0.000061
-Release:        2%{?dist}
+Version:        0.000062
+Release:        1%{?dist}
 Summary:        Quickly start a database server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/DBIx-QuickDB
@@ -23,6 +23,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  glibc-langpack-en
 BuildRequires:  perl(Capture::Tiny) >= 0.20
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Cwd)
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Errno)
@@ -57,6 +58,7 @@ BuildRequires:  sqlite
 BuildRequires:  bash
 BuildRequires:  perl(base)
 BuildRequires:  perl(File::Copy::Recursive)
+BuildRequires:  perl(File::Find)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(lib)
@@ -80,8 +82,8 @@ Requires:       perl(Test2::API) >= 1.302120
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Capture::Tiny|Importer|Module::Pluggable|Test2::API)\\)$
 # Hide private modules
-%global __requires_exclude %{__requires_exclude}|^perl\\(main::HBase|QDB::Installs
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((Fake::Export::Lib|QDB::DriverBody|QDB::Installs|QDB::Installs::ResourceUnavailable|Test::Pool|XXX|YYY)\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(main::HBase|QDB::FakeDriver|QDB::Installs
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((Fake::Export::Lib|QDB::DriverBody|QDB::FakeDriver|QDB::Installs|QDB::Installs::ResourceUnavailable|Test::Pool|XXX|YYY)\\)
 
 %description
 This library makes it easy to spin up a temporary database server for any
@@ -241,6 +243,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 07 2026 Petr Pisar <ppisar@redhat.com> - 0.000062-1
+- 0.000062 bump
+
 * Tue Aug 04 2026 Petr Pisar <ppisar@redhat.com> - 0.000061-2
 - Increase timeout for TMT tests
 

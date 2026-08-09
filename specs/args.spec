@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           args
-Version:        6.5.0
+Version:        6.6.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        Simple, small, flexible, single-header C++11 argument parsing library

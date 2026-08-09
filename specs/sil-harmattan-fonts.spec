@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-Version: 1.001
-Release: 19%{?dist}
+Version:	4.400
+Release:	2%{?dist}
+URL:		https://software.sil.org/harmattan
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -10,9 +11,6 @@ Release: 19%{?dist}
 
 %global fontfamily        Harmattan
 %global fontsummary       Harmattan, a Warsh-style Arabic script font family
-%global projectname       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), " SIL$", ""); t=string.gsub(t, "[%p%s]+", ""); print(string.lower(t))}
-%global archivename       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), "[%p%s]+", ""); print(t)}-%{version}
-URL:                      https://software.sil.org/%{projectname}/
 %global fontpkgheader     %{expand:
 # We blacklist the Andika subset in Harmattan, to use the latest full version
 Requires: font(andikanewbasic)
@@ -28,27 +26,33 @@ Because the font style is specifically intended for West Africa, the character
 set for this font is aimed at West African languages. Thus, Asia-specific
 glyphs are not included.}
 
-Source0:  https://software.sil.org/downloads/r/%{projectname}/%{archivename}.zip
-Source10: 65-%{fontpkgname}.xml
+Source0:	https://github.com/silnrsi/font-harmattan/releases/download/v%{version}/Harmattan-%{version}.tar.xz
+Source10:	65-%{fontpkgname}.xml
 
-%fontpkg
+%fontpkg -a
 
 %prep
-%setup -q -n %{archivename}
+%autosetup -n Harmattan-%{version}
 %linuxtext *.txt documentation/*.txt
 
 %build
-%fontbuild
+%fontbuild -a
 
 %install
-%fontinstall
+%fontinstall -a
 
 %check
-%fontcheck
+%fontcheck -a
 
-%fontfiles
+%fontfiles -a
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 4.400-2
+- Source url change
+
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 4.400-1
+- Update to 4.400 (rhbz#2402599)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

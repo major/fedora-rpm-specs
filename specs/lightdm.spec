@@ -6,7 +6,7 @@
 
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
-Version:	1.32.0
+Version:	1.33.0
 Release:	%autorelease
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
@@ -39,8 +39,6 @@ Patch1:		remove_bin_path.patch
 Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
 
 # Pending
-# https://github.com/canonical/lightdm/pull/373
-Patch3:		lightdm-1.32.0-add-qt6-lib.patch
 
 # Upstream commits
 

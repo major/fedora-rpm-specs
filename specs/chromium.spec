@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 151.0.7922.71
+Version: 151.0.7922.108
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -296,6 +296,9 @@ Patch22: chromium-131-fix-qt-ui.pach
 #//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
 #  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
 Patch23: chromium-143-revert-libpng_for_testonly.patch
+ 
+# patch from Melvin - melvin@pixilab.se
+Patch24: glibc-2.42-baud-rate-fix.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
@@ -1075,6 +1078,9 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
+%if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
+%patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
+%endif
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 
 %if ! %{bundlebrotli}
@@ -1913,6 +1919,50 @@ fi
 %endif
 
 %changelog
+* Fri Aug 07 2026 Than Ngo <than@redhat.com> - 151.0.7922.108-1
+- Update to 151.0.7922.108
+  * CVE-2026-19137: Use after free in WebGL
+  * CVE-2026-19138: Heap buffer overflow in CrashReporting
+  * CVE-2026-19139: Race in CredentialProvider
+  * CVE-2026-19140: Use after free in GPU
+  * CVE-2026-19141: Use after free in Resources
+  * CVE-2026-19142: Use after free in Views
+  * CVE-2026-19143: Insufficient validation of untrusted input in WebAPKs
+  * CVE-2026-19144: Use after free in HTML
+  * CVE-2026-19145: Use after free in Translate
+  * CVE-2026-19146: Uninitialized Use in GPU
+  * CVE-2026-19147: Use after free in Aura
+  * CVE-2026-19148: Out of bounds write in GPU
+  * CVE-2026-19149: Use after free in Aura
+  * CVE-2026-19150: Inappropriate implementation in V8
+  * CVE-2026-19151: Use after free in V8
+  * CVE-2026-19152: Inappropriate implementation in Navigation
+  * CVE-2026-19153: Insufficient validation of untrusted input in Workers
+  * CVE-2026-19154: Use after free in Skia
+  * CVE-2026-19155: Use after free in Payments
+  * CVE-2026-19156: Heap buffer overflow in Base
+  * CVE-2026-19157: Out of bounds write in ANGLE
+  * CVE-2026-19158: Use after free in Views
+  * CVE-2026-19159: Use after free in Views
+  * CVE-2026-19160: Uninitialized Use in Skia
+  * CVE-2026-19161: Uninitialized Use in Skia
+  * CVE-2026-19162: Out of bounds write in V8
+  * CVE-2026-19163: Use after free in Media
+  * CVE-2026-19164: Insufficient validation of untrusted input in Codecs
+  * CVE-2026-19165: Use after free in Extensions
+  * CVE-2026-19166: Use after free in Web Authentication
+  * CVE-2026-19167: Integer overflow in GPU
+  * CVE-2026-19168: Inappropriate implementation in V8
+  * CVE-2026-19169: Insufficient validation of untrusted input in Contextual Tasks
+  * CVE-2026-19170: Use after free in WebGL
+  * CVE-2026-19171: Use after free in Media
+  * CVE-2026-19172: Use after free in Views
+  * CVE-2026-19173: Out of bounds write in Skia
+  * CVE-2026-19174: Integer overflow in V8
+  * CVE-2026-19175: Use after free in Payments
+  * CVE-2026-19176: Use after free in Skia
+  * CVE-2026-19177: Insufficient validation of untrusted input in UI
+
 * Thu Jul 30 2026 Than Ngo <than@redhat.com> - 151.0.7922.71-1
 - Update to 151.0.7922.71
   * CVE-2026-17650: Use after free in Compositing

@@ -1,5 +1,5 @@
 Name:           dgit
-Version:        16.1
+Version:        16.5
 Release:        %autorelease
 Summary:        Integration between git and Debian-style archives
 License:        GPL-3.0-or-later

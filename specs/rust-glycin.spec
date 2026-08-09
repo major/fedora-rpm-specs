@@ -3,15 +3,22 @@
 %global debug_package %{nil}
 
 %global crate glycin
+%global crate_version 4.0.0-alpha
 
 Name:           rust-glycin
-Version:        3.1.0
+Version:        4.0.0~alpha
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
+# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
+Source2:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-LGPL-2.1
+# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
+Source3:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-MPL-2.0
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          glycin-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -30,7 +37,6 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-LGPL-2.1
 %license %{crate_instdir}/LICENSE-MPL-2.0
 %doc %{crate_instdir}/README.md
@@ -72,6 +78,30 @@ use the "gdk4" feature of the "%{crate}" crate.
 %files       -n %{name}+gdk4-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+glycin-builtin-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+glycin-builtin-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "glycin-builtin" feature of the "%{crate}" crate.
+
+%files       -n %{name}+glycin-builtin-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+glycin-external-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+glycin-external-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "glycin-external" feature of the "%{crate}" crate.
+
+%files       -n %{name}+glycin-external-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gobject-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -82,6 +112,18 @@ This package contains library source intended for building other packages which
 use the "gobject" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gobject-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tests-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tests-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tests" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel
@@ -96,21 +138,10 @@ use the "tokio" feature of the "%{crate}" crate.
 %files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-config-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-config-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable-config" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-config-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
+cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -123,8 +154,7 @@ use the "unstable-config" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a doctest that doesn't compile
-%cargo_test -- -- --skip 'src/lib.rs'
+%cargo_test
 %endif
 
 %changelog

@@ -3,7 +3,7 @@
 %global crate rust2rpm-helper
 
 Name:           rust2rpm-helper
-Version:        0.1.9
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Helper program for rust2rpm
 

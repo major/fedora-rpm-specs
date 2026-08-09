@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/FactInt
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.3
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Advanced methods for factoring integers
 
@@ -18,7 +18,6 @@ BuildOption(install): lib tables tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(gapdoc) >= 1.6
 BuildRequires:  gap-devel >= 4.8.8
 
 Requires:       gap-core >= 4.8.8
@@ -73,7 +72,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %files
-%doc CHANGES README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

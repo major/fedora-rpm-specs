@@ -10,12 +10,15 @@ License:        ISC
 URL:            https://erratique.ch/software/mtime
 VCS:            git:https://erratique.ch/repos/mtime.git
 Source:         %{url}/releases/mtime-%{version}.tbz
+# Remove js_of_ocaml dependency in the tests, since Fedora does not have it
+Patch:          %{name}-js-of-ocaml.patch
 
 BuildSystem:    topkg
 BuildOption(build): --dev-pkg false
 BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
@@ -44,10 +47,13 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n mtime-%{version}
+%autosetup -n mtime-%{version} -p1
 
 # link with the math library
 echo $'\ntrue: cclib(-lm)' >> _tags
+
+%check
+b0 test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

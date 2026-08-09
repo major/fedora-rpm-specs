@@ -1,8 +1,8 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.20.1
-Release:        3%{?dist}
+Version:        0.21.1
+Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        Apache-2.0
@@ -13,6 +13,8 @@ Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcnam
 Patch0:         %{name}-0.5.3-remove-pytest.patch
 # Not submitted upstream - compatibility with pytest 2.9.X
 Patch1:         %{name}-0.19.0-pytest-compat.patch
+# Not submitted upstream - we lose --symlink-install with newer setuptools
+Patch2:         %{name}-0.21.1-relax-setuptools-dep.patch
 
 BuildArch:      noarch
 
@@ -32,7 +34,6 @@ BuildRequires:  python%{python3_pkgversion}-empy
 BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
-BuildRequires:  python%{python3_pkgversion}-setuptools < 80
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
@@ -41,7 +42,7 @@ Requires:       (python%{python3_pkgversion} >= 3.11 or python%{python3_pkgversi
 Requires:       python%{python3_pkgversion}-distlib >= 0.2.5
 Requires:       python%{python3_pkgversion}-empy
 Requires:       python%{python3_pkgversion}-packaging
-Requires:       python%{python3_pkgversion}-setuptools < 80
+Requires:       python%{python3_pkgversion}-setuptools
 %endif
 
 Recommends:     python%{python3_pkgversion}-coloredlogs
@@ -83,6 +84,10 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Fri Aug 07 2026 Scott K Logan <logans@cottsay.net> - 0.21.1-1
+- Update to 0.21.1
+- Relax setuptools requirement
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

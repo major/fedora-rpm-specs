@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate gufo-xmp
+%global crate_version 0.5.0-alpha
 
 Name:           rust-gufo-xmp
-Version:        0.4.0
+Version:        0.5.0~alpha
 Release:        %autorelease
 Summary:        Reading and editing for XMP data
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-xmp
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -60,8 +61,20 @@ use the "chrono" feature of the "%{crate}" crate.
 %files       -n %{name}+chrono-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

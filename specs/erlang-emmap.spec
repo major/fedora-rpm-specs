@@ -2,7 +2,6 @@
 %global git_commit f4a6f82d20a4ea08f723a033988b9a83bbcaf850
 %global git_date 20230313
 
-
 Name:		erlang-%{realname}
 Version:	2.0.11
 Release:	%autorelease -s %{git_date}git%{sub %git_commit 0 7}
@@ -15,14 +14,13 @@ Patch1:		erlang-emmap-0001-Fix-for-i686.patch
 Patch2:		erlang-emmap-0002-Enough-space-for-i686.patch
 BuildRequires:	erlang-edown
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-pc
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-
 
 %description
 This Erlang library provides a wrapper that allows you to memory map files into
 the Erlang memory space.
-
 
 %prep
 %ifarch %{ix86}
@@ -31,28 +29,19 @@ the Erlang memory space.
 %autosetup -N -n %{realname}-%{git_commit}
 %endif
 
-
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-g++ c_src/emmap.cpp $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/emmap.o
-g++ c_src/emmap.o $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -ldl -o priv/emmap.so
-
 
 %install
 %{erlang3_install}
 
-
 %check
 %{erlang3_test}
-
 
 %files
 %license LICENSE
 %doc README.md
 %{erlang_appdir}/
-
 
 %changelog
 %autochangelog

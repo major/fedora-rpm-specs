@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 7.0.2
+%global upstream_version 7.0.3
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Fri Aug  7 2026 Remi Collet <remi@remirepo.net> -7.0.3-1
+- WordPress 7.0.3 Release
+
 * Tue Jul 21 2026 Remi Collet <remi@remirepo.net> -7.0.2-1
 - WordPress 7.0.2 Release
 

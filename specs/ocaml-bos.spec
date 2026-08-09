@@ -21,6 +21,7 @@ BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-astring-devel
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel >= 0.8.10
@@ -56,6 +57,9 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n bos-%{version}
+
+%check
+b0 test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

@@ -1,13 +1,13 @@
 %global realname hex_core
 
 Name:     erlang-%{realname}
-Version:  0.18.0
+Version:  0.19.0
 Release:  %autorelease
 Summary:  Reference implementation of Hex specifications
 License:  Apache-2.0
 URL:      https://github.com/hexpm/%{realname}
 VCS:      git:%{url}.git
-Source0:  %{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
+Source:   %{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 Patch:    erlang-hex_core-0001-Disable-non-deterministic-tarball-checksum-tests.patch
 BuildArch:     noarch
 BuildRequires: erlang-proper

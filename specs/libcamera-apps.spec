@@ -1,6 +1,6 @@
 Name:    libcamera-apps
-Version: 1.12.0
-Release: 2%{?dist}
+Version: 1.13.0
+Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/rpicam-apps
@@ -23,6 +23,7 @@ BuildRequires: libpng-devel
 BuildRequires: libtiff-devel
 BuildRequires: libX11-devel
 BuildRequires: qt6-qtbase-devel
+BuildRequires: wayland-protocols-devel
 # FFMPEG deps
 BuildRequires: libavcodec-free-devel
 BuildRequires: libavdevice-free-devel
@@ -82,6 +83,9 @@ Headers for developing against libcamera-apps.
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Fri Aug 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.13.0-1
+- Update to 1.13.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

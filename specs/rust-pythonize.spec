@@ -5,7 +5,7 @@
 %global crate pythonize
 
 Name:           rust-pythonize
-Version:        0.27.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Serde Serializer & Deserializer from Rust <--> Python, backed by PyO3
 
@@ -45,6 +45,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arbitrary_precision-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary_precision-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary_precision" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary_precision-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_json-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_json-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_json" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_json-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

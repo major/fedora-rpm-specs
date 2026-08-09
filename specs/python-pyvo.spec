@@ -1,5 +1,4 @@
 %global srcname pyvo
-
 %global sum Access to remote data and services of the Virtual observatory (VO) using Python
 %global desc                                                             \
 PyVO is a package providing access to remote data and services of the    \
@@ -13,35 +12,34 @@ The pyvo module currently provides these main capabilities:              \
 * Get information about an object via its name                   
 
 Name:           python-%{srcname}
-Version:        1.8
+Version:        1.9.1
 Release:        %autorelease
 Summary:        %{sum}
-
 License:        BSD-3-Clause
 URL:            https://github.com/astropy/%{srcname}
-Source:        %{pypi_source %{srcname}} 
+Source:         %{pypi_source %{srcname}}
 Patch:          https://github.com/astropy/pyvo/pull/771.patch
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-
-Provides:       python3-pyvo-doc = %{version}-%{release}
-Obsoletes:      python3-pyvo-doc = %{version}-%{release}
 
 %description
 %{desc}
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
-Requires:       astropy-tools
-%{?python_provide:%python_provide python3-%{srcname}}
+Provides:       python3-pyvo-doc = %{version}-%{release}
+Obsoletes:      python3-pyvo-doc < %{version}-%{release}
 
 %description -n python3-%{srcname}
 %{desc}
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version} 
+%autosetup -p1 -n %{srcname}-%{version}
+# Remove shebangs from non-executable python modules
+find %{srcname} -name '*.py' -exec sed -i -e '1{/^#!/d}' {} +
+# Remove zero-length placeholder files (excluding __init__.py)
+find %{srcname} -name '*.py' -not -name '__init__.py' -size 0 -delete
 
 %generate_buildrequires
 %pyproject_buildrequires -e %{toxenv}-test
@@ -55,6 +53,7 @@ Requires:       astropy-tools
 %pyproject_save_files pyvo
 
 %check
+export PYTEST_ADDOPTS="${PYTEST_ADDOPTS:-} -W ignore::astropy.utils.exceptions.AstropyDeprecationWarning"
 %tox
 
 %files -n python3-%{srcname} -f %{pyproject_files}

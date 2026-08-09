@@ -7,6 +7,7 @@ URL:            http://jwilk.net/software/pdf2djvu
 Source0:        https://github.com/jwilk/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 Patch0:         pdf2djvu-poppler-version.patch
 Patch1:         pdf2djvu-poppler-26.01.0.patch
+Patch2:         pdf2djvu-poppler-26.08.0.patch
 
 ExcludeArch:    %{ix86}
 

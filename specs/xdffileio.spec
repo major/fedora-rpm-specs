@@ -1,16 +1,17 @@
-Name:           xdffileio
-Version:        0.3
-Release:        25%{?dist}
-Summary:        Unified interface to read/write EEG file format in realtime
+Name:		xdffileio
+Version:	0.3
+Release:	26%{?dist}
+Summary:	Unified interface to read/write EEG file format in realtime
 
-License:        LGPL-3.0-or-later
-URL:            http://cnbi.epfl.ch/software/xdffileio.html
-Source0:        https://github.com/nbourdau/xdffileio/archive/%{name}-%{version}.tar.gz
+License:	LGPL-3.0-or-later
+URL:		https://opensource.mindmaze.com/projects/xdffileio
+Source0:	https://github.com/mmlabs-mindmaze/xdffileio/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  automake autoconf
-BuildRequires:  gnulib-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gcc
+BuildRequires:	gnulib-devel
+BuildRequires:	make
 
 %description
 xdffileio provides a unified interface to read/write EEG file format in
@@ -19,36 +20,30 @@ to all supported file formats while minimizing the CPU cost on the main loop.
 It thus performs all the expensive operation (scaling, data convertion and
 file operation) in a separated thread.
 
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+%package devel
+Summary:	Development files for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
 %autosetup -n %{name}-%{name}-%{version}
 
-%build
+%conf
 ./autogen.sh
+%configure
 
-%configure \
-%ifarch %{ix86}
-        CFLAGS='%{optflags} -march=pentium4'
-%endif
+%build
+%make_build
 
-%make_build V=1
+%check
+%make_build check -j1
 
 %install
 %make_install
-
-rm -f %{buildroot}%{_libdir}/lib%{name}.la
 rm -vrf %{buildroot}%{_docdir}/%{name}
-
-%check
-make check V=1
-rm -vrf doc/example/{.dirstamp,.deps,*.o}
 
 %ldconfig_scriptlets
 
@@ -58,13 +53,16 @@ rm -vrf doc/example/{.dirstamp,.deps,*.o}
 %{_libdir}/lib%{name}.so.*
 
 %files devel
-%doc doc/example/
+%doc doc/example
 %{_includedir}/xdfio.h
 %{_mandir}/man3/xdf_*.3*
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.3-26
+- FTBFS fix (rhbz#2505264)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

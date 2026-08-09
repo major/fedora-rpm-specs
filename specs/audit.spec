@@ -1,7 +1,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -63,7 +63,7 @@ and libauparse can be used by python3.
 %package -n audispd-plugins
 Summary: Plugins for the audit event dispatcher
 License: GPL-2.0-or-later
-BuildRequires: krb5-devel libcap-ng-devel
+BuildRequires: krb5-devel libcap-ng-devel openssl-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -132,7 +132,7 @@ touch -r ./audit.spec $RPM_BUILD_ROOT/etc/libaudit.conf
 touch -r ./audit.spec $RPM_BUILD_ROOT/usr/share/man/man5/libaudit.conf.5.gz
 
 %check
-make check
+make %{?_smp_mflags} check
 # Get rid of make files so that they don't get packaged.
 rm -f rules/Makefile*
 
@@ -254,7 +254,8 @@ fi
 %{_datadir}/bash-completion/completions/ausearch
 %{_datadir}/bash-completion/completions/aureport
 %{_datadir}/bash-completion/completions/augenrules
-%ghost %{_runstatedir}/run/auditd.state
+%ghost %attr(0644,root,root) %{_runstatedir}/audit/auditd.pid
+%ghost %attr(0640,root,root) %{_runstatedir}/audit/auditd.state
 %attr(-,root,-) %dir %{_var}/log/audit
 %attr(750,root,root) %dir /etc/audit/plugins.d
 %config(noreplace) %attr(640,root,root) /etc/audit/auditd.conf
@@ -304,6 +305,12 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Fri Aug 07 2026 Attila Lakatos <alakatos@redhat.com> - 4.2.1-2
+- Enable TLS transport support in audisp-remote
+- Use upstream GitHub tarball as Source0
+- Fix ghost file entries for auditd.pid and auditd.state
+- Parallelize make check with _smp_mflags
+
 * Wed Jul 29 2026 Steve Grubb <sgrubb@redhat.com> 4.2.1-1
 - New upstream release
 

@@ -1,3 +1,6 @@
+# sphinxcontrib-apidoc is not included in RHEL
+%bcond docs %{undefined rhel}
+
 Name:           python-license-expression
 Version:        30.4.4
 Release:        %autorelease
@@ -11,9 +14,11 @@ Source:         %url/archive/v%{version}/license-expression-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+%if %{with docs}
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinxcontrib-apidoc)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+%endif
 
 %global common_description %{expand:
 This module defines a mini language to parse, validate, simplify, normalize and
@@ -32,6 +37,7 @@ Summary:        %{summary}
 
 %description -n python3-license-expression %{common_description}
 
+%if %{with docs}
 %package -n python-license-expression-doc
 Summary:        Documentation for python-license-expression
 # BSD-2-Clause: Sphinx javascript
@@ -49,6 +55,7 @@ Provides:       bundled(js-searchtools)
 %{common_description}
 
 This package is providing the documentation for license-expression.
+%endif
 
 %prep
 %autosetup -p1 -n license-expression-%{version}
@@ -59,6 +66,8 @@ sed -i '/sphinx_reredirects/d' setup.cfg
 sed -i '/sphinx_reredirects/d' docs/source/conf.py
 sed -i '/sphinx_rtd_dark_mode/d' docs/source/conf.py
 sed -i '/sphinx_copybutton/d' docs/source/conf.py
+# https://github.com/aboutcode-org/license-expression/pull/131
+%pyproject_patch_dependency wheel:ignore
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -66,10 +75,12 @@ sed -i '/sphinx_copybutton/d' docs/source/conf.py
 %build
 %pyproject_wheel
 
+%if %{with docs}
 # generate html docs
 sphinx-build-3 -b html docs/source html
 # remove the sphinx-build-3 leftovers
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 %install
 %pyproject_install
@@ -81,8 +92,10 @@ rm -rf html/.{doctrees,buildinfo}
 %files -n python3-license-expression -f %{pyproject_files}
 %doc AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst README.rst
 
+%if %{with docs}
 %files -n python-license-expression-doc
 %doc html
+%endif
 
 %changelog
 %autochangelog

@@ -51,6 +51,8 @@ preconfigured delay.
 %autosetup -n raymonad-%{name}-%{shortcommit0}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381644)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

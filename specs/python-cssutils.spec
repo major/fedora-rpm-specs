@@ -6,7 +6,7 @@
 Name:           python-%{srcname}
 Summary:        CSS Cascading Style Sheets library for Python
 Version:        2.11.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/jaraco/cssutils
@@ -17,9 +17,6 @@ BuildRequires:  python3-devel
 # Tests BuildRequires
 BuildRequires:  python3dist(more-itertools)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  python3dist(mypy)
-BuildRequires:  ruff
 BuildRequires:  python3dist(cssselect)
 BuildRequires:  python3dist(jaraco-test)
 
@@ -73,6 +70,9 @@ rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 %doc examples/
 
 %changelog
+* Fri Aug 07 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.11.1-11
+- Remove BuildRequires on linters, coverage tools, etc.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

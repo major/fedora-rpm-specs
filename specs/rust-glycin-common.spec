@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-common
+%global crate_version 2.0.0-alpha
 
 Name:           rust-glycin-common
-Version:        1.0.4
+Version:        2.0.0~alpha
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-common
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -60,7 +61,7 @@ use the "gobject" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

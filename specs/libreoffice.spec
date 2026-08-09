@@ -830,13 +830,14 @@ This package provides gdb pretty printers for package %{name}.
 # T    has help files
 # Xx:  has autotext definitions
 # Yy:  hyphen dependency
+# Zz:  has helpimg help files
 #
 # Example:
 # libreoffice-langpack-cs: langpack for Czech lang. requiring hyphen-cs,
 # autocorr-cs, mythes-cs-CZ and suitable font:
 # %%langpack -l cs -n Czech -H -A -m cs-CZ
 #  b de           q  tu    z BCD  G IJK  N PQR  U    Z0123456789
-%define langpack(Aa:c:EFf:g:Hh:i:j:k:L:l:Mm:n:p:r:S:s:TXx:Yy:) \
+%define langpack(Aa:c:EFf:g:Hh:i:j:k:L:l:Mm:n:p:r:S:s:TXx:Yy:Zz:) \
 %define lang %{-l:%{-l*}}%{!-l:%{error:Language code not defined}} \
 %define _langpack_lang %{-L:%{-L*}}%{!-L:%{lang}} \
 %define pkgname langpack-%{lang} \
@@ -869,7 +870,9 @@ Provides additional %{langname} translations and resources for LibreOffice. \
 %{-T: \
 %package help-%{lang} \
 Summary: %{langname} help for LibreOffice \
-Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release} \
+BuildArch: noarch \
+Requires: %{name}-core = %{epoch}:%{version}-%{release} \
+Recommends: mimehandler(text/html) \
 \
 %description help-%{lang} \
 Provides %{langname} help for LibreOffice. \
@@ -877,6 +880,59 @@ Provides %{langname} help for LibreOffice. \
 %files help-%{lang} \
 %docdir %{baseinstdir}/help/%{_langpack_lang} \
 %{baseinstdir}/help/%{_langpack_lang} \
+%{!-E: \
+%docdir %{baseinstdir}/help/media/screenshots/*/*/*/%{_langpack_lang} \
+%{baseinstdir}/help/media/screenshots/*/*/*/%{_langpack_lang} \
+%docdir %{baseinstdir}/help/media/screenshots/*/*/*/*/%{_langpack_lang} \
+%{baseinstdir}/help/media/screenshots/*/*/*/*/%{_langpack_lang} \
+%{-z: \
+%docdir %{baseinstdir}/help/media/helpimg/%{-z*} \
+%{baseinstdir}/help/media/helpimg/%{-z*} \
+} \
+%{-Z: \
+%docdir %{baseinstdir}/help/media/helpimg/%{_langpack_lang} \
+%{baseinstdir}/help/media/helpimg/%{_langpack_lang} \
+} \
+%docdir %{baseinstdir}/help/media/files/scalc/%{_langpack_lang} \
+%{baseinstdir}/help/media/files/scalc/%{_langpack_lang} \
+} \
+%{-E: \
+%docdir %{baseinstdir}/help/media/icon-themes \
+%{baseinstdir}/help/media/icon-themes/ \
+%docdir %{baseinstdir}/help \
+%{baseinstdir}/help/*.css \
+%{baseinstdir}/help/*.js \
+%{baseinstdir}/help/*.html \
+%{baseinstdir}/help/*.xsl \
+%docdir %{baseinstdir}/help/media/screenshots/modules/*/*/* \
+%{baseinstdir}/help/media/screenshots/modules/*/*/*/*.png \
+%docdir %{baseinstdir}/help/media/screenshots/modules/*/*/*/* \
+%{baseinstdir}/help/media/screenshots/modules/*/*/*/*/*.png \
+%docdir %{baseinstdir}/help/media/screenshots/*/*/* \
+%{baseinstdir}/help/media/screenshots/*/*/*/*.png \
+%docdir %{baseinstdir}/help/media/navigation \
+%{baseinstdir}/help/media/navigation/* \
+%docdir %{baseinstdir}/help/media/helpimg \
+%{baseinstdir}/help/media/helpimg/*.png \
+%docdir %{baseinstdir}/help/media/helpimg/starmath \
+%{baseinstdir}/help/media/helpimg/starmath/* \
+%docdir %{baseinstdir}/help/media/helpimg/sdraw \
+%{baseinstdir}/help/media/helpimg/sdraw/* \
+%docdir %{baseinstdir}/help/media/helpimg/schart \
+%{baseinstdir}/help/media/helpimg/schart/* \
+%docdir %{baseinstdir}/help/media/helpimg/scalc \
+%{baseinstdir}/help/media/helpimg/scalc/* \
+%docdir %{baseinstdir}/help/media/helpimg/sbasic \
+%{baseinstdir}/help/media/helpimg/sbasic/* \
+%docdir %{baseinstdir}/help/media/helpimg/python \
+%{baseinstdir}/help/media/helpimg/python/* \
+%docdir %{baseinstdir}/help/media/files/scalc \
+%{baseinstdir}/help/media/files/scalc/*.ods \
+%docdir %{baseinstdir}/help/media/helpimg \
+%{baseinstdir}/help/media/helpimg/*.svg \
+%docdir %{baseinstdir}/help/media/helpimg/swriter \
+%{baseinstdir}/help/media/helpimg/swriter/*.png \
+} \
 } \
 \
 %files %{pkgname} \
@@ -923,25 +979,25 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l ar -n Arabic -F -H -s ctl -T -X
 %langpack -l as -n Assamese -F -H -Y -X
 %langpack -l be -n Belarusian -F -H -X -Y
-%langpack -l bg -n Bulgarian -F -H -Y -M -A -T -X
+%langpack -l bg -n Bulgarian -F -H -Y -M -A -T -X -Z
 %langpack -l bn -n Bengali -F -H -Y -T -X
 %langpack -l br -n Breton -F -H -X
 %langpack -l ca -n Catalan -F -H -Y -M -A -T -X
-%langpack -l cs -n Czech -F -H -Y -M -A -T -X
+%langpack -l cs -n Czech -F -H -Y -M -A -T -X -Z
 %langpack -l cy -n Welsh -F -H -Y -X
-%langpack -l da -n Danish -F -H -Y -M -A -T -X
-%langpack -l de -n German -F -H -Y -M -A -T -X
+%langpack -l da -n Danish -F -H -Y -M -A -T -X -Z
+%langpack -l de -n German -F -H -Y -M -A -T -X -Z
 %langpack -l dz -n Dzongkha -F -s ctl -T -X
 %langpack -l el -n Greek -F -H -Y -M -A -T -X
 %define langpack_lang British English
 %langpack -l en-GB -n %{langpack_lang} -F -h en -y en -m en -a en -T -X -g en_GB
 %langpack -l eo -n Esperanto -F -H -M -T -X
-%langpack -l es -n Spanish -F -H -Y -M -A -T -X
-%langpack -l et -n Estonian -F -H -Y -T -X
+%langpack -l es -n Spanish -F -H -Y -M -A -T -X -Z
+%langpack -l et -n Estonian -F -H -Y -T -X -Z
 %langpack -l eu -n Basque -F -H -Y -T -X
 %langpack -l fa -n Farsi -A -H -Y -s ctl -X
 %langpack -l fi -n Finnish -F -r libreoffice-voikko -A -T -X
-%langpack -l fr -n French -F -H -Y -M -A -T -X
+%langpack -l fr -n French -F -H -Y -M -A -T -X -Z
 %langpack -l fy -n Frisian -F -H -X
 %langpack -l ga -n Irish -F -H -Y -M -A -X
 %langpack -l gl -n Galician -F -H -Y -T -X
@@ -949,15 +1005,15 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l he -n Hebrew -F -H -s ctl -T -X
 %langpack -l hi -n Hindi -F -H -Y -s ctl -T -X
 %langpack -l hr -n Croatian -F -H -Y -A -T -X
-%langpack -l hu -n Hungarian -F -H -Y -M -A -T -X
+%langpack -l hu -n Hungarian -F -H -Y -M -A -T -X -Z
 %{baseinstdir}/share/wordbook/hu_AkH11.dic
 %langpack -l id -n Indonesian -F -H -Y -T -X
-%langpack -l it -n Italian -F -H -Y -M -A -T -X
-%langpack -l ja -n Japanese -F -A -s cjk -T -X
+%langpack -l it -n Italian -F -H -Y -M -A -T -X -Z
+%langpack -l ja -n Japanese -F -A -s cjk -T -X -Z
 %langpack -l ka -n Georgian -F -H -T -X
 %langpack -l kk -n Kazakh -F -H -X
 %langpack -l kn -n Kannada -F -H -Y -X
-%langpack -l ko -n Korean -F -H -A -s cjk -T -X
+%langpack -l ko -n Korean -F -H -A -s cjk -T -X -Z
 %langpack -l lt -n Lithuanian -F -H -Y -A -T -X
 %langpack -l lv -n Latvian -F -H -Y -M -T -X
 %langpack -l mai -n Maithili -F -X
@@ -972,26 +1028,26 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l nso -n %{langpack_lang} -F -H -X
 %langpack -l or -n Odia -F -H -Y -s ctl -X
 %langpack -l pa -n Punjabi -F -H -Y -s ctl -L pa-IN -g pa_IN -X
-%langpack -l pl -n Polish -F -H -Y -M -A -T -X
+%langpack -l pl -n Polish -F -H -Y -M -A -T -X -Z
 
 %if 0%{?rhel} > 9
 
 %define langpack_lang Brazilian Portuguese
-%langpack -l pt-BR -n %{langpack_lang} -f pt_BR -H -Y -m pt -a pt -p pt_BR -T -X -g pt_BR
+%langpack -l pt-BR -n %{langpack_lang} -f pt_BR -H -Y -m pt -a pt -p pt_BR -T -X -g pt_BR -Z
 
 %else
 
 %define langpack_lang Brazilian Portuguese
-%langpack -l pt-BR -n %{langpack_lang} -f pt_BR -h pt -y pt -m pt -a pt -p pt_BR -T -X -g pt_BR
+%langpack -l pt-BR -n %{langpack_lang} -f pt_BR -h pt -y pt -m pt -a pt -p pt_BR -T -X -g pt_BR -Z
 
 %endif
 
-%langpack -l pt-PT -n Portuguese -f pt -h pt -y pt -m pt -a pt -p pt_PT -T -L pt -x pt
+%langpack -l pt-PT -n Portuguese -f pt -h pt -y pt -m pt -a pt -p pt_PT -T -L pt -x pt -z pt
 %langpack -l ro -n Romanian -A -F -H -Y -M -T -X
 %langpack -l ru -n Russian -F -H -Y -M -A -T -X
 %langpack -l si -n Sinhalese -F -H -S ctl -T -X
-%langpack -l sk -n Slovak -F -H -Y -M -A -T -X
-%langpack -l sl -n Slovenian -F -H -Y -M -A -T -X
+%langpack -l sk -n Slovak -F -H -Y -M -A -T -X -Z
+%langpack -l sl -n Slovenian -F -H -Y -M -A -T -X -Z
 %{baseinstdir}/share/wordbook/sl.dic
 
 #rhbz#452379 clump serbian translations together
@@ -1000,23 +1056,23 @@ Rules for auto-correcting common %{langname} typing errors. \
 %define langpack_lang Southern Sotho
 # note that langpacks-st seems to be missing as of the time of writing, so no -F here
 %langpack -l st -n %{langpack_lang} -H -X
-%langpack -l sv -n Swedish -F -H -Y -M -A -T -X
+%langpack -l sv -n Swedish -F -H -Y -M -A -T -X -Z
 %langpack -l ta -n Tamil -F -H -Y -s ctl -T -X
 %langpack -l te -n Telugu -F -H -Y -X
 %langpack -l th -n Thai -F -H -s ctl -c ctlseqcheck_th -X
 %langpack -l tn -n Tswana -F -H -X
-%langpack -l tr -n Turkish -F -A -T -X
+%langpack -l tr -n Turkish -F -A -T -X -Z
 %langpack -l ts -n Tsonga -F -H -X
 %langpack -l uk -n Ukrainian -F -H -Y -M -T -X
 %langpack -l ve -n Venda -F -H -X
 %langpack -l xh -n Xhosa -F -H -X
 
 %define langpack_lang Simplified Chinese
-%langpack -l zh-Hans -n %{langpack_lang} -f zh_CN -a zh -p zh_CN -s cjk -T -L zh-CN -x zh-CN -g zh_CN
+%langpack -l zh-Hans -n %{langpack_lang} -f zh_CN -a zh -p zh_CN -s cjk -T -L zh-CN -x zh-CN -g zh_CN -z zh-CN
 %{baseinstdir}/share/template/common/l10n/zh_CN_ott_normal.ott
 
 %define langpack_lang Traditional Chinese
-%langpack -l zh-Hant -n %{langpack_lang} -f zh_TW -a zh -p zh_TW -s cjk -T -L zh-TW -x zh-TW -g zh_TW
+%langpack -l zh-Hant -n %{langpack_lang} -f zh_TW -a zh -p zh_TW -s cjk -T -L zh-TW -x zh-TW -g zh_TW -z zh-TW
 
 %langpack -l zu -n Zulu -F -H -Y -X
 %undefine langpack_lang
@@ -1298,7 +1354,7 @@ touch autogen.lastrun
  --enable-symbols \
  --with-external-dict-dir=/usr/share/hunspell \
  --with-external-tar="$EXTSRCDIR" \
- --with-help \
+ --with-help=html \
  --with-system-dicts \
  --with-system-libs \
  --without-export-validation \
@@ -1698,9 +1754,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/CREDITS.fodt
 %{baseinstdir}/LICENSE.html
 %dir %{baseinstdir}/help
-%{baseinstdir}/help/idxcaption.xsl
-%{baseinstdir}/help/idxcontent.xsl
-%{baseinstdir}/help/main_transform.xsl
 %{baseinstdir}/presets
 %dir %{baseinstdir}/program
 %{baseinstdir}/program/bootstraprc

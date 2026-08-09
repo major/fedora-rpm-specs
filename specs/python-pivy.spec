@@ -11,9 +11,10 @@ License:        ISC
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Patch0:         pivy-fake-memory-header.patch
+Patch1:         pivy-python-3.15.patch
 
-BuildRequires:  cmake
 BuildRequires:  Coin4-devel
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libXmu-devel

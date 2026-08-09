@@ -14,20 +14,22 @@
 %undefine with_haddock
 %endif
 
+# tweak for ppc64le
+%global ghcplatform %(echo $(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version_override})
+
 %global ghc_major 9.6
 %global ghc_name ghc%{ghc_major}
 
 %global base_ver 4.18.3.0
+%global Cabal_ver 3.10.3.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.2.0
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
-%global hadrian_Cabal_ver 3.6.0.0
-
 # bootstrap needs 9.2+
-%global ghcboot_major 9.4
+%global ghcboot_major 9.6
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
@@ -69,8 +71,8 @@ Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.t
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
-Source10: https://hackage.haskell.org/package/Cabal-syntax-%{hadrian_Cabal_ver}/Cabal-syntax-%{hadrian_Cabal_ver}.tar.gz
-Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%{hadrian_Cabal_ver}.tar.gz
+# hadrian bootstrap libraries
+Source10: https://downloads.haskell.org/ghc/9.6.7/hadrian-bootstrap-sources/hadrian-bootstrap-sources-9.4.3.tar.gz
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -93,6 +95,9 @@ Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
 
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
+
+# sphinx9
+Patch20: e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
 
 # Debian patches:
 Patch26: no-missing-haddock-file-warning.patch
@@ -158,14 +163,10 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-directory-devel
-BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-mtl-devel
-BuildRequires:  ghc-parsec-devel
-BuildRequires:  ghc-shake-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
-BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires:  %{name}-hadrian
 %endif
@@ -317,8 +318,8 @@ This provides the hadrian tool which can be used to build ghc.
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.10.3.0
-%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-3.10.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-%{Cabal_ver}
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-%{Cabal_ver}
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
@@ -384,13 +385,26 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 
 %prep
-%setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
+%setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+
+%global hadrian_deps clock-0.8.4 extra-1.8 filepattern-0.1.3 hashable-1.4.7.0 heaps-0.4.1 js-dgtable-0.5.2 js-flot-0.8.3 js-jquery-3.3.1 os-string-2.0.7 primitive-0.9.0.0 splitmix-0.1.1 random-1.2.1.3 unordered-containers-0.2.20 utf8-string-1.0.2 shake-0.19.8
+
 ( cd hadrian
   cabal-tweak-flag selftest False
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
-  cabal-tweak-dep-ver Cabal '< 3.11' '< 3.13'
   cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
   cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.6'
+  mkdir deps
+  (cd deps
+  tar xf %SOURCE10
+  for i in %hadrian_deps; do
+      tar xf $i.tar.gz
+      mv -f $(echo $i | sed 's/\(.*\)-.*/\1.cabal/') $i
+      mv $i ..
+  done
+  )
+  ln -sf ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
+  ln -sf ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 )
 
 %patch -P1 -p1 -b .orig
@@ -413,6 +427,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P16 -p1 -b .orig
 %endif
 %endif
+
+%patch -P20 -p1 -b .orig
 
 #debian
 %patch -P26 -p1 -b .orig
@@ -476,11 +492,7 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
-%if %{defined el9}
-ln -sf ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
-ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
-%ghc_libs_build -H -P -W Cabal-syntax-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
-%endif
+%ghc_libs_build -H -P -W Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver} %{hadrian_deps}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -835,6 +847,10 @@ make test
 
 
 %changelog
+* Fri Aug 07 2026 Jens Petersen <petersen@redhat.com> - 9.6.7-27
+- use hadrian-bootstrap-sources and bundled Cabal to build hadrian (#2503916)
+- patch for sphinx9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.7-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

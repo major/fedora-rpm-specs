@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 %global prerel beta2
 %global stable 1
-%global stable_ver stable2
+%global stable_ver stable1
 
 Summary:        A lightweight Qt Audio player
 License:        GPL-3.0-or-later
@@ -9,13 +9,13 @@ URL:            http://sayonara-player.com
 Name:           sayonara
 
 %if 0%{?stable}
-Version:        1.11.0
-Release:        5.%{stable_ver}%{?dist}
+Version:        1.12.0
+Release:        1.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
 %else
 Version:        1.10.0
-Release:        0.7.%{prerel}%{?dist}
+Release:        0.6.%{prerel}%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{prerel}/sayonara-player-%{version}-%{prerel}.tar.bz2
 %endif
 
@@ -41,14 +41,6 @@ CPU usage, low memory consumption and no long loading times are only three
 benefits of this player. Sayonara should be easy and intuitive to use and 
 therefore it should be able to compete with the most popular music players.
 
-%package        doc
-Summary:        Documentation files for %{name}
-BuildArch:      noarch
-
-%description    doc
-The %{name}-doc package contains html documentation
-that use %{name}.
-
 %prep
 %if 0%{?stable}
 %autosetup -p1 -n %{name}-player-%{version}-%{stable_ver}
@@ -56,7 +48,7 @@ that use %{name}.
 %autosetup -p1 -n %{name}-player-%{version}-%{prerel}
 %endif
 
-sed -i -e 's|1.11.0-stable1|1.11.0-stable2|' CMakeLists.txt
+sed -i -e 's|cmake_minimum_required(VERSION 3.8)|cmake_minimum_required(VERSION 3.1.0...4.0)|' CMakeLists.txt
 
 rm -rf .gitignore .gitlab-ci.yml debian
 # use system taglib
@@ -68,12 +60,6 @@ rm -rf src/3rdParty/Taglib
          -DWITH_SYSTEM_TAGLIB=ON             \
          -DCMAKE_INSTALL_PREFIX=%{_prefix}
 %cmake_build
-
-# build docs
-# update Doxyfile
-doxygen -u docs/doxygen.cfg
-# build docs
-doxygen docs/doxygen.cfg
 
 %install
 %cmake_install
@@ -104,13 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}-ctl.1.gz
 %{_mandir}/man1/%{name}-query.1.gz
 
-%files doc
-#doc docs/html
-%{_datadir}/doc/%{name}/doxygen/html
-
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5.stable2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Fri Aug 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1.stable1
+- Update to 1.12.0 stable1
 
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.11.0-4.stable2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2

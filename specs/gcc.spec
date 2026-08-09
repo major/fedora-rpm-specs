@@ -1,10 +1,10 @@
-%global DATE 20260703
-%global gitrev aac23a76ffc9b3a5bd8fcf07ead7c5249f91c457
-%global gcc_version 16.1.1
+%global DATE 20260807
+%global gitrev 25040fb60e95bc8cb8eaa4b6706bd32591d95e7a
+%global gcc_version 16.2.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 4
+%global gcc_release 1
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -159,7 +159,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.1
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -323,6 +323,7 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
+Patch13: gcc16-pr126667.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3988,8 +3989,53 @@ end
 %endif
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.1.1-4.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Fri Aug  7 2026 Jakub Jelinek <jakub@redhat.com> 16.2.1-1
+- update from releases/gcc-16 branch
+  - GCC 16.2.0 release
+  - PRs ada/126379, ada/126482, ada/126553, algol68/126330, c/123569,
+	c/125072, c/125604, c/125935, c++/91155, c++/119343, c++/121552,
+	c++/125541, c++/125591, c++/125601, c++/125674, c++/125680,
+	c++/125901, c++/126007, c++/126031, c++/126036, c++/126057,
+	c++/126066, c++/126209, c++/126215, c++/126280, c++/126309,
+	c++/126310, c++/126343, c++/126406, c++/126420, c++/126423,
+	c++/126508, driver/124058, fortran/97592, fortran/125172,
+	fortran/125866, fortran/125998, fortran/126127, fortran/126170,
+	fortran/126210, fortran/126234, fortran/126303, fortran/126386,
+	ipa/124128, ipa/125121, ipa/125207, libfortran/126116, libgcc/123976,
+	libstdc++/122197, libstdc++/123165, libstdc++/124851,
+	libstdc++/124852, libstdc++/124853, libstdc++/124854,
+	libstdc++/125200, libstdc++/126111, lto/125257, middle-end/124637,
+	middle-end/125875, middle-end/126084, middle-end/126341,
+	middle-end/126405, middle-end/126410, middle-end/126447,
+	middle-end/126497, preprocessor/125048, rtl-optimization/125209,
+	rtl-optimization/126184, sanitizer/126307, target/67459, target/96446,
+	target/96530, target/96808, target/97360, target/98872, target/100777,
+	target/101849, target/102976, target/103127, target/104923,
+	target/105116, target/106016, target/106017, target/106833,
+	target/110411, target/119210, target/121957, target/122948,
+	target/123625, target/124364, target/124948, target/126049,
+	target/126054, target/126081, target/126098, target/126148,
+	target/126320, target/126429, target/126438, target/126446,
+	target/126450, target/126484, target/126581, testsuite/112728,
+	testsuite/118407, testsuite/124043, testsuite/124112,
+	testsuite/124361, testsuite/124726, testsuite/126261,
+	tree-optimization/120201, tree-optimization/124663,
+	tree-optimization/125040, tree-optimization/125290,
+	tree-optimization/125296, tree-optimization/125396,
+	tree-optimization/125597, tree-optimization/125668,
+	tree-optimization/125730, tree-optimization/125786,
+	tree-optimization/125953, tree-optimization/126008,
+	tree-optimization/126150, tree-optimization/126171,
+	tree-optimization/126194, tree-optimization/126225,
+	tree-optimization/126257, tree-optimization/126262,
+	tree-optimization/126404, tree-optimization/126457,
+	tree-optimization/126464, tree-optimization/126471,
+	tree-optimization/126476, tree-optimization/126490,
+	tree-optimization/126503, tree-optimization/126504,
+	tree-optimization/126547, tree-optimization/126549,
+	tree-optimization/126564, tree-optimization/126576,
+	tree-optimization/126601
+   - fix up s390x ICE on botan (PR target/126667)
 
 * Fri Jul  3 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-4
 - update from releases/gcc-16 branch

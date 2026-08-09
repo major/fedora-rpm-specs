@@ -6,14 +6,16 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.37
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
-# git format-patch -N 3.3.37
+# git format-patch -N 3.3.37 -- . ':!src/sedispatch.h' ':!test'
 # for j in 00*patch; do printf "Patch: %s\n" $j; done
+Patch: 0001-Update-GPL2-license-texts-to-the-latest-version.patch
+Patch: 0002-Limit-RPC-request-size-in-RequestReceiver-to-prevent.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -192,6 +194,10 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Jul 29 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-5
+- Update GPL2 license texts to the latest version
+- Limit RPC request size in RequestReceiver to prevent memory exhaustion
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.3.37-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/idrel
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.49
+Version:        2.51
 Release:        %autorelease
 Summary:        Identities among relations of a group presentation
 
@@ -18,9 +18,9 @@ BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc)
-BuildRequires:  gap-devel >= 4.11.1
+BuildRequires:  gap-devel >= 4.12.0
 
-Requires:       gap-core >= 4.11.1
+Requires:       gap-core >= 4.12.0
 
 Provides:       gap(idrel) = %{version}-%{release}
 

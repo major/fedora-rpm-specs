@@ -1,6 +1,6 @@
 Name:     nng
-Version:  1.9.0
-Release:  6%{?dist}
+Version:  1.12.0
+Release:  1%{?dist}
 Summary:  Light-weight brokerless messaging
 
 License:  MIT
@@ -11,7 +11,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: libnsl2-devel
-BuildRequires: mbedtls-devel
+BuildRequires: openssl-devel
 BuildRequires: rubygem-asciidoctor
 
 %description
@@ -46,7 +46,7 @@ sockets and bindings, which can include local and remote connections.
 %build
 %cmake -DCMAKE_CXX_FLAGS="%optflags -fPIC" -DBUILD_SHARED_LIBS=ON \
        -DNNG_ENABLE_TLS=ON -DNNG_ENABLE_NNGCAT=ON \
-       -DNNG_TESTS=ON -DNNG_ENABLE_DOC=ON .
+       -DNNG_TESTS=ON -DNNG_ENABLE_DOC=ON -DNNG_TLS_ENGINE=openssl .
 
 %cmake_build
 
@@ -72,6 +72,10 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Wed Jul 22 2026 Bill Roberts <bill.roberts@arm.com> - 1.12.0-1
+- update to latest upstream version 1.12
+- use openssl backend over mbedtls
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           ubridge
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Bridge for UDP tunnels, Ethernet, TAP and VMnet interfaces
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ install -p -m4755 %{name} %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Aug 08 2026 Alexey Kurov <nucleo@fedoraproject.org> - 1.2.1-1
+- Update to 1.2.1
+
 * Thu Aug 06 2026 Alexey Kurov <nucleo@fedoraproject.org> - 1.2.0-2
 - New sources
 

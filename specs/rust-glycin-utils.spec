@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
+%global crate_version 5.0.0-alpha
 
 Name:           rust-glycin-utils
-Version:        4.1.0
+Version:        5.0.0~alpha
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-utils
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -57,6 +58,30 @@ This package contains library source intended for building other packages which
 use the "async-io" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-io-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+builtin-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+builtin-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "builtin" feature of the "%{crate}" crate.
+
+%files       -n %{name}+builtin-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+external-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+external-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "external" feature of the "%{crate}" crate.
+
+%files       -n %{name}+external-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+glib-devel
@@ -120,7 +145,7 @@ use the "tokio" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

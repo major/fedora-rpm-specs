@@ -11,7 +11,7 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.78
+Version: 5.80
 Release: %autorelease
 License: GPL-2.0-or-later WITH stunnel-exception AND MIT
 URL: https://www.stunnel.org/

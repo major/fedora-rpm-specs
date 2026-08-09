@@ -2,7 +2,7 @@
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-Version:	4.35.0
+Version:	4.36.0
 Release:	%autorelease
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
@@ -21,7 +21,7 @@ BuildRequires:  expat-devel
 BuildRequires:  libtool, autoconf, automake
 %endif
 Obsoletes:	openib-mstflint <= 1.4 openib-tvflash <= 0.9.2 tvflash <= 0.9.0
-ExcludeArch:	s390 s390x %{arm}
+ExcludeArch:	s390 %{arm} %{ix86}
 Requires:	python3
 
 %description

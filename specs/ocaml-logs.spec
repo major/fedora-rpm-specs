@@ -11,6 +11,8 @@ License:        ISC
 URL:            https://erratique.ch/software/logs
 VCS:            git:https://erratique.ch/repos/logs.git
 Source:         %{url}/releases/logs-%{version}.tbz
+# Remove js_of_ocaml dependency in the tests, since Fedora does not have it
+Patch:          %{name}-js-of-ocaml.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -25,6 +27,7 @@ BuildOption(build): --with-lwt true
 BuildOption(build): --with-base-threads true
 
 BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -59,6 +62,9 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n logs-%{version} -p1
+
+%check
+b0 test
 
 %files -f .ofiles
 %doc CHANGES.md README.md

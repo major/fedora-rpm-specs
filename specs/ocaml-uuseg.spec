@@ -22,6 +22,7 @@ BuildOption(build): --with-cmdliner true
 BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
@@ -60,6 +61,9 @@ developing applications that use %{name}.
 
 # Files needed for the tests
 cp -p %{_datadir}/unicode/ucd/auxiliary/*BreakTest.txt test
+
+%check
+b0 test
 
 %files -f .ofiles
 %license LICENSE.md

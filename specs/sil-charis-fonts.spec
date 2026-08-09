@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-Version: 6.200
-Release: 8%{?dist}
+Version:	7.000
+Release:	2%{?dist}
+URL:		https://software.sil.org/charis
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -8,11 +9,8 @@ Release: 8%{?dist}
 %global fontdocs          *.txt
 %global fontdocsex        %{fontlicenses}
 
-%global fontfamily        Charis SIL
-%global fontsummary       Charis SIL, a font family similar to Bitstream Charter
-%global projectname       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), " SIL$", ""); t=string.gsub(t, "[%p%s]+", ""); print(string.lower(t))}
-%global archivename       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), "[%p%s]+", ""); print(t)}-%{version}
-URL:                      https://software.sil.org/%{projectname}/
+%global fontfamily        Charis
+%global fontsummary       Charis, a font family similar to Bitstream Charter
 %global fonts             *.ttf
 %global fontconfngs       %{SOURCE10}
 %global fontdescription   %{expand:
@@ -24,27 +22,33 @@ less-than-ideal reproduction environments. It also has a full set of styles
 publishing than Doulos SIL. Charis is a serif proportionally spaced font
 optimized for readability in long printed documents.}
 
-Source0:  https://software.sil.org/downloads/r/%{projectname}/%{archivename}.zip
-Source10: 60-%{fontpkgname}.xml
+Source0:	https://github.com/silnrsi/font-charis/releases/download/v%{version}/Charis-%{version}.tar.xz
+Source10:	60-%{fontpkgname}.xml
 
-%fontpkg
+%fontpkg -a
 
 %prep
-%setup -q -n %{archivename}
+%autosetup -n Charis-%{version}
 %linuxtext *.txt
 
 %build
-%fontbuild
+%fontbuild -a
 
 %install
-%fontinstall
+%fontinstall -a
 
 %check
-%fontcheck
+%fontcheck -a
 
-%fontfiles
+%fontfiles -a
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 7.000-2
+- Source url change
+
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 7.000-1
+- Update to 7.000 (rhbz#2451667)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.200-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

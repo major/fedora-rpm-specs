@@ -11,6 +11,9 @@ License:        ISC
 URL:            https://erratique.ch/software/uucd
 VCS:            git:https://erratique.ch/repos/uucd.git
 Source:         %{url}/releases/uucd-%{version}.tbz
+# Unicode character database, used by the tests
+# See B0.ml for the supported Unicode version
+Source:         https://www.unicode.org/Public/17.0.0/ucdxml/ucd.all.grouped.zip
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -20,6 +23,7 @@ BuildOption(build): --dev-pkg false
 BuildOption(build): --tests true
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-b0-devel
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
@@ -48,6 +52,11 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n uucd-%{version}
+unzip -d test %{SOURCE1}
+mv test/ucd.all.grouped.xml test/ucd.xml
+
+%check
+b0 test
 
 %files -f .ofiles
 %license LICENSE.md

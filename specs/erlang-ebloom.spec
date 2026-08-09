@@ -4,8 +4,8 @@ Name:		erlang-%{realname}
 Version:	2.1.0
 Release:	%autorelease
 Summary:	A NIF wrapper around a basic bloom filter
-# c_src/bloom_filter.hpp and c_src/serialyzer.hpp are licensed under CPL
-# and the rest of the sources are licensed under ASL 2.0
+# c_src/bloom_filter.hpp is licensed under CPL 1.0,
+# the rest of the sources are licensed under ASL 2.0
 License:	Apache-2.0 AND CPL-1.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git

@@ -1,5 +1,5 @@
 Name:           remind
-Version:        06.02.05
+Version:        06.02.10
 Release:        %autorelease
 Summary:        Sophisticated calendar and alarm program
 

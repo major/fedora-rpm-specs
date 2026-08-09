@@ -3,9 +3,7 @@
 # azure-cli is not ready:
 # https://src.fedoraproject.org/rpms/python-azure-keyvault-secrets/pull-request/1
 %bcond azure_key_vault 0
-# The aws-secrets-manager extra needs types-boto3[secretsmanager], but
-# python-types-boto3 is not packaged.
-%bcond aws_secrets_manager 0
+%bcond aws_secrets_manager 1
 # The gcp-secret-manager extra needs google-cloud-secret-manager>=2.23.1, but
 # python-google-cloud-secret-manager is not packaged.
 %bcond gcp_secret_manager 0
@@ -14,7 +12,7 @@
 %global tag v%{version}
 
 Name:           python-pydantic-settings
-Version:        2.14.2
+Version:        2.15.0
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
@@ -60,11 +58,11 @@ tomcli set pyproject.toml lists delitem \
 
 %generate_buildrequires
 %{pyproject_buildrequires %{shrink:
-    -x yaml
-    -x toml
-    %{?with_azure_key_vault:-x azure-key-vault}
-    %{?with_aws_secrets_manager:-x aws-secrets-manager}
-    %{?with_gcp_secret_manager:-x gcp-secret-manager}}}
+    --extras yaml
+    --extras toml
+    %{?with_azure_key_vault:--extras azure-key-vault}
+    %{?with_aws_secrets_manager:--extras aws-secrets-manager}
+    %{?with_gcp_secret_manager:--extras gcp-secret-manager}}}
 
 
 %build
@@ -73,7 +71,7 @@ tomcli set pyproject.toml lists delitem \
 
 %install
 %pyproject_install
-%pyproject_save_files -l pydantic_settings
+%pyproject_save_files --assert-license pydantic_settings
 
 
 %check
@@ -88,7 +86,7 @@ k="${k-}${k+ and }not test_read_dotenv_vars_from_fifo"
 # Normally we would test solely against the installed package in the buildroot,
 # but TestTraversableSupport only works if importlib.resources can recognize
 # “tests” as a package. Thus we set PYTHONPATH:
-PYTHONPATH="${PWD}" %pytest ${ignore-} -k "${k-}" -rs -v
+PYTHONPATH="${PWD}" %pytest ${ignore-} -k "${k-}" -rs --verbose
 %endif
 
 

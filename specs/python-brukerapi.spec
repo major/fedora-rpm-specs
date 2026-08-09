@@ -1,5 +1,5 @@
 Name:           python-brukerapi
-Version:        0.3.0
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Python package providing I/O interface for Bruker data sets
 
@@ -57,6 +57,10 @@ do
     # Make an empty zip file so the test code doesn’t try to re-download
     %{python3} -m zipfile --create "test/zenodo_zips/${zip}"
 done
+
+# Similarly, fake the test-data corpus directory to avoid trying to download it
+mkdir --parents resources/testdata
+touch resources/testdata/.not-empty
 
 # Avoid tests that try to use any external data sets
 ignore="${ignore-} --ignore=test/test_split.py"

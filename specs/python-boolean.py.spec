@@ -1,3 +1,6 @@
+# sphinxcontrib-apidoc is not included in RHEL
+%bcond docs %{undefined rhel}
+
 %global pypi_name boolean.py
 
 Name:           python-%{pypi_name}
@@ -13,8 +16,10 @@ Source0:        %{pypi_source boolean_py}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
+%if %{with docs}
 BuildRequires:  %{py3_dist Sphinx}
 BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
+%endif
 BuildRequires:  %{py3_dist pytest}
 
 %global _description \
@@ -41,8 +46,10 @@ Python 3 version.
 
 %build
 %pyproject_wheel
+%if %{with docs}
 sphinx-build-%{python3_version} docs html
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 %install
 %pyproject_install
@@ -54,7 +61,10 @@ rm -rf html/.{doctrees,buildinfo}
 %pytest
 
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
-%doc CHANGELOG.rst README.rst html/
+%doc CHANGELOG.rst README.rst
+%if %{with docs}
+%doc html/
+%endif
 
 %changelog
 %autochangelog

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-Version: 1.200
-Release: 21%{?dist}
+Version:	3.000
+Release:	1%{?dist}
+URL:		https://software.sil.org/alkami
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1-RFN
@@ -10,9 +11,6 @@ Release: 21%{?dist}
 
 %global fontfamily        Alkalami
 %global fontsummary       A font family for the Arabic scripts of the Kano region of Nigeria and Niger
-%global projectname       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), " SIL$", ""); t=string.gsub(t, "[%p%s]+", ""); print(string.lower(t))}
-%global archivename       %{lua:t=string.gsub(rpm.expand("%{fontfamily}"), "[%p%s]+", ""); print(t)}-%{version}
-URL:                      https://software.sil.org/%{projectname}/
 %global fonts             *.ttf
 %global fontconfngs       %{SOURCE10}
 %global fontdescription   %{expand:
@@ -33,10 +31,10 @@ The Alkalami font supports the characters known to be used by languages written
 with the Kano style of Arabic script, but may not have the characters needed
 for other languages.}
 
-Source0:  https://github.com/silnrsi/font-%{projectname}/releases/download/v%{version}/%{archivename}.tar.xz
-Source10: 66-%{fontpkgname}.xml
+Source0:	https://github.com/silnrsi/font-alkalami/releases/download/v%{version}/Alkalami-%{version}.tar.xz
+Source10:	66-%{fontpkgname}.xml
 
-%fontpkg
+%fontpkg -a
 
 %package doc
 Summary:   Optional documentation files of %{name}
@@ -46,25 +44,28 @@ This package provides optional documentation files shipped with
 %{name}.
 
 %prep
-%setup -q -n %{archivename}
+%autosetup -n Alkalami-%{version}
 %linuxtext *.txt documentation/*.txt
 
 %build
-%fontbuild
+%fontbuild -a
 
 %install
-%fontinstall
+%fontinstall -a
 
 %check
-%fontcheck
+%fontcheck -a
 
-%fontfiles
+%fontfiles -a
 
 %files doc
 %license OFL.txt
-%doc documentation/*.pdf
+%doc documentation/pdf/*.pdf
 
 %changelog
+* Fri Aug 07 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.000-1
+- Update to 3.000 (rhbz#2402598)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

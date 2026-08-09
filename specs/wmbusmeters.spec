@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            2.0.0
+%global tag            3.0.0
 Version:               %{tag}
 %else
 %global date           20210813
@@ -14,7 +14,7 @@ Version:               1.4.0
 
 %forgemeta
 
-Release:               2%{?dist}
+Release:               1%{?dist}
 Summary:               Read the wireless mbus protocol to acquire utility meter readings
 License:               GPL-3.0-or-later
 Url:                   %{forgeurl}
@@ -50,6 +50,7 @@ inserted into a database or stored in a log file.
 # Unfortunately other distros does not have similar plan so we cannot
 # upstream the change for now.
 sed -i 's#/sbin#/bin#g' scripts/install_binaries.sh
+%configure
 
 
 %build
@@ -106,6 +107,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Thu Aug 06 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 3.0.0-1
+- Update to 3.0.0 (rhbz#2490161)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate num-bigint-dig
 
 Name:           rust-num-bigint-dig
-Version:        0.8.6
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Big integer implementation for Rust
 
@@ -13,6 +13,7 @@ Summary:        Big integer implementation for Rust
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/num-bigint-dig
 Source:         %{crates_source}
+Patch:          0001-tests-fix-compilation-with-rand-v0.9.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

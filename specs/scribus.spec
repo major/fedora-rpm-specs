@@ -14,6 +14,13 @@ Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz.asc
 
+# upstream patches from branch Version16x
+Patch:          0001-17808-Fix-failure-to-build-with-poppler-26.05.0.patch
+Patch:          0001-17832-Fix-failure-to-build-with-poppler-26.06.0.patch
+Patch:          0001-17832-Additional-fix-for-failure-to-build-with-poppl.patch
+Patch:          0001-Fix-another-compiler-error-when-building-with-old-po.patch
+Patch:          0001-17880-Attempt-to-fix-failure-to-build-with-poppler-2.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  cups-devel

@@ -16,8 +16,8 @@ Patch:          uppercase-hex.patch
 # https://github.com/curl/trurl/issues/430
 Patch:          fix-discarded-qualifiers.patch
 
-BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  python3-devel
 

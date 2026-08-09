@@ -2,54 +2,55 @@
 %global _lto_cflags %{nil}
 %endif
 
-Name: pdns-recursor
-Version: 5.4.4
-Release: %autorelease
-Summary: Modern, advanced and high performance recursing/non authoritative name server
-License: GPL-2.0-only
-URL: https://powerdns.com
-Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz
-Source1: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz.sig
-Source2: https://doc.powerdns.com/powerdns-keyblock.asc
-ExcludeArch: %{arm} %{ix86}
+Name:           pdns-recursor
+Version:        5.4.5
+Release:        %autorelease
+Summary:        Modern, advanced and high performance recursing/non authoritative name server
 
-Provides: powerdns-recursor = %{version}-%{release}
-BuildRequires: make
-BuildRequires: boost-devel
-BuildRequires: gcc-c++
-BuildRequires: gnupg2
+License:        GPL-2.0-only
+URL:            https://powerdns.com
+Source0:        https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz
+Source1:        https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz.sig
+Source2:        https://doc.powerdns.com/powerdns-keyblock.asc
+
+ExcludeArch:    %{arm} %{ix86}
+
+Provides:       powerdns-recursor = %{version}-%{release}
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  boost-devel
+BuildRequires:  cargo-rpm-macros
+BuildRequires:  chrpath
+BuildRequires:  curl-devel
+BuildRequires:  fstrm-devel
+BuildRequires:  gcc-c++
+BuildRequires:  gnupg2
+BuildRequires:  hostname
+BuildRequires:  libcap-devel
+BuildRequires:  libsodium-devel
+BuildRequires:  libtool
+BuildRequires:  make
+BuildRequires:  openssl-devel
+BuildRequires:  protobuf-devel
+BuildRequires:  systemd-devel
 %ifarch %{ix86} x86_64 aarch64
-BuildRequires: luajit-devel
+BuildRequires:  luajit-devel
 %else
-BuildRequires: lua-devel
+BuildRequires:  lua-devel
 %endif
 %ifarch ppc64le
-BuildRequires: libatomic
+BuildRequires:  libatomic
 %endif
-BuildRequires: libcap-devel
-BuildRequires: fstrm-devel
-BuildRequires: openssl-devel
-BuildRequires: systemd
-BuildRequires: systemd-devel
-BuildRequires: protobuf-devel
-BuildRequires: hostname
-BuildRequires: libsodium-devel
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
-BuildRequires: cargo-rpm-macros
-BuildRequires: curl-devel
-BuildRequires: chrpath
 
+BuildRequires:  systemd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-
 %description
 PowerDNS Recursor is a non authoritative/recursing DNS server. Use this
 package if you need a dns cache for your network.
-
 
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
@@ -87,12 +88,11 @@ cd rec-rust-lib/rust
 cargo generate-lockfile --offline
 %make_build
 
-
 %install
 %make_install
 chrpath --delete %{buildroot}%{_prefix}/*/pdns_recursor
 
-%{__cp} %{buildroot}%{_sysconfdir}/%{name}/recursor.{yml-dist,conf}
+cp -p %{buildroot}%{_sysconfdir}/%{name}/recursor.{yml-dist,conf}
 
 # add directories for newly-observed-domains/unique-domain-response
 install -p -d -m 0755 %{buildroot}/%{_sharedstatedir}/%{name}/nod
@@ -107,22 +107,17 @@ sed -i \
 
 install -m0644 -D pdns-recursor.sysusers.conf %{buildroot}%{_sysusersdir}/pdns-recursor.conf
 
-
 %check
-make check
-
+%make_build check
 
 %post
 %systemd_post pdns-recursor.service
 
-
 %preun
 %systemd_preun pdns-recursor.service
 
-
 %postun
 %systemd_postun_with_restart pdns-recursor.service
-
 
 %files
 %{_bindir}/rec_control
@@ -136,7 +131,7 @@ make check
 # provide example yml config file. For new installs recursor.conf is the yaml
 # because since recursor.yml takes precedence over recursor.conf we don't put
 # it directly there
-%config %{_sysconfdir}/%{name}/recursor.yml-dist
+%config(noreplace) %{_sysconfdir}/%{name}/recursor.yml-dist
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}/nod
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}/udr

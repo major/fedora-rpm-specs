@@ -1,35 +1,39 @@
-%global srcname mathics-pygments
+%global forgeurl https://github.com/Mathics3/Mathics3-pygments
+Version:        10.0.0
+%global tag     %{version}
+%forgemeta
 
-Name:           python-%{srcname}
-Version:        1.0.2
+Name:           python-mathics-pygments
 Release:        %autorelease
 Summary:        Mathematica/Wolfram Language Lexer for Pygments
 
 License:        MIT
-URL:            http://github.com/Mathics3/mathics-pygments
-# PyPI source tarball is misnamed
-Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Compatibility with pytest 8
-Patch:          https://github.com/Mathics3/mathics-pygments/pull/5.patch
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pytest
 
 %global _description %{expand:
-This is package provides a lexer and highlighter for Mathematica/Wolfram
+This package provides a lexer and highlighter for Mathematica/Wolfram
 Language source code using the pygments engine.}
 
 %description %_description
 
-%package -n     python3-%{srcname}
+%package -n     python%{python3_pkgversion}-mathics-pygments
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python%{python3_pkgversion}-mathics-pygments %_description
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -n Mathics3-pygments-%{version}
+# Relax/rename the dependency on Mathics3_Scanner to use Fedora's package name and version
+sed -i 's/"Mathics3_Scanner>=10.0.0"/"mathics-scanner>=1.3.0"/' pyproject.toml
+sed -i 's/Mathics3_Scanner>=10.0.0/mathics-scanner>=1.3.0/' requirements.txt
+
+# Remove shebang from non-executable script
+sed -i '1{\@^#!/usr/bin/env python@d}' mathics_pygments/generate/build_pygments_tables.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -44,7 +48,7 @@ Summary:        %{summary}
 %check
 %pytest
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python%{python3_pkgversion}-mathics-pygments -f %{pyproject_files}
 %license LICENSE
 %doc README.md CHANGES.rst
 

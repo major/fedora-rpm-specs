@@ -1,25 +1,20 @@
-Name: htop
-Version: 3.4.1
-Release: %autorelease
-Summary: Interactive process viewer
-License: GPL-2.0-or-later
-URL: https://htop.dev/
-Source0: https://github.com/htop-dev/htop/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Name:           htop
+Version:        3.5.2
+Release:        %autorelease
+Summary:        Interactive process viewer
+License:        GPL-2.0-or-later
+URL:            https://htop.dev/
+Source0:        https://github.com/htop-dev/htop/releases/download/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires: desktop-file-utils
-BuildRequires: ncurses-devel
-%if 0%{?rhel} == 8
-BuildRequires: platform-python
-BuildRequires: /usr/bin/pathfix.py
-%else
-BuildRequires: python
-%endif
-BuildRequires: libtool
-BuildRequires: make
-BuildRequires: lm_sensors-devel
-BuildRequires: hwloc-devel
-BuildRequires: libcap-devel
-BuildRequires: libnl3-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  hwloc-devel
+BuildRequires:  libcap-devel
+BuildRequires:  libnl3-devel
+BuildRequires:  libtool
+BuildRequires:  lm_sensors-devel
+BuildRequires:  make
+BuildRequires:  ncurses-devel
 
 %description
 htop is an interactive text-mode process viewer for Linux, similar to
@@ -28,21 +23,15 @@ top(1).
 %prep
 %autosetup -p1
 
-%if 0%{?rhel} == 8
-pathfix.py -pni "/usr/libexec/platform-python" scripts/
-%endif
-
 %build
 autoreconf -vfi
 
 %configure \
-	--enable-openvz \
-	--enable-vserver \
-	--enable-hwloc \
-	--enable-unicode \
-	--enable-sensors \
-	--enable-delayacct \
-	--enable-capabilities
+    --enable-capabilities \
+    --enable-delayacct \
+    --enable-hwloc \
+    --enable-sensors \
+    --enable-unicode
 
 %make_build
 
@@ -51,8 +40,10 @@ autoreconf -vfi
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
+%check
+
 %files
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 %license COPYING
 %{_bindir}/htop
 %{_datadir}/pixmaps/htop.png

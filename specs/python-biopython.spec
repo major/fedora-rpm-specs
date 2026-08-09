@@ -3,7 +3,7 @@
 %global module %{pypi_name}
 
 Name:             python-%{pypi_name}
-Version:          1.87
+Version:          1.88
 Release:          %autorelease
 Summary:          Python tools for computational molecular biology
 Source:           %{pypi_source}
@@ -17,7 +17,6 @@ biology.
 
 %package -n python3-%{module}
 Summary: Python3 tools for computational molecular biology
-
 %py_provides      python3-%{module}
 BuildRequires:    python3-devel
 BuildRequires:    python3dist(reportlab)

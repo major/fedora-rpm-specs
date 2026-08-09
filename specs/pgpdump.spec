@@ -1,13 +1,13 @@
 Name:           pgpdump
-Version:        0.36
-Release:        6%{?dist}
+Version:        0.37
+Release:        1%{?dist}
 Summary:        PGP packet visualizer
 License:        MIT
 URL:            https://www.mew.org/~kazu/proj/pgpdump/
 Source0:        https://www.mew.org/~kazu/proj/pgpdump/%{name}-%{version}.tar.gz
 # Fix build with newer GCC versions
 # https://github.com/kazu-yamamoto/pgpdump/pull/45
-Patch:          541442dc04259bde680b46742522177be40cc065.patch
+#Patch:          541442dc04259bde680b46742522177be40cc065.patch
 BuildRequires:  make
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
@@ -28,12 +28,15 @@ OpenPGP (RFC 4880) and PGP version 2 (RFC 1991).
 %make_install
 
 %files
-%doc CHANGES README.md
-%license COPYRIGHT
+%doc README.md
+#%license COPYRIGHT
 %{_bindir}/pgpdump
 %{_mandir}/man1/pgpdump.1*
 
 %changelog
+* Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 0.37-1
+- Update to 0.37
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
