@@ -1,27 +1,15 @@
+# architecture and toolchain
+
 %if 0%{?rhel}
-# Zig depends on a C compiler (gcc) during bootstraping
-# older versions of gcc fail to compile the transpiled source so we limit it to x86_64
+# Zig depends on a C compiler (gcc) during bootstrapping.
+# Older versions of gcc fail to compile the transpiled source, so limit to x86_64.
 %global         zig_arches x86_64
 %else
-# https://ziglang.org/download/VERSION/release-notes.html#Support-Table
+# Supported architectures: https://ziglang.org/download/VERSION/release-notes.html#Support-Table
 %global         zig_arches x86_64 aarch64 riscv64 %{mips64}
 %endif
-# Signing key from https://ziglang.org/download/
-%global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
 
-# note here at which Fedora or EL release we need to use compat LLVM packages
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
-%global         llvm_compat 21
-%endif
-
-%global         llvm_version 21.1.8
-
-%bcond bootstrap 0
-%bcond docs      %{without bootstrap}
-%bcond macro     %{without bootstrap}
-%bcond test      1
-
-# GCC < 16.0 miscompiles on RISC-V 
+# GCC < 16.0 miscompiles on RISC-V; use Clang instead on older Fedora versions
 %ifarch riscv64
 %if 0%{?fedora} < 44
 %bcond toolchain_clang 1
@@ -32,7 +20,30 @@
 %global toolchain clang
 %endif
 
+# minisign public key for source verification (from https://ziglang.org/download/)
+%global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
+
+
+# dependency versions and cache
+
+# Compatible LLVM/Clang version definitions
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%global         llvm_compat 21
+%endif
+%global         llvm_version 21.1.8
+
 %global zig_cache_dir %{_vpath_builddir}/zig-cache
+
+
+# build conditionals
+
+%bcond bootstrap 0
+%bcond docs      %{without bootstrap}
+%bcond macro     %{without bootstrap}
+%bcond test      1
+
+
+# build and install options
 
 %global zig_build_options %{shrink: \
     --verbose \
@@ -47,7 +58,7 @@
     --cache-dir "%{zig_cache_dir}" \
     --global-cache-dir "%{zig_cache_dir}" \
     \
-    -Dversion-string="%{version}" \
+    -Dversion-string="%{?dev_version}%{!?dev_version:%{version}}" \
     -Dstatic-llvm=false \
     -Denable-llvm=true \
     -Dno-langref=true \
@@ -55,14 +66,17 @@
     -Dpie \
     -Dconfig_h="%{__cmake_builddir}/config.h" \
 }
-%global zig_install_options %zig_build_options %{shrink: \
+
+%global zig_install_options %{shrink: \
+    %zig_build_options \
     --prefix "%{_prefix}" \
 }
 
 Name:           zig
 Version:        0.16.0
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Programming language for maintaining robust, optimal, and reusable software
+
 # The minisign file references a specific archive name so we store for ease of use
 %global         archive_name %{name}-%{version}.tar.xz
 
@@ -71,10 +85,12 @@ URL:            https://ziglang.org
 Source0:        %{url}/download/%{version}/%{archive_name}
 Source1:        %{url}/download/%{version}/%{archive_name}.minisig
 Source2:        macros.%{name}
+
 # Remove native lib directories from rpath
 # this is unlikely to be upstreamed in its current state because upstream
 # wants to work around the shortcomings of NixOS
 Patch0:         0001-remove-native-lib-directories-from-rpath.patch
+
 # LLVM on RHEL/EPEL only provides fewer targets so we patch the required targets down
 # Targets come from https://src.fedoraproject.org/rpms/llvm/blob/rawhide/f/llvm.spec
 Patch1:         0002-Remove-unsupported-LLVM-targets-for-EPEL.patch
@@ -162,7 +178,7 @@ This package contains common RPM macros for %{name}.
 %endif
 
 %prep
-/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key} -Q | grep -F "file:%{archive_name}"
+minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key} -Q | grep -F "file:%{archive_name}"
 
 %autosetup -N
 %patch 0 -p1
@@ -199,7 +215,7 @@ export CCACHE_DISABLE=1
     -DZIG_TARGET_MCPU:STRING=baseline \
     -DZIG_TARGET_TRIPLE:STRING=native \
     \
-    -DZIG_VERSION:STRING="%{version}"
+    -DZIG_VERSION:STRING="%{?dev_version}%{!?dev_version:%{version}}"
 
 %if %{with bootstrap}
 %cmake_build --target stage3
@@ -214,7 +230,7 @@ help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=vers
 
 
 %if %{with docs}
-# Use the newly made stage 3 compiler to generate docs 
+# Use the newly made stage 3 compiler to generate docs
 ./zig-out/bin/zig build docs %{zig_build_options}
 %endif
 
@@ -261,157 +277,4 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Apr 15 2026 Jan200101 <sentrycraft123@gmail.com> - 0.16.0-1
-- Update to 0.16.0
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sun Jan 04 2026 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-2
-- Rebuilt for EPEL
-
-* Sun Oct 12 2025 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-1
-- Update to 0.15.2
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 09 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.1-1
-- Update to 0.14.1
-
-* Tue May 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-4
-- add patch to add library directories
-
-* Fri May 09 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-3
-- add gcc to runtime dependencies
-
-* Thu Apr 24 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-2
-- fix and re-enable documentation
-
-* Thu Mar 06 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-1
-- Update to 0.14.0
-
-* Mon Jan 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-8
-- specify to build against local zig stdlib directory to ensure we are building against the newest stdlib
-- use release fast instead of release safe to fix aarch64 builds from running out of memory
-- enable position independent executable for the zig build
-
-* Mon Jan 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-7
-- build stage 3 using zig build system
-- add user provided options to the end of the build and install options
-
-* Thu Jan 23 2025 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-6
-- rebuild against fixed llvm
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Dec 29 2024 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-4
-- correct macro variables
-- set llvm_compat for F41
-- update callaway licenses to follow SPDX
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13.0-3
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jun 11 2024 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-1
-- Update to 0.13.0
-
-* Sat Jun 08 2024 Jan200101 <sentrycraft123@gmail.com> - 0.12.1-1
-- Update to 0.12.1
-
-* Sat May 25 2024 Jan200101 <sentrycraft123@gmail.com> - 0.12.0-1
-- Update to 0.12.0
-
-* Wed Feb 21 2024 Jan Drögehoff <sentrycraft123@gmail.com> - 0.11.0-2
-- Rebuilt for bootstrapping
-
-* Sat Jan 27 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.11.0-1
-- Update to 0.11.0
-
-* Sat Jan 27 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.1-6
-- Fix build with `--without macro`
-- Skip %%check and test dependencies when tests are disabled
-- Drop %%_zig_version macro
-
-* Sat Jan 27 2024 Benson Muite <benson_muite@emailplus.org> - 0.9.1-6
-- Verify source signature
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Feb 18 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.9.1-1
-- Update to 0.9.1
-
-* Thu Jan 27 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.9.0-3
-- Jan: add rpath patch
-- Aleksei Bavshin: rpm macros: set default build flags
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 20 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.9.0-1
-- Update to 0.9.0
-
-* Wed Nov 17 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.1-5
-- Enable documentation on Fedora 35
-
-* Tue Nov 09 2021 Tom Stellard <tstellar@redhat.com> - 0.8.1-4
-- Rebuild for llvm-13.0.0
-
-* Sat Oct 30 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.1-3
-- Update LLVM13 Patch
-
-* Thu Oct 07 2021 Tom Stellard <tstellar@redhat.com> - 0.8.1-2
-- Rebuild for llvm-13.0.0
-
-* Sun Sep 12 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.1-1
-- Update to Zig 0.8.1, add LLVM 13 patch
-
-* Wed Aug 18 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-8
-- Rebuilt for lld soname bump
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jul 19 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-6
-- add native libc detection patch
-
-* Sun Jul 04 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-5
-- correct newline in macro that caused DESTDIR to be ignored
-
-* Mon Jun 28 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-4
-- correct macro once again to allow for proper packaging
-
-* Thu Jun 24 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-3
-- improve macro for using the zig binary
-
-* Thu Jun 24 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-2
-- Update patches, correct rpm macro
-
-* Sat Jun 05 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.8.0-1
-- Update to Zig 0.8.0
-
-* Sun Dec 13 23:18:24 CET 2020 Jan Drögehoff <sentrycraft123@gmail.com> - 0.7.1-1
-- Update to Zig 0.7.1
-
-* Wed Nov 11 17:18:27 CET 2020 Jan Drögehoff <sentrycraft123@gmail.com> - 0.7.0-1
-- Update to Zig 0.7.0
-
-* Tue Aug 18 2020 Jan Drögehoff <sentrycraft123@gmail.com> - 0.6.0-1
-- Initial zig spec
+%autochangelog

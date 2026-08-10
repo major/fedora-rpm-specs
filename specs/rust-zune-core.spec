@@ -5,7 +5,7 @@
 %global crate zune-core
 
 Name:           rust-zune-core
-Version:        0.5.1
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Core utilities for image processing in the zune family of crates
 

@@ -13,10 +13,11 @@
 
 Name:           c4log
 Summary:        C++ type-safe logging, mean and lean
-Version:        0.0.1^%{snapdate}.%{sub %{commit} 1 7}
-# This is the same as the version number. To prevent undetected soversion
+%global baseversion 0.0.1
+Version:        %{baseversion}^%{snapdate}.%{sub %{commit} 1 7}
+# This is derived from the version number. To prevent undetected SONAME version
 # bumps, we nevertheless express it separately.
-%global so_version 0.0.1
+%global so_version 0.0
 Release:        %autorelease
 
 # SPDX
@@ -42,10 +43,10 @@ BuildOption(conf): %{shrink:
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-# Minimum version with proper multilib (GNUInstallDirs) support
-BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
-BuildRequires:  cmake(c4core)
+# Minimum versions with major.minor SONAME versioning
+BuildRequires:  c4project >= 0^20260717.2db9323-1
+BuildRequires:  cmake(c4core) >= 0.6.0
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
@@ -90,6 +91,7 @@ sed --regexp-extended --in-place \
 %license LICENSE.txt
 %doc README.md
 %{_libdir}/libc4log.so.%{so_version}
+%{_libdir}/libc4log.so.%{baseversion}
 
 
 %files devel

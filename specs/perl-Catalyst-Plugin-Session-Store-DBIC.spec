@@ -1,13 +1,14 @@
 Name:           perl-Catalyst-Plugin-Session-Store-DBIC
-Version:        0.14
-Release:        35%{?dist}
+Version:        0.15
+Release:        2%{?dist}
 Summary:        Store your sessions via DBIx::Class
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Catalyst-Plugin-Session-Store-DBIC
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Session-Store-DBIC-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Catalyst) >= 5.65000
@@ -44,25 +45,30 @@ over how your sessions are stored, you probably want to use that instead.
 %setup -q -n Catalyst-Plugin-Session-Store-DBIC-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-TEST_POD=1 make test
+TEST_POD=1 %{make_build} test
 
 %files
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%{perl_vendorlib}/Catalyst*
+%{_mandir}/man3/Catalyst*
 
 %changelog
+* Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-2
+- Mark the LICENSE file using the %%license tag
+
+* Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
+- Update to 0.15
+- Modernize spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -13,10 +13,11 @@
 
 Name:           c4fs
 Summary:        C++ file system utilities
-Version:        0.0.1^%{snapdate}.%{sub %{commit} 1 7}
-# This is the same as the version number. To prevent undetected soversion
+%global baseversion 0.0.1
+Version:        %{baseversion}^%{snapdate}.%{sub %{commit} 1 7}
+# This is derived from the version number. To prevent undetected SONAME version
 # bumps, we nevertheless express it separately.
-%global so_version 0.0.1
+%global so_version 0.0
 Release:        %autorelease
 
 # SPDX
@@ -28,6 +29,12 @@ Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 # unbundle it and build with an external library. We therefore maintain this
 # patch without sending it upstream.
 Patch:          c4fs-1abba00-external-c4core.patch
+
+# Fix missing include for u32 type
+# From: Update c4core submodule to 0.6.0; fix a missing include
+#       https://github.com/biojppm/c4fs/pull/8
+# Needed for c4core 0.6.0 compatibility.
+Patch:          0001-Fix-missing-include-for-u32-type.patch
 
 BuildSystem:    cmake
 # We can stop the CMake scripts from downloading doctest by setting
@@ -42,10 +49,10 @@ BuildOption(conf): %{shrink:
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-# Minimum version with proper multilib (GNUInstallDirs) support
-BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
-BuildRequires:  cmake(c4core)
+# Minimum versions with major.minor SONAME versioning
+BuildRequires:  c4project >= 0^20260717.2db9323-1
+BuildRequires:  cmake(c4core) >= 0.6.0
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
@@ -90,6 +97,7 @@ sed --regexp-extended --in-place \
 %license LICENSE.txt
 %doc README.md
 %{_libdir}/libc4fs.so.%{so_version}
+%{_libdir}/libc4fs.so.%{baseversion}
 
 
 %files devel

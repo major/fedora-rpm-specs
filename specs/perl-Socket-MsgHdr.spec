@@ -2,8 +2,8 @@
 %global __requires_exclude MsgHdr.so
 
 Name:           perl-Socket-MsgHdr
-Version:        0.05
-Release:        27%{?dist}
+Version:        0.06
+Release:        1%{?dist}
 Summary:        Sendmsg, recvmsg and ancillary data operations
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -11,6 +11,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Socket-MsgHdr
 Source0:        https://cpan.metacpan.org/authors/id/F/FE/FELIPE/Socket-MsgHdr-%{version}.tar.gz
 
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  gcc
@@ -35,24 +36,27 @@ parameters, instead stuffing a lot of information into a complex structure.
 %setup -q -n Socket-MsgHdr-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
 %license LICENSE
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Socket*
 %{perl_vendorarch}/Socket*
-%{_mandir}/man3/*
+%{_mandir}/man3/Socket*
 
 %changelog
+* Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.06-1
+- Update to 0.06
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-27
 - Perl 5.44 rebuild
 

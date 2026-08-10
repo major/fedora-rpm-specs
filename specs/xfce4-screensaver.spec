@@ -1,35 +1,36 @@
 %global majorver 4.20
 
 Name:           xfce4-screensaver
-Version:        4.20.0
+Version:        4.20.2
 Release:        %autorelease
 Summary:        Screensaver application for Xfce Desktop
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
-License:        GPL-2.0-only AND LicenseRef-Callaway-LGPLv2
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://git.xfce.org/apps/xfce4-screensaver/
 Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.xz
 
-BuildRequires:  meson
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  intltool
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  libwnck3-devel
+BuildRequires:  meson
+BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(dbus-glib-1)
+BuildRequires:  pkgconfig(garcon-gtk3-1)
 BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libxfce4ui-2)
 BuildRequires:  pkgconfig(libxklavier)
 BuildRequires:  pkgconfig(xscrnsaver)
 BuildRequires:  pkgconfig(libxfce4ui-2)
 BuildRequires:  pkgconfig(libxfconf-0)
-BuildRequires:  pkgconfig(garcon-gtk3-1)
-BuildRequires:  libwnck3-devel
 BuildRequires:  systemd-devel
-BuildRequires:  pam-devel
-BuildRequires:  desktop-file-utils
 BuildRequires:  xmlto
 
-Requires:       xfdesktop
-Requires:       xfconf
 Requires:       xfce4-session
+Requires:       xfconf
+Requires:       xfdesktop
 
 %description
 Xfce Screensaver is a port of MATE Screensaver, itself a port of GNOME 
@@ -74,14 +75,14 @@ desktop-file-install \
 %find_lang %{name}
 
 %files -f %{name}.lang
-%license COPYING COPYING.LGPL
+%license COPYING COPYING.LGPL COPYING.LIB
 %{_sysconfdir}/pam.d/xfce4-screensaver
 %{_sysconfdir}/xdg/autostart/xfce4-screensaver.desktop
 %{_sysconfdir}/xdg/menus/xfce4-screensavers.menu
 %{_bindir}/%{name}
 %{_bindir}/xfce4-screensaver-command
-%{_bindir}/xfce4-screensaver-configure.py
 %{_bindir}/xfce4-screensaver-preferences
+%{_libexecdir}/xfce4-screensaver-configure.py
 %{_libexecdir}/xfce4-screensaver-dialog
 %{_datadir}/icons/hicolor/*/apps/org.xfce.ScreenSaver.*
 %{_datadir}/applications/screensavers/xfce-personal-slideshow.desktop

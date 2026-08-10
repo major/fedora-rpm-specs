@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.115.0
+Version:                2.119.0
 
 %gometa -L -f
 
@@ -34,7 +34,9 @@ tar -xf %{S:1}
 # these tests require access to Artifactory instance
 rm -v \
   access_test.go \
+  agent_skills_test.go \
   agent_plugins_test.go \
+  apt_test.go \
   artifactorybulkrepository_test.go \
   artifactory_test.go \
   buildinfo_test.go \
@@ -44,12 +46,14 @@ rm -v \
   evidence_test.go \
   go_test.go \
   gradle_test.go \
+  ghostfrog_test.go \
   helm_test.go \
   huggingface_test.go \
   ide_test.go \
   lifecycle_test.go \
   main_test.go \
   maven_test.go \
+  metrics_visibility_test.go \
   nix_test.go \
   npm_test.go \
   nuget_test.go \
@@ -58,6 +62,7 @@ rm -v \
   plugins_test.go \
   pnpm_test.go \
   poetry_test.go \
+  poetry_buildinfo_integration_test.go \
   transfer_test.go \
   uv_test.go \
 

@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.4.0
-# This is the same as the version number. To prevent undetected soversion
+Version:        0.6.0
+# This is derived from the version number. To prevent undetected SONAME version
 # bumps, we nevertheless express it separately.
-%global so_version 0.4.0
+%global so_version 0.6
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -46,8 +46,8 @@ BuildOption(conf): %{shrink:
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-# Minimum version with proper multilib (GNUInstallDirs) support
-BuildRequires:  c4project >= 0^20260428.fa85cab-1
+# Minimum version with major.minor SONAME versioning
+BuildRequires:  c4project >= 0^20260717.2db9323-1
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
@@ -175,6 +175,7 @@ fi
 %doc ROADMAP.md
 %doc changelog/
 %{_libdir}/libc4core.so.%{so_version}
+%{_libdir}/libc4core.so.%{version}
 
 
 %files devel

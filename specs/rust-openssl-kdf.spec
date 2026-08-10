@@ -12,6 +12,7 @@ Summary:        OpenSSL KDF function abstraction
 License:        MIT
 URL:            https://crates.io/crates/openssl-kdf
 Source:         %{crates_source}
+Patch0:         openssl-kdf-detect-ossl4.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,18 +1,21 @@
+%global forgeurl https://github.com/nxtboot/patman
+Version:        0.2.0
+%forgemeta
+
 Name:           python-patch-manager
-Version:        0.0.6
 Release:        %autorelease
 Summary:        Patman patch manager
 
 License:        GPL-2.0-or-later
-URL:            https://docs.u-boot.org/en/latest/develop/patman.html
-Source:         %{pypi_source patch-manager}
+URL:            %{forgeurl}
+Source:         %{forgesource}
+
+# Fix asyncio event loop issues on Python 3.10+
+Patch:          0001-Fix-asyncio-event-loop-retrieval-on-Python-3.10.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  sed
-
-BuildRequires:  python3dist(pygit2)
-BuildRequires:  python3dist(requests)
 
 %global _description %{expand:
 This package provides a tool intended to automate patch creation and make it a
@@ -24,16 +27,13 @@ they use the checkpatch.pl script.}
 %package -n     python3-patch-manager
 Summary:        %{summary}
 
-Requires:       python3dist(pygit2)
-Requires:       python3dist(requests)
-
 %description -n python3-patch-manager %_description
 
 %prep
-%autosetup -p1 -n patch-manager-%{version}
+%forgeautosetup -p1
 
 # Remove unnecessary shebangs
-sed -i "\|#!/usr/bin/env python3|d" src/patman/*.py
+sed -i "\|#!/usr/bin/env python3|d" patman/*.py u_boot_pylib/*.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -43,7 +43,7 @@ sed -i "\|#!/usr/bin/env python3|d" src/patman/*.py
 
 %install
 %pyproject_install
-%pyproject_save_files patman
+%pyproject_save_files patman u_boot_pylib
 
 %check
 %pyproject_check_import -e patman.setup

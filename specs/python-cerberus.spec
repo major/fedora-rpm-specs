@@ -1,4 +1,4 @@
-%global srcname  Cerberus
+%global srcname  cerberus
 %global slugname cerberus
 %global pkgname  python-cerberus
 %global forgeurl https://github.com/pyeve/cerberus
@@ -14,19 +14,18 @@ validation. It has no dependancies and is thoroughly tested.
 %bcond_without tests
 
 Name:           %{pkgname}
-Version:        1.3.4
+Version:        1.3.8
 %forgemeta
-# Remove -b4 when upgrading to a newer version:
-Release:        %autorelease -b4
+Release:        %autorelease
 Summary:        Lightweight, extensible data validation library for Python
 License:        ISC
 URL:            %{forgeurl}
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-pkg-resources
-BuildRequires:  pyproject-rpm-macros
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)

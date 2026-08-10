@@ -2,8 +2,8 @@
 %global sum Efficient Array of Booleans --C Extensions
 
 Name:           python-%{srcname}
-Version:        2.8.5
-Release:        15%{?dist}
+Version:        3.10.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -59,6 +59,9 @@ This is Python 3 version.
 
 
 %changelog
+* Sat Aug 8 2026 Nick Bebout <nb@fedoraproject.org> - 3.10.1-1
+- Update to 3.10.1
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.8.5-15
 - Rebuilt for Python 3.15.0b4 ABI change
 

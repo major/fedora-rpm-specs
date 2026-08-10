@@ -1,43 +1,43 @@
 Summary:    X11 display information utility
 Name:       xdpyinfo
-Version:    1.3.4
+Version:    1.4.0
 Release:    %autorelease
 License:    MIT
-URL:        http://www.x.org
+URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
-BuildRequires:  gcc make
-BuildRequires:  gettext-devel
-BuildRequires:  libtool
-
-BuildRequires:  pkgconfig(dmx)
+BuildRequires:  gcc
+BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb) >= 1.6
+BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xi)
-BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xorg-macros) >= 1.8
+BuildRequires:  pkgconfig(xproto) >= 7.0.22
 BuildRequires:  pkgconfig(xrandr) >= 1.2
+BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(xtst)
-BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(xxf86dga)
 BuildRequires:  pkgconfig(xxf86vm)
 
-Obsoletes: xorg-x11-utils < 7.5-39
 
 %description
 xdpyinfo prints basic diagnostic information about a given X server.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
+
+%check
+%meson_test
 
 %files
 %license COPYING

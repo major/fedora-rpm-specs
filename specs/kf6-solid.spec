@@ -1,8 +1,8 @@
 %global framework solid
 
 Name:           kf6-%{framework}
-Version:        6.28.0
-Release:        3%{?dist}
+Version:        6.29.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
 URL:            https://solid.kde.org/
@@ -92,6 +92,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
+- 6.29.0
+
 * Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.28.0-3
 - libupnp rebuild
 

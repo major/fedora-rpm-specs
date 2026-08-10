@@ -12,6 +12,7 @@ Summary:        JOSE (Javascript Object Signing and Encryption) library for Rust
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/josekit
 Source:         %{crates_source}
+Patch0:         josekit-0.7.4-openssl4-rsa-sign-fix.patch
 
 BuildRequires:  rust-packaging >= 21
 

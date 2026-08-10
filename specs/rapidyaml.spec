@@ -1,15 +1,19 @@
 %bcond tests 1
 %bcond rebuild_yaml_data 0
+# Now that they are committed to the repository and not tracked as a git
+# submodule, we might consider not packaging the “c4project” CMake scripts
+# separately.
+%bcond system_c4project 1
 
 # Upstream defaults to C++11, but gtest 1.17.0 requires C++17 or later.
 %global cxx_std 17
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.15.2
-# This is the same as the version number. To prevent undetected soversion
+Version:        0.16.0
+# This is derived from the version number. To prevent undetected SONAME version
 # bumps, we nevertheless express it separately.
-%global so_version 0.15.2
+%global so_version 0.16
 Release:        %autorelease
 
 # SPDX
@@ -32,26 +36,35 @@ Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yaml
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
 
+# cmake: fix test linking with c4core when using RYML_SYSTEM_C4CORE
+# https://github.com/biojppm/rapidyaml/pull/653
+Patch:          %{url}/pull/653.patch
+
 BuildSystem:    cmake
-# Disable RYML_TEST_FUZZ so that we do not have to include the contents of
+# Disable RYML_FUZZ_TEST so that we do not have to include the contents of
 # https://github.com/biojppm/rapidyaml-data (and document the licenses of the
 # contents). We *could* do so, and add an additional source similar to the one
 # for yaml-test-suite, but running these test cases downstream doesn’t seem
 # important enough to bother.
 BuildOption(conf): %{shrink:
     -DRYML_CXX_STANDARD=%{cxx_std}
+    -DRYML_SYSTEM_C4CORE:BOOL=ON
+    -DRYML_BUILD_BENCHMARKS:BOOL=OFF
     -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF}
-    -DRYML_TEST_FUZZ:BOOL=OFF
+    -DRYML_FUZZ_DRIVERS:BOOL=OFF
+    -DRYML_FUZZ_TEST:BOOL=OFF
     }
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-# Minimum version with proper multilib (GNUInstallDirs) support
-BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
-BuildRequires:  cmake(c4core) >= 0.3.0
+# Minimum versions with major.minor SONAME versioning
+%if %{with system_c4project}
+BuildRequires:  c4project >= 0^20260717.2db9323-1
+%endif
+BuildRequires:  cmake(c4core) >= 0.6.0
 
 %if %{with tests}
 BuildRequires:  cmake(c4fs)
@@ -104,24 +117,23 @@ applications that use Rapid YAML.
 
 # Remove/unbundle additional dependencies
 
+%if %{with system_c4project}
 # c4project (CMake build scripts)
-cp --recursive --preserve '%{_datadir}/cmake/c4project' ext/c4core/cmake
+rm --recursive --verbose proj/c4proj
+cp --recursive --preserve '%{_datadir}/cmake/c4project' proj/c4proj
+%endif
 # Patch out download of gtest:
-'%{SOURCE10}' 'ext/c4core/cmake/c4Project.cmake' \
-    '^    if\(_GTEST\)' '^    endif'
-
-# Patch out download of c4core:
-'%{SOURCE10}' 'CMakeLists.txt' 'c4_require_subproject\(c4core' '\)$'
-# Use external c4core
-sed --regexp-extended --in-place '/INCORPORATE c4core/d' 'CMakeLists.txt'
+'%{SOURCE10}' 'proj/c4proj/c4Project.cmake' '^    if\(_GTEST\)' '^    endif'
 
 # Patch out download of c4fs:
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4fs' '\)$'
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_add_library\(c4fs' '\)$'
+'%{SOURCE10}' 'ext/testbm.cmake' 'ryml_testbm_link_with_c4core\(c4fs' '\)$'
 
 # Patch out download of c4log:
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4log' '\)$'
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_add_library\(c4log' '\)$'
+'%{SOURCE10}' 'ext/testbm.cmake' 'ryml_testbm_link_with_c4core\(c4log' '\)$'
 
 # Patch out download of yaml-test-suite:
 '%{SOURCE10}' 'test/CMakeLists.txt' \
@@ -158,6 +170,10 @@ mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 # We don’t believe this will be useful on Linux. See:
 # https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/natvis
 rm '%{buildroot}%{_includedir}/ryml.natvis'
+# In some kinds of installations, this would support a cmake uninstall target,
+# but it’s not relevant for a system package.
+rm '%{buildroot}%{_datadir}/ryml/MANIFEST.txt'
+rmdir '%{buildroot}%{_datadir}/ryml'
 
 
 %check
@@ -170,6 +186,7 @@ rm '%{buildroot}%{_includedir}/ryml.natvis'
 %license LICENSE.txt
 %doc README.md
 %{_libdir}/libryml.so.%{so_version}
+%{_libdir}/libryml.so.%{version}
 
 
 %files devel

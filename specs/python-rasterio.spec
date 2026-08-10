@@ -1,20 +1,16 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
 License:        BSD-3-Clause
 URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
-Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Fedora-specific.
 Patch:          0001-Loosen-up-build-requirements.patch
-# Fix compatibility with latest GDAL.
-Patch:          https://github.com/rasterio/rasterio/pull/3529.patch
-# Skip a test that crashes: https://github.com/rasterio/rasterio/issues/3499
-Patch:          0002-TST-Always-skip-test_memfile_thread_safe_option.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -23,8 +19,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.8
 BuildRequires:  gdal-devel >= 3.8
 
-# This is licensed as BSD-3-Clause, same as rasterio
+# These are licensed as BSD-3-Clause, same as rasterio.
 Provides: bundled(python3dist(click-plugins)) = 2
+Provides: bundled(python3dist(cligj)) = 2
 
 %global _description %{expand:
 Rasterio reads and writes geospatial raster data. Geographic information

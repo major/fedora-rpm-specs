@@ -6,7 +6,7 @@
 %global crate diesel
 
 Name:           rust-diesel
-Version:        2.3.11
+Version:        2.3.12
 Release:        %autorelease
 Summary:        Safe, extensible ORM and Query Builder for PostgreSQL, SQLite, and MySQL
 

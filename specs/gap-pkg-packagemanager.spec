@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/PackageManager
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.3
+Version:        1.6.4
 Release:        %autorelease
 Summary:        Basic package manager for GAP
 
@@ -18,6 +18,8 @@ BuildOption(install): binder etc gap tst
 
 BuildRequires:  gap(autodoc) >= 2025.05.09
 BuildRequires:  gap(curlInterface) >= 2.1.0
+BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap(io) >= 4.7.0
 BuildRequires:  gap-devel >= 4.12
 
 Requires:       gap-core >= 4.12
@@ -60,7 +62,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 # Tests cannot be run due to network use, so leave this empty
 
 %files
-%doc CHANGES README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

@@ -8,11 +8,15 @@
 
 Name:          dtc
 Version:       1.8.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
 Source0:       https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
+
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:        dtc-swig45.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -180,6 +184,9 @@ This package provides the static library of mingw64-libfdt
 %endif
 
 %changelog
+* Mon Jul 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.1-5
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.8.1-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -4,7 +4,7 @@
 Name: php-%{composer_vendor}-%{composer_project}
 
 Version: 0.7.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Backwards-compatible strftime() implementation
 License: MIT
@@ -14,6 +14,10 @@ License: MIT
 
 URL: https://github.com/%{git_owner}/%{git_repo}
 Source0: %{URL}/archive/%{version}/%{git_repo}-%{version}.tar.gz
+
+# Fix tests under libicu 78.
+# Submitted upstream: https://github.com/alphp/strftime/pull/24
+Patch0: 0000-icu-78.patch
 
 BuildArch: noarch
 
@@ -81,6 +85,9 @@ phpunit10 --bootstrap bootstrap.php
 
 
 %changelog
+* Sat Aug 08 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.6-4
+- Fix FTBFS (rhbz#2504407)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

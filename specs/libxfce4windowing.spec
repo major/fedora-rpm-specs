@@ -12,8 +12,8 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.20.4
-Release:        5%{?dist}
+Version:        4.20.6
+Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -25,30 +25,27 @@ BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  git-core
 BuildRequires:  meson >= 0.56
-BuildRequires:  tar
-BuildRequires:  xfce4-dev-tools >= 4.19.4
-# Generic deps
+BuildRequires:  pkgconfig(gdk-3.0) >= %{gtk3_minver}
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf_minver}
+BuildRequires:  pkgconfig(gdk-wayland-3.0) >= %{gtk3_minver}
+BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_minver}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_minver}
 BuildRequires:  pkgconfig(gobject-2.0) >= %{glib2_minver}
-BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_minver}
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf_minver}
-BuildRequires:  pkgconfig(gdk-3.0) >= %{gtk3_minver}
+BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_minver}
 BuildRequires:  pkgconfig(gtk-doc) >= 1.30
-BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66.0
 BuildRequires:  pkgconfig(vapigen)
-# Wayland deps
-BuildRequires:  pkgconfig(gdk-wayland-3.0) >= %{gtk3_minver}
-BuildRequires:  pkgconfig(wayland-scanner) >= %{wl_minver}
 BuildRequires:  pkgconfig(wayland-client) >= %{wl_minver}
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.25
+BuildRequires:  pkgconfig(wayland-scanner) >= %{wl_minver}
 BuildRequires:  pkgconfig(wlr-protocols)
+BuildRequires:  tar
+BuildRequires:  xfce4-dev-tools >= 4.19.4
 %if %{with x11}
-# X11 deps
-BuildRequires:  pkgconfig(libdisplay-info) >= 0.1.1
-BuildRequires:  pkgconfig(x11) >= 1.6.7
 BuildRequires:  pkgconfig(gdk-x11-3.0) >= %{gtk3_minver}
+BuildRequires:  pkgconfig(libdisplay-info) >= 0.1.1
 BuildRequires:  pkgconfig(libwnck-3.0) >= 3.14
+BuildRequires:  pkgconfig(x11) >= 1.6.7
 BuildRequires:  pkgconfig(xrandr) >= 1.5.0
 %endif
 
@@ -92,6 +89,10 @@ developing applications that use %{name}.
 %find_lang %{name}
 
 
+%check
+%meson_test
+
+
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS
@@ -108,6 +109,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/vapi/libxfce4windowing*
 
 %changelog
+* Wed Jul 29 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.20.6-1
+- Update to 4.20.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

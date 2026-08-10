@@ -85,6 +85,8 @@ rm -f docs/build/html/_static/scripts/furo-extensions.js
 
 
 %check
+%pyproject_check_import
+
 pushd tests
 export CLASSPATH=../build/test-classes:../build/classes
 export JAVA_HOME=%{_prefix}/lib/jvm/java

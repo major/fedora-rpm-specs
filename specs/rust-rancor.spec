@@ -5,7 +5,7 @@
 %global crate rancor
 
 Name:           rust-rancor
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Scalable and efficient error handling without type composition
 

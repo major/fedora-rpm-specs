@@ -8,7 +8,11 @@ Summary:        Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator
 # Mostly MIT, Apache-2.0 for Khronos and EGL specifications/headers.
 License:        MIT and Apache-2.0
 URL:            https://github.com/Dav1dde/glad
-Source0:        %pypi_source glad
+Source:         %pypi_source glad
+# Add missing eglplatform.h.
+# https://github.com/Dav1dde/glad/pull/360
+Patch:          https://github.com/Dav1dde/glad/commit/ea756f7cc5e11dcef3cafdab87d45b3b528c875d.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -39,7 +43,7 @@ Loader made for your needs.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 # Fix shebang
 sed -i -e '/^#!\//, 1d' %{srcname}/__main__.py

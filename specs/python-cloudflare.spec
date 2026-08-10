@@ -2,8 +2,8 @@
 %global pypi_name cloudflare
 
 Name:           python-%{pypi_name}
-Version:        5.2.0
-Release:        3%{?dist}
+Version:        5.6.0
+Release:        1%{?dist}
 Summary:        The official Python library for the Cloudflare API
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ This is the Python 3 version of the package.
 
 
 %changelog
+* Sat Aug 08 2026 Nick Bebout <nb@fedoraproject.org> - 5.6.0-1
+- Update to 5.6.0 rhbz#2488143
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

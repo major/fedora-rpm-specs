@@ -1,6 +1,6 @@
 Name:           simcoupe
 Version:        1.0
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        SAM Coupe emulator (spectrum compatible)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Aug 08 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.0-43
+- rebuilt for new SAASound (rhbz#2506890)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

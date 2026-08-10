@@ -1,15 +1,17 @@
 Name:           perl-HTML-Gumbo
-Version:        0.19
-Release:        3%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 Summary:        HTML5 parser based on gumbo C library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-Gumbo
-Source0:        https://cpan.metacpan.org/authors/id/R/RU/RUZ/HTML-Gumbo-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/HTML-Gumbo-%{version}.tar.gz
 
 # build requirements
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
-BuildRequires:  gcc
 BuildRequires:  perl-generators
 BuildRequires:  perl(Alien::LibGumbo) >= 0.03
 BuildRequires:  perl(ExtUtils::CBuilder)
@@ -37,6 +39,7 @@ pure C99 library with no outside dependencies.
 
 %install
 ./Build install --destdir="$RPM_BUILD_ROOT" --create_packlist=0
+find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} "$RPM_BUILD_ROOT"/*
 
 %check
@@ -45,11 +48,14 @@ pure C99 library with no outside dependencies.
 %files
 %doc Changes
 %license LICENSE
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/HTML*
 %{perl_vendorarch}/HTML*
-%{_mandir}/man3/*
+%{_mandir}/man3/HTML*
 
 %changelog
+* Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.20-1
+- Update to 0.20
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-3
 - Perl 5.44 rebuild
 

@@ -5,16 +5,13 @@
 %global crate minijinja
 
 Name:           rust-minijinja
-Version:        2.17.1
+Version:        2.23.0
 Release:        %autorelease
 Summary:        Powerful template engine for Rust with minimal dependencies
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/minijinja
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused "source" feature with missing dependencies: memo-map ^0.3.1
-Patch:          minijinja-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -179,6 +176,18 @@ This package contains library source intended for building other packages which
 use the "key_interning" feature of the "%{crate}" crate.
 
 %files       -n %{name}+key_interning-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+loader-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+loader-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "loader" feature of the "%{crate}" crate.
+
+%files       -n %{name}+loader-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+loop_controls-devel

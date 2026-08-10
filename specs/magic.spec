@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.676
+Version:	8.3.680
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -71,7 +71,6 @@ and some tutorials.
 %setup -q -T -c %{name}-%{version} -a 0
 cd %{name}-%{version}
 
-find readline \( -name \*.h -or -name \*.c \) -delete
 rm -rf risp
 
 sed -i.cflags -e 's|CFLAGS=.*CFLAGS|:|' configure
@@ -111,6 +110,7 @@ WISH_EXE=$(ls -1d %{_bindir}/wish9.* | tail -n 1)
 WISH_EXE=$(ls -1d %{_bindir}/wish8.* | tail -n 1)
 %endif
 %configure \
+	--disable-ccache \
 	--with-wish=$WISH_EXE \
 	--with-tcl=%{_libdir} \
 	--with-tk=%{_libdir} \
@@ -186,6 +186,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sat Aug 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.680-1
+- 8.3.680
+
 * Mon Jul 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.676-1
 - 8.3.676
 

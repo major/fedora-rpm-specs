@@ -1,7 +1,7 @@
 %global pypi_name tldextract
 
 Name:           python-%{pypi_name}
-Version:        5.3.1
+Version:        5.3.2
 Release:        1%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
@@ -25,6 +25,7 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-responses
 BuildRequires:  python3-syrupy
+BuildRequires:  python3-sybil
 
 
 %description
@@ -76,6 +77,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Sat Aug 8 2026 Nick Bebout <nb@fedoraproject.org> - 5.3.2-1
+- Update to 5.3.2
+
 * Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 5.3.1-1
 - Update to 5.3.1
 

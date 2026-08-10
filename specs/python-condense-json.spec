@@ -7,6 +7,7 @@ URL:            https://pypi.python.org/project/condense-json/
 Source:         %{pypi_source condense_json}
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
 %global _description \
 Python function for condensing JSON using replacement strings

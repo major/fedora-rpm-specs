@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/liealgdb
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Database of Lie algebras
 

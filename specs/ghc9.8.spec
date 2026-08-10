@@ -16,10 +16,14 @@
 %undefine with_haddock
 %endif
 
+# tweak for ppc64le
+%global ghcplatform %(echo $(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version_override})
+
 %global ghc_major 9.8
 %global ghc_name ghc%{ghc_major}
 
 %global base_ver 4.19.2.0
+%global Cabal_ver 3.10.3.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.7.0.0
@@ -28,13 +32,14 @@
 
 # bootstrap needs 9.4+
 # can't build with f43 ghc-9.8.i686 (Unique Word64)
-%if 0%{?fedora} >= 43 || %{defined el9}
+%if %{undefined el10}
 %global ghcboot_major 9.6
 %endif
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond abicheck 1
+# hashes changed Jan 2026
+%bcond abicheck 0
 
 # no longer build testsuite (takes time and not really being used)
 %bcond testsuite 0
@@ -61,7 +66,7 @@ Version: 9.8.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -73,6 +78,10 @@ Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.t
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
+# hadrian bootstrap libraries
+Source10: https://downloads.haskell.org/ghc/9.8.4/hadrian-bootstrap-sources/hadrian-bootstrap-sources-9.6.2.tar.gz
+Source11: https://hackage.haskell.org/package/extra-1.7.16/extra-1.7.16.tar.gz
+Source12: https://hackage.haskell.org/package/extra-1.7.16/extra.cabal
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -86,9 +95,17 @@ Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2430571
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
 Patch7: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
+# fix rts build with gcc16
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/16165
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/16165.patch
+# undefine _POSIX_C_SOURCE for glibc 2.43
+Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15763.patch
 
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
+
+# sphinx9
+Patch20: e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
 
 # Debian patches:
 Patch26: no-missing-haddock-file-warning.patch
@@ -107,6 +124,10 @@ Patch60: ghc9.8-32bit-unique-word-revert.patch
 # https://github.com/haskell/directory/pull/184 (directory.buildinfo)
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
 
+# os-string (s390x)
+# https://github.com/haskell/os-string/pull/14
+Patch70: https://github.com/haskell/os-string/commit/bafe87d871399b58ce4a50592b980c990a3eac39.patch
+
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
@@ -120,7 +141,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.6.5
+BuildRequires: ghc-rpm-macros-extra
 BuildRequires: %{ghcboot}-array-devel
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
@@ -155,19 +176,13 @@ BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-base-devel
-BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
-BuildRequires:  ghc-cryptohash-sha256-devel
 BuildRequires:  ghc-directory-devel
-BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-mtl-devel
-BuildRequires:  ghc-parsec-devel
-BuildRequires:  ghc-shake-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
-BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires:  %{name}-hadrian
 %endif
@@ -318,8 +333,8 @@ This provides the hadrian tool which can be used to build ghc.
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.10.3.0
-%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-3.10.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-%{Cabal_ver}
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-%{Cabal_ver}
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
@@ -386,8 +401,27 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+
+%global hadrian_deps base16-bytestring-1.0.2.0 clock-0.8.4 cryptohash-sha256-0.11.102.1 extra-1.7.16 filepattern-0.1.3 hashable-1.4.4.0 heaps-0.4 js-dgtable-0.5.2 js-flot-0.8.3 js-jquery-3.3.1 os-string-2.0.2.1 primitive-0.9.0.0 splitmix-0.1.0.5 random-1.2.1.2 unordered-containers-0.2.20 utf8-string-1.0.2 shake-0.19.8
+
 ( cd hadrian
   cabal-tweak-flag selftest False
+  cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
+  mkdir deps
+  (cd deps
+  tar xf %SOURCE10
+  cp -p %SOURCE11 %SOURCE12 .
+  for i in %hadrian_deps; do
+      tar xf $i.tar.gz
+      mv -f $(echo $i | sed 's/\(.*\)-.*/\1.cabal/') $i
+      mv $i ..
+  done
+  )
+  (cd os-string-2.0.2.1
+   %patch -P70 -p1 -b .orig
+  )
+  ln -sf ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
+  ln -sf ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 )
 
 %patch -P1 -p1 -b .orig
@@ -396,6 +430,8 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P5 -p1 -b .orig
 %patch -P6 -p1 -b .orig
 %patch -P7 -p1 -b .orig
+%patch -P9 -p1 -b .orig
+%patch -P10 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -408,6 +444,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P16 -p1 -b .orig
 %endif
 %endif
+
+%patch -P20 -p1 -b .orig
 
 #debian
 %patch -P26 -p1 -b .orig
@@ -476,6 +514,7 @@ export LANG=C.utf8
 %endif
 (
 cd hadrian
+%ghc_libs_build -H -P -W Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver} %{hadrian_deps}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -487,7 +526,7 @@ cd hadrian
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
-%if %{defined debug_flavor}
+%if %{with debug_flavor}
 %define hadrian_debug +debug_info
 %endif
 # + hadrian/dist/build/hadrian/hadrian -j224 --flavour=perf --docs=no-sphinx-pdfs binary-dist-dir --hash-unit-ids
@@ -848,6 +887,11 @@ make test
 
 
 %changelog
+* Sat Aug 08 2026 Jens Petersen <petersen@redhat.com> - 9.8.4-19
+- use hadrian-bootstrap-sources and bundled Cabal to build hadrian (#2503917)
+- disable abicheck since hashes changed this year (#2435219)
+- rts fixes for gcc16 and glibc-2.43+
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

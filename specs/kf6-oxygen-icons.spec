@@ -1,8 +1,8 @@
 %global framework oxygen-icons
 
 Name:           kf6-oxygen-icons
-Version:        6.28.0
-Release:        2%{?dist}
+Version:        6.29.0
+Release:        1%{?dist}
 Summary:        Oxygen icon theme
 
 License:        CC0-1.0 AND LGPL-3.0-or-later
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ox
 
 
 %changelog
+* Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
+- 6.29.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

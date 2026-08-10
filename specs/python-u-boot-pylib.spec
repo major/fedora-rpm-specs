@@ -1,5 +1,8 @@
 Name:           python-u-boot-pylib
-Version:        0.0.6
+Version:        0.0.7
+%global forgeurl https://source.denx.de/u-boot/u-boot
+%global forgename gitlab
+%forgemeta
 Release:        %autorelease
 Summary:        U-Boot Python library
 
@@ -23,6 +26,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n u_boot_pylib-%{version}
+# Remove shebang from non-executable script
+sed -i -e '1{\@^#!/usr/bin/env python@d}' src/u_boot_pylib/__main__.py
 
 %generate_buildrequires
 %pyproject_buildrequires

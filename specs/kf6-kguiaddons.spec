@@ -1,8 +1,8 @@
 %global 	framework kguiaddons
 
 Name:		kf6-%{framework}
-Version:	6.28.0
-Release:	3%{?dist}
+Version:	6.29.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
@@ -107,6 +107,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
+- 6.29.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.28.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

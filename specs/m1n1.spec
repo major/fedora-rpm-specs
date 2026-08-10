@@ -9,7 +9,7 @@
 m1n1 is the bootloader developed by the Asahi Linux project to bridge the Apple
 (XNU) boot ecosystem to the Linux boot ecosystem.}
 
-%global srcversion 1.6.0
+%global srcversion 1.6.1
 
 Name:           m1n1
 Version:        %(echo '%{srcversion}' | tr '-' '~')
@@ -27,8 +27,9 @@ License:        MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GP
 URL:            https://github.com/AsahiLinux/m1n1
 Source:         %{url}/archive/v%{srcversion}/%{name}-%{srcversion}.tar.gz
 Source:         https://github.com/rafalh/rust-fatfs/archive/%{fatfs_commit}/rust-fatfs-%{fatfs_commit}.tar.gz
-# * Ensure all required rust dependencies are pulled in
-Patch:          m1n1-rust-deps.patch
+# * Vendor git dependency rust-fatfs and ensure its dependencies are
+#   included as well.
+Patch:          m1n1-1.6.1-rust-deps.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -98,6 +99,7 @@ This package contains various developer tools for m1n1.
 
 %prep
 %autosetup -N -n %{name}-%{srcversion}
+mkdir -p rust/vendor/rust-fatfs
 tar -xf %{SOURCE1} -C rust/vendor/rust-fatfs --strip-components 1
 %autopatch -p1
 %dnl delete rust/Cargo.lock to avoid the locked versions and drop it from

@@ -5,7 +5,7 @@
 %global crate find-msvc-tools
 
 Name:           rust-find-msvc-tools
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Find windows-specific tools and MSVC versions
 

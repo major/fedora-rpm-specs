@@ -3,17 +3,17 @@
 %global srcname cm_rgb
 
 Name:           cm_rgb
-Version:        0.3.6
-Release:        17%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Utility to control RGB on AMD Wraith Prism
 License:        MIT
-URL:            https://github.com/gfduszynski/cm-rgb
+URL:            https://github.com/ausil/cm-rgb
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pip
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-gobject
 BuildRequires:  python%{python3_pkgversion}-psutil
 BuildRequires:  python%{python3_pkgversion}-click
@@ -40,13 +40,22 @@ chmod 644 LICENSE README.md
 
 %check
 %pyproject_check_import
+%pytest tests/
 
 %files -f %{pyproject_files}
 %doc README.md
-# For noarch packages: sitelib
-%{_bindir}/*
+%license LICENSE
+%{_bindir}/cm-rgb-*
+%{_datadir}/applications/cm-rgb-gui.desktop
+%{_mandir}/man1/*
 
 %changelog
+* Wed Aug 05 2026 Dennis Gilmore - 0.4.0-1
+- move to fork of dead upstream
+- add .desktop file for gui app
+- fix various bugs
+- add testing
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

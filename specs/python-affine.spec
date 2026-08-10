@@ -1,21 +1,21 @@
 %global srcname affine
 
 Name:           python-%{srcname}
-Version:        2.4.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Matrices describing affine transformation of the plane
 
 License:        BSD-3-Clause
-URL:            https://github.com/sgillies/affine
-Source0:        %pypi_source
+URL:            https://github.com/rasterio/affine
+Source:         %pypi_source %{srcname}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%global _description \
-Matrices describing affine transformation of the plane. The Affine package is \
-derived from Casey Duncan's Planar package.
+%global _description %{expand:
+Matrices describing affine transformation of the plane. The Affine package is
+derived from Casey Duncan's Planar package.}
 
 %description %{_description}
 
@@ -26,6 +26,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+%pyproject_patch_dependency pytest-cov:ignore
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -38,7 +39,7 @@ Summary:        %{summary}
 %pyproject_save_files %{srcname}
 
 %check
-%{pytest} -v --pyargs affine
+%{pytest} -v
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

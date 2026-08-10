@@ -1,8 +1,8 @@
 %global framework knotifications
 
 Name:    kf6-%{framework}
-Version: 6.28.0
-Release: 3%{?dist}
+Version: 6.29.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 2 solution with abstraction for system notifications
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -68,12 +68,9 @@ Developer Documentation files for %{name} in HTML format
 
 %install
 %cmake_install_kf6
-
-%find_lang_kf6 knotifications6_qt
-# We own the folder
 mkdir -p %{buildroot}/%{_kf6_datadir}/knotifications6
 
-%files -f knotifications6_qt.lang
+%files
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
@@ -103,6 +100,9 @@ mkdir -p %{buildroot}/%{_kf6_datadir}/knotifications6
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
+- 6.29.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.28.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

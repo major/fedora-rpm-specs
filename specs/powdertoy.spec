@@ -8,8 +8,8 @@ URL: https://powdertoy.co.uk
 # src/lua/ is MIT
 License: GPL-3.0-only AND MIT
 
-Version: 100.0.399
-Release: 2%{?dist}
+Version: 100.1.400
+Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -144,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Sat Aug 08 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 100.1.400-1
+- Update to v100.1.400
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 100.0.399-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

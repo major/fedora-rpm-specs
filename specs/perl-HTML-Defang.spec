@@ -1,13 +1,13 @@
 Name:           perl-HTML-Defang
-Version:        1.08
-Release:        3%{?dist}
+Version:        1.09
+Release:        1%{?dist}
 Summary:        Cleans HTML and CSS of executable contents
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/HTML-Defang
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBM/HTML-Defang-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -34,15 +34,15 @@ only HTML known to be safe is allowed through.
 %setup -q -n HTML-Defang-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.09-1
+- Update to 1.09
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

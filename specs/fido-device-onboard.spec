@@ -3,20 +3,17 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.5.5
-Release:        9%{?dist}
+Version:        0.5.6
+Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
 URL:            https://github.com/fdo-rs/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
-Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
+Source1:        %{name}-rs-%{version}-vendor.tar.xz
 Patch1:         0001-use-released-aws-nitro-enclaves-cose-version.patch
 
 # Patches >=1000 are only applied when using system Rust dependencies:
-# - Update nix dependency from 0.26 to 0.31
-#   https://github.com/fdo-rs/fido-device-onboard-rs/pull/803
-Patch1000:      fido-device-onboard-fix-metadata.diff
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -43,7 +40,6 @@ BuildRequires:  libpq-devel
 
 %if 0%{?rhel}
 %autosetup -a1 -n %{name}-rs-%{version} -N
-%autopatch -p1 -M999
 rm -f Cargo.lock
 %if 0%{?rhel} >= 10
 %cargo_prep -v vendor
@@ -318,6 +314,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Sat Aug 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.6-1
+- Update to 0.5.6
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
