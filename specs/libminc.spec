@@ -1,7 +1,7 @@
 %global upver release-%{version}
 
 Name:           libminc
-Version:        2.4.03
+Version:        2.5.0
 Release:        %{autorelease}
 Summary:        Core library and API of the MINC toolkit
 
@@ -9,10 +9,9 @@ Summary:        Core library and API of the MINC toolkit
 License:        MIT
 URL:            https://github.com/BIC-MNI/libminc
 Source0:        https://github.com/BIC-MNI/libminc/archive/%{upver}/%{name}-%{version}.tar.gz
-Patch0:         0001-install-cmake-files-in-private-directory.patch
-# Fix building with GCC15 as C23
-# https://github.com/BIC-MNI/libminc/pull/129
-Patch1:         %{url}/pull/129.patch
+# https://github.com/sanjayankur31/libminc/tree/feat-2.5.0-fedora
+Patch:          0001-remove-rpath.patch
+Patch:          0002-install-cmake-files-to-private-dir.patch
 
 BuildRequires:  git-core
 BuildRequires:  cmake
@@ -53,9 +52,6 @@ sed -i -e '/SET (LIBMINC_INSTALL_INCLUDE_DIR/s/include/include\/%{name}/' CMakeL
 sed -i -e '/CMAKE_INSTALL_RPATH/d' CMakeLists.txt
 
 %build
-# TODO: Remove CMake 4.0 and GNUInstallDirs workaround at next release
-# https://github.com/BIC-MNI/libminc/pull/132
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake ../ \
 %if "%{?_lib}" == "lib64"
 %{?_cmake_lib_suffix64} \
@@ -75,12 +71,13 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %files
 %license COPYING
 %doc README README.release doc/ NEWS ChangeLog AUTHORS
-%{_libdir}/%{name}*.so.*
+%{_libdir}/%{name}*.so.5.3.0
 
 %files devel
 %doc volume_io/example/*.c ezminc/examples/*.cpp ezminc/examples/Example_CMakeLists.txt
-%{_includedir}/%{name}/
-%{_libdir}/cmake/LIBMINC/
+%{_includedir}/*.h
+%{_includedir}/volume_io
+%{_libdir}/cmake/*
 %{_libdir}/%{name}*.so
 
 %changelog

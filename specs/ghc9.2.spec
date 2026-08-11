@@ -17,6 +17,9 @@
 %undefine with_haddock
 %endif
 
+# tweak for ppc64le
+%global ghcplatform %(echo $(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version_override})
+
 %global ghc_major 9.2
 %global ghc_name ghc%{ghc_major}
 
@@ -49,10 +52,10 @@
 %endif
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond_without abicheck
+%bcond abicheck 1
 
 # no longer build testsuite (takes time and not really being used)
-%bcond_with testsuite
+%bcond testsuite 0
 
 # ld
 %if 0%{?fedora} >= 43 || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64"
@@ -77,7 +80,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -90,8 +93,11 @@ Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2142238
 ExcludeArch: armv7hl
+# s390x lost via llvm12 retirement
+%if 0%{?fedora} >= 45
+ExcludeArch: s390x
+%endif
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -153,6 +159,9 @@ Patch18: Disable-unboxed-arrays.patch
 
 # Cabal for ghc-9.10
 Patch19: Cabal-ghc9.10.patch
+
+# sphinx9
+Patch20: e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
 
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
@@ -447,6 +456,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+# no hadrian selftest flag
 
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
@@ -493,6 +503,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 %patch -P19 -p1 -b .orig
+%patch -P20 -p1 -b .orig
 
 # debian
 %patch -P24 -p1 -b .orig
@@ -1076,6 +1087,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Aug 10 2026 Jens Petersen <petersen@redhat.com> - 9.2.8-34
+- [F45] drop s390x: no longer installs due to llvm12 removal
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

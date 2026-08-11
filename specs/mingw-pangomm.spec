@@ -5,15 +5,16 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-pangomm
-Version:        2.46.4
-Release:        6%{?dist}
+Version:        2.46.5
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for Pango
 
 License:        LGPL-2.0-or-later
 URL:            http://gtkmm.sourceforge.net/
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/pangomm/%{release_version}/pangomm-%{version}.tar.xz
-
 BuildArch:      noarch
+Source0:        http://ftp.gnome.org/pub/GNOME/sources/pangomm/%{release_version}/pangomm-%{version}.tar.xz
+# Fix DESTDIR handling in install scripts
+Patch0:         pangomm_scripts-buildroot.patch
 
 BuildRequires:  meson
 
@@ -100,6 +101,9 @@ quickly create complex user interfaces.
 
 
 %changelog
+* Sun Aug 09 2026 Sandro Mani <manisandro@gmail.com> - 2.46.5-1
+- Update to 2.46.5
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.46.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

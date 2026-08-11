@@ -4,7 +4,7 @@
 %global crate oxipng
 
 Name:           rust-oxipng
-Version:        10.1.1
+Version:        10.2.0
 Release:        %autorelease
 Summary:        Lossless PNG compression optimizer
 
@@ -161,8 +161,8 @@ use the "zopfli" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Copy in the xtask/ directory from the GitHub archive, required for generating
-# the man page. Remove upstream’s lock file, which we cannot respect. Note
-# that the mangen xtask has its own dependencies, so we must run
+# the man page. Remove upstream’s lock file, which we cannot respect. Note that
+# the mangen xtask has its own dependencies, so we must run
 # %%cargo_generate_buildrequires in the xtask directory if we are to invoke it
 # in the build.
 tar -xzvf '%{SOURCE10}' --strip-components=1 oxipng-%{version}/xtask

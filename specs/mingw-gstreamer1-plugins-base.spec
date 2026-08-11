@@ -3,8 +3,8 @@
 %global         api_version      1.0
 
 Name:           mingw-gstreamer1-plugins-base
-Version:        1.28.5
-Release:        2%{?dist}
+Version:        1.28.6
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 media framework base plug-ins
 
 License:        LGPL-2.0-or-later
@@ -214,6 +214,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_datadir}/gst-plugins-base
 
 %changelog
+* Sun Aug 09 2026 Sandro Mani <manisandro@gmail.com> - 1.28.6-1
+- Update to 1.28.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

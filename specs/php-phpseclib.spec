@@ -3,13 +3,13 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           2d1a664b940b9b8f367185307dc010d11a2790f3
+%global github_commit           d73c9e019a895be83b18a2ccccfa7e2b0a648743
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.53
-Release:    2%{?dist}
+Version:    2.0.55
+Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
 URL:        https://github.com/%{github_owner}/%{github_name}
@@ -133,6 +133,9 @@ exit $ret
 
 
 %changelog
+* Sun Aug 09 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.55-1
+- Update to v2.0.55
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.53-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

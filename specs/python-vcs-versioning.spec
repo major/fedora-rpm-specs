@@ -39,8 +39,14 @@ history.}
 
 
 %prep -a
-# Remove unwanted test dependencies (coverage not needed, pytest-xdist not in RHEL)
-sed -i -e '/pytest-cov/d' %{?rhel:-e '/pytest-xdist/d'} pyproject.toml
+# Remove unwanted test dependencies (coverage not needed,
+# pytest-timeout and pytest-xdist not in RHEL)
+%pyproject_patch_dependency pytest-cov:ignore
+%if %{defined rhel}
+%pyproject_patch_dependency pytest-timeout:ignore
+%pyproject_patch_dependency pytest-xdist:ignore
+sed -i -e '/^timeout *=/d' pyproject.toml
+%endif
 
 %package -n python3-vcs-versioning
 Summary:        %{summary}

@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.4.13
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 3.4.13-3
+- Rebuilt for updated dependencies.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

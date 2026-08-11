@@ -4,7 +4,7 @@
 %global crate eza
 
 Name:           rust-eza
-Version:        0.23.4
+Version:        0.23.5
 Release:        %autorelease
 Summary:        Modern replacement for ls
 
@@ -14,7 +14,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          eza-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * temporarily downgrade palette dependency from 0.7.6 to 0.7.5
+# * temporarily downgrade timeago dependency from 0.6.0 to 0.4.2
 # * temporarily downgrade uutils_term_grid dependency from 0.7.0 to 0.6.0
 # * temporarily downgrade unicode-width dependency from 0.2.0 to 0.1.0
 # * temporarily increase palette dependency from 0.12.1 to 0.13.1
@@ -25,7 +25,10 @@ Patch:          eza-fix-metadata-auto.diff
 # * drop features that are specific to powertest
 # * exclude files that are only useful for upstream development
 Patch:          eza-fix-metadata.diff
-
+# https://github.com/eza-community/eza/pull/1903
+Patch:          eza-time-opt.patch
+# https://github.com/eza-community/eza/pull/1896
+Patch:          eza-div-zero.patch
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pandoc-cli
 BuildRequires:  rust-git2-devel

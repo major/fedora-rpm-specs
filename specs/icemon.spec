@@ -1,6 +1,6 @@
 Name:           icemon
 Version:        3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Icecream GUI monitor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -14,8 +14,9 @@ BuildRequires:    pkgconfig(icecc) >= 1.3
 BuildRequires:    cmake
 BuildRequires:    desktop-file-utils
 BuildRequires:    extra-cmake-modules
-BuildRequires:    qt5-qtbase-devel
+BuildRequires:    qt6-qtbase-devel
 BuildRequires:    libappstream-glib
+BuildRequires:    pandoc
 
 Requires:    hicolor-icon-theme
 
@@ -28,6 +29,8 @@ A GUI monitor for Icecream, a distributed compiler system.
 %build
 %cmake
 %cmake_build
+mkdir -p %{buildroot}/%{_mandir}/man1
+pandoc doc/icemon.md -s -t man -o %{buildroot}/%{_mandir}/man1/icemon.1
 
 %install
 %cmake_install
@@ -50,6 +53,10 @@ install -m644 -D %{SOURCE1} %{buildroot}/%{_metainfodir}/%{name}.metainfo.xml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Sun Aug  9 2026 Jan Kratochvil <jan@jankratochvil.net> - 3.4-2
+- Fix the build: BuildRequires qt5->qt6
+- Use pandoc for the man page
+
 * Sat Aug  8 2026 Jan Kratochvil <jan@jankratochvil.net> - 3.4-1
 - Updated to 3.4
 

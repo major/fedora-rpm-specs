@@ -20,18 +20,19 @@
 # THE SOFTWARE.
 #
 
-%bcond_with gitcommit
-%if %{with gitcommit}
-# 7.0.x is broken, ck was never updated in rocm-libraries
-# https://github.com/ROCm/rocm-libraries/issues/2263
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname composablekernel
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.14
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -55,6 +56,7 @@
 # This package takes a very long time to build, build only the most useful.
 # ck is needed for hipTensor but hipTensor only supports gfx908,gfx90a,gfx942,gfx950
 %global ck_gpu_list "gfx11-generic;gfx12-generic"
+%global _ck_gpu_list "gfx11-generic"
 
 
 %bcond_with debug
@@ -169,12 +171,11 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           composable_kernel%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        4%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        5%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT AND BSD-3-Clause
@@ -184,16 +185,14 @@ License:        MIT AND BSD-3-Clause
 #   include/rapidjson/msinttypes/stdint.h
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+%if %{without preview}
 # This patch adds CMake options to selectively build specific GPU operation
 # libraries (e.g., GEMM, CONV, MHA) within composable_kernel, decoupling them
 # from the default build.
 Patch1:         0001-composable_kernel-per-dir-build.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -374,16 +373,16 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so.*
 %endif
-%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
+%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so.*
 %endif
-%if %{with ck_other}
+%if %{with ck_other} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so.*
 %endif
-%if %{with ck_reduction}
+%if %{with ck_reduction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so.*
 %endif
-%if %{with ck_contraction}
+%if %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so.*
 %endif
 
@@ -395,16 +394,16 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so
 %endif
-%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
+%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so
 %endif
-%if %{with ck_other}
+%if %{with ck_other} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so
 %endif
-%if %{with ck_reduction}
+%if %{with ck_reduction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so
 %endif
-%if %{with ck_contraction}
+%if %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so
 %endif
 
@@ -414,6 +413,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Thu Jul 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Add --with preview
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

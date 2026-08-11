@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 2.5.19.1-17
+- Rebuilt for updated dependencies.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.19.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate intrusive-collections
 
 Name:           rust-intrusive-collections
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Intrusive collections for Rust (linked list and red-black tree)
 

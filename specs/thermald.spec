@@ -5,10 +5,13 @@ Version:	2.5.12
 Release:	%autorelease
 Summary:	Thermal Management daemon
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/intel/%{pkgname}
-Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Backports from upstream
+Patch0:		https://github.com/intel/thermal_daemon/commit/32c70aaba5837014fd3a2cb0b7e6b695d13043ad.patch
+Patch1:		https://github.com/intel/thermal_daemon/commit/de4821ce559a2041f6a5d574aeca278df340e379.patch
 
 ExclusiveArch:	%{ix86} %{x86_64} %{arm64}
 
@@ -41,7 +44,7 @@ be easily enhanced.
 
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p 1
+%autosetup -C -p 1
 
 # Create tmpfiles.d config.
 mkdir -p fedora_addons
@@ -55,13 +58,15 @@ g power -
 EOF
 
 
-%build
+%conf
 NO_CONFIGURE=1 ./autogen.sh
 %configure									\
 	--with-systemdsystemunitdir=%{_unitdir}					\
 	--disable-option-checking						\
 	--disable-silent-rules
 
+
+%build
 %make_build
 
 
@@ -91,6 +96,7 @@ install -m0644 -D thermald.sysusers.conf %{buildroot}%{_sysusersdir}/thermald.co
 
 %postun
 %systemd_postun_with_restart thermald.service
+
 
 %files
 %license COPYING

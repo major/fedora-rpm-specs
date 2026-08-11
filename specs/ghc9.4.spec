@@ -17,6 +17,9 @@
 %undefine with_haddock
 %endif
 
+# tweak for ppc64le
+%global ghcplatform %(echo $(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version_override})
+
 %global ghc_major 9.4
 %global ghc_name ghc%{ghc_major}
 
@@ -48,10 +51,10 @@
 %endif
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond_without abicheck
+%bcond abicheck 1
 
 # no longer build testsuite (takes time and not really being used)
-%bcond_with testsuite
+%bcond testsuite 0
 
 # ld
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 10 || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64"
@@ -136,6 +139,9 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24163
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
 Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
+
+# sphinx9
+Patch20: e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
 
 # Debian patches:
 Patch26: no-missing-haddock-file-warning.patch
@@ -482,6 +488,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 %patch -P17 -p1 -b .orig
+%patch -P20 -p1 -b .orig
 
 #debian
 %patch -P26 -p1 -b .orig

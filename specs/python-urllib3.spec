@@ -32,8 +32,10 @@ Source0:        %{url}/archive/%{version}/urllib3-%{version}.tar.gz
 Source1:        %{hypercorn_url}/archive/%{hypercorn_commit}/hypercorn-%{hypercorn_commit}.tar.gz
 
 # Deal with ssl.PROTOCOL_TLSv1 removal from Python built with OpenSSL 4+
-# https://github.com/urllib3/urllib3/pull/5097
-Patch:          python-urllib3-py315-ssl.patch
+Patch:          https://github.com/urllib3/urllib3/pull/5097.patch
+# Replace deprecated pyOpenSSL X509.get_subject and Context.set_passwd_cb methods
+# https://github.com/urllib3/urllib3/pull/5103 rebased
+Patch:          5103.patch
 
 BuildArch:      noarch
 

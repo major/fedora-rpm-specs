@@ -2,12 +2,15 @@
 %bcond mingw 1
 
 Name:           openjph
-Version:        0.29.0
+Version:        0.31.0
 Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
 Source:         https://github.com/aous72/%{real_name}/archive/refs/tags/%{version}/%{real_name}-%{version}.tar.gz
+
+# SSE2 intrinsics used in a file compiled with -msse only, breaks on i686/mingw builds
+Patch:          0001-Use-SSE1-intrinsics-in-sse_mem_clear.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -117,7 +120,7 @@ BuildArch:     noarch
 
 %files -n lib%{name}
 %license LICENSE
-%{_libdir}/lib%{name}.so.0.29
+%{_libdir}/lib%{name}.so.0.31
 %{_libdir}/lib%{name}.so.%{version}
 
 %files -n lib%{name}-devel
@@ -129,7 +132,7 @@ BuildArch:     noarch
 %if %{with mingw}
 %files -n mingw32-lib%{name}
 %license LICENSE
-%{mingw32_bindir}/lib%{name}-0.29.dll
+%{mingw32_bindir}/lib%{name}-0.31.dll
 %{mingw32_libdir}/lib%{name}.dll.a
 %{mingw32_libdir}/cmake/%{name}
 %{mingw32_libdir}/pkgconfig/%{name}.pc
@@ -141,7 +144,7 @@ BuildArch:     noarch
 
 %files -n mingw64-lib%{name}
 %license LICENSE
-%{mingw64_bindir}/lib%{name}-0.29.dll
+%{mingw64_bindir}/lib%{name}-0.31.dll
 %{mingw64_libdir}/lib%{name}.dll.a
 %{mingw64_libdir}/cmake/%{name}
 %{mingw64_libdir}/pkgconfig/%{name}.pc

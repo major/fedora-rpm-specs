@@ -6,7 +6,7 @@
 %global crate zerocopy
 
 Name:           rust-zerocopy
-Version:        0.8.52
+Version:        0.8.56
 Release:        %autorelease
 Summary:        Zerocopy makes zero-cost memory manipulation effortless
 

@@ -20,7 +20,7 @@
 
 Name: GraphicsMagick
 Version: 1.3.45
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: An ImageMagick fork, offering faster image generation and better quality
 Url: http://www.graphicsmagick.org/
 License: MIT
@@ -322,6 +322,9 @@ exit 1
 
 
 %changelog
+* Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 1.3.45-10
+- Rebuilt for updated dependencies.
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.45-9
 - Perl 5.44 rebuild
 

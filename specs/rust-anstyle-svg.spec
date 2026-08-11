@@ -5,13 +5,14 @@
 %global crate anstyle-svg
 
 Name:           rust-anstyle-svg
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Convert ANSI escape codes to SVG
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/anstyle-svg
 Source:         %{crates_source}
+Patch2:         0001-Drop-test-that-pulls-in-anstyle-hyperlink-as-path-de.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

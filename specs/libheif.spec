@@ -10,10 +10,10 @@
 # gdk-pixbuf2 -> glycin-libs
 # glycin-libs -> glycin-loaders
 # glycin-loaders -> libheif
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 Name:           libheif
-Version:        1.21.2
+Version:        1.23.1
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -21,12 +21,20 @@ License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/libheif
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         libheif-no-hevc-tests.patch
+# Fix multilib issues: PLUGIN_DIRECTORY is derived from CMAKE_INSTALL_LIBDIR, the
+# macro has exactly one user, get_plugin_paths() in libheif/init.cc, which is internal
+# to the library, so pass it as a private compile definition instead of exporting it in
+# a public header.
+Patch1:         libheif-multilib-plugin-dir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(aom)
 BuildRequires:  pkgconfig(dav1d)
+%if !%{with bootstrap}
+BuildRequires:  pkgconfig(libavcodec)
+%endif
 BuildRequires:  pkgconfig(libbrotlidec)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libopenjp2)
@@ -59,6 +67,19 @@ file format decoder and encoder.
 %doc README.md
 %{_libdir}/%{name}.so.%{somajor}{,.*}
 %dir %{_libdir}/%{name}
+%{_libdir}/%{name}/%{name}-aomdec.so
+%{_libdir}/%{name}/%{name}-aomenc.so
+%{_libdir}/%{name}/%{name}-dav1d.so
+%if !%{with bootstrap}
+%{_libdir}/%{name}/%{name}-ffmpegdec.so
+%endif
+%{_libdir}/%{name}/%{name}-j2kdec.so
+%{_libdir}/%{name}/%{name}-j2kenc.so
+%{_libdir}/%{name}/%{name}-jpegdec.so
+%{_libdir}/%{name}/%{name}-jpegenc.so
+%{_libdir}/%{name}/%{name}-jphenc.so
+%{_libdir}/%{name}/%{name}-rav1e.so
+%{_libdir}/%{name}/%{name}-svtenc.so
 
 # ----------------------------------------------------------------------
 
@@ -96,39 +117,50 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
-%patch 0 -p1
+%autosetup -p1
 rm -rf third-party/
 
 
 %build
 %cmake \
  -GNinja \
+ -DBUILD_SHARED_LIBS=ON \
  -DBUILD_TESTING=ON \
  -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF \
+ -DENABLE_PLUGIN_LOADING=ON \
  -DPLUGIN_DIRECTORY=%{_libdir}/%{name} \
- -DWITH_AOM=ON \
- -DWITH_AOM_PLUGIN=OFF \
+ -DWITH_AOM_DECODER=ON \
+ -DWITH_AOM_DECODER_PLUGIN=ON \
+ -DWITH_AOM_ENCODER=ON \
+ -DWITH_AOM_ENCODER_PLUGIN=ON \
  -DWITH_DAV1D=ON \
- -DWITH_DAV1D_PLUGIN=OFF \
+ -DWITH_DAV1D_PLUGIN=ON \
+ -DWITH_EXAMPLES=ON \
+%if %{with bootstrap}
+ -DWITH_FFMPEG_DECODER=ON \
+ -DWITH_FFMPEG_DECODER_PLUGIN=ON \
+%endif
  -DWITH_JPEG_DECODER=ON \
+ -DWITH_JPEG_DECODER_PLUGIN=ON \
  -DWITH_JPEG_ENCODER=ON \
+ -DWITH_JPEG_ENCODER_PLUGIN=ON \
+ -DWITH_LIBSHARPYUV=ON \
  -DWITH_OpenJPEG_DECODER=ON \
- -DWITH_OpenJPEG_DECODER_PLUGIN=OFF \
+ -DWITH_OpenJPEG_DECODER_PLUGIN=ON \
  -DWITH_OpenJPEG_ENCODER=ON \
- -DWITH_OpenJPEG_ENCODER_PLUGIN=OFF \
+ -DWITH_OpenJPEG_ENCODER_PLUGIN=ON \
  -DWITH_OPENJPH_DECODER=ON \
  -DWITH_OPENJPH_ENCODER=ON \
- -DWITH_OPENJPH_ENCODER_PLUGIN=OFF \
+ -DWITH_OPENJPH_ENCODER_PLUGIN=ON \
 %ifnarch %{ix86}
  -DWITH_OpenH264_DECODER=ON \
  -DWITH_OpenH264_ENCODER=ON \
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
  -DWITH_RAV1E=ON \
- -DWITH_RAV1E_PLUGIN=OFF \
+ -DWITH_RAV1E_PLUGIN=ON \
  -DWITH_SvtEnc=ON \
- -DWITH_SvtEnc_PLUGIN=OFF \
+ -DWITH_SvtEnc_PLUGIN=ON \
 %endif
 %if %{with bootstrap}
  -DWITH_EXAMPLE_HEIF_VIEW=OFF \
@@ -142,30 +174,6 @@ rm -rf third-party/
 
 %install
 %cmake_install
-
-# fix multilib issues: Rename the provided file with platform-bits in name.
-# Create platform independent file inplace of the provided one and conditionally
-# include the required one.
-# $1 - filename.h to process.
-function multilibFileVersions(){
-mv $1 ${1%%.h}-%{__isa_bits}.h
-
-local basename=$(basename $1)
-
-cat >$1 <<EOF
-#include <bits/wordsize.h>
-
-#if __WORDSIZE == 32
-# include "${basename%%.h}-32.h"
-#elif __WORDSIZE == 64
-# include "${basename%%.h}-64.h"
-#else
-# error "unexpected value for __WORDSIZE macro"
-#endif
-EOF
-}
-
-multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %check

@@ -16,6 +16,7 @@ Patch2:         thefuck-replace-mock.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 
 %description
 This application corrects your previous console command.

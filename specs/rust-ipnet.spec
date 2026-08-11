@@ -5,7 +5,7 @@
 %global crate ipnet
 
 Name:           rust-ipnet
-Version:        2.12.0
+Version:        2.12.1
 Release:        %autorelease
 Summary:        Types and useful methods for working with IP prefixes
 

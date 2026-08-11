@@ -7,8 +7,8 @@
 %global __requires_exclude pkg-config
 
 Name: dracut
-Version: 109
-Release: 7%{?dist}
+Version: 111
+Release: 1%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -17,9 +17,9 @@ Summary: Initramfs generator using udev
 # except util/* which is GPLv2
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-only
 
-URL: https://github.com/dracut-ng/dracut-ng/wiki/
+URL: https://github.com/dracut-ng/dracut/wiki/
 
-Source0: https://github.com/dracut-ng/dracut-ng/archive/refs/tags/%{version}.tar.gz
+Source0: https://github.com/dracut-ng/dracut/archive/refs/tags/%{version}.tar.gz
 
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
 # revert: "fix(install.d): correctly install pre-genned image and die if no args"
@@ -43,27 +43,21 @@ Patch6:  0006-fix-ossl-ignore-compiler-warnings.patch
 # Revert "feat(fips): include openssl's fips.so and openssl.cnf"
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch7:  0007-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
-# fix(systemd-cryptsetup): load libcryptsetup via dlopen
-# Author: Antonio Alvarez Feijoo <antonio.feijoo@suse.com>
-Patch8:  0008-fix-systemd-cryptsetup-load-libcryptsetup-via-dlopen.patch
-# feat(systemd-sysext): include systemd-{sys,conf}ext-sysroot services
-# Author: Vitaly Kuznetsov <vkuznets@redhat.com>
-Patch9:  0009-feat-systemd-sysext-include-systemd-sys-conf-ext-sys.patch
 # fix(network-legacy): remove network-legacy completely from the codebase
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch10: 0010-fix-network-legacy-remove-network-legacy-completely-.patch
+Patch8:  0008-fix-network-legacy-remove-network-legacy-completely-.patch
 # fix(iscsi): replace `echo` writes with `printf` to prevent variable injection
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch11: 0011-fix-iscsi-replace-echo-writes-with-printf-to-prevent.patch
+Patch9:  0009-fix-iscsi-replace-echo-writes-with-printf-to-prevent.patch
 # fix(base): escape arguments in initqueue hook script generation
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch12: 0012-fix-base-escape-arguments-in-initqueue-hook-script-g.patch
+Patch10: 0010-fix-base-escape-arguments-in-initqueue-hook-script-g.patch
 # fix(net-lib): warn on suspicious shell metacharacters in hostname file
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch13: 0013-fix-net-lib-warn-on-suspicious-shell-metacharacters-.patch
+Patch11: 0011-fix-net-lib-warn-on-suspicious-shell-metacharacters-.patch
 # fix(systemd-networkd): escape DHCP lease values in dhcpopts generation
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch14: 0014-fix-systemd-networkd-escape-DHCP-lease-values-in-dhc.patch
+Patch12: 0012-fix-systemd-networkd-escape-DHCP-lease-values-in-dhc.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -201,24 +195,30 @@ This package provides a dracut module to build an initramfs, but store most file
 in a squashfs image, result in a smaller initramfs size and reduce runtime memory
 usage.
 
+
 %prep
-%autosetup -n %{name}-ng-%{version} -S git_am
+%autosetup -n %{name}-%{version} -S git_am
 cp %{SOURCE1} .
 
+
 %build
+# Makefile tries to remove of network-legacy (nonexistent) unless --enable-network-legacy
 %configure  --systemdsystemunitdir=%{_unitdir} \
             --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion) \
             --libdir=%{_prefix}/lib \
             --enable-dracut-cpio \
+            --enable-network-legacy \
 %if %{without doc}
             --disable-documentation \
 %endif
             ${NULL}
 
-%make_build
+
+%make_build DRACUT_FULL_VERSION="%{version}-%{release}"
+
 
 %install
-%make_install %{?_smp_mflags} \
+%make_install DRACUT_FULL_VERSION="%{version}-%{release}" %{?_smp_mflags} \
      libdir=%{_prefix}/lib
 
 echo "DRACUT_VERSION=%{version}-%{release}" > $RPM_BUILD_ROOT/%{dracutlibdir}/dracut-version.sh
@@ -228,9 +228,6 @@ rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/10dash
 
 # we do not support mksh in the initramfs
 rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/00mksh
-
-# Remove obsolete module
-rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/35network-legacy
 
 %ifnarch s390 s390x
 # remove architecture specific modules
@@ -278,7 +275,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %dir %{dracutlibdir}
 %dir %{dracutlibdir}/modules.d
 %{dracutlibdir}/dracut-functions.sh
-%{dracutlibdir}/dracut-init.sh
 %{dracutlibdir}/dracut-functions
 %{dracutlibdir}/dracut-version.sh
 %{dracutlibdir}/dracut-logger.sh
@@ -313,29 +309,29 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %ifnarch s390 s390x
 %{dracutlibdir}/modules.d/10warpclock
 %endif
+
 %{dracutlibdir}/modules.d/11fips
 %{dracutlibdir}/modules.d/11fips-crypto-policies
 %{dracutlibdir}/modules.d/11systemd-ac-power
 %{dracutlibdir}/modules.d/11systemd-ask-password
-%{dracutlibdir}/modules.d/11systemd-bsod
 %{dracutlibdir}/modules.d/11systemd-battery-check
+%{dracutlibdir}/modules.d/11systemd-bsod
 %{dracutlibdir}/modules.d/11systemd-coredump
 %{dracutlibdir}/modules.d/11systemd-creds
-%{dracutlibdir}/modules.d/11systemd-cryptsetup
 %{dracutlibdir}/modules.d/11systemd-hostnamed
 %{dracutlibdir}/modules.d/11systemd-initrd
 %{dracutlibdir}/modules.d/11systemd-integritysetup
 %{dracutlibdir}/modules.d/11systemd-journald
 %{dracutlibdir}/modules.d/11systemd-ldconfig
 %{dracutlibdir}/modules.d/11systemd-modules-load
-%{dracutlibdir}/modules.d/11systemd-pcrphase
+%{dracutlibdir}/modules.d/11systemd-pcrextend
 %{dracutlibdir}/modules.d/11systemd-portabled
 %{dracutlibdir}/modules.d/11systemd-pstore
 %{dracutlibdir}/modules.d/11systemd-repart
 %{dracutlibdir}/modules.d/11systemd-resolved
-%{dracutlibdir}/modules.d/11systemd-sysext
 %{dracutlibdir}/modules.d/11systemd-sysctl
-%{dracutlibdir}/modules.d/78systemd-sysusers
+%{dracutlibdir}/modules.d/11systemd-sysext
+%{dracutlibdir}/modules.d/11systemd-sysusers-service
 %{dracutlibdir}/modules.d/11systemd-timedated
 %{dracutlibdir}/modules.d/11systemd-timesyncd
 %{dracutlibdir}/modules.d/11systemd-tmpfiles
@@ -352,29 +348,36 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/20i18n
 %{dracutlibdir}/modules.d/30convertfs
 %{dracutlibdir}/modules.d/45drm
-%{dracutlibdir}/modules.d/45simpledrm
 %{dracutlibdir}/modules.d/45net-lib
 %{dracutlibdir}/modules.d/45plymouth
+%{dracutlibdir}/modules.d/45simpledrm
+%{dracutlibdir}/modules.d/45systemd-import
 %{dracutlibdir}/modules.d/45url-lib
-%{dracutlibdir}/modules.d/70bluetooth
 %{dracutlibdir}/modules.d/68lvmmerge
 %{dracutlibdir}/modules.d/68lvmthinpool-monitor
+%{dracutlibdir}/modules.d/70bluetooth
 %{dracutlibdir}/modules.d/70btrfs
 %{dracutlibdir}/modules.d/70crypt
+%{dracutlibdir}/modules.d/70crypt-lib
+%{dracutlibdir}/modules.d/70devicetree-firmware
 %{dracutlibdir}/modules.d/70dm
 %{dracutlibdir}/modules.d/70dmraid
+%{dracutlibdir}/modules.d/70fs-lib
 %{dracutlibdir}/modules.d/70kernel-modules
 %{dracutlibdir}/modules.d/70kernel-modules-export
 %{dracutlibdir}/modules.d/70kernel-modules-extra
 %{dracutlibdir}/modules.d/70lvm
 %{dracutlibdir}/modules.d/70mdraid
+%{dracutlibdir}/modules.d/70memdisk
 %{dracutlibdir}/modules.d/70multipath
-%{dracutlibdir}/modules.d/70nvdimm
 %{dracutlibdir}/modules.d/70numlock
+%{dracutlibdir}/modules.d/70nvdimm
 %{dracutlibdir}/modules.d/70overlayfs
-%{dracutlibdir}/modules.d/70ppcmac
 %{dracutlibdir}/modules.d/70pcmcia
+%{dracutlibdir}/modules.d/70ppcmac
 %{dracutlibdir}/modules.d/70qemu
+%{dracutlibdir}/modules.d/71overlayfs-crypt
+%{dracutlibdir}/modules.d/71systemd-cryptsetup
 %{dracutlibdir}/modules.d/73crypt-gpg
 %{dracutlibdir}/modules.d/73crypt-loop
 %{dracutlibdir}/modules.d/73fido2
@@ -392,6 +395,26 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/74udev-rules
 %{dracutlibdir}/modules.d/74virtfs
 %{dracutlibdir}/modules.d/74virtiofs
+%{dracutlibdir}/modules.d/75securityfs
+%{dracutlibdir}/modules.d/76biosdevname
+%{dracutlibdir}/modules.d/76masterkey
+%{dracutlibdir}/modules.d/76systemd-emergency
+%{dracutlibdir}/modules.d/77dracut-systemd
+%{dracutlibdir}/modules.d/77ecryptfs
+%{dracutlibdir}/modules.d/77initqueue
+%{dracutlibdir}/modules.d/77integrity
+%{dracutlibdir}/modules.d/77pollcdrom
+%{dracutlibdir}/modules.d/77selinux
+%{dracutlibdir}/modules.d/77syslog
+%{dracutlibdir}/modules.d/77usrmount
+%{dracutlibdir}/modules.d/78systemd-sysusers
+%{dracutlibdir}/modules.d/80base
+%{dracutlibdir}/modules.d/81busybox
+%{dracutlibdir}/modules.d/84memstrack
+%{dracutlibdir}/modules.d/85shell-interpreter
+%{dracutlibdir}/modules.d/86shutdown
+%{dracutlibdir}/modules.d/99openssl
+
 %ifarch s390 s390x
 %{dracutlibdir}/modules.d/68cms
 %{dracutlibdir}/modules.d/69cio_ignore
@@ -401,25 +424,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/74dcssblk
 %{dracutlibdir}/modules.d/74zfcp
 %endif
-%{dracutlibdir}/modules.d/75securityfs
-%{dracutlibdir}/modules.d/76masterkey
-%{dracutlibdir}/modules.d/77integrity
-%{dracutlibdir}/modules.d/76biosdevname
-%{dracutlibdir}/modules.d/76systemd-emergency
-%{dracutlibdir}/modules.d/77dracut-systemd
-%{dracutlibdir}/modules.d/77ecryptfs
-%{dracutlibdir}/modules.d/77pollcdrom
-%{dracutlibdir}/modules.d/77selinux
-%{dracutlibdir}/modules.d/77syslog
-%{dracutlibdir}/modules.d/77usrmount
-%{dracutlibdir}/modules.d/77initqueue
-%{dracutlibdir}/modules.d/80base
-%{dracutlibdir}/modules.d/81busybox
-%{dracutlibdir}/modules.d/84memstrack
-%{dracutlibdir}/modules.d/70fs-lib
-%{dracutlibdir}/modules.d/99openssl
-%{dracutlibdir}/modules.d/86shutdown
-%{dracutlibdir}/modules.d/85shell-interpreter
+
 %attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/log/dracut.log
 %dir %{_sharedstatedir}/initramfs
 %if %{defined _unitdir}
@@ -497,6 +502,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Fri Jul 31 2026 Pavel Valena <pvalena@redhat.com> - 111-1
+- build: upgrade to dracut 111
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 109-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

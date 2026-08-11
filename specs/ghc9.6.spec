@@ -45,7 +45,7 @@
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%if 0%{?rhel} == 9
+%if %{defined el9}
 %global llvm_major 12
 %else
 %global llvm_major 14
@@ -59,7 +59,7 @@ Version: 9.6.7
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -71,8 +71,6 @@ Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.t
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
-# hadrian bootstrap libraries
-Source10: https://downloads.haskell.org/ghc/9.6.7/hadrian-bootstrap-sources/hadrian-bootstrap-sources-9.4.3.tar.gz
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -163,10 +161,14 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-shake-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
+BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires:  %{name}-hadrian
 %endif
@@ -386,23 +388,11 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
-
-%global hadrian_deps clock-0.8.4 extra-1.8 filepattern-0.1.3 hashable-1.4.7.0 heaps-0.4.1 js-dgtable-0.5.2 js-flot-0.8.3 js-jquery-3.3.1 os-string-2.0.7 primitive-0.9.0.0 splitmix-0.1.1 random-1.2.1.3 unordered-containers-0.2.20 utf8-string-1.0.2 shake-0.19.8
-
 ( cd hadrian
   cabal-tweak-flag selftest False
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
   cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
   cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.6'
-  mkdir deps
-  (cd deps
-  tar xf %SOURCE10
-  for i in %hadrian_deps; do
-      tar xf $i.tar.gz
-      mv -f $(echo $i | sed 's/\(.*\)-.*/\1.cabal/') $i
-      mv $i ..
-  done
-  )
   ln -sf ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
   ln -sf ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 )
@@ -492,7 +482,7 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
-%ghc_libs_build -H -P -W Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver} %{hadrian_deps}
+%ghc_libs_build -H -P -W Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -847,6 +837,9 @@ make test
 
 
 %changelog
+* Sun Aug 09 2026 Jens Petersen <petersen@redhat.com> - 9.6.7-28
+- revert use of hadrian-bootstrap-sources (Cabal is enough)
+
 * Fri Aug 07 2026 Jens Petersen <petersen@redhat.com> - 9.6.7-27
 - use hadrian-bootstrap-sources and bundled Cabal to build hadrian (#2503916)
 - patch for sphinx9

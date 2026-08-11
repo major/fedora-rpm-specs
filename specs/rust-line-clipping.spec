@@ -5,9 +5,9 @@
 %global crate line-clipping
 
 Name:           rust-line-clipping
-Version:        0.3.7
+Version:        0.3.8
 Release:        %autorelease
-Summary:        Simple crate implementing line clipping algorithms
+Summary:        Simple crate implementing line and polygon clipping algorithms
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/line-clipping
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple crate implementing line clipping algorithms.}
+A simple crate implementing line and polygon clipping algorithms.}
 
 %description %{_description}
 

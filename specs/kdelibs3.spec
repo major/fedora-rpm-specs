@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 136%{?dist}
+Release: 137%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -180,6 +180,8 @@ Patch308: kdelibs3-c99-2.patch
 # tweak autoconfigury so that it builds with autoconf 2.72
 # https://src.fedoraproject.org/rpms/kdebase3/c/91233a5b909d09775930236bd21556faa993176f?branch=rawhide
 Patch309: kde3-autoconf-2.72.patch
+# Support openssl 4
+Patch310: kdelibs-3.5.10-openssl4.patch
 
 Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 Requires: hicolor-icon-theme
@@ -206,7 +208,9 @@ Requires: hunspell
 
 BuildRequires: gcc-c++
 BuildRequires: gettext
+%if 0%{?fedora} < 45
 BuildRequires: pcre-devel
+%endif
 BuildRequires: cups-devel cups
 BuildRequires: %{qt3}-devel %{qt3}-devel-docs
 BuildRequires: arts-devel >= %{arts_ev}
@@ -381,6 +385,7 @@ This package includes tools kgrantpty and kpac_dhcp_helper.
 %patch -P307 -p1 -b .libxml2_2_12_0
 %patch -P 308 -p1
 %patch -P 309 -p1
+%patch -P 310 -p1 -b .openssl-4
 
 make -f admin/Makefile.common cvs
 
@@ -413,6 +418,9 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations -Wno-narrowing -std=gn
    --disable-fast-malloc \
 %if "%{_lib}" == "lib64"
   --enable-libsuffix="64" \
+%endif
+%if %{?fedora} >= 45
+   --disable-pcre \
 %endif
    --enable-cups \
    --enable-mitshm \
@@ -722,6 +730,10 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Thu Aug 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.10-137
+- Drop pcre1 support on F45 as it is no longer available
+- Support openssl 4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-136
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

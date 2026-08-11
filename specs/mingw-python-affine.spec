@@ -4,12 +4,11 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       2.4.0
-Release:       10%{?dist}
+Version:       3.0.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:       LicenseRef-Callaway-BSD
+License:       BSD-3-Clause
 URL:           https://github.com/sgillies/affine
 Source0:       %{pypi_source}
 
@@ -68,6 +67,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Sun Aug 09 2026 Sandro Mani <manisandro@gmail.com> - 3.0.0-1
+- Update to 3.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

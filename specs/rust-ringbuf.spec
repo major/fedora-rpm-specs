@@ -5,11 +5,10 @@
 %global crate ringbuf
 
 Name:           rust-ringbuf
-Version:        0.4.8
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Lock-free SPSC FIFO ring buffer with direct access to inner data
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ringbuf
 Source:         %{crates_source}
