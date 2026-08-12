@@ -47,6 +47,8 @@ Source100:      Fedora-Color-Palette.gpl
 #ExcludeArch:    %%{ix86}
 #%%endif
 
+Patch:          inkscape-1.4.4-poppler-26.08.0.patch
+
 Provides: bundled(libcroco) = 0.6.99~gitb9e4b47
 Provides: bundled(autotrace) = 0.40.0~git0de6201
 Provides: bundled(libdepixelize) = 0~git19b7601

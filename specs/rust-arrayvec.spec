@@ -5,7 +5,7 @@
 %global crate arrayvec
 
 Name:           rust-arrayvec
-Version:        0.7.7
+Version:        0.7.8
 Release:        %autorelease
 Summary:        Vector with fixed capacity, backed by an array
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only bencher dev-dependency
 # * drop unused support for borsh
 Patch:          arrayvec-fix-metadata.diff
-Patch:          0001-tests-skip-two-tests-on-32-bit-architectures.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -6,7 +6,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-httpx2
-Version:        2.9.1
+Version:        2.10.0
 Release:        %autorelease
 Summary:        A next-generation HTTP client for Python
 
@@ -28,11 +28,6 @@ License:        BSD-3-Clause
 SourceLicense:  %{license} AND MIT
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
-
-# Add MIT license texts for vendored `httpx-ws` and `httpx-sse`
-# https://github.com/pydantic/httpx2/pull/1087
-# See also https://github.com/pydantic/httpx2/discussions/1086.
-Patch:          %{url}/pull/1087.patch
 
 BuildArch:      noarch
 
@@ -148,6 +143,14 @@ tomcli set src/httpcore2/pyproject.toml str \
 tomcli set src/httpx2/pyproject.toml str \
     tool.uv-dynamic-versioning.fallback-version '%{version}'
 
+# Temporarily permit an older uv-dynamic-versioning. This dependency was
+# updated by dependabot in https://github.com/pydantic/httpx2/pull/1103, but it
+# doesn’t seem anything from the newer version is really required. We can drop
+# this after python-uv-dynamic-versioning is updated to at least 0.14.0,
+# https://src.fedoraproject.org/rpms/python-uv-dynamic-versioning/pull-request/1,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2513025.
+%pyproject_patch_dependency uv-dynamic-versioning:set_lower:0.12.0
+
 # Do not generate BuildRequires on workspace packages.
 %pyproject_patch_dependency httpcore2:ignore:br_only
 %pyproject_patch_dependency httpx2:ignore:br_only
@@ -193,8 +196,13 @@ install --directory '%{buildroot}%{_mandir}/man1'
 %check
 %pyproject_check_import --dist-name httpcore2
 %pyproject_check_import --dist-name httpx2
+
 %if %{with tests}
-%pytest -m 'not network' -rs --verbose --ignore=tests/test_benchmark.py
+# We are not interested in running the benchmarks.
+ignore="${ignore-} --ignore=tests/test_benchmark.py"
+ignore="${ignore-} --ignore=tests/test_benchmark_memory.py"
+
+%pytest -m 'not network' -rs --verbose ${ignore-}
 %endif
 
 

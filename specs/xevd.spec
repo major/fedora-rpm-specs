@@ -1,6 +1,6 @@
 Name:           xevd
-Version:        0.5.0
-Release:        7%{?dist}
+Version:        0.7.0
+Release:        %autorelease
 Summary:        Reference MPEG-5 Part 1 (EVC) decoder
 
 License:        BSD-3-Clause
@@ -9,12 +9,7 @@ URL:            https://github.com/mpeg5/xevd
 Source0:        %{name}-free-%{version}.tar.gz
 # Script to generate tarball with unencumbered sources
 Source1:        %{name}_gen_free_tarball.sh
-# Fix build on non-x86
-Patch0:         %{name}-fix-build-on-non-x86.patch
-# Fix typo in NEON header include guard
-Patch1:         %{name}-fix-neon-header.patch
-# Link correctly to libm
-Patch2:         %{name}-link-libm.patch
+Patch0:         %{name}-%{version}-format-overflow.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc
@@ -94,27 +89,4 @@ rm -rfv %{buildroot}%{_libdir}/%{name}*
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sun Aug 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-5
-- Add patch to link libm properly
-- Drop pc file definition patch
-
-* Sun Aug 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-4
-- Add patch to fix pc file definition
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat May 10 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.5.0-2
-- fix build on non-x86
-
-* Sun Sep 29 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-1
-- Updated to 0.5.0
-
-* Wed Oct 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.4.1-1
-- Initial package
+%autochangelog

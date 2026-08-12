@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 9.1.0
-Release: 2%{?beta}%{?dist}
+Release: 3%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -334,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Mon Aug 10 2026 Simone Caronni <negativo17@gmail.com> - 9.1.0-3
+- Rebuilt for updated dependencies.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

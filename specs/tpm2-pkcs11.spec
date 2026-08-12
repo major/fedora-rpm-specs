@@ -1,8 +1,8 @@
 #global candidate RC0
 
 Name:		tpm2-pkcs11
-Version:	1.10.0
-Release:	5%{?candidate:.%{candidate}}%{?dist}
+Version:	1.10.1
+Release:	1%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -79,12 +79,8 @@ popd
 %make_install
 mkdir $RPM_BUILD_ROOT%{_includedir}/
 install src/pkcs11.h $RPM_BUILD_ROOT%{_includedir}/
-# The installation is broken since
-# https://github.com/tpm2-software/tpm2-pkcs11/pull/818
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
-install misc/p11-kit/tpm2_pkcs11.module $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
-mkdir $RPM_BUILD_ROOT%{_libdir}/pkcs11
-mv $RPM_BUILD_ROOT%{_libdir}/libtpm2_pkcs11.so* $RPM_BUILD_ROOT%{_libdir}/pkcs11
+rm -f $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.a
 
 pushd tools
 %pyproject_install
@@ -114,6 +110,9 @@ make check
 
 
 %changelog
+* Mon Aug 10 2026 Jakub Jelen <jjelen@redhat.com> - 1.10.1-1
+- New upstream release (#2512059)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.10.0-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

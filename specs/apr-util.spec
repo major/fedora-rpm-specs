@@ -36,8 +36,8 @@
 
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
-Version: 1.6.3
-Release: 29%{?dist}
+Version: 1.6.5
+Release: 1%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -50,14 +50,9 @@ URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.4.1-private.patch
-Patch3: apr-util-1.6.3-allow-ipv6.patch
-Patch4: apr-util-configure-c99.patch
-Patch5: apr-util-1.6.3-lmdb-support.patch
-Patch6: apr-util-1.6.3-r1908586.patch
-Patch7: apr-util-1.6.3-r1908584.patch
-Patch8: apr-util-1.6.3-r1908585.patch
-Patch9: apr-util-1.6.3-drop-engine-headers.patch
-Patch10: apr-util-1.6.3-r1928729.patch
+Patch3: apr-util-1.6.3-lmdb-support.patch
+Patch4: apr-util-1.6.3-drop-engine-headers.patch
+Patch5: apr-util-1.6.3-r1928729.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
@@ -285,6 +280,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Aug 10 2026 Luboš Uhliarik <luhliari@redhat.com> - 1.6.5-1
+- new version 1.6.5
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

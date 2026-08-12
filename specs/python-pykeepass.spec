@@ -1,5 +1,5 @@
 Name:           python-pykeepass
-Version:        4.1.1.post1
+Version:        4.2.0
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases

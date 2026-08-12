@@ -7,7 +7,7 @@
 
 Name:           automoc
 Version:        1.0
-Release:        0.54.%{?beta_tag}%{?dist}
+Release:        0.55.%{?beta_tag}%{?dist}
 Summary:        Automatic moc for Qt 4
 License:        BSD-2-Clause
 URL:            http://www.kde.org
@@ -47,6 +47,7 @@ Patch30: 0030-Don-t-attempt-to-read-the-DEFINITIONS-property.patch
 Patch31: 0031-Don-t-attempt-to-add-dependencies-which-do-not-exist.patch
 Patch32: 0032-set-cmake_min_req-to-enable-newer-policies.patch
 Patch33: 0033-cmake-2.8.9-sets-CMP0003-to-NEW-clean-up.patch
+Patch34: automoc-cmake4.patch
 
 Provides: automoc4 = %{beta}
 
@@ -88,6 +89,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Mon Aug 10 2026 Than Ngo <than@redhat.com> - 1.0-0.55.rc3
+- Fix rhbz#2503779, FTBFS with cmake4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.54.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -72,9 +72,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %license COPYING
 %doc README.md
 %{_bindir}/gnome-network-displays
+%{_bindir}/gnome-network-displays-daemon
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.NetworkDisplays.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.NetworkDisplays-symbolic.svg
+%{_libexecdir}/gnome-network-displays-stream
 %{_metainfodir}/org.gnome.NetworkDisplays.metainfo.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 

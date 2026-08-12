@@ -1,7 +1,7 @@
 %global giturl  https://github.com/ezaffanella/PPLite
 
 Name:           pplite
-Version:        0.13
+Version:        0.14
 Release:        %autorelease
 Summary:        Convex polyhedra library for abstract interpretation
 
@@ -62,7 +62,7 @@ make check
 %files
 %license COPYING
 %doc CREDITS
-%{_libdir}/libpplite.so.6{,.*}
+%{_libdir}/libpplite.so.7{,.*}
 
 %files devel
 %{_includedir}/pplite/

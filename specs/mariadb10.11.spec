@@ -1295,7 +1295,7 @@ rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedd
 %endif
 %if %{with pam}
 rm %{buildroot}/suite/plugins/pam/mariadb_mtr
-rm %{buildroot}/suite/plugins/pam/pam_mariadb_mtr.so
+rm %{buildroot}/%{_libdir}/%{majorname}/plugin/test_pam_modules/pam_mariadb_mtr.so
 # endif pam
 %endif
 rm %{buildroot}%{_bindir}/{mysql_client_test,mysqltest}

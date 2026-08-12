@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2026b
-%define tzdata_version 2026b
-%define tzcode_version 2026b
-Release: 2%{?dist}
+Version: 2026c
+%define tzdata_version 2026c
+%define tzcode_version 2026c
+Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -142,6 +142,11 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Mon Aug 10 2026 Patsy Griffin <patsy@redhat.com> - 2026c-1
+  Update to tzdata-2026c (#2498187)
+  - Alberta moved to permanent -06 on 2026-06-18.
+  - Morocco moves to permanent +00 on 2026-09-20.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

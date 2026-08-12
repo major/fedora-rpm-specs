@@ -296,8 +296,8 @@ rm -f %{buildroot}%{_bindir}/gpgscm
 
 # Move the systemd user units to appropriate directory
 install -d -m755 %{buildroot}%{_userunitdir}
-install -p doc/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
-install -p doc/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
+install -p -m644 doc/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
+install -p -m644 doc/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
 
 %check
 # need scratch gpg database for tests

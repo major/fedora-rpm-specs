@@ -5,7 +5,7 @@
 %global crate zlink
 
 Name:           rust-zlink
-Version:        0.5.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Async Varlink API
 
@@ -170,7 +170,9 @@ use the "tracing" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test -f smol,tokio
+# * The doc tests only work in the git repoitory as they reference files from a
+#   book directory.
+%cargo_test -f smol,tokio -- --lib
 %endif
 
 %changelog

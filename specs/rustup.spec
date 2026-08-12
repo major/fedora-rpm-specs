@@ -48,7 +48,12 @@ Patch:          0006-Disable-tests-suite-static_roots.patch
 # * Unpin tracing-subscriber
 #   https://github.com/rust-lang/rustup/pull/4745
 #   https://github.com/tokio-rs/tracing/issues/3369
-Patch:          0001-Unpin-tracing-subcriber.patch
+Patch:          0007-Unpin-tracing-subcriber.patch
+
+# Upgrade to rustls-platform-verifier 0.7
+# (without changes to Cargo.lock)
+# https://github.com/rust-lang/rustup/commit/4d7b4b68b9736aa1dccf43c4b6df0976e88b3c8a
+Patch:          0008-Upgrade-to-rustls-platform-verifier-0.7.patch
 
 ExcludeArch:    %{ix86}
 

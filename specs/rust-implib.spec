@@ -5,7 +5,7 @@
 %global crate implib
 
 Name:           rust-implib
-Version:        0.4.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Generate Windows import library from module definition file
 
@@ -24,11 +24,6 @@ Generate Windows import library from module definition file.}
 Summary:        %{summary}
 BuildArch:      noarch
 
-# includes a modified fork of crate(ar) = 0.9.0 with added symbol table support:
-# * https://github.com/messense/implib-rs/commit/2449c6d
-# * https://github.com/messense/implib-rs/issues/15
-Provides:       bundled(crate(ar)) = 0.9.0
-
 %description    devel %{_description}
 
 This package contains library source intended for building other packages which
@@ -36,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/src/ar/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

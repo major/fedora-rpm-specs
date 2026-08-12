@@ -5,17 +5,13 @@
 %global crate linktime-proc-macro
 
 Name:           rust-linktime-proc-macro
-Version:        0.2.0
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Proc-macro helpers for linktime crates (ctors, dtors, linker sections)
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/linktime-proc-macro
 Source:         %{crates_source}
-# * The excluded tests assume a directory layout that do not match the unpacked
-#   crate;
-# * additionally, one test has a mismatch only on i686 and is ignored there
-Patch2:         disable-failing-doctests.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -36,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

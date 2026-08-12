@@ -2,18 +2,10 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%if 0%{?el9}
-# stderr mismatch due to older rustc version
-# retest when updating
-%bcond trybuild_overwrite 1
-%else
-%bcond trybuild_overwrite 0
-%endif
-
 %global crate link-section
 
 Name:           rust-link-section
-Version:        0.19.0
+Version:        0.19.3
 Release:        %autorelease
 Summary:        Link-time initialized slices for Rust
 
@@ -83,6 +75,12 @@ use the "std" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+%if 0%{?el9}
+%ifarch ppc64le
+# rustc 1.92 in EL 9.8 hasn't stabilized ppc64le inline asm (stable in 1.95)
+sed -i '1i #![feature(asm_experimental_arch)]' examples/*.rs tests/pass/*.rs
+%endif
+%endif
 %cargo_prep
 
 %generate_buildrequires
@@ -96,8 +94,22 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%if 0%{?el9}
+%ifarch ppc64le
+export RUSTDOCFLAGS='-Zcrate-attr=feature(asm_experimental_arch)'
+%endif
+# stderr mismatch due to older rustc version
+# retest when updating
+%bcond trybuild_overwrite 1
+%else
+%bcond trybuild_overwrite 0
+%endif
+
+%if %{with trybuild_overwrite}
+export TRYBUILD=overwrite
+%endif
 # * this test panics
-%cargo_test -- -- --skip pass_linux %{?with_trybuild_overwrite:TRYBUILD=overwrite}
+%cargo_test -- -- --skip pass_linux
 %endif
 
 %changelog

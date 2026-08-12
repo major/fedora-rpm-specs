@@ -36,7 +36,7 @@
 
 Name:           perl-Prima
 Version:        1.77
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -57,6 +57,7 @@ Summary:        Perl graphic toolkit
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
+Patch0:         perl-Prima-1.77-libheif-1.23.1.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}
@@ -333,6 +334,12 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 10 2026 Simone Caronni <negativo17@gmail.com> - 1.77-6
+- Fix tests with libheif 1.23.1.
+
+* Mon Aug 10 2026 Simone Caronni <negativo17@gmail.com> - 1.77-5
+- Rebuilt for updated dependencies.
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.77-4
 - Perl 5.44 rebuild
 

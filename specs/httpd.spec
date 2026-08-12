@@ -29,7 +29,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.68
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -864,6 +864,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Mon Aug 10 2026 Luboš Uhliarik <luhliari@redhat.com> - 2.4.68-6
+- rebuild for apr-util 1.6.5
+
 * Tue Jul 28 2026 David King <dking@redhat.com> - 2.4.68-5
 - Fix man page XML syntax
 

@@ -1,23 +1,30 @@
 Name:       vapoursynth
-Version:    73
+Version:    79
 Release:    %autorelease
 Summary:    Video processing framework with simplicity in mind
 License:    LGPL-2.1-only
 URL:        http://www.vapoursynth.com
 
 Source0:    https://github.com/%{name}/%{name}/archive/R%{version}/%{name}-R%{version}.tar.gz
-Patch0:     %{name}-version-info.patch
+# Restore soversion that was dropped when libvapoursynth-script was renamed to libvsscript.
+Patch0:     %{name}-vsscript-soversion.patch
+# Check for _Float16 instead of assuming that everything not x86 provides it.
+Patch1:     %{name}-float16-native-check.patch
 
-BuildRequires:  make
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc-c++
-BuildRequires:  libtool
-BuildRequires:  nasm
-BuildRequires:  pkgconfig(tesseract)
+BuildRequires:  meson
+BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(zimg)
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+
+# Since R79 upstream installs the whole runtime -- the core library, the filter
+# plugins, vspipe, the headers and the pkg-config file -- inside the Python
+# package directory, and VSCore locates libvapoursynthfilters and the
+# third-party plugin directory relative to libvapoursynth.so via dladdr().
+# The libraries, vspipe and the plugin directory therefore have to stay there;
+# see %%install for the FHS entry points layered on top.
+%global vsdir %{python3_sitearch}/%{name}
 
 %description
 VapourSynth is an application for video manipulation. Or a plugin. Or a library.
@@ -36,6 +43,7 @@ VapourSynth's core library with a C++ API.
 
 %package -n     python3-%{name}
 Summary:        Python interface for VapourSynth
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description -n python3-%{name}
 Python interface for VapourSynth/VSSCript.
@@ -58,62 +66,89 @@ This package contains the vspipe tool for interfacing with VapourSynth.
 %autosetup -p1 -n %{name}-R%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -R
 
 %build
-autoreconf -vif
-%configure \
-    --disable-static \
-    --enable-x86-asm \
-    --enable-core \
-    --enable-vsscript \
-    --enable-vspipe \
-    --enable-python-module
-
-%make_build
-
-# Make libraries available for Python linking
-ln -sf .libs build
-%pyproject_wheel
+# CPython 3.15 gained a platform specific stable ABI suffix
+# (.abi3-x86_64-linux-gnu.so) which meson-python 0.20 does not recognise as
+# abi3, so it refuses to build the wheel. Nothing is gained from the limited
+# API in a distribution build against a single Python version, so turn it off.
+%pyproject_wheel -C setup-args=-Dpython.allow_limited_api=false
 
 %install
-%make_install
-find %{buildroot} -type f -name "*.la" -delete
-
 %pyproject_install
 %pyproject_save_files -l %{name}
 
-# Create plugin directory
-mkdir -p %{buildroot}%{_libdir}/%{name}
-
-# Let RPM pick up docs in the files section
+# Let RPM pick up docs in the files section.
 rm -fr %{buildroot}%{_docdir}/%{name}
 
+# Third-party plugins are auto-loaded from next to the core library.
+mkdir -p %{buildroot}%{vsdir}/plugins
+
+# Headers belong in the usual place.
+mkdir -p %{buildroot}%{_includedir}/%{name}
+mv %{buildroot}%{vsdir}/include/*.h %{buildroot}%{_includedir}/%{name}/
+rmdir %{buildroot}%{vsdir}/include
+
+# Upstream's vapoursynth.pc resolves everything relative to ${pcfiledir}, which
+# no longer works once the file sits in %%{_libdir}/pkgconfig, and it ships no
+# Libs: at all. Write it out instead.
+rm -fr %{buildroot}%{vsdir}/pkgconfig
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+cat > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc <<EOF
+prefix=%{_prefix}
+libdir=%{_libdir}
+includedir=%{_includedir}/%{name}
+
+Name: vapoursynth
+Description: A frameserver for the 21st century
+Version: %{version}
+Cflags: -I\${includedir}
+Libs: -L\${libdir} -lvapoursynth
+EOF
+
+# Make the libraries linkable and resolvable the normal way.
+mkdir -p %{buildroot}%{_libdir}
+for lib in $(cd %{buildroot}%{vsdir} && ls libvapoursynth.so.* libvsscript.so.*); do
+    ln -s %{vsdir}/${lib} %{buildroot}%{_libdir}/${lib}
+    ln -s ${lib} %{buildroot}%{_libdir}/${lib%%.so.*}.so
+done
+
+# The core library, its filter plugins and vspipe live inside the Python
+# package directory but are packaged in the -libs and -tools subpackages.
+sed -i -e '\#/%{name}/lib.*\.so#d' \
+       -e '\#/%{name}/vspipe$#d' \
+       -e '\#/%{name}/include#d' \
+       -e '\#/%{name}/pkgconfig#d' \
+       -e '\#^%%dir %{vsdir}$#d' \
+       %{pyproject_files}
+
 %check
-export LD_LIBRARY_PATH=build
 %pytest
 
 %files libs
 %doc ChangeLog
 %license COPYING.LESSER
-%dir %{_libdir}/%{name}
+%dir %{vsdir}
+%dir %{vsdir}/plugins
+%{vsdir}/lib%{name}.so.*
+%{vsdir}/lib%{name}filters*.so
+%{vsdir}/libvsscript.so.*
 %{_libdir}/lib%{name}.so.*
-%{_libdir}/lib%{name}-script.so.*
+%{_libdir}/libvsscript.so.*
 
 %files devel
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
-%{_libdir}/lib%{name}-script.so
+%{_libdir}/libvsscript.so
 %{_libdir}/pkgconfig/%{name}.pc
-%{_libdir}/pkgconfig/%{name}-script.pc
 
 %files tools
+%{_bindir}/%{name}
 %{_bindir}/vspipe
+%{vsdir}/vspipe
 
 %files -n python3-%{name} -f %{pyproject_files}
-%{python3_sitearch}/%{name}.so
-%{python3_sitearch}/cython
-%{python3_sitearch}/vsscript
 
 %changelog
 %autochangelog

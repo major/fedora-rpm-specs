@@ -1,147 +1,130 @@
 # gcmd plugins uses symbols defined in gcmd binary
 %undefine	_strict_symbol_defs_build
 
-%global        EXIV2_REQ             0.14
-%global        GLIB_REQ              2.70.0
-%global        LIBGSF_REQ            1.14.26
-%global        POPPLER_REQ           0.18
-%global        TAGLIB_REQ            1.4
-%global        UNIQUE_REQ            0.9.3
+%global	EXIV2_REQ		0.14
+%global	GLIB_REQ		2.80.0
+%global	GTK_REQ		4.14.0
+%global	LIBGSF_REQ		1.14.46
+%global	TAGLIB_REQ		1.4
+%global	VTE_REQ		0.76
 
-%global        if_pre                0
+%global	if_pre	0
 
-%global        use_gcc_strict_sanitize        0
+%global	use_gcc_strict_sanitize	0
 
-%global        use_release           1
-%global        use_gitbare           0
+%global	use_release	1
+%global	use_gitbare	0
 
 %if 0%{?use_gitbare} < 1
 # force
-%global        use_release           1
+%global	use_release	1
 %endif
 
-%global        flagrel               %{nil}
-%if            0%{?use_gcc_strict_sanitize} >= 1
-%global        flagrel               %{flagrel}.san
+%global	flagrel		%{nil}
+%if	0%{?use_gcc_strict_sanitize} >= 1
+%global	flagrel		%{flagrel}.san
 %endif
 
 %if 0%{?use_gitbare}
-%global        gittardate            20240721
-%global        gittartime            1636
-%global        gitbaredate           20240719
-%global        git_rev               95c732e0bda821f4b1eb437d2bc175acd268c9c6
-%global        git_short             %(echo %{git_rev} | cut -c-8)
-%global        git_version           %{gitbaredate}git%{git_short}
+%global	gittardate		20240721
+%global	gittartime		1636
+%global	gitbaredate	20240719
+%global	git_rev		95c732e0bda821f4b1eb437d2bc175acd268c9c6
+%global	git_short		%(echo %{git_rev} | cut -c-8)
+%global	git_version	%{gitbaredate}git%{git_short}
 
-%global        if_pre                1
-%global        clamp_mtime_to_source_date_epoch  0
+%global	if_pre	1
+%global	clamp_mtime_to_source_date_epoch  0
 %endif
 
-%global        shortver              1.18
-%global        fullver               %{shortver}.5
+%global	shortver	2.0
+%global	fullver	%{shortver}.3
 
 %if 0%{?use_release} >= 1
-%global        fedoraver             %{fullver}
+%global	fedoraver	%{fullver}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global        fedoraver             %{fullver}%{?if_pre:~}%{!?if_pre:^}%{git_version}
+%global	fedoraver	%{fullver}%{?if_pre:~}%{!?if_pre:^}%{git_version}
 %endif
 
-Name:          gnome-commander
-# Downgrade 3 times, sorry...
-Epoch:         4
-Version:       %{fedoraver}
-Release:       2%{?dist}%{flagrel}
-Summary:       A nice and fast file manager for the GNOME desktop
-Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
-Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
+%global	baserelease	2
 
-# Overall	GPL-2.0-or-later
+Name:		gnome-commander
+# Downgrade 3 times, sorry...
+Epoch:	4
+Version:	%{fedoraver}
+Release:	%{baserelease}%{?dist}%{flagrel}
+Summary:	Fast and powerful twin-panel file manager for the Linux desktop
+
+# Overall	GPL-3.0-or-later
 # data/org.gnome.gnome-commander.appdata.xml.in		CC0-1.0
 # doc/C/legal.xml	GFDL-1.1-or-later
 # SPDX confirmed
-License:       GPL-2.0-or-later AND GFDL-1.1-or-later AND CC0-1.0
-URL:           http://gcmd.github.io/
-%if 0%{?use_release}
-Source0:       http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{shortver}/%{name}-%{version}%{?extratag:-%extratag}.tar.xz
+License:	%{shrink:
+	GPL-3.0-or-later AND
+	GFDL-1.3-or-later AND
+	CC0-1.0
+	}
+URL:	https://gnome.pages.gitlab.gnome.org/gnome-commander/
+%if		0%{?use_release}
+Source0:	https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{version}%{?extratag:-%extratag}.tar.bz2
 %endif
-%if 0%{?use_gitbare}
+%if		0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
-Source1:       gnome-commander.sh
-# Source0 is created from Source2
-Source2:       create-gcmd-git-bare-tarball.sh
-Patch1:        gnome-commander-1.6.0-path-fedora-specific.patch
+# https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/331/diffs?commit_id=b7bbb1d7d792a523e7b3a58e96dadc9db4c5152e
+# As currently we use old rust-gtk4, some changes in the above MR
+# has to be reverted.
+Patch0:		gnome-commander-pr203-rust-gtk4-change-revert.patch
 
-BuildRequires: gcc-c++
-%if 0%{?use_gcc_strict_sanitize}
-BuildRequires: libasan
-BuildRequires: libubsan
+# meson.build
+BuildRequires:	meson
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
+%if	0%{?use_gcc_strict_sanitize}
+BuildRequires:	libasan
+BuildRequires:	libubsan
 %endif
 
-BuildRequires: desktop-file-utils
-BuildRequires: gettext
-BuildRequires: intltool
+BuildRequires:	pkgconfig(gobject-2.0)	>= %{GLIB_REQ}
+BuildRequires:	pkgconfig(glib-2.0)	>= %{GLIB_REQ}
+BuildRequires:	pkgconfig(gmodule-2.0)
+BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	pkgconfig(gtk4)	>= %{GTK_REQ}
+BuildRequires:	pkgconfig(vte-2.91-gtk4)	>= %{VTE_REQ}
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(exiv2)	>= %{EXIV2_REQ}
+BuildRequires:	pkgconfig(libgsf-1)	>= %{LIBGSF_REQ}
+BuildRequires:	pkgconfig(taglib)	>= %{TAGLIB_REQ}
+BuildRequires:	pkgconfig(poppler-glib)
+BuildRequires:	cargo-rpm-macros
 
-BuildRequires: pkgconfig(exiv2)         >= %{EXIV2_REQ}
-BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(gnome-vfs-2.0)
-BuildRequires: pkgconfig(libgsf-1)        >= %{LIBGSF_REQ}
-BuildRequires: pkgconfig(poppler-glib)       >= %{POPPLER_REQ}
-BuildRequires: pkgconfig(taglib)        >= %{TAGLIB_REQ}
-BuildRequires: pkgconfig(unique-1.0)        >= %{UNIQUE_REQ}
+# data/meson.build
+BuildRequires:	/usr/bin/appstream-util
+BuildRequires:	desktop-file-utils
 
-BuildRequires: libICE-devel
-BuildRequires: libSM-devel
+# doc/meson.build
+BuildRequires:	yelp-tools
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
 
-BuildRequires: meson
-BuildRequires: flex
-BuildRequires: intltool
-BuildRequires: yelp-tools
+# libgcmd/meson.build
+BuildRequires:	/usr/bin/gi-docgen
 
-BuildRequires: /usr/bin/git
-BuildRequires: /usr/bin/appstream-util
+# po/meson.build
+BuildRequires:	gettext
+BuildRequires:	intltool
+
+# etc
+BuildRequires:	/usr/bin/git
 
 # %%check
-BuildRequires: xorg-x11-server-Xvfb
-BuildRequires: pkgconfig(gtest)
-
-Requires:         meld
-Requires:         gnome-icon-theme-legacy
-%if 0%{?fedora} >= 41
-BuildRequires: gdk-pixbuf2-modules-extra
-Requires:      gdk-pixbuf2-modules-extra%{?_isa}
-%endif
+# etc
+Requires:	meld
+Requires:	gnome-icon-theme-legacy
 
 %description
-GNOME Commander is a nice and fast file manager for the GNOME desktop. 
-In addition to performing the basic filemanager functions the program is 
-also an FTP-client and it can browse SMB-networks.
-
-%description -l cs
-GNOME Commander je pěkný a rychlý správce souborů pro GNOME desktop.
-Kromě základních funkcí správy souborů je program také
-FTP klient a umí procházet SMB sítěmi.
-
-%description -l pl
-GNOME Commander to niewielki i wydajny menadżer plików umożliwiający
-wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
-Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa
-sieci SMB.
-
-%description -l ru
-Быстро работающий файловый менеджер для GNOME. Может выполнять большинство
-типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы
-другими программами, и автоматически обновлять отображаемый список файлов.
-Поддерживает описания файловых структур в формате DND и кодировки MIME.
-Реализует на базовом уровне поддержку FTP через GnomeVFS.
-
-%description -l sv
-GNOME Commander är en snabb och smidig filhanderare för GNOME.
-Utöver att kunna hantera filer på din egen dator så kan programmet även
-ansluta till FTP-servrar och SMB-nätverk.
+Gnome Commander is a fast and powerful twin-panel file manager for
+the Linux desktop.
 
 %prep
 %if 0%{?use_release}
@@ -175,8 +158,8 @@ EOF
 
 cat GITHASH | while read line
 do
-  commit=$(echo "$line" | sed -e 's|[ \t].*||')
-  git cherry-pick $commit
+	commit=$(echo "$line" | sed -e 's|[ \t].*||')
+	git cherry-pick $commit
 done
 
 %endif
@@ -189,34 +172,34 @@ git add .
 git commit -m "base" -q
 %endif
 
-%patch -P1 -p1 -b .path
-git commit -m "Apply Fedora specific path configuration" -a
-%if 0%{?use_release}
-%endif
+# Tweak rpath to move library to project specific directory
+sed -i.rpath src/meson.build \
+	-e "\@rpath =@s|^.*$|rpath = '%{_libdir}/%{name}'|"
+git commit -m "tweak rpath" -a
 
-# Tweak samba detection
-sed -i meson.build \
-	-e 's|^\(samba = dependency\)|# \1|' \
-	-e 's|^\(have_samba = .*\)$|have_samba = true|' \
+# Relax Cargo deps for vte for now
+# ... and adjust other deps
+sed -i Cargo.toml \
+	-e '\@vte =.*vte4@s|0.10.0|0.8.0|' \
+	-e '\@glib =.*@s|0.22|0.20|' \
+	-e '\@gtk =.*gtk4@s|0.11|0.9|' \
 	%{nil}
-git commit -m "Tweak samba detection" -a
+git commit -m "relax Cargo deps" -a
 
-# Don't install unneeded files
-sed -i doc/meson.build \
-	-e '\@install_data@,\@^)$@s|^\(.*\)$|# \1|' \
+%patch -P0 -p1
+git commit -m "revert some rust-gtk4 related changes" -a
+
+# FIXME
+# Is there better way to archive this?
+sed -i src/meson.build \
+	-e 's|RUSTFLAGS=-L |RUSTFLAGS=%{build_rustflags} -L |' \
 	%{nil}
-git commit -m "Don't install header files, static archives, documentation" -a
+git commit -m "embed rpmbuild rustflags" -a
 
-%if 0%{?use_gitbare}
-pushd ..
-%endif
+%cargo_prep
 
-# gzip
-#gzip -9 ChangeLog-*
-
-%if 0%{?use_gitbare}
-popd
-%endif
+%generate_buildrequires
+%cargo_generate_buildrequires -a -t
 
 %build
 export BUILD_TOP_DIR=$(pwd)
@@ -231,13 +214,12 @@ export CXX="${CXX} -fsanitize=address -fsanitize=undefined"
 pushd %{name}
 %endif
 
-# Install wrapper script, and move binaries to
-# %%{_libexecdir}/%%{name}
-%meson \
-   --bindir=%{_libexecdir}/%{name} \
-   %{nil}
-
+%meson
 %meson_build --ninja-args "-k 0"
+
+%cargo_license_summary
+%{cargo_license} > $BUILD_TOP_DIR/LICENSE.dependencies
+
 
 %if 0%{?use_gitbare}
 popd
@@ -250,27 +232,25 @@ pushd %{name}
 
 %meson_install
 
-# Install wrapper
-%{__mkdir_p} %{buildroot}%{_bindir}
-%{__install} -cpm 0755 %SOURCE1 %{buildroot}%{_bindir}/%{name}
-
 %if 0%{?use_gitbare}
 popd
 %endif
+
+# Move library to project specific directory
+pushd %{buildroot}
+mv ./%{_libdir}/libgcmd.so ./%{_libdir}/%{name}/
+
+popd
 
 %find_lang %{name}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.%{name}.metainfo.xml
 
 %if 0%{?use_gitbare}
 pushd %{name}
 %endif
-
-export ASAN_OPTIONS=detect_leaks=0
-xvfb-run sh -c \
-	"%meson_test -v"
 
 %if 0%{?use_gitbare}
 popd
@@ -278,34 +258,62 @@ popd
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS
-%doc BUGS
-%license COPYING
-%doc NEWS
-%doc README.md
-%doc TODO
-%doc doc/*.txt
+%doc	AUTHORS
+%doc	BUGS
+%doc	CONTRIBUTING.md
+%license	COPYING
+%license	LICENSES/
+%license	LICENSE.dependencies
+%doc	MAINTAINERS
+%doc	NEWS
+%doc	README.md
 
-%{_bindir}/*
-%{_libexecdir}/%{name}/
-%{_libdir}/%{name}/
-%{_mandir}/man1/%{name}.1*
+%dir	%{_datadir}/%{name}
 
-%{_datadir}/glib-2.0/schemas/org.gnome.*xml
-%dir %{_datadir}/%{name}
-#%%{_datadir}/%{name}/*.txt
-%{_datadir}/%{name}/icons/
-
+# data/meson.build
+%{_metainfodir}/org.gnome.%{name}.metainfo.xml
 %{_datadir}/applications/org.gnome.%{name}.desktop
-%{_metainfodir}/org.gnome.%{name}.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.%{name}.*.xml
 
+# doc/meson.build
+%{_mandir}/man1/%{name}.1*
 %{_datadir}/help/*/%{name}/
 
+# libgcmd/meson.build
+%dir	%{_libdir}/%{name}/
+%{_libdir}/%{name}/libgcmd.so
+%dir	%{_libdir}/girepository-1.0
+%{_libdir}/girepository-1.0/GnomeCmd-1.0.typelib
+%dir	%{_datadir}/gir-1.0/
+%{_datadir}/gir-1.0/GnomeCmd-1.0.gir
+%doc	%{_defaultdocdir}/libgcmd-1.0/
 
-%{_datadir}/icons/hicolor/scalable/apps/%{name}*.svg
+# pixmaps/*/meson.build
 %{_datadir}/pixmaps/%{name}/
+%{_datadir}/icons/hicolor/scalable/apps/
+
+# pixmaps/file-type-icons/meson.build
+%{_datadir}/%{name}/icons/*.png
+
+# pixmaps/meson.build
+%dir	%{_datadir}/%{name}/icons/
+%{_datadir}/%{name}/icons/hicolor/
+
+# plugins/*/meson.build
+%dir	%{_libdir}/%{name}/plugins/
+%{_libdir}/%{name}/plugins/lib*plugin.so
+%{_libdir}/%{name}/plugins/*.png
+
+# src/meson.build
+%{_bindir}/%{name}
 
 %changelog
+* Mon Aug 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:2.0.3-2
+- Generate debuginfo for rust sources
+
+* Mon Aug 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:2.0.3-1
+- 2.0.3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.18.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

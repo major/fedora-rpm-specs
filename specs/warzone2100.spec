@@ -1,9 +1,10 @@
 # Don't build internal static libs as shared
 %global _cmake_shared_libs %{nil}
+%global debug_package %{nil}
 
 Name:           warzone2100
-Version:        4.6.3
-Release:        3%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 # See COPYING.NONGPL
@@ -13,6 +14,7 @@ Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{v
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
 
 Patch1:         cmake4.patch
+Patch2:         8701c62ae68ca70da43ec915cbf6776c492e6656.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -86,6 +88,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps
 mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/net.wz2100.warzone2100.png
 
+#Not sure where this is coming from.
+rm -f %{buildroot}%{_bindir}/warzone2100.debug
+
 %files -f %{name}.lang
 %license COPYING COPYING.NONGPL COPYING.README
 %doc AUTHORS ChangeLog
@@ -101,6 +106,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Thu Aug 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.7.0-1
+- 4.7.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

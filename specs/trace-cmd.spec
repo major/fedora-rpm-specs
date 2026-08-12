@@ -6,7 +6,7 @@
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A user interface to Ftrace
 
@@ -21,6 +21,10 @@ Source0: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/snapshot/t
 Source1: trace-cmd.conf
 Source2: trace-cmd.service
 Source3: 98-trace-cmd.rules
+
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0: trace-cmd-swig45.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -52,7 +56,7 @@ BuildRequires: python3-devel
 Python plugin support for trace-cmd
 
 %prep
-%autosetup -n %{name}-v%{srcversion}
+%autosetup -p1 -n %{name}-v%{srcversion}
 cp %{SOURCE1} .
 cp %{SOURCE2} .
 cp %{SOURCE3} .
@@ -102,6 +106,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.1-7
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

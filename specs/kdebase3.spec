@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 87%{?dist}
+Release: 88%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPL-2.0-only
@@ -115,6 +115,10 @@ Patch304: kde3-autoconf-version.patch
 # fix FTBFS due to gcc14
 Patch305: kdebase3-ftbfs-gcc14.patch
 Patch306: kdebase3-autoconf-2.72.patch
+# fix FTBFS for gcc16
+Patch307: kdebase-3.5.10-gcc16-ansi.patch
+# Remove xmkmf deps
+Patch308: kdebase-3.5.10-no-xmkmf-deps.patch
 
 Requires: %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -161,9 +165,8 @@ BuildRequires: freetype-devel
 BuildRequires: openldap-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libart_lgpl-devel
-## X11 support details (xmkmf, bdftopcf)
+## X11 support details (bdftopcf)
 BuildRequires: bdftopcf mkfontdir mkfontscale
-BuildRequires: imake
 BuildRequires: xorg-x11-proto-devel
 BuildRequires: libfontenc-devel
 BuildRequires: libtirpc-devel
@@ -300,6 +303,8 @@ install -p -m644 %{SOURCE9} %{SOURCE10} %{SOURCE11} pics/crystalsvg/
 %patch -P304 -p1 -b .autoconf2.7x
 %patch -P305 -p1 -b .ftbfs-gcc14
 %patch -P306 -p1 -b .autoconf-2.72
+%patch -P307 -p1 -b .gcc16
+%patch -P308 -p1 -b .xmkmf
 
 make -f admin/Makefile.common cvs
 
@@ -315,7 +320,6 @@ export DO_NOT_COMPILE="$DO_NOT_COMPILE khotkeys kdepasswd kcheckpass drkonqi"
 # Keep these (kcontrol for kcms, konsole for KonsolePart, kioslave for ioslaves
 # kate for kscope
 # export DO_NOT_COMPILE="$DO_NOT_COMPILE kcontrol konsole kioslave kate"
-
 %configure \
    --disable-new-ldflags \
    --disable-dependency-tracking \
@@ -769,6 +773,10 @@ fi
 
 
 %changelog
+* Mon Aug 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.10-88
+- Fix FTBFS with gcc16
+- Remove xmkmf (imake) deps, actually not used
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-87
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

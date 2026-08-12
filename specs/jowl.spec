@@ -18,7 +18,7 @@ Source3:        %{name}-%{version}-bundled-licenses.txt
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 Requires:       nodejs
-BuildRequires:  nodejs-devel
+BuildRequires:  nodejs22-devel, /usr/bin/node
 BuildRequires:  yarnpkg
 BuildRequires:  fdupes
 

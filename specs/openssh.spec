@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -523,6 +523,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Aug 10 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.4p1-4
+- Partially reduce the dependency between patches, avoiding patches to patches.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.4p1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

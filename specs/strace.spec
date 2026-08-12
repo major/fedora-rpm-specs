@@ -1,7 +1,7 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
 Version: 7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # The test suite is GPLv2+, the bundled headers are GPLv2 with Linux syscall
 # exception, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
@@ -210,6 +210,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon Aug 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 7.1-3
+- Rebuild after kernel regression (resolves: #2504691)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

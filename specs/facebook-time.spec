@@ -130,6 +130,16 @@ Requires:       %{name}-vendor-licenses = %{version}-%{release}
 %description -n ptp4u
 ptp4u is a scalable unicast PTP server supporting PTP and SPTP.
 
+%package -n     sa53
+Summary:        CLI for the Microchip SA53 atomic clock on Celestica time cards
+Requires:       %{name}-vendor-licenses = %{version}-%{release}
+
+%description -n sa53
+sa53 reads and upgrades the firmware of the Microchip SA53 chip-scale atomic
+clock found on Celestica time cards, over the card's serial port. It can also
+poll runtime telemetry (lock progress, tuning, temperature, alarms) into CSV
+for offline analysis.
+
 %package -n     sptp
 Summary:        Scalable unicast SPTP client.
 Requires:       %{name}-vendor-licenses = %{version}-%{release}
@@ -177,6 +187,9 @@ cd -
 for cmd in caliper calnex c4u ntpcheck ntpresponder ntripper pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
+
+# sa53's main package sits at the repo root rather than under cmd/
+%gobuild -o %{gobuilddir}/bin/sa53 %{goipath}/sa53
 
 %install
 %go_vendor_license_install -c %{S:2}
@@ -248,6 +261,11 @@ rm -f timestamp/timestamp_linux_test.go
 %doc ptp/ptp4u/README.md
 %{_bindir}/ptp4u
 %{_bindir}/c4u
+
+%files -n sa53
+%license LICENSE
+%doc sa53/README.md
+%{_bindir}/sa53
 
 %files -n sptp
 %license LICENSE

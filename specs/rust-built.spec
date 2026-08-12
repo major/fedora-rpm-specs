@@ -5,7 +5,7 @@
 %global crate built
 
 Name:           rust-built
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Crate with information from the time it was built
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/built
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow cargo-lock 11: https://github.com/lukaslueg/built/pull/95
+# * drop unused support for gix
 Patch:          built-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

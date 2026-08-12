@@ -1,4 +1,4 @@
-Version: 0.4.19
+Version: 0.4.20
 Release: %autorelease
 
 Name:           openssl-pkcs11
@@ -12,7 +12,6 @@ Source1:        https://github.com/OpenSC/libp11/releases/download/libp11-%{vers
 # sq network search 2BC7E4E67E3CC0C1BEA72F8C2EFC7FF0D416E014
 # sq cert export --cert=AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3 --output libp11.keyring
 Source2:        libp11.keyring
-Patch1:         openssl-pkcs11-0.4.19-header.patch
 
 BuildRequires: make
 BuildRequires:  autoconf automake libtool

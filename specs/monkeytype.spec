@@ -16,6 +16,8 @@ URL:            https://github.com/instagram/%{srcname}
 # PyPI source has no tests
 # Source:        %%{pypi_source %%{srcname}}
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# pytest 9 compatibility
+Patch:          https://github.com/Instagram/MonkeyType/pull/385.patch
 
 BuildArch:      noarch
 

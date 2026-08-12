@@ -1,18 +1,16 @@
-%bcond_without check
+%bcond check 1
 
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           loupe
-Version:        50.0
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Image viewer
 
 # loupe: GPL-3.0-or-later
 # Rust dependencies:
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -20,23 +18,21 @@ Summary:        Image viewer
 # ISC
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Zlib OR Apache-2.0
 # MPL-2.0 OR LGPL-2.1-or-later
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
-    GPL-3.0-or-later AND
-    BSD-3-Clause AND
-    ISC AND
-    MIT AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Zlib OR Apache-2.0) AND
-    (MPL-2.0 OR LGPL-2.1-or-later) AND
-    (Unlicense OR MIT)
+    GPL-3.0-or-later
+    AND ISC
+    AND MIT
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (MPL-2.0 OR LGPL-2.1-or-later)
+    AND (Unlicense OR MIT)
+    AND (Zlib OR Apache-2.0 OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/loupe

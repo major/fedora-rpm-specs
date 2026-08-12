@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        77.0.0
+Version:        78.0.0
 
 %gometa
 
@@ -303,6 +303,40 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Mon Aug 10 2026 Packit <hello@packit.dev> - 78.0.0-1
+Changes with 78.0.0
+----------------
+  - Simplify early manifest generation code and enable custom seeds for bootc-based images (#2565)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update RHEL 9, 10 OCI image defs to add Oracle as cloud init datasource (#2559)
+    - Author: src-up, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2576)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260719 (#2530)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - ci: tag containers (#2575)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - cmd/image-builder: drop `images` from version (#2573)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - container: add SetAuthFilePath method to Resolver (#2580)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - disk: align footer to grain by default (#2562)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - disk: take the ESP size from the image type's partition table (RHEL-214147) (#2552)
+    - Author: Lucas Garfield, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - distro/generic: pass subscription options to pxe-tar-xz images (HMS-11108) (#2564)
+    - Author: Lucas Garfield, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - fedora: create 46 (#2546)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Florian Schüller
+  - imgtestlib: configure setuptools package discovery (#2563)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - test/imgtestlib: revert boot.py to old behaviour (#2579)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - test: remove iot-bootable-container image type (#2569)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-08-10
+
 * Tue Jul 28 2026 Packit <hello@packit.dev> - 77.0.0-1
 Changes with 77.0.0
 ----------------

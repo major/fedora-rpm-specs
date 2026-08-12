@@ -18,7 +18,7 @@
 %global crate kirmes
 
 Name:           rust-kirmes
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Library providing access to systemd's userdb varlink interface
 
@@ -111,6 +111,18 @@ This package contains library source intended for building other packages which
 use the "smol-macros" feature of the "%{crate}" crate.
 
 %files       -n %{name}+smol-macros-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-subscriber-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-subscriber-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing-subscriber" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-subscriber-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 # MANUALLY ADDED START

@@ -63,14 +63,14 @@ BuildRequires:  javapackages-local-openjdk25
 %endif
 BuildRequires:  make
 BuildRequires:  mpfr-devel
-BuildRequires:  ppl-devel
-BuildRequires:  pplite-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-mlgmpidl-devel
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  perl-interpreter
+BuildRequires:  ppl-devel
+BuildRequires:  pplite-devel
 BuildRequires:  tex(adjustbox.sty)
 BuildRequires:  tex(etoc.sty)
 BuildRequires:  tex(fullpage.sty)

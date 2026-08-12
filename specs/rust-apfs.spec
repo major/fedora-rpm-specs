@@ -5,17 +5,15 @@
 %global crate apfs
 
 Name:           rust-apfs
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Read-only APFS (Apple File System) parser
 
 License:        MIT
 URL:            https://crates.io/crates/apfs
 Source:         %{crates_source}
-# * https://github.com/Dil4rd/dpp/pull/2
-Source2:        https://github.com/Dil4rd/dpp/raw/refs/tags/v0.3.0/LICENSE
 # Manually created patch for downstream crate metadata changes
-# * Drop unneeded criterion deps
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          apfs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -54,7 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %SOURCE2 .
 %cargo_prep
 
 %generate_buildrequires

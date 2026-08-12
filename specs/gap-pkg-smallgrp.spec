@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/smallgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.5.5
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Small groups library
 
@@ -18,10 +18,10 @@ BuildOption(install): gap id* small* tst
 BuildOption(check): --bare tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.02.16
-BuildRequires:  gap-devel >= 4.9
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  parallel
 
-Requires:       gap-core >= 4.9
+Requires:       gap-core >= 4.12
 
 Provides:       gap(SmallGrp) = %{version}-%{release}
 Provides:       gap(smallgrp) = %{version}-%{release}
@@ -54,7 +54,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 parallel %{?_smp_mflags} --no-notice gzip --best -f ::: id*/* small*/*
 
 %files
-%doc CHANGES.md README README.md
+%doc CHANGES.md README.md
 %license COPYRIGHT.md LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

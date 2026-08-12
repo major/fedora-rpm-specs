@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc6.260807gf9a2394a2348.52
+%define pkgrelease 0.rc7.54
 %define kversion 7
-%define tarfile_release 7.2-rc6-269-gf9a2394a2348
+%define tarfile_release 7.2-rc7
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.260807gf9a2394a2348.52%{?buildid}%{?dist}
+%define specrelease 0.rc7.54%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4976,8 +4976,19 @@ fi\
 #
 #
 %changelog
-* Fri Aug 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.f9a2394a2348.52]
+* Mon Aug 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc7.54]
+- Turn on CONFIG_CRYPTO_MLDSA for Fedora (Justin M. Forbes)
+
+* Mon Aug 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.54]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Aug 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.53]
+- Linux v7.2.0-0.rc7
+
+* Sun Aug 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.06cf61899d64.52]
+- Fix up mismatch for rhel automotive (Justin M. Forbes)
+- Fix up a config mismatch in pending (Justin M. Forbes)
+- Linux v7.2.0-0.rc6.06cf61899d64
 
 * Fri Aug 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.f9a2394a2348.51]
 - Linux v7.2.0-0.rc6.f9a2394a2348

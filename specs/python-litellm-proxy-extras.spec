@@ -1,5 +1,5 @@
 Name:           python-litellm-proxy-extras
-Version:        0.4.79.post1
+Version:        0.4.84
 Release:        %autorelease
 Summary:        Additional files for the LiteLLM Proxy
 

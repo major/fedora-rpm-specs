@@ -5,7 +5,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           glycin
-Version:        2.1.5
+Version:        2.2~alpha.5
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -70,6 +70,8 @@ Source1:        glycin-%{gnome_tarball_version}-vendor.tar.xz
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
 Patch:          0002-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
+Patch:          0003-drop-unused-benchmark-only-criterion-dev-dependency.patch
+Patch:          0004-fix-discovery-of-path-dependencies-that-were-not-wor.patch
 
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
@@ -204,7 +206,7 @@ rm -r glycin-loaders/glycin-raw
 
 %if %{with check}
 %check
-# tests fail with "UnsupportedFileType" (missing nonfree plugins for libheif?)
+# tests fail to compile from source in published tarballs (?)
 %meson_test || :
 %endif
 

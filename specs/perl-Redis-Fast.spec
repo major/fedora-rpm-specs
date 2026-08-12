@@ -1,10 +1,10 @@
 Name:           perl-Redis-Fast
-Version:        0.37
-Release:        9%{?dist}
+Version:        0.39
+Release:        1%{?dist}
 Summary:        Perl binding for Redis database
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Redis-Fast
-Source0:        https://www.cpan.org/modules/by-module/Redis/Redis-Fast-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHOGO/Redis-Fast-%{version}.tar.gz
 
 # https://salsa.debian.org/perl-team/modules/packages/libredis-fast-perl/-/raw/2112ad4f50b7293ff583a8f58f0ffb033a14de0f/debian/patches/remove-local-hiredis
 Patch0:         perl-Redis-Fast-0.37-unbundle_hiredis.patch
@@ -39,6 +39,7 @@ BuildRequires:  perl(XSLoader)
 # Run
 BuildRequires:  perl(IO::Socket::SSL)
 # Tests
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Errno)
@@ -98,6 +99,9 @@ unset USE_SSL
 %{_mandir}/man3/Redis::Fast*.3pm*
 
 %changelog
+* Mon Aug 10 2026 Xavier Bachelot <xavier@bachelot.org> - 0.39-1
+- Update to 0.39 (RHBZ#2510989)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.37-9
 - Perl 5.44 rebuild
 

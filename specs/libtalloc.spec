@@ -1,5 +1,5 @@
 Name:            libtalloc
-Version:         2.4.4
+Version:         2.5.0
 Release:         %autorelease
 Summary:         The talloc library
 License:         LGPL-3.0-or-later

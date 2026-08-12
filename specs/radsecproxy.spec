@@ -1,6 +1,6 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.11.3
+Version:        1.11.4
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
@@ -82,6 +82,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Mon Aug 10 2026 Robert Scheck <robert@fedoraproject.org> 1.11.4-1
+- Upgrade to 1.11.4 (#2513031)
+
 * Fri Jul 17 2026 Robert Scheck <robert@fedoraproject.org> 1.11.3-1
 - Upgrade to 1.11.3 (#2499720)
 

@@ -229,7 +229,7 @@ install -dm 0750 %{buildroot}%{_rundir}/kea/
 mkdir -p %{buildroot}%{_localstatedir}/log
 install -dm 0750 %{buildroot}%{_localstatedir}/log/kea/
 
-%pretrans
+%pre
 if [ $1 -ge 2 ]; then
     # kea-ctrl-agent was removed in 3.2.0; stop any running instance on upgrade
     systemctl disable --now kea-ctrl-agent.service >/dev/null 2>&1 || :

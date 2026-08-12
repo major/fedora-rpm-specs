@@ -37,6 +37,9 @@ Patch:          https://github.com/urllib3/urllib3/pull/5097.patch
 # https://github.com/urllib3/urllib3/pull/5103 rebased
 Patch:          5103.patch
 
+# Compatibility with the latest pytest
+Patch:          https://github.com/urllib3/urllib3/commit/c420e267.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -10,7 +10,7 @@
 # gdk-pixbuf2 -> glycin-libs
 # glycin-libs -> glycin-loaders
 # glycin-loaders -> libheif
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:           libheif
 Version:        1.23.1
@@ -78,6 +78,9 @@ file format decoder and encoder.
 %{_libdir}/%{name}/%{name}-jpegdec.so
 %{_libdir}/%{name}/%{name}-jpegenc.so
 %{_libdir}/%{name}/%{name}-jphenc.so
+%ifnarch %{ix86}
+%{_libdir}/%{name}/%{name}-openh264dec.so
+%endif
 %{_libdir}/%{name}/%{name}-rav1e.so
 %{_libdir}/%{name}/%{name}-svtenc.so
 
@@ -136,7 +139,7 @@ rm -rf third-party/
  -DWITH_DAV1D=ON \
  -DWITH_DAV1D_PLUGIN=ON \
  -DWITH_EXAMPLES=ON \
-%if %{with bootstrap}
+%if !%{with bootstrap}
  -DWITH_FFMPEG_DECODER=ON \
  -DWITH_FFMPEG_DECODER_PLUGIN=ON \
 %endif
@@ -154,7 +157,9 @@ rm -rf third-party/
  -DWITH_OPENJPH_ENCODER_PLUGIN=ON \
 %ifnarch %{ix86}
  -DWITH_OpenH264_DECODER=ON \
+ -DWITH_OpenH264_DECODER_PLUGIN=ON \
  -DWITH_OpenH264_ENCODER=ON \
+ -DWITH_OpenJPEG_ENCODER_PLUGIN=ON \
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
  -DWITH_RAV1E=ON \

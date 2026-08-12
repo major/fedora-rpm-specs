@@ -1,6 +1,6 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   7
+%define prerelnum   8
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
@@ -30,8 +30,8 @@ Summary:        A sleek, customizable desktop shell crafted for Wayland
 # Apache-2.0 AND MIT:
 #   third_party/wuffs
 License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later
-URL:            https://noctalia.dev
-Source:         https://github.com/noctalia-dev/noctalia/archive/%{tag}/noctalia-%{tag}.tar.gz
+URL:            https://github.com/noctalia-dev/noctalia
+Source:         %{url}/archive/%{tag}/noctalia-%{tag}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc

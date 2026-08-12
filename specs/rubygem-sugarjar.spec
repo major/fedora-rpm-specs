@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 3.0.1
+%global version 4.0.0
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git and GitHub/GitLab easier.
@@ -13,15 +13,14 @@ workflows simpler.}
 Name: rubygem-%{gem_name}
 Version: %{version}
 Release: %autorelease
-Summary: A git/GitHub helper utility
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
+Summary: A git + GitHub/Gitlab/Forgejo helper utility
 License: Apache-2.0
 URL: http://www.github.com/jaymzh/sugarjar
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # git clone https://github.com/jaymzh/sugarjar.git
 # version='1.1.0'
 # git checkout v${version?}
-# tar -cf ../rubygem-sugarjar/rubygem-sugarjar-${version?}-specs.tar spec/
+# tar -cf ../../fedora//rubygem-sugarjar/rubygem-sugarjar-${version?}-specs.tar spec/
 Source1: %{name}-%{version}-specs.tar
 BuildRequires: rubygems-devel
 %if %{with tests}
@@ -78,8 +77,9 @@ cp -a %{buildroot}/%{gem_instdir}/{README.md,LICENSE,CONTRIBUTING.md,CHANGELOG.m
 %check
 pushd .%{gem_instdir}
 cp -a %{_builddir}/spec .
-# https://github.com/jaymzh/sugarjar/issues/236
-rm spec/commands/smartclone_spec.rb
+# https://github.com/jaymzh/sugarjar/issues/287
+rm spec/commands/branch_spec.rb
+rm spec/commands_spec.rb
 rspec spec
 %endif
 

@@ -28,7 +28,7 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.23.2
+Version:        2.23.3
 Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
@@ -749,6 +749,9 @@ fi
 
 
 %changelog
+* Mon Aug 10 2026 Xavier Guimard <yadd@debian.org> - 2.23.3-1
+- Update to 2.23.3
+
 * Fri Jul 24 2026 Clement Oudot <clement.oudot@worteks.com> - 2.23.2-1
 - Update to 2.23.2
 

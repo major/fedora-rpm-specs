@@ -1,5 +1,5 @@
 Name:           lemonade-server
-Version:        10.9.0
+Version:        11.5.2
 Release:        %autorelease
 Summary:        Local LLM serving with GPU and NPU acceleration
 

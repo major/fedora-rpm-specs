@@ -1,11 +1,13 @@
 %global _hardened_build 1
 
-%global upstream_version 2.1.1
+%global upstream_version 2.2.0
+
+%bcond jpegxl %{undefined rhel}
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.1.1
-Release: 9%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -14,18 +16,16 @@ License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
 Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
-
-# Patches
-# https://github.com/OpenPrinting/libcupsfilters/pull/96
-Patch001: 0001-configure.ac-Make-CJK-fonts-name-configurable.patch
-# CVE-2025-57812
-Patch002: lcf-CVE-2025-57812.patch
-# CVE-2025-64503
-Patch003: 0001-Fix-out-of-bounds-write-in-cfFilterPDFToRaster.patch
-# CVE-2026-64611
-Patch004: 0001-ieee.c-Fix-possible-infinite-loop-and-avoid-empty-de.patch
-# CVE-2026-64612
-Patch005: 0001-image-png.c-Handle-libpng-errors-via-longjmp-setjmp-.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/202
+# drop unneeded poppler-cpp and c++ dpes
+Patch001: 0001-configure.ac-Drop-mandatory-C-compiler.patch
+Patch002: 0001-configure.ac-Remove-poppler-cpp-remaining-code.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/204/
+# Fix running regression tests - one is skipped, other removed
+Patch003: 0001-Fix-2.2.0-test-packaging-and-CUPS-datadir-detection-.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/e6dccfc6e7b60
+# support out of tree builds
+Patch004: 0001-Makefile.am-Ensure-gen-lorem-text-test-supports-out-.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -36,8 +36,6 @@ BuildRequires: automake
 BuildRequires: dejavu-sans-fonts
 # most filter functions written in C
 BuildRequires: gcc
-# pdftopdf written in C++
-BuildRequires: gcc-c++
 # for generating configure and Makefile scripts in autogen.h
 BuildRequires: gettext-devel
 # we use gs binary in filter functions, so it could be only runtime
@@ -68,12 +66,17 @@ BuildRequires: pkgconfig(libexif)
 BuildRequires: pkgconfig(libjpeg)
 # for png file format support
 BuildRequires: pkgconfig(libpng)
-# for pdf filter functions
-BuildRequires: pkgconfig(libqpdf) >= 10.3.2
 # for tiff image support
 BuildRequires: pkgconfig(libtiff-4)
-# for pdftoraster filter
-BuildRequires: pkgconfig(poppler-cpp)
+# for pdf filter functions - replaces qpdf
+BuildRequires: pkgconfig(pdfio) >= 1.6.4
+# for pdftoppm
+BuildRequires: poppler-utils
+
+%if %{with jpegxl}
+# for JPEG XL image support
+BuildRequires: pkgconfig(libjxl) >= 0.7.0
+%endif
 
 # remove once CentOS Stream 10 is released
 Obsoletes: cups-filters-libs < 2.0
@@ -128,7 +131,11 @@ Development files for OpenPrinting cupsfilters library.
  --disable-silent-rules\
  --disable-static\
  --enable-dbus\
- --with-cjk-fonts=droidsansfallback
+ --with-cjk-fonts=droidsansfallback\
+%if %{without jpegxl}
+ --without-jpegxl\
+%endif
+ %{nil}
 
 # fix rpmlint error about linking to libraries, but not actually using their functions
 # it happens when the required libraries uses pkgconfig - pkgconfig file doesn't know
@@ -204,6 +211,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Thu Aug 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.0-1
+- libcupsfilters-2.2.0 is available (fedora#2511889)
+
 * Wed Aug 05 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-9
 - fixes CVE-2026-64611 and CVE-2026-64612 (fedora#2506364)
 

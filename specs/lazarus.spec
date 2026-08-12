@@ -2,17 +2,16 @@ Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        4.8
+Release:        3%{?dist}
 
-%global baserelease 2
-Release:        %{baserelease}%{?dist}
+# Version suffix added to subpackages using separate versioning
+%global version_suffix laz%{version}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
-%global qt5pas_version 2.16
-%global qt5pas_release %(relstr="%{version}.%{baserelease}"; relstr=(${relstr//./ }); ((relno=${relstr[0]}*10000 + ${relstr[1]}*100 + ${relstr[2]})); echo "${relno}%{?dist}";)
+%global qt5pas_version 2.16^%{version_suffix}
 
 # The qt6pas version is taken from lcl/interfaces/qt6/cbindings/Qt6Pas.pro
-%global qt6pas_version 6.2.10
-%global qt6pas_release %{qt5pas_release}
+%global qt6pas_version 6.2.10^%{version_suffix}
 
 # The IDE itself is licensed under GPLv2+, with minor parts under a modified LGPL.
 # The Lazarus Component Library has parts licensed under all the licenses mentioned in the tag.
@@ -38,7 +37,10 @@ BuildRequires:  fpc
 BuildRequires:  fpc-src
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-devel
+BuildRequires:  gtk+-devel
 BuildRequires:  gtk2-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  qt4pas-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -52,7 +54,8 @@ BuildRequires:  qt6-qtbase-devel
 # can omit the metapackage and install individual sub-packages
 # as they see fit.
 
-Requires:	%{name}-ide%{?_isa} = %{version}-%{release}
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Requires:	%{name}-ide-gtk2%{?_isa} = %{version}-%{release}
 Requires:	%{name}-lcl%{?_isa} = %{version}-%{release}
 Requires:	%{name}-lcl-nogui%{?_isa} = %{version}-%{release}
 Requires:	%{name}-lcl-gtk2%{?_isa} = %{version}-%{release}
@@ -78,30 +81,125 @@ In short, Lazarus is a free RAD tool for Free Pascal using its
 Lazarus Component Library (LCL).
 
 
-%package ide
-Summary: Lazarus RAD IDE for Free Pascal
+%package ide-base
+Summary: Lazarus RAD IDE for Free Pascal - base files
 License: %{license_ide}
 
 Requires:	%{name}-lcl%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tools%{?_isa} = %{version}-%{release}
-Recommends:	%{name}-doc = %{version}-%{release}
-Recommends:	%{name}-lcl-nogui%{?_isa} = %{version}-%{release}
-Recommends:	%{name}-lcl-gtk2%{?_isa} = %{version}-%{release}
+
+Requires:	%{name}-ide = %{version}-%{release}
+Suggests:	%{name}-ide-gtk2%{?_isa}
+
+Recommends:	%{name}-doc%{?_isa}
+Recommends:	%{name}-lcl-nogui%{?_isa}
+
+# Required for users upgrading lazarus. Can be removed in F47+.
+Obsoletes: lazarus-ide < 4.8-3
 
 Requires: fpc-src
 Requires: gdb
 Requires: hicolor-icon-theme
 Requires: make
 
-%description ide
+%description ide-base
 Lazarus is a cross-platform IDE and component library for Free Pascal.
 
-This package provides the Lazarus RAD IDE.
+This package provides the base files for the Lazarus RAD IDE.
+
+
+%package ide-gtk2
+Summary: Lazarus RAD IDE for Free Pascal - GTK2 build
+License: %{license_ide}
+RemovePathPostfixes: +gtk2
+
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-gtk2%{?_isa}
+
+Provides:	%{name}-ide = %{version}-%{release}
+Conflicts:	%{name}-ide
+
+# Required for users upgrading lazarus. Can be removed in F47+.
+Obsoletes: lazarus-ide < 4.8-3
+
+%description ide-gtk2
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package provides the Lazarus RAD IDE, using the GTK2 interface.
+
+
+%package ide-gtk3
+Summary: Lazarus RAD IDE for Free Pascal - GTK3 build
+License: %{license_ide}
+RemovePathPostfixes: +gtk3
+
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-gtk3%{?_isa}
+
+Provides:	%{name}-ide = %{version}-%{release}
+Conflicts:	%{name}-ide
+
+%description ide-gtk3
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package provides the Lazarus RAD IDE, using the GTK3 interface.
+
+
+%package ide-qt
+Summary: Lazarus RAD IDE for Free Pascal - Qt4 build
+License: %{license_ide}
+RemovePathPostfixes: +qt
+
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-qt%{?_isa}
+
+Provides:	%{name}-ide = %{version}-%{release}
+Conflicts:	%{name}-ide
+
+%description ide-qt
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package provides the Lazarus RAD IDE, using the Qt4 interface.
+
+
+%package ide-qt5
+Summary: Lazarus RAD IDE for Free Pascal - Qt5 build
+License: %{license_ide}
+RemovePathPostfixes: +qt5
+
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-qt5%{?_isa}
+
+Provides:	%{name}-ide = %{version}-%{release}
+Conflicts:	%{name}-ide
+
+%description ide-qt5
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package provides the Lazarus RAD IDE, using the Qt5 interface.
+
+
+%package ide-qt6
+Summary: Lazarus RAD IDE for Free Pascal - Qt6 build
+License: %{license_ide}
+RemovePathPostfixes: +qt6
+
+Requires:	%{name}-ide-base%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-qt6%{?_isa} = %{version}-%{release}
+
+Provides:	%{name}-ide = %{version}-%{release}
+Conflicts:	%{name}-ide
+
+%description ide-qt6
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package provides the Lazarus RAD IDE, using the Qt6 interface.
 
 
 %package tools
 Summary: Lazarus IDE helper programs
 License: %{license_tools}
+
 Requires: binutils
 Requires: fpc%{?_isa}
 Requires: glibc-devel%{?_isa}
@@ -200,7 +298,7 @@ using the Qt widgetset.
 Summary: Lazarus Component Library - Qt5 widgetset support
 Requires: %{name}-lcl%{?_isa} = %{version}-%{release}
 
-Requires: qt5pas-devel%{?_isa} = %{qt5pas_version}-%{qt5pas_release}
+Requires: qt5pas-devel%{?_isa} = %{qt5pas_version}-%{release}
 
 %description lcl-qt5
 Lazarus is a cross-platform IDE and component library for Free Pascal.
@@ -213,7 +311,7 @@ using the Qt5 widgetset.
 Summary: Lazarus Component Library - Qt6 widgetset support
 Requires: %{name}-lcl%{?_isa} = %{version}-%{release}
 
-Requires: qt6pas-devel%{?_isa} = %{qt6pas_version}-%{qt6pas_release}
+Requires: qt6pas-devel%{?_isa} = %{qt6pas_version}-%{release}
 
 %description lcl-qt6
 Lazarus is a cross-platform IDE and component library for Free Pascal.
@@ -225,7 +323,6 @@ using the Qt6 widgetset.
 # Qt5pas start
 %package -n     qt5pas
 Version:        %{qt5pas_version}
-Release:        %{qt5pas_release}
 Summary:        Qt5 bindings for Pascal
 
 %description -n qt5pas
@@ -233,12 +330,11 @@ Qt5 bindings for Pascal from Lazarus.
 
 %package -n     qt5pas-devel
 Version:        %{qt5pas_version}
-Release:        %{qt5pas_release}
 Summary:        Development files for qt5pas
 
 Requires:       qt5-qtbase-devel%{?_isa}
 Requires:       qt5-qtx11extras-devel%{?_isa}
-Requires:       qt5pas%{?_isa} = %{qt5pas_version}-%{qt5pas_release}
+Requires:       qt5pas%{?_isa} = %{qt5pas_version}-%{release}
 
 %description -n qt5pas-devel
 The qt5pas-devel package contains libraries and header files for
@@ -247,7 +343,6 @@ developing applications that use qt5pas.
 # Qt5pas end, Qt6pas start
 %package -n     qt6pas
 Version:        %{qt6pas_version}
-Release:        %{qt6pas_release}
 Summary:        Qt6 bindings for Pascal
 
 %description -n qt6pas
@@ -255,11 +350,10 @@ Qt6 bindings for Pascal from Lazarus.
 
 %package -n     qt6pas-devel
 Version:        %{qt6pas_version}
-Release:        %{qt6pas_release}
 Summary:        Development files for qt6pas
 
 Requires:       qt6-qtbase-devel%{?_isa}
-Requires:       qt6pas%{?_isa} = %{qt6pas_version}-%{qt6pas_release}
+Requires:       qt6pas%{?_isa} = %{qt6pas_version}-%{release}
 
 %description -n qt6pas-devel
 The qt6pas-devel package contains libraries and header files for
@@ -310,25 +404,59 @@ for WIDGETSET in gtk gtk2 gtk3 qt qt5 qt6; do
 	make lcl basecomponents bigidecomponents %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM="${WIDGETSET}"
 done
 
-# Compile the IDE itself
-# TODO: Could try building the IDE with multiple widgetsets, as well!
-make bigide %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM=gtk2
+# Compile the IDE itself.
+for WIDGETSET in gtk2 gtk3 qt; do
+	make bigide %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM="${WIDGETSET}"
+	mv ./lazarus "./lazarus+${WIDGETSET}"
+	mv ./startlazarus "./startlazarus+${WIDGETSET}"
+	mv ./components/chmhelp/lhelp/lhelp "./components/chmhelp/lhelp/lhelp+${WIDGETSET}"
+done
 
 # Build Qt5Pas
 pushd lcl/interfaces/qt5/cbindings/
 	%{qmake_qt5}
 	%make_build
 popd
+make bigide %{fpmakeopt} OPT="%{fpcopt} -Fl$(pwd)/lcl/interfaces/qt5/cbindings/" LCL_PLATFORM=qt5
+mv ./lazarus ./lazarus+qt5
+mv ./startlazarus ./startlazarus+qt5
+mv ./components/chmhelp/lhelp/lhelp ./components/chmhelp/lhelp/lhelp+qt5
 
 # Build Qt6Pas
 pushd lcl/interfaces/qt6/cbindings/
 	%{qmake_qt6}
 	%make_build
 popd
+make bigide %{fpmakeopt} OPT="%{fpcopt} -Fl$(pwd)/lcl/interfaces/qt6/cbindings/" LCL_PLATFORM=qt6
+mv ./lazarus ./lazarus+qt6
+mv ./startlazarus ./startlazarus+qt6
+mv ./components/chmhelp/lhelp/lhelp ./components/chmhelp/lhelp/lhelp+qt6
+
+# Create dummy files for executables so "make install" won't freak out
+touch ./lazarus ./startlazarus ./components/chmhelp/lhelp/lhelp
 
 
 %install
 make install INSTALL_PREFIX=%{buildroot}%{_prefix} _LIB=%{_lib}
+
+rm \
+	%{buildroot}%{_bindir}/lazarus-ide \
+	%{buildroot}%{_libdir}/%{name}/lazarus \
+	%{buildroot}%{_bindir}/startlazarus \
+	%{buildroot}%{_libdir}/%{name}/startlazarus \
+	%{buildroot}%{_libdir}/%{name}/components/chmhelp/lhelp/lhelp \
+
+for WIDGETSET in gtk2 gtk3 qt qt5 qt6; do
+	install -m 755 \
+		"./lazarus+${WIDGETSET}" \
+		"./startlazarus+${WIDGETSET}" \
+		-t %{buildroot}%{_libdir}/%{name}/
+
+	ln -sr %{buildroot}%{_libdir}/%{name}/lazarus \
+		"%{buildroot}%{_bindir}/lazarus-ide+${WIDGETSET}"
+	ln -sr %{buildroot}%{_libdir}/%{name}/startlazarus \
+		"%{buildroot}%{_bindir}/startlazarus+${WIDGETSET}"
+done
 
 # Remove man page for an executable that is not actually installed.
 rm %{buildroot}%{_mandir}/man1/svn2revisioninc.1* || true
@@ -383,8 +511,25 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 # -- IDE files
 
-%files ide
+# Helper macro to reduce repetitions
+%define ide_files(n:) %{expand:
+	%{*} %{_bindir}/lazarus-ide+%{-n*}
+	%{*} %{_bindir}/startlazarus+%{-n*}
+	%{*} %{_libdir}/%{name}/lazarus+%{-n*}
+	%{*} %{_libdir}/%{name}/startlazarus+%{-n*}
+	%{*} %{_libdir}/%{name}/components/chmhelp/lhelp/lhelp+%{-n*}
+	%{*} %{_libdir}/%{name}/units/*/%{-n*}/
+}
+
+%files ide-base
 %{_libdir}/%{name}
+
+# Exclude files provided by widgetset-specific subpackages
+%ide_files -n gtk2 %exclude
+%ide_files -n gtk3 %exclude
+%ide_files -n qt   %exclude
+%ide_files -n qt5  %exclude
+%ide_files -n qt6  %exclude
 
 # Exclude -docs files
 %exclude %{_libdir}/%{name}/docs
@@ -407,8 +552,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %exclude %{_libdir}/%{name}/ide/packages/ideproject
 %exclude %{_libdir}/%{name}/ide/packages/ideutils
 
-%{_bindir}/lazarus-ide
-%{_bindir}/startlazarus
 %{_datadir}/pixmaps/lazarus.png
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/mime/packages/lazarus.xml
@@ -421,6 +564,23 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %license COPYING.modifiedLGPL.txt
 %{_mandir}/man1/lazarus-ide.1*
 %{_mandir}/man1/startlazarus.1*
+
+# -- IDE widgetsets
+
+%files ide-gtk2
+%ide_files -n gtk2
+
+%files ide-gtk3
+%ide_files -n gtk3
+
+%files ide-qt
+%ide_files -n qt
+
+%files ide-qt5
+%ide_files -n qt5
+
+%files ide-qt6
+%ide_files -n qt6
 
 # -- Tools files
 
@@ -457,6 +617,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # Helper macro to reduce repetitions (lcl, basecomponents)
 %define lcl_base_files(n:) %{expand:
 	%{*} %{_libdir}/%{name}/components/*/lib/*-linux/%{-n*}/
+	%{*} %{_libdir}/%{name}/components/lazdebuggers/*/lib/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/units/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/lcl/interfaces/%{-n*}/
 	%{*} %{_libdir}/%{name}/lcl/units/*/%{-n*}/
@@ -484,6 +645,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %license COPYING.LGPL.txt
 %license COPYING.modifiedLGPL.txt
 %license %{_libdir}/%{name}/lcl/interfaces/customdrawn/android/ApacheLicense2.0.txt
+
+# The lhelp program is placed inside components/ for whatever reason.
+# Omit it and have the widgetset-specific ide packages provide it.
+%exclude %{_libdir}/%{name}/components/chmhelp/lhelp/lhelp*
 
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/components/
@@ -553,6 +718,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Mon Aug 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.8-3
+- Build the IDE for all widgetsets, not just GTK2
+- Suffix qt5pas/qt6pas versions with Lazarus version instead of abusing the Release number
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

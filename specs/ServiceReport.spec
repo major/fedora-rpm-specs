@@ -1,15 +1,16 @@
 Name: ServiceReport
 Version: 2.2.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A tool to validate and repair First Failure Data Capture (FFDC) configuration
 
 License: GPL-2.0-or-later
 URL: https://github.com/linux-ras/ServiceReport
 Source0: https://github.com/linux-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch: ServiceReport-buildroot-install.patch
 
 BuildArch: noarch
 
-BuildRequires: python3-devel python3-setuptools
+BuildRequires: python3-devel
 BuildRequires: systemd-rpm-macros
 
 %description
@@ -18,13 +19,20 @@ First Failure Data Capture (FFDC) configuration and optionally repairs
 the incorrect configuration
 
 %prep
-%setup -q
+%autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l servicereportpkg
+
+%check
+%pyproject_check_import
 
 %post
 %systemd_post servicereport.service
@@ -35,16 +43,17 @@ the incorrect configuration
 %postun
 %systemd_postun servicereport.service
 
-%files
+%files -f %{pyproject_files}
 %doc README.md
 %license COPYING
 %{_mandir}/man8/*
 %{_bindir}/servicereport
 %{_unitdir}/servicereport.service
-%{python3_sitelib}/servicereportpkg
-%{python3_sitelib}/ServiceReport*.egg-info
 
 %changelog
+* Mon Aug 10 2026 Than Ngo <than@redhat.com> - 2.2.4-13
+- Fix rhbz#2378453, migration to new python marcos
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

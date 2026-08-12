@@ -1,31 +1,30 @@
-# Currently does not build with opencl/libxsmm
-%bcond_with opencl
+# OpenCL support requires packaged libxs/libxstream/libxsmm dependencies.
+# Keep it disabled until those packages are available in Fedora.
+%bcond opencl 0
 
-# No openmpi on i668 with openmpi 5 in Fedora 40+
-%if 0%{?fedora} >= 40
-%ifarch %{ix86}
-%bcond_with openmpi
-%else
-%bcond_without openmpi
-%endif
-%else
-%bcond_without openmpi
-%endif
+# OpenMPI is not available on i686
+%bcond openmpi %[ 0%{?__isa_bits} != 32 ]
+
+%global soversion 2.10
 
 Name:          dbcsr
-Version:       2.9.1
+Version:       2.10.0
 Release:       %autorelease
 Summary:       Distributed Block Compressed Sparse Row matrix library
 License:       GPL-2.0-or-later
 URL:           https://cp2k.github.io/dbcsr/develop/
 Source0:       https://github.com/cp2k/dbcsr/releases/download/v%{version}/dbcsr-%{version}.tar.gz
 
+# Expose DBCSR C API to Fortran. Gcc complains about missing symbols otherwise
+Patch:         https://github.com/cp2k/dbcsr/pull/1027.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
-BuildRequires: make
 BuildRequires: flexiblas-devel
 %if %{with opencl}
+BuildRequires: libxs-devel
+BuildRequires: libxstream-devel
 BuildRequires: libxsmm-devel
 %endif
 BuildRequires: python3-fypp
@@ -103,28 +102,42 @@ rm -r tools
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
 
-%build
-export CFLAGS="%{optflags} -fPIC"
-export CXXFLAGS="%{optflags} -fPIC"
-export FFLAGS="%{optflags} -fPIC"
+%conf
 %cmake \
-  -DCMAKE_INSTALL_Fortran_MODULES=%{_fmoddir} \
-  -DUSE_MPI=OFF \
-  %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm}
-%cmake_build
+  -DCMAKE_INSTALL_Fortran_MODULES:PATH=%{_fmoddir} \
+  -DBUILD_TESTING:BOOL=ON \
+  -DUSE_MPI:BOOL=OFF \
+  %{?with_opencl:-DUSE_ACCEL:STRING=opencl} \
+  -DUSE_LIBXS:BOOL=%{with opencl} \
+  -DUSE_LIBXSMM:BOOL=%{with opencl}
+
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   %cmake \
-    -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR \
-    %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} \
+    -DCMAKE_INSTALL_Fortran_MODULES:PATH=$MPI_FORTRAN_MOD_DIR \
+    -DBUILD_TESTING:BOOL=ON \
+    -DUSE_MPI:BOOL=ON \
+    %{?with_opencl:-DUSE_ACCEL:STRING=opencl} \
+    -DUSE_LIBXS:BOOL=%{with opencl} \
+    -DUSE_LIBXSMM:BOOL=%{with opencl} \
     -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
     -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
-    -DUSE_MPI_F08=ON \
-    -DTEST_MPI_RANKS=2
+    -DUSE_MPI_F08:BOOL=ON \
+    -DTEST_MPI_RANKS:STRING=2
+  module purge
+done
+
+
+%build
+%cmake_build
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
   %cmake_build
   module purge
 done
+
 
 
 %install
@@ -153,7 +166,7 @@ done
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libdbcsr.so.2.9*
+%{_libdir}/libdbcsr.so.%{soversion}{,.*}
 
 %files devel
 %{_fmoddir}/dbcsr_api.mod
@@ -165,8 +178,8 @@ done
 %files openmpi
 %license LICENSE
 %doc README.md
-%{_libdir}/openmpi/lib/libdbcsr.so.*
-%{_libdir}/openmpi/lib/libdbcsr_c.so.*
+%{_libdir}/openmpi/lib/libdbcsr.so.%{soversion}{,.*}
+%{_libdir}/openmpi/lib/libdbcsr_c.so.%{soversion}{,.*}
 
 %files openmpi-devel
 %{_libdir}/openmpi/include/dbcsr.h
@@ -181,8 +194,8 @@ done
 %files mpich
 %license LICENSE
 %doc README.md
-%{_libdir}/mpich/lib/libdbcsr.so.*
-%{_libdir}/mpich/lib/libdbcsr_c.so.*
+%{_libdir}/mpich/lib/libdbcsr.so.%{soversion}{,.*}
+%{_libdir}/mpich/lib/libdbcsr_c.so.%{soversion}{,.*}
 
 %files mpich-devel
 %{_libdir}/mpich/include/dbcsr.h

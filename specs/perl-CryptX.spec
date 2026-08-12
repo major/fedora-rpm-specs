@@ -4,8 +4,8 @@
 %bcond_without perl_CryptX_enables_optional_test
 
 Name:           perl-CryptX
-Version:        0.090
-Release:        3%{?dist}
+Version:        0.091
+Release:        1%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -39,6 +39,7 @@ BuildRequires:  perl(JSON)
 %endif
 # Tests:
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 %if %{with perl_CryptX_enables_optional_test}
@@ -51,7 +52,7 @@ BuildRequires:  perl(Storable) >= 2.0
 BuildRequires:  perl(Test::Pod)
 %endif
 
-Provides:       bundled(libtomcrypt) = 1.18.2-1.20260519gita68fa19b
+Provides:       bundled(libtomcrypt) = 1.18.2-1.20260807gita10cad62
 Provides:       bundled(libtommath) = 1.2.0-1.20260420gitae40a87
 
 
@@ -152,6 +153,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 10 2026 Xavier Bachelot <xavier@bachelot.org> - 0.091-1
+- Update to 0.091 (RHBZ#2513561)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.090-3
 - Perl 5.44 rebuild
 

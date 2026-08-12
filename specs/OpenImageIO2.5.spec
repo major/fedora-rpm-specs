@@ -12,9 +12,6 @@ License:        BSD-3-Clause AND MIT
 URL:            https://openimageio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v%{version}/OpenImageIO-%{version}.tar.gz
 
-# LifHeif modifies the headers to make things work for multilib systems.
-Patch0:         oiio-libheif_version.patch
-
 # OpenVDB no longer builds for i686
 ExcludeArch:    i686
 

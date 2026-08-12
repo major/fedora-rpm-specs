@@ -6,6 +6,9 @@ License:        MIT
 URL:            https://github.com/nvbn/thefuck
 Source0:        https://github.com/nvbn/%{name}/archive/%{version}.tar.gz
 
+# Fix pytest 9 compatibility: marks applied to fixtures have no effect
+Patch3:         https://github.com/nvbn/thefuck/commit/606ec7d.patch
+
 # https://github.com/nvbn/thefuck/pull/1248
 Patch0:         thefuck-support-python-3.11.patch
 # https://github.com/nvbn/thefuck/pull/1474

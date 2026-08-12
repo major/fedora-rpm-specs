@@ -3,7 +3,7 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        4.3.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Python library for converting complex datatypes to and from primitive types
 License:        MIT

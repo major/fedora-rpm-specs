@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -3202,7 +3202,10 @@ exit 0
 %endif
 
 %changelog
-* Tue Aug 4 2026 Python Maint <python-maint@redhat.com> - 2:21.1.0-3
+* Mon Aug 10 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.0-5
+- rebuild for thrift 0.24.0
+
+* Tue Aug 4 2026 Python Maint <python-maint@redhat.com> - 2:21.1.0-4
 - rhbz#2510966 (was built in f45-build-side-144323, but missed merge)
 
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 2:21.1.0-3

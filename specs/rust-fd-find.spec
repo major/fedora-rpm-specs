@@ -16,6 +16,11 @@ Source:         %{crates_source}
 # * Allow lscolors 0.20
 # * Allow tikv-jemallocator 0.7: https://github.com/sharkdp/fd/pull/2027
 Patch:          fd-find-fix-metadata.diff
+# Fix test_follow_broken_symlink with ignore >= 0.4.28, which wraps the io::Error
+# in an extra Error::WithDepth layer that fd's pattern match did not expect, so
+# broken symlinks were reported as errors instead of entries. Merged upstream
+# after 10.4.2; drop on the next release.
+Patch:          https://github.com/sharkdp/fd/commit/f898e95db5a90190fee6eb6e000e024615d2be85.patch#/fd-find-refactor-Get-io-error-from-method.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

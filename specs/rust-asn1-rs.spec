@@ -5,7 +5,7 @@
 %global crate asn1-rs
 
 Name:           rust-asn1-rs
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Parser/encoder for ASN.1 BER/DER data
 

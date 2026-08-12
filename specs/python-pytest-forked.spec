@@ -1,36 +1,29 @@
-%global pypi_name pytest-forked
+%global pypi_name pytest_forked
 
-Name:           python-%{pypi_name}
-Version:        1.6.0
-Release:        17%{?dist}
-Summary:        py.test plugin for running tests in isolated forked subprocesses
+Name:           python-pytest-forked
+Version:        1.7.5
+Release:        1%{?dist}
+Summary:        pytest plugin for running tests in isolated forked subprocesses
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-forked
 Source0:        %{pypi_source}
 
-# compatibility with pytest 8
-Patch:          https://github.com/pytest-dev/pytest-forked/commit/b2742322d3.patch
-# compatibility with pytest 9
-Patch:          https://github.com/pytest-dev/pytest-forked/commit/8f59f07.patch
-
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
 
 %global _description %{expand:
-The pytest-forked plugin extends py.test by adding an option to run tests in
+The pytest-forked plugin extends pytest by adding an option to run tests in
 isolated forked subprocesses. This is useful if you have tests involving C or
 C++ libraries that might crash the process. To use the plugin, simply use the
---forked argument when invoking py.test.}
+--forked argument when invoking pytest.}
 
 %description %_description
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-pytest-forked
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-pytest-forked %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
@@ -43,17 +36,19 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
+%pyproject_save_files -l pytest_forked
 
 %check
 %pytest
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-pytest-forked -f %{pyproject_files}
 %doc example/boxed.txt README.rst
-%license LICENSE
-%{python3_sitelib}/pytest_forked*
 
 %changelog
+* Mon Aug 10 2026 Scott Talbert <swt@techie.net> - 1.7.5-1
+- Update to new upstream release 1.7.5 (#2512748)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

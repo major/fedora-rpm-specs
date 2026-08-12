@@ -12,7 +12,7 @@
 Name:           InsightToolkit
 Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.%{version_patch}
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Bundled library licenses:
 #   Apache-2.0       - ITK core (upstream)
 #   BSD-3-Clause     - DICOMParser (Copyright.txt), GoogleTest (source headers),
@@ -308,6 +308,9 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Mon Aug 10 2026 Ankur Sinha <sanjay.ankur@gmail.com> - 5.4.6-3
+- Rebuild for libminc 2.5.0 correctly
+
 * Sun Aug 09 2026 Ankur Sinha <sanjay.ankur@gmail.com> - 5.4.6-2
 - Rebuild for libminc 2.5.0
 

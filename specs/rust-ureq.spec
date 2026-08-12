@@ -5,7 +5,7 @@
 %global crate ureq
 
 Name:           rust-ureq
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Simple, safe HTTP client
 
@@ -317,6 +317,7 @@ use the "win-system-proxy" feature of the "%{crate}" crate.
     --skip body::BodyWithConfig
     --skip middleware::Middleware
     --skip request::RequestBuilder
+    --skip request_ext::tests::middleware_config
     --skip response::ResponseExt::get_redirect_history
     --skip response::ResponseExt::get_uri
     --skip send_body::AsSendBody

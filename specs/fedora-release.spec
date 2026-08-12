@@ -57,6 +57,7 @@ Source33:       plasma-mobile.conf
 Source34:       80-kde-mobile.preset
 Source35:       fedora-miraclewm.conf
 Source36:       fedora-cosmic.conf
+Source37:       allow-cmdline.conf
 
 BuildArch:      noarch
 
@@ -1908,6 +1909,7 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 
 # Install DNF 5 configuration defaults
 install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
+install -Dm0644 %{SOURCE37} -t %{buildroot}%{_prefix}/share/dnf5/vendors.d/
 
 
 %files common
@@ -1930,6 +1932,7 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %dir %{_sysconfdir}/swid
 %{_sysconfdir}/swid/swidtags.d
 %{_prefix}/share/dnf5/libdnf.conf.d/20-fedora-defaults.conf
+%{_prefix}/share/dnf5/vendors.d/allow-cmdline.conf
 
 
 %files

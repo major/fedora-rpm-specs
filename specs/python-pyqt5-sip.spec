@@ -1,11 +1,11 @@
 %global pypi_name pyqt5_sip
 %global _sip_api_major 12
-%global _sip_api_minor 18
+%global _sip_api_minor 19
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-pyqt5-sip
-Version:        12.18.0
-Release:        4%{?dist}
+Version:        12.19.0
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        BSD-2-Clause
@@ -39,7 +39,7 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 %install
 %pyproject_install
-%pyproject_save_files PyQt5
+%pyproject_save_files -l PyQt5
 
 %check
 %py3_check_import PyQt5.sip
@@ -48,6 +48,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %doc README
 
 %changelog
+* Mon Aug 10 2026 Scott Talbert <swt@techie.net> - 12.19.0-1
+- Update to new upstream release 12.19.0 (#2510134)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 12.18.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

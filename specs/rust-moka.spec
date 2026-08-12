@@ -5,7 +5,7 @@
 %global crate moka
 
 Name:           rust-moka
-Version:        0.12.15
+Version:        0.12.16
 Release:        %autorelease
 Summary:        Fast and concurrent cache library inspired by Java Caffeine
 

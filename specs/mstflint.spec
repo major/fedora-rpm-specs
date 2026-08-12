@@ -24,6 +24,10 @@ Obsoletes:	openib-mstflint <= 1.4 openib-tvflash <= 0.9.2 tvflash <= 0.9.0
 ExcludeArch:	s390 %{arm} %{ix86}
 Requires:	python3
 
+%patchlist
+# https://github.com/Mellanox/mstflint/pull/1831
+0001-mtcr-fix-segfault-in-pciconf-open-when-VSEC-is-not-f.patch
+
 %description
 This package contains firmware update tool, vpd dump and register dump tools
 for network adapters based on Mellanox Technologies chips.

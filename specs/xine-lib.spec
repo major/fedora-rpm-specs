@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        34%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        35%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -361,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Mon Aug 10 2026 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-35
+- Rebuilt for libnfs 7.0.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

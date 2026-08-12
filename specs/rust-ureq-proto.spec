@@ -5,16 +5,13 @@
 %global crate ureq-proto
 
 Name:           rust-ureq-proto
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Ureq support crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ureq-proto
 Source:         %{crates_source}
-# * Fix missing `LICENSE-APACHE.txt` file for `Apache-2.0` license option
-# * https://github.com/algesten/ureq-proto/pull/33
-Patch10:        https://github.com/algesten/ureq-proto/pull/33.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 5.0.2
+Version: 5.0.5
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to manipulate Git repositories
 License: MIT
@@ -48,9 +48,6 @@ Documentation for %{name}.
 # unpack only the test files from SOURCE1.
 tar zxf %{SOURCE1} ruby-git-%{version}/spec --strip-components 1
 
-# Disable fancy formatter which requires unavailble fuubar gem.
-sed -i '/--format Fuubar/d' .rspec
-
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -71,7 +68,8 @@ cp -a .%{gem_dir}/* \
 # The following polutes home directoy so need to find a better way
 # git fails fatally if it cannot guess an email adress
 # as is the case inside mock.
-env COVERAGE=false rspec -Ilib spec
+# The TEST_ENV_NUMBER=1 is just to disable the Fuubar formatter
+env TEST_ENV_NUMBER=1 COVERAGE=false rspec -Ilib spec
 
 
 %files

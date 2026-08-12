@@ -1,3 +1,5 @@
+%bcond x11 %[!(0%{?rhel} >= 10)]
+
 %global forgeurl https://github.com/qtile/qtile
 %global tag v0.36.0
 
@@ -15,32 +17,18 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  pulseaudio
+BuildRequires:  pipewire-pulseaudio
 
 # Test dependencies
 BuildRequires:  gcc
-BuildRequires:  python3-pytest-httpbin
 BuildRequires:  xcb-util-cursor
+%if %{with x11}
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
+%endif
 BuildRequires:  xterm
 BuildRequires:  rsvg-pixbuf-loader
-# We need to force install wlroots 0.19 because Qtile expect this exact version
-%if 0%{?fedora} >= 44
-BuildRequires: wlroots0.19
-BuildRequires: wlroots0.19-devel
-%else
-BuildRequires: wlroots
-BuildRequires: wlroots-devel
-%endif
-
-# Some dependencies are loaded with ffi.dlopen, and to declare them properly
-# we'll need this suffix.
-%if 0%{?__isa_bits} == 32
-%global libsymbolsuffix %{nil}
-%else
-%global libsymbolsuffix ()(%{__isa_bits}bit)
-%endif
+BuildRequires:  pkgconfig(wlroots-0.19)
 
 # Recommended packages for widgets
 Recommends: python3-psutil
@@ -97,12 +85,14 @@ BuildRequires: wayland-protocols-devel
 
 %prep
 %forgesetup
-
+# No coverage tests in downstream builds
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 # These are not packaged for Fedora yet
-sed -i '/check-manifest/d' ./pyproject.toml
-sed -i '/mailbox/d' ./pyproject.toml
-sed -i '/imaplib2/d' ./pyproject.toml
-sed -i '/xdg/d' ./pyproject.toml
+%pyproject_patch_dependency check-manifest:ignore
+%pyproject_patch_dependency mailbox:ignore
+%pyproject_patch_dependency imaplib2:ignore
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -122,10 +112,12 @@ PYTHONPATH=${PWD} %{python3} ./libqtile/backend/wayland/cffi/build.py
 mkdir -p %{buildroot}%{python3_sitearch}/libqtile/backend/wayland/
 cp -a ./libqtile/backend/wayland/_ffi.*.so %{buildroot}%{python3_sitearch}/libqtile/backend/wayland/
 
+%if %{with x11}
 mkdir -p %{buildroot}%{_datadir}/xsessions/
 desktop-file-install \
     --dir %{buildroot}%{_datadir}/xsessions/ \
     resources/qtile.desktop
+%endif
 
 mkdir -p %{buildroot}%{_datadir}/wayland-sessions/
 desktop-file-install \
@@ -134,25 +126,32 @@ desktop-file-install \
 
 
 %check
+%pyproject_check_import -e '*.iqshell_*' -e '*.khal_calendar' -e '*.wlan'
 # Tests can sometimes randomly fail. Rebuilding the package again usually solves
 # the issue. See https://github.com/qtile/qtile/issues/4573
 
 # Avoid `OSError: [Errno 24] Too Many Open Files` error
-ulimit -n 10240
+ulimit -n 10240 ||:
 
 %ifnarch s390x ppc64le
 
 %pytest \
     -vv \
+%if %{with x11}
     --backend x11 \
-    --backend wayland
+%endif
+    --backend wayland \
+    --deselect \
+        test/shell_scripts/test_repl_server.py::test_repl_server_executes_code
 %endif
 
 
 %files
 %doc README.rst
 %{_bindir}/qtile
+%if %{with x11}
 %{_datadir}/xsessions/qtile.desktop
+%endif
 
 
 %files -n python3-libqtile -f %{pyproject_files}
@@ -161,6 +160,7 @@ ulimit -n 10240
 %files wayland
 %{_datadir}/wayland-sessions/qtile-wayland.desktop
 %{python3_sitearch}/libqtile/backend/wayland/_ffi.*.so
+%{python3_sitelib}/libqtile/backend/wayland/qw/proto/
 
 
 %autochangelog

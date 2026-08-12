@@ -1,7 +1,7 @@
 Summary:        Image loading, saving, rendering, and manipulation library
 Name:           imlib2
 Version:        1.12.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Imlib2
 URL:            http://docs.enlightenment.org/api/imlib2/html/
 Source0:        http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.xz
@@ -130,6 +130,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 
 
 %changelog
+* Mon Aug 10 2026 Simone Caronni <negativo17@gmail.com> - 1.12.5-4
+- Rebuilt for updated dependencies.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

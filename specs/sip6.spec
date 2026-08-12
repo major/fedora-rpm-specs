@@ -1,8 +1,8 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.15.3
-Release:        3%{?dist}
+Version:        6.16.0
+Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -16,6 +16,7 @@ BuildRequires:  python3-devel
 
 # For tests
 BuildRequires:  gcc-c++
+BuildRequires:  python3-pytest
 
 %global _description %{expand:
 SIP is a collection of tools that makes it very easy to create Python bindings
@@ -39,19 +40,21 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 %install
 %pyproject_install
+%pyproject_save_files -l sipbuild
 
-#check
-#{py3_test_envvars} {python3} -m unittest discover -v -s test
+%check
+%pytest
 
 
-%files
+%files -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 %{_bindir}/sip*
-%{python3_sitelib}/sip-*
-%{python3_sitelib}/sipbuild/
 
 %changelog
+* Mon Aug 10 2026 Scott Talbert <swt@techie.net> - 6.16.0-1
+- Update to new upstream release 6.16.0 (#2510136)
+- Re-enable tests
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.15.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

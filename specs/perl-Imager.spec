@@ -1,10 +1,15 @@
 Name:           perl-Imager
-Version:        1.033
-Release:        3%{?dist}
+Version:        1.034
+Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TONYC/Imager-%{version}.tar.gz
+# EXIF: add missing checks for the start of an ifd entry offset
+# https://github.com/tonycoz/imager/issues/568
+Source1:        exifbadifdstart.bin
+Source2:        exifbadifdstart2.bin
+Patch0:         Imager-1.034-EXIF-add-missing-checks-for-the-start-of-an-ifd-entr.patch
 BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libjpeg-devel
@@ -93,7 +98,9 @@ Summary: perl-Imager's Test module
 %{summary}.
 
 %prep
-%setup -q -n Imager-%{version}
+%autosetup -p1 -n Imager-%{version}
+cp %{SOURCE1} t/data/exifbadifdstart.bin
+cp %{SOURCE2} t/data/exifbadifdstart2.bin
 find -executable -type f -exec chmod -x {} \;
 perl -MConfig -pi -e 's|^#!perl|$Config{startperl}|' samples/*
 
@@ -123,6 +130,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Aug 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.034-1
+- 1.034 bump (rhbz#2512510)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.033-3
 - Perl 5.44 rebuild
 

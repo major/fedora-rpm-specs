@@ -7,7 +7,7 @@
 %global crate ctor
 
 Name:           rust-ctor
-Version:        1.0.8
+Version:        1.0.13
 Release:        %autorelease
 Summary:        Global, no_std-compatible constructors for all platforms that run before main
 
