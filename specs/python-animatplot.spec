@@ -1,7 +1,7 @@
 %global srcname animatplot
 
 Name:           python-%{srcname}
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Making animating in Matplotlib easy
 

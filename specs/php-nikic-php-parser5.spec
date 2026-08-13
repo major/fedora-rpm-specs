@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        5.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -90,6 +90,11 @@ phpab --template fedora \
       --output lib/%{ns_project}/autoload.php \
       lib/%{ns_project}
 
+cat << 'EOF' | tee -a lib/%{ns_project}/autoload.php
+
+@define('RPM_NIKIC_PHP_PARSER_VERSION', '%{version}');
+EOF
+
 
 %install
 : Library
@@ -101,6 +106,13 @@ install -Dpm 0755 bin/php-parse %{buildroot}%{_bindir}/php-parse%{major}
 
 
 %check
+: Test autoloader and exported constant
+php -r '
+require "%{buildroot}/%{php_home}/%{ns_project}%{major}/autoload.php";
+var_dump(RPM_NIKIC_PHP_PARSER_VERSION);
+exit (RPM_NIKIC_PHP_PARSER_VERSION !== "%{version}");
+'
+
 %if %{with tests}
 : Test the command
 sed -e 's:%{php_home}:%{buildroot}%{php_home}:' \
@@ -139,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug  7 2026 Remi Collet <remi@remirepo.net> - 5.8.0-3
+- define RPM_NIKIC_PHP_PARSER_VERSION in autoloader
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

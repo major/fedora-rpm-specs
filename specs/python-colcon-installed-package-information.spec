@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extensions for colcon to inspect packages which have already been installed
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ extensions provided by colcon_core.
 
 
 %changelog
+* Tue Aug 11 2026 Python Maint <python-maint@redhat.com> - 0.2.1-11
+- Rebuilt for Python 3.15
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

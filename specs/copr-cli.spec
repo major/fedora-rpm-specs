@@ -2,8 +2,8 @@
 %global min_python_copr_version 2.5.1
 
 Name:       copr-cli
-Version:    2.5
-Release:    3%{?dist}
+Version:    2.6
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -31,6 +31,7 @@ Requires:      python3-rich
 
 Recommends:    python3-progress
 Recommends:    python3-ConfigUpdater
+Recommends:    python3-coprtree
 Suggests:      python3-beautifulsoup4
 
 BuildRequires: python3-copr >= %min_python_copr_version
@@ -43,6 +44,11 @@ BuildRequires: python3-setuptools
 BuildRequires: python3-munch
 BuildRequires: python3-typing-extensions
 BuildRequires: python3-rich
+%if !(0%{?rhel} && 0%{?rhel} <= 8)
+BuildRequires: python3-pip
+BuildRequires: python3-wheel
+BuildRequires: pyproject-rpm-macros
+%endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
 Requires:      python3-dataclasses
@@ -63,21 +69,29 @@ This package contains command line interface.
 
 
 %build
-version="%{version}" %py_build
+%if 0%{?rhel} && 0%{?rhel} <= 8
+%py3_build
+%else
+%pyproject_wheel
+%endif
 mv copr_cli/README.rst ./
-# convert manages
+# convert manpages
 a2x -d manpage -f manpage man/copr-cli.1.asciidoc
 
 
 %install
-version="%{version}" %py_install
-ln -sf %{_bindir}/copr-cli %{buildroot}%{_bindir}/copr
+%if 0%{?rhel} && 0%{?rhel} <= 8
+%py3_install
+%else
+%pyproject_install
+%endif
+ln -sf copr-cli %{buildroot}%{_bindir}/copr
 install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 man/copr-cli.1 %{buildroot}/%{_mandir}/man1/
 install -p man/copr.1 %{buildroot}/%{_mandir}/man1/
 install -d %{buildroot}%{_datadir}/cheat
 cp -a man/copr-cli.cheat %{buildroot}%{_datadir}/cheat/copr-cli
-ln -s %{_datadir}/cheat/copr-cli %{buildroot}%{_datadir}/cheat/copr
+ln -s copr-cli %{buildroot}%{_datadir}/cheat/copr
 install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-build-order
 
 
@@ -100,11 +114,15 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.5-2
-- Rebuilt for Python 3.15
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.6-1
+- Add --chroot-denylist to add/edit-package commands
+- Upload rpm to python and cli
+- Add --with-deps to buildpypi
+- Support unix file pattern matching in --chroot and --exclude-chroot
+- Require the rich package
+- Document permission commands in man page
+- Fix container-based unit test workflow
+- Fix AttributeError: module 'pkgutil' has no attribute 'get_loader'
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.5-1
 - Fix download-build for manual createrepo Pulp projects

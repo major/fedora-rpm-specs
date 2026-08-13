@@ -3,7 +3,7 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.35
+Version:        0.2.36
 Release:        %autorelease
 Summary:        Bootloader updater
 

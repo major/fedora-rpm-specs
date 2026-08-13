@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        4.0.11
+Version:        34.0.1
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -46,6 +46,7 @@ BuildRequires:  python3-sphinx
 BuildRequires:  qtlockedfile-qt6-devel
 BuildRequires:  qtkeychain-qt6-devel
 BuildRequires:  qtsingleapplication-qt6-devel
+BuildRequires:  kdsingleapplication-qt6-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtbase-gui
@@ -64,16 +65,14 @@ BuildRequires:  kf6-kio-devel
 BuildRequires:  kf6-kbookmarks-devel
 BuildRequires:  systemd-rpm-macros
 
-# Dolphin integration
-%if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  kf6-karchive-devel
 BuildRequires:  kf6-kcoreaddons-devel
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  kf6-kguiaddons-devel
-%endif
 BuildRequires:  sqlite-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	kdsingleapplication-qt6
 
 Provides: mirall = %{version}-%{release}
 Obsoletes: mirall < 1.8.0
@@ -147,7 +146,6 @@ This package provides overlay icons to visualize the sync state
 in the caja file manager.
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 %package dolphin
 Summary:        Dolphin overlay icons
 Supplements:    (nextcloud-client and dolphin)
@@ -156,7 +154,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description dolphin
 The nextcloud desktop client dolphin extension.
-%endif
 
 %prep
 %setup -n desktop-%{version}
@@ -206,9 +203,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 
 %ldconfig_scriptlets libs
 
-%if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 %ldconfig_scriptlets dolphin
-%endif
 
 %files -f client.lang
 %{_bindir}/nextcloud
@@ -247,12 +242,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 %{_datadir}/caja-python/extensions/*
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 %files dolphin
 %{_libdir}/libnextclouddolphinpluginhelper.so
 %{_kf6_plugindir}/overlayicon/nextclouddolphinoverlayplugin.so
 %{_kf6_plugindir}/kfileitemaction/nextclouddolphinactionplugin.so
-%endif
 
 %changelog
 %autochangelog

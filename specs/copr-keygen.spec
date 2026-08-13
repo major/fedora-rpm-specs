@@ -2,8 +2,8 @@
 %global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    2.2
-Release:    6%{?dist}
+Version:    2.3
+Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -171,20 +171,8 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.2-5
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2-2
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.3-1
+- Fix container-based unit test workflow
 
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.2-1
 - Stop using deprecated %%py3_build/%%py3_install macros

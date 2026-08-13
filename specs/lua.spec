@@ -1,6 +1,6 @@
 %global major_version 5.5
 # Normally, this is the same as version, but... not always.
-%global test_version 5.5.0
+%global test_version 5.5.1
 # If you are incrementing major_version, enable bootstrapping and adjust accordingly.
 # Version should be the latest prior build. If you don't do this, RPM will break and
 # everything will grind to a halt.
@@ -13,8 +13,8 @@
 
 
 Name:           lua
-Version:        %{major_version}.0
-Release:        3%{?dist}
+Version:        %{major_version}.1
+Release:        1%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -40,8 +40,6 @@ Patch8:		%{name}-5.4.8-bug2.patch
 Patch9:		%{name}-5.4.8-bug3.patch
 %endif
 # https://www.lua.org/bugs.html
-Patch10:	lua-5.5.0-bug1.patch
-Patch11:	lua-5.5.0-bug2.patch
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -105,8 +103,6 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch -P3 -p1 -z .configure-linux
 
 # Bug patches here
-%patch -P10 -p1 -b .bug1
-%patch -P11 -p1 -b .bug2
 
 # Put proper version in configure.ac, patch0 hardcodes 5.5.0
 sed -i 's|5.5.0|%{version}|g' configure.ac
@@ -230,6 +226,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Mon Aug 10 2026 Tom Callaway <spot@fedoraproject.org> - 5.5.1-1
+- update to 5.5.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

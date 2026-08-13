@@ -1,7 +1,7 @@
 # Ship our own repos subpackage rather than mainline Fedora's
-%bcond repos 1
+%bcond repos 0
 
-%define fedora_dist_version 45
+%define fedora_dist_version 46
 %define rhel_dist_version 11
 %if %{defined copr_username}
 %global eln 101
@@ -38,7 +38,7 @@ BuildRequires:  systemd-rpm-macros
 
 Provides:       fedora-release = %{fedora_dist_version}-%{release}
 Provides:       fedora-release-common = %{fedora_dist_version}-%{release}
-Obsoletes:      fedora-release-common < 46
+Obsoletes:      fedora-release-common
 Provides:       fedora-release-eln = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-eln < 46
 Provides:       fedora-release-identity-basic = %{fedora_dist_version}-%{release}
@@ -175,7 +175,7 @@ Summary:        Fedora ELN package repositories
 Provides:       system-repos = %{version}-%{release}
 Provides:       fedora-eln-repos(%{rhel_dist_version}) = %{version}
 Provides:       fedora-repos-eln = %{fedora_dist_version}-%{release}
-Obsoletes:      fedora-repos-eln < 46
+Obsoletes:      fedora-repos-eln < 47
 Requires:       fedora-gpg-keys = %{fedora_dist_version}
 
 %description -n fedora-eln-repos

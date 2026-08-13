@@ -1,10 +1,10 @@
-%global rawhide_release 45
+%global rawhide_release 46
 %global updates_testing_enabled 0
 
 Summary:        Fedora package repositories
 Name:           fedora-repos
-Version:        45
-Release:        0.2%{?eln:.eln%{eln}}
+Version:        46
+Release:        0.1%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -86,6 +86,7 @@ Source63:       RPM-GPG-KEY-fedora-43-primary
 Source64:       RPM-GPG-KEY-fedora-44-primary
 Source65:       RPM-GPG-KEY-fedora-45-primary
 Source66:       RPM-GPG-KEY-fedora-46-primary
+Source67:       RPM-GPG-KEY-fedora-47-primary
 
 # When bumping Rawhide to fN, create N+1 key (and update archmap). (This
 # ensures users have the next future key installed and referenced, even if they
@@ -105,6 +106,7 @@ Source505:      fedora-43-ima.der
 Source506:      fedora-44-ima.der
 Source507:      fedora-45-ima.der
 Source508:      fedora-46-ima.der
+Source509:      fedora-47-ima.der
 
 %description
 Fedora package repository files for yum and dnf along with gpg public keys.
@@ -159,14 +161,15 @@ in a production environment.
 
 %install
 # Install the keys
-install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-gpg
-install -m 644 %{_sourcedir}/RPM-GPG-KEY* $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
+install -d -m 755 %{buildroot}/etc/pki/rpm-gpg
+install -d -m 755 %{buildroot}%{_datadir}/pki/rpm-gpg
+install -m 644 %{_sourcedir}/RPM-GPG-KEY* %{buildroot}%{_datadir}/pki/rpm-gpg/
 
 # Link the primary/secondary keys to arch files, according to archmap.
 # Ex: if there's a key named RPM-GPG-KEY-fedora-19-primary, and archmap
 #     says "fedora-19-primary: i386 x86_64",
 #     RPM-GPG-KEY-fedora-19-{i386,x86_64} will be symlinked to that key.
-pushd $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
+pushd %{buildroot}%{_datadir}/pki/rpm-gpg/
 # Also add a symlink for Rawhide and ELN keys
 ln -s RPM-GPG-KEY-fedora-%{rawhide_release}-primary RPM-GPG-KEY-fedora-rawhide-primary
 ln -s RPM-GPG-KEY-fedora-%{rawhide_release}-primary RPM-GPG-KEY-fedora-eln-primary
@@ -189,15 +192,16 @@ ln -s RPM-GPG-KEY-fedora-%{version}-primary RPM-GPG-KEY-%{version}-fedora
 popd
 
 # Install the IMA certs
-install -d -m 755 $RPM_BUILD_ROOT/etc/keys/ima
-install -m 644 %{_sourcedir}/fedora*ima.der $RPM_BUILD_ROOT/etc/keys/ima/
-install -d -m 755 $RPM_BUILD_ROOT/usr/share/ima/
-install -m 644 %{_sourcedir}/fedora-ima-ca.der $RPM_BUILD_ROOT/usr/share/ima/ca.der
+install -d -m 755 %{buildroot}/etc/keys/ima
+install -m 644 %{_sourcedir}/fedora*ima.der %{buildroot}/etc/keys/ima
+install -d -m 755 %{buildroot}%{_datadir}/ima/
+install -m 644 %{_sourcedir}/fedora-ima-ca.der %{buildroot}%{_datadir}/ima/ca.der
 
 # Install repo files
-install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
+install -d -m 755 %{buildroot}/etc/yum.repos.d
+install -d -m 755 %{buildroot}%{_datadir}/dnf5/repos.d
 for file in %{_sourcedir}/fedora*repo ; do
-  install -m 644 $file $RPM_BUILD_ROOT/etc/yum.repos.d
+  install -m 644 $file %{buildroot}%{_datadir}/dnf5/repos.d
 done
 
 # Enable or disable repos based on current release cycle state.
@@ -220,19 +224,19 @@ testing_enabled=%{updates_testing_enabled}
 archive_enabled=1
 eln_enabled=0
 %endif
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-rawhide*.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-rawhide*.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${rawhide_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora{,-updates}.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora{,-updates}.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${stable_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-updates-testing.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${testing_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-archive.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-updates-archive.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${archive_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-eln*.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-eln*.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${eln_enabled}/" $repo || exit 1
 done
 
@@ -241,8 +245,8 @@ done
 # start to be signed with a newer key. Without having the key specified in the
 # repo file, the system would consider the new packages as untrusted.
 rawhide_next=$((%{rawhide_release}+1))
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-rawhide*.repo; do
-    sed -i "/^gpgkey=/ s@AUTO_VALUE@file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-${rawhide_next}-\$basearch@" \
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-rawhide*.repo; do
+    sed -i "/^gpgkey=/ s@AUTO_VALUE@file:///usr/share/pki/rpm-gpg/RPM-GPG-KEY-fedora-${rawhide_next}-\$basearch@" \
         $repo || exit 1
 done
 
@@ -252,20 +256,20 @@ expire_value='6h'
 %else
 expire_value='7d'
 %endif
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora.repo; do
     sed -i "/^metadata_expire=/ s/AUTO_VALUE/${expire_value}/" \
         $repo || exit 1
 done
 
 # Install ostree remote config
-install -d -m 755 $RPM_BUILD_ROOT/etc/ostree/remotes.d/
-install -m 644 %{_sourcedir}/fedora.conf $RPM_BUILD_ROOT/etc/ostree/remotes.d/
-install -m 644 %{_sourcedir}/fedora-compose.conf $RPM_BUILD_ROOT/etc/ostree/remotes.d/
+install -d -m 755 %{buildroot}/etc/ostree/remotes.d/
+install -m 644 %{_sourcedir}/fedora.conf %{buildroot}/etc/ostree/remotes.d/
+install -m 644 %{_sourcedir}/fedora-compose.conf %{buildroot}/etc/ostree/remotes.d/
 
 
 %check
 # Make sure all repo variables were substituted
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/*.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/*.repo; do
     if grep -q AUTO_VALUE $repo; then
         echo "ERROR: Repo $repo contains an unsubstituted placeholder value"
         exit 1
@@ -295,13 +299,13 @@ disabled_repos+=(fedora-updates-testing)
 %endif
 
 for repo in ${enabled_repos[@]}; do
-    if ! grep -q 'enabled=1' $RPM_BUILD_ROOT/etc/yum.repos.d/${repo}.repo; then
+    if ! grep -q 'enabled=1' %{buildroot}%{_datadir}/dnf5/repos.d/${repo}.repo; then
         echo "ERROR: Repo $repo should have been enabled, but it isn't"
         exit 1
     fi
 done
 for repo in ${disabled_repos[@]}; do
-    if grep -q 'enabled=1' $RPM_BUILD_ROOT/etc/yum.repos.d/${repo}.repo; then
+    if grep -q 'enabled=1' %{buildroot}%{_datadir}/dnf5/repos.d/${repo}.repo; then
         echo "ERROR: Repo $repo should have been disabled, but it isn't"
         exit 1
     fi
@@ -309,7 +313,7 @@ done
 
 # Make sure updates-testing is not enabled in a Final (stable) release
 %if "%{release}" >= "1"
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-updates-testing.repo; do
     if grep -q 'enabled=1' $repo; then
         echo "ERROR: Repo $repo should be disabled in a stable release, but it isn't"
         exit 1
@@ -323,7 +327,7 @@ expire_value='6h'
 %else
 expire_value='7d'
 %endif
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora.repo; do
     lines=$(grep '^metadata_expire=' $repo | sort | uniq)
     if [ "$(echo "$lines" | wc -l)" -ne 1 ]; then
         echo "ERROR: Non-matching metadata_expire lines in $repo: $lines"
@@ -338,13 +342,13 @@ done
 # Make sure the Rawhide+1 key wasn't forgotten to be created
 rawhide_next=$((%{rawhide_release}+1))
 test -n "$rawhide_next" || exit 1
-if ! test -f $RPM_BUILD_ROOT/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-${rawhide_next}-primary; then
+if ! test -f %{buildroot}%{_datadir}/pki/rpm-gpg/RPM-GPG-KEY-fedora-${rawhide_next}-primary; then
     echo "ERROR: GPG key for Fedora ${rawhide_next} is not present"
     exit 1
 fi
 
 # Make sure the Rawhide+1 key is present in Rawhide repo files
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-rawhide*.repo; do
+for repo in %{buildroot}%{_datadir}/dnf5/repos.d/fedora-rawhide*.repo; do
     gpg_lines=$(grep '^gpgkey=' $repo)
     if test -z "$gpg_lines"; then
         echo "ERROR: No gpgkey= lines in $repo"
@@ -368,8 +372,8 @@ for VER in %{version} %{rawhide_release} ${rawhide_next}; do
   for ARCH in $(sed -ne "s/^fedora-${VER}-primary://p" %{_sourcedir}/archmap)
   do
     gpg --no-default-keyring --keyring="$TMPRING" \
-      --import $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-fedora-$VER-$ARCH
-    rpm --dbpath "$DBPATH" --import $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-fedora-$VER-$ARCH --test
+      --import %{buildroot}%{_datadir}/pki/rpm-gpg/RPM-GPG-KEY-fedora-$VER-$ARCH
+    rpm --dbpath "$DBPATH" --import %{buildroot}%{_datadir}/pki/rpm-gpg/RPM-GPG-KEY-fedora-$VER-$ARCH --test
   done
   # Ensure some arch key was imported
   gpg --no-default-keyring --keyring="$TMPRING" --list-keys | grep -A 2 '^pub\s'
@@ -378,25 +382,27 @@ rm -f "$TMPRING"
 
 %files
 %dir /etc/yum.repos.d
-%config(noreplace) /etc/yum.repos.d/fedora.repo
-%config(noreplace) /etc/yum.repos.d/fedora-cisco-openh264.repo
-%config(noreplace) /etc/yum.repos.d/fedora-updates.repo
-%config(noreplace) /etc/yum.repos.d/fedora-updates-testing.repo
+%dir %{_datadir}/dnf5/repos.d
+%{_datadir}/dnf5/repos.d/fedora.repo
+%{_datadir}/dnf5/repos.d/fedora-cisco-openh264.repo
+%{_datadir}/dnf5/repos.d/fedora-updates.repo
+%{_datadir}/dnf5/repos.d/fedora-updates-testing.repo
 
 %files archive
-%config(noreplace) /etc/yum.repos.d/fedora-updates-archive.repo
+%{_datadir}/dnf5/repos.d/fedora-updates-archive.repo
 
 %files rawhide
-%config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
+%{_datadir}/dnf5/repos.d/fedora-rawhide.repo
 
 
 %files -n fedora-gpg-keys
 %dir /etc/pki/rpm-gpg
-/etc/pki/rpm-gpg/RPM-GPG-KEY-*
+%dir %{_datadir}/pki/rpm-gpg
+%{_datadir}/pki/rpm-gpg/RPM-GPG-KEY-*
 
 # ima-certs
 /etc/keys/ima/fedora*ima*
-/usr/share/ima/ca.der
+%{_datadir}/ima/ca.der
 
 
 %files ostree
@@ -405,10 +411,20 @@ rm -f "$TMPRING"
 /etc/ostree/remotes.d/fedora-compose.conf
 
 %files eln
-%config(noreplace) /etc/yum.repos.d/fedora-eln.repo
+%{_datadir}/dnf5/repos.d/fedora-eln.repo
 
 
 %changelog
+* Mon Aug 11 2026 Patrik Polakovic <patrik@alphamail.org> - 46-0.1
+- Rawhide is now F46
+
+* Tue Aug 11 2026 Samyak Jain <samyak.jn11@gmail.com> - 45-0.4
+- Add RPM-GPG-KEY-fedora-47-primary
+- Add fedora-47-ima.der for IMA signing
+
+* Tue Aug 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 45-0.3
+- Relocate RPM repository configuration to /usr
+
 * Fri Aug 07 2026 Kevin Fenzi <kevin@scrye.com> - 45-0.2
 - Add Extensions to ELN repos
 

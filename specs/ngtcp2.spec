@@ -1,12 +1,16 @@
+%global upstream_sources 0 1
+%global pgp_signature_sources 1
+
 %bcond CHECK 1
 
 Name:           ngtcp2
-Version:        1.22.1
+Version:        1.25.0
 Release:        %autorelease
 Summary:        Implementation of RFC 9000 QUIC protocol
 
 License:        MIT
 URL:            https://github.com/ngtcp2/ngtcp2
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf4f3b91474d1eb29889bd0ef7e8403d5d673c366#/tatsuhiro-t.asc

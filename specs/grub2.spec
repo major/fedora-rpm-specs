@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	74%{?dist}
+Release:	75%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -694,6 +694,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 10 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-75
+- bli: Allow overriding PACKAGE_STRING via grub-mkimage
+
 * Mon Aug 3 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-74
 - grub-efi-cc: disable TPM string measurements at runtime
 

@@ -1,13 +1,11 @@
 Name:           cow
-Version:        0.1~rc
+Version:        0.1
 Release:        1%{?dist}
 Summary:        Compositor on Wayland - A stacking window manager
 
 License:        ISC
 URL:            https://codeberg.org/thomasadam/cow
 Source0:        %{url}/archive/%{version_no_tilde}.tar.gz#/%{name}-%{version_no_tilde}.tar.gz
-
-Patch0:         3241958bcb.patch
 
 BuildRequires: bison
 BuildRequires: flex
@@ -55,16 +53,24 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %{_bindir}/moocow
 %{_bindir}/cowident
 %{_bindir}/cowrearrange
+%{_bindir}/cowbuttons
+%{_bindir}/cowiconman
 %dir %{_sysconfdir}/cow
 %config(noreplace) %{_sysconfdir}/cow/cow.conf
 %{_datadir}/wayland-sessions/cow.desktop
+%{_datadir}/cow/icons/default.png
 %{_mandir}/man1/cow.1*
 %{_mandir}/man1/cowbar.1*
 %{_mandir}/man1/cowident.1*
 %{_mandir}/man1/cowpager.1*
 %{_mandir}/man1/moocow.1*
 %{_mandir}/man1/cowrearrange.1*
+%{_mandir}/man1/cowbuttons.1*
+%{_mandir}/man1/cowiconman.1*
 
 %changelog
+* Tue Aug 11 2026 Martin Cermak <mcermak@redhat.com> - 0.1-1
+- The inaugural release of CoW!
+
 * Fri Aug 7 2026 Martin Cermak <mcermak@redhat.com> - 0.1~rc-1
 - Bug 2489821 - Review Request: cow - Compositor on Wayland

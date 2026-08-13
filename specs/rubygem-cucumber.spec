@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.1.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
@@ -92,6 +92,8 @@ cd %{builddir}
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
 
+%gemspec_remove_dep -g cucumber-wire "~> 6.2"
+
 %gemspec_add_dep -g base64 ">= 0.2.0"
 
 %build
@@ -156,6 +158,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Tue Aug 11 2026 Vít Ondruch <vondruch@redhat.com> - 7.1.0-19
+- Relax cucumber-wire dependency.
+
 * Fri Aug 07 2026 Vít Ondruch <vondruch@redhat.com> - 7.1.0-18
 - Relax cucumber-core dependency.
 

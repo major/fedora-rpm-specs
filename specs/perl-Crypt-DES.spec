@@ -6,14 +6,13 @@
 %endif
 
 Name:           perl-Crypt-DES
-Version:        2.07
-Release:        45%{?dist}
+Version:        2.09
+Release:        1%{?dist}
 Summary:        Perl DES encryption module
 License:        BSD-Systemics
 URL:            https://metacpan.org/release/Crypt-DES
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-DES-%{version}.tar.gz
 Patch0:         perl-Crypt-DES-init-braces.patch
-Patch99:        perl-Crypt-DES-fedora-c99.patch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -48,9 +47,6 @@ DES encryption module. The module implements the Crypt::CBC interface.
 # Fix "warning: missing braces around initializer [-Wmissing-braces]"
 %patch -P 0
 
-# Fix C99 compatibility (CPAN RT#133363)
-%patch -P 99 -p1
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
@@ -65,12 +61,24 @@ make test
 
 %files
 %license COPYRIGHT
-%doc README
+%doc Changes README SECURITY.md
 %{perl_vendorarch}/auto/Crypt/
 %{perl_vendorarch}/Crypt/
 %{_mandir}/man3/Crypt::DES.3*
 
 %changelog
+* Tue Aug 11 2026 Paul Howarth <paul@city-fan.org> - 2.09-1
+- Update to 2.09 (rhbz#2513719)
+  - New maintainer (TIMLEGGE)
+  - Fix failure to build on newer GCC with implicit-function-declaration
+    (CPAN RT#133363, CPAN RT#133412)
+  - Add Security Policy (DES is insecure)
+  - Add a Security Considerations section to the pod
+  - Minor packaging updates
+  - Clarify module recommendations
+  - Add a Changes file
+  - Move new Module::Whatever to Module::Whatever->new() in pod and tests
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-45
 - Perl 5.44 rebuild
 

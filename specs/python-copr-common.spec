@@ -1,8 +1,8 @@
 %global srcname copr-common
 
 Name:       python-copr-common
-Version:    1.7
-Release:    3%{?dist}
+Version:    1.8
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -22,9 +22,10 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 %endif
 BuildRequires: python3-pytest
+BuildRequires: python3-redis
 BuildRequires: python3-requests
-BuildRequires: python3-filelock
 BuildRequires: python3-setproctitle
+BuildRequires: redis
 
 %global _description\
 COPR is lightweight build system. It allows you to create new project in WebUI,\
@@ -69,7 +70,7 @@ version=%version %py3_install
 %endif
 
 %check
-%{_bindir}/python3 -m pytest -vv tests
+./run_tests.sh -vv --no-cov
 
 
 %files -n python3-%{srcname}
@@ -79,11 +80,11 @@ version=%version %py3_install
 
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.7-2
-- Rebuilt for Python 3.15
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 1.8-1
+- Add direct RPM upload build type
+- Efactor lock() function into Lock class
+- Fair FIFO locking via Redis queue
+- Fix container-based unit test workflow
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.7-1
 - Fix test_posix_live_output_cut test for s390x

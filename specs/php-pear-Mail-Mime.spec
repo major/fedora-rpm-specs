@@ -1,6 +1,6 @@
 # spec file for php-pear-Mail-Mime
 #
-# Copyright (c) 2009-2024 Remi Collet
+# Copyright (c) 2009-2026 Remi Collet
 # Copyright (c) 2006-2008 Brandon Holbrook
 #
 # License: MIT
@@ -12,22 +12,22 @@
 %global pear_name Mail_Mime
 
 Name:           php-pear-Mail-Mime
-Version:        1.10.12
-Release:        6%{?dist}
+Version:        1.10.13
+Release:        1%{?dist}
 Summary:        Classes to create MIME messages
 
 License:        BSD-3-Clause
 URL:            http://pear.php.net/package/Mail_Mime
-Source0:        http://pear.php.net/get/Mail_Mime-%{version}.tgz
+# git snapshot for tests
+Source0:        %{name}-%{version}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
-BuildRequires:  php-pear(PEAR) >= 1.6.0
+BuildRequires:  php-pear
 BuildRequires:  php-mbstring
 
-Requires:       php-pear(PEAR) >= 1.6.0
-Requires:       php-date
+Requires:       php-pear
 Requires:       php-mbstring
-Requires:       php-pcre
 Requires(post): %{__pear}
 Requires(postun): %{__pear}
 
@@ -50,9 +50,8 @@ using RFC2047 and/or RFC2231.
 
 
 %prep
-%setup -q -c 
-cd %{pear_name}-%{version}
-mv ../package.xml %{name}.xml
+%setup -q -n %{pear_name}-%{version}
+mv package.xml %{name}.xml
 
 
 %build
@@ -60,7 +59,6 @@ mv ../package.xml %{name}.xml
 
 
 %install
-cd %{pear_name}-%{version}
 %{__pear} install --nodeps --packagingroot %{buildroot} %{name}.xml
 
 # Clean up unnecessary files
@@ -72,7 +70,6 @@ install -pm 644 %{name}.xml %{buildroot}%{pear_xmldir}
 
 
 %check
-cd %{pear_name}-%{version}
 %{__pear} \
    run-tests \
    -i "-d include_path=%{buildroot}%{pear_phpdir}:%{pear_phpdir}" \
@@ -99,6 +96,10 @@ fi
 
 
 %changelog
+* Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 1.10.13-1
+- update to 1.10.13
+- sources from github
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

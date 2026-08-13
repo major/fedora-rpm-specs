@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/circle
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.6
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Adjoint groups of finite rings
 
@@ -17,8 +17,7 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap(gapdoc) >= 1.5.1
+BuildRequires:  gap(autodoc) >= 2022.07.10
 BuildRequires:  gap(laguna)
 BuildRequires:  gap-devel >= 4.8
 
@@ -68,10 +67,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
-
-%build -a
-# Fix paths in the extracted example files
-sed -i "s,$PWD/\.\.,%{gap_libdir},g" tst/circle*.tst
 
 %install -a
 rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/README.md

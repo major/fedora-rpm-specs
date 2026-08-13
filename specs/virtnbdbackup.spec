@@ -1,5 +1,5 @@
 Name:           virtnbdbackup
-Version:        2.47
+Version:        2.49
 Release:        2%{?dist}
 Summary:        Backup utility for libvirt
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ install -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/virtnbd*
 
 %changelog
+* Tue Aug 11 2026 Chris Adams <linux@cmadams.net> 2.49-1
+- new version
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.47-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -44,6 +44,10 @@ Patch1: ldns-1.7.0-multilib.patch
 # https://github.com/NLnetLabs/ldns/pull/288
 Patch8: ldns-1.9-std23-bool.patch
 
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch9: ldns-swig45.patch
+
 BuildRequires: libtool
 BuildRequires: autoconf
 BuildRequires: automake

@@ -48,3 +48,4 @@ rendering pipelines.
 %{_libdir}/gbm/default_fmt_alignment.xml
 
 %changelog
+%autochangelog

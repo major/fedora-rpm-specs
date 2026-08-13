@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2025.0.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -15,6 +15,9 @@ BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel libepoxy-devel
 BuildRequires: python3-devel swig perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch0:         hugin-swig45.patch
 # contains deprecated distutils
 BuildRequires: python3-setuptools
 
@@ -188,6 +191,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2025.0.1-8
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2025.0.1-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -2,7 +2,7 @@
 
 Name:    unixODBC
 Version: 2.3.14
-Release: 11%{?dist}
+Release: %{autorelease}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -43,6 +43,7 @@ a MySQL or MariaDB database, and/or the postgresql-odbc package for PostgreSQL.
 %package -n odbcinst-generate
 Summary: Drop-in snippet generator for ODBC driver registration
 BuildArch: noarch
+Requires(post): coreutils
 
 %description -n odbcinst-generate
 Assembles /etc/odbcinst.ini from per-driver drop-in snippets shipped by
@@ -227,15 +228,15 @@ fi
 %dir %{_sysconfdir}/odbc/odbcinst.d
 
 %post -n odbcinst-generate
-odbcinst-generate
+odbcinst-generate || :
 
 # Regenerate odbcinst.ini when driver packages install drop-in snippets
 %transfiletriggerin -n odbcinst-generate -- %{_prefix}/lib/odbc/odbcinst.d %{_sysconfdir}/odbc/odbcinst.d
-odbcinst-generate
+odbcinst-generate || :
 
 # Regenerate after driver packages are removed
 %transfiletriggerpostun -n odbcinst-generate -- %{_prefix}/lib/odbc/odbcinst.d %{_sysconfdir}/odbc/odbcinst.d
-odbcinst-generate
+odbcinst-generate || :
 
 
 %files devel -f devel-so-list
@@ -244,7 +245,4 @@ odbcinst-generate
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.14-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 %autochangelog

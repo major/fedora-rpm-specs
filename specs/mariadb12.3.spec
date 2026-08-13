@@ -1203,6 +1203,7 @@ rm -r %{buildroot}%{_datadir}/%{majorname}/mariadb.service.d
 %if %{without test}
 %if %{with pam}
 rm -r %{buildroot}%{_libdir}/%{majorname}/plugin/test_pam_modules
+rm %{buildroot}/suite/plugins/pam/mariadb_mtr
 %endif
 %endif
 

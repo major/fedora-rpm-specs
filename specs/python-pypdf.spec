@@ -10,7 +10,7 @@
 %global forgeurl https://github.com/py-pdf/pypdf
 
 Name:           python-%{srcname}
-Version:        6.14.2
+Version:        6.15.0
 Release:        %autorelease
 Summary:        Pure-Python PDF library
 
@@ -62,6 +62,22 @@ This package provides additional documentation for %{name}.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# Fedora currently doesn't provide python-bidi nor arabic-reshaper, so drop the
+# optional RTL (Arabic/Hebrew) text shaping support: the "rtl_text" extra,
+# and its two entries in the "full" extra.
+# Note that pypdf degrades gracefully,
+# pypdf.generic._appearance_stream.HAS_RTL_SUPPORT becomes False.
+sed -i -e '/^rtl_text = \[$/,/^\]$/d' \
+       -e '/^ *"arabic-reshaper",$/d' \
+       -e '/^ *"python-bidi"$/d' \
+       pyproject.toml
+# Fail loudly rather than silently shipping broken dependencies if upstream
+# reformats the extras in a future release.
+if grep -qE 'arabic-reshaper|python-bidi' pyproject.toml; then
+    echo 'ERROR: RTL extras removal failed, update the sed expressions above' >&2
+    exit 1
+fi
+
 %if %{with docs}
 # Use local intersphinx inventory
 sed -r \
@@ -90,7 +106,11 @@ rm -rf html/{.buildinfo,.doctrees}
 %if %{with tests}
 # Deselect tests downloading files from external hosts and tests requiring
 # sample files which are not included in the source tarball.
-%pytest -m "not enable_socket and not samples"
+# Additionally, deselect the test_appearance_stream_rtl test which tests the
+# reshaped/reordered RTL output and has no guard for missing
+# python-bidi/arabic-reshaper, which are dropped in %%prep.
+%pytest -m "not enable_socket and not samples" \
+    --deselect tests/test_appearance_stream.py::test_appearance_stream_rtl
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

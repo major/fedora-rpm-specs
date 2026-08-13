@@ -41,6 +41,11 @@ Recommends: python3-pulsectl
 Recommends: python3-pulsectl-asyncio
 
 Requires: python3-libqtile = %{version}-%{release}
+# CFFI loaded runtime deps in libqtile/__init__.py
+Requires: glib2%{?_isa}
+Requires: pango%{?_isa}
+Requires: xcb-util-cursor%{?_isa}
+Requires: fontconfig%{?_isa}
 
 
 %description

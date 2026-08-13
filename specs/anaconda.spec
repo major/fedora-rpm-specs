@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.16
+Version: 45.17
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -523,6 +523,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 11 2026 Packit <hello@packit.dev> - 45.17-1
+- feat(bootc): support arbitrary mount points for bootc installations
+  (rvykydal)
+- storage: Add support for Stratis to automatic partitioning (vtrefny)
+- conf: Bump min size for /home to 512 MiB (vtrefny)
+- storage: Add support for re-creating stratis filesystems (vtrefny)
+
 * Thu Aug 06 2026 Packit <hello@packit.dev> - 45.16-1
 - Fix a shutdown (Quit) race condition (rvykydal)
 - spec: Bump required blivet version to 3.14.0 (vtrefny)

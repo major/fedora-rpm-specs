@@ -8,7 +8,7 @@
 %global debug_package %{nil}
 
 Name:		hexagon-dsp-binaries
-Version:	20260622
+Version:	20260810
 Release:	%autorelease
 Summary:	Hexagon DSP binaries for FastRPC
 
@@ -71,6 +71,8 @@ Hexagon DSP binaries and configuration for %{2}. \
 %boardpkg qualcomm-iq9075-evk %{quote:Qualcomm IQ9075 EVK} qualcomm-sa8775p-ride
 %boardpkg qualcomm-purwa-iot-evk %{quote:Qualcomm Purwa IoT EVK} qualcomm-hamoa-iot-evk
 %boardpkg qualcomm-qcm6490-idp %{quote:Qualcomm QCM6490 IDP} thundercomm-rb3gen2
+# Conf only
+%boardpkg qualcomm-db410c %{quote:Qualcomm DragonBoard 410c}
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -90,12 +92,12 @@ sed -i '/schema.json/d' Makefile
 %dir %{_datadir}/hexagon-dsp
 %dir %{_datadir}/hexagon-dsp/conf.d
 
-%global boardfiles() \
+%define boardfiles() \
 %files -n hexagon-dsp-binaries-%{1} \
 %{_datadir}/hexagon-dsp/conf.d/hexagon-dsp-binaries-%{1}.yaml \
-%dir %{_datadir}/hexagon-dsp/%{2} \
-%dir %{_datadir}/hexagon-dsp/%{2}/%{3} \
-%{_datadir}/hexagon-dsp/%{2}/%{3}/%{4}
+%{?2:%dir %{_datadir}/hexagon-dsp/%{2}} \
+%{?2:%dir %{_datadir}/hexagon-dsp/%{2}/%{3}} \
+%{?2:%{_datadir}/hexagon-dsp/%{2}/%{3}/%{4}}
 
 %boardfiles qualcomm-db820c apq8096 Qualcomm db820c
 %boardfiles thundercomm-db845c sdm845 Thundercomm db845c
@@ -121,5 +123,7 @@ sed -i '/schema.json/d' Makefile
 %boardfiles qualcomm-iq9075-evk sa8775p Qualcomm IQ9075-EVK
 %boardfiles qualcomm-purwa-iot-evk x1p42100 Qualcomm Purwa-IoT-EVK
 %boardfiles qualcomm-qcm6490-idp qcm6490 Qualcomm QCM6490-IDP
+%boardfiles qualcomm-db410c
 
 %changelog
+%autochangelog

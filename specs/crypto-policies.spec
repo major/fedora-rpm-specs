@@ -1,5 +1,5 @@
-%global git_date 20260713
-%global git_commit c42da772d5fcedc55aee8f2a3348e7d718551910
+%global git_date 20260731
+%global git_commit 6488aefe8b46d402c87da1ebea16ad250a76f050
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -290,6 +290,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Jul 31 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260731-1.git6488aef
+- FIPS:OSPP: disable CBC and enable TLS 1.3
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260713-2.gitc42da77
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

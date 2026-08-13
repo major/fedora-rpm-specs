@@ -5,7 +5,7 @@
 %global crate circular-buffer
 
 Name:           rust-circular-buffer
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Efficient circular buffer implementation
 

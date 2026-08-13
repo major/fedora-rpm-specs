@@ -1,8 +1,8 @@
-%global copr_common_version 1.5.1
+%global copr_common_version 1.7.2
 
 Name:       copr-dist-git
-Version:    1.6
-Release:    3%{?dist}
+Version:    1.7
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -25,6 +25,7 @@ BuildRequires: python3-copr-common >= %copr_common_version
 BuildRequires: python3-redis
 BuildRequires: python3-setproctitle
 BuildRequires: python3-sentry-sdk
+BuildRequires: redis
 
 Recommends: logrotate
 Requires: systemd
@@ -136,11 +137,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6-2
-- Rebuilt for Python 3.15
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 1.7-1
+- Refactor lock() function into Lock class
+- Fair FIFO locking via Redis queue
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.6-1
 - Use SafeRequest.timeout only as a timeout per request

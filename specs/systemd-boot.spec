@@ -1,9 +1,9 @@
 Name:           systemd-boot
-Version:        261~rc3
+Version:        261.2
 Release:        %autorelease
 Summary:        UEFI boot manager
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://systemd.io
 
 %global source_rpm_name systemd-boot-unsigned
@@ -28,7 +28,7 @@ systemd-boot (short: sd-boot) is a simple UEFI boot manager. It provides a
 graphical menu to select the entry to boot and an editor for the kernel command
 line. systemd-boot supports systems with UEFI firmware only.
 
-This package contains the signed version that that works with SecureBoot.}
+This package contains the signed version that works with SecureBoot.}
 
 %description %_description
 
@@ -67,6 +67,10 @@ cp -a %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub \
 cp -a %{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub \
    %{buildroot}%{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
 
+install -dm 0755 %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}
+ln %{buildroot}%{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed \
+   %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/grub%{efi_arch}.efi
+
 install -m0644 -Dt %{buildroot}%{_licensedir}/%{name}/ %{_datadir}/licenses/systemd/LICENSE.LGPL2.1
 
 %postun
@@ -84,6 +88,10 @@ fi
 %attr(0644,-,-) %{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed
 %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub.alt
 %{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
+%dir %{_prefix}/lib/efi
+%dir %{_prefix}/lib/efi/systemd-boot
+%dir %{_prefix}/lib/efi/systemd-boot/%{version}-%{release}
+%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/grub%{efi_arch}.efi
 
 # Man pages are provided by systemd-udev subpackage.
 # If we copied them to this package, we'd need to either rename them

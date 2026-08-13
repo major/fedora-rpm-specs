@@ -54,3 +54,4 @@ BuildRequires:	python3-devel
 %{_bindir}/qcom-ptool
 
 %changelog
+%autochangelog

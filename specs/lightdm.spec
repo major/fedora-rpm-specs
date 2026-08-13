@@ -2,7 +2,7 @@
 %bcond_with tests
 
 %global glib2_version	%(pkg-config --modversion glib-2.0 2>/dev/null || echo "2.44")
-%global giturl		https://github.com/CanonicalLtd/lightdm
+%global giturl		https://github.com/ubuntu/lightdm
 
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
@@ -39,6 +39,7 @@ Patch1:		remove_bin_path.patch
 Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
 
 # Pending
+Patch3:     %{giturl}/pull/454.patch#/logind_multiseat_fix.patch
 
 # Upstream commits
 

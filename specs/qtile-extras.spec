@@ -1,3 +1,5 @@
+%bcond x11 %[!(0%{?rhel} >= 10)]
+
 %global forgeurl https://github.com/elParaguayo/qtile-extras
 %global tag v0.36.0
 
@@ -14,44 +16,24 @@ Source0: %{forgesource}
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-requests
-BuildRequires: python3-pip
-BuildRequires: python3-wheel
 BuildRequires: qtile = %{version}
-BuildRequires: pango-devel
-BuildRequires: gdk-pixbuf2-devel
-BuildRequires: python3-dbus-next
-BuildRequires: python3-gobject
-BuildRequires: python3-gobject-base
-BuildRequires: python3-dbus-fast
-BuildRequires: cairo-devel
-BuildRequires: gobject-introspection-devel
+BuildRequires: qtile-wayland = %{version}
 
 # Test dependencies
-# In the ideal world, we would generate the Python dependencies dynamically
-# through `%%pyproject_buildrequires -e %%{toxenv}`
-# The problem is, that some of the dependencies are not packaged for Fedora
-# (e.g. iwlib, stravalib, pulsectl-asyncio) and we won't provide the widgets
-# that depends on them
-# We should patch the tox.ini file and remove the missing dependencies instead
-# of installing everything manually
-BuildRequires: tox
-BuildRequires: python3-anyio
-BuildRequires: python3-tox-current-env
 BuildRequires: python3-pytest
+%if %{with x11}
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: xorg-x11-server-Xephyr
-BuildRequires: rsvg-pixbuf-loader
+%endif
 BuildRequires: ImageMagick
-BuildRequires: pango-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-dbus-next
-BuildRequires: python3-xcffib
-BuildRequires: rsvg-pixbuf-loader
+BuildRequires: pulseaudio-libs
+# test/scripts/window.py GI deps
+BuildRequires: gobject-introspection
+BuildRequires: gtk3
+BuildRequires: gtk-layer-shell
 
 # The tarball is missing .git directory, we need to create it during build
-BuildRequires: git
+BuildRequires: git-core
 
 Requires: qtile = %{version}
 
@@ -62,11 +44,23 @@ Qtile. For more, please read https://qtile-extras.readthedocs.io
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x dev,widgets
 
 
 %prep
 %forgesetup
+# not needed with latest setuptools
+%pyproject_patch_dependency wheel:ignore
+# no coverage tests in downstream packaging
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency coveralls:ignore
+%pyproject_patch_dependency pytest-cov:ignore
+# widget deps not in Fedora
+%pyproject_patch_dependency stravalib:ignore
+%pyproject_patch_dependency iwlib:ignore
+# test deps not in Fedora, or different versions
+%pyproject_patch_dependency pytest:drop_upper
+%pyproject_patch_dependency check-manifest:ignore
 
 git init
 
@@ -84,10 +78,6 @@ rm -rf test/widget/test_network.py
 # Remove empty fixtures file
 # https://github.com/elParaguayo/qtile-extras/pull/386
 rm -rf qtile_extras/resources/footballscores/fixtures.py
-
-# This test requires pytest_lazyfixture which is not compatible with pytest 8
-# https://github.com/elParaguayo/qtile-extras/issues/388
-rm -rf test/widget/test_currentlayouticon.py
 
 # Remove shebang
 sed -e "\|#! /usr/bin/python3 -sP|d" -i qtile_extras/resources/visualiser/cava_draw.py
@@ -118,12 +108,17 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 ulimit -n 10240
 
 %pytest -vv \
+    --backend wayland \
+%if %{with x11}
+    --backend x11 \
     --deselect test/widget/test_alsawidget.py::test_alsawidget_defaults[1-x11] \
     --deselect test/widget/test_alsawidget.py::test_controls[1-x11] \
     --deselect test/widget/test_alsawidget.py::test_step[1-x11-alsa_manager0] \
     --deselect test/widget/test_alsawidget.py::test_no_icons[1-x11-alsa_manager0] \
     --deselect test/widget/test_alsawidget.py::test_icons[1-x11-alsa_manager0] \
-    --deselect test/widget/test_githubnotifications.py::test_githubnotifications_reload_token[1-x11-False-githubnotification_manager0]
+    --deselect test/widget/test_githubnotifications.py::test_githubnotifications_reload_token[1-x11-False-githubnotification_manager0] \
+%endif
+    --deselect test/widget/test_widget_init.py::test_init_import_error_no_fallback
 
 %files -n qtile-extras -f %{pyproject_files}
 %license LICENSE

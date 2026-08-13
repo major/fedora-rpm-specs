@@ -33,6 +33,7 @@ applications that use %{name}.
 %package	services
 Summary:	Daemons for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Suggests:	hexagon-dsp-binaries
 
 %description	services
 This package contains daemons and systemd files for %{name}.
@@ -107,3 +108,4 @@ autoreconf -fiv
 %{_sysusersdir}/fastrpc.conf
 
 %changelog
+%autochangelog

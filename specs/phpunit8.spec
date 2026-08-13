@@ -20,8 +20,8 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        8.5.53
-Release:        2%{?dist}
+Version:        8.5.54
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -46,7 +46,7 @@ BuildRequires:  (php-composer(phpunit/php-timer) >= 2.1.4             with php-c
 BuildRequires:  (php-composer(sebastian/comparator) >= 3.0.7          with php-composer(sebastian/comparator) <  4)
 BuildRequires:  (php-composer(sebastian/diff) >= 3.0.6                with php-composer(sebastian/diff) <  4)
 BuildRequires:  (php-composer(sebastian/environment) >= 4.2.5         with php-composer(sebastian/environment) <  5)
-BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.8            with php-composer(sebastian/exporter) <  4)
+BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.9            with php-composer(sebastian/exporter) <  4)
 BuildRequires:  (php-composer(sebastian/global-state) >= 3.0.6        with php-composer(sebastian/global-state) <  4)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 3.0.5   with php-composer(sebastian/object-enumerator) <  4)
 BuildRequires:  (php-composer(sebastian/resource-operations) >= 2.0.3 with php-composer(sebastian/resource-operations) < 3)
@@ -81,7 +81,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/comparator": "^3.0.7",
 #        "sebastian/diff": "^3.0.6",
 #        "sebastian/environment": "^4.2.5",
-#        "sebastian/exporter": "^3.1.8",
+#        "sebastian/exporter": "^3.1.9",
 #        "sebastian/global-state": "^3.0.6",
 #        "sebastian/object-enumerator": "^3.0.5",
 #        "sebastian/resource-operations": "^2.0.3",
@@ -106,7 +106,7 @@ Requires:       (php-composer(phpunit/php-timer) >= 2.1.4             with php-c
 Requires:       (php-composer(sebastian/comparator) >= 3.0.7          with php-composer(sebastian/comparator) <  4)
 Requires:       (php-composer(sebastian/diff) >= 3.0.6                with php-composer(sebastian/diff) <  4)
 Requires:       (php-composer(sebastian/environment) >= 4.2.5         with php-composer(sebastian/environment) <  5)
-Requires:       (php-composer(sebastian/exporter) >= 3.1.8            with php-composer(sebastian/exporter) <  4)
+Requires:       (php-composer(sebastian/exporter) >= 3.1.9            with php-composer(sebastian/exporter) <  4)
 Requires:       (php-composer(sebastian/global-state) >= 3.0.6        with php-composer(sebastian/global-state) <  4)
 Requires:       (php-composer(sebastian/object-enumerator) >= 3.0.5   with php-composer(sebastian/object-enumerator) <  4)
 Requires:       (php-composer(sebastian/resource-operations) >= 2.0.3 with php-composer(sebastian/resource-operations) < 3)
@@ -232,6 +232,10 @@ exit $ret
 
 
 %changelog
+* Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 8.5.54-1
+- update to 8.5.54
+- raise dependency on sebastian/exporter 3.1.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.53-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

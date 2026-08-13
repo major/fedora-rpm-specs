@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/laguna
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.9.7
+Version:        3.10.0
 Release:        %autorelease
 Summary:        Lie AlGebras and UNits of group Algebras
 
@@ -17,8 +17,8 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  GAPDoc-latex >= 1.6.1
-BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(smallgrp) >= 1.0
 BuildRequires:  gap(sophus) >= 1.24
 BuildRequires:  gap-devel >= 4.9
 
@@ -54,7 +54,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
 # Fix end of line encodings
 sed -i 's/\r/\n/g' doc/theory.xml
 

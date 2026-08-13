@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.28
+Version: 13.29
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 11 2026 Nick Clifton  <nickc@redhat.com> - 13.29-1
+- Annocheck: Fix bug checking the path safety of the --debug-dir option.
+
 * Thu Jul 23 2026 Nick Clifton  <nickc@redhat.com> - 13.28-1
 - Annocheck: Fix seg-fault in code checking for gcc components.
 

@@ -17,7 +17,7 @@
 #
 Name:           openh264
 Version:        2.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD-2-Clause
@@ -152,6 +152,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
 %changelog
+* Tue Aug 11 2026 Kevin Fenzi <kevin@scrye.com> - 2.6.0-4
+- Rebuild for new release
+
 * Thu Mar 19 2026 Kevin Fenzi <kevin@scrye.com> - 2.6.0-3
 - Rebuild for newer releases
 - Work around i686 linking issue ( rhbz#2428281 )

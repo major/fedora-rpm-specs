@@ -2,10 +2,10 @@
 %global tests_version 5
 %global tests_tar test-data-copr-backend
 
-%global copr_common_version 1.2.1
+%global copr_common_version 1.7.2
 
 Name:       copr-backend
-Version:    2.13.hotfix.2
+Version:    2.14
 Release:    1%{?dist}
 Summary:    Backend for Copr
 
@@ -77,6 +77,8 @@ Recommends: python3-copr-messaging
 Requires:   python3-daemon
 Requires:   python3-dateutil
 Recommends: python3-fedmsg
+Recommends: python3-stomppy
+Recommends: python3-kafka
 Requires:   python3-gobject
 Requires:   python3-humanize
 Requires:   python3-jinja2
@@ -240,13 +242,28 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Sat Jul 18 2026 Jakub Kadlcik <frostyx@email.cz> 2.13.hotfix.2-1
-- backend: allow migrating multiple owners at once
-
-* Tue Jun 02 2026 Jakub Kadlcik <frostyx@email.cz> 2.13.hotfix.1-1
-- Revert setup.py change done by standard tito tagger
-
-* Tue Jun 02 2026 Jakub Kadlcik <frostyx@email.cz> 2.13.hotfix.0-1
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.14-1
+- Raise the wait-for-repo timeout
+- Log chroot/arch/pakage info in prmeta predictions
+- Turn on rpmeta
+- Add kafka as new msgbus
+- Fix wait for Pulp publication when creating devel repository
+- Refactor to use PulpRequest and deliver_and_wait
+- Retry failed Pulp background tasks with exponential backoff
+- Move URLs from pagure to forgejo
+- Refactor lock() function into Lock class
+- Fair FIFO locking via Redis queue
+- Add script for reasonably sized chunks of migrated owners
+- Don't check for "None" keywords
+- Fork also empty repositories
+- Allow migrating multiple owners at once
+- Fix create_file_logger guard for pytest >= 9.1 compatibility
+- Move lock/batch orchestration from PulpClient to BatchedAddRemoveContent
+- Fix race in PulpStorage.delete_builds()
+- Move success logging into wait_for_finished_task
+- Consolidate Pulp task error handling in wait_for_finished_task
+- Handle async Pulp distribution updates (202 responses)
+- Wait for Pulp publication tasks to finish
 - Revert "backend: block all actions and builds for @copr/PyPI and @copr/PyPI3"
 
 * Mon Jun 01 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.13-1

@@ -14,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.8
+Version: 1.9
 Summary: Run COPR build tasks
-Release: 4%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -122,7 +122,6 @@ Requires: podman
 Requires: pyp2rpm
 Requires: pyp2spec >= 0.10.0
 Requires: rubygem-gem2rpm
-Requires: scl-utils-build
 Requires: fedora-review >= 0.8
 Requires: fedora-review-plugin-java
 %endif
@@ -304,14 +303,16 @@ EOF
 
 
 %changelog
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.8-4
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.8-2
-- Rebuilt for Python 3.15
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 1.9-1
+- Add direct RPM upload build type
+- Move URLs from pagure to forgejo
+- Do not build-depend on scl-utils
+- Fix typo, redundant mkdir, and file handle leak
+- Fix container-based unit test workflow
+- Improve copr-rpmbuild man page
+- Add markup to copr-rpmbuild man page
+- Avoid ugly traceback for invalid --task-url and -r
+- Open spec file as read-only
 
 * Thu Apr 16 2026 Jakub Kadlcik <frostyx@email.cz> 1.8-1
 - AFAIK there is no python3-dnf5 only python3-libdnf5

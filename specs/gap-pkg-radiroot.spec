@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/radiroot
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.9
+Version:        2.10
 Release:        %autorelease
 Summary:        Compute radicals for roots of solvable rational polynomials
 
@@ -10,21 +10,20 @@ License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/radiroot/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
-# Fix out of order lines in an example
-Patch:          %{name}-example.patch
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): htm lib tst
+BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  GAPDoc-doc
 BuildRequires:  gap(alnuth) >= 3.0
-BuildRequires:  gap-devel >= 4.7
-BuildRequires:  tth
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(transgrp) >= 1.0
+BuildRequires:  gap-devel >= 4.9
 
 Requires:       gap(alnuth) >= 3.0
-Requires:       gap-core >= 4.7
+Requires:       gap(transgrp) >= 1.0
+Requires:       gap-core >= 4.9
 
 Recommends:     texlive-latex
 Recommends:     texlive-xdvi
@@ -54,24 +53,10 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -p0 -n %{gap_upname}-%{version}
-
-%conf
-# Fix link to main GAP bibliography file
-sed -i 's,/doc/manual,&bib.xml,' doc/manual.tex
-
-%build
-# Link to main GAP documentation
-ln -s %{gap_libdir}/etc ../../etc
-ln -s %{gap_libdir}/doc ../../doc
-ln -s %{gap_libdir}/pkg/GAPDoc ../gapdoc
-cd doc
-./make_doc
-cd -
-rm -f ../../{doc,etc} ../gapdoc
+%autosetup -n %{gap_upname}-%{version}
 
 %files
-%doc CHANGES README
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g
@@ -80,9 +65,7 @@ rm -f ../../{doc,etc} ../gapdoc
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

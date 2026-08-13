@@ -13,22 +13,22 @@
 %global	userelease	1
 %endif
 
-%global	majorver	46
+%global	majorver	47
 %dnl %global	minorver	0
-%global	docver	46
+%global	docver	47
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	2
+%global	baserelease	1
 
 %if 0%{?usegitbare} >= 1
 # pre-master-45
-%global	gitcommit	d126c71f6a04fb3732887c5bb13d6d6e31f77175
-%global	gitdate	20260320
+%global	gitcommit	93c6b997ed43a0c0445eef840dc0ff5c47dc0949
+%global	gitdate	20260805
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20260321
-%global	tarballtime	2226
+%global	tarballdate	20260806
+%global	tarballtime	1053
 %endif
 
 %if	0%{?userelease} >= 1
@@ -98,6 +98,9 @@ BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libXft-devel
 BuildRequires:	libXrender-devel
+# From ngspice 47
+BuildRequires:	libsamplerate-devel
+BuildRequires:	libsndfile-devel
 
 BuildRequires:	fftw3-devel
 
@@ -502,6 +505,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Tue Aug 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 47-1
+- Update to 47
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

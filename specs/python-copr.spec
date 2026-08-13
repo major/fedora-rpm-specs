@@ -1,8 +1,8 @@
 %global srcname copr
 
 Name:       python-copr
-Version:    2.6
-Release:    3%{?dist}
+Version:    2.7
+Release:    1%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -136,11 +136,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.6-2
-- Rebuilt for Python 3.15
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.7-1
+- Upload rpm to python and cli
+- Fix container-based unit test workflow
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.6-1
 - Don't traceback new-api-token for default config

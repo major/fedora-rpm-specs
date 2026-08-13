@@ -8,8 +8,8 @@
 %bcond selinux 1
 
 Name:           frr
-Version:        10.6.1
-Release:        5%{?dist}
+Version:        10.7.0
+Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -20,7 +20,6 @@ Source2:        %{name}-sysusers.conf
 Source3:        frr.fc
 Source4:        frr.te
 Source5:        frr.if
-
 Source6:        remove-babeld-ldpd.sh
 
 Patch0000:      0000-remove-babeld-and-ldpd.patch
@@ -316,6 +315,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Tue Aug 11 2026 Michal Ruprich <mruprich@redhat.com> - 10.7.0-1
+- New version 10.7.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

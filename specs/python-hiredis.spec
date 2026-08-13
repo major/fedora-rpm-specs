@@ -1,5 +1,5 @@
 Name:           python-hiredis
-Version:        3.4.0
+Version:        3.4.1
 Release:        %autorelease
 Summary:        Python wrapper for hiredis
 

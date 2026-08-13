@@ -1,6 +1,6 @@
 Name:		perl-Module-Metadata
-Version:	1.000039
-Release:	527%{?dist}
+Version:	1.000040
+Release:	1%{?dist}
 Summary:	Gather package and POD information from perl module files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Metadata
@@ -22,7 +22,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(version) >= 0.87
 BuildRequires:	perl(warnings)
 # Regular test suite
-BuildRequires:	perl(Config)
 BuildRequires:	perl(Cwd)
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Exporter)
@@ -32,6 +31,7 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(lib)
+BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(vars)
 # Optional test requirements
@@ -65,6 +65,11 @@ make test
 %{_mandir}/man3/Module::Metadata.3*
 
 %changelog
+* Tue Aug 11 2026 Paul Howarth <paul@city-fan.org> - 1.000040-1
+- Update to 1.000040
+  - Update taint support detection in a test to handle an upcoming change in
+    perl 5.45.2 (GH#41)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.000039-527
 - Increase release to favour standalone package
 

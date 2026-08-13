@@ -7,8 +7,8 @@ Package also provides several convenience methods for working with \
 copr messages.
 
 Name:       copr-messaging
-Version:    1.2
-Release:    6%{?dist}
+Version:    1.3
+Release:    1%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -46,6 +46,8 @@ Provides: %name = %version
 
 Requires: python3-copr-common
 Requires: python3-fedora-messaging
+Recommends: python3-stomppy
+Recommends: python3-kafka
 
 %description -n python3-%name %_description
 
@@ -107,20 +109,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2-5
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2-2
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 1.3-1
+- Add kafka as new msgbus
+- Fix container-based unit test workflow
 
 * Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Stop using deprecated %%py3_build/%%py3_install macros

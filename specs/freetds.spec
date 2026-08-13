@@ -2,8 +2,8 @@
 
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
-Version: 1.4.23
-Release: 8%{?dist}
+Version: 1.5.18
+Release: 1%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.freetds.org/
@@ -11,8 +11,6 @@ URL: http://www.freetds.org/
 Source0: https://www.freetds.org/files/stable/%{name}-%{version}.tar.bz2
 Source1: freetds-tds_sysdep_public.h
 Source2: 10-freetds.ini
-
-Patch0: freetds-1.4.23-nettle4.patch
 
 BuildRequires: unixODBC-devel, readline-devel, gnutls-devel, krb5-devel
 BuildRequires: libgcrypt-devel
@@ -64,7 +62,6 @@ If you like to develop programs using %{name}, you will need to install
 
 %prep 
 %setup -q
-%patch -P0 -p1
 
 #  correct perl path
 sed -i '1 s,#!.*/perl,#!%{__perl},' samples/*.pl
@@ -169,6 +166,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Tue Aug 11 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.5.18-1
+- update to 1.5.18 (#2513794)
+
 * Wed Jul 29 2026 Michal Schorm <mschorm@redhat.com> - 1.4.23-8
 - Fix FTBFS with nettle 4.0: 'sha1_digest()' also lost length parameter
 

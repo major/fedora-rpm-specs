@@ -4,7 +4,7 @@
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Packaging_of_Additional_RPM_Macros
 %global macrosdir       %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global copr_common_version 1.1.2
+%global copr_common_version 1.7.3
 
 # Please bump the %%flavor_guard version every-time some incompatible change
 # happens (since the last release) in %%flavor_files set of files.  Those files
@@ -47,7 +47,7 @@
 }
 
 Name:       copr-frontend
-Version:    2.7.hotfix.2
+Version:    2.8
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -75,7 +75,6 @@ BuildRequires: python3-devel
 BuildRequires: python3dist(alembic)
 BuildRequires: python3dist(anytree)
 BuildRequires: python3dist(click)
-BuildRequires: python3dist(commonmark)
 BuildRequires: python3dist(blinker)
 BuildRequires: python3dist(beautifulsoup4)
 BuildRequires: python3dist(copr-common) >= %copr_common_version
@@ -88,7 +87,7 @@ BuildRequires: python3dist(flask-caching)
 BuildRequires: python3dist(flask-sqlalchemy)
 BuildRequires: python3dist(flask-session)
 BuildRequires: python3dist(flask-whooshee)
-BuildRequires: python3dist(flask-wtf)
+BuildRequires: python3dist(flask-wtf) >= 1.2.1
 BuildRequires: python3dist(flask-restx)
 BuildRequires: python3-gobject
 BuildRequires: python3dist(html2text)
@@ -96,6 +95,7 @@ BuildRequires: python3dist(html5-parser)
 BuildRequires: python3dist(humanize)
 BuildRequires: python3dist(lxml)
 BuildRequires: python3dist(markdown)
+BuildRequires: python3dist(markdown-it-py)
 BuildRequires: python3dist(markupsafe)
 BuildRequires: python3dist(munch)
 BuildRequires: python3dist(netaddr)
@@ -132,7 +132,6 @@ Recommends: fedora-messaging
 Requires: js-jquery
 Requires: python3dist(anytree)
 Requires: python3dist(click)
-Requires: python3dist(commonmark)
 Requires: python3dist(alembic)
 Requires: python3dist(blinker)
 Requires: python3dist(copr-common) >= %copr_common_version
@@ -143,7 +142,7 @@ Requires: python3dist(flask-caching)
 Requires: python3dist(flask-sqlalchemy)
 Requires: python3dist(flask-session)
 Requires: python3dist(flask-whooshee)
-Requires: python3dist(flask-wtf)
+Requires: python3dist(flask-wtf) >= 1.2.1
 Requires: python3dist(flask-restx)
 Requires: python3-gobject
 Requires: python3dist(html2text)
@@ -151,6 +150,7 @@ Requires: python3dist(html5-parser)
 Requires: python3dist(humanize)
 Requires: python3dist(lxml)
 Requires: python3dist(markdown)
+Requires: python3dist(markdown-it-py)
 Requires: python3dist(markupsafe)
 Requires: python3dist(mod-wsgi)
 Requires: python3dist(munch)
@@ -375,16 +375,25 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Sat Jul 18 2026 Jakub Kadlcik <frostyx@email.cz> 2.7.hotfix.2-1
-- frontend: list all owners that still have projects in some storage
-- frontend: cancel pending build chroots when a chroot is EOLed
-- frontend: add tests for build cancel vs pending-jobs race conditions
+* Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.8-1
+- Upload rpm to python and cli
+- Add direct RPM upload build type
+- Move URLs from pagure to forgejo
+- Support unix file pattern matching in --chroot and --exclude-chroot
+- Don't check for "None" keywords
+- Fork also empty repositories
+- Don't crash when failing to send a notification email
+- Add logging for the notify_outdated_chroots script
+- Port markdown rendering to markdown-it-py
+- List all owners that still have projects in some storage
+- Cancel pending build chroots when a chroot is EOLed
+- Add tests for build cancel vs pending-jobs race conditions
 - Change the URL to work with the new API
-- frontend: don't fail pending-actions when copr is None
-- docs: clarify that pruning is based on RPM names, not Copr packages
-- frontend: preload build.pkg_version for detailed monitor
-- frontend: implement custom markdown/html for users and groups
-- frontend: limit the maximum avatar width
+- Don't fail pending-actions when copr is None
+- Clarify that pruning is based on RPM names, not Copr packages
+- Preload build.pkg_version for detailed monitor
+- Implement custom markdown/html for users and groups
+- Limit the maximum avatar width
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.7-1
 - Don't require admin permissions to show the rebuild button

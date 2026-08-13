@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPL-2.1-only AND GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only WITH eCos-exception-2.0) AND MIT AND BSD-2-Clause-Views
@@ -23,6 +23,9 @@ Patch3:		libftdi-1.5-swig-4.3.patch
 # http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=3dc444f99bbc780f06ee6115c086e30f2dda471a
 # http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=de9f01ece34d2fe6e842e0250a38f4b16eda2429
 Patch4:		libftdi-1.5-cmake.patch
+# Replace removed Python 2 C API macros with Python 3 equivalents
+# for compatibility with SWIG 4.5.0
+Patch5:		libftdi-swig45.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -133,6 +136,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.5-27
+- Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5-26
 - Rebuilt for Python 3.15.0b4 ABI change
 

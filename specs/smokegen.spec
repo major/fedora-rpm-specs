@@ -2,7 +2,7 @@
 
 Name: smokegen
 Version: 4.14.3
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Smoke Generator
 
 # Automatically converted from old format: LGPLv2 and GPLv2+ - review is highly recommended.
@@ -19,6 +19,7 @@ Source0: http://download.kde.org/%{stable}/%{version}/src/%{name}-%{version}.tar
 BuildRequires: make
 BuildRequires: cmake >= 2.8.8
 BuildRequires: pkgconfig(QtCore) pkgconfig(QtXml) 
+BuildRequires: automoc >= 1.0-0.55.rc3
 
 Conflicts: kdebindings < 4.7.0
 
@@ -41,16 +42,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake} ..
-popd
-
-make %{?_smp_mflags} -C %{_target_platform}
+%{cmake} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 
 %ldconfig_scriptlets
@@ -73,6 +70,12 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Tue Aug 11 2026 Than Ngo <than@redhat.com> - 4.14.3-30
+- Fix rhbz#2381451, FTBFS with change proposal CMake 4.0
+- Fix rhbz#2381128, FTBFS with change proposal CMake: Use ninja generator by default
+- Fix rhbz#2381525, FTBFS with change proposal CMake drop non-standard variables
+- Fix rhbz#2504679, FTBFS in Fedora rawhide/f45
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

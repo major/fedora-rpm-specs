@@ -1,6 +1,6 @@
-%global ghdlver 5.1.1
-%global ghdldate 20250618
-%global ghdlcommit 91725e47fdded6a3ac2e4e5ee5fa1adb4b8b4f6f
+%global ghdlver 6.0.0
+%global ghdldate 20260307
+%global ghdlcommit e589c698c351369ac5bcfe7abe1f1152ac5d4727
 %global ghdlshortcommit %(c=%{ghdlcommit}; echo ${c:0:7})
 %global ghdlgitrev %{ghdldate}git%{ghdlshortcommit}
 
@@ -63,21 +63,18 @@ Patch10: gcc15-rh1574936.patch
 Patch12: gcc15-pr119006.patch
 
 Source100: https://github.com/ghdl/ghdl/archive/%{ghdlcommit}/%{name}-%{ghdlshortcommit}.tar.gz
-Patch102: ghdl-gcc15.patch
-Patch103: ghdl-gcc15-ortho.patch
 # From: Thomas Sailer <t.sailer@alumni.ethz.ch>
 # To: ghdl-discuss@gna.org
 # Date: Thu, 02 Apr 2009 15:36:00 +0200
 # https://gna.org/bugs/index.php?13390
 Patch110: ghdl-ppc64abort.patch
-Patch111: 0001-Add-support-for-llvm21.patch
-Requires: gcc
+Requires: gcc15
 
 BuildRequires: binutils >= 2.31
 BuildRequires: zlib-devel, gettext, bison, flex
 BuildRequires: texinfo
 BuildRequires: gmp-devel >= 4.1.2-8, mpfr-devel >= 2.2.1, libmpc-devel >= 0.8.1
-BuildRequires: gcc, gcc-c++
+BuildRequires: gcc15, gcc15-c++
 # Make sure pthread.h doesn't contain __thread tokens
 # Make sure glibc supports stack protector
 # Make sure glibc supports DT_GNU_HASH
@@ -220,11 +217,6 @@ sed -i -e 's/Common Driver Var(flag_report_bug)/& Init(1)/' gcc/common.opt
 # ghdl
 mv ghdl-%{ghdlcommit} ghdl
 
-pushd ghdl
-%patch -P 102 -p1 -b .gcc15~
-%patch -P 103 -p1 -b .gcc15-ortho~
-%patch -P 111 -p1 -b .llvm21
-popd
 
 # fix library and include path
 pushd ghdl
@@ -293,14 +285,17 @@ popd
 # Undo the broken autoconf change in recent Fedora versions
 export CONFIG_SITE=NONE
 
-CC=gcc
-CXX=g++
+CC=gcc-15
+CXX=g++-15
 OPT_FLAGS=`echo %{optflags}|sed -e 's/\(-Wp\)\?,-D_FORTIFY_SOURCE=[123]//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-flto=auto//g;s/-flto//g;s/-ffat-lto-objects//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-m64//g;s/-m32//g;s/-m31//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mfpmath=sse/-mfpmath=sse -msse2/g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/ -pipe / /g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-Werror=format-security/-Wformat-security/g'`
+# Fix GCC 15/C23 type-generic strchr const-discard warning in libgomp
+OPT_FLAGS=`echo $OPT_FLAGS | sed -e 's/-Werror=discarded-qualifiers//g'`
+OPT_FLAGS="$OPT_FLAGS -Wno-error=discarded-qualifiers"
 %ifarch %{ix86}
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-march=i.86//g'`
 %endif

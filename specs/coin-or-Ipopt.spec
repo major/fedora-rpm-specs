@@ -26,18 +26,19 @@
 
 Name:  coin-or-%{module}
 Summary: Interior Point OPTimizer
-Version: 3.14.16
+Version: 3.14.19
 Release: %autorelease
 License: EPL-2.0
 URL:  https://coin-or.github.io/%{module}/
 Source0: https://github.com/coin-or/Ipopt/archive/releases/%{version}/Ipopt-releases-%{version}.tar.gz
-Patch: fix-sigsegv-mpich.patch
+Patch0:  coin-or-%{module}-fix-sigsegv-mpich.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
 
-BuildRequires: %{?dts}gcc, %{?dts}gcc-c++
-BuildRequires: %{?dts}gcc-gfortran
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: gcc-gfortran
 BuildRequires: %{blaslib}-devel
 BuildRequires: doxygen
 BuildRequires: help2man
@@ -158,10 +159,6 @@ cp -a Ipopt-releases-%{version} %{module}-releases-mpich
 
 
 %build
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-9/enable}
-%endif
 
 #######################################################
 ## Build serial version
