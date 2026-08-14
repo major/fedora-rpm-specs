@@ -5,9 +5,9 @@
 %global crate formatx
 
 Name:           rust-formatx
-Version:        0.3.0
+Version:        0.4.2
 Release:        %autorelease
-Summary:        Macro for formatting non literal strings at runtime in Rust
+Summary:        Macro for formatting non literal strings at runtime
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/formatx
@@ -17,7 +17,7 @@ BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix
 
 %global _description %{expand:
-A macro for formatting non literal strings at runtime in Rust.}
+A macro for formatting non literal strings at runtime.}
 
 %description %{_description}
 

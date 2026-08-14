@@ -7,7 +7,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        49.7
+Version:        51~beta
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -17,49 +17,60 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
+# BSD-2-Clause AND ISC
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # BSD-3-Clause OR Apache-2.0
 # GPL-2.0-or-later
 # MIT
+# MIT AND BSD-2-Clause AND ISC AND LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0
 # MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
-# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
-    GPL-2.0-or-later AND
-    GPL-3.0-or-later AND
-    LGPL-2.0-or-later AND
-    LGPL-2.1-or-later AND
-    MIT AND
-    libtiff AND
-    BSD-2-Clause AND
-    BSD-3-Clause AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (BSD-3-Clause OR Apache-2.0) AND
-    (MIT OR Zlib OR Apache-2.0) AND
-    (Unlicense OR MIT)
+    GPL-2.0-or-later
+    AND GPL-3.0-or-later
+    AND LGPL-2.0-or-later
+    AND LGPL-2.1-or-later
+    AND MIT
+    AND libtiff
+    AND Apache-2.0
+    AND BSD-2-Clause
+    AND BSD-3-Clause
+    AND ISC
+    AND LicenseRef-BSD-2-Clause-WITH-AdditionRef-AOMPL-1.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (0BSD OR MIT OR Apache-2.0)
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (BSD-2-Clause AND ISC)
+    AND (BSD-3-Clause OR Apache-2.0)
+    AND (MIT OR Apache-2.0 OR Zlib)
+    AND (Unlicense OR MIT)
 }
 URL:            https://gitlab.gnome.org/GNOME/papers
 Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 # To generate vendored cargo sources:
 #   tar xf papers-%%{gnome_tarball_version}.tar.xz
 #   pushd papers-%%{gnome_tarball_version}
+#   patch -p1 < ../0001-bump-formatx-dependency-from-0.2-to-0.4.patch
 #   cargo vendor --versioned-dirs
 #   tar Jcvf ../papers-%%{gnome_tarball_version}-vendor.tar.xz vendor/
 #   popd
 Source1:        papers-%{gnome_tarball_version}-vendor.tar.xz
+
+# bump formatx dependency to v0.4 to match other GNOME 51.beta releases
+Patch:          0001-bump-formatx-dependency-from-0.2-to-0.4.patch
 
 %gnome_check_version
 

@@ -1,8 +1,8 @@
 
 Name:    skrooge
 Summary: Personal finances manager
-Version: 26.4.0
-Release: 4%{?dist}
+Version: 26.8.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -104,8 +104,9 @@ Requires: %{name} = %{version}-%{release}
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.skrooge.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.skroogecompanion.appdata.xml
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skrooge.desktop
-
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skroogecompanion.desktop
 
 %files -f %{name}.lang
 %doc AUTHORS CHANGELOG README.md
@@ -124,6 +125,8 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skrooge.d
 %{_kf6_datadir}/knsrcfiles/skrooge_monthly.knsrc
 %{_kf6_datadir}/kxmlgui5/skg*/
 %{_kf6_datadir}/kxmlgui5/skrooge_*/
+%{_kf6_metainfodir}/org.kde.skroogecompanion.appdata.xml
+%{_kf6_datadir}/applications/org.kde.skroogecompanion.desktop
 
 %files libs
 %{_kf6_qtplugindir}/skg_gui/
@@ -138,6 +141,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skrooge.d
 %{_kf6_datadir}/skrooge_source/
 
 %changelog
+* Wed Aug 12 2026 Steve Cossette <farchord@gmail.com> - 26.8.0-1
+- 26.8.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

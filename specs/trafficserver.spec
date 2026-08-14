@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.1.3
-Release:        2%{?dist}
+Version:        10.2.0
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -24,13 +24,11 @@ Source10:       %{name}-10-update.service
 # Use Crypto Policies, don't set rpath as per Fedora policy
 Patch0:         trafficserver-crypto-policy.patch
 Patch1:         fix-rpath.patch
-Patch2:         remove-openssl-engine.patch
-Patch3:         config-path-fix.patch
-Patch4:         convert-ip-to-bind.patch
+Patch2:         config-path-fix.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
-# riscv64 and s390x are also not a supported architectures and do not build
+# riscv64 and s390x are also not supported architectures and do not build
 ExcludeArch:    %{arm} %{ix86} riscv64 s390x
 
 BuildRequires:  gdb
@@ -41,22 +39,12 @@ BuildRequires:  cmake
 BuildRequires:  libcap-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  openssl-devel
-# pcre is removed from RHEL 10
-%if 0%{?rhel} >= 10
-%else
-BuildRequires:  pcre-devel
-%endif
 BuildRequires:  yaml-cpp-devel
 
 Requires:       expat hwloc pcre2 xz ncurses pkgconfig
 Requires:       openssl
 Requires:       systemd
 Requires(postun): systemd
-# pcre is removed from RHEL 10
-%if 0%{?rhel} >= 10
-%else
-Requires:  pcre
-%endif
 # For convert2yaml.py
 Requires:       python3 python3-colorama python3-jsonschema python3-pyyaml
 
@@ -65,7 +53,7 @@ Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{sel
 %endif
 
 # swoc is not separately packaged for Fedora -- literally nothing else uses this
-Provides:       bundled(swoc) =  1.5.12
+Provides:       bundled(swoc) =  1.5.15
 
 # Exclude our own internal libraries from requires
 %global __requires_exclude ^lib(swoc.*|ts.*)\\.so.*$
@@ -133,10 +121,6 @@ rm -r lib/yamlcpp
 
 # This is not working properly with cmake for an unclear reason; linking fails
 %define _lto_cflags %{nil}
-# GCC 16 is finding something maybe bad but impossible to debu
-%if 0%{?fedora} >= 44
-%define  _pkg_extra_cxxflags -Wno-error=maybe-uninitialized
-%endif
 
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -285,6 +269,9 @@ fi
 
 
 %changelog
+* Tue Aug 11 2026 Jered Floyd <jered@redhat.com> - 10.2.0-1
+- Update to upstream 10.2.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

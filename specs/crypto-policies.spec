@@ -1,5 +1,5 @@
-%global git_date 20260731
-%global git_commit 6488aefe8b46d402c87da1ebea16ad250a76f050
+%global git_date 20260812
+%global git_commit 359ab169da6a0d4d0fa09fed562bb0d56f470030
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -290,6 +290,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Wed Aug 12 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260812-1.git359ab16
+- FIPS:OSPP: reenable non-TLS CBC
+
 * Fri Jul 31 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260731-1.git6488aef
 - FIPS:OSPP: disable CBC and enable TLS 1.3
 

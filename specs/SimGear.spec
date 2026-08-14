@@ -1,11 +1,13 @@
+%global pretag rc4
+
 Name:           SimGear
-Version:        2024.1.6
-Release:        2%{?dist}
+Version:        2024.1.7
+Release:        0.1%{?pretag:.%{pretag}}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
 URL:            https://gitlab.com/flightgear/simgear
-Source0:        https://gitlab.com/flightgear/simgear/-/archive/%{version}/simgear-%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/simgear/-/archive/%{version}%{?pretag:-%{pretag}}/simgear-%{version}%{?pretag:-%{pretag}}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-fix-support-for-aarch64.patch
 BuildRequires:  gcc-c++
@@ -35,7 +37,7 @@ Development headers and libraries for building applications against
 SimGear.
 
 %prep
-%autosetup -p1 -n simgear-%{version}
+%autosetup -p1 -n simgear-%{version}%{?pretag:-%{pretag}}
 
 # makes rpmlint happy
 find -name \*.cxx -o -name \*.hxx | xargs chmod -x
@@ -70,6 +72,9 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Wed Aug 12 2026 Tom Callaway <spot@fedoraproject.org> - 2024.1.7-0.1.rc4
+- 2024.1.7-rc4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

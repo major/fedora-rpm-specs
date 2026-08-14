@@ -5,7 +5,7 @@
 
 Name:          rubygem-%{gem_name}
 Version:       0.1.2
-Release:       8%{?dist}
+Release:       %autorelease
 Summary:       Really simple YAML lint
 License:       MIT
 URL:           https://github.com/Pryz/yaml-lint
@@ -84,52 +84,4 @@ rspec -I%{gem_instdir} spec
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Apr 20 2023 Steve Traylen <steve.traylen@cern.ch> - 0.1.2-1
-- Upstream to 0.1.2
-- Include README, LICENSE and tests(and run them) from upstream
-- Clean up .spec file indentation and alignment
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Dec 16 2019 Steve Traylen <steve.traylen@cern.ch> - 0.0.10-1
-- Initial package
+%autochangelog

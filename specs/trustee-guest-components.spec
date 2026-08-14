@@ -57,6 +57,8 @@ Patch5:         0005-Fedora-remove-ttrpc-dependency.patch
 Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
 # * remove dependency testcontainers - not in Fedora
 Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
+# * update clap version (rhbz#2505038)
+Patch8:         0008-Fedora-clap-4.6.1.diff
 
 ExclusiveArch:  x86_64
 BuildRequires:  cargo-rpm-macros >= 24

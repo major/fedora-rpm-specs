@@ -31,6 +31,7 @@ Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_v
 
 Patch:          0001-meson-adapt-for-RPM-package-build-environment.patch
 Patch:          0002-cargo-drop-benchmarks-and-benchmark-only-dependencie.patch
+Patch:          0003-Bump-libglycin-rebind-to-0.2.0-beta-for-GNOME-51.bet.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  meson >= 1.2

@@ -1,25 +1,12 @@
-%if !0%{?fedora}%{?rhel} || 0%{?fedora} >= 43 || 0%{?rhel} >= 11
-%bcond old_poetry 0
-%else
-%bcond old_poetry 1
-%endif
-
 Name:           python-asyncmy
 Summary:        A fast asyncio MySQL/MariaDB driver
-Version:        0.2.11
+Version:        0.2.14
 Release:        %autorelease
 
 License:        Apache-2.0
 URL:            https://github.com/long2ice/asyncmy
 # The GitHub source includes tests and examples; the PyPI source lacks them.
 Source:         %{url}/archive/v%{version}/asyncmy-%{version}.tar.gz
-
-# Doc/license files installed directly in site-packages
-# https://github.com/long2ice/asyncmy/issues/33
-Patch0:         python-asyncmy-0.2.11-text-files-in-sdist.patch
-
-# Old poetry needs the basic entries replicated in tools.poetry
-Patch1:         python-asyncmy-0.2.11-old-poetry.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L asyncmy
@@ -45,11 +32,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -C -N
-%patch 0 -p1 -b .text-files-in-sdist
-%if %{with old_poetry}
-%patch 1 -p1 -b .old-poetry
-%endif
+%autosetup -C
 
 
 %install -a

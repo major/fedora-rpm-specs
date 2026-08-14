@@ -1,12 +1,12 @@
 %global _hardened_build 1
 
-%global upstream_version 2.2.0
+%global upstream_version 2.2.1
 
 %bcond jpegxl %{undefined rhel}
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -16,16 +16,9 @@ License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
 Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/OpenPrinting/libcupsfilters/pull/202
-# drop unneeded poppler-cpp and c++ dpes
-Patch001: 0001-configure.ac-Drop-mandatory-C-compiler.patch
-Patch002: 0001-configure.ac-Remove-poppler-cpp-remaining-code.patch
-# https://github.com/OpenPrinting/libcupsfilters/pull/204/
-# Fix running regression tests - one is skipped, other removed
-Patch003: 0001-Fix-2.2.0-test-packaging-and-CUPS-datadir-detection-.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/e6dccfc6e7b60
-# support out of tree builds
-Patch004: 0001-Makefile.am-Ensure-gen-lorem-text-test-supports-out-.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/208
+Patch001: 0001-pclmtoraster.c-Fix-getting-MediaBox-from-input.patch
+Patch002: 0001-pclmtoraster.c-Fix-processing-image-in-PCLm.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -211,6 +204,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Tue Aug 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-1
+- fix pclmtoraster issues found in CI, 2.2.1 (fedora#2513920)
+
 * Thu Aug 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.0-1
 - libcupsfilters-2.2.0 is available (fedora#2511889)
 

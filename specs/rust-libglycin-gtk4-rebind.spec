@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate libglycin-gtk4-rebind
+%global crate_version 0.2.0-beta
 
 Name:           rust-libglycin-gtk4-rebind
-Version:        0.1.0
+Version:        0.2.0~beta
 Release:        %autorelease
 Summary:        Safe bindings for libglycin-gtk4
 
 License:        MIT
 URL:            https://crates.io/crates/libglycin-gtk4-rebind
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -46,8 +47,20 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v2_2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

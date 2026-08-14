@@ -22,9 +22,12 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.2.4
-Release:        1%{?dist}
+Version:        14.3.0
+Release:        3%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
+
+# Find nikic/php-parser version 5 from RPM database, using autoloader path
+Patch0:         %{name}-rpm.patch
 
 # SPDX: Main license is BSD-3-Clause
 # BSD-3-Clause: D3
@@ -35,17 +38,20 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
 Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
+Source2:        PhpParserVersionRPMTest.php
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.8.0  with php-composer(nikic/php-parser)                   < 6)
+# temp for RPM_NIKIC_PHP_PARSER_VERSION
+BuildRequires:   php-nikic-php-parser5 >= 5.8.0-3
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
 BuildRequires:  (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
-BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0.1  with php-composer(sebastian/lines-of-code)            < 6)
+BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
 BuildRequires:  (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
 BuildRequires:  (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 BuildRequires:  php-dom
@@ -55,8 +61,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.2.2"
-BuildRequires:  phpunit13 >= 13.2.2
+#        "phpunit/phpunit": "^13.3"
+BuildRequires:  phpunit13 >= 13.3
 BuildRequires:  php-xdebug
 %endif
 
@@ -71,7 +77,7 @@ BuildRequires:  php-xdebug
 #        "sebastian/complexity": "^6.0",
 #        "sebastian/environment": "^9.3.2",
 #        "sebastian/git-state": "^1.0",
-#        "sebastian/lines-of-code": "^5.0.1",
+#        "sebastian/lines-of-code": "^5.0.2",
 #        "sebastian/version": "^7.0",
 #        "theseer/tokenizer": "^2.0.1"
 Requires:       php(language) >= 8.3
@@ -80,11 +86,13 @@ Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.8.0  with php-composer(nikic/php-parser)                   < 6)
+# temp for RPM_NIKIC_PHP_PARSER_VERSION
+Requires:        php-nikic-php-parser5 >= 5.8.0-3
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 Requires:       (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
 Requires:       (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
-Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0.1  with php-composer(sebastian/lines-of-code)            < 6)
+Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
 Requires:       (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
 Requires:       (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 # From composer.json, suggest
@@ -117,7 +125,8 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{version}
-
+%patch -P0 -p1 -b .rpm
+find src -name \*.rpm -delete -print
 
 %build
 %{_bindir}/phpab \
@@ -167,6 +176,11 @@ define('TEST_FILES_PATH', __DIR__ . '/_files/');
 EOF
 
 ret=0
+# test rely on Composer/InstalledVersions
+rm tests/tests/Util/PhpParserVersionTest.php
+# new test for our patch
+cp %{SOURCE2} tests/tests/Util/PhpParserVersionRPMTest.php
+
 # testCanBeCreatedFromDefaults rely on git layout
 
 for cmd in php php84 php85; do
@@ -185,12 +199,20 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog-%{ver_major}.2.md
+%doc ChangeLog-%{ver_major}.3.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Wed Aug 12 2026 Remi Collet <remi@remirepo.net> - 14.3.0-3
+- enable test suite
+
+* Fri Aug  7 2026 Remi Collet <remi@remirepo.net> - 14.3.0-2
+- update to 14.3.0
+- raise dependency on sebastian/lines-of-code 5.0.2
+- avoid rpm command call using RPM_NIKIC_PHP_PARSER_VERSION from autoloader
+
 * Fri Jul 31 2026 Remi Collet <remi@remirepo.net> - 14.2.4-1
 - update to 14.2.4
 

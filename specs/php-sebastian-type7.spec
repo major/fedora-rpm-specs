@@ -22,8 +22,8 @@
 %global ns_project   Type
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.1
-Release:        2%{?dist}
+Version:        7.0.2
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v%{major}
 
 License:        BSD-3-Clause
@@ -38,8 +38,8 @@ BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.10"
-BuildRequires:  phpunit13 >= 13.1.10
+#        "phpunit/phpunit": "^13.3.0"
+BuildRequires:  phpunit13 >=  13.3
 %endif
 
 # from composer.json, "require": {
@@ -90,7 +90,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit13 --bootstrap vendor/autoload.php --no-coverage || ret=1
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 7.0.2-1
+- update to 7.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

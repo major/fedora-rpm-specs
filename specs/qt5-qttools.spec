@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.18
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -37,6 +37,8 @@ Patch104: qttools-opensource-src-5.7-add-libatomic.patch
 # Link against libclang-cpp.so
 # https://fedoraproject.org/wiki/Changes/Stop-Shipping-Individual-Component-Libraries-In-clang-lib-Package
 Patch105: Link-against-libclang-cpp.so-instead-of-the-clang-co.patch
+# Fix qtdiag crash
+Patch106: qttools-qtdiag-crash.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -186,11 +188,10 @@ Requires: %{name}-common = %{version}-%{release}
 %patch -P104 -p1 -b .libatomic
 %endif
 %patch -P105 -p1 -b .libclang-cpp
+%patch -P106 -p1 -b .qtdiag-crash
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2381396)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{qmake_qt5} \
   CONFIG+=disable_external_rpath \
   %{?no_examples}
@@ -495,6 +496,9 @@ fi
 
 
 %changelog
+* Wed Aug 12 2026 Than Ngo <than@redhat.com> - 5.15.18-6
+- Fix rhbz#2501765, qtdiag crash
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

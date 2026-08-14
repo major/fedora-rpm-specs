@@ -3,7 +3,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           loupe
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        Image viewer
 
@@ -14,6 +14,7 @@ Summary:        Image viewer
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause OR Apache-2.0
 # GPL-3.0-or-later
 # ISC
 # MIT
@@ -30,6 +31,7 @@ License:        %{shrink:
     AND (Apache-2.0 OR MIT)
     AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
     AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (BSD-3-Clause OR Apache-2.0)
     AND (MPL-2.0 OR LGPL-2.1-or-later)
     AND (Unlicense OR MIT)
     AND (Zlib OR Apache-2.0 OR MIT)
@@ -44,6 +46,10 @@ Source0:        https://download.gnome.org/sources/loupe/%{gnome_major_version}/
 #   tar Jcvf ../loupe-%%{gnome_tarball_version}-vendor.tar.xz vendor/ ; \
 #   popd
 Source1:        loupe-%{gnome_tarball_version}-vendor.tar.xz
+
+# backport https://gitlab.gnome.org/GNOME/loupe/-/commit/7ea1175
+# to account for https://github.com/gufo-rs/gufo/commit/a8a4905
+Patch:          0001-Backport-support-for-gufo-0.5.0-beta.1.patch
 
 %gnome_check_version
 

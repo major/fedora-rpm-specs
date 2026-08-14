@@ -1,15 +1,12 @@
 Name:           electron-cash
-Version:        4.4.5
-Release:        4%{?dist}
+Version:        4.4.6
+Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
 URL:            https://electroncash.org/
 Source0:        https://github.com/Electron-Cash/Electron-Cash/releases/download/%{version}/electron_cash-%{version}.tar.gz
 Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-and-sums/%{version}/win-linux/electron_cash-%{version}.tar.gz.asc
-
-Source3:        https://raw.githubusercontent.com/Electron-Cash/Electron-Cash/refs/tags/4.4.2/electroncash/paymentrequest.proto
-Source4:        https://raw.githubusercontent.com/Electron-Cash/Electron-Cash/refs/tags/4.4.2/electroncash_plugins/fusion/protobuf/fusion.proto
 
 #Sun 15 Dec 2019, exported the upstream gpg key using the command:
 #gpg2 --armor --export --export-options export-minimal D56C110F4555F371AEEFCB254FD06489EFF1DDE1 D465135F97D0047E18E99DC321810A542031C02C > gpgkey-electron-cash.gpg
@@ -78,8 +75,6 @@ rm -rfv ./packages/
 pyrcc5 icons.qrc -o electroncash_gui/qt/icons_rc.py
 
 #Re-compile the protobuf description files
-install -D %{SOURCE3} electroncash/paymentrequest.proto
-install -D %{SOURCE4} electroncash_plugins/fusion/protobuf/fusion.proto
 protoc --proto_path=electroncash/ --python_out=electroncash/ electroncash/paymentrequest.proto
 protoc --proto_path=electroncash_plugins/fusion/protobuf/ --python_out=electroncash_plugins/fusion/ electroncash_plugins/fusion/protobuf/fusion.proto
 
@@ -130,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{_datadir}/metainfo/org.electroncash.ElectronCash.appdata.xml
 
 %changelog
+* Wed Aug 12 2026 Jonny Heggheim <hegjon@gmail.com> - 4.4.6-1
+- Updated to version 4.4.6
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

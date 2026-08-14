@@ -24,6 +24,8 @@ License:        %{shrink:
 URL:            https://wiki.gnome.org/Apps/Robots
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
+Patch:          0001-Bump-libglycin-rebind-to-0.2.0-beta-for-GNOME-51.bet.patch
+
 %gnome_check_version
 
 BuildRequires:  cargo-rpm-macros

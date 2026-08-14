@@ -2,25 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate image-extras
+%global crate imageproc
 
-Name:           rust-image-extras
-Version:        0.1.1
+Name:           rust-imageproc
+Version:        0.26.2
 Release:        %autorelease
-Summary:        Additional image format decoders for the image crate
+Summary:        Image processing operations
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/image-extras
+License:        MIT
+URL:            https://crates.io/crates/imageproc
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          imageproc-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused features and dependencies
-# * drop unused dev-dependencies
-Patch:          image-extras-fix-metadata.diff
+# * drop unused feature for SDL2 based UI
+# * drop unused support for katexit crate
+# * drop unused wasm-bindgen-test dev-dependency
+Patch:          imageproc-fix-metadata.diff
+Patch:          0001-Workaround-for-tests-that-do-not-compile-in-publishe.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Additional image format decoders for the image crate.}
+Image processing operations.}
 
 %description %{_description}
 
@@ -34,8 +38,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,28 +56,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+xbm-devel
+%package     -n %{name}+fft-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+xbm-devel %{_description}
+%description -n %{name}+fft-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "xbm" feature of the "%{crate}" crate.
+use the "fft" feature of the "%{crate}" crate.
 
-%files       -n %{name}+xbm-devel
+%files       -n %{name}+fft-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+xpm-devel
+%package     -n %{name}+rayon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+xpm-devel %{_description}
+%description -n %{name}+rayon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "xpm" feature of the "%{crate}" crate.
+use the "rayon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+xpm-devel
+%files       -n %{name}+rayon-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+text-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+text-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "text" feature of the "%{crate}" crate.
+
+%files       -n %{name}+text-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -90,11 +107,7 @@ use the "xpm" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that require data files not included in published crates
-%{cargo_test -- -- %{shrink:
-    --skip xbm::tests::image_with_hotspot
-    --skip xbm::tests::image_without_hotspot
-}}
+%cargo_test
 %endif
 
 %changelog

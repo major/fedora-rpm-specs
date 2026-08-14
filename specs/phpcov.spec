@@ -22,8 +22,8 @@
 
 
 Name:           %{pk_project}
-Version:        13.0.1
-Release:        2%{?dist}
+Version:        13.1.0
+Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
@@ -38,28 +38,28 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.1.3 with php-composer(phpunit/php-code-coverage) < 15)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.3.0 with php-composer(phpunit/php-code-coverage) < 15)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
-BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
-BuildRequires:  (php-composer(sebastian/diff)            >= 8.1.0  with php-composer(sebastian/diff)            < 9)
+BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.1  with php-composer(sebastian/cli-parser)      < 6)
+BuildRequires:  (php-composer(sebastian/diff)            >= 9.0.0  with php-composer(sebastian/diff)            < 10)
 BuildRequires:  (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 BuildRequires:  php-pecl(Xdebug) >= 3
 # from composer.json, require-dev
-BuildRequires:  phpunit13 >= 13.1.6
+BuildRequires:  phpunit13 >= 13.3.0
 %endif
 
 # from composer.json
 #        "php": ">=8.4",
-#        "phpunit/php-code-coverage": "^14.1.3",
+#        "phpunit/php-code-coverage": "^14.3.0",
 #        "phpunit/php-file-iterator": "^7.0.0",
-#        "sebastian/cli-parser": "^5.0.0",
-#        "sebastian/diff": "^8.1.0",
+#        "sebastian/cli-parser": "^5.0.1",
+#        "sebastian/diff": "^9.0.0",
 #        "sebastian/version": "^7.0.0"
 Requires:       php(language) >= 8.4
-Requires:       (php-composer(phpunit/php-code-coverage) >= 14.1.3 with php-composer(phpunit/php-code-coverage) < 15)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 14.3.0 with php-composer(phpunit/php-code-coverage) < 15)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
-Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
-Requires:       (php-composer(sebastian/diff)            >= 8.1.0  with php-composer(sebastian/diff)            < 9)
+Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.1  with php-composer(sebastian/cli-parser)      < 6)
+Requires:       (php-composer(sebastian/diff)            >= 9.0.0  with php-composer(sebastian/diff)            < 10)
 Requires:       (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 # from phpcompatinfo report for version 4.0.0
 # none
@@ -92,7 +92,7 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/%{ns_vendor}/CodeCoverage14/autoload.php',
     '%{php_home}/%{ns_vendor}/FileIterator7/autoload.php',
     '%{php_home}/%{ns_vendor}/CliParser5/autoload.php',
-    '%{php_home}/%{ns_vendor}/Diff8/autoload.php',
+    '%{php_home}/%{ns_vendor}/Diff9/autoload.php',
     '%{php_home}/%{ns_vendor}/Version7/autoload.php',
 ]);
 EOF
@@ -123,6 +123,8 @@ rm tests/end-to-end/composer/merge/mismatching-php-version-do-not-require.phpt
 rm tests/end-to-end/composer/merge/valid-directory-with-text-report-stdout.phpt
 rm tests/end-to-end/composer/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
 rm tests/end-to-end/composer/patch-coverage/valid-arguments-all-covered.phpt
+rm tests/end-to-end/composer/merge/valid-directory-with-html-report-and-file-view.phpt
+rm tests/end-to-end/composer/merge/valid-directory-with-html-report-and-class-view.phpt
 
 ret=0
 for cmd in php php84 php85; do
@@ -145,6 +147,12 @@ exit $ret;
 
 
 %changelog
+* Fri Aug  7 2026 Remi Collet <remi@remirepo.net> - 13.1.0-1
+- update to 13.1.0
+- raise dependency on phpunit/php-code-coverage 14.3
+- raise dependency on sebastian/cli-parser 5.0.1
+- raise dependency on sebastian/diff 9.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

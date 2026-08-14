@@ -1,8 +1,4 @@
-%if 0%{?rhel}
-%bcond_with check
-%else
 %bcond_without check
-%endif
 
 %global pypi_name zstandard
 
@@ -11,12 +7,11 @@ compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
 Version: 0.25.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Zstandard bindings for Python
 License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
 Source0: %{pypi_source}
-Patch0: %{name}-py313.patch
 
 %description
 %{desc}
@@ -67,6 +62,9 @@ mv zstandard{.src,}
 %doc README.rst
 
 %changelog
+* Wed Aug 12 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.25.0-6
+- drop unnecessary patch and check conditional
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.25.0-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

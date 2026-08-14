@@ -3,16 +3,17 @@
 %global debug_package %{nil}
 
 %global crate glycin-core
-%global crate_version 4.0.0-alpha
+%global crate_version 4.0.0-beta
 
 Name:           rust-glycin-core
-Version:        4.0.0~alpha
+Version:        4.0.0~beta
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-core
 Source:         %{crates_source %{crate} %{crate_version}}
+Patch:          0001-fix-type-mismatches-on-32-bit-architectures.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -143,18 +144,6 @@ This package contains library source intended for building other packages which
 use the "tokio" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tokio-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

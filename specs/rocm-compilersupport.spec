@@ -25,12 +25,12 @@
 %if %{with preview}
 %global rocm_release 7.14
 %global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 1
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
+%global rocm_patch 0
 %endif
+
+%global pkg_src therock-%{rocm_release}
 
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
@@ -38,7 +38,7 @@
 %if %{with preview}
 %global llvm_maj_ver 23
 %else
-%global llvm_maj_ver 22
+%global llvm_maj_ver 23
 %endif
 %global llvm_version_suffix .rocm
 
@@ -133,9 +133,9 @@
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with preview}
-Release:        1001.rocm%{rocm_version}%{?dist}
+Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        13.rocm%{rocm_version}%{?dist}
+Release:        1.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -161,30 +161,20 @@ License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
 Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 Source1:        rocm-compilersupport.prep.in
 
-%if %{without preview}
 # Link comgr with static versions of llvm's libraries
 Patch1:         0001-comgr-link-with-static-llvm.patch
-%else
-Patch1:         0001-preview-comgr-link-with-static-llvm.patch
-%endif
 # On Fedora the assert came in gcc 15, on RHEL 10.2 gcc 14
 # Reduce the gcc version check below
 Patch2:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 # https://github.com/ROCm/llvm-project/issues/301
 Patch3:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
+# Simplify use runtime wrapper check in AMDGPU tool chain
 Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415065
 Patch5:         0001-lld-workaround-.gnu.version-change.patch
-%if %{without preview}
-# backport
-# https://github.com/ROCm/llvm-project/commit/23f010f1ab09263d79027c70d5f4cddfe0055ca9
-Patch6:         0001-SemaConcept.cpp-fix-MSVC-not-all-control-paths-retur.patch
-%endif
-%if %{with preview}
 # When clang bungles the rocm install path, it gets the linking of libamdhip64 wrong
 # Convert from an absolute path <path-to>/libamdhip64.so to using -lamdhip64
-Patch7:         0001-clang-23-link-libamdhip64.patch
-%endif
+Patch6:         0001-clang-23-link-libamdhip64.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -199,10 +189,9 @@ BuildRequires:  zlib-devel
 BuildRequires:  binutils-devel
 %endif
 BuildRequires:  gcc-c++
-%if %{with preview}
 # For omp
 BuildRequires:  python-devel
-%endif
+
 Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 
 %if 0%{?rhel} || 0%{?suse_version}
@@ -468,7 +457,6 @@ Requires:      perl(Sys::Hostname)
 %{summary}
 %endif
 
-%if %{with preview}
 %package -n %{rocm_omp_name}-devel
 Summary:       The ROCm OMP devel
 
@@ -480,8 +468,6 @@ Requires:       rocm-filesystem%{pkg_suffix}
 
 Obsoletes:      rocm-omp-devel <= 7.3
 
-%endif
-
 %prep
 %autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
@@ -492,16 +478,12 @@ Obsoletes:      rocm-omp-devel <= 7.3
 #   15 | #include "siphash/SipHash.h"
 # move siphash out of the way
 mv third-party/siphash .
-%if %{with preview}
 mv third-party/unittest .
-%endif
 # remove everything else
 rm -rf third-party/*
 # move siphash back
 mv siphash third-party/
-%if %{with preview}
 mv unittest third-party/
-%endif
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,flang,flang-rt,libclc,lldb,llvm-libgcc,mlir,polly}
@@ -543,7 +525,7 @@ COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
 if [ ${COMPILE_JOBS}x = x ]; then
     COMPILE_JOBS=1
 fi
-# Take into account memmory usage per core, do not thrash real memory
+# Take into account memory usage per core, do not thrash real memory
 LINK_MEM=4
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
 MEM_MB=`eval "expr ${MEM_KB} / 1024"`
@@ -556,9 +538,8 @@ fi
 
 %global llvm_projects "clang;clang-tools-extra;lld"
 %if %{with libcxx}
-%global llvm_runtimes "compiler-rt;libcxx;libcxxabi"
+%global llvm_runtimes "compiler-rt;openmp;libcxx;libcxxabi"
 %else
-%if %{with preview}
 # rocm-omp is going away
 # CMake Error at CMakeLists.txt:24 (message):
 #  The legacy standalone build mode has been removed.  Please change
@@ -566,9 +547,6 @@ fi
 #  to
 #      cmake <llvm-project>/runtimes -DLLVM_ENABLE_RUNTIMES=openmp
 %global llvm_runtimes "compiler-rt;openmp"
-%else
-%global llvm_runtimes "compiler-rt"
-%endif
 %endif
 
 p=$PWD
@@ -665,8 +643,8 @@ export LDFLAGS=""
 
 # So just built tools can find their *.so's
 export LD_LIBRARY_PATH=$PWD/build-llvm/lib
-export CC=/usr/bin/gcc
-export CXX=/usr/bin/g++
+export CC=%{_bindir}/gcc
+export CXX=%{_bindir}/g++
 
 %if 0%{?suse_version}
 %cmake \
@@ -674,8 +652,8 @@ export CXX=/usr/bin/g++
 %__cmake -S llvm -B build-llvm \
 %endif
        %{llvmrocm_cmake_config} \
-       -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-       -DCMAKE_C_COMPILER=/usr/bin/gcc \
+       -DCMAKE_CXX_COMPILER=%{_bindir}/g++ \
+       -DCMAKE_C_COMPILER=%{_bindir}/gcc \
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
        -DCMAKE_INSTALL_LIBDIR=lib \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects}
@@ -826,14 +804,12 @@ sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lL
 %else
 sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
-%if %{with preview}
+
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
 sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangScalableStaticAnalysisFrameworkAnalyses -lclangDependencyScanning -lclangOptions -lclangFrontend -lclangFrontendTool -lclangScalableStaticAnalysisFrameworkFrontend -lclangScalableStaticAnalysisFrameworkCore -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangUnifiedSymbolResolution -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
-%else
-sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
-%endif
+
 %endif
 
 %cmake_build -j ${JOBS}
@@ -960,7 +936,7 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 rm -f %{buildroot}%{bundle_prefix}/bin/nvptx-arch
 
 # rocm-clang-analyzer.x86_64: E: non-executable-script /usr/lib64/rocm/llvm/share/scan-view/Reporter.py 644 /usr/bin/env python
-sed -i -e 's@/usr/bin/env python@/usr/bin/python3@' %{buildroot}%{bundle_prefix}/share/scan-view/*.py
+sed -i -e 's@/usr/bin/env python@%{_bindir}/python3@' %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
 # rocm-clang-devel.x86_64: E: zero-length /usr/lib64/rocm/llvm/include/clang/Basic/DiagnosticASTCompatIDs.inc
@@ -1044,11 +1020,7 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 
 %files -n %{rocm_llvm_name}
 %license llvm/LICENSE.TXT
-%if %{without preview}
-%{bundle_prefix}/bin/bugpoint
-%else
 %{bundle_prefix}/bin/llubi
-%endif
 %{bundle_prefix}/bin/llc
 %{bundle_prefix}/bin/lli
 %{bundle_prefix}/bin/amdgpu-arch
@@ -1105,9 +1077,6 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/bin/amdflang*
 %{bundle_prefix}/bin/amdlld
 %{bundle_prefix}/bin/amdllvm
-%if %{with preview}
-%endif
-
 
 %files -n %{rocm_clang_name}-devel
 %license clang/LICENSE.TXT
@@ -1177,14 +1146,14 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/share/scan-view/
 %endif
 
-%if %{with preview}
 %files -n %{rocm_omp_name}-devel
 %{bundle_prefix}/lib/cmake/openmp/
 %{bundle_prefix}/lib/libomp*.so
-%endif
-
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 23-1.rocm7.14.1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22-13.rocm7.2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

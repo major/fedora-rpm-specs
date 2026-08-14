@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
-%global crate_version 5.0.0-alpha
+%global crate_version 5.0.0-beta
 
 Name:           rust-glycin-utils
-Version:        5.0.0~alpha
+Version:        5.0.0~beta
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

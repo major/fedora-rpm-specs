@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 
-%global rocm_release 7.2
+%global rocm_release 7.14
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -41,7 +41,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 
 Summary:        ROCm directories
 
@@ -225,6 +225,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Tue Aug 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

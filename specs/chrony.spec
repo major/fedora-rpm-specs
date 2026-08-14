@@ -1,5 +1,6 @@
 %global _hardened_build 1
-%global clknetsim_ver 6ee99f50dec8
+%global prerelease -pre1
+%global clknetsim_ver 93750cc17ebe
 %bcond_without debug
 %bcond_without nts
 
@@ -8,8 +9,8 @@
 %endif
 
 Name:           chrony
-Version:        4.8
-Release:        7%{?dist}
+Version:        4.9
+Release:        0.1.pre1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -21,14 +22,11 @@ Source3:        chrony.dhclient
 Source4:        chrony.sysusers
 # simulator for test suite
 Source10:       https://gitlab.com/chrony/clknetsim/-/archive/master/clknetsim-%{clknetsim_ver}.tar.gz
-%{?gitpatch:Patch0: chrony-%{version}%{?prerelease}-%{gitpatch}.patch.gz}
 
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
 # let systemd create /var/lib/chrony and /var/log/chrony
 Patch2:         chrony-servicedirs.patch
-# update seccomp filter for new glibc
-Patch3:         chrony-seccomp.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -62,12 +60,7 @@ service to other computers in the network.
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %setup -q -n %{name}-%{version}%{?prerelease} -a 10
-%{?gitpatch:%patch -P 0 -p1}
-%patch -P 1 -p1 -b .nm-dispatcher-dhcp
-%patch -P 2 -p1 -b .servicedirs
-%patch -P 3 -p1 -b .seccomp
-
-%{?gitpatch: echo %{version}-%{gitpatch} > version.txt}
+%autopatch -p1
 
 # review changes in packaged configuration files and scripts
 md5sum -c <<-EOF | (! grep -v 'OK$')
@@ -213,6 +206,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Aug 12 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-1
+- update to 4.9-pre1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

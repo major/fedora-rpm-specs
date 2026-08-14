@@ -3,7 +3,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           snapshot
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -13,30 +13,24 @@ Summary:        Take pictures and videos
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # GPL-3.0-or-later
-# ISC
 # MIT
 # MIT OR Apache-2.0
-# MPL-2.0 OR LGPL-2.1-or-later
-# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
-    GPL-3.0-or-later AND
-    ISC AND
-    MIT AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MPL-2.0 OR LGPL-2.1-or-later) AND
-    (Unlicense OR MIT) AND
-    (Zlib OR Apache-2.0 OR MIT)
+    GPL-3.0-or-later
+    AND Apache-2.0 WITH LLVM-exception
+    AND ISC
+    AND MIT
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/snapshot

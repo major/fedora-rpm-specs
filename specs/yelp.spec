@@ -2,13 +2,12 @@
 
 Name:          yelp
 Epoch:         2
-Version:       49.1
+Version:       49.2
 Release:       %autorelease
 Summary:       Help browser for the GNOME desktop
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0 AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Yelp
 Source:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
-Patch:         yelp-49.1-gdk-include.patch
 
 %gnome_check_version
 

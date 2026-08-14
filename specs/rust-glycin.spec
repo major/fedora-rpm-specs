@@ -3,20 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 4.0.0-alpha
+%global crate_version 4.0.0-beta
 
 Name:           rust-glycin
-Version:        4.0.0~alpha
+Version:        4.0.0~beta
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
 Source:         %{crates_source %{crate} %{crate_version}}
-# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
-Source2:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-LGPL-2.1
-# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
-Source3:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-MPL-2.0
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          glycin-fix-metadata-auto.diff
 
@@ -141,7 +137,6 @@ use the "tokio" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

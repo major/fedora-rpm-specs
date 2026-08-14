@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.6
+%global general_version %{pybasever}.7
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -112,30 +112,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.1.2
+%global pip_version 26.2.1
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.2.25
-Provides: bundled(python3dist(distlib)) = 0.4
+Provides: bundled(python3dist(certifi)) = 2026.6.17
+Provides: bundled(python3dist(distlib)) = 0.4.2
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.11
+Provides: bundled(python3dist(idna)) = 3.18
 Provides: bundled(python3dist(msgpack)) = 1.1.2
 Provides: bundled(python3dist(packaging)) = 26.2
-Provides: bundled(python3dist(platformdirs)) = 4.5.1
-Provides: bundled(python3dist(pygments)) = 2.19.2
+Provides: bundled(python3dist(platformdirs)) = 4.10
+Provides: bundled(python3dist(pygments)) = 2.20
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.33.1
+Provides: bundled(python3dist(requests)) = 2.34.2
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
 Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.3.1
+Provides: bundled(python3dist(tomli)) = 2.4.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 2.6.3
+Provides: bundled(python3dist(urllib3)) = 2.7
 }
 # setuptools
 # vendor.txt not in .whl
@@ -401,12 +401,6 @@ Patch251: 00251-change-user-install-location.patch
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
 
-# 00474 # 0d9da266d5ecb31d8a417a0a5daa251a2d99389f
-# CVE-2025-15366
-#
-# Downstream only: Reject control characters in IMAP commands
-Patch474: 00474-cve-2025-15366.patch
-
 # 00475 # 91e12ebfb2a88b265f3764a0d852b6fa53b2386a
 # CVE-2025-15367
 #
@@ -557,7 +551,7 @@ Summary:        Python runtime libraries
 # Combined manually from https://docs.python.org/3.14/license.html
 # Hash of Doc/license.rst which is compared in %%prep, generated with:
 # $ sha256sum Doc/license.rst | cut -f1 -d" "
-%global license_file_hash c695d550b135e53e38807e76496d1db17d22c40e461d1f3f354c86188d3305dd
+%global license_file_hash cd6f471c0bfdb099efefc25ddff9b3df8bf62e10428987f1f05e6f2f9e35d563
 # Licenses of incorporated software:
 # Mersenne Twister in _random C extension contains code under BSD-3-Clause
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
@@ -581,7 +575,8 @@ Summary:        Python runtime libraries
 # parts of asyncio from uvloop are MIT
 # Python/qsbr.c is adapted from code under BSD-2-Clause
 # Zstandard bindings in Modules/_zstd and Lib/compression/zstd are BSD-3-Clause
-%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa
+# An extract of the `Unicode Character Database` converted to an internal format is Unicode-3.0
+%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa AND Unicode-3.0
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 License: %{libs_license}
@@ -1490,6 +1485,7 @@ CheckPython() {
   # test_check_probes is failing since it was introduced in 3.12.0rc1,
   # the test is skipped until it is fixed in upstream.
   # see: https://github.com/python/cpython/issues/104280#issuecomment-1669249980
+  # test_subparser_inherits_reparse_deferral: https://github.com/python/cpython/issues/155485
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1498,6 +1494,9 @@ CheckPython() {
     --timeout=2700 \
     %endif
     -i test_check_probes \
+    %if 0%{?rhel} == 9
+    -i test_subparser_inherits_reparse_deferral \
+    %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
 
@@ -1987,6 +1986,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Aug 10 2026 Karolina Surma <ksurma@redhat.com> - 3.14.7-1
+- Update to Python 3.14.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

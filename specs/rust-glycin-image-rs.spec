@@ -6,20 +6,16 @@
 %global cargo_install_bin 0
 
 %global crate glycin-image-rs
-%global crate_version 2.2.0-alpha
+%global crate_version 2.2.0-beta
 
 Name:           rust-glycin-image-rs
-Version:        2.2.0~alpha
+Version:        2.2.0~beta
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-image-rs
 Source:         %{crates_source %{crate} %{crate_version}}
-# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
-Source2:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-LGPL-2.1
-# * https://gitlab.gnome.org/GNOME/glycin/-/work_items/305
-Source3:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.2.alpha.4/LICENSE-MPL-2.0
 
 BuildRequires:  cargo-rpm-macros >= 26
 
@@ -38,6 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-LGPL-2.1
 %license %{crate_instdir}/LICENSE-MPL-2.0
 %{crate_instdir}/
@@ -81,7 +78,6 @@ use the "external" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

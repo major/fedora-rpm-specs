@@ -50,7 +50,7 @@ URL: https://www.python.org/
 %global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: %autorelease
 License: Python-2.0.1
 
 # The PYC magic number, see Include/internal/pycore_magic_number.h
@@ -2033,68 +2033,4 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
-* Wed Aug 05 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~rc1-1
-- Update to Python 3.15.0rc1
-
-* Sat Jul 18 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b4-1
-- Update to Python 3.15.0b4
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.0~b3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue Jun 23 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b3-1
-- Update to Python 3.15.0b3
-
-* Sat Jun 13 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b2-5
-- Restore compatibility with setuptools nspkg.pth files in site module
-- Fixes: rhbz#2486045
-- Fixes: rhbz#2486059
-- Fixes: rhbz#2487621
-- Fixes: rhbz#2488369
-
-* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.15.0~b2-4
-- Rebuilt for openssl 4.0
-
-* Wed Jun 10 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.15.0~b2-3
-- Ship gdb Python scripts in the libs subpackage instead of debuginfo
-- Fixes: rhbz#2381839
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.15.0~b2-2
-- Rebuilt as main Python on Fedora 45+
-
-* Tue Jun 02 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~b2-1
-- Update to Python 3.15.0b2
-
-* Mon May 11 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~b1-1
-- Update to Python 3.15.0b1
-
-* Wed Apr 08 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a8-1
-- Update to Python 3.15.0a8
-
-* Tue Mar 10 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~a7-1
-- Update to Python 3.15.0a7
-
-* Thu Feb 12 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a6-1
-- Update to Python 3.15.0a6
-
-* Wed Jan 14 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a5-1
-- Update to Python 3.15.0a5
-
-* Tue Jan 06 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a3-3
-- Require at least the same expat version as used during the build time
-
-* Fri Dec 19 2025 Stan Ulbrych <stanulbrych@gmail.com> - 3.15.0~a3-2
-- Add custom error messages for some stdlib modules that are packaged separately
-
-* Tue Dec 16 2025 Karolina Surma <ksurma@redhat.com> - 3.15.0~a3-1
-- Update to Python 3.15.0a3
-
-* Wed Nov 19 2025 Karolina Surma <ksurma@redhat.com> - 3.15.0~a2-1
-- Update to Python 3.15.0a2
-
-* Wed Oct 22 2025 Karolina Surma <ksurma@redhat.com> - 3.15.0~a1-2
-- Use bundled wheels on Fedora < 43
-- Properly export CFLAGS+LDFLAGS when invoking make install to fix 3rd-party extension building
-
-* Wed Oct 15 2025 Karolina Surma <ksurma@redhat.com> - 3.15.0~a1-1
-- Initial Python 3.15 package forked from Python 3.14
+%autochangelog

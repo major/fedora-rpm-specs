@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/BelfrySCAD/BOSL2
-%global version 2.0.745
+%global version 2.0.749
 
 %forgemeta
 

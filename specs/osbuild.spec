@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        189
+Version:        190
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -488,6 +488,26 @@ fi
 %endif
 
 %changelog
+* Tue Aug 11 2026 Packit <hello@packit.dev> - 190-1
+Changes with 190
+----------------
+  - Update images dependency ref to latest (#2523)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update images dependency ref to latest (#2529)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild-ci container images (#2521)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - Update snapshots to 20260802 (#2522)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260809 (#2528)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - stage/rpm: general env options (#2524)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - stage/rpm: query only supported metadata tags (HMS-11174) (#2526)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-08-11
+
 * Wed Jul 29 2026 Packit <hello@packit.dev> - 189-1
 Changes with 189
 ----------------

@@ -28,13 +28,12 @@
 %if %{with preview}
 %global rocm_release 7.14
 %global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 1
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
+%global rocm_patch 0
 %endif
 
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -42,12 +41,10 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %if 0%{?suse_version}
@@ -75,10 +72,8 @@
 %global build_static ON
 %else
 %global build_static OFF
-%if %{with preview}
 # Test does not link without static libs, disable tests
 %global build_test OFF
-%endif
 %endif
 
 Name:       amdsmi%{pkg_suffix}
@@ -86,7 +81,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    1%{?dist}
 %else
-Release:    8%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -108,24 +103,16 @@ URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # esmi_ib_library is not suitable for packaging
 # https://github.com/amd/esmi_ib_library/issues/13
-# This tag was choosen by the amdsmi project because 4.0+ introduced variables not
+# This tag was chosen by the amdsmi project because 4.0+ introduced variables not
 # found in the upstream kernel.
-%if %{without preview}
-%global esmi_ver 4.2
-%else
 %global esmi_ver 5.2.1
-%endif
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
-%if %{without preview}
-# https://github.com/ROCm/amdsmi/pull/165
-Patch1:     0001-Fix-compilation-with-libdrm-2.4.130.patch
-Patch2:     0001-amdsmi-silence-pack-warnings.patch
-%else
+# Build amdsminic as a SHARED library with version properties
 # https://github.com/ROCm/rocm-systems/issues/4535
 Patch1:     0001-amdsmi-so-libamdsminic.patch
+# Remove esmi version check that doesn't work without git files in source tarball
 # https://github.com/ROCm/rocm-systems/issues/8761
 Patch2:     0001-amdsmi-remove-esmi-version-check.patch
-%endif
 
 ExclusiveArch: x86_64
 
@@ -134,6 +121,8 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: kernel-devel
 BuildRequires: libdrm-devel
+BuildRequires: libmnl-devel
+BuildRequires: libnl3-devel
 # No python install in compat mode.
 %if %{without compat}
 BuildRequires: python3-devel
@@ -146,11 +135,6 @@ BuildRequires: gtest
 %else
 BuildRequires: gtest-devel
 %endif
-%endif
-
-%if %{with preview}
-BuildRequires: libnl3-devel
-BuildRequires: libmnl-devel
 %endif
 
 %if %{without compat}
@@ -203,7 +187,6 @@ Requires:       libdrm-devel
 %{summary}
 %endif
 
-%if %{with preview}
 %if %{with static}
 %package static
 Summary: Static libraries for %{name}
@@ -213,14 +196,9 @@ Provides:  amdsmi%{pkg_suffix}-static = %{version}-%{release}
 %description static
 %{summary}
 %endif
-%endif
 
 %prep
-%if %{without preview}
-%autosetup -p1 -n %{upstreamname}
-%else
 %autosetup -p3 -n %{upstreamname}
-%endif
 
 tar xf %{SOURCE1}
 mv esmi_ib_library-* esmi_ib_library
@@ -317,11 +295,8 @@ if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
   mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 fi
 
-%if %{with preview}
 #ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
 chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/lib%{pkg_library_name}.so
-
-%endif
 
 %if 0%{?suse_version}
 %files
@@ -349,9 +324,7 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
 %endif
-%if %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libamdsminic.so.*
-%endif
 %endif
 
 %files devel
@@ -362,27 +335,24 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %if %{without compat}
 %{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
 %endif
-%if %{with preview}
 %{pkg_prefix}/include/e_smi/
 %{pkg_prefix}/include/rocm_smi/
 %{pkg_prefix}/%{pkg_libdir}/libamdsminic.so
-%endif
 
-%if %{without preview}
 %if %{with test}
 %files test
 %{pkg_prefix}/share/amdsmi/
 %endif
-%endif
 
-%if %{with preview}
 %if %{with static}
 %files static
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_static.a
 %endif
-%endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.2.1-8
 - Rebuilt for Python 3.15.0b4 ABI change
 

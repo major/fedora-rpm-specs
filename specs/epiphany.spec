@@ -6,7 +6,7 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
@@ -18,9 +18,6 @@ Source0:        https://download.gnome.org/sources/epiphany/%{gnome_major_versio
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch
-
-# Upstream patches
-Patch10:        epiphany-sync-crypto-support-building-against-nettle-4-0.patch
 
 BuildRequires:  /usr/bin/rst2man
 BuildRequires:  blueprint-compiler

@@ -7,7 +7,7 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.10.1
+Version:   4.11.0
 Release:   %autorelease
 Summary:   An Open Source software construction tool
 # SCons/Tool/docbook/docbook-xsl-1.76.1/ are licensed under DocBook-Stylesheet
@@ -16,13 +16,10 @@ License:   MIT AND DocBook-Stylesheet
 URL:       http://www.scons.org
 Source0:   %{pypi_source}
 Source1:   https://scons.org/doc/production/scons-doc-%{version}.tar.gz
-
 # Support python-setuptools < 79
-Patch0:    scons-4.10.1-license_old_style.patch
-
+Patch0:    scons-4.11.0-license_old_style.patch
 BuildArch: noarch
 BuildRequires: make
-
 %description
 SCons is an Open Source software construction tool--that is, a build
 tool; an improved substitute for the classic Make utility; a better way
@@ -45,7 +42,9 @@ BuildArch: noarch
 %if 0%{without prebuilt_doc}
 BuildRequires: python3-sphinx >= 5.1.1
 BuildRequires: python3-sphinx_rtd_theme
-BuildRequires: rst2pdf, fop, ghostscript
+BuildRequires: rst2pdf
+BuildRequires: fop
+BuildRequires: ghostscript
 BuildRequires: python3dist(readme-renderer) 
 %endif
 %description doc
@@ -54,20 +53,17 @@ Scons documentation.
 
 %package -n     python3-%{name}
 Summary: An Open Source software construction tool
-
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 %py_provides    scons-python3
 %py_provides    python3-%{name}
 %py_provides    SCons
 %py_provides    scons
-
 %description -n python3-%{name}
 SCons is an Open Source software construction tool--that is, a build
 tool; an improved substitute for the classic Make utility; a better way
 to build software. SCons is based on the design which won the Software
 Carpentry build tool design competition in August 2000.
-
 SCons "configuration files" are Python scripts, eliminating the need
 to learn a new build tool syntax. SCons maintains a global view of
 all dependencies in a tree, and can scan source (or other) files for
@@ -89,14 +85,13 @@ defined Builder and/or Scanner objects.
 %patch -P 0 -p1 -b .backup
 %endif
 
+rm -rf *.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires
 
-
 %build
 %pyproject_wheel
-
 
 %install
 %pyproject_install
@@ -121,7 +116,7 @@ rm -f %{buildroot}%{_prefix}/*.1
 
 %if %{with doc}
 %files doc
-%if 0%{without prebuilt_doc}
+%if %{without prebuilt_doc}
 %doc build/doc/PDF build/doc/HTML build/doc/TEXT
 %else
 %doc PDF HTML EPUB TEXT

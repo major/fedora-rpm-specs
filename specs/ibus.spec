@@ -46,9 +46,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.35~alpha2
+Version:        1.5.35~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -57,7 +57,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch:         %%{name}-HEAD.patch
-Patch:          %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch:          %{name}-1385349-segv-bus-proxy.patch
 
@@ -77,13 +76,18 @@ BuildRequires:  gtk2-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  gtk4-devel
 BuildRequires:  iso-codes-devel
+# libevdev-devel for ibus-keypress
+BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  libnotify-devel
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  systemd
+# systemd-devel is pulled by libdbusmenu-gtk3-devel
 BuildRequires:  vala
 BuildRequires:  unicode-emoji
 BuildRequires:  unicode-ucd
+# xkbconfig_base in meson.build
+BuildRequires:  pkgconfig(xkeyboard-config)
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 
@@ -544,6 +548,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Aug 12 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~beta1-1
+- Resolves: #2512529 GTK 4.23.3 apps cause SIGSEGV with ibus-gtk4
+- Implement forward-key-event in Wayland input-method V2
+- Fix some issues in ibus-keypress
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha2-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc7.54
+%define pkgrelease 0.rc7.260812gf5bbbfec59b4.56
 %define kversion 7
-%define tarfile_release 7.2-rc7
+%define tarfile_release 7.2-rc7-12-gf5bbbfec59b4
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.54%{?buildid}%{?dist}
+%define specrelease 0.rc7.260812gf5bbbfec59b4.56%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4976,11 +4976,16 @@ fi\
 #
 #
 %changelog
-* Mon Aug 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.0-0.rc7.54]
-- Turn on CONFIG_CRYPTO_MLDSA for Fedora (Justin M. Forbes)
-
-* Mon Aug 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.54]
+* Wed Aug 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.f5bbbfec59b4.56]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Wed Aug 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.f5bbbfec59b4.55]
+- Linux v7.2.0-0.rc7.f5bbbfec59b4
+
+* Tue Aug 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.d58772d8520c.54]
+- Clean up unnecessary pending entries (Justin M. Forbes)
+- Turn on CONFIG_CRYPTO_MLDSA for Fedora (Justin M. Forbes)
+- Linux v7.2.0-0.rc7.d58772d8520c
 
 * Mon Aug 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.53]
 - Linux v7.2.0-0.rc7

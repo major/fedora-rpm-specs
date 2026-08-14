@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 151.0.7922.108
+Version: 151.0.7922.137
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1354,6 +1354,9 @@ export CFLAGS
 export CXXFLAGS
 export LDFLAGS
 
+# Suppress linker_messages Warnings in Rust
+export RUSTFLAGS="-A linker_messages"
+
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1
 
@@ -1919,6 +1922,14 @@ fi
 %endif
 
 %changelog
+* Wed Aug 12 2026 Than Ngo <than@redhat.com> - 151.0.7922.137-1
+- Update to 151.0.7922.137
+  * CVE-2026-19556: Use after free in V8
+  * CVE-2026-19557: Use after free in TabStrip
+  * CVE-2026-19558: Use after free in Extensions
+  * CVE-2026-19559: Use after free in HTML
+  * CVE-2026-19560: Use after free in Blink
+
 * Fri Aug 07 2026 Than Ngo <than@redhat.com> - 151.0.7922.108-1
 - Update to 151.0.7922.108
   * CVE-2026-19137: Use after free in WebGL

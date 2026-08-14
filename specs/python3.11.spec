@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: Python-2.0.1
 
 
@@ -420,6 +420,13 @@ Patch485: 00485-cve-2026-4224.patch
 #
 # (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
 Patch489: 00489-openssl-3.5.7.patch
+
+# 00491 # ac14737379922303720216b61803474c84f291ef
+# gh-149776: Skip UDP Lite tests if it's not supported
+#
+# Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
+# it's not supported.
+Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
 
 # (New patches go here ^^^)
 #
@@ -1753,6 +1760,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 30 2026 Miro Hrončok <mhroncok@redhat.com> - 3.11.15-7
+ - Skip UDP Lite tests if it's not supported
+ - Fixes FTBFS on Linux kernel 7.1 and newer
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

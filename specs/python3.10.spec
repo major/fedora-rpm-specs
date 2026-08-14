@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -381,6 +381,13 @@ Patch475: 00475-cve-2025-15367.patch
 # (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
 Patch489: 00489-openssl-3.5.7.patch
 
+# 00491 # ac14737379922303720216b61803474c84f291ef
+# gh-149776: Skip UDP Lite tests if it's not supported
+#
+# Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
+# it's not supported.
+Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python" and "python3" in Fedora, EL, etc.,
@@ -538,8 +545,12 @@ Requires: tzdata
 # We avoid this problem by requiring at least the same version of expat that
 # was used during the build time.
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
+# Since expat 2.7.4, the library has versioned symbols and this is no longer needed,
+# as the generated requirement will be in the form of libexpat.so.1(LIBEXPAT_2.7.2) etc.
 %global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+%if v"%{expat_version}" < v"2.7.4"
 Requires: expat%{?_isa} >= %{expat_version}
+%endif
 
 
 # Since patch 251 changed from distutils to sysconfig, pip needed to be adapted
@@ -1680,6 +1691,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jul 30 2026 Miro Hrončok <mhroncok@redhat.com> - 3.10.20-4
+ - Skip UDP Lite tests if it's not supported
+ - Fixes FTBFS on Linux kernel 7.1 and newer
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

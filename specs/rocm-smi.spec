@@ -28,12 +28,12 @@
 %if %{with preview}
 %global rocm_release 7.14
 %global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 1
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
+%global rocm_patch 0
 %endif
+
+%global pkg_src therock-%{rocm_release}
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -70,7 +70,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    1%{?dist}
 %else
-Release:    3%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -189,11 +189,7 @@ sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
 # https://github.com/ROCm/rocm-systems/issues/1022
 sed -i -e 's@FetchContent_MakeAvailable(googletest)@#FetchContent_MakeAvailable(googletest)@' tests/rocm_smi_test/CMakeLists.txt
 sed -i -e 's@PUBLIC GTest::gtest_main@PUBLIC gtest_main gtest@' tests/rocm_smi_test/CMakeLists.txt
-%if %{with preview}
 sed -i -e '/install googletest/,+5d' tests/rocm_smi_test/CMakeLists.txt
-%else
-sed -i -e '/TARGETS gtest gtest_main/,+3d' tests/rocm_smi_test/CMakeLists.txt
-%endif
 
 # fix iomanip include
 # https://github.com/ROCm/rocm-systems/issues/1021
@@ -255,6 +251,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

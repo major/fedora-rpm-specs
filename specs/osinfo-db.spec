@@ -7,13 +7,16 @@
 
 Summary: osinfo database files
 Name: osinfo-db
-Version: 20251212
+Version: 20260812
 Release: %autorelease
 License: GPL-2.0-or-later
-Source: https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
-URL: http://libosinfo.org/
-BuildRequires: intltool
+Source: https://gitlab.com/libosinfo/osinfo-db/-/releases/v%{version}/downloads/%{name}-dist-%{version}.tar.xz
+URL: https://libosinfo.org/
+BuildRequires: gettext
 BuildRequires: osinfo-db-tools
+BuildRequires: make
+BuildRequires: python3-pytest
+BuildRequires: python3-lxml
 BuildArch: noarch
 Requires: hwdata
 
@@ -44,22 +47,31 @@ operating systems for use with virtualization provisioning tools
 
 %endif
 
+%prep
+%autosetup
+
+%build
+%make_build
+
 %install
-osinfo-db-import --root %{buildroot} --dir %{_datadir}/osinfo %{SOURCE0}
+%make_install OSINFO_DB_TARGET="--dir %{_datadir}/osinfo"
 %if 0%{?rhel}
 # Remove the upstream virtio-win / spice-guest-tools drivers
 find %{buildroot}/%{_datadir}/osinfo/os/microsoft.com/ -name "win-*.d" -type d -exec rm -rf {} +
 %endif
 
 %if %{with_mingw}
-osinfo-db-import --root %{buildroot} --dir %{mingw32_datadir}/osinfo %{SOURCE0}
-osinfo-db-import --root %{buildroot} --dir %{mingw64_datadir}/osinfo %{SOURCE0}
+%make_install OSINFO_DB_TARGET="--dir %{mingw32_datadir}/osinfo"
+%make_install OSINFO_DB_TARGET="--dir %{mingw64_datadir}/osinfo"
 %endif
+
+%check
+make check
 
 %files
 %dir %{_datadir}/osinfo/
+%doc %{_datadir}/osinfo/LICENSE
 %{_datadir}/osinfo/VERSION
-%{_datadir}/osinfo/LICENSE
 %{_datadir}/osinfo/datamap
 %{_datadir}/osinfo/device
 %{_datadir}/osinfo/os

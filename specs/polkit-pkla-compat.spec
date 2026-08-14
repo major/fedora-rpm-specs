@@ -1,11 +1,11 @@
 Name:		polkit-pkla-compat
 Version:	0.1
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Rules for polkit to add compatibility with pklocalauthority
 # GPLv2-licensed ltmain.sh and Apache-licensed mocklibc are not shipped in
 # the binary package.
 License:	LGPL-2.0-or-later
-URL:		https://pagure.io/polkit-pkla-compat
+URL:		https://github.com/polkit-org/polkit-pkla-compat
 Source0:	http://releases.pagure.org/polkit-pkla-compat/polkit-pkla-compat-%{version}.tar.xz
 
 BuildRequires: make
@@ -50,6 +50,9 @@ make check
 %dir %{_localstatedir}/lib/polkit-1/localauthority/*.d
 
 %changelog
+* Wed Aug 12 2026 Jan Rybar <jrybar@redhat.com> - 0.1-34
+- Upstream address changed after migration from decommissioned Pagure
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

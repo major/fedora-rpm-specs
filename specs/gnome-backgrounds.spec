@@ -1,5 +1,5 @@
 Name:           gnome-backgrounds
-Version:        51~alpha.0
+Version:        51~beta
 Release:        %autorelease
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 

@@ -3,8 +3,8 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 11.1.1
-Release: 2%{?dist}
+Version: 11.8.1
+Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 # Automatically converted from old format: GPLv2 or ASL 2.0 and BSD - review is highly recommended.
@@ -110,7 +110,7 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.11
-%{_libdir}/librocksdb.so.11.1.1
+%{_libdir}/librocksdb.so.11.8.1
 
 
 %files tools
@@ -137,6 +137,9 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Wed Aug 12 2026 Jonny Heggheim <hegjon@gmail.com> - 11.8.1-1
+- Updated to version 11.8.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

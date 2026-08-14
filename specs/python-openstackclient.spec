@@ -116,7 +116,6 @@ sed -i \
     -e "/^python-zunclient[[:space:]]*[!><=]/d" \
     -e "/^python-watcherclient[[:space:]]*[!><=]/d" \
     -e "/^python-designateclient[[:space:]]*[!><=]/d" \
-    -e "/^python-magnumclient[[:space:]]*[!><=]/d" \
     -e "/^python-ironic-inspector-client[[:space:]]*[!><=]/d" \
     doc/requirements.txt
 

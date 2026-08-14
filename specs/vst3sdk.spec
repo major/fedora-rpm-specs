@@ -1,12 +1,11 @@
 Name:           vst3sdk
-Version:        3.8.0
+Version:        3.8.1
 Release:        %autorelease
 Summary:        VST 3 Plug-In SDK
 
 %global giturl  https://github.com/steinbergmedia/vst3
-%global buildno 66
+%global buildno 84
 %global verstr  %{version}_build_%{buildno}
-%global tutcom  33b73dfbb87f3fde3bce8c0a10cae934dc66ad34
 
 # Files with licenses other than MIT:
 # - cmake/templates/projectversion.h.in: not used in the build

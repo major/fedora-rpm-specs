@@ -4,7 +4,7 @@
 %global libsigc_version 2.9.1
 
 Name:           glibmm2.4
-Version:        2.66.9
+Version:        2.66.10
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 
@@ -14,11 +14,6 @@ URL:            https://gtkmm.org/
 Source0:        https://download.gnome.org/sources/glibmm/%{gnome_major_minor_version}/glibmm-%{version}.tar.xz
 
 Patch0:         glibmm24-gcc11.patch
-# https://gitlab.gnome.org/GNOME/glibmm/-/commit/d26083c41219958e802d5da733d4b4d3c342ec89
-# https://gitlab.gnome.org/GNOME/glibmm/-/commit/b353a8b0afc1aa78f3eec58229f02acd9fab6d3e
-# Fix type definition conflict with GLib 2.89.2
-Patch1:         glibmm24-2.66.9-glib_2.89.2-type-definition.patch
-
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -28,12 +23,7 @@ BuildRequires:  meson
 BuildRequires:  mm-common
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(feature)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(open)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-BuildRequires:  perl(XML::Parser)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(sigc++-2.0) >= %{libsigc_version}
 
@@ -86,8 +76,7 @@ This package contains the full API documentation for %{name}.
 
 
 %build
-%meson -Dbuild-documentation=true \
-    -Dmaintainer-mode=true
+%meson -Dbuild-documentation=true
 %meson_build
 
 

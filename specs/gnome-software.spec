@@ -75,7 +75,6 @@ BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libadwaita-1) >= %{libadwaita_version}
-BuildRequires: pkgconfig(libdnf)
 BuildRequires: pkgconfig(libsoup-3.0)
 %if %{with malcontent}
 BuildRequires: pkgconfig(malcontent-0)

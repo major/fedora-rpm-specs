@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-common
-%global crate_version 2.0.0-alpha
+%global crate_version 2.0.0-beta.1
 
 Name:           rust-gufo-common
-Version:        2.0.0~alpha
+Version:        2.0.0~beta.1
 Release:        %autorelease
 Summary:        Common features used in gufo crates
 

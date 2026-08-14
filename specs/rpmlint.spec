@@ -2,23 +2,20 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.9.0
-Release:        3%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
 Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
-
-# fix no-signature issue with rpmv6
-Patch0:         https://github.com/rpm-software-management/rpmlint/commit/bfd7440dbfca4a2f9d8e9791ac42ff105ed0d60e.patch
-# Python 3.15 test fix
-Patch1:         https://github.com/rpm-software-management/rpmlint/commit/ccb7257253150fc5494df877dd274ba77351ab15.patch
 
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
 Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
+
+Patch0:         lddparser-glibc244-fallback.patch
 
 BuildArch:      noarch
 
@@ -101,6 +98,10 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Wed Aug 12 2026 Tom Callaway <spot@fedoraproject.org> - 2.10.0-1
+- update to 2.10.0
+- add fix for ldd issues with glibc 2.44
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

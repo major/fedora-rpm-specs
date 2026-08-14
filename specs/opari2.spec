@@ -1,5 +1,5 @@
 Name:           opari2
-Version:        2.0.9
+Version:        2.0.10
 Release:        %autorelease
 Summary:        An OpenMP runtime performance measurement instrumenter
 

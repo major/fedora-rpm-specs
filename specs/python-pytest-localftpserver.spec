@@ -1,7 +1,7 @@
 %global pypi_name pytest-localftpserver
 
 Name:           python-%{pypi_name}
-Version:        1.5.0
+Version:        1.6.0
 Release:        %{autorelease}
 Summary:        A PyTest plugin which provides an FTP fixture for your tests
 

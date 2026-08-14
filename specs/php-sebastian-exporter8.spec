@@ -23,7 +23,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.1.1
+Version:        8.2.1
 Release:        2%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -39,18 +39,18 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.2.4",
-BuildRequires:  phpunit13 >= 13.2.4
-BuildRequires:  (php-composer(%{pk_vendor}/recursion-context) >= 8.0 with php-composer(%{pk_vendor}/recursion-context) < 9)
+#        "phpunit/phpunit": "^13.3",
+BuildRequires:  phpunit13 >= 13.3
+BuildRequires:  (php-composer(%{pk_vendor}/recursion-context) >= 8.0.1 with php-composer(%{pk_vendor}/recursion-context) < 9)
 %endif
 
 # from composer.json
 #        "php": ">=8.4.1",
 #        "ext-mbstring": "*",
-#        "sebastian/recursion-context": "^8.0"
+#        "sebastian/recursion-context": "^8.0.1"
 Requires:       php(language) >= 8.4.1
 Requires:       php-mbstring
-Requires:       (php-composer(%{pk_vendor}/recursion-context) >= 8.0 with php-composer(%{pk_vendor}/recursion-context) < 9)
+Requires:       (php-composer(%{pk_vendor}/recursion-context) >= 8.0.1 with php-composer(%{pk_vendor}/recursion-context) < 9)
 # from phpcompatinfo report for version 5.0.0
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -110,6 +110,13 @@ exit $ret
 
 
 %changelog
+* Wed Aug 12 2026 Remi Collet <remi@remirepo.net> - 8.2.1-2
+- enable test suite
+
+* Fri Aug  7 2026 Remi Collet <remi@remirepo.net> - 8.2.1-1
+- update to 8.2.1
+- raise dependency on sebastian/recursion-context 8.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global candidate rc1
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.10
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -50,6 +50,7 @@ Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  Fix-NVMe-not-only-on-Raspberry-Pi-5.patch
 Patch21:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
+Patch22:  rpi-copy-chosen-bootloader-partition-and-set-boot_partition.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -313,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Wed Aug 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-0.2.rc2
+- Update to 2026.10 RC2
+
 * Thu Jul 30 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-0.1.rc1
 - Update to 2026.10 RC1
 - Update source URL

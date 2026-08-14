@@ -1,5 +1,5 @@
 Name:           xdg-dbus-proxy
-Version:        0.1.7
+Version:        0.1.8
 Release:        %autorelease
 Summary:        Filtering proxy for D-Bus connections
 

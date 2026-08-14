@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-setuptools_scm
-Version:        10.2.0
+Version:        10.2.1
 Release:        %autorelease
 Summary:        Blessed package to manage your versions by SCM tags
 

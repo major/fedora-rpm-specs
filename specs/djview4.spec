@@ -1,7 +1,7 @@
 Summary:       DjVu viewer
 Name:          djview4
-Version:       4.12
-Release:       17%{?dist}
+Version:       4.12.3
+Release:       1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://djvu.sourceforge.net/djview4.html
@@ -43,7 +43,7 @@ Requires:      %{name} = %{version}-%{release}
 This package provides a browser plugin for the DjVu document viewer.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n djview-%{version}
 
 %build
 CFLAGS="%{optflags}"; export CFLAGS
@@ -90,6 +90,9 @@ mv %{buildroot}%{_mandir}/man1/djview.1* %{buildroot}%{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/nsdejavu.1*
 
 %changelog
+* Tue Aug 11 2026 Terje Røsten <terjeros@gmail.com> - 4.12.3-1
+- 4.12.3
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -233,6 +233,12 @@ Source12: ChangeLog.old
 #
 # glibc_has_libmvec: libmvec is available.
 #
+# glibc_has_libnsl: libnsl is available.
+#
+# glibc_has_libanl: libanl is available.
+#
+# glibc_has_libutil: libutil is available.
+#
 # glibc_rtld_early_cflags: The ABI baseline for architectures with
 # potentially a later baseline.  The --with-rtld-early-cflags=
 # configure option is passed to the main glibc build if this macro is
@@ -241,49 +247,84 @@ Source12: ChangeLog.old
 %global glibc_ldso /lib/ld-linux.so.2
 %global glibc_has_libnldbl 0
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %endif
 %ifarch aarch64
 %global glibc_ldso /lib/ld-linux-aarch64.so.1
 %global glibc_has_libnldbl 0
 %global glibc_has_libmvec 1
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
+%endif
+%ifarch loongarch64
+%global glibc_ldso /lib64/ld-linux-loongarch-lp64d.so.1
+%global glibc_has_libnldbl 0
+%global glibc_has_libmvec 0
+%global glibc_has_libnsl 0
+%global glibc_has_libanl 0
+%global glibc_has_libutil 0
 %endif
 %ifarch ppc
 %global glibc_ldso /lib/ld.so.1
 %global glibc_has_libnldbl 1
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %endif
 %ifarch ppc64
 %global glibc_ldso /lib64/ld64.so.1
 %global glibc_has_libnldbl 1
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %endif
 %ifarch ppc64le
 %global glibc_ldso /lib64/ld64.so.2
 %global glibc_has_libnldbl 1
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %define glibc_rtld_early_cflags -mcpu=power8
 %endif
 %ifarch riscv64
 %global glibc_ldso /lib/ld-linux-riscv64-lp64d.so.1
 %global glibc_has_libnldbl 0
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %endif
 %ifarch s390
 %global glibc_ldso /lib/ld.so.1
 %global glibc_has_libnldbl 1
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %define glibc_rtld_early_cflags -march=z13
 %endif
 %ifarch s390x
 %global glibc_ldso /lib/ld64.so.1
 %global glibc_has_libnldbl 1
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %define glibc_rtld_early_cflags -march=z13
 %endif
 %ifarch x86_64 x86_64_v2 x86_64_v3 x86_64_v4
 %global glibc_ldso /lib64/ld-linux-x86-64.so.2
 %global glibc_has_libnldbl 0
 %global glibc_has_libmvec 1
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %define glibc_rtld_early_cflags -march=x86-64
 %endif
 
@@ -293,6 +334,9 @@ Source12: ChangeLog.old
 %global glibc_ldso /lib/ld.so
 %global glibc_has_libnldbl 0
 %global glibc_has_libmvec 0
+%global glibc_has_libnsl 1
+%global glibc_has_libanl 1
+%global glibc_has_libutil 1
 %endif
 
 ######################################################################
@@ -507,6 +551,7 @@ contains the most important sets of shared libraries: the standard C
 library and the standard math library. Without these two libraries, a
 Linux system will not function.
 
+%if %{glibc_has_libnsl}
 ######################################################################
 # libnsl subpackage
 ######################################################################
@@ -522,6 +567,7 @@ accessing NIS services.
 This library is provided for backwards compatibility only;
 applications should use libnsl2 instead to gain IPv6 support.
 
+%endif
 ##############################################################################
 # glibc "devel" sub-package
 ##############################################################################
@@ -2225,7 +2271,9 @@ update_gconv_modules_cache ()
 %{_libexecdir}/getconf
 %{_prefix}%{glibc_ldso}
 %{_libdir}/libBrokenLocale.so.1
+%if %{glibc_has_libanl}
 %{_libdir}/libanl.so.1
+%endif
 %{_libdir}/libc.so.6
 %{_libdir}/libdl.so.2
 %{_libdir}/libm.so.6
@@ -2236,7 +2284,9 @@ update_gconv_modules_cache ()
 %{_libdir}/libresolv.so.2
 %{_libdir}/librt.so.1
 %{_libdir}/libthread_db.so.1
+%if %{glibc_has_libutil}
 %{_libdir}/libutil.so.1
+%endif
 %{_libdir}/libpcprofile.so
 %{_libdir}/audit
 %if %{glibc_has_libmvec}
@@ -2307,8 +2357,10 @@ update_gconv_modules_cache ()
 %endif
 %{_libdir}/*.o
 %{_libdir}/libBrokenLocale.so
+%if %{glibc_has_libanl}
 %{_libdir}/libanl.a
 %{_libdir}/libanl.so
+%endif
 %{_libdir}/libc.so
 %{_libdir}/libc_nonshared.a
 %{_libdir}/libdl.a
@@ -2377,8 +2429,10 @@ update_gconv_modules_cache ()
 %{_libdir}/libnss_db.so
 %{_libdir}/libnss_hesiod.so
 
+%if %{glibc_has_libnsl}
 %files -n libnsl
 %{_libdir}/libnsl.so.1
+%endif
 
 %if %{with benchtests}
 %files benchtests
@@ -2404,6 +2458,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Aug 12 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2.44-2
+- Add the glibc_has_lib{anl,nsl,util} macro to indicate whether the lib{anl,nsl,util} library is available.
+
 * Tue Aug 04 2026 Frédéric Bérat <fberat@redhat.com> - 2.44-1
 - Auto-sync with upstream branch release/2.44/master,
   commit 9bcb85688e58847191deb42bfc68d60802078df4:

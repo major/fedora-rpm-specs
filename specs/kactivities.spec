@@ -12,7 +12,7 @@
 Name:    kactivities
 Summary: API for using and interacting with Activities 
 Version: 4.13.3
-Release: 46%{?dist}
+Release: 47%{?dist}
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -24,6 +24,7 @@ URL:     https://projects.kde.org/projects/kde/kdelibs/kactivities
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/%{version}/src/%{name}-%{version}.tar.xz
+Patch: kactivities-FTBFS-cmake4.patch
 
 BuildRequires: kdelibs4-devel >= %{version}
 %if ! 0%{?nepomuk}
@@ -99,7 +100,7 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q 
+%autosetup -p1 
 
 
 %build
@@ -203,6 +204,9 @@ rm -fv %{buildroot}%{_kde4_datadir}/kde4/servicetypes/activitymanager-plugin.des
 
 
 %changelog
+* Wed Aug 12 2026 Than Ngo <than@redhat.com> - 4.13.3-47
+- Fix rhbz#2380668, rhbz#2504157 - FTBFS with CMake 4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

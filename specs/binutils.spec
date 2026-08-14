@@ -6,7 +6,7 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.47
+Version: 2.47.50
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -122,10 +122,10 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-%define source official-release
+# %%define source official-release
 # %%define source even-pre-release
 # %%define source odd-pre-release
-# %%define source snapshot
+%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -133,7 +133,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "f85ff0c4bce")
+%define commit_id %(echo "4e8ba93fdb2")
 
 #----End of Configure Options------------------------------------------------
 
@@ -156,13 +156,8 @@ URL: https://sourceware.org/binutils
 # Default: Use the libztsd-devel library.
 %bcond_without zstd
 
-# Note - in the future the gold linker may become deprecated.
-%ifnarch riscv64
+# The gold linker is now deprecated.
 %bcond_without gold
-%else
-# RISC-V does not have ld.gold thus disable by default.
-%bcond_with gold
-%endif
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
@@ -214,8 +209,8 @@ URL: https://sourceware.org/binutils
 # sources instead - but only for GOLD, not for the rest of the binutils.
 
 # FIXME: Delete this once the gold linker is fully deprecated.
-%define gold_tarball %(echo "binutils-with-gold-2.46.50-f85ff0c4bce")
-# %%define gold_tarball none
+# %%define gold_tarball %%(echo "binutils-with-gold-2.46.50-f85ff0c4bce")
+%define gold_tarball none
 
 #----------------------------------------------------------------------------
 
@@ -1497,6 +1492,13 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Aug 12 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-1
+- Rebase to commit 4e8ba93fdb2.
+- Disable the gold linker for Rawhide as well.
+
+* Wed Aug 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
+- Disable the gold linker by default for RHEL-11+.
+
 * Mon Jul 27 2026 Nick Clifton <nickc@redhat.com> - 2.47-1
 - Rebase to 2.47 release.
 

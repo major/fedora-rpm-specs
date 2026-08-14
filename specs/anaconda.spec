@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 45.17
-Release: 1%{?dist}
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,6 +12,12 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
+# Adjust to
+# https://fedoraproject.org/wiki/Changes/RelocateRpmRepoConfigsToUsr
+# https://github.com/rhinstaller/anaconda/pull/7233
+# Hand-edited to drop modifications to files not present in tarball
+Patch: 0001-Handle-relocation-of-packaged-repo-configs-to-usr-sh.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -523,6 +529,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 12 2026 Adam Williamson <awilliam@redhat.com> - 45.17-2
+- Backport PR #7233 to adjust to relocation of packaged repo configs
+
 * Tue Aug 11 2026 Packit <hello@packit.dev> - 45.17-1
 - feat(bootc): support arbitrary mount points for bootc installations
   (rvykydal)

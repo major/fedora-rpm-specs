@@ -11,7 +11,7 @@
 %global giturl      https://github.com/gap-packages/openmath
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        11.5.3
+Version:        11.5.5
 Release:        %autorelease
 Summary:        Import and export of OpenMath objects for GAP
 
@@ -28,13 +28,15 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): cds gap hasse private tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  GAPDoc-latex >= 1.6.0
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(gapdoc) >= 1.6.0
 BuildRequires:  gap(io) >= 4.5.1
 BuildRequires:  gap-devel >= 4.9.0
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-scscp-doc
 %endif
 
+Requires:       gap(gapdoc) >= 1.6.0
 Requires:       gap(io) >= 4.5.1
 Requires:       gap-core >= 4.9.0
 
@@ -66,10 +68,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
-
-%build -p
-# Link to main GAP documentation
-ln -s %{gap_libdir}/doc ../../doc
 
 %files
 %doc CHANGES README.md

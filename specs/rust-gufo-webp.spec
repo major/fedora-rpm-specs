@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-webp
-%global crate_version 0.5.0-alpha
+%global crate_version 0.5.0-beta.1
 
 Name:           rust-gufo-webp
-Version:        0.5.0~alpha
+Version:        0.5.0~beta.1
 Release:        %autorelease
 Summary:        Data structure for WebP images
 

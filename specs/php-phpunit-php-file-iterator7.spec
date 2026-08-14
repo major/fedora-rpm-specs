@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-file-iterator7
 #
-# Copyright (c) 2009-2025 Christof Damian, Remi Collet
+# Copyright (c) 2009-2026 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -10,11 +10,8 @@
 
 %bcond_without       tests
 
-%global gh_commit    6e5aa1fb0a95b1703d83e721299ee18bb4e2de50
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-file-iterator
-%global gh_date      2026-02-06
 %global php_home     %{_datadir}/php
 # Packagist
 %global pk_vendor    phpunit
@@ -26,22 +23,22 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.0
-Release:        3%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 %if %{with tests}
 # From composer.json, "require-dev"
-#        "phpunit/phpunit": "^13.0"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.3.0"
+BuildRequires:  phpunit13 >=  13.3
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -64,7 +61,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -86,7 +83,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit13 || ret=1
@@ -106,6 +103,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 7.0.1-1
+- update to 7.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

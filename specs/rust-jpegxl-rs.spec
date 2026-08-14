@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate jpegxl-rs
-%global crate_version 0.12.0+libjxl-0.11.1
+%global crate_version 0.14.0+libjxl-0.11.2
 
 Name:           rust-jpegxl-rs
-Version:        0.12.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Safe Rust wrapper for JPEG XL reference implementation
 
@@ -18,6 +18,7 @@ Source:         %{crates_source %{crate} %{crate_version}}
 Patch:          jpegxl-rs-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
+# * drop 'bench' and 'vendored' features
 Patch:          jpegxl-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

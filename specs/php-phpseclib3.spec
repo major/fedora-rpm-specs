@@ -5,8 +5,8 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.50
-Release:    2%{?dist}
+Version:    3.0.56
+Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
 Name:       php-%{composer_project}%{vmajor}
@@ -17,6 +17,9 @@ URL:        https://github.com/%{github_owner}/%{github_name}
 Source0:    %{name}-%{version}.zip
 # Generate a full archive from git tag, with tests
 Source2:    makesrc.sh
+
+# https://github.com/phpseclib/phpseclib/issues/2161
+Patch0:     0000-openssl-error-handling.patch
 
 BuildArch:      noarch
 
@@ -92,17 +95,14 @@ EOF
 sed -e 's/CreateKeyTest/RSACreateKeyTest/' -i tests/Unit/Crypt/RSA/CreateKeyTest.php
 sed -e 's/CreateKeyTest/DSACreateKeyTest/' -i tests/Unit/Crypt/DSA/CreateKeyTest.php
 
-# Not supported curves ? (need investigations)
-rm tests/Unit/Crypt/EC/CurveTest.php
-
 php tests/make_compatible_with_phpunit7.php
 php tests/make_compatible_with_phpunit9.php
 
 # from travis/run-phpunit.sh
 # testAuthorityInfoAccess fails without internet access
-# testCurveExistance as we remove some files
+export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 php -d memory_limit=1G %{phpunit_bin} \
-	--filter '^((?!(testAuthorityInfoAccess|testCurveExistance|testLoginToInvalidServer)).)*$' \
+	--filter '^((?!(testAuthorityInfoAccess|testLoginToInvalidServer)).)*$' \
 	--verbose --configuration tests/phpunit.xml
 %endif
 
@@ -114,6 +114,9 @@ php -d memory_limit=1G %{phpunit_bin} \
 
 
 %changelog
+* Wed Aug 12 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.56-1
+- Update to v3.0.56
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.50-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

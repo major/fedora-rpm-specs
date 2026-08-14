@@ -56,7 +56,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 54%{?dist}
+Release: 55%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -241,6 +241,9 @@ Patch75: kdelibs-4.14.38-stdint.patch
 
 # Fix compilation with libxml2 2.12.0
 Patch76: kdelibs-4.14.38-libxml2-2_12_0.patch
+
+# Fix FTBFS with openssl
+Patch77: kdelibs-openssl-ftbfs-openssl.patch
 
 ## upstream
 ## security fixes from the 4.14 branch:
@@ -550,6 +553,7 @@ sed -i -e "s|@@VERSION_RELEASE@@|%{version}-%{release}|" kio/kio/kprotocolmanage
 %endif
 %patch -P75 -p1 -b .stdint
 %patch -P76 -p1 -b .xml2
+%patch -P77 -p1 -b .ftbfs-openssl
 
 # upstream patches
 %patch -P100 -p1 -b .CVE-2019-14744
@@ -561,6 +565,9 @@ sed -i -e "s|@@VERSION_RELEASE@@|%{version}-%{release}|" kio/kio/kprotocolmanage
 %if 0%{?rhel}
 %patch -P301 -p1 -b .abrt
 %endif
+
+# Append crypto linking directly to kio/CMakeLists.txt
+sed -i '/target_link_libraries/,/)/ s/kdecore/kdecore crypto/' kio/CMakeLists.txt
 
 # FTBFS Workaround for new cmake
 cat << 'EOF' > cmake4-kde4-compat.cmake
@@ -585,6 +592,7 @@ find . -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i \
 mkdir %{_target_platform}
 pushd %{_target_platform}
 %{cmake_kde4} \
+  -Wno-dev \
   -DHUPNP_ENABLED:BOOL=ON \
   -DKAUTH_BACKEND:STRING="PolkitQt-1" \
   -DKDE_DISTRIBUTION_TEXT="%{version}-%{release}%{?fedora: Fedora}%{?rhel: Red Hat Enterprise Linux}" \
@@ -935,6 +943,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Wed Aug 12 2026 Than Ngo <than@redhat.com> - 6:4.14.38-55
+- Fix rhbz#2504172, FTBFS with openssl4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

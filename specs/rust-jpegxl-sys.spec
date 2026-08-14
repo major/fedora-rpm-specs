@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate jpegxl-sys
-%global crate_version 0.12.0+libjxl-0.11.1
+%global crate_version 0.12.1+libjxl-0.11.2
 
 Name:           rust-jpegxl-sys
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Rust wrapper for JPEG XL reference implementation
 
@@ -19,7 +19,7 @@ Patch:          jpegxl-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop feature for statically linking libjxl
 Patch:          jpegxl-sys-fix-metadata.diff
-Patch:          0001-unconditionally-use-pkg-config-to-find-libjxl.patch
+Patch2:         0001-unconditionally-use-pkg-config-to-find-libjxl.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(libjxl)

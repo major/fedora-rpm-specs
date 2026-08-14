@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-exif
-%global crate_version 0.5.0-alpha
+%global crate_version 0.5.0-beta.1
 
 Name:           rust-gufo-exif
-Version:        0.5.0~alpha
+Version:        0.5.0~beta.1
 Release:        %autorelease
 Summary:        Read and manipulate Exif metadata
 

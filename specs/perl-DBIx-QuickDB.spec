@@ -2,7 +2,7 @@
 %bcond_with perl_DBIx_QuickDB_duckdb
 
 Name:           perl-DBIx-QuickDB
-Version:        0.000064
+Version:        0.000065
 Release:        1%{?dist}
 Summary:        Quickly start a database server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -199,7 +199,7 @@ make test
 %files
 %license LICENSE
 # README.md is reduntant
-%doc Changes README RUN_COMMAND_STDERR_LEAK.md
+%doc Changes README
 %dir %{perl_vendorlib}/DBIx
 %dir %{perl_vendorlib}/DBIx/QuickDB
 %{perl_vendorlib}/DBIx/QuickDB.pm
@@ -247,6 +247,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 12 2026 Petr Pisar <ppisar@redhat.com> - 0.000065-1
+- 0.000065 bump
+
 * Mon Aug 10 2026 Petr Pisar <ppisar@redhat.com> - 0.000064-1
 - 0.000064 bump
 

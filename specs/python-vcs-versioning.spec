@@ -6,7 +6,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-vcs-versioning
-Version:        2.2.2
+Version:        2.2.4
 Release:        %autorelease
 Summary:        The blessed package to manage your versions by vcs metadata
 License:        MIT

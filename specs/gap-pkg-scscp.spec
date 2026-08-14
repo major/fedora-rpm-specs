@@ -4,7 +4,7 @@
 %global giturl      https://github.com/gap-packages/scscp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.4.4
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Symbolic Computation Software Composability Protocol in GAP
 
@@ -20,19 +20,17 @@ Source5:        %{usrname}.h2m
 Source6:        server.g
 Source7:        %{name}.sysusers
 
-# Fix a typo in makedoc.g.
-Patch:          %{name}-makedoc.patch
-
 BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(build): --packagedirs ..
 BuildOption(install): *.sh demo example lib par tracing tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  GAPDoc-latex >= 1.5
+BuildRequires:  gap(autodoc) >= 2022.07.10
 BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap(io) >= 4.4
 BuildRequires:  gap(openmath) >= 11.4.1
+BuildRequires:  gap(smallgrp)
 BuildRequires:  gap-devel >= 4.10
 BuildRequires:  gap-pkg-io-doc >= 4.4
 BuildRequires:  gap-pkg-openmath-doc >= 11.4.1
