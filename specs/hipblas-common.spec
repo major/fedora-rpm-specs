@@ -23,15 +23,13 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
+%global rocm_release 7.14
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -39,20 +37,18 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 Name:           hipblas-common%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
@@ -105,6 +101,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
 %{pkg_prefix}/share/cmake/hipblas-common/
 
 %changelog
+* Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

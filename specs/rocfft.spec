@@ -27,14 +27,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -144,7 +142,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        9%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT AND BSD-3-Clause
@@ -302,6 +300,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -396,7 +397,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 - Fix gfx950 mock build
 
 * Sun May 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
-- Add experimential gfx950
+- Add experimental gfx950
 
 * Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Improve testing on suse
@@ -411,7 +412,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 - Remove global rocfft_version
 
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-9
-- Reenble ninja
+- Reenable ninja
 
 * Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-8
 - Work around old gcc for rhel 9

@@ -24,13 +24,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
+%else
+%global rocm_release 7.14
+%endif
+
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
-%else
-%global rocm_release 7.2
-%global rocm_patch 1
-%global pkg_src rocm-%{rocm_version}
-%endif
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -38,19 +37,17 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//' -e 's/flto=thin//' )
 
-# What gpu's we are testing
+# What GPUs are we testing
 %global gpu_list "--offload-arch=gfx1100 --offload-arch=gfx1101 --offload-arch=gfx1102 --offload-arch=gfx1151 --offload-arch=gfx1200 --offload-arch=gfx1201"
 %global _gpu_list "--offload-arch=gfx1100"
 
@@ -78,7 +75,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    3%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    HIP tests
 
@@ -95,20 +92,13 @@ License:    MIT AND BSL-1.0 AND Apache-2.0
 
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%if %{with preview}
-Patch1:     0001-hip-tests-preview-fix-build.patch
-%else
-Patch1:     0001-hip-tests-build-on-fedora.patch
-Patch2:     0001-hip-tests-link-with-libamd64.patch
-Patch3:     0001-hip-tests-disable-spv.patch
-%endif
+# Add -fPIC flag to C compiler and disable failing spv dependencies in module CMakeLists.txt
+Patch1:     0001-hip-tests-fix-build.patch
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  boost-devel
-%if %{with preview}
 BuildRequires:  catch-devel
-%endif
 BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -116,9 +106,7 @@ BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  numactl-devel
-%if %{with preview}
 BuildRequires:  python3dist(pyyaml)
-%endif
 BuildRequires:  pkgconfig(opengl)
 %if 0%{?fedora}
 BuildRequires:  picojson-devel
@@ -128,12 +116,6 @@ BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
-
-%if %{without preview}
-# Boost Software License 1.0
-# https://github.com/catchorg/Catch2/blob/v2.13.4/LICENSE.txt
-Provides:       bundled(catch2) = 2.13.4
-%endif
 
 %if %{with check}
 BuildRequires:  rocminfo
@@ -146,11 +128,7 @@ Requires:       rocminfo
 This repository provides unit tests for HIP implementation.
 
 %prep
-%if %{with preview}
 %autosetup -n %{upstreamname} -p3
-%else
-%autosetup -n %{upstreamname} -p1
-%endif
 
 # Change path to clang-cpp
 sed -i -e 's@${ROCM_PATH}/llvm/bin/clang-cpp@%{rocmllvm_bindir}/clang-cpp@' catch/CMakeLists.txt
@@ -170,19 +148,12 @@ sed -i -e 's@-lamdhip64@-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64@' catch/unit/c
 rm -rf catch/external/picojson
 %endif
 
-%if %{without preview}
-# Rename the catch2 license so we can pick it up
-mv catch/external/Catch2/LICENSE.txt catch/external/Catch2/LICENSE.catch2.txt
-%endif
-
-%if %{with preview}
 # hrr depends on clr source dir
 sed -i -e 's@add_subdirectory(hrr)@#add_subdirectory(hrr)@' catch/unit/CMakeLists.txt
-# some spriv and other things
+# some Spirv and other things
 sed -i -e 's@NOT WIN32@FALSE@' catch/unit/module/CMakeLists.txt
 # require catch2
 sed -i -e 's@find_package(Catch2 3.8.1 QUIET)@find_package(Catch2 REQUIRED)@' catch/CMakeLists.txt
-%endif
 
 %build
 cd catch
@@ -190,10 +161,8 @@ cd catch
 # hip is built with hipcc, append the location of the runtime headers
 export HIPCC_COMPILE_FLAGS_APPEND="-I %{pkg_prefix}/include"
 
-%if %{with preview}
 # To find clang bits
 export PATH=%{rocmllvm_bindir}:$PATH
-%endif
 
 %cmake \
     -DCMAKE_BUILD_TYPE=%{build_type} \
@@ -211,7 +180,7 @@ export PATH=%{rocmllvm_bindir}:$PATH
 
 %cmake_build -t build_tests
 
-# Need to be run locally with rpmbuild on a system with one of the GPU's
+# Need to be run locally with rpmbuild on a system with one of the GPUs
 # in the gpu_offload_list.
 #
 %if %{with check}
@@ -242,21 +211,19 @@ rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/saxpy.h
 # Clean up dupes:
 %fdupes %{buildroot}%{pkg_prefix}
 
-%if %{with preview}
 # rpath issues
 chrpath -d %{buildroot}%{pkg_prefix}/libexec/hip-tests/catch_tests/hipSquareGenericTargetOnly
 chrpath -d %{buildroot}%{pkg_prefix}/libexec/hip-tests/catch_tests/hipSquareGenericTargetOnlyCompressed
-%endif
 
 %files
 %doc README.md
 %license LICENSE.md
-%if %{without preview}
-%license catch/external/Catch2/LICENSE.catch2.txt
-%endif
 %{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Mon Aug 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
 - Add --with preview
 

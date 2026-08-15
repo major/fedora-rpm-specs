@@ -30,22 +30,20 @@
 Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
-Version: 5.3.2
+Version: 5.4
 Release: %autorelease
 # The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
 # rest is under GPL-2.0-or-later
 License: GPL-2.0-or-later AND MPL-2.0
 Url: https://libreswan.org/
 Source0: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz
-Source1: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz.sig
+Source1: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz.asc
 Source2: https://download.libreswan.org/LIBRESWAN-OpenPGP-KEY.txt
 %if 0%{with_cavstests}
 Source3: https://download.libreswan.org/cavs/ikev1_dsa.fax.bz2
 Source4: https://download.libreswan.org/cavs/ikev1_psk.fax.bz2
 Source5: https://download.libreswan.org/cavs/ikev2.fax.bz2
 %endif
-
-Patch1: libreswan-4.15-ipsec_import.patch
 
 BuildRequires: audit-libs-devel
 BuildRequires: bison
@@ -138,7 +136,6 @@ sed -i "s:#[ ]*include \(.*\)\(/crypto-policies/back-ends/libreswan.config\)$:in
 # throws error on s390x
 sed -i "s/SUBDIRS += hunkcheck/#SUBDIRS += hunkcheck/" testing/programs/Makefile
 %endif
-%autopatch -p1
 
 %build
 %make_build \

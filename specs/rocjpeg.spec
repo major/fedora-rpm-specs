@@ -20,22 +20,19 @@
 # THE SOFTWARE.
 #
 
-%global pkg_library_name rocjpeg
+%global upstreamname rocjpeg
+%global pkg_library_name %{upstreamname}
 %global pkg_library_version 1
 
 %bcond_with preview
 %if %{with preview}
-%global upstreamname rocjpeg
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global upstreamname rocJPEG
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -43,13 +40,11 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %global skip_install_rpath ON
 %endif
 
@@ -90,18 +85,13 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 License:        MIT
-%if %{with preview}
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%else
-Url:            https://github.com/ROCm/rocJPEG
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -178,11 +168,7 @@ Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 %{summary}.
 
 %prep
-%if %{with preview}
 %autosetup -n %{upstreamname} -p3
-%else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
-%endif
 
 # Fix this error:
 # gmake[2]: /opt/rocm/lib/llvm/bin/clang++: No such file or directory
@@ -256,6 +242,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

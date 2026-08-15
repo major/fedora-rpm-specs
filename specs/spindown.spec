@@ -1,7 +1,7 @@
 Summary:    Daemon that can spin idle disks down
 Name:       spindown
 Version:    0.4.0
-Release:    45%{?dist}
+Release:    46%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
 Url:        http://code.google.com/p/spindown
@@ -46,7 +46,7 @@ sed -i 's/sbin/bin/' Makefile
 mkdir -p %{buildroot}%{_libdir}/pm-utils/sleep.d
 mkdir -p %{buildroot}%{_unitdir}
 install -p -m 755 01spindown %{buildroot}%{_libdir}/pm-utils/sleep.d/01spindown
-install -p -m 755 spindown.service %{buildroot}%{_unitdir}/spindown.service
+install -p -m 644 spindown.service %{buildroot}%{_unitdir}/spindown.service
 
 %preun
 %systemd_preun spindown.service
@@ -60,6 +60,9 @@ install -p -m 755 spindown.service %{buildroot}%{_unitdir}/spindown.service
 %config(noreplace) %{_sysconfdir}/spindown.conf
 
 %changelog
+* Thu Aug 13 2026 Martin Cermak <mcermak@redhat.com> - 0.4.0-46
+- Fix filesystem perms for spindown systemd servicefile
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

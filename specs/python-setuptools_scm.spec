@@ -42,12 +42,17 @@ It also handles file finders for the supported SCMs.
 %prep
 %autosetup -p1 -n setuptools_scm-%{version}
 # Remove flake8, mypy, ruff, … from the test dependencies
-sed -Ei '/^test = \[/,/^\]/ { /"(griffe|mypy|ruff|flake8).*"/d }' pyproject.toml
-
+%pyproject_patch_dependency griffe:ignore
+%pyproject_patch_dependency griffe-public-wildcard-imports:ignore
+%pyproject_patch_dependency griffecli:ignore
+%pyproject_patch_dependency mypy:ignore
+%pyproject_patch_dependency ruff:ignore
+%pyproject_patch_dependency flake8:ignore
 %if %{defined rhel}
 # Remove unnecessary test dependencies:
-# rich is listed in both [rich] and [test] extras, so we need to be more careful
-sed -Ei '/^test = \[/,/^\]/ { /"(rich|wheel|pytest-timeout|pytest-xdist)",/d }' pyproject.toml
+%pyproject_patch_dependency rich:ignore
+%pyproject_patch_dependency pytest-timeout:ignore
+%pyproject_patch_dependency pytest-xdist:ignore
 sed -Ei '/^\[tool.pytest.ini_options\]/,/^\[/ { /^timeout/d }' pyproject.toml
 %endif
 

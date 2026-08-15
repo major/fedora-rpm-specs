@@ -5,7 +5,7 @@
 %global pypi_name os-service-types
 %global module_name os_service_types
 
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global sources_gpg 1
 
 %global common_desc %{expand:
@@ -20,7 +20,7 @@ version of the data to use in case network access is for some reason not
 possible and local caching of the fetched data.}
 
 Name:           python-os-service-types
-Version:        1.8.2
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Python library for consuming OpenStack service-types-authority data
 
@@ -33,7 +33,7 @@ Source2:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildArch:      noarch
 BuildRequires:  git-core
 %if 0%{?sources_gpg} == 1
-BuildRequires:    /usr/bin/gpgv2
+BuildRequires:  gpgverify
 %endif
 
 
@@ -51,7 +51,7 @@ Summary:        %{summary}
 
 %if ! %{with bootstrap}
 %package -n python-%{pypi_name}-doc
-Summary:        %{pypi_name} documentation
+Summary:        %summary
 Requires:       python-%{pypi_name} = %{version}-%{release}
 
 
@@ -90,7 +90,8 @@ sed -i \
 
 %if ! %{with bootstrap}
 sphinx-build -b html doc/source doc/build/html
-rm -rf doc/build/html/.{doctrees,buildinfo}
+rm doc/build/html/.buildinfo
+rm -r doc/build/html/.doctrees
 %endif
 
 
@@ -104,18 +105,18 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %if %{with bootstrap}
 %pyproject_check_import os_service_types -e os_service_types.tests.*
 %else
-%tox
+%tox -e %{default_toxenv}
 %endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
 %doc ChangeLog README.rst doc/source/readme.rst
 
 
 %if ! %{with bootstrap}
 %files -n python-%{pypi_name}-doc
 %doc doc/build/html
+%license LICENSE
 %endif
 
 

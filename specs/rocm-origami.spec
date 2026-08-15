@@ -27,14 +27,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -42,12 +40,10 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %if 0%{?suse_version}
@@ -61,24 +57,13 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    6%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
 URL:        https://github.com/ROCm/rocm-libraries
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-#
-# Workaround this hipblaslt build issue
-# CMake Error at /usr/lib64/cmake/origami/origami-config.cmake:11 (message):
-#   origami::origami target is missing
-#
-# hipblaslt from rocm-libraries does not use cmake to find origami
-# https://github.com/ROCm/rocm-libraries/issues/2422
-# So they would not have run into this issue.
-%if %{without preview}
-Patch1:     0001-rocm-origami-remove-scope-for-variables.patch
-%endif
 
 ExclusiveArch: x86_64
 

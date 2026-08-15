@@ -108,7 +108,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		15.1.1
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -165,7 +165,6 @@ BuildRequires:		swig >= 1.3.33
 BuildRequires:		automake
 BuildRequires:		autoconf
 BuildRequires:		libtool
-BuildRequires:		qpdf
 # Temporary workaound for perl(Carp) not pulled
 BuildRequires:		perl-Carp
 %if %{PHP}
@@ -530,19 +529,6 @@ find %{buildroot}%{_docdir}/%{name}/demo -type f -name "*.py" -exec mv {} {}.dem
 # Remove dot_builtins, on demand loading should be sufficient
 rm -f %{buildroot}%{_bindir}/dot_builtins
 
-# Remove metadata from generated PDFs
-pushd %{buildroot}%{_docdir}/%{name}
-for f in prune gvgen.1 gc.1 dot.1 cluster.1
-do
-  if [ -f $f.pdf ]
-  then
-# ugly, but there is probably no better solution
-    qpdf --empty --static-id --pages $f.pdf -- $f.pdf.$$
-    mv -f $f.pdf.$$ $f.pdf
-  fi
-done
-popd
-
 %if %{with python2}
 install -pD tclpkg/gv/.libs/libgv_python2.so %{buildroot}%{python2_sitearch}/_gv.so
 install -p tclpkg/gv/gv.py %{buildroot}%{python2_sitearch}/gv.py
@@ -747,6 +733,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Aug 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 15.1.1-2
+- Drop qpdf post-processing
+
 * Thu Aug 06 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 15.1.1-1
 - New version
   Resolves: rhbz#2511486

@@ -1,30 +1,33 @@
-%global majorver 1.0
+# VCS   https://gitlab.xfce.org/apps/xfce4-panel-profiles
+
+%global majorver 1.1
 %global app_org_name org.xfce.PanelProfiles
 
-Name:		xfce4-panel-profiles
-Version:	1.0.14
-Release:	%autorelease
-Summary:	A simple application to manage Xfce panel layouts
+Name:           xfce4-panel-profiles
+Version:        1.1.1
+Release:        %autorelease
+Summary:        A simple application to manage Xfce panel layouts
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
-URL:		https://git.xfce.org/apps/xfce4-panel-profiles/about/
-Source0:	https://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.bz2
+License:        GPL-3.0-or-later
+URL:            https://docs.xfce.org/apps/xfce4-panel-profiles/start
+Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
-BuildRequires:	python3-devel
-BuildRequires:	gettext
-BuildRequires:	intltool
-BuildRequires:	libappstream-glib
-BuildRequires:	desktop-file-utils
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
+BuildRequires:  meson
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libxfce4ui-2)
+BuildRequires:  pkgconfig(libxfce4util-1.0)
+BuildRequires:  python3-devel
+BuildRequires:  python3-gobject
+BuildRequires:  python3-psutil
+BuildArch:      noarch
+Requires:       python3-gobject
+Requires:       python3-psutil
+Requires:       xfce4-panel
 
-BuildArch:	noarch
-
-Requires:	xfce4-panel
-Requires:	python3-psutil
-
-Provides:	xfpanel-switch = %{version}-%{release}
-Obsoletes:	xfpanel-switch <= 1.0.7
 
 %description
 A simple application to manage Xfce panel layouts
@@ -35,17 +38,20 @@ panel layouts.
 
 %prep
 %autosetup
-sed -i '4s/$/Configuration;User;/'  org.xfce.PanelProfiles.desktop.in
-sed -i '/Keywords/d' org.xfce.PanelProfiles.desktop.in
+# Remove shebangs from non-executable python library files
+sed -i '1{\@^#!/usr/bin/env python3@d}' xfce4-panel-profiles/panelconfig.py xfce4-panel-profiles/xfce4-panel-profiles.py
 
 %build
-./configure --prefix=%{_prefix}
-
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 %find_lang %{name}
 

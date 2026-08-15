@@ -14,7 +14,7 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    10.6.0
+Version:    10.7.0
 Release:    %autorelease
 Summary:    OpenStack common configuration library
 
@@ -32,7 +32,7 @@ BuildArch:  noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  gpgverify
 %endif
 
 %global _description %{expand:

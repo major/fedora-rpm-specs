@@ -19,23 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-
-%global pkg_library_name rocdecode
+%global upstreamname rocdecode
+%global pkg_library_name %{upstreamname}
 %global pkg_library_version 1
 
 %bcond_with preview
 %if %{with preview}
-%global upstreamname rocdecode
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global upstreamname rocDecode
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -43,13 +39,11 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %global skip_install_rpath ON
 %endif
 
@@ -90,20 +84,15 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
 # Note: MIT with a clause clarifying that AMD will not pay for codec royalties
 # The clause has little weight on the licensing, it is just a clarification
 License:        MIT
-%if %{with preview}
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%else
-Url:            https://github.com/ROCm/rocDecode
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -176,11 +165,7 @@ Provides:     rocdecode%{pkg_suffix}-devel = %{version}-%{release}
 The rocDecode development package.
 
 %prep
-%if %{with preview}
 %autosetup -n %{upstreamname} -p3
-%else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
-%endif
 # Allow overriding CMAKE_CXX_COMPILER: 
 # https://github.com/ROCm/rocDecode/pull/436
 sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,samples/*/}CMakeLists.txt
@@ -241,6 +226,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

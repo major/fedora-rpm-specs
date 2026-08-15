@@ -1,6 +1,6 @@
 Name:           pyxdg
 Version:        0.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library to access freedesktop.org standards
 License:        LGPL-2.0-only
 URL:            http://freedesktop.org/Software/pyxdg
@@ -11,6 +11,9 @@ Patch0:         pyxdg-replace-imp-with-importlib.patch
 Patch1:         pyxdg-handle-python-3.14-ast.Str-changes.patch
 # https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=63033ac306aa26d32e1439417e59ae8f8a4c9820
 Patch2:         pyxdg-handle-python-3.15-deprecations.patch
+# Fix test_inheritance failure with shared-mime-info >= 2.5
+# https://gitlab.freedesktop.org/xdg/shared-mime-info/-/commit/5b8e53fd59dd5a5b9445b455402dd94cd64dc962
+Patch3:         pyxdg-fix-test-mime-inheritance.patch
 
 BuildArch:      noarch
 # These are needed for the tests.
@@ -34,6 +37,7 @@ package contains a Python 3 version of PyXDG.
 %patch -P0 -p1 -b .replace-imp-with-importlib
 %patch -P1 -p1 -b .handle-python-3.14-ast.Str-changes
 %patch -P2 -p1 -b .handle-python-3.15-deprecations
+%patch -P3 -p1 -b .fix-test-mime-inheritance
 
 # fix symlink example
 rm -rf test/example/png_symlink
@@ -60,6 +64,9 @@ popd
 %doc AUTHORS ChangeLog README TODO
 
 %changelog
+* Thu Aug 13 2026 Tomas Popela <tpopela@redhat.com> - 0.28-4
+- Fix test_inheritance test failure with shared-mime-info 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

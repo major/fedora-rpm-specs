@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.75
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -54,6 +54,7 @@ Data for Smatch the static analysis tool for C.
 
 %install
 %make_install PREFIX='%{_prefix}'
+install -m755 cgcc %{buildroot}%{_bindir}/cgcc
 
 %check
 echo 'int main(void) { int a[2]; return a[2]; }' > test.c
@@ -64,11 +65,15 @@ grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 %doc README Documentation/{arm64-detecting-tagged-addresses,smatch}.txt
 %license GPL-2 LICENSE
 %{_bindir}/%{name}
+%{_bindir}/cgcc
 
 %files data
 %{_datadir}/%{name}
 
 %changelog
+* Thu Aug 13 2026 Bastien Nocera <bnocera@redhat.com> - 1.75-4
+- Also install cgcc wrapper tool
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

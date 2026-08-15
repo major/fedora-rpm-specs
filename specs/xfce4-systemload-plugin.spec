@@ -1,32 +1,31 @@
 # Review: https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=173668
+# VCS   https://gitlab.xfce.org/panel-plugins/xfce4-systemload-plugin
 
-%global minorversion 1.3
-%global xfceversion 4.16
+%global minorversion 1.4
+%global xfceversion 4.20
 
 Name:           xfce4-systemload-plugin
-Version:        1.3.3
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Systemload monitor for the Xfce panel
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
-#VCS: git:git://git.xfce.org/panel-plugins/xfce4-systemload-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+License:        BSD-2-Clause
+URL:            https://docs.xfce.org/panel-plugins/xfce4-systemload-plugin
+Source0:        https://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 %if 0%{?fedora} >= 39
 ExcludeArch:    %{ix86}
 %endif
 
-
-
-BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  libxfce4ui-devel >= %{xfceversion}
-BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  upower-devel
 BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  libgtop2-devel
+BuildRequires:  libxfce4ui-devel >= %{xfceversion}
+BuildRequires:  libxfce4util-devel
+BuildRequires:  meson
+BuildRequires:  upower-devel
+BuildRequires:  xfce4-panel-devel >= %{xfceversion}
+BuildRequires:  xfconf-devel
 
 Requires:       xfce4-panel >= %{xfceversion}
 
@@ -36,29 +35,32 @@ load, the memory in use, the swap space and the system uptime.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
-%configure --disable-static
-%make_build
+%meson
+%meson_build
+
+
+%check
+%meson_test
 
 
 %install
-%make_install
+%meson_install
 
-# remove la file
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-# FIXME: make sure debuginfo is generated properly (#795107)
-chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 %find_lang %{name}
 
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS
+%doc AUTHORS NEWS README.md
 %{_libdir}/xfce4/panel/plugins/*.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 %{_datadir}/icons/hicolor/*/apps/org.xfce.panel.systemload.*

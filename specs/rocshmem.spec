@@ -50,6 +50,7 @@ License:    MIT AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR Linux-Op
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+# Set shared library versioning properties (VERSION 1.0.0, SOVERSION 1) for rocshm
 Patch1:     0001-rocshmem-so-version.patch
 
 ExclusiveArch: x86_64
@@ -125,7 +126,7 @@ sed -i -e 's@rocm-core/@@' src/build_info.cpp
 chrpath -d %{buildroot}%{_bindir}/rocshmem_info
 
 # Extra license
-rm -f %{buildroot}%{_prefix}/share/doc/rocshmem/LICENSE.md
+rm -f %{buildroot}%{_docdir}/rocshmem/LICENSE.md
 
 %files
 %doc README.md

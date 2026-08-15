@@ -4,7 +4,7 @@
 # https://github.com/golang/perf
 %global goipath         golang.org/x/perf
 %global forgeurl        https://github.com/golang/perf
-%global commit          02a15fd477bac975be19f213ea665ad854766179
+%global commit          82a0b07e230d76fa1b3036c383d7a98172f87334
 
 %gometa
 

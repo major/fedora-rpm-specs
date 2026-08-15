@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        76
-Release:        2%{?dist}
+Version:        77
+Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -131,6 +131,15 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 12 2026 Packit <hello@packit.dev> - 77-1
+- datetime: complete timezone after user sets it in incomplete kickstart
+- Add Bugzilla duplicate detection to the error reporting flow
+- accounts: Use backend CheckAdminUserExists for accounts page completeness
+- Set installer runtime language from kickstart lang command
+- storage: move storage editor entry point from kebab menu to Installation Method
+- storage: Add support for home reuse partitioning with Stratis
+- Encrypted Stratis support
+
 * Wed Jul 29 2026 Packit <hello@packit.dev> - 76-1
 - Move cockpit-ws config to anaconda-owned path with conf.d support
 - Stop D-Bus event monitors when installation starts

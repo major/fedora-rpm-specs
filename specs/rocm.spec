@@ -19,13 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.2
+%global rocm_release 7.14
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -186,6 +186,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

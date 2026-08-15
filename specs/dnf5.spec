@@ -1,7 +1,7 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 2
-%global project_version_micro 1
+%global project_version_minor 3
+%global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
@@ -13,15 +13,11 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch0:         0001-copr-update-detection-of-ELN.patch
-Patch1:         0002-transaction-use-system_clock-to_time_t-for-start-tim.patch
-Patch2:         0003-spec-Disable-modularity-on-RHEL-11.patch
-Patch3:         0004-Build-If-modularity-is-disabled-leave-out-artefacts-.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -161,7 +157,6 @@ BuildRequires:  bash-completion
 BuildRequires:  cmake >= 3.21
 BuildRequires:  doxygen
 BuildRequires:  gettext
-BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libcrypto)
@@ -478,6 +473,7 @@ Package management library.
 %config(noreplace) %{_sysconfdir}/dnf/dnf.conf
 %dir %{_sysconfdir}/dnf/vars
 %dir %{_sysconfdir}/dnf/protected.d
+%dir %{_sysconfdir}/dnf/usr-drift-protected-paths.d
 %else
 %exclude %{_sysconfdir}/dnf/dnf.conf
 %endif
@@ -513,6 +509,7 @@ Package management library.
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/transaction_history.sqlite{,-shm,-wal}
 %license lgpl-2.1.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
+%{_tmpfilesdir}/libdnf5.conf
 %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
 %verify(not md5 size mtime) %attr(0644, root, root) %{_sharedstatedir}/dnf/system-repo.lock
 
@@ -984,6 +981,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %ghost %attr(0644, root, root) %{_sysconfdir}/motd.d/dnf5-automatic
 %{_libdir}/dnf5/plugins/automatic_cmd_plugin.so
 %{_datadir}/dnf5/dnf5-plugins/automatic.conf
+%{_datadir}/dbus-1/system.d/org.rpm.dnf.v0.Automatic.conf
 %ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/automatic.conf
 %ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/dnf5-plugins/automatic.conf
 %if %{with man}
@@ -1053,6 +1051,8 @@ DNF5 plugin for working with RPM package manifest files.
     -DWITH_COMPS=%{?with_comps:ON}%{!?with_comps:OFF} \
     -DWITH_MODULEMD=%{?with_modulemd:ON}%{!?with_modulemd:OFF} \
     -DWITH_SYSTEMD=%{?with_systemd:ON}%{!?with_systemd:OFF} \
+    -DSYSTEMD_DIR=%{_unitdir} \
+    -DTMPFILES_DIR=%{_tmpfilesdir} \
     \
     -DWITH_HTML=%{?with_html:ON}%{!?with_html:OFF} \
     -DWITH_MAN=%{?with_man:ON}%{!?with_man:OFF} \
@@ -1171,6 +1171,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Wed Aug 12 2026 Packit <hello@packit.dev> - 5.4.3.0-1
+- Update to version 5.4.3.0
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 5.4.2.1-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -34,7 +34,7 @@ Patch2: %{name}-remove-des-support-from-snmp-plugin.patch
 Patch3: %{name}-py311-dont-include-longintrepr.patch
 Patch4: collectd-c99.patch
 Patch5: collectd-c99-2.patch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 Patch6: collectd-5.12.0-automake-1.18.patch
 %endif
 

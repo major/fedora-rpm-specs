@@ -14,12 +14,20 @@ Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{
 
 # jsoncpp and muParser are not in the RHEL/ELN content set, so we must
 # bundle them there. On Fedora, use the system libraries.
+# iniparser-devel on RHEL <= 10 lacks a .pc file, so pkg-config detection
+# fails; bundle it there too.
 %if !0%{?rhel}
+%bcond_with bundled_iniparser
 %bcond_with bundled_jsoncpp
 %bcond_with bundled_muparser
 %else
 %bcond_without bundled_jsoncpp
 %bcond_without bundled_muparser
+%if 0%{?rhel} <= 10
+%bcond_without bundled_iniparser
+%else
+%bcond_with bundled_iniparser
+%endif
 %endif
 
 BuildRequires:	make
@@ -27,8 +35,12 @@ BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
 BuildRequires:	libcurl-devel, boost-devel, libxml2-devel
 BuildRequires:	openssl-devel
 BuildRequires:	expat-devel
-BuildRequires:	iniparser-devel
 BuildRequires:	sqlite-devel
+%if %{without bundled_iniparser}
+BuildRequires:	iniparser-devel
+%else
+Provides:	bundled(iniparser)
+%endif
 %if %{without bundled_jsoncpp}
 BuildRequires:	jsoncpp-devel
 %else
@@ -63,14 +75,17 @@ for network adapters based on Mellanox Technologies chips.
 # Make sure system libraries are used where possible. Delete the bundled
 # sources. Exception: Keep */Makefile.am files because Makefiles are listed
 # as AC_CONFIG_FILES in configure.ac unconditionally.
-%global _unbundle_libs iniParser,sqlite%{!?with_bundled_jsoncpp:,json}%{!?with_bundled_muparser:,muparser}
-find ext_libs/{%{_unbundle_libs}} -depth -mindepth 1 -name Makefile.am -prune -o -delete
+%global _unbundle_dirs ext_libs/sqlite
+%{!?with_bundled_iniparser:%global _unbundle_dirs %{_unbundle_dirs} ext_libs/iniParser}
+%{!?with_bundled_jsoncpp:%global _unbundle_dirs %{_unbundle_dirs} ext_libs/json}
+%{!?with_bundled_muparser:%global _unbundle_dirs %{_unbundle_dirs} ext_libs/muparser}
+find %{_unbundle_dirs} -mindepth 1 -name Makefile.am -o -print -delete
 
 find . -type f -perm /a+x \( -name '*.[ch]' -o -name '*.cpp' \) -exec chmod a-x '{}' '+'
 
 %build
 %if %{__remake_config}
-./autogen.sh
+autoreconf -fiv
 %endif
 %configure --enable-fw-mgr --enable-openssl --enable-adb-generic-tools
 %make_build

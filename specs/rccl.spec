@@ -19,19 +19,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+%global upstreamname rccl
+
 %bcond_with preview
 %if %{with preview}
-%global upstreamname rccl
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global upstreamname RCCL
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -96,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Communication Collectives Library
 
@@ -107,14 +105,9 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 #  src/include/nvtx3/nv*.h and similar
 # The URL for NVIDIA in the License.txt https://github.com/NVIDIA/NVTX is Apache-2.0
 
-%if %{with preview}
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch1:         0001-rccl-multiple-nccl_domain.patch
-%else
-Url:            https://github.com/ROCm/rccl
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}
@@ -190,17 +183,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with preview}
 %autosetup -p3 -n %{upstreamname}
 
 # Missing NCCL_NUM_ALGORITHMS define
 # https://github.com/ROCm/rocm-systems/issues/5183
 # There are other problems after this.
 sed -i '/#include "core.h"/a #include "plugin/nccl_tuner.h"' src/include/rccl_common.h
-
-%else
-%autosetup -p1 -n rccl-rocm-%{version}
-%endif
 
 # Allow user to set AMDGPU_TARGETS
 sed -i -e '/AMD GPU targets to compile for/d' CMakeLists.txt
@@ -247,7 +235,7 @@ if [ ${COMPILE_JOBS} = 1 ]; then
     fi
 fi
 
-# Take into account memmory usage per core, do not thrash real memory
+# Take into account memory usage per core, do not thrash real memory
 # inflate this to prevent competing with normal compile jobs
 BUILD_MEM=16
 MEM_KB=0
@@ -278,21 +266,17 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 # Switch to bfd
 sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
 
-%if %{with preview}
 # need iostream to use std::cerr
 sed -i '/#include <cuda_runtime.h>/a #include <iostream>' src/ipc_init.cu
 # need std::map
 sed -i '/#include <mutex>/a #include <map>' src/transport/net.cc
-%endif
 
 %build
 
-%if %{with preview}
 # to find rocm things, setting -DROCM_PATH broken
 export ROCM_PATH=%{pkg_prefix}
 # to find amdclang++
 export PATH=%rocmllvm_bindir:$PATH
-%endif
 
 %cmake \
     -DGPU_TARGETS=%{gpu_list} \
@@ -332,22 +316,20 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %{pkg_prefix}/include/rccl/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rccl/
 %{pkg_prefix}/%{pkg_libdir}/librccl.so
-%if %{with preview}
 %{pkg_prefix}/include/nccl.h
 %{pkg_prefix}/include/nccl_device.h
 %{pkg_prefix}/include/nccl_device/
-%endif
-
 
 %if %{with test}
 %files test
 %{pkg_prefix}/bin/rccl-UnitTests*
-%if %{with preview}
 %{pkg_prefix}/bin/rccl/*.cmake
-%endif
 %endif
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

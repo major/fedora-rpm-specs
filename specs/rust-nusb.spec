@@ -2,24 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pem
+%global crate nusb
 
-Name:           rust-pem
-Version:        4.0.0
+Name:           rust-nusb
+Version:        0.2.7
 Release:        %autorelease
-Summary:        Parse and encode PEM-encoded data
+Summary:        Cross-platform low-level access to USB devices in pure Rust
 
-License:        MIT
-URL:            https://crates.io/crates/pem
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/nusb
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          pem-fix-metadata.diff
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          nusb-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parse and encode PEM-encoded data.}
+Cross-platform low-level access to USB devices in pure Rust.}
 
 %description %{_description}
 
@@ -33,8 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,28 +49,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+smol-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+smol-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "smol" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+smol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

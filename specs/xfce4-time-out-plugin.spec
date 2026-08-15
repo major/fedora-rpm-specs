@@ -1,26 +1,27 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=398111
+# VCS https://gitlab.xfce.org/panel-plugins/xfce4-time-out-plugin
 
-%global minor_version 1.1
-%global xfceversion 4.16
+%global minor_version 1.2
+%global xfceversion 4.20
 
 Name:           xfce4-time-out-plugin
-Version:        1.1.4
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Xfce panel plugin for taking breaks from the computer
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
-#VSC: git: git://git.xfce.org/panel-plugins/xfce4-time-out-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
+URL:            https://docs.xfce.org/panel-plugins/xfce4-time-out-plugin/start
+Source0:        https://archive.xfce.org/src/panel-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  libxfce4ui-devel >= %{xfceversion}
-BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  libxml2-devel
+BuildRequires:  gettext
+BuildRequires:  git-core
 BuildRequires:  libICE-devel
-BuildRequires:  gettext, intltool
+BuildRequires:  libxfce4ui-devel >= %{xfceversion}
+BuildRequires:  libxml2-devel
+BuildRequires:  meson
+BuildRequires:  xfce4-panel-devel >= %{xfceversion}
+
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description
@@ -30,30 +31,35 @@ postpone breaks for a certain time.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
-%configure 
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/libtime-out.so
 
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 %find_lang %{name}
 
+
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS
-%{_libdir}/xfce4/panel/plugins/
+%doc AUTHORS NEWS README.md
+%{_libdir}/xfce4/panel/plugins/libtime-out.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 %{_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
 %autochangelog
+

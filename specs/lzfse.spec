@@ -3,7 +3,7 @@ Version:        1.0
 Release:        %autorelease
 Summary:        LZFSE compression library and command line tool
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/lzfse/lzfse
 Source:         %{url}/archive/%{name}-%{version}/%{name}-%{name}-%{version}.tar.gz
 # cmake: version the shared library
@@ -41,6 +41,8 @@ This package contains development headers and libraries for %{name}.
 %autosetup -n %{name}-%{name}-%{version}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380788)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

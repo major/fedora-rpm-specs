@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/images
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.3.3
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Minimal and canonical images in permutation groups
 
@@ -18,12 +18,14 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(atlasrep)
 BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(datastructures) >= 0.2.0
+BuildRequires:  gap(digraphs) >= 1.0.0
 BuildRequires:  gap(ferret) >= 0.8.0
-BuildRequires:  gap(gapdoc) >= 1.5
-BuildRequires:  gap(io)
-BuildRequires:  gap-devel >= 4.10
+BuildRequires:  gap-devel >= 4.13
 
-Requires:       gap-core >= 4.10
+Requires:       gap(datastructures) >= 0.2.0
+Requires:       gap(digraphs) >= 1.0.0
+Requires:       gap-core >= 4.13
 
 Recommends:     gap(ferret) >= 0.8.0
 
@@ -50,9 +52,19 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
 # Update the atlas package name
 sed -i 's/atlas/atlasrep/' tst/test_functions.g
+
+%check -p
+# The vole package is not yet available, so don't try to test with it
+sed -i.orig '/^#@if/,/^#@fi/d' \
+    %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/{combi-basic,examples/edf,test_{combiimages1,vole_engine}}.tst
+
+%check -a
+for f in $(find %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst -name \*.orig)
+do
+    mv $f ${f%.orig}
+done
 
 %files
 %doc README.md

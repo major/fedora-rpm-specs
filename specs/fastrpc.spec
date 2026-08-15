@@ -93,10 +93,10 @@ autoreconf -fiv
 %{_libdir}/libsdsprpc.so
 
 %files services
-%{_bindir}/adsprpcd
-%{_bindir}/cdsprpcd
-%{_bindir}/gdsprpcd
-%{_bindir}/sdsprpcd
+%{_sbindir}/adsprpcd
+%{_sbindir}/cdsprpcd
+%{_sbindir}/gdsprpcd
+%{_sbindir}/sdsprpcd
 %{_unitdir}/adsprpcd.service
 %{_unitdir}/adsprpcd_audiopd.service
 %{_unitdir}/cdsprpcd.service

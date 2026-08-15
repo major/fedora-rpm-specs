@@ -5,7 +5,7 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        49.0.0
+Version:        50.0.0
 Release:        %autorelease
 Summary:        PyCA's cryptography library
 

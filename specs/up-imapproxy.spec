@@ -3,7 +3,7 @@
 Name:           up-imapproxy
 Summary:        University of Pittsburgh IMAP Proxy
 Version:        1.2.8
-Release:        0.36.20250101svn15036%{?dist}
+Release:        0.37.20250101svn15036%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.imapproxy.org
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -73,7 +73,7 @@ make %{?_smp_mflags}
 # The install-* Makefile targets don't support DESTDIR syntax, so work around.
 install -D -m 0644 -p scripts/imapproxy.conf \
     $RPM_BUILD_ROOT%{_sysconfdir}/imapproxy.conf
-install -D -m 0755 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/imapproxy.service
+install -D -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/imapproxy.service
 install -d -m 0755 $RPM_BUILD_ROOT%{_sbindir}
 install -D -m 0755 bin/* $RPM_BUILD_ROOT%{_sbindir}
 
@@ -103,6 +103,9 @@ install -m0644 -D up-imapproxy.sysusers.conf %{buildroot}%{_sysusersdir}/up-imap
 %{_sysusersdir}/up-imapproxy.conf
 
 %changelog
+* Thu Aug 13 2026 Chris Adams <linux@cmadams.net> - 1.2.8-0.37.20250101svn15036
+- service file should not be executable
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.36.20250101svn15036
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

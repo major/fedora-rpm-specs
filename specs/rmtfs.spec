@@ -1,5 +1,5 @@
 Name:           rmtfs
-Version:        1.1.1
+Version:        1.3
 Release:        %autorelease
 Summary:        Qualcomm Remote Filesystem Service Implementation
 
@@ -16,10 +16,14 @@ BuildRequires:  systemd-rpm-macros
 Requires: qrtr
 
 %description
-Qualcomm Remote Filesystem Service Implementation.
+This package provides the Qualcomm Remote Filesystem Service.
+
+It exports selected block devices to remote processors such as the modem
+letting firmware read and write its configuration partitions on host-managed
+storage.
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %make_build prefix="%{_prefix}"
@@ -39,6 +43,7 @@ Qualcomm Remote Filesystem Service Implementation.
 %files
 %license LICENSE
 %{_bindir}/%{name}
+%{_prefix}/lib/udev/rules.d/rmtfs.rules
 %{_unitdir}/rmtfs.service
 %{_unitdir}/rmtfs-dir.service
 

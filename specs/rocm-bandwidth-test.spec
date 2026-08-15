@@ -29,7 +29,7 @@
 
 Name:       rocm-bandwidth-test
 Version:    %{rocm_version}
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Bandwidth test for ROCm
 
 # License mismatch
@@ -63,7 +63,7 @@ terms of memory pools and their agents.
 chmod a-x LICENSE.txt
 chmod a-x README.md
 chmod a-x ROCmBandwithTest_UserGuide.pdf
-cp %{SOURCE1} .
+cp -p %{SOURCE1} .
 
 %build
 %cmake
@@ -94,6 +94,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocm-bandwidth-test/LICENSE.txt
 %{_bindir}/rocm-bandwidth-test
 
 %changelog
+* Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> 6.4.2-7
+- Preserve timestamp
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

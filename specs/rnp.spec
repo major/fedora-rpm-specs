@@ -34,7 +34,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.18.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -208,6 +208,9 @@ FILTER="s2k_iteration_tuning|test_key_add_userid|test_ffi_security_profile|Encry
 
 
 %changelog
+* Thu Aug 13 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-6
+- rebuild for botan3 version 3.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 %endif
 
 Name:           ipython
-Version:        9.15.0
+Version:        9.16.1
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -26,10 +26,6 @@ Summary:        An enhanced interactive Python shell
 License:        BSD-3-Clause AND MIT
 URL:            http://ipython.org/
 Source0:        %pypi_source
-
-# Fix init_path ignoring CWD when -P used in script shebang
-# Fixes rhbz#2479711
-Patch:          https://github.com/ipython/ipython/pull/15262.patch
 
 # Unset -s on python shebang - ensure that packages installed with pip
 # to user locations are seen and properly loaded.
@@ -166,9 +162,12 @@ export IPYTHON_TESTING_TIMEOUT_SCALE=4
 # Switch to a temporary directory to avoid _pytest.pathlib.ImportPathMismatchError
 mkdir test_temp_dir
 pushd test_temp_dir
-# test_get_xdg_dir_3 and test_extension don't work well with out custom paths
-# test_hist_file_config is flaky https://github.com/ipython/ipython/issues/15161
-%pytest -vv -p no:cacheprovider -k "not test_get_xdg_dir_3 and not test_extension and not test_hist_file_config" ../tests
+# - test_get_xdg_dir_3 and test_extension don't work well with out custom paths
+# - test_hist_file_config is flaky https://github.com/ipython/ipython/issues/15161
+# - test_init_path_inserts_before_site_packages and test_init_path_no_site_packages_inserts_front
+#   don't work well with our custom paths
+%pytest -vv -p no:cacheprovider -k "not test_get_xdg_dir_3 and not test_extension and not test_hist_file_config and \
+                                    not test_init_path_inserts_before_site_packages and not test_init_path_no_site_packages_inserts_front" ../tests
 popd
 rm -rf test_temp_dir
 %endif

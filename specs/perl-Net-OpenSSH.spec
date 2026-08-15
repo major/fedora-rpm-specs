@@ -35,6 +35,7 @@ BuildRequires:  perl(Test::More)
 Requires:       openssh-clients
 Requires:       perl(File::Glob)
 Suggests:       perl(IO::Pty)
+Requires:       perl(IO::Tty)
 Suggests:       perl(Net::SFTP::Foreign) >= 1.47
 Requires:       perl(Object::Remote::Role::Connector::PerlInterpreter)
 Suggests:       perl(Sys::Hostname)

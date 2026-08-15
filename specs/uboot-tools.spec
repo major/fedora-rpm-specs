@@ -35,6 +35,8 @@ Patch5:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch7:   uefi-enable-https-boot-by-default.patch
+# Upstream SWIG 4.5 fix.
+Patch8:   pylibfdt-Replace-removed-SWIG-Python-2-compatibility-macros.patch
 
 # Device improvments
 # USB-PD improvements

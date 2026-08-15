@@ -1,25 +1,23 @@
 # Review: https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=173670
-
-%global minorversion 0.6
-%global xfceversion 4.16
+# VCS   https://gitlab.xfce.org/panel-plugins/xfce4-wavelan-plugin
+%global minorversion 0.7
+%global xfceversion 4.20
 
 Name:           xfce4-wavelan-plugin
-Version:        0.6.4
+Version:        0.7.0
 Release:        %autorelease
 Summary:        WaveLAN plugin for the Xfce panel
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
-#VCS: git:git://git.xfce.org/panel-plugins/xfce4-wavelan-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+License:        BSD-2-Clause
+URL:            https://docs.xfce.org/panel-plugins/xfce4-wavelan-plugin
+Source0:        https://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
-BuildRequires:  gcc-c++
-BuildRequires:  libxfce4ui-devel >= %{xfceversion}
-BuildRequires:  xfce4-panel-devel >= %{xfceversion}
+BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
+BuildRequires:  pkgconfig(libxfce4panel-2.0) >= %{xfceversion}
+BuildRequires:  pkgconfig(libxfce4ui-2) >= %{xfceversion}
+BuildRequires:  pkgconfig(libxfce4util-1.0) >= %{xfceversion}
 
 Requires:       xfce4-panel >= %{xfceversion}
 
@@ -32,24 +30,29 @@ displays stats for signal state, signal quality and network name (SSID).
 
 
 %build
-%configure --disable-static
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
-# remove la file
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 # FIXME: make sure debuginfo is generated properly (#795107)
 chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 %find_lang %{name}
 
+%check
+%meson_test
+
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS
+%doc AUTHORS NEWS README.md THANKS
 %{_libdir}/xfce4/panel/plugins/libwavelan.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 

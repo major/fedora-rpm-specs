@@ -6,12 +6,15 @@
 
 Name: filezilla
 Version: 3.69.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.xz
+# ref:
+# https://github.com/gnutls/nettle/commit/d4cac403adc243ae29b66b36d078030e3b1721d8
+Patch0:  filezilla-3.69.6-support-nettle4.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -61,7 +64,7 @@ FileZilla is a FTP, FTPS and SFTP client for Linux with a lot of features.
 - Network configuration wizard 
 
 %prep
-%autosetup -p0 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 %if 0%{?run_autogen}
 autoreconf -if
 %endif
@@ -149,6 +152,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Thu Aug 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.69.6-3
+- Support nettle 4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.69.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

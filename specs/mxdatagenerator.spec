@@ -30,7 +30,7 @@
 
 Name:           mxdatagenerator
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's floating point data generator
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
@@ -65,7 +65,7 @@ Formats Supported
 
 %package devel
 Summary:  AMD's floating point data generator
-Provides: mxdatagenertor-static = %{version}-%{release}
+Provides: mxdatagenerator-static = %{version}-%{release}
 
 %description devel
 AMD's floating point data generator
@@ -107,7 +107,10 @@ rm -f %{buildroot}%_datadir/doc/mxDataGenerator/LICENSE.md
 %_datadir/cmake/mxDataGenerator/
 
 %changelog
-* Mon Jul 27 2026 Tom Rix <Tom.Rix2amd.com> - 7.14.0-1
+* Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Fix spelling of provides
+
+* Mon Jul 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.0-2

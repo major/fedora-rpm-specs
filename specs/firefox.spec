@@ -185,14 +185,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        153.0.3
+Version:        154.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260805.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260813.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -239,6 +239,7 @@ Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch80:        wasi.patch
 Patch85:        build-wasm32-wasip1.patch
+Patch90:        pgo-simple-programs-2.patch
 
 # Fedora specific patches
 Patch215:        firefox-enable-addons.patch
@@ -522,6 +523,7 @@ This package contains results of tests executed during build.
 cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysroot/install/wasi-resource-dir/lib/wasm32-unknown-wasip1/libclang_rt.builtins.a|" > %{_sourcedir}/wasi.patch
 %patch -P80 -p1 -b .wasi
 %endif
+%patch -P90 -p2 -b .pgo-simple
 
 # Fedora patches
 %patch -P215 -p1 -b .addons
@@ -1199,6 +1201,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Aug 13 2026 Martin Stransky <stransky@redhat.com> - 154.0-1
+- Updated to 154.0
+- Enabled session restore (KDE only)
+
 * Wed Aug 5 2026 Martin Stransky <stransky@redhat.com> - 153.0.3-1
 - Updated to 153.0.3
 

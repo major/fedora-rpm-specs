@@ -26,17 +26,14 @@
 %if %{with preview}
 %global rocm_major 7
 %global rocm_minor 14
+%else
+%global rocm_major 7
+%global rocm_minor 14
+%endif
+
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src therock-%{rocm_release}
-%else
-%global rocm_major 7
-%global rocm_minor 2
-%global rocm_patch 2
-%global rocm_release %{rocm_major}.%{rocm_minor}
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
-%endif
-
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -114,9 +111,9 @@
 Name:           %{pkg_name}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
@@ -127,17 +124,11 @@ Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{up
 # TODO: it would be nice to separate this into its own package:
 Source1:        %{url}/releases/download/%{pkg_src}/hip.tar.gz#/hip-%{version}.tar.gz
 
-# a fix for building blender
+# Add long variants for __ffsll
 Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
-patch2:        909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
-
-%if %{without preview}
-# std::filesystem is c++17 and that is too new for suse 15
-# https://github.com/ROCm/rocm-systems/issues/1947
-patch3:        0001-rocclr-replace-std-filesystem-exists-with-access.patch
-%endif
+Patch2:        909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -190,9 +181,7 @@ BuildRequires:  python3-cppheaderparser
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
-%if %{with preview}
 BuildRequires:  simde-devel
-%endif
 BuildRequires:  zlib-devel
 
 # ROCclr relies on some x86 intrinsics
@@ -377,7 +366,7 @@ export PATH=%{rocmllvm_bindir}:$PATH
 %if %{with ocl}
 %if %{without compat}
 # Install OpenCL ICD configuration:
-install -D -m 644 opencl/config/amdocl64.icd \
+install -p -D -m 644 opencl/config/amdocl64.icd \
   %{buildroot}%{_sysconfdir}/OpenCL/vendors/amdocl64.icd
 %endif
 
@@ -400,17 +389,10 @@ chmod 755 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib*.so*
 # Unnecessary file and is not FHS compliant:
 rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/.hipInfo
 
-%if %{without preview}
-# Windows files:
-rm %{buildroot}%{pkg_prefix}/bin/*.bat
-%endif
-
-%if %{with preview}
 # 7.13+ needs some help installing scripts
 mkdir -p %{buildroot}%{pkg_prefix}/bin
-install -m 755 hip/bin/hipcc_cmake_linker_helper %{buildroot}%{pkg_prefix}/bin/
-install -m 755 hip/bin/hipdemangleatp            %{buildroot}%{pkg_prefix}/bin/
-%endif
+install -p -m 755 hip/bin/hipcc_cmake_linker_helper %{buildroot}%{pkg_prefix}/bin/
+install -p -m 755 hip/bin/hipdemangleatp            %{buildroot}%{pkg_prefix}/bin/
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocclr*/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/opencl*/LICENSE.md
@@ -427,19 +409,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %license opencl/LICENSE.md
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
 %endif
-%if %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so.%{rocm_major}{,.*}
-%else
-%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so.%{rocm_major}{,.*}
-%endif
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so.%{rocm_major}{,.*}
 
 %files -n rocm-opencl%{pkg_suffix}-devel
-%if %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so
-%else
-%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so
-%endif
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so
 %{pkg_prefix}/include/%{name}
 
@@ -454,9 +428,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{rocm_major}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
 %{pkg_prefix}/share/hip
-%if %{with preview}
 %{pkg_prefix}/bin/hrr-playback
-%endif
 
 %files -n rocm-hip%{pkg_suffix}-devel
 %{pkg_prefix}/%{pkg_libdir}/libamdhip64.so
@@ -466,9 +438,6 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %{pkg_prefix}/include/hip
 %if %{with cppheaderparser}
 %{pkg_prefix}/include/hip_prof_str.h
-%endif
-%if %{without preview}
-%{pkg_prefix}/bin/roc-*
 %endif
 %{pkg_prefix}/bin/hipcc_cmake_linker_helper
 %{pkg_prefix}/bin/hipdemangleatp
@@ -480,6 +449,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -546,7 +518,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 - Update to 6.4.1
 
 * Fri May 02 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-3
-- Use khrono OpenCL ICD for Fedora
+- Use Khronos OpenCL ICD for Fedora
 
 * Thu May 01 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-2
 - Fix linking for comgr.so.3

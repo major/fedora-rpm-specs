@@ -7,7 +7,7 @@
 %global __meson_auto_features disabled
 
 Name:           gdk-pixbuf2
-Version:        2.44.7
+Version:        2.44.8
 Release:        %autorelease
 Summary:        An image loading library
 

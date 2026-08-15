@@ -11,9 +11,17 @@ URL:           http://developer.android.com/guide/developing/tools/
 Source0:       https://github.com/nmeum/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # https://github.com/nmeum/android-tools/pull/208
 Patch:         https://github.com/nmeum/android-tools/pull/208.patch
+# https://github.com/nmeum/android-tools/pull/209
+Patch:         209.patch
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:         adb_mdns-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+Patch:         adb_mdns-fix-metadata.diff
 
 BuildRequires: brotli-devel
+BuildRequires: cargo-rpm-macros
 BuildRequires: cmake
+BuildRequires: corrosion
 BuildRequires: fmt-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -57,14 +65,29 @@ setup between the host and the target phone as adb.
 %prep
 %autosetup -p1
 
+pushd vendor/adb/client/adbmdns > /dev/null
+%cargo_prep
+popd > /dev/null
+
+%generate_buildrequires
+pushd vendor/adb/client/adbmdns > /dev/null
+%cargo_generate_buildrequires
+popd > /dev/null
+
 %build
-%cmake -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake -DANDROID_TOOLS_ADB_ENABLE_MDNS:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
+
+pushd vendor/adb/client/adbmdns > /dev/null
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
+popd > /dev/null
 
 %install
 %cmake_install
 
 %files
+%license vendor/adb/client/adbmdns/LICENSE.dependencies
 %{_bindir}/adb
 %{_bindir}/avbtool
 %{_bindir}/mke2fs.android

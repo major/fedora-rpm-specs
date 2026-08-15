@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.17
-Release: 2%{?dist}
+Version: 45.18
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,9 +41,9 @@ Patch: 0001-Handle-relocation-of-packaged-repo-configs-to-usr-sh.patch
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.73-1
+%define pykickstartver 3.77-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.14.0-1
+%define pythonblivetver 1:3.14.1-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
@@ -76,7 +76,8 @@ BuildRequires: s390utils-devel
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: anaconda-gui = %{version}-%{release}
+Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic))
+Requires: (anaconda-webui or anaconda-gui)
 Requires: anaconda-tui = %{version}-%{release}
 
 %description
@@ -529,6 +530,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 12 2026 Packit <hello@packit.dev> - 45.18-1
+- Revert "tests: Temporarily ignore stratis kickstart commands" (vtrefny)
+- spec: Bump required version of pykickstart to 3.77 (vtrefny)
+- spec: Bump required blivet version to 3.14.1 (vtrefny)
+- storage: Add support for Stratis custom partitioning (vtrefny)
+- fix(ostree): set sysroot.bootprefix true before deploy (tfratrik)
+- spec: Enlarge the list of ISOs that use the Web UI (k.koukiou)
+- boss: Change InstallationStatus from IntEnum to StrEnum (bciconel)
+- Replace usage of MD5 password hash in tests (mkolman)
+
 * Wed Aug 12 2026 Adam Williamson <awilliam@redhat.com> - 45.17-2
 - Backport PR #7233 to adjust to relocation of packaged repo configs
 

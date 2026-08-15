@@ -20,19 +20,17 @@
 # THE SOFTWARE.
 #
 
+%global upstreamname rocwmma
+
 %bcond_with preview
 %if %{with preview}
-%global upstreamname rocwmma
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-# ROCm 7.2 is still in the old URL
-%global upstreamname rocWMMA
-%global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -40,12 +38,10 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %global toolchain rocm
@@ -74,7 +70,7 @@
 %endif
 
 # May not be supported on every arch
-# Only offically supported are called out here
+# Only officially supported are called out here
 # library/include/rocwmma/internal/config.hpp
 # Adjust our list
 %global gpu_list "gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1102;gfx1151;gfx1150;gfx1200;gfx1201"
@@ -90,24 +86,13 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 
 Summary:        ROCm Matrix Multiple and Accumulate library
-%if %{with preview}
 URL:            https://github.com/ROCm/rocm-libraries
-%else
-Url:            https://github.com/ROCm/%{upstreamname}
-%endif
 License:        MIT
-
-%if %{with preview}
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%else
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-# TBD: Needs to be rebased to rocm-libraries and upstreamed.
-Patch0:         0001-rocwmma-ninja-job-pools.patch
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -159,13 +144,9 @@ Summary:        Tests for %{name}
 %endif
 
 %prep
-%if %{with preview}
 %autosetup -p1 -n %{upstreamname}
-%else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
-%endif
 
-# Remove parallel-jobs, it interfers with ninja jobs and attempts to reduce memory usage
+# Remove parallel-jobs, it interferes with ninja jobs and attempts to reduce memory usage
 # https://github.com/ROCm/rocm-libraries/issues/4949
 sed -i -e 's@-parallel-jobs=4@@' CMakeLists.txt
 
@@ -187,7 +168,7 @@ if [ ${COMPILE_JOBS} = 1 ]; then
     fi
 fi
 
-# Take into account memmory usage per core, do not thrash real memory
+# Take into account memory usage per core, do not thrash real memory
 BUILD_MEM=4
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
@@ -251,12 +232,13 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %{pkg_prefix}/bin/*_test
 %{pkg_prefix}/bin/*-validate
 %{pkg_prefix}/bin/rocwmma/
-%if %{with preview}
 %{pkg_prefix}/bin/*_tests
-%endif
 %endif
 
 %changelog
+* Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

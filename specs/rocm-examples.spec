@@ -20,17 +20,16 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocm-examples
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -76,7 +75,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -183,10 +182,8 @@ sed -i '/hipTensor/d' Libraries/CMakeLists.txt
 sed -i '/rocProfiler-SDK/d' Libraries/CMakeLists.txt
 # Do not want to fight through open mp requirement
 sed -i '/rocWMMA/d' Libraries/CMakeLists.txt
-%if %{with preview}
 # optical_flow uses tex2D API not supported by HIP/ROCm
 sed -i '/add_subdirectory(optical_flow)/d' Applications/CMakeLists.txt
-%endif
 
 %build
 
@@ -216,11 +213,9 @@ export ROCM_ROOT=%{pkg_prefix}
 # rocm-examples.x86_64: W: non-executable-in-bin /usr/bin/vcpy_isa.hsaco 644
 rm -f %{buildroot}%{pkg_prefix}/bin/*.hsaco
 
-%if %{with preview}
 # some extra install items
 rm -f %{buildroot}%{pkg_prefix}/*.txt
 rm -f %{buildroot}%{pkg_prefix}/*.jpg
-%endif
 
 %files
 %license LICENSE.md
@@ -228,6 +223,9 @@ rm -f %{buildroot}%{pkg_prefix}/*.jpg
 %{pkg_prefix}/bin/*
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Mon Aug 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Add --with preview
 

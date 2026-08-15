@@ -25,7 +25,7 @@
 %global rocm_release 7.14
 %global rocm_patch 0
 %else
-%global rocm_release 7.2
+%global rocm_release 7.14
 %global rocm_patch 0
 %endif
 
@@ -44,7 +44,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
@@ -97,7 +97,7 @@ This package contains ROCm RPM macros for building ROCm packages.
 # To use, run
 # $> source /etc/profile.d/modules.sh
 %package modules
-Summary: ROCm enviroment modules
+Summary: ROCm environment modules
 %if 0%{?suse_version}
 Requires:       Modules
 %else
@@ -164,6 +164,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

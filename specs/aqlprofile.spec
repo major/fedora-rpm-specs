@@ -25,14 +25,13 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 1
+%global rocm_release 7.14
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -40,27 +39,17 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %global skip_install_rpath ON
 %endif
 
-# Testing is broken
-%if %{with preview}
-%global build_test OFF
-%else
 %bcond_with test
-%if %{with test}
-%global build_test ON
-%else
+# Testing is broken
 %global build_test OFF
-%endif
-%endif
 
 %bcond_with debug
 %if %{with debug}
@@ -80,7 +69,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
@@ -196,6 +185,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-amd-aqlprofile/LICENSE.md
 %endif
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

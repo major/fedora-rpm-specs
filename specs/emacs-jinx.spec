@@ -2,7 +2,7 @@
 %global emacs_version_with_archsitelispdir 1:30.2-9
 
 Name:           emacs-%{pkg}
-Version:        2.9
+Version:        2.10
 Release:        %{autorelease}
 Summary:        Fast just-in-time spell-checker for Emacs
 License:        GPL-3.0-or-later
@@ -59,7 +59,7 @@ emacs --batch \
 
 %files
 %license LICENSE
-%doc CHANGELOG.org
+%doc NEWS.org
 %doc README.org
 %{_emacs_archsitelispdir}/%{pkg}-mod.so
 %{_emacs_sitelispdir}/%{pkg}.el

@@ -1,7 +1,7 @@
 Summary: Utilities for performing block layer IO tracing in the Linux kernel
 Name: blktrace
 Version: 1.3.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL-2.0-or-later
 Source0: http://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2
 Source1: https://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2.asc
@@ -9,10 +9,9 @@ Source2: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 
 Url: http://brick.kernel.dk/snaps
 
-Requires: librsvg2-tools
-
 BuildRequires: python3-devel
-BuildRequires: gcc, libaio-devel, librsvg2-devel
+BuildRequires: gcc, libaio-devel
+
 BuildRequires: make
 BuildRequires: gnupg2
 
@@ -68,7 +67,7 @@ make dest=%{buildroot} prefix=%{buildroot}/%{_prefix} mandir=%{buildroot}/%{_man
 
 %package -n iowatcher
 Summary: Utility for visualizing block layer IO patterns and performance
-Requires: blktrace sysstat theora-tools
+Requires: blktrace sysstat theora-tools librsvg2-tools
 
 %description -n iowatcher
 iowatcher generates graphs from blktrace runs to help visualize IO patterns and
@@ -85,6 +84,10 @@ information about IO patterns.
 %{_mandir}/man1/iowatcher.*
 
 %changelog
+* Thu Aug 13 2026 Pavel Reichl <preichl@redhat.com> - 1.3.0-17
+- Move librsvg2-tools from blktrace Requires to iowatcher subpackage (rhbz#2406001)
+- Remove unnecessary BuildRequires on librsvg2-devel (rhbz#2406001)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

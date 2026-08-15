@@ -12,7 +12,7 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.20.6
+Version:        4.20.7
 Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
@@ -109,6 +109,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/vapi/libxfce4windowing*
 
 %changelog
+* Mon Aug 10 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.20.7-1
+- Update to 4.20.7
+
 * Wed Jul 29 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.20.6-1
 - Update to 4.20.6
 

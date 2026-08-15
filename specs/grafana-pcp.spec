@@ -15,8 +15,8 @@ end}
 %global gomodulesmode GO111MODULE=auto
 
 Name:           grafana-pcp
-Version:        6.0.1
-Release:        2%{?dist}
+Version:        6.1.0
+Release:        1%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
@@ -87,13 +87,13 @@ Provides: bundled(npm(@emotion/css)) = 11.13.5
 Provides: bundled(npm(@grafana/data)) = 12.4.2
 Provides: bundled(npm(@grafana/eslint-config)) = 9.0.0
 Provides: bundled(npm(@grafana/i18n)) = 12.4.2
-Provides: bundled(npm(@grafana/plugin-e2e)) = 3.4.5
+Provides: bundled(npm(@grafana/plugin-e2e)) = 3.9.2
 Provides: bundled(npm(@grafana/runtime)) = 12.4.2
 Provides: bundled(npm(@grafana/schema)) = 12.4.2
 Provides: bundled(npm(@grafana/tsconfig)) = 2.0.1
 Provides: bundled(npm(@grafana/ui)) = 12.4.2
 Provides: bundled(npm(@openfeature/web-sdk)) = 1.7.3
-Provides: bundled(npm(@playwright/test)) = 1.58.2
+Provides: bundled(npm(@playwright/test)) = 1.60.0
 Provides: bundled(npm(@stylistic/eslint-plugin-ts)) = 4.4.1
 Provides: bundled(npm(@swc/core)) = 1.15.18
 Provides: bundled(npm(@swc/helpers)) = 0.5.19
@@ -123,7 +123,7 @@ Provides: bundled(npm(core-js)) = 3.48.0
 Provides: bundled(npm(css-loader)) = 7.1.4
 Provides: bundled(npm(d3-flame-graph)) = 3.1.1
 Provides: bundled(npm(d3-selection)) = 1.4.2
-Provides: bundled(npm(dompurify)) = 3.4.2
+Provides: bundled(npm(dompurify)) = 3.4.13
 Provides: bundled(npm(eslint)) = 9.39.4
 Provides: bundled(npm(eslint-config-prettier)) = 10.1.8
 Provides: bundled(npm(eslint-plugin-jsdoc)) = 52.0.4
@@ -141,13 +141,13 @@ Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(loglevel)) = 1.9.2
 Provides: bundled(npm(loglevel-plugin-prefix)) = 0.8.4
 Provides: bundled(npm(memoize-one)) = 4.1.0
-Provides: bundled(npm(monaco-editor)) = 0.31.1
+Provides: bundled(npm(monaco-editor)) = 0.34.1
 Provides: bundled(npm(monaco-editor-webpack-plugin)) = 7.1.1
 Provides: bundled(npm(prettier)) = 3.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-autosuggest)) = 10.1.0
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-monaco-editor)) = 0.47.0
+Provides: bundled(npm(react-monaco-editor)) = 0.59.0
 Provides: bundled(npm(react-redux)) = 7.2.9
 Provides: bundled(npm(react-router-dom)) = 5.3.4
 Provides: bundled(npm(react-use)) = 17.6.0
@@ -244,6 +244,9 @@ yarn test
 
 
 %changelog
+* Thu Aug 13 2026 Lauren Chilton <lchilton@redhat.com> - 6.1.0-1
+- Rebase to upstream version v6.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

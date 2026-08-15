@@ -23,19 +23,17 @@
 %global pkg_library_name rocalution
 %global pkg_library_version 1
 
+%global upstreamname rocalution
+
 %bcond_with preview
 %if %{with preview}
-%global upstreamname rocalution
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global upstreamname rocALUTION
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_version}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -102,19 +100,14 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 License:        MIT
 
-%if %{with preview}
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -204,11 +197,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%if %{with preview}
 %autosetup -p3 -n %{upstreamname}
-%else
-%autosetup -p1 -n %{upstreamname}-%{pkg_src}
-%endif
 
 %if 0%{?suse_version}
 # On TW
@@ -286,6 +275,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

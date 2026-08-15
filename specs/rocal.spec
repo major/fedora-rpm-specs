@@ -80,6 +80,7 @@ License:        MIT AND BSD-3-Clause
 # bundled rapidjson is MIT AND BSD-3-Clause
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+# Update FindMIVisionX.cmake to search correct include and lib64 paths
 Patch1:         0001-rocal-find-mivisionx.patch
 
 #
@@ -154,7 +155,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 # rapidjson ToT
 tar xf %{SOURCE1}
 
-# remove some files to reduces license
+# remove some files to reduce licenses
 rm rapidjson-*/package.json
 # make sure we pick up this license
 cp -p rapidjson-*/license.txt license-json.txt
@@ -287,7 +288,7 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.s
 
 * Tue Nov 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
-- Remove buildrequires version contraints
+- Remove buildrequires version constraints
 
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2

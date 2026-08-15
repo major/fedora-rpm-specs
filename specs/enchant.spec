@@ -6,8 +6,8 @@ Name: enchant
 Version: 1.6.0
 Release: 42%{?dist}
 Epoch: 1
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+# src/prefix.c is LicenseRef-Fedora-Public-Domain
+License: LGPL-2.1-or-later AND LGPL-2.1-or-later WITH Spelling-Provider-LGPL-exception AND LicenseRef-Fedora-Public-Domain
 Source: http://www.abisource.com/downloads/enchant/%{version}/enchant-%{version}.tar.gz
 URL: http://www.abisource.com/
 BuildRequires:  gcc-c++

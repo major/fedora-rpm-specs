@@ -5,17 +5,13 @@
 %global crate float16
 
 Name:           rust-float16
-Version:        0.1.5
+Version:        0.1.6
 Release:        %autorelease
 Summary:        Half-precision floating point f16 and bf16 types for Rust
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/float16
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update rustc_version from 0.2 to 0.4:
-#   https://github.com/Alexhuszagh/float16/pull/15
-Patch:          float16-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix
@@ -40,6 +36,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

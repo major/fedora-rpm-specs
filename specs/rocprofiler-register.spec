@@ -24,14 +24,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -39,12 +37,10 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %global glog_version 0.7.1
@@ -73,7 +69,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause AND Apache-2.0
@@ -97,7 +93,7 @@ BuildRequires:  rocm-filesystem%{pkg_suffix}
 
 # BSD-3-Clause
 # rocprofile needs a newer glog
-# glog looks like a dead project, notifiy the upstream they should move off of it.
+# glog looks like a dead project, notify the upstream they should move off of it.
 # https://github.com/ROCm/rocprofiler-sdk/issues/87
 Provides:       bundled(glog) = %{glog_version}
 Requires:       rocm-filesystem%{pkg_suffix}
@@ -187,6 +183,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

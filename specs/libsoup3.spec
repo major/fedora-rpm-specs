@@ -7,7 +7,7 @@
 %endif
 
 Name:    libsoup3
-Version: 3.7.1
+Version: 3.7.2
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 
@@ -21,10 +21,6 @@ Patch:   no-ntlm-in-fips-mode.patch
 # https://gitlab.gnome.org/GNOME/libsoup/-/work_items/530
 Patch:   skip-logger-test-on-32bit.patch
 
-# Fix test failures on aarch64
-# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/538
-Patch:   soup-body-input-stream-limit-buffer-read-to-the-received-content.patch
-Patch:   multipart-test-close-base-stream-and-unref-multipart-before-quitting-main-loop.patch
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -147,6 +143,7 @@ This is the MinGW build of libsoup3
 
 %if %{with_mingw}
 %mingw_meson \
+    -Dbrotli=disabled \
     -Ddocs=disabled \
     -Dintrospection=disabled \
     -Dtests=false \

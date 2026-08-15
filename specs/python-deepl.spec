@@ -1,5 +1,5 @@
 Name:           python-deepl
-Version:        1.27.0
+Version:        1.31.0
 Release:        %autorelease
 Summary:        Python library for the DeepL API
 

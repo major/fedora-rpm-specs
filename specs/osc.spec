@@ -2,7 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_Rawhide/src/
 # update the obsrel to match the upstream release number
-%global obsrel 481.2
+%global obsrel 484.18
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -12,11 +12,11 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 2
+%global baserelease 1
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.27.2
+Version:        1.27.3
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -169,6 +169,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Wed Aug 12 2026 Dan Čermák <dan.cermak@posteo.net> - 1.27.3-484.18.1
+- Update to 1.27.3, fixes rhbz#2510697
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.2-481.2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

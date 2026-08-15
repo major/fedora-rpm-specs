@@ -1,7 +1,7 @@
-Version: 22.0.4
+Version: 22.0.6
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: BSD-3-Clause AND ISC AND MIT
 URL: https://github.com/pupnp/pupnp
 Source: %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ the UPnP SDK libraries.
 
 
 %changelog
+* Thu Aug 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.6-1
+- 22.0.6
+
 * Wed Jul 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.0.4-3
 - Ship .a files to resolve bz 2506210
 

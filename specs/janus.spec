@@ -141,7 +141,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: bundled(speexdsp)
 
 %description plugins-audiobridge
-This is a plugin implementing an audio conference bridge for %{name}, specifically mixing Opus streams.
+This is a plugin implementing an audio conference bridge for %{name},
+specifically mixing Opus streams.
 
 
 %package plugins-duktape

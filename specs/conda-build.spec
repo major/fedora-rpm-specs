@@ -8,6 +8,8 @@ Summary:        Commands and tools for building conda packages
 License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://github.com/conda/conda-build
 Source0:        https://github.com/conda/conda-build/archive/%{version}/%{name}-%{version}.tar.gz
+# Compatibility with packaging 26.3
+Patch:          https://github.com/conda/conda-build/pull/6092.patch
 BuildArch:      noarch
 BuildRequires:  make
 Requires:       python%{python3_pkgversion}-conda-build = %{version}-%{release}

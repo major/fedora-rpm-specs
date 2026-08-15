@@ -21,8 +21,6 @@ Source11:       config.vga-isavga
 Source12:       config.vga-qxl
 Source13:       config.vga-stdvga
 Source14:       config.vga-vmware
-Source16:       config.coreboot
-Source17:       config.seabios-128k
 Source18:       config.seabios-256k
 Source19:       config.vga-virtio
 Source20:       config.vga-ramfb
@@ -123,10 +121,8 @@ build_bios() {
 }
 
 # seabios
-build_bios %{_sourcedir}/config.seabios-128k bios.bin bios.bin
 build_bios %{_sourcedir}/config.seabios-256k bios.bin bios-256k.bin
 %if 0%{?fedora:1}
-build_bios %{_sourcedir}/config.coreboot bios.bin.elf bios-coreboot.bin
 build_bios %{_sourcedir}/config.seabios-microvm bios.bin bios-microvm.bin
 %endif
 
@@ -142,10 +138,8 @@ done
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/seabios
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/seavgabios
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/qemu/firmware
-install -m 0644 binaries/bios.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios.bin
 install -m 0644 binaries/bios-256k.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-256k.bin
 %if 0%{?fedora:1}
-install -m 0644 binaries/bios-coreboot.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-coreboot.bin
 install -m 0644 binaries/bios-microvm.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-microvm.bin
 %endif
 install -m 0644 binaries/vgabios*.bin $RPM_BUILD_ROOT%{_datadir}/seavgabios

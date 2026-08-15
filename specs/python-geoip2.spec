@@ -5,7 +5,7 @@
 %global test_data_rls b5ff09ebb67d959ae68118a058fe344a6994b046
 
 Name:           python-%{pypi_name}
-Version:        5.2.0
+Version:        5.3.0
 Release:        %autorelease
 Summary:        MaxMind GeoIP2 API
 
@@ -38,7 +38,8 @@ This package provides the documentation for %{pypi_name}.
 %autosetup -n %{srcname}-%{version} -a 1
 rmdir tests/data
 mv -f %{test_data}-%{test_data_rls} tests/data
-# Remove version constraint on maxminddb and uv-build
+# Remove version constraint on aiohttp, maxminddb and uv-build
+sed -i 's/"aiohttp[^"]*"/"aiohttp"/' pyproject.toml
 sed -i 's/"maxminddb.*"/"maxminddb"/' pyproject.toml
 sed -i 's/"uv_build.*"/"uv_build"/' pyproject.toml
 
@@ -47,12 +48,14 @@ sed -i 's/"uv_build.*"/"uv_build"/' pyproject.toml
 
 %build
 %pyproject_wheel
-PYTHONPATH=src sphinx-build -b html docs html
-rm -rf html/.{buildinfo,doctrees}
 
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
+# The package has to be installed first to build the documentation
+# because it uses the importlib.metadata.version() function in __init__.py.
+PYTHONPATH=%{buildroot}%{python3_sitelib} sphinx-build -b html docs html
+rm -rf html/.{buildinfo,doctrees}
 
 %check
 # tests/webservice_test.py requires mocket not available in Fedora

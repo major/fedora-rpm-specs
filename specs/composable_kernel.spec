@@ -25,14 +25,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -175,7 +173,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT AND BSD-3-Clause
@@ -186,13 +184,6 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-%if %{without preview}
-# This patch adds CMake options to selectively build specific GPU operation
-# libraries (e.g., GEMM, CONV, MHA) within composable_kernel, decoupling them
-# from the default build.
-Patch1:         0001-composable_kernel-per-dir-build.patch
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -413,6 +404,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Add --with preview
 

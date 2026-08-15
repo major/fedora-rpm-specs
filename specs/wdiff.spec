@@ -1,31 +1,126 @@
 %bcond rebuild_mans 1
+# As of 1.2.3, cannot autoreconf due to:
+# configure:14538: error: undefined or overquoted macro: gl_PTHREADLIB
+# configure:14651: error: undefined or overquoted macro: gl_WEAK_SYMBOLS
+# configure:15859: error: undefined or overquoted macro: gl_TYPE_WINT_T_PREREQ
+%bcond autoreconf 0
 
 Name:           wdiff
-Version:        1.2.2
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Compare files on a word per word basis
 
-# Entire source is GPL-3.0-or-later, except wdiff.texi and the documentation
-# built from it, including info, HTML, and PDF documentation, which is Latex2e.
-License:        GPL-3.0-or-later AND Latex2e
-URL:            https://www.gnu.org/software/wdiff/
+# Entire source is GPL-3.0-or-later, except:
+#
+# Latex2e:
+#   wdiff.texi and the documentation built from it, including info, HTML, and
+#     PDF documentation, to include doc/wdiff.info in the source tree.
+# LGPL-2.0-or-later:
+#     lib/_Noreturn.h
+#     lib/arg-nonnull.h
+#     lib/c++defs.h
+#     lib/warn-on-use.h
+# LGPL-2.1-or-later:
+#   the entire contents of lib/, except:
+#     - those listed as LGPL-2.0-or-later, above
+#     - lib/Makefile.{am,in}, which are build-system files and are documented
+#       above SourceLicense, and
+#     - the following, which are GPL-3.0-or-later:
+#       lib/xalloc-die.c lib/xalloc.h lib/xmalloc.c
+#   lib/*/*.*
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    LGPL-2.0-or-later AND
+    LGPL-2.1-or-later AND
+    Latex2e
+    }
+# Additionally, build-system files do not contribute to the licenses of the
+# binary RPMs, and some of these are under other licenses:
+#
+# FSFAP:
+#   AUTHORS
+#   config.h.in (inasmuch as it is derived from configure.ac, which is
+#     explicitly so licensed)
+#   configure.ac
+#   INSTALL
+#   Makefile.am
+#   README
+#   THANKS
+#   TODO
+#   doc/Makefile.am
+#   man/Makefile.am
+#   po/POTFILES.in
+#   src/Makefile.am
+# FSFAP AND FSFULLRWD: (Each is documented as FSFULLRWD, but derived from a
+#     corresponding Makefile.am that is FSFAP.)
+#   Makefile.in
+#   doc/Makefile.in
+#   man/Makefile.in
+#   src/Makefile.in
+# FSFAP-no-warranty-disclaimer:
+#   configure
+#   build-aux/config.rpath
+# FSFUL:
+#   tests/testsuite
+# FSFULLR AND FSFULLRWD:
+#   aclocal.m4
+# FSFULLRWD AND GPL-3.0-or-later WITH Autoconf-exception-generic:
+#   lib/Makefile.in
+# FSFULLRWD:
+#   m4/*, except:
+#     - m4/gnulib-cache.m4
+#     - m4/gnulib-comp.m4
+#     - m4/init-package-version.m4
+# GPL-2.0-or-later:
+#   build-aux/gnupload
+# GPL-2.0-or-later WITH Autoconf-exception-generic:
+#   build-aux/compile
+#   build-aux/depcomp
+#   build-aux/mdate-sh
+#   build-aux/missing
+#   m4/init-package-version.m4
+# GPL-3.0-or-later WITH Autoconf-exception-generic:
+#   lib/Makefile.am
+#   m4/gnulib-cache.m4
+#   m4/gnulib-comp.m4
+# GPL-3.0-or-later WITH Autoconf-exception-generic-3.0:
+#   build-aux/config.guess
+#   build-aux/config.sub
+# GPL-3.0-or-later WITH Texinfo-exception:
+#   build-aux/texinfo.tex
+# X11 AND LicenseRef-Fedora-Public-Domain:
+#   build-aux/install (“FSF changes to this file are in the public domain.”)
+SourceLicense:  %{shrink:
+    %{license} AND
+    FSFAP AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    FSFULLRWD AND
+    GPL-2.0-or-later AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND
+    GPL-3.0-or-later WITH Texinfo-exception AND
+    LicenseRef-Fedora-Public-Domain AND
+    X11
+    }
+URL:            https://www.gnu.org/software/wdiff
 Source0:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz.sig
+# Fetched 2026-08-13:
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 
-# Fails to build with GCC 15 in default C23 mode
-# https://savannah.gnu.org/bugs/index.php?66692
-#
-# The redeclaration of strstr() is unnecessary since it is part of C89 and
-# later and we won’t need the gnulib replacement, so we patch out the
-# redeclaration rather than fixing its signature.
-Patch:          wdiff-1.2.2-c23.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
+%if %{with autoreconf}
 BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  libtool  
+%endif
 
 BuildRequires:  gettext-devel
 BuildRequires:  ncurses-devel
@@ -37,8 +132,9 @@ BuildRequires:  tex(latex)
 
 BuildRequires:  gpgverify
 
-#https://fedorahosted.org/fpc/ticket/174
-Provides: bundled(gnulib) = 30.5.2012
+# https://fedorahosted.org/fpc/ticket/174
+# Unclear which version of gnulib is currently bundled.
+Provides: bundled(gnulib)
 
 %description
 The GNU wdiff program is a front end to diff for comparing files on a word per
@@ -53,18 +149,11 @@ produce a nicer display of word differences between the original files.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
-# Fix ISO-8859-1-encoded files
-for fn in BACKLOG ChangeLog
-do
-  iconv --from=ISO-8859-1 --to=UTF-8 "${fn}" > "${fn}.iconv"
-  touch --reference="${fn}" "${fn}.iconv"
-  chmod --verbose --reference="${fn}" "${fn}.iconv"
-  mv --force "${fn}.iconv" "${fn}"
-done
-
 
 %conf
+%if %{with autoreconf}
 autoreconf --force --install --verbose
+%endif
 %configure --enable-experimental="mdiff wdiff2 unify" 
 
 

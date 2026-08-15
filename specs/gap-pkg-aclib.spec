@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/aclib
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.3.3
+Version:        1.4
 Release:        %autorelease
 Summary:        Almost Crystallographic groups library for GAP
 
@@ -13,13 +13,13 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): gap htm tst
+BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap(crystcat) >= 1.1
 BuildRequires:  gap(polycyclic) >= 1.0
 BuildRequires:  gap-devel >= 4.7
-BuildRequires:  tth
 
 Requires:       gap(polycyclic) >= 1.0
 Requires:       gap-core >= 4.7
@@ -67,22 +67,8 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
-# Fix end-of-line encoding
-sed -i.orig 's/\r//' doc/algos.tex
-touch -r doc/algos.tex.orig doc/algos.tex
-rm -f doc/algos.tex.orig
-
-%build
-# Link to main GAP documentation
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc %{gap_libdir}
-cd -
-rm -f ../../doc
-
 %files
-%doc README
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g
@@ -91,9 +77,7 @@ rm -f ../../doc
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

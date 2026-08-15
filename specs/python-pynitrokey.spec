@@ -42,6 +42,7 @@ Provides:       nitropy
 %autosetup -p1 -n pynitrokey-%{version}
 
 %pyproject_patch_dependency hidapi:drop_upper
+%pyproject_patch_dependency cryptography:drop_upper
 
 %if 0%{fedora} < 44
 %pyproject_patch_dependency click:drop_lower

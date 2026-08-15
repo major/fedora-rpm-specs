@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -138,33 +138,45 @@ URL: https://sourceware.org/binutils
 #----End of Configure Options------------------------------------------------
 
 # Default: Not bootstrapping.
-%bcond_with bootstrap
+%bcond bootstrap 0
 # Default: Not debug
-%bcond_with debug
+%bcond debug 0
 # Default: support debuginfod.
-%bcond_without debuginfod
+%bcond debuginfod 1
 # Default: Always build documentation.
-%bcond_without docs
+%bcond docs 1
 # Default: build binutils-gprofng package.
-%bcond_without gprofng
+%bcond gprofng 1
 # Default: Use the system supplied version of the zlib compression library.
-%bcond_without systemzlib
+%bcond systemzlib 1
 # Default: Always run the testsuite.
-%bcond_without testsuite
+%bcond testsuite 1
 # Default: Use the xxhash-devel library.
-%bcond_without xxhash
+%bcond xxhash 1
 # Default: Use the libztsd-devel library.
-%bcond_without zstd
+%bcond zstd 1
+# Default: Do not create cross targeted versions of the binutils.
+%bcond crossbuilds 0
 
-# The gold linker is now deprecated.
-%bcond_without gold
+# Note - in the future the gold linker will become deprecated in Fedora.
+# And it will be deprecated in RHEL-11.
+%if 0%{?rhel} >= 11
+%bcond gold 0
+%else
+# RISC-V does not have ld.gold thus disable by default.
+%ifnarch riscv64
+%bcond gold 0
+%else
+%bcond gold 1
+%endif
+%endif
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
 %if "%toolchain" == "clang"
-%bcond_without clang
+%bcond clang 1
 %else
-%bcond_with clang
+%bcond clang 0
 %endif
 
 %if %{with clang}
@@ -172,10 +184,6 @@ URL: https://sourceware.org/binutils
 %else
 %global toolchain gcc
 %endif
-
-# (Do not) create cross targeted versions of the binutils.
-%bcond_with crossbuilds
-# %%bcond_without crossbuilds
 
 %if %{with bootstrap}
 %undefine with_docs
@@ -1365,8 +1373,8 @@ exit 0
 %{_bindir}/[!l]*
 # %%verify(symlink) does not work for some reason, so using "owner" instead.
 %verify(owner) %{_bindir}/ld
-# %%verify(mtime) does not work, probably because of the alternatives command in the %%post stage, so using "owner" instead.  (#2277349)
-%verify(owner) %{_bindir}/ld.bfd
+# %%verify(mtime) does not work, probably because of the alternatives command in the %%post stage, so using "not mtime" instead.  (#2277349)(RHEL-238406)
+%verify(not mtime) %{_bindir}/ld.bfd
 
 %if %{with gprofng}
 %exclude %{_bindir}/gp-*
@@ -1492,6 +1500,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Aug 13 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-3
+- Switch from using %%bcond_with and %%bcond_without to just %%bcond <0|1>
+
+* Thu Aug 13 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-2
+- Re-enable the gold linker - for now - for Rawhide.
+
 * Wed Aug 12 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-1
 - Rebase to commit 4e8ba93fdb2.
 - Disable the gold linker for Rawhide as well.

@@ -9,6 +9,9 @@ License:        MIT
 URL:            https://oprypin.github.io/markdown-callouts
 Source:         %{pypi_source markdown_callouts}
 
+# https://github.com/oprypin/markdown-callouts/pull/24
+Patch:          0001-Fix-compatibility-with-Markdown-3.10.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

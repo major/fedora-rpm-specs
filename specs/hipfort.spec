@@ -29,12 +29,10 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
-%global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global pkg_module default
 %endif
 
 %bcond_with debug
@@ -60,7 +58,9 @@ Summary:        Fortran interfaces for ROCm libraries
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+# Build shared library instead of static, and set version/linking properties
 Patch0:         0001-Handle-cmake-DBUILD_SHARED_LIBS-ON.patch
+# Generalize hipfc script for other Linux distros with fallback paths
 Patch1:         0001-Generalize-hipfc-to-other-linux-distros.patch
 # https://github.com/ROCm/hipfort/issues/261
 Patch2:         0001-hipfort-remove-build-type-check.patch

@@ -86,9 +86,9 @@ done
 install -m 0755 -vd                     %{buildroot}%{_libexecdir}/cni
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}/%{_libexecdir}/cni/
 
-install -dp %{buildroot}%{_unitdir}
-install -p plugins/ipam/dhcp/systemd/cni-dhcp.service %{buildroot}%{_unitdir}
-install -p plugins/ipam/dhcp/systemd/cni-dhcp.socket  %{buildroot}%{_unitdir}
+install -d -m 0755 %{buildroot}%{_unitdir}
+install -p -m 0644 plugins/ipam/dhcp/systemd/cni-dhcp.service %{buildroot}%{_unitdir}
+install -p -m 0644 plugins/ipam/dhcp/systemd/cni-dhcp.socket  %{buildroot}%{_unitdir}
 
 %check
 %go_vendor_license_check -c %{S:2}
