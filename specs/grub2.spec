@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	76%{?dist}
+Release:	77%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -325,10 +325,10 @@ install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE14}
 install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE3}
 install -d -m 0755 %{buildroot}%{_sysconfdir}/kernel/install.d/
 # Install systemd user service to set the boot_success flag
-install -D -m 0755 -t %{buildroot}%{_userunitdir} \
+install -D -m 0644 -t %{buildroot}%{_userunitdir} \
 	docs/grub-boot-success.{timer,service}
 # Install systemd system-update unit to set boot_indeterminate for offline-upd
-install -D -m 0755 -t %{buildroot}%{_unitdir} docs/grub-boot-indeterminate.service
+install -D -m 0644 -t %{buildroot}%{_unitdir} docs/grub-boot-indeterminate.service
 install -d -m 0755 %{buildroot}%{_unitdir}/system-update.target.wants
 install -d -m 0755 %{buildroot}%{_unitdir}/reboot.target.wants
 ln -s ../grub-boot-indeterminate.service \
@@ -576,11 +576,11 @@ fi
 %attr(0644,root,root) %ghost %config(noreplace) %{_sysconfdir}/default/grub
 %config %{_sysconfdir}/grub.d/??_*
 %{_sysconfdir}/grub.d/README
-%{_userunitdir}/grub-boot-success.timer
-%{_userunitdir}/grub-boot-success.service
-%{_unitdir}/grub-boot-indeterminate.service
+%attr(0644,root,root) %{_userunitdir}/grub-boot-success.timer
+%attr(0644,root,root) %{_userunitdir}/grub-boot-success.service
+%attr(0644,root,root) %{_unitdir}/grub-boot-indeterminate.service
 %{_unitdir}/system-update.target.wants
-%{_unitdir}/grub2-systemd-integration.service
+%attr(0644,root,root) %{_unitdir}/grub2-systemd-integration.service
 %{_unitdir}/reboot.target.wants
 %{_unitdir}/systemd-logind.service.d
 %{_infodir}/grub2*
@@ -702,6 +702,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 13 2026 Josue Hernandez <josherna@redhat.com> - 2.12-77
+- Fix systemd timer,service permissions - Resolves: #2512037
+
 * Thu Aug 13 2026 Andrea Bolognani <abologna@redhat.com> - 2.12-76
 - Only build CC variant for aarch64 and x86_64
 

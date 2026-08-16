@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           koko
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3 and LGPLv2 and LGPLv2+ and CC0 and BSD - review is highly recommended.
 License:        GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND CC0-1.0 AND LicenseRef-Callaway-BSD
@@ -13,6 +13,11 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 Source1:        https://download.geonames.org/export/dump/cities1000.zip
 Source2:        https://download.geonames.org/export/dump/admin1CodesASCII.txt
 Source3:        https://download.geonames.org/export/dump/admin2Codes.txt
+
+# Upstream patches
+# Don't use APIs not available for 26.08
+# https://invent.kde.org/graphics/koko/-/merge_requests/347
+Patch0:        347.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -65,7 +70,7 @@ Obsoletes:     %{name}-devel < 24.01.80
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 # Copying these to src dir as per https://invent.kde.org/graphics/koko/-/blob/master/README.md Packaging section.
 cp %{_topdir}/SOURCES/cities1000.zip src/
 cp %{_topdir}/SOURCES/admin1CodesASCII.txt src/
@@ -93,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

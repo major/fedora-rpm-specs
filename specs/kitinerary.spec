@@ -1,6 +1,6 @@
 Name:    kitinerary
-Version: 26.07.90
-Release: 2%{?dist}
+Version: 26.08.0
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -103,6 +103,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Tue Aug 04 2026 Maxwell G <maxwell@gtmx.me> - 26.07.90-2
 - Rebuild for libpoppler
 

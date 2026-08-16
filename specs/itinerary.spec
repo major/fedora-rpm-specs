@@ -1,5 +1,5 @@
 Name:           itinerary
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 Summary:        Itinerary and boarding pass management application
 
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/qlogging-categories6/org_kde_itinerary.categories
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

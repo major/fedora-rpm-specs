@@ -24,14 +24,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -52,7 +50,7 @@
 %global hipsparselt_name hipsparselt
 %endif
 
-# The tensilelite that hipSPARELt use comes from hipBLASLt
+# The tensilelite that hipSPARSELt uses comes from hipBLASLt
 # But not the matching release tag, a custom commit that is
 # stored in the toplevel tensilelite_tag.txt file
 #
@@ -127,7 +125,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -145,22 +143,13 @@ Source10:       %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanob
 %global robinmap_giturl https://github.com/Tessil/robin-map
 Source11:       %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
 
-%if %{with preview}
 Source3:        %{url}/releases/download/%{pkg_src}/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
 Source4:        %{url}/releases/download/%{pkg_src}/origami.tar.gz#/origami-%{version}.tar.gz
-%endif
 
-%if %{with preview}
+# Remove yappi Python profiling dependency from tensilelit
 Patch1:         0001-hipblaslt-preview-tensilelit-remove-yappi-dependency.patch
+# Use local nanobind tarball instead of Git fetch for tensilelite rocisa build
 Patch4:         0001-hipblaslt-preview-tensilelit-use-nanobind-tarball.patch
-%else
-# This are patches from the hiblaslt package for patching tensile
-Patch1:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
-Patch2:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
-Patch4:        0001-hipblaslt-find-origami-package.patch
-# do not try to fetch, point to the nanobind tarball
-Patch5:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
-%endif
 
 %if %{with ninja}
 BuildRequires:  ninja-build
@@ -267,7 +256,6 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%if %{with preview}
 # Make a sparse rocm-libraries
 mkdir shared projects
 cd shared
@@ -304,94 +292,16 @@ tar xf %{SOURCE10}
 mv nanobind-* nanobind
 cd nanobind
 tar xf %{SOURCE11}
-cp -r robin-map-*/* ext/robin_map/
+cp -rp robin-map-*/* ext/robin_map/
 cd ..
 tar czf nanobind.tar.gz nanobind
 cd ../..
 %patch 1 -p1
 %patch 4 -p1
-%else
-
-%setup -q -n %{upstreamname}
-
-tar xf %{SOURCE1}
-cd hipblaslt
-%autopatch -p3
-
-# Use PATH to find where TensileGetPath and other tensile bins are
-sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
-
-# Make sure hip/hip_runtime.h is found
-sed -i -e 's@-x hip @-I%{pkg_prefix}/include -x hip @' device-library/matrix-transform/CMakeLists.txt
-sed -i -e 's@"-D__HIP_HCC_COMPAT_MODE__=1"@"-D__HIP_HCC_COMPAT_MODE__=1","-I%{pkg_prefix}/include"@' tensilelite/Tensile/Toolchain/Component.py
-
-%if %{with nanobind}
-# Disable download of nanobind
-sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
-%else
-# Use bundled nanobind
-tar xf %{SOURCE10}
-mv nanobind-* nanobind
-cd nanobind
-tar xf %{SOURCE11}
-cp -r robin-map-*/* ext/robin_map/
-cd ..
-tar czf nanobind.tar.gz nanobind
-%endif
-
-cd ..
-
-# Prevent the virtualenv install from cmake
-sed -i -e 's@virtualenv_install@#virtualenv_install@' CMakeLists.txt
-
-# Unforce the setting of libdir
-# https://github.com/ROCm/hipSPARSELt/issues/256
-sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
-
-# change looking for cblas to flexiblas
-sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
-sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
-
-%if %{without preview}
-# We are building from a tarball, not a git repo
-sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipblaslt/cmake/dependencies.cmake
-%endif
-%endif
 
 %build
-%if %{with preview}
 cd projects/hipsparselt
 HIPBLASLT_PATH=${PWD}/../hipblaslt
-%else
-
-HIPBLASLT_PATH=$PWD/hipblaslt
-cd hipblaslt
-# disable openmp
-sed -i -e 's@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." ON)@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." OFF)@' CMakeLists.txt
-
-# Do a manual install instead of cmake's virtualenv
-cd tensilelite
-TL=$PWD
-
-python3 setup.py install --root $TL
-cd ../..
-
-# Should not have to do this
-export PATH=%{pkg_prefix}/bin:%{rocmllvm_bindir}:$PATH
-CLANG_PATH=`hipconfig --hipclangpath`
-ROCM_CLANG=${CLANG_PATH}/clang
-RESOURCE_DIR=`${ROCM_CLANG} -print-resource-dir`
-export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
-export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
-export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
-
-# Look for the just built tensilelite
-export PATH=${TL}/%{_bindir}:$PATH
-export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
-export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
-# Uncomment and see if the path is sane
-# TensileGetPath
-%endif
 
 %cmake %{cmake_generator} \
        -DGPU_TARGETS=%{gpu_list} \
@@ -422,17 +332,13 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DVIRTUALENV_SITE_PATH=${TL}%{python3_sitelib} \
        %{nil}
 
-%if %{with preview}
 # To find the just built stinkytofu
 export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/hipblaslt/tensilelite/rocisa/stinkytofu:$LD_LIBRARY_PATH
-%endif
 
 %cmake_build
 
 %install
-%if %{with preview}
 cd projects/hipsparselt
-%endif
 
 %cmake_install
 
@@ -461,24 +367,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
 chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
 %endif
 
-%if %{with test}
-%if %{without preview}
-# hipsparselt-test's rpath is pretty messed up
-# chrpath -l /usr/bin/hipsparselt-test
-# /usr/bin/hipsparselt-test: RUNPATH=$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt-clients/lib:/usr/llvm/lib
-# So adjust it here
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
-%endif
-%endif
-
 %files
-%if %{with preview}
 %doc projects/hipsparselt/README.md
 %license projects/hipsparselt/LICENSE.md
-%else
-%doc README.md
-%license LICENSE.md
-%endif
 %{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.0{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipsparselt/
 
@@ -489,13 +380,13 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 
 %if %{with test}
 %files test
-%if %{without preview}
 # TODO: no tests for preview ?
-%{pkg_prefix}/bin/hipsparselt*
-%endif
 %endif
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -513,7 +404,7 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 - Cleanup specfile
 
 * Wed Feb 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
-- Updat to 7.2.0
+- Update to 7.2.0
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

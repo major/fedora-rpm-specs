@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	18
+%define		baserelease	19
 
 %define set_javaver() \
 %if 	0%{?fedora}%{?rhel} == %1 \
@@ -26,10 +26,10 @@ BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	mecab-devel = %{version}
 # java related macros
+%set_javaver	46	25
 %set_javaver	45	25
 %set_javaver	44	25
 %set_javaver	43	21
-%set_javaver	42	21
 
 BuildRequires:	javapackages-tools
 # %%check
@@ -84,6 +84,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Fri Aug 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-19
+- Rebuild for Fedora 46
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

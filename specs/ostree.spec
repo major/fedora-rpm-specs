@@ -7,7 +7,7 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2026.2
+Version: 2026.3
 Release: %autorelease
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
@@ -18,12 +18,6 @@ URL: https://ostreedev.github.io/ostree/
 %if 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
 %endif
-
-# Backport https://github.com/ostreedev/ostree/pull/3614
-Patch0: 0001-lib-commit-Report-whether-committed-object-already-existed.patch
-Patch1: 0002-lib-commit-Fix-min-free-space-accounting-for-duplicate-content-objects.patch
-# Backport https://github.com/ostreedev/ostree/pull/3615
-Patch2: 0003-lib-commit-Fix-min-free-space-accounting-for-reflinked-content-objects.patch
 
 BuildRequires: make
 BuildRequires: git

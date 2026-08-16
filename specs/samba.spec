@@ -67,15 +67,18 @@
 
 %ifarch aarch64 ppc64le s390x x86_64 riscv64 loongarch64
 %bcond vfs_cephfs 1
+%bcond vfs_ceph_rgw 1
 %bcond ceph_mutex 1
 %else
 %bcond vfs_cephfs 0
+%bcond vfs_ceph_rgw 0
 %bcond ceph_mutex 0
 #endifarch
 %endif
 
 %else
 %bcond vfs_cephfs 0
+%bcond vfs_ceph_rgw 0
 %bcond ceph_mutex 0
 #endif fedora
 %endif
@@ -137,7 +140,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.24.5
+%global samba_version 4.25.0
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -152,7 +155,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release %nil
+%global pre_release rc1
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -182,9 +185,9 @@
 %global libsmbclient_so_version 0
 %global libwbclient_so_version 0
 
-%global talloc_version 2.4.4
+%global talloc_version 2.5.0
 %global tdb_version 1.4.15
-%global tevent_version 0.17.1
+%global tevent_version 0.17.2
 
 %global required_mit_krb5 1.20.1
 
@@ -363,6 +366,10 @@ BuildRequires: glusterfs-devel >= 3.4.0.16
 
 %if %{with vfs_cephfs}
 BuildRequires: libcephfs-devel
+%endif
+
+%if %{with vfs_ceph_rgw}
+BuildRequires: librgw-devel
 %endif
 
 %if %{with vfs_io_uring}
@@ -744,6 +751,22 @@ Provides: bundled(libreplace) = %{samba_depver}
 %description vfs-cephfs
 Samba VFS module for Ceph distributed storage system integration.
 #endif with vfs_cephfs
+%endif
+
+%if %{with vfs_ceph_rgw}
+%package vfs-ceph-rgw
+Summary: Samba VFS module for exporting Ceph-RGW buckets
+Requires: %{name} = %{samba_depver}
+Requires: %{name}-client-libs = %{samba_depver}
+Requires: %{name}-libs = %{samba_depver}
+Requires: libldb = %{samba_depver}
+Requires: libwbclient = %{samba_depver}
+
+Provides: bundled(libreplace) = %{samba_depver}
+
+%description vfs-ceph-rgw
+Samba VFS module for exporting Ceph-RGW buckets.
+#endif with vfs_ceph_rgw
 %endif
 
 ### IOURING
@@ -1468,9 +1491,13 @@ export PYTHONARCHDIR=%{python3_sitearch}
 %if %{with varlink}
         --with-systemd-userdb \
 %endif
+%if %{with vfs_ceph_rgw}
+        --enable-cephrgw \
+%endif
         --with-profiling-data \
         --with-systemd \
         --with-quotas \
+        --with-ratelimitd \
         --systemd-install-services \
         --with-systemddir=/usr/lib/systemd/system \
         --systemd-smb-extra=%{_systemd_extra} \
@@ -1594,6 +1621,10 @@ rm -f %{buildroot}%{_mandir}/man8/vfs_glusterfs.8*
 %if %{without vfs_cephfs}
 rm -f %{buildroot}%{_mandir}/man8/vfs_ceph.8*
 rm -f %{buildroot}%{_mandir}/man8/vfs_ceph_snapshots.8*
+%endif
+
+%if %{without vfs_ceph_rgw}
+rm -f %{buildroot}%{_mandir}/man8/vfs_ceph_rgw.8*
 %endif
 
 # This makes the right links, as rpmlint requires that
@@ -2541,6 +2572,13 @@ fi
 %{_mandir}/man8/vfs_ceph_snapshots.8*
 %endif
 
+### VFS-CEPH-RGW
+%if %{with vfs_ceph_rgw}
+%files vfs-ceph-rgw
+%{_libdir}/samba/vfs/ceph_rgw.so
+%{_mandir}/man8/vfs_ceph_rgw.8*
+%endif
+
 ### VFS-IOURING
 %if %{with vfs_io_uring}
 %files vfs-iouring
@@ -2760,10 +2798,12 @@ fi
 %{python3_sitearch}/samba/dcerpc/drsuapi.*.so
 %{python3_sitearch}/samba/dcerpc/echo.*.so
 %{python3_sitearch}/samba/dcerpc/epmapper.*.so
+%{python3_sitearch}/samba/dcerpc/file_id.*.so
 %{python3_sitearch}/samba/dcerpc/gkdi.*.so
 %{python3_sitearch}/samba/dcerpc/gmsa.*.so
 %{python3_sitearch}/samba/dcerpc/idmap.*.so
 %{python3_sitearch}/samba/dcerpc/initshutdown.*.so
+%{python3_sitearch}/samba/dcerpc/ioctl.*.so
 %{python3_sitearch}/samba/dcerpc/irpc.*.so
 %{python3_sitearch}/samba/dcerpc/keycredlink.*.so
 %{python3_sitearch}/samba/dcerpc/krb5ccache.*.so
@@ -3363,8 +3403,10 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/net_join_no_spnego.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/net_join.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/netlogonsvc.*.pyc
-%{python3_sitearch}/samba/tests/__pycache__/ntacls.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/nps_echo_test.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/ntacl_resource_attr_ace.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ntacls_backup.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/ntacls.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ntlmdisabled.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ntlm_auth.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ntlm_auth_base.*.pyc
@@ -3726,12 +3768,14 @@ fi
 %{python3_sitearch}/samba/tests/net_join_no_spnego.py
 %{python3_sitearch}/samba/tests/net_join.py
 %{python3_sitearch}/samba/tests/netlogonsvc.py
+%{python3_sitearch}/samba/tests/nps_echo_test.py
 %dir %{python3_sitearch}/samba/tests/nss
 %dir %{python3_sitearch}/samba/tests/nss/__pycache__
 %{python3_sitearch}/samba/tests/nss/__pycache__/base.*.pyc
 %{python3_sitearch}/samba/tests/nss/__pycache__/group.*.pyc
 %{python3_sitearch}/samba/tests/nss/base.py
 %{python3_sitearch}/samba/tests/nss/group.py
+%{python3_sitearch}/samba/tests/ntacl_resource_attr_ace.py
 %{python3_sitearch}/samba/tests/ntacls.py
 %{python3_sitearch}/samba/tests/ntacls_backup.py
 %{python3_sitearch}/samba/tests/ntlmdisabled.py
@@ -4077,6 +4121,7 @@ fi
 %{_datadir}/ctdb/events/legacy/11.natgw.script
 %{_datadir}/ctdb/events/legacy/11.routing.script
 %{_datadir}/ctdb/events/legacy/13.per_ip_routing.script
+%{_datadir}/ctdb/events/legacy/15.network.script
 %{_datadir}/ctdb/events/legacy/20.multipathd.script
 %{_datadir}/ctdb/events/legacy/31.clamd.script
 %{_datadir}/ctdb/events/legacy/40.vsftpd.script

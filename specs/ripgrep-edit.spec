@@ -4,7 +4,7 @@
 %global cargo_install_lib 0
 
 Name:           ripgrep-edit
-Version:        0.3.15
+Version:        0.3.17
 Release:        %autorelease
 Summary:        Edit ripgrep search results across multiple files
 
@@ -40,12 +40,12 @@ Use Emacs to edit ripgrep search results across multiple files.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -t -n -f textdistance
+%cargo_generate_buildrequires -t
 
 %build
-%cargo_build -n -f textdistance
-%{cargo_license_summary -n -f textdistance}
-%{cargo_license -n -f textdistance} > LICENSE.dependencies
+%cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 install -Dpm 0755 target/rpm/rg-edit -t %{buildroot}%{_bindir}
@@ -54,7 +54,7 @@ install -m0644 -D -t %{buildroot}%{_mandir}/man1/ target/rpm/build/%{name}-*/man
 
 %if %{with check}
 %check
-%cargo_test -n -f textdistance
+%cargo_test
 %endif
 
 %files

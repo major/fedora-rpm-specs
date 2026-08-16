@@ -24,14 +24,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 1
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -117,7 +115,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -132,12 +130,11 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 #   src/md5.cpp
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%if %{with preview}
+
 # New source needed for testing
 # Request a real ctest project here
 # https://github.com/ROCm/rocm-libraries/issues/6500
 Source1:        %{url}/releases/download/%{pkg_src}/ctest.tar.gz#/ctest-%{version}.tar.gz
-%endif
 
 # So we do not thrash memory
 Patch1:         0001-miopen-add-link-and-compile-pools.patch
@@ -200,10 +197,8 @@ BuildRequires:  ninja
 %endif
 %endif
 
-%if %{with preview}
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
-%endif
 
 Provides:       miopen%{pkg_suffix} = %{version}-%{release}
 
@@ -250,7 +245,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{upstreamname}
-%if %{with preview}
 tar xf %{SOURCE1}
 sed -i -e 's@include(${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@include(${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
 
@@ -260,7 +254,6 @@ sed -i -e '/implicitgemm_ck_util/d' src/include/miopen/conv/heuristics/ai_conv_n
 
 # No Werror, that is too strict
 sed -i '/Werror/d' cmake/EnableCompilerWarnings.cmake
-%endif
 
 # Readme has executable bit
 chmod 644 README.md
@@ -313,7 +306,7 @@ COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
 if [ ${COMPILE_JOBS}x = x ]; then
     COMPILE_JOBS=1
 fi
-# Take into account memmory usage per core, do not thrash real memory
+# Take into account memory usage per core, do not thrash real memory
 BUILD_MEM=4
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
@@ -404,13 +397,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 
 %if %{with test}
 %files test
-%if %{without preview}
-# TODO: Something wrong here
-%{pkg_prefix}/bin/test*
-%endif
 %endif
 
 %changelog
+* Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global wxincdir %{_includedir}/wx-%{wxversion}
 
 Name:           wxsqlite3
-Version:        4.12.7
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
@@ -61,7 +61,7 @@ that use %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 # activate correct build folder
 #mv build30 build
@@ -83,6 +83,12 @@ chmod a-x include/wx/wxsqlite3.h src/wxsqlite3.cpp
 chmod -x LICENCE.txt readme.md
 
 %build
+%set_build_flags
+
+# disable GCC LTO froür wxSQLite3
+export CFLAGS="%{build_cflags} -fno-lto"
+export CXXFLAGS="%{build_cxxflags} -fno-lto"
+
 #autoreconf --install --force
 autoreconf
 %configure --enable-shared=yes --enable-static=no --enable-codec=chacha20 \
@@ -107,13 +113,7 @@ mv %{buildroot}%{_includedir}/wx %{buildroot}%{wxincdir}
 
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
-# install pkgconfig file
-### mkdir -p %{buildroot}%{_libdir}/pkgconfig
-###mv %{name}.pc %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
-
-
 %ldconfig_scriptlets
-
 
 %files
 %doc readme.md
@@ -128,8 +128,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %files doc
 %doc docs/html
 
-
 %changelog
+* Fri Aug 14 2026 Martin Gansser <martinkg@fedoraproject.org> 5.0.1-1
+- Update to 5.0.1
+
 * Thu Aug 06 2026 Martin Gansser <martinkg@fedoraproject.org> 4.12.7-1
 - Update to 4.12.7
 

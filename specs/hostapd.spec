@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           hostapd
-Version:        2.11
-Release:        7%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -13,16 +13,6 @@ Source2:        %{name}.conf
 Source3:        %{name}.conf.5
 Source4:        %{name}.sysconfig
 Source5:        %{name}.init
-
-# use pkcs11-provider instead of OpenSSL engine
-Patch1: OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
-# OpenSSL 4.0 compatibility patches
-# https://git.w1.fi/cgit/hostap/commit/?id=141abf49a432c9a0f4f38c47a477ab258ec9e239
-Patch2: OpenSSL-Use-ASN1_STRING_length-get0_data-more-consis.patch
-# https://git.w1.fi/cgit/hostap/commit/?id=ec00192a5a56cadbb250816b2ed1552f6a4fdabe
-Patch3: OpenSSL-Set-X509_REQ-subject-name-using-proper-API-c.patch
-# https://git.w1.fi/cgit/hostap/commit/?id=907c5a99ad126bbef72b4a5d67e363decbd3d1ac
-Patch4: OpenSSL-Mark-more-ASN1-X509-values-const.patch
 
 BuildRequires:  libnl3-devel
 BuildRequires:  openssl-devel
@@ -204,6 +194,9 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Thu Aug 13 2026 Davide Caratti <dcaratti@redhat.com> - 2.12-1
+- Update to version 2.12 (#2512509)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -224,7 +217,7 @@ fi
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Mon Jul 29 2024 Davide Caratti <dcaratti@redhat.com> - 1:2.11-1
+* Mon Jul 29 2024 Davide Caratti <dcaratti@redhat.com> - 2.11-1
 - Update to version 2.11 (#2299039)
 - Disable OpenSSL ENGINE API
 

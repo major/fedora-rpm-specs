@@ -1,5 +1,6 @@
-%if %{defined rhel} || %{defined flatpak}
+%if %{defined rhel} || %{defined flatpak} || 0%{?fedora} >= 45
 # CentOS/RHEL missing mysql-connector-python3
+# Fedora 45 has a broken mysql-connector-python3 (rhbz#2504358)
 %bcond mysql_tests 0
 %else
 %ifarch %{ix86}
@@ -14,7 +15,7 @@
 %bcond postgres_tests 1
 
 Name:           python-peewee
-Version:        4.0.4
+Version:        4.3.0
 Release:        %autorelease
 Summary:        A little orm
 
@@ -97,7 +98,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files -l peewee playhouse pwiz
+%pyproject_save_files -l peewee playhouse pwiz peewee-stubs
 
 
 %check

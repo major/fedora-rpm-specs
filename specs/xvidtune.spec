@@ -1,28 +1,32 @@
-Name:       xvidtune
-Version:    1.0.4
-Release:    %autorelease
-Summary:    Video mode tuner for Xorg
-License:    X11-distribute-modifications-variant
-URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+%global forgeurl https://gitlab.freedesktop.org/xorg/app/xvidtune
+Version:        1.0.4
+%global tag     %{name}-%{version}
+%forgemeta
+%global distprefix %{nil}
 
-BuildRequires:  automake libtool
-BuildRequires:  gcc make
+Name:           xvidtune
+Release:        %autorelease
+Summary:        Video mode tuner for Xorg
+License:        X11-distribute-modifications-variant
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+
+BuildRequires:  automake
+BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xaw7)
 BuildRequires:  pkgconfig(xmu)
-BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.8
-
-Obsoletes:  xorg-x11-apps < 7.7-31
+BuildRequires:  pkgconfig(xt)
+BuildRequires:  pkgconfig(xxf86vm)
 
 %description
 xvidtune is a client interface to the X server video mode extension
 (XFree86-VidModeExtension).
 
 %prep
-%autosetup
+%forgeautosetup
 
 %build
 autoreconf -v --install
@@ -31,6 +35,9 @@ autoreconf -v --install
 
 %install
 %make_install
+
+%check
+# No upstream tests exist
 
 %files
 %license COPYING

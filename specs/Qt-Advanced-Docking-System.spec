@@ -1,7 +1,7 @@
 Name:           Qt-Advanced-Docking-System
 Summary:        Advanced Docking System for Qt
-Version:        4.4.1
-Release:        7%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND BSL-1.0 AND Apache-2.0
 URL:            https://github.com/githubuser0xFFFF/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -44,6 +44,7 @@ rm -rfv %{buildroot}%{_datadir}/ads/license
 %license LICENSE gnu-lgpl-v2.1.md
 %doc README.md
 %{_libdir}/libqtadvanceddocking-qt6.so.%{version}
+%{_libdir}/libqtadvanceddocking-qt6.so.5
 
 %files devel
 %{_includedir}/qtadvanceddocking-qt6/
@@ -51,6 +52,9 @@ rm -rfv %{buildroot}%{_datadir}/ads/license
 %{_libdir}/libqtadvanceddocking-qt6.so
 
 %changelog
+* Sat Aug 15 2026 Steve Cossette <farchord@gmail.com> - 5.0.0-1
+- 5.0.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-exabgp
-Version:        5.0.9
-Release:        3%{?dist}
+Version:        5.0.10
+Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -10,7 +10,6 @@ Source1:        exabgp.sysusers.exabgp.conf
 Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
-Patch0100:      0100-Adjust-python-versions.patch
 
 BuildArch:      noarch
 
@@ -122,6 +121,10 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Fri Aug 14 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.10-1
+- Update to version 5.0.10 release (resolves rhbz#2516129)
+  Remove python version patch (resolved upstream)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

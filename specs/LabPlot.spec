@@ -85,6 +85,7 @@ BuildRequires:  libzstd-devel
 BuildRequires:  zlib-devel
 BuildRequires:  lz4-devel
 BuildRequires:  readstat-devel
+BuildRequires:  cmake(cerf)
 
 BuildRequires:  liborigin-devel
 BuildRequires:  QXlsx-devel

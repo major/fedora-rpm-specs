@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    ksystemlog
 Summary: System Log Viewer for KDE
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -85,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ks
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

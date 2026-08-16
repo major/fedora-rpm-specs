@@ -8,13 +8,10 @@
 %global ceph 0
 %endif
 
-# Needed for EPEL 8
-%undefine __cmake_in_source_build
-
 Name:		xrootd
 Epoch:		1
-Version:	6.1.0
-Release:	3%{?dist}
+Version:	6.1.1
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -23,6 +20,10 @@ Source1:	%{name}-sysusers.conf
 
 #		Unbundle tinyxml library
 Patch0:		0001-Unbundle-tinyxml.patch
+#		Unbundle googletest/googlemock
+Patch1:		0001-Unbundle-gtest.patch
+#		Make documentation self-contained
+Patch2:		0001-Make-documentation-self-contained.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -37,6 +38,10 @@ BuildRequires:	libzip-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	openssl-devel
 BuildRequires:	perl-generators
+%if %{?fedora}%{!?fedora:0}
+# picojson not in RHEL/EPEL
+BuildRequires:	picojson-devel
+%endif
 BuildRequires:	readline-devel
 BuildRequires:	zlib-devel
 BuildRequires:	selinux-policy-devel
@@ -68,6 +73,7 @@ BuildRequires:	python3-sphinx
 BuildRequires:	attr
 BuildRequires:	curl
 BuildRequires:	gtest-devel
+BuildRequires:	gmock-devel
 BuildRequires:	jq
 BuildRequires:	krb5-server
 BuildRequires:	krb5-workstation
@@ -262,6 +268,17 @@ This package contains the API documentation of the xrootd libraries.
 %setup -q
 
 %patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+
+# Delete bundled dependencies
+rm src/XrdXml/tinyxml/tiny*
+rm -r vendor/bats
+rm -r vendor/googletest
+%if %{?fedora}%{!?fedora:0}
+# picojson not in RHEL/EPEL
+rm -r vendor/picojson
+%endif
 
 %build
 %cmake \
@@ -285,9 +302,6 @@ This package contains the API documentation of the xrootd libraries.
 make -C config -f /usr/share/selinux/devel/Makefile
 
 doxygen Doxyfile
-# Use local image instead of remote
-sed 's!src=".*/xrootd-logo.png"!src="xrootd-logo.png"!' \
-    -i doxydoc/html/index.html
 cp -p docs/images/xrootd-logo.png doxydoc/html
 
 %install
@@ -394,14 +408,18 @@ for x in authenticated_cluster badredir cluster TPCTests xcachewithcsi ; do
 done
 
 # The badredir test fails when there is no network - exclude
+# The posix test is broken for 32 bit archs ...
+# https://github.com/xrootd/xrootd/issues/2559
 
 touch testfile
 if ( setfattr -n user.testattr -v testvalue testfile ) ; then
+    %ctest -- -E \
+XRootD::badredir\|\
 %ifarch %{ix86} %{arm}
-    %ctest -- -E 'XRootD::badredir|XRootD::posix'
-%else
-    %ctest -- -E 'XRootD::badredir'
+XRootD::posix\|\
 %endif
+XrdCl::FileSystemTest.PlugInTest\|\
+XrdCl::FileTest.PlugInTest
 else
     echo "Extended file attributes not supported by file system"
     echo "*** NOT RUNNING TESTS ***"
@@ -525,6 +543,7 @@ fi
 %{_libdir}/libXrdUtils.so
 %{_libdir}/libXrdXml.so
 %{_libdir}/cmake/XRootD
+%{_mandir}/man1/xrootd-config.1*
 
 %files client-libs
 %{_libdir}/libXrdCl.so.*
@@ -657,6 +676,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Aug 12 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.1.1-1
+- Update to version 6.1.1
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:6.1.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

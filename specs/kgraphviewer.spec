@@ -1,6 +1,6 @@
 Name:           kgraphviewer
 Summary:        Graphviz dot graph file viewer
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 # Bit of a mess. README states it's GPLv2+, however the source files
 # indicate it's GPLv2. FDL is included in COPYING.DOC, but does not
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

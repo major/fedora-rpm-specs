@@ -6,7 +6,7 @@
 %endif
 
 Name:    kaccounts-integration
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
@@ -184,6 +184,9 @@ popd
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

@@ -15,6 +15,8 @@ Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
 Source1: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz.asc
 Source2: http://keys.gnupg.net/pks/lookup?op=get&search=0xE5F8F8212F77A498#/willem.nlnetlabs.nl
+# https://github.com/getdnsapi/getdns/pull/551
+Patch: 0001-fix-for-openssl4-compat.patch
 BuildRequires:  gcc
 BuildRequires: libidn2-devel unbound-devel doxygen libevent-devel
 BuildRequires: pkgconfig openssl-devel libyaml-devel

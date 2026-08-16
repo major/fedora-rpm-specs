@@ -1,5 +1,5 @@
 Name:           archlinux-keyring
-Version:        20260612
+Version:        20260727
 Release:        %autorelease
 Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz
@@ -50,7 +50,7 @@ make wkd_sync_service SCRIPT_TARGET_DIR=%{_bindir}
 
 %install
 install -Dt %{buildroot}%{_bindir}/ wkd_sync/archlinux-keyring-wkd-sync
-install -Dt %{buildroot}%{_unitdir}/ \
+install -m0644 -Dt %{buildroot}%{_unitdir}/ \
   wkd_sync/archlinux-keyring-wkd-sync.timer \
   build/archlinux-keyring-wkd-sync.service
 

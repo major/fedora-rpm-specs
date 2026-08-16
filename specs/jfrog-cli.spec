@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.119.0
+Version:                2.120.0
 
 %gometa -L -f
 
@@ -38,6 +38,7 @@ rm -v \
   access_test.go \
   agent_skills_test.go \
   agent_plugins_test.go \
+  apk_test.go \
   apt_test.go \
   artifactorybulkrepository_test.go \
   artifactory_test.go \

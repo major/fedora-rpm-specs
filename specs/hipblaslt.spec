@@ -24,14 +24,12 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.14
-%global rocm_patch 0
-%global pkg_src therock-%{rocm_release}
 %else
-%global rocm_release 7.2
-%global rocm_patch 0
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 7.14
 %endif
 
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -128,7 +126,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        7%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 %if %{without nanobind}
@@ -147,30 +145,21 @@ Source1:        %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanob
 %global robinmap_giturl https://github.com/Tessil/robin-map
 Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
 
-%if %{with preview}
 Source3:        %{url}/releases/download/%{pkg_src}/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
 Source4:        %{url}/releases/download/%{pkg_src}/origami.tar.gz#/origami-%{version}.tar.gz
 Source5:        %{url}/releases/download/%{pkg_src}/mxdatagenerator.tar.gz#/mxdatagenerator-%{version}.tar.gz
+# Remove yappi profiling dependency from tensilelite
 Patch1:         0001-hipblaslt-preview-tensilelit-remove-yappi-dependency.patch
+# Use find_package for origami instead of subdirectory fallback
 Patch3:         0001-hipblaslt-preview-find-origami-package.patch
+# Use local nanobind tarball URL instead of git fetch for rocisa
 Patch4:         0001-hipblaslt-preview-tensilelit-use-nanobind-tarball.patch
+# Add separate compile and link job pools to CMakeLists.txt
 Patch5:         0001-hipblaslt-preview-cmake-jobpools.patch
+# Simplify stinkytofu CMake integration with find_package
 Patch6:         0001-hipblaslt-preview-stinktofu.patch
-%else
-# yappi was removed from fedora
-# yappi is used in tensilelite to generate profiling data, we are not using that in the build
-Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
-# https://github.com/ROCm/rocm-libraries/issues/2422
-Patch3:         0001-hipblaslt-find-origami-package.patch
-# do not try to fetch, point to the nanobind tarball
-Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
-# compile and link jobpools
-Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
-%endif
 
-%if %{with preview}
 BuildRequires:  amdsmi-devel
-%endif
 BuildRequires:  chrpath
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -220,13 +209,11 @@ BuildRequires:  python3dist(pyyaml)
 %if %{with nanobind}
 BuildRequires:  python3dist(nanobind)
 %endif
-%if %{with preview}
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(packaging)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(scikit-build-core)
 BuildRequires:  python3dist(wheel)
-%endif
 %global tensile_verbose 1
 BuildRequires:  python3dist(joblib)
 # https://github.com/ROCm/hipBLASLt/issues/1734
@@ -298,7 +285,6 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%if %{with preview}
 # Make a sparse rocm-libraries
 mkdir shared projects
 cd shared
@@ -315,7 +301,7 @@ sed -i -e '/#include <utility>.*/a#include <limits.h>' src/transforms/asm/Stinky
 # No clang-tidy
 sed -i -e 's@include(ClangTidy)@@' CMakeLists.txt
 sed -i -e 's@add_clang_tidy_custom_target()@@' CMakeLists.txt
-# No ../../cmake/modues/default_amdclang.cmake
+# No ../../cmake/modules/default_amdclang.cmake
 sed -i -e '/default_amdclang/d' CMakeLists.txt
 cd ..
 tar xf %{SOURCE4}
@@ -323,68 +309,25 @@ tar xf %{SOURCE5}
 cd ../projects
 tar xf %{SOURCE0}
 cd hipblaslt
-# tensile path to tools need to change
-sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/Tensile/Common/GlobalParameters.py
-sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/Tensile/Toolchain/Validators.py
-sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/Tensile/Toolchain/Validators.py
 
 # nanobind bundle
 tar xf %{SOURCE1}
 mv nanobind-* nanobind
 cd nanobind
 tar xf %{SOURCE2}
-cp -r robin-map-*/* ext/robin_map/
+cp -ar robin-map-*/* ext/robin_map/
 cd ..
 tar czf nanobind.tar.gz nanobind
 cd ../..
 %patch 1 -p1
 %patch 4 -p1
-%else
-%autosetup -p3 -n %{upstreamname}
 
-# Use PATH to find where TensileGetPath and other tensile bins are
-sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
-
-# defer to cmdline
-sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
-
-# Do not use virtualenv_install
-sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
-
-# Disable trying to download rocm-cmake
-sed -i -e 's@if(NOT ROCmCMakeBuildTools_FOUND)@if(FALSE)@' cmake/dependencies.cmake
-
-# compat has this issue
-# /usr/lib64/rocm/rocm-7.2/llvm/bin/amdclang++ -x hip .../device-library/matrix-transform/matrix_transform.cpp
-# In file included from /builddir/build/BUILD/hipblaslt7.2-7.2.0-build/hipblaslt/device-library/matrix-transform/matrix_transform.cpp:26:
-# /builddir/build/BUILD/hipblaslt7.2-7.2.0-build/hipblaslt/device-library/matrix-transform/matrix_transform.h:27:10: fatal error: 'hip/hip_bfloat16.h' file not found
-#   27 | #include <hip/hip_bfloat16.h>
-#      |          ^~~~~~~~~~~~~~~~~~~~
-#
-# Add include path to the custom build command
-sed -i -e 's@${CMAKE_CXX_COMPILER} -x hip @${CMAKE_CXX_COMPILER} -x hip -I%{pkg_prefix}/include @' device-library/matrix-transform/CMakeLists.txt
-# Similar on tensile command
-sed -i -e 's@"--offload-device-only",@"--offload-device-only", "-I%{pkg_prefix}/include",@' tensilelite/Tensile/Toolchain/Component.py
+cd projects/hipblaslt
 
 # tensile path to tools need to change
 sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/Tensile/Common/GlobalParameters.py
 sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/Tensile/Toolchain/Validators.py
 sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/Tensile/Toolchain/Validators.py
-
-
-%if %{with nanobind}
-# Disable download of nanobind
-sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
-%else
-# Use bundled nanobind
-tar xf %{SOURCE1}
-mv nanobind-* nanobind
-cd nanobind
-tar xf %{SOURCE2}
-cp -r robin-map-*/* ext/robin_map/
-cd ..
-tar czf nanobind.tar.gz nanobind
-%endif
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -415,89 +358,10 @@ sed -i -e '/#include <omp.h>/d'   clients/common/include/hipblaslt_init.hpp
 sed -i -e '/#include <omp.h>/d'   clients/common/src/cblas_interface.cpp
 
 # We are building from a tarball, not a git repo
-sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/dependencies.cmake
-
-%endif
+# sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/dependencies.cmake
 
 %build
-%if %{with preview}
 cd projects/hipblaslt
-%else
-# Do a manual install instead of cmake's virtualenv
-cd tensilelite
-TL=$PWD
-
-%if %{with preview}
-
-cd rocisa
-/usr/bin/python3 -m pip install -vvv --no-build-isolation --no-index --find-links /usr/lib/python%{python3_version}/site-packages --find-links /usr/lib64/python%{python3_version}/site-packages --target $TL .
-cd ..
-
-# so tensilelite picks up rocisa
-export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
-
-/usr/bin/python3 -m pip install -vvv --no-build-isolation --no-index --find-links /usr/lib/python%{python3_version}/site-packages --find-links /usr/lib64/python%{python3_version}/site-packages --target $TL .
-%else
-%python_exec setup.py install --root $TL
-%endif
-
-cd ..
-
-# Should not have to do this
-export PATH=%{pkg_prefix}/bin:$PATH
-CLANG_PATH=`hipconfig --hipclangpath`
-ROCM_CLANG=${CLANG_PATH}/clang
-RESOURCE_DIR=`${ROCM_CLANG} -print-resource-dir`
-export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
-export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
-export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
-
-# Look for the just built tensilelite
-export PATH=${TL}/%{_bindir}:$PATH
-%if 0%{?suse_version}
-%{python_expand} export PYTHONPATH=${TL}%{python_sitelib}:$PYTHONPATH
-%{python_expand} export Tensile_DIR=${TL}%{python_sitelib}/Tensile
-%else
-export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
-export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
-%endif
-# Uncomment and see if the path is sane
-# TensileGetPath
-
-cat /proc/cpuinfo
-cat /proc/meminfo
-lscpu
-
-# Real cores, No hyperthreading
-COMPILE_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
-if [ ${COMPILE_JOBS}x = x ]; then
-    COMPILE_JOBS=1
-fi
-# Try again..
-if [ ${COMPILE_JOBS} = 1 ]; then
-    COMPILE_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
-    if [ ${COMPILE_JOBS}x = x ]; then
-        COMPILE_JOBS=4
-    fi
-fi
-
-# Take into account memmory usage per core, do not thrash real memory
-BUILD_MEM=8
-MEM_KB=0
-MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
-MEM_MB=`eval "expr ${MEM_KB} / 1024"`
-MEM_GB=`eval "expr ${MEM_MB} / 1024"`
-COMPILE_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
-if [ "$COMPILE_JOBS_MEM" -lt "$COMPILE_JOBS" ]; then
-    COMPILE_JOBS=$COMPILE_JOBS_MEM
-fi
-LINK_MEM=32
-LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
-JOBS=${COMPILE_JOBS}
-if [ "$LINK_JOBS" -lt "$JOBS" ]; then
-    JOBS=$LINK_JOBS
-fi
-%endif
 
 %cmake %{cmake_generator} \
        -DGPU_TARGETS=%{gpu_list} \
@@ -530,27 +394,17 @@ fi
        -DHIPBLASLT_PARALLEL_LINK_JOBS=${LINK_JOBS} \
        %{nil}
 
-%if %{with preview}
 # To find the just built stinkytofu
 export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/tensilelite/rocisa/stinkytofu:$LD_LIBRARY_PATH
-%endif
 
 %cmake_build
 
 %install
-%if %{with preview}
 cd projects/hipblaslt
-%endif
 %cmake_install
 
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
-
-%if %{without preview}
-# hipblaslt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipblaslt/library/extop_gfx1201.co
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/Kernels.so-000-*.hsaco
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/extop_*.co
-%endif
 
 %if %{without compat}
 # hipblaslt.x86_64: E: binary-or-shlib-defines-rpath /usr/lib64/libhipblaslt.so.1.2 (RUNPATH: $ORIGIN/../lib:$ORIGIN/../llvm/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipblaslt/lib)
@@ -571,13 +425,8 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %files
-%if %{with preview}
 %doc projects/hipblaslt/README.md
 %license projects/hipblaslt/LICENSE.md
-%else
-%doc README.md
-%license LICENSE.md
-%endif
 %{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.1{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipblaslt/
 
@@ -592,12 +441,13 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %files test
 %{pkg_prefix}/bin/hipblaslt*
 %{pkg_prefix}/bin/sequence.yaml
-%if %{with preview}
 %{pkg_prefix}/share/hipblaslt/
-%endif
 %endif
 
 %changelog
+* Wed Aug 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
+- Update to 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -713,7 +563,7 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 - Reenable ninja
 
 * Fri Mar 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-11
-- msgpack is manditory
+- msgpack is mandatory
 
 * Mon Mar 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-10
 - Add tensile format and verbose args similar to roblas

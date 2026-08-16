@@ -1,10 +1,14 @@
-Name:       xsetroot
-Version:    1.1.4
-Release:    %autorelease
-Summary:    Root window parameter setting utility for X
-License:    MIT-open-group
-URL:        https://www.x.org
-Source:     https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+%global forgeurl https://gitlab.freedesktop.org/xorg/app/xsetroot
+Version:        1.1.4
+%forgemeta
+
+Name:           xsetroot
+Release:        %autorelease
+Summary:        Root window parameter setting utility for X
+License:        MIT-open-group
+URL:            %{forgeurl}
+Source:         https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+
 BuildRequires:  gcc
 BuildRequires:  meson >= 1.1.0
 BuildRequires:  pkgconfig(x11)

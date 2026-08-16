@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.18
+Version: 45.19
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -76,8 +76,7 @@ BuildRequires: s390utils-devel
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic))
-Requires: (anaconda-webui or anaconda-gui)
+Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic) else anaconda-webui)
 Requires: anaconda-tui = %{version}-%{release}
 
 %description
@@ -530,6 +529,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 14 2026 Packit <hello@packit.dev> - 45.19-1
+- spec: Use if/else rich dep to select anaconda-gui or anaconda-webui
+  (kkoukiou)
+- feat(webui): add authentication support for remote access (bciconel)
+- argument_parsing: Add webui.remote as a proper boot option (bciconel)
+
 * Wed Aug 12 2026 Packit <hello@packit.dev> - 45.18-1
 - Revert "tests: Temporarily ignore stratis kickstart commands" (vtrefny)
 - spec: Bump required version of pykickstart to 3.77 (vtrefny)

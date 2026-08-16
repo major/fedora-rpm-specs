@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/laguna
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.10.0
+Version:        3.10.1
 Release:        %autorelease
 Summary:        Lie AlGebras and UNits of group Algebras
 

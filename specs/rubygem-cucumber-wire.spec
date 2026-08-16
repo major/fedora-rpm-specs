@@ -4,18 +4,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 6.2.1
-Release: 7%{?dist}
+Version: 8.0.0
+Release: 1%{?dist}
 Summary: Wire protocol for Cucumber
 License: MIT
 URL: http://cucumber.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone --no-checkout https://github.com/cucumber/cucumber-ruby-wire.git
-# git -C cucumber-ruby-wire archive -v -o rubygem-cucumber-wire-6.2.1-features.txz v6.2.1 features/
-Source1: %{name}-%{version}-features.txz
-# Support quote in backtrace for Ruby 3.4
-# https://github.com/cucumber/cucumber-ruby-wire/pull/72
-Patch0: rubygem-cucumber-wire-7.0.0-Support-quote-in-backtrace-for-Ruby-3-4.patch
+# git clone https://github.com/cucumber/cucumber-ruby-wire.git && cd cucumber-ruby-wire
+# git archive -v -o rubygem-cucumber-wire-8.0.0-features.tar.gz v8.0.0 features/ spec/
+Source1: %{name}-%{version}-features.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -42,14 +39,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
 
-(
-cd %{builddir}
-%patch 0 -p1
-)
-
 # Relax the dependency.
-%gemspec_remove_dep -g cucumber-cucumber-expressions "~> 14.0", ">= 14.0.0"
-%gemspec_add_dep -g cucumber-cucumber-expressions ">= 14.0"
+%gemspec_remove_dep -g cucumber-core "> 11", "< 16"
+%gemspec_add_dep -g cucumber-core
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -63,35 +55,43 @@ cp -a .%{gem_dir}/* \
 
 %if %{without bootstrap}
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 
-rspec -Ilib spec
+ln -s %{builddir}/spec spec
+rspec spec
 
-ln -s %{_builddir}/features features
+ln -s %{builddir}/features features
+
+# This test was written against buggy behavior of `cucumber` <= 7.1.0, where
+# the `success` was not properly returned:
+# https://github.com/cucumber/cucumber-ruby/pull/1606/changes/84562b58fb8b6c915b8a3952656a1db4c0ae7299
+# This can be dropped when newer `cucumber` is available in Fedora.
+sed -i '/testRunFinished/ s/true//' features/step_matches_message.feature
 
 # Ensure the current version of cucumber-wire is used in place of system one,
 # pulled in as a Cucumber dependency.
 RUBYOPT="-I$(pwd)/lib" cucumber --format progress --publish-quiet
 
-popd
+)
 %endif
 
 %files
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
+%license %{gem_instdir}/LICENSE
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
-%license %{gem_instdir}/LICENSE
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/README.md
 %doc %{gem_instdir}/CHANGELOG.md
-%doc %{gem_instdir}/CONTRIBUTING.md
-%{gem_instdir}/spec
+%doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 06 2026 Vít Ondruch <vondruch@redhat.com> - 8.0.0-1
+- Upgrade to cucumber-wire 8.0.0.
+  Resolves: rhbz#1867935
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

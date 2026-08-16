@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    dolphin-plugins
 Summary: Dolphin plugins
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -69,6 +69,9 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 %{_kf6_plugindir}/overlayicon/mountedisooverlay.so
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

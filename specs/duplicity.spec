@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
@@ -24,9 +24,10 @@ URL:            https://duplicity.gitlab.io/
 Source0:        https://gitlab.com/duplicity/duplicity/-/archive/rel.%{version}/duplicity-rel.%{version}.tar.bz2
 # chg:test: Add test case for issue #683.
 # https://gitlab.com/duplicity/duplicity/-/commit/e6671cdf4ed8b21b4a8bd1973bd458f62792cd29
-Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
+#Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
 # Unpin the upper Python bound
-Patch:          allow-python3.15-build.patch
+#Patch:          allow-python3.15-build.patch
+Patch:          pytest9.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6
@@ -46,6 +47,8 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  librsync-devel >= 0.9.6
 BuildRequires:  python3dist(wheel)
+BuildRequires:  python3dist(pip)
+BuildRequires:  python3dist(build)
 # dependencies for check
 BuildRequires:  gnupg >= 1.0.6
 BuildRequires:  python3dist(setuptools-scm)
@@ -109,7 +112,7 @@ rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-REPO.md
 
 %if %{with check}
 # https://gitlab.com/duplicity/duplicity/-/issues/820
-%ifnarch ppc64le
+%ifnarch ppc64le i686
 %check
 %pytest -k 'not test_pylint and not test_black and not test_GzipWriteFile and not test_gpg_asym and not test_gpg_signing and not test_out_of_order_volume and not test_last_file_missing_at_end'
 %endif

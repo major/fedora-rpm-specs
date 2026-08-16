@@ -1,12 +1,12 @@
 Name:           oscillatord
-Version:        3.10.0
+Version:        3.10.3
 Release:        %autorelease
 Summary:        Daemon for disciplining an oscillator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 ExcludeArch:    %{ix86}
-URL:            https://github.com/Orolia2s/oscillatord
+URL:            https://github.com/leoleovich/oscillatord
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc

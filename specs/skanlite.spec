@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           skanlite
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

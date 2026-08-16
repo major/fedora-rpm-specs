@@ -24,8 +24,8 @@
 Name:          php-%{pecl_name}
 Summary:       Zstandard extension
 License:       MIT
-Version:       0.17.0
-Release:       2%{?dist}
+Version:       0.18.0
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -154,6 +154,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Aug 14 2026 Remi Collet <remi@remirepo.net> - 0.18.0-1
+- update to 0.18.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

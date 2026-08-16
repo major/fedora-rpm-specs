@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        365
+Version:        366
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -369,7 +369,7 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
@@ -379,7 +379,7 @@ Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.6
-Provides: bundled(npm(ipaddr.js)) = 2.4.0
+Provides: bundled(npm(ipaddr.js)) = 2.5.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(prop-types)) = 15.8.1
@@ -665,6 +665,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Aug 13 2026 Packit <hello@packit.dev> - 366-1
+- Networkmanager: Don't activate new network connections by default
+- Networkmanager: Navigate to details page after creation
+- Translations and dependency updates
+
 * Thu Jul 30 2026 Packit <hello@packit.dev> - 365-1
 - Translations and dependency updates
 - Fix btrfs subvolume mount option parsing (rhbz#2483145)

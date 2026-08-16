@@ -1,6 +1,6 @@
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
@@ -135,6 +135,9 @@ rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

@@ -1,5 +1,5 @@
 Name:           keepsecret
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 Summary:        Client for a Secret Service compatible provider
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.keepsecre
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.keepsecret.svg
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

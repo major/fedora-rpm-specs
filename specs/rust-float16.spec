@@ -5,7 +5,7 @@
 %global crate float16
 
 Name:           rust-float16
-Version:        0.1.6
+Version:        0.1.7
 Release:        %autorelease
 Summary:        Half-precision floating point f16 and bf16 types for Rust
 
@@ -34,7 +34,9 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/AGENTS.md
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CLAUDE.md
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/

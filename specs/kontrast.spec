@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          kontrast
-Version:       26.07.90
+Version:       26.08.0
 Release:       1%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

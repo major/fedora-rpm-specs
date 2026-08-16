@@ -1,6 +1,6 @@
 Name:    libksane
 Summary: SANE Library interface for KDE
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -75,6 +75,9 @@ Obsoletes: %{name}-qt6-devel < 24.12.0
 %{_libdir}/cmake/KSaneWidgets6/
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

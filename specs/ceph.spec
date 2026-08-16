@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -239,6 +239,7 @@ Patch:		0063-src-jaegertracing-opentelemetry-cpp-CMakeLists.txt.patch
 Patch:		0065-src-os-memstore-CMakelists.txt.patch
 Patch:		0066-src-lss-linux_syscall_support.h.patch
 Patch:		0067-src-os-CMakeLists.txt.patch
+Patch:		0068-add-riscv-support.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -3202,6 +3203,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 13 2026 Jason Montleon <jason@montleon.com> - 2:21.1.0-6
+- rhbz#2515956, fix FTBFS on riscv64 regression
+
 * Mon Aug 10 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.0-5
 - rebuild for thrift 0.24.0
 

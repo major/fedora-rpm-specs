@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:    yakuake
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
@@ -97,6 +97,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

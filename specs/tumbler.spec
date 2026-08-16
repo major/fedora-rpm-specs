@@ -3,12 +3,11 @@
 %global xfceversion 4.20
 
 Name:           tumbler
-Version:        4.20.1
+Version:        4.20.2
 Release:        %autorelease
 Summary:        D-Bus service for applications to request thumbnails
 
-# Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://git.xfce.org/xfce/tumbler/
 #VCS git:git://git.xfce.org/xfce/tumbler
 Source0:        https://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2

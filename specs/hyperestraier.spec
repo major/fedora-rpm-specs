@@ -15,7 +15,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	75%{?dist}
+Release:	76%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -46,10 +46,10 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # java related macros
 %ifarch %java_arches
+%set_javaver	46	25
 %set_javaver	45	25
 %set_javaver	44	25
 %set_javaver	43	21
-%set_javaver	42	21
 BuildRequires:	javapackages-tools
 %endif
 BuildRequires:	make
@@ -286,6 +286,9 @@ popd
 
 
 %changelog
+* Fri Aug 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-76
+- Rebuild for Fedora 46
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.13-75
 - Perl 5.44 rebuild
 

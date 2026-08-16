@@ -3,6 +3,10 @@ Version:    1.0.10
 Release:    %autorelease
 Summary:    Dump an X window to file
 
+%global forgeurl https://gitlab.freedesktop.org/xorg/app/xwd
+%global tag %{name}-%{version}
+%forgemeta
+
 License:    MIT-open-group AND HPND-sell-variant
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz

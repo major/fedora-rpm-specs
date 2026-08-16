@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.19.4
+Version:        0.20.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 

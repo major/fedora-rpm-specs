@@ -2,16 +2,15 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    2.0   
-Release:    8%{?dist}
+Version:    2.2
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
-URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
+URL:        https://crypto-bone.com
+Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
-Source3:    https://crypto-bone.com/release/source/safewebdrop-2.2.tar.gz
 
 ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
@@ -71,10 +70,6 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 %install
 %make_install
 
-# update safewebdrop server 2.2
-cd %{buildroot}%{cryptobonedir}/src
-tar xzf %{SOURCE3}
-
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone-safewebdrop.png %{buildroot}%{_datadir}/icons/default
@@ -115,22 +110,27 @@ if [ $1 -eq 0 ] ; then
      systemctl disable cryptobone-fetch.timer
      systemctl stop cryptobone-fetch.timer
      umount %{cryptobonedir}/keys 2> /dev/null
-     rm -f /etc/sudoers.d/cbcontrol
+     rm -f /etc/sudoers.d/cbcontrol 2> /dev/null
      if [ -f %{cryptobonedir}/bootswitch ] ; then
           chattr -i %{cryptobonedir}/bootswitch
      fi
      rm -rf /dev/shm/RAM 2>/dev/null
      rm -rf /dev/shm/EXRAM 2>/dev/null
-     /usr/sbin/userdel cryptobone
+     /usr/sbin/userdel cryptobone 2> /dev/null
      # delete all config files in main cryptobone directory
      rm -rf %{cryptobonedir}/keys/* 2> /dev/null
      rm -rf %{cryptobonedir}/cryptobone/* 2> /dev/null
+     rm -rf %{cryptobonedir}/ext/cryptobone/* 2> /dev/null
+     rm -rf %{cryptobonedir}/ext/cltls/* 2> /dev/null
+     rm -rf %{cryptobonedir}/cltls 2> /dev/null
      rm -f %{cryptobonedir}/database* 2> /dev/null
      rm -f %{cryptobonedir}/cbb.config 2> /dev/null
      rm -f %{cryptobonedir}/bootswitch 2> /dev/null
      rm -f %{cryptobonedir}/keys.tgz 2> /dev/null
      rm -f %{cryptobonedir}/masterkey 2> /dev/null
      rm -f %{cryptobonedir}/pinghost 2> /dev/null
+     rm -f %{cryptobonedir}/ext/*.hash 2> /dev/null
+     rm -f %{cryptobonedir}/ext/safewebdrop/p* 2> /dev/null
 fi
 
 %postun
@@ -196,10 +196,17 @@ fi
 %{_mandir}/man8/cbcontrol.8.gz
 
 %license   %{_datadir}/licenses/%{name}/COPYING
+%license   %{_datadir}/licenses/%{name}/COPYING-cryptlib
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Aug 14 2026 Ralf Senderek <innovation@senderek.ie> - 2.2-2
+- Resolve conflict with directory safewebdrop/bin
+
+* Fri Aug 14 2026 Ralf Senderek <innovation@senderek.ie> - 2.2-1
+- Update to version 2.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

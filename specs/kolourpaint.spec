@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -84,6 +84,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

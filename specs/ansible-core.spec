@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.21.2
+Version:        2.21.3
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -38,6 +38,9 @@ Patch:          allow-python3.15-build.patch
 # Changes to the _dataclass_annotation_patch come from merged:
 # https://github.com/ansible/ansible/pull/86976
 Patch:          fix-compatibility-with-python-315.patch
+
+# Fix test compatibility with pytest 9.1
+Patch:          https://github.com/ansible/ansible/pull/87165.patch
 
 BuildArch:      noarch
 
@@ -255,6 +258,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Fri Aug 14 2026 Maxwell G <maxwell@gtmx.me> - 2.21.3-1
+- Update to 2.21.3. Fixes rhbz#2499793.
+
 * Wed Jul 15 2026 Maxwell G <maxwell@gtmx.me> - 2.21.2-1
 - Update to 2.21.2. Fixes rhbz#2499793.
 

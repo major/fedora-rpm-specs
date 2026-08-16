@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          kde-inotify-survey
-Version:       26.07.90
+Version:       26.08.0
 Release:       1%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
@@ -63,6 +63,9 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

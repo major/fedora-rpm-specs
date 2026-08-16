@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kleopatra
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

@@ -2,7 +2,7 @@
 %bcond libssh2 %{undefined rhel}
 
 Name:           libgit2_1.9
-Version:        1.9.6
+Version:        1.9.7
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 # The main code is GPL-2.0-only WITH GCC-exception-2.0

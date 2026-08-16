@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc7.260812gf5bbbfec59b4.56
+%define pkgrelease 0.rc7.260814g2f1baf1fc892.58
 %define kversion 7
-%define tarfile_release 7.2-rc7-12-gf5bbbfec59b4
+%define tarfile_release 7.2-rc7-93-g2f1baf1fc892
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260812gf5bbbfec59b4.56%{?buildid}%{?dist}
+%define specrelease 0.rc7.260814g2f1baf1fc892.58%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -3080,7 +3080,7 @@ BuildKernel() {
         mv $KernelUnifiedImage.signed $KernelUnifiedImage
 
 	for addon in "$KernelAddonsDirOut"/*; do
-	   %pesign -s -i $addon -o $addon.signed -a %{secureboot_ca_0} -c %{secureboot_key_0} -n $pesign_name_0
+	   %pesign -s -i $addon -o $addon.signed -a %{secureboot_ca_0} -c %{secureboot_key_uki_0} -n $pesign_name_uki_0
 	   rm -f $addon
 	   mv $addon.signed $addon
 	done
@@ -4976,8 +4976,17 @@ fi\
 #
 #
 %changelog
-* Wed Aug 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.f5bbbfec59b4.56]
+* Fri Aug 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.2f1baf1fc892.58]
+- dracut-virt.conf: change systemd-pcrphase to systemd-pcrextend (Vitaly Kuznetsov)
+- redhat/kernel.spec.template: Switch UKI addons to using UKI cert (Vitaly Kuznetsov)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Aug 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.2f1baf1fc892.57]
+- redhat/configs: automotive: disable CONFIG_MD (Jared Kangas)
+- Linux v7.2.0-0.rc7.2f1baf1fc892
+
+* Thu Aug 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.3d6d817622b0.56]
+- Linux v7.2.0-0.rc7.3d6d817622b0
 
 * Wed Aug 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.f5bbbfec59b4.55]
 - Linux v7.2.0-0.rc7.f5bbbfec59b4

@@ -16,7 +16,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 2
+%global           release_number 3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -278,7 +278,6 @@ BuildRequires:    python3-lxml
 BuildRequires:    python3-ldap
 BuildRequires:    python3-libselinux
 BuildRequires:    python3-requests >= 2.6.0
-BuildRequires:    python3-six
 BuildRequires:    python3-sphinx
 
 BuildRequires:    systemd-units
@@ -541,7 +540,6 @@ Requires:         python3-cryptography
 Requires:         python3-ldap
 Requires:         python3-lxml
 Requires:         python3-requests >= 2.6.0
-Requires:         python3-six
 
 %description -n   python3-%{product_id}
 This package provides common and client library for Python 3.
@@ -2432,6 +2430,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Aug 14 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.10.1-3
+- Drop obsolete six dependency
+
 * Thu Jul 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.10.1-2
 - Build without runtime deps on RHEL
 

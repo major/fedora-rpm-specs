@@ -1,5 +1,5 @@
 Name:           khealthcertificate
-Version:        26.07.90
+Version:        26.08.0
 Release:        1%{?dist}
 License:        W3C-20150513 AND LGPL-2.0-or-later AND BSD-3-Clause AND CC0-1.0 AND MIT AND Apache-2.0
 Summary:        Handling of digital vaccination, test and recovery certificates.
@@ -57,6 +57,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/*.so
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 26.07.90-1
 - 26.07.90
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/cohomolo
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.12
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Cohomology groups of finite groups on finite modules
 
@@ -12,19 +12,17 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Add missing shebangs
 Patch:          %{name}-shebang.patch
-# Fix all -Wlto-type-mismatch warnings
-Patch:          %{name}-lto.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildSystem:    gap
-BuildOption(install): bin gap htm testdata tst
+BuildOption(install): bin gap testdata tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap-devel >= 4.7
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  tth
 
 Requires:       gap-core%{?_isa} >= 4.7
 
@@ -61,29 +59,12 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -p1 -n %{gap_upname}-%{version}
 
 %conf
-# Fix paths
-sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
-
-%build
-# There are lot of type safety violations in the C code.  It also
-# relies on implicit function declarations, a C89-only language
-# feature.
-%global build_type_safety_c 0
-%set_build_flags
-export CC='gcc -std=gnu89'
-
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure %{gap_archdir}
 
+%build -p
 # Build the binaries
 %make_build
-
-# Build the documentation
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc
-cd -
-rm ../../doc
 
 %install -a
 mkdir -p %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/standalone
@@ -103,9 +84,7 @@ cp -a standalone/{data.d,info.d} \
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_archdir}/pkg/%{gap_upname}/htm/
 %{gap_archdir}/pkg/%{gap_upname}/doc/
-%{gap_archdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

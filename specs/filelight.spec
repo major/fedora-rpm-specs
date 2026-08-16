@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 26.07.90
+Version: 26.08.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/kio/servicemenus/filelight.desktop
 
 %changelog
+* Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 1:26.08.0-1
+- 26.08.0
+
 * Fri Jul 31 2026 Steve Cossette <farchord@gmail.com> - 1:26.07.90-1
 - 26.07.90
 

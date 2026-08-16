@@ -2,7 +2,7 @@
 %global mod_name django_filter
 
 Name:           python-%{pypi_name}
-Version:        25.2
+Version:        26.1
 Release:        %autorelease
 Summary:        A Django application for allowing users to filter queryset dynamically
 

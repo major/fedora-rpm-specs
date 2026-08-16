@@ -53,7 +53,7 @@ use the "default" feature of the "%{crate}" crate.
 %package     -n %{name}+v2_2-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(glycin-gtk4-2) >= 2.2.0~
+Requires:       pkgconfig(glycin-gtk4-2) >= 2.2
 
 %description -n %{name}+v2_2-devel %{_description}
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/circle
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Adjoint groups of finite rings
 
@@ -19,6 +19,7 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2022.07.10
 BuildRequires:  gap(laguna)
+BuildRequires:  gap(smallgrp) >= 1.0
 BuildRequires:  gap-devel >= 4.8
 
 Requires:       gap-core >= 4.8

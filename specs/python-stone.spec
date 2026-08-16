@@ -1,13 +1,12 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
-Version:        3.5.3
+Version:        3.5.4
 Release:        1%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        MIT
 
 URL:            https://github.com/dropbox/stone
 Source0:        %pypi_source
-Patch0:         pins.patch
 
 BuildArch:      noarch
 
@@ -46,6 +45,9 @@ Summary:        %{summary}
 %{_bindir}/stone
 
 %changelog
+* Tue Aug 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.5.4-1
+- 3.5.4
+
 * Mon Jul 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.5.3-1
 - 3.5.3
 
