@@ -1,5 +1,5 @@
 Name: xdriinfo
-Version: 1.0.7
+Version: 1.0.8
 Release: %autorelease
 Summary: X application to query configuration information of DRI drivers
 License: MIT
@@ -13,10 +13,11 @@ Source2: https://gitlab.freedesktop.org/alanc.gpg
 Conflicts: glx-utils < 9.0.0-4
 
 BuildRequires: gcc
-BuildRequires: libglvnd-devel
-BuildRequires: xorg-x11-util-macros
-BuildRequires: make autoconf automake libtool
 BuildRequires: gnupg2
+BuildRequires: meson
+BuildRequires: pkgconfig(gl)
+BuildRequires: pkgconfig(glproto)
+BuildRequires: pkgconfig(x11)
 
 %description
 xdriinfo can be used to query configuration information of direct
@@ -27,17 +28,20 @@ rendering drivers.
 %autosetup
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %files
 %license COPYING
 %{_bindir}/xdriinfo
 %{_mandir}/man1/xdriinfo.1*
 %doc AUTHORS ChangeLog README.md
+
+%check
+%meson_test
 
 %changelog
 %autochangelog

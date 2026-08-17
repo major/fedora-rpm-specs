@@ -5,7 +5,13 @@ Summary:        Read binary Excel files from C/C++
 
 License:        BSD-2-Clause
 URL:            https://github.com/libxls/libxls
-Source0:        https://github.com/libxls/libxls/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/libxls/libxls/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Fix CVE-2026-26825
+Patch:          https://github.com/libxls/libxls/pull/157.patch
+# Fix CVE-2026-26824
+Patch:          https://github.com/libxls/libxls/pull/158.patch
+# Fix use of uninitialized memory in xls_parseWorkBook
+Patch:          https://github.com/libxls/libxls/pull/159.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

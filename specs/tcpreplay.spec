@@ -9,15 +9,14 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.6.0
-Release:        2%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
-Patch0:         tcpreplay-4.6.0-examples-strlcpy-include.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -86,6 +85,9 @@ export LDFLAGS="%{?__global_ldflags} -pthread"
 %{_libdir}/libtcpreplay.a
 
 %changelog
+* Sat Aug 15 2026 Bojan Smojver <bojan@rexursive.com> - 4.6.1-1
+- Update to 4.6.1
+
 * Tue Jul 28 2026 Bojan Smojver <bojan@rexursive.com> - 4.6.0-2
 - Add -pthreads for EPEL8/9
 

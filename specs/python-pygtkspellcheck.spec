@@ -1,11 +1,11 @@
 %global         srcname         pygtkspellcheck
 %global         forgeurl        https://github.com/koehlma/pygtkspellcheck
-Version:        5.0.3
+Version:        5.0.4
+Release:        %autorelease
 %global         tag             %{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        %autorelease
 Summary:        Spellchecking library for GTK
 
 # All code GPL-3.0-or-later
@@ -16,13 +16,14 @@ License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  python3-devel
-# Documentation dependencies
-BuildRequires:  python3-myst-parser
-BuildRequires:  python3-sphinx
-# Check dependency
-BuildRequires:  python3-gobject-devel
+BuildRequires:  gobject-introspection
 BuildRequires:  gtk3-devel
+BuildRequires:  python%{python3_pkgversion}-devel
+# Documentation dependencies
+BuildRequires:  python%{python3_pkgversion}-myst-parser
+BuildRequires:  python%{python3_pkgversion}-sphinx
+# Check dependency
+BuildRequires:  python%{python3_pkgversion}-gobject-devel
 
 BuildArch: noarch
 
@@ -44,14 +45,15 @@ Features
 
 %description %_description
 
-%package -n python3-%{srcname}
+%package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python%{python3_pkgversion}-%{srcname} %_description
 
 
 %prep
 %autosetup -n %{srcname}-%{version}
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -61,18 +63,22 @@ Summary:        %{summary}
 %pyproject_wheel
 # TODO: build documentation
 
+
 %install
 %pyproject_install
 %pyproject_save_files gtkspellcheck -L
 
-%check 
+
+%check
 %pyproject_check_import
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.md
 %doc CHANGELOG
 %license LICENSE
 %doc examples
+
 
 %changelog
 %autochangelog

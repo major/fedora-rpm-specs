@@ -9,7 +9,6 @@ Release:        %autorelease
 URL:            https://rizin.re/
 
 Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
-
 # https://github.com/rizinorg/rizin/pull/5414
 # already in 0.9.1
 # Patch:          rizin-0001-Add-option-to-use-system-BLAKE3.patch
@@ -21,6 +20,11 @@ Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-src-v%{version
 # https://github.com/rizinorg/rizin/pull/6316
 # already in 0.9.1
 # Patch:          rizin-0003-s390x-debug-stubs.patch
+
+# https://github.com/rizinorg/rizin/pull/6615
+# Fixes the build with OpenSSL4+ - EVP_sm3 struct
+Patch:          6615.patch
+Patch:          openssl-sm3.patch
 
 # see .reuse/dep5 for license breakdown
 License:        LGPL-3.0-only AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-or-later AND MIT AND Apache-2.0 AND NCSA AND BSD-3-Clause AND BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND CC-PDDC
@@ -157,9 +161,8 @@ information
 %{_includedir}/librz
 %{_libdir}/librz*.so
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/cmake/**/*.cmake
-%dir %{_libdir}/cmake
-%dir %{_libdir}/cmake/**
+%{_libdir}/cmake/Rizin/
+%{_libdir}/cmake/rz_*/
 
 
 %files common

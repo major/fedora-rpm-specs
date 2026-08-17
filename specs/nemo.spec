@@ -1,9 +1,9 @@
-%global upstream_version 6.7.4-unstable
+%global upstream_version 6.7.5-unstable
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.7.4^unstable
-Release:        3%{?dist}
+Version:        6.7.5^unstable
+Release:        1%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-1
+- Update to 6.7.5-unstable
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

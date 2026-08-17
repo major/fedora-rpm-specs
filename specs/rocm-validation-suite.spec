@@ -54,7 +54,7 @@
 
 Name:           rocm-validation-suite%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Validation Suite (rvs)
 
 Url:            https://github.com/ROCm/ROCmValidationSuite
@@ -225,6 +225,9 @@ done
 %{pkg_prefix}/%{pkg_libdir}/rvs/
 
 %changelog
+* Sat Aug 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
+- Rebuild for 7.14
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,13 +8,19 @@
 
 Name:    plasma-breeze
 Version: 6.7.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{base_name}.git
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
+
+# Upstream Patches
+
+# Use font metrics to only inset where the text can spare it
+# https://invent.kde.org/plasma/breeze/-/commit/a74ad95349ec913f1042f5390dbd95a8341aea06
+Patch0:         a74ad95349ec913f1042f5390dbd95a8341aea06.patch
 
 # Misc
 BuildRequires:  extra-cmake-modules
@@ -168,6 +174,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Sat Aug 15 2026 Steve Cossette <farchord@gmail.com> - 6.7.4-2
+- Bump for new upstream patch
+
 * Tue Aug 04 2026 Steve Cossette <farchord@gmail.com> - 6.7.4-1
 - 6.7.4
 

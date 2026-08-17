@@ -3,13 +3,13 @@
 %global _lto_cflags %nil
 
 #global snapshot 0
-%global commit 6c9e482994ab674c8785e9d90c5373f0a9132006
-%global commitdate 20260524
-%global gittag v3.3.1
+%global commit 82ee58cd0cfad1c634bd00e4de785677c331ad4c
+%global commitdate 20260812
+%global gittag v3.5.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.3.1%{?snapshot:^%{commitdate}git%{shortcommit}}
+Version:	3.5.0%{?snapshot:^%{commitdate}git%{shortcommit}}
 Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
@@ -29,7 +29,7 @@ Source1:	ftp://ftp.cubic.org/pub/player/gfx/opencp25image1.zip
 Source2:	ftp://ftp.cubic.org/pub/player/gfx/opencp25ani1.zip
 Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
-Patch1:		ocp-3.3.1-rompaths.patch
+Patch1:		ocp-3.5.0-rompaths.patch
 Patch2:		ocp-3.1.1-timidity-config-file.patch
 
 BuildRequires:	alsa-lib-devel
@@ -53,11 +53,14 @@ BuildRequires:	libXpm-devel
 BuildRequires:	libXxf86vm-devel
 BuildRequires:	make
 BuildRequires:	ncurses-devel
+BuildRequires:	opus-devel
 BuildRequires:	perl-interpreter
 BuildRequires:	SDL3-devel >= 3.2.0
+BuildRequires:	speex-devel
 BuildRequires:	texinfo
 BuildRequires:	unifont-fonts
 BuildRequires:	unzip
+BuildRequires:  wavpack-devel
 BuildRequires:	xa
 BuildRequires:	zlib-devel
 
@@ -70,31 +73,31 @@ Recommends:	soundfont2-default
 
 # Bundled code
 
-# ocp-3.3.1/playtimidity/timidity-git/configure.ac:AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
+# ocp-3.5.0/playtimidity/timidity-git/configure.ac:AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
 Provides:	bundled(timidity++) = 2.15.0
 
-# ocp-3.3.1/playopl/adplug-git/configure.ac:AC_INIT([adplug], [2.4.1-beta])
+# ocp-3.5.0/playopl/adplug-git/configure.ac:AC_INIT([adplug], [2.4.1-beta])
 Provides:	bundled(adplug) = 2.4.1-beta
 
-# ocp-3.3.1/playopl/libbinio-git/configure.ac:AC_INIT([binio],[1.5],[dn.tlp@gmx.net],[libbinio])
+# ocp-3.5.0/playopl/libbinio-git/configure.ac:AC_INIT([binio],[1.5],[dn.tlp@gmx.net],[libbinio])
 Provides:	bundled(libbinio) = 1.5
 
-# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_major], [1])
-# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_minor], [0])
-# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_level], [2])
-# ocp-3.3.1/playsid/libresidfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
-# ocp-3.3.1/playsid/libresidfp-git/configure.ac:AC_INIT([libresidfp],[lib_version],[],[],[https://github.com/libsidplayfp/libresidfp/])
+# ocp-3.5.0/playsid/libresidfp-git/configure.ac:m4_define([lib_major], [1])
+# ocp-3.5.0/playsid/libresidfp-git/configure.ac:m4_define([lib_minor], [2])
+# ocp-3.5.0/playsid/libresidfp-git/configure.ac:m4_define([lib_level], [1])
+# ocp-3.5.0/playsid/libresidfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
+# ocp-3.5.0/playsid/libresidfp-git/configure.ac:AC_INIT([libresidfp],[lib_version],[],[],[https://github.com/libsidplayfp/libresidfp/])
 # But: const char* residfp_version_string = "@PACKAGE_VERISON"; which resolves to just the ocp version.
-Provides:	bundled(reSIDfp) = 1.0.2
+Provides:	bundled(reSIDfp) = 1.2.1
 
-# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_major], [3])
-# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_minor], [0])
-# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_level], [0])
-# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
-# ocp-3.3.1/playsid/libsidplayfp-git/configure.ac:AC_INIT([libsidplayfp],[lib_version],[],[],[https://github.com/libsidplayfp/libsidplayfp/])
-Provides:	bundled(libsidplayfp) = 3.0.0
+# ocp-3.5.0/playsid/libsidplayfp-git/configure.ac:m4_define([lib_major], [3])
+# ocp-3.5.0/playsid/libsidplayfp-git/configure.ac:m4_define([lib_minor], [1])
+# ocp-3.5.0/playsid/libsidplayfp-git/configure.ac:m4_define([lib_level], [0])
+# ocp-3.5.0/playsid/libsidplayfp-git/configure.ac:m4_define([lib_version], [lib_major.lib_minor.lib_level])
+# ocp-3.5.0/playsid/libsidplayfp-git/configure.ac:AC_INIT([libsidplayfp],[lib_version],[],[],[https://github.com/libsidplayfp/libsidplayfp/])
+Provides:	bundled(libsidplayfp) = 3.1.0
 
-# ocp-3.3.1/playsid/libsidplayfp-git/src/builders/exsid-builder/driver/configure.ac:AC_INIT([libexsid], [2.1], [], [], [https://github.com/libsidplayfp/exsid-driver])
+# ocp-3.5.0/playsid/libsidplayfp-git/src/builders/exsid-builder/driver/configure.ac:AC_INIT([libexsid], [2.1], [], [], [https://github.com/libsidplayfp/exsid-driver])
 Provides:	bundled(libexsid) = 2.1
 
 %description
@@ -208,6 +211,9 @@ mv license.txt license-videos.txt
 	   --without-sdl \
 	   --with-sdl3 \
 	   --with-mad \
+	   --with-opus \
+	   --with-speex \
+	   --with-wavpack \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
 	   --with-unifont-otf=/usr/share/fonts/unifont/unifont.otf \
@@ -282,6 +288,16 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Aug 14 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.5.0-1
+- Update to 3.5.0
+- Add opus, speex, and wavpack support
+
+* Fri Aug  7 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.4.1-1
+- Update to 3.4.1
+
+* Tue Aug  4 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.4.0-1
+- Update to 3.4.0
+
 * Fri Jul 17 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.3.1-1
 - Update to 3.3.1
 - Use SDL3

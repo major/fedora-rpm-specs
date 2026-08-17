@@ -1,6 +1,6 @@
 Name:               girara
-Version:            2026.02.04
-Release:            2%{?dist}
+Version:            2026.07.18
+Release:            1%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
@@ -30,7 +30,7 @@ developing applications that use %{name}.
 %autosetup -p1
 
 %build
-%meson -Ddocs=disabled -Dtests=enabled
+%meson -Ddocs=disabled
 %meson_build
 
 %install
@@ -54,6 +54,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- feat: update to 2026.07.18 (rhbz#2497800)
+
+* Wed Jul 08 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.07-1
+- feat: update to 2026.07.07 (rhbz#2497800)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.02.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

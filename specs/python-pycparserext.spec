@@ -1,17 +1,18 @@
+%global forgeurl https://github.com/inducer/pycparserext
+Version:        2026.1
+%forgemeta
+
 Name:           python-pycparserext
-Version:        2024.1
 Release:        %autorelease
 Summary:        Extensions for pycparser
 
 License:        MIT
-URL:            https://github.com/inducer/pycparserext
-# PyPI sources do not have tests
-Source:         %{url}/archive/v%{version}/pycparserext-%{version}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-# Tests
-BuildRequires:  python3dist(pytest)
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pytest
 
 %global _description %{expand:
 Extended functionality for Eli Bendersky's pycparser, in particular support
@@ -19,10 +20,10 @@ for parsing GNU extensions and OpenCL.}
 
 %description %_description
 
-%package -n     python3-pycparserext
+%package -n     python%{python3_pkgversion}-pycparserext
 Summary:        %{summary}
 
-%description -n python3-pycparserext %_description
+%description -n python%{python3_pkgversion}-pycparserext %_description
 
 
 %prep
@@ -46,7 +47,8 @@ Summary:        %{summary}
 %pyproject_check_import
 %pytest
 
-%files -n python3-pycparserext -f %{pyproject_files}
+
+%files -n python%{python3_pkgversion}-pycparserext -f %{pyproject_files}
 
 
 %changelog

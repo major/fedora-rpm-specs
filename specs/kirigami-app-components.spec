@@ -1,5 +1,5 @@
 Name:           kirigami-app-components
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Kirigami extra addons and modules
 
@@ -47,7 +47,7 @@ developing applications that use %{name}.
 %files
 %license LICENSES/*
 %doc README.md
-%{_kf6_libdir}/libKirigamiActionCollection.so.1.0.0
+%{_kf6_libdir}/libKirigamiActionCollection.so.%{version}
 %{_kf6_libdir}/libKirigamiActionCollection.so.6
 %{_kf6_qmldir}/org/kde/kirigami/actioncollection/
 
@@ -57,6 +57,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6KirigamiAppComponents/
 
 %changelog
+* Sat Aug 15 2026 Steve Cossette <farchord@gmail.com> - 1.0.2-1
+- 1.0.2
+
 * Sun Jul 19 2026 Steve Cossette <farchord@gmail.com> - 1.0.1-1
 - 1.0.1
 

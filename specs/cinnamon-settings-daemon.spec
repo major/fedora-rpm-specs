@@ -1,10 +1,10 @@
 %global cinnamon_desktop_version 6.7.0
 
-%global upstream_version 6.7.2-unstable
+%global upstream_version 6.7.3-unstable
 
 Name:           cinnamon-settings-daemon
-Version:        6.7.2^unstable
-Release:        2%{?dist}
+Version:        6.7.3^unstable
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/*.desktop
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
+* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
+- Update to 6.7.3-unstable
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.2^unstable-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

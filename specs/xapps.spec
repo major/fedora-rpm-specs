@@ -1,8 +1,8 @@
-%global upstream_version 3.3.3-unstable
+%global upstream_version 3.3.4-unstable
 
 Name:           xapps
-Version:        3.3.3^unstable
-Release:        3%{?dist}
+Version:        3.3.4^unstable
+Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -122,6 +122,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.4^unstable-1
+- Update to 3.3.4-unstable
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.3.3^unstable-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

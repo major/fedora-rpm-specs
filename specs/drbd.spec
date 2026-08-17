@@ -1,14 +1,15 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
 Version: 9.34.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
+Patch2: 8bff85d40efa51b0d7ae27a452d73a61c28c85d1.patch
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 ExclusiveOS: linux
-URL: http://www.drbd.org/
+URL: https://github.com/LINBIT/drbd-utils
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: flex
@@ -44,6 +45,7 @@ This is a virtual package, installing the full user-land suite.
 # Don't let xsltproc make network calls during build
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 %configure \
@@ -245,6 +247,10 @@ fi
 
 
 %changelog
+* Sat Aug 15 2026 Peter Hanecak <hany@hany.sk> - 9.34.0-3
+- Fix for #2456191 using 8bff85d commit from the upstream
+- Updated URL
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.34.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

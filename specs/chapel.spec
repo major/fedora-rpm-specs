@@ -51,7 +51,7 @@ BuildRequires:  perl
 BuildRequires:  python3-devel
 # Modified version is bundled
 #BuildRequires:  re2-devel
-BuildRequires:  stb_image-devel
+BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
 BuildRequires:  stb_image_write-devel
 BuildRequires:  which
 BuildRequires:  whereami

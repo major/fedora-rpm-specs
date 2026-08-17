@@ -9,6 +9,7 @@ Summary:        Interact with GitLab API
 License:        LGPL-3.0-only
 URL:            https://github.com/python-gitlab/python-gitlab
 Source0:        %{pypi_source python_gitlab}
+Source1:        python-gitlab.cfg
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -37,6 +38,7 @@ Documentation for gitlab
 
 %prep
 %autosetup -p1 -n python_%{pypi_name}-%{version}
+cp -p %{SOURCE1} .
 
 # https://github.com/python-gitlab/python-gitlab/pull/3411
 sed -i 's/argcomplete>=1.10.0,<3/argcomplete>=1.10.0,<4/' pyproject.toml
@@ -70,6 +72,7 @@ sed -i 's/coverage.*//'                                requirements-test.txt
 %pyproject_install
 %pyproject_save_files -l gitlab
 
+install -Dpm 0644 python-gitlab.cfg %{buildroot}%{_sysconfdir}/python-gitlab.cfg
 
 %check
 %tox
@@ -77,6 +80,7 @@ sed -i 's/coverage.*//'                                requirements-test.txt
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %{_bindir}/gitlab
+%config(noreplace) %{_sysconfdir}/python-gitlab.cfg
 %doc README.rst CHANGELOG.md
 
 

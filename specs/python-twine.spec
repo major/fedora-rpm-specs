@@ -1,29 +1,24 @@
 %global srcname twine
+%global forgeurl https://github.com/pypa/twine
+Version:        7.0.0
+%forgemeta
 
 %bcond_without tests
 %bcond_without docs
 %bcond_with internet
 
 Name:           python-%{srcname}
-Version:        6.2.0
 Release:        %autorelease
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        Apache-2.0
-URL:            https://github.com/pypa/%{srcname}
-Source0:        %{pypi_source}
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
-%description
-Twine is a utility for interacting with PyPI.
-Currently it only supports registering projects and uploading distributions.
-
-%package -n %{srcname}
-Summary:        Twine is a utility for publishing Python packages on PyPI
-
-BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-devel
 
 %if %{with tests}
 # Test dependencies
@@ -41,12 +36,12 @@ BuildRequires:  python3dist(sphinxcontrib-programoutput)
 %endif
 # with docs
 %if %{with internet}
+BuildRequires:  gcc
+BuildRequires:  git-core
+BuildRequires:  libffi-devel
 # pytest-services and pytest-socket are not packaged yet
 #BuildRequires:  python3dist(pytest-services)
 #BuildRequires:  python3dist(pytest-socket)
-BuildRequires:  gcc
-BuildRequires:  libffi-devel
-BuildRequires:  git-core
 %endif
 # with internet
 
@@ -56,12 +51,22 @@ BuildRequires:  git-core
 Obsoletes:      python2-%{srcname} < 1.12.2-3
 Obsoletes:      python3-%{srcname} < 1.12.2-3
 
+%description
+Twine is a utility for interacting with PyPI.
+Currently it only supports registering projects and uploading distributions.
+
+%package -n %{srcname}
+Summary:        Twine is a utility for publishing Python packages on PyPI
+
 %description -n %{srcname}
 Twine is a utility for interacting with PyPI.
 Currently it only supports registering projects and uploading distributions.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+
+# Remove shebang from non-executable script
+sed -i '1{\@^#!/usr/bin/env python@d}' twine/__main__.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -86,10 +91,10 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 
 %if %{with tests}
 %check
-%pytest -v \
+%pytest -v
 %if %{without internet}
-      --deselect tests/test_integration.py \
-      --deselect tests/test_upload.py::test_check_status_code_for_wrong_repo_url \
+%pytest -v --deselect tests/test_integration.py \
+           --deselect tests/test_upload.py::test_check_status_code_for_wrong_repo_url \
 %endif
 ;
 # without internet

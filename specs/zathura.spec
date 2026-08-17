@@ -1,8 +1,8 @@
 %bcond synctex %{undefined flatpak}
 
 Name:              zathura
-Version:           2026.05.20
-Release:           2%{?dist}
+Version:           2026.07.18
+Release:           1%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
@@ -23,10 +23,11 @@ BuildRequires:     fish
 BuildRequires:     cmake
 BuildRequires:     gcc
 BuildRequires:     gettext
-BuildRequires:     girara-devel >= 2026.01.30
+BuildRequires:     girara-devel >= 2026.07.07
 BuildRequires:     glib2-devel >= 2.76
-BuildRequires:     gtk3-devel >= 3.24
+BuildRequires:     gtk4-devel >= 4.12
 BuildRequires:     intltool
+BuildRequires:     pkgconfig(libxxhash)
 # Needed to validate appdata
 BuildRequires:     appstream
 BuildRequires:     pkgconfig(json-glib-1.0)
@@ -35,7 +36,7 @@ BuildRequires:     libseccomp-devel
 BuildRequires:     meson >= 1.5
 # Needed to build man pages (/doc subdir)
 BuildRequires:     python3-sphinx
-BuildRequires:     sqlite-devel >= 3.6.23
+BuildRequires:     sqlite-devel >= 3.35.0
 %if %{with synctex}
 BuildRequires:     texlive-lib-devel
 %endif
@@ -122,7 +123,9 @@ This package provides %{summary}.
 
 %build
 %meson \
-   -Dseccomp=enabled -Dtests=enabled \
+   -Dseccomp=enabled \
+   -Dtests-x11=enabled \
+   -Dtests-wayland=enabled \
    -Dsynctex=%{?with_synctex:enabled}%{!?with_synctex:disabled}
 %meson_build
 
@@ -166,6 +169,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- feat: update to 2026.07.18 (rhbz#2496712)
+
+* Thu Jul 09 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.08-1
+- feat: update to 2026.07.08 (rhbz#2496712)
+
+* Fri Jul 03 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.02-1
+- feat: update to 2026.07.02 (rhbz#2496712)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

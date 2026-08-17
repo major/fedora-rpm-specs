@@ -4,8 +4,8 @@ Name:		mupdf
 
 %global libname libmupdf
 %global pypiname mupdf
-Version:	1.27.2
-%global somajor 27
+Version:	1.28.2
+%global somajor 28
 %global sominor 2
 %global soname %{somajor}.%{sominor}
 %global pkgconfig %{_libdir}/pkgconfig
@@ -22,11 +22,6 @@ Source0:	http://mupdf.com/downloads/archive/%{name}-%{upversion}-source.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}-gl.desktop
 
-# Upstream patches from master branch:
-# rhbz#2454361 and siblings
-Patch:		0001-Bug-708990-Avoid-overflow-src_stride-calculation-in-.patch
-# rhbz#2463402
-Patch:		0001-Bug-709364-Fix-missing-bounds-checks-in-CFF-subsetti.patch
 # Fedora specific patches:
 # Do not bug me if Artifex relies on local fork
 Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
@@ -35,20 +30,15 @@ Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 # Do not install shared libraries in the python tree
 Patch:		0001-setup.py-do-not-bundle-c-and-c-libs-in-wheel.patch
 # Suggested upstream:
-# Avoid core dump of python bindings with gcc15
-# https://github.com/ArtifexSoftware/mupdf/pull/55
-Patch:		0001-pdf_choice_widget_options2-avoid-core-dump-with-_GLI.patch
 # Do not apply CXXFLAGS to swig
 # https://github.com/ArtifexSoftware/mupdf/pull/56
 Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
-# Be more helpful with the new warning in 1.26.x
-# https://github.com/ArtifexSoftware/mupdf/pull/74
-Patch:		0001-pdf_font-report-font-name-in-warning.patch
-# Upstreamable:
-Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
 # Replace removed Python 2 C API macros with Python 3 equivalents
 # for compatibility with SWIG 4.5.0
-Patch:		mupdf-swig45.patch
+# https://github.com/ArtifexSoftware/mupdf/pull/102
+Patch:		0001-Replace-removed-Python-2-C-API-macros-for-SWIG-4.5.0.patch
+# Upstreamable:
+Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
 
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
@@ -75,12 +65,14 @@ Requires:	%{name}-libs%{_isa} = %{version}-%{release}
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
 # to integrate Artifex's changes. 
-Provides:	bundled(lcms2-devel) = lcms2.16^65.gf75fad7
+Provides:	bundled(lcms2-devel) = lcms2.19.1^752.gd69c644
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
 Provides:	bundled(mujs-devel) = 1.3.9-9.ge892c9f
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
 Provides:	bundled(extract) = 10.05
+# cmark-gfm is not in Fedora.
+Provides:	bundled(cmark-gfm) = 0.29.0.gfm.13^3.g74e0f5b
 
 %description
 MuPDF is a lightweight PDF viewer and toolkit written in portable C.
@@ -136,7 +128,7 @@ The python3-%{pypiname} package contains low level mupdf python bindings.
 
 %prep
 %autosetup -p1 -n %{name}-%{upversion}-source
-for d in $(ls thirdparty | grep -v -e extract -e lcms2 -e mujs)
+for d in $(ls thirdparty | grep -v -e extract -e lcms2 -e mujs -e cmark-gfm)
 do
 	rm -rf thirdparty/$d
 done
@@ -163,6 +155,8 @@ sed -i -e '/DZXING_EXPERIMENTAL_API/ d' Makelists
 # enforce same setting as above for py bindings:
 sed -i -e 's/barcode=yes/barcode=no/' scripts/wrap/__main__.py
 %endif
+# do not use venvs during build
+sed -i -e '/autovenv.enter/ d' scripts/wrap/__main__.py
 
 %generate_buildrequires
 %pyproject_buildrequires -R

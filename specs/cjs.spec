@@ -5,8 +5,8 @@
 Name:          cjs
 # Epoch needed: version dropped from 1.34.0 to 1.9.1 during package revival
 Epoch:         1
-Version:       140.0
-Release:       2%{?dist}
+Version:       140.1
+Release:       1%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT AND BSD-3-Clause AND MPL-2.0 AND CC-BY-3.0 AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
@@ -103,6 +103,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 1:140.1-1
+- Update to 140.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:140.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

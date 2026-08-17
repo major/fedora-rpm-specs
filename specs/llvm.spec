@@ -3358,6 +3358,10 @@ fi
 %{expand_bins %{expand:
     llvm-sim
 }}
+%else
+%{expand_bins %{expand:
+    llvm-calc-occupancy
+}}
 %endif
 
 %{expand_mans %{expand:
@@ -3430,6 +3434,12 @@ fi
 }}
 %endif
 
+%if %{maj_ver} >= 24
+%{expand_mans %{expand:
+  llvm-calc-occupancy
+}}
+%endif
+
 %expand_datas opt-viewer
 
 %files -n %{pkg_name_llvm}-libs
@@ -3441,6 +3451,11 @@ fi
     libRemarks.so*
 }}
 %expand_libs LLVMgold.so
+%if %{maj_ver} >= 24
+%{expand_libs %{expand:
+    libLLVMOffloadKernel.so*
+}}
+%endif
 %if %{without compat_build}
 %{_libdir}/bfd-plugins/LLVMgold.so
 %endif

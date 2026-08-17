@@ -54,6 +54,10 @@ Patch8:             %{name}-docker-plugin.patch
 Patch9:             %{name}-autoconf.patch
 Patch10:            %{name}-scripts.patch
 
+# [PATCH] OpenSSL 4.0 compatibility - based on Debian / Ubuntu patches from:
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/issues/2771
+Patch11:            %{name}-openssl4.patch
+
 BuildRequires:      autoconf
 BuildRequires:      automake
 BuildRequires:      desktop-file-utils

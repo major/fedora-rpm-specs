@@ -6,11 +6,11 @@
 %global cinnamon_translations_version 6.7.0
 %global muffin_version 6.7.1
 
-%global upstream_version 6.7.4-unstable
+%global upstream_version 6.7.5-unstable
 
 Name:           cinnamon
-Version:        6.7.4^unstable
-Release:        2%{?dist}
+Version:        6.7.5^unstable
+Release:        1%{?dist}
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -134,6 +134,7 @@ Requires:       ibus-gtk3%{?_isa}
 Recommends:     ibus%{?_isa}
 Recommends:     ibus-gtk4%{?_isa}
 Requires:       gtk3-immodules%{?_isa}
+Requires:       python3-xkbcommon%{?_isa}
 
 Requires:       xapps%{?_isa}
 Requires:       python3-xapps-overrides%{?_isa}
@@ -145,9 +146,6 @@ Recommends:     gnome-calendar
 # required for network applet
 Requires:       nm-connection-editor%{?_isa}
 Requires:       network-manager-applet%{?_isa}
-
-Requires:       python3-inotify
-
 
 # required for cinnamon-killer-daemon
 Requires:       keybinder3%{?_isa}
@@ -265,6 +263,7 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_bindir}/cinnamon-hover-click
 %{_bindir}/cinnamon-install-spice
 %{_bindir}/cinnamon-json-makepot
+%{_bindir}/cinnamon-keyboard-display
 %{_bindir}/cinnamon-killer-daemon
 %{_bindir}/cinnamon-launcher
 %{_bindir}/cinnamon-looking-glass
@@ -313,6 +312,9 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-1
+- Update to 6.7.5-unstable
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

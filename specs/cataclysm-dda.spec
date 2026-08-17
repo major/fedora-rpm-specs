@@ -1,15 +1,14 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
-Version:        0.H
-Release:        6%{?dist}
+Version:        0.I
+Release:        1%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-3.0 AND OFL-1.1 AND Apache-2.0 AND MIT AND BSD-3-Clause AND Zlib
 URL:            http://cataclysmdda.org
-# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.H-RELEASE.tar.gz
-Source0:        Cataclysm-DDA-0.H-RELEASE.tar.gz
-Patch0:         const_compile_fix.patch
+# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.I-RELEASE.tar.gz
+Source0:        Cataclysm-DDA-0.I-RELEASE.tar.gz
+Patch0:         cataclysm-dda-gcc16.patch
 
 # Due virtual memory exhausted and build fail
 ExcludeArch:    i686
@@ -80,12 +79,21 @@ Provides:       bundled(square)
 Provides:       bundled(Square-Smallcaps)
 Provides:       bundled(unifont-fonts) = 12.0.01
 
+# Bundled C/C++ libraries in src/third-party
+# TODO, unbundle all these dependencies
+Provides:       bundled(flatbuffers) = 1.12.0
+Provides:       bundled(ghc-filesystem) = 1.5.12
+Provides:       bundled(imgui) = 1.91.5
+Provides:       bundled(imtui)
+Provides:       bundled(pinyin)
+Provides:       bundled(zstd) = 1.5.7
+
 %description    tiles-data
 Data files for %{name}-tiles.
 
 
 %prep
-%autosetup -n Cataclysm-DDA-0.H-RELEASE -p1
+%autosetup -n Cataclysm-DDA-0.I -p1
 
 
 %build
@@ -102,6 +110,7 @@ Data files for %{name}-tiles.
     PREFIX=%{_prefix} \
     USE_HOME_DIR=1 \
     PCH=0 \
+    TESTS=0 \
     RUNTESTS=0 \
     %if %{with release_build}
     RELEASE=1 \
@@ -114,6 +123,8 @@ Data files for %{name}-tiles.
     SOUND=1 \
     TILES=1 \
     USE_HOME_DIR=1 \
+    PCH=0 \
+    TESTS=0 \
     RUNTESTS=0 \
     %if %{with release_build}
     RELEASE=1 \
@@ -126,6 +137,7 @@ Data files for %{name}-tiles.
     PREFIX=%{_prefix} \
     USE_HOME_DIR=1 \
     PCH=0 \
+    TESTS=0 \
     RUNTESTS=0 \
     %if %{with release_build}
     RELEASE=1 \
@@ -138,6 +150,8 @@ Data files for %{name}-tiles.
     SOUND=1 \
     TILES=1 \
     USE_HOME_DIR=1 \
+    PCH=0 \
+    TESTS=0 \
     RUNTESTS=0 \
     %if %{with release_build}
     RELEASE=1 \
@@ -167,6 +181,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license LICENSE.txt
 %doc doc/* README.md CODE_OF_CONDUCT.md data/changelog.txt
 %{_bindir}/cataclysm
+%{_bindir}/zzip
 
 %files data
 %{_datadir}/%{name}/cataicon.ico
@@ -189,12 +204,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/font/
 %{_datadir}/%{name}/fontdata.json
 %{_datadir}/%{name}/gfx/
-%{_datadir}/%{name}/help/
 %{_datadir}/%{name}/sound/
 %{_metainfodir}/*.xml
 
 
 %changelog
+* Mon Aug 03 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.I-2
+- Bump to release 0.I (stable) to fix F45FTBS
+- Resolves: rhbz#2433900
+- Resolves: rhbz#2485675
+- Resolves: rhbz#2503811
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.H-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

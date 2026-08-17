@@ -173,7 +173,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT AND BSD-3-Clause
@@ -364,18 +364,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so.*
 %endif
-%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so.*
-%endif
-%if %{with ck_other} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so.*
-%endif
-%if %{with ck_reduction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so.*
-%endif
-%if %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so.*
-%endif
 
 %files devel
 %{pkg_prefix}/include/ck/
@@ -385,18 +377,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so
 %endif
-%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so
-%endif
-%if %{with ck_other} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so
-%endif
-%if %{with ck_reduction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so
-%endif
-%if %{with ck_contraction} || %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so
-%endif
 
 %if %{with test}
 %files test
@@ -404,6 +388,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Sat Aug 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Fix files
+
 * Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

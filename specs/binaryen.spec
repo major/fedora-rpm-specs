@@ -4,8 +4,8 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       130
-Release:       2%{?dist}
+Version:       132
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -69,6 +69,10 @@ mv test/spec/testsuite{-%{wats_commit},}
 rm -rv test/lit/d8
 # lit/help tests fail with python-filecheck-1.0.3
 rm -rv test/lit/help
+%ifarch i686
+# https://github.com/WebAssembly/binaryen/issues/9006
+rm test/lit/ctor-eval/flatten_overflow.wast
+%endif
 %patch -P2 -p1 -b .empty
 rm -rv third_party/FP16
 %endif
@@ -85,6 +89,7 @@ rm -rv third_party/FP16
 %install
 %cmake_install
 rm -v %{buildroot}%{_bindir}/binaryen-unittests
+mv %{buildroot}%{_bindir}/{,binaryen-}wasm2c
 
 %if %{with check}
 %check
@@ -97,6 +102,8 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %files
 %license LICENSE
 %doc README.md
+# https://github.com/WebAssembly/binaryen/issues/9002
+%{_bindir}/binaryen-wasm2c
 %{_bindir}/wasm-as
 %{_bindir}/wasm-ctor-eval
 %{_bindir}/wasm-dis
@@ -115,6 +122,11 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Thu Aug 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 132-1
+- update to 132 (resolves rhbz#2501187)
+- rename the new wasm2c due to conflict with wabt (upstream issue 9002)
+- skip a failing test on i686 (upstream issue 9006)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 130-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

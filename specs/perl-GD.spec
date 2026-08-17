@@ -1,6 +1,6 @@
 Name:           perl-GD
-Version:        2.86
-Release:        3%{?dist}
+Version:        2.87
+Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/GD
@@ -102,6 +102,12 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Sat Aug 15 2026 Paul Howarth <paul@city-fan.org> - 2.87-1
+- Update to 2.87
+  - Fix OpenBSD support (GH#63)
+  - Fix $image->compare() usages (GH#64, GH#65)
+  - Fix tiff test without libimagequant (GH#66)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.86-3
 - Perl 5.44 rebuild
 

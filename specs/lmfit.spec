@@ -1,6 +1,6 @@
 Name:           lmfit
-Version:        10.0
-%global         sover 10
+Version:        11.0
+%global         sover 11
 Release:        %autorelease
 Summary:        Levenberg-Marquardt least-squares minimization and curve fitting
 # software is BSD, documentation is CC-BY

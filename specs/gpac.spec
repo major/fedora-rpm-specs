@@ -2,8 +2,8 @@
 
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
-Version:     26.02.0
-Release:     3%{?dist}
+Version:     26.07.0
+Release:     1%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -12,6 +12,10 @@ Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.ta
 Patch0:      gpac-noopt.patch
 # skip adding standard rpath
 Patch1:      gpac-norpath.patch
+# fix compilation of demo applications
+Patch2:      gpac-strcpy.patch
+# fix building SVGGen binary
+Patch3:      gpac-svggen.patch
 
 BuildRequires:  SDL2-devel
 BuildRequires:  a52dec-devel
@@ -107,6 +111,7 @@ popd
   --X11-path=%{_prefix} \
   --libdir=%{_lib} \
   --disable-oss \
+  --enable-scenegraph \
   --enable-pic \
 %if %{with check}
   --unittests \
@@ -119,7 +124,7 @@ sed -ie 's/DEBUGBUILD=no/DEBUGBUILD=yes/' config.mak
 cp -p config.h include/gpac
 
 %make_build all
-%make_build sggen
+%make_build sggen HAS_LIBXML2=yes XML2_CFLAGS="$(pkg-config --cflags libxml-2.0)" XML2_LIBS="$(pkg-config --libs libxml-2.0)"
 
 ## kwizart - build doxygen doc for devel
 pushd share/doc
@@ -130,8 +135,7 @@ popd
 %make_install install-lib
 
 #Install generated sggen binaries
-#for b in MPEG4 SVG X3D; do
-for b in MPEG4 X3D; do
+for b in MPEG4 SVG X3D; do
   pushd applications/generators/${b}
     install -pm 0755 ${b}Gen %{buildroot}%{_bindir}
   popd
@@ -161,6 +165,7 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 %{_bindir}/gpac
 %{_bindir}/MP4Box
 %{_bindir}/MPEG4Gen
+%{_bindir}/SVGGen
 %{_bindir}/X3DGen
 %{_datadir}/gpac/
 %{_mandir}/man1/gpac-filters.1.*
@@ -194,6 +199,10 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Sat Aug 15 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-1
+- update to 26.07.0 (resolves rhbz#2514277)
+- fix building sggen binaries
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.02.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

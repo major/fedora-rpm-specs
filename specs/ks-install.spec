@@ -1,11 +1,14 @@
 %global forgeurl https://github.com/cmadamsgit/ks-install
-%global commit 9c6c6d145004d4f67235eb90b654ba4467a31005
+%global commit 06dff32d2e16ecfa876c072f568427fb01c28abe
+# forgemeta getting a date mismatch because source tar timestamp between
+# UTC midnight and local midnight
+%global date 20260814
 %forgemeta
 
 Name:		ks-install
 Summary:	Take a Fedora/CentOS/RHEL kickstart file and make a VM
 Version:	0
-Release:	0.14%{?dist}
+Release:	0.15%{?dist}
 URL:		%{forgeurl}
 Source:		%{forgesource}
 License:	GPL-3.0-only
@@ -35,6 +38,10 @@ install -D -m0644 ks-libvirt.1 %{buildroot}%{_mandir}/man1/ks-libvirt.1
 %{_mandir}/man1/ks-libvirt.1*
 
 %changelog
+* Fri Aug 14 2026 Chris Adams <linux@cmadams.net> - 0-0.15
+- handle multiple NICs and more complex NIC definitions
+- some VSOCK cleanup
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
