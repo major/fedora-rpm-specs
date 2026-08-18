@@ -6,7 +6,7 @@
 
 Name:           bign-handheld-thumbnailer
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Thumbnailer for Nintendo handheld game consoles
 
 SourceLicense:  GPL-2.0-or-later
@@ -24,6 +24,8 @@ License:        GPL-2.0-or-later AND MIT AND (0BSD OR Apache-2.0 OR MIT) AND (Ap
 
 URL:            https://github.com/MateusRodCosta/bign-handheld-thumbnailer
 Source:         https://github.com/MateusRodCosta/bign-handheld-thumbnailer/archive/refs/tags/v%{version}.tar.gz
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  meson
@@ -67,6 +69,9 @@ Thumbnailer for Nintendo handheld game consoles (DS and 3DS) roms and homebrew.}
 %{_metainfodir}/dev.mateusrodcosta.bign_handheld_thumbnailer.metainfo.xml
 
 %changelog
+* Sun Aug 16 2026 Mateus Rodrigues Costa <mateusrodcosta@gmail.com> - 1.2.1-3
+- Stop building x86 32-bits (ExcludeArch: %%{ix86})
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

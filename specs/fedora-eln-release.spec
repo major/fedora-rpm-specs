@@ -311,7 +311,8 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 
 %if %{with repos}
 # Install DNF repo file
-install -Dm0644 %{SOURCE8} -t %{buildroot}%{_sysconfdir}/yum.repos.d/
+install -d %{buildroot}%{_sysconfdir}/yum.repos.d
+install -Dm0644 %{SOURCE8} -t %{buildroot}%{_datadir}/dnf5/repos.d/
 %endif
 
 # Install Cockpit (and Anaconda WebUI) theming
@@ -347,7 +348,9 @@ install -Dm0644 %{SOURCE50} -t %{buildroot}%{_sysconfdir}/cockpit/branding/
 
 %if %{with repos}
 %files -n fedora-eln-repos
-%{_sysconfdir}/yum.repos.d/fedora-eln.repo
+%dir %{_sysconfdir}/yum.repos.d
+%dir %{_datadir}/dnf5/repos.d
+%{_datadir}/dnf5/repos.d/fedora-eln.repo
 %endif
 
 

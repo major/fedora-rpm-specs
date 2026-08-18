@@ -1,5 +1,5 @@
 Name:           gnome-radio
-Version:        82.0
+Version:        83.0.1
 Release:        %autorelease
 Summary:        GNOME Radio
  
@@ -45,6 +45,7 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %files
 %{_bindir}/gnome-internet-radio-locator
 %{_bindir}/gnome-radio
+%{_bindir}/gnome-radio-oop
 %{_bindir}/gtk-internet-radio-locator
 %{_bindir}/gtk-radio
 %{_bindir}/org.gnome.Radio

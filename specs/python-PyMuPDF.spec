@@ -6,7 +6,7 @@
 %bcond barcode 1 
 
 Name:		python-%{pypi_name}
-Version:	1.27.2.2
+Version:	1.28.2
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -21,14 +21,13 @@ Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch:		0001-tests-adjust-to-verbose-font-warning.patch
 Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
 Patch:		0001-tests-conftest-do-not-call-pip.patch
-# Upstream patches from main branch:
-Patch:		0001-src-__init__.py-fix-incorrect-generation-of-PDF-cont.patch
-# Upstreamable:
+# Suggested upstream:
 # https://github.com/pymupdf/PyMuPDF/pull/5015
 Patch:		0001-remove-usage-of-typing.ByteString.patch
 # Replace removed Python 2 C API macros with Python 3 equivalents
 # for compatibility with SWIG 4.5.0
-Patch:		python-PyMuPDF-swig45.patch
+# https://github.com/pymupdf/PyMuPDF/pull/5072
+Patch:		0001-Replace-removed-Python-2-C-API-macros-for-SWIG-4.5.0.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)
@@ -124,8 +123,8 @@ SKIP="$SKIP and not test_3050"
 SKIP="$SKIP and not test_subset_fonts"
 # test_fit_springer depends on font library version (harfbuzz etc)
 SKIP="$SKIP and not test_fit_springer"
-# test_spikes uses a binary diff on rendered images
-SKIP="$SKIP and not test_spikes"
+# these tests use a binary diff on rendered images
+SKIP="$SKIP and not test_spikes and not test_5001"
 # these compare renderings with system fonts or missing fonts
 SKIP="$SKIP and not test_4180 and not test_4613 and not test_htmlbox1"
 # test downloads data from the internet
@@ -155,6 +154,8 @@ SKIP="$SKIP and not test_4435"
 SKIP="$SKIP and not test_insert and not test_3087"
 # tests are known to fail on newer Fedoras (reported)
 SKIP="$SKIP and not test_layout and not test_pageids"
+# test depends on symbols in standard font
+SKIP="$SKIP and not test_markdown_bad_unicode"
 export PYMUPDF_SYSINSTALL_TEST=1
 %pytest -k "$SKIP"
 

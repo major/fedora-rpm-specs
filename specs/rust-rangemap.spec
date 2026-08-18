@@ -6,7 +6,7 @@
 %global crate rangemap
 
 Name:           rust-rangemap
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Map and set data structures whose keys are stored as ranges
 
@@ -50,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ordered-float5-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ordered-float5-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ordered-float5" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ordered-float5-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+quickcheck-devel

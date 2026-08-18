@@ -134,7 +134,7 @@ Requires:       ibus-gtk3%{?_isa}
 Recommends:     ibus%{?_isa}
 Recommends:     ibus-gtk4%{?_isa}
 Requires:       gtk3-immodules%{?_isa}
-Requires:       python3-xkbcommon%{?_isa}
+Requires:       python3-xkbcommon%{?_isa} >= 1.0.0
 
 Requires:       xapps%{?_isa}
 Requires:       python3-xapps-overrides%{?_isa}

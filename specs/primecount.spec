@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.6
-Release:        1%{?dist}
+Version:        8.7
+Release:        0%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -124,6 +124,33 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sun Aug 16 2026 Kim Walisch <walki@fedoraproject.org> - 8.7-0
+- primecount now requires C++14 or later (only for building, linking still works with C++11)
+- nth_prime_sieve.cpp: Fix rare OpenMP multi-threading bug
+- Fix GCC/Clang -Wundef warnings
+- PiTable.cpp: Add multi-threaded primes vector initialization
+- FactorTableD.hpp: Reduce Gourdon D memory using 16-bit prime factor ordinals
+- primecount.pc.in: Add missing libatomic and libquadmath dependencies
+- primecountConfig.cmake.in: Only find OpenMP when required
+- ci.yml: Add pkg-config and CMake find_package() CI tests
+- D_arm_sve.hpp: Fix GCC ARM SVE failed auto-vectorization
+- Fix get_max_x() for x > 10^31
+- CmdOptions.cpp: Detect too many input numbers
+- P2.cpp: Fix potential 64-bit integer overflow
+- phi.cpp: Fix phi(x, a) for x >= 4611686065672028281 which requires primes > INT32_MAX
+- lmo/*.cpp: Fix int32_t primes overflow
+- api.cpp: Fix nth_prime() error message
+- api.cpp: Fix 128-bit nth_prime() for negative inputs
+- main.cpp: Validate 128-bit to 64-bit integer conversions
+- LoadBalancerS2.cpp: Fix Clang scaling issue
+- AC.cpp: Improve clustered easy leaves algorithm using Gourdon's inversion equality
+- AC.cpp: Implement segmented C1 algorithm to improve cache efficiency
+- AC.cpp: Use multi-threading to initialize the libdivide vector
+- util.cpp: Retune Gourdon alpha factors due to improved C algorithm
+- test.cpp: Improve test coverage using alternate alpha_z values
+- doc/Easy-Special-Leaves.pdf: Add description of new C algorithm
+- doc/alpha-factor-gourdon.pdf: Retune Gourdon alpha factors
+
 * Thu Jul 16 2026 Kim Walisch <walki@fedoraproject.org> - 8.6-1
 - count_simd.hpp: Prevent loop unrolling to reduce branch mispredictions
 - Sieve.cpp: New sieving algorithm for small primes

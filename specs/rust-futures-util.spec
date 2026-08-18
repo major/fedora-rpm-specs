@@ -6,7 +6,7 @@
 %global crate futures-util
 
 Name:           rust-futures-util
-Version:        0.3.33
+Version:        0.3.34
 Release:        %autorelease
 Summary:        Common utilities and extension traits for the futures-rs library
 

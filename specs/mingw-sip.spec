@@ -3,8 +3,8 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.15.3
-Release:        2%{?dist}
+Version:        6.16.0
+Release:        1%{?dist}
 
 License:        BSD-2-Clause
 Url:            http://www.riverbankcomputing.com/software/sip/intro
@@ -121,6 +121,9 @@ done
 
 
 %changelog
+* Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 6.16.0-1
+- Update to 6.16.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

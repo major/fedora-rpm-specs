@@ -127,6 +127,13 @@ exit 0
 
 
 %check
+# t-prune.sh commits 1000 files then runs `git lfs prune`. On git 2.54+ the default 'geometric'
+# maintenance strategy fires a detached background repack (at ~100 loose objects) that races
+# prune and intermittently fails with 'missing object'. Run maintenance synchronously so the
+# repack finishes first -- same fix as git's own test suite (git.git 09505b1). Upstream:
+# https://github.com/git-lfs/git-lfs/issues/6309
+export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=maintenance.autoDetach GIT_CONFIG_VALUE_0=false
+
 %go_vendor_license_check -c %{S:5}
 %if %{with check}
 %gocheck2

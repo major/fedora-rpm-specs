@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate envsubst
+%global crate seq-macro
 
-Name:           rust-envsubst
-Version:        0.2.1
+Name:           rust-seq-macro
+Version:        0.3.6
 Release:        %autorelease
-Summary:        Variables substitution
+Summary:        Macro to repeat sequentially indexed copies of a fragment of code
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/envsubst
+URL:            https://crates.io/crates/seq-macro
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Variables substitution.}
+Macro to repeat sequentially indexed copies of a fragment of code.}
 
 %description %{_description}
 
@@ -31,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYRIGHT
-%license %{crate_instdir}/LICENSE-APACHE-2.0
+%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

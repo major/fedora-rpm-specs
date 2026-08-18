@@ -5,7 +5,7 @@
 %global crate salsa-macro-rules
 
 Name:           rust-salsa-macro-rules
-Version:        0.27.2
+Version:        0.28.2
 Release:        %autorelease
 Summary:        Declarative macros for the salsa crate
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/unipot
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6
+Version:        1.7
 Release:        %autorelease
 Summary:        Unipotent subgroups of Chevalley groups for GAP
 
@@ -16,8 +16,8 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap-devel >= 4.7
-BuildRequires:  tth
 
 Requires:       gap-core >= 4.7
 
@@ -46,17 +46,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
-
-%conf
-# Fix paths
-sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/{make_doc,manual.tex}
-
-%build
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc
-cd -
-rm ../../doc
 
 %files
 %doc CHANGES.md README.md

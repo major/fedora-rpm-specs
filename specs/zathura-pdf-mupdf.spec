@@ -1,7 +1,7 @@
 Name:             zathura-pdf-mupdf
 
-Version:          2026.05.10
-Release:          2%{?dist}
+Version:          2026.07.18
+Release:          1%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
@@ -21,7 +21,7 @@ BuildRequires:    appstream
 BuildRequires:    libjpeg-turbo-devel
 BuildRequires:    meson >= 1
 BuildRequires:    mupdf-devel >= 1.26
-BuildRequires:    zathura-devel >= 2026.01.30
+BuildRequires:    zathura-devel >= 2026.07.18
 Requires:         zathura >= 2026.01.30
 
 # Old plugins used alternatives
@@ -55,6 +55,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- update to 2026.07.18 (rhbz#2502068)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global pkgname qtkeychain
 
 Name:           mingw-%{pkgname}
-Version:        0.16.0
-Release:        2%{?dist}
+Version:        0.17.0
+Release:        1%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
@@ -20,12 +20,16 @@ BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt5-qtbase
 BuildRequires:  mingw32-qt5-qttools
 BuildRequires:  mingw32-qt5-qttools-tools
+BuildRequires:  mingw32-qt6-qtbase
+BuildRequires:  mingw32-qt6-qttools
 
 BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt5-qtbase
 BuildRequires:  mingw64-qt5-qttools
 BuildRequires:  mingw64-qt5-qttools-tools
+BuildRequires:  mingw64-qt6-qtbase
+BuildRequires:  mingw64-qt6-qttools
 
 
 %description
@@ -33,18 +37,31 @@ MinGW Windows %{pkgname} library.
 
 
 %package -n mingw32-%{pkgname}-qt5
-Summary:       MinGW Windows %{pkgname} library
+Summary:       MinGW Windows %{pkgname} Qt5 library
 
 %description -n mingw32-%{pkgname}-qt5
-MinGW Windows %{pkgname} library.
+MinGW Windows %{pkgname} Qt5 library.
 
 
 %package -n mingw64-%{pkgname}-qt5
-Summary:       MinGW Windows %{pkgname} library
+Summary:       MinGW Windows %{pkgname} Qt5 library
 
 %description -n mingw64-%{pkgname}-qt5
-MinGW Windows %{pkgname} library.
+MinGW Windows %{pkgname} Qt5 library.
 
+
+%package -n mingw32-%{pkgname}-qt6
+Summary:       MinGW Windows %{pkgname} Qt6 library
+
+%description -n mingw32-%{pkgname}-qt6
+MinGW Windows %{pkgname} Qt6 library.
+
+
+%package -n mingw64-%{pkgname}-qt6
+Summary:       MinGW Windows %{pkgname} Qt6 library
+
+%description -n mingw64-%{pkgname}-qt6
+MinGW Windows %{pkgname} Qt6 library.
 
 %{?mingw_debug_package}
 
@@ -54,17 +71,27 @@ MinGW Windows %{pkgname} library.
 
 
 %build
-%mingw_cmake \
-    -DBUILD_WITH_QT4:BOOL=OFF
+export MINGW_BUILDDIR_SUFFIX=_qt5
+%mingw_cmake -DBUILD_WITH_QT5:BOOL=ON
+%mingw_make_build
+export MINGW_BUILDDIR_SUFFIX=_qt6
+export MINGW32_CMAKE_ARGS="-DECM_MKSPECS_INSTALL_DIR=%{mingw32_datadir}/qt6/mkspecs/modules"
+export MINGW64_CMAKE_ARGS="-DECM_MKSPECS_INSTALL_DIR=%{mingw64_datadir}/qt6/mkspecs/modules"
+%mingw_cmake -DBUILD_WITH_QT5:BOOL=OFF
 %mingw_make_build
 
 
 %install
+export MINGW_BUILDDIR_SUFFIX=_qt5
+%mingw_make_install
+export MINGW_BUILDDIR_SUFFIX=_qt6
 %mingw_make_install
 
 %find_lang %{pkgname} --with-qt
 grep %{mingw32_datadir}/qt5keychain/translations %{pkgname}.lang > mingw32_%{pkgname}-qt5.lang
 grep %{mingw64_datadir}/qt5keychain/translations %{pkgname}.lang > mingw64_%{pkgname}-qt5.lang
+grep %{mingw32_datadir}/qt6keychain/translations %{pkgname}.lang > mingw32_%{pkgname}-qt6.lang
+grep %{mingw64_datadir}/qt6keychain/translations %{pkgname}.lang > mingw64_%{pkgname}-qt6.lang
 
 
 
@@ -84,7 +111,26 @@ grep %{mingw64_datadir}/qt5keychain/translations %{pkgname}.lang > mingw64_%{pkg
 %{mingw64_libdir}/cmake/Qt5Keychain
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_Qt5Keychain.pri
 
+%files -n mingw32-%{pkgname}-qt6 -f mingw32_%{pkgname}-qt6.lang
+%license COPYING
+%{mingw32_bindir}/libqt6keychain.dll
+%{mingw32_includedir}/qt6keychain/
+%{mingw32_libdir}/libqt6keychain.dll.a
+%{mingw32_libdir}/cmake/Qt6Keychain
+%{mingw32_datadir}/qt6/mkspecs/modules/qt_Qt6Keychain.pri
+
+%files -n mingw64-%{pkgname}-qt6 -f mingw64_%{pkgname}-qt6.lang
+%license COPYING
+%{mingw64_bindir}/libqt6keychain.dll
+%{mingw64_includedir}/qt6keychain/
+%{mingw64_libdir}/libqt6keychain.dll.a
+%{mingw64_libdir}/cmake/Qt6Keychain
+%{mingw64_datadir}/qt6/mkspecs/modules/qt_Qt6Keychain.pri
+
 %changelog
+* Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 0.17.0-1
+- Update to 0.17.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

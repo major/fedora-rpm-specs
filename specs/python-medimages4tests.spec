@@ -1,12 +1,8 @@
 %global pypi_name medimages4tests
 
 %global forgeurl https://github.com/australian-imaging-service/medimages4tests
-%global version 0.5.7
-%global git_tag v%{version}
-# License change from CC0-1.0 to Apache-2.0 applied in c0a06fa
-# https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
-%global commit c0a06fac3a6ec66c5f6bd14509979996f681d275
-%global date 20250417
+%global version 0.5.9
+%global tag     v%{version}
 %forgemeta
 
 Name:           python-%{pypi_name}
@@ -23,13 +19,7 @@ Summary:        Generates dummy medical image for image handling tests
 License:        Apache-2.0 AND Unlicense
 URL:            %forgeurl
 Source:         %forgesource
-# Update Versioneer and fix config.
-# Part of the changes are required even if upstream decides not to
-# merge the PR fully (e.g. sticking with the current Versioneer version).
-# In that case we could use the system installed Versioneer to recreate
-# versioneer.py as well as _version.py which are than Unlicense.
-# https://github.com/Australian-Imaging-Service/medimages4tests/pull/15
-Patch:          0001-Update-Versioneer-and-fix-config.patch
+
 
 BuildArch:      noarch
 BuildRequires:  git-core

@@ -6,7 +6,7 @@
 %global crate wayland-backend
 
 Name:           rust-wayland-backend
-Version:        0.3.15
+Version:        0.3.17
 Release:        %autorelease
 Summary:        Low-level bindings to the Wayland protocol
 

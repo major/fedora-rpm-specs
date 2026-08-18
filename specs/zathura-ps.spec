@@ -1,6 +1,6 @@
 Name:             zathura-ps
-Version:          2026.02.03
-Release:          2%{?dist}
+Version:          2026.07.18
+Release:          1%{?dist}
 Summary:          PS support for zathura via libspectre
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -17,7 +17,7 @@ BuildRequires:    glib2-devel
 BuildRequires:    appstream
 BuildRequires:    libspectre-devel
 BuildRequires:    meson >= 0.61
-BuildRequires:    zathura-devel >= 2026.01.30
+BuildRequires:    zathura-devel >= 2026.07.18
 
 Requires:         zathura >= 2026.01.30
 
@@ -45,6 +45,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 %{_datadir}/metainfo/org.pwmt.zathura-ps.metainfo.xml
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- feat: update to 2026.07.18 (rhbz#2502069)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.02.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

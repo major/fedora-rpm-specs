@@ -1,28 +1,28 @@
 %global srcname memray
 %global forgeurl https://github.com/bloomberg/%{srcname}
+Version:        1.20.0
+%forgemeta
 
 # The tests attempt to perform tracing and are generally flaky in mock/koji
 %bcond_with tests
 
 Name:           python-%{srcname}
-Version:        1.13.4
 Release:        %autorelease
 Summary:        Memory profiler for Python applications
 
 # memray is Apache-2.0, the vendored libbacktrace is BSD-3-Clause
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://bloomberg.github.io/memray/
-# PyPI tarball doesn't include tests
-Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-
-BuildRequires:  gcc-c++
-BuildRequires:  python3-docs
-BuildRequires:  sed
+Source:         %{forgesource}
 
 BuildRequires:  elfutils-debuginfod-client-devel
+BuildRequires:  fdupes
+BuildRequires:  gcc-c++
 BuildRequires:  libunwind-devel
 BuildRequires:  lz4-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-docs
+BuildRequires:  sed
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -81,17 +81,19 @@ sed -r \
 %build
 %pyproject_wheel
 
-# Build the docs
-PYTHONPATH="build/lib.%{python3_platform}-cpython-%{python3_version_nodots}" \
-  sphinx-build-3 docs html
-rm -r html/{.buildinfo,.doctrees,.nojekyll}
-
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
 
+# Build the docs
+PYTHONPATH="%{buildroot}%{python3_sitearch}" \
+  sphinx-build-3 docs html
+rm -r html/{.buildinfo,.doctrees,.nojekyll}
+
 # Remove duplicate binary
-rm %{buildroot}%{_bindir}/%{srcname}%{python3_version}
+rm -f %{buildroot}%{_bindir}/%{srcname}%{python3_version}
+
+%fdupes %{buildroot}%{_docdir}
 
 %check
 %if %{with tests}

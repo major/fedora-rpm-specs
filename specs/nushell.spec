@@ -83,12 +83,14 @@ Source:         https://github.com/nushell/nushell/archive/%{version}/%{name}-%{
 # disable query plugin; gsjon not packaged
 # bump dialoguer from 0.11 to 0.12:
 #   https://github.com/nushell/nushell/commit/839e7bb52ed21abc53497b7d91b16024ada46222
-# bump lsp-server from 0.7 to 0.8:
+# bump lsp-server from 0.7 to 0.10:
 #   https://github.com/nushell/nushell/commit/96cb2126ab9b8ac7ce1291046f854328bb77de7b
+#   https://github.com/nushell/nushell/commit/bcc69ebd4dc54f751b5567c28912258bc9c53131
 Patch:          nushell-fix-metadata.diff
 Patch:          nu-command-fix-for-quick-xml-0_33.diff
 Patch:          nu-command-0.99.1-roxmltree-0.21.diff
 Patch:          nu-command-0.99.1-port-to-uutils-0.7.0.diff
+Patch:          nu-lsp-0.99.1-port-to-lsp-server-0.10.diff
 
 # OOM when linking. We don't ship binaries on ix86 anyway, exclude it
 ExcludeArch:    %{ix86}

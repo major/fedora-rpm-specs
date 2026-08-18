@@ -1,6 +1,6 @@
 Name:           python-xkbcommon
-Version:        0.8
-Release:        16%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Bindings for libxkbcommon using cffi
 
 License:        MIT
@@ -10,6 +10,8 @@ Source:         %{pypi_source xkbcommon}
 BuildRequires:  python3-devel
 BuildRequires:  gcc
 BuildRequires:  libxkbcommon-devel
+# Used for tests
+BuildRequires:  libX11-common
 
 Requires:  libxkbcommon
 
@@ -55,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Aug 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.5.1-1
+- Update to 1.5.1
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.8-16
 - Rebuilt for Python 3.15.0b4 ABI change
 

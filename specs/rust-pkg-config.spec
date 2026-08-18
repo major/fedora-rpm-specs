@@ -5,7 +5,7 @@
 %global crate pkg-config
 
 Name:           rust-pkg-config
-Version:        0.3.33
+Version:        0.3.34
 Release:        %autorelease
 Summary:        Library to run the pkg-config system tool
 

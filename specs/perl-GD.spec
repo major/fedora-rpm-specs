@@ -1,5 +1,5 @@
 Name:           perl-GD
-Version:        2.87
+Version:        2.91
 Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
@@ -102,6 +102,74 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Sun Aug 16 2026 Paul Howarth <paul@city-fan.org> - 2.91-1
+- Update to 2.91
+  - Add JXL, UHDR support for new libgd-2.4.0 (from git)
+  - JXL: newFromJxl/newFromJxlData readers, jxl() writer
+    (lossless/distance/effort), magic-byte autodetection in new()
+  - UHDR: New GD::UHDR class (newFromFile/newFromData, width/height/hasGainMap,
+    resize/crop/rotate/mirror, file/write, getSdr)
+  - Work around libgd 2.4.0 gd.h no longer declaring gdImageBoundsSafe()
+  - IMAGEQUANT: trueColorToPaletteSetMethod/SetQuality and the GD_QUANT_*
+    constants for the libimagequant-backed quantizer
+  - Guard for installations without libimagequant
+  - Fix imagequant feature autodetection in Makefile.PL (libimagequant surfaces
+    in gdlib.pc's Libs.private, not Requires.private
+  - Embed rpath (Linux) and fix stale blib/lib/GD/Image.pm so 'make test'
+    reliably exercises the just-configured libgd (GH#21 test infra); fix GD_LIQ
+    detection from the deprecated gdlib-config script
+  - Add Affine transformations (GH#21): GD::Image affine matrix builders
+    (affineIdentity/Scale/Rotate/ShearHorizontal/ShearVertical/Translate/
+     Concat/Invert/Flip/Expansion/Rectilinear/Equal/ApplyToPoint) and
+    transformAffineGetImage/transformAffineCopy/transformAffineBoundingBox,
+    wrapping gdAffine*/gdTransformAffine* (libgd >= 2.1.0); fix GD_AFFINE_*
+    constant visibility (same enum/#ifdef issue as GD_QUANT_*)
+  - Add more previously-unbound libgd methods (libgd >= 2.1.0 unless noted):
+    paletteToTrueColor, crop, cropAuto, cropThreshold, colorReplace,
+    colorReplaceArray, colorReplaceThreshold, convolution, resolution;
+    cloneImage, getTrueColorPixel, perceptualDiff (libgd >= 2.4.0); clone() now
+    uses the native gdImageClone() when available, fixing truecolor-ness loss on
+    the old new()+copy() fallback; Fix GD_CROP_* constant visibility (same
+    enum/#ifdef issue as GD_QUANT_*)
+  - Animated WebP support (libgd >= 2.4.0): new GD::WebpAnimWriter
+    (new/addImage/finish, wrapping gdWebpWriteOpenPtr/AddImage/PtrFinish) and
+    GD::WebpAnimReader (newFromData/info/nextImage, wrapping
+    gdWebpReadOpenCtx/GetInfo/NextImage) classes
+  - Animated/multi-image JXL support (libgd >= 2.4.0): new GD::JxlAnimWriter
+    (new/addImage/finish, wrapping gdJxlWriteOpenPtr/AddImage/PtrFinish) and
+    GD::JxlAnimReader (newFromData/info/nextImage, wrapping
+    gdJxlReadOpenCtx/GetInfo/NextImage) classes, mirroring
+    GD::WebpAnimReader/Writer
+  - Multi-page TIFF support (libgd >= 2.4.0): new GD::TiffMultiWriter
+    (new/addImage/finish, wrapping gdTiffWriteOpenPtr/AddImage/PtrFinish) and
+    GD::TiffMultiReader (newFromData/info/nextImage, wrapping
+    gdTiffReadOpenCtx/GetInfo/NextImage) classes, mirroring
+    GD::WebpAnimReader/Writer (pages have no per-page delay; nextImage()
+    returns a page-info hashref instead); also adds the GD_TIFF_* writer option
+    constants (colorspace, compression, resolution unit, alpha type)
+  - Per-format header introspection (libgd >= 2.4.0): new
+    GD::Image->pngInfoData/jpegInfoData/gifInfoData/bmpInfoData/avifInfoData/
+    heifInfoData class methods, wrapping
+    gd{Png,Jpeg,Gif,Bmp,Avif,Heif}GetInfoCtx; each reads just the container
+    facts (dimensions, bit depth, and similar) from an in-memory buffer without
+    fully decoding the image
+  - Fixed a longstanding bug in the in-memory gdIOCtx used by every
+    newFrom*Data()/*InfoData() method: its getC() callback never advanced the
+    read position, so any decoder reading a buffer byte-by-byte (as the new
+    bmpInfoData()'s BMP header parser does) would spin re-reading the first
+    byte forever; PNG, JPEG, GIF, WebP, TIFF, JXL, AVIF and HEIF decoding were
+    unaffected because they read through the bulk getBuf() callback instead,
+    which was already correct
+  - Worked around inconsistent success/failure return conventions across
+    libgd's new Get*InfoCtx functions: gdPngGetInfoCtx, gdJpegGetInfoCtx,
+    gdAvifGetInfoCtx and gdHeifGetInfoCtx all return 0 on success despite two
+    of their own header comments claiming the opposite, while gdGifGetInfoCtx
+    and gdBmpGetInfoCtx return 1 on success as documented
+  - t/affine.t: Compare affineInvert(scale(2,3))'s result with an epsilon
+    (1e-6) instead of exact is_deeply, since -Duselongdouble perls compute the
+    division in extended precision, giving a last-few-ULP-different 1/3 than a
+    plain double (GH#68)
+
 * Sat Aug 15 2026 Paul Howarth <paul@city-fan.org> - 2.87-1
 - Update to 2.87
   - Fix OpenBSD support (GH#63)

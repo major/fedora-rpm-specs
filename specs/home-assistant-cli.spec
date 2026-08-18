@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        1.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -26,13 +26,21 @@ a local or a remote Home Assistant instance directly from the command-line.
 %pyproject_patch_dependency tabulate:drop_upper
 
 # Test dependencies
-%pyproject_patch_dependency pre-commit:drop_upper
-%pyproject_patch_dependency pytest-cov:drop_upper
-%pyproject_patch_dependency pytest-sugar:ignore
 %pyproject_patch_dependency pytest:drop_constraints
+# Omit unnecessary or unwanted test dependencies. See also:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# - Typecheckers, linters, and formatters:
+%pyproject_patch_dependency mypy:ignore
 %pyproject_patch_dependency types-dateparser:ignore
-%pyproject_patch_dependency types-requests:drop_constraints
+%pyproject_patch_dependency types-requests:ignore
 %pyproject_patch_dependency types-tabulate:ignore
+%pyproject_patch_dependency ruff:ignore
+# - Coverage analysis
+%pyproject_patch_dependency pytest-cov:ignore
+# - Simply not used
+%pyproject_patch_dependency pre-commit:ignore
+# - Purely cosmetic
+%pyproject_patch_dependency pytest-sugar:ignore
 
 %generate_buildrequires
 %pyproject_buildrequires -g test
@@ -53,6 +61,9 @@ a local or a remote Home Assistant instance directly from the command-line.
 %{_bindir}/hass-cli
 
 %changelog
+* Sun Aug 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-4
+- Remove unnecessary and unwanted test dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

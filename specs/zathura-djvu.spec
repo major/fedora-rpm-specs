@@ -1,6 +1,6 @@
 Name:             zathura-djvu
-Version:          2026.05.10
-Release:          2%{?dist}
+Version:          2026.07.18
+Release:          1%{?dist}
 Summary:          DjVu support for zathura
 License:          Zlib
 URL:              http://pwmt.org/projects/%{name}
@@ -13,14 +13,13 @@ BuildRequires:    djvulibre-devel
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
 BuildRequires:    girara-devel >= 2026.02.03
-BuildRequires:    glib2-devel
 # Needed to validate appdata
 BuildRequires:    appstream
 BuildRequires:    meson >= 0.61
 BuildRequires:    gcc
-BuildRequires:    zathura-devel >= 2026.01.30
+BuildRequires:    zathura-devel >= 2026.07.18
 
-Requires:         zathura >= 2026.01.30
+Requires:         zathura >= 2026.07.18
 
 %description
 The zathura-djvu plugin adds DjVu support to zathura by
@@ -47,6 +46,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 
 %changelog
+* Fri Aug 07 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- update to 2026.07.18
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

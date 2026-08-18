@@ -5,7 +5,7 @@
 %global crate gen-lsp-types
 
 Name:           rust-gen-lsp-types
-Version:        0.9.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Library of Rust LSP types generated from the official metamodel
 

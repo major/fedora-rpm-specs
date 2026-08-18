@@ -1,6 +1,6 @@
 Name:           perl-Net-OAuth
-Version:        0.31
-Release:        4%{?dist}
+Version:        0.32
+Release:        1%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OAuth
@@ -8,6 +8,7 @@ Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Net-OAuth-%{versi
 BuildArch:      noarch
 
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -17,7 +18,7 @@ BuildRequires:  perl(Class::Accessor) >= 0.31
 BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::Data::Inheritable) >= 0.06
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Crypt::URandom) >= 0.37
+BuildRequires:  perl(Crypt::SysRandom) >= 0.006
 BuildRequires:  perl(Digest::SHA) >= 5.47
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(LWP::UserAgent) >= 1
@@ -35,6 +36,8 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(utf8)
+Recommends:     perl(Crypt::OpenSSL::RSA) >= 0.38
+Recommends:     perl(Crypt::SysRandom::XS) >= 0.010
 
 %{?perl_default_filter}
 
@@ -64,12 +67,16 @@ make test
 
 
 %files
-%doc Changes README
+%doc Changes README CONTRIBUTING.md
 %{perl_vendorlib}/Net/
 %{_mandir}/man3/Net::OAuth*3pm*
 
 
 %changelog
+* Sun Aug 16 2026 Xavier Bachelot <xacier@bachelot.org> -  0.32-1
+- Update to 0.32 (RHBZ#2517177)
+  - Fixes CVE-2026-72887 and CVE-2026-72888
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

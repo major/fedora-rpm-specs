@@ -1,5 +1,5 @@
 Name:           htop
-Version:        3.5.2
+Version:        3.5.3
 Release:        %autorelease
 Summary:        Interactive process viewer
 License:        GPL-2.0-or-later

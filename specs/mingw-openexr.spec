@@ -3,8 +3,8 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.4.13
-Release:       3%{?dist}
+Version:       3.4.14
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 3.4.14-1
+- Update to 3.4.14
+
 * Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 3.4.13-3
 - Rebuilt for updated dependencies.
 

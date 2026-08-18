@@ -5,7 +5,7 @@
 %global crate lsp-server
 
 Name:           rust-lsp-server
-Version:        0.8.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Generic LSP server scaffold
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 # * Omit examples/minimal_lsp.rs because it requires the unpublished
 #   rust-analyzer workspace crate “toolchain”
 # * Restore some dev-dependencies stripped during publication (!):
-#   * gen-lsp-types 0.4.0 as lsp-types, widened downstream through 0.10,
+#   * gen-lsp-types 0.4.0 as lsp-types, widened downstream through 0.11,
 #   with “url” feature
 #   * ctrlc 3.4.7
 #   Do not restore those that are only for examples/minimal_lsp.rs.

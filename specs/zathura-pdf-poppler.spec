@@ -1,6 +1,6 @@
 Name:             zathura-pdf-poppler
-Version:          2026.05.10
-Release:          2%{?dist}
+Version:          2026.07.18
+Release:          1%{?dist}
 Summary:          PDF support for zathura via poppler
 License:          Zlib
 URL:              http://pwmt.org/projects/%{name}
@@ -16,9 +16,9 @@ BuildRequires:    glib2-devel
 BuildRequires:    appstream
 BuildRequires:    meson >= 0.61
 BuildRequires:    poppler-glib-devel >= 21.12
-BuildRequires:    zathura-devel >= 2026.01.30
+BuildRequires:    zathura-devel >= 2026.07.18
 
-Requires:         zathura >= 2026.01.30
+Requires:         zathura >= 2026.07.18
 # Old plugins used alternatives
 Conflicts:        zathura-pdf-mupdf < 0.3.3
 
@@ -50,6 +50,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-poppler.metainfo.xml
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- Update to 2026.07.18
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

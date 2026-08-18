@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/kbmag
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.5.11
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Knuth-Bendix on Monoids and Automatic Groups
 
@@ -97,17 +97,13 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
 # Preserve timestamps
-sed -i 's/cp /cp -p /' standalone/src/makefile
+sed -i 's/cp /cp -p /' Makefile.in
 
 %build -p
 # This is not an autoconf-generated script.  Do not use %%configure.
 ./configure --with-gaproot=%{gap_archdir}
 %make_build
-
-%check -p
-make test
 
 %files
 %doc CHANGES README.md

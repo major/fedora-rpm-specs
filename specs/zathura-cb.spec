@@ -1,6 +1,6 @@
 Name:             zathura-cb
-Version:          2026.05.10
-Release:          2%{?dist}
+Version:          2026.07.18
+Release:          1%{?dist}
 Summary:          Comic book support for zathura
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -12,11 +12,12 @@ BuildRequires:    cairo-devel
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc
 BuildRequires:    girara-devel >= 2026.02.03
+BuildRequires:    gtk4-devel
 # Needed to validate appdata
 BuildRequires:    appstream
 BuildRequires:    libarchive-devel
 BuildRequires:    meson >= 0.61
-BuildRequires:    zathura-devel >= 2026.01.30
+BuildRequires:    zathura-devel >= 2026.07.18
 
 Requires:         zathura >= 2026.01.30
 
@@ -44,6 +45,12 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 
 %changelog
+* Sun Jul 19 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.18-1
+- update to 2026.07.18 (rhbz#2498270)
+
+* Thu Jul 09 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.07.08-1
+- update to 2026.07.08 (rhbz#2498270)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.05.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

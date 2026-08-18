@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        43f049ba54695e26ea96ecc5cd2ff5009a8f421b
+%global qmarkdowntextedit_commit        8509ce4f0fb9cfb3076f3bd47057018be41a2935
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -17,9 +17,6 @@ ExcludeArch: %{ix86}
 %global qkeysequencewidget_commit       8cbb54a12f33e41bf7c4795405f4235db1ee8ff1
 %global qkeysequencewidget_shortcommit  %(c=%{qkeysequencewidget_commit}; echo ${c:0:7})
 
-%global md4c_commit                     c64ee9ab326c53962b5bd8cca98c086461bbdd6b
-%global md4c_shortcommit                %(c=%{md4c_commit}; echo ${c:0:7})
-
 %global qhotkey_commit                  4ebf343ec5dbae725ee3b3f68186c14a2836fae4
 %global qhotkey_shortcommit             %(c=%{qhotkey_commit}; echo ${c:0:7})
 
@@ -29,7 +26,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        26.7.9
+Version:        26.8.4
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support
@@ -41,7 +38,6 @@ Summary:        Plain-text file notepad and todo-list manager with Markdown supp
 #               singleapplication
 #               simplecrypt
 # MIT:                  piwiktracker
-#                       md4c
 # GPL-2.0-only:         versionnumber
 # GPL-3.0-or-later:     qttoolbareditor
 # LGPL-2.1-or-later:    fakevim
@@ -54,12 +50,12 @@ Source2:        %{url1}/Qt-Toolbar-Editor/archive/%{qttoolbareditor_commit}/qtto
 Source3:        %{url1}/qtcsv/archive/%{qtcsv_commit}/qtcsv-%{qtcsv_shortcommit}.tar.gz
 Source5:        %{url1}/qt-piwik-tracker/archive/%{piwiktracker_commit}/piwiktracker-%{piwiktracker_shortcommit}.tar.gz
 Source6:        %{url1}/qkeysequencewidget/archive/%{qkeysequencewidget_commit}/qkeysequencewidget-%{qkeysequencewidget_shortcommit}.tar.gz
-Source7:        https://github.com/%{name}/md4c/archive/%{md4c_commit}/md4c-%{md4c_shortcommit}.tar.gz
 Source8:        https://github.com/%{name}/QHotkey/archive/%{qhotkey_commit}/qhotkey-%{qhotkey_shortcommit}.tar.gz
 # AppData manifest
 Source100:      https://raw.githubusercontent.com/flathub/org.qownnotes.%{appname}/master/org.qownnotes.%{appname}.appdata.xml
 
 Patch1000:      system-qtkeychain.patch
+Patch1001:      system-md4c.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -82,6 +78,7 @@ BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6Keychain)
 
 BuildRequires:  pkgconfig(botan-3)
+BuildRequires:  pkgconfig(md4c-html)
 
 Requires:       hicolor-icon-theme
 Requires:       qt6-qtbase%{?_isa}
@@ -90,7 +87,6 @@ Recommends:     %{name}-translations = %{version}-%{release}
 Recommends:     hunspell
 
 Provides:       bundled(fakevim) = 0.0.1
-Provides:       bundled(md4c) = 0.4.2~git%{md4c_shortcommit}
 Provides:       bundled(qhotkey) = 1.3.0~git%{qhotkey_commit}
 Provides:       bundled(qkeysequencewidget) = 1.0.1
 Provides:       bundled(qmarkdowntextedit) = 2019.4.0~git%{qmarkdowntextedit_shortcommit}
@@ -133,7 +129,6 @@ Translations files for %{name}.
 %setup -n %{appname}-%{version} -D -T -a3
 %setup -n %{appname}-%{version} -D -T -a5
 %setup -n %{appname}-%{version} -D -T -a6
-%setup -n %{appname}-%{version} -D -T -a7
 %setup -n %{appname}-%{version} -D -T -a8
 
 mv qmarkdowntextedit-%{qmarkdowntextedit_commit}/*      src/libraries/qmarkdowntextedit/
@@ -141,7 +136,6 @@ mv Qt-Toolbar-Editor-%{qttoolbareditor_commit}/*        src/libraries/qttoolbare
 mv qtcsv-%{qtcsv_commit}/*                              src/libraries/qtcsv/
 mv qt-piwik-tracker-%{piwiktracker_commit}/*            src/libraries/piwiktracker/
 mv qkeysequencewidget-%{qkeysequencewidget_commit}/*    src/libraries/qkeysequencewidget/
-mv md4c-%{md4c_commit}/*                                src/libraries/md4c/
 mv QHotkey-%{qhotkey_commit}/*                          src/libraries/qhotkey/
 mkdir -p src/%{_target_platform}
 

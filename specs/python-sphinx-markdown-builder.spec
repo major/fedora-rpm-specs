@@ -1,13 +1,11 @@
 Summary:        Sphinx extension for rendering markdown builder
 Name:           python-sphinx-markdown-builder
-Version:        0.6.10
+Version:        0.6.11
 Release:        %autorelease
 License:        MIT
 URL:            https://github.com/liran-funaro/sphinx-markdown-builder
 Source0:        https://github.com/liran-funaro/sphinx-markdown-builder/archive/%{version}/sphinx-markdown-builder-%{version}.tar.gz
 Patch:          0001-Relax-setuptools-req.patch
-# Fix test_unknown_visit for pytest >= 9.1 (caplog double-capture)
-Patch:          https://github.com/liran-funaro/sphinx-markdown-builder/pull/55.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

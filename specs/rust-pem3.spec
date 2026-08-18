@@ -2,29 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate openxr-sys
+%global crate pem
 
-Name:           rust-openxr-sys
-Version:        0.13.1
+Name:           rust-pem3
+Version:        3.0.6
 Release:        %autorelease
-Summary:        OpenXR FFI bindings
+Summary:        Parse and encode PEM-encoded data
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/openxr-sys
+License:        MIT
+URL:            https://crates.io/crates/pem
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          pem-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(openxr)
 
 %global _description %{expand:
-OpenXR FFI bindings.}
+Parse and encode PEM-encoded data.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(openxr)
 
 %description    devel %{_description}
 
@@ -32,6 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE.md
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,59 +50,33 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+cmake-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+cmake-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "cmake" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+cmake-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+linked-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+linked-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "linked" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+linked-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+mint-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+mint-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "mint" feature of the "%{crate}" crate.
-
-%files       -n %{name}+mint-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+static-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+static-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "static" feature of the "%{crate}" crate.
-
-%files       -n %{name}+static-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Remove bundled OpenXR-SDK
-rm -rf OpenXR-SDK
 
 %generate_buildrequires
 %cargo_generate_buildrequires

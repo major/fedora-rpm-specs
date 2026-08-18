@@ -5,7 +5,7 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.27.2
+Version:        0.28.2
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/salsa
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Remove benchmark-only dev-dependency on codspeed-criterion-compat
+# * Remove benchmark-only dev-dependency on codspeed-divan-compat
 # * Allow older test-log 0.2.19 for now; upstream pinned 0.2.21, but none of the
 #   changes are actually required. See
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2459446.

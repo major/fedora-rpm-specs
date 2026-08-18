@@ -1,36 +1,41 @@
+%global forgeurl https://github.com/rizinorg/cutter
+Version:        2.5.0
+%global tag     v%{version}
+%forgemeta
+
 Name:           cutter-re
-Version:        2.3.4
-Release:        11%{?dist}
+Release:        %autorelease
 Summary:        GUI for Rizin reverse engineering framework
 
 # CC-BY-SA: src/img/icons/
-# CC0: src/fonts/Anonymous Pro.ttf
-License:        GPL-3.0-only AND CC-BY-SA-3.0 AND CC0-1.0
+# OFL-1.1: src/fonts/Anonymous Pro.ttf, src/fonts/Inconsolata-Regular.ttf
+License:        GPL-3.0-only AND CC-BY-SA-3.0 AND OFL-1.1
 
 URL:            https://cutter.re/
-VCS:            https://github.com/rizinorg/cutter
-Source0:        %{vcs}/releases/download/v%{version}/Cutter-v%{version}-src.tar.gz
+Source0:        %forgesource
 Source1:        cutter-re.desktop
 Source2:        cutter-re.appdata.xml
 
-BuildRequires:  rizin-devel >= 0.6.1
+BuildRequires:  clang
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  make
-BuildRequires:  kf5-syntax-highlighting-devel
-BuildRequires:  python3-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  file-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  libappstream-glib
+BuildRequires:  file-devel
 BuildRequires:  graphviz-devel
-BuildRequires:  qt5-linguist
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  kf6-syntax-highlighting-devel
+BuildRequires:  libappstream-glib
+BuildRequires:  python3-devel
+BuildRequires:  python3-pyside6-devel
+BuildRequires:  python3-shiboken6-devel
+BuildRequires:  qt6-qt5compat-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:  qt6-qtwebengine-devel
 %endif
+BuildRequires:  rizin-devel >= 0.8.0
+Requires:       hicolor-icon-theme
 Requires:       python3-jupyter-client
 Requires:       python3-notebook
-Requires:       hicolor-icon-theme
 
 %description
 Cutter is a Qt and C++ GUI for Rizin. Its goal is making an advanced,
@@ -49,11 +54,15 @@ information.
 
 
 %prep
-%autosetup -p1 -n Cutter-v%{version}
+%autosetup -p1 -n cutter-%{version}
+# Disable translations since they are in a git submodule not present in the release tarball
+sed -i 's/include(Translations)/# include(Translations)/g' src/CMakeLists.txt
 
 
 %build
-%cmake -DCUTTER_USE_BUNDLED_RIZIN=OFF
+%cmake -DCUTTER_USE_BUNDLED_RIZIN=OFF -DCMAKE_SKIP_RPATH=ON -DCMAKE_BUILD_TYPE=Release \
+       -DCUTTER_ENABLE_PYTHON_BINDINGS=ON -DCUTTER_EXTRA_PLUGIN_DIRS=%{_libdir}/cutter \
+       -DCUTTER_ENABLE_PYTHON=ON -DCUTTER_INCLUDE_GIT_HASH=OFF
 %cmake_build
 
 
@@ -77,12 +86,12 @@ sed -i 's/bin\/cutter/bin\/cutter-re/g' %{buildroot}%{_libdir}/cmake/Cutter/Cutt
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files
 %{_bindir}/cutter-re
 %{_datadir}/applications/*.desktop
-%{_datadir}/rizin/cutter/translations/*.qm
 %{_metainfodir}/*.appdata.xml
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %license COPYING src/img/icons/Iconic-LICENSE
@@ -96,155 +105,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Oct 09 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.3.4-8
-- Rebuilt for new graphviz
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 01 2025 Michal Ambroz <rebus _AT seznam.cz> - 2.3.4-5
-- Rebuild with new version of rizin 0.7.4
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed May 29 2024 Michal Ambroz <rebus _AT seznam.cz> - 2.3.4-3
-- Rebuild with new version of rizin 0.7.3
-
-* Mon Mar 25 2024 Riccardo Schirone <rschirone91@gmail.com> - 2.3.4-2
-- Rebase to version 2.3.4 (fix changelog)
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 13 2023 Michal Ambroz <rebus _AT seznam.cz> - 2.3.2-1
-- Rebase to version 2.3.2
-
-* Mon Aug 21 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.3.1-1
-- Rebase to version 2.3.1
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.2.1-1
-- Rebase to version 2.2.1
-
-* Tue Mar 14 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.2.0-1
-- Rebase to version 2.2.0
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Sep 13 2022 Riccardo Schirone <rschirone91@gmail.com> - 2.1.2-1
-- Rebase to version 2.1.2
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jul 16 2022 Riccardo Schirone <rschirone91@gmail.com> - 2.1.0-2
-- Fix cutter path in .cmake file for -devel package
-
-* Tue Jun 28 2022 Riccardo Schirone <rschirone91@gmail.com> - 2.1.0-1
-- Rebase to version 2.1.0 which uses Rizin 0.4.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 11 2022 Riccardo Schirone <rschirone91@gmail.com> - 2.0.4-2
-- Rebuild for Rizin 0.3.4
-
-* Mon Nov 29 2021 Riccardo Schirone <rschirone91@gmail.com> - 2.0.4-1
-- Rebase to version 2.0.4 which uses Rizin 0.3.1
-
-* Mon Sep 27 2021 Riccardo Schirone <rschirone91@gmail.com> - 2.0.3-1
-- Rebase to version 2.0.3 which uses Rizin 0.3.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Apr 12 2021 Riccardo Schirone <rschirone91@gmail.com> - 2.0.1-1
-- Rebase to version 2.0.1 which uses Rizin 0.2.0
-
-* Fri Apr 2 2021 Riccardo Schirone <rschirone91@gmail.com> - 2.0.0-1
-- Rebase to version 2.0.0 which uses Rizin
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.11.0-1
-- Bump to upstream version 1.11.0-1 (Thanks to Michal Ambroz, changes mostly
-  taken from https://src.fedoraproject.org/rpms/cutter-re/pull-request/2#request_diff)
-- Add cutter translations
-- Provide -devel sub package to allow compilation of cutter plugins
-
-* Fri May 8 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.2-2
-- Just re-build
-
-* Tue May 5 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.2-1
-- Rebase to upstream version 1.10.2
-
-* Tue May 5 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.1-5
-- Re-build for new radare2 release
-
-* Wed Feb 5 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.1-4
-- Just use the right desktop file name and app metadata instead of messing with cutter source code
-
-* Wed Feb 5 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.1-3
-- Rebuild with new radare2
-
-* Wed Feb 5 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.1-2
-- Fix the main window icon
-
-* Mon Feb 3 2020 Riccardo Schirone <rschirone91@gmail.com> - 1.10.1-1
-- Rebase to cutter 1.10.1
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Oct 11 2019 Riccardo Schirone <rschirone91@gmail.com> - 1.9.0-2
-- Rebuilt for radare2-3.9.0-3
-
-* Mon Sep 30 2019 Riccardo Schirone <rschirone91@gmail.com> - 1.9.0-1
-- rebase to cutter 1.9.0
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jul 15 2019 Riccardo Schirone <rschirone91@gmail.com> - 1.8.3-1
-- rebase to cutter 1.8.3
-
-* Wed Jun 26 2019 Riccardo Schirone <rschirone91@gmail.com> - 1.8.0-4
-- recompile for radare2 3.6.0
-
-* Mon Apr 15 2019 Riccardo Schirone <rschirone91@gmail.com> - 1.8.0-3
-- recompile for radare2 3.4.1
-
-* Tue Apr 09 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-2
-- Update to radare2 3.4.1
-
-* Thu Mar 21 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-1
-- Update to 1.8.0
-- Require hicolor-icon-theme
-- Move appdata to a correct location
-- Fix license field (Robert-André Mauchin, #1690050)
-
-* Thu Mar 14 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.7.4-1
-- Initial packaging
+%autochangelog

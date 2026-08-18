@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.24.0
+Version:        1.24.1
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 

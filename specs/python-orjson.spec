@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.11.9
+Version:        3.12.0
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -42,7 +42,7 @@ Source1:        get_source
 
 # Update to PyO3 0.29; fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195.
 # Downstream-only because upstream no longer accepts issues or pull requests.
-Patch:          orjson-3.11.9-pyo3-0.29.patch
+Patch:          orjson-3.12.0-pyo3-0.29.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -99,7 +99,7 @@ License:        %{shrink:
 # disabled, and the json crate from the Rust standard library,
 # https://docs.rs/json, would be used instead, but this is no longer
 # supported.)
-Provides:       bundled(yyjson) = 0.9.0
+Provides:       bundled(yyjson) = 0.12.0
 # Small amounts of code are copied and modified from other crates, e.g.
 # src/serialize/writer/half.rs is based on the half crate and
 # src/serialize/writer/uuid.rs is based on the uuid crate, but this doesn’t

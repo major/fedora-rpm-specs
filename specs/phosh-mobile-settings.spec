@@ -1,7 +1,7 @@
 %global gvc_commit d2442f455844e5292cb4a74ffc66ecc8d7595a9f
 
 Name:     phosh-mobile-settings
-Version:  0.56.0
+Version:  0.57_rc1
 Release:  %autorelease
 Summary:  Mobile Settings App for phosh and related components
 License:  GPL-3.0-or-later

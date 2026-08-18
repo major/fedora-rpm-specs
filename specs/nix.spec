@@ -5,8 +5,12 @@
 # and missing rapidcheck
 %bcond tests 0
 
+# doesn't seem to work
+# https://github.com/NixOS/nix/issues/16153
+%bcond mimalloc 0
+
 Name:           nix
-Version:        2.34.8
+Version:        2.35.2
 Release:        %autorelease
 Summary:        A purely functional package manager
 
@@ -23,6 +27,8 @@ Source5:        nix-filesystem.conf
 Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14922.patch
 # https://github.com/NixOS/nix/issues/15797
 Patch7:         nix-meson-1.11.patch
+# clang-tidy plugin failing to build
+Patch8:         nix-2.35-disable-clang-tidy.patch
 
 # https://nixos.org/manual/nix/unstable/installation/prerequisites-source
 # missing aws-cpp-sdk-s3 aws-c-auth aws-c-s3
@@ -48,7 +54,6 @@ BuildRequires:  gcc-c++
 %if %{with tests}
 BuildRequires:  gmock-devel
 %endif
-BuildRequires:  pkgconfig(libgit2) >= 1.9.0
 BuildRequires:  jq
 BuildRequires:  json-devel
 BuildRequires:  libarchive-devel
@@ -56,11 +61,16 @@ BuildRequires:  libarchive-devel
 BuildRequires:  libcpuid-devel
 %endif
 BuildRequires:  libcurl-devel
+BuildRequires:  libgit2_1.9-devel
 BuildRequires:  libseccomp-devel
 BuildRequires:  libsodium-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  lowdown
 BuildRequires:  lowdown-devel
 BuildRequires:  meson
+%if %{with mimalloc}
+BuildRequires:  mimalloc-devel
+%endif
 BuildRequires:  openssl-devel
 %if %{with tests}
 #BuildRequires:  rapidcheck-devel
@@ -191,13 +201,13 @@ MESON_OPTS=(
     --sysconfdir=%{_sysconfdir}
     --localstatedir=/nix/var
     --libexecdir=%{_libexecdir}
-    -Dbindings=false
     -Ddoc-gen=%[%{with docs}?"true":"false"]
     -Dlibcmd:readline-flavor=readline
     -Dlibstore:sandbox-shell=%{_bindir}/busybox
     -Dnix:profile-dir=%{_sysconfdir}/profile.d
     -Dunit-tests=%[%{with tests}?"true":"false"]
     -Dlibstore:s3-aws-auth=disabled
+    -Dnix:mimalloc=%[%{with mimalloc}?"enabled":"disabled"]
     # manual needs mdbook
     -Dnix-manual:html-manual=false
     -Djson-schema-checks=false

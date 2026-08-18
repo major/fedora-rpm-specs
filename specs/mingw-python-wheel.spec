@@ -4,21 +4,23 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.47.0
-Release:       2%{?dist}
+Version:       0.48.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT AND (Apache-2.0 OR BSD-2-Clause)
 URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source %{pypi_name} %{version}}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 # Don't scan */bin/wheel for requires, it would generate a Requires: pythonX.Y
 %global __requires_exclude_from ^.*/bin/wheel$
@@ -46,39 +48,42 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
-%mingw32_py3_build
-%mingw64_py3_build
-%mingw32_py3_build_host
-%mingw64_py3_build_host
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
+%mingw32_py3_build_host_wheel
+%mingw64_py3_build_host_wheel
 
 
 %install
-%mingw32_py3_install
-%mingw64_py3_install
-%mingw32_py3_install_host
-%mingw64_py3_install_host
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
+%mingw32_py3_install_host_wheel
+%mingw64_py3_install_host_wheel
 
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw32_bindir}/wheel
 %{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 %{_prefix}/%{mingw32_target}/bin/wheel
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
-%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw64_bindir}/wheel
 %{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 %{_prefix}/%{mingw64_target}/bin/wheel
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
-%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 0.48.0-1
+- Update to 0.48.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
