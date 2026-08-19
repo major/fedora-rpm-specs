@@ -1,6 +1,6 @@
 Name:           osm-gps-map
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Gtk+ widget for displaying OpenStreetMap tiles
 
 License:        GPL-2.0-or-later
@@ -12,7 +12,7 @@ BuildRequires:  gnome-common
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
 BuildRequires:  gtk3-devel
-BuildRequires:  libsoup-devel
+BuildRequires:  libsoup3-devel
 
 
 %description
@@ -52,7 +52,6 @@ GObject introspection bindings for %{name}.
 %files
 %doc AUTHORS README NEWS ChangeLog
 %license COPYING
-%exclude %{_libdir}/*.la
 %exclude %{_datadir}/gtk-doc/html/libosmgpsmap/
 %if 0%{?rhel} <= 7
 %exclude %{_datadir}/doc/%{name}/
@@ -71,6 +70,9 @@ GObject introspection bindings for %{name}.
 
 
 %changelog
+* Mon Aug 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.1-1
+- 1.2.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -610,6 +610,10 @@ Patch2105: 43cb4631c1f42dbfce78288b8ae30b5840ed59b3.patch
 # Fix for s390x vector miscompilation (rhbz#2430017)
 Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
 
+# Fix an illegal zext from combined loads (rhbz#2512927)
+# https://github.com/llvm/llvm-project/pull/207229
+Patch2207: 0001-AggressiveInstCombine-Fix-crash-when-folding-consecu.patch
+
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
 %global __python3 /usr/bin/python3.12

@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.11.5
-Release: 2%{?dist}
+Version: 3.11.6
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -281,10 +281,6 @@ popd
 %if 0%{?rhel}
 %patch -P12 -p1 -b .warning
 %endif
-
-# Backport 3.8-20221006 fix for uname -r detection
-sed -i makedefs -e '\@Linux\.@s|345|3456|'
-sed -i src/util/sys_defs.h -e 's@defined(LINUX5)@defined(LINUX5) || defined(LINUX6)@'
 
 for f in README_FILES/TLS_{LEGACY_,}README TLS_ACKNOWLEDGEMENTS; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -863,6 +859,10 @@ fi
 %endif
 
 %changelog
+* Mon Aug 17 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.11.6-1
+- New version
+  Resolves: rhbz#2513537
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.11.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

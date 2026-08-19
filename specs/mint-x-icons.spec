@@ -2,8 +2,8 @@
 
 
 Name:           mint-x-icons
-Version:        1.7.5
-Release:        3%{?dist}
+Version:        1.7.6
+Release:        1%{?dist}
 Summary:        Icon theme for Linux Mint
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ done
 
 
 %changelog
+* Mon Aug 17 2026 Leigh Scott <leigh123linux@gmail.com> - 1.7.6-1
+- Update to 1.7.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

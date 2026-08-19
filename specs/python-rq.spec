@@ -1,9 +1,8 @@
 %global srcname rq
-%bcond_without tests
 
 Name:           python-%{srcname}
-Version:        2.6.1
-Release:        3%{?dist}
+Version:        2.11
+Release:        1%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -11,18 +10,21 @@ URL:            https://python-rq.org
 Source:         https://github.com/rq/rq/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 # Backport upstream fixes for python3.14 multiprocessing
-Patch: https://github.com/rq/rq/pull/2359.patch
-Patch: https://github.com/rq/rq/commit/df29cf6.patch
-Patch: https://github.com/rq/rq/commit/615525b.patch
+#Patch: https://github.com/rq/rq/pull/2359.patch
+#Patch: https://github.com/rq/rq/commit/df29cf6.patch
+#Patch: https://github.com/rq/rq/commit/615525b.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-%if %{with tests}
+BuildRequires:  python3dist(croniter)
+
 BuildRequires:  python3-pytest
 BuildRequires:  python3-psutil
 BuildRequires:  redis
-%endif
+# python3-sentry-sdk in Fedora 41 is old and is blocked:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2291914
+BuildRequires:  python3dist(sentry-sdk)
 
 %global _description %{expand:
 RQ (Redis Queue) is a simple Python library for queueing jobs
@@ -52,7 +54,6 @@ Python 3 version.
 %pyproject_save_files %{srcname}
 
 %check
-%if %{with tests}
 %{_bindir}/redis-server --bind 127.0.0.1 --port 6379 &
 REDIS_SERVER_PID=$!
 # Set the default timezone to UTC otherwise unit tests fail.
@@ -61,7 +62,6 @@ export TZ=UTC
 %{_bindir}/redis-cli shutdown nosave force now
 # Wait for redis-server termination (the command above is async)
 wait $REDIS_SERVER_PID
-%endif
 
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE

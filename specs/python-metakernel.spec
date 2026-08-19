@@ -3,8 +3,8 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	1.0.4
-Release:	3%{?dist}
+Version:	1.0.7
+Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -12,8 +12,8 @@ Summary:	Metakernel for Jupyter
 License:	BSD-3-Clause
 URL:		https://github.com/Calysto/metakernel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/Calysto/metakernel/pull/439
-Patch0:		0001-Ignore-DeprecationWarning-from-Python-3.15.patch
+#		Support ipython < 9.16 for Fedora 43 and 44
+Patch0:		python-metakernel-old-ipython.patch
 BuildArch:	noarch
 
 #		For metakernel_echo and metakernel_python
@@ -49,7 +49,7 @@ distributed processing, downloads, and much more).
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	86%{?dist}
+Release:	89%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -60,7 +60,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	86%{?dist}
+Release:	89%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -71,7 +71,9 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 
 %prep
 %setup -q -n metakernel-%{pkgversion}
+%if %{?fedora}%{!?fedora:0} == 43 || %{?fedora}%{!?fedora:0} == 44
 %patch -P0 -p1
+%endif
 
 # Allow older pytest versions
 sed -e /minversion/d -e /strict/d -i pyproject.toml
@@ -126,6 +128,16 @@ wait $pid
 %{_datadir}/jupyter/kernels/metakernel_echo
 
 %changelog
+* Mon Aug 17 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.7-1
+- Update to version 1.0.7
+
+* Mon Aug 17 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.6-2
+- Support ipython < 9.16 for Fedora 43 and 44
+
+* Mon Aug 17 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.6-1
+- Update to version 1.0.6
+- Drop patch accepted upstream
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

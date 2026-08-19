@@ -4,7 +4,7 @@
 
 Name: abiword
 Version: 3.0.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 %global tag release-%{version}
 %forgemeta
 
@@ -123,10 +123,19 @@ Python bindings for developing with libabiword
 ./autogen.sh
 
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS -DASIO_ENABLE_BOOST"
+# --enable-collab-backend-tcp:
+# --enable-collab-backend-service:
+# With boost 1.90 this is currently broken (https://gitlab.gnome.org/World/AbiWord/-/work_items/37)
 %configure \
   --enable-plugins --enable-clipart --enable-templates --enable-introspection \
   --with-gir-dir=%{_datadir}/gir-1.0 --with-typelib-dir=%{_libdir}/girepository-1.0 \
-  --enable-maintainer-mode
+  --enable-maintainer-mode \
+%if 0%{?fedora} >= 45
+  --disable-collab-backend-tcp \
+  --disable-collab-backend-service \
+%endif
+  %{nil}
+
 %{make_build} V=1
 
 %install
@@ -178,6 +187,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Sat Aug 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.0.8-5
+- Disable collab tcp / service backend for F45 with boost issue for now
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

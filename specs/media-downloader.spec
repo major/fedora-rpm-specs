@@ -1,10 +1,10 @@
 Name:           media-downloader
-Version:        5.5.1
-Release:        3%{?dist}
+Version:        5.6.5
+Release:        1%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
 URL:            https://github.com/mhogomchungu/media-downloader
-Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %url/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Mon Aug 17 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.6.5-1
+- Update to 5.6.5
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

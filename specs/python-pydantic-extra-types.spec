@@ -27,15 +27,23 @@ Patch:          %{forgeurl}/commit/6f0217de5e26b99d09ffd9bb95da415779e6bef6.patc
 # (without changes to uv.lock, which we don’t use)
 Patch:          pydantic-extra-types-2.11.2-python-ulid-v4.patch
 
+# Downstream-only: patch out tests that would require pytz
+#
+# We *could* BuildRequire pytz, but it’s nice to reduce dependencies on it in
+# general since it can be replaced by the standard library’s zoneinfo module,
+# and futhermore these tests can have spurious failures when pytz and zoneinfo
+# are using different versions of the timezone database and there’s a
+# discrepancy in their respective lists of all timezone names.
+Patch:          0001-Downstream-only-patch-out-tests-that-would-require-p.patch
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist dirty-equals}
 BuildRequires:  %{py3_dist pytest}
-# We patched this out of the “all” extra, but it is still a test dependency.
-BuildRequires:  %{py3_dist pytz}
+# We patched pytz out of the “all” extra, and we don’t want to test with it,
+# either. See 0001-Downstream-only-patch-out-tests-that-would-require-p.patch.
 %endif
 
 %if %{with cron} && %{with pendulum} && %{with phonenumbers} && %{with pycountry} && %{with pymongo}
@@ -75,15 +83,16 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %generate_buildrequires
-%{pyproject_buildrequires \
-    %{?all_extra:-x all} \
-    %{?with_phonenumbers:-x phonenumbers} \
-    %{?with_pycountry:-x pycountry} \
-    -x semver \
-    -x python_ulid \
-    %{?with_pendulum:-x pendulum} \
-    %{?with_cron:-x cron} \
-    }
+%{pyproject_buildrequires %{shrink:
+    %{?all_extra:--extras all}
+    %{?with_phonenumbers:--extras phonenumbers}
+    %{?with_pycountry:--extras pycountry}
+    --extras semver
+    --extras semver
+    --extras python_ulid
+    %{?with_pendulum:--extras pendulum}
+    %{?with_cron:--extras cron}
+    }}
 
 
 %build
@@ -92,20 +101,20 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 %install
 %pyproject_install
-%pyproject_save_files -l pydantic_extra_types
+%pyproject_save_files --assert-license pydantic_extra_types
 
 
 %check
-%{pyproject_check_import \
-    %{?!with_cron:-e pydantic_extra_types.cron} \
-    %{?!with_pendulum:-e pydantic_extra_types.pendulum_dt} \
-    %{?!with_phonenumbers:-e pydantic_extra_types.phone_numbers} \
-    %{?!with_pycountry:-e pydantic_extra_types.country} \
-    %{?!with_pycountry:-e pydantic_extra_types.currency_code} \
-    %{?!with_pycountry:-e pydantic_extra_types.language_code} \
-    %{?!with_pycountry:-e pydantic_extra_types.script_code} \
-    %{?!with_pymongo:-e pydantic_extra_types.mongo_object_id} \
-    %{nil}}
+%{pyproject_check_import %{shrink:
+    %{?!with_cron:--exclude pydantic_extra_types.cron}
+    %{?!with_pendulum:--exclude pydantic_extra_types.pendulum_dt}
+    %{?!with_phonenumbers:--exclude pydantic_extra_types.phone_numbers}
+    %{?!with_pycountry:--exclude pydantic_extra_types.country}
+    %{?!with_pycountry:--exclude pydantic_extra_types.currency_code}
+    %{?!with_pycountry:--exclude pydantic_extra_types.language_code}
+    %{?!with_pycountry:--exclude pydantic_extra_types.script_code}
+    %{?!with_pymongo:--exclude pydantic_extra_types.mongo_object_id}
+    %{nil}}}
 
 %if %{with tests}
 %if %{without cron}
@@ -131,19 +140,15 @@ ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 
-%pytest -Wdefault ${ignore-} -k "${k-}" -v
+%pytest --pythonwarnings=default ${ignore-} -k "${k-}" --verbose
 %endif
 
 
 %files -n python3-pydantic-extra-types -f %{pyproject_files}
 %doc README.md
 
-%pyproject_extras_subpkg -n python3-pydantic-extra-types semver python_ulid
 %if 0%{?all_extra}
 %pyproject_extras_subpkg -n python3-pydantic-extra-types all
-%endif
-%if %{with pendulum}
-%pyproject_extras_subpkg -n python3-pydantic-extra-types pendulum
 %endif
 %if %{with phonenumbers}
 %pyproject_extras_subpkg -n python3-pydantic-extra-types phonenumbers
@@ -151,9 +156,18 @@ ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %if %{with pycountry}
 %pyproject_extras_subpkg -n python3-pydantic-extra-types pycountry
 %endif
+%pyproject_extras_subpkg -n python3-pydantic-extra-types jsonschema
+%pyproject_extras_subpkg -n python3-pydantic-extra-types semver
+%pyproject_extras_subpkg -n python3-pydantic-extra-types python_ulid
+%if %{with pendulum}
+%pyproject_extras_subpkg -n python3-pydantic-extra-types pendulum
+%endif
 %if %{with cron}
 %pyproject_extras_subpkg -n python3-pydantic-extra-types cron
 %endif
+# The uuid_utils extra is only meaningful for python<3.14. Ideally, it should
+# be patched out of anything that asks for it, rather than us shipping a
+# metapackage for what is merely a “compat” extra.
 
 
 %changelog

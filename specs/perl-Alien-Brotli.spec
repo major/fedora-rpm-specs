@@ -3,11 +3,12 @@
 
 Name:           perl-Alien-Brotli
 Version:        0.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Find and install the Brotli compressor
 License:        MIT
 URL:            http://metacpan.org/dist/Alien-Brotli
 Source0:        http://cpan.metacpan.org/authors/id/R/RR/RRWO/Alien-Brotli-v%{version}.tar.gz
+Patch0:         Alien-Brotli-v0.2.2-Remove-shared-part-of-alien-file.patch
 
 BuildRequires:  coreutils
 BuildRequires:  sed
@@ -23,7 +24,6 @@ BuildRequires:  perl(Alien::Base)
 BuildRequires:  perl(Alien::Build) >= 0.32
 BuildRequires:  perl(Alien::Build::MM) >= 0.32
 BuildRequires:  perl(Alien::Build::Plugin::Probe::CommandLine)
-BuildRequires:  perl(Alien::cmake3) >= 0.02
 BuildRequires:  perl(alienfile)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Config)
@@ -62,7 +62,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Alien-Brotli-v%{version}
+%autosetup -p1 -n Alien-Brotli-v%{version}
 # Disable test for prerequisites
 rm t/00-report-prereqs.{t,dd}
 # Stop MakeMaker from throwing warnings
@@ -82,7 +82,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 # Remove alienfile
-rm %{buildroot}%{perl_vendorarch}/auto/share/dist/Alien-Brotli/_alien/alienfile
+rm -f %{buildroot}%{perl_vendorarch}/auto/share/dist/Alien-Brotli/_alien/alienfile
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -110,6 +110,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.2.2-14
+- Fix building in interactive mode. Thanks ppisar
+- Do not build-require removed Alien::cmake3 (bug #2440104). Thanks ppisar.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

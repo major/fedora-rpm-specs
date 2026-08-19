@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b9840
+Version:        b10353
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -64,6 +64,13 @@ ExclusiveArch:  x86_64 aarch64
 %global build_hip OFF
 %global toolchain gcc
 %endif
+# gfx1250 has a problem
+# ggml/src/ggml-cuda/template-instances/../common.cuh:759:18: error:
+#   instruction not supported on this GPU (gfx1250): v_dot2_f32_f16
+#  759 |     asm volatile("v_dot2_f32_f16 %0, %1, %2, %0" : "+v"(acc) : "v"(v), "v"(u));
+#
+# need our own gpu list, without gfx1250
+%global rocm_gpu_list "gfx9-generic;gfx942;gfx950;gfx10-1-generic;gfx10-3-generic;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
 
 %if %{with vulkan}
 %global build_vulkan ON
@@ -222,7 +229,7 @@ export HIPCC_COMPILE_FLAGS_APPEND="--offload-compress"
     -DGGML_F16C=OFF \
     -DGGML_HIP=%{build_hip} \
     -DGGML_VULKAN=%{build_vulkan} \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list} \
     -DLLAMA_BUILD_EXAMPLES=%{build_examples} \
     -DLLAMA_BUILD_TESTS=%{build_test}
 

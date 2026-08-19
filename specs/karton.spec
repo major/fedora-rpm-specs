@@ -1,10 +1,10 @@
-%global gitcommit 07520e06f5a66e9cfe33a298a11e5482a2395aa0
-%global gitdate 20251110.023853
+%global gitcommit a426132cf31da3b5a4c109cafba02cc87d0ad27a
+%global gitdate 20260805.143350
 %global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
 
 Name:           karton
 Version:        0.1^%{gitdate}.%{shortcommit}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A Libvirt-based Virtual Machine Manager for KDE
 
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-3.0-or-later
@@ -21,11 +21,13 @@ BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6GuiPrivate)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Multimedia)
 
 BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6QQC2DesktopStyle)
@@ -64,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.karton.deskt
 %{_kf6_datadir}/qlogging-categories6/karton.categories
 
 %changelog
+* Mon Aug 17 2026 Steve Cossette <farchord@gmail.com> - 0.1^20260805.143350.a426132-1
+- Updated to a newer git commit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^20251110.023853.07520e0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

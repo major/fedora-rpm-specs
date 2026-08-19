@@ -1,17 +1,13 @@
 %global pypi_name decorator
 
 Name:           python-%{pypi_name}
-Version:        5.3.0
+Version:        5.3.1
 Release:        %autorelease
 Summary:        Module to simplify usage of decorators
 
 License:        BSD-2-Clause
 URL:            https://github.com/micheles/decorator
 Source0:        %pypi_source decorator
-
-# Drop redundant BuildRequires for python3-wheel
-# https://github.com/fedora-eln/eln/issues/284
-Patch:          https://github.com/micheles/decorator/commit/062ff0e0.patch
 
 BuildArch:      noarch
 

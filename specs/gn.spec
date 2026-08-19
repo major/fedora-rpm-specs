@@ -26,10 +26,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 64cfb8344ec3e8585a89a3836716a026e2771fcb
-%global access 20260808
+%global commit e8a8e0932a5e42a99e5896aa58e3b8290f4e5b8c
+%global access 20260817
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2509
+%global position 2517
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -88,6 +88,11 @@ Patch:          0001-Downstream-only-do-not-override-optimization-flags.patch
 #
 # This conflicts with -Werror=format-security.
 Patch:          0002-Downstream-only-do-not-build-with-Wno-format.patch
+# Downstream-only: omit “check_formatter” test
+#
+# This is only suitable for upstream CI; our version of clang-format may not
+# produce identical results.
+Patch:          0003-Downstream-only-omit-check_formatter-test.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

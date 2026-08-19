@@ -7,7 +7,7 @@
 %bcond tests %[%{undefined rhel} && %{with extras}]
 
 Name:           python-build
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
@@ -66,7 +66,8 @@ A simple, correct PEP517 package builder.
 # flag, but currently that only includes one network test and one test that is
 # xfail when flit-core is installed (which it will be during our package
 # build), so including that flag doesn't run any additional tests.
-%pytest -v -m "not network"
+# One more test to mark as network: https://github.com/pypa/build/pull/1144
+%pytest -v -m "not network" -k "not test_main_sdist_input_end_to_end"
 %endif
 
 %files -n python3-build -f %{pyproject_files}

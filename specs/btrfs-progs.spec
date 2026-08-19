@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        7.0
-Release:        4%{?dist}
+Version:        7.1
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -169,6 +169,10 @@ popd >/dev/null
 
 
 %changelog
+* Mon Aug 17 2026 Packit <hello@packit.dev> - 7.1-1
+- Update to version 7.1
+- Resolves: rhbz#2500802
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

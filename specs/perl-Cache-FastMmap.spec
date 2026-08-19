@@ -1,6 +1,6 @@
 Name:           perl-Cache-FastMmap
-Version:        1.62
-Release:        3%{?dist}
+Version:        1.63
+Release:        1%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/pod/Cache::FastMmap
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.63-1
+- 1.63 bump (rhbz#2515967)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.62-3
 - Perl 5.44 rebuild
 

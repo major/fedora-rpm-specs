@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        154.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1064,6 +1064,10 @@ cp failures-* %{buildroot}/%{version}-%{release}/ || true
 # Default
 cp %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 
+%if 0%{?fedora} <= 44
+echo 'pref("widget.wayland.session-management.enabled", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
+%endif
+
 %if %{?use_pipewire_camera}
 echo 'pref("media.webrtc.camera.allow-pipewire", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %endif
@@ -1201,6 +1205,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Aug 17 2026 Martin Stransky <stransky@redhat.com> - 154.0-2
+- Disabled session restore on Fedora 45+ dues to crashes.
+
 * Thu Aug 13 2026 Martin Stransky <stransky@redhat.com> - 154.0-1
 - Updated to 154.0
 - Enabled session restore (KDE only)

@@ -1,9 +1,12 @@
+# prebuilt manpages are included in source tarball; rebuilding requires cmarkgfm
+%bcond markdown %{undefined rhel}
+
 %global _hardened_build 1
 
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -26,7 +29,9 @@ BuildRequires: openssl-devel
 BuildRequires: libzstd-devel
 BuildRequires: git-core
 BuildRequires: automake
+%if %{with markdown}
 BuildRequires: python3-cmarkgfm
+%endif
 %if %{undefined rhel}
 BuildRequires: xxhash-devel
 %endif
@@ -79,6 +84,10 @@ may be used to setup a restricted rsync users via ssh logins.
   --enable-ipv6 \
   --with-rrsync
 
+%if %{without markdown}
+touch *.1 *.5
+%endif
+
 %{make_build}
 
 %check
@@ -124,6 +133,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Thu Aug 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.4-4
+- Disable rebuilding manpages on RHEL
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           keychain
 Summary:        Agent manager for OpenSSH, ssh.com, Sun SSH, and GnuPG
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 License:        GPL-3.0-only
 URL:            https://kernel-seeds.org/projects/keychain/

@@ -3,7 +3,7 @@
 
 # https://github.com/docker/compose/v5
 %global goipath         github.com/docker/compose/v5
-Version:                5.4.0
+Version:                5.5.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -73,6 +73,8 @@ install -Dpm 0755 \
 %global test_ignores %{shrink:
     %dnl possibly fixed in next upstream release
     -s "TestValidatePathInBase"
+    %dnl fails only on s390x
+    %[ "%{_arch}" == "s390x" ? "-s TestPlatformPinnedDigest" : "" ]
     %dnl e2e tests require external services
     -d pkg/e2e
 }

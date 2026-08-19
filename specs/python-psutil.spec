@@ -59,10 +59,10 @@ find psutil -name \*.py | while read file; do
   rm $file.orig
 done
 
-# When running tests on Zuul CI, "/" is not mounted, hence the test fail
+# When running tests on RHEL Konflux, "/" is not mounted, hence the test fail
 # We want to run it on other build systems, hence the explicit skip for
 # the particular buildhost
-%if "%{_buildhost}" == "zuulci-mockbuild.redhat.com"
+%if "%{_buildhost}" == "konflux.redhat.com"
  sed -i "s/test_disk_partitions/notest_disk_partitions/" tests/test_system.py
 %endif
 

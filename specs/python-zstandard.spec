@@ -7,7 +7,7 @@ compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
 Version: 0.25.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Zstandard bindings for Python
 License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
@@ -23,7 +23,9 @@ BuildRequires: libzstd-devel
 BuildRequires: python3-devel
 %if %{with check}
 BuildRequires: python3dist(pytest)
+%if %{undefined rhel}
 BuildRequires: python3dist(pytest-xdist)
+%endif
 %endif
 # https://github.com/indygreg/python-zstandard/issues/48
 Provides: bundled(zstd) = 1.5.7
@@ -52,8 +54,7 @@ rm -r %{pypi_name}.egg-info
 %if %{with check}
 mv zstandard{,.src}
 export ZSTD_SLOW_TESTS=1
-%pytest -v\
-        --numprocesses=auto
+%pytest -v %{!?rhel:--numprocesses=auto}
 mv zstandard{.src,}
 %endif
 
@@ -62,6 +63,9 @@ mv zstandard{.src,}
 %doc README.rst
 
 %changelog
+* Fri Aug 14 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.25.0-7
+- Avoid pytest-xdist dependency on RHEL
+
 * Wed Aug 12 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.25.0-6
 - drop unnecessary patch and check conditional
 

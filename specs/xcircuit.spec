@@ -4,8 +4,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:			xcircuit
-Version:		%{short_version}.30
-Release:		17%{?dist}
+Version:		%{short_version}.45
+Release:		1%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 # Xw/		HPND unused
@@ -23,11 +23,6 @@ Source:		http://opencircuitdesign.com/xcircuit/archive/%{name}-%{version}.tgz
 Source1:		%{name}.desktop
 # http://opencircuitdesign.com/xcircuit/archive/xcircuit.xpm as 64x64
 Source2:		%{name}.png
-
-Patch0:		xcircuit-3.9.40-format-security.patch
-Patch1:		xcircuit-c99.patch
-# C23 fix, include math.h instead of declare atan2 internally
-Patch2:		xcircuit-3.10.30-c23-math-include.patch
 
 BuildRequires:	make
 BuildRequires:	pkgconfig(cairo)
@@ -48,7 +43,7 @@ BuildRequires:	libtool
 # Need check
 Requires:		coreutils
 Requires:		gtk2
-Requires:		tk
+Requires:		tk8
 
 # Special FEL Gnome/KDE menu structure
 Requires:		electronics-menu
@@ -59,13 +54,8 @@ CAD program for circuit schematic drawing and schematic capture.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .format
-%patch -P1 -p1 -b .c99
-%patch -P2 -p1 -b .c23
 
 #439604: TCL 8.5.1
-sed -i lib/tcl/tkcon.tcl \
-	-e "s|package require -exact|package require|" 
 sed -i Makefile.am \
 	-e 's|/lib/|/%{_lib}/|'
 
@@ -76,7 +66,7 @@ sed -i examples/xc_remote.sh -e 's|/usr/local/bin|%{_bindir}|'
 chmod ugo-x lib/tcl/console.tcl
 
 %build
-export WISH=/usr/bin/wish
+export WISH=/usr/bin/wish8
 
 #01/08/09 Without --enable-asg \ because it's broken
 %configure \
@@ -121,6 +111,10 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Mon Aug 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.45-1
+- 3.10.45
+- Still use Tcl/Tk 8: Not ready for Tk 9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

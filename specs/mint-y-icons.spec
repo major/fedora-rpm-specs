@@ -1,6 +1,6 @@
 Name:           mint-y-icons
-Version:        1.9.1
-Release:        3%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
 License:        CC-BY-SA-4.0 AND GPL-3.0-or-later
@@ -44,6 +44,9 @@ done
 %{_datadir}/folder-color-switcher/
 
 %changelog
+* Mon Aug 17 2026 Leigh Scott <leigh123linux@gmail.com> - 1.9.2-1
+- Update to 1.9.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

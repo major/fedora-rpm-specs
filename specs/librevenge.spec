@@ -1,7 +1,7 @@
 %global apiversion 0.0
 
 Name: librevenge
-Version: 0.0.5
+Version: 0.0.6
 Release: %autorelease
 Summary: A base library for writing document import filters
 

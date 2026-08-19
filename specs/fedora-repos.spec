@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        46
-Release:        0.1%{?eln:.eln%{eln}}
+Release:        0.2%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -411,10 +411,15 @@ rm -f "$TMPRING"
 /etc/ostree/remotes.d/fedora-compose.conf
 
 %files eln
+%dir /etc/yum.repos.d
+%dir %{_datadir}/dnf5/repos.d
 %{_datadir}/dnf5/repos.d/fedora-eln.repo
 
 
 %changelog
+* Wed Aug 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 46-0.2
+- Fix directory ownership in fedora-repos-eln
+
 * Mon Aug 11 2026 Patrik Polakovic <patrik@alphamail.org> - 46-0.1
 - Rawhide is now F46
 

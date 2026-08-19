@@ -159,6 +159,7 @@ rm -rf deps/mapnik/sparsehash deps/mapbox/geometry deps/mapbox/polylabel deps/ma
 
 %build
 %cmake \
+  -DCMAKE_BUILD_TYPE=Release \
   -DUSE_EXTERNAL_MAPBOX_GEOMETRY=ON \
   -DUSE_EXTERNAL_MAPBOX_POLYLABEL=ON \
   -DUSE_EXTERNAL_MAPBOX_PROTOZERO=ON \

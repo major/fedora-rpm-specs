@@ -7,7 +7,7 @@
 
 
 Name: rabbitmq-server
-Version: 4.3.4
+Version: 4.3.5
 Release: %autorelease
 Summary: The RabbitMQ server
 License: MPL-2.0

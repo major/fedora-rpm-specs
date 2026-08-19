@@ -1,25 +1,18 @@
-%global  forgeurl https://github.com/pyinfra-dev/pyinfra
-%global  pypi_name pyinfra
-Name:           python-%{pypi_name}
-Version:        3.4.1
-%global  tag    v%{version}
-Release:        %autorelease
+%global forgeurl https://github.com/pyinfra-dev/pyinfra
+Version:        3.10.0
+%forgemeta
 
+Name:           python-pyinfra
+Release:        %autorelease
 Summary:        Provision, manage and deploy infrastructure
 
 License:        MIT
 URL:            https://pyinfra.com
-VCS:            git:%{forgeurl}.git
 Source:         %{forgesource}
-%forgemeta
+Patch:          pyproject-toml-static-version.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# Test dependencies include extra formatting and coverage tests
-# that are not needed in Fedora CI
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pyyaml
-BuildRequires:  python3-pytest-testinfra
 
 %global _description %{expand:
 pyinfra turns Python code into shell commands and runs them on your
@@ -36,11 +29,7 @@ Summary:        %{summary}
 
 %prep
 %forgesetup
-# Remove unneeded dependency
-sed -i '/configparser/d' setup.py
-# Remove unused scripts, package documentation
-# as text files
-rm docs/*.py
+%autopatch -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -52,28 +41,16 @@ rm docs/*.py
 
 %install
 %pyproject_install
-# Remove test files
-rm -r %{buildroot}%{python3_sitelib}/tests
-%pyproject_save_files -l pyinfra
+%pyproject_save_files -l pyinfra pyinfra_cli
 
 
 %check
 %pyproject_check_import
-# Do not run test that depend on network access
-k="${k-}${k+ and }not (test_put_file_sudo)"
-# Temporarily deselect tests that need click 8.2+
-deselect="${deselect-} --deselect=tests/test_cli/test_cli.py::TestFactCli::test_get_fact"
-deselect="${deselect-} --deselect=tests/test_cli/test_cli.py::TestFactCli::test_get_fact_with_kwargs"
-deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_host_groups_may_only_contain_strings_or_tuples"
-deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_ignores_variables_with_leading_underscore"
-deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_only_supports_list_and_tuples"
-%pytest -k "${k-}" ${deselect-}
+# Unit tests require pyinfra-testing which is not packaged in Fedora
 
 
 %files -n python3-pyinfra -f %{pyproject_files}
 %{_bindir}/pyinfra
-%{python3_sitelib}/pyinfra_cli/
-%license LICENSE.md
 %doc README.md
 %doc CHANGELOG.md
 %doc docs

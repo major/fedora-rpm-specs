@@ -3,15 +3,17 @@
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 16%{?dist}
+Release: 17%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
 
 License: GPL-2.0-or-later
 BuildRequires: python3-devel >= 3.6, librsync-devel >= 1.0.0
+%if 0%{?rhel} && 0%{?rhel} <= 8
 BuildRequires: python3-setuptools
 BuildRequires: python3-setuptools_scm
+%endif
 BuildRequires: gcc
 
 #recommended runtime dependencies
@@ -34,24 +36,42 @@ differences from the previous backup will be transmitted.
 %prep
 %autosetup -n %{name}-%{version}
 
+%if ! 0%{?rhel} || 0%{?rhel} >= 9
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %build
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %py3_build
+%else
+%pyproject_wheel
+%endif
 
 %install
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %py3_install
+%else
+%pyproject_install
+%pyproject_save_files rdiff_backup rdiffbackup
+%endif
 
 # Remove doc files so we package them with rpmbuild
 rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %files
+%{python3_sitearch}/rdiff_backup/
+%{python3_sitearch}/rdiff_backup-*.egg-info
+%{python3_sitearch}/rdiffbackup/
+%else
+%files -f %{pyproject_files}
+%endif
 %defattr(-,root,root)
 %{_bindir}/rdiff-backup
 %{_bindir}/rdiff-backup-statistics
 %{_bindir}/rdiff-backup-delete
 %{_mandir}/man1/rdiff-backup*
-%{python3_sitearch}/rdiff_backup/
-%{python3_sitearch}/rdiff_backup-*.egg-info
-%{python3_sitearch}/rdiffbackup/
 %{_datadir}/bash-completion/completions/rdiff-backup
 %doc CHANGELOG.adoc README.adoc
 %doc docs/credits.adoc docs/DEVELOP.adoc docs/examples.adoc
@@ -59,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Mon Aug 17 2026 Python Maint <frank@crawford.emu.id.au> - 2.2.6-17
+- Migrate spec file to pyproject macros - BZ2378431
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.2.6-16
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.15
+%global general_version %{pybasever}.16
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 7%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -367,66 +367,11 @@ Patch474: 00474-cve-2025-15366.patch
 # (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
 Patch475: 00475-cve-2025-15367.patch
 
-# 00478 # 40c5c88950b10eaf1c10c5afcc39887b8e23c997
-# CVE-2026-4519
+# 00494 # 430aab133397ed44cc9ee621fd311e02fee317b5
+# Increase the timeout of test_large_content_length_truncated
 #
-# Reject leading dashes in webbrowser URLs (GH-143931) (GH-146364)
-Patch478: 00478-cve-2026-4519.patch
-
-# 00479 # 6fe61dd71dec5b7c9de2b1994172981667d034a1
-# CVE-2026-1502
-#
-# Reject CR/LF in HTTP tunnel request headers
-Patch479: 00479-cve-2026-1502.patch
-
-# 00480 # 9f4b1483ecfbc8c08117133c239fba544fcb42e7
-# CVE-2026-4786
-#
-# Fix webbrowser `%%action` substitution bypass of dash-prefix check
-Patch480: 00480-cve-2026-4786.patch
-
-# 00482 # 2a21454e658935990766df8c3c48af9363e8422a
-# CVE-2026-6100
-#
-# Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
-Patch482: 00482-cve-2026-6100.patch
-
-# 00483 # cdb097a23eac5a09fb063a0e91001f69ff324205
-# CVE-2026-2297
-#
-# Logging Bypass in Legacy .pyc File Handling
-Patch483: 00483-cve-2026-2297.patch
-
-# 00484 # cf0bd2f2cce15cb35558aa08de34e9d18a8089f7
-# CVE-2026-3644
-#
-# Incomplete control character validation in http.cookies
-Patch484: 00484-cve-2026-3644.patch
-
-# 00485 # 54d821ba2f5a03ccced037978fcdb0a7c4d6878f
-# CVE-2026-4224
-#
-# Stack overflow parsing XML with deeply nested DTD content models
-Patch485: 00485-cve-2026-4224.patch
-
-# 00489 # 008af720a5f6f98ed3feb8ebdbf88ab9dea4db22
-# Use BIO_eof to detect EOF for SSL_FILETYPE_ASN1
-#
-# In PEM, we need to parse until error and then suppress `PEM_R_NO_START_LINE`, because PEM allows arbitrary leading and trailing data. DER, however, does not. Parsing until error and suppressing `ASN1_R_HEADER_TOO_LONG` doesn't quite work because that error also covers some cases that should be rejected.
-#
-# Instead, check `BIO_eof` early and stop the loop that way.
-#
-# This fixes https://github.com/python/cpython/issues/151504 and adds compatibility with OpenSSL 3.5.7+
-#
-# (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
-Patch489: 00489-openssl-3.5.7.patch
-
-# 00491 # ac14737379922303720216b61803474c84f291ef
-# gh-149776: Skip UDP Lite tests if it's not supported
-#
-# Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
-# it's not supported.
-Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
+# It has started to fail randomly when run on s390x architecture.
+Patch494: 00494-increase-the-timeout-of-test_large_content_length_truncated.patch
 
 # (New patches go here ^^^)
 #
@@ -1760,6 +1705,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Aug 13 2026 Karolina Surma <ksurma@redhat.com> - 3.11.16-1
+- Update to Python 3.11.16
+
 * Thu Jul 30 2026 Miro Hrončok <mhroncok@redhat.com> - 3.11.15-7
  - Skip UDP Lite tests if it's not supported
  - Fixes FTBFS on Linux kernel 7.1 and newer

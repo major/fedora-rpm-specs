@@ -1,6 +1,6 @@
 Name:           python-textual
-Version:        8.1.1
-Release:        3%{?dist}
+Version:        8.2.8
+Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -70,6 +70,9 @@ rm -rf tests/test_slug.py
 
 
 %changelog
+* Mon Aug 17 2026 Jonathan Wright <jonathan@almalinux.org> - 8.2.8-1
+- update to 8.2.8 rhbz#2383367
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

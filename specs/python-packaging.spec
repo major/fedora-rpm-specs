@@ -21,7 +21,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        26.2
+Version:        26.3
 Release:        %autorelease
 Summary:        Core utilities for Python packages
 
@@ -29,8 +29,6 @@ License:        BSD-2-Clause OR Apache-2.0
 URL:            https://github.com/pypa/packaging
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
-# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
-Patch:          https://github.com/pypa/packaging/commit/155760e3.patch
 
 BuildArch:      noarch
 

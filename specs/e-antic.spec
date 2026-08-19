@@ -13,6 +13,10 @@ Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # been incorporated into the Fedora versions.  Make e-antic skip attempts to
 # build the patched files.
 Patch:          %{name}-unpatch.patch
+# Some functions were moved from e-antic to flint in flint 3.6.0.  There has
+# not yet been a new e-antic release, so we remove the duplicated functions
+# manually.  Thanks to the Debian maintainers for the patch.
+Patch:          https://sources.debian.org/data/main/e/e-antic/2.1.1+ds-2/debian/patches/isolate-real-roots.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,6 +1,6 @@
 %global srcname     astroid
 
-Version:        4.1.2
+Version:        4.3.1
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
@@ -10,14 +10,6 @@ License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-# Fix compatibility with Python 3.15
-# https://github.com/pylint-dev/astroid/issues/3032
-Patch:          fix-python315-compatibility.patch
-# Fix KW_ONLY sentinel and namespace .pth test behavior on Python 3.15
-Patch:          https://github.com/pylint-dev/astroid/pull/3047.patch
-# Fix is_namespace() crash with namespace packages on Python 3.15
-# https://github.com/pylint-dev/astroid/pull/3035
-Patch:          fix-py315-is-namespace.patch
 # Fix test_ssl with openssl 4
 Patch:          3161.patch
 BuildArch:      noarch

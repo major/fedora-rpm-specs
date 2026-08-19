@@ -2,8 +2,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	14.1
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	15.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -93,6 +93,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Mon Aug 17 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.0-1
+- ntirpc-15.0 GA (side tag f46-build-side-147764)
+
 * Thu Aug 6 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 14.1-2
 - build in side-tag f45-build-side-146171
 

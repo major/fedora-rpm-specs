@@ -1,6 +1,6 @@
 Name:           imhex
-Version:        1.37.4
-Release:        6%{?dist}
+Version:        1.38.1
+Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -34,6 +34,7 @@ BuildRequires:  mbedtls-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
 BuildRequires:  lz4-devel
+BuildRequires:  libssh2-devel
 %if 0%{?rhel} == 9
 BuildRequires:  gcc-toolset-13
 %endif
@@ -61,9 +62,6 @@ Provides:       bundled(miniaudio) = 0.11.11
 # [11:38 AM] WerWolv: Officially supported are x86_64 and aarch64
 ExclusiveArch:  x86_64 %{arm64}
 
-# https://github.com/WerWolv/ImHex/commit/cc772b8581bcc7e161f085385dc527a117e4e940
-Patch:          0001-backport-metainfo-update-from-upstream.patch
-
 %description
 ImHex is a Hex Editor, a tool to display, decode and analyze binary data to
 reverse engineer their format, extract informations or patch values in them.
@@ -88,6 +86,7 @@ the ImHex Hex Editor
 %package devel
 Summary:        Development files for %{name}
 License:        GPL-2.0-only
+Requires:       imhex >= %{version}-%{release}
 %description devel
 %{summary}
 
@@ -122,8 +121,6 @@ sed -i -e '/url type="vcs-browser"/d' \
 %set_build_flags
 CXXFLAGS+=" -std=gnu++2b"
 %endif
-# should be removable in > 1.37.4 (fixed upstream)
-CXXFLAGS+=" -Wno-error=deprecated-declarations"
 %cmake \
  -D CMAKE_BUILD_TYPE=Release             \
  -D IMHEX_STRIP_RELEASE=OFF              \
@@ -139,6 +136,7 @@ CXXFLAGS+=" -Wno-error=deprecated-declarations"
  -D USE_SYSTEM_YARA=ON                   \
  -D USE_SYSTEM_NFD=ON                    \
  -D IMHEX_ENABLE_UNIT_TESTS=ON           \
+ -D IMHEX_STRICT_WARNINGS=OFF            \
 %if 0%{?rhel}
  -D IMHEX_BUILD_HARDENING=OFF
 %endif
@@ -186,6 +184,7 @@ done
 %license %{_datadir}/licenses/%{name}/
 %doc README.md
 %{_bindir}/imhex
+%{_datadir}/imhex/imhex
 %{_datadir}/pixmaps/%{name}.*
 %{_datadir}/applications/%{name}.desktop
 %{_libdir}/libimhex.so.*
@@ -206,6 +205,9 @@ done
 
 
 %changelog
+* Fri Jul 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.38.1-1
+- Update to 1.38.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

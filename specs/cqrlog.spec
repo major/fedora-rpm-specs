@@ -1,6 +1,6 @@
 Name:		cqrlog
-Version:	2.5.2
-Release:	25%{?dist}
+Version:	3.0.0
+Release:	1%{?dist}
 Summary:	An amateur radio contact logging program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -11,10 +11,7 @@ Source0:	https://github.com/ok2cqr/cqrlog/archive/v%{version}/%{name}-%{version}
 # Fixes arm builds, translation improvements, and other bug fixes.
 Patch0:         cqrlog-install.patch
 Patch1:         cqrlog-desktop.patch
-
-# Fix build failure with FPC 3.2.4 (some symbols were moved around in RTL)
-Patch2:         cqrlog-fpc-3.2.4.patch
-Patch3:         cqrlog-clublog.patch
+Patch2:         cqrlog-clublog.patch
 
 ExclusiveArch:  %{fpc_arches}
 
@@ -23,6 +20,7 @@ BuildRequires:	fpc >= 3.0.4
 BuildRequires:	lazarus >= 1.8
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+BuildRequires:  lazarus-lcl-qt6
 
 Requires:	mariadb-server-any
 Recommends:	mariadb-server
@@ -90,7 +88,7 @@ iconv -f iso8859-1 -t utf-8 %{buildroot}%{_datadir}/%{name}/ctyfiles/eqsl.txt > 
 
 %check
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_datadir}/appdata/*.appdata.xml
+    %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
 
 %files
@@ -98,13 +96,16 @@ appstream-util validate-relax --nonet \
 %doc README.md AUTHORS CHANGELOG
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/com.%{name}.%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_mandir}/man1/cqrlog.1.gz
 
 
 %changelog
+* Mon Aug 17 2026 Steven A. Falco <stevenfalco@gmail.com> - 3.0.0-1
+- Update to 3.0.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

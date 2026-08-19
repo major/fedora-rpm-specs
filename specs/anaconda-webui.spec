@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        77
+Version:        78
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -19,6 +19,8 @@ BuildRequires: systemd-rpm-macros
 %global anacondacorever 42.5
 %endif
 
+%global webui_slitherer_spin_identities fedora-release-identity-budgie or fedora-release-identity-cinnamon or fedora-release-identity-kde-desktop or fedora-release-identity-kde-mobile or fedora-release-identity-lxde or fedora-release-identity-lxqt or fedora-release-identity-matecompiz or fedora-release-identity-sway or fedora-release-identity-xfce or fedora-release-identity-i3
+
 %global cockpitver 275
 
 %define _unitdir /usr/lib/systemd/system
@@ -33,7 +35,7 @@ Requires: python3-bugzilla
 # it can often fall back to a diferent browser. This does not work in the limited installer
 # environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
 %if ! 0%{?rhel}
-Requires: (firefox if fedora-release-workstation)
+Requires: (slitherer if (%{webui_slitherer_spin_identities}) else firefox)
 %endif
 %if 0%{?fedora}
 Requires: system-logos
@@ -94,7 +96,13 @@ exit 0
 %files
 %dir %{_datadir}/cockpit/anaconda-webui
 %doc README.rst
-%license LICENSE dist/index.js.LEGAL.txt
+%license LICENSE dist/index.js.LEGAL.txt dist/anacondaLogin.js.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/login.html
+%{_datadir}/cockpit/anaconda-webui/anacondaLogin.js
+%{_datadir}/cockpit/anaconda-webui/anacondaLogin.js.map
+%{_datadir}/cockpit/anaconda-webui/anacondaLogin.js.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/anacondaLogin.css
+%{_datadir}/cockpit/anaconda-webui/anacondaLogin.css.map
 %{_datadir}/cockpit/anaconda-webui/qr-code-feedback.svg
 %{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/index.html
@@ -110,6 +118,10 @@ exit 0
 %dir /etc/anaconda/cockpit
 %config(noreplace) /etc/anaconda/cockpit/cockpit.conf
 %dir /etc/anaconda/cockpit/conf.d
+%dir %{_datadir}/anaconda/cockpit
+%dir %{_datadir}/anaconda/cockpit/conf.d
+%{_datadir}/anaconda/cockpit/conf.d/50-remote-auth.conf
+%{_libexecdir}/anaconda/cockpit-pin-auth
 %dir %{_datadir}/anaconda/firefox-theme
 %dir %{_datadir}/anaconda/firefox-theme/default
 %dir %{_datadir}/anaconda/firefox-theme/default/chrome
@@ -127,10 +139,26 @@ exit 0
 %{_datadir}/applications/extlinks.desktop
 %{_datadir}/applications/anaconda-gnome-control-center.desktop
 %{_unitdir}/webui-cockpit-ws.service
+%{_unitdir}/cockpit-pin-auth.socket
+%{_unitdir}/cockpit-pin-auth@.service
 
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Aug 17 2026 Packit <hello@packit.dev> - 78-1
+- Add Cockpit PIN authentication support
+- Add initial login page for remote installation
+- Wire up PIN authentication for remote installation
+- Add --remote-pin arg to webui_testvm script
+- Document how cockpit-pin-auth works
+- refactor: replace "magic" number with a proper constant (PROGRESS_STEPS_DONE)
+- refactor: deduplicate repetitive arg for onCritFail
+- feat: track installation status and pending errors on reconnection
+- refactor: deduplicate error handling in InstallationProgress
+- localization: complete language after user sets it in incomplete kickstart
+- datetime: mark timezone user-configured on screen entry, not on property change
+- spec: require slitherer for select spins, firefox for the res
+
 * Wed Aug 12 2026 Packit <hello@packit.dev> - 77-1
 - datetime: complete timezone after user sets it in incomplete kickstart
 - Add Bugzilla duplicate detection to the error reporting flow

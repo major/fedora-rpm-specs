@@ -1,6 +1,6 @@
 Name:           fedora-iot-config
 Version:        1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fedora IoT Configuration file
 
 License:        MIT
@@ -51,6 +51,9 @@ install -pm 0755 %{SOURCE2} %{buildroot}%{_sbindir}
 
 
 %changelog
+* Thu Aug 14 2026 Paul Whalen <pwhalen@fedoraproject.org> - 1-7
+- Update gpgkeypath to /usr/share/pki/rpm-gpg/ for F45 GPG key relocation
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

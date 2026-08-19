@@ -2,22 +2,29 @@
 %global projname %{modname}-python-api
 %global srcname %{modname}_python_api
 
-%bcond_without tests
+%bcond tests 1
+%bcond docs 1
 
+Version:        5.0.3
+%global forgeurl https://github.com/atlassian-api/%{projname}
+%global tag %version
+%forgemeta
 Name:           python-%{projname}
-Version:        4.0.7
 Release:        %autorelease
 Summary:        Python Atlassian REST API Wrapper
 
 License:        Apache-2.0
-URL:            https://github.com/atlassian-api/%{projname}
-Source0:        %{pypi_source %{srcname}}
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
+%endif
+%if %{with docs}
+BuildRequires:  python3-sphinx
 %endif
 
 %global _description %{expand:
@@ -44,7 +51,7 @@ Summary:        %{summary}
 %description -n python3-%{projname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%forgesetup
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -52,20 +59,29 @@ Summary:        %{summary}
 %build
 %pyproject_wheel
 
+%if %{with docs}
+PYTHONPATH=${PWD} sphinx-build-3 docs html
+# Remove sphinx-build leftovers
+rm -rf html/.{doctrees,buildinfo}
+%endif
+
 %install
 %pyproject_install
 %pyproject_save_files %{modname}
 
 %check
+%pyproject_check_import
 %if %{with tests}
 %pytest
-%else
-%pyproject_check_import
 %endif
 
 %files -n python3-%{projname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
+# The documentation is not big, so bundle it with the main package
+%if %{with docs}
+%doc html
+%endif
 
 %changelog
 %autochangelog

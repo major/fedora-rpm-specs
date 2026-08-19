@@ -1,6 +1,5 @@
-%if 0%{?rhel} <= 8
+%if 0%{?rhel} == 8
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 %endif
 
 Name:           hardinfo2
@@ -47,18 +46,23 @@ Summary:        System Information and Benchmark for Linux Systems
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only
 URL:            https://github.com/hardinfo2/hardinfo2
 Source0:        %{url}/archive/release-%{version}/hardinfo2-release-%{version}.tar.gz
+# PACKAGE ELN and RHEL 11
+Patch0:         %{url}/pull/294.patch
 
 BuildRequires:  gcc-c++
-%if 0%{?rhel} < 8
-BuildRequires:  cmake3
-%else
 BuildRequires:  cmake
-%endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+%else
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5OpenGL)
+%endif
 BuildRequires:  /usr/bin/glslangValidator
 BuildRequires:  /usr/bin/glslc
 BuildRequires:  libdecor-devel
@@ -107,22 +111,19 @@ Features include:
 
 %prep
 %autosetup -p1 -n hardinfo2-release-%{version}
+# respect %%_prefix used in %%cmake call
+sed -i -e '/^SET.CMAKE_INSTALL_PREFIX/d' CMakeLists.txt
 
 %build
-%if 0%{?rhel} < 8
-%cmake3 -DCMAKE_BUILD_TYPE=Release
-%cmake3_build
-%else
-%cmake -DCMAKE_BUILD_TYPE=Release
-%cmake_build
+%cmake -DCMAKE_BUILD_TYPE=Release \
+%if 0%{?fedora} || 0%{?rhel} >= 10
+  -DHARDINFO2_QT6=1 \
 %endif
+  %{nil}
+%cmake_build
 
 %install
-%if 0%{?rhel} < 8
-%cmake3_install
-%else
 %cmake_install
-%endif
 
 %find_lang %{name}
 

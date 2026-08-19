@@ -30,12 +30,14 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.651
-Release:        3%{?dist}
+Version:        1.652
+Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-%{version}.tgz
+Patch0:         DBI-1.652-Fix-test-for-32bit-perl-report-in-PR-189.patch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -242,7 +244,7 @@ make test
 
 %files
 # Changes already packaged as DBI::Changes
-%doc CONTRIBUTING.md README.md ex/perl_dbi_nulls_test.pl ex/profile.pl
+%doc CONTRIBUTING.md README.md SECURITY.md ex/perl_dbi_nulls_test.pl ex/profile.pl
 %{_bindir}/dbipro*
 %{_bindir}/dbilogstrip
 %{perl_vendorarch}/*.p*
@@ -266,6 +268,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.652-1
+- 1.652 bump (rhbz#2517102)
+- Fix CVE-2026-73194 and CVE-2026-73193
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.651-3
 - Perl 5.44 re-rebuild of bootstrapped packages
 

@@ -1,7 +1,7 @@
 %global npm_name @earendil-works/pi-coding-agent
 
 Name:           pi-coding-agent
-Version:        0.80.3
+Version:        0.84.2
 Release:        %autorelease
 Summary:        An open source coding agent
 

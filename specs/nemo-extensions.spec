@@ -1,13 +1,13 @@
 # Don't bother building debug packages as koji bitches about n-v-r from nemo package
 %global debug_package %{nil}
-%global cjs_version 6.7.0
+%global cjs_version 140.0
 
-%global upstream_version 6.7.0-unstable
-%global sversion 6.7.0
+%global upstream_version 6.7.1-unstable
+%global sversion 6.7.1
 
 Name:           nemo-extensions
-Version:        6.7.0^unstable
-Release:        4%{?dist}
+Version:        6.7.1^unstable
+Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -339,6 +339,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.*
 
 %changelog
+* Mon Aug 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
+- Update to 6.7.1-unstable
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.7.0^unstable-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

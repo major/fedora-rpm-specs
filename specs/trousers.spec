@@ -2,8 +2,7 @@ Name: trousers
 Summary: TCG's Software Stack v1.2
 Version: 0.3.15
 Release: 19%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 Url: http://trousers.sourceforge.net
 
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -13,9 +12,16 @@ Patch1:  trousers-0.3.14-noinline.patch
 Patch2: trousers-0.3.14-unlock-in-err-path.patch
 Patch3: trousers-0.3.14-fix-indent-obj_policy.patch
 Patch4: trousers-0.3.14-fix-indent-tspi_key.patch
+Patch5: trousers-0.3.15-openssl-opaque.patch
+Patch6: trousers-0.3.15-setgroups.patch
 
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: gettext-devel
+BuildRequires: libtool
 BuildRequires: make
-BuildRequires: libtool openssl-devel gettext-devel autoconf automake
+BuildRequires: openssl-devel
 BuildRequires: systemd
 # remove systemd dependency for flatpak builds
 %if ! 0%{?flatpak}

@@ -8,7 +8,7 @@ License:        MIT
 # examples/whisper.android/gradlew*
 # These are not distributed
 
-Version:        1.8.3
+Version:        1.9.2
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/whisper.cpp
@@ -36,9 +36,11 @@ ExclusiveArch:  x86_64 aarch64 ppc64le
 
 %if %{with rocm}
 %global build_rocm ON
+# need our own gpu list, without gfx1250
+%global rocm_gpu_list "gfx9-generic;gfx942;gfx950;gfx10-1-generic;gfx10-3-generic;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
 %else
 %global build_rocm OFF
-%global rocm_gpu_list_default %{nil}
+%global rocm_gpu_list %{nil}
 %endif
 
 %bcond_with test
@@ -109,7 +111,7 @@ recognition (ASR) model:
 
 %build
 %cmake \
-    -DCMAKE_HIP_ARCHITECTURES=%{rocm_gpu_list_default} \
+    -DCMAKE_HIP_ARCHITECTURES=%{rocm_gpu_list} \
     -DWHISPER_BUILD_EXAMPLES=%{build_test} \
     -DWHISPER_BUILD_SERVER=%{build_test} \
     -DWHISPER_BUILD_TESTS=%{build_test} \
@@ -156,6 +158,7 @@ find %{buildroot} -name 'whisper.pc' -delete
 %{_libdir}/libggml-base.so.*
 %{_libdir}/libggml-cpu.so.*
 %{_libdir}/libwhisper.so.*
+%{_libdir}/libparakeet.so.*
 
 %if %{with rocm}
 %{_libdir}/libggml-hip.so.*
@@ -163,17 +166,16 @@ find %{buildroot} -name 'whisper.pc' -delete
 
 %files devel
 %doc README.md
-%{_includedir}/ggml*.h
-%{_includedir}/gguf.h
-%{_includedir}/whisper.h
+%{_includedir}/*.h
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so
 %{_libdir}/libggml-cpu.so
+%{_libdir}/libparakeet.so
 %{_libdir}/libwhisper.so
-%dir %{_libdir}/cmake/whisper
-%dir %{_libdir}/cmake/ggml
-%{_libdir}/cmake/whisper/*.cmake
-%{_libdir}/cmake/ggml/*.cmake
+%{_libdir}/cmake/ggml/
+%{_libdir}/cmake/parakeet/
+%{_libdir}/cmake/whisper/
+%{_libdir}/pkgconfig/parakeet.pc
 
 %if %{with rocm}
 %{_libdir}/libggml-hip.so

@@ -25,7 +25,7 @@
 %endif
 
 Name: grout
-Version: 0.16.3
+Version: 0.17.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -36,7 +36,10 @@ URL: %{forgeurl}
 Release: %{autorelease}
 Source0: %{forgesource}
 Source1: https://fast.dpdk.org/rel/dpdk-%{dpdk_version}.tar.xz
+Source2: %{forgeurl}/releases/download/v%{version}/grout-%{version}.tar.gz.asc
+Source3: %{forgeurl}/raw/refs/heads/main/devtools/release-keys.asc
 
+BuildRequires: gnupg2
 %if %{defined toolset}
 BuildRequires: %toolset
 BuildRequires: scl-utils
@@ -113,6 +116,7 @@ This package contains the FRR zebra dataplane plugin for grout.
 %endif
 
 %prep
+%gpgverify -k3 -s2 -d0
 %forgesetup
 %autopatch -p1
 mkdir -p subprojects/packagecache/

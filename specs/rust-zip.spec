@@ -27,8 +27,9 @@ Patch:          zip-fix-metadata-auto.diff
 # * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
-# * Update lzma-rust2 to 0.18: https://github.com/zip-rs/zip2/pull/891,
-#   https://github.com/zip-rs/zip2/pull/905
+# * Update lzma-rust2 to 0.19: https://github.com/zip-rs/zip2/pull/891,
+#   https://github.com/zip-rs/zip2/pull/905,
+#   https://github.com/zip-rs/zip2/pull/942
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile

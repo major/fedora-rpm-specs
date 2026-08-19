@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:             python-tablib
-Version:          3.8.0
+Version:          3.10.0
 Release:          %autorelease
 Summary:          Format agnostic tabular data library (XLS, JSON, YAML, CSV, etc.)
 

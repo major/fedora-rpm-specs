@@ -164,6 +164,9 @@ Suggests: protobuf-c-devel
 # Prefer over Fedora fips-provider (same code, different name)
 Suggests: fips-provider-next
 
+# Prefer over runc for oci-runtime
+Suggests: crun
+
 %description
 Fedora ELN release files such as various /etc/ files that define the release
 and systemd preset files that determine which services are enabled by default.

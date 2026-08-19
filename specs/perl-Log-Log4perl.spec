@@ -1,12 +1,12 @@
 %bcond_without RRD
 
 Name:           perl-Log-Log4perl
-Version:        1.57
-Release:        10%{?dist}
+Version:        1.58
+Release:        1%{?dist}
 Summary:        Log4j implementation for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Log4perl
-Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETJ/Log-Log4perl-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/Log-Log4perl-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -214,6 +214,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.58-1
+- 1.58 bump (rhbz#2516179)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,11 +8,16 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       30.2
-Release:       %autorelease
+Version:       31.1
+Release:       0.rc1.%autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
-%if %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.%d+%.(%d+)')) or 0)} >= 90
+
+%global rc %{lua: print(select(3, string.find(rpm.expand('%release'), '.(rc%d+).')))}
+%if "%{rc}" != ""
+Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}-%{rc}.tar.xz
+Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}-%{rc}.tar.xz.sig
+%elif %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.%d+%.(%d+)')) or 0)} >= 90
 Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz
 Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz.sig
 %else
@@ -56,10 +61,6 @@ Patch:         emacs-spellchecker.patch
 
 Patch:         emacs-system-crypto-policies.patch
 
-# causes a dependency on pkgconfig(systemd)
-# => remove it if we stop using this patch
-Patch:         emacs-libdir-vs-systemd.patch
-
 # Hint what to do to avoid using the pure GTK build on X11, where it is
 # unsupported:
 Patch:         emacs-pgtk-on-x-error-message.patch
@@ -73,15 +74,6 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # Wayland, and the default should be fine.
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
-
-# CVE-2026-6861
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80851
-# https://bugzilla.redhat.com/show_bug.cgi?id=2460586
-Patch:         0001-src-image.c-svg_load_image-Fix-off-by-one-mistake-bu.patch
-
-# Nullify 'read-symbol-shorthands' around risky 'intern' calls.
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80574#227
-Patch:         0001-Mitigate-arbitrary-code-execution-vulnerability.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
@@ -118,6 +110,7 @@ BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: sqlite-devel
 BuildRequires: systemd-devel
+BuildRequires: systemd-rpm-macros
 BuildRequires: texinfo
 BuildRequires: zlib-devel
 
@@ -145,9 +138,6 @@ BuildRequires: xorg-x11-proto-devel
 %if %{with lucid}
 BuildRequires: Xaw3d-devel
 %endif
-
-# for Patch3
-BuildRequires: pkgconfig(systemd)
 
 %ifarch %{ix86}
 BuildRequires: util-linux
@@ -397,6 +387,7 @@ cd build-lucid
            --with-png \
            --with-rsvg \
            --with-sqlite3 \
+           --with-systemduserunitdir=%{_userunitdir} \
            --with-tiff \
            --with-tree-sitter \
            --with-webp \
@@ -419,6 +410,7 @@ cd build-nw
            --with-modules \
            --with-native-compilation=aot \
            --with-sqlite3 \
+           --with-systemduserunitdir=%{_userunitdir} \
            --with-tree-sitter \
 %if %{without gpm}
            --with-gpm=no \
@@ -447,6 +439,7 @@ cd build-gtk+x11
            --with-png \
            --with-rsvg \
            --with-sqlite3 \
+           --with-systemduserunitdir=%{_userunitdir} \
            --with-tiff \
            --with-tree-sitter \
            --with-webp \
@@ -475,6 +468,7 @@ cd build-pgtk
            --with-png \
            --with-rsvg \
            --with-sqlite3 \
+           --with-systemduserunitdir=%{_userunitdir} \
            --with-tiff \
            --with-tree-sitter \
            --with-webp \
@@ -592,9 +586,6 @@ install -p -m 0644 %SOURCE5 %{buildroot}%{site_lisp}/site-start.el
 install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
 install -p -m 0644 00-dynamic-module-dir.el %{buildroot}%{site_start_d}/
 install -p -m 0644 10-source-directory.el %{buildroot}%{site_start_d}/
-
-mv %{buildroot}%{_mandir}/man1/{ctags.1.gz,gctags.1.gz}
-mv %{buildroot}%{_bindir}/{ctags,gctags}
 
 # Default initialization file
 mkdir -p %{buildroot}%{_sysconfdir}/skel
@@ -830,7 +821,6 @@ fi
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README
 %{_bindir}/ebrowse
 %{_bindir}/etags
-%{_bindir}/gctags
 %{_datadir}/applications/emacs.desktop
 %{_datadir}/applications/emacs-mail.desktop
 %{_metainfodir}/%{name}.metainfo.xml
@@ -842,7 +832,6 @@ fi
 %{_mandir}/man1/ebrowse.1*
 %{_mandir}/man1/emacs.1*
 %{_mandir}/man1/etags.1*
-%{_mandir}/man1/gctags.1*
 %dir %{_datadir}/emacs/%{version}
 %{_datadir}/emacs/%{version}/etc
 %{_datadir}/emacs/%{version}/site-lisp

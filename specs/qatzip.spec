@@ -4,8 +4,8 @@
 %global libqatzip_soversion 3
 
 Name:           qatzip
-Version:        1.3.2
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD-3-Clause
 URL:            https://github.com/intel/%{githubname}
@@ -13,6 +13,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc >= 4.8.5
 BuildRequires:  zlib-devel >= 1.2.7
+BuildRequires:  libzstd-devel >= 1.5.7
 BuildRequires:  qatlib-devel >= 23.08.0
 BuildRequires:  autoconf autoconf-archive automake libtool make lz4-devel numactl-devel
 # The purpose of the package is to support hardware that only exists on x86_64 platforms
@@ -88,6 +89,10 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jul 17 2026 Yogaraj Alamenda <yogaraj.alamenda@intel.com> - 2.0.0
+- Update to qatzip v2.0.0
+- QAT 6xxx device Features support and Bug fixes
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

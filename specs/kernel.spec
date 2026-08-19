@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.2.0
 %define specversion 7.2.0
 %define patchversion 7.2
-%define pkgrelease 0.rc7.260814g2f1baf1fc892.58
+%define pkgrelease 61
 %define kversion 7
-%define tarfile_release 7.2-rc7-93-g2f1baf1fc892
+%define tarfile_release 7.2
 # This is needed to do merge window version magic
 %define patchlevel 2
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260814g2f1baf1fc892.58%{?buildid}%{?dist}
+%define specrelease 61%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.2.0
 
@@ -4976,10 +4976,19 @@ fi\
 #
 #
 %changelog
-* Fri Aug 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.2f1baf1fc892.58]
+* Mon Aug 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-61]
+- automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Aug 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-60]
 - dracut-virt.conf: change systemd-pcrphase to systemd-pcrextend (Vitaly Kuznetsov)
 - redhat/kernel.spec.template: Switch UKI addons to using UKI cert (Vitaly Kuznetsov)
-- automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+- Linux v7.2.0
+
+* Sun Aug 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.3eb40771c00a.59]
+- Linux v7.2.0-0.rc7.3eb40771c00a
+
+* Sat Aug 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.15ef2f78c49d.58]
+- Linux v7.2.0-0.rc7.15ef2f78c49d
 
 * Fri Aug 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.2f1baf1fc892.57]
 - redhat/configs: automotive: disable CONFIG_MD (Jared Kangas)

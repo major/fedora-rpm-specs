@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flintlib/flint
 
 Name:           flint
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 
@@ -22,7 +22,9 @@ Patch:          %{name}-arch.patch
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
+%ifarch %{arm64}
 BuildRequires:  m4
+%endif
 BuildRequires:  make
 BuildRequires:  ntl-devel
 BuildRequires:  pkgconfig(mpfr)
@@ -63,7 +65,15 @@ applications that use %{name}.
 
 %prep
 %autosetup -p1
-
+%ifarch x86_64_v4
+sed -i 's/%%HAVE_AVX2%%/yes/;s/%%HAVE_AVX512%%/yes/' configure
+%else
+%ifarch x86_64_v3
+sed -i 's/%%HAVE_AVX2%%/yes/;s/%%HAVE_AVX512%%/no/' configure
+%else
+sed -i 's/%%HAVE_AVX2%%/no/;s/%%HAVE_AVX512%%/no/' configure
+%endif
+%endif
 
 %conf
 fixtimestamp() {
@@ -117,7 +127,7 @@ make check
 %doc AUTHORS
 %doc README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libflint.so.23{,.*}
+%{_libdir}/libflint.so.24{,.*}
 
 
 %files devel

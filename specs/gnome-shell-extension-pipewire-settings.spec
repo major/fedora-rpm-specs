@@ -4,7 +4,7 @@
 
 Name:           gnome-shell-extension-pipewire-settings
 Version:        9~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Minimal PipeWire configuration menu for GNOME Shell
 
 License:        GPL-3.0-or-later
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 BuildArch:      noarch
 BuildRequires:  gnome-shell-rpm-generators
 
-Requires: gnome-shell(api) = 50
+Requires: gnome-shell(api) = 51
 
 %description
 A drop-down menu for GNOME Shell for configuring the PipeWire quantum and
@@ -42,6 +42,9 @@ cp -a pipewire-settings@gaheldev.github.com %{buildroot}%{_datadir}/gnome-shell/
 %{_datadir}/gnome-shell/extensions/pipewire-settings@gaheldev.github.com/
 
 %changelog
+* Sun Aug 16 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 9~git20251228.41bbf18-4
+- Bump gnome-shell version
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9~git20251228.41bbf18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

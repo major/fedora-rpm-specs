@@ -26,6 +26,8 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
+# Fixes tests with packaging 26.3
+Patch:          https://github.com/python-poetry/poetry/pull/11014.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

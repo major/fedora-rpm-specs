@@ -1,13 +1,11 @@
 Name:           libconfuse
-Version:        3.3
-Release:        17%{?dist}
+Version:        3.4
+Release:        1%{?dist}
 Summary:        A configuration file parser library
 
 License:        ISC
 URL:            https://github.com/martinh/libconfuse
 Source0:	https://github.com/martinh/libconfuse/releases/download/v%{version}/confuse-%{version}.tar.gz
-
-Patch0:         d73777c2c3566fb2647727bb56d9a2295b81669b.patch
 
 BuildRequires:  gcc
 BuildRequires:  check-devel, pkgconfig
@@ -40,8 +38,6 @@ Development files for %{name}.
 %prep
 %setup -q -n confuse-%{version}
 perl -pi.orig -e 's|confuse.h|../src/confuse.h|g' tests/check_confuse.c
-
-%patch -P0 -p0
 
 %build
 %configure --enable-shared --disable-static
@@ -86,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/confuse
 
 
 %changelog
+* Mon Aug 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.4-1
+- 3.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

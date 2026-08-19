@@ -14,8 +14,8 @@
 
 Name:           mpd
 Epoch:          1
-Version:        0.24.13
-Release:        3%{?dist}
+Version:        0.24.14
+Release:        1%{?dist}
 Summary:        Music player daemon
 
 License:        GPL-2.0-only AND BSD-2-Clause AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND BSD-2-Clause-Views
@@ -28,7 +28,7 @@ Source3:        mpd.logrotate
 Source4:        mpd.tmpfiles.d
 Source5:        mpd.sysusers
 # Use Fedora specific patches for runtime log paths and settings
-Patch0:         mpd-0.24.8-mpdconf.patch
+Patch0:         mpd-0.24.14-mpdconf.patch
 
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc-c++
@@ -230,6 +230,9 @@ rm %{buildroot}%{_docdir}/mpd/COPYING
 %ghost %{mpd_statefile}
 
 %changelog
+* Mon Aug 17 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.24.14-1
+- Update to 0.24.14
+
 * Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.24.13-3
 - libupnp rebuild
 

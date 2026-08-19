@@ -29,13 +29,18 @@ below (it uses base 20).
 
 sed -i 's/python/python3/' abacus.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-python3 ./setup.py build
+#python3 ./setup.py build
+%pyproject_wheel
 
 # %find_lang org.sugarlabs.AbacusActivity
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+#python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+%pyproject_install
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3

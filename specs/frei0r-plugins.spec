@@ -1,14 +1,5 @@
-# The package does not currently build with -msse4.1 enabled,
-# which is implicit on ELN when building with -march=x86-64-v3
-# Just explicitly disable this optimization until upstream
-# fixes the issue.
-# https://github.com/dyne/frei0r/issues/239
-%ifarch i686 x86_64
-%global optflags %{optflags} -mno-sse4.1
-%endif
-
 Name:           frei0r-plugins
-Version:        3.2.3
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Frei0r - a minimalist plugin API for video effects
 
@@ -50,8 +41,6 @@ developing applications that use %{name}.
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380603)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_lib} \
 
 %cmake_build

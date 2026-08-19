@@ -1,7 +1,7 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.3.9
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Mint themes
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -23,7 +23,7 @@ Recommends:     mint-x-icons
 A collection of mint themes.
 
 %package -n     mint-y-theme
-Summary:        The Mint-Y theme 
+Summary:        The Mint-Y theme
 Recommends:     mint-y-icons
 
 %description -n	mint-y-theme
@@ -47,7 +47,7 @@ Recommends:     mint-y-theme = %{epoch}:%{version}
 A collection of mint themes for GTK4.
 
 %package -n	cinnamon-themes
-Summary:        Mint themes for GTK3 
+Summary:        Mint themes for GTK3
 Requires:       filesystem
 Requires:       mint-themes-gtk3 = %{epoch}:%{version}
 Requires:       mint-themes-gtk4 = %{epoch}:%{version}
@@ -101,6 +101,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Mon Aug 17 2026 Leigh Scott <leigh123linux@gmail.com> - 1:2.4.0-1
+- Update to 2.4.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -247,7 +250,7 @@ make
 - Update to git snapshot
 
 * Wed Feb 26 2020 Leigh Scott <leigh123linux@googlemail.com> - 1:1.8.3-3
-- Use sassc precompiled source 
+- Use sassc precompiled source
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild

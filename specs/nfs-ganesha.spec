@@ -160,7 +160,7 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	14.1
+Version:	15.1
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -731,7 +731,8 @@ install -m 644 config_samples/gpfs.conf	%{buildroot}%{_sysconfdir}/ganesha
 install -m 644 config_samples/gpfs.ganesha.nfsd.conf %{buildroot}%{_sysconfdir}/ganesha
 install -m 644 config_samples/gpfs.ganesha.main.conf %{buildroot}%{_sysconfdir}/ganesha
 install -m 644 config_samples/gpfs.ganesha.log.conf %{buildroot}%{_sysconfdir}/ganesha
-install -m 644 config_samples/gpfs.ganesha.exports.conf	%{buildroot}%{_sysconfdir}/ganesha
+install -m 644 config_samples/gpfs.ganesha.exports.conf %{buildroot}%{_sysconfdir}/ganesha
+install -m 644 config_samples/gpfs_logrotate_ganesha %{buildroot}%{_sysconfdir}/logrotate.d/ganesha
 %endif
 
 %cmake_install
@@ -1016,6 +1017,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Aug 17 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.1-1
+- NFS-Ganesha 15.1 GA
+
 * Thu Aug 6 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 14.1-1
 - NFS-Ganesha 14.1 GA
 

@@ -6,7 +6,7 @@
 
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
-Version:	1.33.0
+Version:	1.33.1
 Release:	%autorelease
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
@@ -41,7 +41,6 @@ Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
 # Pending
 
 # Upstream commits
-Patch3:     %{giturl}/commit/54f7f88f879ce55dabe5f637f08b1c67b71fbb40.patch#/logind_multiseat_fix.patch
 
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-common

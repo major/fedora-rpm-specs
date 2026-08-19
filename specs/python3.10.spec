@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.20
+%global general_version %{pybasever}.21
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -369,24 +369,11 @@ Patch474: 00474-cve-2025-15366.patch
 # (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
 Patch475: 00475-cve-2025-15367.patch
 
-# 00489 # 008af720a5f6f98ed3feb8ebdbf88ab9dea4db22
-# Use BIO_eof to detect EOF for SSL_FILETYPE_ASN1
+# 00494 # 430aab133397ed44cc9ee621fd311e02fee317b5
+# Increase the timeout of test_large_content_length_truncated
 #
-# In PEM, we need to parse until error and then suppress `PEM_R_NO_START_LINE`, because PEM allows arbitrary leading and trailing data. DER, however, does not. Parsing until error and suppressing `ASN1_R_HEADER_TOO_LONG` doesn't quite work because that error also covers some cases that should be rejected.
-#
-# Instead, check `BIO_eof` early and stop the loop that way.
-#
-# This fixes https://github.com/python/cpython/issues/151504 and adds compatibility with OpenSSL 3.5.7+
-#
-# (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
-Patch489: 00489-openssl-3.5.7.patch
-
-# 00491 # ac14737379922303720216b61803474c84f291ef
-# gh-149776: Skip UDP Lite tests if it's not supported
-#
-# Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
-# it's not supported.
-Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
+# It has started to fail randomly when run on s390x architecture.
+Patch494: 00494-increase-the-timeout-of-test_large_content_length_truncated.patch
 
 # (New patches go here ^^^)
 #
@@ -1691,6 +1678,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Aug 13 2026 Karolina Surma <ksurma@redhat.com> - 3.10.21-1
+- Update to Python 3.10.21
+
 * Thu Jul 30 2026 Miro Hrončok <mhroncok@redhat.com> - 3.10.20-4
  - Skip UDP Lite tests if it's not supported
  - Fixes FTBFS on Linux kernel 7.1 and newer
