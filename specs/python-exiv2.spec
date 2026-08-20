@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/jim-easterbrook/python-exiv2
 
 Name:           python-exiv2
-Version:        0.18.0
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Low level Python interface to the Exiv2 C++ library
 
@@ -12,12 +12,11 @@ License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
-# skip assertions for py3.14 for the moment
-# https://github.com/jim-easterbrook/python-exiv2/issues/56
-Patch:          https://github.com/jim-easterbrook/python-exiv2/commit/fe98ad09ff30f1b6cc5fd5dcc0769f9505c09166.patch
-Patch:          https://github.com/jim-easterbrook/python-exiv2/commit/e0a5284620e8d020771bf8c1fa73d6113e662ebf.patch
-# Another intermittently failing test reported upstream by Benson:
-# https://github.com/jim-easterbrook/python-exiv2/issues/57
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+Patch:          python-exiv2-float32-precision.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  exiv2-devel

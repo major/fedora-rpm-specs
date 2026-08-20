@@ -1,10 +1,13 @@
+%global forgeurl https://gitlab.com/saalen/highlight
+Version:        4.21
+%forgemeta
+
 Name:           highlight
 Summary:        Universal source code to formatted text converter
-Version:        4.20
 Release:        %autorelease
 License:        GPL-3.0-only
 URL:            http://www.andre-simon.de/
-Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
+Source0:        %{forgesource}
 
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
@@ -14,7 +17,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  lua-devel
 BuildRequires:  make
 %if %{with qt}
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 %endif
 
 %global __provides_exclude ^perl\\(
@@ -38,7 +41,14 @@ A Qt-based GUI for the highlight source code formatter source.
 %endif
 
 %prep
-%autosetup
+%forgeautosetup
+# Fix line endings of extra batch files to avoid rpmlint warnings
+find extras/ -type f -name "*.bat" -exec sed -i 's/\r$//' {} +
+find extras/ -type f -name "*.pb" -exec sed -i 's/\r$//' {} +
+
+# Fix duplicate UNLICENCE file by symlinking it relatively
+rm -f extras/themes-resources/css-themes/UNLICENCE
+ln -s ../../langDefs-resources/UNLICENCE extras/themes-resources/css-themes/UNLICENCE
 
 %build
 %set_build_flags
@@ -50,11 +60,10 @@ export CFLAGS="$CFLAGS $CXXFLAGS -fPIC"
     conf_dir="%{_sysconfdir}/"
 
 %if %{with qt}
-%make_build gui \
-    PREFIX="%{_prefix}" \
-    conf_dir="%{_sysconfdir}/" \
-    QMAKE="%{_qt5_qmake}" \
-    QMAKE_STRIP=
+cd src/gui-qt
+%qmake_qt6
+%make_build
+cd ../..
 %endif
 
 %install

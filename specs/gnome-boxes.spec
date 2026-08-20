@@ -80,21 +80,6 @@ Requires:	libvirt-daemon-kvm
 Requires:	libvirt-daemon-qemu
 %endif
 Requires:	libvirt-client
-
-# Pulls in the libvirtd NAT 'default' network
-# Original request: https://bugzilla.redhat.com/show_bug.cgi?id=1081762
-#
-# Historically, the 'default' network does not mix well with the
-# Fedora livecd when it is run inside a VM. The whole saga is
-# documented here:
-#
-#   boxes: https://bugzilla.redhat.com/show_bug.cgi?id=1164492
-#   libvirt: https://bugzilla.redhat.com/show_bug.cgi?id=1146232
-#
-# Nowadays, default Fedora libvirt config delays starting virtual
-# networks until VM launch time. This should avoid the 'livecd has
-# no network issue', so this dep can be used unconditionally.
-# If that proves correct, let's delete this comment in F40 timeframe.
 Requires:	libvirt-daemon-config-network
 
 # Needed for unattended installations

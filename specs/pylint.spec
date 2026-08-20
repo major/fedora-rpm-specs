@@ -22,13 +22,17 @@ Patch:          0001-Bump-astroid-to-4.0.3.patch
 # Upstream 40817ce1a1b62a41486d81eff5b2db3bd9c23755
 Patch:          0002-Bump-astroid-to-4.1.1-10843.patch
 # Upstream e525835b22b36f95d209d73a16341b35846cf9db
-Patch:          0003-Bump-astroid-from-4.1.1-to-4.1.2.patch
+Patch:          0003-Bump-astroid-from-4.1.1-to-4.3.1.patch
 # Fix test failures with Python 3.15
 # https://github.com/pylint-dev/pylint/issues/10982
 Patch:          python315.patch
 # Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
 # Extracted from upstream merge commit 50cd472
 Patch:          fix-pytest-9.1-parametrize.patch
+# Fix compatibility with astroid >= 4.3.0 (removal of asname parameter from infer)
+# Opened upstream PR for review https://github.com/pylint-dev/pylint/pull/11298
+Patch:          fix-astroid-4.3-compatibility.patch
+
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
@@ -94,7 +98,8 @@ done
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args1] \
   --deselect=tests/test_self.py::TestRunTC::test_progress_reporting \
   --deselect=tests/test_functional.py::test_functional[unspecified_encoding_py38] \
-  --deselect=tests/test_functional.py::test_functional[bad_open_mode]
+  --deselect=tests/test_functional.py::test_functional[bad_open_mode] \
+  --deselect=tests/lint/unittest_lint.py::test_enable_message_block
 
 %files
 %doc CONTRIBUTORS.txt

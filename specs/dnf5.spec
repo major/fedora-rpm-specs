@@ -18,6 +18,8 @@ Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-Fix-integer-overflow-on-32-bit-platforms-in-D-Bus-hi.patch
+Patch2:         0002-reposync-Prevent-a-min-buildtime-overflow-on-32-bit-.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}

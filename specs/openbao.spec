@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.6.1
+%global package_version 2.6.2
 
 %global oldname vault
 
 Name: openbao
-Version: 2.6.1
+Version: 2.6.2
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -64,7 +64,7 @@ Provides: bundled(golang(github.com/Azure/go-autorest/autorest/to)) = v0.4.0
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest/validation)) = v0.3.1
 Provides: bundled(golang(github.com/Azure/go-autorest/logger)) = v0.2.1
 Provides: bundled(golang(github.com/Azure/go-autorest/tracing)) = v0.6.0
-Provides: bundled(golang(github.com/Azure/go-ntlmssp)) = v0.1.0
+Provides: bundled(golang(github.com/Azure/go-ntlmssp)) = v0.1.1
 Provides: bundled(golang(github.com/AzureAD/microsoft-authentication-library-for-go)) = v1.2.2
 Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.5.0
 Provides: bundled(golang(github.com/DataDog/datadog-go)) = v3.2.0+incompatible
@@ -224,7 +224,7 @@ Provides: bundled(golang(github.com/jmespath/go-jmespath)) = v0.4.0
 Provides: bundled(golang(github.com/josharian/intern)) = v1.0.0
 Provides: bundled(golang(github.com/json-iterator/go)) = v1.1.12
 Provides: bundled(golang(github.com/kelseyhightower/envconfig)) = v1.4.0
-Provides: bundled(golang(github.com/klauspost/compress)) = v1.18.6
+Provides: bundled(golang(github.com/klauspost/compress)) = v1.19.2
 Provides: bundled(golang(github.com/klauspost/cpuid/v2)) = v2.3.0
 Provides: bundled(golang(github.com/kr/pretty)) = v0.3.1
 Provides: bundled(golang(github.com/kr/text)) = v0.2.0
@@ -358,9 +358,9 @@ Provides: bundled(golang(golang.org/x/time)) = v0.15.0
 Provides: bundled(golang(golang.org/x/tools)) = v0.47.0
 Provides: bundled(golang(google.golang.org/api)) = v0.283.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0~20260319201613~d00831a3d3e7
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0~20260401024825~9d38bb4040a9
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0~20260414002931~afd174a4e478
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = v0.0.0~20260523011958~0a33c5d7ca68
-Provides: bundled(golang(google.golang.org/grpc)) = v1.81.1
+Provides: bundled(golang(google.golang.org/grpc)) = v1.82.1
 Provides: bundled(golang(google.golang.org/protobuf)) = v1.36.11
 Provides: bundled(golang(gopkg.in/evanphx/json-patch.v4)) = v4.13.0
 Provides: bundled(golang(gopkg.in/inf.v0)) = v0.9.1

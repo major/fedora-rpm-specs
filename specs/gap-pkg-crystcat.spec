@@ -1,7 +1,7 @@
 %global gap_pkgname crystcat
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.11
+Version:        1.1.12
 Release:        %autorelease
 Summary:        Crystallographic groups catalog
 
@@ -12,16 +12,15 @@ Source:         https://www.math.uni-bielefeld.de/~gaehler/gap/CrystCat/%{gap_up
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): grp htm lib tst
+BuildOption(install): grp lib tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap(cryst) >= 4.1.25
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-cryst-doc >= 4.1.25
-BuildRequires:  tth
+BuildRequires:  gap-devel >= 4.12
 
 Requires:       gap(cryst) >= 4.1.25
-Requires:       gap-core >= 4.14
+Requires:       gap-core >= 4.12
 
 Provides:       gap(CrystCat) = %{version}-%{release}
 Provides:       gap(crystcat) = %{version}-%{release}
@@ -51,7 +50,6 @@ License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-onl
 Summary:        CrystCat documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-Requires:       gap-pkg-cryst-doc >= 4.1.25
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.
@@ -59,16 +57,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}
 
-%build
-# Link to main GAP documentation
-ln -s %{gap_libdir}/etc ../../etc
-ln -s %{gap_libdir}/doc ../../doc
-ln -s %{gap_libdir}/pkg/cryst ..
-pushd doc
-./make_doc
-popd
-rm -f ../../{doc,etc} ../cryst
-
+%build -a
 # Compress large group files
 gzip --best grp/crystcat.grp
 
@@ -83,9 +72,7 @@ gzip --best grp/crystcat.grp
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

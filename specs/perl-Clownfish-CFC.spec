@@ -1,7 +1,7 @@
 Name:           perl-Clownfish-CFC
-Version:        0.6.4
-Release:        3%{?dist}
-Summary:        Compiler for Apache Clownfish
+Version:        0.7.0
+Release:        1%{?dist}
+Summary:        Compiler for Clownfish
 # other files:          Apache-2.0
 ## Unbundled
 # lemon:                Apache-2.0
@@ -80,7 +80,7 @@ Requires:       perl(ExtUtils::ParseXS) >= 3.00
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Clownfish::CFC::Test::
 
 %description
-This is a compiler for Apache Clownfish.
+This is a compiler for Clownfish.
 
 %package tests
 Summary:        Tests for %{name}
@@ -155,6 +155,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.0-1
+- 0.7.0 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.6.4-3
 - Perl 5.44 rebuild
 

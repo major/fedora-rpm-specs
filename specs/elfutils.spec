@@ -3,8 +3,8 @@
 %bcond_with static
 
 Name: elfutils
-Version: 0.195
-%global baserelease 3
+Version: 0.196
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -16,11 +16,11 @@ Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 # Needed for isa specific Provides and Requires.
 %global depsuffix %{?_isa}%{!?_isa:-%{_arch}}
 
-# eu-stacktrace currently only supports x86_64
-%ifarch x86_64 aarch64
-%global enable_stacktrace 1
+# eu-stackprof currently only supports x86/ARM
+%ifarch %{ix86} %{x86_64} %{arm} %{arm64}
+%global enable_stackprof 1
 %else
-%global enable_stacktrace 0
+%global enable_stackprof 0
 %endif
 
 %global provide_yama_scope      0
@@ -78,9 +78,9 @@ BuildRequires: ima-evm-utils-devel
 BuildRequires: openssl-devel
 BuildRequires: rpm-sign
 
-# For eu-stacktrace
-%if %{enable_stacktrace}
-BuildRequires: sysprof-capture-devel
+# For eu-stackprof
+%if %{enable_stackprof}
+BuildRequires: libpfm-devel
 %endif
 
 BuildRequires: automake
@@ -117,7 +117,11 @@ Provides: elfutils-libs%{depsuffix} = %{version}-%{release}
 %endif
 Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 %if %{provide_yama_scope}
-Obsoletes: elfutils-default-yama-scope < 0.195-1
+# Unversioned so that elfutils-default-yama-scope from an older Fedora
+# (e.g. 0.195-1.fc44, which compares greater than 0.195-1) is also
+# removed on upgrade (rhbz#2515161).  The package is gone for good,
+# replaced by the opt-in yama-ptrace-enable.
+Obsoletes: elfutils-default-yama-scope
 %endif
 %if 0%{?rhel} >= 8 || 0%{?fedora} >= 20
 Recommends: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
@@ -330,8 +334,10 @@ trap 'cat config.log' EXIT
 	--enable-debuginfod \
 	--enable-debuginfod-urls="%{dist_debuginfod_url}" \
 %endif
-%if %{enable_stacktrace}
-	--enable-stacktrace \
+%if %{enable_stackprof}
+	--enable-stackprof \
+%else
+	--disable-stackprof \
 %endif
 	--enable-debuginfod-ima-verification \
 	--enable-debuginfod-ima-cert-path=%{_sysconfdir}/keys/ima
@@ -410,8 +416,11 @@ fi
 %{_bindir}/eu-size
 %{_bindir}/eu-srcfiles
 %{_bindir}/eu-stack
-%if %{enable_stacktrace}
-%{_bindir}/eu-stacktrace
+%if %{enable_stackprof}
+%{_bindir}/eu-stackprof
+%else
+# The man page is installed even when eu-stackprof itself is not built.
+%exclude %{_mandir}/man1/eu-stackprof.1*
 %endif
 %{_bindir}/eu-strings
 %{_bindir}/eu-strip
@@ -523,6 +532,16 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Mon Aug 17 2026 Aaron Merey <amerey@redhat.com> - 0.196-1
+- Upgrade to upstream elfutils 0.196 (rhbz#2516216)
+- Obsolete all versions of elfutils-default-yama-scope so that the
+  package from an older Fedora is removed on upgrade (rhbz#2515161)
+- Add eu-stackprof, a new tool for collecting systemwide stacktrace
+  profiles, on x86/ARM
+- Remove the experimental eu-stacktrace tool along with the
+  sysprof-capture-devel build dependency
+- Add libpfm-devel build dependency for eu-stackprof
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.195-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

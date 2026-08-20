@@ -17,14 +17,14 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 4
+%global baserelease 1
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9c
+Version:		1.3.9d
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -468,6 +468,22 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue Aug 18 2026 Paul Howarth <paul@city-fan.org> - 1.3.9d-1
+- Update to 1.3.9d
+  - SSH channel open request from authenticated client with max packet size of
+    zero lead to infinite loop (GH#2242)
+  - Aborted/failed data transfers incorrectly clear any "EPSV ALL" state
+    (GH#2255)
+  - Possible use-after-free issue via FTP STAT command using -C option; note
+    that the -C option is now silently ignored for FTP STAT commands (GH#2265)
+  - Passive FTP data transfers do not honor AllowForeignAddress policy properly
+    (GH#2272)
+  - Empty password fields should be rejected by the mod_sql_passwd module
+    (GH#2275)
+  - Empty password fields should be rejected by the mod_auth_file module
+    (GH#2279)
+  - .ftpaccess file policy bypass possible in certain configurations (GH#2282)
+
 * Tue Aug  4 2026 Paul Howarth <paul@city-fan.org> - 1.3.9c-4
 - Update mod_procfs to 0.3
   - Also block access to sysfs filesystems

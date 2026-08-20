@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libe-book
-Version: 0.1.3
+Version: 0.1.4
 Release: %autorelease
 Summary: A library for import of reflowable e-book formats
 
@@ -23,8 +23,6 @@ BuildRequires: pkgconfig(librevenge-generators-0.0)
 BuildRequires: pkgconfig(librevenge-stream-0.0)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(zlib)
-
-Patch0: 0001-fix-build-with-ICU-68.patch
 
 %description
 %{name} is a library for import of reflowable e-book formats.
@@ -58,7 +56,7 @@ Currently supported: XHTML, raw, text.
 %autosetup -p1
 
 %build
-%configure --disable-silent-rules --disable-static
+%configure --disable-silent-rules --disable-static CPPFLAGS=-std=c++17
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \

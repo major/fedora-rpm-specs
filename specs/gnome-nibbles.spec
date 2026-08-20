@@ -1,7 +1,7 @@
 %global app_id  org.gnome.Nibbles
 
 Name:           gnome-nibbles
-Version:        4.5.2
+Version:        4.6~rc1
 Release:        %autorelease
 Summary:        GNOME Nibbles game
 # Source code is under GPLv3+, help is under CC-BY-SA, Appdata is under CC0.
@@ -13,6 +13,7 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_v
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
@@ -21,8 +22,10 @@ BuildRequires:  vala
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(gio-2.0) >= 2.78.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.78.0
+BuildRequires:  pkgconfig(glibmm-2.68)
 BuildRequires:  pkgconfig(gsound) >= 1.0.2
 BuildRequires:  pkgconfig(gtk4) >= 4.13.4
+BuildRequires:  pkgconfig(gtkmm-4.0)
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.5.0
 
 Provides:       bundled(libgnome-games-support)
@@ -45,7 +48,6 @@ navigation becomes more and more difficult. Playable by up to four people.
 %meson_install
 
 %find_lang %{name} --with-gnome
-%find_lang %{name}_libgnome-games-support --with-gnome
 
 
 %check
@@ -53,8 +55,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 
-%files -f %{name}.lang -f %{name}_libgnome-games-support.lang
-%license COPYING
+%files -f %{name}.lang
+%license gpl-3.0.txt
 %doc NEWS
 %{_bindir}/gnome-nibbles
 %{_datadir}/applications/%{app_id}.desktop

@@ -1,5 +1,5 @@
 Name:       xload
-Version:    1.2.1
+Version:    1.2.2
 Release:    %autorelease
 Summary:    Tool to display system load average
 

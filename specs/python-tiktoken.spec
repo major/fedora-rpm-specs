@@ -1,5 +1,5 @@
 Name:           python-tiktoken
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        tiktoken is a fast BPE tokeniser for use with OpenAI's models
 # tiktoken is MIT
@@ -27,8 +27,6 @@ Source:         %{pypi_source tiktoken}
 # * Allow fancy-regex 0.16 for now; upstream wants 0.17, updated from 0.13 “for
 #   significantly increased performance.” See:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2321464
-# * Update PyO3 to 0.29, fixing RUSTSEC-2026-0176 and RUSTSEC-2026-0177. See:
-#   https://github.com/openai/tiktoken/pull/574
 Patch:          tiktoken-fix-metadata.diff
 
 BuildRequires:  python3-devel

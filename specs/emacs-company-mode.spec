@@ -6,7 +6,7 @@
 %global giturl  https://github.com/company-mode/company-mode
 
 Name:           emacs-%{srcname}
-Version:        1.0.2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Modular in-buffer completion framework for Emacs
 
@@ -20,8 +20,10 @@ ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  emacs-nw
+BuildRequires:  emacs-posframe
 
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
+Requires:       emacs-posframe
 
 %description
 Company is a text completion framework for Emacs.  The name stands for

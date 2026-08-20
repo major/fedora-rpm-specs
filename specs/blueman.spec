@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.4.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -48,7 +48,6 @@ Requires:	bluez >= 5.48
 Requires:	bluez-obexd
 Requires:	dbus >= 1.9.18
 Requires:	dconf
-Requires:	desktop-notification-daemon
 Requires:	gdk-pixbuf2
 Requires:	glib2 >= 2.32
 Requires:	gtk3 >= 3.24
@@ -251,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Mon Aug 17 2026 Carl George <carlwgeorge@fedoraproject.org> - 1:2.4.6-10
+- Remove desktop-notification-daemon dependency rhbz#2517249
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:2.4.6-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

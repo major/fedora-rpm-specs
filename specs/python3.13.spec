@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -254,7 +254,7 @@ Obsoletes: python%{pybasever}%{?1:-%{1}}\
 BuildRequires: autoconf
 BuildRequires: bluez-libs-devel
 BuildRequires: bzip2-devel
-BuildRequires: expat-devel
+BuildRequires: expat-devel >= 2.5.0-2
 BuildRequires: findutils
 BuildRequires: gcc
 BuildRequires: gdbm-devel
@@ -370,14 +370,24 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00466 # e10760fb955ee33d2917f8a57bb4e24d71e5341c
-# Downstream only: Skip tests not working with older expat version
+# 00466 # 713a1368544eddd55088d67f88a23ce31722a4cb
+# Downstream only: Lower XML_COMBINED_VERSION threshold for reparse deferral
 #
-# We want to run these tests in Fedora and EPEL 10, but not in EPEL 9,
-# which has too old version of expat. We set the upper bound version
-# in the conditionalized skip to a release available in CentOS Stream 10,
-# which is tested as working.
-Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+# RHEL 9 expat 2.5.0 has XML_SetReparseDeferralEnabled backported
+# via the CVE-2023-52425 fix, but XML_COMBINED_VERSION remains 20500.
+# CPython's #if XML_COMBINED_VERSION >= 20600 guards compile the setter
+# as a no-op, so SetReparseDeferralEnabled silently does nothing and
+# GetReparseDeferralEnabled always returns False, even though the expat
+# library actually supports (and enables) reparse deferral.
+#
+# Lower the threshold from 20600 to 20500 so that CPython uses the
+# backported function. This makes the Python API actually work on RHEL 9
+# and fixes test failures (test_reparse_deferral_disabled,
+# test_flush_reparse_deferral_disabled, test_simple_xml_chunk_*).
+#
+# The spec file BuildRequires expat-devel >= 2.5.0-2 to ensure the
+# backported function is available.
+Patch466: 00466-downstream-only-lower-xml_combined_version-threshold-for-reparse-deferral.patch
 
 # 00475 # d44fac01037662db286449a78c8fb819788f764c
 # CVE-2025-15367
@@ -598,10 +608,12 @@ Requires: tzdata
 # This breaks many things, including python -m venv.
 # We avoid this problem by requiring at least the same version of expat that
 # was used during the build time.
+# We also include release, in case pyxpat uses ABI that was backported
+# (e.g. XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2).
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 # Since expat 2.7.4, the library has versioned symbols and this is no longer needed,
 # as the generated requirement will be in the form of libexpat.so.1(LIBEXPAT_2.7.2) etc.
-%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+%global expat_version %(LANG=C rpm -q --qf '%%{version}-%%{release}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
 %if v"%{expat_version}" < v"2.7.4"
 Requires: expat%{?_isa} >= %{expat_version}
 %endif
@@ -1359,7 +1371,6 @@ CheckPython() {
   # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
   # freethreading{,-debug} build, skipping it to shorten the build time
   # see: https://github.com/python/cpython/issues/121719
-  # test_subparser_inherits_reparse_deferral: https://github.com/python/cpython/issues/155485
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1375,9 +1386,6 @@ CheckPython() {
     %ifarch s390x ppc64le
     -x test_signal \
     -i test_deadlock \
-    %endif
-    %if 0%{?rhel} == 9
-    -i test_subparser_inherits_reparse_deferral \
     %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
@@ -1810,6 +1818,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Aug 12 2026 Miro Hrončok <mhroncok@redhat.com> - 3.13.15-2
+- On EPEL 9, also supports reparse deferral in expat
+
 * Mon Aug 10 2026 Karolina Surma <ksurma@redhat.com> - 3.13.15-1
 - Update to Python 3.13.15
 

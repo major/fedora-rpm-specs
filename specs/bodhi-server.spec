@@ -10,6 +10,9 @@ Summary:        Bodhi server
 License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/bodhi
 Source:         %{pypi_source bodhi_server}
+# https://github.com/fedora-infra/bodhi/pull/6136
+# Drop use of createrepo_c --deltas arg, it is gone in F45+
+Patch:          0001-createrepo_c-has-no-more-deltas-option.patch
 
 BuildArch:      noarch
 
@@ -75,7 +78,7 @@ repositories.
 
 
 %prep
-%autosetup -p1 -n %{src_name}-%{pypi_version}
+%autosetup -p2 -n %{src_name}-%{pypi_version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

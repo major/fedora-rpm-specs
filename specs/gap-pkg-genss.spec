@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/genss
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.9
+Version:        1.6.10
 Release:        %autorelease
 Summary:        Randomized Schreier-Sims algorithm
 
@@ -16,10 +16,7 @@ BuildSystem:    gap
 BuildOption(install): examples gap test tst
 BuildOption(check): tst/testall.g
 
-# The AtlasRep, TomLib, and CtblLib dependencies are needed for the tests only
-BuildRequires:  gap(atlasrep)
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(gapdoc) >= 1.5
 BuildRequires:  gap(io) >= 4.2
 BuildRequires:  gap(orb) >= 4.5
 BuildRequires:  gap-devel >= 4.9
@@ -65,7 +62,7 @@ for fil in init.g read.g; do
 done
 
 %files
-%doc CHANGES README
+%doc CHANGES README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

@@ -1,20 +1,21 @@
 Name:           perl-CGI-Session
-Version:        4.48
-Release:        36%{?dist}
+Version:        4.49
+Release:        1%{?dist}
 Summary:        Persistent session data in CGI applications
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CGI-Session
-Source0:        https://cpan.metacpan.org/modules/by-module/CGI/CGI-Session-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKSTOS/CGI-Session-%{version}.tar.gz
 BuildArch:      noarch
 Requires:       perl(CGI) >= 3.26
 Requires:       perl(File::Path)
 Requires:       perl(Text::Abbrev)
 
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
@@ -28,7 +29,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBD::Pg)
 BuildRequires:  perl(DB_File)
 BuildRequires:  perl(DBI)
-BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(Crypt::SysRandom)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Basename)
 # File::Path not used at tests
@@ -41,6 +42,7 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Text::Abbrev)
 BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Env)
 
@@ -55,13 +57,12 @@ CGI::Session does that and many more.
 %setup -q -n CGI-Session-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 chmod 644 examples/*
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -69,10 +70,15 @@ make test
 
 %files
 %doc Changes examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/CGI
+%{perl_vendorlib}/CGI/Session*
+%{_mandir}/man3/CGI::Session*
 
 %changelog
+* Tue Aug 18 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.49-1
+- 4.49 bump (rhbz#2510691)
+- Fix CVE-2026-56016 (rhbz#2495886)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.48-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

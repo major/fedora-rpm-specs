@@ -1,12 +1,11 @@
 Name:           perl-Clownfish
-Version:        0.6.4
-Release:        3%{?dist}
-Summary:        Apache Clownfish symbiotic object system
+Version:        0.7.0
+Release:        1%{?dist}
+Summary:        Clownfish symbiotic object system
 # The LICENSE file declares sinces 0.5.0 that portions of the libcmark libary
 # from the CommonMark project are bundled. But I cannot find any of the code
 # in the Clownfish. I believe the declaration concerns Clownfish-CFC sources
 # instead.
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Clownfish
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARMAN/Clownfish-%{version}.tar.gz
@@ -26,7 +25,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.006004
+BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.007000
 BuildRequires:  perl(Clownfish::CFC::Perl::Build::Charmonic)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
@@ -56,7 +55,7 @@ Requires:       perl-devel%{?_isa}
 Requires:       perl(DynaLoader)
 
 %description
-The Apache Clownfish "symbiotic" object system for C is designed to pair
+The Clownfish "symbiotic" object system for C is designed to pair
 with a "host" dynamic language environment, facilitating the development
 of high performance host language extensions. Clownfish classes are
 declared in header files with a .cfh extension. The Clownfish headers are
@@ -92,6 +91,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_mandir}/man3/Clownfish::*
 
 %changelog
+* Tue Aug 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.0-1
+- 0.7.0 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.6.4-3
 - Perl 5.44 rebuild
 

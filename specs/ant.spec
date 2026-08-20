@@ -69,6 +69,7 @@ BuildRequires:  ant-junit
 %if %{without ant_minimal}
 BuildRequires:  mvn(antlr:antlr)
 BuildRequires:  mvn(bcel:bcel)
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(bsf:bsf)
 BuildRequires:  mvn(com.jcraft:jsch)
 BuildRequires:  mvn(commons-net:commons-net)
@@ -357,7 +358,7 @@ ln -s %{_datadir}/javapackages-bootstrap/hamcrest-core.jar lib/optional/hamcrest
 %if %{with ant_minimal}
 build-jar-repository -s -p lib/optional junit hamcrest/core hamcrest/library
 %else
-build-jar-repository -s -p lib/optional antlr bcel commons-lang3 jakarta-mail/jakarta.mail-api jakarta-activation/jakarta.activation-api jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
+build-jar-repository -s -p lib/optional antlr bcel commons-io commons-lang3 jakarta-mail/jakarta.mail-api jakarta-activation/jakarta.activation-api jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
 %endif
 %endif
 

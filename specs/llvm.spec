@@ -3455,11 +3455,6 @@ fi
     libRemarks.so*
 }}
 %expand_libs LLVMgold.so
-%if %{maj_ver} >= 24
-%{expand_libs %{expand:
-    libLLVMOffloadKernel.so*
-}}
-%endif
 %if %{without compat_build}
 %{_libdir}/bfd-plugins/LLVMgold.so
 %endif
@@ -3746,6 +3741,9 @@ fi
 %if %{with offload}
 %expand_libs libomptarget.so.%{so_suffix}
 %expand_libs libLLVMOffload.so.%{so_suffix}
+%if %{maj_ver} >= 24
+%expand_libs libLLVMOffloadKernel.so.%{so_suffix}
+%endif
 %endif
 
 %files -n %{pkg_name_libomp}-devel
@@ -3761,6 +3759,11 @@ fi
     libomptarget.so
     libLLVMOffload.so
 }}
+%if %{maj_ver} >= 24
+%{expand_libs %{expand:
+    libLLVMOffloadKernel.so
+}}
+%endif
 
 %{expand_libs %{expand:
     amdgcn-amd-amdhsa/libompdevice.a

@@ -94,8 +94,8 @@ https://harmonyseq.wordpress.com
 # -DCMAKE_BUILD_TYPE=Release, but this also asks to strip debugging symbols,
 # which we do not want. Setting -DCMAKE_BUILD_TYPE=RelWithDebInfo does not set
 # the preprocessor macro. Instead, we set it manually:
-CFLAGS="${CFLAGS} -DRELEASE"
-CXXFLAGS="${CXXFLAGS} -DRELEASE"
+export CFLAGS="${CFLAGS} -DRELEASE"
+export CXXFLAGS="${CXXFLAGS} -DRELEASE"
 
 
 %check

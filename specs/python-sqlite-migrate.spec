@@ -1,14 +1,11 @@
-%global pypi_version %(echo '%{version}' | tr -d '~')
-
 Summary:        A simple database migration system for SQLite
 Name:           python-sqlite-migrate
-Version:        0.1~b0
-Release:        4%{?dist}
+Version:        0.2
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pypi.python.org/project/sqlite-migrate/
-Source:         %{pypi_source sqlite-migrate}
-# https://github.com/simonw/sqlite-migrate/pull/14/commits
-Patch:          python-sqlite-migrate-0.1b0-toml.patch
+Source:         https://github.com/simonw/sqlite-migrate/archive/refs/tags/%{version}.tar.gz
+Patch:          python-sqlite-migrate-0.2-toml.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -22,7 +19,7 @@ Summary:        %{summary}
 %description -n python3-sqlite-migrate %{_description}
 
 %prep
-%autosetup -p1 -n sqlite-migrate-%{pypi_version}
+%autosetup -p1 -n sqlite-migrate-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -32,13 +29,14 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files -l sqlite_migrate
+%pyproject_save_files sqlite_migrate
 
 %check
 %pyproject_check_import
 %pytest
 
 %files -n python3-sqlite-migrate -f %{pyproject_files}
+%license LICENSE
 %doc README.md
 
 %changelog
@@ -50,5 +48,4 @@ Summary:        %{summary}
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~b0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

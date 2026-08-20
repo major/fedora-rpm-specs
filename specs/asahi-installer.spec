@@ -28,7 +28,7 @@
 %global installer_python_package python-%{installer_python_version}-macos11.pkg
 
 Name:           asahi-installer
-Version:        0.8.3
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -54,8 +54,8 @@ BuildRequires:  bash
 BuildRequires:  cpio
 BuildRequires:  coreutils
 BuildRequires:  gzip
-BuildRequires:  m1n1-stage1 >= 1.6.0~rc1
-BuildRequires:  p7zip-plugins
+BuildRequires:  m1n1-stage1 >= 1.6.1
+BuildRequires:  bsdtar
 BuildRequires:  python3
 BuildRequires:  python3dist(certifi)
 BuildRequires:  system-logos
@@ -72,7 +72,7 @@ Asahi Linux installer
 Summary:        Asahi Linux Installer macOS package
 # The installer itself is MIT, and so are the vendored libffi and python-asn1.
 # The rest comes from m1n1-stage1 and Python.
-License:        MIT AND (MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND (BSD-3-Clause OR GPL-2.0-or-later) AND (Apache-2.0 OR MIT) AND MIT AND (MIT OR Apache-2.0)) AND Python
+License:        MIT AND (MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND (BSD-3-Clause OR GPL-2.0-or-later) AND (Apache-2.0 OR MIT) AND MIT AND (MIT OR Apache-2.0)) AND Python-2.0.1
 
 # These are vendored macOS dependencies that are included in the installer
 Provides:       bundled(libffi) = %{installer_libffi_version}

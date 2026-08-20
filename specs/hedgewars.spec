@@ -2,7 +2,7 @@
 
 Name:           hedgewars
 Version:        1.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
@@ -32,6 +32,9 @@ Patch3:        0a8921bf167481045830095c731eb3c67af913e4.patch
 # https://github.com/hedgewars/hw/pull/75
 Patch4:        https://patch-diff.githubusercontent.com/raw/hedgewars/hw/pull/75.patch
 Patch5:        hedgewars-mtl-2.3.patch
+
+# Fix build with FFmpeg 9
+Patch6:         https://gitlab.archlinux.org/archlinux/packaging/packages/hedgewars/-/raw/main/ffmpeg-9.patch
 
 BuildRequires:  cmake gcc-c++ fpc desktop-file-utils
 BuildRequires:  libatomic
@@ -221,6 +224,9 @@ install -pm 0644 %{SOURCE102} %{buildroot}%{_prefix}/lib/firewalld/services/
 %{_datadir}/%{name}/Data/Fonts/wqy-zenhei.ttc
 
 %changelog
+* Tue Aug 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.3-7
+- Fixed build with FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

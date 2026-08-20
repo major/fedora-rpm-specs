@@ -12,7 +12,7 @@
 ExcludeArch:    ppc64le s390x
 
 # Build the next version of ollama
-%bcond next 0
+%bcond next 1
 
 # systemd testing
 %bcond systemd 1
@@ -20,7 +20,7 @@ ExcludeArch:    ppc64le s390x
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
 %if %{with next}
-Version:                0.30.11
+Version:                0.32.8
 %else
 Version:                0.24.0
 %endif

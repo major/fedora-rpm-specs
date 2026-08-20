@@ -1,6 +1,6 @@
 Name:             powertop
-Version:          2.15
-Release:          13%{?dist}
+Version:          2.16
+Release:          1%{?dist}
 Summary:          Power consumption monitor
 
 License:          gpl-2.0-only AND lgpl-2.1-only AND isc
@@ -8,20 +8,16 @@ URL:              http://01.org/powertop/
 Source0:          http://github.com/fenrus75/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:          powertop.service
 
-# Sent upstream
-Patch0:           powertop-2.7-always-create-params.patch
-BuildRequires:    make
+BuildRequires:    meson
 BuildRequires:    gettext-devel
 BuildRequires:    ncurses-devel
 BuildRequires:    pciutils-devel
 BuildRequires:    zlib-devel
 BuildRequires:    libnl3-devel
-BuildRequires:    automake
-BuildRequires:    libtool
 BuildRequires:    systemd
-BuildRequires:    autoconf-archive
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
+BuildRequires:    libtracefs-devel
 Requires(post):   systemd, coreutils
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -35,21 +31,13 @@ computer use more power than necessary while it is idle.
 
 %prep
 %autosetup -p1
-# https://www.gnu.org/software/gettext/manual/html_node/autopoint-Invocation.html
-sed -i -e 's|AM_GNU_GETTEXT_VERSION|AM_GNU_GETTEXT_REQUIRE_VERSION|' configure.ac
-
-echo "v%{version}" > version-long
-echo '"v%{version}"' > version-short
 
 %build
-# workaround for rhbz#1826935
-autoreconf -fi || autoreconf -fi
-%configure
-make %{?_smp_mflags} CFLAGS="%{optflags}" V=1
+%meson
+%meson_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+%meson_install
 install -Dd %{buildroot}%{_localstatedir}/cache/powertop
 touch %{buildroot}%{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.powertop}
 %find_lang %{name}
@@ -69,7 +57,7 @@ install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/powertop.service
 touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.powertop} &> /dev/null || :
 
 %files -f %{name}.lang
-%doc COPYING README.md README.traceevent CONTRIBUTE.md TODO
+%doc COPYING README.md CONTRIBUTE.md TODO
 %dir %{_localstatedir}/cache/powertop
 %ghost %{_localstatedir}/cache/powertop/saved_parameters.powertop
 %ghost %{_localstatedir}/cache/powertop/saved_results.powertop
@@ -79,6 +67,11 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Tue Aug 18 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.16-1
+- New version
+  Resolves: rhbz#2513571
+- Switched to meson
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

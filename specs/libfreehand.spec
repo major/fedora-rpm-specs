@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libfreehand
-Version: 0.1.2
+Version: 0.1.3
 Release: %autorelease
 Summary: A library for import of Macromedia/Adobe FreeHand documents
 
@@ -23,8 +23,6 @@ BuildRequires: pkgconfig(librevenge-stream-0.0)
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: make
-
-Patch0: 0001-Add-missing-semicolon-to-fix-build-with-icu-65.1.patch
 
 %description
 libfreehand is library providing ability to interpret and import

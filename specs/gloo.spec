@@ -1,10 +1,20 @@
-%global commit0 dc507d1eb822c4396aaca284efff498aba33c7dc
+%global commit0 08fcb290a89871a2d1175d655a34b7674b1dcc4b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20241203
+%global date0 20260801
+%global so_date0 260801
 # MPI build based on spec file dbcsr by Orion
 %global mpi_list openmpi mpich
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
+%ifarch x86_64
+%bcond_without rocm
+%endif
+%if %{with rocm}
+%global build_rocm ON
+%else
+%global build_rocm OFF
+%endif
 
 Summary:        Communications library for AI/ML
 Name:           gloo
@@ -15,8 +25,8 @@ Release:        %autorelease
 URL:            https://github.com/facebookincubator/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 Patch0:         0001-gloo-fedora-cmake-changes.patch
-Patch1:         0002-gloo-fedora-cmake-libuv.patch
-Patch2:         0001-gloo-gcc-15-cstdint.patch
+#Patch1:         0002-gloo-fedora-cmake-libuv.patch
+#Patch2:         0001-gloo-gcc-15-cstdint.patch
 # See CMakeLists, gloo only builds on 64 bit systems
 ExcludeArch:    i686
 
@@ -30,6 +40,16 @@ BuildRequires:  mpich-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  rdma-core-devel
 BuildRequires:  redis-devel
+
+%if %{with rocm}
+BuildRequires:  hipify
+BuildRequires:  rccl-devel
+BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-compilersupport-macros
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-rpm-macros
+%endif
 
 Requires:       %{name}-docs
 
@@ -110,11 +130,25 @@ that use %{name}-mpich.
 # cmake version change
 sed -i -e 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)@' CMakeLists.txt
 
+# change YYMMDD to match commit0 date and get a fake so version
+sed -i -e 's@YYMMDD@%{so_date0}@' gloo/CMakeLists.txt
+sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON VERSION 0.0.%{so_date0} SOVERSION 0.0.%{so_date0}@' cmake/Hip.cmake
+
+# some help with installing headers
+sed -i -e 's@${CMAKE_INSTALL_PREFIX}/include/${DIR}@${CMAKE_INSTALL_PREFIX}/include/gloo/@' gloo/CMakeLists.txt
+
 %build
 %define gloo_cmake_options -DUSE_IBVERBS=ON -DUSE_LIBUV=OFF -DUSE_REDIS=ON
 
+%if %{with rocm}
+ROCM_PATH=%{_prefix}
+GLOO_ROCM_ARCH=%{rocm_gpu_list_rccl}
+%endif
+
 %cmake %gloo_cmake_options \
        -DUSE_MPI=OFF \
+       -DUSE_ROCM=%{build_rocm} \
+       -DUSE_RCCL=%{build_rocm} \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
        -DCMAKE_INSTALL_LIBDIR=lib64
 
@@ -125,6 +159,7 @@ do
   module load mpi/$mpi-%{_arch}
   %cmake %gloo_cmake_options \
          -DUSE_MPI=ON \
+	 -DUSE_ROCM=OFF \
          -DCMAKE_INSTALL_PREFIX=$MPI_HOME \
 	 -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -151,11 +186,17 @@ done
 
 %files
 %{_libdir}/lib%{name}.so.*
+%if %{with rocm}
+%{_libdir}/lib%{name}_hip.so.*
+%endif
 
 %files devel
 %{_includedir}/%{name}/
 %{_libdir}/cmake/Gloo/
 %{_libdir}/lib%{name}.so
+%if %{with rocm}
+%{_libdir}/lib%{name}_hip.so
+%endif
 
 %files mpich
 %{_libdir}/mpich/lib/lib%{name}.so.*

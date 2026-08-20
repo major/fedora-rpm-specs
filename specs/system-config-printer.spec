@@ -6,7 +6,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -53,8 +53,6 @@ BuildRequires: xmlto
 Requires: dbus-x11
 # for desktop file
 Requires: desktop-file-utils >= 0.2.92
-# for system notifications
-Requires: desktop-notification-daemon
 # for GUI, the app is written in gtk3
 Requires: gtk3%{?_isa}
 # for GUI to prevent warning during the startup
@@ -291,6 +289,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Aug 18 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.5.18-20
+- Remove desktop-notification-daemon dependency rhbz#2517249
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.18-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.5.6
+Version:	3.5.7
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://www.knot-dns.cz
@@ -431,6 +431,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Aug 18 2026 Jan Včelák <jvcelak@fedoraproject.org> - 3.5.7-1
+- Update to 3.5.7 (security fixes)
+
 * Sun Aug 02 2026 Jan Včelák <jvcelak@fedoraproject.org> - 3.5.6-1
 - Update to 3.5.6 (security fix for ACL evaluation)
 

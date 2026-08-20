@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -61,9 +61,9 @@ Requires: hipblaslt >= %{rocm_release}
 Requires: hipsparselt
 Requires: migraphx
 Requires: miopen >= %{rocm_release}
-Requires: mivisionx >= %{rocm_release}
+Requires: mivisionx
 Requires: rccl >= %{rocm_release}
-Requires: rocal >= %{rocm_release}
+Requires: rocal
 Requires: rocalution >= %{rocm_release}
 Requires: rocdecode >= %{rocm_release}
 Requires: rocjpeg >= %{rocm_release}
@@ -71,9 +71,10 @@ Requires: rocm-clinfo >= %{rocm_release}
 Requires: rocm-core >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: rocm-origami
-Requires: rocm-rdc >= %{rocm_release}
-Requires: rocm-rpp >= %{rocm_release}
+Requires: rocm-rdc
+Requires: rocm-rpp
 Requires: rocprofiler-register >= %{rocm_release}
+Requires: rocshmem >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
 %endif
 
@@ -125,18 +126,19 @@ Requires: hipsparselt-devel
 Requires: hipify >= %{rocm_release}
 Requires: migraphx
 Requires: miopen-devel >= %{rocm_release}
-Requires: mivisionx-devel >= %{rocm_release}
+Requires: mivisionx-devel
 Requires: rccl-devel >= %{rocm_release}
-Requires: rocal-devel >= %{rocm_release}
+Requires: rocal-devel
 Requires: rocalution-devel >= %{rocm_release}
 Requires: rocdecode-devel >= %{rocm_release}
 Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
-Requires: rocm-rdc-devel >= %{rocm_release}
-Requires: rocm-rpp-devel >= %{rocm_release}
+Requires: rocm-rdc-devel
+Requires: rocm-rpp-devel
 Requires: rocprofiler-register-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
+Requires: rocshmem-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
 Requires: rocm-origami-devel
 Requires: rocwmma-devel >= %{rocm_release}
@@ -162,7 +164,8 @@ Requires: kfdtest             >= %{rocm_release}
 Requires: hip-tests >= %{rocm_release}
 Requires: rccl-tests
 Requires: rocm-bandwidth-test
-Requires: rocm-validation-suite >= %{rocm_release}
+Requires: rocm-transferbench
+Requires: rocm-validation-suite
 %endif
 
 %description test
@@ -186,6 +189,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Tue Aug 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Remove version constraint on some packages
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

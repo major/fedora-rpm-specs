@@ -4,13 +4,13 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 9.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-16.2.tar.gz
 URL: https://crash-utility.github.io
 ExclusiveOS: Linux
-ExclusiveArch: %{ix86} ia64 x86_64 ppc ppc64 s390 s390x %{arm} aarch64 ppc64le riscv64
+ExclusiveArch: %{ix86} ia64 x86_64 ppc ppc64 s390 s390x %{arm} aarch64 ppc64le riscv64 loongarch64
 BuildRequires: ncurses-devel zlib-devel lzo-devel snappy-devel bison wget patch texinfo libzstd-devel
 BuildRequires: make gcc gcc-c++
 BuildRequires: gmp-devel mpfr-devel
@@ -65,6 +65,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Fri Jul 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 9.0.2-3
+- enable loongarch64 support.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

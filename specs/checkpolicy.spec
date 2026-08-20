@@ -4,7 +4,7 @@
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz.asc
@@ -17,7 +17,7 @@ Source2: https://github.com/bachradsusi.gpg
 # Patch list end
 BuildRequires: gcc
 BuildRequires: make
-BuildRequires: byacc bison flex flex-static libsepol-static >= %{libsepolver} libselinux-devel  >= %{libselinuxver}
+BuildRequires: byacc bison flex flex-static libsepol-static >= %{libsepolver}
 BuildRequires: gnupg2
 
 %description
@@ -63,7 +63,4 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 %autochangelog

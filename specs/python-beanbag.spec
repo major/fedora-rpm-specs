@@ -1,6 +1,6 @@
 Name:           python-beanbag
 Version:        1.9.2
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        A helper module for accessing REST APIs
 License:        MIT
 URL:            https://github.com/ajtowns/beanbag
@@ -21,7 +21,6 @@ Patch0:			py36-metaclass-compatibility.patch
 Patch1:         pytest5.1-compatibility.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
 
@@ -40,7 +39,6 @@ See http://beanbag.readthedocs.org/ for more information.
 
 %package -n python3-beanbag
 Summary:        A helper module for accessing REST APIs
-%{?python_provide:%python_provide python3-beanbag}
 Requires:  python3-requests
 
 %description -n python3-beanbag
@@ -60,21 +58,28 @@ See http://beanbag.readthedocs.org/ for more information.
 # Fix compatibility with pytest 7.2.0
 sed -i "s/py\.test/pytest/g" tests/test_attrdict.py tests/test_bbv1.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l 'beanbag*'
 
 %check
+%pyproject_check_import
 %pytest
 
-%files -n python3-beanbag
+%files -n python3-beanbag -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/beanbag*
 
 %changelog
+* Mon Aug 17 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.2-43
+- Stop using deprecated py3_build/py3_install macros
+- Resolves: rhbz#2377477
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

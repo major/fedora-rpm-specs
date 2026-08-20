@@ -1,5 +1,5 @@
 Name:           tmux
-Version:        3.7b
+Version:        3.7c
 Release:        %autorelease
 Summary:        A terminal multiplexer
 

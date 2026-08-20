@@ -10,7 +10,7 @@
 
 Name:           chrony
 Version:        4.9
-Release:        0.1.pre1%{?dist}
+Release:        0.2.pre1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -20,13 +20,12 @@ Source1:        https://chrony-project.org/releases/chrony-%{version}%{?prerelea
 Source2:        https://chrony-project.org/gpgkey-8F375C7E8D0EE125A3D3BD51537E2B76F7680DAC.asc
 Source3:        chrony.dhclient
 Source4:        chrony.sysusers
+Source5:        chrony.tmpfiles
 # simulator for test suite
 Source10:       https://gitlab.com/chrony/clknetsim/-/archive/master/clknetsim-%{clknetsim_ver}.tar.gz
 
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
-# let systemd create /var/lib/chrony and /var/log/chrony
-Patch2:         chrony-servicedirs.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -69,7 +68,7 @@ md5sum -c <<-EOF | (! grep -v 'OK$')
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
-        607c82f56639486f52c31105632909eb  examples/chronyd.service
+        274a44cd51981d6d4d3a44dfc92c94ab  examples/chronyd.service
         5ddbb8a8055f587cb6b0b462ca73ea46  examples/chronyd-restricted.service
 EOF
 
@@ -120,8 +119,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{sysconfig,logrotate.d}
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/{lib,log}/chrony
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dhcp/dhclient.d
-mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
-mkdir -p $RPM_BUILD_ROOT%{_sysusersdir}
+mkdir -p $RPM_BUILD_ROOT{%{_libexecdir},%{_sysusersdir},%{_tmpfilesdir}}
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/NetworkManager/dispatcher.d
 mkdir -p $RPM_BUILD_ROOT{%{_unitdir},%{_prefix}/lib/systemd/ntp-units.d}
 
@@ -144,6 +142,8 @@ install -m 644 -p examples/chrony-wait.service \
         $RPM_BUILD_ROOT%{_unitdir}/chrony-wait.service
 install -m 644 -p %{SOURCE4} \
         $RPM_BUILD_ROOT%{_sysusersdir}/chrony.conf
+install -m 644 -p %{SOURCE5} \
+        $RPM_BUILD_ROOT%{_tmpfilesdir}/chrony.conf
 
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/chronyd <<EOF
 # Command-line options for chronyd
@@ -199,6 +199,7 @@ fi
 %{_prefix}/lib/systemd/ntp-units.d/*.list
 %{_unitdir}/chrony*.service
 %{_sysusersdir}/chrony.conf
+%{_tmpfilesdir}/chrony.conf
 %{_mandir}/man[158]/%{name}*.[158]*
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/lib/chrony
 %ghost %attr(-,chrony,chrony) %{_localstatedir}/lib/chrony/drift
@@ -206,6 +207,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Tue Aug 18 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-0.2.pre1
+- create ghosted directories by tmpfiles instead of chronyd service
+
 * Wed Aug 12 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-1
 - update to 4.9-pre1
 

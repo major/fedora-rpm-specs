@@ -1,5 +1,5 @@
 Name:           java-diff-utils
-Version:        4.12
+Version:        4.17
 Release:        %{autorelease}
 Summary:        Java library for performing diff operations
 
@@ -42,6 +42,8 @@ This package contains the parent POM for Java Diff Utils.
 %pom_remove_plugin -r :maven-checkstyle-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 %pom_remove_plugin :maven-release-plugin
+%pom_remove_plugin -r :central-publishing-maven-plugin
+%pom_remove_plugin -r :spotless-maven-plugin
 %pom_disable_module java-diff-utils-jgit
 
 %build

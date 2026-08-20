@@ -10,7 +10,7 @@
 %global gap_skip_check %{?with_bootstrap}
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.1.31
+Version:        4.1.32
 Release:        %autorelease
 Summary:        GAP support for crystallographic groups
 
@@ -21,13 +21,13 @@ Source:         https://www.math.uni-bielefeld.de/~gaehler/gap/Cryst/%{gap_upnam
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): gap grp htm tst
+BuildOption(install): gap grp tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap(caratinterface) >= 2.3.3
 BuildRequires:  gap(polycyclic) >= 2.16
 BuildRequires:  gap-devel >= 4.12
-BuildRequires:  tth
 
 # For testing only
 %if %{without bootstrap}
@@ -41,8 +41,6 @@ Requires:       gap-core >= 4.12
 
 Recommends:     gap(caratinterface) >= 2.3.3
 Recommends:     gap(crystcat) >= 1.1.9
-
-Suggests:       gap(xgap) >= 4.22
 
 Provides:       gap(Cryst) = %{version}-%{release}
 Provides:       gap(cryst) = %{version}-%{release}
@@ -76,15 +74,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}
 
-%build
-# Link to main GAP documentation
-ln -s %{gap_libdir}/etc ../../etc
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc
-cd -
-rm -f ../../{doc,etc}
-
 %files
 %doc Changelog README
 %license COPYING
@@ -96,9 +85,7 @@ rm -f ../../{doc,etc}
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

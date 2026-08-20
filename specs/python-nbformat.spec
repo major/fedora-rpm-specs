@@ -5,7 +5,7 @@
 %global srcname nbformat
 
 Name:           python-%{srcname}
-Version:        5.11.0
+Version:        5.11.1
 Release:        %autorelease
 Summary:        The Jupyter Notebook format
 

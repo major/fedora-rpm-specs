@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -38,9 +38,8 @@ Patch0:		0001-Handle-Python-multi-phase-initialization-support-in-.patch
 Patch1:		0001-Fix-compilation-with-Python-3.15.patch
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1997
 Patch2:		0001-Support-OpenSSL-4.patch
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch3:		nordugrid-arc-swig45.patch
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/2012
+Patch3:		0001-Use-Python-3-API-in-SWIG-wrwppers.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -1144,6 +1143,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Tue Aug 18 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.2-8
+- Use upstream's patch for SWIG 4.5.0 support
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 7.1.2-7
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

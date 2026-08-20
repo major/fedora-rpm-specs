@@ -1,56 +1,55 @@
-%global pypi_name tenacity
+%global srcname tenacity
 %global _description %{expand:
 Tenacity is a general-purpose retrying library to simplify the task of adding
 retry behavior to just about anything.}
 
-Name:           python-%{pypi_name}
-Version:        9.1.4
-Release:        3%{?dist}
-Summary:        Retry code until it succeeds
-License:        Apache-2.0
-URL:            https://github.com/jd/%{pypi_name}
-Source:         %{pypi_source}
-BuildArch:      noarch
+Name:		python-%{srcname}
+Version:	9.2.0
+Release:	1%{dist}
+Summary:	Retry code until it succeeds
+
+License:	Apache-2.0
+URL:		https://github.com/jd/tenacity
+Source:		%{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+BuildArch:	noarch
+
+BuildRequires:	python3-devel
+BuildRequires:	python3dist(hatchling)
+BuildRequires:	python3-pytest
 
 %description %{_description}
 
-%package -n python3-%{pypi_name}
-Summary:          %{summary}
-BuildRequires:    python3-devel
-# for tests
-BuildRequires:    python3-pytest
-BuildRequires:    python3-tornado >= 4.5
+%package -n python3-%{srcname}
+Summary:	%{summary}
 
-
-%description -n python3-%{pypi_name} %{_description}
+%description -n python3-%{srcname} %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p 1
-# Avoid type checking dependency
-sed -e '/typeguard/d' -i setup.cfg
-sed -r -i '/^from typeguard/d' -i tests/*.py
-# [toml] is an empty feature since setuptools switched to builtin tomllib
-sed -e 's/setuptools_scm\[toml\]/setuptools_scm/' -i pyproject.toml
+%autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires -x test
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{pypi_name}
+%pyproject_save_files %{srcname}
 
 %check
-# These require typeguard, but we patched out the dependency and imports.
-k="${k-}${k+ and }not (TestRetryTyping and test_retry_type_annotations)"
-%pytest -k "${k-}" ${ignore-}
+%pytest -v
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Tue Aug 18 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 9.2.0-1
+- Update to 9.2.0 (RHBZ#2511551)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

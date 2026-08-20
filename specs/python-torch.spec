@@ -15,7 +15,7 @@
 %global miniz_version 3.0.2
 %global pybind11_version 3.0.1
 %else
-%global pypi_version 2.12.0
+%global pypi_version 2.13.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 3.0.1
@@ -33,7 +33,7 @@
 %endif
 
 # For testing distributed+rccl etc.
-%bcond_with gloo
+%bcond_without gloo
 %bcond_without mpi
 %bcond_without tensorpipe
 
@@ -51,8 +51,8 @@
 # In fedora, not in rhel/epel or requires a newer version
 %if 0%{?fedora}
 %bcond_without eigen3
-%bcond_with onnx
-%bcond_with protobuf
+%bcond_without onnx
+%bcond_without protobuf
 %bcond_with setuptools
 %bcond_without sympy
 %else
@@ -87,11 +87,15 @@ Patch2: 0001-Fix-struct.pack-polyfill-signature-mismatch-on-Pytho.patch
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
 
+Patch1:         0001-pytorch-xnnpack.patch
+Patch2:         0001-pytorch-gloo.patch
+Patch3:         0001-pytorch-fmt.patch
+
 Source1001:     inject.py
 
 # Problems with python 3.15
-Patch1: 0001-Fix-functools.reduce-polyfill-signature-mismatch-on-.patch
-Patch2: 0001-Fix-struct.pack-polyfill-signature-mismatch-on-Pytho.patch
+# Patch1: 0001-Fix-functools.reduce-polyfill-signature-mismatch-on-.patch
+# Patch2: 0001-Fix-struct.pack-polyfill-signature-mismatch-on-Pytho.patch
 
 %endif
 Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v%{flatbuffers_version}.tar.gz
@@ -196,7 +200,7 @@ BuildRequires:  onnx-devel
 BuildRequires:  openmpi-devel
 %endif
 %if %{with protobuf}
-BuildRequires:  protobuf-devel < 4
+BuildRequires:  protobuf-devel
 %endif
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel
@@ -207,6 +211,8 @@ BuildRequires:  FP16-devel
 BuildRequires:  fxdiv-devel
 BuildRequires:  psimd-devel
 BuildRequires:  xnnpack-devel = 0.0^git20240814.312eb7e
+
+BuildRequires:  zlib-ng-compat-static
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(filelock)
@@ -258,6 +264,7 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocsolver-devel
 BuildRequires:  rocm-smi-devel
+BuildRequires:  rocshmem-devel
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 
@@ -497,7 +504,7 @@ sed -i -e 's@set(USE_MIMALLOC ON)@set(USE_MIMALLOC OFF)@' CMakeLists.txt
 mv third_party/miniz-%{miniz_version} .
 #
 # setup.py depends on this script
-mv third_party/build_bundled.py .
+# mv third_party/build_bundled.py .
 
 # Need the just untarred flatbuffers/flatbuffers.h
 mv third_party/flatbuffers .
@@ -535,7 +542,7 @@ mv third_party/googletest .
 # Remove everything
 rm -rf third_party/*
 # Put stuff back
-mv build_bundled.py third_party
+# mv build_bundled.py third_party
 mv miniz-%{miniz_version} third_party
 mv flatbuffers third_party
 mv pybind11 third_party
@@ -625,7 +632,7 @@ sed -i -e 's@USE_MSLK_DEFAULT ON@USE_MSLK_DEFAULT OFF@' CMakeLists.txt
 #
 %ifarch x86_64
 # Real cores, No hyperthreading
-COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
+COMPILE_JOBS=`lscpu -p=CORE | grep -v '^#' | sort -u |wc -l`
 %else
 # cpuinfo format varies on other arches, fall back to nproc
 COMPILE_JOBS=`nproc`
@@ -698,7 +705,7 @@ export USE_SYSTEM_EIGEN_INSTALL=ON
 export USE_SYSTEM_ONNX=ON
 %endif
 export USE_SYSTEM_PYBIND11=OFF
-export USE_SYSTEM_LIBS=OFF
+export USE_SYSTEM_LIBS=ON
 export USE_SYSTEM_NCCL=OFF
 export USE_TENSORPIPE=OFF
 export USE_XNNPACK=OFF
@@ -708,7 +715,7 @@ export USE_SYSTEM_CPUINFO=ON
 export USE_SYSTEM_FP16=ON
 export USE_SYSTEM_FXDIV=ON
 export USE_SYSTEM_PSIMD=ON
-export USE_SYSTEM_XNNPACK=OFF
+export USE_SYSTEM_XNNPACK=ON
 
 export USE_DISTRIBUTED=ON
 %if %{with tensorpipe}
@@ -717,7 +724,7 @@ export TP_BUILD_LIBUV=OFF
 %endif
 
 %if %{with gloo}
-export USE_GLOO=ON
+export USE_GLOO=OFF
 export USE_SYSTEM_GLOO=ON
 %endif
 %if %{with mpi}
@@ -741,8 +748,8 @@ export ROCM_PATH=`hipconfig -R`
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
-# export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
-export PYTORCH_ROCM_ARCH=gfx1151
+export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+# export PYTORCH_ROCM_ARCH=gfx1151
 
 %endif
 

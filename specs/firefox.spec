@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        154.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -255,6 +255,10 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
+
+# https://phabricator.services.mozilla.com/D312871
+# Drop with Firefox 156
+Patch410:        libwebrtc-video-capture-implement-buffer-stride-support-for-pipewire.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -538,6 +542,8 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
+
+%patch -P410 -p1 -b .libwebrtc-video-capture-implement-buffer-stride-support-for-pipewire
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1205,6 +1211,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Aug 18 2026 Jan Grulich <jgrulich@redhat.com> - 154.0-3
+- WebRTC backport: video_capture - implement buffer stride support for PipeWire
+
 * Mon Aug 17 2026 Martin Stransky <stransky@redhat.com> - 154.0-2
 - Disabled session restore on Fedora 45+ dues to crashes.
 

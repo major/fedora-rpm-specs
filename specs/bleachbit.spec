@@ -1,5 +1,5 @@
 Name:		bleachbit
-Version:	6.0.2
+Version:	6.0.3
 Release:	1%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Tue Aug 18 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 6.0.3-1
+- Update to 6.0.3 (RHBZ#2517448)
+
 * Thu Jul 30 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 6.0.2-1
 - Update to 6.0.2 (RHBZ#2238260)
 

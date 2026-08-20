@@ -7,7 +7,7 @@ Summary:        Internationalized Domain Names in Applications (IDNA)
 
 License:        BSD-3-Clause
 URL:            https://github.com/kjd/idna
-Source0:        https://pypi.io/packages/source/i/%{srcname}/%{srcname}-%{version}.tar.gz
+Source:         https://pypi.io/packages/source/i/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -25,7 +25,6 @@ currently only supports the older 2003 specification.
 
 %package -n python3-%{srcname}
 Summary:        Internationalized Domain Names in Applications (IDNA)
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python3-%{srcname}
 A library to support the Internationalised Domain Names in Applications (IDNA)
@@ -39,8 +38,6 @@ currently only supports the older 2003 specification.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-# Remove bundled egg-info
-rm -rf %{srcname}.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires

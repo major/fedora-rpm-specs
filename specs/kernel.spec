@@ -122,6 +122,11 @@ Summary: The Linux kernel
 %global signkernel 0
 %endif
 
+# Arches whose kernels ship device tree blobs
+%global dtb_arches aarch64 riscv64
+# Arches that build the EFI unified kernel images
+%global uki_arches x86_64 aarch64 riscv64
+
 # RHEL/CentOS specific .SBAT entries
 %if 0%{?centos}
 %global sbat_suffix centos
@@ -187,18 +192,18 @@ Summary: The Linux kernel
 #  the --with-release option overrides this setting.)
 %define debugbuildsenabled 1
 # define buildid .local
-%define specrpmversion 7.2.0
-%define specversion 7.2.0
-%define patchversion 7.2
-%define pkgrelease 61
+%define specrpmversion 7.3.0
+%define specversion 7.3.0
+%define patchversion 7.3
+%define pkgrelease 0.rc0.260818g0f23d56f17fd.3
 %define kversion 7
-%define tarfile_release 7.2
+%define tarfile_release 7.2-437-g0f23d56f17fd
 # This is needed to do merge window version magic
-%define patchlevel 2
+%define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 61%{?buildid}%{?dist}
+%define specrelease 0.rc0.260818g0f23d56f17fd.3%{?buildid}%{?dist}
 # This defines the kabi tarball version
-%define kabiversion 7.2.0
+%define kabiversion 7.3.0
 
 # If this variable is set to 1, a bpf selftests build failure will cause a
 # fatal kernel package build error
@@ -305,7 +310,9 @@ Summary: The Linux kernel
 %define with_toolsonly %{?_with_toolsonly:    1} %{?!_with_toolsonly:    0}
 # Control whether we perform a compat. check against published ABI.
 %define with_kabichk   %{?_without_kabichk:   0} %{?!_without_kabichk:   1}
-# Temporarily disable kabi checks until RC.
+# Seasonal toggle, not dead code: flipped off after a rebase and back on
+# once the kABI stablelists are updated for the new release (at RC).
+# While 0, it also forces with_kabidupchk and with_kabidwchk off below.
 %define with_kabichk 0
 # Control whether we perform a compat. check against DUP ABI.
 %define with_kabidupchk %{?_with_kabidupchk:  1} %{?!_with_kabidupchk:   0}
@@ -341,7 +348,7 @@ Summary: The Linux kernel
 # Want to build a vanilla kernel build without any non-upstream patches?
 %define with_vanilla %{?_with_vanilla: 1} %{?!_with_vanilla: 0}
 
-%ifarch x86_64 aarch64 riscv64
+%ifarch %{uki_arches}
 %define with_efiuki %{?_without_efiuki: 0} %{?!_without_efiuki: 1}
 %else
 %define with_efiuki 0
@@ -515,8 +522,6 @@ Summary: The Linux kernel
 %define with_kabidwchk 0
 %define with_kabidw_base 0
 %define with_kernel_abi_stablelists 0
-%define with_selftests 0
-%define with_vdso_install 0
 %define with_configchecks 0
 %endif
 
@@ -645,7 +650,6 @@ Summary: The Linux kernel
 %define hdrarch powerpc
 %define make_target vmlinux
 %define kernel_image vmlinux
-%define kernel_image_elf 1
 %define use_vdso 0
 %endif
 
@@ -934,16 +938,6 @@ BuildRequires: pesign >= 0.10-4
 BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
 %define cross_opts CROSS_COMPILE=%{_build_arch}-linux-gnu-
 %define __strip %{_build_arch}-linux-gnu-strip
-
-%if 0%{?fedora} && 0%{?fedora} <= 41
-# Work around find-debuginfo for cross builds.
-# find-debuginfo doesn't support any of CROSS options (RHEL-21797),
-# and since debugedit > 5.0-16.el10, or since commit
-#   dfe1f7ff30f4 ("find-debuginfo.sh: Exit with real exit status in parallel jobs")
-# it now aborts on failure and build fails.
-# debugedit-5.1-5 in F42 added support to override tools with target versions.
-%undefine _include_gdb_index
-%endif
 %endif
 
 # These below are required to build man pages
@@ -1066,7 +1060,7 @@ Source44: %{name}-riscv64-rhel.config
 Source45: %{name}-riscv64-debug-rhel.config
 %endif
 
-%if %{include_rhel} || %{include_automotive}
+%if 0%{?include_rhel} || 0%{?include_automotive}
 Source23: x509.genkey.rhel
 Source34: def_variants.yaml.rhel
 Source41: x509.genkey.centos
@@ -1160,8 +1154,8 @@ Source214: Module.kabi_dup_riscv64
 Source300: kernel-abi-stablelists-%{kabiversion}.tar.xz
 Source301: kernel-kabi-dw-%{kabiversion}.tar.xz
 
-%if 0%{include_rt}
-%if 0%{include_rhel}
+%if 0%{?include_rt}
+%if 0%{?include_rhel}
 Source474: %{name}-aarch64-rt-rhel.config
 Source475: %{name}-aarch64-rt-debug-rhel.config
 Source476: %{name}-aarch64-rt-64k-rhel.config
@@ -1169,7 +1163,7 @@ Source477: %{name}-aarch64-rt-64k-debug-rhel.config
 Source478: %{name}-x86_64-rt-rhel.config
 Source479: %{name}-x86_64-rt-debug-rhel.config
 %endif
-%if 0%{include_fedora}
+%if 0%{?include_fedora}
 Source480: %{name}-aarch64-rt-fedora.config
 Source481: %{name}-aarch64-rt-debug-fedora.config
 Source482: %{name}-aarch64-rt-64k-fedora.config
@@ -1181,7 +1175,7 @@ Source487: %{name}-riscv64-rt-debug-fedora.config
 %endif
 %endif
 
-%if %{include_automotive}
+%if 0%{?include_automotive}
 %if %{with_automotive_build}
 Source488: %{name}-aarch64-rhel.config
 Source489: %{name}-aarch64-debug-rhel.config
@@ -1320,7 +1314,7 @@ It provides the kernel source files common to all builds.
 
 %if %{with_perf}
 %package -n perf
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Performance monitoring for the Linux kernel
@@ -1330,7 +1324,7 @@ This package contains the perf tool, which enables performance monitoring
 of the Linux kernel.
 
 %package -n perf-debuginfo
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package perf
@@ -1346,7 +1340,7 @@ This package provides debug information for the perf package.
 %{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/perf(\.debug)?|.*%%{_libexecdir}/perf-core/.*|.*%%{_libdir}/libperf-jvmti.so(\.debug)?|XXX' -o perf-debuginfo.list}
 
 %package -n python3-perf
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Python bindings for apps which will manipulate perf events
@@ -1356,7 +1350,7 @@ written in the Python programming language to use the interface
 to manipulate perf events.
 
 %package -n python3-perf-debuginfo
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package perf python bindings
@@ -1413,7 +1407,6 @@ Obsoletes: cpufrequtils < 1:009-0.6.p1
 Obsoletes: cpuspeed < 1:1.5-16
 Requires: %{name}-tools-libs = %{specrpmversion}-%{release}
 %endif
-%define __requires_exclude ^%{_bindir}/python
 %description -n %{name}-tools
 This package contains the tools/ directory from the kernel source
 and the supporting documentation.
@@ -1459,7 +1452,7 @@ shipped as part of the kernel tools including ynl.
 %endif
 
 %package -n rtla
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Real-Time Linux Analysis tools
@@ -1477,7 +1470,7 @@ about the properties and root causes of unexpected results.
 
 %if %{with_debuginfo}
 %package -n rtla-debuginfo
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package rtla
@@ -1494,7 +1487,7 @@ This package provides debug information for the rtla package.
 %endif
 
 %package -n rv
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: RV: Runtime Verification
@@ -1508,7 +1501,7 @@ to analyze the logical and timing behavior of Linux.
 
 %if %{with_debuginfo}
 %package -n rv-debuginfo
-%if 0%{gemini}
+%if 0%{?gemini}
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package rv
@@ -1996,7 +1989,7 @@ on kernel bugs, as some of these options impact performance noticably.
 %endif
 
 %if %{with_debug} && %{with_automotive} && !%{with_automotive_build}
-%define variant_summary The Linux Automotive kernel compiled with extra debugging enabled
+%define variant_summary The Linux kernel compiled for Automotive use with PREEMPT_RT and extra debugging enabled
 %kernel_variant_package automotive-debug
 %description automotive-debug-core
 The kernel package contains the Linux kernel (vmlinuz), the core of any
@@ -2010,7 +2003,7 @@ on kernel bugs, as some of these options impact performance noticably.
 %endif
 
 %if %{with_automotive_base}
-%define variant_summary The Linux kernel compiled with PREEMPT_RT enabled
+%define variant_summary The Linux kernel compiled for Automotive use with PREEMPT_RT enabled
 %kernel_variant_package automotive
 %description automotive-core
 This package includes a version of the Linux kernel compiled with the
@@ -2018,6 +2011,7 @@ PREEMPT_RT real-time preemption support, targeted for Automotive platforms
 %endif
 
 %if %{with_stock} && %{with_debug}
+%define variant_summary The Linux kernel compiled with extra debugging enabled
 %if !%{debugbuildsenabled}
 %kernel_variant_package -m debug
 %else
@@ -2126,7 +2120,7 @@ Prebuilt default kernel image with auto DTB selection for ARM64 UEFI devices.
 # do a few sanity-checks for --with *only builds
 %if %{with_baseonly}
 %if !%{with_stock}
-%{log_msg "Cannot build --with baseonly, stock build is disabled"}
+%{log_msg "Cannot build with baseonly, stock build is disabled"}
 exit 1
 %endif
 %endif
@@ -2550,7 +2544,7 @@ BuildKernel() {
     mkdir -p $RPM_BUILD_ROOT%{debuginfodir}/%{image_install_path}
 %endif
 
-%ifarch aarch64 riscv64
+%ifarch %{dtb_arches}
     %{log_msg "Build dtb kernel"}
     mkdir -p $RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer
     %{make} ARCH=$Arch dtbs INSTALL_DTBS_PATH=$RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer
@@ -4529,13 +4523,11 @@ fi\
 %if %{with_realtime_arm64_64k_base}
 %kernel_variant_preun -v rt-64k
 %kernel_variant_post -v rt-64k
-%kernel_kvm_post rt-64k
 %endif
 
 %if %{with_debug} && %{with_realtime_arm64_64k}
 %kernel_variant_preun -v rt-64k-debug
 %kernel_variant_post -v rt-64k-debug
-%kernel_kvm_post rt-64k-debug
 %endif
 
 %if %{with_automotive} && %{with_debug} && !%{with_automotive_build}
@@ -4567,7 +4559,7 @@ fi\
 %endif
 
 %if %{with_kabidw_base}
-%ifarch x86_64 s390x ppc64 ppc64le aarch64 riscv64
+%ifarch x86_64 s390x ppc64le aarch64 riscv64
 %files kernel-kabidw-base-internal
 %defattr(-,root,root)
 /kabidw-base/%{_target_cpu}/*
@@ -4768,14 +4760,10 @@ fi\
 
 # empty meta-package
 %if %{with_stock_base}
-%ifnarch %nobuildarches noarch
+%ifnarch noarch %{nobuildarches}
 %files
 %endif
 %endif
-
-# This is %%{image_install_path} on an arch where that includes ELF files,
-# or empty otherwise.
-%define elf_image_install_path %{?kernel_image_elf:%{image_install_path}}
 
 #
 # This macro defines the %%files sections for a kernel package
@@ -4809,7 +4797,7 @@ fi\
 %ghost /%{image_install_path}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-%{KVERREL}%{?3:+%{3}}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/.vmlinuz.hmac \
 %ghost /%{image_install_path}/.vmlinuz-%{KVERREL}%{?3:+%{3}}.hmac \
-%ifarch aarch64 riscv64\
+%ifarch %{dtb_arches}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/dtb \
 %ghost /%{image_install_path}/dtb-%{KVERREL}%{?3:+%{3}} \
 %endif\
@@ -4899,7 +4887,7 @@ fi\
 %ghost %attr(0644, root, root) /boot/symvers-%{KVERREL}%{?3:+%{3}}.%compext\
 %ghost %attr(0755, root, root) /%{image_install_path}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-%{KVERREL}%{?3:+%{3}}\
 %ghost %attr(0644, root, root) /%{image_install_path}/.%{?-k:%{-k*}}%{!?-k:vmlinuz}-%{KVERREL}%{?3:+%{3}}.hmac\
-%ifarch aarch64 riscv64\
+%ifarch %{dtb_arches}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/dtb \
 %ghost /%{image_install_path}/dtb-%{KVERREL}%{?3:+%{3}} \
 %endif\
@@ -4908,7 +4896,7 @@ fi\
 %{expand:%%files %{3}}\
 %endif\
 %if %{with_gcov}\
-%ifnarch %nobuildarches noarch\
+%ifnarch noarch %{nobuildarches}\
 %{expand:%%files -f kernel-%{?3:%{3}-}gcov.list %{?3:%{3}-}gcov}\
 %endif\
 %endif\
@@ -4976,109 +4964,50 @@ fi\
 #
 #
 %changelog
-* Mon Aug 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-61]
+* Tue Aug 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.0f23d56f17fd.3]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 
-* Mon Aug 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-60]
+* Tue Aug 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.0f23d56f17fd.2]
+- Turn on CONFIG_BLK_INLINE_ENCRYPTION for RHEL pending too (Justin M. Forbes)
+- Turn on BLK_INLINE_ENCRYPTION_FALLBACK for mismatch (Justin M. Forbes)
+- Reset Makefile.rhelver for the 7.3 cycle (Justin M. Forbes)
+- Merge configs into common for 7.2 (Justin M. Forbes)
+- redhat/configs: automotive: enable RTC_DRV_PL031 (Eric Chanudet)
+- redhat: name the dtb and UKI arch lists (Jan Stancek)
+- redhat: use one spelling for the nobuildarches files guard (Jan Stancek)
+- redhat: drop stale ppc64 from the kabidw-base arch list (Jan Stancek)
+- redhat: document the kabichk force-off as a seasonal toggle (Jan Stancek)
+- redhat: use one spelling for the include and gemini conditionals (Jan Stancek)
+- redhat: remove unused elf_image_install_path and duplicate defines (Jan Stancek)
+- redhat: drop the dead kernel-tools __requires_exclude python filter (Jan Stancek)
+- redhat: drop the Fedora 41 cross-build gdb-index workaround (Jan Stancek)
+- redhat: drop stale build switches from dist-perf and dist-rpm-baseonly (Jan Stancek)
+- redhat: give kernel-automotive its own summary (Jan Stancek)
+- redhat: drop leftover kernel_kvm_post calls for rt-64k (Jan Stancek)
+- redhat: restore missing summary of the kernel-debug variant (Jan Stancek)
+- redhat: fix parse error in baseonly sanity check message (Jan Stancek)
 - dracut-virt.conf: change systemd-pcrphase to systemd-pcrextend (Vitaly Kuznetsov)
 - redhat/kernel.spec.template: Switch UKI addons to using UKI cert (Vitaly Kuznetsov)
-- Linux v7.2.0
-
-* Sun Aug 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.3eb40771c00a.59]
-- Linux v7.2.0-0.rc7.3eb40771c00a
-
-* Sat Aug 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.15ef2f78c49d.58]
-- Linux v7.2.0-0.rc7.15ef2f78c49d
-
-* Fri Aug 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.2f1baf1fc892.57]
 - redhat/configs: automotive: disable CONFIG_MD (Jared Kangas)
-- Linux v7.2.0-0.rc7.2f1baf1fc892
-
-* Thu Aug 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.3d6d817622b0.56]
-- Linux v7.2.0-0.rc7.3d6d817622b0
-
-* Wed Aug 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.f5bbbfec59b4.55]
-- Linux v7.2.0-0.rc7.f5bbbfec59b4
-
-* Tue Aug 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.d58772d8520c.54]
 - Clean up unnecessary pending entries (Justin M. Forbes)
 - Turn on CONFIG_CRYPTO_MLDSA for Fedora (Justin M. Forbes)
-- Linux v7.2.0-0.rc7.d58772d8520c
-
-* Mon Aug 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc7.53]
-- Linux v7.2.0-0.rc7
-
-* Sun Aug 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.06cf61899d64.52]
 - Fix up mismatch for rhel automotive (Justin M. Forbes)
 - Fix up a config mismatch in pending (Justin M. Forbes)
-- Linux v7.2.0-0.rc6.06cf61899d64
-
-* Fri Aug 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.f9a2394a2348.51]
-- Linux v7.2.0-0.rc6.f9a2394a2348
-
-* Thu Aug 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.0d8395707651.50]
-- Linux v7.2.0-0.rc6.0d8395707651
-
-* Wed Aug 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.c21bb4193868.49]
 - redhat/configs: automotive: debug: enable KASAN_INLINE (Jared Kangas)
-- Linux v7.2.0-0.rc6.c21bb4193868
-
-* Tue Aug 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.848acc8ffe1b.48]
 - Remove stale config items from 7.1 (Justin M. Forbes)
-- Linux v7.2.0-0.rc6.848acc8ffe1b
-
-* Mon Aug 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc6.47]
-- Linux v7.2.0-0.rc6
-
-* Sun Aug 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.2d2338c93da7.46]
-- Linux v7.2.0-0.rc5.2d2338c93da7
-
-* Sat Aug 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.02dc699f83d0.45]
 - Last configs for 7.2 Fedora (Justin M. Forbes)
-- Linux v7.2.0-0.rc5.02dc699f83d0
-
-* Fri Jul 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.8ba098e6b6ff.44]
 - redhat: Disable the CRYPTO_LIB_AESCFB config switch (Thomas Huth)
-- Linux v7.2.0-0.rc5.8ba098e6b6ff
-
-* Thu Jul 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.11028ab62899.43]
 - redhat/configs: do not enable IPQ_GCC_9650 (Eric Chanudet)
 - redhat/configs: do not enable CLK_X1P42100_* (Eric Chanudet)
-- Linux v7.2.0-0.rc5.11028ab62899
-
-* Wed Jul 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.fc02acf6ac0c.42]
-- Linux v7.2.0-0.rc5.fc02acf6ac0c
-
-* Tue Jul 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.62cc90241548.41]
 - redhat: always overwrite spec template copy (Jan Stancek)
 - gitlab-ci: enable ELN clang builds (Scott Weaver)
 - Turn on CONFIG_REGMAP for RHEL s390x (Justin M. Forbes)
 - Turn ACPI_PLATFORM_PROFILE to built-in for RHEL x86 (Justin M. Forbes)
 - Turn on CONFIG_RESCTRL_FS for RHEL x86 (Justin M. Forbes)
 - redhat: configs: rhel: Enable AMD ISP4 MIPI camera solution (Kate Hsuan)
-- Linux v7.2.0-0.rc5.62cc90241548
-
-* Mon Jul 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc5.40]
-- Linux v7.2.0-0.rc5
-
-* Sun Jul 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.3dab139d4795.39]
-- Linux v7.2.0-0.rc4.3dab139d4795
-
-* Sat Jul 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.0ce37745d4bf.38]
-- Linux v7.2.0-0.rc4.0ce37745d4bf
-
-* Thu Jul 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.4539944e5151.37]
 - fedora: updates for the 7.2 merge window (Peter Robinson)
-- Linux v7.2.0-0.rc4.4539944e5151
-
-* Wed Jul 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.248951ddc14d.36]
 - redhat/configs: Enable deadline and stall monitors (Gabriele Monaco)
-- Linux v7.2.0-0.rc4.248951ddc14d
-
-* Tue Jul 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.b95f03f04d47.35]
 - redhat/kernel.spec: fix build for rtonly (Jan Stancek)
-
-* Tue Jul 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.b95f03f04d47.34]
 - redhat: filtermods.py: document exact_pkg and ignore_deps rule attributes (Jan Stancek)
 - redhat: filtermods.py: make pick_best() deterministic on tied packages (Jan Stancek)
 - redhat: filtermods.py: add ignore_deps rule option (Jan Stancek)
@@ -5094,136 +5023,34 @@ fi\
 - redhat: filtermods.py: fix do_rpm_mapping_test() (Jan Stancek)
 - redhat: filtermods.py: simplify algorithm (Jan Stancek)
 - redhat: filtermods.py: add new tests (Jan Stancek)
-- Linux v7.2.0-0.rc4.b95f03f04d47
-
-* Mon Jul 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc4.33]
-- Linux v7.2.0-0.rc4
-
-* Sun Jul 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.c6859eed755d.32]
-- Linux v7.2.0-0.rc3.c6859eed755d
-
-* Sat Jul 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.1229e2e57a5c.31]
-- Linux v7.2.0-0.rc3.1229e2e57a5c
-
-* Fri Jul 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.fce2dfa773ce.30]
-- Linux v7.2.0-0.rc3.fce2dfa773ce
-
-* Thu Jul 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.37e2f878a7a6.29]
 - redhat/configs: enable QCS615 pinctrl and interconnect drivers (Wu Fang)
 - redhat/configs: automotive: enable SENSORS_INA2XX (Jared Kangas)
 - redhat/configs: automotive: enable PWM_FSL_FTM as a module (Jared Kangas)
-- Linux v7.2.0-0.rc3.37e2f878a7a6
-
-* Wed Jul 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.58717b2a1365.28]
 - Add fedora entry in pending for weird mismatch in scripts (Justin M. Forbes)
 - Fix up config mismatches (Justin M. Forbes)
-- Linux v7.2.0-0.rc3.58717b2a1365
-
-* Wed Jul 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.3b029c035b34.27]
 - redhat/kernel.spec: derive pesign_name_0 from secureboot_key_0 (Jan Stancek)
 - redhat/configs: Move IOMMU_PT_* from rhel-pending to rhel (Jennifer Berringer)
-
-* Tue Jul 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.3b029c035b34.26]
 - redhat/kernel.spec: require libbabeltrace2-devel (Yaakov Selkowitz)
 - redhat: move ynltool debuginfo to kernel-tools-debuginfo (Augusto Caringi)
-- Linux v7.2.0-0.rc3.3b029c035b34
-
-* Mon Jul 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc3.25]
-- Linux v7.2.0-0.rc3
-
-* Sun Jul 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.44696aa3a489.24]
-- Linux v7.2.0-0.rc2.44696aa3a489
-
-* Sat Jul 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.dd3210c47e8d.23]
 - Turn on CONFIG_REGMAP for RHEL s390x pending for mismatch (Justin M. Forbes)
 - redhat: add kmap.py tool and kernel-kmap-internal package (Rado Vrbovsky)
-- Linux v7.2.0-0.rc2.dd3210c47e8d
-
-* Thu Jul 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.22]
 - uki-virt: Add fdisk to the initramfs to make systemd-repart functional (Vitaly Kuznetsov)
 - redhat/configs: Enable Epson RX8111 RTC driver for arm/aarch64 builds. Signed-off-by: Nirmala Dalvi <ndalvi@redhat.com> (Nirmala Dalvi)
-
-* Tue Jul 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.0e35b9b6ec0f.21]
 - redhat: sign centos kernel and UKIs with 800 certs (Jan Stancek)
-- Linux v7.2.0-0.rc2.0e35b9b6ec0f
-
-* Mon Jul 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc2.20]
-- Linux v7.2.0-0.rc2
-
-* Sun Jul 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.7404ce516372.19]
-- Linux v7.2.0-0.rc1.7404ce516372
-
-* Sat Jul 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.1e9cdc2ea15a.18]
-- Linux v7.2.0-0.rc1.1e9cdc2ea15a
-
-* Fri Jul 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.d2c9a99135da.17]
 - redhat/mod-sign.sh: use CONFIG_MODULE_SIG_HASH (Jan Stancek)
 - redhat/kernel.spec.template: Pack a bit more descriptive name for extras/ (Vitaly Kuznetsov)
 - redhat/configs: Enable IOMMU_DEBUG_PAGEALLOC and AMD_IOMMU_IOMMUFD (Jerry Snitselaar)
-- Linux v7.2.0-0.rc1.d2c9a99135da
-
-* Thu Jul 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.4a50a141f05a.16]
-- Linux v7.2.0-0.rc1.4a50a141f05a
-
-* Wed Jul 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.665159e24674.15]
-- Linux v7.2.0-0.rc1.665159e24674
-
-* Sun Jun 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc1.14]
-- Linux v7.2.0-0.rc1
-
-* Sun Jun 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.780d569e6c4b.13]
-- Linux v7.2.0-0.rc0.780d569e6c4b
-
-* Sat Jun 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.5a66900afbd6.12]
 - redhat: configs: Enable USB4STREAM protocol (Dennis Chen) [RHEL-186934]
-- Linux v7.2.0-0.rc0.5a66900afbd6
-
-* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.4edcdefd4083.11]
 - Fix up a mismatch for automotive CONFIG_CLK_X1E80100_GCC (Justin M. Forbes)
-- Linux v7.2.0-0.rc0.4edcdefd4083
-
-* Fri Jun 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.10]
 - fedora: aarch64: Set CONFIG_DRIVER_DEFERRED_PROBE_TIMEOUT=-1 (Ali Erdinc Koroglu)
 - redhat: configs: Enable AMD ISP4 MIPI camera solution (Kate Hsuan)
 - redhat: configs: Enable Intel CVS (Kate Hsuan)
-
-* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ab9de95c9cf9.9]
-- Revert "Input: rmi4 - remove the need for artificial IRQ in case of HID" (Justin M. Forbes)
-- Linux v7.2.0-0.rc0.ab9de95c9cf9
-
-* Thu Jun 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.840ef6c78e6a.8]
 - Increase the s390x kernel baseline (Justin M. Forbes)
 - redhat/kspdx: remove redundant OR terms from joint license expression (Jan Stancek)
-
-* Wed Jun 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.840ef6c78e6a.7]
-- Linux v7.2.0-0.rc0.840ef6c78e6a
-
-* Tue Jun 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.502d801f0ab0.6]
 - redhat/kernel.spec: set also HOST_EXTRACFLAGS for BPF bootstrap build (Jan Stancek)
 - Trim changelog duplicates after rebase (Justin M. Forbes)
-- Linux v7.2.0-0.rc0.502d801f0ab0
-
-* Mon Jun 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.ef0c9f75a195.5]
 - redhat/configs: do not disable PCIEPORTBUS on ppc64le (Dan Horák)
-- Linux v7.2.0-0.rc0.ef0c9f75a195
-
-* Sun Jun 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.322008f87f91.4]
-- Linux v7.2.0-0.rc0.322008f87f91
-
-* Sat Jun 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.1a3746ccbb0a.3]
-- Linux v7.2.0-0.rc0.1a3746ccbb0a
-
-* Fri Jun 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.9ecfb2f7287a.2]
-- Linux v7.2.0-0.rc0.9ecfb2f7287a
-
-* Thu Jun 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.2.0-0.rc0.e771677c937d.1]
 - Reset RHEL_RELEASE for the 7.2 cycle (Scott Weaver)
-- Revert "crypto: rng - Override drivers/char/random in FIPS mode" (Patrick Talbert)
-- Revert "crypto: rng - Ensure stdrng is tested before user-space starts" (Patrick Talbert)
-- Revert "crypto: rng - Fix extrng EFAULT handling" (Patrick Talbert)
-- Revert "Correct manual merge error in crypto/rng.c" (Patrick Talbert)
-- Revert "Fix up rebase issues with rng.c" (Patrick Talbert)
-- Fix up rebase issues with rng.c (Justin M. Forbes)
 - fedora: cleanup the Cadence USB options (Peter Robinson)
 - Consolidate configs to common for 7.1 (Justin M. Forbes)
 - redhat/kernel.spec.template: Move UKI addons to extras/ (Vitaly Kuznetsov)
@@ -5276,7 +5103,6 @@ fi\
 - Revert "redhat/configs: enable CONFIG_WATCHDOG_HRTIMER_PRETIMEOUT" (David Arcari)
 - redhat/configs: rhel: Enable SPD5118 sensor driver (Jennifer Berringer)
 - Trim changelog and reset RHEL_RELEASE for 7.1 (Justin M. Forbes)
-- Correct manual merge error in crypto/rng.c (Patrick Talbert)
 - Fix up pending for mismatches (Justin M. Forbes)
 - Fix up rebase typo in drivers/pci/quirks.c (Justin M. Forbes)
 - Fix up mismatc with ACPI_PLATFORM_PROFILE (Justin M. Forbes)
@@ -5856,7 +5682,6 @@ fi\
 - redhat: configs: Clean up DVB settings in RHEL (Kate Hsuan)
 - Move CONFIG_ARCH_TEGRA_241_SOC config/common so that it is enabled for RHEL as well as Fedora. Get rid of uneeded CONFIG_TEGRA241_CMDQV in configs/fedora while we're at it. (Mark Salter)
 - fedora: arm64: Enable the rockchip HDMI QP support (Peter Robinson)
-- crypto: rng - Fix extrng EFAULT handling (Herbert Xu)
 - redhat: configs: rhel: aarch64: Support NV Jetson MIPI camera (Kate Hsuan)
 - gitlab-ci: disable clang CI pipelines (Scott Weaver)
 - redhat/configs: Remove obsolete arch64/64k/CONFIG_FORCE_MAX_ZONEORDER (Waiman Long)
@@ -5890,7 +5715,6 @@ fi\
 - redhat/configs: automotive: Enable j784s4evm am3359 tscadc configs (Joel Slebodnick)
 - redhat/configs: delete renamed CONFIG_MLX5_EN_MACSEC (Michal Schmidt)
 - rhel: disable DELL_RBU and cleanup related deps (Peter Robinson)
-- crypto: rng - Ensure stdrng is tested before user-space starts (Herbert Xu)
 - gitlab-ci: Add CKI_RETRIGGER_PIPELINE (Tales da Aparecida)
 - redhat: configs: disable the qla4xxx iSCSI driver (Chris Leech) [RHEL-1242]
 - Remove duplicated CONFIGs between automotive and RHEL (Julio Faracco)
@@ -6443,7 +6267,6 @@ fi\
 - redhat: configs: generic: x86: Disable CONFIG_VIDEO_OV01A10 for x86 platform (Hans de Goede)
 - redhat: remove pending-rhel CONFIG_XFS_ASSERT_FATAL file (Patrick Talbert)
 - New configs in fs/xfs (Fedora Kernel Team)
-- crypto: rng - Override drivers/char/random in FIPS mode (Herbert Xu)
 - random: Add hook to override device reads and getrandom(2) (Herbert Xu)
 - redhat/configs: share CONFIG_ARM64_ERRATUM_2966298 between rhel and fedora (Mark Salter)
 - configs: Remove S390 IOMMU config options that no longer exist (Jerry Snitselaar)
@@ -8139,7 +7962,6 @@ fi\
 - redhat: Replace hardware.redhat.com link in Unsupported message (Prarit Bhargava) [1810301]
 - x86: Fix compile issues with rh_check_supported() (Don Zickus)
 - KEYS: Make use of platform keyring for module signature verify (Robert Holmes)
-- Input: rmi4 - remove the need for artificial IRQ in case of HID (Benjamin Tissoires)
 - ARM: tegra: usb no reset (Peter Robinson)
 - arm: make CONFIG_HIGHPTE optional without CONFIG_EXPERT (Jon Masters)
 - redhat: rh_kabi: deduplication friendly structs (Jiri Benc)
@@ -8499,11 +8321,4 @@ fi\
 - [initial commit] Add scripts (Laura Abbott)
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
-- Linux v7.2.0-0.rc0.e771677c937d
-
-###
-# The following Emacs magic makes C-c C-e use UTC dates.
-# Local Variables:
-# rpm-change-log-uses-utc: t
-# End:
-###
+- Linux v7.3.0-0.rc0.0f23d56f17fd

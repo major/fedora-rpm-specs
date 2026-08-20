@@ -70,7 +70,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    1%{?dist}
 %else
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -113,7 +113,7 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 ExclusiveArch:  x86_64
 %else
 # SMI requires the AMDGPU kernel module, which only builds on:
-ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
+ExclusiveArch:  x86_64 aarch64 ppc64le riscv64 loongarch64
 %endif
 
 BuildRequires:  cmake
@@ -251,6 +251,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Tue Aug 18 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 7.14.0-2
+- Enable LoongArch support.
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

@@ -20,7 +20,7 @@
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
 Version:        1.0.97
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://stgt.sourceforge.net/
@@ -86,7 +86,7 @@ Adds support for the Gluster glfs backstore to scsi-target-utils.
 
 %install
 install -D -p -m 0755 scripts/tgt-setup-lun %{buildroot}%{_sbindir}/tgt-setup-lun
-install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_unitdir}/tgtd.service
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/tgtd.service
 install -p -m 0755 scripts/tgt-admin %{buildroot}/%{_sbindir}/tgt-admin
 install -D -p -m 0644 doc/manpages/targets.conf.5 %{buildroot}/%{_mandir}/man5/targets.conf.5
 install -D -p -m 0644 doc/manpages/tgtadm.8 %{buildroot}/%{_mandir}/man8/tgtadm.8
@@ -140,6 +140,9 @@ pushd usr
 %endif
 
 %changelog
+* Tue Aug 18 2026 Terje Røsten <terjeros@gmail.com> - 1.0.97-7
+- Fix perm on service file (rhbz#2517733)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.97-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

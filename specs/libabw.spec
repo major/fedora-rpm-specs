@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libabw
-Version: 0.1.3
+Version: 0.1.4
 Release: %autorelease
 Summary: A library for import of AbiWord files
 

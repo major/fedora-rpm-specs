@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -194,6 +194,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Tue Aug 18 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.4-13
+- don't require chrony directories in timemaster service
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

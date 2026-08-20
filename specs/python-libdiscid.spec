@@ -1,6 +1,6 @@
 Name:           python-libdiscid
-Version:        2.0.2
-Release:        16%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Python bindings for libdiscid
 
 License:        MIT
@@ -9,25 +9,22 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libdiscid-devel
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(sphinx)
 
 %description
 python-libdiscid provides Python bindings for libdiscid. libdiscid's
 main purpose is the calculation of identifiers for audio discs to use
 for the MusicBrainz database.
 
-%package -n python%{python3_pkgversion}-libdiscid
-Summary:        Python 3 bindings for libdiscid
-%{?python_provide:%python_provide python%{python3_pkgversion}-libdiscid}
+%package -n python3-libdiscid
+Summary:        Python bindings for libdiscid
 
-%description -n python%{python3_pkgversion}-libdiscid
-python%{python3_pkgversion}-libdiscid provides Python 3 bindings for libdiscid. libdiscid's
+%description -n python3-libdiscid
+python-libdiscid provides Python bindings for libdiscid. libdiscid's
 main purpose is the calculation of identifiers for audio discs to use
 for the MusicBrainz database.
 
-%generate_buildrequires
-%pyproject_buildrequires
 
 %prep
 %autosetup
@@ -35,28 +32,39 @@ for the MusicBrainz database.
 sed -i 's/("http:\/\/musicbrainz.org\/doc\/%s", "")/("http:\/\/musicbrainz.org\/doc\/%s", "%s")/g' docs/conf.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 %pyproject_wheel
-PYTHONPATH="%{pyproject_build_lib}" sphinx-build-3 docs/ html
-rm -rf html/.{doctrees,buildinfo}
 
 
 %install
 %pyproject_install
 %pyproject_save_files libdiscid
 
+# build the docs
+PYTHONPATH=%{buildroot}%{python3_sitearch} sphinx-build-3 docs html
+# remove the sphinx-build leftovers
+rm -rf html/.{doctrees,buildinfo}
+
+
 %check
 pushd libdiscid
-PYTHONPATH=%{buildroot}%{python3_sitearch}/ %{python3} -m unittest discover -v
+PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m unittest discover -v
 popd
 
 
-%files -n python%{python3_pkgversion}-libdiscid -f %{pyproject_files}
+%files -n python3-libdiscid -f %{pyproject_files}
 %doc CHANGELOG.md README.md
 %exclude %{python3_sitearch}/*libdiscid*/tests/
 
 
 %changelog
+* Tue Aug 18 2026 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.1-1
+- Update to 2.1 (RHBZ#2139176)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.0.2-16
 - Rebuilt for Python 3.15.0b4 ABI change
 

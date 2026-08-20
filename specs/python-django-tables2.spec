@@ -1,13 +1,13 @@
-%global srcname django-tables2
+%global srcname django_tables2
+%global pkgname django-tables2
 
-Name:           python-django-tables2
-Version:        2.4.0
+Name:           python-%{pkgname}
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Table framework for Django
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            https://github.com/jieter/django-tables2
+License:        BSD-2-Clause
+URL:            https://github.com/jieter/{%pkgname}
 Source:         %{pypi_source}
 
 BuildArch:      noarch
@@ -19,31 +19,30 @@ what django.forms does for HTML forms.}
 
 %description %{_description}
 
-%package -n python3-%{srcname}
+%package -n python3-%{pkgname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Obsoletes:      python-%{srcname} < 1.2.3-5
-Obsoletes:      python2-%{srcname} < 1.2.3-5
+BuildRequires:  pyproject-rpm-macros
+Obsoletes:      python-%{pkgname} < 1.2.3-5
+Obsoletes:      python2-%{pkgname} < 1.2.3-5
 
-%description -n python3-%{srcname} %{_description}
+%description -n python3-%{pkgname} %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}
-rm -vr *.egg-info/
+%autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %doc README.md CHANGELOG.md
-%{python3_sitelib}/django_tables2/
-%{python3_sitelib}/django_tables2-*.egg-info/
 
 %changelog
 %autochangelog

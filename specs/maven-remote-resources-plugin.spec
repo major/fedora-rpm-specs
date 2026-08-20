@@ -56,6 +56,7 @@ license and notice files for each release.
 %prep
 %autosetup -p1 -C
 
+%pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='modello-maven-plugin']" "<configuration><javaSource>8</javaSource></configuration>"
 %pom_remove_plugin :maven-dependency-plugin
 
 %build

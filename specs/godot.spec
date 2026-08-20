@@ -13,7 +13,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.7.1
+Version:        4.7.2
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -287,6 +287,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Aug 18 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.7.2-1
+- Version 4.7.2-stable
+
 * Mon Jul 27 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.7.1-1
 - Version 4.7.1-stable
 

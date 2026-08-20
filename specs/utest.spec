@@ -1,5 +1,5 @@
-%global commit 1f1f6c2efc893eed31323caf3469dfe603e85243
-%global snapdate 20260620
+%global commit b6230bc831f17e6c677daca8bd19894375a7c1b0
+%global snapdate 20260818
 
 Name:           utest
 Version:        0^%{snapdate}.%{sub %{commit} 1 7}

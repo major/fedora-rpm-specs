@@ -8,7 +8,7 @@ URL:        https://github.com/jarun/bcal
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Only available for 64bits system
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x riscv64
+ExclusiveArch:  x86_64 aarch64 ppc64le s390x riscv64 loongarch64
 
 BuildRequires:  gcc
 BuildRequires:  make

@@ -1,12 +1,10 @@
 Name:       clpeak
-Version:    2.0.19
+Version:    2.1.1
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
 URL:        https://github.com/krrishnarraj/%{name}
 Source:     %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:      clpeak-fix-amx-tf32.patch
-
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -34,6 +32,8 @@ numbers.
 
 %prep
 %autosetup -p1
+# fix the 'clpeak --version' output - https://github.com/krrishnarraj/clpeak/issues/198
+sed -i 's/"2.0.16"/"%{version}"/' src/common/cmake/version.cmake
 
 
 %build
