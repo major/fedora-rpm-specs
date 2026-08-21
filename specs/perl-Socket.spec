@@ -1,13 +1,11 @@
 Name:           perl-Socket
 Epoch:          4
-Version:        2.042
+Version:        2.043
 Release:        1%{?dist}
 Summary:        Networking constants and support functions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Socket
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Socket-%{version}.tar.gz
-# Fix skip count for gai_strerror test when DNS is unavailable (CPAN RT#180884)
-Patch0:         Socket-2.042-Fix-skip-count-for-gai_strerror-test.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -55,7 +53,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Socket-%{version}
-%patch -P0 -p1
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -96,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.043-1
+- 2.043 bump (rhbz#2518011)
+
 * Tue Aug 18 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.042-1
 - 2.042 bump (rhbz#2517500)
 

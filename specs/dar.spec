@@ -1,20 +1,15 @@
-# Specfile for DAR, the disk archiver
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=210790
+%bcond_with static
 
-# Static build is disabled by default by fedora policy, but also because the
-# latest versions of glibc don't seem to compile proper static binaries.  Use
-# "--with static" to enable the static subpackage
-%define with_static %{?_with_static: 1} %{?!_with_static: 0}
 Name:           dar
-Version:        2.8.5
+Version:        2.8.6
 Release:        %autorelease
 Summary:        Software for making/restoring incremental CD/DVD backups
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://dar.linux.free.fr
-Source0:        ftp://ftp.dm3c.org/dar.linux.free.fr/Releases/Source_code/%{name}-%{version}.tar.gz
+Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        README.Fedora
 ExcludeArch:    %{ix86}
+
 BuildRequires:  bzip2-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  gcc-c++
@@ -24,6 +19,7 @@ BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  librsync-devel
+BuildRequires:  libssh-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  lz4-devel
 BuildRequires:  lzo-devel
@@ -59,7 +55,7 @@ This package contains the header files and libraries for developing
 programs that use the DAR API (libdar).
 
 # The following two subpackages are only built when enabled via "--with static"
-%if %{with_static}
+%if %{with static}
 
 %package -n dar-static
 Summary:    Statically linked version of dar
@@ -84,7 +80,7 @@ disks for easier file retrieval.
 %configure \
     --disable-build-html \
     --enable-mode=64 \
-%if !%{with_static}
+%if %{without static}
     --disable-dar-static \
     --disable-static
 %endif
@@ -120,6 +116,8 @@ cp -a %{SOURCE1} .
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/dar --version
+# Note: The full test suite (make check) requires root privileges to run,
+# which is not available in mock build environments.
 
 %files -f %{name}.lang
 %license COPYING
@@ -142,7 +140,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/dar --version
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
-%if %{with_static}
+%if %{with static}
 
 %files -n dar-static
 %{_bindir}/dar_static

@@ -1,10 +1,10 @@
-%global DATE 20260807
-%global gitrev 25040fb60e95bc8cb8eaa4b6706bd32591d95e7a
+%global DATE 20260819
+%global gitrev 95ef1679dd68f27b3d056a497318089d85aa0d55
 %global gcc_version 16.2.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -323,7 +323,6 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr126667.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3989,6 +3988,15 @@ end
 %endif
 
 %changelog
+* Wed Aug 19 2026 Jakub Jelinek <jakub@redhat.com> 16.2.1-2
+- update from releases/gcc-16 branch
+  - PRs c++/124794, c++/124806, c++/125069, c++/126093, c++/126483,
+	c++/126752, c++/126754, c++/126783, c++/126867, c++/126918,
+	fortran/104048, fortran/110626, fortran/125263, fortran/126205,
+	fortran/126872, libstdc++/125981, libstdc++/126452, libstdc++/126849,
+	target/125803, target/126334, target/126454, target/126529,
+	target/126550, target/126676, tree-optimization/126534
+
 * Fri Aug  7 2026 Jakub Jelinek <jakub@redhat.com> 16.2.1-1
 - update from releases/gcc-16 branch
   - GCC 16.2.0 release

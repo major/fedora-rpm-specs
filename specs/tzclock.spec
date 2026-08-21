@@ -1,17 +1,19 @@
 Name:		tzclock
-Version:	3.1.7
-Release:	19%{?dist}
+Version:	4.9
+Release:	1%{?dist}
 Summary:	GTK+ graphical Clock displaying the time around the world
 
 # SPDX confirmed
 License:	GPL-2.0-only
 URL:		https://theknight.co.uk/
-Source0:	http://www.tzclock.org/releases/source/%{name}-%{version}.tar.bz2
+Source0:	http://theknight.co.uk/releases/Source/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	make
+BuildRequires: 	gcc
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libnotify)
+BuildRequires:	pkgconfig(dial)
+BuildRequires:	/usr/bin/appstream-util
 BuildRequires:	desktop-file-utils
 
 %description
@@ -30,17 +32,15 @@ sed -i.suffix \
 
 %build
 %configure
+%make_build -k
 %{__make} %{?_smp_mflags}
 
 %install
-%{__make} install \
-	INSTALL="%{__install} -p" \
-	DESTDIR=%{buildroot}
+%make_install
 
-desktop-file-install \
-	--dir %{buildroot}%{_datadir}/applications \
-	--delete-original \
-	%{buildroot}%{_datadir}/applications/tzclock.desktop
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files
 %defattr(-,root,root,-)
@@ -48,13 +48,16 @@ desktop-file-install \
 %license	COPYING
 
 %{_bindir}/*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 %{_datadir}/icons/hicolor/*/*/tzclock*
-%{_datadir}/applications/*desktop
+%{_datadir}/applications/%{name}.desktop
 
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Aug 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.9-1
+- 4.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

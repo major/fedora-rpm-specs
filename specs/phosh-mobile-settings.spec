@@ -1,7 +1,7 @@
 %global gvc_commit d2442f455844e5292cb4a74ffc66ecc8d7595a9f
 
 Name:     phosh-mobile-settings
-Version:  0.57_rc1
+Version:  0.57.0
 Release:  %autorelease
 Summary:  Mobile Settings App for phosh and related components
 License:  GPL-3.0-or-later
@@ -42,6 +42,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:  pkgconfig(gnome-desktop-4) >= 44
 BuildRequires:  pkgconfig(libportal-gtk4) >= 0.9.1
 BuildRequires:  pkgconfig(libfeedback-0.0) >= 0.8.0
+BuildRequires:  pkgconfig(libnm) >= 1.52.0
 BuildRequires:  pkgconfig(libcellbroadcast-0.0) >= 0.0.2
 BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  pkgconfig(polkit-gobject-1) >= 126

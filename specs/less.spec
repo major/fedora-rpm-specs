@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 704
-Release: 3%{?dist}
+Release: 4%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
@@ -18,6 +18,8 @@ Patch9: less-458-less-filters-man.patch
 Patch10: less-458-lesskey-usage.patch
 Patch11: less-458-old-bot-in-help.patch
 Patch13: less-436-help.patch
+# from upstream, for lesspipe <= 2.27, rhbz#2468485
+Patch14: lesspipe-2.27-fixperldoc.patch
 URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
@@ -65,6 +67,7 @@ mv lesspipe-%{lesspipe_version} lesspipe-src
 %patch -P 10 -p1 -b .lesskey-usage
 %patch -P 11 -p1 -b .old-bot
 %patch -P 13 -p1 -b .help
+%patch -P 14 -p1 -b .fixperldoc
 
 # get consistent result localy and on builders
 sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-src/configure
@@ -114,6 +117,10 @@ popd
 %{_bindir}/archive_color
 
 %changelog
+* Wed Aug 19 2026 Michal Hlavinka <mhlavink@redhat.com> - 704-4
+- fix processing wrongly formated perldoc files (rhbz#2501990)
+  credits Wolfgang Friebel
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 704-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

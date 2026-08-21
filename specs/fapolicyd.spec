@@ -4,7 +4,7 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 2.0
+Version: 2.0.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -18,13 +18,11 @@ Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/rele
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v2.0
+# $ git format-patch -N v2.0.1
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.1/ --dst-prefix=b/fapolicyd-selinux-1.1/ v1.1
 # $ for j in [0-9]*.patch; do printf "Patch: %s\n" $j; done
 # Patch list start
-Patch: 0002-Fix-large-file-support-on-32-bit-builds.patch
-# Patch: 0003-update-changelog.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -231,6 +229,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Aug 19 2026 Petr Lautrbach <lautrbach@redhat.com> - 2.0.1-1
+- fapolicyd-2.0.1
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v2.0.1
+
 * Thu Jul 23 2026 Petr Lautrbach <lautrbach@redhat.com> - 2.0-1
 - fapolicyd-2.0
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v2.0

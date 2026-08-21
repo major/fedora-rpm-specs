@@ -5,7 +5,7 @@
 Summary:	Tool to prevent unauthorized usage of IP addresses
 Name:		ip-sentinel
 Version:	0.12
-Release:	1935%{?dist}
+Release:	1936%{?dist}
 License:	GPL-2.0-only
 URL:		http://www.nongnu.org/ip-sentinel/
 Source0:	http://savannah.nongnu.org/download/ip-sentinel/%{name}-%{version}.tar.bz2
@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/minit/
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/ip-sentinel
 
 
-install -Dpm 755 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ip-sentinel.service
+install -Dpm 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ip-sentinel.service
 
 install -m0644 -D ip-sentinel.sysusers.conf %{buildroot}%{_sysusersdir}/ip-sentinel.conf
 
@@ -104,6 +104,9 @@ make check
 %{_sysusersdir}/ip-sentinel.conf
 
 %changelog
+* Wed Aug 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.12-1936
+- Fix unit file permissions
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-1935
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

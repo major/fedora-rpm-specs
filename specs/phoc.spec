@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.57_rc1
+Version:  0.57.0
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -9,6 +9,9 @@ License:  GPL-3.0-or-later
 URL:      https://gitlab.gnome.org/World/Phosh/phoc
 Source0:  https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 Source1:  https://gitlab.gnome.org/GNOME/gvdb/-/archive/%{gvdb_commit}/gvdb-%{gvdb_commit}.tar.gz
+
+# https://gitlab.gnome.org/World/Phosh/phoc/-/merge_requests/805
+Patch:    805.diff
 
 BuildRequires:  gcc
 BuildRequires:  meson

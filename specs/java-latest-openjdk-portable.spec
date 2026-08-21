@@ -2,9 +2,9 @@
 %global featurever 26
 %global interimver 0
 %global updatever 2
-%global patchver 0
-%global buildver        10
-%global portablerelease 2
+%global patchver 1
+%global buildver        0
+%global portablerelease 1
 %global rpmrelease 0
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
@@ -13,6 +13,7 @@
 %global fipsver 57722aab802
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
+%global doczipver  %{featurever}.%{interimver}.%{updatever}
 %global javaver         %{featurever}
 # Strip up to 6 trailing zeros in newjavaver, as the JDK does, to get the correct version used in filenames
 %global filever %(svn=%{newjavaver}; for i in 1 2 3 4 5 6 ; do svn=${svn%%.0} ; done; echo ${svn})
@@ -929,6 +930,7 @@ The %{origin_nice} %{featurever} full patched sources of portable JDK to build, 
 # Using the echo macro breaks rpmdev-bumpspec, as it parses the first line of stdout :-(
 echo "Preparing %{oj_vendor_version}"
 echo "System is RHEL=%{?rhel}%{!?rhel:0}, CentOS=%{?centos}%{!?centos:0}, EPEL=%{?epel}%{!?epel:0}, Fedora=%{?fedora}%{!?fedora:0}"
+echo "Portable suffix is %{?pkgos}%{!?pkgos:unset}"
 echo "Build JDK version is %{buildjdkver}, bootstrap JDK package is %{bootjdkpkg}"
 
 %if 0%{?_build_cpu:1}
@@ -1374,7 +1376,7 @@ function packagejdk() {
     if [ "x$suffix" = "x" ] ; then
       docname=%{docportablename}
       docarchive=${packagesdir}/%{docportablearchive}
-      built_doc_archive=jdk-%{filever}%{ea_designator_zip}+%{buildver}%{lts_designator_zip}-docs.zip
+      built_doc_archive=jdk-%{doczipver}%{ea_designator_zip}-docs.zip
     fi
     # These are from the source tree so no debug variants
     miscname=%{miscportablename}
@@ -1394,6 +1396,7 @@ function packagejdk() {
 
         mkdir ${docname}
         mv ${docdir} ${docname}
+        ls -l ${bundledir}
         mv ${bundledir}/${built_doc_archive} ${docname}
         createtar ${docarchive} ${docname}
         genchecksum ${docarchive}

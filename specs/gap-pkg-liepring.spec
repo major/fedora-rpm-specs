@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/liepring
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.9.2
+Version:        2.9.3
 Release:        %autorelease
 Summary:        Database and algorithms for Lie p-rings
 
@@ -10,19 +10,17 @@ License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/liepring/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
-# Fix italics that go on and on and on...
-Patch:          %{giturl}/pull/35.patch
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): gap htm lib tst VERSION
+BuildOption(install): gap lib tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap(liering) >= 2.1
 BuildRequires:  gap(singular) >= 10
 BuildRequires:  gap(smallgrp) >= 1.0
 BuildRequires:  gap-devel >= 4.8
-BuildRequires:  tth
 
 Requires:       gap(liering) >= 2.1
 Requires:       gap-core >= 4.8
@@ -54,19 +52,8 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version} -p1
 
-%conf
-# Fix paths
-sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
-
-%build
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc
-cd -
-rm ../../doc
-
 %files
-%doc README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %dir %{gap_libdir}/pkg/%{gap_upname}/lib/
@@ -95,7 +82,6 @@ rm ../../doc
 %{gap_libdir}/pkg/%{gap_upname}/lib/dim7/stuff/
 %{gap_libdir}/pkg/%{gap_upname}/lib/dim8/
 %{gap_libdir}/pkg/%{gap_upname}/tst/
-%{gap_libdir}/pkg/%{gap_upname}/VERSION
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
@@ -106,7 +92,6 @@ rm ../../doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/lib/dim7/4gen/notes/
 %docdir %{gap_libdir}/pkg/%{gap_upname}/lib/dim7/5gen/notes/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/lib/notes/
 %{gap_libdir}/pkg/%{gap_upname}/lib/dim6/notes/
 %{gap_libdir}/pkg/%{gap_upname}/lib/dim7/2gen/notes/

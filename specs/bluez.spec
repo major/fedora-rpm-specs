@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.87
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -15,6 +15,8 @@ Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 
 # git format-patch --stdout 5.87...30db66dc971bd1cd95d4a7b0eea296367ab65b3b
 Patch1: 5.87-bug-fixes-1.patch
+# CVE-2026-75032
+Patch2: avrcp-getfolderitems.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -340,6 +342,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Wed Aug 19 2026 Bastien Nocera <bnocera@redhat.com> - 5.87-5
+- Fix CVE-2026-75032 (Closes: #2517877)
+
 * Fri Jul 17 2026 Bastien Nocera <bnocera@redhat.com> - 5.87-4
 - Update to latest upstream HEAD to fix a number of possible crashes
 

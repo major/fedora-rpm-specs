@@ -3,7 +3,7 @@
 
 # https://github.com/mikefarah/yq
 %global goipath         github.com/mikefarah/yq/v4
-Version:                4.53.3
+Version:                4.53.4
 
 %gometa -L -f
 

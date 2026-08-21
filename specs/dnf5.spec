@@ -13,13 +13,14 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-Fix-integer-overflow-on-32-bit-platforms-in-D-Bus-hi.patch
 Patch2:         0002-reposync-Prevent-a-min-buildtime-overflow-on-32-bit-.patch
+Patch3:         0003-Remove-libdnf5-base-Transaction-persistence-to-resto.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1173,6 +1174,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Wed Aug 19 2026 Petr Pisar <ppisar@redhat.com> - 5.4.3.0-2
+- Restore ABI (upstream GH#2869)
+
 * Wed Aug 12 2026 Packit <hello@packit.dev> - 5.4.3.0-1
 - Update to version 5.4.3.0
 

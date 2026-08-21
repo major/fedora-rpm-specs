@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-qcengine
-Version:        0.50.1
+Version:        0.51.0
 Release:        1%{?dist}
 Summary:        A compute wrapper for Quantum Chemistry
 License:        BSD-3-Clause

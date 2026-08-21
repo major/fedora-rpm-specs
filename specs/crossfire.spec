@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPL-2.0-or-later and MIT
@@ -162,7 +162,7 @@ tar xf %{name}-images.tar -C $RPM_BUILD_ROOT/%{_datadir}/%{name}-client
 rm $RPM_BUILD_ROOT/%{_datadir}/%{name}-client/README
 
 #install -pD -m 0755 %%{SOURCE2} $RPM_BUILD_ROOT%%{_initrddir}/crossfire
-install -pD -m 0755 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/crossfire.service
+install -pD -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/crossfire.service
 
 # Move some rarely-used binaries out of /usr/bin and into a
 # tools directory.
@@ -341,6 +341,9 @@ fi
 
 
 %changelog
+* Wed Aug 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.71.0-37
+- Fix unit file permissions.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

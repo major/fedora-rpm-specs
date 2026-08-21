@@ -2,7 +2,7 @@
 %global libcall_ui_version v0.1.5
 
 Name:     phosh
-Version:  0.57_rc1
+Version:  0.57.0
 Release:  %autorelease
 Summary:  Graphical shell for mobile devices
 License:  GPL-3.0-or-later

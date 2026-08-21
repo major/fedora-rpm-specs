@@ -11,7 +11,7 @@
 %global gap_makedoc makedocrel.g
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.1.11
+Version:        2.1.12
 Release:        %autorelease
 Summary:        GAP interface to the Atlas of Group Representations
 
@@ -35,6 +35,7 @@ BuildOption(check): tst/testall.g
 BuildRequires:  GAPDoc-doc >= 1.6.2
 BuildRequires:  GAPDoc-latex >= 1.6.2
 BuildRequires:  gap(gapdoc) >= 1.6.2
+BuildRequires:  gap(io) >= 3.3
 BuildRequires:  gap(utils) >= 0.77
 BuildRequires:  gap-devel >= 4.12.0
 BuildRequires:  gap-pkg-utils-doc >= 0.77

@@ -1966,8 +1966,8 @@ fi
 %endif
 
 %changelog
-* Fri Aug 14 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.2-2
-- Rebuilt for Samba-4.25.0-RC1
+* Wed Aug 19 2026 Adam Williamson <awilliam@redhat.com> - 4.13.2-2
+- Rebuild without changes to stay ahead of F43/F44/F45
 
 * Mon Aug 3 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.2-1
 - FreeIPA 4.13.2

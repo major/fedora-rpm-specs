@@ -94,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Communication Collectives Library
 
@@ -121,6 +121,7 @@ BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-smi%{pkg_suffix}-devel
+BuildRequires:  roctracer%{pkg_suffix}-devel
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -327,6 +328,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Wed Aug 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Build with roctracer
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

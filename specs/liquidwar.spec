@@ -1,6 +1,6 @@
 Name:           liquidwar
 Version:        5.6.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Multiplayer wargame with liquid armies
 License:        GPL-2.0-or-later
 URL:            http://www.ufoot.org/liquidwar/v5
@@ -103,7 +103,7 @@ install -p -m 644 misc/%{name}_32x32.xpm \
 install -p -m 644 misc/%{name}.xpm \
   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/%{name}.xpm
 
-install -p -D -m 755 %{SOURCE4} \
+install -p -D -m 0644 %{SOURCE4} \
         $RPM_BUILD_ROOT/%{_unitdir}/%{name}-server.service
 install -p -D -m 644 %{SOURCE2} \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/%{name}-server
@@ -146,6 +146,9 @@ install -m0644 -D liquidwar.sysusers.conf %{buildroot}%{_sysusersdir}/liquidwar.
 
 
 %changelog
+* Wed Aug 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.6.5-24
+- Fix unit file permissions.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

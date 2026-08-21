@@ -5,7 +5,7 @@
 %global crate minijinja
 
 Name:           rust-minijinja
-Version:        2.23.0
+Version:        2.24.0
 Release:        %autorelease
 Summary:        Powerful template engine for Rust with minimal dependencies
 

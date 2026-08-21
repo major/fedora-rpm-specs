@@ -28,7 +28,7 @@ Documentation is available at https://arbor.readthedocs.io/en/latest/
 %global forgeurl            https://github.com/arbor-sim/arbor
 
 Name:           arbor
-Version:        0.9.0
+Version:        0.12.2
 Release:        %autorelease
 Summary:        Multi-compartment neural network simulation library
 
@@ -36,22 +36,41 @@ Summary:        Multi-compartment neural network simulation library
 
 URL:            %forgeurl
 Source0:        %forgesource
-# script to run examples
-Source1:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts/run_python_examples.sh
-Source2:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts/run_cpp_examples.sh
-License:        BSD-3-Clause
+
+# The CPM.cmake shipped in the upstream tarball is only a bootstrap that
+# downloads the full CPM.cmake from GitHub at configure time, which fails in
+# the offline buildroot. Vendor the full CPM.cmake v0.39.0 instead.
+# https://raw.githubusercontent.com/cpm-cmake/CPM.cmake/refs/tags/v0.39.0/cmake/CPM.cmake
+Source3:        CPM_0.39.0.cmake
+# tinyopt and unordered_dense are header-only dependencies used by arbor that
+# are not packaged in Fedora. CPM would download them from GitHub at configure
+# time, so vendor the pinned versions instead.
+# https://github.com/halfflat/tinyopt
+%global tinyopt_commit 7e6d707d49c6cb4be27ebd253856be65293288df
+%global tinyopt_shortcommit %(c=%{tinyopt_commit}; echo ${c:0:7})
+# https://github.com/martinus/unordered_dense
+%global unordered_dense_tag 4.5.0
+Source4:        https://github.com/halfflat/tinyopt/archive/%{tinyopt_commit}/tinyopt-%{tinyopt_shortcommit}.tar.gz
+Source5:        https://github.com/martinus/unordered_dense/archive/v%{unordered_dense_tag}/unordered_dense-%{unordered_dense_tag}.tar.gz
+
+# License breakdown:
+#   LICENSE                        - BSD-3-Clause (arbor code)
+#   ext/tinyopt (bundled)          - BSD-3-Clause
+#   ext/unordered_dense (bundled)  - MIT
+#   arbor/util/skasort.hpp         - BSL-1.0
+License:        BSD-3-Clause AND MIT AND BSL-1.0
 
 Patch:          0001-Quote-various-cmake-var-values.patch
-# Tests are failing to compile due to some missing includes
-Patch:          fix-missing-includes.patch
-# Fix a few typos that cause failure to compile with GCC 15
-#
-# These were eventually included in
-# 76120d16c00ae67128c3c69421ab712f985f3445, along with many other changes.
-Patch:          0001-Fix-a-few-typos-that-cause-failure-to-compile-with-G.patch
-# Remove the hard-coded pybind11 version check so that we can build with
-# pybind11 3.0; this is part of https://github.com/arbor-sim/arbor/pull/2481.
-Patch:          arbor-0.9.0-pybind11-3.0.patch
+# Use the vendored tinyopt/unordered_dense instead of letting CPM download them
+Patch:          0001-Use-vendored-tinyopt-and-unordered_dense.patch
+# Use system Random123/GTest instead of letting CPM download them
+Patch:          0002-Use-system-Random123.patch
+Patch:          0003-Use-system-GTest.patch
+# Add missing standard includes for GCC 16
+Patch:          0004-Add-missing-standard-includes-to-profiler.patch
+# Use system fmt instead of letting CPM download it (it tries to fetch
+# fmt 12.1.0, which is newer than the fmt 11 in Fedora 44)
+Patch:          0005-Use-system-fmt.patch
 
 # Random123 does not support:
 #   mips64r2 mips32r2 s390
@@ -71,8 +90,8 @@ BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  Random123-devel
-BuildRequires:  tclap-devel
 BuildRequires:  pugixml-devel
+BuildRequires:  units-llnl-devel
 
 # For validation, but we don't have these BRs
 # BuildRequires:  julia julia-sundials julia-unitful julia-JSON
@@ -88,6 +107,12 @@ Requires:       %{py3_dist numpy}
 
 # Provide Python meta data for packages requiring arbor
 %py_provides python3-arbor
+
+# Bundled header-only libraries (not packaged in Fedora):
+# tinyopt, https://github.com/halfflat/tinyopt
+Provides:       bundled(tinyopt) = 1.0
+# unordered_dense, https://github.com/martinus/unordered_dense
+Provides:       bundled(unordered_dense) = 4.5.0
 
 %description %{_description}
 
@@ -157,7 +182,7 @@ Provides:   arbor-openmpi-static = %{version}-%{release}
 %endif
 
 %prep
-%forgeautosetup -p1
+%forgeautosetup -p1 -S git
 
 # correct catalogue location
 sed -i 's|dummy-catalogue.so|lib/dummy-catalogue.so|' python/test/unit/test_catalogues.py
@@ -169,18 +194,23 @@ sed -i '/test_padded.cpp/ d' test/unit/CMakeLists.txt
 # is used
 sed -i '/add_subdirectory(python)/i \
 include(FindPythonModule)' CMakeLists.txt
-# Do not build external libraries
-sed -i -e 's/ ext-random123//' CMakeLists.txt
+
+# Replace the CPM.cmake bootstrap (which downloads CPM from GitHub at configure
+# time) with the vendored copy, so that the build works in the offline buildroot
+cp %{SOURCE3} cmake/CPM.cmake
 
 # Disable doc build: we built it ourselves
 sed -i '/add_subdirectory(doc)/ d' CMakeLists.txt
 
-# Remove ext folders, unbundle libraries
-rm -vrf ext/google-benchmark ext/json ext/random123
+# Vendor tinyopt and unordered_dense (header-only dependencies not packaged in
+# Fedora), using the paths expected by
+# 0001-Use-vendored-tinyopt-and-unordered_dense.patch
+mkdir -p ext/tinyopt
+tar -xzf %{SOURCE4} -C ext/tinyopt --strip-components=1 'tinyopt-*/include' 'tinyopt-*/LICENSE'
 mv ext/tinyopt/LICENSE ext/tinyopt/LICENSE-tinyopt
-
-# tclap and json are both header only
-find . -type f -name "CMakeLists.txt" -exec sed -i -e 's/ext-tclap//' -e 's/ext-json//' {} 2>/dev/null ';'
+mkdir -p ext/unordered_dense
+tar -xzf %{SOURCE5} -C ext/unordered_dense --strip-components=1 'unordered_dense-*/include' 'unordered_dense-*/LICENSE'
+mv ext/unordered_dense/LICENSE ext/unordered_dense/LICENSE-unordered_dense
 
 # Correct Python shebangs in all files
 find . -type f -name "*" -exec sed -i 's|^#![  ]*/usr/bin/env.*python.*$|#!/usr/bin/python3|' {} 2>/dev/null ';'
@@ -188,12 +218,14 @@ find . -type f -name "*" -exec sed -i 's|^#![  ]*/usr/bin/env.*python.*$|#!/usr/
 # Fix shebang (special case)
 sed -i 's|^#![  ]*/usr/env/bin.*python.*$|#!/usr/bin/python3|' example/lfp/neuron_lfp_example.py
 
-# test scripts
-cp %{SOURCE1} scripts/
-cp %{SOURCE2} scripts/
+# Use the example scripts shipped in the tarball
 chmod +x scripts/*.sh
-sed -i 's/ python / python3 /' scripts/run_python_examples.sh
 sed -i 's|build/|./|' scripts/run_cpp_examples.sh
+# The python example runner would pip install example requirements, which is
+# not possible in the offline buildroot. LFPykit (used by probe_lfpykit.py) is
+# not packaged in Fedora either.
+sed -i '/python3 -m pip install -r python\/example\/example_requirements.txt/d' scripts/run_python_examples.sh
+sed -i '/runpyex probe_lfpykit.py/d' scripts/run_python_examples.sh
 
 # builddir for serial
 mkdir build-serial
@@ -226,8 +258,6 @@ pushd build$MPI_COMPILE_TYPE  &&
         -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \\\
         -DCMAKE_SKIP_RPATH:BOOL=ON \\\
         -DCMAKE_BUILD_TYPE:STRING="release" \\\
-        -DARB_USE_BUNDLED_LIBS:BOOL=OFF \\\
-        -DARB_USE_BUNDLED_PYBIND11:BOOL=OFF \\\
         -DARB_VECTORIZE:BOOL=OFF \\\
         -DARB_WITH_MPI:BOOL=$MPI_YES \\\
         -DARB_WITH_GPU:BOOL=OFF \\\
@@ -236,6 +266,7 @@ pushd build$MPI_COMPILE_TYPE  &&
         -DCMAKE_INSTALL_LIBDIR=%{_lib} \\\
         -DARB_WITH_PYTHON:BOOL=ON \\\
         -DARB_PYTHON_LIB_PATH:STRING=$MPI_PYTHON3_SITEARCH \\\
+        -DARB_BUILD_PYTHON_STUBS:BOOL=OFF \\\
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 .. &&
 %else
@@ -416,7 +447,7 @@ popd
 
 
 %files
-%license LICENSE ext/tinyopt/LICENSE-tinyopt
+%license LICENSE ext/tinyopt/LICENSE-tinyopt ext/unordered_dense/LICENSE-unordered_dense
 %doc README.md
 %{_bindir}/modcc
 %{_bindir}/arbor-build-catalogue
@@ -442,7 +473,7 @@ popd
 %if %{with mpich}
 %files mpich
 %doc README.md
-%license LICENSE ext/tinyopt/LICENSE-tinyopt
+%license LICENSE ext/tinyopt/LICENSE-tinyopt ext/unordered_dense/LICENSE-unordered_dense
 %{_libdir}/mpich/bin/modcc_mpich
 %{_libdir}/mpich/bin/arbor-build-catalogue_mpich
 %{_libdir}/mpich/bin/lmorpho_mpich
@@ -462,7 +493,7 @@ popd
 %if %{with openmpi}
 %files openmpi
 %doc README.md
-%license LICENSE ext/tinyopt/LICENSE-tinyopt
+%license LICENSE ext/tinyopt/LICENSE-tinyopt ext/unordered_dense/LICENSE-unordered_dense
 %{_libdir}/openmpi/bin/modcc_openmpi
 %{_libdir}/openmpi/bin/arbor-build-catalogue_openmpi
 %{_libdir}/openmpi/bin/lmorpho_openmpi

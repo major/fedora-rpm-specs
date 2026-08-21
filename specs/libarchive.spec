@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.8.8
-Release:        3%{?dist}
+Version:        3.8.9
+Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -14,8 +14,6 @@ Summary:        A library for handling streaming archive formats
 License:        BSD-2-Clause AND FSFULLR AND GPL-2.0-or-later WITH Libtool-exception AND BSD-3-Clause AND FSFUL
 URL:            https://www.libarchive.org/
 Source0:        https://libarchive.org/downloads/%{name}-%{version}.tar.gz
-
-Patch:          https://github.com/libarchive/libarchive/pull/3182.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -242,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Tue Aug 18 2026 Pavol Sloboda <psloboda@redhat.com> - 3.8.9-1
+- Update to version 3.8.9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

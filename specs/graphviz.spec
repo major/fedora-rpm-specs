@@ -107,8 +107,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		15.1.1
-Release:		2%{?dist}
+Version:		16.0.0
+Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -613,11 +613,11 @@ php --no-php-ini \
 %files libs
 %license COPYING
 %{_libdir}/libcdt.so.6{,.*}
-%{_libdir}/libcgraph.so.8{,.*}
+%{_libdir}/libcgraph.so.10{,.*}
 %{_libdir}/libgvc.so.7{,.*}
 %{_libdir}/libgvpr.so.2{,.*}
 %{_libdir}/libpathplan.so.4{,.*}
-%{_libdir}/libxdot.so.4{,.*}
+%{_libdir}/libxdot.so.5{,.*}
 
 %files devel
 %{_includedir}/graphviz
@@ -733,6 +733,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Aug 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 16.0.0-1
+- New version
+  Resolves: rhbz#2516053
+
 * Thu Aug 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 15.1.1-2
 - Drop qpdf post-processing
 

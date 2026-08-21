@@ -1,5 +1,5 @@
 Name:           python-jupyterlab-widgets
-Version:        3.0.16
+Version:        3.0.17
 Release:        %autorelease
 Summary:        Jupyter interactive widgets for JupyterLab
 # Based on the output of:
@@ -64,6 +64,9 @@ Provides:        bundled(npm(underscore)) = 1.13.6
 
 %prep
 %autosetup -p1 -n jupyterlab_widgets-%{version}
+
+# jupyter_builder is not packaged in Fedora; the labextension is pre-built so the hook skips anyway
+sed -i 's/, "jupyter_builder>=[^"]*"//' pyproject.toml
 
 # Remove all backup files
 find ./ -name "*.json.orig" -delete

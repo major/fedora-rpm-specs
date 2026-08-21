@@ -8,8 +8,8 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   24.1.13
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:   26.0.99.901
+Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -61,7 +61,7 @@ BuildRequires: pkgconfig(libxcvt)
 BuildRequires: pkgconfig(libdecor-0) >= 0.1.1
 BuildRequires: pkgconfig(liboeffis-1.0) >= 1.0.0
 BuildRequires: pkgconfig(libei-1.0) >= 1.0.0
-BuildRequires: xorg-x11-proto-devel >= 2024.1-1
+BuildRequires: xorg-x11-proto-devel >= 2025.1-1
 
 BuildRequires: mesa-libGL-devel >= 9.2
 BuildRequires: mesa-libEGL-devel
@@ -130,9 +130,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/xwayland/protocol.txt
 
 %files devel
-%{_libdir}/pkgconfig/xwayland.pc
+%{_datadir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Aug 19 2026 Olivier Fourdan <ofourdan@redhat.com> - 26.0.99.901-1
+- Update to xwayland 26.0.99.901 (xwayland 26.1 rc1) - (#2483867)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

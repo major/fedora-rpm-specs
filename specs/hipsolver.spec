@@ -89,13 +89,15 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm SOLVER marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+Patch1:         0001-hipsolver-no-lapack-devel.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -133,6 +135,7 @@ BuildRequires:  lapack-static
 %endif
 %endif
 
+%if 0%{?fedora}
 # needed for geev
 # https://www.netlib.org/lapack/explore-html/d4/d68/group__geev.html
 #
@@ -142,6 +145,9 @@ BuildRequires:  lapack-static
 #     "/usr/lib64/libblas.a"
 BuildRequires:  blas-static
 BuildRequires:  lapack-static
+%else
+BuildRequires:  flexiblas-devel
+%endif
 
 Provides:       hipsolver%{pkg_suffix} = %{version}-%{release}
 Requires:       rocm-filesystem%{pkg_suffix}
@@ -192,6 +198,17 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p3 -n %{upstreamname}
+
+# RHEL does not have lapack-devel
+# Patch from above takes are of cmake not requiring something not available
+%if 0%{?rhel}
+# Fix the link to flexiblas
+sed -i -e 's@target_link_libraries(hipsolver PRIVATE lapack_libraries)@target_link_libraries(hipsolver PRIVATE -lflexiblas64)@' library/src/CMakeLists.txt
+%else
+# disable the patch's effect
+sed -i -e 's@if(FALSE) # for rhel@if(TRUE) # for rhel@' CMakeLists.txt
+%endif
+
 
 %build
 %cmake \
@@ -251,6 +268,9 @@ patchelf --remove-needed libgcc_s.so.1 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Wed Aug 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Fix RHEL build
+
 * Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

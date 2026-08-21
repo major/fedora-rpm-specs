@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.29
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -423,6 +423,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Wed Aug 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:7.1.2.29-3
+- Rebuilt for new graphviz
+
 * Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 1:7.1.2.29-2
 - Rebuilt for updated dependencies.
 

@@ -1,5 +1,5 @@
 Name: datovka
-Version: 4.29.3
+Version: 4.29.4
 Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
@@ -41,7 +41,7 @@ lrelease-qt5 datovka.pro
 mkdir -p %{buildroot}%{_bindir}
 %make_install INSTALL_ROOT=%{buildroot}
 %find_lang %{name} --with-qt
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/cz.nic.datovka.desktop
 
 %check
 cd tests
@@ -52,11 +52,15 @@ cd tests
 %files -f %{name}.lang
 %doc %{_pkgdocdir}
 %{_bindir}/datovka
-%{_datadir}/applications/datovka.desktop
+%{_datadir}/applications/cz.nic.datovka.desktop
 %{_datadir}/icons/hicolor/*/apps/datovka.png
-%{_datadir}/metainfo/datovka.metainfo.xml
+%{_datadir}/metainfo/cz.nic.datovka.metainfo.xml
 
 %changelog
+* Wed Aug 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.29.4-1
+- New version
+  Resolves: rhbz#2498053
+
 * Thu Jul 16 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.29.3-1
 - New version
   Resolves: rhbz#2498053

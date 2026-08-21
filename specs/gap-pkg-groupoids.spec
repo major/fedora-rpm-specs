@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/groupoids
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.82
+Version:        1.83
 Release:        %autorelease
 Summary:        Groupoids, group graphs, and groupoid graphs
 
@@ -21,12 +21,12 @@ BuildRequires:  gap(autodoc)
 BuildRequires:  gap(fga) >= 1.4.0
 BuildRequires:  gap(semigroups) >= 3.1.1
 BuildRequires:  gap(utils) >= 0.76
-BuildRequires:  gap-devel >= 4.10.1
+BuildRequires:  gap-devel >= 4.15.1
 BuildRequires:  tex(xy.sty)
 
 Requires:       gap(fga) >= 1.4.0
 Requires:       gap(utils) >= 0.76
-Requires:       gap-core >= 4.10.1
+Requires:       gap-core >= 4.15.1
 
 Recommends:     gap(semigroups) >= 3.1.1
 

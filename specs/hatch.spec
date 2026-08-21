@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.17.1%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.18.0%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -73,6 +73,20 @@ Source1500:     hatch-shell.1
 Source1600:     hatch-status.1
 Source1700:     hatch-test.1
 Source1800:     hatch-version.1
+
+# Fix a couple of tests when no “python” in path
+#
+# These CLI tests assume a “python” executable is available outside of a
+# virtualenv, which is not necessarily true (e.g. Fedora has only “python3” if
+# the `python-unversioned-command` package is not installed). Use the value of
+# `sys.executable` in the script configs for these tests instead.
+#
+# https://github.com/pypa/hatch/pull/2399
+Patch:          %{url}/pull/2399.patch
+
+# Mark a few more tests that require Internet access
+# https://github.com/pypa/hatch/pull/2400
+Patch:          %{url}/pull/2400.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license hatch
@@ -211,24 +225,19 @@ k="${k-}${k+ and }not (TestDistributionVersions and test_pypy_custom)"
 k="${k-}${k+ and }not test_project_location_basic_set_first_project"
 k="${k-}${k+ and }not test_project_location_complex_set_first_project"
 
-# Nearly all of these require network access:
-ignore="${ignore-} --ignore=tests/cli/build/test_build.py"
-ignore="${ignore-} --ignore=tests/cli/project/test_metadata.py"
-ignore="${ignore-} --ignore=tests/workspaces/test_config.py"
-ignore="${ignore-} --ignore=tests/cli/clean/test_clean.py"
-# These require network access, from tests/cli/version/test_version.py:
-k="${k-}${k+ and }not test_other_backend_show"
-k="${k-}${k+ and }not test_plugin_dependencies_unmet"
-k="${k-}${k+ and }not test_set_dynamic"
-k="${k-}${k+ and }not test_set_dynamic_downgrade"
-k="${k-}${k+ and }not test_show_dynamic"
-k="${k-}${k+ and }not test_verbose_output_to_stderr"
+# This is already gated by pytest.mark.requires_internet, so it won’t be
+# attempted while offline, but skipping it explicitly preserves our ability to
+# do local mock builds with --enable-network for diagnostic purposes.
+#
+# When there is no pre-compiled wheel for pydantic-core, this would try to
+# compile it, which needs at least a C compiler installed. (Rust/cargo would be
+# downloaded magically via rustup.)
+k="${k-}${k+ and }not (TestWorkspaceConfiguration and test_workspace_multi_service_application)"
 
-# Test TestUserAgent::test_user_agent_header_format fails on a pre-release
-# Python
-# https://github.com/pypa/hatch/issues/2167
-# https://bugzilla.redhat.com/show_bug.cgi?id=2432349
-k="${k-}${k+ and }not (TestUserAgent and test_user_agent_header_format)"
+# When using flit-core, project metadata lacks "'import-names': [ 'foo' ]"
+# from PEP 794 / Core Metadata 2.5 until python-flit-core is updated to 4.x.
+k="${k-}${k+ and }not (TestPrepareMetadata and test_editable[flit-core])"
+k="${k-}${k+ and }not (TestPrepareMetadata and test_wheel[flit-core])"
 
 %pytest -k "${k-}" ${ignore-} --verbosity=2
 %endif

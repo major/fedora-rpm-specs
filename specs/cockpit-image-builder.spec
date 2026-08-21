@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        106
+Version:        108
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -55,6 +55,20 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %ghost %attr(0700, root, root) %dir /var/cache/cockpit-image-builder
 
 %changelog
+* Wed Aug 19 2026 Packit <hello@packit.dev> - 108-1
+Changes with 108
+----------------
+  - Wizard/Packages: Sort packages by the newest added (HMS-10767) (#4719)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump the minor-and-patch group across 1 directory with 3 updates (#4762)
+    - Author: dependabot, Reviewers: Gianluca Zuccarelli
+  - cockpit: last minute 10.3 fixes (#4756)
+    - Author: Lucas Garfield, Reviewers: Sanne Raymaekers
+  - fecConfig: Fix a few issues in the config (HMS-11177) (#4725)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-08-19
+
 * Wed Aug 5 2026 Packit <hello@packit.dev> - 106-1
 Changes with 106
 ----------------

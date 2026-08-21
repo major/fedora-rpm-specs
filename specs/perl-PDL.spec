@@ -2,8 +2,8 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.105
-Version:        2.105.0
+%global cpan_version 2.106
+Version:        2.106.0
 Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -169,8 +169,6 @@ make OPTIMIZE="$CFLAGS" %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-perl -Mblib utils/scantree.pl %{buildroot}%{perl_vendorarch}
-perl -pi -e "s|%{buildroot}/|/|g" %{buildroot}%{perl_vendorarch}/PDL/pdldoc.db
 find %{buildroot}%{perl_vendorarch} -type f -name "*.pm" | xargs chmod -x
 find %{buildroot} -type f -name '*.bs' -empty -delete
 
@@ -225,6 +223,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.106.0-1
+- 2.106 bump (rhbz#2519372)
+
 * Tue Aug 18 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.105.0-1
 - 2.105 bump (rhbz#2517636)
 

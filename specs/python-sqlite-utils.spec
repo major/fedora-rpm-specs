@@ -1,7 +1,7 @@
 Summary:        Python CLI utility and library for manipulating SQLite databases
 Name:           python-sqlite-utils
-Version:        4.1.1
-Release:        2%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pypi.python.org/project/sqlite-utils/
 Source:         %{pypi_source sqlite_utils}
@@ -58,6 +58,9 @@ Summary:        %{summary}
 %{_bindir}/sqlite-utils
 
 %changelog
+* Wed Aug 19 2026 Terje Røsten <terjeros@gmail.com> - 4.2.1-1
+- 4.2.1
+
 * Sun Aug 09 2026 Terje Røsten <terjeros@gmail.com> - 4.1.1-2
 - Relax to click 8.1.7
 

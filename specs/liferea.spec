@@ -1,12 +1,12 @@
 Name:           liferea
 Epoch:          1
 Version:        2.0
-Release:        0.rc4%{?dist}.1
+Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
-Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}-RC4/liferea-%{version}-RC4.tar.xz
+Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -17,6 +17,7 @@ BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  ninja-build
+BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(girepository-2.0)
@@ -44,7 +45,7 @@ It can be used to maintain a list of subscribed feeds,
 browse through their items, and show their contents.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-RC4
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -74,11 +75,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 %{_datadir}/%{name}/
 %{_datadir}/metainfo/net.sourceforge.liferea.appdata.xml
 %{_datadir}/applications/net.sourceforge.liferea.desktop
+%{_datadir}/dbus-1/services/net.sourceforge.liferea.service
 %{_datadir}/glib-2.0/schemas/net.sf.liferea.gschema.xml
-%{_iconsdir}/hicolor/*/net.sourceforge.liferea*
+%{_iconsdir}/hicolor/*/apps/net.sourceforge.liferea*
 
 
 %changelog
+* Wed Aug 19 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0-1
+- Update to 2.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0-0.rc4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Name:           php-adodb
 Summary:        Database abstraction layer for PHP
-Version:        5.22.11
-Release:        3%{?dist}
+Version:        5.22.12
+Release:        1%{?dist}
 
 License:        BSD-3-Clause or LGPL-2.0-or-later
 URL:            http://adodb.org
@@ -11,7 +11,7 @@ BuildArch:      noarch
 # for macros
 BuildRequires:  httpd-devel
 
-Source0:        http://downloads.sourceforge.net/adodb/adodb-%{version}.tar.gz
+Source0:        https://github.com/ADOdb/ADOdb/archive/v%{version}/adodb-%{version}.tar.gz
 
 Requires:       php-common
 
@@ -27,7 +27,7 @@ switch DBs without changing code.
 # !! TODO !! MAKE A SUBPACKAGE FOR THE PEAR::AUTH DRIVER
 
 %prep
-%setup -q -n adodb5
+%setup -q -n ADOdb-%{version}
 
 
 %build
@@ -38,8 +38,6 @@ find . -type f | xargs chmod 644
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_httpd_contentdir}/icons
 install -d $RPM_BUILD_ROOT%{_datadir}/php/adodb
 cp -pr * $RPM_BUILD_ROOT%{_datadir}/php/adodb/
@@ -57,6 +55,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/adodb/*.txt
 
 
 %changelog
+* Wed Aug 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.22.12-1
+- 5.22.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.22.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -19,6 +19,8 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/OpenPrinting/libcupsfilters/pull/208
 Patch001: 0001-pclmtoraster.c-Fix-getting-MediaBox-from-input.patch
 Patch002: 0001-pclmtoraster.c-Fix-processing-image-in-PCLm.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/167/commits/a9acdb22cc898076bf6c5d9d20474274ed123458
+Patch003: 0001-Fix-printing-error-pdfio-output-Missing-Root-object..patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -204,6 +206,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Aug 19 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-2
+- fix printing of PDF which lack Root object
+
 * Tue Aug 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-1
 - fix pclmtoraster issues found in CI, 2.2.1 (fedora#2513920)
 

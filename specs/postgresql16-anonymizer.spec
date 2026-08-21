@@ -7,7 +7,7 @@
 %global pg_config       %{_bindir}/pg_config
 
 Name:           postgresql%{pgversion}-%{shortname}
-Version:        3.1.1
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Mask or replace personally identifiable information (PII) or sensitive data
 
@@ -123,7 +123,7 @@ sed -i 's/0\.18\.0/0\.18\.1/g' Cargo.toml
 echo "[patch.crates-io]
 dunce = { path = 'vendor/dunce-1.0.5' }
 constant_time_eq = { path = 'vendor/constant_time_eq-0.4.2' }
-imgref = { path = 'vendor/imgref-1.11.0' }
+imgref = { path = 'vendor/imgref-1.12.2' }
 ppmd-rust = { path = 'vendor/ppmd-rust-1.4.0' }
 " >> .cargo/config.toml
 

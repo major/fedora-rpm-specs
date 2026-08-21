@@ -1,10 +1,10 @@
-%global git_commit acf45c08e7a169b18f7b53f02d42c19c035c1c43
+%global git_commit 1747e6ed20a477b61b8e8e068212402b1645dc84
 
 %global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly opentelemetry osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  4.0.0
+Version:  4.0.1
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -14,13 +14,10 @@ Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
 Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
 Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
-Patch: opensips-0005-Fix-rabbitmq-c-deprecated-header-warnings.patch
-Patch: opensips-0006-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
-Patch: opensips-0007-Fix-const-correctness-warnings-in-HTTP-and-FreeSWITC.patch
-Patch: opensips-0008-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
-Patch: opensips-0009-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
-Patch: opensips-0010-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
-Patch: opensips-0011-Fix-build-with-OpenSSL-3.x-replace-direct-ASN1_STRIN.patch
+Patch: opensips-0005-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
+Patch: opensips-0006-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
+Patch: opensips-0007-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
+Patch: opensips-0008-Fix-build-with-OpenSSL-3.x-replace-direct-ASN1_STRIN.patch
 
 URL:      https://opensips.org
 
@@ -930,7 +927,7 @@ clients.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes STIR_SHAKEN_OPENSSL=yes \
+LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes STIR_SHAKEN_OPENSSL=yes \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   cfg_target=%{_sysconfdir}/opensips/
@@ -1011,12 +1008,15 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %config(noreplace) %{_sysconfdir}/opensips/tls/user/user-privkey.pem
 
 %dir %{_datadir}/opensips/
+%dir %{_datadir}/opensips/examples/
+%dir %{_datadir}/opensips/examples/templates/
 %dir %{_datadir}/opensips/dbtext/
 %dir %{_datadir}/opensips/dbtext/opensips/
 %dir %{_datadir}/opensips/menuconfig_templates/
 
 %{_datadir}/opensips/dbtext/opensips/*
 %{_datadir}/opensips/menuconfig_templates/*.m4
+%{_datadir}/opensips/examples/templates/*
 
 %{_mandir}/man5/opensips.cfg.5*
 %{_mandir}/man8/opensips.8*

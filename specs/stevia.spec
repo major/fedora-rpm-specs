@@ -1,5 +1,5 @@
 Name:     stevia
-Version:  0.57_rc1
+Version:  0.57.0
 Release:  %autorelease
 Summary:  On screen keyboard (OSK) Phosh
 License:  GPL-3.0-or-later

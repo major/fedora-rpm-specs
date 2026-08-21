@@ -142,7 +142,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT AND BSD-3-Clause
@@ -242,7 +242,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %autosetup -p1 -n %{upstreamname}
 
 # Do not care so much about the sqlite version
-sed -i -e 's@SQLite3 3.50.2 @SQLite3 @' cmake/sqlite.cmake
+sed -i -e 's@SQLite3 3.51.3 @SQLite3 @' cmake/sqlite.cmake
 
 %build
 
@@ -300,6 +300,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Aug 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Fix build on RHEL
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 
