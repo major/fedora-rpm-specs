@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    2.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -201,6 +201,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Aug 14 2026 Ralf Senderek <innovation@senderek.ie> - 2.2-3
+- Resolve selinux issue 
+
 * Fri Aug 14 2026 Ralf Senderek <innovation@senderek.ie> - 2.2-2
 - Resolve conflict with directory safewebdrop/bin
 

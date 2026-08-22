@@ -1,8 +1,8 @@
 %global     full_version C_ICAP_%{version}
 
 Name:       c-icap
-Version:    0.6.3
-Release:    7%{?dist}
+Version:    0.6.5
+Release:    1%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -15,10 +15,6 @@ Source5:    %{name}.sysusers.conf
 
 # Adjust some paths to standard Fedora/EPEL ones:
 Patch0:     %{name}-conf.in.patch
-# Patches from the c_icap_0_6_x branch:
-Patch3: c-icap-configure-c99.patch
-# Patch for gcc15 in F42
-Patch4: c-icap-gcc15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -214,6 +210,9 @@ exit 0
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Thu Aug 20 2026 Frank Crawford <frank@crawford.emu.id.au> - 0.6.5-1
+- Update to 0.6.5 release.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

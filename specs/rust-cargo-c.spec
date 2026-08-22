@@ -3,14 +3,15 @@
 
 # reduce debuginfo verbosity to work around OOM problems on 32-bit arches
 %ifarch %{ix86}
-%global rustflags_debuginfo 1
+%global debug_package %{nil}
+%global rustflags_debuginfo 0
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.22+cargo-0.96.0
+%global crate_version 0.10.24+cargo-0.98.0
 
 Name:           rust-cargo-c
-Version:        0.10.22
+Version:        0.10.24
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -42,7 +43,6 @@ Summary:        %{summary}
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # ISC
 # MIT
@@ -71,7 +71,6 @@ License:        %{shrink:
     AND (Apache-2.0 OR MIT)
     AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
     AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
-    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
     AND (MIT OR Apache-2.0 OR BSD-1-Clause)
     AND (MIT OR Apache-2.0 OR Zlib)
     AND (MIT-0 OR Apache-2.0)

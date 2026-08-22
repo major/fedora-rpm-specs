@@ -5,15 +5,13 @@
 %global crate cond_sync
 
 Name:           rust-cond_sync
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Hides the boilerplate code needed with std::sync::Condvar
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cond_sync
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          cond_sync-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

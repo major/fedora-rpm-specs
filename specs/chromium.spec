@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 151.0.7922.137
+Version: 151.0.7922.169
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1922,6 +1922,24 @@ fi
 %endif
 
 %changelog
+* Thu Aug 20 2026 Than Ngo <than@redhat.com> - 151.0.7922.169-1
+- Update to 151.0.7922.169
+  * CVE-2026-76034: Buffer overflow in WebGL
+  * CVE-2026-76036: Buffer overflow in Dawn
+  * CVE-2026-76033: Inappropriate implementation in CORS
+  * CVE-2026-76037: Link following in CredentialProvider
+  * CVE-2026-76044: Race condition in USB
+  * CVE-2026-76039: Incorrect reference resolution in Core
+  * CVE-2026-76040: Use after free in Browser
+  * CVE-2026-76035: Inappropriate implementation in Media
+  * CVE-2026-76042: Use of uninitialized resource in GPU
+  * CVE-2026-76046: Buffer overflow in ANGLE
+  * CVE-2026-76043: Incorrect calculation in V8
+  * CVE-2026-76041: Information leak in Skia
+  * CVE-2026-76047: Type confusion in V8
+  * CVE-2026-76038: Type confusion in V8
+  * CVE-2026-76045: Use after free in WebGL
+
 * Wed Aug 12 2026 Than Ngo <than@redhat.com> - 151.0.7922.137-1
 - Update to 151.0.7922.137
   * CVE-2026-19556: Use after free in V8

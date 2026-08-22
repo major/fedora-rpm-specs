@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/rstcheck/rstcheck
 
 Name:       python-rstcheck
-Version:    6.2.5
+Version:    6.3.0
 Release:    %autorelease
 Summary:    Checks syntax of reStructuredText and code blocks nested within it
 %forgemeta

@@ -141,10 +141,8 @@ BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  expat-devel
-BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
+BuildRequires:  (openssl-devel < 1:4 or openssl3-devel)
+BuildRequires:  (openssl-devel-engine < 1:4 or openssl3-devel-engine)
 BuildRequires:  gdbm-devel
 BuildRequires:  xz-devel
 

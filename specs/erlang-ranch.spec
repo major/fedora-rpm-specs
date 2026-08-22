@@ -1,7 +1,7 @@
 %global realname ranch
 
 Name:		erlang-%{realname}
-Version:	2.2.0
+Version:	2.2.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Socket acceptor pool for TCP protocols

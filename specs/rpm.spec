@@ -26,9 +26,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 6.0.92
+%global rpmver 6.1.0
 #global snapver rc1
-%global baserelease 2
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -638,6 +638,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Aug 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.1.0-1
+- Rebase to 6.1.0 (https://rpm.org/releases/6.1.0)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.0.92-2
 - Rebuilt for Python 3.15.0b4 ABI change
 

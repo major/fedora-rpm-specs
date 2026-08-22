@@ -1,5 +1,5 @@
 Name:           python-icalendar
-Version:        7.2.2
+Version:        7.3.0
 Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
@@ -68,7 +68,7 @@ popd
 
 %check
 pushd %{py3dir}
-%{__python3} -m pytest src/icalendar/tests
+%{__python3} -m pytest src/icalendar/tests -k 'not test_timezone_names_are_known[tzp_1-posixrules]'
 popd
 
 %files -n python3-icalendar
@@ -78,6 +78,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Wed Aug 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 7.3.0-1
+- 7.3.0
+
 * Mon Jul 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 7.2.2-1
 - 7.2.2
 

@@ -1,6 +1,6 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   8
+%define prerelnum   9
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia
@@ -147,6 +147,14 @@ mv third_party/wuffs/LICENSE-MIT                LICENSE-MIT.wuffs
 %install
 %meson_install
 
+# shell completions
+install -d -m 0755 %{buildroot}%{bash_completions_dir}
+%{buildroot}%{_bindir}/noctalia completions bash > %{buildroot}%{bash_completions_dir}/noctalia
+install -d -m 0755 %{buildroot}%{fish_completions_dir}
+%{buildroot}%{_bindir}/noctalia completions fish > %{buildroot}%{fish_completions_dir}/noctalia.fish
+install -d -m 0755 %{buildroot}%{zsh_completions_dir}
+%{buildroot}%{_bindir}/noctalia completions zsh > %{buildroot}%{zsh_completions_dir}/_noctalia
+
 
 %check
 %meson_test
@@ -160,6 +168,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dev.noctalia.Noctalia
 %{_datadir}/applications/dev.noctalia.Noctalia.desktop
 %{_datadir}/icons/hicolor/scalable/apps/noctalia.svg
 %{_datadir}/noctalia
+%{bash_completions_dir}/noctalia
+%{fish_completions_dir}/noctalia.fish
+%{zsh_completions_dir}/_noctalia
 
 
 %changelog

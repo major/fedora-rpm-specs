@@ -1,5 +1,5 @@
 Name:           python-exabgp
-Version:        5.0.10
+Version:        5.0.12
 Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
@@ -10,6 +10,9 @@ Source1:        exabgp.sysusers.exabgp.conf
 Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
+
+# Patch for PEP 639 compliance for the exabgp 5.0 branch
+Patch0001:      0001-license.patch
 
 BuildArch:      noarch
 
@@ -121,6 +124,16 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Thu Aug 20 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.12-1
+- Update to version 5.0.12 (resolves rhbz#2520630)
+- Add patch for PEP 639 compliance
+
+* Thu Aug 20 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.11-2
+- Fix typo in changelog
+
+* Thu Aug 20 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.11-1
+- Update to version 5.0.11 (resolves rhbz#2520119)
+
 * Fri Aug 14 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.10-1
 - Update to version 5.0.10 release (resolves rhbz#2516129)
   Remove python version patch (resolved upstream)

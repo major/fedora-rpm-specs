@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.4.12
-Release:        2%{?dist}
+Version:        7.4.13
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Aug 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.13-1
+- 7.4.13
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.4.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

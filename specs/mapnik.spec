@@ -1,12 +1,12 @@
 %global vectortiledate 20250505
 %global vectortilecommit 5a0cfbb6b909ae945f4a9e40777772a2b1c8fe9b
-%global testcommit 5716a2794023035b64ced1143bf8a391dd9a0e02
-%global visualcommit db003ccfe204725035e89e543e54cef764b1e3bb
+%global testcommit be28538869c7055246e80bcea1afe6032d5f6edf
+%global visualcommit ead7ca50d04002d7da7fca032cf4bfe97e8f938c
 
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.2.2
+Version:   4.3.0
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only

@@ -402,6 +402,10 @@ Patch319: chromium-143-swiftshader-llvm-16.0.patch
 # Fix clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=array-bounds'
 Patch320: chromium-146-clang-unknown-argument.patch
 
+# Fix build error with rustc 1.95
+# error[E0425]: cannot find type `LaneCount` in module `core::simd`
+Patch321: chromium-148-rust-1.95-bytemuck-ftbfs.patch
+
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
@@ -1120,6 +1124,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
 %patch -P320 -p1 -b .clang-unknown-argument
+%patch -P321 -p1 -b .rust-1.95-bytemuck
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system

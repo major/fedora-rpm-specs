@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 8faab4c2a92f438a704d072e3c5aa9526d2acc88
-%global commitdatestring 2026-07-28 16:48:35 +0200
-%global cosmic_minver 1.5.0
+%global commit 9c5f5a25845d3b6848ea150ef8a8163b37e6da3b
+%global commitdatestring 2026-08-18 14:04:57 +0200
+%global cosmic_minver 1.6.0
 
 Name:           cosmic-workspaces
-Version: 1.5.0
+Version: 1.6.0
 Release:        %autorelease
 Summary:        Workspaces overview for the COSMIC Desktop Environment
 

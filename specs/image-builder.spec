@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        78.0.0
+Version:        79.0.0
 
 %gometa
 
@@ -303,6 +303,44 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Aug 20 2026 Packit <hello@packit.dev> - 79.0.0-1
+Changes with 79.0.0
+----------------
+  - Fix the container resolver tests (#2602)
+    - Author: Achilleas Koutsou, Reviewers: Florian Schüller, Sanne Raymaekers
+  - Run privileged unit tests on gitlab (#2603)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Start container with repos support for legacy ISO only [HMS-11156] (#2582)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2600)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260816 (#2599)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - anaconda_installer: platform build packages (#2589)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Sanne Raymaekers
+  - distrodefs: Add aliases to Fedora for GCP (HMS-11182) (#2583)
+    - Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - fedora: drop explicit `anaconda-widgets` (#2597)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Katerina Koukiou, Lukáš Zapletal
+  - image-builder: reuse progress bars for upload (#2592)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+  - manifest: accept human-readable image sizes (#2571)
+    - Author: tomatotomata, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - osbuild/rpm: implement generic env   (#2586)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - ova: set os type and virtual hardware version (HMS-3248) (#2480)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - packit: enable riscv64 (#2595)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - pkg/disk.yaml: add an option to not grow root (#2524)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - test: add GPG keys to Fedora 44 test repos (#2585)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Simon de Vlieger
+  - test: mock host arch for package search (#2594)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+
+— Somewhere on the Internet, 2026-08-20
+
 * Mon Aug 10 2026 Packit <hello@packit.dev> - 78.0.0-1
 Changes with 78.0.0
 ----------------

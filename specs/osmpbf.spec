@@ -1,5 +1,5 @@
 Name:           osmpbf
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        C library to read and write OpenStreetMap PBF files
 
@@ -11,17 +11,12 @@ BuildRequires:  cmake make gcc-c++
 BuildRequires:  protobuf-devel protobuf-compiler
 BuildRequires:  zlib-devel zlib-static
 
+Obsoletes:      %{name}-utils < 1.7.0
+
 %description
 Osmpbf is a Java/C library to read and write OpenStreetMap PBF files.
 PBF (Protocol buffer Binary Format) is a binary file format for OpenStreetMap
 data that uses Google Protocol Buffers as low-level storage.
-
-%package tools
-Summary:        Tools for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description tools
-This package contains tools that use %{name}.
 
 %package devel
 Summary:        Development files for %{name}
@@ -51,11 +46,6 @@ rm %{buildroot}/%{_libdir}/libosmpbf.a
 %license LICENSE
 %{_libdir}/libosmpbf.so.1
 %{_libdir}/libosmpbf.so.1.*
-
-
-%files tools
-%{_bindir}/*
-%{_mandir}/man1/*
 
 
 %files devel

@@ -3,10 +3,10 @@
 %global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
 %global visualcommit 7dfd4568d6181da8be3543c8b7522b596a79b774
 
-%global mapnik_version 4.2.2
+%global mapnik_version 4.3.0
 
 Name:           python-%{srcname}
-Version:        4.2.2
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Python bindings for Mapnik
 
@@ -23,8 +23,6 @@ Patch:          python-mapnik-precision.patch
 Patch:          python-mapnik-pkgconfig.patch
 # Fix for 32 bit support
 Patch:          python-mapnik-32bit.patch
-# Adjust required versions to match Fedora versions
-Patch:          python-mapnik-pyproject.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313

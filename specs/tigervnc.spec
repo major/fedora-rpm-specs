@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -33,6 +33,8 @@ Patch2:         tigervnc-sbin-bin-merge.patch
 %endif
 
 # Upstream patches
+# port to nettle 4 (https://github.com/TigerVNC/tigervnc/pull/2093/)
+Patch10:        tigervnc-nettle4.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -227,6 +229,7 @@ runs properly under an environment with SELinux enabled.
 %endif
 
 # Upstream patches
+%patch -P10 -p1 -b .nettle4
 
 %if %{with xserver}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -420,6 +423,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Aug 19 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-7
+- Fixed build with nettle 4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

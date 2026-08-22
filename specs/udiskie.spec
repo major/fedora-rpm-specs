@@ -1,5 +1,5 @@
 Name:           udiskie
-Version:        2.6.2
+Version:        2.7.0
 Release:        %{autorelease}
 Summary:        Removable disk auto-mounter
 
@@ -59,8 +59,7 @@ done
 %find_lang %{name}
 
 %check
-# test_cache.py needs python3-keyutils, which is not available
-%{python3} -m unittest test.test_match
+%{python3} -m unittest discover --verbose --start-directory test/
 
 %files -f %{name}.lang
 %doc README.rst

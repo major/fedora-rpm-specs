@@ -1,7 +1,7 @@
 Summary: Enclosure LED Utilities
 Name: ledmon
 Version: 1.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 URL: https://github.com/intel/ledmon
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +87,9 @@ autoreconf -fiv
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Aug 20 2026 Dan Horák <dan@danny.cz> - 1.1.0-6
+- rebuilt for sg3_utils 1.49
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

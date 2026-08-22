@@ -8,7 +8,7 @@
 %global crate trycmd
 
 Name:           rust-trycmd
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Snapshot testing for a herd of CLI tests
 

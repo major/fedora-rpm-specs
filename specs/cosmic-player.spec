@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 23d59445afaf74aa0ac39a16d6d88f5f20d91d1f
-%global commitdatestring 2026-07-28 18:02:38 -0600
-%global cosmic_minver 1.5.0
+%global commit 55ecae4644bf7968181ea42a4db9393bdc4e53e7
+%global commitdatestring 2026-08-18 13:38:32 -0600
+%global cosmic_minver 1.6.0
 
 Name:           cosmic-player
-Version: 1.5.0
+Version: 1.6.0
 Release:        %autorelease
 Summary:        COSMIC media player
 

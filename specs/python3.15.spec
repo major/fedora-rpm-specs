@@ -1368,7 +1368,7 @@ find . -name "*~" -exec rm -f {} \;
 %if 0%{?clamp_mtime_to_source_date_epoch}
 LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
 PYTHONPATH="%{_rpmconfigdir}/redhat" \
-%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir} %{?with_freethreading_build:%{buildroot}%{pylibdir_freethreading}}
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir} %{?with_freethreading_build:%{buildroot}%{pylibdir_freethreading}} %{buildroot}%{_datadir}/gdb/auto-load
 %endif
 # compileall CMD line options:
 # -f - force rebuild even if timestamps are up to date
@@ -1525,8 +1525,6 @@ CheckPython() {
   # reported in https://github.com/python/cpython/issues/140368
   # test_array_alignment
   # https://github.com/python/cpython/issues/144725
-  # test_ci_fuzz_stdlib
-  # https://github.com/python/cpython/issues/145762
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1539,7 +1537,6 @@ CheckPython() {
     -i test_sendfile \
     -i test_array_alignment \
     %endif
-    -i test_ci_fuzz_stdlib \
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
 

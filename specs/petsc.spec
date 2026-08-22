@@ -317,7 +317,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.3
+Version: %{releasever}.4
 Epoch:   %{epoch}
 Release: %autorelease
 License: BSD-2-Clause

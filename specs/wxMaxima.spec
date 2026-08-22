@@ -2,7 +2,7 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 26.07.0
+Version: 26.08.0
 Release: %autorelease
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

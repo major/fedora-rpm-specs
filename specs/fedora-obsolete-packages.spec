@@ -1239,6 +1239,9 @@ Source0:    README
 %obsolete perl-re-engine-PCRE 0.17-46
 %obsolete perl-re-engine-PCRE-tests 0.17-46
 
+%obsolete_ticket https://forge.fedoraproject.org/fesco/tickets/issues/3671
+%obsolete low-memory-monitor 2.1-16
+
 # Removed packages with broken dependencies on Python 3.14
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2492124
 %obsolete cinch 1.4.0-27

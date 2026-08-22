@@ -2,7 +2,7 @@
 %global pypi_name croniter
 
 Name:           python-%{pypi_name}
-Version:        6.2.2
+Version:        6.2.4
 Release:        %autorelease
 Summary:        Iteration for datetime object with cron like format
 
@@ -62,7 +62,7 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst CHANGELOG.rst
 
 
 %changelog

@@ -65,16 +65,16 @@ use regular expressions and plug-ins to further enhance BIDScoin’s power and
 flexibility, and readily handle a wide variety of source data types.
 
 
-%pyproject_extras_subpkg -n bidscoin dcm2niix2bids
-%pyproject_extras_subpkg -n bidscoin spec2nii2bids
+%pyproject_extras_subpkg --name bidscoin dcm2niix2bids
+%pyproject_extras_subpkg --name bidscoin spec2nii2bids
 %if %{with deface}
-%pyproject_extras_subpkg -n bidscoin deface
+%pyproject_extras_subpkg --name bidscoin deface
 %endif
 %if %{with deface}
-%pyproject_extras_subpkg -n bidscoin all
+%pyproject_extras_subpkg --name bidscoin all
 %endif
 %if %{with extras}
-%pyproject_extras_subpkg -n bidscoin extras
+%pyproject_extras_subpkg --name bidscoin extras
 %endif
 
 

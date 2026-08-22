@@ -5,7 +5,7 @@
 %global crate orion
 
 Name:           rust-orion
-Version:        0.17.13
+Version:        0.17.15
 Release:        %autorelease
 Summary:        Usable, easy and safe pure-Rust crypto
 

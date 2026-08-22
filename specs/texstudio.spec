@@ -1,5 +1,5 @@
 Name:           texstudio
-Version:        4.9.6
+Version:        4.9.7
 Release:        %autorelease
 
 Summary:        A feature-rich editor for LaTeX documents

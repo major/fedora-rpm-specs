@@ -5,16 +5,14 @@
 %endif
 
 Name:           libbluray
-Version:        1.4.0
-Release:        4%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPL-2.0-or-later
 URL:            https://www.videolan.org/developers/libbluray.html
 
 Source0:        https://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.xz
 Patch0:         libbluray-0.8.0-no_doxygen_timestamp.patch
-# https://code.videolan.org/videolan/libbluray/-/commit/48d76414455ab6a7d270cec96d6e83673df8a00d
-Patch1:         libbluray-1.4.0-java_23_support.patch
 
 BuildRequires:  doxygen
 BuildRequires:  fontconfig-devel
@@ -69,7 +67,6 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch -P0 -p1 -b .no_timestamp
-%patch -P1 -p1 -b .java_23
 
 rm -rf contrib/libudfread
 
@@ -78,7 +75,6 @@ rm -rf contrib/libudfread
   --default-library=shared \
 %if %{build_bdj}
   -Dbdj_jar=enabled \
-  -Djava9=true \
   -Dbdj_type=j2se \
   -Djdk_home=%{_jvmdir}/java \
 %else
@@ -99,7 +95,7 @@ mv %{buildroot}%{_docdir}/%{name}/html .
 %files
 %license COPYING
 %doc ChangeLog README.md
-%{_libdir}/*.so.3*
+%{_libdir}/*.so.4*
 
 %if %{build_bdj}
 %files bdj
@@ -118,6 +114,9 @@ mv %{buildroot}%{_docdir}/%{name}/html .
 
 
 %changelog
+* Thu Aug 20 2026 Xavier Bachelot <xavier@bachelot.org> - 1.5.0-1
+- Update to 1.5.0 (RHBZ#2520270)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

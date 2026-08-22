@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit d39915ae2381424d406cd511a2310ef928144f4c
-%global commitdatestring 2026-07-28 16:17:56 -0400
-%global cosmic_minver 1.5.0
+%global commit e9ab9e74a5133f21c76a86985afd6d2909760053
+%global commitdatestring 2026-08-18 18:58:39 +0200
+%global cosmic_minver 1.6.0
 
 Name:           cosmic-greeter
-Version: 1.5.0
+Version: 1.6.0
 Release:        %autorelease
 # Release:        %%autorelease
 Summary:        Login and display manager for the COSMIC Desktop Environment
@@ -44,6 +44,7 @@ BuildRequires:  pam-devel
 BuildRequires:  just
 BuildRequires:  libudev-devel
 BuildRequires:  libinput-devel
+BuildRequires:  libdav1d-devel
 
 BuildRequires:   systemd-rpm-macros
 %{?sysusers_requires_compat}

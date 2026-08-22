@@ -2,8 +2,8 @@
 %bcond_with tests
 
 Name:          flacon
-Version:       13.0.1
-Release:       2%{?dist}
+Version:       13.0.2
+Release:       1%{?dist}
 Summary:       Audio File Encoder
 
 License:       LGPL-2.1-or-later
@@ -86,6 +86,9 @@ cd %{_vpath_builddir}/tests && ./flacon_test
 %{_metainfodir}/com.github.Flacon.metainfo.xml
 
 %changelog
+* Thu Aug 20 2026 Vasiliy Glazov <vascom2@gmail.com> - 13.0.2-1
+- Update to 13.0.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

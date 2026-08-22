@@ -1,14 +1,12 @@
 %global bpf_supported_arches aarch64 x86_64 ppc64le riscv64 s390x
 Summary: Alternate posix capabilities library
 Name: libcap-ng
-Version: 0.9.3
-Release: 5%{?dist}
+Version: 0.9.4
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
-# https://github.com/stevegrubb/libcap-ng/pull/81.patch
-Patch0: 0001-cap-audit-allow-supplying-vmlinux.h-for-reproducible.patch
-
+Patch1: fix-u32-parsing.patch
 BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
@@ -63,7 +61,7 @@ to determine the necessary capabilities for a program.
 %prep
 %setup -q
 touch -d @${SOURCE_DATE_EPOCH:?} NEWS
-%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 # Locate suitable vmlinux.h. In normal builds under mock,
@@ -74,7 +72,7 @@ vmlinux_h="$(ls -1 /usr/src/kernels/*/vmlinux.h | sort -g | tail -n 1)"
 autoreconf -fv --install
 %configure --libdir=%{_libdir} \
 %ifarch %{bpf_supported_arches}
-	 --enable-cap-audit=yes \
+	--enable-cap-audit=yes \
 	--with-vmlinux-h-path="${vmlinux_h}" \
 	--with-vmlinux-h=provided \
 %endif
@@ -124,12 +122,22 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/netcap.8.gz
 %attr(0644,root,root) %{_mandir}/man8/pscap.8.gz
 %attr(0644,root,root) %{_datadir}/bash-completion/completions/libcap-ng.bash_completion
+%{_datadir}/bash-completion/completions/cap-audit
+%{_datadir}/bash-completion/completions/filecap
+%{_datadir}/bash-completion/completions/netcap
+%{_datadir}/bash-completion/completions/pscap
 %ifarch %{bpf_supported_arches}
 %attr(0755,root,root) %{_bindir}/cap-audit
 %attr(0644,root,root) %{_mandir}/man8/cap-audit.8.gz
 %endif
 
 %changelog
+* Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.4-2
+- Add patch to fix 32 bit builds
+
+* Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.4-1
+- New upstream feature release
+
 * Mon Aug 03 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 0.9.4-5
 - Use provided vmlinux.h to improve build reproducibility
 

@@ -2,7 +2,7 @@
 
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
-Version: 0.26.0
+Version: 0.27.0
 Release: %autorelease
 License: BSD-3-Clause
 URL: https://pypi.org/project/autowrap/

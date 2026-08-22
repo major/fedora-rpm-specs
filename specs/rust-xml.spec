@@ -5,7 +5,7 @@
 %global crate xml
 
 Name:           rust-xml
-Version:        1.2.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        XML library in pure Rust
 

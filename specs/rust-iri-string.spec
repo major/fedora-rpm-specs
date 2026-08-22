@@ -5,7 +5,7 @@
 %global crate iri-string
 
 Name:           rust-iri-string
-Version:        0.7.13
+Version:        0.7.14
 Release:        %autorelease
 Summary:        IRI as string types
 

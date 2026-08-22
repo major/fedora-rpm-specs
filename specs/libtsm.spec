@@ -1,5 +1,5 @@
 Name:           libtsm
-Version:        4.6.0
+Version:        4.7.1
 Release:        %autorelease
 Summary:        DEC-VT terminal emulator state machine
 License:        MIT AND LGPL-2.1-or-later
@@ -12,7 +12,7 @@ BuildRequires:  xz
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(check)
 
-Patch:          Fix-backward-selection.patch
+Patch: vte-don-t-emit-double-escape-for-meta-arrow-keys.patch
 
 %description
 TSM is a state machine for DEC VT100-VT520 compatible terminal

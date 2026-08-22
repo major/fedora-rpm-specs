@@ -1,17 +1,15 @@
 %global debug_package %{nil}
 
 Name:           polylabel
-Version:        2.0.1
-Release:        6%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        A fast algorithm for finding the pole of inaccessibility of a polygon
 
 License:        ISC
-URL:            https://github.com/mapbox/polylabel/
-Source0:        https://github.com/mapbox/polylabel/archive/v%{version}/%{name}-%{version}.tar.gz
-# Disable mason dependency handling
-Patch:          polylabel-mason.patch
+URL:            https://github.com/mapnik/polylabel/
+Source0:        https://github.com/mapnik/polylabel/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  make gcc-c++
+BuildRequires:  gcc-c++
 BuildRequires:  geometry-hpp-devel geometry-hpp-static
 BuildRequires:  rapidjson-devel rapidjson-static
 
@@ -40,6 +38,7 @@ Useful for optimal placement of a text label on a polygon.
 
 
 %build
+$CXX $CXXFLAGS -Iinclude -o test/test test/test.cpp 
 
 
 %install
@@ -48,7 +47,7 @@ cp -pr include/mapbox %{buildroot}%{_includedir}
 
 
 %check
-%make_build test
+./test/test
 
 
 %files devel

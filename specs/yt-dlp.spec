@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2026.06.09
+Version:        2026.08.19
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -15,7 +15,10 @@ License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 
-Patch:          0001-Fix-curl-beta-version-parsing.patch
+# https://github.com/yt-dlp/yt-dlp/pull/17491
+# Relax handshake error regexp
+Patch:          17491.patch
+
 # Needed for compatibility with Fedora <= 44
 Patch:          0002-Restore-compatibility-with-pytest-9.patch
 

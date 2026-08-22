@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        46
-Release:        0.2%{?eln:.eln%{eln}}
+Release:        0.3%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -417,6 +417,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Thu Aug 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 46-0.3
+- Fix GPG key lookup path for OSTree remotes
+
 * Wed Aug 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 46-0.2
 - Fix directory ownership in fedora-repos-eln
 

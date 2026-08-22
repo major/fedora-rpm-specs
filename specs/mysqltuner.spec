@@ -3,7 +3,7 @@
 #%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        2.9.1
+Version:        2.9.2
 Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
@@ -49,7 +49,11 @@ install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulne
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
-* Thu May 28 2026 josef radinger <cheese@nosuchhost.net> - 2.9.1-1
+* Thu Aug 20 2026 josef radinger <cheese@nosuchhost.net> - 2.9.2-1
+- bump version
+- fix date in changelog
+
+* Sat Aug 15 2026 josef radinger <cheese@nosuchhost.net> - 2.9.1-1
 - bump version
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.45-2

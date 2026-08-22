@@ -2,8 +2,8 @@
 %global featurever 25
 %global interimver 0
 %global updatever 4
-%global patchver 0
-%global buildver 7
+%global patchver 1
+%global buildver 1
 %global portablerelease 1
 %global rpmrelease 1
 

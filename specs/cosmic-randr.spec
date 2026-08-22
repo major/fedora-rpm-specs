@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 6e8e795970fa06d434af22775e415b517f7552d3
 %global commitdatestring 2026-02-13 12:35:27 -0700
-%global cosmic_minver 1.5.0
+%global cosmic_minver 1.6.0
 
 Name:           cosmic-randr
-Version: 1.5.0
+Version: 1.6.0
 Release:        %autorelease
 Summary:        Display configuration command line tool
 

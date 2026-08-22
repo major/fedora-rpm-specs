@@ -1,13 +1,14 @@
 Name:           kmscon
-Version:        10.0.1
+Version:        10.0.2
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
-License:        MIT
+# MIT for the source code, and OFL-1.1 for the unifont font.
+License:        MIT and OFL-1.1
 URL:            https://github.com/kmscon/kmscon/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
-BuildRequires:  libtsm-devel >= 4.6.0
+BuildRequires:  libtsm-devel >= 4.7.0
 BuildRequires:  meson
 BuildRequires:  ncurses
 BuildRequires:  gcc
@@ -91,6 +92,7 @@ mod-gltex.so
 %{_bindir}/%{name}
 %{_bindir}/kmscon-launch-gui
 %{_libdir}/kmscon/mod-unifont.so
+%{_libdir}/kmscon/mod-psf.so
 %{_mandir}/man1/kmscon.1*
 %{_mandir}/man5/kmscon.conf.5*
 %{_unitdir}/kmscon.service

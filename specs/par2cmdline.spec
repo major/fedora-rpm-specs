@@ -1,5 +1,5 @@
 Name: par2cmdline
-Version: 1.2.0
+Version: 1.3.0
 Release: %autorelease
 Summary: PAR 2.0 compatible file verification and repair tool
 

@@ -196,8 +196,9 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.13.2
-%global TARBALL_IPA_VERSION 4.13.2
+%define IPA_VERSION 4.13.3
+%global TARBALL_IPA_VERSION 4.13.3
+%global IPA_RELEASE_PATH %(echo $IPA_VERSION|tr . -)
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
 %define AT_SIGN @
@@ -210,15 +211,15 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
 URL:            http://www.freeipa.org/
-Source0:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz
+Source0:        https://codeberg.org/freeipa/freeipa/releases/download/release-%{IPA_RELEASE_PATH}/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz
 # Only use detached signature for the distribution builds. If it is a developer build, skip it
 %if %{NON_DEVELOPER_BUILD}
-Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz.asc
+Source1:        https://codeberg.org/freeipa/freeipa/releases/download/release-%{IPA_RELEASE_PATH}/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz.asc
 # https://www.freeipa.org/page/Verify_Release_Signature
 #
 # The following commands can be used to fetch the signing key via fingerprint
@@ -226,7 +227,10 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSIO
 #   fpr=0E63D716D76AC080A4A33513F40800B6298EB963
 #   gpg --keyserver keys.openpgp.org --receive-keys $fpr
 #   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
-Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
+# Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
+# Release 4.13.3 is signed by Rafael Jeffman
+# Rafael's key: 4B7E7AFBB0AAA98947CA2427F17E2569BEE3800C
+Source2:        gpgkey-4B7E7AFBB0AAA98947CA2427F17E2569BEE3800C.asc
 %endif
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
@@ -1195,6 +1199,7 @@ rm %{buildroot}/%{plugin_dir}/libipa_otp_counter.la
 rm %{buildroot}/%{plugin_dir}/libipa_otp_lasttoken.la
 rm %{buildroot}/%{plugin_dir}/libipa_graceperiod.la
 rm %{buildroot}/%{plugin_dir}/libtopology.la
+rm %{buildroot}/%{plugin_dir}/libipa_krbprinc_mr.la
 rm %{buildroot}/%{_libdir}/krb5/plugins/kdb/ipadb.la
 rm %{buildroot}/%{_libdir}/samba/pdb/ipasam.la
 
@@ -1642,6 +1647,7 @@ fi
 %attr(755,root,root) %{plugin_dir}/libipa_sidgen_task.so
 %attr(755,root,root) %{plugin_dir}/libipa_extdom_extop.so
 %attr(755,root,root) %{plugin_dir}/libipa_graceperiod.so
+%attr(755,root,root) %{plugin_dir}/libipa_krbprinc_mr.so
 %attr(755,root,root) %{_libdir}/krb5/plugins/kdb/ipadb.so
 %{_mandir}/man1/ipa-replica-conncheck.1*
 %{_mandir}/man1/ipa-replica-install.1*
@@ -1966,8 +1972,15 @@ fi
 %endif
 
 %changelog
+* Thu Aug 20 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.3-1
+- Upstream release 4.13.3
+- Resolves: CVE-2026-11861, CVE-2026-13097, CVE-2026-19550, CVE-2026-73199, CVE-2026-73198, CVE-2026-73197, CVE-2026-73196
+
 * Wed Aug 19 2026 Adam Williamson <awilliam@redhat.com> - 4.13.2-2
 - Rebuild without changes to stay ahead of F43/F44/F45
+
+* Fri Aug 14 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.2-2
+- Rebuilt for Samba-4.25.0-RC1
 
 * Mon Aug 3 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.2-1
 - FreeIPA 4.13.2

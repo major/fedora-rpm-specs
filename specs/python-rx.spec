@@ -15,14 +15,14 @@ observable collections and LINQ-style query operators in Python.
 
 
 Name:           python-%{pkgname}
-Version:        4.1.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Reactive Extensions (Rx) for Python
 License:        MIT
 URL:            https://github.com/ReactiveX/RxPY
 # PyPI tarball doesn't have tests
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-Patch0:         import-order.patch
+#Patch0:         import-order.patch
 
 BuildArch:      noarch
 
@@ -72,7 +72,7 @@ sed -i s/0.0.0/%{version}/g pyproject.toml
 
 %files -n python3-%{pkgname}
 %license LICENSE
-%doc README.rst authors.txt changes.md
+%doc README.rst authors.txt CHANGELOG.md
 %{python3_sitelib}/reactivex/
 %{python3_sitelib}/reactivex-%{version}.dist-info/
 

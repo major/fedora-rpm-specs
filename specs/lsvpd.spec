@@ -1,6 +1,6 @@
 Name:		lsvpd
 Version:	1.7.17
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
@@ -85,6 +85,9 @@ systemctl daemon-reload >/dev/null 2>&1 || :
 %{_unitdir}/vpdupdate.service
 
 %changelog
+* Thu Aug 20 2026 Dan Horák <dan@danny.cz> - 1.7.17-3
+- rebuilt for sg3_utils 1.49
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

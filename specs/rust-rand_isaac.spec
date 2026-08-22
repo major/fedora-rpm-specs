@@ -5,7 +5,7 @@
 %global crate rand_isaac
 
 Name:           rust-rand_isaac
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        ISAAC random number generator
 

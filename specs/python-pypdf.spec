@@ -10,7 +10,7 @@
 %global forgeurl https://github.com/py-pdf/pypdf
 
 Name:           python-%{srcname}
-Version:        6.15.0
+Version:        6.16.1
 Release:        %autorelease
 Summary:        Pure-Python PDF library
 

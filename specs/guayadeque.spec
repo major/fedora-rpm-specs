@@ -1,18 +1,18 @@
 %global usesnapshot 0
-%global commit0 5f80bc4c5d0cb532f1a5ad9679d56bd16db89414
+%global commit0 7affb52dd00959e66beb09ab02caf90f4ecf70ce
 %if 0%{?usesnapshot}
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20241205
+%global gitdate 20260818
 %endif
 %global metadata_name org.guayadeque.Guayadeque
 
 Name:           guayadeque
 %if 0%{?usesnapshot}
-Version:        0.6.2
-Release:        0.10.beta6.git%{shortcommit0}%{dist}
+Version:        0.7.6
+Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        0.7.5
-Release:        7%{?dist}
+Version:        0.7.6
+Release:        1%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -138,7 +138,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %if 0%{?usesnapshot}
 %autosetup -p1 -n %{name}-%{commit0}
 %else
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}
 %endif
 cp -p %{SOURCE1} PACKAGE-LICENSING
 
@@ -172,8 +172,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/applications/%{metadata_name}.desktop
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
+%{_datadir}/%{name}/Radios/FrenchRadioStations.xml
 
 %changelog
+* Wed Aug 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.6-1
+- Update to 0.7.6-1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -19,8 +19,8 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.13
-Release: 4%{?dist}
+Version: 2.6.14
+Release: 1%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -54,7 +54,6 @@ Patch7: openldap-openssl-manpage-defaultCA.patch
 Patch8: openldap-add-export-symbols-LDAP_CONNECTIONLESS.patch
 Patch9: openldap-libldap-avoid-SSL-context-cleanup-during-library-des.patch
 Patch10: openldap-ITS-10297-Defer-hostname-resolution-til-first-use.patch
-Patch11: openldap-ITS-10498-libldap-fix-for-OpenSSL-4-compatibility.patch
 
 # check-password module specific patches
 Patch90: check-password-makefile.patch
@@ -179,7 +178,6 @@ pushd openldap-%{version}
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
-%patch -P11 -p1
 
 # build smbk5pwd with other overlays
 ln -s ../../../contrib/slapd-modules/smbk5pwd/smbk5pwd.c servers/slapd/overlays
@@ -567,6 +565,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 20 2026 Simon Pichugin <spichugi@redhat.com> - 2.6.14-1
+- Rebase to version 2.6.14
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.6.13-4
 - Perl 5.44 rebuild
 

@@ -1,6 +1,6 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    32
+Version:    33
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause

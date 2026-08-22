@@ -128,6 +128,9 @@ Source1:        https://www.chronox.de/%{name}/releases/%{version}/%{name}-%{ver
 Source2:        sha512hmac-openssl.sh
 Source3:        fipshmac-openssl.sh
 
+# From https://github.com/smuellerDD/libkcapi/pull/199/
+Patch:          %{giturl}/commit/780d6fd0d94ba921724d6db64fc1aedb32d7cf46.patch#/001-fix-test.patch
+
 BuildRequires:  bash
 BuildRequires:  coreutils
 BuildRequires:  gcc
