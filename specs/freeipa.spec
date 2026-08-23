@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}
+Release:        1.1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -233,6 +233,7 @@ Source1:        https://codeberg.org/freeipa/freeipa/releases/download/release-%
 Source2:        gpgkey-4B7E7AFBB0AAA98947CA2427F17E2569BEE3800C.asc
 %endif
 
+Patch0:         freeipa-version-upgrade-fedora-only.patch
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
 # header-logo.png, login-screen-background.jpg, login-screen-logo.png,
@@ -1104,9 +1105,6 @@ export PATH=/usr/bin:/usr/sbin:$PATH
 
 export PYTHON=%{__python3}
 
-# Adjust minor release version because we actually applied all patches post 4.12.2
-sed -i 's@IPA_VERSION_RELEASE, 2@IPA_VERSION_RELEASE, 5@' VERSION.m4
-
 autoreconf -ivf
 %configure --with-vendor-suffix=-%{release} \
            %{enable_server_option} \
@@ -1972,6 +1970,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 21 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.3-1.1
+- Force upgrade for versions that falsely represent themselves as 4.13.5 (not existing yet)
+
 * Thu Aug 20 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.3-1
 - Upstream release 4.13.3
 - Resolves: CVE-2026-11861, CVE-2026-13097, CVE-2026-19550, CVE-2026-73199, CVE-2026-73198, CVE-2026-73197, CVE-2026-73196

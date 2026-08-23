@@ -137,7 +137,10 @@ Features:
   • simple CLI bindings (e.g. bst export)
 
 
-%pyproject_extras_subpkg -n python3-bidsschematools expressions render validation all
+%pyproject_extras_subpkg --name python3-bidsschematools expressions
+%pyproject_extras_subpkg --name python3-bidsschematools render
+%pyproject_extras_subpkg --name python3-bidsschematools validation
+%pyproject_extras_subpkg --name python3-bidsschematools all
 
 
 %prep

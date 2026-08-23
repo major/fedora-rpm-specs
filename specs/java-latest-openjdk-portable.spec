@@ -1,9 +1,9 @@
 # New Version-String scheme-style defines
-%global featurever 26
+%global featurever 27
 %global interimver 0
-%global updatever 2
-%global patchver 1
-%global buildver        0
+%global updatever 0
+%global patchver 0
+%global buildver        35
 %global portablerelease 1
 %global rpmrelease 0
 
@@ -13,7 +13,6 @@
 %global fipsver 57722aab802
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
-%global doczipver  %{featurever}.%{interimver}.%{updatever}
 %global javaver         %{featurever}
 # Strip up to 6 trailing zeros in newjavaver, as the JDK does, to get the correct version used in filenames
 %global filever %(svn=%{newjavaver}; for i in 1 2 3 4 5 6 ; do svn=${svn%%.0} ; done; echo ${svn})
@@ -34,19 +33,21 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N.ea<dist> for EA releases,
 # - N<dist> for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
 %global ea_designator_zip %{nil}
 %global extraver %{nil}
 %global eaprefix %{nil}
+%global doczipver  %{featurever}.%{interimver}.%{updatever}%{ea_designator_zip}
 %else
 %global build_type EA
 %global ea_designator ea
 %global ea_designator_zip -%{ea_designator}
 %global extraver .%{ea_designator}
 %global eaprefix 0.
+%global doczipver  %{featurever}-ea+%{buildver}
 %endif
 
 %global compatiblename  java-%{javaver}-%{origin}
@@ -304,7 +305,7 @@ URL:      http://openjdk.java.net/
 # other targets since this target is configured to use in-tree
 # AWT dependencies: lcms, libjpeg, libpng, libharfbuzz, giflib
 # and possibly others
-%global static_libs_target static-libs-graal-image
+%global static_libs_target static-libs-image
 %else
 %global static_libs_target %{nil}
 %endif
@@ -518,7 +519,7 @@ exit 1
 
 # images directories from upstream build
 %global jdkimage                jdk
-%global static_libs_image       static-libs-graal
+%global static_libs_image       static-libs
 # output dir stub
 # Parameterised macros are order-sensitive
 %define buildoutputdir() %{expand:build/jdk%{featurever}.build%{?1}}
@@ -1010,7 +1011,7 @@ if [ "x${UPSTREAM_EA_DESIGNATOR}" != "x%{ea_designator}" ] ; then
     echo "WARNING: Designator mismatch";
     echo "Spec file is configured for a %{build_type} build with designator '%{ea_designator}'"
     echo "Upstream version-pre setting is '${UPSTREAM_EA_DESIGNATOR}'";
-    exit 17
+    #exit 17
 fi
 
 # Systemtap is processed in rpms on fedoras and epels
@@ -1376,7 +1377,7 @@ function packagejdk() {
     if [ "x$suffix" = "x" ] ; then
       docname=%{docportablename}
       docarchive=${packagesdir}/%{docportablearchive}
-      built_doc_archive=jdk-%{doczipver}%{ea_designator_zip}-docs.zip
+      built_doc_archive=jdk-%{doczipver}-docs.zip
     fi
     # These are from the source tree so no debug variants
     miscname=%{miscportablename}
@@ -1428,6 +1429,7 @@ function packagejdk() {
     # Static libraries (needed for building graal vm with native image)
     # Tar as overlay. Transform to the JDK name, since we just want to "add"
     # static libraries to that folder
+    rm -vf "%{static_libs_image}"/lib/server/*jvm*
     createtar ${staticarchive} \
         --transform "s|^%{static_libs_image}/lib/*|${staticname}/lib/static/linux-%{archinstall}/glibc/|" "%{static_libs_image}/lib"
     genchecksum ${staticarchive}

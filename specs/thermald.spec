@@ -13,6 +13,9 @@ Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		https://github.com/intel/thermal_daemon/commit/32c70aaba5837014fd3a2cb0b7e6b695d13043ad.patch
 Patch1:		https://github.com/intel/thermal_daemon/commit/de4821ce559a2041f6a5d574aeca278df340e379.patch
 
+# Proposed upstream
+Patch100:	https://github.com/intel/thermal_daemon/pull/594.patch
+
 ExclusiveArch:	%{ix86} %{x86_64} %{arm64}
 
 BuildRequires:	make

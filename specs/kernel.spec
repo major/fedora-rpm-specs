@@ -195,13 +195,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc0.260819gbd5f485f3f02.5
+%define pkgrelease 0.rc0.260821g818bebeb63dd.8
 %define kversion 7
-%define tarfile_release 7.2-2576-gbd5f485f3f02
+%define tarfile_release 7.2-8881-g818bebeb63dd
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260819gbd5f485f3f02.5%{?buildid}%{?dist}
+%define specrelease 0.rc0.260821g818bebeb63dd.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4964,8 +4964,19 @@ fi\
 #
 #
 %changelog
-* Wed Aug 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.bd5f485f3f02.5]
+* Fri Aug 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.818bebeb63dd.8]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Aug 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.818bebeb63dd.7]
+- Linux v7.3.0-0.rc0.818bebeb63dd
+
+* Thu Aug 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.11260c335ec6.6]
+- Fix up some s390x mismatches for Fedora (Justin M. Forbes)
+- A number of mismatch fixes for 7.3 merge window (Justin M. Forbes)
+- Linux v7.3.0-0.rc0.11260c335ec6
+
+* Thu Aug 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.bd5f485f3f02.5]
+- Turn off RUST in pending for ppc to revisit after merge window (Justin M. Forbes)
 
 * Wed Aug 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.bd5f485f3f02.4]
 - Turn on QCOM_PAS in pending (Justin M. Forbes)

@@ -1,7 +1,7 @@
 %global srcname cogapp
 
 Name:           python-%{srcname}
-Version:        3.3.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Content generator for executing Python snippets in source files
 
@@ -11,6 +11,8 @@ Source:         %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# tox.ini works with coverage
+BuildRequires:  python3-pytest
 
 %global _description %{expand:
 Cog is a file generation tool. It lets you use pieces of Python code as
@@ -36,11 +38,9 @@ Summary:        %{summary}
 %pyproject_install
 %pyproject_save_files %{srcname}
 
-# Remove redundant binary
-rm %{buildroot}%{_bindir}/cog.py
-
 %check
 %pyproject_check_import
+%pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst AUTHORS.txt

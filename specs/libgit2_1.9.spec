@@ -42,7 +42,7 @@ Provides:       bundled(libxdiff)
 
 # renamed in Fedora 45:
 # keep this ahead of the version of libgit2 in Fedora 44 and 43
-Obsoletes:      libgit2 < 1.9.6-2
+Obsoletes:      libgit2 < 1.9.7-2
 
 %description
 libgit2 is a portable, pure C implementation of the Git core methods
@@ -59,7 +59,7 @@ Conflicts:      pkgconfig(libgit2)
 
 # renamed in Fedora 45:
 # keep this ahead of the version of libgit2 in Fedora 44 and 43
-Obsoletes:      libgit2-devel < 1.9.6-2
+Obsoletes:      libgit2-devel < 1.9.7-2
 
 %description    devel
 This package contains libraries and header files for

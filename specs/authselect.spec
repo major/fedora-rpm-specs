@@ -2,26 +2,17 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
 License:        GPL-3.0-or-later
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        authselect.conf.fedora
+Source2:        authselect.conf.rhel
 
 %global makedir %{_builddir}/%{name}-%{version}
-
-# Disable NIS profile on RHEL
-%if 0%{?rhel}
-%global with_nis_profile 0
-%else
-%global with_nis_profile 1
-%endif
-
-# Set the default profile
-%{?fedora:%global default_profile local with-silent-lastlog}
-%{?rhel:%global default_profile local}
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -31,6 +22,7 @@ BuildRequires:  m4
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(popt)
+BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gettext-devel
 BuildRequires:  po4a
 BuildRequires:  %{_bindir}/a2x
@@ -94,9 +86,6 @@ done
 %build
 autoreconf -if
 %configure \
-%if %{with_nis_profile}
-    --with-nis-profile \
-%endif
     %{nil}
 %make_build
 
@@ -105,6 +94,13 @@ autoreconf -if
 
 %install
 %make_install
+
+# Install distribution-specific configuration
+%if 0%{?fedora}
+%__install -m 644 -D %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/authselect/authselect.conf
+%else
+%__install -m 644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/authselect/authselect.conf
+%endif
 
 # Find translations
 %find_lang %{name}
@@ -147,6 +143,7 @@ find $RPM_BUILD_ROOT -name "*.a" -exec %__rm -f {} \;
 %dir %{_datadir}/authselect/default/local/
 %dir %{_datadir}/authselect/default/sssd/
 %dir %{_datadir}/authselect/default/winbind/
+%config(noreplace) %{_datadir}/authselect/authselect.conf
 %verify(not md5 size mtime) %{_datadir}/authselect/checksum
 %{_datadir}/authselect/default/local/dconf-db
 %{_datadir}/authselect/default/local/dconf-locks
@@ -181,26 +178,13 @@ find $RPM_BUILD_ROOT -name "*.a" -exec %__rm -f {} \;
 %{_datadir}/authselect/default/winbind/smartcard-auth
 %{_datadir}/authselect/default/winbind/switchable-auth
 %{_datadir}/authselect/default/winbind/system-auth
-%if %{with_nis_profile}
-%dir %{_datadir}/authselect/default/nis/
-%{_datadir}/authselect/default/nis/dconf-db
-%{_datadir}/authselect/default/nis/dconf-locks
-%{_datadir}/authselect/default/nis/fingerprint-auth
-%{_datadir}/authselect/default/nis/nsswitch.conf
-%{_datadir}/authselect/default/nis/password-auth
-%{_datadir}/authselect/default/nis/postlogin
-%{_datadir}/authselect/default/nis/README
-%{_datadir}/authselect/default/nis/REQUIREMENTS
-%{_datadir}/authselect/default/nis/smartcard-auth
-%{_datadir}/authselect/default/nis/switchable-auth
-%{_datadir}/authselect/default/nis/system-auth
-%endif
 %{_libdir}/libauthselect.so.*
 %{_mandir}/man5/authselect-profiles.5*
 %dir %{_datadir}/doc/authselect
 %{_datadir}/doc/authselect/COPYING
 %{_datadir}/doc/authselect/README.md
 %{_unitdir}/authselect-apply-changes.service
+%{_unitdir}/authselect-first-boot.service
 %license COPYING
 %doc README.md
 
@@ -213,16 +197,16 @@ find $RPM_BUILD_ROOT -name "*.a" -exec %__rm -f {} \;
 %{_bindir}/authselect
 %{_mandir}/man8/authselect.8*
 %{_mandir}/man7/authselect-migration.7*
-%{_sysconfdir}/bash_completion.d/authselect-completion.sh
+%{_datadir}/bash-completion/completions/authselect.bash
 
 %post libs
-%systemd_post authselect-apply-changes.service
+%systemd_post authselect-apply-changes.service authselect-first-boot.service
 
 %preun libs
-%systemd_preun authselect-apply-changes.service
+%systemd_preun authselect-apply-changes.service authselect-first-boot.service
 
 %postun libs
-%systemd_postun authselect-apply-changes.service
+%systemd_postun authselect-apply-changes.service authselect-first-boot.service
 
 %posttrans libs
 # Keep nss-altfiles for all rpm-ostree based systems.
@@ -236,7 +220,7 @@ fi
 
 # If this is a new installation select the default configuration.
 if [ $1 == 1 ] ; then
-    %{_bindir}/authselect select %{default_profile} --force --nobackup &> /dev/null
+    %{_bindir}/authselect select @system-default --force --nobackup &> /dev/null
     exit 0
 fi
 

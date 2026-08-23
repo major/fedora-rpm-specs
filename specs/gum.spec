@@ -3,7 +3,7 @@
 %global gomodulesmode GO111MODULE=on
 
 Name:           gum
-Version:        0.17.0
+Version:        2.0.0
 Release:        %autorelease
 ExclusiveArch:  %{golang_arches_future}
 Summary:        Tool for glamorous shell scripts

@@ -16,12 +16,12 @@
 %global debug_package %{nil}
 %endif
 
-# edk2-stable202605
-%define GITDATE        20260508
-%define GITCOMMIT      b03a21a63e3b
+# edk2-stable202608
+%define GITDATE        20260812
+%define GITCOMMIT      2970e5699ba6
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT 04470160f671
+%define PLATFORMS_COMMIT f8dbb5c60330
 
 %define OPENSSL_VER    3.5.7
 
@@ -124,29 +124,22 @@ Source92: DBXUpdate-%{DBXDATE}.aa64.bin
 
 Patch0001: 0001-BaseTools-do-not-build-BrotliCompress-RH-only.patch
 Patch0002: 0002-MdeModulePkg-remove-package-private-Brotli-include-p.patch
-Patch0003: 0003-MdeModulePkg-TerminalDxe-set-xterm-resolution-on-mod.patch
-Patch0004: 0004-OvmfPkg-take-PcdResizeXterm-from-the-QEMU-command-li.patch
-Patch0005: 0005-ArmVirtPkg-take-PcdResizeXterm-from-the-QEMU-command.patch
-Patch0006: 0006-OvmfPkg-enable-DEBUG_VERBOSE-RHEL-only.patch
-Patch0007: 0007-OvmfPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuVide.patch
-Patch0008: 0008-ArmVirtPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuR.patch
-Patch0009: 0009-OvmfPkg-QemuRamfbDxe-Do-not-report-DXE-failure-on-Aa.patch
-Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
-Patch0011: 0011-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
-Patch0012: 0012-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
-Patch0013: 0013-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
+Patch0003: 0003-OvmfPkg-enable-DEBUG_VERBOSE-RHEL-only.patch
+Patch0004: 0004-OvmfPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuVide.patch
+Patch0005: 0005-ArmVirtPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuR.patch
+Patch0006: 0006-OvmfPkg-QemuRamfbDxe-Do-not-report-DXE-failure-on-Aa.patch
+Patch0007: 0007-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
+Patch0008: 0008-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
+Patch0009: 0009-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
+Patch0010: 0010-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
+Patch0011: 0011-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
+Patch0012: 0012-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
+Patch0013: 0013-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
+Patch0014: 0014-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
+Patch0015: 0015-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
+Patch0016: 0016-OvmfPkg-PlatformDxe-proper-addr-masking.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-Patch0014: 0014-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0015: 0015-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
-Patch0016: 0016-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
-Patch0017: 0017-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
-Patch0018: 0018-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
-Patch0019: 0019-CryptoPkg-TlsLib-downgrade-security-level-from-3-to-.patch
-Patch0020: 0020-OvmfPkg-PlatformDxe-proper-addr-masking.patch
-Patch0021: 0021-OvmfPkg-EmuVariableFvbRuntimeDxe-fix-ValidateFvHeade.patch
-Patch0022: 0022-OvmfPkg-IntelTdx-Move-BootManagerMenuApp-from-NCCFV-.patch
-Patch0023: 0023-OvmfPkg-PlatformInitLib-restore-below-4G-low-memory-.patch
 
 
 # needed by %prep

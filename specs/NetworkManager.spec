@@ -5,7 +5,7 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.58.0
+Version: 1.58.1
 Release: 1%{?dist}
 
 ###############################################################################
@@ -1063,6 +1063,9 @@ fi
 
 
 %changelog
+* Fri Aug 21 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:1.58.1-1
+- Update to 1.58.1 release
+
 * Mon Jul 20 2026 Josephine Pfeiffer <josie@redhat.com> - 1:1.58.0-1
 - Update to 1.58.0 release
 

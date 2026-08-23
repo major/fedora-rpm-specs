@@ -1,6 +1,6 @@
 # libbase is a utility library from the same upstream that is only used by this
 # project and is statically linked into the build
-%global libbase_commit aa0da7a355b04b1dd8572a94261a0b0c497e1a85
+%global libbase_commit 2663444797981b11ade10e23813ada407e3b24b4
 %global libbase_url https://github.com/phkaeser/libbase
 
 %bcond docs 1
@@ -9,7 +9,7 @@
 %global toolchain clang
 
 Name:           wlmaker
-Version:        0.7
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Wayland compositor inspired by Window Maker
 
@@ -18,10 +18,9 @@ URL:            https://github.com/phkaeser/wlmaker
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{libbase_url}/archive/%{libbase_commit}/libbase-%{libbase_commit}.tar.gz
 
-# Corrects path to configs https://github.com/phkaeser/wlmaker/pull/429
-Patch0:         0001-fix-config-path.patch
-# Drops google-chrome from default dock placement, and application menu, adds Firefox
-Patch1:         0002-remove-google-chrome.patch
+# Replace google-chrome with firefox in the application menu
+# Drop chromium from the default dock placement
+Patch:          remove-google-chrome-chromium.patch
 
 # i686: https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -32,6 +31,7 @@ BuildRequires:  clang
 BuildRequires:  desktop-file-utils
 BuildRequires:  flex
 BuildRequires:  hicolor-icon-theme
+BuildRequires:  libappstream-glib
 BuildRequires:  sed
 %if %{with docs}
 BuildRequires:  doxygen
@@ -44,11 +44,11 @@ BuildRequires:  pkgconfig(cairo) >= 1.16.0
 
 # For wlmaker
 BuildRequires:  pkgconfig(wayland-client) >= 1.22.0
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.31
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.32
 BuildRequires:  pkgconfig(wayland-server) >= 1.22.0
-BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(wlroots-0.20) >= 0.20
 BuildRequires:  pkgconfig(xcb) >= 1.15
-BuildRequires:  pkgconfig(libxdg-basedir)
+BuildRequires:  pkgconfig(libxdg-basedir) >= 1.2
 BuildRequires:  pkgconfig(xkbcommon) >= 1.5.0
 BuildRequires:  pkgconfig(xwayland) >= 22.1.9
 
@@ -109,18 +109,26 @@ sed -i 's/-Werror//' CMakeLists.txt submodules/libbase/CMakeLists.txt
 %check
 %ctest
 desktop-file-validate %{buildroot}%{_datadir}/applications/{%{name},%{name}.wlmclock,%{name}.wlmeyes}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.wlmaker.wlmaker.metainfo.xml
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
+%{_bindir}/wlmbattery
+%{_bindir}/wlmcpugraph
 %{_bindir}/wlmclock
 %{_bindir}/wlmeyes
+%{_bindir}/wlmmemgraph
+%{_bindir}/wlmnetgraph
+%{_bindir}/wlmtool
 %{_sysconfdir}/xdg/%{name}/
 %{_datadir}/applications/
 %{_datadir}/icons/hicolor/*/apps/*
+%{_metainfodir}/org.wlmaker.wlmaker.metainfo.xml
 %{_datadir}/wayland-sessions/
 %{_datadir}/%{name}/icons/
+%{_datadir}/%{name}/Themes/
 
 %if %{with docs}
 %files doc

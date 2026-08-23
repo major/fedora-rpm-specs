@@ -10,7 +10,7 @@ Sushy is a Python library to communicate with Redfish based systems (http://redf
 %global common_desc_tests Tests for Sushy
 
 Name: python-%{sname}
-Version: 5.12.0
+Version: 5.13.0
 Release: %autorelease
 Summary: Sushy is a Python library to communicate with Redfish based systems
 License: Apache-2.0
@@ -29,7 +29,7 @@ BuildArch: noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  gpgverify
 %endif
 
 %description
@@ -107,7 +107,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
-%license LICENSE
+%license LICENSE ChangeLog
 %exclude %{python3_sitelib}/%{sname}/tests
 
 

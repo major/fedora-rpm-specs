@@ -30,6 +30,8 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
 
+Patch: seat-Fix-use-after-free-in-kmscon_seat_remove_video.patch
+
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace

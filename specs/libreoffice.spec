@@ -989,8 +989,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l de -n German -F -H -Y -M -A -T -X -Z
 %langpack -l dz -n Dzongkha -F -s ctl -T -X
 %langpack -l el -n Greek -F -H -Y -M -A -T -X
-%define langpack_lang British English
-%langpack -l en-GB -n %{langpack_lang} -F -h en -y en -m en -a en -T -X -g en_GB
+%langpack -l en-GB -n %{quote:British English} -F -h en -y en -m en -a en -T -X -g en_GB
 %langpack -l eo -n Esperanto -F -H -M -T -X
 %langpack -l es -n Spanish -F -H -Y -M -A -T -X -Z
 %langpack -l et -n Estonian -F -H -Y -T -X -Z
@@ -1022,10 +1021,8 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l nb -n Bokmal -F -H -Y -M -T -X
 %langpack -l nl -n Dutch -F -H -Y -M -A -T -X
 %langpack -l nn -n Nynorsk -F -H -Y -M -T -X
-%define langpack_lang Southern Ndebele
-%langpack -l nr -n %{langpack_lang} -F -H -X
-%define langpack_lang Northern Sotho
-%langpack -l nso -n %{langpack_lang} -F -H -X
+%langpack -l nr -n %{quote:Southern Ndebele} -F -H -X
+%langpack -l nso -n %{quote:Northern Sotho} -F -H -X
 %langpack -l or -n Odia -F -H -Y -s ctl -X
 %langpack -l pa -n Punjabi -F -H -Y -s ctl -L pa-IN -g pa_IN -X
 %langpack -l pl -n Polish -F -H -Y -M -A -T -X -Z

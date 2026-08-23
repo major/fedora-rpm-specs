@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-URI
-Version:        5.35
-Release:        2%{?dist}
+Version:        5.36
+Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI
@@ -38,6 +38,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Unicode::Normalize)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Test Suite
@@ -45,7 +46,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Warnings)
@@ -158,6 +158,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.36-1
+- 5.36 bump (rhbz#2520744)
+- Fix CVE-2026-19953 (IDNA host encoding / Unicode NFC normalization)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

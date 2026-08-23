@@ -7,7 +7,7 @@
 Code from the future, delivered to you in the now.}
 
 Name:           python-%{pypi_name}
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Useful additions to futures, from the future
 
@@ -27,7 +27,7 @@ BuildRequires:  git-core
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  gpgverify
 %endif
 
 

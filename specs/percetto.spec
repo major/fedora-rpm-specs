@@ -22,6 +22,10 @@ BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  perfetto-sdk
 
+# libpercetto.so statically embeds the amalgamated Perfetto tracing SDK
+%global perfetto_sdk_version %(rpm -q --qf '%%{VERSION}\\n' perfetto-sdk 2>/dev/null | grep -Em1 '^[0-9]' || echo 0)
+Provides:       bundled(perfetto-sdk) = %{perfetto_sdk_version}
+
 # Perfetto only supports these architectures
 ExclusiveArch:  aarch64 x86_64
 

@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/timvink/mkdocs-git-revision-date-localized-plugin
 
 Name:           python-mkdocs-git-revision-date-localized-plugin
-Version:        1.5.3
+Version:        1.5.4
 Release:        %autorelease
 Summary:        Mkdocs plugin to display the last git modification date
 

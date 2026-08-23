@@ -2,16 +2,13 @@
 %global pypi_name unidiff
 
 Name:           python-%{modname}
-Version:        0.7.5
-Release:        14%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Python library to parse and interact with unified diffs (patches)
 License:        MIT
 URL:            http://github.com/matiasb/python-unidiff
 Source0:        %pypi_source
 BuildArch:      noarch
-
-# use setuptools console_scripts for /usr/bin/unidiff
-Patch1: 0001-use-setuptools-console_scripts-for-usr-bin-unidiff.patch
 
 %description
 python-unidiff is a Python library to parse and interact with unified diffs 
@@ -45,10 +42,15 @@ rm -r unidiff.egg-info
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest discover -s tests/
 
 %files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
-%doc README.rst HISTORY
+%doc README.md HISTORY
 %{_bindir}/%{modname}
 
 %changelog
+* Thu Aug 20 2026 Packit <hello@packit.dev> - 1.0.0-1
+- New upstream release 1.0.0 (rhbz#2520211)
+- Drop unnecessary patch
+- Adjust the README in the RPM installed files
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

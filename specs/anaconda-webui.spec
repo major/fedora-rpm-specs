@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        78
+Version:        79
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -145,6 +145,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Aug 21 2026 Packit <hello@packit.dev> - 79-1
+- wizard: use installation status for navigation instead of URL
+- boss: skip non-essential client init when installation is completed
+- Show "Stratis" for mountpoints on Stratis devices on review screen
+
 * Mon Aug 17 2026 Packit <hello@packit.dev> - 78-1
 - Add Cockpit PIN authentication support
 - Add initial login page for remote installation

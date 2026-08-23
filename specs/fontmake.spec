@@ -57,16 +57,16 @@ fonts.
 
 
 %if %{with pathops}
-%pyproject_extras_subpkg -n fontmake pathops
+%pyproject_extras_subpkg --name fontmake pathops
 %endif
 %if %{with autohint}
-%pyproject_extras_subpkg -n fontmake autohint
+%pyproject_extras_subpkg --name fontmake autohint
 %endif
 %if %{with json}
-%pyproject_extras_subpkg -n fontmake json
+%pyproject_extras_subpkg --name fontmake json
 %endif
 %if %{with repacker}
-%pyproject_extras_subpkg -n fontmake repacker
+%pyproject_extras_subpkg --name fontmake repacker
 %endif
 
 

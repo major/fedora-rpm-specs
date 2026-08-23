@@ -41,6 +41,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 %gnome_check_version
 
+# https://gitlab.gnome.org/GNOME/gnome-builder/-/work_items/2413
+Patch:          startup-crash.patch
+
 BuildRequires:  clang-devel
 BuildRequires:  ctags
 BuildRequires:  desktop-file-utils

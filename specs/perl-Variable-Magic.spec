@@ -1,9 +1,8 @@
 Name:           perl-Variable-Magic
-Version:        0.64
-Release:        9%{?dist}
+Version:        0.65
+Release:        1%{?dist}
 Summary:        Associate user-defined magic to variables from Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-
 URL:            https://metacpan.org/release/Variable-Magic
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/Variable-Magic-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -77,6 +76,14 @@ make test
 %{_mandir}/man3/Variable::Magic.3*
 
 %changelog
+* Fri Aug 21 2026 Paul Howarth <paul@city-fan.org> - 0.65-1
+- Update to 0.65 (rhbz#2520627)
+  - The 'delete' callback for hashes will now correctly be fired in void
+    context; VMG_COMPAT_HASH_DELETE_NOUVAR_VOID is now always set to false
+    (this is a [good] side effect of the following fix)
+  - Fix test failures under perl v5.45.2 (CPAN RT#180372)
+  - CONTRIBUTING: AI contributions are not welcomed
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.64-9
 - Perl 5.44 rebuild
 

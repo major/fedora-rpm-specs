@@ -1,29 +1,35 @@
-Name:		nip2
-Version:	8.9.1
-Release:	%autorelease
-Summary:	Interactive tool for working with large images
+Name:           nip2
+Version:        8.9.1
+Release:        %autorelease
+Summary:        Interactive tool for working with large images
 
-License:	GPL-2.0-or-later
-URL:		https://libvips.github.io/libvips/
-Source0:	https://github.com/libvips/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+License:        GPL-2.0-or-later
+URL:            https://libvips.github.io/libvips/
+Source0:        https://github.com/libvips/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Do not re-declare statfs(), declare function arguments
 # FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2340934
 Patch0:         https://github.com/libvips/nip2/pull/123.patch
+# Fix void value error in IM_FREEF with GCC 15
+Patch1:         nip2-IM_FREEF.patch
 
-BuildRequires: make
-BuildRequires:	pkgconfig(vips)
-BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	pkgconfig(fftw3)
-BuildRequires:	pkgconfig(libgvc)
-BuildRequires:	pkgconfig(gsl)
-BuildRequires:	pkgconfig(libgsf-1)
-BuildRequires:	gcc
-BuildRequires:	shared-mime-info gnome-icon-theme-devel
-BuildRequires:	flex bison intltool gettext
-BuildRequires:	desktop-file-utils xdg-utils
-BuildRequires:	libappstream-glib
-
+BuildRequires:  bison
+BuildRequires:  desktop-file-utils
+BuildRequires:  flex
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  gnome-icon-theme-devel
+BuildRequires:  intltool
+BuildRequires:  libappstream-glib
+BuildRequires:  make
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(gsl)
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(libgsf-1)
+BuildRequires:  pkgconfig(libgvc)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(vips)
+BuildRequires:  shared-mime-info
+BuildRequires:  xdg-utils
 
 # description taken from Debian package
 %description
@@ -51,33 +57,33 @@ GIMP should be used instead.
 %make_install
 
 # AppStream spec changed its install directory
-mv $RPM_BUILD_ROOT%{_datadir}/appdata $RPM_BUILD_ROOT%{_datadir}/metainfo
+mv %{buildroot}%{_datadir}/appdata %{buildroot}%{_datadir}/metainfo
 
 # delete doc (we will get it later)
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/nip2
+rm -rf %{buildroot}%{_datadir}/doc/nip2
 
 # locale stuff
-%find_lang nip2
+%find_lang %{name}
 
 # icon
-install -d $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps
-cp -a share/nip2/data/vips-128.png	\
-	$RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/nip2.png
+install -d %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
+cp -a share/nip2/data/vips-128.png \
+        %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/nip2.png
 
 
 %check
 # metainfo
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/nip2.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/nip2.appdata.xml
 
 # desktop file
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nip2.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/nip2.desktop
 
-%files -f nip2.lang
+%files -f %{name}.lang
 %doc doc/html doc/pdf AUTHORS ChangeLog NEWS THANKS TODO
 %license COPYING
 %{_bindir}/nip2
 %{_datadir}/nip2
-%{_mandir}/man1/nip2.1.gz
+%{_mandir}/man1/nip2.1*
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/metainfo/nip2.appdata.xml
 %{_datadir}/applications/nip2.desktop

@@ -32,10 +32,14 @@ ExcludeArch: i686
 %global enable_replace_malloc 0
 %endif
 
+%if !%{release_build}
+  %bcond wasi_sdk 0
+%else
 %ifarch s390x
   %bcond wasi_sdk 0
 %else
   %bcond wasi_sdk 1
+%endif
 %endif
 
 %bcond build_with_clang 0
@@ -90,11 +94,7 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %global build_with_pgo    1
-%else
-%global build_with_pgo    1
-%endif
 %endif
 %endif
 %if 0%{?flatpak}
@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        154.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -255,6 +255,8 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
+Patch402:        D317117.1787384850.diff
+Patch403:        D318191.1787388141.diff
 
 # https://phabricator.services.mozilla.com/D312871
 # Drop with Firefox 156
@@ -542,6 +544,8 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
+%patch -P402 -p1 -b .D317117
+%patch -P403 -p1 -b .D318191
 
 %patch -P410 -p1 -b .libwebrtc-video-capture-implement-buffer-stride-support-for-pipewire
 
@@ -1211,6 +1215,11 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Aug 21 2026 Martin Stransky <stransky@redhat.com> - 154.0-4
+- Backported fix for HDR crash when HLG transform is missing
+  (and it's always missing!).
+- Backported HDR fix for GL framebuffer (D318191).
+
 * Tue Aug 18 2026 Jan Grulich <jgrulich@redhat.com> - 154.0-3
 - WebRTC backport: video_capture - implement buffer stride support for PipeWire
 

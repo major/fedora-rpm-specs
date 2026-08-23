@@ -9,15 +9,11 @@
 %global         _gobject_introspection  1.31.1
 %global 	__python %{__python3}
 
-%if 0%{?fedora}
-%bcond_without unwind
-%else
 %bcond_with unwind
-%endif
 
 Name:           gstreamer1
 Version:        1.28.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPL-2.1-or-later
@@ -209,6 +205,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Aug 21 2026 Arjun Shankar <arjun@redhat.com> - 1.28.6-2
+- Build without libunwind by default
+
 * Wed Aug 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.6-1
 - 1.28.6
 

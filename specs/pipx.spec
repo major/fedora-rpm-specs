@@ -29,7 +29,7 @@ and managing Python packages that can be run from the command line directly as
 applications.
 
 
-%pyproject_extras_subpkg -n pipx uv
+%pyproject_extras_subpkg --name pipx uv
 
 
 %generate_buildrequires -p

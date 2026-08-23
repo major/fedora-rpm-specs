@@ -6,7 +6,7 @@
 %global crate tokio-macros
 
 Name:           rust-tokio-macros
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Tokio's proc macros
 

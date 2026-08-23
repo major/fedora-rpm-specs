@@ -2,7 +2,7 @@
 %bcond gevent 1
 
 Name:           python-zmq
-Version:        27.1.0
+Version:        27.2.0
 Release:        %autorelease
 Summary:        Python bindings for zeromq
 
@@ -45,12 +45,7 @@ URL:            https://zeromq.org/languages/python/
 %global forgeurl https://github.com/zeromq/pyzmq
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
-# Fix TestFrame.test_buffer_numpy on numpy 2.5
-# https://github.com/zeromq/pyzmq/pull/2202
-Patch:          %{forgeurl}/pull/2202.patch
-
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): test-requirements.txt
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build): %{shrink:
     --config-settings cmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF
@@ -72,6 +67,16 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libzmq)
 
+# Test dependencies from test-requirements.txt, which also has many unwanted
+# dependencies for linting, typechecking, coverage analysis, and so on, so we
+# list the ones we actually need manually. Notes:
+# - pymongo is used only in examples/mongodb/, and we don’t run examples
+BuildRequires:  %{py3_dist cython}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
+BuildRequires:  %{py3_dist pytest-rerunfailures}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist tornado}
 # Add some manual test dependencies that aren’t in test-requirements.txt, but
 # which enable additional tests.
 #
@@ -134,16 +139,6 @@ find . -type f -exec \
 find 'src' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs --no-run-if-empty sed --regexp-extended --in-place '1{/^#!/d}'
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-%pyproject_patch_dependency black:ignore
-%pyproject_patch_dependency codecov:ignore
-%pyproject_patch_dependency coverage:ignore
-%pyproject_patch_dependency flake8:ignore
-%pyproject_patch_dependency mypy:ignore
-%pyproject_patch_dependency pytest-cov:ignore
-# pymongo is used only in examples/mongodb/, and we don’t run examples
-%pyproject_patch_dependency pymongo:ignore
 
 
 %check -p

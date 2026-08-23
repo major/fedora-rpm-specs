@@ -159,13 +159,7 @@ Source120:       https://github.com/meta-pytorch/MSLK/archive/%{mslk_commit}/MSL
 
 %global pt_arches x86_64 aarch64
 ExclusiveArch:  %pt_arches
-# Switch to clang temporarily on aarch64, GCC 16 + PyTorch 2.9.1 has problems
-# See rhbz#2431943 for more info
-%ifarch aarch64
-%global toolchain clang
-%else
 %global toolchain gcc
-%endif
 %global _lto_cflags %nil
 
 BuildRequires:  cmake

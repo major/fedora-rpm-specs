@@ -1,12 +1,14 @@
 Name:           hpx
 Version:        1.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
 Source0:        https://github.com/STEllAR-GROUP/hpx/archive/v%{version}/%{name}-%{version}.tar.gz
 # from upstream https://github.com/STEllAR-GROUP/hpx/issues/6867#issuecomment-3829261348
 Patch0:         gcc-16.patch
+# from upstream https://github.com/TheHPXProject/hpx/issues/7428#issuecomment-5168078573
+Patch1:         https://patch-diff.githubusercontent.com/raw/TheHPXProject/hpx/pull/7463.diff
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
@@ -279,6 +281,10 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Fri Aug 21 2026 Christoph Junghans <junghans@votca.org> - 1.11.0-5
+- Fix build with asio-1.38.1
+- Fixes: rhbz#2504129
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

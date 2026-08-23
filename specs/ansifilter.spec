@@ -1,3 +1,7 @@
+%global forgeurl https://gitlab.com/saalen/ansifilter
+Version:        2.23
+%forgemeta
+
 %bcond_without  gui
 # Fedora has Qt6
 # EPEL9+ has Qt6, but RHEL9 and CentOS Stream 9 do not, while their 10 versions do
@@ -10,20 +14,26 @@
 %endif
 
 Name:           ansifilter
-Version:        2.22
 Release:        %autorelease
 Summary:        ANSI terminal escape code converter
 License:        GPL-3.0-or-later
 URL:            http://www.andre-simon.de/doku/ansifilter/ansifilter.php
-Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
+Source0:        http://andre-simon.de/zip/%{name}-%{version}.tar.bz2
+Source1:        http://andre-simon.de/zip/%{name}-%{version}.tar.bz2.asc
+Source2:        ansifilter.gpg
 %if %{with gui}
-Source1:        ansifilter.desktop
-Source2:        http://www.andre-simon.de/img/af_icon.png
+Source3:        ansifilter.desktop
+Source4:        http://www.andre-simon.de/img/af_icon.png
 %endif
 ExcludeArch:    %{ix86}
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
+BuildRequires:  gpgverify
 BuildRequires:  make
+%if %{with gui}
+BuildRequires:  qt%{qt_ver}-qtbase-devel
+%endif
 
 %description
 Ansifilter handles text files containing ANSI terminal escape codes. The
@@ -33,7 +43,6 @@ output (HTML, RTF, TeX, LaTeX, BBCode).
 %if %{with gui}
 %package        gui
 Summary:        GUI for %{name} based on Qt%{qt_ver}
-BuildRequires:  qt%{qt_ver}-qtbase-devel
 
 %description    gui
 Ansifilter handles text files containing ANSI terminal escape codes. The
@@ -44,6 +53,7 @@ This is a GUI of %{name} based on Qt%{qt_ver}.
 %endif
 
 %prep
+%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup
 
 # CRLF quickfix
@@ -74,12 +84,15 @@ popd
     INSTALL_DATA="install -p -m644" \
     INSTALL_PROGRAM="install -p -m755" \
     DESTDIR=%{buildroot}
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{S:1}
-install -pDm644 %{S:2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{S:3}
+install -pDm644 %{S:4} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %endif
 
 # Use %%doc and %%license to handle docs.
 rm -rf %{buildroot}%{_docdir}/ansifilter
+
+%check
+bash src/ci_test.sh
 
 %files
 %doc ChangeLog.adoc README.adoc

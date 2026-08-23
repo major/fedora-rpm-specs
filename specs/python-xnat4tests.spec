@@ -1,13 +1,12 @@
 %global pypi_name xnat4tests
+%global forgeurl https://github.com/australian-imaging-service/xnat4tests
+Version:        0.4.1
+%global tag     v%{version}
+%forgemeta
 
 Name:           python-%{pypi_name}
-Version:        0.3.14
 Release:        %autorelease
 Summary:        Create basic XNAT instance for API tests
-
-%global forgeurl https://github.com/australian-imaging-service/xnat4tests
-%global tag v%{version}
-%forgemeta
 
 # The entire source is Apache-2.0, except that versioneer.py and the
 # _version.py it generates are CC0-1.0, not generally allowed for code in
@@ -16,15 +15,8 @@ Summary:        Create basic XNAT instance for API tests
 # _version.py using the system python-versioneer, which is a later version
 # under Unlicense so the resulting _version.py is also Unlicense.
 License:        Apache-2.0 AND Unlicense
-URL:            %forgeurl
+URL:             %forgeurl
 Source:         %forgesource
-# Update Versioneer and fix config.
-# Part of the changes are required even if upstream decides not to
-# merge the PR fully (e.g. sticking with the current Versioneer version).
-# In that case we could use the system installed Versioneer to recreate
-# versioneer.py as well as _version.py which are than Unlicense.
-# https://github.com/Australian-Imaging-Service/xnat4tests/pull/20
-Patch:          0001-Update-Versioneer-and-fix-config.patch
 
 BuildArch:      noarch
 BuildRequires:  git-core
@@ -47,7 +39,7 @@ Provides:       xnat4tests = %{?epoch:%{epoch}:}%{version}-%{release}
 
 
 %prep
-%forgeautosetup -p1 -S git
+%forgeautosetup -S git
 
 # Remove duplicated entry point
 # We'll create a symlink by the same name instead

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        108
+Version:        110
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -15,6 +15,7 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  /usr/bin/node
+BuildRequires:  npm
 # for _tmpfilesdir macro
 BuildRequires:  systemd-rpm-macros
 
@@ -33,7 +34,7 @@ as a frontend for osbuild.
 %setup -q -n %{name}
 
 %build
-# Nothing to build
+NODE_ENV=production npm run build:cockpit
 
 %install
 %make_install PREFIX=/usr
@@ -55,6 +56,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %ghost %attr(0700, root, root) %dir /var/cache/cockpit-image-builder
 
 %changelog
+* Fri Aug 21 2026 Packit <hello@packit.dev> - 110-1
+Changes with 110
+----------------
+  - cockpit/spec: do not run unit tests during rpm build (#4775)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-08-21
+
 * Wed Aug 19 2026 Packit <hello@packit.dev> - 108-1
 Changes with 108
 ----------------

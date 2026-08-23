@@ -74,7 +74,7 @@ Obsoletes:      %{name}-doc < 0.27.0-5
 %description -n python3-asyncpg %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-asyncpg gssauth
+%pyproject_extras_subpkg --name python3-asyncpg gssauth
 
 
 %prep -a

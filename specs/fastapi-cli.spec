@@ -44,7 +44,7 @@ FastAPI app, manage your FastAPI project, and more.}
 
 
 %if %{defined fc44} || %{defined fc45} || %{defined fc46}
-# We don’t use “%%pyproject_extras_subpkg -n fastapi-cli …” because we want
+# We don’t use “%%pyproject_extras_subpkg --name fastapi-cli …” because we want
 # to Obsolete the corresponding fastapi-cli-slim extras.
 
 %package -n fastapi-cli+standard
@@ -80,7 +80,9 @@ It makes sure the dependencies are installed.
 %files -n fastapi-cli+new
 %ghost %dir %{python3_sitelib}/*.dist-info
 %else
-%pyproject_extras_subpkg -n fastapi-cli standard standard-no-fastapi-cloud-cli new
+%pyproject_extras_subpkg --name fastapi-cli standard
+%pyproject_extras_subpkg --name fastapi-cli standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg --name fastapi-cli new
 %endif
 
 

@@ -50,9 +50,12 @@
 %global build_test OFF
 %endif
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -72,6 +75,7 @@ BuildRequires:  hipsparse%{pkg_suffix}-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocblas%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocfft%{pkg_suffix}-devel
 BuildRequires:  rocrand%{pkg_suffix}-devel
 BuildRequires:  rocsolver%{pkg_suffix}-devel
@@ -106,6 +110,7 @@ sed -i '/hipfort_add_test(hip graph f2003)/d' test/CMakeLists.txt
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_Fortran_FLAGS="-fPIE -L%{pkg_prefix}/%{pkg_libdir}" \
+    -DCMAKE_HIP_ARCHITECTURES=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_RPATH=ON \
@@ -147,6 +152,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Fri Aug 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Fix check
+
 * Thu Aug 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14.0
 

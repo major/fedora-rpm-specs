@@ -1,5 +1,5 @@
 Name:           pythran
-Version:        0.18.1
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Ahead of Time Python compiler for numeric kernels
 
@@ -21,45 +21,6 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 
 URL:            https://github.com/serge-sans-paille/pythran
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Compatibility with 32 bits numpy
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2375.patch
-
-# Skip numpy float128 tests when numpy doesn't support them
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2398.patch
-
-# Compatibility with ply post-3.11 version
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2402.patch
-
-# Fix directory structure for pytest discovery
-# Sent upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2403.patch
-
-# Fix 32 bit type conversion failures
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2404.patch
-
-# Reduce test_numpy_random_bytes1 sample size
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2407.patch
-
-# Reduce C++ code generation during testing
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2413.patch
-
-# Widen tolerance in test_numpy_random_bytes1
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2414.patch
-
-# Widen tolerance in random distribution tests
-# Resolved upstream
-Patch: https://github.com/serge-sans-paille/pythran/pull/2415.patch
-
-# Fix typing of array.typecodes for Python 3.15
-Patch: https://github.com/serge-sans-paille/pythran/pull/2431.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -126,6 +87,7 @@ sed -i 's/, "nbval"//' pyproject.toml
 sed -i -e 's/-O0/-O1/g' -e 's/-Werror/-w/g' pythran/tests/__init__.py
 
 %pyproject_patch_dependency gast:set_upper:0.8.0
+%pyproject_patch_dependency beniget:drop_lower
 
 
 %generate_buildrequires

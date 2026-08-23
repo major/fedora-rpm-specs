@@ -1,5 +1,5 @@
 Name: gnuastro
-Version: 0.23
+Version: 0.24
 Release: %autorelease
 Summary: GNU Astronomy Utilities
 
@@ -15,8 +15,6 @@ Source2: https://akhlaghi.org/public-pgp-key.txt
 Patch0: gnuastro-dont-override-cflags.patch
 # https://savannah.gnu.org/bugs/?67289
 Patch1: gnuastro-skip-test.patch
-# https://savannah.gnu.org/bugs/?67232
-Patch2: gnuastro-i686.patch
 Patch3: gnuastro-skip-test2.patch
 
 ExcludeArch: %{ix86}
@@ -90,8 +88,8 @@ make check
 %files
 %doc README NEWS THANKS
 %license COPYING COPYING.FDL
-%{_libdir}/libgnuastro.so.21*
-%{_libdir}/libgnuastro_make.so.21*
+%{_libdir}/libgnuastro.so.22*
+%{_libdir}/libgnuastro_make.so.22*
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/ast*.conf
 %config(noreplace) %{_sysconfdir}/%{name}/gnuastro.conf

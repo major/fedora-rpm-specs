@@ -1,12 +1,11 @@
 %global bpf_supported_arches aarch64 x86_64 ppc64le riscv64 s390x
 Summary: Alternate posix capabilities library
 Name: libcap-ng
-Version: 0.9.4
-Release: 2%{?dist}
+Version: 0.9.5
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
-Patch1: fix-u32-parsing.patch
 BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
@@ -61,7 +60,6 @@ to determine the necessary capabilities for a program.
 %prep
 %setup -q
 touch -d @${SOURCE_DATE_EPOCH:?} NEWS
-%patch -P 1 -p1
 
 %build
 # Locate suitable vmlinux.h. In normal builds under mock,
@@ -132,8 +130,8 @@ make check
 %endif
 
 %changelog
-* Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.4-2
-- Add patch to fix 32 bit builds
+* Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.5-1
+- New upstream feature release
 
 * Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.4-1
 - New upstream feature release

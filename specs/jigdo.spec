@@ -11,7 +11,9 @@ Source1:       %{url}download/%{name}-%{version}.tar.xz.sig
 Source2:       https://www.einval.com/~steve/pgp/587979573442684E.asc
 Source3:       jigdo.desktop
 # fix doc SGML sources e.g. for missing end tags
-Patch:         %{name}-0.8.1-fix-docs.patch
+Patch0:        %{name}-0.8.1-fix-docs.patch
+# fix assertion error triggered by out-of-bound access
+Patch1:        %{name}-0.8.2-configfile-empty-line.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: curl-devel

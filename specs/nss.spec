@@ -1,5 +1,5 @@
 %global nspr_version 4.39.0
-%global nss_version 3.126.0
+%global nss_version 3.127.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+4]
+%global nspr_release %[%baserelease+5]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -82,6 +82,7 @@ BuildRequires:    gawk
 BuildRequires:    psmisc
 BuildRequires:    perl-interpreter
 BuildRequires:    gcc-c++
+BuildRequires:    parallel
 
 Source0:          https://ftp.mozilla.org/pub/security/nss/releases/%{nss_release_tag}/src/%{nss_nspr_archive}.tar.gz
 Source1:          nss-util.pc.in
@@ -129,16 +130,40 @@ Source101:        nspr-config.xml
 Patch4:           iquote.patch
 Patch12:          nss-signtool-format.patch
 Patch13:          nss-dso-ldflags.patch
+
+# Extend db dump timeout to avoid flaky failures on slow builders
+Patch20:          nss-3.101-extend-db-dump-time.patch
+# Update FIPS DH test prime to RFC 7919 FFDHE group
+Patch21:          nss-3.90-dh-test-update.patch
+# Fix tools test expected exit code for corrupted PKCS#12 bag
+Patch22:          nss-3.124-tools-test-fix.patch
+
+# Disallow MD2/MD4/MD5 in FIPS mode for signing and PKCS#12 write
+Patch30:          nss-3.112-disable-md5.patch
+
 # fedora disabled dbm by default
 Patch40:          nss-no-dbm-man-page.patch
+# Disable NSS_NO_INIT_SUPPORT on ppc64le (causes init failures)
+Patch41:          nss-3.124-ppc_no_init.patch
+# Add missing GNU stack / noexecstack annotations to x86 assembly
+Patch42:          nss-3.124-annocheck.fix.patch
 
 # https://issues.redhat.com/browse/FC-1613
 Patch50:          nss-3.110-dissable_test-ssl_policy_pkix_oscp.patch
+# Fix Ed25519/Ed448 key storage and display in secutil/softoken
+Patch51:          nss-3.124-fix-ed-key-storage.patch
+# FIPS-compatible symmetric key import via CKM_CONCATENATE_DATA_AND_BASE
+Patch52:          nss-3.124-fips-key-import-fix.patch
+# Fix PK11_Encapsulate to import the public key before use and handle NULL slot
+Patch53:          nss-3.124-fix-pub-key-import-encapsulate.patch
+# Allow PSS hash algorithm override instead of failing on mismatch
+Patch54:          nss-3.124-allow-hash-override-pss.patch
 
 # ML-DSA support patches that haven't made it to the 3.118.1 release
 Patch60:          nss-3.118-ml-dsa-leancrypto.patch
 Patch61:          nss-3.118-ml-dsa-tls.patch
-#Patch62:          nss-3.118-prefer-all-hybrid.patch
+# Prefer hybrid (classical + PQC) key exchange groups in TLS 1.3
+Patch62:          nss-3.124-prefer-all-hybrid.patch
 
 Patch65:          nss-3.118-ml-dsa-test-for-sign-verify-pkcs12.patch
 Patch66:          nss-3.118-ml-dsa-tls-test.patch
@@ -148,6 +173,10 @@ Patch68:          nss-3.123-fix-mldsa-import-regeneration.patch
 # Reseed the freebl DRBG in the child after fork(), so forked children do not
 # replay the parent's random stream (mozbz#2056509)
 Patch70:          nss-3.125-drbg-reseed-after-fork.patch
+
+# ML-KEM: populate key size bounds and add MLKEM alias names
+Patch71:          nss-3.124-add-ml-kem-key-size-mech-info.patch
+Patch72:          nss-3.124-ml-kem-alias-fix.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -314,6 +343,9 @@ popd
 
 pushd nss
 %autopatch -p1 -M 99
+# GNU patch 2.8 --fuzz=0 cannot apply this one-line call-site addition due to
+# cumulative hunk offset interaction; use sed as a workaround
+sed -i 's/^  tools_p12_import_ed25519_private_key$/&\n  tools_p12_ml_dsa_import/' tests/tools/tools.sh
 popd
 
 tar -xf %{SOURCE30}
@@ -366,8 +398,8 @@ popd
 
 # Build NSS
 #
-# This package fails its testsuite with LTO.  Disable LTO for now
-#%global _lto_cflags %{nil}
+# LTO is enabled. Uncomment the line below to disable it if needed.
+#%%global _lto_cflags %%{nil}
 
 #export FREEBL_NO_DEPEND=1
 
@@ -1097,6 +1129,9 @@ fi
 
 
 %changelog
+* Tue Aug 18 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.127.0-1
+- Update NSS to 3.127.0
+
 * Tue Jul 28 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.126.0-1
 - Update NSS to 3.126.0
 
@@ -1283,7 +1318,7 @@ fi
                 https://bugzilla.mozilla.org/show_bug.cgi?id=1836925
 
 * Mon Jun 5 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.90.0-1
-- Update %patch syntax
+- Update %%patch syntax
 
 * Mon Jun 5 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.90.0-1
 - Update NSS to 3.90.0
@@ -1292,7 +1327,7 @@ fi
 - combine nss and nspr source togeather
 
 * Fri May 5 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.89.0-1
-- replace %{version} with %{nss_version} as it version can be overiden.
+- replace %%{version} with %%{nss_version} as it version can be overiden.
 
 * Fri Mar 10 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.89.0-1
 - Update NSS to 3.89.0

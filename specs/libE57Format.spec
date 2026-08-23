@@ -1,16 +1,14 @@
-%global test_data_version bbcacec05d60f923869545c5eab33d94c390d50e
+%global test_data_version 0614c4812c1455aab38afa7abd63dc492eeebf60
 
 Name:           libE57Format
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Library for reading & writing the E57 file format
 
 License:        BSL-1.0
 URL:            https://asmaloney.github.io/libE57Format-docs/
-Source0:        https://github.com/asmaloney/libE57Format/archive/v%{version}/libE57Format-v%{version}.tar.gz
+Source0:        https://github.com/asmaloney/libE57Format/archive/v%{version}/libE57Format-%{version}.tar.gz
 Source1:        https://github.com/asmaloney/libE57Format-test-data/archive/%{test_data_version}/libE57Format-test-data-%{test_data_version}.tar.gz
-Patch0:         https://github.com/asmaloney/libE57Format/commit/ad54a32b22d4df96f569f667610f4a883c8f51ff.patch
-Patch1:         https://patch-diff.githubusercontent.com/raw/asmaloney/libE57Format/pull/346.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

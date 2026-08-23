@@ -46,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.8.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -58,6 +58,10 @@ Patch2: libunwind-1.3.1-multilib-fix.patch
 Patch5: libunwind-no-dl-iterate-phdr.patch
 # Fix C23 issue
 Patch6: https://github.com/libunwind/libunwind/commit/457612f470f8c0e718cdf7f14ef1ecb583f3b3a6.patch
+Patch7: libunwind-s390x-glibc-mmap.patch
+Patch8: libunwind-s390x-backtrace-1.patch
+Patch9: libunwind-s390x-backtrace-2.patch
+Patch10: libunwind-s390x-backtrace-3.patch
 
 ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64 riscv64
 
@@ -101,7 +105,7 @@ libtoolize --force
 autoheader
 automake --add-missing
 autoconf
-%configure --enable-static --enable-shared --enable-setjmp=no
+%configure --enable-static --enable-shared --enable-setjmp=no --disable-cxx-exceptions
 make %{?_smp_mflags}
 
 %install
@@ -150,6 +154,12 @@ echo ====================TESTING END=====================
 %{_libexecdir}/libunwind
 
 %changelog
+* Fri Aug 21 2026 Florian Weimer  <fweimer@redhat.com> - 1.8.3-4
+- Disable C++ exception support on all architectures (#2517606)
+- Add libunwind-s390x-glibc-mmap.patch to use glibc mmap on s390x
+  (libunwind mmap did not use the right syscall ABI).
+- Add libunwind-s390x-backtrace-*.patch to fix endless loops in tests.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %global common_desc Manage dynamic plugins for Python applications
 
 Name:           python-stevedore
-Version:        5.9.0
+Version:        5.9.1
 Release:        %autorelease
 Summary:        Manage dynamic plugins for Python applications
 
@@ -24,7 +24,7 @@ BuildArch:      noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  gpgverify
 %endif
 BuildRequires:  python3-devel
 BuildRequires:  git-core
@@ -88,7 +88,7 @@ sed -i \
 
 %files -n python3-stevedore -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst ChangeLog
 
 
 %changelog

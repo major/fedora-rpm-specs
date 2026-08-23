@@ -99,7 +99,7 @@ rm -rf html/{.buildinfo,.doctrees}
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files --assert-license %{srcname}
 
 %check
 %pyproject_check_import
@@ -114,8 +114,6 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-# https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/4Y2VRLVAR3DJXBSFVDYJMU3G4ZNPGEU6/
-%license LICENSE
 %doc README.md CHANGELOG.md CONTRIBUTORS.md
 
 %if %{with docs}

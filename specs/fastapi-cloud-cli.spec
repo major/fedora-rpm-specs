@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.22.2
+Version:        0.23.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -106,7 +106,7 @@ Conflicts:      python3-fastapi < 0.136.3-3
 %{summary}.
 
 
-%pyproject_extras_subpkg -n fastapi-cloud-cli standard
+%pyproject_extras_subpkg --name fastapi-cloud-cli standard
 
 
 %prep -a

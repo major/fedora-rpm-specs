@@ -3,11 +3,7 @@
 # Support Alien::cmake3, this works only with cmake < 4,
 # or support Alien::cmake4, this works only with cmake >= 4,
 # <https://github.com/PerlAlien/Alien-Build/issues/432>.
-%if 0%{?fedora} != 44
 %{bcond_without perl_Alien_Build_enables_cmake}
-%else
-%{bcond_with perl_Alien_Build_enables_cmake}
-%endif
 # Exhibit FFI::Platypus in Test::Alien
 %if !%{defined perl_bootstrap}
 # Build cycle: perl-FFI-Platypus → perl-Alien-Build
