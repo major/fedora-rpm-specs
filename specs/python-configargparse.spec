@@ -40,7 +40,7 @@ Summary:        %{summary}
 %description -n python3-configargparse %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-configargparse yaml
+%pyproject_extras_subpkg --name python3-configargparse yaml
 
 
 %generate_buildrequires -p

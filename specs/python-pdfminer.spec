@@ -140,7 +140,7 @@ Obsoletes:      python-pdfminer-doc < 20240706-4
 %description -n python3-pdfminer %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-pdfminer image
+%pyproject_extras_subpkg --name python3-pdfminer image
 
 
 %prep -a

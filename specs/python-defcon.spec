@@ -42,7 +42,7 @@ Summary:        %{summary}
 %description -n python3-defcon %{_description}
 
 
-%pyproject_extras_subpkg -n python3-defcon lxml %{?with_pens:pens}
+%pyproject_extras_subpkg --name python3-defcon lxml %{?with_pens:pens}
 
 
 %check -a

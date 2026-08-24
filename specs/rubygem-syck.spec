@@ -2,7 +2,7 @@
 
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
-Version:	1.6.1
+Version:	1.6.2
 Release:	1%{?dist}
 
 # README.rdoc
@@ -107,6 +107,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Aug 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-1
+- 1.6.2
+
 * Wed Jul 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.1-1
 - 1.6.1
 

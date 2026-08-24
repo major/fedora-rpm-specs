@@ -61,7 +61,7 @@ Summary:        %{summary}
 %description -n python3-python-ulid %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-python-ulid pydantic
+%pyproject_extras_subpkg --name python3-python-ulid pydantic
 
 
 %generate_buildrequires -p

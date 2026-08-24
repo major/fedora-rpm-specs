@@ -5,14 +5,17 @@
 %global crate fontdue
 
 Name:           rust-fontdue
-Version:        0.9.3
+Version:        0.9.4
 Release:        %autorelease
 Summary:        Simple no_std font parser and rasterizer
 
 License:        MIT OR Apache-2.0 OR Zlib
 URL:            https://crates.io/crates/fontdue
 Source:         %{crates_source}
-# * Manually created patch for downstream crate metadata changes
+# Manually created patch for downstream crate metadata changes
+# * use the 'std' feature of ttf-parser instead of 'no-std-float', which is not
+#   available in Fedora (rust-ttf-parser does not build a +no-std-float-devel
+#   subpackage); ttf-parser requires exactly one of the two
 Patch:          fontdue-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

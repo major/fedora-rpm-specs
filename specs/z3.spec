@@ -15,7 +15,7 @@
 %bcond test 0
 
 Name:           z3
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -244,7 +244,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.5.0{,.*}
+%{_libdir}/libz3.so.5.1{,.*}
 
 %files devel
 %{_includedir}/z3/

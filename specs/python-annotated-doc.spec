@@ -1,5 +1,5 @@
 Name:           python-annotated-doc
-Version:        0.0.4
+Version:        0.0.5
 Release:        %autorelease
 Summary:        Document parameters, class attributes, return types, and variables inline
 
@@ -12,7 +12,8 @@ BuildOption(install): --assert-license annotated_doc
 
 BuildArch:      noarch
 
-# See requirements-tests.txt:
+# See the “tests” dependency group. Since it contains many unwanted
+# dependencies for things like linting and coverage, we list these manually:
 BuildRequires:  %{py3_dist pytest} >= 8.3.5
 
 %global common_description %{expand:
@@ -34,7 +35,11 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest --verbose
+# These tests pertain to upstream workflow and don’t really add value
+# downstream, and they would require a circular dependency on python-typer.
+ignore="${ignore-} --ignore=tests/test_prepare_release.py"
+
+%pytest ${ignore-} --verbose
 
 
 %files -n python3-annotated-doc -f %{pyproject_files}

@@ -12,8 +12,8 @@
 %endif # 0%{?fedora} || 0%{?rhel} >= 7
 
 Name:           znc
-Version:        1.10.1
-Release:        7%{?dist}
+Version:        1.10.2
+Release:        1%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -26,13 +26,19 @@ Source2:        gpgkey-5AE420CC0209989E.asc
 # Use system-wide crypto policy
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch0:         0001-Use-system-wide-crypto-policy.patch
+# Fix the build with OpenSSL4+
+# https://github.com/znc/znc/pull/2024
+Patch1:         2024.patch
 
+BuildRequires:  boost-devel
 BuildRequires:  c-ares-devel
 BuildRequires:  cmake
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  gettext-devel
 BuildRequires:  gnupg2
+BuildRequires:  libargon2-devel
 BuildRequires:  libicu-devel
 BuildRequires:  make
 
@@ -42,11 +48,8 @@ BuildRequires:  openssl-devel >= 0.9.8
 BuildRequires:  openssl11-devel
 %endif
 
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
-
 BuildRequires:  perl(ExtUtils::Embed)
+BuildRequires:  pkgconfig
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 Obsoletes:      znc-extra <= %{version}-%{release}
@@ -62,10 +65,14 @@ DCC bouncing, Perl and C++ module support to name a few.
 
 %package devel
 Summary:        Development files needed to compile ZNC modules
-Requires:       %{name} = %{version}-%{release} pkgconfig
-Requires:       openssl-devel c-ares-devel glibc-devel libicu-devel%{?_isa}
-BuildRequires: pkgconfig
-Requires:       gcc-c++ redhat-rpm-config
+Requires:       %{name} = %{version}-%{release}
+Requires:       c-ares-devel
+Requires:       gcc-c++
+Requires:       glibc-devel
+Requires:       libicu-devel%{?_isa}
+Requires:       openssl-devel
+Requires:       pkgconfig
+Requires:       redhat-rpm-config
 
 %description devel
 All includes and program files you need to compile your own znc
@@ -170,6 +177,7 @@ install -d "%{buildroot}%{_sharedstatedir}/znc"
 install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
+%find_lang %{name} --all-name
 
 
 %post
@@ -184,7 +192,7 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 %systemd_preun znc.service
 
 
-%files
+%files -f %{name}.lang
 %doc ChangeLog.md NOTICE README.md
 %license LICENSE
 %{_bindir}/znc
@@ -235,6 +243,12 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Sun Aug 02 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.10.2-1
+- Update to 1.10.2 + fix build with OpenSSL4+
+- Enable Argon2 and i18n support
+- Resolves: rhbz#2369074
+- Resolves: rhbz#2505395
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.10.1-7
 - Perl 5.44 rebuild
 

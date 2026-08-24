@@ -43,7 +43,7 @@ Obsoletes:      python-socketio-doc < 5.11.2-4
 %description -n python3-socketio %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-socketio client asyncio_client
+%pyproject_extras_subpkg --name python3-socketio client asyncio_client
 
 
 %prep -a

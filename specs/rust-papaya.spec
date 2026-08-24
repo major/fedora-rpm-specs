@@ -5,7 +5,7 @@
 %global crate papaya
 
 Name:           rust-papaya
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Fast and ergonomic concurrent hash-table for read-heavy workloads
 
@@ -16,8 +16,6 @@ Source:         %{crates_source}
 # * Drop unused, benchmark-only dev-dependencies on base64, criterion, dashmap,
 #   and hdrhistogram
 Patch:          papaya-fix-metadata.diff
-# * Skip raw::alloc::layout on 32-bit targets
-Patch10:        https://github.com/ibraheemdev/papaya/pull/98.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fast-barrier-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fast-barrier-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fast-barrier" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fast-barrier-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

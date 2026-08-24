@@ -1,6 +1,9 @@
+%global forgeurl https://github.com/chapel-lang/chapel
+Version:        2.9.0
+%global shortversion 2.9
+%forgemeta
+
 Name:           chapel
-Version:        2.6.0
-%global shortversion 2.6
 Release:        %{autorelease}
 Summary:        A Productive Parallel Programming Language
 
@@ -18,48 +21,30 @@ Summary:        A Productive Parallel Programming Language
 #  frontend/lib/parsing/bison-chpl-lib.cpp
 #  frontend/lib/parsing/bison-chpl-lib.h
 
-License:        Apache-2.0 AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (Apache-2.0 AND MIT)
+License:        Apache-2.0 AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND MIT
 URL:            https://chapel-lang.org
-Source:         https://github.com/chapel-lang/chapel/archive/%{version}/chapel-%{version}.tar.gz
-# https://github.com/chapel-lang/chapel/pull/27877
-# Ensure code compiles as intended
-Patch:          strict-aliasing.patch
+Source:         %{forgesource}
 # Unsupported architecture
 ExcludeArch:    %{ix86}
 
 BuildRequires:  bash
-BuildRequires:  chrpath
+BuildRequires:  patchelf
 BuildRequires:  clang20-devel
 BuildRequires:  cmake
 BuildRequires:  diffutils
 BuildRequires:  gawk
-BuildRequires:  git-core
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  git-core
 BuildRequires:  gmp-devel
 BuildRequires:  hwloc-devel
-# Full system support on host requires bundling
-#BuildRequires:  jemalloc-devel
-BuildRequires:  libfabric-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  llvm20-devel
 BuildRequires:  m4
 BuildRequires:  make
-BuildRequires:  mimalloc-devel
-BuildRequires:  pmix-devel
 BuildRequires:  perl
 BuildRequires:  python3-devel
-# Modified version is bundled
-#BuildRequires:  re2-devel
-BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
-BuildRequires:  stb_image_write-devel
-BuildRequires:  which
-BuildRequires:  whereami
-# Documentation
 BuildRequires:  python3dist(argcomplete)
-BuildRequires:  python3dist(babel)
-BuildRequires:  python3dist(breathe)
-BuildRequires:  python3dist(docutils)
 BuildRequires:  python3dist(filelock)
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(junitparser)
@@ -68,25 +53,25 @@ BuildRequires:  python3dist(pycparser)
 BuildRequires:  python3dist(pycparserext)
 BuildRequires:  python3dist(pygments)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-lsp)
 BuildRequires:  python3dist(pyyaml)
-# Not yet packaged
-#BuildRequires:  python3dist(scspell3k)
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
-BuildRequires:  python3dist(sphinxcontrib-chapeldomain)
 BuildRequires:  python3dist(urllib3)
-Requires: clang20-devel
-Requires: gcc
-Requires: gcc-c++
-Requires: gmp-devel
-Requires: hwloc-devel
-Requires: llvm20-devel
-Requires: stb_image-devel
-Requires: stb_image_write-devel
-Requires: whereami
-Provides: bundled(re2)
+BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
+BuildRequires:  stb_image_write-devel
+BuildRequires:  whereami
+BuildRequires:  which
+
+Requires:       clang20-devel
+Requires:       gcc
+Requires:       gcc-c++
+Requires:       gmp-devel
+Requires:       hwloc-devel
+Requires:       llvm20-devel
+Requires:       stb_image-devel
+Requires:       stb_image_write-devel
+Requires:       whereami
+
+Provides:       bundled(re2)
 
 %description
 Chapel is a modern programming language designed for productive parallel
@@ -162,13 +147,16 @@ mkdir -p  %{buildroot}%{_libdir}
 mv %{buildroot}%{_prefix}/lib/chapel %{buildroot}%{_libdir}/chapel
 mkdir -p %{buildroot}%{_libdir}/cmake
 mv %{buildroot}%{_prefix}/lib/cmake/chpl %{buildroot}%{_libdir}/cmake/chpl
+patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/compiler/libChplFrontendShared.so
 %ifarch ppc64le
-chrpath --delete %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux_ppc_le64-%{_arch}/libChplFrontendShared.so
+patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux_ppc_le64-%{_arch}/libChplFrontendShared.so
 %elifarch s390x
-chrpath --delete %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux32-%{_arch}/libChplFrontendShared.so
+patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux32-%{_arch}/libChplFrontendShared.so
 %else
-chrpath --delete %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux64-%{_arch}/libChplFrontendShared.so
+patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux64-%{_arch}/libChplFrontendShared.so
 %endif
+patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler" %{buildroot}%{_bindir}/chpl
+
 # Remove development files
 rm %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/include/.gitignore
 rm %{buildroot}%{_datadir}/chapel/%{shortversion}/make/.gitignore

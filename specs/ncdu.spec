@@ -8,7 +8,7 @@
 %global _zig_system_integration --system %{builddir}/ncdu-%{version}/zig-pkg
 
 Name:           ncdu
-Version:        2.11.0
+Version:        2.11.1
 Release:        1%{?dist}
 Summary:        Text-based disk usage viewer
 
@@ -53,6 +53,9 @@ and provides a fast way to see what directories are using your disk space.
 %{_bindir}/ncdu
 
 %changelog
+* Sat Aug 22 2026 Richard Fearn <richardfearn@gmail.com> - 2.11.1-1
+- Update to 2.11.1 (#2517344)
+
 * Sun Jul 19 2026 Richard Fearn <richardfearn@gmail.com> - 2.11.0-1
 - Update to 2.11.0 (#2497359)
 

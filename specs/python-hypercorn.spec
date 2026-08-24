@@ -52,7 +52,8 @@ Summary:        %{summary}
 %description -n python3-hypercorn %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-hypercorn h3 trio %{?with_uvloop:uvloop}
+%{pyproject_extras_subpkg --name python3-hypercorn %{shrink:
+    h3 trio %{?with_uvloop:uvloop}}}
 
 
 %install -a

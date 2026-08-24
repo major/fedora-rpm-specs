@@ -47,7 +47,7 @@ Summary:        %{summary}
 
 
 %if %{without bootstrap}
-%pyproject_extras_subpkg -n python3-dirty-equals pydantic
+%pyproject_extras_subpkg --name python3-dirty-equals pydantic
 %endif
 
 

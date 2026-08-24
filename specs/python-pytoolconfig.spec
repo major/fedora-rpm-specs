@@ -34,7 +34,7 @@ Summary:        %{summary}
 # rope[doc] depends on pytoolconfig[doc]. However, the gendoc extra appears to
 # be solely for building the documentation of this package, so we do not build
 # a corresponding metapackage, nor do we generate BR’s from it.
-%pyproject_extras_subpkg -n python3-pytoolconfig validation global doc
+%pyproject_extras_subpkg --name python3-pytoolconfig validation global doc
 
 
 %check -a

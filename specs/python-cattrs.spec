@@ -60,23 +60,24 @@ Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
 
 
 # Most extras metapackages are noarch:
-%pyproject_extras_subpkg -n python3-cattrs -a ujson pyyaml tomlkit tomllib
+%{pyproject_extras_subpkg --name python3-cattrs --noarch %{shrink:
+    ujson pyyaml tomlkit tomllib}}
 %if %{with bson}
-%pyproject_extras_subpkg -n python3-cattrs -a bson
+%pyproject_extras_subpkg --name python3-cattrs --noarch bson
 %endif
 %if %{with cbor2}
-%pyproject_extras_subpkg -n python3-cattrs -a cbor2
+%pyproject_extras_subpkg --name python3-cattrs --noarch cbor2
 %endif
 %if %{defined msgspec_enabled}
 # python-msgspec is ExcludeArch: s390x i686; the extras metapackage is arched
 # because it is not present on every architecture
-%pyproject_extras_subpkg -n python3-cattrs msgspec
+%pyproject_extras_subpkg --name python3-cattrs msgspec
 %endif
 %if %{with msgpack}
-%pyproject_extras_subpkg -n python3-cattrs -a msgpack
+%pyproject_extras_subpkg --name python3-cattrs --noarch msgpack
 %endif
 %if %{with orjson}
-%pyproject_extras_subpkg -n python3-cattrs -a orjson
+%pyproject_extras_subpkg --name python3-cattrs --noarch orjson
 %endif
 
 

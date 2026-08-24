@@ -11,6 +11,14 @@ License:        Apache-2.0
 URL:            https://github.com/coreos/bootupd
 Source0:        %{crates_source}
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
+# Revert https://github.com/coreos/bootupd/pull/1126
+# to fix UEFI installs - see
+# https://github.com/coreos/bootupd/issues/1139
+Patch:          0001-Revert-Fix-grub-static-config-install.patch
+Patch:          0002-Revert-component-Add-as_any-method-for-downcasting.patch
+Patch:          0003-Revert-esp-Update-unmount-method.patch
+Patch:          0004-Revert-esp-TempMount-ESP-if-not-already-mounted.patch
+
 ExcludeArch:    %{ix86}
 
 # For now, see upstream

@@ -38,7 +38,7 @@ implementations of both, each with standard and asyncio variants.}
 %description %{common_description}
 
 
-%package -n     python3-engineio
+%package -n python3-engineio
 Summary:        %{summary}
 
 # Dropped in F41; Obsoletes can be removed in F45.
@@ -47,7 +47,7 @@ Obsoletes:      python-engineio-doc < 4.9.1-3
 %description -n python3-engineio %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-engineio client asyncio_client
+%pyproject_extras_subpkg --name python3-engineio client asyncio_client
 
 
 %prep -a

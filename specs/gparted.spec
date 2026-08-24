@@ -1,11 +1,11 @@
 Summary:	Gnome Partition Editor
 Name:		gparted
-Version:	1.7.0
+Version:	1.8.1
 Release:	%autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		http://gparted.org
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+URL:		https://gparted.org
+Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires:	gtkmm30-devel
 BuildRequires:	parted-devel

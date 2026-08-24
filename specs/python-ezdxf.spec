@@ -131,7 +131,7 @@ Provides:       bundled(python3dist(py3dbp))
 %description -n python3-ezdxf %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-ezdxf draw,draw5
+%pyproject_extras_subpkg --name python3-ezdxf draw draw5
 
 
 %package        doc

@@ -96,12 +96,13 @@ Provides:       bundled(python3dist(httpx-sse)) = 0.4.3
 %description -n python3-httpx2 %{common_description}
 
 
-%{pyproject_extras_subpkg -n python3-httpx2 --dist-name httpx2 %{shrink:
+%{pyproject_extras_subpkg %{shrink:
+    --name python3-httpx2 --dist-name httpx2
     brotli http2 socks ws zstd}}
 
 # Ship the command-line tool in the cli extras package (which would otherwise
 # be a metapackage), since the extra is required for the tool to function.
-%pyproject_extras_subpkg -n python3-httpx2 --dist-name httpx2 cli
+%pyproject_extras_subpkg --name python3-httpx2 --dist-name httpx2 cli
 %{_bindir}/httpx2
 %{_mandir}/man1/httpx2.1*
 
@@ -120,7 +121,8 @@ charset decoding, handling JSON, environment based configuration defaults, or
 any of that Jazz.
 
 
-%{pyproject_extras_subpkg -n python3-httpcore2 --dist-name httpcore2 %{shrink:
+%{pyproject_extras_subpkg %{shrink:
+    --name python3-httpcore2 --dist-name httpcore2
     http2 socks trio asyncio}}
 
 

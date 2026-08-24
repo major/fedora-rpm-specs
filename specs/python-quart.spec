@@ -45,7 +45,7 @@ Summary:        %{summary}
 %description -n python3-quart %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-quart dotenv
+%pyproject_extras_subpkg --name python3-quart dotenv
 
 
 %install -a

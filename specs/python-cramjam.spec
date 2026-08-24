@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.11.0
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -33,15 +33,9 @@ Source1:        get_source
 
 %endif
 
-# Bump pyo3 to 0.28
-# https://github.com/milesgranger/cramjam/pull/240
-# Rebased on 2.11.0. Without changes to Cargo.lock and
-# .github/workflows/CI.yml, which are not relevant downstream.
-#
-# Further update to 0.29, without source-code changes, introducing one new
-# deprecation warning as noted in
-# https://github.com/milesgranger/cramjam/pull/240#issuecomment-4756886599.
-Patch:          cramjam-2.11.0-pyo3-0.29.patch
+# Don’t depend on deprecated pyo3/generate-import-lib feature
+# https://github.com/milesgranger/cramjam/pull/246
+Patch:          %{url}/pull/246.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license cramjam
@@ -87,11 +81,6 @@ License:        %{shrink:
 
 
 %prep -a
-# Downstream-only: patch out the generate-import-lib feature, which is only
-# relevant on Windows, and which depends on the corresponding pyo3 feature –
-# which is not packaged for that reason.
-tomcli set Cargo.toml del 'features.generate-import-lib'
-
 # Downstream-only: patch out the wasm-compat feature, which is unnecessary and
 # would bring in unwanted dependencies
 tomcli set Cargo.toml del 'features.wasm32-compat'

@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.40.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -32,6 +32,8 @@ URL:            http://www.mltframework.org/
 Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 # Upstream backports (0~500)
+# FFmpeg 9 support
+Patch0:         https://github.com/mltframework/mlt/commit/06c4785f951c087c700de942362d1d1c68ffe500.patch#/mlt-ffmpeg9.patch
 
 # Proposed fixes (501~1000)
 
@@ -280,6 +282,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Thu Aug 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 7.40.0-2
+- Fix build with FFmpeg 9
+
 * Mon Aug 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 7.40.0-1
 - Update to version 7.40.0
 - Resolves: rhbz#2461053

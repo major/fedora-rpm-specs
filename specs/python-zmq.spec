@@ -142,10 +142,12 @@ find 'src' -type f -name '*.py' \
 
 
 %check -p
-# to avoid partially initialized zmq module from cwd
-mkdir -p _empty
+# Ensure the “un-built” zmq in the source directory is not imported in the
+# tests. Passing --import-mode=append to pytest would mostly handle this, but
+# it would not suffice for tests that use subprocesses.
+mkdir --parents _empty
 cd _empty
-ln -s ../tests/ ../pytest.ini ./
+ln --symbolic ../tests/ ../pytest.ini ./
 
 
 %check -a

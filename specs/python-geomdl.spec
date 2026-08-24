@@ -88,7 +88,7 @@ Obsoletes:      python-geomdl-doc < 5.3.1-34
 %description -n python3-geomdl %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-geomdl vis
+%pyproject_extras_subpkg --name python3-geomdl vis
 
 
 %prep -a

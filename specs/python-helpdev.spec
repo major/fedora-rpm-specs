@@ -57,7 +57,7 @@ Obsoletes:      python-helpdev-doc < 0.7.1-23
 %description -n python3-helpdev %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-helpdev memory_info
+%pyproject_extras_subpkg --name python3-helpdev memory_info
 
 
 %install -a

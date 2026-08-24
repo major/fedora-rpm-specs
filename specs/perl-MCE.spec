@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.903
+Version:        1.904
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -170,6 +170,10 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Sat Aug 22 2026 Paul Howarth <paul@city-fan.org> - 1.904-1
+- Update to 1.904 (rhbz#2521258)
+  - Update FSF address in license file
+
 * Fri Aug 21 2026 Paul Howarth <paul@city-fan.org> - 1.903-1
 - Update to 1.903 (rhbz#2520889)
   - Check that the MCE Model is imported in the namespace before use

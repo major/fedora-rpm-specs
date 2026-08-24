@@ -30,13 +30,13 @@ interpreting UI-related header values.}
 %description %{common_description}
 
 
-%package -n     python3-bioread
+%package -n python3-bioread
 Summary:        %{summary}
 
 %description -n python3-bioread %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-bioread mat hdf5 all
+%pyproject_extras_subpkg --name python3-bioread mat hdf5 all
 
 
 %prep -a

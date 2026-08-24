@@ -6,8 +6,10 @@ License:        WTFPL
 URL:            https://github.com/sekrit-twc/zimg
 
 Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/sekrit-twc/zimg/commit/b013c7b006e6bee05b7964162f3a00402168e77f.patch
-Patch1:         https://github.com/sekrit-twc/zimg/commit/0e56801f98db3e363c974fca794fa06022d40ee4.patch
+
+# Rebased from master on top of 3.0.6, should be removed in the next update
+Patch0:         b013c7b006e6bee05b7964162f3a00402168e77f.patch
+Patch1:         0e56801f98db3e363c974fca794fa06022d40ee4.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -57,9 +59,13 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/lib%{name}.so.2.0.0
 %{_libdir}/lib%{name}.so.2
 
+%check
+./testapp cpuinfo
+
 %files devel
 %{_bindir}/testapp
-%{_includedir}/*
+%{_includedir}/zimg.h
+%{_includedir}/zimg++.hpp
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 

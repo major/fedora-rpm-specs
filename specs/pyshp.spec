@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        3.1.5
+Version:        3.1.6
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
@@ -42,6 +42,7 @@ despite the numerous ways to store and exchange GIS data available today.}
 %package -n python3-pyshp
 Summary:        %{summary}
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides python3-shapefile
 
 %description -n python3-pyshp %{common_description}

@@ -40,7 +40,7 @@ Summary:        %{summary}
 %description -n python3-inline-snapshot %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-inline-snapshot black,dirty-equals
+%pyproject_extras_subpkg --name python3-inline-snapshot black dirty-equals
 
 
 %prep -a

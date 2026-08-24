@@ -66,7 +66,7 @@ Recommends:     python3-keyring+completion = %{version}-%{release}
 %description -n python3-keyring %desc
 
 
-# We don’t use “%%pyproject_extras_subpkg -n python3-keyring completion”
+# We don’t use “%%pyproject_extras_subpkg --name python3-keyring completion”
 # because we want to add the completion scripts to the files list and provide a
 # custom summary and description.
 %package -n python3-keyring+completion

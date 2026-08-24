@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:       khal
-Version:    0.14.0
+Version:    0.14.1
 Release:    %autorelease
 Summary:    CLI calendar application
 
