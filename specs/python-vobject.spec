@@ -3,16 +3,18 @@
 
 
 Name:           python-vobject
-Version:        0.9.8
-Release:        9%{?dist}
+Version:        0.9.9
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
 URL:            https://py-vobject.github.io/
-Source0:        https://pypi.python.org/packages/source/v/vobject/%{modname}-%{version}.tar.gz
+Source0:        %{pypi_source %{modname}}
+# Upstream omitted radicale-1587.vcf in MANIFEST.in for 0.9.9 tarball
+Source1:        https://raw.githubusercontent.com/py-vobject/vobject/v%{version}/test_files/radicale-1587.vcf
 
 BuildArch:      noarch
-BuildRequires:  git
+BuildRequires:  python3-devel
 
 
 %description
@@ -23,15 +25,6 @@ generating vCard and vCalendar files.
 %package -n         python3-%{modname}
 Summary:            %{sum}
 
-Requires:           python3-dateutil
-Requires:           python3-setuptools
-BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      python3-dateutil
-BuildRequires:      python3-pytz
-
-%{?python_provide:%python_provide python3-%{modname}}
-
 %description -n python3-vobject
 VObject is intended to be a full featured python library for parsing and
 generating vCard and vCalendar files.
@@ -39,32 +32,43 @@ generating vCard and vCalendar files.
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
+cp -p %{SOURCE1} test_files/
 rm vobject/win32tz.py
+# Use vobject.base.VERSION so setuptools can parse VERSION statically without importing dependencies
+sed -i 's/attr: vobject.VERSION/attr: vobject.base.VERSION/' setup.cfg
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
 %check
-%{__python3} tests.py
+%pyproject_check_import
+%{python3} tests.py
 
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc README.md
-# ACKNOWLEDGEMENTS.txt
 %license LICENSE-2.0.txt
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*
 %{_bindir}/change_tz
 %{_bindir}/ics_diff
 
 
 %changelog
+* Sun Aug 23 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.9-1
+- Update to 0.9.9
+- Resolves: rhbz#2332538
+- Resolves: rhbz#2378326
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

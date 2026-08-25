@@ -3,17 +3,7 @@ Version:        2.0.0
 Release:        %autorelease
 Summary:        Python bindings to the mapbox earcut C++ library
 
-# The entire source is (SPDX) ISC; the License also includes the license of
-# a header-only libraries that are compiled into the extension:
-#   - earcut-hpp-static is also ISC
-# Additionally, while the python3-nanobind package is not a header-only
-# library, it functions rather like one, in that it ships C++ sources that are
-# compiled into extensions that use it. Furthermore, it brings in an indirect
-# dependency on the header-only robin-map library.
-#   - python3-nanobind is BSD-3-Clause
-#   - robin-map-static is MIT
-License:        ISC AND BSD-3-Clause AND MIT
-SourceLicense:  ISC
+License:        ISC
 URL:            https://github.com/skogler/mapbox_earcut_python
 # The GitHub archive contains tests; the PyPI archive does not
 Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz
@@ -65,6 +55,17 @@ Original description:
 
 %package -n python3-mapbox-earcut
 Summary:        %{summary}
+
+# The entire source is (SPDX) ISC; the License also includes the license of
+# a header-only libraries that are compiled into the extension:
+#   - earcut-hpp-static is also ISC
+# Additionally, while the python3-nanobind package is not a header-only
+# library, it functions rather like one, in that it ships C++ sources that are
+# compiled into extensions that use it. Furthermore, it brings in an indirect
+# dependency on the header-only robin-map library.
+#   - python3-nanobind is BSD-3-Clause
+#   - robin-map-static is MIT
+License:        ISC AND BSD-3-Clause AND MIT
 
 %description -n python3-mapbox-earcut %{common_description}
 

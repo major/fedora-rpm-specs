@@ -12,8 +12,7 @@ URL:            %{forgeurl}
 Source:         %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python3-devel
 
 %global _description %{expand:
 This package provides a lexer and highlighter for Mathematica/Wolfram
@@ -21,22 +20,18 @@ Language source code using the pygments engine.}
 
 %description %_description
 
-%package -n     python%{python3_pkgversion}-mathics-pygments
+%package -n     python3-mathics-pygments
 Summary:        %{summary}
 
-%description -n python%{python3_pkgversion}-mathics-pygments %_description
+%description -n python3-mathics-pygments %_description
 
 %prep
 %autosetup -n Mathics3-pygments-%{version}
-# Relax/rename the dependency on Mathics3_Scanner to use Fedora's package name and version
-sed -i 's/"Mathics3_Scanner>=10.0.0"/"mathics-scanner>=1.3.0"/' pyproject.toml
-sed -i 's/Mathics3_Scanner>=10.0.0/mathics-scanner>=1.3.0/' requirements.txt
-
 # Remove shebang from non-executable script
 sed -i '1{\@^#!/usr/bin/env python@d}' mathics_pygments/generate/build_pygments_tables.py
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x dev
 
 %build
 %pyproject_wheel
@@ -48,7 +43,7 @@ sed -i '1{\@^#!/usr/bin/env python@d}' mathics_pygments/generate/build_pygments_
 %check
 %pytest
 
-%files -n python%{python3_pkgversion}-mathics-pygments -f %{pyproject_files}
+%files -n python3-mathics-pygments -f %{pyproject_files}
 %license LICENSE
 %doc README.md CHANGES.rst
 

@@ -1,5 +1,5 @@
 Name:           python-fastar
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        High-level bindings for the Rust tar crate
 
@@ -7,14 +7,10 @@ License:        MIT
 URL:            https://github.com/DoctorJohn/fastar
 Source:         %{url}/archive/v%{version}/fastar-%{version}.tar.gz
 
-# Update PyO3 to 0.29
-# https://github.com/DoctorJohn/fastar/pull/71
-Patch:          fastar-0.11.0-pyo3-0.29.patch
-
 BuildSystem:    pyproject
 BuildOption(install): --assert-license fastar
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 
 # Test dependencies; see the “dev” dependency group, which also contains
 # unwanted linters, type-checkers, benchmarking tools, etc.,

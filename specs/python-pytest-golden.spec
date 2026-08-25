@@ -1,20 +1,14 @@
-%global date            20250215
-%global commit          6a7b6776be95040d67bc6f709ab9ec8937b5be27
-%global shortcommit     %(c=%{commit}; echo ${c:0:7})
+%global forgeurl https://github.com/oprypin/pytest-golden
+Version:        1.0.1
+%forgemeta
 
 Name:           python-pytest-golden
-Version:        0.2.2^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Plugin for pytest that offloads expected outputs to data files
 
 License:        MIT
-URL:            https://github.com/oprypin/pytest-golden
-# PyPI tarball doesn't include tests
-#Source:         %%{url}/archive/v%%{version}/pytest-golden-%%{version}.tar.gz
-# latest release too old, will ask upstream to mergee PR =#8 and release
-Source:         %{url}/archive/%{commit}/pytest-golden-%{version}.tar.gz
-# Drop deprecated atomicwrites dependency
-Patch:          https://github.com/oprypin/pytest-golden/pull/8.patch#/pytest-golden-drop-atomicwrites.patch
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -32,8 +26,7 @@ Summary:        %{summary}
 %description -n python3-pytest-golden %_description
 
 %prep
-#autosetup -p1 -n pytest-golden-%%{version}
-%autosetup -p1 -n pytest-golden-%{commit}
+%forgeautosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,6 +39,7 @@ Summary:        %{summary}
 %pyproject_save_files -L pytest_golden
 
 %check
+%pyproject_check_import
 %pytest -v
 
 %files -n python3-pytest-golden -f %{pyproject_files}

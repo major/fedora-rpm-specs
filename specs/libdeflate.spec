@@ -5,7 +5,7 @@
 %bcond mingw_utils %[ 0%{?fedora} < 45 && 0%{?rhel} < 11 ]
 
 Name:          libdeflate
-Version:       1.25
+Version:       1.26
 Release:       %autorelease
 Summary:       Fast implementation of DEFLATE, gzip, and zlib
 

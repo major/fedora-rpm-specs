@@ -4,8 +4,8 @@
 # https://github.com/dominikh/go-tools
 %global goipath         honnef.co/go/tools
 %global forgeurl        https://github.com/dominikh/go-tools
-Version:                2026.1
-%global tag             2026.1
+Version:                2026.2.1
+%global tag             2026.2.1
 
 %gometa -L -f
 

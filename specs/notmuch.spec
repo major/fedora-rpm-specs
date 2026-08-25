@@ -24,6 +24,7 @@ Patch:		0001-test-correct-comparison-order-in-T380.patch
 Patch:		0002-test-do-not-pass-T380.1-for-the-wrong-reasons.patch
 Patch:		0003-test-reword-T380.2-to-be-clearer.patch
 Patch:		0004-test-set-up-the-outcount-for-T380.1.patch
+Patch:		0001-test-T450-emacs-show-id-buttonization-is-brohen-with.patch
 
 BuildRequires:	make
 BuildRequires:	bash-completion-devel

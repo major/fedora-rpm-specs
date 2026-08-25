@@ -1,7 +1,7 @@
 %global apiversion 0.0
 
 Name: libqxp
-Version: 0.0.2
+Version: 0.0.3
 Release: %autorelease
 Summary: Library for import of QuarkXPress documents
 
@@ -52,7 +52,10 @@ Currently supported: SVG, plain text, raw.
 %autosetup -p1
 
 %build
-%configure --disable-silent-rules --disable-static
+# The project hardcodes c++11 but recent Boost.Math and ICU need a
+# newer revision
+# TODO: remove the override when configure is updated
+%configure --disable-silent-rules --disable-static CPPFLAGS=-std=c++17
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \

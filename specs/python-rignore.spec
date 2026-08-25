@@ -11,7 +11,7 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --dependency-groups dev
 BuildOption(install): --assert-license rignore
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 
 # Some tests need to create temporary git repositories.
 BuildRequires:  git-core

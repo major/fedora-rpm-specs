@@ -9,14 +9,7 @@ Version:        0.2.0
 Release:        %autorelease
 Summary:        Wrapper around the Fast-Quadric-Mesh-Simplification library
 
-# The entire source is (SPDX) MIT. While the python3-nanobind package is not a
-# header-only library, it functions rather like one, in that it ships C++
-# sources that are compiled into extensions that use it. Furthermore, it brings
-# in an indirect dependency on the header-only robin-map library.
-#   - python3-nanobind is BSD-3-Clause
-#   - robin-map-static is MIT
-License:        MIT AND BSD-3-Clause
-SourceLicense:  MIT
+License:        MIT
 URL:            https://github.com/pyvista/fast-simplification
 # The GitHub archive contains many ancillary files, like the README, the
 # examples, and the list of test requirements, that the PyPI sdist lacks.
@@ -65,6 +58,17 @@ https://pyvista.github.io/fast-simplification/}
 
 %package -n python3-fast-simplification
 Summary:        %{summary}
+# The entire source is (SPDX) MIT. However, while the python3-nanobind package
+# is not a header-only library, it functions rather like one, in that it ships
+# C++ sources that are compiled into extensions that use it. Furthermore, it
+# brings in an indirect dependency on the header-only robin-map library.  -
+# python3-nanobind is BSD-3-Clause
+#   - robin-map-static is MIT
+License:        MIT AND BSD-3-Clause
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+# Required indirectly, via python3-nanobind:
+BuildRequires:  robin-map-static
 
 # The source file fast_simplification/Simplify.h is based on src.cmd/Simplify.h
 # from https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification, which is

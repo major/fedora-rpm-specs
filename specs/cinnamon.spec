@@ -10,7 +10,7 @@
 
 Name:           cinnamon
 Version:        6.7.5^unstable
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -23,7 +23,7 @@ Patch0:         set_wheel.patch
 Patch1:         default_panal_launcher.patch
 Patch2:         remove_crap_from_menu.patch
 Patch3:         set_menu_defaults.patch
-Patch4:         glycin_fix.patch
+Patch4:         %url/pull/13947.patch#/glycin_ratelimit.patch
 
 ExcludeArch:    %{ix86}
 
@@ -313,6 +313,9 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sun Aug 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-3
+- Improve menu applet fix
+
 * Wed Aug 19 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-2
 - Fix menu applet loading issue
 

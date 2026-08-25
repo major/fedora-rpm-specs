@@ -1,10 +1,10 @@
 # New Version-String scheme-style defines
-%global featurever 26
+%global featurever 27
 %global interimver 0
-%global updatever 2
-%global patchver 1
-%global buildver 0
-%global portablerelease 0
+%global updatever 0
+%global patchver 0
+%global buildver 35
+%global portablerelease 1
 %global rpmrelease 0
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
@@ -34,7 +34,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N.ea<dist> for EA releases,
 # - N<dist> for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -836,7 +836,6 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2gss.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2pcsc.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2pkcs11.so
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjaas.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjava.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjavajpeg.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjdwp.so
@@ -883,10 +882,10 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/*.so
 %ifarch %{share_arches}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
-%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_coh.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoh.jsa
 %ifnarch %{ix86} %{arm32}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops.jsa
-%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops_coh.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops_nocoh.jsa
 %endif
 %endif
 %dir %{etcjavasubdir}
@@ -997,7 +996,7 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/tapset
 %endif
 %{_datadir}/applications/*jconsole%{?1}.desktop
-
+%config %{etcjavadir -- %{?1}}/conf/bash-completion/jcmd
 %if %{pandoc_available}
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jar.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jarsigner.1

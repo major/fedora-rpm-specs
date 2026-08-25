@@ -1,8 +1,8 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        190
-%global         osbuild_initrd_version 0.1
+Version:        191
+%global         osbuild_initrd_version 0.2
 
 %forgemeta
 
@@ -488,6 +488,36 @@ fi
 %endif
 
 %changelog
+* Sun Aug 23 2026 Packit <hello@packit.dev> - 191-1
+Changes with 191
+----------------
+  - Add SECURITY.md file (#2536)
+    - Author: Achilleas Koutsou, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - Add a manifest for buiding a Fedora riscv64 container in an x86_64 buildroot (#2539)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Schutzfile: update Fedora 43 repo snapshots (#2535)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Support rootless osbuild runs without container (#2546)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2543)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - Update osbuild-ci container images (#2540)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260816 (#2541)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - main: Make rootless work when using the /usr/bin/osbuild wrapper (#2547)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - rhsm: prefer Katello CA on Satellite-registered hosts (SAT-37848) (#2537)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - spec: update osbuild-initrd dependency to 0.2 (#2545)
+    - Author: Achilleas Koutsou, Reviewers: Alexander Larsson, Simon de Vlieger
+  - stages/dd: create `dd` stage (#2533)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - test: fix missing mock_run (#2534)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+
+— Somewhere on the Internet, 2026-08-23
+
 * Tue Aug 11 2026 Packit <hello@packit.dev> - 190-1
 Changes with 190
 ----------------

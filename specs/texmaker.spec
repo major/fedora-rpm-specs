@@ -1,6 +1,6 @@
 Summary:	LaTeX editor
 Name:		texmaker
-Version:	6.0.1
+Version:	6.0.2
 Release:	%{autorelease}
 Epoch:		1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -38,7 +38,7 @@ Requires:	tetex-latex
 Patch0:		%{name}-unbundle.patch
 
 # Always use xdg-open
-Patch1:		%{name}-%{version}-viewfiles.patch
+Patch1:		%{name}-6.0.1-viewfiles.patch
 
 # Fix build against Qt 6.10
 Patch2:		texmaker-fix-build-against-qt-6-10.patch

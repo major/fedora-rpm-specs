@@ -1,22 +1,13 @@
 %global sover 22
 
 Name:           netcdf
-Version:        4.10.0
+Version:        4.10.1
 Release:        %autorelease
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        BSD-3-Clause
 URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Unidata/netcdf-c/pull/3300
-Patch:          netcdf-mfhdf.patch
-# Incomplete fix for rpaths
-# https://github.com/Unidata/netcdf-c/issues/3302
-Patch:          netcdf-rpath.patch
-# big-endian fixes
-Patch:          https://github.com/Unidata/netcdf-c/pull/3285.patch
-# Do not assume that CMAKE_INSTALL_INCLUDEDIR and CMAKE_INSTALL_LIBDIR are relative paths
-Patch:          https://github.com/Unidata/netcdf-c/pull/3350.patch
 
 # Hack for now
 BuildRequires:  chrpath

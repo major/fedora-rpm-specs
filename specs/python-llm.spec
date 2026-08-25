@@ -3,19 +3,14 @@
 
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
-Version:        0.31
-Release:        4%{?dist}
+Version:        0.33
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
 Patch:          0001-Relax-reqs.patch
 Patch:          0002-Skip-tests-failing-with-sqlite-3.51.patch
 Patch:          0003-Skip-tests-which-requires-network-access.patch
-# Fix compatibility with click 8.2+
-# Backported from upstream PR
-%if 0%{?fedora} > 43
-Patch:          https://github.com/simonw/llm/pull/1333.patch
-%endif
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -25,7 +20,7 @@ BuildRequires:  python3dist(numpy)
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-httpx
-BuildRequires:  python3-pytest-vcr
+BuildRequires:  python3-pytest-recording
 %endif
 %if %{with docs}
 BuildRequires:  make
@@ -63,6 +58,8 @@ Package contains documentation of python-llm
 %pyproject_wheel
 %if %{with docs}
 (pushd docs && make man html)
+rm -rf docs/_build/html/.buildinfo
+find docs/_build/html -size 0 -delete
 %endif
 
 %install
@@ -92,6 +89,12 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Sat Aug 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.33-1
+- Update to 0.33
+
+* Sat Aug 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.32.1-1
+- Update to 0.32.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

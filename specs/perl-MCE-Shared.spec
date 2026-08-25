@@ -1,6 +1,6 @@
 Name:		perl-MCE-Shared
-Version:	1.893
-Release:	5%{?dist}
+Version:	1.894
+Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MCE-Shared
@@ -93,6 +93,10 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Sat Aug 22 2026 Paul Howarth <paul@city-fan.org> - 1.894-1
+- Update to 1.894
+  - Update FSF address in license file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.893-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

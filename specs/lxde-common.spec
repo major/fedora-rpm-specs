@@ -2,8 +2,8 @@
 
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=540034
 
-%global		use_release  0
-%global		use_gitbare  1
+%global		use_release  1
+%global		use_gitbare  0
 
 %if 0%{?use_gitbare} < 1
 # force
@@ -14,7 +14,7 @@
 %global		git_ver_rpm	%{nil}
 %global		git_builddir	%{nil}
 
-%global		main_version	0.99.3
+%global		main_version	0.99.4
 
 %if 0%{?use_gitbare}
 %global		gittardate		20250322
@@ -38,14 +38,14 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		7%{?dist}
+Release:		1%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
 License:		GPL-2.0-only
 URL:			http://lxde.sourceforge.net/
 %if 0%{?use_release} >= 1
-Source0: 		http://downloads.sourceforge.net/pcmanfm/%{name}-%{mainver}%{?prever}.tar.xz
+Source0:		https://github.com/lxde/releases/raw/refs/heads/master/releases/%{name}-%{main_version}%{?prever}.tar.xz
 %endif
 %if 0%{?use_gitbare} >= 1
 Source0: 		%{name}-%{gittardate}T%{gittartime}.tar.gz
@@ -220,6 +220,8 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 %dir	%{_sysconfdir}/xdg/pcmanfm/LXDE/
 %config(noreplace) %{_sysconfdir}/xdg/pcmanfm/LXDE/pcmanfm.conf
 
+%{_datadir}/xdg-desktop-portal/lxde-portals.conf
+
 %{_bindir}/startlxde
 %{_bindir}/lxde-logout
 %{_bindir}/openbox-lxde
@@ -237,6 +239,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Sun Aug 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.4-1
+- 0.99.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

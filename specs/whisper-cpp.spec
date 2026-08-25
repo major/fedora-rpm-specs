@@ -8,7 +8,7 @@ License:        MIT
 # examples/whisper.android/gradlew*
 # These are not distributed
 
-Version:        1.9.2
+Version:        1.9.3
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/whisper.cpp

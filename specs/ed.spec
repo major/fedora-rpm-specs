@@ -1,6 +1,6 @@
 Summary: The GNU line editor
 Name: ed
-Version: 1.22.5
+Version: 1.22.6
 Release: %autorelease
 
 # The entire source is GPLv2 except doc/ed.info and doc/ed.texi, which are GFDL

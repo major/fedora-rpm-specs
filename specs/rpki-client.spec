@@ -1,5 +1,3 @@
-%global with_snapshot 1
-
 %if 0%{?with_snapshot}
 %global gitdate              20260609
 %global portable_commit      3693bb927cb68f6975ef3fc50418bf00efd54dac
@@ -10,8 +8,8 @@
 
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
-Version:        9.8
-Release:        4%{?with_snapshot:.git%{gitdate}}%{?dist}
+Version:        9.9
+Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -113,6 +111,9 @@ install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Mon Aug 24 2026 Robert Scheck <robert@fedoraproject.org> 9.9-1
+- Upgrade to 9.9 (#2521687)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-4.git20260609
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

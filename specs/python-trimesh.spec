@@ -157,8 +157,7 @@ Recommends:     /usr/bin/openscad
 
 # Note that the “recommend” and “easy” extras do have an arch-dependent
 # dependencies, and therefore they must not be noarch.
-%pyproject_extras_subpkg -n python3-trimesh easy
-%pyproject_extras_subpkg -n python3-trimesh recommend
+%pyproject_extras_subpkg --name python3-trimesh easy recommend
 # We don’t want to expose test extras as metapackages; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_handling_extras.
 #

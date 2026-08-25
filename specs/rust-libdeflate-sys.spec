@@ -5,7 +5,7 @@
 %global crate libdeflate-sys
 
 Name:           rust-libdeflate-sys
-Version:        1.25.2
+Version:        1.26.0
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
@@ -82,13 +82,15 @@ use the "freestanding" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Remove the bundled copy of libdeflate.
-rm -rv libdeflate
+rm --recursive --verbose libdeflate
 # Make libdeflate detection with pkg-config unconditional.
-sed -r -i 's@^([[:blank:]]*)(#\[cfg\(feature *= *"dynamic"\)\])@\1// \2@' build.rs
+sed --regexp-extended --in-place \
+    's@^([[:blank:]]*)(#\[cfg\(feature *= *"dynamic"\)\])@\1// \2@' build.rs
 # Don’t require an exact version match. We would *like* the versions to stay
 # aligned, but we don’t *need* to update libdeflate and
 # rust-libdeflate-sys/rust-libdeflater concurrently.
-sed -r -i 's@^([[:blank:]]*)(\.exactly_version\()@\1// \2@' build.rs
+sed --regexp-extended --in-place \
+    's@^([[:blank:]]*)(\.exactly_version\()@\1// \2@' build.rs
 # The above two sed-patches effectively revert “Dynamic Linking Constraints”,
 # https://github.com/adamkewley/libdeflater/pull/32. Using sed instead of a
 # patch file keeps us from having to update the patch every time the version

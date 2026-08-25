@@ -16,13 +16,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.34
-%global k8s_ver                 1.34.10
+%global k8s_ver                 1.34.11
 # major:minor version substring
 %global k8s_minver              1.34
 %global k8s_nextver             1.35
-%global k8s_tag                 v1.34.10
+%global k8s_tag                 v1.34.11
 # golang 'built with' version
-%global golangver               1.25.12
+%global golangver               1.26.5
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -75,15 +75,16 @@ Source117:      kubelet.env
 # kubernetes-kubeadm.
 #
 # Build requires for all packages
+BuildRequires:  fdupes
+BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
 BuildRequires:  golang-github-cpuguy83-md2man
 BuildRequires:  golang >= %{golangver}
-BuildRequires:  go-rpm-macros
 BuildRequires:  make
-BuildRequires:  go-md2man
+BuildRequires:  /usr/bin/go-md2man
+BuildRequires:  rsync
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  rsync
 
 # additonal kubelet requirements
 Requires:       kubernetes-cni
@@ -320,6 +321,11 @@ mv CHANGELOG/CHANGELOG-*.md .
 # change log. no need to include generated rpms
 rm CHANGELOG.md
 
+# additional license deduplication
+%fdupes %{buildroot}%{_datadir}/licenses/%{k8s_name}
+
+##############################################
+##############################################
 %check
 %go_vendor_license_check -c %{S:2}
 if [ 1 != 1 ]; then

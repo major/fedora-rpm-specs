@@ -1,11 +1,11 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.14.0
+%global	majorver		2.14.1
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		6
+%global	baserelease		1
 
 %global	gem_name		mechanize
 
@@ -157,6 +157,12 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Sun Aug 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.1-1
+- 2.14.1
+- Fixes GHSA-2mwr-xjcg-37j7
+- Fixes GHSA-5jgv-wc2m-xv99
+- Fixes GHSA-c6rp-p8xm-4q9f
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

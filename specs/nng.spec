@@ -1,5 +1,5 @@
 Name:     nng
-Version:  1.12.0
+Version:  1.12.2
 Release:  1%{?dist}
 Summary:  Light-weight brokerless messaging
 
@@ -72,6 +72,9 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Sun Aug 23 2026 Steven A. Falco <stevenfalco@gmail.com> - 1.12.2-1
+- Update to 1.12.2
+
 * Wed Jul 22 2026 Bill Roberts <bill.roberts@arm.com> - 1.12.0-1
 - update to latest upstream version 1.12
 - use openssl backend over mbedtls

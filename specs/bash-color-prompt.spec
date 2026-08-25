@@ -1,14 +1,13 @@
 %bcond tests 1
 
 Name:           bash-color-prompt
-Version:        0.95.3
+Version:        0.96
 Release:        1%{?dist}
 Summary:        Bash Color Prompt with customization
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/juhp/bash-color-prompt
 Source0:        https://github.com/juhp/bash-color-prompt/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:        README.fedora.md
 BuildArch:      noarch
 BuildRequires:  perl
 %if %{with tests}
@@ -22,13 +21,12 @@ A flexible customizable Bash prompt framework.
 
 %prep
 %setup -q
-cp -p %SOURCE1 .
 
 
 %build
 sed -i -e "s/@BASHCOLORVERSION@/%{version}/" bash-color-prompt.sh
 
-%global profilesh profile.d/bcp-profile.sh
+%global profilesh profile.d/bcp-fedora.sh
 %global bcp_datadir %{_datadir}/bash-color-prompt
 
 sed -i -e 's!@BCP_LIBRARY@!%{bcp_datadir}/bcp.sh!' %{profilesh}
@@ -55,7 +53,7 @@ bats --timing --gather-test-outputs-in logs tests
 
 %files
 %license COPYING
-%doc README*.md
+%doc ChangeLog.md README.md
 %doc examples
 %{profiledir}/bash-color-prompt.sh
 %dir %{bcp_datadir}
@@ -63,6 +61,9 @@ bats --timing --gather-test-outputs-in logs tests
 
 
 %changelog
+* Sun Aug 23 2026 Jens Petersen <petersen@redhat.com> - 0.96-1
+- update to 0.96
+
 * Wed Jul 01 2026 Jens Petersen <petersen@redhat.com> - 0.95.3-1
 - update to 0.95.3
 
