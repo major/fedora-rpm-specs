@@ -3,7 +3,7 @@
 %endif
 
 Name:           not-ocamlfind
-Version:        0.14
+Version:        0.15
 Release:        %autorelease
 Summary:        Front-end to ocamlfind that adds a few new commands
 
@@ -18,7 +18,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-compiler-libs
-BuildRequires:  ocaml-findlib-devel >= 1.8.0
+BuildRequires:  ocaml-findlib-devel >= 1.9.6
 BuildRequires:  ocaml-fmt-devel >= 0.8.8
 BuildRequires:  ocaml-ocamlgraph-devel >= 2.0.0
 BuildRequires:  ocaml-rresult-devel >= 0.6.0
@@ -50,10 +50,8 @@ commands: preprocess, reinstall-if-diff and package-graph.
 %autosetup
 
 %build
-# The build wants us to use a patched vendored version of findlib.  However,
-# the findlib in Fedora already has the patches, and is a later version.  Do
-# not use the configure script or Makefile until it is possible to build
-# without the vendored findlib.
+# The Makefile only builds bytecode.  We do this to get a binary build on
+# platforms with a native compiler.
 %ifarch %{ocaml_native_compiler}
 ocamlfind ocamlopt \
   -I +findlib findlib.cmxa \

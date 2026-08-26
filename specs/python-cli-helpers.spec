@@ -2,8 +2,8 @@
 
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
-Version:        2.15.0
-Release:        3%{?dist}
+Version:        2.15.1
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/dbcli/cli_helpers
@@ -55,6 +55,9 @@ PYTHONPATH=build/lib/ py.test-3
 %doc AUTHORS CHANGELOG README.rst
 
 %changelog
+* Mon Aug 24 2026 Terje Røsten <terjeros@gmail.com> - 2.15.1-1
+- Update to 2.15.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,11 +1,21 @@
 Name:           python-typing-extensions
 Version:        4.16.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
 URL:            https://pypi.org/project/typing-extensions/
 Source:         %{pypi_source typing_extensions}
+
+# Remove obsolete Literal deduplication assertion
+# https://github.com/python/typing_extensions/commit/79c903c7d9ec4cfa30b7ca38a795adc1c100b45a
+# From https://github.com/python/typing_extensions/pull/785.
+#
+# Fixes:
+#
+# test_typing_extensions.LiteralTests.test_args is failing with python 3.14.7
+# https://github.com/python/typing_extensions/issues/784
+Patch:          https://github.com/python/typing_extensions/commit/79c903c7d9ec4cfa30b7ca38a795adc1c100b45a.patch
 
 BuildArch:      noarch
 
@@ -38,6 +48,10 @@ Summary:       %{summary}
 %prep
 %autosetup -p1 -n typing_extensions-%{version}
 
+# This package builds successfully with flit-core 4
+# https://github.com/python/typing_extensions/pull/787
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -63,6 +77,12 @@ cd src
 
 
 %changelog
+* Mon Aug 24 2026 Miro Hrončok <mhroncok@redhat.com> - 4.16.0-4
+- Allow building with flit-core 4+
+
+* Mon Aug 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.16.0-3
+- Patch for Python 3.14.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

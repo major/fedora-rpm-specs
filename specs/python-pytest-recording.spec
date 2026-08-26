@@ -19,6 +19,7 @@ A pytest plugin powered by VCR.py to record and replay HTTP traffic.}
 
 %package -n     python3-pytest-recording
 Summary:        %{summary}
+Conflicts:      python3-pytest-vcr
 
 %description -n python3-pytest-recording %_description
 

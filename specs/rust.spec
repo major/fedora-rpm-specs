@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.97.1
+Version:        1.98.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -9,9 +9,9 @@ URL:            https://www.rust-lang.org
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.96.0
-%global bootstrap_channel 1.96.0
-%global bootstrap_date 2026-05-28
+%global bootstrap_version 1.97.1
+%global bootstrap_channel 1.97.1
+%global bootstrap_date 2026-07-16
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -23,7 +23,7 @@ URL:            https://www.rust-lang.org
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-32
+%global wasi_libc_ref wasi-sdk-33
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -41,16 +41,16 @@ URL:            https://www.rust-lang.org
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 # See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
 %global min_llvm_version 21.0.0
-%global bundled_llvm_version 22.1.6
+%global bundled_llvm_version 22.1.8
 #global llvm_compat_version 21
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.9, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.9.2
+%global min_libgit2_version 1.9.4
 %global next_libgit2_version 1.10.0~
-%global bundled_libgit2_version 1.9.2
+%global bundled_libgit2_version 1.9.4
 %if 0%{?fedora} >= 41
 %bcond_with bundled_libgit2
 %else
@@ -59,7 +59,7 @@ URL:            https://www.rust-lang.org
 
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.51.3
+%global bundled_sqlite3_version 3.53.2
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -129,7 +129,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.97.0-unbundle-sqlite.patch
+Patch6:         rustc-1.98.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
@@ -147,7 +147,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.97.0-disable-libssh2.patch
+Patch100:       rustc-1.98.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)

@@ -8,7 +8,7 @@
 
 Name:           znc-%{modname}
 Version:        2.0.0
-Release:        15%{?dist}
+Release:        %autorelease
 Summary:        Push notification service module for ZNC
 
 License:        MIT
@@ -49,48 +49,4 @@ install -Dpm0755 %{modname}.so %{buildroot}%{_libdir}/znc/%{modname}.so
 %{_libdir}/znc/%{modname}.so
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Oct 24 2025 LuK1337 <priv.luk@gmail.com> - 2.0.0-13
-- Update to latest Git HEAD (e4250e688b4b45a886928c7e2cdb59747304747d)
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Aug 25 2024 Neil Hanlon <neil@shrug.pw> - 2.0.0-10
-- rebuild for znc 1.9.1 in f42
-- znc-buildmod now needs python/cmake
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Mar 10 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 2.0.0-2.20210204git4243934
-- Fix README permissions
-
-* Thu Feb  4 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 2.0.0-1.20210204git4243934
-- Initial package
+%autochangelog

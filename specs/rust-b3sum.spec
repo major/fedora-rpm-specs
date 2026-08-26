@@ -4,7 +4,7 @@
 %global crate b3sum
 
 Name:           rust-b3sum
-Version:        1.8.6
+Version:        1.8.7
 Release:        %autorelease
 Summary:        Command line implementation of the BLAKE3 hash function
 
@@ -32,7 +32,6 @@ Summary:        %{summary}
 # Apache-2.0 OR Apache-2.0 WITH LLVM-exception
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause
 # MIT
 # MIT OR Apache-2.0
 # MIT-0 OR Apache-2.0
@@ -40,7 +39,6 @@ License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-                BSD-2-Clause AND
                 MIT AND
                 (MIT-0 OR Apache-2.0)
                 }

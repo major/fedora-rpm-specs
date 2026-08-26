@@ -41,7 +41,7 @@ BuildSystem:    pyproject
 BuildOption(install): --assert-license cramjam
 
 BuildRequires:  tomcli
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 
 %if %{with tests}
 # These (along with some unwanted dependencies like linters) are listed in the

@@ -1,5 +1,5 @@
 Name:		openvkl
-Version:	2.0.1
+Version:	2.0.2
 Release:	%autorelease
 Summary:	Intel Open Volume Kernel Library
 
@@ -8,7 +8,7 @@ Summary:	Intel Open Volume Kernel Library
 # testing/external/catch.hpp is BSL-1.0
 # testing/external/half.hpp is MIT
 License:	Apache-2.0 AND BSL-1.0 AND MIT
-URL:		https://github.com/OpenVKL/openvkl
+URL:		https://github.com/RenderKit/openvk
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	boost-devel
@@ -23,7 +23,7 @@ BuildRequires:	openvdb-devel >= 7.0.0
 BuildRequires:	rkcommon-devel >= 1.11.0
 
 # Upstream only supports x86_64 and ARM64 architectures
-ExclusiveArch:	aarch64 x86_64
+ExclusiveArch:	%{x86_64} %{arm64}
 
 %description
 Intel Open Volume Kernel Library (Open VKL) is a collection of high-performance
@@ -50,15 +50,11 @@ The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
 
 %prep
-%autosetup -p1
+%autosetup
 
 # do not install LICENSE.txt
 sed -i '/LICENSE.txt/d' openvkl/CMakeLists.txt
 sed -i '/third-party-programs/d' openvkl/CMakeLists.txt
-# lib64 path fix 
-sed -i 's/lib\/cmake/%{_lib}\/cmake/g' utility/vdb/CMakeLists.txt
-# bypass vdb_volume_dense test for now
-sed -i '/vdb_volume_dense.cpp/d' testing/apps/CMakeLists.txt
 
 %build
 %cmake \

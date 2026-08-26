@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.20.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -108,9 +108,11 @@ associated with "slum" or post-apocalyptic robots in popular culture.
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
+
 %install
 install -dm 0755 %{buildroot}%{_bindir}
 install -dm 0755 %{buildroot}%{_mandir}/man1
+install -dm 0755 %{buildroot}%{_datadir}/koji-lag
 for tool in %{tools}; do
   install -pm 0755 target/rpm/${tool} %{buildroot}%{_bindir}/
   cp -p tools/${tool}/README.md README.${tool}.md
@@ -118,6 +120,10 @@ for tool in %{tools}; do
   install -dm 0755 %{buildroot}%{_sysconfdir}/${tool}
 done
 cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
+for i in FINDINGS.md notebooks queries; do
+  cp -pr tools/koji-lag/${i} %{buildroot}%{_datadir}/koji-lag/
+done
+
 
 %check
 %if %{with build_and_test_all}
@@ -147,6 +153,7 @@ cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-t
 %{_bindir}/sandogasa-pkg-acl
 %{_bindir}/sandogasa-pkg-health
 %{_bindir}/sandogasa-report
+%{_datadir}/koji-lag/
 %{_mandir}/man1/cpu-sig-tracker.1*
 %{_mandir}/man1/ebranch.1*
 %{_mandir}/man1/fedora-cve-triage.1*

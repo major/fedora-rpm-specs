@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
@@ -45,6 +45,7 @@ Source12:		http://github.com/Castaglia/proftpd-mod_procfs/archive/v%{mod_procfs_
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
+Patch6:			https://github.com/proftpd/proftpd/commit/ca9a7469.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -228,6 +229,10 @@ mv contrib/README contrib/README.contrib
 
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
+
+# Fix regression in mod_sql's SQLNamedQuery (upstream bug 4515)
+# https://github.com/proftpd/proftpd/issues/2293
+%patch -P 6 -p1
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -468,6 +473,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon Aug 24 2026 Paul Howarth <paul@city-fan.org> - 1.3.9d-2
+- Fix regression in mod_sql's SQLNamedQuery (upstream bug 4515, GH#2293)
+
 * Tue Aug 18 2026 Paul Howarth <paul@city-fan.org> - 1.3.9d-1
 - Update to 1.3.9d
   - SSH channel open request from authenticated client with max packet size of

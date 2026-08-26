@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        5.4.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Oxygen fonts created by the KDE Community
 
 # See LICENSE-GPL+FE for details about the exception
@@ -64,6 +64,8 @@ developing applications that use %{name}.
 %setup -q -n %{name}-%{version}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381349)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5} %{?fontforge} -DOXYGEN_FONT_INSTALL_DIR=%{_fontdir}
 %cmake_build
 
@@ -97,6 +99,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}-mono.conf \
 %{_libdir}/cmake/OxygenFont/
 
 %changelog
+* Mon Jul 27 2026 Cristian Le <fedora@lecris.dev> - 5.4.3-30
+- Allow to build with CMake 4.0 (rhbz#2381349)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

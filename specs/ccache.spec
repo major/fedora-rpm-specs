@@ -12,8 +12,8 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.13.6
-Release:        3%{?dist}
+Version:        4.14
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -240,6 +240,9 @@ done\
 
 
 %changelog
+* Mon Aug 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.14-1
+- 4.14
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

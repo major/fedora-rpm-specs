@@ -6,7 +6,7 @@
 %global giturl  https://github.com/tsutsu3/linkify-it-py
 
 Name:           python-linkify-it-py
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Link recognition library with full Unicode support
 

@@ -1,4 +1,5 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=549593
+# VCS https://gitlab.xfce.org/xfce/tumbler.git
 
 %global xfceversion 4.20
 
@@ -9,25 +10,24 @@ Summary:        D-Bus service for applications to request thumbnails
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://git.xfce.org/xfce/tumbler/
-#VCS git:git://git.xfce.org/xfce/tumbler
 Source0:        https://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  make
-BuildRequires:  gcc
 BuildRequires:  freetype-devel
+BuildRequires:  gcc
+BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  gettext
-BuildRequires:  gtk2-devel >= 2.10.0
+BuildRequires:  glib2-devel >= 2.72.0
+BuildRequires:  gstreamer1-plugins-base-devel
 BuildRequires:  intltool
-BuildRequires:  libpng-devel
+BuildRequires:  libcurl-devel
+%{?fedora:BuildRequires: libgsf-devel}
 BuildRequires:  libjpeg-devel
+%{?fedora:BuildRequires: libopenraw-gnome-devel}
+BuildRequires:  libpng-devel
+BuildRequires:  libxfce4util-devel >= %{xfceversion}
+BuildRequires:  make
 BuildRequires:  poppler-glib-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  libxfce4util-devel >= %{xfceversion}
-
-# extra thumbnailers
-BuildRequires:  gstreamer1-plugins-base-devel
-%{?fedora:BuildRequires: libgsf-devel}
-%{?fedora:BuildRequires: libopenraw-gnome-devel}
 
 
 %description
@@ -76,9 +76,14 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_install
 
 # fix permissions for installed libs
-chmod 755 $RPM_BUILD_ROOT/%{_libdir}/*.so
+chmod 755 %{buildroot}%{_libdir}/*.so
 
 find %{buildroot} -type f -name "*.la" -delete
+
+# rename hye (three letter code) to hy (two letter code) for Armenian
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
 
 %find_lang %{name}
 
@@ -90,15 +95,25 @@ find %{buildroot} -type f -name "*.la" -delete
 %config(noreplace) %{_sysconfdir}/xdg/tumbler/
 %{_datadir}/dbus-1/services/org.xfce.Tumbler.*.service
 %{_libdir}/libtumbler-*.so.*
-%{_libdir}/tumbler-*/
+%dir %{_libdir}/tumbler-1
+%dir %{_libdir}/tumbler-1/plugins
+%dir %{_libdir}/tumbler-1/plugins/cache
+%{_libdir}/tumbler-1/plugins/cache/tumbler-cache-plugin.so
+%{_libdir}/tumbler-1/plugins/cache/tumbler-xdg-cache.so
+%{_libdir}/tumbler-1/plugins/tumbler-cover-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-desktop-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-font-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-jpeg-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-odf-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-pixbuf-thumbnailer.so
+%{_libdir}/tumbler-1/plugins/tumbler-poppler-thumbnailer.so
+%{_libdir}/tumbler-1/tumblerd
 %{_datadir}/icons/hicolor/*/*/org.xfce*%{name}*
 %{_userunitdir}/tumblerd.service
-%exclude %{_libdir}/tumbler-*/plugins/tumbler-gst-thumbnailer.so
-%exclude %{?fedora: %{_libdir}/tumbler-*/plugins/tumbler-raw-thumbnailer.so}
 
 %files extras
-%{_libdir}/tumbler-*/plugins/tumbler-gst-thumbnailer.so
-%{?fedora:%{_libdir}/tumbler-*/plugins/tumbler-raw-thumbnailer.so}
+%{_libdir}/tumbler-1/plugins/tumbler-gst-thumbnailer.so
+%{?fedora:%{_libdir}/tumbler-1/plugins/tumbler-raw-thumbnailer.so}
 
 %files devel
 %{_libdir}/libtumbler-*.so

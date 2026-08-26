@@ -10,8 +10,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:          budgie-control-center
-Version:       2.1.1
-Release:       3%{?dist}
+Version:       2.1.3
+Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -83,13 +83,11 @@ BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  pkgconfig(smbclient)
+BuildRequires:  pkgconfig(tecla)
 BuildRequires:  pkgconfig(udisks2)
 BuildRequires:  pkgconfig(upower-glib) >= 0.99.13
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
-%ifnarch s390 s390x
-BuildRequires:  pkgconfig(libwacom)
-%endif
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gnome-desktop3%{?_isa} >= %{gnome_stack}
@@ -125,6 +123,9 @@ Requires: iso-codes
 # For the network panel
 Recommends: NetworkManager-wifi
 Recommends: nm-connection-editor
+
+# For the keyboard support
+Requires: tecla
 
 # For parental controls support
 Requires: malcontent
@@ -230,6 +231,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Mon Aug 24 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.3-1
+- Update to 2.1.3 release
+- Fixes BZ#2503792
+- Fixes BZ#2499112
+- Fixes BZ#2510736
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

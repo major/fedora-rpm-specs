@@ -96,7 +96,7 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m unittest discover -p 'T
 %{_bindir}/geopmread
 %{_bindir}/geopmwrite
 %{_bindir}/geopmsession
-%{python3_sitearch}/_libgeopmd_py_cffi.abi3.so
+%{python3_sitearch}/_libgeopmd_py_cffi.abi3*.so
 %{python3_sitearch}/%{prj_name}/geopm_service.proto
 
 %changelog

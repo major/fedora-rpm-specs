@@ -1,12 +1,12 @@
 %global pypi_name eth_keys
 
 Name:          python-eth-keys
-Version:       0.7.0
+Version:       0.8.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       A common API for Ethereum key operations
 License:       MIT
-URL:           https://github.com/ethereum/eth-keys
+URL:           https://github.com/ApeWorX/eth-keys
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 BuildRequires: python3-asn1tools
@@ -29,7 +29,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest -k 'not test_install_local_wheel'
+%pytest
 
 %files -n python3-eth-keys -f %{pyproject_files}
 %doc README.md

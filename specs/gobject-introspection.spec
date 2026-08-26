@@ -13,6 +13,9 @@ Source:         https://download.gnome.org/sources/%{name}/%{gnome_major_minor_v
 # https://bugzilla.redhat.com/show_bug.cgi?id=2208966
 Patch:          workaround.patch
 
+# Fix test_ccompiler.py for setuptools >= 84 (spawn() replaced by call() -> subprocess.check_call())
+Patch:          fix-test-ccompiler-setuptools84.patch
+
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gcc

@@ -1,7 +1,6 @@
 Name:    mtd-utils
-Version: 2.2.1
-Release: 5%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version: 2.3.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: Utilities for dealing with MTD (flash) devices
 URL:     http://www.linux-mtd.infradead.org/
@@ -47,6 +46,7 @@ Various test programs related to mtd-utils
 %license COPYING
 %{_sbindir}/doc*
 %{_sbindir}/flash*
+%{_sbindir}/fsck.ubifs
 %{_sbindir}/ftl*
 %{_sbindir}/jffs2dump
 %{_sbindir}/jffs2reader
@@ -74,6 +74,9 @@ Various test programs related to mtd-utils
 %{_libexecdir}/mtd-utils/*
 
 %changelog
+* Mon Aug 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.1-1
+- Update to 2.3.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

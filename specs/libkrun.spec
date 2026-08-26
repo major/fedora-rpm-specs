@@ -55,12 +55,16 @@ Requires:  libkrunfw >= 5.0.0
 # file that also needs to be compiled, and the resulting binary a dynamic
 # library providing a C-compatible ABI.
 #
-# As a result, we can't fully rely on rust-packaging for managing this package.
+# As a result, we can't fully rely on cargo-rpm-macros for managing this package.
 # Instead, we use some of its tasks (cargo_prep and cargo_test) and combine
 # them with using the Makefile provided by the project. We also need to manage
-# BuildRequires manually, as rust-packaging gets confused trying to generate
-# them dynamically.
-BuildRequires:  rust-packaging >= 21
+# BuildRequires manually, as cargo_generate_buildrequires gets confused trying
+# to generate them dynamically.
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
+BuildRequires:  cargo-rpm-macros
+%endif
 BuildRequires:  glibc-static
 BuildRequires:  binutils
 BuildRequires:  libcap-ng-devel

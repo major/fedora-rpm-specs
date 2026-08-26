@@ -1,15 +1,17 @@
 # When bootstrapping new Python we need to build flit in bootstrap mode.
 # The Python RPM dependency generators and pip are not yet available.
+# As this is a compat package, this might not be needed for Python 3.16+,
+# but as of the split, pip needs flit-core < 4.
 %bcond bootstrap 0
 
 # Tests are enabled by default, unless we bootstrap.
 # Disable them to avoid a circular build dependency on testpath.
 %bcond tests %{without bootstrap}
 
-Name:           python-flit-core
-Version:        4.0.2
+Name:           python-flit-core3
+Version:        3.12.0
 Release:        %autorelease
-Summary:        PEP 517 build backend for packages using Flit
+Summary:        PEP 517 build backend for packages using Flit (compatibility package version 3)
 
 # flit-core is BSD-3-Clause
 # flit_core/versionno.py contains a regex that is from packaging, BSD-2-Clause
@@ -30,12 +32,14 @@ BuildRequires:  python%{python3_pkgversion}-testpath
 %global _description %{expand:
 This provides a PEP 517 build backend for packages using Flit.
 The only public interface is the API specified by PEP 517,
-at flit_core.buildapi.}
+at flit_core.buildapi.
+
+This is a compatibility package with flit-core version 3.x.}
 
 %description %_description
 
 
-%package -n python%{python3_pkgversion}-flit-core
+%package -n python%{python3_pkgversion}-flit-core3
 Summary:        %{summary}
 
 # RPM generators are not yet available when we bootstrap
@@ -45,7 +49,16 @@ Provides:       python%{python3_version}dist(flit-core) = %{version}
 Requires:       python(abi) = %{python3_version}
 %endif
 
-%description -n python%{python3_pkgversion}-flit-core %_description
+# Obsoletes for clean upgrade path from python3-flit-core < 4
+Obsoletes:      python%{python3_pkgversion}-flit-core < 4~~
+# There is no co-installability with any other flit-core package
+Conflicts:      python%{python3_version}dist(flit-core)
+# Provides for things like BuildRequires: python3-flit-core < 4
+%py_provides    python%{python3_pkgversion}-flit-core
+# Finally, we don't want new packages to use this
+Provides:       deprecated()
+
+%description -n python%{python3_pkgversion}-flit-core3 %_description
 
 
 %prep
@@ -89,7 +102,7 @@ rm %{buildroot}%{python3_sitelib}/flit_core-%{version}.dist-info/RECORD
 %endif
 
 
-%files -n python%{python3_pkgversion}-flit-core
+%files -n python%{python3_pkgversion}-flit-core3
 %doc README.rst
 %{python3_sitelib}/flit_core-*.dist-info/
 %license %{python3_sitelib}/flit_core-*.dist-info/licenses/LICENSE

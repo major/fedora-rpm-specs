@@ -21,7 +21,7 @@
 %bcond bootstrap 0
 
 Name:           gap
-Version:        4.16.0%{?prerel:~%{prerel}}
+Version:        4.16.1%{?prerel:~%{prerel}}
 Release:        %autorelease
 Summary:        Computational discrete algebra
 

@@ -62,7 +62,7 @@ cd %{prj_name}
 %files -n python3-%{prj_name} -f %{pyproject_files}
 %license LICENSE-BSD-3-Clause
 %doc README.md
-%{python3_sitearch}/_libgeopm_py_cffi.abi3.so
+%{python3_sitearch}/_libgeopm_py_cffi.abi3*.so
 %{_bindir}/geopmlaunch
 
 %changelog

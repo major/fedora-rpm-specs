@@ -23,6 +23,8 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 # Ensure the login collection is registered after unlocking
 Patch:          78.patch
 
+Patch:          prompt-crash.patch
+
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(libcap-ng)

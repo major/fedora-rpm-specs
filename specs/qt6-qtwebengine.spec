@@ -87,8 +87,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.11.1
-Release: 3%{?dist}
+Version: 6.11.2
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -147,6 +147,10 @@ Patch202: qtwebengine-chromium-ppc64-highway.patch
 Patch203: qtwebengine-chromium-ppc64-skia-musttail.patch
 # update crashpad for kernel 7.2+
 Patch204: qtwebengine-chromium-ppc64-crashpad.patch
+# update for libvpx from chromium 150
+Patch205: qtwebengine-chromium-ppc64-libvpx.patch
+# update for libaom from chromium 150
+Patch206: qtwebengine-chromium-ppc64-libaom.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -501,6 +505,10 @@ popd
 %patch -P202 -p1
 %patch -P203 -p1
 %patch -P204 -p1
+pushd src/3rdparty/chromium
+%patch -P205 -p1
+%patch -P206 -p1
+popd
 
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
@@ -849,6 +857,9 @@ done
 %endif
 
 %changelog
+* Mon Aug 24 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
+- 6.11.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

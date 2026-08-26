@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-mtime
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Monotonic wall-clock time for OCaml
 
@@ -23,7 +23,7 @@ BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  ocaml-topkg-devel >= 1.1.0
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Data_types -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 
 # link with the math library
 echo $'\ntrue: cclib(-lm)' >> _tags
+
+# Don't depend on unreleased b0 features
+sed -i 's/Test\.Log\.msg/Test.log/g' test/test_mtime_clock.ml
 
 %check
 b0 test

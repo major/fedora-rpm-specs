@@ -20,11 +20,11 @@
 %endif
 
 Name: nagios-plugins
-Version: 2.4.12
+Version: 2.5
 %if 0%{?fromgit}
-Release: 6.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 2.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 6%{?dist}
+Release: 2%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -46,6 +46,7 @@ Patch1: %{name}-ntpsec-support.patch
 Patch2: nagios-plugins-0002-Remove-assignment-of-not-parsed-to-jitter.patch
 Patch7: nagios-plugins-0007-Fix-the-use-lib-statement-and-the-external-ntp-comma.patch
 Patch12: nagios-plugins-0012-fix-perl-ntp-ipv6.patch
+Patch20: nagios-plugins-0020-fix-unsigned-short-overflow.patch
 
 BuildRequires: make
 BuildRequires: %{_bindir}/mailq
@@ -69,6 +70,11 @@ BuildRequires: libdbi-devel
 Obsoletes: nagios-plugins-dbi < 2.4.0-6
 %endif
 BuildRequires: iputils
+# nagios-plugins isn't compatible with openssl4-devel, use openssl3
+# openssl4-devel is a dependency of net-snmp-devel
+%if 0%{?fedora} >= 45
+BuildRequires: openssl3-devel
+%endif
 BuildRequires: net-snmp-devel
 BuildRequires: net-snmp-utils
 %if 0%{?fedora}
@@ -81,11 +87,7 @@ BuildRequires: perl(Date::Parse)
 BuildRequires: perl(LWP::Simple)
 BuildRequires: perl(Text::Glob)
 BuildRequires: perl-generators
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires: postgresql-devel
-%else
 BuildRequires: libpq-devel
-%endif
 BuildRequires: qstat
 BuildRequires: samba-client
 
@@ -520,6 +522,7 @@ Requires: perl(Crypt::X509)
 Requires: perl(Date::Parse)
 Requires: perl(LWP::Simple)
 Requires: perl(Text::Glob)
+Requires: perl(Math::BigInt)
 Requires: openssl
 
 %description ssl_validity
@@ -602,6 +605,7 @@ Provides check_wave support for Nagios.
 %patch -P 7 -p1 -b .fix_ntpcommands
 %if 0%{?bootstrap} == 0
 %patch -P 12 -p1 -b .fix_perl_ntp
+%patch -P 20 -p1 -b .fix_check_icmp
 %endif
 
 %build
@@ -874,6 +878,18 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Mon Aug 24 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5-2
+- Added perl-Math-BigInt as dependency for
+  nagios-plugins-ssl_validity (bz#2439960)
+- Update 0012-fix-perl-ntp-ipv6.patch to allow uppercase hostnames (bz#2500542)
+
+* Mon Aug 24 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5-1
+- Update to upstream (bz#2453492)
+- Fix check_icmp: host-count overflow leads to heap buffer overflow
+  in setuid-root binary (bz#2513957)
+- Remove RHEL7- support
+- Add dependency on openssl3-devel for fedora-45+ (bz#2504361)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

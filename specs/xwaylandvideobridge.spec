@@ -1,5 +1,5 @@
 Name:           xwaylandvideobridge
-Version:        0.5.1
+Version:        0.5.2
 Release:        1%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
@@ -22,6 +22,7 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-composite)
 BuildRequires:  pkgconfig(xcb-event)
@@ -76,6 +77,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Aug 24 2026 Steve Cossette <farchord@gmail.com> - 0.5.2-1
+- 0.5.2
+
 * Thu Aug 13 2026 Steve Cossette <farchord@gmail.com> - 0.5.1-1
 - 0.5.1
 

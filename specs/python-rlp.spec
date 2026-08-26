@@ -1,12 +1,12 @@
 %global pypi_name rlp
 
 Name:          python-%{pypi_name}
-Version:       4.1.0
+Version:       5.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       A Python implementation of Recursive Length Prefix encoding
 License:       MIT
-URL:           https://github.com/ethereum/pyrlp
+URL:           https://github.com/ApeWorX/pyrlp
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 BuildRequires: python3-hypothesis
@@ -24,7 +24,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest -k 'not test_install_local_wheel'
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

@@ -1,16 +1,14 @@
 Name:		rkcommon
-Version:	1.14.2
+Version:	1.15.3
 Release:	%autorelease
 Summary:	Intel renderKit common C++/CMake infrastructure
 
 License:	Apache-2.0
 URL:		https://github.com/Renderkit/rkcommon
-Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:		test-rsqrt-overload.patch
+Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Upstream only supports x86-64 and ARM64 architectures
-ExclusiveArch:	x86_64 aarch64
+ExclusiveArch:	%{x86_64} %{arm64}
 
 BuildRequires:	cmake >= 3.1
 BuildRequires:	gcc-c++
@@ -29,7 +27,7 @@ The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %cmake

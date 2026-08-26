@@ -82,7 +82,7 @@ BuildOption(install): --assert-license uv_build
 ExcludeArch:   %{ix86}
 
 BuildRequires:  tomcli
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  rust2rpm-helper
 
 %global common_description %{expand:

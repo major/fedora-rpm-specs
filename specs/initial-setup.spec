@@ -1,12 +1,13 @@
 # Enable X11 for RHEL 9 and older only
 %bcond x11 %[0%{?rhel} && 0%{?rhel} < 10]
+%bcond glade %[%{undefined rhel} && %{undefined eln}]
 
 Name: initial-setup
 Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
-Version: 0.3.101
-Release: 10%{?dist}
+Version: 0.3.103
+Release: 1%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -21,10 +22,11 @@ Source0: %{name}-%{version}.tar.gz
 
 BuildRequires: gettext
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: systemd-units
 BuildRequires: gtk3-devel
+%if %{with glade}
 BuildRequires: glade-devel
+%endif
 BuildRequires: intltool
 BuildRequires: make
 
@@ -33,6 +35,7 @@ Requires: anaconda-tui >= %{anacondaver}
 Requires: libxkbcommon
 Requires: python3-simpleline >= 1.4
 Requires: systemd >= 235
+Requires: kmscon >= 10.0.1
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -97,6 +100,7 @@ Summary: Run the initial-setup GUI in Wayland
 Requires: %{name}-gui = %{version}-%{release}
 Requires: weston
 Requires: xorg-x11-server-Xwayland
+Requires: kbd
 
 Provides:  firstboot(gui-backend)
 Conflicts: firstboot(gui-backend)
@@ -138,11 +142,26 @@ RemovePathPostfixes: .guixorg
 # remove upstream egg-info
 rm -rf *.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %make_build
 
 %install
 %make_install
+
+# Manually install configuration files to /etc (avoid /usr/etc issue)
+install -d %{buildroot}%{_sysconfdir}/%{name}/conf.d
+install -m 644 data/10-initial-setup.conf %{buildroot}%{_sysconfdir}/%{name}/conf.d/
+install -d %{buildroot}%{_sysconfdir}/pam.d
+install -m 644 pam/initial-setup %{buildroot}%{_sysconfdir}/pam.d/
+
+%ifarch s390 s390x
+install -d %{buildroot}%{_sysconfdir}/profile.d
+install -m 644 scripts/s390/initial-setup.sh %{buildroot}%{_sysconfdir}/profile.d/
+install -m 644 scripts/s390/initial-setup.csh %{buildroot}%{_sysconfdir}/profile.d/
+%endif
 
 # Remove the default link, provide subpackages for alternatives
 rm %{buildroot}%{_libexecdir}/%{name}/run-gui-backend
@@ -156,32 +175,22 @@ rm -v %{buildroot}%{_libexecdir}/%{name}/firstboot-windowmanager
 %find_lang %{name}
 
 %changelog
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.3.101-10
-- Rebuilt for Python 3.15.0b4 ABI change
+* Mon Aug 24 2026 Martin Kolman <mkolman@redhat.com> - 0.3.103-1
+- Fix s390 build (mkolman)
 
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.101-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.101-8
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.101-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.101-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.101-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.101-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.101-3
-- Rebuilt for Python 3.14
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.101-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Mon Aug 24 2026 Martin Kolman <mkolman@redhat.com> - 0.3.102-1
+- Update the systemd service, to use kmscon instead of fbcon (jfalempe)
+- Add Fedora Rahide for COPR build in Packit (mkolman)
+- Drop python-wheel dependecny (mkolman)
+- Prevent Glade dependency from breaking ELN tests (mkolman)
+- Use LIBSEAT_BACKEND=noop for weston in run-gui-backend (jgroman)
+- Fix pam and config file handling (mkolman)
+- Fix makebumpver to also bump version in pyproject.toml (mkolman)
+- Adjust spec file to setup.py changes (mkolman)
+- Fixup tarball & folder naming (mkolman)
+- Modernize setup.py (mkolman)
+- Try to use outputs on all cards (marmarek)
+- Switch VT before starting weston (marmarek)
 
 * Fri Jul 19 2024 Martin Kolman <mkolman@redhat.com> - 0.3.101-1
 - Use threads.py submodule in favor of compatibility file threading.py (kkoukiou)

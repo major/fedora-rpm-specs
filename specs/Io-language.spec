@@ -39,6 +39,9 @@ BuildRequires:  yajl-devel >= 2
 # Put back freetype-devel, clutter-devel, mysql-devel, qdbm-devel,
 # openssl-devel when these extensions build
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# Fails on i686 anyway: https://bugzilla.redhat.com/2488337
+ExcludeArch:    %{ix86}
 
 %description
 Io is a small, prototype-based programming language. The ideas in

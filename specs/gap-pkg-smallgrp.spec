@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/smallgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Small groups library
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.21
+Version: 45.22
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -70,7 +70,7 @@ BuildRequires: s390utils-devel
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic) else anaconda-webui)
+Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic or fedora-release-identity-iot) else anaconda-webui)
 Requires: anaconda-tui = %{version}-%{release}
 
 %description
@@ -523,6 +523,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 24 2026 Packit <hello@packit.dev> - 45.22-1
+- spec: add IOT to anaconda-gui variants in rich dep (kkoukiou)
+
 * Fri Aug 21 2026 Packit <hello@packit.dev> - 45.21-1
 - rescue: read fstab from sysroot for OSTree deployments (kkoukiou)
 - ci: Require check suite timestamp strictly before comment time (rvykydal)

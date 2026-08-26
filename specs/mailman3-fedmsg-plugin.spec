@@ -55,6 +55,9 @@ Summary: %{summary}
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
 
+# Unpin zope-interface, we've got 8.5.x in Fedora 45 and 8.6.x in Fedora 46
+%pyproject_patch_dependency zope-interface:drop_upper
+
 %build
 %pyproject_wheel
 

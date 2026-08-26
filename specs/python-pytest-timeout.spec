@@ -2,13 +2,14 @@
 
 Name:           python-pytest-timeout
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-timeout
 Source0:        %{pypi_source}
+Patch:          revert-str-to-float-timeout-option.patch
 
 BuildArch:      noarch
 
@@ -50,6 +51,9 @@ sed -i -e '/\s*ipdb$/d' tox.ini
 %doc README.rst
 
 %changelog
+* Mon Aug 24 2026 Scott Talbert <swt@techie.net> - 2.5.0-2
+- Revert timeout option change from str to float
+
 * Sun Aug 16 2026 Scott Talbert <swt@techie.net> - 2.5.0-1
 - Update to new upstream release 2.5.0 (#2517247)
 

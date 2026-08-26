@@ -1,11 +1,14 @@
 Name:		fastrpc
-Version:	1.0.6
+Version:	1.0.7
 Release:	%autorelease
 Summary:	Qualcomm FastRPC and library
 
 License:	BSD-3-Clause
 URL:		https://github.com/qualcomm/fastrpc
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/qualcomm/fastrpc/pull/372
+Patch0:		372.patch
 
 ExclusiveArch:	%{arm64}
 
@@ -39,7 +42,7 @@ Suggests:	hexagon-dsp-binaries
 This package contains daemons and systemd files for %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 # disable the test application
 # https://github.com/qualcomm/fastrpc/issues/235
@@ -91,6 +94,7 @@ autoreconf -fiv
 %{_libdir}/libcdsprpc.so
 %{_libdir}/libsdsp_default_listener.so
 %{_libdir}/libsdsprpc.so
+%{_mandir}/man3/fastrpc.3*
 
 %files services
 %{_sbindir}/adsprpcd
@@ -104,6 +108,12 @@ autoreconf -fiv
 %{_unitdir}/gdsp0rpcd.service
 %{_unitdir}/gdsp1rpcd.service
 %{_unitdir}/sdsprpcd.service
+%{_mandir}/man8/adsprpcd.8*
+%{_mandir}/man8/cdsprpcd.8*
+%{_mandir}/man8/dsprpcd.8*
+%{_mandir}/man8/gdsprpcd.8*
+%{_mandir}/man8/sdsprpcd.8*
+%{_udevrulesdir}/59-fastrpc-remoteproc.rules
 %{_udevrulesdir}/60-fastrpc.rules
 %{_sysusersdir}/fastrpc.conf
 

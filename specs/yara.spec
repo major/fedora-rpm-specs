@@ -1,5 +1,5 @@
 Name:           yara
-Version:        4.5.7
+Version:        4.5.8
 Summary:        Pattern matching Swiss knife for malware researchers
 URL:            https://VirusTotal.github.io/yara/
 VCS:            git:https://github.com/VirusTotal/yara/
@@ -20,9 +20,9 @@ and a Boolean expression which determine its logic.}
 
 %global         gituser         VirusTotal
 %global         gitname         yara
-# Commit of version 4.5.6
-%global         gitdate         20260601
-%global         commit          d72b85f09fcd86583836eb8c4f349cb269ec875d
+# Commit of version 4.5.8
+%global         gitdate         20260728
+%global         commit          84b0e3cc0e42f8f8e6b84d19c97ec3ac6ff8aee8
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %bcond_without  release

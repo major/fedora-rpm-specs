@@ -1,7 +1,7 @@
 %global _distro_extra_ldflags -L%{_libdir}/fdk-aac
 
 Name:           fdkaac
-Version:        1.0.8
+Version:        1.0.9
 Release:        1%{?dist}
 Summary:        Command line frontend for libfdk-aac encoder
 
@@ -11,11 +11,18 @@ Summary:        Command line frontend for libfdk-aac encoder
 License:        Zlib AND MIT AND TU-Berlin-1.0
 URL:            https://github.com/nu774/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# test only profiles supported by fdk-aac-free
+Patch:          fdkaac-free.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pkgconfig(fdk-aac)
+# for tests
+BuildRequires:  python3
+BuildRequires:  python3dist(numpy)
+BuildRequires:  /usr/bin/ffmpeg
 
 
 %description
@@ -31,7 +38,7 @@ the resulting M4A.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %conf
@@ -45,15 +52,23 @@ autoreconf -fiv
 %install
 %make_install
 
+%check
+python3 tests/verify_smart_padding.py
 
 %files
 %license COPYING
 %doc README ChangeLog
 %{_bindir}/fdkaac
-%{_mandir}/man1/*
+%{_mandir}/man1/fdkaac.1*
 
 
 %changelog
+* Mon Aug 24 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.9-1
+- update to 1.0.9 (resolves rhbz#2510747)
+- add missing explicit build dependencies
+- enable tests
+- skip tests unsupported by fdk-aac-free
+
 * Thu Jul 30 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.8-1
 - update to 1.0.8 (resolves rhbz#2502090)
 

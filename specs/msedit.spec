@@ -4,11 +4,6 @@
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-# Temporarily use a Git revision until next stable release
-%global commit           e16b4abffc5e23d20e49de5f1461aebfc692268d
-%global shortcommit      %{sub %{commit} 1 7}
-%global commitdate       20250710
-
 # icu soversion
 %global icu_sover       %(icu-config --version | cut -d. -f1)
 %global libicuuc        libicuuc.so.%{icu_sover}
@@ -19,16 +14,17 @@
 %endif
 
 Name:           msedit
-Version:        1.2.0^1.%{shortcommit}
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Simple editor inspired by the MS-DOS Editor
 SourceLicense:  MIT
 # MIT OR Apache-2.0: libc v0.2.172
-# MIT: edit v1.2.0
+# MIT: edit v2.0.0, lsh v0.0.0, stdext v0.0.0
+# MIT OR Apache-2.0: toml-span
 License:        MIT AND (MIT OR Apache-2.0)
 
 URL:            https://github.com/microsoft/edit
-Source:         %{url}/archive/%{shortcommit}.tar.gz
+Source:         %{url}/archive/v%{version}/edit-%{version}.tar.gz
 Patch:          edit-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -51,7 +47,7 @@ use.
 %description %{_description}
 
 %prep
-%autosetup -n edit-%{commit} -p1
+%autosetup -n edit-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -73,10 +69,7 @@ export EDIT_CFG_ICUUC_SONAME=%{libicuuc}
 export EDIT_CFG_ICUI18N_SONAME=%{libicui18n}
 export EDIT_CFG_ICU_RENAMING_VERSION=%{icu_sover}
 
-%cargo_install
-
-# de-conflict with vim
-mv %{buildroot}%{_bindir}/edit %{buildroot}%{_bindir}/%{name}
+install -Dpm 0755 target/rpm/edit %{buildroot}%{_bindir}/%{name}
 
 # Change binary and icon in .desktop file then install it
 sed -i \

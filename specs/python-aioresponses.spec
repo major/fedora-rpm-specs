@@ -9,6 +9,24 @@ License:        MIT
 URL:            https://github.com/pnuckowski/aioresponses
 Source:         %{pypi_source}
 
+# fix: support aiohttp 3.14 pause_reading - #292
+# https://github.com/pnuckowski/aioresponses/pull/292
+#
+# Fixes:
+# - issue with aiohttp-3.14:
+#   https://github.com/pnuckowski/aioresponses/issues/289
+# - `aioresponses` is incompatible with aiohttp 3.14.0 - switch to
+#   `aiointercept`: https://github.com/aio-libs/aiohttp/issues/12815
+#
+# See also:
+# - fix: support aiohttp 3.14 required stream_writer argument
+#   https://github.com/pnuckowski/aioresponses/pull/288
+# - ci: test against aiohttp 3.14
+#   https://github.com/pnuckowski/aioresponses/pull/291
+# - feat: Add support for aiohttp 3.14:
+#   https://github.com/pnuckowski/aioresponses/pull/290
+Patch:          %{url}/pull/292.patch
+
 BuildArch:      noarch
 # Since python-aiohttp excludes s390x we have to exclude it, as well
 # See also:

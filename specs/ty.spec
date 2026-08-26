@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.73
+Version:        0.0.74
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,9 +159,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 107e38d04573ff546a1caa8bff0c04875efb6afb
-%global ruff_baseversion 0.16.3
-%global ruff_snapdate 20260818
+%global ruff_rev f42a9e0b99237195cf293f7515b96139a07851e3
+%global ruff_baseversion 0.16.4
+%global ruff_snapdate 20260822
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
@@ -192,7 +192,7 @@ ExcludeArch:    %{ix86}
 # Memory exhaustion can occur. Increase as needed.
 %global _smp_tasksize_proc 16384
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
 

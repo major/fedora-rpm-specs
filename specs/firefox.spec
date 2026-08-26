@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        154.0
-Release:        4%{?pre_tag}%{?dist}
+Release:        5%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1074,9 +1074,8 @@ cp failures-* %{buildroot}/%{version}-%{release}/ || true
 # Default
 cp %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 
-%if 0%{?fedora} <= 44
-echo 'pref("widget.wayland.session-management.enabled", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-%endif
+# Disabled session restore due to mzbz#2059617.
+echo 'pref("widget.wayland.session-management.enabled", false);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 
 %if %{?use_pipewire_camera}
 echo 'pref("media.webrtc.camera.allow-pipewire", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
@@ -1215,6 +1214,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Aug 24 2026 Martin Stransky <stransky@redhat.com> - 154.0-5
+- Disabled session restore due to mzbz#2059617.
+
 * Fri Aug 21 2026 Martin Stransky <stransky@redhat.com> - 154.0-4
 - Backported fix for HDR crash when HLG transform is missing
   (and it's always missing!).

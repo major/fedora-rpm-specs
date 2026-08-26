@@ -42,6 +42,9 @@ Patch0001: 0001-PAM-fix-use-after-free-during-p11_child-processing.patch
 Patch0002: 0002-gpo-reject-path-traversal-in-gPCFileSysPath.patch
 Patch0003: 0003-sudo-warn-when-ldap_sudo_search_base-falls-back-to-r.patch
 
+# https://github.com/SSSD/sssd/pull/9076
+Patch1001: 1001-Fix-FTBFS-with-GDM-51-PAM-extension-headers.patch
+
 ### Downstream only patches ###
 # Place your downstream only patches here:
 # Patch0901: 0901-downstream-only-patch-file.patch

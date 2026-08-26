@@ -25,6 +25,11 @@ Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/
 Source1:        flatpak-add-fedora-repos.service
 %endif
 
+# https://github.com/flatpak/flatpak/pull/6785
+Patch:          fd-conflation.patch
+# https://github.com/flatpak/flatpak/pull/6787
+Patch:          eagain.patch
+
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10

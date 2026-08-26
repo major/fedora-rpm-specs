@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	77%{?dist}
+Release:	78%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -702,6 +702,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 20 2026 Andrea Bolognani <abologna@redhat.com> - 2.12-78
+- Use large code model on riscv64
+
 * Thu Aug 13 2026 Josue Hernandez <josherna@redhat.com> - 2.12-77
 - Fix systemd timer,service permissions - Resolves: #2512037
 

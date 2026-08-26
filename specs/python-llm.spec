@@ -4,7 +4,7 @@
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
@@ -13,6 +13,7 @@ Patch:          0002-Skip-tests-failing-with-sqlite-3.51.patch
 Patch:          0003-Skip-tests-which-requires-network-access.patch
 
 BuildArch:      noarch
+BuildConflicts: python3-pytest-vcr
 BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3dist(llm-echo)
@@ -89,6 +90,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Mon Aug 24 2026 Terje Røsten <terjeros@gmail.com> - 0.33-2
+- Add BuildConflicts
+
 * Sat Aug 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.33-1
 - Update to 0.33
 

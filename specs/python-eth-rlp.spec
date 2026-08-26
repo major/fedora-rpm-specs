@@ -1,14 +1,16 @@
 %global pypi_name eth_rlp
 
 Name:          python-eth-rlp
-Version:       2.2.0
+Version:       3.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       RLP definitions for common Ethereum objects in Python
 License:       MIT
-URL:           https://github.com/ethereum/eth-rlp
+URL:           https://github.com/ApeWorX/eth-rlp
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
+# Upstream forgot to exclude docs from package discovery
+Patch0:        0001-Exclude-docs-from-setuptools-package-discovery.patch
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
 BuildOption(prep):    -n %{pypi_name}-%{version}
@@ -24,7 +26,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest -k 'not test_install_local_wheel'
+%pytest
 
 %files -n python3-eth-rlp -f %{pyproject_files}
 %doc README.md

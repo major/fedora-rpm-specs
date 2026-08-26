@@ -5,17 +5,19 @@ Summary:        Electronic Design Automation software; from prototype to product
 License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
-%global version_no 1.0.7
-Release:        3%{?dist}
+%global version_no 1.0.8
+Release:        1%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
-# Take the latest commit from the "1.0.7" branch in the fritzing-app repo.
-%global app_date 20260414
-%global app_commit 394a8bb4791424ffd99f99ebc330264d4becea63
+# According to the website, v1.0.8 was released on 2026-08-12.
+# There are no git commits on the 'devel' branch made on that date.
+# Take the latest commit made before said date.
+%global app_date 20260728
+%global app_commit 5aa56a510183c23084990a6b4481708cad24c15b
 
-# Take the latest commit from the "1.0.7" branch in the fritzing-parts repo.
-%global parts_date 20260325
-%global parts_commit 70a1773402e8c76a77795637de482a83db3ca6d7
+# Take the latest commit made before 2026-08-12 from the fritzing-parts repo.
+%global parts_date 20260723
+%global parts_commit 27535f2fd02097be9bed229b75aa8e9be282a4a0
 
 # Include the commit date in the version numbers
 %global app_version %{version_no}^%{app_date}
@@ -35,6 +37,10 @@ Patch2:         0002-remove-twitter4j.patch
 Patch3:         0003-maximum-qt-version.patch
 # Fix missing required Qt library
 Patch4:         0004-qt6-core5compat.patch
+# The build system tries to take some version info from git - provide it manually
+Patch5:         0005-gitversion.patch
+# The build system performs some flawed 64-bit arch detection
+Patch6:         0006-hardware-platform.patch
 
 # Point library detection scripts to system-provided libs.
 Patch10:        0010-quazip-detect.patch
@@ -122,6 +128,15 @@ sed -e '/<url type="forum">/d' -i '%{rtld_name}.appdata.xml'
 
 
 %build
+export FEDORA_GIT_DATE="%{app_date}"
+export FEDORA_GIT_VERSION="$(c="%{app_commit}"; echo "${c:0:7}")"
+export FEDORA_BUILD_DATE="$(date --date="@${SOURCE_DATE_EPOCH}" --iso-8601=seconds )"
+%ifnarch %{ix86}
+export FEDORA_PLATFORM="LINUX_64"
+%else
+export FEDORA_PLATFORM="LINUX_32"
+%endif
+
 %qmake_qt6 PREFIX=%{_prefix}
 %make_build V=1
 
@@ -163,6 +178,9 @@ fi
 
 
 %changelog
+* Mon Aug 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.8^20260728-1
+- Update to v1.0.8
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7^20260414-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

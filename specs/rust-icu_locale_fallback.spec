@@ -2,21 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate evmap
+%global crate icu_locale_fallback
 
-Name:           rust-evmap
-Version:        11.0.0
+Name:           rust-icu_locale_fallback
+Version:        2.3.0
 Release:        %autorelease
-Summary:        Lock-free, eventually consistent, concurrent multi-value map
+Summary:        API for Locale Fallback algorithms
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/evmap
+License:        Unicode-3.0
+URL:            https://crates.io/crates/icu_locale_fallback
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Drop benchmark-only criterion dev-dependency
+# * Restore dev-dependency `writeable` (version 0.6), which is path-based and
+#   was therefore removed by Cargo.toml normalization.
+Patch:          icu_locale_fallback-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A lock-free, eventually consistent, concurrent multi-value map.}
+API for Locale Fallback algorithms.}
 
 %description %{_description}
 
@@ -30,8 +35,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,52 +51,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+eviction-devel
+%package     -n %{name}+compiled_data-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+eviction-devel %{_description}
+%description -n %{name}+compiled_data-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "eviction" feature of the "%{crate}" crate.
+use the "compiled_data" feature of the "%{crate}" crate.
 
-%files       -n %{name}+eviction-devel
+%files       -n %{name}+compiled_data-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+indexed-devel
+%package     -n %{name}+datagen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+indexed-devel %{_description}
+%description -n %{name}+datagen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "indexed" feature of the "%{crate}" crate.
+use the "datagen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+indexed-devel
+%files       -n %{name}+datagen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+indexmap-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+indexmap-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "indexmap" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+indexmap-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -110,7 +114,8 @@ use the "rand" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * Doctests have circular dependencies on the top-level icu crate
+%cargo_test -- --lib
 %endif
 
 %changelog

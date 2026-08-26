@@ -192,7 +192,7 @@ ExcludeArch:    %{ix86}
 # “too many open files.” Try to keep the files/core ratio from getting too low.
 %global _smp_ncpus_max 48
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
 %if %{with check} && %{with other_python_versions}

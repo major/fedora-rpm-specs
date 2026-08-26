@@ -1,12 +1,12 @@
 %global pypi_name eth_account
 
 Name:          python-eth-account
-Version:       0.13.7
+Version:       0.14.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Ethereum account abstraction library
 License:       MIT
-URL:           https://github.com/ethereum/eth-account
+URL:           https://github.com/ApeWorX/eth-account
 Source0:       %{pypi_source %pypi_name}
 Patch:         python-eth-account-0001-Relax-dependencies-a-bit.patch
 BuildRequires: python3-hypothesis
@@ -25,8 +25,8 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-# Ignored tests requires Node.js with a custom setup or Internet access
-PYTHONPATH=$(pwd) %pytest -k 'not test_install_local_wheel and not test_messages_where_all_3_sigs_match and not test_messages_where_eth_account_matches_ethers_but_not_metamask and not test_messages_where_eth_account_matches_metamask_but_not_ethers and not test_compatibility'
+# Ignored tests require Node.js with a custom setup or Internet access
+%pytest -k 'not test_install_local_wheel and not test_messages_where_all_3_sigs_match and not test_messages_where_eth_account_matches_ethers_but_not_metamask and not test_messages_where_eth_account_matches_metamask_but_not_ethers and not test_compatibility'
 
 %files -n python3-eth-account -f %{pyproject_files}
 %doc README.md

@@ -174,7 +174,7 @@ ExcludeArch:    %{ix86}
 # Memory exhaustion can occur. Increase as needed.
 %global _smp_tasksize_proc 16384
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
 

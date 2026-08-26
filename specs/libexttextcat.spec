@@ -1,5 +1,7 @@
+%global soversion 1
+
 Name: libexttextcat
-Version: 3.4.6
+Version: 3.4.8
 Release: %autorelease
 Summary: Text categorization library
 
@@ -49,12 +51,13 @@ make check
 %files
 %doc ChangeLog README*
 %license LICENSE
-%{_libdir}/%{name}*.so.*
+%{_libdir}/%{name}-2.0.so.%{soversion}
+%{_libdir}/%{name}-2.0.so.%{soversion}.*
 %{_datadir}/%{name}
 
 %files devel
 %{_includedir}/%{name}
-%{_libdir}/%{name}*.so
+%{_libdir}/%{name}-2.0.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/vala/vapi/libexttextcat.vapi
 

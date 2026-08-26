@@ -1,12 +1,10 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
-Version:    1.4.6
+Version:    1.4.7
 Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
-# https://github.com/Matroska-Org/libebml/pull/346
-Patch:      https://github.com/Matroska-Org/libebml/commit/7cf88e1b6caba995d284fe6dbd74b6cb0115ed5d.patch#/libebml-utf8cpp-4.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: utf8cpp-devel
@@ -62,6 +60,10 @@ will use the Extensible Binary Meta Language library.
 
 
 %changelog
+* Mon Aug 24 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.4.7-1
+- update to 1.4.7 (resolves rhbz#2520272)
+- drop merged patch
+
 * Thu Jul 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.4.6-1
 - update to 1.4.6 (resolves rhbz#2502270)
 - drop merged patches

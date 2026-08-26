@@ -1,6 +1,6 @@
 # Set the version and release here
 %global condor_version 25.13.2
-%global condor_release 1
+%global condor_release 2
 
 # set uw_build to 0 for downstream (Fedora or EPEL)
 # UW build includes stuff for testing and tarballs
@@ -461,7 +461,9 @@ BuildArch: noarch
 Requires: %name = %version-%release
 Requires: condor-credmon-local = %{version}-%{release}
 Requires: python3-urllib3
+%if %uw_build
 Requires: htgettoken >= 1.1
+%endif
 
 %description credmon-multi
 Provides concurrent support for the Vault credmon alongside the Local
@@ -1345,6 +1347,9 @@ fi
 # configuration
 
 %changelog
+* Sun Aug 23 2026 Tim Theisen <ttheisen@fedoraproject.org> - 25.13.2-2
+- Drop htgettoken requirement from credmon-multi
+
 * Sun Aug 23 2026 Tim Theisen <ttheisen@fedoraproject.org> - 25.13.2-1
 - Bring upstream and Fedora spec file in sync to speed updates - rhbz#2316408
 - Also fixes build for f45/rawhide - rhbz#2503824

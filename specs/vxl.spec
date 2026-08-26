@@ -59,7 +59,7 @@ Patch:     0017-v3.5.0-remove-boxm2-processes-that-use-sdnet-that-re.patch
 Patch:     0018-chore-remove-ctest-dashboard-config.patch
 
 BuildRequires:  cmake
-BuildRequires:  Coin2-devel
+BuildRequires:  Coin4-devel
 BuildRequires:  doxygen
 BuildRequires:  expat-devel
 BuildRequires:  expatpp-devel
@@ -95,7 +95,6 @@ Provides:  bundled(libopenjpeg2) = 2.0.0
 # BuildRequires:  python3-devel
 
 BuildRequires:  rply-devel
-BuildRequires:  SIMVoleon-devel
 BuildRequires:  shapelib-devel
 BuildRequires:  texi2html
 BuildRequires:  zlib-ng-compat-devel

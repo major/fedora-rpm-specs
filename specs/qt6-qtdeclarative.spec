@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.11.1
-Release: 4%{?dist}
+Version: 6.11.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,9 +34,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
-Patch0:  qtdeclarative-dialogs-use-generic-qtquickcontrols-import-in-base-fallback-dialogs.patch
-Patch1:  qtdeclarative-qmltableinstancemodel-refactor-qmodelindex-calculation-out-of-qquicktableview.patch
-Patch2:  qtdeclarative-a11y-guard-against-nullptr-for-scrollbar-valueinterface.patch
 
 ## upstreamable patches
 
@@ -683,6 +680,7 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlDomPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlLSPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmltcPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlToolingSettingsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickControlsTestUtilsPrivate
@@ -691,6 +689,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlDomPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlLSPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmltcPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlToolingSettingsPrivate/*cmake
 %{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickControlsTestUtilsPrivate/*.cmake
@@ -699,6 +698,7 @@ make check -k -C tests ||:
 %{_qt6_headerdir}/QtQmlDebug/
 %{_qt6_headerdir}/QtQmlDom/
 %{_qt6_headerdir}/QtQmlLS/
+%{_qt6_headerdir}/QtQmltc/
 %{_qt6_headerdir}/QtQmlToolingSettings/
 %{_qt6_headerdir}/QtQmlTypeRegistrar/
 %{_qt6_headerdir}/QtQuickControlsTestUtils/
@@ -713,6 +713,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlFormat.prl
 %{_qt6_libdir}/libQt6QmlLS.a
 %{_qt6_libdir}/libQt6QmlLS.prl
+%{_qt6_libdir}/libQt6Qmltc.a
+%{_qt6_libdir}/libQt6Qmltc.prl
 %{_qt6_libdir}/libQt6QmlToolingSettings.a
 %{_qt6_libdir}/libQt6QmlToolingSettings.prl
 %{_qt6_libdir}/libQt6QmlTypeRegistrar.a
@@ -725,6 +727,7 @@ make check -k -C tests ||:
 %{_qt6_descriptionsdir}/QmlDebugPrivate.json
 %{_qt6_descriptionsdir}/QmlDomPrivate.json
 %{_qt6_descriptionsdir}/QmlLSPrivate.json
+%{_qt6_descriptionsdir}/QmltcPrivate.json
 %{_qt6_descriptionsdir}/QmlToolingSettingsPrivate.json
 %{_qt6_descriptionsdir}/QmlTypeRegistrarPrivate.json
 %{_qt6_descriptionsdir}/QuickControlsTestUtilsPrivate.json
@@ -733,6 +736,7 @@ make check -k -C tests ||:
 %{_qt6_metatypesdir}/qt6qmldebugprivate_metatypes.json
 %{_qt6_metatypesdir}/qt6qmldomprivate_metatypes.json
 %{_qt6_metatypesdir}/qt6qmllsprivate_metatypes.json
+%{_qt6_metatypesdir}/qt6qmltcprivate_metatypes.json
 %{_qt6_metatypesdir}/qt6qmltoolingsettingsprivate_metatypes.json
 %{_qt6_metatypesdir}/qt6qmltyperegistrarprivate_metatypes.json
 %{_qt6_metatypesdir}/qt6quickcontrolstestutilsprivate_metatypes.json
@@ -755,6 +759,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
+- 6.11.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

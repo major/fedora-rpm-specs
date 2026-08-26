@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Wire protocol for Cucumber
 License: MIT
 URL: http://cucumber.io
@@ -13,6 +13,16 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/cucumber/cucumber-ruby-wire.git && cd cucumber-ruby-wire
 # git archive -v -o rubygem-cucumber-wire-8.0.0-features.tar.gz v8.0.0 features/ spec/
 Source1: %{name}-%{version}-features.tar.gz
+# Fix test suite compatiblity with Cucumber 11+
+# This prevents errors such as:
+# ~~~
+# Expected `cucumber --dry-run --no-snippets -f progress --publish-quiet` to succeed but got non-zero exit status and the following output:
+#
+# UNot understood: ["snippet_text",{"step_keyword":"Given","step_name":"we're all wired","multiline_arg_class":""}]
+#  (Cucumber::Wire::Exception)
+# ~~~
+# https://github.com/cucumber/cucumber-ruby-wire/pull/107
+Patch0: rubygem-cucumber-wire-8.0.0-Fix-test-suite-compatibility-with-Cucumber-11-x.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -38,6 +48,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+
+( cd %{builddir}
+%patch 0 -p1
+)
 
 # Relax the dependency.
 %gemspec_remove_dep -g cucumber-core "> 11", "< 16"
@@ -88,6 +102,9 @@ RUBYOPT="-I$(pwd)/lib" cucumber --format progress --publish-quiet
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 24 2026 Vít Ondruch <vondruch@redhat.com> - 8.0.0-2
+- Fix test suite compatiblity with Cucumber 11+
+
 * Thu Aug 06 2026 Vít Ondruch <vondruch@redhat.com> - 8.0.0-1
 - Upgrade to cucumber-wire 8.0.0.
   Resolves: rhbz#1867935

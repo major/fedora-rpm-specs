@@ -1058,8 +1058,8 @@ EOF
 chmod +x %{buildroot}%{_bindir}/aesmd
 
 rm -f %{buildroot}/root/lib/systemd/system/aesmd.service
-%__install %{SOURCE40} %{buildroot}%{_sysusersdir}/aesmd.conf
-%__install %{SOURCE41} %{buildroot}%{_unitdir}/aesmd.service
+%__install -m 0644 %{SOURCE40} %{buildroot}%{_sysusersdir}/aesmd.conf
+%__install -m 0644 %{SOURCE41} %{buildroot}%{_unitdir}/aesmd.service
 %endif
 
 
@@ -1175,8 +1175,8 @@ mv %{buildroot}/root/etc/sgx_default_qcnl.conf \
 perl -i -p -e 's,https://localhost:8081/sgx/certification/v4/,https://api.trustedservices.intel.com/sgx/certification/v4/,' \
    %{buildroot}%{_sysconfdir}/sgx_default_qcnl.conf
 
-%__install %{SOURCE42} %{buildroot}%{_sysusersdir}/sgxprv.conf
-%__install %{SOURCE43} %{buildroot}%{_udevrulesdir}/92-sgx-provision.rules
+%__install -m 0644 %{SOURCE42} %{buildroot}%{_sysusersdir}/sgxprv.conf
+%__install -m 0644 %{SOURCE43} %{buildroot}%{_udevrulesdir}/92-sgx-provision.rules
 
 
 ############################################################

@@ -3,13 +3,15 @@
 
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
-Version:        3.20.2
-Release:        3%{?dist}
+Version:        3.21.1
+Release:        2%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/DBD-Pg-%{version}.tar.gz 
 URL:            https://metacpan.org/release/DBD-Pg
+# https://github.com/bucardo/dbdpg/pull/205
+Patch0:         DBD-Pg-3.21.1-Fix-missing-closing-double-quote-in-su-c-commands.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -86,6 +88,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-Pg-%{version}
+%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
@@ -155,6 +158,13 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.21.1-2
+- Fix missing closing double-quote in su -c commands in dbdpg_test_setup.pl
+
+* Mon Aug 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.21.1-1
+- 3.21.1 bump (rhbz#2521506)
+- Fix CVE-2026-78183
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.20.2-3
 - Perl 5.44 rebuild
 

@@ -1,9 +1,9 @@
-%global sepol_ver 3.9
-%global selinux_ver 3.9
+%global sepol_ver 3.11
+%global selinux_ver 3.11
 
 Name:           setools
-Version:        4.6.0
-Release:        8%{?dist}
+Version:        4.7.1
+Release:        1%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only AND LGPL-2.1-only
@@ -12,12 +12,6 @@ Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar
 Source1:        setools.pam
 Source2:        apol.desktop
 
-# Remove redundant runtime requirement on setuptools
-Patch:          https://github.com/SELinuxProject/setools/pull/156.patch
-# Fix seinfo argument parsing when policy path follows query
-Patch:          https://github.com/SELinuxProject/setools/pull/157.patch
-
-Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  glibc-devel, gcc, git-core
 BuildRequires:  libsepol-devel >= %{sepol_ver}
 BuildRequires:  python3-Cython
@@ -69,7 +63,6 @@ This package includes the following console tools:
 %package     -n python3-setools
 Summary:     Policy analysis tools for SELinux
 License:     LGPL-2.1-only
-Obsoletes:   setools-libs < 4.0.0
 
 %description -n python3-setools
 SETools is a collection of graphical tools, command-line tools, and
@@ -86,6 +79,18 @@ Requires:    python3-networkx
 %description gui
 SETools is a collection of graphical tools, command-line tools, and
 Python modules designed to facilitate SELinux policy analysis.
+
+%package     mcp
+Summary:     Policy analysis MCP server
+License:     GPL-2.0-only
+Requires:    python3-setools = %{version}-%{release}
+Requires:    python3-fastmcp
+
+%description mcp
+SETools is a collection of graphical tools, command-line tools, and
+libraries designed to facilitate SELinux policy analysis.
+
+This package includes MCP server.
 
 
 %prep
@@ -147,7 +152,15 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/man1/apol*
 %{_mandir}/ru/man1/apol*
 
+%files mcp
+%license COPYING.GPL
+%{_bindir}/setools-mcp
+
 %changelog
+* Fri Aug 21 2026 Petr Lautrbach <lautrbach@redhat.com> - 4.7.1-1
+- SETools 4.7.1
+- Add setools-mcp - SETools MCP server
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.6.0-8
 - Rebuilt for Python 3.15.0b4 ABI change
 
@@ -329,7 +342,7 @@ Python modules designed to facilitate SELinux policy analysis.
 - SETools 4.2.2 release
 
 * Mon May 13 2019 Vit Mojzis <vmojzis@redhat.com> - 4.2.1-3
-- Use %set_build_flags instead of %optflags
+- Use %%set_build_flags instead of %%optflags
 
 * Mon May 06 2019 Vit Mojzis <vmojzis@redhat.com> - 4.2.1-2
 - SELinuxPolicy: Create a map of aliases on policy load (#1672631)

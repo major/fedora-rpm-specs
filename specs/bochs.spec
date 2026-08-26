@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           bochs
-Version:        3.0
-Release:        5%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Portable x86 PC emulator
 License:        LGPL-2.0-or-later
 URL:            http://bochs.sourceforge.net/
@@ -78,7 +78,7 @@ Requires:       %{name} = %{version}-%{release}
 Header and source files from bochs source.
 
 %prep
-%setup -q
+%setup -qn %{name}
 %patch -P 0 -p1
 %patch -P 7 -p0 -z .nonet
 
@@ -168,7 +168,7 @@ cp -pr osdep.h $RPM_BUILD_ROOT%{_prefix}/include/bochs/disasm/
 rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 
 %files
-%doc _installed-docs/* README-* bios/SeaVGABIOS-README
+%doc _installed-docs/* README-* bios/SeaBIOS/SeaVGABIOS-README
 %{_bindir}/bochs
 %{_bindir}/bximage
 %{_bindir}/bxhub
@@ -176,16 +176,19 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 #%%{_libdir}/bochs/
 %{_mandir}/man1/bochs.1*
 %{_mandir}/man1/bximage.1*
+%{_mandir}/man1/bxhub.1*
 %{_mandir}/man5/bochsrc.5*
 %dir %{_datadir}/bochs/
 %{_datadir}/bochs/keymaps/
+%{_datadir}/bochs/OVMF-pure-efi.fd
+%{_datadir}/bochs/RELEASEX64_OVMF.fd
 
 %ifarch %{ix86} x86_64
 %files bios
 %{_datadir}/bochs/BIOS*
 %{_datadir}/bochs/vgabios*
 %{_datadir}/bochs/VGABIOS*
-%{_datadir}/bochs/bios.bin-1.13.0
+%{_datadir}/bochs/bios.bin-1.16.0
 %{_datadir}/bochs/SeaBIOS-README
 %{_datadir}/bochs/README-i440fx
 %{_datadir}/bochs/i440fx.bin
@@ -202,6 +205,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Mon Aug 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.1-1
+- 3.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

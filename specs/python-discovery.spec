@@ -1,5 +1,5 @@
 Name:           python-discovery
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Python interpreter discovery
 
@@ -17,10 +17,6 @@ Source:         %{url}/archive/%{version}/python-discovery-%{version}.tar.gz
 # %%pyproject_patch_dependency to avoid generating the vermin test dependency,
 # rather than adjusting pyproject.toml in this patch.
 Patch:          0001-Downstream-only-avoid-usage-of-vermin-in-the-test-su.patch
-
-# Avoid passing a non-Collection iterable to parametrize
-# https://github.com/tox-dev/python-discovery/pull/120
-Patch:          %{url}/pull/120.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license python_discovery

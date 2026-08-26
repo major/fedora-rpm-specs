@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        79
+Version:        80
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -141,10 +141,17 @@ exit 0
 %{_unitdir}/webui-cockpit-ws.service
 %{_unitdir}/cockpit-pin-auth.socket
 %{_unitdir}/cockpit-pin-auth@.service
+%{_unitdir}/webui-tls-proxy.service
+%{_libexecdir}/anaconda/webui-tls-proxy
 
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Aug 24 2026 Packit <hello@packit.dev> - 80-1
+- Add TLS proxy for remote installation
+- Fix kickstart installations without storage pre-configured
+- Disable sidebar navigation to future steps
+
 * Fri Aug 21 2026 Packit <hello@packit.dev> - 79-1
 - wizard: use installation status for navigation instead of URL
 - boss: skip non-essential client init when installation is completed

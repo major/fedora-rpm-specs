@@ -1,12 +1,12 @@
 %global pypi_name eth_keyfile
 
 Name:          python-eth-keyfile
-Version:       0.9.1
+Version:       0.10.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Tools for handling the encrypted keyfile format used to store private keys
 License:       MIT
-URL:           https://github.com/ethereum/eth-keyfile
+URL:           https://github.com/ApeWorX/eth-keyfile
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 # Fedora-specific
@@ -28,7 +28,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-PYTHONPATH=$(pwd) %pytest -k 'not test_install_local_wheel'
+PYTHONPATH=$(pwd) %pytest
 
 %files -n python3-eth-keyfile -f %{pyproject_files}
 %doc README.md

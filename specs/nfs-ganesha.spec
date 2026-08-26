@@ -160,7 +160,7 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	15.1
+Version:	15.2
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -206,7 +206,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc gcc-c++
 %if ( 0%{?with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 14.1
+BuildRequires:	libntirpc-devel >= 15.2
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -1017,6 +1017,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Aug 24 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.2-1
+- NFS-Ganesha 15.2 GA
+
 * Mon Aug 17 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.1-1
 - NFS-Ganesha 15.1 GA
 

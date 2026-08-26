@@ -13,7 +13,7 @@
 %global vncserver_version 0.9.11-7
 
 Name:           gnome-remote-desktop
-Version:        51~alpha
+Version:        51~beta
 Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 
@@ -25,6 +25,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
+
+# https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/merge_requests/416
+Patch1:         001-Fix-building-when-pointers-are-32-bit.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -131,17 +134,25 @@ GNOME desktop environment.
 %{_libexecdir}/gnome-remote-desktop-daemon
 %{_libexecdir}/gnome-remote-desktop-enable-service
 %{_libexecdir}/gnome-remote-desktop-configuration-daemon
+%{_libexecdir}/grd-pcscd
+%{_libdir}/libgrdpcsc.so
+%{_libdir}/libgrdpcsc.so.0
+%{_libdir}/libgrdpcsc.so.0.0.0
 %{_userunitdir}/%{systemd_unit_user}
 %{_userunitdir}/%{systemd_unit_headless}
 %{_userunitdir}/%{systemd_unit_handover}
 %{_unitdir}/%{systemd_unit_system}
 %{_unitdir}/gnome-remote-desktop-configuration.service
+%{_unitdir}/gnome-remote-desktop-pcscd.service
 %{_datadir}/dbus-1/system-services/org.gnome.RemoteDesktop.Configuration.service
+%{_datadir}/dbus-1/system-services/org.gnome.RemoteDesktop.Pcscd.service
 %{_datadir}/dbus-1/system.d/org.gnome.RemoteDesktop.conf
+%{_datadir}/dbus-1/system.d/org.gnome.RemoteDesktop.Pcscd.conf
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.enums.xml
 %{_datadir}/polkit-1/actions/org.gnome.remotedesktop.configure-system-daemon.policy
 %{_datadir}/polkit-1/actions/org.gnome.remotedesktop.enable-system-daemon.policy
+%{_datadir}/polkit-1/actions/org.gnome.remotedesktop.use-grd-pcscd.policy
 %{_datadir}/polkit-1/rules.d/20-gnome-remote-desktop.rules
 %{_sysusersdir}/gnome-remote-desktop-sysusers.conf
 %{_tmpfilesdir}/gnome-remote-desktop-tmpfiles.conf

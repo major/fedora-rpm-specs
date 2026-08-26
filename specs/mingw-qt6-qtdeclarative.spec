@@ -20,8 +20,8 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.11.1
-Release:        3%{?dist}
+Version:        6.11.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -202,6 +202,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQmlTypeRegistrar/
 %{mingw32_includedir}/qt6/QtQmlWorkerScript/
 %{mingw32_includedir}/qt6/QtQmlXmlListModel/
+%{mingw32_includedir}/qt6/QtQmltc/
 %{mingw32_includedir}/qt6/QtQuick/
 %{mingw32_includedir}/qt6/QtQuickControls2/
 %{mingw32_includedir}/qt6/QtQuickControls2Basic/
@@ -258,6 +259,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QmlTypeRegistrar.prl
 %{mingw32_libdir}/Qt6QmlWorkerScript.prl
 %{mingw32_libdir}/Qt6QmlXmlListModel.prl
+%{mingw32_libdir}/Qt6Qmltc.prl
 %{mingw32_libdir}/Qt6Quick.prl
 %{mingw32_libdir}/Qt6QuickControls2.prl
 %{mingw32_libdir}/Qt6QuickControls2Basic.prl
@@ -369,6 +371,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QmlPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlWorkerScriptPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlXmlListModelPrivate/
+%{mingw32_libdir}/cmake/Qt6QmltcPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2BasicPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2BasicStyleImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImplPrivate/
@@ -415,6 +418,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QmlTypeRegistrar.a
 %{mingw32_libdir}/libQt6QmlWorkerScript.dll.a
 %{mingw32_libdir}/libQt6QmlXmlListModel.dll.a
+%{mingw32_libdir}/libQt6Qmltc.a
 %{mingw32_libdir}/libQt6Quick.dll.a
 %{mingw32_libdir}/libQt6QuickControls2.dll.a
 %{mingw32_libdir}/libQt6QuickControls2Basic.dll.a
@@ -515,6 +519,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmltcprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlworkerscript_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlxmllistmodel_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quick_metatypes.json
@@ -594,6 +599,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltest_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltoolingsettings_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltyperegistrar_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltc_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlworkerscript.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlworkerscript_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlxmllistmodel.pri
@@ -675,6 +681,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QmlNetwork.json
 %{mingw32_libdir}/qt6/modules/QmlToolingSettingsPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlTypeRegistrarPrivate.json
+%{mingw32_libdir}/qt6/modules/QmltcPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlWorkerScript.json
 %{mingw32_libdir}/qt6/modules/QmlXmlListModel.json
 %{mingw32_libdir}/qt6/modules/Quick.json
@@ -797,6 +804,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQmlTypeRegistrar/
 %{mingw64_includedir}/qt6/QtQmlWorkerScript/
 %{mingw64_includedir}/qt6/QtQmlXmlListModel/
+%{mingw64_includedir}/qt6/QtQmltc/
 %{mingw64_includedir}/qt6/QtQuick/
 %{mingw64_includedir}/qt6/QtQuickControls2/
 %{mingw64_includedir}/qt6/QtQuickControls2Basic/
@@ -853,6 +861,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QmlTypeRegistrar.prl
 %{mingw64_libdir}/Qt6QmlWorkerScript.prl
 %{mingw64_libdir}/Qt6QmlXmlListModel.prl
+%{mingw64_libdir}/Qt6Qmltc.prl
 %{mingw64_libdir}/Qt6Quick.prl
 %{mingw64_libdir}/Qt6QuickControls2.prl
 %{mingw64_libdir}/Qt6QuickControls2Basic.prl
@@ -964,6 +973,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QmlPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlWorkerScriptPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlXmlListModelPrivate/
+%{mingw64_libdir}/cmake/Qt6QmltcPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2BasicPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2BasicStyleImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImplPrivate/
@@ -1010,6 +1020,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QmlTypeRegistrar.a
 %{mingw64_libdir}/libQt6QmlWorkerScript.dll.a
 %{mingw64_libdir}/libQt6QmlXmlListModel.dll.a
+%{mingw64_libdir}/libQt6Qmltc.a
 %{mingw64_libdir}/libQt6Quick.dll.a
 %{mingw64_libdir}/libQt6QuickControls2.dll.a
 %{mingw64_libdir}/libQt6QuickControls2Basic.dll.a
@@ -1110,6 +1121,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmltcprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlworkerscript_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlxmllistmodel_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quick_metatypes.json
@@ -1189,6 +1201,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltest_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltoolingsettings_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltyperegistrar_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltc_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlworkerscript.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlworkerscript_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlxmllistmodel.pri
@@ -1270,6 +1283,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QmlNetwork.json
 %{mingw64_libdir}/qt6/modules/QmlToolingSettingsPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlTypeRegistrarPrivate.json
+%{mingw64_libdir}/qt6/modules/QmltcPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlWorkerScript.json
 %{mingw64_libdir}/qt6/modules/QmlXmlListModel.json
 %{mingw64_libdir}/qt6/modules/Quick.json
@@ -1309,6 +1323,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
+- 6.11.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

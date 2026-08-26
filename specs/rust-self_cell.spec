@@ -5,17 +5,13 @@
 %global crate self_cell
 
 Name:           rust-self_cell
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Safe-to-use proc-macro-free self-referential structs in stable Rust
 
 License:        Apache-2.0 OR GPL-2.0-only
 URL:            https://crates.io/crates/self_cell
 Source:         %{crates_source}
-# * LICENSE files not shipped, see
-#   https://github.com/Voultapher/self_cell/pull/73
-Source2:        https://raw.githubusercontent.com/Voultapher/self_cell/refs/tags/v%{version}/LICENSE-APACHE
-Source3:        https://raw.githubusercontent.com/Voultapher/self_cell/refs/tags/v%{version}/LICENSE-GPLv2
 # Manually created patch for downstream crate metadata changes
 # * fix broken / open-ended dependency version restrictions
 Patch:          self_cell-fix-metadata.diff
@@ -80,7 +76,6 @@ use the "rustversion" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{SOURCE2} %{SOURCE3} .
 %cargo_prep
 
 %generate_buildrequires
@@ -91,7 +86,6 @@ cp -p %{SOURCE2} %{SOURCE3} .
 
 %install
 %cargo_install
-cp -p LICENSE-* %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check
