@@ -10,23 +10,25 @@
 # Please, preserve the changelog entries
 #
 
+%bcond_without            tests
+
 %global pecl_name         mongodb
 %global pie_vend          mongodb
 %global pie_proj          mongodb-extension
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.3.3
+%global upstream_version  2.4.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
 # Required versions from config.m4
-%global minimal_libmongo  2.3.0
-%global minimal_libcrypt  1.17.3
+%global minimal_libmongo  2.4.0
+%global minimal_libcrypt  1.20.0
 
 # Build dependencies
-%global system_libmongo   2.3.0
-%global system_libcrypt   1.17.3
+%global system_libmongo   2.4.0
+%global system_libcrypt   1.20.0
 
 # Github forge
 %global gh_vend           mongodb
@@ -38,7 +40,7 @@ Name:           php-pecl-%{pecl_name}2
 Summary:        MongoDB driver for PHP version 2
 License:        Apache-2.0
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -138,6 +140,18 @@ OPT="-n"
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
+%if %{with tests}
+: Upstream test suite for NTS extension
+# known failures
+rm tests/logging/logging-addSubscriber-004.phpt
+rm tests/manager/manager-ctor-server.phpt
+rm tests/bson/bson-int64-operation-002.phpt
+
+# tests requiring a server will be skipped
+TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
+%{__php} -n run-tests.php -q --show-diff %{?_smp_mflags}
+%endif
+
 
 %files
 %license LICENSE
@@ -151,6 +165,11 @@ OPT="-n"
 
 
 %changelog
+* Tue Aug 25 2026 Remi Collet <remi@remirepo.net> - 2.4.0-1
+- update to 2.4.0
+- raise dependency on libmongoc 2.4.0 and libmongocrypt 1.20.0
+- run upstream test suite without server
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

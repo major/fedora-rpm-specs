@@ -14,15 +14,15 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.3.0
-Release:        4%{?dist}
+Version:        10.3.11
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 # qemu-img dependency is not available
-ExcludeArch:    %{ix86}
+ExcludeArch:    %{ix86} %{arm32}
 
 # Backports from upstream
 
@@ -292,7 +292,6 @@ Requires:       kiwi-systemdeps-bootloaders = %{version}-%{release}
 Requires:       kiwi-systemdeps-iso-media = %{version}-%{release}
 Requires:       gdisk
 Requires:       lvm2
-Requires:       parted
 Requires:       kpartx
 Requires:       cryptsetup
 Requires:       mdadm
@@ -523,6 +522,9 @@ make buildroot=%{buildroot}/ install_dracut
 # Get rid of unnecessary doc files
 rm -rf %{buildroot}%{_docdir}/packages
 
+# Create ghost file for kiwi config
+touch %{buildroot}%{_sysconfdir}/kiwi.yml
+
 # Rename unversioned binaries
 mv %{buildroot}%{_bindir}/kiwi-ng %{buildroot}%{_bindir}/kiwi-ng-3
 
@@ -581,7 +583,10 @@ popd
 %{_bindir}/kiwi-ng
 %{_datadir}/bash-completion/completions/kiwi-ng
 %{_mandir}/man8/kiwi*
-%config(noreplace) %{_sysconfdir}/kiwi.yml
+%{_datadir}/kiwi/kiwi.yml.example
+%dir %{_datadir}/kiwi/kiwi.yml.d
+%dir %{_sysconfdir}/kiwi.yml.d
+%config(noreplace) %ghost %{_sysconfdir}/kiwi.yml
 
 %ifarch %{ix86} x86_64
 %files pxeboot
@@ -652,6 +657,9 @@ popd
 
 
 %changelog
+* Wed Aug 26 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.3.11-1
+- Update to 10.3.11
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

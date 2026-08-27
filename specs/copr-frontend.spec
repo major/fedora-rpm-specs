@@ -47,7 +47,7 @@
 }
 
 Name:       copr-frontend
-Version:    2.8
+Version:    2.9
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -109,6 +109,7 @@ BuildRequires: python3dist(sphinxcontrib-httpdomain)
 BuildRequires: python3dist(whoosh)
 BuildRequires: python3dist(wtforms) >= 2.2.1
 BuildRequires: python3dist(python-ldap)
+BuildRequires: python3dist(gssapi)
 BuildRequires: python3dist(pyyaml)
 BuildRequires: python3dist(backoff) >= 1.9.0
 BuildRequires: python3dist(pygal)
@@ -164,6 +165,7 @@ Requires: python3dist(templated-dictionary)
 Requires: python3dist(wtforms) >= 2.2.1
 Requires: python3dist(pyzmq)
 Requires: python3dist(python-ldap)
+Requires: python3dist(gssapi)
 Requires: python3dist(backoff) >= 1.9.0
 Requires: python3dist(pygal)
 Requires: python3dist(xstatic-bootstrap-scss)
@@ -375,6 +377,10 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Wed Aug 26 2026 Pavel Raiskup <pavel@raiskup.cz> 2.9-1
+- correctly extract group info from today's LDAP
+- bind to LDAP via Kerberos keytab (SASL/GSSAPI)
+
 * Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.8-1
 - Upload rpm to python and cli
 - Add direct RPM upload build type

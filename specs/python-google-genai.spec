@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        2.18.1
+Version:        2.20.0
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 
@@ -31,6 +31,7 @@ BuildRequires:  python3-pillow
 # soft deps
 Recommends:     python3-sentencepiece
 
+
 # Fill in the actual package description to submit package to Fedora
 %global _description %{expand:
 Google Gen AI Python SDK provides an interface
@@ -50,6 +51,7 @@ Summary:        %{summary}
 
 %prep -a
 %pyproject_patch_dependency google-auth:drop_upper
+%pyproject_patch_dependency tenacity:drop_upper
 
 %check
 export GOOGLE_GENAI_REPLAYS_DIRECTORY=/tmp

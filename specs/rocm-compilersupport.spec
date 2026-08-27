@@ -135,7 +135,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        1.rocm%{rocm_version}%{?dist}
+Release:        3.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -175,6 +175,8 @@ Patch5:         0001-lld-workaround-.gnu.version-change.patch
 # When clang bungles the rocm install path, it gets the linking of libamdhip64 wrong
 # Convert from an absolute path <path-to>/libamdhip64.so to using -lamdhip64
 Patch6:         0001-clang-23-link-libamdhip64.patch
+Patch7:         0001-libcxx-noinline-workaround.patch
+Patch8:         0001-rocm-llvm-workaround-__noinline__.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -1151,7 +1153,13 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/lib/libomp*.so
 
 %changelog
-* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 23-1.rocm7.14.1
+* Tue Aug 25 2026 Tom Rix <Tom.Rix@amd.com> - 23-3.rocm7.14.0
+- Add format wrapper
+
+* Tue Aug 25 2026 Tom Rix <Tom.Rix@amd.com> - 23-2.rocm7.14.0
+- Enable libcxx
+
+* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 23-1.rocm7.14.0
 - Update to 7.14
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22-13.rocm7.2.1

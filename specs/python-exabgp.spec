@@ -1,5 +1,5 @@
 Name:           python-exabgp
-Version:        5.0.12
+Version:        5.0.13
 Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
@@ -11,8 +11,8 @@ Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
 
-# Patch for PEP 639 compliance for the exabgp 5.0 branch
-Patch0001:      0001-license.patch
+# Post release fix for test harness
+Patch0001:      0001-pytest-fix.patch
 
 BuildArch:      noarch
 
@@ -31,6 +31,10 @@ BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pygments)
 BuildRequires:  python3dist(psutil)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-benchmark)
+# Currently a non-required test dependency
+BuildRequires:  python3dist(hypothesis)
 
 %description -n python3-exabgp
 The BGP swiss army knife of networking
@@ -90,7 +94,7 @@ rm -rf %{buildroot}%{_usr}/etc
 
 %check
 %pyproject_check_import -t
-%pytest --cov --cov-reset tests/unit
+exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset ./tests
 
 %pre -n exabgp
 %sysusers_create_package exabgp %{SOURCE1}
@@ -124,6 +128,12 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Tue Aug 25 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.13-1
+- Update to version 5.0.13 (resolves rhbz#2521279)
+  remove patch for PEP 639 compliance (fixed upstream in commit 9a35bf07)
+  Add (post release) upstream commit 89ce57d to fix pytest failures
+  Update pytest invokation as suggested by upstream
+
 * Thu Aug 20 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.12-1
 - Update to version 5.0.12 (resolves rhbz#2520630)
 - Add patch for PEP 639 compliance

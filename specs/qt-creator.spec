@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        20.0.0
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Version:        20.0.1
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -220,6 +220,15 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Aug 26 2026 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
+* Tue Aug 25 2026 Sandro Mani <manisandro@gmail.com>
+- Update to 20.0.1
+
+* Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

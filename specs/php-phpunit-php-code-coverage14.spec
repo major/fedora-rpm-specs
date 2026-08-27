@@ -22,8 +22,8 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.3.0
-Release:        3%{?dist}
+Version:        14.3.1
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # Find nikic/php-parser version 5 from RPM database, using autoloader path
@@ -61,8 +61,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.3"
-BuildRequires:  phpunit13 >= 13.3
+#        "phpunit/phpunit": "^13.3.1"
+BuildRequires:  phpunit13 >=  13.3.1
 BuildRequires:  php-xdebug
 %endif
 
@@ -205,6 +205,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 18 2026 Remi Collet <remi@remirepo.net> - 14.3.1-1
+- update to 14.3.1
+
 * Wed Aug 12 2026 Remi Collet <remi@remirepo.net> - 14.3.0-3
 - enable test suite
 

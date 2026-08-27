@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Locale
-Version:        1.45
-Release:        4%{?dist}
+Version:        1.46
+Release:        1%{?dist}
 Summary:        Localization support for DateTime.pm
 # Although the CLDR license is listed as "MIT" on the Fedora Wiki, it's more
 # similar to recently added "Unicode-DFS-2015" license.
@@ -41,6 +41,7 @@ BuildRequires:  perl(IPC::System::Simple)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Term::ANSIColor)
+BuildRequires:  perl(Test::File::ShareDir)
 BuildRequires:  perl(Test::File::ShareDir::Dist)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test2::Plugin::UTF8)
@@ -110,7 +111,7 @@ make test
 
 %files
 %license LICENSE LICENSE.cldr
-%doc Changes CONTRIBUTING.md README.md
+%doc Changes CONTRIBUTING.md GOVERNANCE.md README.md
 %{perl_vendorlib}/DateTime*
 %{perl_vendorlib}/auto/*
 %{_mandir}/man3/DateTime::Locale*
@@ -119,6 +120,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.46-1
+- 1.46 bump (rhbz#2524261)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

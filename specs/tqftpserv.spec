@@ -1,5 +1,5 @@
 Name:           tqftpserv
-Version:        1.1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Trivial File Transfer Protocol server over AF_QIPCRTR
 
@@ -15,10 +15,14 @@ BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 
 %description
-%{summary}.
+The tqftpserv software is an implementation of a TFTP (Trivial File Transfer
+Protocol) server which runs on top of the AF_QIPCRTR (a.k.a QRTR) socket type.
+
+The main purpose of tqftpserv is to serve files from the Linux file system to
+other processors on the Qualcomm SoCs as requested.
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %meson

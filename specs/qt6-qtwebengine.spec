@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -133,6 +133,7 @@ Patch5:   qtwebengine-chromium-141-glibc-2.42-SYS_SECCOMP.patch
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
 Patch80:  qtwebengine-fix-arm-build.patch
+Patch81:  qtwebengine-codegen-fix-signed-integer-overflow-in-assembler-growbuffer.patch
 
 ## Upstreamable patches:
 Patch101: qtwebengine-fix-build-against-gcc16.patch
@@ -494,6 +495,7 @@ popd
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
+%patch -P81 -p1 -b .codegen-fix-signed-integer-overflow-in-assembler-growbuffer
 
 ## upstreamable patches
 %patch -P101 -p1 -b .fix-build-against-gcc16
@@ -857,6 +859,9 @@ done
 %endif
 
 %changelog
+* Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-2
+- PPC/s390: Codegen - fix signed integer overdlow in Assembler:GrowBuffer
+
 * Mon Aug 24 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

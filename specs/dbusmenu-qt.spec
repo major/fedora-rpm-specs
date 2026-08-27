@@ -14,7 +14,7 @@
 Summary: A Qt implementation of the DBusMenu protocol 
 Name:    dbusmenu-qt
 Version: 0.9.3
-Release: 0.41.%{snapshot}%{?dist}
+Release: 0.42.%{snapshot}%{?dist}
 
 License: LGPL-2.0-or-later
 URL: https://launchpad.net/libdbusmenu-qt/
@@ -32,7 +32,6 @@ BuildRequires: doxygen
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig
 %if 0%{?with_qt4}
-BuildRequires: pkgconfig(QJson)
 BuildRequires: pkgconfig(QtDBus) pkgconfig(QtGui)
 %endif # with_qt4
 BuildRequires: pkgconfig(Qt5DBus) pkgconfig(Qt5Widgets)
@@ -172,6 +171,9 @@ xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform} check AR
 
 
 %changelog
+* Wed Aug 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.3-0.42.20160218
+- Drop QJson dependency
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-0.41.20160218
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

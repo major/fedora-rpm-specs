@@ -159,10 +159,13 @@ FS=$(pwd)
     %{libreswan_config} \
 FS=$(pwd)
 rm -rf %{buildroot}/usr/share/doc/libreswan
-rm -rf %{buildroot}%{_libexecdir}/ipsec/*check
-# avoids python depency and are old / aging tools that are not very useful
-rm -rf %{buildroot}%{_libexecdir}/ipsec/show
-rm -rf %{buildroot}%{_libexecdir}/ipsec/verify
+mkdir %{_builddir}/check
+mv %{buildroot}%{_libexecdir}/ipsec/*check %{_builddir}/check/
+# _ipcheck needs network, so remove it.
+rm %{_builddir}/check/_ipcheck
+# some tests needs custom options
+rm %{_builddir}/check/_seedbitscheck
+rm %{_builddir}/check/_ttodatacheck
 
 install -d -m 0755 %{buildroot}%{_rundir}/pluto
 install -d %{buildroot}%{_sbindir}
@@ -175,11 +178,11 @@ echo "include %{_sysconfdir}/ipsec.d/*.secrets" \
     > %{buildroot}%{_sysconfdir}/ipsec.secrets
 rm -fr %{buildroot}%{_sysconfdir}/rc.d/rc*
 
-%if 0%{with_cavstests}
 %check
 # There is an elaborate upstream testing infrastructure which we do not
 # run here - it takes hours and uses kvm
 # We only run the CAVS tests and startup selftest
+%if 0%{with_cavstests}
 cp %{SOURCE3} %{SOURCE4} %{SOURCE5} .
 bunzip2 *.fax.bz2
 
@@ -196,9 +199,12 @@ bunzip2 *.fax.bz2
 %endif
 
 # Some of these tests will show ERROR for negative testing - it will exit on real errors
-%{buildroot}%{_libexecdir}/ipsec/algparse -tp || { echo prooposal test failed; exit 1; }
-%{buildroot}%{_libexecdir}/ipsec/algparse -ta || { echo algorithm test failed; exit 1; }
+%{buildroot}%{_libexecdir}/ipsec/algparse --tp || { echo prooposal test failed; exit 1; }
+%{buildroot}%{_libexecdir}/ipsec/algparse --ta || { echo algorithm test failed; exit 1; }
 : Algorithm parser tests passed
+for t in %{_builddir}/check/_*check; do
+    $t || { echo $t test failed; exit 1; }
+done
 
 # self test for pluto daemon - this also shows which algorithms it allows in FIPS mode
 tmpdir=$(mktemp -d /tmp/libreswan-XXXXX)

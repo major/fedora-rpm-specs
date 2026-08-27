@@ -15,6 +15,8 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
 Source0:        https://download.gnome.org/sources/gdk-pixbuf/%{gnome_major_minor_version}/gdk-pixbuf-%{version}.tar.xz
 
+Patch0:         CVE-2026-16768.patch
+
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen

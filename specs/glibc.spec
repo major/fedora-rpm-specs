@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.44-7-g9bcb85688e
-%global glibcversion 2.44
+%global glibcsrcdir glibc-2.44.9000-95-g53e5f02a6b
+%global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -761,6 +761,7 @@ local locales =  {
   { code="bn", name="Bangla", regions={ "BD", "IN" } },
   { code="bo", name="Tibetan", regions={ "CN", "IN" } },
   { code="br", name="Breton", regions={ "FR" } },
+  { code="brh", name="Brahui", regions={ "PK" } },
   { code="brx", name="Bodo", regions={ "IN" } },
   { code="bs", name="Bosnian", regions={ "BA" } },
   { code="byn", name="Blin", regions={ "ER" } },
@@ -2458,6 +2459,106 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Aug 25 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-1
+- Auto-sync with upstream branch master,
+  commit 53e5f02a6bca102884daed79abd1540aa9b9d19c:
+- support: fix typo in support_readdir [BZ #34564] (Sam James)
+- stdlib: Fix tst-stdbit-builtins.c build on clang-23 (Adhemerval Zanella)
+- elf: Make string tunables startup-only (Adhemerval Zanella)
+- posix: Remove unnecessary overflow check in wordexp (BZ 34090) (Adhemerval Zanella)
+- Revert "tests: Remove target-specific huge-page size definition for THP-aware load segment alignment" (Adhemerval Zanella)
+- powerpc: Fix preprocessor conditional in soft-float __longjmp (bug 34530) (Adhemerval Zanella)
+- m68k: remove sysdeps/m68k/m680x0/fpu/w_fmod_compat.c (bug 34559) (Andreas Schwab)
+- hurd: Make __pthread_timedblock update relative timeout on signal (Samuel Thibault)
+- Makerules/Makeconfig: Add rtlddir-build for the libc.so loader reference (Tiago Dinis)
+- tests: Remove target-specific huge-page size definition for THP-aware load segment alignment (Xi Ruoyao)
+- string: Declare Issue 8 functions for POSIX.1-2024 [BZ #34466] (Matthias Goergens)
+- nscd: replace echo with printf builtin in nscd init script (Ross Burton)
+- string: vectorize strspn single-accept-char case (Matt Turner)
+- string: simplify find_zero_ne_all (Matt Turner)
+- string: add find_ne_all to string-fza.h (Matt Turner)
+- elf: Remove __glibc_likely from _dl_sort_maps (litenglong)
+- malloc: aarch64: Add ifuncs for malloc functions (Yury Khrustalev)
+- malloc: Refactor malloc API into a separate header (Yury Khrustalev)
+- stdio-common: Remove fallback realloc calls from vfscanf (Florian Weimer)
+- stdio-common: Use reallocarray for wide strings in vfscanf (bug 34531) (Florian Weimer)
+- time: Fix integer truncation in strftime (bug 34538) (Florian Weimer)
+- powerpc: Fix non-atomic stack pointer update in fortified longjmp (bug 34530) (Florian Weimer)
+- Arm: Remove inline assembler from string-fza.h (Wilco Dijkstra)
+- benchtests: Increase iterations for strpbrk/strspn (Wilco Dijkstra)
+- manual: Use string values for glibc.cpu.x86_shstk in tunables example (Arjun Shankar)
+- stdlib: Remove cache from rpmatch (bug 34526) (Florian Weimer)
+- resolv: Test case for accepting mismatching, corrupted packets (Florian Weimer)
+- resolv: Fix __libc_res_queriesmatch buffer size argument in send_dg (bug 34346) (Florian Weimer)
+- resolv: Handle ternary return value in __libc_res_queriesmatch (bug 34345) (Florian Weimer)
+- support: Add resolv_response_set_buffer (Florian Weimer)
+- misc: Fix out-of-bounds array write in tdelete (bug 34506) (Florian Weimer)
+- m68k: Fix fmod/fmodf infinite recursion (BZ 34508) (Adhemerval Zanella)
+- inet/arpa/inet.h: Fix typo in documentation of inet_ntop (jb2170)
+- elf: build the IFUNC resolver stack protector tests only with ssp (Matt Turner)
+- nscd: Define nscd_ssize_t as int32_t unconditionally (Magnus Lindholm)
+- elf: Fix tst-nodelete-dlclose-dso.c on clang-23 (Adhemerval Zanella)
+- gnulib: Fix tst-gcc.c build with clang-23 (Adhemerval Zanella)
+- malloc: Fix malloc/tst-mallocfork3.c on clang-23 (Adhemerval Zanella)
+- rt: Fix tst-aio{9,10}.c on clang-23 (Adhemerval Zanella)
+- stdio-common: Fix tst-setvbuf2.c on clang-23 (Adhemerval Zanella)
+- stdlib: Adapt tst-stdbit-builtins.c _BitInt tests on clang (Adhemerval Zanella)
+- elf: Fix dl-cache.c build with clang-23 (Adhemerval Zanella)
+- linux: align the ancillary buffer in tst-socket-timestamp (Matt Turner)
+- elf: Fix clang-18 build of elf/tst-ifunc-fault-mod.c test (Adhemerval Zanella)
+- elf: Fix tunconf.c build with clang (Adhemerval Zanella)
+- aarch64: Use __glibc_likely macro in comment in dl-tlsdesc.S (Yury Khrustalev)
+- aarch64: Standardize code by using macros __glibc_{un,}likely (caiyinyu)
+- strace-tst-thp.sh: Allow unsupported THP tests (H.J. Lu)
+- stdio-common: Restore while (1) loop in printf_positional (Florian Weimer)
+- alpha: Use the generic gethostname (Magnus Lindholm)
+- posix: Do not recurse once per pattern component in glob [BZ #34453] (Adhemerval Zanella)
+- posix: Remove the alloca uses from glob_in_dir (Adhemerval Zanella)
+- posix: Use malloc instead of alloca for the glob brace expansion (Adhemerval Zanella)
+- posix: Use malloc instead of alloca for the glob user name (Adhemerval Zanella)
+- posix: Move the glob home directory lookups out of __glob (Adhemerval Zanella)
+- posix: Use malloc instead of alloca for the glob directory name (Adhemerval Zanella)
+- LoongArch: Fix intermittent nptl/tst-cancel32 failure (mengqinggang)
+- elf: Use the effective lazy mode for the deferred IRELATIVE pass (Adhemerval Zanella)
+- elf: Honour skip_ifunc for cross-object IFUNC relocations [BZ #34428] (Adhemerval Zanella)
+- elf: preserve exit code in tests (Sam James)
+- nss: Use test resolver for tst-getaddrinfo4 (Adhemerval Zanella)
+- sysdeps: Remove duplicated INTERNAL_SYSCALL_NCS macros (Ryota Saito)
+- nss: Use reallocarray to prevent integer overflow in getaddrinfo (bug 33977) (Marcus Poller)
+- string: Speed up strcasecmp test data initialization (Magnus Lindholm)
+- string: Speed up strcmp test data initialization (Magnus Lindholm)
+- arm: Order the rtld link after libgcc-stubs.a (Adhemerval Zanella)
+- Makefile: Order the top-level stamp files before the subdirectory fan-out (Adhemerval Zanella)
+- Makerules: Make the .dt to .d conversion safe against concurrent sub-makes (Adhemerval Zanella)
+- Makefile: Only print the test summary in the second pass of 'make check' (Adhemerval Zanella)
+- Makerules: Only install the ABI lib-names header from the top level (BZ 34439) (Rudi Heitbaum)
+- Fix gen-as-const-headers races with the parallel subdir recursion (BZ 34438) (Adhemerval Zanella)
+- alpha: expect test-float32x-float64-div to fail (Matt Turner)
+- alpha: add the denormal trap enable bit to FE_NOMASK_ENV (Matt Turner)
+- linux: Inline syscall cancellation to keep wrapper frames observable (BZ 34338) (Adhemerval Zanella)
+- stdio-common: avoid repeated regexp matches in tst-printf-format.awk (Matt Turner)
+- stdio-common: run AWK in the C locale in the printf format tests (Matt Turner)
+- powerpc: Fix -mlong-double-128 IBM format configure test for Clang (Matt Turner)
+- ldbl-opt: Fix -mlong-double-128 configure test for Clang (Matt Turner)
+- elf: Improve diagnostics for static TLS exhaustion (Frédéric Bérat)
+- hurd: Fix build after the ftw kernel_stat.h inclusion (Adhemerval Zanella)
+- rt: skip nanosleep interval and abs test for low precision clocks (Mark Wielaard)
+- alpha: Fix stack alignment in makecontext (Magnus Lindholm)
+- io: fix ftw ABI on MIPS n64 (Xi Ruoyao)
+- sysdeps: Fix comment typos in sysdeps/unix/sysdep.h (Ryota Saito)
+- math: Fix x86_64 tanh _FloatN aliases binding to the FMA variant [BZ 34465] (Adhemerval Zanella)
+- dlfcn: Deprecate dlinfo request type RTLD_DI_ORIGIN (bug #24298) (Arjun Shankar)
+- benchtests: Create objdir in the bench-%.c generation rule (Adhemerval Zanella)
+- misc: Makefile style fix (Yury Khrustalev)
+- elf: test: handle different rootsbindir in tst-ldconfig-cache (Xi Ruoyao)
+- localedata: Add brh_PK locale for Brahui language [BZ #33952] (Hammad Mengal)
+- math: Fix sinh worst-case results for |x| > 36.736801 [BZ 34441] (Adhemerval Zanella)
+- AArch64: Add ifunc masking tunable (Wilco Dijkstra)
+- hurd: fix fork's longjmp demangling on i386 (Samuel Thibault)
+- hurd: Make the readlink __fstatat64 references optional (Samuel Thibault)
+- NEWS: add 2.45 section (Andreas K. Hüttel)
+- version.h: bump to 2.44.9000 / development (Andreas K. Hüttel)
+
 * Wed Aug 12 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2.44-2
 - Add the glibc_has_lib{anl,nsl,util} macro to indicate whether the lib{anl,nsl,util} library is available.
 

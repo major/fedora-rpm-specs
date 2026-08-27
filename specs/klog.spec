@@ -1,6 +1,6 @@
 Name:           klog
-Version:        2.5.1
-Release:        2%{?dist}
+Version:        2.6
+Release:        1%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPL-2.0-or-later
@@ -86,6 +86,12 @@ for size in 48x48 64x64 128x128 256x256 512x512; do
         %{buildroot}%{_datadir}/icons/hicolor/$size/apps/%{name}.png
 done
 
+
+%check
+
+#Validate desktop file
+desktop-file-validate %{buildroot}/%{_datadir}/applications/io.github.ea4k.klog.desktop
+
 # Validate metainfo file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
@@ -94,14 +100,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc AUTHORS README TODO TROUBLESHOOTING NEWS
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/io.github.ea4k.klog.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_mandir}/man1/%{name}.1.*
-%{_metainfodir}/klog.metainfo.xml
+%{_metainfodir}/io.github.ea4k.klog.metainfo.xml
 
 
 %changelog
+* Wed Aug 26 2026 Richard Shaw <hobbes1069@gmail.com> - 2.6-1
+- Update to 2.6.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

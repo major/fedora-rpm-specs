@@ -1,29 +1,18 @@
 Name:           python-bidict
-Version:        0.23.1
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Bidirectional mapping library for Python
 
 License:        MPL-2.0
 URL:            https://bidict.readthedocs.io
-Source:         https://github.com/jab/bidict/archive/v%{version}/bidict-%{version}.tar.gz
+%global forgeurl https://github.com/jab/bidict
+Source:         %{forgeurl}/archive/v%{version}/bidict-%{version}.tar.gz
 
 BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --dependency-groups test
 BuildOption(install): --assert-license bidict
 
 BuildArch:      noarch
-
-# In 0.23.1, test dependencies are in dev-deps/test.in. Later, they are moved
-# to a test dependency group in pyproject.toml. In either case, we must curate
-# them: we don’t want benchmarks, coverage analysis, linters, etc, and
-# pytest-sphinx, while perhaps potentially useful, is not packaged. See
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist hypothesis}
-BuildRequires:  %{py3_dist pytest-xdist}
-BuildRequires:  %{py3_dist typing-extensions}
-# The sortedcontainers dependency is mentioned in documentation, but does not
-# appear in a doctest that we actually run. The sortedcollections dependency is
-# used for only one doctest, which we ignore.
 
 %global common_description %{expand:
 The bidirectional mapping library for Python.}
@@ -38,8 +27,20 @@ Summary:        %{summary}
 
 
 %prep -a
-# Since we have omitted pytest-benchmark, this would not be recognized.
-sed --regexp-extended --in-place '/--benchmark/d' pytest.ini
+# We must work with what we have, and compatibility is good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
+
+# We have no use for benchmarking
+%pyproject_patch_dependency pytest-benchmark:ignore
+# Not packaged; potentially useful, but we can get by without it
+%pyproject_patch_dependency pytest-sphinx:ignore
+# Not packaged; used for only one doctest, which we ignore
+%pyproject_patch_dependency sortedcollections:ignore
+# Mentioned in documentation, but doesn’t appear in an actual doctest
+%pyproject_patch_dependency sortedcontainers:ignore
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency ty:ignore
 
 
 %check -a
@@ -48,7 +49,7 @@ sed --regexp-extended --in-place '/--benchmark/d' pytest.ini
 # is otherwise not needed in Fedora at all.
 ignore="${ignore-} --ignore=docs/extending.rst"
 
-%pytest ${ignore-}
+%pytest ${ignore-} -k "${k-}"
 
 
 %files -n python3-bidict -f %{pyproject_files}

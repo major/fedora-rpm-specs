@@ -14,8 +14,8 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302222
-Release:        4%{?dist}
+Version:        1.302224
+Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -194,7 +194,7 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 
 %files
 %license LICENSE
-%doc Changes README examples/
+%doc AI_AND_LLM_POLICY.md Changes README examples/
 %dir %{perl_vendorlib}/Test/
 %{perl_vendorlib}/ok.pm
 %{perl_vendorlib}/Test/Builder.pm
@@ -409,6 +409,45 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 25 2026 Paul Howarth <paul@city-fan.org> - 3:1.302224-1
+- Update to 1.302224
+  - Fix a typo in an earlier Changes entry (GH#1083)
+  - Update the author address to exodist7@gmail.com; mail to the old cpan.org
+    address is no longer delivered
+  - Ship AI_AND_LLM_POLICY.md, the contributor policy for AI and LLM generated
+    code, covering human review, bot accounts in tickets and pull requests, and
+    noting AI use
+  - Stop shipping perltidyrc and repository-only markdown files
+  - Ship the xt/ author and release tests so they run during release testing
+  - Ship three test files that an unanchored MANIFEST.SKIP pattern had silently
+    excluded from the distribution
+  - Fix POD typos in Test2::API, Test2::Handle, Test2::V1,
+    Test2::API::InterceptResult::Event, and Test2::Manual::Testing::Introduction
+  - Quote the file name in the #line directive Test2::Handle generates, so tests
+    pass when the build directory path contains spaces (GH#1088)
+  - Fix further POD typos in Test2::V1 (GH#1054)
+  - Derive the tested perl versions from the perl-versions action so CI keeps up
+    to date (GH#1085)
+  - Reject end() in an array, bag, or hash builder that uses all_items,
+    all_keys, or all_values but specifies no items or fields; such a check can
+    only match an empty structure (GH#1086)
+  - Enforce end() in a bag that also uses all_items; extra items were ignored -
+    this includes the implicit end() inside is(), so such bags now warn or fail
+    where they silently passed (GH#1086)
+  - Document that Test2::Plugin::BailOnFail and Test2::Plugin::DieOnFail cannot
+    act on a failure inside a forked subtest until the owning process merges it
+    (GH#1081)
+  - Use Test2::V0 instead of the deprecated Test2::Bundle::Extended in the
+    Test2::Tools::AsyncSubtest and Test2::Tools::Spec examples (GH#1079)
+  - Fail a Test::More subtest whose code dies, reporting the exception inside
+    it, instead of reporting the subtest as passing; the exception still
+    propagates (GH#1075)
+  - Return the number of assertions made from done_testing() in
+    Test2::Tools::Basic and Test2::Tools::Tiny, so a test file ending in it is
+    true to do() (GH#1073)
+  - Allow the subtest tests to pass with Perl core's more accurate line-number
+    reporting (GH#1090)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.302222-4
 - Perl 5.44 re-rebuild of bootstrapped packages
 

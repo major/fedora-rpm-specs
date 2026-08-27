@@ -1,10 +1,10 @@
 %global         pypi_name       tinygrad
 %global         forgeurl        https://github.com/tinygrad/tinygrad
-Version:        0.13.0
+Version:        0.14.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        You like pytorch? You like micrograd? You'll love tinygrad!
 
 License:        MIT
@@ -95,6 +95,9 @@ PYTHON=1 SKIP_SLOW_TEST=1 %python3 -m pytest \
 %doc examples
 
 %changelog
+* Tue Aug 25 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.14.0-1
+- Update to 0.14.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

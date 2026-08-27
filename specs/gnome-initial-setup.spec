@@ -96,6 +96,8 @@ you through configuring it. It is integrated with gdm.
 
 mkdir -p %{buildroot}%{_datadir}/gnome-initial-setup
 cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
+mkdir -p %{buildroot}%{_sysusersdir}
+install -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 

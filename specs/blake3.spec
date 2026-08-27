@@ -12,7 +12,7 @@
 %endif
 
 Name:           blake3
-Version:        1.8.6
+Version:        1.8.7
 Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 

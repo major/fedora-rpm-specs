@@ -12,12 +12,11 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/neithern/g4music
 VCS:            git:%{url}.git
 Source:         %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
-# Set the arguments to appstream-util to those in the Packaging Guidelines
-Patch:          %{name}-appstream-util.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -69,7 +68,8 @@ Features:
 %find_lang %{name}
 
 %check
-# Note that the tests run desktop-file-validate and appstream-util
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.neithern.g4music.metainfo.xml
+# Note that the tests run desktop-file-validate and appstreamcli validate
 %meson_test
 
 %files -f %{name}.lang

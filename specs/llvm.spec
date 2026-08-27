@@ -3441,6 +3441,7 @@ fi
 %if %{maj_ver} >= 24
 %{expand_mans %{expand:
   llvm-calc-occupancy
+  llvm-gsymutil
 }}
 %endif
 

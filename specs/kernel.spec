@@ -195,13 +195,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc0.260824g47096fc3d064.11
+%define pkgrelease 0.rc0.260825g66498c75b4f8.12
 %define kversion 7
-%define tarfile_release 7.2-12773-g47096fc3d064
+%define tarfile_release 7.2-13187-g66498c75b4f8
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260824g47096fc3d064.11%{?buildid}%{?dist}
+%define specrelease 0.rc0.260825g66498c75b4f8.12%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4964,9 +4964,12 @@ fi\
 #
 #
 %changelog
-* Mon Aug 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.47096fc3d064.11]
+* Tue Aug 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.66498c75b4f8.12]
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Tue Aug 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.66498c75b4f8.11]
+- Linux v7.3.0-0.rc0.66498c75b4f8
 
 * Mon Aug 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.47096fc3d064.10]
 - Fix up an s390 mismatch (Justin M. Forbes)

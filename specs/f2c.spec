@@ -2,8 +2,8 @@
 
 Name:           f2c
 Summary:        A Fortran 77 to C/C++ conversion program
-Version:        20210928
-Release:        14%{?dist}
+Version:        20250303
+Release:        1%{?dist}
 License:        MIT
 
 URL:            http://www.netlib.org/f2c/
@@ -12,10 +12,10 @@ Source1:        http://www.netlib.org/f2c/libf2c.zip
 Source2:        http://www.netlib.org/f2c/f2c.pdf
 Source3:        http://www.netlib.org/f2c/f2c.ps
 Source4:        http://www.netlib.org/f2c/fc
+Source5:        http://www.netlib.org/f2c/changes
 
 # Patch makefile to build a shared library
 Patch0:         f2c-20110801.patch
-Patch1:         libf2c-20110801-format-security.patch
 Patch2:         use-glibc-to-check-fpu.patch
 
 BuildRequires:  gcc
@@ -49,7 +49,7 @@ unzip -qq %{SOURCE1} -d libf2c
 sed -i "s/@SOVER@/%{sover}/" libf2c/makefile.u
 
 # Copy in other source files.
-cp %{SOURCE2} %{SOURCE3} %{SOURCE4} .
+ln %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} ./
 
 
 %build
@@ -73,7 +73,7 @@ install -Dpm 0755 fc %{buildroot}%{_bindir}/f77
 
 
 %files
-%doc f2c.ps f2c.pdf src/changes src/README
+%doc f2c.ps f2c.pdf changes src/README
 %license src/Notice
 %{_bindir}/f2c
 %{_bindir}/f77
@@ -88,6 +88,9 @@ install -Dpm 0755 fc %{buildroot}%{_bindir}/f77
 
 
 %changelog
+* Wed Aug 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250303-1
+- Update to v20250303
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20210928-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

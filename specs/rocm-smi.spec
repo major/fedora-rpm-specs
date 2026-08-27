@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %else
 %global rocm_release 7.14
@@ -68,7 +68,7 @@
 Name:       rocm-smi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    1%{?dist}
+Release:    0%{?dist}
 %else
 Release:    2%{?dist}
 %endif

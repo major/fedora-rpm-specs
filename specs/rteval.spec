@@ -1,5 +1,5 @@
 Name:		rteval
-Version:	3.12
+Version:	3.13
 Release:	1%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
@@ -8,7 +8,7 @@ License:	GPL-2.0-only AND GPL-2.0-or-later
 URL:		https://git.kernel.org/pub/scm/utils/rteval/rteval.git
 Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.xz
 # https://lore.kernel.org/linux-rt-users/20251126231223.100316-1-yselkowi@redhat.com/T/#u
-Patch0:         rteval-do-not-require-wheel-for-building.patch
+Patch0:		rteval-do-not-require-wheel-for-building.patch
 
 BuildRequires:	python3-devel
 Requires:	python3-libxml2
@@ -40,6 +40,19 @@ is run to measure event response time. After the run time completes,
 a statistical analysis of the event response times is done and printed
 to the screen.
 
+%if 0%{?fedora}
+%package mcp
+Summary:	MCP server for analyzing rteval results
+Requires:	%{name} = %{version}-%{release}
+Requires:	python3-mcp
+
+%description mcp
+An MCP (Model Context Protocol) server that exposes tools for parsing and
+analyzing rteval result files from an MCP-capable client.
+
+Authored and maintained by John Kacur <jkacur@redhat.com>.
+%endif
+
 %prep
 %autosetup -v -p1
 # Delete setup.py so pyproject.toml build doesn't use it
@@ -70,6 +83,14 @@ install -m 0644 rteval/rteval_*.xsl %{buildroot}%{_datadir}/%{name}/
 mkdir -p %{buildroot}%{_sysconfdir}
 install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 
+%if 0%{?rhel}
+# Do not ship the MCP server on RHEL/CentOS. The rteval_mcp module and the
+# rteval-mcp-server entry point are produced by %%pyproject_install from the
+# shared tarball; remove them so only Fedora ships the MCP server.
+rm -rf %{buildroot}%{python3_sitelib}/rteval_mcp
+rm -f %{buildroot}%{_bindir}/rteval-mcp-server
+%endif
+
 %files -f %{pyproject_files}
 %defattr(-,root,root,-)
 %doc README doc/rteval-legacy.txt
@@ -80,7 +101,19 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_datadir}/%{name}/rteval_*.xsl
 %{_bindir}/rteval
 
+%if 0%{?fedora}
+%files mcp
+%license COPYING
+%doc rteval_mcp/README.md rteval_mcp/DEMO.md rteval_mcp/ENABLING.md rteval_mcp/mcp.json.example
+%{python3_sitelib}/rteval_mcp
+%{_bindir}/rteval-mcp-server
+%endif
+
 %changelog
+* Wed Aug 26 2026 John Kacur <jkacur@redhat.com> - 3.13-1
+- Upgrade to rteval-3.13
+- Add rteval-mcp subpackage (Fedora only)
+
 * Mon Jul 27 2026 John Kacur <jkacur@redhat.com> - 3.12-1
 - Upgrade to rteval-3.12
 

@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -14,8 +14,6 @@ Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
-
-Patch0:         lddparser-glibc244-fallback.patch
 
 BuildArch:      noarch
 
@@ -98,6 +96,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Tue Aug 25 2026 Tom Callaway <spot@fedoraproject.org> - 2.10.0-2
+- remove patch, turned out to be legit bug in glibc
+
 * Wed Aug 12 2026 Tom Callaway <spot@fedoraproject.org> - 2.10.0-1
 - update to 2.10.0
 - add fix for ldd issues with glibc 2.44

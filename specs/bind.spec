@@ -160,6 +160,34 @@ Patch33: bind-9.18-dig-idn-input-always.patch
 Patch34: bind-9.18-dig-idn-input-always-test.patch
 # downstream only, https://redhat.atlassian.net/browse/IDM-6189
 Patch35: 0001-Use-variable-PROGRAM_SUFFIX-in-install-target.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/4fd0755bdd08471f74e6e4c76cd2326f356e0a61
+# https://gitlab.isc.org/isc-projects/bind9/-/work_items/5856
+Patch36: bind-9.18-CVE-2026-11331.patch
+Patch37: bind-9.18-CVE-2026-11331-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/c5d2fc706ca3635d9928c1cc68db73bffb35d772
+Patch38: bind-9.18-CVE-2026-10822.patch
+Patch40: bind-9.18-CVE-2026-10822-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/5a0cef5bdb077df73fa59504efb8ca4c8b0a84c5
+Patch41: bind-9.18-CVE-2026-12617.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/26437be900c68bbe0974ec9ab804c2894c19c419
+Patch42: bind-9.18-CVE-2026-12617-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/14d23a4955c62efe974266a8e96a8c5d7caad040
+Patch43: bind-9.18-CVE-2026-11622.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/58812f64bf14b3930f5bb90a2d0e1f59bc8260b4
+Patch44: bind-9.18-CVE-2026-11721.patch
+Patch45: bind-9.18-CVE-2026-11721-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/348fd47f7636f610a39ba98427fcacab8e62389b
+Patch46: bind-9.18-CVE-2026-10723.patch
+Patch47: bind-9.18-CVE-2026-10723-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/b9ff2c9a36bb678fd1393d4f932b35a6882cd2a8
+Patch48: bind-9.18-CVE-2026-13204.patch
+Patch49: bind-9.18-CVE-2026-13204-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/commit/36f3d50f9c8ebc8d25ee033e707ca502e20b083f
+Patch50: bind-9.18-CVE-2026-13321.patch
+Patch51: bind-9.18-CVE-2026-13321-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/12420
+Patch52: bind-9.20-tsig-keygen-suffix.patch
+
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -343,7 +371,7 @@ Requires:       grep
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %upname_compat %{upname}-chroot
 %if "%{name}" != "%{upname}"
-Conflicts:      %{upname}-chroot != %{epoch}:%{version}-%{release}
+Conflicts:      %{upname}-chroot
 Conflicts:      %{upname}-sdb-chroot
 %endif
 
@@ -596,6 +624,10 @@ touch ${RPM_BUILD_ROOT}/%{chroot_prefix}%{_sysconfdir}/named.conf
 
 %make_install PROGRAM_SUFFIX="%{program_suffix}"
 
+# Provide again bind's config.h
+mkdir -p ${RPM_BUILD_ROOT}%{bind_include}/bind9
+sed -e 's/PACKAGE_/BIND9_/' config.h > ${RPM_BUILD_ROOT}%{bind_include}/bind9/config.h
+
 # Remove unwanted files
 rm -f ${RPM_BUILD_ROOT}/etc/bind.keys
 
@@ -729,6 +761,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
 %global main_bin8 named rndc{,-confgen}
 %global main_bin1 named{-journalprint,-checkconf,-rrchecker} mdig
 %global dnssec_utils_bin1 dnssec-{cds,dsfromkey,importkey,keyfromlabel,keygen,revoke,settime,signzone,verify}
+%global devel_lib lib{bind9,dns,irs,isc,isccc,isccfg,ns}
 %global main_man5 named.conf rndc.conf
 %global main_unit named.service named-setup-rndc.service
 %global main_lib filter-{a,aaaa}
@@ -759,8 +792,13 @@ mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
 %define altflibexec() \\\
   --follower %{_libexecdir}/%{1} %{upname}-%{1} %{_libexecdir}/%{name}/%{1}
 
+# This is for devel subpackage only, not plugins {1} (_libdir/)libname.so
+%define altflib() \\\
+  --follower %{_libdir}/%{1}.so %{upname}-%{1}.so %{_libdir}/%{1}%{program_suffix}.so
+
+# This is only for bind plugins, which have also man page
 %define altflibman() \\\
-  --follower %{_libdir}/bind/%{1}.so %{upname}-%{1}.so %{_libdir}/bind/%{1}.so%{program_suffix} \\\
+  --follower %{_libdir}/bind/%{1}.so %{upname}-%{1}.so %{_libdir}/bind/%{1}%{program_suffix}.so \\\
   --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
 
 %define altrmbinman() \
@@ -964,13 +1002,22 @@ fi
 
 %post devel
 %if "%{program_suffix}" != ""
-  alternatives --install %{_includedir}/bind9 %{upname}-includedir %{bind_include} %{alternatives_prio}
+  ALTS=""
+  for BIN in %{devel_lib}; do
+    BINX="%{_libdir}/${BIN}.so"
+    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
+      rm -f -- "$BINX"
+    fi
+    ALTS+="%{altflib $BIN}"
+  done
+  alternatives --install %{_includedir}/bind9 %{upname}-devel %{bind_include} %{alternatives_prio} \
+    ${ALTS}
 %endif
 
 %postun devel
 %if "%{program_suffix}" != ""
 if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-includedir %{bind_include}
+  alternatives --remove %{upname}-devel %{bind_include}
 fi
 %endif
 %end
@@ -1170,23 +1217,24 @@ fi;
 %ghost %attr(0644,-,-) %{_mandir}/man1/%{dnssec_utils_bin1}.1%{manext}
 
 %files devel
-%{_libdir}/libbind9-%{mver}.so
-%{_libdir}/libisccc-%{mver}.so
-%{_libdir}/libns-%{mver}.so
-%{_libdir}/libdns-%{mver}.so
-%{_libdir}/libisc-%{mver}.so
-%{_libdir}/libisccfg-%{mver}.so
-%{_libdir}/libirs-%{mver}.so
+%{_libdir}/%{devel_lib}%{program_suffix}.so
 %ghost %attr(0755,-,-) %{_includedir}/bind9
+%ghost %attr(0755,-,-) %{_libdir}/libbind9.so
+%ghost %attr(0755,-,-) %{_libdir}/libdns.so
+%ghost %attr(0755,-,-) %{_libdir}/libirs.so
+%ghost %attr(0755,-,-) %{_libdir}/libisc.so
+%ghost %attr(0755,-,-) %{_libdir}/libisccc.so
+%ghost %attr(0755,-,-) %{_libdir}/libisccfg.so
+%ghost %attr(0755,-,-) %{_libdir}/libns.so
 %dir %{bind_include}
-%{bind_include}/isccc
-%{bind_include}/ns
 %{bind_include}/bind9
 %{bind_include}/dns
 %{bind_include}/dst
 %{bind_include}/irs
 %{bind_include}/isc
+%{bind_include}/isccc
 %{bind_include}/isccfg
+%{bind_include}/ns
 
 %files chroot
 %config(noreplace) %{_sysconfdir}/named-chroot.files

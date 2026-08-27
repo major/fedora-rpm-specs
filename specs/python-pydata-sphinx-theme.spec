@@ -6,7 +6,7 @@
 %global giturl  https://github.com/pydata/pydata-sphinx-theme
 
 Name:           python-pydata-sphinx-theme
-Version:        0.20.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 

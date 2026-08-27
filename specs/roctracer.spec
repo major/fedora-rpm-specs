@@ -83,7 +83,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -218,7 +218,7 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
     -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
     -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DROCM_SYMLINK_LIBS=OFF \
-    -DGPU_TARGETS=%{rocm_gpu_list_test} \
+    -DGPU_TARGETS=%{rocm_gpu_list} \
     -DHIP_PLATFORM=amd \
     -DHIP_HIPCC_FLAGS="-I%{pkg_prefix}/include -L%{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
     -DBUILD_SHARED_LIBS=ON
@@ -270,6 +270,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libfile_plugin.so
 %endif
 
 %changelog
+* Wed Aug 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Test all gpus
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

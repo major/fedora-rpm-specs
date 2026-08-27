@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        80
+Version:        82
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -19,7 +19,7 @@ BuildRequires: systemd-rpm-macros
 %global anacondacorever 42.5
 %endif
 
-%global webui_slitherer_spin_identities fedora-release-identity-budgie or fedora-release-identity-cinnamon or fedora-release-identity-kde-desktop or fedora-release-identity-kde-mobile or fedora-release-identity-lxde or fedora-release-identity-lxqt or fedora-release-identity-matecompiz or fedora-release-identity-sway or fedora-release-identity-xfce or fedora-release-identity-i3
+%global webui_slitherer_spin_identities fedora-release-identity-budgie or fedora-release-identity-cinnamon or fedora-release-identity-kde-desktop or fedora-release-identity-kde-mobile or fedora-release-identity-lxde or fedora-release-identity-lxqt or fedora-release-identity-matecompiz or fedora-release-identity-soas or fedora-release-identity-sway or fedora-release-identity-xfce or fedora-release-identity-i3
 
 %global cockpitver 275
 
@@ -147,6 +147,16 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 26 2026 Packit <hello@packit.dev> - 82-1
+- packaging: add fedora soas to spins using slitherer (Resolves: rhbz#2517903)
+- boss: do not stop boss event monitor during installation (Needs anaconda#7270 Relevant: rhbz#2521241)
+- progress: add debug logging for installation signal delivery (Relevant: rhbz#2521241)
+- network: remove Configure Network item from kebab menu (the screen is present if not hidden via profile config)
+
+* Tue Aug 25 2026 Packit <hello@packit.dev> - 81-1
+- storage: only fetch free/total space for disk devices (gh1715)
+- fix: only enable PIN auth for remote installations
+
 * Mon Aug 24 2026 Packit <hello@packit.dev> - 80-1
 - Add TLS proxy for remote installation
 - Fix kickstart installations without storage pre-configured

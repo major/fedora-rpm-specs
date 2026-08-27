@@ -25,7 +25,11 @@
 %global pkg_library_version 1
 
 %bcond_with preview
+%if %{with preview}
+%global rocm_release 10.0
+%else
 %global rocm_release 7.14
+%endif
 
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}

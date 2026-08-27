@@ -113,7 +113,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
@@ -129,6 +129,8 @@ Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
 Patch2:        909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
+
+Patch3:        0001-clr-remove-__noinline__-keyword.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -449,6 +451,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Aug 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Remove redefining __noinline__
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

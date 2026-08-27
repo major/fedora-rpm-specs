@@ -23,7 +23,7 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.1
+Version:        7.0.2
 Release:        1%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
@@ -37,8 +37,8 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 %if %{with tests}
 # From composer.json, "require-dev"
-#        "phpunit/phpunit": "^13.3.0"
-BuildRequires:  phpunit13 >=  13.3
+#        "phpunit/phpunit": "^13.3.1"
+BuildRequires:  phpunit13  >= 13.3.1
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -103,6 +103,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 26 2026 Remi Collet <remi@remirepo.net> - 7.0.2-1
+- update to 7.0.2
+
 * Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 7.0.1-1
 - update to 7.0.1
 

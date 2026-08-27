@@ -5,7 +5,7 @@
 
 Name:		linux-firmware
 Version:	20260810
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
 URL:		http://www.kernel.org/
@@ -37,6 +37,13 @@ Recommends:	nvidia-gpu-firmware
 Recommends:	nxpwireless-firmware
 Recommends:	realtek-firmware
 Recommends:	tiwilink-firmware
+
+
+# RHEL and Fedora ELN lack GNU parallel
+# Instead of failing when the build macros pass -jN, just force it to run
+# serially.
+# Upstream MR (merged): https://gitlab.com/kernel-firmware/linux-firmware/-/merge_requests/1190
+Patch: 0001-copy-firmware-Do-not-fail-without-GNU-parallel.patch
 
 %description
 This package includes firmware files required for some devices to
@@ -729,6 +736,9 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Fri Aug 14 2026 Stephen Gallagher <sgallagh@redhat.com> - 20260810-2
+- Allow building on systems lacking 'parallel`, such as Fedora ELN
+
 * Tue Aug 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260810-1
 - Update to 20260810
 - amdgpu: numerous firmware updates

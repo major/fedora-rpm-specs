@@ -1,6 +1,17 @@
 %global forgeurl https://github.com/anakryiko/wprof
-Version:        0.5
+Version:        0.6
 %forgemeta
+
+# run `fedpkg prep --define 'with_skip_vendored 1'`
+# to skip the vendored tarballs (e.g. so you can update them
+# when prepping a new version)
+%bcond skip_vendored 0
+
+# run ./get-commit-data.sh $WPROF_CHECKOUT_DIR with
+# the version to package checked out, to generate the
+# commit hashes and dates. If they are different from
+# what is currently set, check if you need to update the
+# version by hand
 
 # we need to declare this to show it in the version string
 # since we 'backport' the first two commits after 0.5, just
@@ -42,9 +53,9 @@ Version:        0.5
 %global usdt_version 0.0.0^%{usdt_date}git%{usdt_shortcommit}
 
 %global vmlinux_h_url https://github.com/libbpf/vmlinux.h
-%global vmlinux_h_commit 5c36ac2080a8d3c1216470ce97e6502ed50272e5
+%global vmlinux_h_commit 6f2f90028084f1b636ee669e0288e289198506ff
 %global vmlinux_h_shortcommit %(c=%{vmlinux_h_commit}; echo ${c:0:7})
-%global vmlinux_h_date 20260223
+%global vmlinux_h_date 20260817
 # see vmlinux.h/Cargo.toml
 %global vmlinux_h_version 0.0.0^%{vmlinux_h_date}git%{vmlinux_h_shortcommit}
 
@@ -126,8 +137,6 @@ Source101:      wprof-demangle-%{version}-vendor.tar.gz
 # tar cfz ../../wprof-wpb-%%{version}-vendor.tar.gz src/wpb/vendor
 Source102:      wprof-wpb-%{version}-vendor.tar.gz
 
-Patch:          https://github.com/anakryiko/wprof/commit/8afda12cf9f1ba751006fdcd7db96e620ff5f45f.patch#/wprof-0.5-apply-CFLAGS-to-bpftool.patch
-Patch:          https://github.com/anakryiko/wprof/pull/120.patch#/wprof-0.5-drop-format-security-for-bpftool-bootstrap.patch
 # share the bundled vmlinux header, don't try to fetch it again
 Patch:          wprof-blazesym-shared-vmlinux.diff
 
@@ -178,6 +187,7 @@ rmdir usdt
 mv usdt-%{usdt_commit} usdt
 
 %autopatch -p1
+%if %{without skip_vendored}
 tar xf %{SOURCE100}
 tar xf %{SOURCE101}
 tar xf %{SOURCE102}
@@ -194,6 +204,7 @@ popd
 pushd src/wpb
 %cargo_prep -v vendor
 popd
+%endif
 
 
 %build

@@ -23,7 +23,7 @@
 
 %define PLATFORMS_COMMIT f8dbb5c60330
 
-%define OPENSSL_VER    3.5.7
+%define OPENSSL_VER    3.5.8
 
 %define DBXDATE        20260630
 

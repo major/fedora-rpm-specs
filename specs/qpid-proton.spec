@@ -10,7 +10,7 @@
 
 Name:           qpid-proton
 Version:        0.40.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -35,6 +35,7 @@ BuildRequires:  cyrus-sasl-plain
 BuildRequires:  cyrus-sasl-md5
 BuildRequires:  doxygen
 BuildRequires:  jsoncpp-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-build
 BuildRequires:  python3-cffi
@@ -313,6 +314,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Thu Aug 27 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-20
+- Fix EPEL build by yselkowitz.
+
 * Fri Aug 07 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-19
 - Resolves: PROTON-2937 for OpenSSL 4
 
@@ -325,7 +329,7 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.40.0-16
 - Rebuilt for Python 3.15
 
-* Tue May 02 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-15
+* Sat May 02 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-15
 - Apply patch by churchyard to opt-out of the ninja generator.
 
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.40.0-14

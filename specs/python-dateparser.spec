@@ -16,8 +16,8 @@
 %bcond_with tests
 
 Name:           python-dateparser
-Version:        1.4.1
-Release:        2%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -215,6 +215,9 @@ k="${k-}${k+ and }not search_dates"
 
 
 %changelog
+* Tue Aug 25 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.2-1
+- 1.4.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

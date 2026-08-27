@@ -1,13 +1,10 @@
 Name:              bstring
-Version:           1.0.3
-Release:           2%{?dist}
+Version:           1.1.0
+Release:           1%{?dist}
 Summary:           A string abstraction data type for the C language
 License:           BSD-3-Clause OR GPL-2.0-only
 URL:               https://github.com/msteinert/bstring
 Source0:           %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# https://github.com/msteinert/bstring/pull/120
-Patch0:            bstring-gpl-2-only-alternative.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -80,7 +77,7 @@ sed -i "s|/ 'doc' /|/ 'help' / 'en' /|" doc/meson.build
 %meson_test
 
 %files
-%license COPYING COPYING-GPL-2
+%license COPYING gpl.txt
 %doc README.md SECURITY.md
 %{_libdir}/lib%{name}.so.1{,.*}
 
@@ -88,15 +85,20 @@ sed -i "s|/ 'doc' /|/ 'help' / 'en' /|" doc/meson.build
 %{_libdir}/lib%{name}.so
 %{_includedir}/bstraux.h
 %{_includedir}/bstrlib.h
+%{_includedir}/buniutil.h
+%{_includedir}/utf8util.h
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files doc
-%license COPYING COPYING-GPL-2
+%license COPYING gpl.txt
 %doc doc/*.md
 %dir  %{_datadir}/help/en
 %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Wed Aug 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1.0-1
+- Update to v1.1.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

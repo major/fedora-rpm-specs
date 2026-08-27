@@ -5,7 +5,7 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.56
+Version:    3.0.57
 Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
@@ -17,9 +17,6 @@ URL:        https://github.com/%{github_owner}/%{github_name}
 Source0:    %{name}-%{version}.zip
 # Generate a full archive from git tag, with tests
 Source2:    makesrc.sh
-
-# https://github.com/phpseclib/phpseclib/issues/2161
-Patch0:     0000-openssl-error-handling.patch
 
 BuildArch:      noarch
 
@@ -114,6 +111,9 @@ php -d memory_limit=1G %{phpunit_bin} \
 
 
 %changelog
+* Wed Aug 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.57-1
+- Update to v3.0.57
+
 * Wed Aug 12 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.56-1
 - Update to v3.0.56
 

@@ -22,8 +22,8 @@
 %endif
 
 Name: tito
-Version: 0.6.27
-Release: 10%{?dist}
+Version: 0.6.28
+Release: 1%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -38,11 +38,10 @@ BuildArch: noarch
 %if %{use_python3}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: python3-pkg-resources
 Requires: python3-setuptools
 Requires: python3-bugzilla
 Requires: python3-blessed
-Requires: python3-pkg-resources
+Requires: python3-packaging
 Requires: rpm-python3
 Recommends: python3-fedora-distro-aliases
 %else
@@ -63,7 +62,7 @@ BuildRequires: which
 
 %if %{with check}
 BuildRequires: createrepo_c
-BuildRequires: git
+BuildRequires: git-core
 BuildRequires: rsync
 BuildRequires: python3-blessed
 BuildRequires: python3-bugzilla
@@ -135,32 +134,13 @@ git config --global user.name "Your Name"
 
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.6.27-9
-- Rebuilt for Python 3.15
-
-* Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 0.6.27-8
-- Add runtime and buildtime dependency on python3-pkg-resources
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.27-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.27-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6.27-3
-- Rebuilt for Python 3.14
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Wed Aug 26 2026 Jakub Kadlcik <frostyx@email.cz> 0.6.28-1
+- Add dependency on packaging (frostyx@email.cz)
+- Avoid using setuptools for version checking (pavel@raiskup.cz)
+- Fix version checking with setuptools 82 (frostyx@email.cz)
+- index.md: Update EPEL link (osalbahr@gmail.com)
+- Don't run tests for python3.7 (frostyx@email.cz)
+- depend on git-core instead of git (msuchy@redhat.com)
 
 * Mon Nov 11 2024 Jakub Kadlčík <frostyx@email.cz>
 - Defer submodule detection to git

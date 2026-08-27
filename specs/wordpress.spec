@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 7.0.4
+%global upstream_version 7.1
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -47,9 +47,9 @@ Patch5: wordpress-5.4-config.patch
 # disable version check and updated
 # change DISALLOW_FILE_MODS default value to true
 # ignore WP_AUTO_UPDATE_CORE (always false)
-Patch6: wordpress-5.8-noupdate.patch
+Patch6: wordpress-7.1-noupdate.patch
 # Debian patch for jshint
-Patch8: wordpress-7.0-remove-jshint-refs.patch
+Patch8: wordpress-7.1-remove-jshint-refs.patch
 
 
 BuildArch: noarch
@@ -96,7 +96,7 @@ Provides: bundled(php-simplepie) = 1.9.0
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
 Provides: bundled(php-getid3) = 1.9.25
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 7.0.2
+Provides: bundled(php-phpmailer)  = 7.1.1
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Tue Aug 25 2026 Remi Collet <remi@remirepo.net> -7.1-1
+- WordPress 7.1 “Mary Lou”
+
 * Thu Aug 13 2026 Remi Collet <remi@remirepo.net> -7.0.4-1
 - WordPress 7.0.4 Release
 

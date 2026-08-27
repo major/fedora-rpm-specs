@@ -8,7 +8,7 @@
 %endif
 
 %global goipath         github.com/redhatinsights/rhc
-Version:                0.3.11
+Version:                0.3.12
 
 %gometa
 
@@ -23,9 +23,6 @@ Source1:        %{archivename}-vendor.tar.bz2
 %if 0%{?fedora}
 Source2:        go-vendor-tools.toml
 %endif
-
-# Backport test fixes for Fedora rawhide (post-v0.3.11)
-Patch0:         0001-test-collector-fix-failing-tests-on-Fedora-rawhide.patch
 
 BuildRequires:  systemd-rpm-macros
 
@@ -98,8 +95,6 @@ install -m 0755 -vp _build/bin/rhc-collector %{buildroot}%{_libexecdir}/%{name}/
 # Bash completion
 install -m 0755 -vd                     %{buildroot}%{bash_completions_dir}/
 install -m 0644 -vp data/completion/rhc.bash  %{buildroot}%{bash_completions_dir}/%{name}
-# Logs
-install -m 0755 -vd                     %{buildroot}%{_localstatedir}/log/%{name}/
 # Collector directories
 install -m 0755 -vd                     %{buildroot}%{_prefix}/lib/%{name}/collectors/
 install -m 0755 -vd                     %{buildroot}%{_libexecdir}/%{name}/collectors/
@@ -115,11 +110,16 @@ install -m 0644 -vp data/systemd/rhc-canonical-facts.*  %{buildroot}%{_unitdir}/
 install -m 0644 -vp data/systemd/rhc-server.service  %{buildroot}%{_unitdir}/
 install -m 0644 -vp data/systemd/rhc-server.socket   %{buildroot}%{_unitdir}/
 install -m 0644 -vp data/systemd/rhc-collector-com.redhat.minimal.*  %{buildroot}%{_unitdir}/
+install -m 0755 -vd %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -m 0644 -vp data/systemd/presets/50-rhc.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 # Configuration
 install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/%{name}/
 # Minimal collector
 install -m 0755 -vp _build/bin/com.redhat.minimal %{buildroot}%{_libexecdir}/%{name}/collectors/com.redhat.minimal
 install -m 0644 -vp data/collectors/com.redhat.minimal.toml %{buildroot}%{_prefix}/lib/%{name}/collectors/
+# tmpfiles.d
+install -m 0755 -vd                     %{buildroot}%{_tmpfilesdir}
+install -m 0644 -vp data/tmpfiles.d/rhc.conf %{buildroot}%{_tmpfilesdir}/rhc.conf
 
 %if 0%{?with_rhcd_compat}
 # Yggdrasil used to be called rhcd, and was part of rhc. For historical reasons, rhc
@@ -156,11 +156,14 @@ fi
 %systemd_post rhc-canonical-facts.timer
 %systemd_post rhc-server.socket
 %systemd_post rhc-collector-com.redhat.minimal.timer
+%tmpfiles_create rhc.conf
 
 %if 0%{?with_rhcd_compat}
 # rhcd_t is the SELinux type used by the old rhcd daemon. Add it to the
 # permissive list so existing policies do not block yggdrasil on upgrade.
-/usr/sbin/semanage permissive --add rhcd_t || true
+if [ -d /var/lib/selinux/targeted ]; then
+	/usr/sbin/semanage permissive --add rhcd_t || true
+fi
 
 # Complete the config migration started in %pre: transform the backed-up
 # /etc/rhc/config.toml into a valid /etc/yggdrasil/config.toml.
@@ -184,7 +187,9 @@ fi
 %if 0%{?with_rhcd_compat}
 # Remove rhcd_t from the SELinux permissive list on full package removal.
 if [ $1 -eq 0 ]; then
-    /usr/sbin/semanage permissive --delete rhcd_t || true
+	if [ -d /var/lib/selinux/targeted ]; then
+		/usr/sbin/semanage permissive --delete rhcd_t || true
+	fi
 fi
 %endif
 
@@ -209,6 +214,7 @@ fi
 %{_unitdir}/rhc-server.service
 %{_unitdir}/rhc-server.socket
 %{_unitdir}/rhc-collector-com.redhat.minimal.*
+%{_prefix}/lib/systemd/system-preset/50-rhc.preset
 # Configuration
 %{_sysconfdir}/%{name}/
 # Collector directories
@@ -218,9 +224,14 @@ fi
 %{_libexecdir}/%{name}/collectors/com.redhat.minimal
 %{_prefix}/lib/%{name}/collectors/com.redhat.minimal.toml
 # Logs
-%dir %{_localstatedir}/log/%{name}/
+%ghost %attr(0755,root,root) %dir %{_localstatedir}/log/%{name}/
 # Logrotate
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhc
+# Runtime directories
+%ghost %attr(0755,root,root) %dir /run/%{name}
+%ghost %attr(0700,root,root) %dir %{_localstatedir}/tmp/%{name}
+# Systemd-tmpfiles configuration file
+%{_tmpfilesdir}/rhc.conf
 
 %if 0%{?with_rhcd_compat}
 # Yggdrasil rhcd compatibility drop-in

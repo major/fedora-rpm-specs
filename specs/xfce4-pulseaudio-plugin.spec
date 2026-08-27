@@ -13,7 +13,7 @@ URL:		https://github.com/andrzej-r/xfce4-pulseaudio-plugin
 Source0:	http://archive.xfce.org/src/panel-plugins/%{name}/%{versnum}/%{name}-%{version}.tar.xz
 
 BuildRequires:	make
-BuildRequires:	gcc-c++
+BuildRequires:	gcc
 BuildRequires:	meson
 BuildRequires:	libxfce4ui-devel >= %{xfceversion}
 BuildRequires:	libxfce4util-devel >= %{xfceversion}
@@ -28,11 +28,8 @@ BuildRequires:	libnotify-devel
 BuildRequires:	libcanberra-devel
 BuildRequires:	libxfce4windowing-devel
 
-Obsoletes:	xfce4-mixer <= 4.11
-# Obsoletes--->xfce4-volumed <= 0.1.13
-
 Requires:	pulseaudio-daemon
-Requires:	pavucontrol
+Recommends:	pavucontrol
 
 %description
 Pulseaudio panel plugin for Xfce Desktop Environment
@@ -53,11 +50,17 @@ rm -f AUTHORS README
 # remove libtool archives
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
+# remove invalid locale
+rm -rf %{buildroot}%{_datadir}/locale/hye
+
 %find_lang %{name}
 
 # remove zero-length files
 rm -f %{buildroot}/%{defaultdocdir}/AUTHORS
 rm -f %{buildroot}/%{defaultdocdir}/README
+
+%check
+%meson_test
 
 
 %files -f %{name}.lang

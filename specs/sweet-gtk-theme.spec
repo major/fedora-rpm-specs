@@ -4,23 +4,23 @@ License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
 # Upstream keeps each colour variant of the theme in a separate git branch.
-%global git_date_master 20260507
-%global git_commit_master 77a4c3c9dc285bd0efa5ebd59d3372de91c3f274
+%global git_date_master 20260813
+%global git_commit_master c405a6a73878ce3beb4323d26bc6fa674a485f36
 
-%global git_date_ambar 20260507
-%global git_commit_ambar dd78fc2596e1ba9ab9e3329f205944519f7eca0b
+%global git_date_ambar 20260813
+%global git_commit_ambar 055c694632f6f5c545d8f061022e9f3ef598c112
 
 %global git_date_ambar_blue 20260507
 %global git_commit_ambar_blue df37b2fcc62f68046468c660699193be37221f50
 
-%global git_date_ambar_blue_dark 20260506
-%global git_commit_ambar_blue_dark 10e027ca4dae650c0c3514b926a1230dc7b6eb99
+%global git_date_ambar_blue_dark 20260813
+%global git_commit_ambar_blue_dark 0ce3d72cff7ab74a3a2bc3a4836f23f6f5732ae1
 
-%global git_date_mars 20260507
-%global git_commit_mars b057b217c826caaf9bea20245d8f1a6ae410cab4
+%global git_date_mars 20260813
+%global git_commit_mars 72f4396417a10482554aeb6b8568a9c579982965
 
-%global git_date_nova 20260506
-%global git_commit_nova 5ce81a45f0f0b63cf732317e7f91f3467ccce084
+%global git_date_nova 20260813
+%global git_commit_nova 46e3802d3f4d9e992f94264f1d834f5f9621c03b
 
 %global git_date %( \
 	( \
@@ -33,7 +33,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 6.0^%{git_date}
-Release: 2%{?dist}
+Release: 1%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -142,6 +142,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Tue Aug 25 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20260813-1
+- Update to latest git snapshots (2026-08-13)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0^20260507-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global version 1.1.1
+%global version 1.2.0
 %global min_required_version_django 3.2
 
 %if 0%{?fedora} < 41
@@ -9,7 +9,7 @@
 
 Name:           osh
 Version:        %{version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 License:        GPL-3.0-or-later
 Summary:        Static and Dynamic Analysis as a Service
 URL:            https://github.com/openscanhub/openscanhub/
@@ -101,6 +101,8 @@ Requires: %{psycopg_pkg}
 Requires: gzip
 # inform ET about progress using UMB (Unified Message Bus)
 Requires: python3-qpid-proton
+# optional: inform ET about progress using Kafka (IT Managed Kafka)
+Recommends: python3-kafka
 # hub is interacting with brew
 Requires: koji
 # extract tarballs created by csmock
@@ -152,16 +154,15 @@ Conflicts: osh-worker-conf
 %description worker-conf-devel
 OpenScanHub worker devel configurations.
 
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %prep
 %autosetup -n openscanhub-%{name}-%{version}
 
 %build
-
-# Add -s to the shebang in osh/client/osh-cli:
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebang_macros
-# TODO: Remove this when we migrate to newer Python packaging macros which
-# do this automatically.
-%py3_shebang_fix osh/client/osh-cli
 
 # collect static files from Django itself
 PYTHONPATH=. osh/hub/manage.py collectstatic --noinput
@@ -169,23 +170,30 @@ PYTHONPATH=. osh/hub/manage.py collectstatic --noinput
 # set path to python sitelib in the example httpd config
 sed 's|@PYTHON3_SITELIB@|%{python3_sitelib}|' osh/hub/osh-hub-httpd.conf.in > osh/hub/osh-hub-httpd.conf
 
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+%pyproject_wheel
+%else
+# Add -s to the shebang in osh/client/osh-cli:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebang_macros
+%py3_shebang_fix osh/client/osh-cli
+
 %py3_build
+%endif
 
 
 %install
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+%pyproject_install
+%else
 %py3_install
+%endif
+mv %{buildroot}{/usr,}/etc/
 
 # install the files collected by `manage.py collectstatic`
 cp -a {,%{buildroot}%{python3_sitelib}/}osh/hub/static/
 
 # Temporarily provide /usr/bin/covscan for backward compatibility
 ln -s osh-cli %{buildroot}%{_bindir}/covscan
-
-%if "%{_bindir}" != "%{_sbindir}"
-# Temporarily provide /usr/sbin/osh-worker to support reexec upon upgrade
-mkdir -p %{buildroot}%{_sbindir}
-ln -s ../bin/osh-worker %{buildroot}%{_sbindir}/osh-worker
-%endif
 
 # create /etc/osh/hub/secrets directory
 mkdir -p %{buildroot}%{_sysconfdir}/osh/hub/secrets
@@ -223,13 +231,17 @@ ln -s %{_sysconfdir}/osh/hub/settings_local.py %{buildroot}%{python3_sitelib}/os
 %{bash_completions_dir}
 %{zsh_completions_dir}
 %{python3_sitelib}/osh/client
-%{python3_sitelib}/osh-*-py%{python3_version}.egg-info
 
 %files common
 %dir %{_sysconfdir}/osh
 %{python3_sitelib}/osh/common
 %{python3_sitelib}/osh/__init__.py*
 %{python3_sitelib}/osh/__pycache__
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+%{python3_sitelib}/osh-*.dist-info
+%else
+%{python3_sitelib}/osh-*-py%{python3_version}.egg-info
+%endif
 %dir %{python3_sitelib}/osh
 %dir %{_sharedstatedir}/osh
 %license LICENSE
@@ -238,10 +250,6 @@ ln -s %{_sysconfdir}/osh/hub/settings_local.py %{buildroot}%{python3_sitelib}/os
 %{python3_sitelib}/osh/worker
 %{_unitdir}/osh-worker.service
 %{_bindir}/osh-worker
-%if "%{_bindir}" != "%{_sbindir}"
-# Temporarily provide /usr/sbin/osh-worker to support reexec upon upgrade
-%{_sbindir}/osh-worker
-%endif
 %dir %{_localstatedir}/log/osh
 
 %post client
@@ -278,6 +286,7 @@ fi
 %{_unitdir}/osh-stats.*
 %exclude %{python3_sitelib}/osh/hub/scripts/osh-xmlrpc-client.py*
 %exclude %{python3_sitelib}/osh/hub/scripts/umb-emit.py*
+%exclude %{python3_sitelib}/osh/hub/scripts/kafka-emit.py*
 %exclude %{python3_sitelib}/osh/hub/settings_local.py*
 %exclude %{python3_sitelib}/osh/hub/settings_local.ci.py*
 %exclude %{python3_sitelib}/osh/hub/__pycache__/settings_local.*
@@ -338,6 +347,9 @@ fi
 
 
 %changelog
+* Tue Aug 25 2026 Kamil Dudka <kdudka@redhat.com> - 1.2.0-1
+- update to latest upstream release (rhbz#2377365)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

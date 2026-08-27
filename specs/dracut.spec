@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 111
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -58,6 +58,30 @@ Patch11: 0011-fix-net-lib-warn-on-suspicious-shell-metacharacters-.patch
 # fix(systemd-networkd): escape DHCP lease values in dhcpopts generation
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch12: 0012-fix-systemd-networkd-escape-DHCP-lease-values-in-dhc.patch
+# feat(dracut): add module to load Qualcomm ADSP module pre-udev
+# Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Patch13: 0013-feat-dracut-add-module-to-load-Qualcomm-ADSP-module-.patch
+# fix(base): escape die() message in emergency hook script
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch14: 0014-fix-base-escape-die-message-in-emergency-hook-script.patch
+# fix(base): replace eval with safe variable indirection in splitsep and export_n
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch15: 0015-fix-base-replace-eval-with-safe-variable-indirection.patch
+# build(Makefile): do not fail on network-legacy missing
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch16: 0016-build-Makefile-do-not-fail-on-network-legacy-missing.patch
+# perf(devicetree-firmware): do not call inst_multiple if there are no fw files
+# Author: Antonio Alvarez Feijoo <antonio.feijoo@suse.com>
+Patch17: 0017-perf-devicetree-firmware-do-not-call-inst_multiple-i.patch
+# refactor(devicetree-firmware): make looping over fw_dir top-level loop
+# Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Patch18: 0018-refactor-devicetree-firmware-make-looping-over-fw_di.patch
+# fix(devicetree-firmware): include soc specific firmwares in install_generic()
+# Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Patch19: 0019-fix-devicetree-firmware-include-soc-specific-firmwar.patch
+# fix(devicetree-firmware): include Qualcomm X2 laptop model specific firmwares
+# Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Patch20: 0020-fix-devicetree-firmware-include-Qualcomm-X2-laptop-m.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -70,6 +94,8 @@ BuildRequires: gcc
 
 BuildRequires: pkgconfig
 BuildRequires: systemd
+# For dracut-install.c sd-json support
+BuildRequires: systemd-devel
 BuildRequires: bash-completion
 BuildRequires: cargo
 BuildRequires: openssl-devel
@@ -375,6 +401,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/70overlayfs
 %{dracutlibdir}/modules.d/70pcmcia
 %{dracutlibdir}/modules.d/70ppcmac
+%{dracutlibdir}/modules.d/70qcom-adsp
 %{dracutlibdir}/modules.d/70qemu
 %{dracutlibdir}/modules.d/71overlayfs-crypt
 %{dracutlibdir}/modules.d/71systemd-cryptsetup
@@ -502,6 +529,18 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Tue Aug 18 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-2
+- fix(devicetree-firmware): include soc specific firmwares in install_generic()
+- fix(devicetree-firmware): include Qualcomm X2 laptop model specific firmwares
+
+* Thu Aug 13 2026 Pavel Valena <pvalena@redhat.com> - 111-2
+- fix(base): escape die() message in emergency hook script
+- fix(base): replace eval with safe variable indirection in splitsep and export_n
+- spec: json support for dracut-install (needed for detecting dlopen dependencies)
+
+* Mon aug 10 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-2
+- feat(dracut): add module to load Qualcomm ADSP module pre-udev
+
 * Fri Jul 31 2026 Pavel Valena <pvalena@redhat.com> - 111-1
 - build: upgrade to dracut 111
 

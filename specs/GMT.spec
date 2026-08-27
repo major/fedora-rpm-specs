@@ -21,16 +21,15 @@
 %endif
 
 Name:           GMT
-Version:        6.6.0
+Version:        6.7.0
 Release:        %autorelease
 Summary:        Generic Mapping Tools
 
 License:        LGPL-3.0-or-later
 URL:            https://www.generic-mapping-tools.org/
 Source0:        https://github.com/GenericMappingTools/gmt/releases/download/%{version}/gmt-%{version}-src.tar.xz
-# Add missing byteswap include
-#Patch0:         https://patch-diff.githubusercontent.com/raw/GenericMappingTools/gmt/pull/6044.patch
-#Patch1: GMT-c99.patch
+# Disable building gmt_update - a GMT updater that doesn't build on most arches and we don't want people running anyway
+Patch:          GMT-no_gmt_update.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

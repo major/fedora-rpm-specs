@@ -10,7 +10,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        83.0.0
+Version:        84.0.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -148,9 +148,6 @@ echo rpm > %{buildroot}%{python3_sitelib}/setuptools-%{version}.dist-info/INSTAL
 %pyproject_save_files -l setuptools _distutils_hack
 sed -Ei '/\/tests\b/d' %{pyproject_files}
 %endif
-
-# https://github.com/pypa/setuptools/issues/2709
-find %{buildroot}%{python3_sitelib} -name tests -print0 | xargs -0 rm -r
 
 # Install the wheel for the python-setuptools-wheel package
 # and inject SBOM into it (if the macro is available)

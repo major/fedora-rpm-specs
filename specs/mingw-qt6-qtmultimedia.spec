@@ -17,8 +17,8 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.11.1
-Release:        2%{?dist}
+Version:        6.11.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -32,7 +32,6 @@ Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_relea
 
 BuildArch:      noarch
 
-Patch0:         0001-Fix-MinGW-build-add-stdcall-specialization-for-first.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -221,6 +220,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
+- 6.11.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

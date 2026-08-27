@@ -5,11 +5,11 @@
 %global crate metrics-exporter-prometheus
 
 Name:           rust-metrics-exporter-prometheus
-Version:        0.18.1
+Version:        0.18.3
 Release:        %autorelease
 Summary:        Metrics-compatible exporter for sending metrics to Prometheus
 
-License:        MIT
+License:        MIT AND Apache-2.0
 URL:            https://crates.io/crates/metrics-exporter-prometheus
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes

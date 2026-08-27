@@ -1,11 +1,11 @@
 Name:      gnome-app-list
-Version:   3.0
+Version:   2026.08
 Release:   %autorelease
 BuildArch: noarch
 Summary:   A curated list of apps to feature or highlight in GNOME
 License:   LGPL-2.1-or-later
 URL:       https://gitlab.gnome.org/GNOME/gnome-app-list/
-Source0:   https://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source0:   https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: /usr/bin/python3

@@ -68,13 +68,13 @@ rm -f pyproject.toml
 %check
 tests/run.sh
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %generate_buildrequires
 %pyproject_buildrequires
 %endif
 
 %build
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %pyproject_wheel
 %else
 name="%{name}" version="%{version}" summary="%{summary}" %py3_build
@@ -82,7 +82,7 @@ name="%{name}" version="%{version}" summary="%{summary}" %py3_build
 a2x -d manpage -f manpage man/prunerepo.1.asciidoc
 
 %install
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %pyproject_install
 %pyproject_save_files -l prunerepo
 %else
@@ -92,7 +92,7 @@ name="%{name}" version="%{version}" summary="%{summary}" %py3_install
 install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %files -f %{pyproject_files}
 %else
 %files

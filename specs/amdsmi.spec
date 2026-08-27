@@ -22,15 +22,16 @@
 %global upstreamname amdsmi
 
 %global pkg_library_name amd_smi
-%global pkg_library_version 26
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
+%global pkg_library_version 27
 %else
 %global rocm_release 7.14
 %global rocm_patch 0
+%global pkg_library_version 26
 %endif
 
 %global pkg_src therock-%{rocm_release}
@@ -79,7 +80,7 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    1%{?dist}
+Release:    0%{?dist}
 %else
 Release:    1%{?dist}
 %endif
@@ -110,9 +111,11 @@ Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ve
 # Build amdsminic as a SHARED library with version properties
 # https://github.com/ROCm/rocm-systems/issues/4535
 Patch1:     0001-amdsmi-so-libamdsminic.patch
+%if %{without preview}
 # Remove esmi version check that doesn't work without git files in source tarball
 # https://github.com/ROCm/rocm-systems/issues/8761
 Patch2:     0001-amdsmi-remove-esmi-version-check.patch
+%endif
 
 ExclusiveArch: x86_64
 

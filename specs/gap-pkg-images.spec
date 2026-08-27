@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/images
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.0
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Minimal and canonical images in permutation groups
 
@@ -54,17 +54,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 # Update the atlas package name
 sed -i 's/atlas/atlasrep/' tst/test_functions.g
-
-%check -p
-# The vole package is not yet available, so don't try to test with it
-sed -i.orig '/^#@if/,/^#@fi/d' \
-    %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/{combi-basic,examples/edf,test_{combiimages1,vole_engine}}.tst
-
-%check -a
-for f in $(find %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst -name \*.orig)
-do
-    mv $f ${f%.orig}
-done
 
 %files
 %doc README.md

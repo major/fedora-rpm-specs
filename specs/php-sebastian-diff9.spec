@@ -22,8 +22,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        9.0.0
-Release:        2%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -31,8 +31,8 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
 Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
-# php-symfony7 not available, only used for tests
-%global symfony_version 7.4.13
+# php-symfony* not available, only used for tests
+%global symfony_version 7.4.17
 Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
 
 BuildArch:      noarch
@@ -40,9 +40,9 @@ BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 BuildRequires:  php(language) >= 8.4.1
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.2",
-#        "symfony/process": "^7.4.13"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.3.1",
+#        "symfony/process": "^7.4.17"
+BuildRequires:  phpunit13  >= 13.3.1
 %endif
 
 # from composer.json
@@ -84,7 +84,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit13 --bootstrap vendor/autoload.php || ret=1
@@ -105,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 26 2026 Remi Collet <remi@remirepo.net> - 9.0.1-1
+- update to 9.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

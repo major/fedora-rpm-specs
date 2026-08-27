@@ -1,12 +1,7 @@
-# Add a rebuild comment to force a new build
-#
-# This commit forces a rebuild due to infrastructure changes or similar.
-# No functional changes are present in this commit.
-
 %global project beetbrainz
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit 4083325d835f1e49eba4128161af31569a7731e3
+%global commit ea5fc82d1c142aaaf95a5902a66c647bee3d1503
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -20,7 +15,7 @@ scrobbling via ListenBrainz.}
 %gometa
 
 Name:           %{goname}
-Version:        1.12.1
+Version:        1.13.1
 Release:        %autorelease
 Summary:        Provides webhook integration for ListenBrainz scrobbling with %{project}
 License:        GPL-3.0-or-later
@@ -62,6 +57,7 @@ install -m644 -p %{project}.8 %{buildroot}%{_mandir}/man8
 install -m644 -p %{project}-replay.8 %{buildroot}%{_mandir}/man8
 
 %check
+%gocheck
 %{buildroot}%{_bindir}/%{project} --version
 bash -n %{buildroot}%{_bindir}/%{project}-replay
 

@@ -17,9 +17,9 @@
 
 # whether or not to apply 64-bit patches
 %if "%_lib" == "lib64"
-%bcond apply_64bit_patches 1
+%bcond apply_64bit_patch 1
 %else
-%bcond apply_64bit_patches 0
+%bcond apply_64bit_patch 0
 %endif
 
 # Don't generate provides for internal shared objects and plugins
@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.7.0
+Version:    9.8.0
 
 # Compute version related macros.
 
@@ -176,7 +176,7 @@ engineers, musicians, soundtrack editors and composers.
 %if 0%{?PATCH0:1}
 %autopatch -p1 -M99
 %endif
-%autopatch -p1 %{?with_apply_64bit_patches:100} %{?with_version_overlay:101}
+%autopatch -p1 %{?with_apply_64bit_patch:100} %{?with_version_overlay:101}
 
 %if %{with system_libs}
 # remove bundled library sources

@@ -46,7 +46,7 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.35~beta1
+Version:        1.5.35~beta2
 # https://github.com/fedora-infra/rpmautospec/issues/101
 Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
@@ -56,7 +56,7 @@ Source0:        https://github.com/ibus/%name/releases/download/%{source_version
 Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz.sha256sum#/%{name}.tar.xz.sha256sum
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
-# Patch:         %%{name}-HEAD.patch
+# Patch:          %%{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch:          %{name}-1385349-segv-bus-proxy.patch
 
@@ -548,6 +548,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Aug 26 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~beta2-1
+- Fix match rules in ibus-daemon
+- Update meson builds
+- Update translations
+
 * Wed Aug 12 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~beta1-1
 - Resolves: #2512529 GTK 4.23.3 apps cause SIGSEGV with ibus-gtk4
 - Implement forward-key-event in Wayland input-method V2

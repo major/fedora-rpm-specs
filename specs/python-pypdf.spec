@@ -10,7 +10,7 @@
 %global forgeurl https://github.com/py-pdf/pypdf
 
 Name:           python-%{srcname}
-Version:        6.16.1
+Version:        6.16.2
 Release:        %autorelease
 Summary:        Pure-Python PDF library
 
@@ -20,7 +20,6 @@ URL:            https://pypdf.readthedocs.io
 Source:         %{forgeurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
 %if %{with docs}
 BuildRequires:  python3-docs
 BuildRequires:  sed
@@ -106,11 +105,7 @@ rm -rf html/{.buildinfo,.doctrees}
 %if %{with tests}
 # Deselect tests downloading files from external hosts and tests requiring
 # sample files which are not included in the source tarball.
-# Additionally, deselect the test_appearance_stream_rtl test which tests the
-# reshaped/reordered RTL output and has no guard for missing
-# python-bidi/arabic-reshaper, which are dropped in %%prep.
-%pytest -m "not enable_socket and not samples" \
-    --deselect tests/test_appearance_stream.py::test_appearance_stream_rtl
+%pytest -m "not enable_socket and not samples"
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

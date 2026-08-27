@@ -9,7 +9,7 @@
 %global metadir %{_localstatedir}/lib/pear
 
 %global getoptver 1.4.3
-%global arctarver 1.6.0
+%global arctarver 1.6.1
 %global structver 1.2.0
 %global xmlutil   1.4.5
 %global manpages  1.10.0
@@ -25,7 +25,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
 Version: 1.10.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
@@ -40,7 +40,8 @@ Source10: pear.sh
 Source11: pecl.sh
 Source12: peardev.sh
 Source13: macros.pear
-Source21: http://pear.php.net/get/Archive_Tar-%{arctarver}.tgz
+# run "pear package" from git snapshot
+Source21: Archive_Tar-%{arctarver}.tgz
 Source22: http://pear.php.net/get/Console_Getopt-%{getoptver}.tgz
 Source23: http://pear.php.net/get/Structures_Graph-%{structver}.tgz
 Source24: http://pear.php.net/get/XML_Util-%{xmlutil}.tgz
@@ -334,6 +335,9 @@ fi
 
 
 %changelog
+* Tue Aug 25 2026 Remi Collet <remi@remirepo.net> - 1.10.18-4
+- update Archive_Tar to 1.6.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

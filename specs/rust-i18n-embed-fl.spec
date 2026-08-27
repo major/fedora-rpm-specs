@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/i18n-embed-fl
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Enable feature rust-embed/debug-embed required for tests
+# * Update find-crate to 0.7:
+#   https://github.com/kellpossible/cargo-i18n/pull/175
 Patch:          i18n-embed-fl-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

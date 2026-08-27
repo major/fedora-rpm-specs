@@ -10,6 +10,8 @@
 %bcond_without      tests
 
 %global pecl_name   yac
+%global pie_vend    laruence
+%global pie_proj    %{pecl_name}
 # after 40-igbinary and 40-msgpack
 %global ini_name    50-%{pecl_name}.ini
 
@@ -17,13 +19,13 @@
 %global gh_vend     laruence
 %global gh_proj     %{pecl_name}
 %global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
-%global tag         %{pecl_name}-%{version}
+%global tag         %{version}
 
 Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
-Version:        2.3.1
-Release:        20%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -36,7 +38,7 @@ BuildRequires:  gcc
 BuildRequires:  php-devel
 BuildRequires:  php-pecl-msgpack-devel
 BuildRequires:  php-pecl-igbinary-devel
-BuildRequires:  fastlz-devel
+BuildRequires:  lz4-devel
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -44,11 +46,16 @@ Requires:       php-igbinary%{?_isa}
 Requires:       php-msgpack%{?_isa}
 
 # Package have be renamed
-Obsoletes:      php-%{pecl_name} < %{version}
-Provides:       php-%{pecl_name} = %{version}
-Provides:       php-%{pecl_name}%{?_isa} = %{version}
-Provides:       php-pecl(%{pecl_name}) = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Obsoletes:      php-%{pecl_name}                 < %{version}
+# Extension
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -65,8 +72,8 @@ that your product is not very sensitive to that.
 %prep
 %forgesetup
 
-# drop bundled fastlz to ensure it is not used
-rm -r compressor/fastlz
+# drop bundled lz4 to ensure it is not used
+rm -r compressor/lz4
 
 # Check version as upstream often forget to update this
 extver=$(sed -n '/#define PHP_YAC_VERSION/{s/.* "//;s/".*$//;p}' php_yac.h)
@@ -98,7 +105,7 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
     --enable-json \
     --enable-msgpack \
     --enable-igbinary \
-    --with-system-fastlz \
+    --with-system-lz4 \
     --with-php-config=%{__phpconfig}
 
 %make_build
@@ -141,6 +148,14 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Aug 26 2026 Remi Collet <remi@remirepo.net> - 2.4.0-1
+- update to 2.4.0
+- switch from fastlz to lz4
+
+* Tue Aug 18 2026 Remi Collet <remi@remirepo.net> - 2.3.2-1
+- update to 2.3.2
+- add pie virtual provides
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

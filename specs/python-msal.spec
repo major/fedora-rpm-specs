@@ -6,7 +6,7 @@
 %bcond bootstrap 0
 
 Name:           python-msal
-Version:        1.37.0
+Version:        1.38.0
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 
@@ -16,8 +16,6 @@ URL:            https://github.com/AzureAD/microsoft-authentication-library-for-
 Source:         %{url}/archive/%{version}/microsoft-authentication-library-for-python-%{version}.tar.gz
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -56,23 +54,22 @@ Obsoletes:      python3-msal+broker < 1.33.0-1
 # - We can’t generate BR’s from a requirements file with “-e .” in it.
 # - We don’t need or want to run benchmarks (tests/test_benchmark.py), so don’t
 #   generate benchmarking dependencies.
-# - We don’t need python-dotenv if we aren’t running network tests (and on some
-#   older releases, it is too old.)
-sed -r \
-    -e 's/^\-e/# &/' \
-    -e 's/^(pytest-benchmark|perf_baseline)\b/# &/' \
-%if %{without network_tests} || 0%{?el9}
-    -e 's/^(python-dotenv)\b/# &/' \
+# - We don’t need python-dotenv if we aren’t running network tests
+sed --regexp-extended \
+    --expression 's/^\-e/# &/' \
+    --expression 's/^(pytest-benchmark|perf_baseline)\b/# &/' \
+%if %{without network_tests}
+    --expression 's/^(python-dotenv)\b/# &/' \
 %if %{with bootstrap}
-    -e 's/^(azure-identity)\b/# &/' \
-    -e 's/^(azure-keyvault-secrets)\b/# &/' \
+    --expression 's/^(azure-identity)\b/# &/' \
+    --expression 's/^(azure-keyvault-secrets)\b/# &/' \
 %endif
 %endif
     requirements.txt | tee requirements-filtered.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements-filtered.txt
+%pyproject_buildrequires requirements-filtered.txt
 
 
 %build
@@ -85,27 +82,34 @@ sed -r \
 
 
 %check
+# The msal.broker module requires the broker extra; that requires
+# pymsalruntime, which we can’t package.
+%pyproject_check_import -e msal.broker
+
 %if %{with tests}
 %if %{without network_tests}
 # All of the following require network access:
-k="${k-}${k+ and }not TestClientApplicationAcquireTokenSilentErrorBehaviors"
-k="${k-}${k+ and }not TestClientApplicationAcquireTokenSilentFociBehaviors"
-k="${k-}${k+ and }not TestClientApplicationForAuthorityMigration"
-k="${k-}${k+ and }not TestTelemetryMaintainingOfflineState"
-k="${k-}${k+ and }not TestClientApplicationWillGroupAccounts"
-k="${k-}${k+ and }not TestClientCredentialGrant"
-k="${k-}${k+ and }not TestScopeDecoration"
 k="${k-}${k+ and }not (MismatchingScopeTestCase and test_token_should_be_cached_with_response_scope)"
+k="${k-}${k+ and }not (TestAcquireTokenByAuthorizationCodeWithClientClaims and test_cached_token_is_isolated_by_client_claims)"
+k="${k-}${k+ and }not (TestAcquireTokenOnBehalfOfWithClientClaims and test_cached_token_is_isolated_by_client_claims)"
 k="${k-}${k+ and }not (TestAuthority and test_unknown_host_wont_pass_instance_discovery)"
 k="${k-}${k+ and }not (TestAuthority and test_wellknown_host_and_tenant)"
 k="${k-}${k+ and }not (TestAuthority and test_wellknown_host_and_tenant_using_new_authority_builder)"
+k="${k-}${k+ and }not (TestUserFicWithClientClaims and test_cached_token_is_isolated_by_client_claims)"
+k="${k-}${k+ and }not TestApplicationForRefreshInBehaviors"
 k="${k-}${k+ and }not TestAuthorityInternalHelperUserRealmDiscovery"
 k="${k-}${k+ and }not TestCcsRoutingInfoTestCase"
-k="${k-}${k+ and }not TestApplicationForRefreshInBehaviors"
-k="${k-}${k+ and }not TestTelemetryOnClientApplication"
-k="${k-}${k+ and }not TestTelemetryOnPublicClientApplication"
-k="${k-}${k+ and }not TestTelemetryOnConfidentialClientApplication"
+k="${k-}${k+ and }not TestClientApplicationAcquireTokenSilentErrorBehaviors"
+k="${k-}${k+ and }not TestClientApplicationAcquireTokenSilentFociBehaviors"
+k="${k-}${k+ and }not TestClientApplicationForAuthorityMigration"
+k="${k-}${k+ and }not TestClientApplicationWillGroupAccounts"
+k="${k-}${k+ and }not TestClientCredentialGrant"
 k="${k-}${k+ and }not TestRemoveTokensForClient"
+k="${k-}${k+ and }not TestScopeDecoration"
+k="${k-}${k+ and }not TestTelemetryMaintainingOfflineState"
+k="${k-}${k+ and }not TestTelemetryOnClientApplication"
+k="${k-}${k+ and }not TestTelemetryOnConfidentialClientApplication"
+k="${k-}${k+ and }not TestTelemetryOnPublicClientApplication"
 # Without network access, these even error during test collection!
 ignore="${ignore-} --ignore=tests/test_cryptography.py"
 ignore="${ignore-} --ignore=tests/test_e2e.py"
@@ -118,21 +122,12 @@ ignore="${ignore-} --ignore=tests/test_fmi_e2e.py"
 k="${k-}${k+ and }not (SshCertTestCase and test_ssh_cert_for_user_should_work_with_any_account)"
 # Obviously, the python-cryptography package may sometimes lag upstream.
 k="${k-}${k+ and }not (CryptographyTestCase and test_should_be_run_with_latest_version_of_cryptography)"
-%if %{defined el9}
-# python-dotenv is too old
-ignore="${ignore-} --ignore=tests/test_e2e.py"
-%endif
 %endif
 
 # We don’t need or want to run benchmarks.
 ignore="${ignore-} --ignore=tests/test_benchmark.py"
 
-%pytest --disable-warnings tests ${ignore-} -k "${k-}" -v
-
-%else
-# The msal.broker module requires the broker extra; that requires
-# pymsalruntime, which we can’t package.
-%pyproject_check_import -e msal.broker
+%pytest --disable-warnings tests ${ignore-} -k "${k-}" --verbose
 %endif
 
 

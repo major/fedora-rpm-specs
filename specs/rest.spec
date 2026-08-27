@@ -7,6 +7,8 @@ License:       LGPL-2.1-only
 URL:           https://gitlab.gnome.org/GNOME/librest
 Source0:       https://download.gnome.org/sources/librest/%{gnome_major_minor_version}/librest-%{version}.tar.xz
 
+Patch0: CVE-2026-16615.patch
+
 BuildRequires: meson
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)

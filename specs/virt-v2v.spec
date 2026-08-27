@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.3
+Version:       2.13.4
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -156,6 +156,7 @@ Requires:      nbdkit-curl-plugin
 Requires:      nbdkit-file-plugin
 Requires:      nbdkit-nbd-plugin
 Requires:      nbdkit-null-plugin
+#Requires:      nbdkit-nfc-plugin  # not packaged for Fedora yet
 %if !%{with_ovirt}
 Requires:      nbdkit-python-plugin
 %endif
@@ -375,6 +376,9 @@ done
 
 
 %changelog
+* Tue Aug 25 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.4-1
+- New upstream development version 2.13.4
+
 * Fri Aug 14 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.3-1
 - New upstream development version 2.13.3
 

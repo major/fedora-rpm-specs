@@ -1,7 +1,7 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.59
+Version:        3.1.60
 Release:        1%{?dist}
 Summary:        Python Git Library
 
@@ -59,6 +59,10 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed Aug 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.60-1
+- Update to 3.1.60; close RHBZ#2523750
+- Fixes GHSA-g5vv-9gxw-82hx, GHSA-whh4-5q6c-9v3x, and GHSA-239g-whfq-7xj9
+
 * Sun Aug 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.59-1
 - Update to 3.1.59 (close RHBZ#2499503)
 - Fixes GHSA-5xxx-qhh7-9287, GHSA-3wxw-xv34-2frg, GHSA-8mcc-hrx5-hvxc,

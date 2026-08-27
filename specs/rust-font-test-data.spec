@@ -5,7 +5,7 @@
 %global crate font-test-data
 
 Name:           rust-font-test-data
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Test data for the fontations crates
 

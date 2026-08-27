@@ -5,7 +5,7 @@
 %global crate authenticode
 
 Name:           rust-authenticode
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Library for working with Authenticode (no-std)
 

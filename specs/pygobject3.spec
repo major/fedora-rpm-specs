@@ -74,12 +74,7 @@ This package contains files required to embed PyGObject
 
 %check
 export TEST_GTK_VERSION=3.0
-# The refcounting tests fail with Python 3.14
-# Reported: https://gitlab.gnome.org/GNOME/pygobject/-/issues/694
-export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
-# Tests are disabled until Xwayland can run in mock (i.e. it finds
-# /tmp/.X11-unix owned by root).
-%{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5 || exit 0}
+%{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5 -v}
 
 
 %files -n python3-gobject

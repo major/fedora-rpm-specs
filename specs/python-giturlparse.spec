@@ -1,5 +1,5 @@
 Name:           python-giturlparse
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Parse & rewrite git urls
 
@@ -49,7 +49,7 @@ rm -f requirements*txt
 
 
 %files -n python3-giturlparse -f %{pyproject_files}
-%doc README.*
+%doc README.* AUTHORS.rst HISTORY.rst
 
 
 %changelog

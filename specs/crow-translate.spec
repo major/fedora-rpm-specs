@@ -5,7 +5,7 @@
 %global appid org.kde.CrowTranslate
 
 Name: crow-translate
-Version: 4.0.2
+Version: 4.1.0
 Release: %autorelease
 Summary: Application that allows you to translate and speak text
 
@@ -18,11 +18,6 @@ Summary: Application that allows you to translate and speak text
 License: GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause AND MIT
 URL: https://apps.kde.org/crowtranslate/
 Source: https://download.kde.org/%{stable_kf6}/%{name}/%{version}/%{name}-%{version}.tar.gz
-
-# https://invent.kde.org/office/crow-translate/-/merge_requests/770
-Patch:  0001-Fix-Hebrew-on-Yandex-and-DuckDuckGo.patch
-# https://invent.kde.org/office/crow-translate/-/merge_requests/771
-Patch:  0002-cmake-fix-pkg-config-detection-of-onnxruntime.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -42,6 +37,7 @@ BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6Concurrent)
 BuildRequires: cmake(Qt6StateMachine)
 BuildRequires: cmake(Qt6TextToSpeech)
+BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(KWayland)
 BuildRequires: cmake(tesseract) >= 4.0

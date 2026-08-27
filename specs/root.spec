@@ -28,13 +28,19 @@
 %global roofitmp 0
 %endif
 
+%if %{?fedora}%{!?fedora:0} >= 45 || %{?rhel}%{!?rhel:0} >= 11
+%global davix 0
+%else
+%global davix 1
+%endif
+
 # Do not generate autoprovides for Python modules
 %global __provides_exclude_from ^%{python3_sitearch}/.*/lib.*\\.so$
 
 Name:		root
 Version:	6.40.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -135,9 +141,12 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	dcap-devel
 BuildRequires:	xrootd-client-devel >= 1:5.0.0
 BuildRequires:	cfitsio-devel
+BuildRequires:	civetweb-devel
 BuildRequires:	curl-devel
+%if %{davix}
 #		Davix version >= 0.6.4, but not between 0.6.8 and 0.7.0
 BuildRequires:	davix-devel >= 0.7.1
+%endif
 %if %{rrr}
 BuildRequires:	R-Rcpp-devel
 BuildRequires:	R-RInside-devel
@@ -332,6 +341,9 @@ Obsoletes:	%{name}-proof-sessionviewer < 6.38.00
 Obsoletes:	%{name}-sql-mysql < 6.38.00
 Obsoletes:	%{name}-sql-odbc < 6.38.00
 Obsoletes:	%{name}-sql-pgsql < 6.38.00
+%if ! %{davix}
+Obsoletes:	%{name}-net-davix < 6.40.02-5
+%endif
 
 %description core
 This package contains the core libraries used by ROOT: libCore, libNew,
@@ -1166,6 +1178,7 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 This package contains the curl extension for TOOT. It provides access
 to http based storage e.g. S3.
 
+%if %{davix}
 %package net-davix
 Summary:	Davix extension for ROOT
 Requires:	davix-libs%{?_isa} >= 0.7.1
@@ -1175,11 +1188,10 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 %description net-davix
 This package contains the davix extension for ROOT, that provides
 access to http based storage such as webdav and S3.
+%endif
 
 %package net-http
 Summary:	HTTP server extension for ROOT
-#		The system civetweb is not compiled with websocket support
-Provides:	bundled(civetweb)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	js-jsroot >= 7.11
@@ -1965,6 +1977,8 @@ rm builtins/pcre/pcre-*.tar.bz2
 rm builtins/xxhash/xxhash.c builtins/xxhash/xxhash.h
 #  * unuran
 rm math/unuran/src/*.tar.gz
+#  * civetweb
+rm -rf net/http/civetweb
 #  * x11 extension headers
 rm -rf graf2d/x11/inc/X11
 #  * jsroot
@@ -1991,7 +2005,7 @@ install -p -m 644 %{SOURCE7} \
        -DPython3_EXECUTABLE:PATH=%{__python3} \
        -Dgnuinstall:BOOL=ON \
        -Dbuiltin_cfitsio:BOOL=OFF \
-       -Dbuiltin_civetweb:BOOL=ON \
+       -Dbuiltin_civetweb:BOOL=OFF \
        -Dbuiltin_clang:BOOL=ON \
        -Dbuiltin_cling:BOOL=ON \
        -Dbuiltin_cppzmq:BOOL=OFF \
@@ -2045,7 +2059,11 @@ install -p -m 644 %{SOURCE7} \
 %else
        -Ddataframe:BOOL=OFF \
 %endif
+%if %{davix}
        -Ddavix:BOOL=ON \
+%else
+       -Ddavix:BOOL=OFF \
+%endif
        -Ddcache:BOOL=ON \
        -Ddev:BOOL=OFF \
        -Dexperimental_adaptivecpp=OFF \
@@ -2250,6 +2268,11 @@ rm %{buildroot}%{_datadir}/%{name}/macros/fileopen.C
 pushd %{buildroot}%{_datadir}/%{name}/plugins
 %if ! %{rrr}
 rm ROOT@@Math@@Minimizer/P090_RMinimizer.C
+%endif
+%if ! %{davix}
+rm ROOT@@Internal@@RRawFile/P010_RRawFileDavix.C
+rm TFile/P130_TDavixFile.C
+rm TSystem/P045_TDavixSystem.C
 %endif
 rm TGLManager/P020_TGWin32GLManager.C
 rm TGLManager/P030_TGOSXGLManager.C
@@ -3225,12 +3248,14 @@ fi
 %{_datadir}/%{name}/plugins/ROOT@@Internal@@RRawFile/P015_RRawFileCurl.C
 %{_datadir}/%{name}/plugins/TFile/P140_TCurlFile.C
 
+%if %{davix}
 %files net-davix -f includelist-net-davix
 %{_libdir}/%{name}/libRDAVIX.*
 %{_libdir}/%{name}/libRDAVIX_rdict.pcm
 %{_datadir}/%{name}/plugins/TFile/P130_TDavixFile.C
 %{_datadir}/%{name}/plugins/TSystem/P045_TDavixSystem.C
 %{_datadir}/%{name}/plugins/ROOT@@Internal@@RRawFile/P010_RRawFileDavix.C
+%endif
 
 %files net-http -f includelist-net-http
 %{_libdir}/%{name}/libRHTTP.*
@@ -3248,7 +3273,7 @@ fi
 %ghost %{_datadir}/%{name}/js/scripts
 %ghost %{_datadir}/%{name}/js/files/draw.htm
 %ghost %{_datadir}/%{name}/js/files/online.htm
-%doc net/http/README.txt net/http/civetweb/*.md
+%doc net/http/README.txt
 
 %files net-httpsniff -f includelist-net-httpsniff
 %{_libdir}/%{name}/libRHTTPSniff.*
@@ -3542,6 +3567,10 @@ fi
 %endif
 
 %changelog
+* Wed Aug 26 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.02-5
+- Use the system civetweb library since it now supports web sockets
+- Drop the davix module for Fedora 45+ (davix will soon be retired)
+
 * Wed Aug 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 6.40.02-4
 - Rebuilt for new graphviz
 
@@ -3554,10 +3583,9 @@ fi
 * Sat Jun 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.02-1
 - Update to 6.40.02
 - Rename the jupyroot and distrdf packages to reflect that they are
-  now submodules of the main pyyhon package
-- New subpackages: root-package graf3d-glad, root-package net-curl,
-  root-package tmva-sofie-parser-python, root-package tree-ml,
-  root-package histv7util
+  now submodules of the main python package
+- New subpackages: root-graf3d-glad, root-net-curl,
+  root-tmva-sofie-parser-python, root-tree-ml, root-histv7util
 - Dropped patches: 2
 - New patches: 7
 

@@ -1,6 +1,11 @@
 %global sepol_ver 3.11
 %global selinux_ver 3.11
 
+# setools-mcp requires python3-fastmcp which is not available on RHEL
+%if 0%{?fedora}
+%global with_mcp 1
+%endif
+
 Name:           setools
 Version:        4.7.1
 Release:        1%{?dist}
@@ -80,6 +85,7 @@ Requires:    python3-networkx
 SETools is a collection of graphical tools, command-line tools, and
 Python modules designed to facilitate SELinux policy analysis.
 
+%if %{defined with_mcp}
 %package     mcp
 Summary:     Policy analysis MCP server
 License:     GPL-2.0-only
@@ -91,6 +97,7 @@ SETools is a collection of graphical tools, command-line tools, and
 libraries designed to facilitate SELinux policy analysis.
 
 This package includes MCP server.
+%endif
 
 
 %prep
@@ -107,6 +114,9 @@ This package includes MCP server.
 
 %install
 %pyproject_install
+%if ! %{defined with_mcp}
+rm -f %{buildroot}%{_bindir}/setools-mcp
+%endif
 
 %check
 %if %{?_with_check:1}%{!?_with_check:0}
@@ -152,9 +162,11 @@ This package includes MCP server.
 %{_mandir}/man1/apol*
 %{_mandir}/ru/man1/apol*
 
+%if %{defined with_mcp}
 %files mcp
 %license COPYING.GPL
 %{_bindir}/setools-mcp
+%endif
 
 %changelog
 * Fri Aug 21 2026 Petr Lautrbach <lautrbach@redhat.com> - 4.7.1-1

@@ -1,7 +1,3 @@
-# Specify if the frontend will be compiled as part of the build or
-# is attached as a webpack tarball (in case of an unsuitable nodejs version on the build system)
-%define compile_frontend 0
-
 %if 0%{?rhel}
 %define enable_fips_mode 1
 %else
@@ -26,7 +22,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -39,17 +35,10 @@ Source0:          https://github.com/grafana/grafana/archive/v%{version}/%{name}
 # lags behind the NVR of this package.
 Source1:          grafana-vendor-%{version}-1.tar.xz
 
-%if %{compile_frontend} == 0
-# Source2 contains the precompiled frontend
-# Note: In case there were no changes to this tarball, the NVR of this tarball
-# lags behind the NVR of this package.
-Source2:          grafana-webpack-%{version}-1.tar.gz
-%endif
-
 # Source3 contains the systemd-sysusers configuration
 Source3:          grafana.sysusers
 
-# Source4 contains the script to create the vendor and webpack bundles
+# Source4 contains the script to create the vendor bundle
 Source4:          create_bundles.sh
 
 # Source5 contains the script to build the frontend
@@ -58,7 +47,7 @@ Source5:          build_frontend.sh
 # Source6 contains the script to generate the list of bundled nodejs packages
 Source6:          list_bundled_nodejs_packages.py
 
-# Source7 contains the script to create the vendor and webpack bundles in a container
+# Source7 contains the script to create the vendor bundle in a container
 Source7:          create_bundles_in_container.sh
 
 # Source8 - Source10  contain the grafana-selinux policy
@@ -80,6 +69,7 @@ Patch6:           0006-redact-weak-ciphers.patch
 Patch7:           0007-update-wrappers-and-systemd-with-distro-paths.patch
 Patch8:           0008-fix-plugin-details-for-versions-not-in-GCOM-registry.patch
 Patch9:           0009-suppress-signature-warning-for-pcp-plugin.patch
+Patch10:          0010-use-npm-as-package-manager.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -95,9 +85,9 @@ BuildRequires:    golang
 BuildRequires:    go-srpm-macros
 BuildRequires:    go-rpm-macros
 
-%if %{compile_frontend}
-BuildRequires:    nodejs >= 1:16
-BuildRequires:    yarnpkg
+%ifarch x86_64
+BuildRequires:    nodejs24
+BuildRequires:    nodejs24-npm
 %endif
 
 %if %{enable_fips_mode}
@@ -118,6 +108,8 @@ Requires(pre):    shadow-utils
 # Grafana queries the mime database (through mime.TypeByExtension, in a unit test and at runtime)
 BuildRequires:    shared-mime-info
 Requires:         shared-mime-info
+
+Requires:         grafana-frontend = %{version}-%{release}
 
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
 # This ensures that the grafana-selinux package and all its dependencies are
@@ -876,7 +868,8 @@ Provides: bundled(npm(zod)) = 3.25.76
 Grafana is an open source, feature rich metrics dashboard and graph editor for
 Graphite, InfluxDB & OpenTSDB.
 
-# SELinux package
+# SELinux package — built from source on x86_64, noarch RPM serves all architectures
+%ifarch x86_64
 %package selinux
 Summary:             SELinux policy module supporting grafana
 BuildArch:           noarch
@@ -887,13 +880,22 @@ BuildRequires:       selinux-policy-devel
 
 %description selinux
 SELinux policy module supporting grafana
+%endif
+
+# Frontend subpackage — built from source on x86_64, noarch RPM serves all architectures
+%ifarch x86_64
+%package frontend
+Summary:          Grafana frontend assets
+BuildArch:        noarch
+
+%description frontend
+Compiled frontend assets (JavaScript, CSS, images) for Grafana.
+Built from source on x86_64 and installable on all architectures.
+%endif
 
 %prep
 %setup -q -T -D -b 0
 %setup -q -T -D -b 1
-%if %{compile_frontend} == 0
-%setup -q -T -D -b 2
-%endif
 
 %patch -P 1 -p1
 %patch -P 2 -p1
@@ -904,6 +906,7 @@ SELinux policy module supporting grafana
 %patch -P 7 -p1
 %patch -P 8 -p1
 %patch -P 9 -p1
+%patch -P 10 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -915,8 +918,26 @@ SELinux policy module supporting grafana
 
 
 %build
+%ifarch x86_64
+# nodejs24 installs binaries as node-24, npm-24, and npx-24;
+# vendored tools (webpack, jest, nx, etc.) expect "node", "npm", and "npx"
+mkdir -p .nodejs_bin
+ln -s %{_bindir}/node-24 .nodejs_bin/node
+ln -s %{_bindir}/npm-24 .nodejs_bin/npm
+ln -s %{_bindir}/npx-24 .nodejs_bin/npx
+# upstream scripts call yarn directly (e.g. themes-generate); wrap it to use npm
+cat > .nodejs_bin/yarn <<'YARNWRAPPER'
+#!/bin/sh
+if [ "$1" = "workspace" ]; then
+    shift; ws="$1"; shift
+    exec npm --workspace="$ws" run "$@"
+fi
+exec npm "$@"
+YARNWRAPPER
+chmod +x .nodejs_bin/yarn
+export PATH=$(pwd)/.nodejs_bin:$PATH
+
 # Build the frontend
-%if %{compile_frontend}
 %{SOURCE5}
 %endif
 
@@ -932,21 +953,26 @@ for cmd in grafana grafana-cli grafana-server; do
 done
 
 # SELinux policy
+%ifarch x86_64
 mkdir selinux
 cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} selinux
 
 make -f %{_datadir}/selinux/devel/Makefile grafana.pp
 bzip2 -9 grafana.pp
+%endif
 
 %install
-# dirs, shared files, public html, webpack
+# dirs, shared files, compiled frontend assets
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_datadir}/%{name}
 install -d %{buildroot}%{_libexecdir}/%{name}
-cp -a conf public %{buildroot}%{_datadir}/%{name}
+cp -a conf %{buildroot}%{_datadir}/%{name}
+%ifarch x86_64
+cp -a public %{buildroot}%{_datadir}/%{name}
 rm -f %{buildroot}%{_datadir}/%{name}/public/img/icons/.gitignore
 rm -f %{buildroot}%{_datadir}/%{name}/public/lib/.gitignore
 find %{buildroot}%{_datadir}/%{name}/public -name "*.svg" -exec chmod 0644 {} +
+%endif
 
 # wrappers
 install -p -m 755 packaging/wrappers/grafana-cli %{buildroot}%{_sbindir}/%{name}-cli
@@ -1002,12 +1028,14 @@ echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} %{GRAFANA_GROUP} -" \
 install -p -m 644 -D %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # SELinux policy
+%ifarch x86_64
 for selinuxvariant in %{selinux_variants}
 do
   install -D -m 0644 grafana.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/${selinuxvariant}/grafana.pp.bz2
   install -D -p -m 0644 selinux/grafana.if \
     %{buildroot}%{_datadir}/selinux/devel/include/distributed/grafana.if
 done
+%endif
 
 %if 0%{?fedora} >= 42
 %elif 0%{?fedora} || 0%{?rhel} >= 9
@@ -1047,9 +1075,9 @@ chmod 640 %{_sysconfdir}/%{name}/ldap.toml
 
 %check
 # Test frontend
-%if %{compile_frontend}
-yarn run jest
-%endif
+# TODO: frontend tests are skipped for now due to locale/OOM issues in the buildroot
+#export PATH=$(pwd)/.nodejs_bin:$PATH
+#npx jest
 
 # Test backend
 
@@ -1091,8 +1119,9 @@ export GOEXPERIMENT=boringcrypto
 %attr(0750, %{GRAFANA_USER}, %{GRAFANA_GROUP}) %dir %{_sharedstatedir}/%{name}
 %attr(-,    %{GRAFANA_USER}, %{GRAFANA_GROUP}) %dir %{_sharedstatedir}/%{name}/plugins
 
-# shared directory and all files therein
-%{_datadir}/%{name}
+# shared directory and config defaults
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/conf
 
 # systemd service file
 %{_unitdir}/grafana-server.service
@@ -1118,6 +1147,7 @@ export GOEXPERIMENT=boringcrypto
 %doc README.md ROADMAP.md SUPPORT.md WORKFLOW.md
 
 # SELinux policy
+%ifarch x86_64
 %pre selinux
 %selinux_relabel_pre
 
@@ -1146,13 +1176,25 @@ do
     %selinux_relabel_post -s ${selinuxvariant}
   fi
 done
+%endif
 
+%ifarch x86_64
 %files selinux
 %{_datadir}/selinux/packages/*/grafana.pp.*
 %{_datadir}/selinux/devel/include/distributed/grafana.if
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
+%endif
+
+%ifarch x86_64
+%files frontend
+%{_datadir}/%{name}/public
+%endif
 
 %changelog
+* Wed Aug 26 2026 Sam Feifer <sfeifer@redhat.com> 12.4.3-4
+- Rework the frontend build process to no longer rely on a prebuilt artifact and instead build a noarch subpackge
+- Build the grafana-selinux noarch subpackage only on x86_64, matching the frontend
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

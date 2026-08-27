@@ -1,10 +1,10 @@
 Name:            emacs-php-mode
-Version:         1.27.0
-Release:         2%{?dist}
+Version:         1.28.0
+Release:         1%{?dist}
 Summary:         Major GNU Emacs mode for editing PHP code
 License:         GPL-3.0-or-later
 URL:             https://github.com/emacs-php/php-mode
-Source0:         https://github.com/emacs-php/php-mode/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:         https://github.com/emacs-php/php-mode/archive/v%{version}/php-mode-%{version}.tar.gz
 Source1:         php-mode-init.el
 BuildArch:       noarch
 BuildRequires:   emacs eask
@@ -40,6 +40,10 @@ emacs --batch -L %{buildroot}%{_emacs_sitestartdir} -l php-mode-init --eval "(if
 %{_emacs_sitelispdir}/php-mode/*
 
 %changelog
+* Wed Aug 26 2026 Ruslan Bekenev <furyinbox@gmail.com> - 1.28.0-1
+- Update to 1.28.0
+- Resolves #2523753
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

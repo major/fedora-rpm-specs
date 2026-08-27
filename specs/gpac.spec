@@ -3,7 +3,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     26.07.0
-Release:     1%{?dist}
+Release:     3%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -16,6 +16,11 @@ Patch1:      gpac-norpath.patch
 Patch2:      gpac-strcpy.patch
 # fix building SVGGen binary
 Patch3:      gpac-svggen.patch
+# fix building with FFmpeg 9
+Patch4:      https://github.com/gpac/gpac/pull/3853.patch#/gpac-ffmpeg9.patch
+# unbreak external users of string functions
+# https://github.com/gpac/gpac/issues/3880
+Patch5:      https://github.com/gpac/gpac/commit/239c20cdfe9dad19580e87f98ca0fd8b55fe560b.patch#/gpac-string-functions.patch
 
 BuildRequires:  SDL2-devel
 BuildRequires:  a52dec-devel
@@ -199,6 +204,12 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Tue Aug 25 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-3
+- backport upstream patch to unbreak external code using string functions
+
+* Tue Aug 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-2
+- fix building with FFmpeg 9
+
 * Sat Aug 15 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-1
 - update to 26.07.0 (resolves rhbz#2514277)
 - fix building sggen binaries

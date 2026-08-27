@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.89.3
+Version:        2.89.4
 Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
@@ -294,6 +294,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Wed Aug 26 2026 Sandro Mani <manisandro@gmail.com> - 2.89.4-1
+- Update to 2.89.4
+
 * Tue Aug 04 2026 Sandro Mani <manisandro@gmail.com> - 2.89.3-1
 - Update to 2.89.3
 

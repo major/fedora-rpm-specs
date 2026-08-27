@@ -186,7 +186,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        154.0
-Release:        5%{?pre_tag}%{?dist}
+Release:        6%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1214,6 +1214,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Aug 26 2026 Martin Stransky <stransky@redhat.com> - 154.0-6
+- Use new (layer) compositor mode for HDR
+
 * Mon Aug 24 2026 Martin Stransky <stransky@redhat.com> - 154.0-5
 - Disabled session restore due to mzbz#2059617.
 

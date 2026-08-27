@@ -1,6 +1,6 @@
 # Set the version and release here
 %global condor_version 25.13.2
-%global condor_release 2
+%global condor_release 3
 
 # set uw_build to 0 for downstream (Fedora or EPEL)
 # UW build includes stuff for testing and tarballs
@@ -36,7 +36,7 @@ Source1: %{name}.sysusers.conf
 Source2: htcondor.pp
 %endif
 
-Patch1: turn-off-warnings-as-errors.patch
+Patch1: fix-arm-warning.patch
 
 ExcludeArch: %{ix86}
 
@@ -1347,6 +1347,9 @@ fi
 # configuration
 
 %changelog
+* Tue Aug 25 2026 Tim Theisen <ttheisen@fedoraproject.org> - 25.13.2-3
+- Fix warning on ARM plaform
+
 * Sun Aug 23 2026 Tim Theisen <ttheisen@fedoraproject.org> - 25.13.2-2
 - Drop htgettoken requirement from credmon-multi
 

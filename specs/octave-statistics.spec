@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.8.4
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -59,17 +59,27 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/PKG_ADD
 %{octpkgdir}/PKG_DEL
 %{octpkgdir}/*.m
-%{octpkgdir}/Classification/
+%{octpkgdir}/Anomaly_Detection/
 %{octpkgdir}/Clustering/
-%{octpkgdir}/datasets/
-%{octpkgdir}/dist_fit/
-%{octpkgdir}/dist_fun/
-%{octpkgdir}/dist_obj/
-%{octpkgdir}/dist_stat/
-%{octpkgdir}/dist_wrap/
-%{octpkgdir}/private/*.m
-%{octpkgdir}/packinfo/
+%{octpkgdir}/Data_Manipulation/
+%{octpkgdir}/Descriptive_Statistics/
+%{octpkgdir}/Dimensionality_Reduction/
+%{octpkgdir}/Distribution_Classes/
+%{octpkgdir}/Distribution_Fitting/
+%{octpkgdir}/Distribution_Functions/
+%{octpkgdir}/Distribution_Statistics/
+%{octpkgdir}/Distribution_Wrappers/
+%{octpkgdir}/Experimental_Design/
+%{octpkgdir}/Hypothesis_Testing/
+%{octpkgdir}/Markov_Models/
+%{octpkgdir}/Model_Evaluation/
+%{octpkgdir}/Nearest_Neighbors/
+%{octpkgdir}/Plotting/
+%{octpkgdir}/Random_Sampling/
 %{octpkgdir}/Regression/
+%{octpkgdir}/Supervised_Learning/
+%{octpkgdir}/datasets/
+%{octpkgdir}/packinfo/
 %{octpkglibdir}/
 
 %files demos

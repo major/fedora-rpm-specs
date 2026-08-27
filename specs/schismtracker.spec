@@ -1,13 +1,15 @@
 Name:      schismtracker
 Version:   20260524
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
 URL:       http://schismtracker.org/
 Source0:   https://github.com/schismtracker/schismtracker/archive/%{version}.tar.gz
 
-Patch1:    https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
+#Patch1:    https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
+# taken from: https://raw.githubusercontent.com/chimera-linux/cports/refs/heads/master/main/schismtracker/patches/ppc64le-vec.patch
+Patch1:     ppc64le-vec.patch
 
 Excludearch:   s390x
 Requires:      hicolor-icon-theme
@@ -42,12 +44,7 @@ mkdir auto
 %build
 autoreconf -i
 
-# disable altivec for now to fix compile
-
 %configure --disable-dependency-tracking \
-%ifarch ppc64le
---disable-altivec \
-%endif
 %if 0%{?_without_x:1}
 --with-x=no \
 %endif
@@ -75,6 +72,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Tue Aug 25 2026 josef radinger <cheese@nosuchhost.net> - 20260524-4
+- replace Patch1
+  https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
+  with
+  https://raw.githubusercontent.com/chimera-linux/cports/refs/heads/master/main/schismtracker/patches/ppc64le-vec.patch
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260524-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -17,12 +17,6 @@
 %bcond strawberry_graphql 0
 %bcond uvicorn 1
 
-# Work around a breaking change in pytest-timeout 2.5.0 (yanked from PyPI, but
-# still in Rawhide for now):
-# https://github.com/pytest-dev/pytest-timeout/issues/203
-# https://src.fedoraproject.org/rpms/python-pytest-timeout/pull-request/5
-%bcond pytest_timeout %[ 0%{?fedora} < 46 ]
-
 Name:           python-fastapi
 Version:        0.141.1
 Release:        %autorelease
@@ -89,11 +83,7 @@ BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
 BuildRequires:  %{py3_dist typer} >= 0.24.1
 BuildRequires:  %{py3_dist a2wsgi} >= 1.9
 BuildRequires:  %{py3_dist pytest-xdist[psutil]} >= 2.5
-%if %{with pytest_timeout}
 BuildRequires:  %{py3_dist pytest-timeout} >= 2.4
-%else
-BuildRequires:  tomcli
-%endif
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
@@ -190,10 +180,6 @@ It makes sure the dependencies are installed.
 # Comment out all dependencies on uvicorn. Note that this removes it from the
 # “all” extra metapackage.
 %pyproject_patch_dependency uvicorn:ignore
-%endif
-
-%if %{without pytest_timeout}
-tomcli set pyproject.toml del tool.pytest.timeout
 %endif
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we

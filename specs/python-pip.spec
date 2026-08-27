@@ -107,6 +107,10 @@ Patch:          https://github.com/pypa/pip/commit/6099a54ddd.patch
 # wrong installation.
 Patch:          https://github.com/pypa/pip/commit/4c6d7471de.patch
 
+# Allow flit-core 4 to build pip
+# https://github.com/pypa/pip/commit/09a03f6cfa (non-existing files removed)
+Patch:          09a03f6cfa.patch
+
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s

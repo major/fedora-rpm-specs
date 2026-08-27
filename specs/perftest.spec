@@ -13,7 +13,7 @@ BuildRequires:  librdmacm-devel >= 1.0.21
 BuildRequires:  libibumad-devel >= 1.3.10.2
 BuildRequires:  autoconf pciutils-devel
 Obsoletes:      openib-perftest < 1.3
-ExcludeArch:    s390 %{arm}
+ExcludeArch:    s390 %{arm} %{ix86}
 
 %description
 Perftest is a collection of simple test programs designed to utilize 

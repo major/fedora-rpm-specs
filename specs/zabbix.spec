@@ -16,7 +16,7 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.4.13
+Version:        7.4.14
 Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Tue Aug 25 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.14-1
+- 7.4.14
+
 * Thu Aug 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.13-1
 - 7.4.13
 

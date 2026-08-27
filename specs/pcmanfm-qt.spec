@@ -1,6 +1,6 @@
 Name:           pcmanfm-qt
-Version:        2.4.0
-Release:        2%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -12,34 +12,41 @@ BuildRequires:  cmake
 BuildRequires:  desktop-backgrounds-compat
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
+
+BuildRequires:  cmake(fm-qt6)
 BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(LayerShellQt)
+BuildRequires:  cmake(lxqt) >= 1.0.0
+BuildRequires:  cmake(lxqt-menu-data)
+BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(LayerShellQt)
-BuildRequires:  cmake(lxqt2-build-tools)
+
+
 BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libfm)
-BuildRequires:  cmake(fm-qt6)
 BuildRequires:  pkgconfig(libmenu-cache)
-BuildRequires:  cmake(lxqt) >= 1.0.0
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
-BuildRequires:  cmake(lxqt-menu-data)
+
 Requires:       lxqt-sudo
 
 # for /usr/share/backgrounds/default.{jxl,png}
 Requires:       desktop-backgrounds-compat
 # for jxl support
 Requires:       kf6-kimageformats%{?_isa}
-Obsoletes:      pcmanfm-qt5 < 0.9.0
-Provides:       pcmanfm-qt5 = %{version}-%{release}
-Obsoletes:      pcmanfm-qt4 <= 0.9.0
-Obsoletes:      pcmanfm-qt-common <= 0.9.0
+Obsoletes:      %{name}5 < 0.9.0
+Provides:       %{name}5 = %{version}-%{release}
+Obsoletes:      %{name}4 <= 0.9.0
+Obsoletes:      %{name}-common <= 0.9.0
+Provides:       %{name}-l10n = %{version}-%{release}
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+
 
 # gvfs is optional depencency at runtime, so we add a weak dependency here
 Recommends:     gvfs
@@ -53,16 +60,8 @@ was started as the Qt port of PCManFM, the file manager of LXDE.
 PCManFM-Qt is used by LXQt for handling the desktop. Nevertheless, it can also
 be used independently of LXQt and under any desktop environment.
 
-%package        l10n
-Summary:        Translations for pcmanfm-qt
-BuildArch:      noarch
-Requires:       pcmanfm-qt = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description    l10n
-This package provides translations for the pcmanfm-qt package.
-
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Set the wallpaper properly
 bg_file_ext="jxl"
@@ -71,11 +70,11 @@ bg_file_ext="png"
 fi
 sed -e "s|Wallpaper=.*$|Wallpaper=%{_datadir}/backgrounds/default.${bg_file_ext}|" -i config/pcmanfm-qt/lxqt/settings.conf.in
 
+%conf
+%cmake
 
 %build
-%cmake
 %cmake_build
-
 
 %install
 %cmake_install
@@ -88,7 +87,7 @@ for i in %{buildroot}%{_datadir}/applications/*.desktop; do
 done
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
 
-%files
+%files -f %{name}.lang
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
 %{_bindir}/%{name}
@@ -96,14 +95,13 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-desktop.desk
 %{_datadir}/applications/%{name}-desktop-pref.desktop
 %{_mandir}/man1/%{name}.*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
-%{_datadir}/%{name}
+%{_datadir}/%{name}/lxqt/settings.conf
 %{_datadir}/icons/hicolor/scalable/apps/pcmanfm-qt.svg
 
-%files l10n -f %{name}.lang
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/%{name}/translations
-
 %changelog
+* Wed Aug 26 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-1
+- Update to 2.4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
