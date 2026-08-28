@@ -23,7 +23,7 @@
 # For building earlier snapshots of the compiler
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %else
 %global rocm_release 7.14
@@ -161,8 +161,11 @@ License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
 Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 Source1:        rocm-compilersupport.prep.in
 
+%if %{without preview}
 # Link comgr with static versions of llvm's libraries
 Patch1:         0001-comgr-link-with-static-llvm.patch
+%endif
+
 # On Fedora the assert came in gcc 15, on RHEL 10.2 gcc 14
 # Reduce the gcc version check below
 Patch2:         0001-rocm-llvm-work-around-new-assert-in-array.patch
@@ -810,7 +813,11 @@ sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' 
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
+%if %{with preview}
+sed -i -e 's@-lrt -lm@-lclangAST -lLLVMCore -lclangSema -lLLVMCodeGen -lLLVMAnalysis -lLLVMSupport -lclangCodeGen -lLLVMAMDGPUCodeGen -lclangBasic -lLLVMSelectionDAG -lLLVMMC -lclangStaticAnalyzerCore -lclangDriver -lLLVMTransformUtils -lLLVMGlobalISel -lclangStaticAnalyzerCheckers -lLLVMDebugInfoPDB -lLLVMX86CodeGen -llldELF -lLLVMObject -lLLVMAMDGPUUtils -lclangLex -lLLVMVectorize -lLLVMAsmPrinter -lLLVMDebugInfoCodeView -lclangParse -lLLVMipo -lLLVMOrcJIT -lLLVMDebugInfoDWARF -lclangFrontend -llldMachO -lLLVMX86Desc -lclangSerialization -llldCOFF -lclangAnalysis -lLLVMDebugInfoLogicalView -lLLVMScalarOpts -llldWasm -lLLVMTargetParser -lLLVMSandboxIR -lLLVMProfileData -lLLVMTableGen -lLLVMJITLink -lLLVMBinaryFormat -lLLVMInstCombine -lclangTidyBugproneModule -lLLVMCAS -lLLVMFrontendOpenMP -lclangTidyUtils -lclangASTMatchers -lLLVMTableGenCommon -lLLVMAMDGPUDesc -lclangExtractAPI -lLLVMOrcShared -lLLVMTextAPI -lclangAnalysisFlowSensitive -lclangFormat -lLLVMObjCopy -lLLVMDebugInfoGSYM -lclangTidy -lclangTidyModernizeModule -lLLVMInstrumentation -lclangScalableStaticAnalysisFrameworkCore -lLLVMDWARFLinkerParallel -lLLVMMCA -lLLVMRuntimeDyld -llldCommon -lclangTidyReadabilityModule -lLLVMObjectYAML -lclangDynamicASTMatchers -lLLVMMCParser -lclangAnalysisLifetimeSafety -lLLVMOption -lclangTooling -lLLVMUBAwareInterpreter -lclangDoc -lLLVMPasses -lLLVMCoroutines -lLLVMLTO -lLLVMTarget -lclangInterpreter -lLLVMDemangle -lLLVMCGData -lclangDependencyScanning -lclangTransformer -lLLVMBitReader -lclangAPINotes -lLLVMExecutionEngine -lclangTidyAbseilModule -lclangTidyCppCoreGuidelinesModule -lclangTidyMiscModule -lclangIndex -lclangScalableStaticAnalysisFrameworkAnalyses -lLLVMObjCARCOpts -lLLVMRemarks -lLLVMXRay -lclangTidyPerformanceModule -lclangToolingCore -lclangToolingRefactoring -lLLVMBitWriter -lclangIncludeCleaner -lclangToolingSyntax -lclangTidyAndroidModule -lLLVMMIRParser -lLLVMFrontendHLSL -lLLVMOrcTargetProcess -lclangRewrite -lruntimes_gtest -lLLVMAsmParser -lLLVMDWARFLinkerClassic -lLLVMHTTP -lLLVMFuzzMutate -lclangEdit -lclangInstallAPI -lclangRewriteFrontend -lclangStaticAnalyzerFrontend -lclangTidyGoogleModule -lLLVMCFIVerify -lLLVMDebugInfoMSF -lLLVMCoverage -lclangTidyLLVMModule -lclangTidyPortabilityModule -lLLVMSymbolize -lclangToolingInclusions -lfindAllSymbols -lLLVMDiff -lLLVMMCDisassembler -lLLVMWindowsDriver -lclangCrossTU -lLLVMDebugInfoDWARFLowLevel -lclangQuery -lclangTidyObjCModule -lclangAnalysisFlowSensitiveModels -lclangTidyFuchsiaModule -lclangToolingInclusionsStdlib -lLLVMABI -lLLVMDTLTO -lLLVMInterpreter -lLLVMLinker -lLLVMOptDriver -lLLVMTableGenBasic -lclangOptions -lclangSupport -lclangTidyAlteraModule -lLLVMBitstreamReader -lLLVMDebugInfoBTF -lLLVMInterfaceStub -lLLVMWindowsManifest -lclangIncludeFixer -lclangTidyLLVMLibcModule -lLLVMCFGuard -lLLVMDWARFCFIChecker -lLLVMIRPrinter -lLLVMIRReader -lLLVMOrcDebugging -lclangReorderFields -lLLVMAMDGPUInfo -lLLVMCodeGenTypes -lLLVMDWP -lLLVMFrontendAtomic -lLLVMFrontendDriver -lLLVMHipStdPar -lLLVMX86Info -lclangMove -lclangTidyBoostModule -lclangTidyConcurrencyModule -lclangTidyDarwinModule -lclangTidyMPIModule -lclangTidyOpenMPModule -lclangUnifiedSymbolResolution -lLLVMAggressiveInstCombine -lLLVMDWARFLinker -lLLVMFrontendOffloading -lLLVMSupportLSP -lclangDirectoryWatcher -lclangDocSupport -lclangTidyLinuxKernelModule -lLLVMAMDGPUAsmParser -lLLVMDebuginfod -lLLVMFrontendDirective -lLLVMLibDriver -lLLVMPlugins -lLLVMTextAPIBinaryReader -lLLVMX86AsmParser -lclangFrontendTool -lclangScalableStaticAnalysisFrameworkFrontend -lclangTidyCERTModule -lclangTidyZirconModule -lLLVMAMDGPUDisassembler -lLLVMAMDGPUTargetMCA -lLLVMDlltoolDriver -lLLVMExtensions -lLLVMFileCheck -lLLVMFrontendOpenACC -lLLVMFuzzerCLI -lLLVMIREmbUtils -lLLVMLineEditor -lLLVMMCJIT -lLLVMMIREmbUtils -lLLVMTelemetry -lLLVMX86Disassembler -lLLVMX86TargetMCA -lclangApplyReplacements -lclangChangeNamespace -lclangIncludeFixerPlugin -lclangIndexSerialization -lclangScalableStaticAnalysisFrameworkTool -lclangTidyMain -lclangTidyPlugin -lclangToolingASTDiff -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%else
 sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangScalableStaticAnalysisFrameworkAnalyses -lclangDependencyScanning -lclangOptions -lclangFrontend -lclangFrontendTool -lclangScalableStaticAnalysisFrameworkFrontend -lclangScalableStaticAnalysisFrameworkCore -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangUnifiedSymbolResolution -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%endif
 
 %endif
 

@@ -39,6 +39,10 @@ Patch3: pybind11-call_guard-compat-3x.patch
 %else
 Patch3: pybind11-call_guard-compat.patch
 %endif
+# Fedora's opencl-headers package now snapshots a newer OpenCL-CLHPP release
+# that dropped the CL_HPP_PARAM_NAME_INFO_1_1_DEPRECATED_IN_2_0_ macro 
+# OpenVINO's GPU plugin relied on.
+Patch4: opencl-clhpp-deprecated-macro.patch
 
 ExclusiveArch:  x86_64
 
@@ -54,7 +58,7 @@ BuildRequires:  onnx-devel
 BuildRequires:  opencl-headers
 BuildRequires:  pkgconfig(OpenCL)
 %if 0%{?fedora} > 44
-BuildRequires:  protobuf3-devel
+BuildRequires:  protobuf-devel >= 4
 %else
 BuildRequires:  protobuf-devel
 %endif

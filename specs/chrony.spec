@@ -1,5 +1,4 @@
 %global _hardened_build 1
-%global prerelease -pre1
 %global clknetsim_ver 93750cc17ebe
 %bcond_without debug
 %bcond_without nts
@@ -10,7 +9,7 @@
 
 Name:           chrony
 Version:        4.9
-Release:        0.2.pre1%{?dist}
+Release:        1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -67,7 +66,7 @@ md5sum -c <<-EOF | (! grep -v 'OK$')
         3f2ddca6065c3e8f4565d7422739795a  examples/chrony.conf.example2
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
-        4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
+        af482fa0dbdd22ff46be41111f251987  examples/chrony.nm-dispatcher.onoffline
         274a44cd51981d6d4d3a44dfc92c94ab  examples/chronyd.service
         5ddbb8a8055f587cb6b0b462ca73ea46  examples/chronyd-restricted.service
 EOF
@@ -207,6 +206,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Thu Aug 27 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-1
+- update to 4.9
+
 * Tue Aug 18 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-0.2.pre1
 - create ghosted directories by tmpfiles instead of chronyd service
 

@@ -1,5 +1,5 @@
 Name:           pgcli
-Version:        4.5.0
+Version:        4.6.0
 Release:        %autorelease
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
@@ -22,7 +22,7 @@ BuildRequires:  python3dist(sshtunnel)
 %description
 CLI for Postgres Database. With auto-completion and syntax highlighting
 
-%pyproject_extras_subpkg -n python3-pgcli keyring sshtunnel
+%pyproject_extras_subpkg --name python3-pgcli keyring sshtunnel
 
 %generate_buildrequires
 %pyproject_buildrequires --extras keyring --extras sshtunnel

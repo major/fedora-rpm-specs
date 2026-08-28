@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
@@ -57,6 +57,8 @@ Documentation for %{name}.
 
 %gemspec_remove_dep -g cucumber-gherkin "~> 22.0"
 
+%gemspec_remove_dep -g cucumber-tag-expressions "~> 4.0"
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 
@@ -95,6 +97,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Aug 27 2026 Vít Ondruch <vondruch@redhat.com> - 10.1.0-17
+- Relax cucumber-tag-expressions dependency.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

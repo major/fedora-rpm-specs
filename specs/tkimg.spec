@@ -2,8 +2,8 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:		tkimg
-Version:	2.1.0
-Release:	3%{?dist}
+Version:	2.1.1
+Release:	1%{?dist}
 Summary:	Image support library for Tk
 # The core tkimg code is TCL
 # tiff/ is libtiff
@@ -17,7 +17,7 @@ Summary:	Image support library for Tk
 License:	TCL AND libtiff AND HPND-Pbmplus AND URT-RLE AND IJG AND libpng-2.0 AND libpng-1.6.35 AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
 # Try saying that three times fast.
 URL:		http://sourceforge.net/projects/tkimg
-Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/2.1.0/Img-%{version}.tar.gz
+Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/2.1/tkimg%20%{version}/Img-%{version}.tar.gz
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
@@ -33,22 +33,24 @@ BuildRequires:	tcl-devel tk-devel tcllib
 #  loading of shared libraries to load the support libraries at runtime.
 #  These have been abandoned in favor of the new approach.
 
-# Pulling in our own copy of libtiff 4.7.1 to fix a LOT of CVEs.
-Source1:	http://download.osgeo.org/libtiff/tiff-4.7.1.tar.gz
+# Latest libtiff
+Source1:	https://download.osgeo.org/libtiff/tiff-4.7.2.tar.gz
 
-# Patching things to apply to the libtiff 4.7.1 API
-Patch0:		tkimg-2.1.0-libtiff-4.7.1.patch
-
-# Pulling in our own copy of libpng 1.6.53 for some CVEs
-Source2:	https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.53.tar.gz
+# Pulling in our own copy of libpng 1.6.58 for some CVEs
+Source2:	https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.58.tar.gz
 
 # the tkimg copy of libpng disables some externs in a header
 Patch1:		tkimg-2.1.0-libpng-1.6.53.patch
 
+# libtiff 4.7.2 moved tif_row/tif_tilesize/tif_scanlinesize out of struct tiff
+# and into the tif_dir (TIFFDirectory) substructure as td_* members. Update
+# tkimg's bundled tiff codec sources (tiffJpeg.c, tiffZip.c, tiffPixar.c) to match.
+Patch2:		tkimg-2.1.1-libtiff-4.7.2.patch
+
 Provides: bundled(zlib) = 1.3.1
 Provides: bundled(libjpeg) = 9f
-Provides: bundled(libpng) = 1.6.53
-Provides: bundled(libtiff) = 4.7.1
+Provides: bundled(libpng) = 1.6.58
+Provides: bundled(libtiff) = 4.7.2
 Requires: tcl(abi) = 9.0
 Requires: tk >= 9.0
 
@@ -70,14 +72,15 @@ These are the header files needed to develop a %{name} application
 pushd compat
 rm -rf libtiff
 tar xf %{SOURCE1}
-mv tiff-4.7.1 libtiff
+mv tiff-4.7.2 libtiff
 rm -rf libpng
 tar xf %{SOURCE2}
-mv libpng-1.6.53 libpng
+mv libpng-1.6.58 libpng
 popd
 
-%patch -P0 -p1 -b .tiff471
+# %%patch -P0 -p1 -b .tiff471
 %patch -P1 -p1 -b .libpng-1.6.53
+%patch -P2 -p1 -b .libtiff-4.7.2
 
 %build
 export CFLAGS="%{optflags} -fno-strict-aliasing"
@@ -104,6 +107,10 @@ rm -rf %{buildroot}%{_mandir}/html
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 2.1.1-1
+- update to 2.1.1
+- bump libtiff to 4.7.2 (the tkimg libtiff library glue still versions at 4.7.1, because I didn't want to break compat when/if upstream makes a similar change)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

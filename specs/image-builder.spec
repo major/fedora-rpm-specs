@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        79.0.0
+Version:        81.0.0
 
 %gometa
 
@@ -303,6 +303,14 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Aug 27 2026 Packit <hello@packit.dev> - 81.0.0-1
+Changes with 81.0.0
+----------------
+  - many: extension change for `container-minimal` (#2629)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Florian Schüller, Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-08-27
+
 * Thu Aug 20 2026 Packit <hello@packit.dev> - 79.0.0-1
 Changes with 79.0.0
 ----------------

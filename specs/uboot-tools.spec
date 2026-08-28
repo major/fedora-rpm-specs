@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.10
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -35,8 +35,6 @@ Patch5:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch7:   uefi-enable-https-boot-by-default.patch
-# Upstream SWIG 4.5 fix.
-Patch8:   pylibfdt-Replace-removed-SWIG-Python-2-compatibility-macros.patch
 
 # Device improvments
 # USB-PD improvements
@@ -316,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Thu Aug 27 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-0.3.rc3
+- Update to 2026.10 RC3
+
 * Wed Aug 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-0.2.rc2
 - Update to 2026.10 RC2
 

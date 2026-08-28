@@ -6,7 +6,7 @@
 # everything will grind to a halt.
 %global bootstrap 1
 %global bootstrap_major_version 5.4
-%global bootstrap_version %{bootstrap_major_version}.8
+%global bootstrap_version %{bootstrap_major_version}.9
 
 # Place rpm-macros into proper location.
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -35,9 +35,6 @@ Patch4:         %{name}-5.3.0-configure-compat-module.patch
 %if 0%{?bootstrap}
 Patch5:         %{name}-5.4.8-autotoolize.patch
 Patch6:		%{name}-5.4.8-luac-shared-link-fix.patch
-Patch7:		%{name}-5.4.8-bug1.patch
-Patch8:		%{name}-5.4.8-bug2.patch
-Patch9:		%{name}-5.4.8-bug3.patch
 %endif
 # https://www.lua.org/bugs.html
 
@@ -117,9 +114,6 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch -P3 -p1 -z .configure-linux
 %patch -P4 -p1 -z .configure-compat-all
 %patch -P6 -p1 -b .luac-shared-link-fix
-%patch -P7 -p1 -b .54bug1
-%patch -P8 -p1 -b .54bug2
-%patch -P9 -p1 -b .54bug3
 autoreconf -i
 cd ..
 %endif
@@ -226,6 +220,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 5.5.1-2
+- update legacy to 5.4.9. No one should be depending on it, but better safe than sorry.
+
 * Mon Aug 10 2026 Tom Callaway <spot@fedoraproject.org> - 5.5.1-1
 - update to 5.5.1
 

@@ -9,6 +9,7 @@ Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 Patch:          0001-fix-Improve-package-committish-resolution-logic.patch
 Patch:          0001-fix-Update-ELN-compose-URL.patch
+Patch:          0001-fix-copr-Handle-malformed-UTF-8-in-logs.patch
 
 BuildArch:      noarch
 

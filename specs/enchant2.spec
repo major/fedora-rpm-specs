@@ -182,7 +182,11 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libenchant-2.so.*
 %dir %{_libdir}/enchant-2
 %{_libdir}/enchant-2/enchant_hunspell.so
+%doc %{_defaultdocdir}/%{name}/enchant.html
+%doc %{_defaultdocdir}/%{name}/enchant-2.html
+%doc %{_defaultdocdir}/%{name}/enchant-lsmod-2.html
 %{_mandir}/man1/*
+%{_mandir}/man5/enchant.5*
 %{_datadir}/enchant-2-2
 
 %if !0%{?rhel}
@@ -197,13 +201,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/enchant-2/enchant_voikko.so*
 
 %files devel
-%doc %{_defaultdocdir}/%{name}/enchant.html
-%doc %{_defaultdocdir}/%{name}/enchant-2.html
-%doc %{_defaultdocdir}/%{name}/enchant-lsmod-2.html
 %{_libdir}/libenchant-2.so
 %{_libdir}/pkgconfig/enchant-2.pc
 %{_includedir}/enchant-2
-%{_mandir}/man5/enchant.5*
 
 
 %if %{with mingw}

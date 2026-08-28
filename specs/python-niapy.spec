@@ -1,5 +1,5 @@
 Name:           python-niapy
-Version:        2.6.1
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Micro framework for building nature-inspired algorithms
 
@@ -16,8 +16,6 @@ Source:         %{url}/archive/v%{version}/NiaPy-%{version}.tar.gz
 # Convert examples/run_loa form CRLF line terminations (DOS/Windows style) to
 # UNIX-style, to match the other files in the project.
 #
-# https://github.com/NiaOrg/NiaPy/pull/742
-Patch:          %{url}/pull/742.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L niapy
@@ -56,6 +54,11 @@ Obsoletes:      python-niapy-doc < 2.5.2-10
 # - Convert SemVer pins to minimum versions, since we can’t generally respect
 #   the upper bounds in Fedora.
 sed -r -i -e 's/^python ?=/# &/' -e 's/([^#]+ ?= ?")\^/\1>=/' pyproject.toml
+
+# Relax the uv_build upper bound
+# generally respect SemVer upper bounds.
+sed -r -i -e 's/"uv_build ?>=([0-9.]+) ?, ?<[0-9.]+"/"uv_build>=\1"/' \
+    pyproject.toml
 
 %check -a
 %pytest -ra -k "${k-}"

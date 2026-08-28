@@ -5,16 +5,14 @@
 
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
-Version:		1.16.0
-Release:		3%{?dist}
+Version:		1.17.0
+Release:		1%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
 # Thanks to debian.
 Source2:		libvpx.ver
-# Do not disable FORTIFY_SOURCE=2
-Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
 BuildRequires:		gcc
 BuildRequires:		gcc-c++
 BuildRequires:		make
@@ -46,7 +44,6 @@ and decoder.
 
 %prep
 %setup -q -n libvpx-%{version}
-%patch -P0 -p1 -b .fortify-source-on
 
 %build
 
@@ -202,6 +199,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.17.0-1
+- update to 1.17.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

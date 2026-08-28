@@ -1,11 +1,11 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name automaton
 
 %global with_doc 1
 
 Name:           python-%{pypi_name}
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Friendly state machines for python
 
@@ -101,7 +101,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 
 
 %if 0%{?with_doc}

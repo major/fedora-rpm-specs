@@ -1,5 +1,5 @@
 Name:           R-affyio
-Version:        %R_rpm_version 1.80.0
+Version:        %R_rpm_version 1.82.0
 Release:        %autorelease
 Summary:        Tools for parsing Affymetrix data files
 

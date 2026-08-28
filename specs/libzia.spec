@@ -1,6 +1,6 @@
 Name:		libzia
-Version:	4.72
-Release:	2%{?dist}
+Version:	4.73
+Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
@@ -71,6 +71,10 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Thu Aug 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.73-1
+- New version
+  Related: rhbz#2520860
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

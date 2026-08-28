@@ -1,6 +1,6 @@
 Name:           upx
-Version:        5.2.0
-Release:        2%{?dist}
+Version:        5.2.1
+Release:        1%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
 License:        GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -44,6 +44,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Thu Aug 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.2.1-1
+- 5.2.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

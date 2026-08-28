@@ -806,6 +806,7 @@ install -pm 644 include/petsc/finclude/*.h %{buildroot}%{_includedir}/%{name}/fi
 install -pm 644 %{_arch}/include/*.mod %{buildroot}%{_fmoddir}/%{name}/
 install -pm 644 include/*.h %{buildroot}%{_includedir}/%{name}/
 cp -a include/petsc/private %{buildroot}%{_includedir}/%{name}/
+cp -a include/petsc/mpiuni %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
@@ -843,6 +844,7 @@ install -pm 644 include/petsc/finclude/*.h %{buildroot}%{_includedir}/%{name}64/
 install -pm 644 %{_arch}/include/*.mod %{buildroot}%{_fmoddir}/%{name}64/
 install -pm 644 include/*.h %{buildroot}%{_includedir}/%{name}64/
 cp -a include/petsc/private %{buildroot}%{_includedir}/%{name}64/
+cp -a include/petsc/mpiuni %{buildroot}%{_includedir}/%{name}64/
 
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc64.pc

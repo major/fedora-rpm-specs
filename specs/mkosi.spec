@@ -5,7 +5,7 @@
 %bcond obs 0
 
 Name:           mkosi
-Version:        26
+Version:        27
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -15,7 +15,6 @@ Source:         https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{v
 
 # Keep all patches inside this ifdef to avoid breaking builds from main
 %if %{without obs}
-Patch:          0001-verity-do-not-copy-signing-cert-in-addons-portables-.patch
 %endif
 
 BuildArch:      noarch

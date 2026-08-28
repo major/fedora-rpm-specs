@@ -1,51 +1,42 @@
 %global gem_name cucumber
 
-%bcond_with bootstrap
-
 Name: rubygem-%{gem_name}
-Version: 7.1.0
-Release: 19%{?dist}
+Version: 11.1.1
+Release: 1%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone --no-checkout https://github.com/cucumber/cucumber-ruby.git
-# git -C cucumber-ruby archive -v -o rubygem-cucumber-7.1.0-spec.txz v7.1.0 spec/ cucumber.yml
-Source1: %{name}-%{version}-spec.txz
-# git clone --no-checkout https://github.com/cucumber/cucumber-ruby.git
-# git -C cucumber-ruby archive -v -o rubygem-cucumber-7.1.0-features.txz v7.1.0 features/
-Source2: %{name}-%{version}-features.txz
-# Fix Ruby 3.4 compatibility due to `Hash.new` now accepting `:capacity`
-# keyword option.
-# https://github.com/cucumber/cucumber-ruby/pull/1757/commits/87a375822f0f1d76fa464423f9743e36c5036713
-Patch0: rubygem-cucumber-9.2.0-Pass-hash-through-as-explicit-hash-to-avoid-unknown-keyword.patch
-# Fix Ruby 3.4 backtrace formatting compatibility.
-# https://github.com/cucumber/cucumber-ruby/pull/1771/commits/398eb7080936481b6b8c4921ff59aea7a8951883
-Patch1: rubygem-cucumber-9.2.0-Fix-error-backtrace-formatting-on-Ruby-3-4.patch
-# Fix Ruby 3.4 Hash#inspect compatibility.
-# https://github.com/cucumber/cucumber-ruby/pull/1771/commits/b9065c96098b893c75fcbb41b7558332b3bfd23b
-Patch2: rubygem-cucumber-9.2.0-CI-support-Ruby-3-4-Hash-inspect.patch
-# Fix compatibility with Cucumber Messages 25.0.0+
-# https://github.com/cucumber/cucumber-ruby/pull/1759/changes/1e0e347aafffc37893ffe2c2822103e3962d2b7d
-Patch3: rubygem-cucumber-10.0.0-Fix-up-references-to-old-id-generator-classes.patch
+# git clone https://github.com/cucumber/cucumber-ruby.git && cd cucumber-ruby
+# git archive -v -o rubygem-cucumber-11.1.1-spec.tar.gz v11.1.1 spec/ compatibility/support/cucumber/compatibility_kit/helpers.rb cucumber.yml
+Source1: %{name}-%{version}-spec.tar.gz
+# git clone https://github.com/cucumber/cucumber-ruby.git && cd cucumber-ruby
+# git archive -v -o rubygem-cucumber-11.1.1-features.tar.gz v11.1.1 features/
+Source2: %{name}-%{version}-features.tar.gz
+# This is just stub file, until the rubygem-cucumber-ci-environment package
+# is in Fedora.
+# https://raw.githubusercontent.com/cucumber/ci-environment/refs/heads/main/ruby/lib/cucumber/ci_environment.rb
+Source3: ci_environment.rb
+# Remove the HTML formatter bits until `html-formatter` is available in Fedora
+# https://github.com/cucumber/html-formatter
+Patch0: rubygem-cucumber-11.1.1-Drop-HTML-formatter.patch
+# Provide compotibility with cucumber-core < 16
+Patch1: rubygem-cucumber-11.1.1-Compatibility-shim-for-cucumber-core-16.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-# Aruba has circular dependency with Cucumber.
-%if %{without bootstrap}
-BuildRequires: rubygem(aruba)
-%endif
 BuildRequires: rubygem(base64)
 BuildRequires: rubygem(builder)
 BuildRequires: rubygem(cucumber-core)
-BuildRequires: rubygem(cucumber-wire)
-BuildRequires: rubygem(cucumber-create-meta)
+BuildRequires: rubygem(cucumber-cucumber-expressions)
+BuildRequires: rubygem(cucumber-messages)
 BuildRequires: rubygem(multi_test)
-BuildRequires: rubygem(mime-types)
+BuildRequires: rubygem(mini_mime)
 BuildRequires: rubygem(webrick)
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(rake)
+BuildRequires: rubygem(sys-uname)
 BuildArch: noarch
 
 %description
@@ -68,33 +59,34 @@ Documentation for %{name}.
 %patch 0 -p1
 %patch 1 -p1
 
-(
-cd %{builddir}
-%patch 2 -p1
-%patch 3 -p1
-)
+# This restores compatiblity with older cucumber-core, prior keyword arguments
+# were introduced cucumber-core 13+:
+# https://github.com/cucumber/cucumber-ruby-core/pull/261/changes/bc7174d641860267495f48d09a6e400cf2988738
+# https://github.com/cucumber/cucumber-ruby/pull/1751
+for i in lib/cucumber/{runtime,formatter/{console_issues,fail_fast,junit,pretty,rerun}}.rb; do
+  echo $i; sed -i 's/strict: //' $i
+done
 
 # The rubygem-cucumber-html-formatter is currently not packaged in Fedora.
 %gemspec_remove_dep -g cucumber-html-formatter
+%gemspec_remove_file 'lib/cucumber/formatter/html.rb'
+
+# TODO: The rubygem-cucumber-ci-environment is currently not available in
+# Fedora. This is the new name for rubygem-cucumber-create-meta. Fake the
+# required bits for a moment.
+%gemspec_remove_dep -g cucumber-ci-environment
+%gemspec_add_file 'lib/cucumber/ci_environment.rb'
+install -m 0644 %{SOURCE3} lib/cucumber/ci_environment.rb
 
 # Relax requires.
-%gemspec_remove_dep -g diff-lcs "~> 1.4", ">= 1.4.4"
-%gemspec_add_dep -g diff-lcs ">= 1.3"
+%gemspec_remove_dep -g cucumber-core ">= 16.2.0", "< 17"
+%gemspec_add_dep -g cucumber-core
 
-%gemspec_remove_dep -g cucumber-core "~> 10.1"
+%gemspec_remove_dep -g multi_test "~> 1.1"
+%gemspec_add_dep -g multi_test
 
-%gemspec_remove_dep -g cucumber-gherkin "~> 22.0", ">= 22.0.0"
-%gemspec_add_dep -g cucumber-gherkin ">= 20.0"
-
-%gemspec_remove_dep -g cucumber-cucumber-expressions "~> 14.0", ">= 14.0.0"
-%gemspec_add_dep -g cucumber-cucumber-expressions ">= 12.1"
-
-%gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
-%gemspec_add_dep -g cucumber-messages ">= 17.0"
-
-%gemspec_remove_dep -g cucumber-wire "~> 6.2"
-
-%gemspec_add_dep -g base64 ">= 0.2.0"
+%gemspec_remove_dep -g sys-uname "~> 1.5"
+%gemspec_add_dep -g sys-uname
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -111,41 +103,47 @@ cp -a .%{gem_dir}/* \
 
 
 mkdir -p %{buildroot}%{_bindir}
-cp -pa .%{_bindir}/* \
+cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %check
 pushd .%{gem_instdir}
+ln -s %{builddir}/compatibility compatibility
+
 # Cucumber.yml is needed for both test suites.
 # Used as fixture for rspec and options for cucumber.
-ln -s %{_builddir}/cucumber.yml cucumber.yml
+ln -s %{builddir}/cucumber.yml cucumber.yml
 
-ln -s %{_builddir}/spec spec
-# We don't need Pry.
-sed -i '/require.*pry/ s/^/#/' spec/spec_helper.rb
+ln -s %{builddir}/spec spec
 
-rspec -Ilib spec
+rspec -Ilib -rspec_helper spec
 
-%if %{without bootstrap}
-ln -s %{_builddir}/features features
+ln -s %{builddir}/features features
 
 # Skip the test that requires rubygem-cucumber-html-formatter,
 # which is currently not packaged in Fedora.
 sed -i -e '/^  Scenario: output html to stdout$/i @skip' \
     features/docs/formatters/html.feature
 
+# With cucumber-core < 16.2, ambiguous test might cause crash. However, for
+# test suites which have passed their CI, this should not cause any troubles.
+# Therefore this might minor issue for development, but should not be an issue
+# for Fedora packages.
+# https://github.com/cucumber/cucumber-ruby-core/pull/311
+mv features/docs/defining_steps/ambiguous_steps.feature{,.disable}
+
 # Use RUBYOPT to make sure that the Cucumber from current directory has
 # precedence over system Cucumber, which is pulled in as Aruba dependency.
-RUBYOPT=-Ilib cucumber --tags 'not @skip'
-%endif
+RUBYOPT=-Ilib ./bin/cucumber --tags 'not @skip'
 popd
 
 %files
 %dir %{gem_instdir}
 %{_bindir}/cucumber
 %license %{gem_instdir}/LICENSE
+%{gem_instdir}/VERSION
 %{gem_instdir}/bin
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -153,11 +151,13 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/README.md
-%doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Mon Aug 17 2026 Vít Ondruch <vondruch@redhat.com> - 11.1.1-1
+- Update to Cucumber 11.1.1.
+  Resolves: rhbz#2088458
+
 * Tue Aug 11 2026 Vít Ondruch <vondruch@redhat.com> - 7.1.0-19
 - Relax cucumber-wire dependency.
 

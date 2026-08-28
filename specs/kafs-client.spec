@@ -3,19 +3,20 @@
 %global libapiversion %{libapivermajor}.1
 
 Name:		kafs-client
-Version:	0.4
-Release:	18%{?dist}%{?buildid}
+Version:	0.9
+Release:	1%{?dist}%{?buildid}
 Summary:	The basic tools for kAFS and mounter for the AFS dynamic root
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://www.infradead.org/~dhowells/kafs/
 Source0:	https://www.infradead.org/~dhowells/kafs/kafs-client-%{version}.tar.bz2
 
-Requires: filesystem-afs
 BuildRequires: krb5-devel
 BuildRequires: keyutils-libs-devel
 BuildRequires: openssl-devel
+BuildRequires: autoconf
 BuildRequires: gcc
+BuildRequires: make
+BuildRequires: perl-podlators
 
 #
 # Need this for the upcall program to do DNS lookups.
@@ -27,7 +28,6 @@ BuildRequires: gcc
 Requires: keyutils >= 1.6
 
 BuildRequires: systemd-units
-BuildRequires: make
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -73,6 +73,8 @@ another AFS implementation (such as OpenAFS).
 %setup -q
 
 %build
+autoconf
+%configure
 %make_build \
 	ETCDIR=%{_sysconfdir} \
 	BINDIR=%{_bindir} \
@@ -134,70 +136,55 @@ ln -s aklog-kafs %{buildroot}/%{_bindir}/aklog
 %{_libdir}/libkafs_client.so.%{libapiversion}
 %{_libdir}/libkafs_client.so.%{libapivermajor}
 %{datadir}
-%{_sysconfdir}/kafs
 %config(noreplace) %{_sysconfdir}/kafs/client.conf
 %config(noreplace) %{_sysconfdir}/kafs/client.d
 
 %files libs-devel
 %{_libdir}/libkafs_client.so
-%{_includedir}/*
+%{_includedir}/kafs/*
 
 %files compat
 %{_bindir}/aklog
 %{_mandir}/man1/aklog.1*
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Thu Aug 27 2026 David Howells <dhowells@redhat.com> 0.9-1
+- spec: Remove dep on podman.
+- spec: Add dep on autoconf.
 
-* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4-17
-- Rebuilt for openssl 4.0
+* Thu Aug 27 2026 David Howells <dhowells@redhat.com> 0.8-1
+- Updated cellservdb.
+- spec: Change to new format licence tag.
+- spec: Buildrequire make.
+- spec: Remove dep on filesystem-afs rpm.
 
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Fri Mar 6 2026 David Howells <dhowells@redhat.com> 0.7-1
+- aklog-kafs: Update the cmdline options to be closer to standard aklog.
+- aklog-kafs: Reduce verbosity.
+- aklog-kafs: Allow the destination keyring to be specified.
+- aklog-kafs: Do better default keyring handling.
+- aklog-kafs: Improve error messages.
+- kafs-preload: Add a debug cmdline option and reduce some verbosity.
+- kafs-check-config: Use the kernel's rootcell if no cell specified.
+- Convert most manpages to POD form and supply a generation script.
+- kafs-check-config: Fix a missing inclusion of unistd.h.
+- lib: Fix a modification of a read-only string.
+- Move to using autoconf when building.
+- Generate manpages during the build.
+- kafs-preload: Honour the show_cell setting on each cell.
+- Add SPDX licence tags.
+- Remove the street address from the LICENCE file.
 
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Tue Jun 18 2024 Bill MacAllister <bill@ca-zephyr.org> 0.6-1
+- Fix manpage generation.
 
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-13
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.4-4
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+* Thu Jun 18 2020 David Howells <dhowells@redhat.com> 0.5-1
+- kafs-dns: Fix the -V flag.
+- kafs-dns: Fix srv[=N] callout option.
+- Add manpages for kafs-dns and kafs-preload.
+- kafs-preload: Fix the debugging output.
+- kafs-dns: Use the right name in the help output and syslog logging.
+- Rename the etc.conf source to client.conf as that's the installation name
 
 * Wed May 20 2020 David Howells <dhowells@redhat.com> 0.4-1
 - Use AF_ALG rather than OpenSSL's libcrypto.

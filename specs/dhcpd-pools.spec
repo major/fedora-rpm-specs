@@ -25,7 +25,7 @@ and other organizations that have large IP space.
 %setup -q
 # "errors" test output has ANSI color, strip/disable
 %patch -P0 -p1
-%if 0%{?fedora} >= 44
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %patch -P1 -p1
 %endif
 

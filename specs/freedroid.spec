@@ -2,10 +2,10 @@ Name:           freedroid
 Summary:        Clone of the C64 game Paradroid
 License:        GPL-2.0-or-later
 
-Version:        1.2.3
-Release:        4%{?dist}
+Version:        1.9.1
+Release:        1%{?dist}
 
-%global git_tag %{name}-%{version}.apk
+%global git_tag %{name}-%{version}-sdl2-port
 
 URL:            https://github.com/ReinhardPrix/FreedroidClassic/
 Source0:        %{URL}archive/%{git_tag}/%{git_tag}.tar.gz
@@ -17,9 +17,9 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  SDL_gfx-devel
-BuildRequires:  SDL_image-devel
-BuildRequires:  SDL_mixer-devel
+BuildRequires:  SDL2-devel
+BuildRequires:  SDL2_image-devel
+BuildRequires:  SDL2_mixer-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libvorbis-devel
@@ -48,7 +48,7 @@ This package contains game data files for Freedroid.
 
 %prep
 %autosetup -p1 -n FreedroidClassic-%{git_tag}
-./autogen.sh
+autoreconf -vif
 
 
 %build
@@ -82,6 +82,9 @@ install -Dpm 644 graphics/paraicon_48x48.png \
 
 
 %changelog
+* Wed Aug 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.1-1
+- Update to v1.9.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

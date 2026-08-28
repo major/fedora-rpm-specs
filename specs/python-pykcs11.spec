@@ -1,26 +1,20 @@
 # TODO: tox tests
 # E: NO TESTS RAN
 # /usr/bin/python3 -m unittest discover pid=413
-#   py312: FAIL code 5 
+#   py312: FAIL code 5
 %bcond_with tests
 
 %global pypi_name PyKCS11
 %global srcname pykcs11
 
 Name:           python-%{srcname}
-Version:        1.5.15
+Version:        1.5.19
 Release:        %autorelease
 Summary:        A Full PKCS11 wrapper for Python
 
 License:        GPL-2.0-only
 URL:            https://github.com/LudovicRousseau/PyKCS11
 Source:         %{pypi_source}
-# Add Fedora PyKCS11 library location search path
-# https://github.com/LudovicRousseau/PyKCS11/pull/113
-Patch:          %{url}/pull/113.patch#/Add-Fedora-PyKCS11-library-location-search-path.patch
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch:          python-pykcs11-swig45.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel

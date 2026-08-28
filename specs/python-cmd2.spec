@@ -1,7 +1,7 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          4.1.2
+Version:          4.2.2
 Release:          %{autorelease}
 Summary:          Extra features for standard library's cmd module
 
@@ -61,6 +61,8 @@ Requires:         /usr/bin/which
 
 # Disable coverage checks
 sed -i '/"\-\-cov/d' pyproject.toml
+
+%pyproject_patch_dependency prompt-toolkit:set_lower:3.0.52
 
 
 %build

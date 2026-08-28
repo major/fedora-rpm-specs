@@ -8,7 +8,7 @@ This is a client library for Aodh built on the Aodh API. It
 provides a Python API (the aodhclient module) and a command-line tool.}
 
 Name:             python-aodhclient
-Version:          3.11.0
+Version:          3.12.0
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Aodh
 
@@ -77,13 +77,10 @@ Requires:         python3-%{pypi_name} = %{version}-%{release}
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[><=]/d" \
-    -e "/^pifpaf[[:space:]]*[><=]/d" \
-    -e "/^tempest[[:space:]]*[><=]/d" \
-    -e "/^reno[[:space:]]*[><=]/d" \
-    test-requirements.txt doc/requirements.txt
-
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pifpaf:ignore
+%pyproject_patch_dependency tempest:ignore
+%pyproject_patch_dependency reno:ignore
 
 %generate_buildrequires
 %if 0%{?with_doc}
@@ -115,7 +112,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %{_bindir}/aodh
 

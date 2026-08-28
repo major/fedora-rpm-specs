@@ -5,7 +5,7 @@
 %global crate hidapi
 
 Name:           rust-hidapi
-Version:        2.6.6
+Version:        2.6.7
 Release:        %autorelease
 Summary:        Rust-y wrapper around hidapi
 
@@ -19,8 +19,6 @@ Patch:          hidapi-fix-metadata-auto.diff
 # * remove features for statically linking with hidapi
 # * remove feature for basic-udev crate, currently not packaged
 Patch:          hidapi-fix-metadata.diff
-# * Remove stray executable bit on a Rust source
-Patch10:        https://github.com/ruabmbua/hidapi-rs/pull/183.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(hidapi-hidraw)

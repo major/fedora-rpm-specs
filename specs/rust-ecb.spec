@@ -5,18 +5,19 @@
 %global crate ecb
 
 Name:           rust-ecb
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Electronic Codebook (ECB) block cipher mode of operation
+Summary:        Generic implementation of the ECB block cipher mode of operation
 
-License:        MIT
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ecb
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Electronic Codebook (ECB) block cipher mode of operation.}
+Generic implementation of the ECB (Electronic Codebook) block cipher
+mode of operation.}
 
 %description %{_description}
 
@@ -30,7 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

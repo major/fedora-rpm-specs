@@ -1,5 +1,5 @@
 Name:           gnome-autoar
-Version:        0.4.5
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Archive library
 
@@ -10,12 +10,11 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_v
 
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  gtk-doc
+BuildRequires:  gi-docgen
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  vala
 
@@ -38,7 +37,8 @@ developing applications that use %{name}.
 
 %build
 %meson -Dvapi=true \
-       -Dgtk_doc=true \
+       -Ddocs=true \
+       -Dintrospection=enabled \
        -Dtests=true \
         %{nil}
 %meson_build
@@ -57,25 +57,19 @@ developing applications that use %{name}.
 %doc NEWS
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GnomeAutoar-0.1.typelib
-%{_libdir}/girepository-1.0/GnomeAutoarGtk-0.1.typelib
 %{_libdir}/libgnome-autoar-0.so.0*
-%{_libdir}/libgnome-autoar-gtk-0.so.0*
 
 %files devel
 %{_includedir}/gnome-autoar-0/
 %{_libdir}/pkgconfig/gnome-autoar-0.pc
-%{_libdir}/pkgconfig/gnome-autoar-gtk-0.pc
 %{_libdir}/*.so
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GnomeAutoar-0.1.gir
-%{_datadir}/gir-1.0/GnomeAutoarGtk-0.1.gir
-%{_datadir}/gtk-doc/
+%{_datadir}/doc/%{name}
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/gnome-autoar-0.vapi
-%{_datadir}/vala/vapi/gnome-autoar-gtk-0.vapi
 %{_datadir}/vala/vapi/gnome-autoar-0.deps
-%{_datadir}/vala/vapi/gnome-autoar-gtk-0.deps
 
 
 %changelog

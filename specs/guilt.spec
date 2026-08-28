@@ -1,22 +1,17 @@
 Name:		guilt
-Version:	0.36
-Release:	27%{?dist}
+Version:	0.37.1
+Release:	2%{?dist}
 Summary:	Scripts to manage quilt-like patches on top of git
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
-URL:		http://repo.or.cz/guilt.git
-Source:		%{name}-%{version}.tar.gz
+URL:		https://github.com/git-guilt
+Source:		v%{version}.tar.gz
 Requires:	git, gawk, sed, bash
 
 BuildArch:	noarch
-BuildRequires:	asciidoc, xmlto, git-core
+BuildRequires:	asciidoc, xmlto, git-core, man-db
 BuildRequires: make
-
-Patch0:		guilt-0.36-git-decorate.patch
-Patch1:		guilt-0.36-filter-dd.patch
-Patch2:		guilt-0.36-fix-regressions-newer-git.patch
-Patch3:		guilt-0.36-fix-portability-problem-with-using-find-perm-111.patch
 
 %description
 Guilt allows one to use quilt functionality on top of a Git repository.
@@ -38,16 +33,23 @@ make install PREFIX=$RPM_BUILD_ROOT/usr
 make install-doc PREFIX=$RPM_BUILD_ROOT/usr mandir=$RPM_BUILD_ROOT/usr/share/man
 
 %check
-make test
+GITHUB_ACTIONS=true make test
 
 %files
-%doc COPYING Documentation/HOWTO Documentation/Contributing Documentation/Features
+%doc COPYING Documentation/HOWTO.md Documentation/Contributing.md Documentation/Features
 %{_bindir}/guilt
 %{_prefix}/lib/*
 %{_mandir}/man1/guilt*.1*
 %{_mandir}/man7/guilt*.7*
 
 %changelog
+* Thu Aug 27 2026 Eric Sandeen <sandeen@redhat.com> - 0.37.1-2
+- Fix dangling HOWTO symlink inherited from repo
+
+* Thu Aug 27 2026 Eric Sandeen <sandeen@redhat.com> - 0.37.1-1
+- Rebase to upstream; new project homepage on github
+- Add man-db to build deps to satisfy self-tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@ This is a client for the OpenStack Blazar API. It provides a Python
 API (the blazarclient module) and a command-line script (blazar).}
 
 Name:             python-%{sname}
-Version:          4.5.0
+Version:          4.6.0
 Release:          %autorelease
 Summary:          Python API and CLI for the Blazer Client
 License:          Apache-2.0

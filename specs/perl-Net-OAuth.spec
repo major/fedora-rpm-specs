@@ -1,5 +1,5 @@
 Name:           perl-Net-OAuth
-Version:        0.32
+Version:        0.33
 Release:        1%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,12 +67,16 @@ make test
 
 
 %files
-%doc Changes README CONTRIBUTING.md
+%doc Changes README SECURITY.md
 %{perl_vendorlib}/Net/
 %{_mandir}/man3/Net::OAuth*3pm*
 
 
 %changelog
+* Thu Aug 27 2026 Xavier Bachelot <xacier@bachelot.org> -  0.33-1
+- Update to 0.32 (RHBZ#2517683)
+  - Fixes CVE-2026-72889 (RHBZ#2519409)
+
 * Sun Aug 16 2026 Xavier Bachelot <xacier@bachelot.org> -  0.32-1
 - Update to 0.32 (RHBZ#2517177)
   - Fixes CVE-2026-72887 and CVE-2026-72888

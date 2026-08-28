@@ -10,7 +10,7 @@ Client library and command line utility for interacting with the OpenStack
 Neutron API.}
 
 Name:       python-neutronclient
-Version:    13.0.0
+Version:    14.0.0
 Release:    %autorelease
 Summary:    Python API and CLI for OpenStack Neutron
 

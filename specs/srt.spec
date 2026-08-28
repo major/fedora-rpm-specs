@@ -1,7 +1,7 @@
 %global rc %{nil}
 
 Name:           srt
-Version:        1.5.6
+Version:        1.5.7
 Release:        1%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
@@ -92,6 +92,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Thu Aug 27 2026 Yanko Kaneti <yaneti@declera.com> - 1.5.7-1
+- Update to 1.5.7
+
 * Tue Jul 21 2026 Yanko Kaneti <yaneti@declera.com> - 1.5.6-1
 - Update to 1.5.6
 

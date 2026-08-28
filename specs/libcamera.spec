@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.7.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -12,6 +12,7 @@ Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
 Patch01: 0001-disable-rpi-pisp.patch
+Patch02: 0002-fix-ov01a10-flickering.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -197,6 +198,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Thu Aug 27 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.2-4
+- Fix ov01a10 flickering (rhbz#2483190)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.2-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

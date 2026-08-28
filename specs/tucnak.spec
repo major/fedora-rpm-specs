@@ -1,6 +1,6 @@
 Name:		tucnak
-Version:	4.72
-Release:	2%{?dist}
+Version:	4.73
+Release:	1%{?dist}
 Summary:	HF/VHF contest logging program
 License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
@@ -91,6 +91,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Thu Aug 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.73-1
+- New version
+  Resolves: rhbz#2520860
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

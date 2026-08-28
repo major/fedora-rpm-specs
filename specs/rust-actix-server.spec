@@ -6,16 +6,13 @@
 %global crate actix-server
 
 Name:           rust-actix-server
-Version:        2.7.0
+Version:        2.9.0
 Release:        %autorelease
 Summary:        General purpose TCP server built for the Actix ecosystem
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/actix-server
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused io_uring support
-Patch:          actix-server-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

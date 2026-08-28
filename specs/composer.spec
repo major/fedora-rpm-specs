@@ -14,7 +14,7 @@
 %global api_version      2.9.0
 %global run_version      2.2.2
 
-%global upstream_version 2.10.2
+%global upstream_version 2.10.3
 #global upstream_prever  RC2
 
 %global _phpunit         %{_bindir}/phpunit9
@@ -24,7 +24,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -212,6 +212,9 @@ php -r '
 
 
 %changelog
+* Thu Aug 27 2026 Remi Collet <remi@remirepo.net> - 2.10.3-1
+- update to 2.10.3
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

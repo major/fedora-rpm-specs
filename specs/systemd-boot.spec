@@ -67,9 +67,11 @@ cp -a %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub \
 cp -a %{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub \
    %{buildroot}%{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
 
-install -dm 0755 %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}
+# Create efi binary hardlink for bootupd discovery
+# Note: systemd-boot is hardlinked to the grub%%{efi_arch}.efi filename for shim compatibility
+install -dm 0755 %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/EFI/%{efi_vendor}
 ln %{buildroot}%{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed \
-   %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/grub%{efi_arch}.efi
+   %{buildroot}%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/EFI/%{efi_vendor}/grub%{efi_arch}.efi
 
 install -m0644 -Dt %{buildroot}%{_licensedir}/%{name}/ %{_datadir}/licenses/systemd/LICENSE.LGPL2.1
 
@@ -91,7 +93,9 @@ fi
 %dir %{_prefix}/lib/efi
 %dir %{_prefix}/lib/efi/systemd-boot
 %dir %{_prefix}/lib/efi/systemd-boot/%{version}-%{release}
-%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/grub%{efi_arch}.efi
+%dir %{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/EFI
+%dir %{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/EFI/%{efi_vendor}
+%{_prefix}/lib/efi/systemd-boot/%{version}-%{release}/EFI/%{efi_vendor}/grub%{efi_arch}.efi
 
 # Man pages are provided by systemd-udev subpackage.
 # If we copied them to this package, we'd need to either rename them

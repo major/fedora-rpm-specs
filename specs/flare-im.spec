@@ -1,6 +1,6 @@
 Summary: Chat with your friends on Signal
 Name: flare-im
-Version: 0.22.1
+Version: 0.22.2
 Release: %autorelease
 URL: https://gitlab.com/schmiddi-on-mobile/flare
 Source0: https://gitlab.com/schmiddi-on-mobile/flare/-/archive/%{version}/flare-%{version}.tar.bz2

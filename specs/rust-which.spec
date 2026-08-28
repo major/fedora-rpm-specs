@@ -5,7 +5,7 @@
 %global crate which
 
 Name:           rust-which
-Version:        8.0.5
+Version:        8.0.6
 Release:        %autorelease
 Summary:        Rust equivalent of Unix command "which"
 

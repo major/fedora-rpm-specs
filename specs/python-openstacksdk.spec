@@ -12,7 +12,7 @@ A collection of libraries for building applications to work with OpenStack
 clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.18.0
+Version:        4.19.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 
@@ -63,11 +63,10 @@ rm -f openstack/tests/unit/test_stats.py
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[><=]/d" \
-    -e "/^hacking[[:space:]]*[><=]/d" \
-    -e "/^statsd[[:space:]]*[><=]/d" \
-     test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency hacking:ignore
+%pyproject_patch_dependency statsd:ignore
+%pyproject_patch_dependency reno:ignore
 
 
 %generate_buildrequires

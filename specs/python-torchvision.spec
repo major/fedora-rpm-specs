@@ -53,6 +53,7 @@ BuildRequires:  libswresample-free-devel
 BuildRequires:  libswscale-free-devel
 BuildRequires:  libwebp-devel
 BuildRequires:  ninja-build
+BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
 BuildRequires:  zlib-devel
 

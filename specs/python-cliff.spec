@@ -14,7 +14,7 @@ http://readthedocs.org/docs/cliff/en/latest/}
 %global common_desc_tests This package contains tests for the python cliff library.
 
 Name:             python-%{modname}
-Version:          4.15.0
+Version:          4.16.0
 Release:          %autorelease
 Summary:          Command Line Interface Formulation Framework
 
@@ -22,9 +22,6 @@ Group:            Development/Libraries
 License:          Apache-2.0
 URL:              https://pypi.io/pypi/cliff
 Source0:          %pypi_source cliff
-
-# https://review.opendev.org/c/openstack/cliff/+/992012
-Patch1:           require-docutils.patch
 
 BuildArch:        noarch
 BuildRequires:    python3-devel
@@ -35,6 +32,10 @@ Summary:          Command Line Interface Formulation Framework
 
 %description -n python3-%{modname}
 %{common_desc}
+
+
+%pyproject_extras_subpkg -n python3-%{modname} sphinxext
+
 
 %package -n python3-%{modname}-tests
 Summary:          Command Line Interface Formulation Framework

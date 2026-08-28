@@ -838,7 +838,7 @@ This package contains runtime libraries for use by Free Threading Python:
 
 
 %package -n python%{pybasever}-freethreading-devel
-Summary: Libraries and header files needed for Free Threading Python evelopment
+Summary: Libraries and header files needed for Free Threading Python development
 # Bundled mimalloc header files are MIT
 License: Python-2.0.1 AND MIT
 Requires: python%{pybasever}-freethreading = %{version}-%{release}

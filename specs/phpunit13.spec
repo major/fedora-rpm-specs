@@ -28,7 +28,7 @@
 %global ver_minor    3
 
 Name:           %{pk_project}%{ver_major}
-Version:        13.3.1
+Version:        13.3.2
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -46,8 +46,8 @@ BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.3      with php-composer(phpunit/php-code-coverage) < 15)
-BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.1     with php-composer(phpunit/php-file-iterator) < 8)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.3.1    with php-composer(phpunit/php-code-coverage) < 15)
+BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.2     with php-composer(phpunit/php-file-iterator) < 8)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 7.0.0           with php-composer(phpunit/php-invoker) < 8)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 6.0.0     with php-composer(phpunit/php-text-template) < 7)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 9.0.0             with php-composer(phpunit/php-timer) < 10)
@@ -84,8 +84,8 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.14.0",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
-#        "phpunit/php-code-coverage": "^14.3",
-#        "phpunit/php-file-iterator": "^7.0.1",
+#        "phpunit/php-code-coverage": "^14.3.1",
+#        "phpunit/php-file-iterator": "^7.0.2",
 #        "phpunit/php-invoker": "^7.0.0",
 #        "phpunit/php-text-template": "^6.0.0",
 #        "phpunit/php-timer": "^9.0.0",
@@ -112,8 +112,8 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 14.3      with php-composer(phpunit/php-code-coverage) < 15)
-Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.1     with php-composer(phpunit/php-file-iterator) < 8)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 14.3.1    with php-composer(phpunit/php-code-coverage) < 15)
+Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.2     with php-composer(phpunit/php-file-iterator) < 8)
 Requires:       (php-composer(phpunit/php-invoker) >= 7.0.0           with php-composer(phpunit/php-invoker) < 8)
 Requires:       (php-composer(phpunit/php-text-template) >= 6.0.0     with php-composer(phpunit/php-text-template) < 7)
 Requires:       (php-composer(phpunit/php-timer) >= 9.0.0             with php-composer(phpunit/php-timer) < 10)
@@ -292,6 +292,11 @@ exit $ret
 
 
 %changelog
+* Thu Aug 27 2026 Remi Collet <remi@remirepo.net> - 13.3.2-1
+- update to 13.3.2
+- raise dependency on phpunit/php-code-coverage 14.3.1
+- raise dependency on phpunit/php-file-iterator 7.0.2
+
 * Fri Aug 14 2026 Remi Collet <remi@remirepo.net> - 13.3.1-1
 - update to 13.3.1
 - raise dependency on myclabs/deep-copy 1.14.0

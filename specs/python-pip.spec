@@ -111,6 +111,9 @@ Patch:          https://github.com/pypa/pip/commit/4c6d7471de.patch
 # https://github.com/pypa/pip/commit/09a03f6cfa (non-existing files removed)
 Patch:          09a03f6cfa.patch
 
+# CVE-2026-13346: Link.filename double URL decode allows path traversal
+Patch:          https://github.com/pypa/pip/commit/10dfb6b900.patch
+
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s

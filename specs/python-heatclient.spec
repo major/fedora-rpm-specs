@@ -115,7 +115,7 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %dir %{_sysconfdir}/bash_completion.d
 %config(noreplace) %{_sysconfdir}/bash_completion.d/heat

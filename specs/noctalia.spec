@@ -1,6 +1,6 @@
 %define basever     5.0.0
 %define prerel      beta
-%define prerelnum   9
+%define prerelnum   10
 %define tag         v%{basever}-%{prerel}.%{prerelnum}
 
 Name:           noctalia

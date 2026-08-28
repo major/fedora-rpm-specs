@@ -1,5 +1,5 @@
 Name:           R-expm
-Version:        %R_rpm_version 1.0-0
+Version:        %R_rpm_version 1.0-1
 Release:        %autorelease
 Summary:        Computation of the matrix exponential and related quantities
 

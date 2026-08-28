@@ -3,7 +3,7 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        COBOL compiler
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
@@ -93,33 +93,41 @@ popd
 (make check CFLAGS="%optflags -O" || make check TESTSUITEFLAGS="--recheck --verbose" || echo "Warning, unexpected results")
 make test CFLAGS="%optflags -O"
 
-%files -f %%{name}.lang
+%files
 %license COPYING.DOC COPYING
 %doc AUTHORS ChangeLog
 %doc NEWS README THANKS
 %{_bindir}/cobc
 %{_bindir}/cob-config
-%{_bindir}/cobcrun
 %{_includedir}/*
 %{_libdir}/%{name}
 %{_libdir}/libcob.so
-%{_datadir}/gnucobol
+%{_datadir}/gnucobol/config/
+%{_datadir}/gnucobol/copy/
+%exclude %{_datadir}/gnucobol/config/*.cfg
+%exclude %{_datadir}/gnucobol/config/*.ttbl
 %{_infodir}/gnucobol.info.*
 %{_mandir}/man1/cobc.1.*
-%{_mandir}/man1/cobcrun.1.*
 %{_mandir}/man1/cob-config.1.*
 
 
-%files -n libcob
+%files -n libcob -f %{name}.lang
 %license COPYING.LESSER
+%{_bindir}/cobcrun
+%{_datadir}/gnucobol/config/*.cfg
+%{_datadir}/gnucobol/config/*.ttbl
 %{_libdir}/libcob.so.4*
 %{_libdir}/gnucobol/CBL_OC_DUMP.so
+%{_mandir}/man1/cobcrun.1.*
 
 %files esql
 %{_bindir}/esqlOC
 %{_libdir}/libocsql.so*
 
 %changelog
+* Thu Aug 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2-11
+- Correct file ownership
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

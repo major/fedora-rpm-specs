@@ -1,13 +1,14 @@
 Name:		xbase
 Summary:	XBase compatible database library
-Version:	4.2.7
+Version:	4.3.0
 Release:	%autorelease
 License:	LGPL-3.0-or-later
 URL:		http://linux.techass.com/projects/xdb/
 Source0:	http://downloads.sourceforge.net/xdb/%{name}64-%{version}.tar.gz
-Patch0:		xbase-4.2.7-fix-sover.patch
-Patch1:		xbase-4.2.7-no-local-no-namespace.patch
-Patch2:		xbase-4.2.7-fix-mandir.patch
+Patch0:		xbase-4.3.0-fix-sover.patch
+Patch1:		xbase-4.3.0-fix-parent-dir.patch
+Patch2:		xbase-4.2.7-no-local-no-namespace.patch
+Patch3:		xbase-4.2.7-fix-mandir.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen

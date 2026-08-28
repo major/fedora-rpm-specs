@@ -4,15 +4,19 @@ License:       Apache-2.0
 URL:           https://buildstream.build/
 
 BuildArch:     noarch
-ExcludeArch:   %{ix86}
+# Match buildstream: the test suite imports buildstream._testing, and the
+# binary already Requires buildstream. Core is unavailable on these arches.
+ExcludeArch:   %{ix86} s390x
 
-Version:       2.7.0
+Version:       2.8.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream-plugins/archive/%{version}/buildstream-plugins-%{version}.tar.gz
 
-BuildRequires: python3-devel >= 3.9
+BuildRequires: buildstream >= %{version}
+BuildRequires: python3-devel >= 3.10
+BuildRequires: git
 
-Requires:      buildstream
+Requires:      buildstream >= %{version}
 
 Requires:      git
 Requires:      lzip
@@ -27,7 +31,7 @@ A collection of plugins for the BuildStream project
 %autosetup -n %{name}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires requirements/test-requirements.txt requirements/plugin-requirements.txt
 
 %build
 %pyproject_wheel
@@ -36,6 +40,14 @@ A collection of plugins for the BuildStream project
 %pyproject_install
 %pyproject_save_files -l buildstream_plugins
 
+%ifarch x86_64 aarch64
+%check
+%pytest -m "not integration" \
+  --deselect tests/sources/docker.py::test_docker_fetch \
+  --deselect tests/sources/docker.py::test_docker_source_checkout \
+  --deselect tests/sources/docker.py::test_fetch_duplicate_layers \
+  --deselect tests/sources/cargo.py::test_cargo_track_fetch_build
+%endif
 
 %files -n %{name} -f %{pyproject_files}
 %doc NEWS README.rst

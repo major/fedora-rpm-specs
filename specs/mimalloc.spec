@@ -1,16 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:           mimalloc
-Version:        2.2.3
-Release:        5%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
 License:        MIT
 URL:            https://github.com/microsoft/mimalloc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix ppc64le build
-# Patch0:         3966953b7f0f11d2ec33097c5da4356d5b7db7e8.patch
-# Patch1:         cc3c14f2ed374f908e60a3bf29c1dff84fc8cfc2.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -36,10 +33,8 @@ rm -rf bin
 %build
 %cmake \
     -DMI_BUILD_OBJECT=OFF \
-    -DMI_OVERRIDE=OFF \
     -DMI_INSTALL_TOPLEVEL=ON \
     -DMI_BUILD_STATIC=OFF \
-    -DMI_BUILD_TESTS=OFF \
     -DMI_NO_OPT_ARCH=ON \
     -DCMAKE_BUILD_TYPE=Release
 %cmake_build
@@ -49,19 +44,28 @@ rm -rf bin
 %cmake_install
 
 
+%check
+%ctest
+
+
 %files
 %license LICENSE
 %doc readme.md
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.*
 
 %files devel
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
-%{_includedir}/*
+%{_includedir}/
 
 
 %changelog
+* Wed Aug 26 2026 Christoph Erhardt <fedora@sicherha.de> - 3.5.0-1
+- Update to 3.5.0 (#2335526)
+- Override the standard malloc interface (#2304716)
+- Enable unit tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

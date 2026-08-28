@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/*/.*\\.so$
 
 Name:           gnote
-Version:        50.1
+Version:        51~alpha
 Release:        %autorelease
 Summary:        Note-taking application
 

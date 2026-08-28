@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        14.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # Find nikic/php-parser version 5 from RPM database, using autoloader path
@@ -205,6 +205,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 27 2026 Remi Collet <remi@remirepo.net> - 14.3.1-2
+- rebuild
+
 * Tue Aug 18 2026 Remi Collet <remi@remirepo.net> - 14.3.1-1
 - update to 14.3.1
 

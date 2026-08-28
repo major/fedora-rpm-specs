@@ -1,4 +1,3 @@
-%global useroc 0
 %ifarch x86_64
 %if 0%{?fedora} || 0%{?rhel} >= 10
 %global useroc 1
@@ -6,7 +5,7 @@
 %endif
 
 Name:           scorep
-Version:        10.0
+Version:        10.1
 Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 # Various doc files are CC0-1.0
@@ -193,7 +192,7 @@ popd
 
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes %{useroc:--with-libroctracer64=yes}
+%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes %{?useroc:--with-libroctracer64=yes}
 # Workaround for #2493579
 export LIBBFD_EXTRA_LIBS=-lzstd
 
@@ -295,6 +294,7 @@ make -C serial check V=1
 %exclude %{_defaultdocdir}/scorep/*.txt
 %exclude %{_defaultdocdir}/scorep/REUSE.toml
 %exclude %{_defaultdocdir}/scorep/README.LICENSES.md
+%exclude %{_defaultdocdir}/scorep/LICENSES
 
 %files doc
 %license %licence_files
@@ -384,6 +384,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Tue Aug 11 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-1
+- Update to version 10.1 (resolves #2493585)
+
 * Mon Jul 20 2026 Dave Love <loveshack@fedoraproject.org> - 10.0-1
 - Update to version 10.0 (resolves #2493585)
 - BR otf2 >= 3.2

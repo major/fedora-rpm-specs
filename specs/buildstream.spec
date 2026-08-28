@@ -5,13 +5,15 @@ URL:           https://buildstream.build/
 
 ExcludeArch:   %{ix86} s390x
 
-Version:       2.7.0
+Version:       2.8.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
+Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.10
 BuildRequires: python3-setuptools < 82
+BuildRequires: python3-grpcio-tools
 
 BuildRequires: buildbox
 BuildRequires: python3-pexpect
@@ -47,6 +49,7 @@ platforms and chipsets.
 %pyproject_buildrequires
 
 %build
+./setup.py build_grpc
 %pyproject_wheel
 
 %install

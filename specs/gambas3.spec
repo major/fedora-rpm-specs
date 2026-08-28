@@ -21,16 +21,12 @@
 %global qt6 1
 
 # Qt4 webkit is abandoned in Fedora 44+
-%if 0%{?fedora} <= 43
-%global qt4webkit 1
-%else
 %global qt4webkit 0
-%endif
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.21.6
-Release:	3%{?dist}
+Version:	3.22.1
+Release:	1%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -100,10 +96,6 @@ Patch5:		%{name}-3.14.1-gst1.patch
 
 # If we're using C++20 then we can't override toupper/tolower, it is not allowed.
 Patch6:		gambas3-3.19.4-c++20-do-not-try-to-override-std-functions.patch
-
-Patch7:		gambas3-3.21.6-poppler-version.patch
-Patch8:		gambas3-3.21.6-poppler-26.04.0.patch
-Patch9:		gambas3-3.21.6-poppler-26.06.0.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -1213,9 +1205,6 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
 %patch -P 6 -p1 -b .c++20
-%patch -P 7 -p1 -b .poppler-version
-%patch -P 8 -p1 -b .poppler-26.04.0
-%patch -P 9 -p1 -b .poppler-26.06.0
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1312,7 +1301,7 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_datadir}/%{name}/examples/
-install -m0644 -p ./app/src/%{name}/.icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -m0644 -p ./app/src/%{name}/.app.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 desktop-file-install \
   --dir %{buildroot}%{_datadir}/applications	\
@@ -1873,7 +1862,7 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 
 %files gb-qt5-webkit
 %{_libdir}/%{name}/gb.qt5.webkit.*
-%{_datadir}/%{name}/control/gb.qt5.webkit*
+# %%{_datadir}/%%{name}/control/gb.qt5.webkit*
 %{_datadir}/%{name}/info/gb.qt5.webkit.*
 
 %ifnarch ppc64le s390x
@@ -2052,6 +2041,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 3.22.1-1
+- update to 3.22.1
+
 * Thu Aug  6 2026 Marek Kasik <mkasik@redhat.com> - 3.21.6-3
 - Rebuild for poppler 26.08.0
 - Restrict openssl-devel-engine dependency to Fedoras <= 44

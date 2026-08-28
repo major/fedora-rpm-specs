@@ -7,8 +7,8 @@
 
 Name:           ntfs-3g
 Epoch:          2
-Version:        2026.2.25
-Release:        3%{?dist}
+Version:        2026.7.7
+Release:        2%{?dist}
 Summary:        Linux NTFS userspace driver
 License:        GPL-2.0-or-later
 URL:            https://github.com/tuxera/ntfs-3g
@@ -19,6 +19,7 @@ BuildRequires:  make
 # ntfs-3g BuildRequires
 BuildRequires:  gnutls-devel
 BuildRequires:  libattr-devel
+BuildRequires:  hwinfo-devel
 %if %{with externalfuse}
 BuildRequires:  fuse-devel
 Requires:       fuse
@@ -195,6 +196,12 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 2:2026.7.7-2
+- rebuild for side tag
+
+* Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 2:2026.7.7-1
+- update to 2026.7.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2026.2.25-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

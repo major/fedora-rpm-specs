@@ -11,16 +11,16 @@
 %endif
 
 Name:           fedora-license-data
-Version:        1.75
-Release:        2%{?dist}
+Version:        1.76
+Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
 URL:            %{forgeurl}
 BuildArch:      noarch
-# git clone https://gitlab.com/fedora/legal/fedora-license-data.git
+# git clone https://forge.fedoraproject.org/legal/fedora-license-data.git
 # cd fedora-license-data
-# packit prepare-sources
+# tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  make
@@ -128,8 +128,18 @@ make check-grammar
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Thu Aug 27 2026 Miroslav Suchý <msuchy@redhat.com> 1.76-1
+- Add dotnet11.0 to the LicenseRef-ISO-8879 list
+- add atc-game
+- Rename ODbl-1.0 -> ODbL-1.0
+- add LGPL-2.1-or-later WITH Spelling-Provider-LGPL-exception
+- add LicenseRef-Eirene as not allowed
+- add GPL-2.0-or-later_WITH_CLISP-exception-2.0
+- add Informatica
+- update links to new location at forge.fedoraproject.org
+- Add intel_vpu
+- Update to add LICENCE.atheros_firmware
+- add GPL-3.0-or-later WITH Autoconf-exception-3.0 as allowed
 
 * Mon May 18 2026 Miroslav Suchý <msuchy@redhat.com> 1.75-1
 - add MIT WITH fmt-exception

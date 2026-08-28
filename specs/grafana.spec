@@ -22,7 +22,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -887,6 +887,10 @@ SELinux policy module supporting grafana
 %package frontend
 Summary:          Grafana frontend assets
 BuildArch:        noarch
+# The compiled frontend assets used to be shipped by the main grafana package
+# (<= 12.4.3-3). They moved into this subpackage in 12.4.3-4, so take ownership
+# from those older grafana packages to avoid a file conflict on upgrade.
+Obsoletes:        grafana < 12.4.3-4
 
 %description frontend
 Compiled frontend assets (JavaScript, CSS, images) for Grafana.
@@ -1191,6 +1195,9 @@ done
 %endif
 
 %changelog
+* Thu Aug 27 2026 Sam Feifer <sfeifer@redhat.com> 12.4.3-5
+- Fix the rpmdeplint failure caused by the new grafana-frontend.noarch
+
 * Wed Aug 26 2026 Sam Feifer <sfeifer@redhat.com> 12.4.3-4
 - Rework the frontend build process to no longer rely on a prebuilt artifact and instead build a noarch subpackge
 - Build the grafana-selinux noarch subpackage only on x86_64, matching the frontend

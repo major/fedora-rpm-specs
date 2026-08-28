@@ -1,5 +1,5 @@
 Name:           mathic
-Version:        1.4
+Version:        1.5
 Release:        %autorelease
 Summary:        Data structures for Groebner basis computations
 

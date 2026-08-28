@@ -1,14 +1,14 @@
 Name:           xwxapt
-Version:        3.4.1
-Release:        19%{?dist}
+Version:        3.4.4
+Release:        1%{?dist}
 Summary:        GTK+ graphical application for decoding and saving weather images
 
 # Most files are GPLv2+ but some are GPLv3+ so combined work is GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 
-URL:            http://www.5b4az.org/
-Source0:        http://www.5b4az.org/pkg/apt/%{name}/%{name}-%{version}.tar.bz2
+URL:            https://www.5b4az.org/
+Source0:        https://www.qsl.net/5b4az/pkg/apt/%{name}/%{name}-%{version}.tar.bz2
 #add .desktop file
 Source1:        %{name}.desktop
 #temporary Icon
@@ -16,9 +16,9 @@ Source2:        %{name}.png
 #Wrapper script for user config
 Source3:        %{name}.sh.in
 
-Patch1: xwxapt-3.4.1-fedora-c99.patch
+Patch0:         xwxapt-config.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc gcc-c++
 BuildRequires:  automake autoconf libtool gettext
 BuildRequires:	alsa-lib-devel
@@ -50,6 +50,9 @@ make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS" PACKAGE_LIBS="$PACKAGE_LIBS -lm"
 # Install tries to install stuff to $HOME so do it manually...
 install -pDm 0755 src/%{name} %{buildroot}%{_bindir}/%{name}.bin
 
+# Install glade file for UI
+install -pDm 0644 %{name}/%{name}.glade %{buildroot}%{_datadir}/%{name}/%{name}.glade
+
 #install default user configuration file
 install -pDm 0644 %{name}/xwxaptrc %{buildroot}%{_datadir}/%{name}/xwxaptrc
 
@@ -75,6 +78,9 @@ desktop-file-install  \
 
 
 %changelog
+* Sun Aug 23 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.4-1
+- Update to 3.4.4.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

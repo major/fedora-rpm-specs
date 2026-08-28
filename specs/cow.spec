@@ -1,5 +1,5 @@
 Name:           cow
-Version:        0.1
+Version:        0.2
 Release:        1%{?dist}
 Summary:        Compositor on Wayland - A stacking window manager
 
@@ -57,6 +57,7 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %{_bindir}/cowiconman
 %dir %{_sysconfdir}/cow
 %config(noreplace) %{_sysconfdir}/cow/cow.conf
+%config(noreplace) %{_sysconfdir}/cow/cowbar.conf
 %{_datadir}/wayland-sessions/cow.desktop
 %{_datadir}/cow/icons/default.png
 %{_mandir}/man1/cow.1*
@@ -69,6 +70,9 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %{_mandir}/man1/cowiconman.1*
 
 %changelog
+* Thu Aug 27 2026 Martin Cermak <mcermak@redhat.com> - 0.2-1
+- Release: 0.2
+
 * Tue Aug 11 2026 Martin Cermak <mcermak@redhat.com> - 0.1-1
 - The inaugural release of CoW!
 

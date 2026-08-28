@@ -1,10 +1,8 @@
 #% define pre_release rc1
 %define pre_release %nil
 
-%global bash_completion_dir %(pkg-config --variable=completionsdir bash-completion || echo /etc/bash_completion.d)
-
 Name:            cifs-utils
-Version:         7.6
+Version:         7.7
 Release:         %autorelease
 Summary:         Utilities for mounting and managing CIFS mounts
 
@@ -24,8 +22,7 @@ Recommends: %{name}-info%{?_isa} = %{version}-%{release}
 
 Source0:         https://download.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
 
-Patch0: cifs.upcall-fix-compiler-warning-with-Wvla.patch
-Patch1: cifs.upcall-fix-regression-with-krb5-creduid.patch
+Patch0: cifs.upcall-fix-krb5-regression-with-trust-dns.patch
 
 %description
 The SMB/CIFS protocol is a standard file sharing protocol widely deployed
@@ -72,7 +69,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/request-key.d
 install -m 644 contrib/request-key.d/cifs.idmap.conf %{buildroot}%{_sysconfdir}/request-key.d
 install -m 644 contrib/request-key.d/cifs.spnego.conf %{buildroot}%{_sysconfdir}/request-key.d
-install -Dpm 644 bash-completion/smbinfo %{buildroot}%{_datadir}%{bash_completion_dir}/smbinfo
+install -Dpm 644 bash-completion/smbinfo %{buildroot}%{bash_completions_dir}/smbinfo
 
 %files
 %doc
@@ -94,7 +91,7 @@ install -Dpm 644 bash-completion/smbinfo %{buildroot}%{_datadir}%{bash_completio
 %{_mandir}/man8/mount.cifs.*
 %{_mandir}/man8/mount.smb3.*
 %{_mandir}/man8/idmapwb.*
-%{_datadir}%{bash_completion_dir}/smbinfo
+%{bash_completions_dir}/smbinfo
 %dir %{_sysconfdir}/cifs-utils
 %ghost %{_sysconfdir}/cifs-utils/idmap-plugin
 %config(noreplace) %{_sysconfdir}/request-key.d/cifs.idmap.conf

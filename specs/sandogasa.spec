@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.21.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -59,6 +59,7 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          https://github.com/slopfest/sandogasa/commit/0ceff134e879443b2bd1884e2b9221ea0bd1d5cf.patch#/sandogasa-fix-store-scripts.patch
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}
@@ -119,6 +120,10 @@ for tool in %{tools}; do
   cp -p tools/${tool}/man/${tool}.1 %{buildroot}%{_mandir}/man1/
   install -dm 0755 %{buildroot}%{_sysconfdir}/${tool}
 done
+# koji-lag scripts
+for action in backup fetch publish vacuum; do
+  install -pm 0755 scripts/${action}-store.sh %{buildroot}%{_bindir}/koji-lag-${action}-store
+done
 cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
 for i in FINDINGS.md notebooks queries; do
   cp -pr tools/koji-lag/${i} %{buildroot}%{_datadir}/koji-lag/
@@ -148,6 +153,10 @@ done
 %{_bindir}/hs-relmon
 %{_bindir}/koji-diff
 %{_bindir}/koji-lag
+%{_bindir}/koji-lag-backup-store
+%{_bindir}/koji-lag-fetch-store
+%{_bindir}/koji-lag-publish-store
+%{_bindir}/koji-lag-vacuum-store
 %{_bindir}/poi-tracker
 %{_bindir}/sandogasa-hattrack
 %{_bindir}/sandogasa-pkg-acl

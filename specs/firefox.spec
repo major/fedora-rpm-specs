@@ -141,7 +141,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.38.2
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.126
+%global nss_version 3.127
 %global nss_build_version %{nss_version}
 %endif
 
@@ -185,14 +185,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        154.0
-Release:        6%{?pre_tag}%{?dist}
+Version:        155.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260813.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260827.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -255,7 +255,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-Patch402:        D317117.1787384850.diff
 Patch403:        D318191.1787388141.diff
 
 # https://phabricator.services.mozilla.com/D312871
@@ -544,7 +543,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P402 -p1 -b .D317117
 %patch -P403 -p1 -b .D318191
 
 %patch -P410 -p1 -b .libwebrtc-video-capture-implement-buffer-stride-support-for-pipewire
@@ -1214,6 +1212,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Aug 27 2026 Martin Stransky <stransky@redhat.com> - 155.0-1
+- Updated to 155.0
+
 * Wed Aug 26 2026 Martin Stransky <stransky@redhat.com> - 154.0-6
 - Use new (layer) compositor mode for HDR
 
