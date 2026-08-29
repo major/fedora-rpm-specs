@@ -5,7 +5,7 @@
 %global crate icu_collections
 
 Name:           rust-icu_collections
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Collection of API for use in ICU libraries
 

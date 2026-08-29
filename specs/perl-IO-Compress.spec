@@ -8,14 +8,14 @@
 %endif
 
 # Dependency versions if different to this package version
-%global depver_bzip2 2.218
-%global depver_zlib  2.222
+#global depver_bzip2 2.224
+#global depver_zlib  2.224
 
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.223
-Release:        528%{?dist}
+Version:        2.224
+Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress
@@ -69,8 +69,8 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::NoWarnings)
 %endif
 %endif
-# Runtime
-Requires:       perl(File::Glob)
+# Dependencies
+# (none)
 
 # This is wrapper for different Compress modules
 Obsoletes:      perl-Compress-Zlib < %{version}-%{release}
@@ -212,6 +212,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
+- 2.224 bump (rhbz#2525596)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.223-528
 - Perl 5.44 re-rebuild of bootstrapped packages
 

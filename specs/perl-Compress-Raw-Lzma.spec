@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.221
-Release:	4%{?dist}
+Version:	2.224
+Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -133,6 +133,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
+- Update to 2.224
+  - Remove 5.6-specific code and make 5.8 the minimum version supported
+  - Remove call to UpDowngrade in Makefile.PL
+
 * Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.221-4
 - Disable optional dependencies in RHEL
 

@@ -11,7 +11,7 @@ the OpenStack Nova API.}
 
 Name:             python-novaclient
 Epoch:            1
-Version:          18.13.0
+Version:          18.13.1
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Nova
 License:          Apache-2.0

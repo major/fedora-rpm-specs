@@ -29,6 +29,11 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
+%prep -a
+# Upstream caps these three at the next major purely as a precaution, not in
+# response to any known incompatibility.
+%pyproject_patch_dependency eth-account:drop_upper
+
 %check -a
 %pytest
 

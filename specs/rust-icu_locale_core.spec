@@ -5,7 +5,7 @@
 %global crate icu_locale_core
 
 Name:           rust-icu_locale_core
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        API for managing Unicode Language and Locale Identifiers
 

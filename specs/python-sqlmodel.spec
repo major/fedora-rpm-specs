@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.39
+Version:        0.0.42
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 

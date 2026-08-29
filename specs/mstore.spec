@@ -1,14 +1,16 @@
+%global soversion 0
+
 Name:           mstore
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Molecular structure store for testing
 License:        Apache-2.0
 URL:            https://github.com/grimme-lab/mstore
 Source0:        https://github.com/grimme-lab/mstore/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  meson
+BuildRequires:  cmake
 BuildRequires:  gcc-gfortran
-BuildRequires:  mctc-lib-devel >= 0.5.2
+BuildRequires:  cmake(mctc-lib)
 
 %description
 Molecular structure store for testing
@@ -23,50 +25,33 @@ This package contains the development headers for mstore.
 %prep
 %autosetup
 
+%conf
+# TODO: Account for absolute path CMAKE_INSTALL_INCLUDEDIR so we can use %%{_fmoddir}
+%cmake \
+  -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_lib}/gfortran/modules \
+  -Dmstore-module-dir:STRING=mstore
+
 %build
-%meson
-%meson_build
+%cmake_build
 
 %install
-%meson_install
-# Move Fortran modules to the right place
-mkdir -p %{buildroot}%{_libdir}/gfortran/modules
-mv %{buildroot}%{_includedir}/mstore/gcc-*/*.mod %{buildroot}%{_libdir}/gfortran/modules
-# Remove static library
-\rm %{buildroot}%{_libdir}/libmstore.a
+%cmake_install
 
 %check
-%meson_test
+%ctest
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libmstore.so.*
+%{_libdir}/libmstore.so.%{soversion}{,.*}
 %{_bindir}/mstore-info
+%{_bindir}/mstore-fortranize
 
 %files devel
 %{_libdir}/libmstore.so
-%{_libdir}/gfortran/modules/mstore*.mod
+%{_fmoddir}/mstore/
+%{_libdir}/cmake/mstore/
 %{_libdir}/pkgconfig/mstore.pc
 
 %changelog
-* Wed Jul 29 2026 Susi Lehtola <susi.lehtola@iki.fi> - 0.3.0-7
-- Rebuild against mctc-lib update.
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Sep 07 2024 Susi Lehtola <susi.lehtola@iki.fi> - 0.3.0-2
-- Add missing require in devel package.
-
-* Fri Sep 06 2024 Susi Lehtola <susi.lehtola@iki.fi> - 0.3.0-1
-- First release
+%autochangelog

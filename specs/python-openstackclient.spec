@@ -17,7 +17,7 @@ It is a thin wrapper to the stock python-*client modules that implement the
 actual REST API client actions.}
 
 Name:             python-%{sname}
-Version:          10.2.1
+Version:          10.3.0
 Release:          %autorelease
 Summary:          OpenStack Command-line Client
 

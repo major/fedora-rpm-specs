@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global sname keystoneclient
 %global with_doc 1
@@ -11,7 +11,7 @@ Identity API.}
 
 Name:       python-keystoneclient
 Epoch:      1
-Version:    5.8.0
+Version:    6.0.0
 Release:    %autorelease
 Summary:    Client library for OpenStack Identity API
 License:    Apache-2.0
@@ -136,7 +136,7 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst ChangeLog
 %exclude %{python3_sitelib}/%{sname}/tests
 
 

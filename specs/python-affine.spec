@@ -1,7 +1,7 @@
 %global srcname affine
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Matrices describing affine transformation of the plane
 
@@ -29,7 +29,7 @@ Summary:        %{summary}
 %pyproject_patch_dependency pytest-cov:ignore
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -g tests
 
 %build
 %pyproject_wheel

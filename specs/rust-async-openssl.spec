@@ -5,7 +5,7 @@
 %global crate async-openssl
 
 Name:           rust-async-openssl
-Version:        0.2.8
+Version:        0.2.10
 Release:        %autorelease
 Summary:        Implementation of SSL streams for async IO backed by OpenSSL
 

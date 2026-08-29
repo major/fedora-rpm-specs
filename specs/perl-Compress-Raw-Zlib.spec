@@ -7,8 +7,8 @@
 
 
 Name:           perl-Compress-Raw-Zlib
-Version:        2.222
-Release:        528%{?dist}
+Version:        2.224
+Release:        1%{?dist}
 Summary:        Low-level interface to the zlib compression library
 # Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 # Others:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -163,6 +163,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
+- 2.224 bump (rhbz#2525604)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.222-528
 - Perl 5.44 re-rebuild of bootstrapped packages
 

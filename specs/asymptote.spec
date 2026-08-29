@@ -1,6 +1,6 @@
 Name:           asymptote
-Version:        3.09
-Release:        2%{?dist}
+Version:        3.13
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -42,11 +42,11 @@ Patch0:         asymptote-2.84-settings.patch
 # This doesn't need to go upstream. We put the info file in the topdir, not a subdir, so we need this fix.
 Patch1:         asymptote-2.73-info-path-fix.patch
 # Link with flexiblas instead of gslcblas
-Patch2:         asymptote-3.00-flexiblas.patch
+Patch2:         asymptote-3.13-flexiblas.patch
 # Unbundle glew
-Patch3:         asymptote-3.00-unbundle-glew.patch
+Patch3:         asymptote-3.13-unbundle-glew.patch
 # Fix gc linking
-Patch4:		asymptote-3.00-gc-link-fix.patch
+Patch4:		asymptote-3.13-gc-link-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -86,6 +86,7 @@ BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glm-devel
 BuildRequires:  boost-devel, rapidjson-devel
 BuildRequires:  cmake, make, python3-qt5
+BuildRequires:  vulkan-headers, glfw-devel
 
 Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
 Requires:       hicolor-icon-theme
@@ -95,6 +96,7 @@ Requires:       texlive-dvisvgm
 Requires:       python3-qt5
 Requires:       python3-cson
 Requires:       python3-numpy
+Requires:       python3-pyside6
 Recommends:     evince, xdg-utils
 
 Provides:       bundled(LspCpp) = 1.0.0
@@ -121,9 +123,6 @@ sed -i 's/\r//' doc/CAD1.asy
 # Make sure the bundled glew cannot be used
 rm -rf GL
 
-# convert to UTF-8
-iconv -f iso-8859-1 -t utf-8 -o examples/interpolate1.asy{.utf8,}
-mv examples/interpolate1.asy{.utf8,}
 autoreconf -i
 
 # Remove useless shebangs
@@ -172,9 +171,6 @@ pushd %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
 ln -s ../../../%{name}/asy_filetype.vim .
 popd
 
-# Move info file
-mv %{buildroot}%{_infodir}/asymptote/asymptote.info %{buildroot}%{_infodir}/asymptote.info
-
 # Copy icon to scalable icon dir
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 cp -p doc/icon.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/asy.svg
@@ -214,6 +210,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Fri Aug 28 2026 Tom Callaway <spot@fedoraproject.org> - 3.13-1
+- update to 3.13
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.09-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

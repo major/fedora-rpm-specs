@@ -5,7 +5,7 @@
 %global crate icu_segmenter
 
 Name:           rust-icu_segmenter
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Unicode line breaking and text segmentation algorithms
 
@@ -13,7 +13,7 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_segmenter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit benchmark-only dev-dependency `criterion`.
+# * Omit benchmark-only dev-dependency criterion.
 # * Omit the experimental_segmenter example, which would require the internal
 #   icu_benchmark_macros crate
 Patch:          icu_segmenter-fix-metadata.diff
@@ -113,6 +113,18 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Restore dev-dependency icu_properties, which is path-based and was therefore
@@ -124,25 +136,26 @@ tomcli set Cargo.toml str dev-dependencies.icu_properties.version '~%{version}'
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
+%cargo_build -a
 
 %install
-%cargo_install
+%cargo_install -a
 
 %if %{with check}
 %check
 # * Very many doctests have circular dependencies on the top-level icu crate,
 #   enough that it would be very tedious to patch them all out.
-%cargo_test -- --lib
-%cargo_test -- --test cnn
-%cargo_test -- --test complex_word
-%cargo_test -- --test css_line_break
-%cargo_test -- --test locale
-%cargo_test -- --test spec_test
-%cargo_test -- --test word_rule_status
+%cargo_test -a -- --lib
+%cargo_test -a -- --test adaboost
+%cargo_test -a -- --test cnn
+%cargo_test -a -- --test complex_word
+%cargo_test -a -- --test css_line_break
+%cargo_test -a -- --test locale
+%cargo_test -a -- --test spec_test
+%cargo_test -a -- --test word_rule_status
 %endif
 
 %changelog

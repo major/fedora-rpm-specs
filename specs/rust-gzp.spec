@@ -5,7 +5,7 @@
 %global crate gzp
 
 Name:           rust-gzp
-Version:        2.0.2
+Version:        2.0.4
 Release:        %autorelease
 Summary:        Parallel Compression
 
@@ -15,7 +15,7 @@ URL:            https://crates.io/crates/gzp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove criterion dev dependency
-# * Update various dependencies
+# * Relax flume dependency to allow building with both v0.11 and v0.12
 Patch:          gzp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

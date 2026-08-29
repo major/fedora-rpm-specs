@@ -35,16 +35,7 @@ Core.}
 %package     -n python3-editorconfig
 Summary:        %{summary}
 
-# Dropped without replacement for F43+; we can remove the Obsoletes in F45.
-Obsoletes:      python-editorconfig-doc < 0.17.1-2
-
 %description -n python3-editorconfig %{common_description}
-
-
-%package        doc
-Summary:        Documentation for python-editorconfig
-
-%description    doc %{common_description}
 
 
 %prep

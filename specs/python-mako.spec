@@ -19,9 +19,6 @@ License:	MIT AND Python-2.0.1 AND BSD-3-Clause
 URL:		https://www.makotemplates.org
 Source:		https://github.com/sqlalchemy/mako/archive/rel_1_4_1/%{src_name}-%{version}.tar.gz
 
-# fedora doesnt ship lingua
-Patch0:		remove-lingua.patch
-
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
@@ -31,8 +28,10 @@ BuildRequires:	python3-pytest
 
 %package -n python3-%{src_name}
 Summary:	%{summary}
+%if %{undefined rhel}
 # Beaker is the preferred caching backend, but is not strictly necessary
-Recommends:	python3-breaker
+Recommends:	python3-beaker
+%endif
 Obsoletes:	python2-mako < 1.1.0-3
 Obsoletes:	python-mako-doc < 1.1.4-6
 
@@ -40,9 +39,17 @@ Obsoletes:	python-mako-doc < 1.1.4-6
 
 %prep
 %autosetup -p1 -n %{src_name}-rel_1_4_1
+# fedora doesnt ship lingua
+%pyproject_patch_dependency lingua:ignore
+%if %{defined rhel}
+# not included in RHEL
+%pyproject_patch_dependency beaker:ignore
+%pyproject_patch_dependency dogpile.cache:ignore
+%pyproject_patch_dependency junitparser:ignore
+%endif
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -g tests
 
 %build
 %pyproject_wheel

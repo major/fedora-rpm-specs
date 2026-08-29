@@ -5,7 +5,7 @@
 %global crate ixdtf
 
 Name:           rust-ixdtf
-Version:        0.6.5
+Version:        0.6.6
 Release:        %autorelease
 Summary:        Parser for Internet eXtended DateTime Format
 

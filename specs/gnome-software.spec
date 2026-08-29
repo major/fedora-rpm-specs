@@ -27,7 +27,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   51~beta
+Version:   51~rc
 Release:   %autorelease
 Summary:   A software center for GNOME
 

@@ -29,8 +29,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 4.0.1
-Release: 5%{?dist}
+Version: 4.0.2
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source4: openssl.rpmlintrc
@@ -53,7 +53,6 @@ Patch0013: 0013-FIPS-PKCS12-PBMAC1-defaults.patch
 Patch0014: 0014-FIPS-EC-disable-weak-curves.patch
 Patch0015: 0015-Make-openssl-speed-run-in-FIPS-mode.patch
 Patch0016: 0016-Allow-hybrid-MLKEM-in-FIPS-mode.patch
-Patch0017: 0017-Don-t-raise-NOT_ENOUGH_DATA-at-object-boundary.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -376,6 +375,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Aug 28 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.2-1
+- Rebase to OpenSSL 4.0.2
+
 * Fri Jul 17 2026 Pavol Žáčik <pzacik@redhat.com> - 1:4.0.1-5
 - Don't raise NOT_ENOUGH_DATA on a clean EOF at an object boundary
   (Backport from https://github.com/openssl/openssl/commit/4360d53)

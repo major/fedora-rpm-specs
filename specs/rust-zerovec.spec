@@ -5,7 +5,7 @@
 %global crate zerovec
 
 Name:           rust-zerovec
-Version:        0.11.6
+Version:        0.11.8
 Release:        %autorelease
 Summary:        Zero-copy vector backed by a byte array
 
@@ -34,6 +34,12 @@ Patch:          zerovec-fix-metadata.diff
 #   https://src.fedoraproject.org/rpms/rust-zerovec/pull-request/1#comment-232114
 #   and subsequent discussion.
 Patch10:        0001-Downstream-only-Ignore-a-few-tests-we-can-t-compile.patch
+# * Don't unwrap ZeroVec::try_from_slice:
+#   https://github.com/unicode-org/icu4x/pull/8420
+# * Fixes: zerovec: tests::test_miri_repro_eyepatch_hack_truncate fails on s390x:
+#   https://github.com/unicode-org/icu4x/issues/8396
+# * Produced with git format-patch --relative in order to apply to the crate
+Patch11:        0001-Don-t-unwrap-ZeroVec-try_from_slice.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

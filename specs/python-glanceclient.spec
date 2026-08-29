@@ -12,7 +12,7 @@ glanceclient module), and a command-line script (glance). Each implements
 
 Name:             python-glanceclient
 Epoch:            1
-Version:          4.12.0
+Version:          4.13.0
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Glance
 

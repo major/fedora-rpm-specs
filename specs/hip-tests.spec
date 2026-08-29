@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
 %endif
@@ -130,8 +130,8 @@ This repository provides unit tests for HIP implementation.
 %prep
 %autosetup -n %{upstreamname} -p3
 
-# Change path to clang-cpp
-sed -i -e 's@${ROCM_PATH}/llvm/bin/clang-cpp@%{rocmllvm_bindir}/clang-cpp@' catch/CMakeLists.txt
+# Change path to clang
+sed -i -e 's@${ROCM_PATH}/llvm/bin/@%{rocmllvm_bindir}/@' catch/CMakeLists.txt
 
 # Change install to libexec
 sed -i -e 's@INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/hip@INSTALL_DIR libexec/hip-tests@' catch/packaging/CMakeLists.txt

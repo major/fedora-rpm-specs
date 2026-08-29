@@ -5,7 +5,7 @@
 %global crate icu_plurals
 
 Name:           rust-icu_plurals
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Unicode Plural Rules categorizer for numeric input
 

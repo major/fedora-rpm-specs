@@ -1,7 +1,7 @@
 %global pypi_name json5
 
 Name:           python-%{pypi_name}
-Version:        0.12.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Python implementation of the JSON5 data format
 

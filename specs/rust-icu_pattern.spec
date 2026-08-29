@@ -5,7 +5,7 @@
 %global crate icu_pattern
 
 Name:           rust-icu_pattern
-Version:        0.4.2
+Version:        0.5.0
 Release:        %autorelease
 Summary:        ICU pattern utilities
 
@@ -92,6 +92,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+yoke-devel

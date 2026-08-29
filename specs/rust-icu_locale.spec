@@ -5,7 +5,7 @@
 %global crate icu_locale
 
 Name:           rust-icu_locale
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        API for Unicode Language and Locale Identifiers canonicalization
 

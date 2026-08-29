@@ -180,6 +180,9 @@ Patch5:         0001-lld-workaround-.gnu.version-change.patch
 Patch6:         0001-clang-23-link-libamdhip64.patch
 Patch7:         0001-libcxx-noinline-workaround.patch
 Patch8:         0001-rocm-llvm-workaround-__noinline__.patch
+%if %{with preview}
+Patch9:         0001-hipcc-fix-path.patch 
+%endif
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}

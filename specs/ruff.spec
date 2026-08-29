@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.16.4
+Version:        0.16.5
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -149,11 +149,11 @@ URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 6fba3ae73db5a9807780514b463126f1ee8ff216
+%global typeshed_rev 6b7f7b93300550eb55380db8ca62488eb0c78c77
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260814
+%global typeshed_snapdate 20260825
 
 # Downstream patch: always find the system-wide ruff executable
 #

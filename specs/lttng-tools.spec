@@ -8,8 +8,8 @@
 
 
 Name:           lttng-tools
-Version:        2.15.1
-Release:        4%{?dist}
+Version:        2.16.0
+Release:        1%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -19,9 +19,6 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 Source4:        lttng-tools.sysusers.conf
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch0:         lttng-tools-swig45.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -29,8 +26,8 @@ BuildRequires:  g++
 BuildRequires:  kmod-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel >= 2.7.6
-BuildRequires:  lttng-ust-devel >= 2.15.0
-BuildRequires:  lttng-ust-devel < 2.16.0
+BuildRequires:  lttng-ust-devel >= 2.16.0
+BuildRequires:  lttng-ust-devel < 2.17.0
 BuildRequires:  make
 BuildRequires:  popt-devel >= 1.13
 BuildRequires:  systemd-units
@@ -134,6 +131,7 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %{_libdir}/*.so.*
 %{_mandir}/man1/lttng.1.gz
 %{_mandir}/man1/lttng-add-context.1.gz
+%{_mandir}/man1/lttng-add-map-channel.1.gz
 %{_mandir}/man1/lttng-add-trigger.1.gz
 %{_mandir}/man1/lttng-clear.1.gz
 %{_mandir}/man1/lttng-crash.1.gz
@@ -145,6 +143,7 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %{_mandir}/man1/lttng-enable-channel.1.gz
 %{_mandir}/man1/lttng-enable-event.1.gz
 %{_mandir}/man1/lttng-enable-rotation.1.gz
+%{_mandir}/man1/lttng-export-maps.1.gz
 %{_mandir}/man1/lttng-help.1.gz
 %{_mandir}/man1/lttng-list.1.gz
 %{_mandir}/man1/lttng-list-triggers.1.gz
@@ -156,6 +155,7 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %{_mandir}/man1/lttng-rotate.1.gz
 %{_mandir}/man1/lttng-save.1.gz
 %{_mandir}/man1/lttng-set-session.1.gz
+%{_mandir}/man1/lttng-show-maps.1.gz
 %{_mandir}/man1/lttng-snapshot.1.gz
 %{_mandir}/man1/lttng-start.1.gz
 %{_mandir}/man1/lttng-status.1.gz
@@ -171,11 +171,12 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %{_defaultdocdir}/%{name}/LICENSE
 %{_defaultdocdir}/%{name}/README.adoc
 %{_defaultdocdir}/%{name}/ChangeLog
-%{_defaultdocdir}/%{name}/live-reading-howto.txt
-%{_defaultdocdir}/%{name}/python-howto.txt
-%{_defaultdocdir}/%{name}/quickstart.txt
-%{_defaultdocdir}/%{name}/snapshot-howto.txt
-%{_defaultdocdir}/%{name}/streaming-howto.txt
+%{_defaultdocdir}/%{name}/live-reading-howto.md
+%{_defaultdocdir}/%{name}/python-howto.md
+%{_defaultdocdir}/%{name}/quickstart.md
+%{_defaultdocdir}/%{name}/relayd-architecture.md
+%{_defaultdocdir}/%{name}/snapshot-howto.md
+%{_defaultdocdir}/%{name}/streaming-howto.md
 %{_unitdir}/lttng-sessiond.service
 %{_sysconfdir}/bash_completion.d/
 %{_datadir}/xml/lttng/session.xsd
@@ -183,21 +184,31 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 
 %files -n %{name}-devel
 %{_mandir}/man3/lttng-health-check.3.gz
-%{_defaultdocdir}/%{name}/live-reading-protocol.txt
-%{_defaultdocdir}/%{name}/valgrind-howto.txt
+%{_defaultdocdir}/%{name}/live-reading-protocol.md
+%{_defaultdocdir}/%{name}/valgrind-howto.md
 %{_includedir}/*
 %{_libdir}/*.so
+%{_libdir}/lttng/*.so
+%{_libdir}/lttng/*.so.*
 %{_libdir}/pkgconfig/lttng-ctl.pc
+%{_libdir}/pkgconfig/lttng-tpp-client.pc
+%{_libdir}/pkgconfig/lttng-tpp-common.pc
+%{_libdir}/pkgconfig/lttng-tpp-consumerd.pc
+%{_libdir}/pkgconfig/lttng-tpp-relayd.pc
+%{_libdir}/pkgconfig/lttng-tpp-sessiond.pc
 
 %if %{with_python}
 %files -n python%{python3_pkgversion}-lttng
-%{_defaultdocdir}/%{name}/python-howto.txt
+%{_defaultdocdir}/%{name}/python-howto.md
 %{python3_sitelib}/lttng.py
 %{python3_sitelib}/__pycache__/*.pyc
 %{python3_sitearch}/_lttng.so*
 %endif
 
 %changelog
+* Fri Aug 28 2026 Michael Jeanson <mjeanson@efficios.com> - 2.16.0-1
+- New upstream release
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.15.1-4
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

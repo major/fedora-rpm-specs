@@ -5,7 +5,7 @@
 %global crate icu_provider
 
 Name:           rust-icu_provider
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Trait and struct definitions for the ICU data provider
 
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 Patch:          icu_provider-fix-metadata.diff
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   circular (path-based) dev-dependency on the icu crate.
-Patch10:        icu_provider-2.0.0-no-circular-dev-dependencies.patch
+Patch10:        icu_provider-2.3.0-no-circular-dev-dependencies.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

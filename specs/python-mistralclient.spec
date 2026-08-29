@@ -1,6 +1,6 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global source_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name mistralclient
 %global cliname   mistral
 %global with_doc 0
@@ -11,7 +11,7 @@ Python client for Mistral REST API. Includes python library for Mistral API
 and Command Line Interface (CLI) library.}
 
 Name:           python-%{pypi_name}
-Version:        6.2.0
+Version:        6.3.0
 Release:        %autorelease
 Summary:        Python client for Mistral REST API
 

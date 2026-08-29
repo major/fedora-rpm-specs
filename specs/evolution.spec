@@ -43,7 +43,7 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.61.2
+Version: 3.61.3
 Release: %autorelease
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
@@ -111,7 +111,6 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gmodule-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gnome-autoar-0) >= %{gnome_autoar_version}
-BuildRequires: pkgconfig(gnome-autoar-gtk-0) >= %{gnome_autoar_version}
 BuildRequires: pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}

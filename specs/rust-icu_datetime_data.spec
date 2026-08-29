@@ -5,7 +5,7 @@
 %global crate icu_datetime_data
 
 Name:           rust-icu_datetime_data
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Data for the icu_datetime crate
 

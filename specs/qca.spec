@@ -10,8 +10,8 @@
 
 Name:    qca
 Summary: Qt Cryptographic Architecture
-Version: 2.3.10
-Release: 6%{?dist}
+Version: 2.3.12
+Release: 1%{?dist}
 
 License: LGPL-2.1-only
 URL:     https://userbase.kde.org/QCA
@@ -19,10 +19,6 @@ Source0: http://download.kde.org/stable/qca/%{version}/qca-%{version}.tar.xz
 # Also generate pkgconfig file for qt6
 Patch0:  qca-qt6-pkgconfig.patch
 ## upstream patches
-
-# Build for openssl4
-# https://invent.kde.org/libraries/qca/-/commit/6a7ddd76aa54ecc14d13151cca008137b0aa25d8
-Patch10: 6a7ddd76aa54ecc14d13151cca008137b0aa25d8.patch
 
 ## upstreamable patches
 
@@ -432,6 +428,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Fri Aug 28 2026 Steve Cossette <farchord@gmail.com> - 2.3.12-1
+- 2.3.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
-Version:	2023.12
+Version:	2025.07
 Release:	%autorelease
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
@@ -8,8 +8,8 @@ URL:		https://github.com/cnr-isti-vclab/meshlab
 # bundled picojson is BSD-2-Clause
 License:	GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND BSL-1.0
 Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
-# Matches 2023.12:
-%global vcglibver 88c881d
+# Matches 2025.07:
+%global vcglibver c94ef4e
 # Probably belongs in its own package, but nothing else seems to depend on it.
 Source2:	https://github.com/cnr-isti-vclab/vcglib/archive/%{vcglibver}/vcglib-%{vcglibver}.tar.gz
 # Notes for Fedora users (around issues with Wayland)
@@ -22,9 +22,11 @@ Source5:	https://github.com/libigl/libigl/archive/refs/tags/v2.4.0.zip
 # This nexus is not the same as the nexus package in Fedora.
 # This nexus is a c++/javascript library for creation and visualization of a batched multiresolution
 # 3D model structure
-Source6:	https://www.meshlab.net/data/libs/nexus-master.zip
+%define nexus_version 2025.05
+Source6:	https://github.com/cnr-isti-vclab/nexus/archive/refs/tags/v%{nexus_version}.zip#/nexus.zip
 # It also needs corto, a library for compression and decompression meshes and point clouds (C++/Javascript)
-Source7:	https://www.meshlab.net/data/libs/corto-master.zip
+%define corto_version 2025.07
+Source7:	https://github.com/cnr-isti-vclab/corto/archive/refs/tags/v%{corto_version}.zip#/corto.zip
 # Long bundled, now pulled out of the source tarball, it's OpenCTM!
 # Could be made into it's own package, but A) it is very old and B) unlikely anything else needs it
 Source8:	https://www.meshlab.net/data/libs/OpenCTM-1.0.3-src.zip
@@ -49,16 +51,10 @@ Patch2:		meshlab-2023.12-system-levmar.patch
 # Fix FTBFS with GCC 13+ by adding include <cstdint>
 # Upstream already added that in https://github.com/asmaloney/libE57Format/pull/176
 Patch3:         meshlab-2023.12-e57-gcc13.patch
-# Include cstdint when corto uses uint32_t
-Patch4:		meshlab-2023.12-corto-cstdint.patch
 # Cmake fix
-Patch5:		meshlab-2023.12-cmake-fix.patch
+Patch4:		meshlab-2023.12-cmake-fix.patch
 # Comment out LoadCamera (it is broken and unused)
-Patch6:		meshlab-2023.12-vcglib-no-LoadCamera.patch
-# This struct doesn't define "value". I think it actually wants to use "point" in the - operator, like it does in the + operator, but... who knows.
-Patch7:		meshlab-2023.12-fix-nonexistent-value.patch
-# There are also undefined variables in a function that does not seem to be called. :/
-Patch8:		meshlab-2023.12-fix-invalid-vars.patch
+Patch5:		meshlab-2025.07-vcglib-no-LoadCamera.patch
 
 # Bundled things
 Provides:	bundled(u3d) = 1.5.1
@@ -80,6 +76,7 @@ BuildRequires:	glew-devel
 BuildRequires:  gmp-devel
 BuildRequires:	levmar-devel
 BuildRequires:	lib3ds-devel
+BuildRequires:	lib3mf-devel
 BuildRequires:	muParser-devel
 BuildRequires:	qhull-devel
 BuildRequires:	qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtxmlpatterns-devel qt5-qtscript-devel
@@ -122,21 +119,17 @@ unzip %{SOURCE8}
 unzip %{SOURCE9}
 unzip %{SOURCE10}
 unzip %{SOURCE11}
-pushd nexus-master/src
+pushd nexus-%{nexus_version}/src
 rm -rf corto
 unzip %{SOURCE7}
-mv corto-master corto
+mv corto-%{corto_version} corto
 popd
 popd
 
 # These patches need to apply after we build the bundled tree
 %patch -P 3 -p1 -b .e57-gcc13
-%patch -P 4 -p1 -b .cstdint
-
-%patch -P 5 -p1 -b .cmake-fix
-%patch -P 6 -p1 -b .no-LoadCamera
-%patch -P 7 -p1 -b .fix-nonexistent-value
-%patch -P 8 -p1 -b .fix-invalid-vars
+%patch -P 4 -p1 -b .cmake-fix
+%patch -P 5 -p1 -b .no-LoadCamera
 
 
 # remove some bundles
@@ -161,6 +154,7 @@ export CXXFLAGS=`echo %{optflags} -std=c++14 -fopenmp -DSYSTEM_QHULL -I/usr/incl
 %global _vpath_srcdir src
 %cmake \
 	-DMESHLAB_USE_DEFAULT_BUILD_AND_INSTALL_DIRS=ON \
+	-DMESHLAB_ALLOW_DOWNLOAD_SOURCE_LIB3MF=OFF \
 	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_VERBOSE_MAKEFILE=OFF \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -205,6 +199,7 @@ EOF
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/
 cp -a meshlab.png %{buildroot}%{_datadir}/pixmaps/
+rm %{buildroot}%{_libdir}/libIDTF.a
 
 # add desktop link
 install -d -m 755 %{buildroot}%{_datadir}/applications

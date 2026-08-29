@@ -12,7 +12,7 @@ support for context specific logging (like resource id’s etc).}
 
 
 Name:           python-oslo-log
-Version:        8.3.0
+Version:        8.3.1
 Release:        %autorelease
 Summary:        OpenStack Oslo Log library
 
@@ -32,6 +32,9 @@ BuildRequires:  /usr/bin/gpgv2
 
 %description
 %{common_desc}
+
+
+%pyproject_extras_subpkg -n python3-%{pkg_name} systemd fixtures
 
 
 %package -n python3-%{pkg_name}

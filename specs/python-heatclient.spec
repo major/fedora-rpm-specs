@@ -11,7 +11,7 @@ heatclient module), and a command-line script (heat). Each implements 100% of
 the OpenStack Heat API.}
 
 Name:    python-heatclient
-Version: 5.2.0
+Version: 5.3.0
 Release: %autorelease
 Summary: Python API and CLI for OpenStack Heat
 

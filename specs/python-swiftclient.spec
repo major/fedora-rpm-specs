@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global with_doc 1
 
@@ -10,7 +10,7 @@ Client library and command line utility for interacting with Openstack
 Object Storage API.}
 
 Name:       python-swiftclient
-Version:    4.10.0
+Version:    4.11.0
 Release:    %autorelease
 Summary:    Client Library for OpenStack Object Storage API
 License:    Apache-2.0
@@ -112,7 +112,7 @@ install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %files -n python3-%{sname}  -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %{_bindir}/swift
 %{_mandir}/man1/*

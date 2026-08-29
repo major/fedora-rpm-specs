@@ -1,7 +1,7 @@
 %global srcname kiwisolver
 
 Name:           python-%{srcname}
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        A fast implementation of the Cassowary constraint solver
 

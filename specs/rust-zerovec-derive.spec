@@ -5,7 +5,7 @@
 %global crate zerovec-derive
 
 Name:           rust-zerovec-derive
-Version:        0.11.3
+Version:        0.11.6
 Release:        %autorelease
 Summary:        Custom derive for the zerovec crate
 
@@ -51,8 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a circular dependency on the zerovec crate
-rm -rv examples/
 %cargo_prep
 
 %generate_buildrequires
@@ -66,7 +64,9 @@ rm -rv examples/
 
 %if %{with check}
 %check
-%cargo_test
+# * Omit test:sparse_enum_test: don’t depend circularly on the zerovec crate.
+%cargo_test -- --doc
+%cargo_test -- --lib
 %endif
 
 %changelog

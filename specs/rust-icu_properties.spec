@@ -5,7 +5,7 @@
 %global crate icu_properties
 
 Name:           rust-icu_properties
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Definitions for Unicode properties
 
@@ -92,6 +92,18 @@ This package contains library source intended for building other packages which
 use the "harfbuzz_traits" feature of the "%{crate}" crate.
 
 %files       -n %{name}+harfbuzz_traits-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+log-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

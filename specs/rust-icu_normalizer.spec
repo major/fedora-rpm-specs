@@ -5,7 +5,7 @@
 %global crate icu_normalizer
 
 Name:           rust-icu_normalizer
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        API for normalizing text into Unicode Normalization Forms
 
@@ -15,14 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dev-dependencies criterion and detone
 # * Do not package benchmarks or benchmark data
-# * Remove the dev-dependency on arraystring, which does not appear actively
-#   maintained, and which we do not want to package, at the cost of some of the
-#   tests.
 Patch:          icu_normalizer-fix-metadata.diff
-# * Downstream-only: unconditionally skip compiling tests that would require the
-#   arraystring crate. It does not appear actively maintained, and we do not
-#   wish to package it solely for these tests.
-Patch10:        icu_normalizer-2.0.0-no-arraystring-tests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

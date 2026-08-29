@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        10.0.5
-Release:        3%{?dist}
+Version:        10.0.6
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -13,10 +13,6 @@ Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{v
 Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
-
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch0:         kicad-swig45.patch
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -97,7 +93,6 @@ Documentation for KiCad.
 
 %prep
 %setup -q -a 1 -a 2 -a 3 -a 4 -a 5
-%patch -P 0 -p1
 
 %build
 
@@ -233,6 +228,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Aug 28 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.6-1
+- Update to 10.0.6
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:10.0.5-3
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global sname troveclient
 %global with_doc 1
@@ -10,7 +10,7 @@ troveclient module), and a command-line script (trove). Each
 implements 100% (or less ;) ) of the Trove API.}
 
 Name:           python-troveclient
-Version:        8.10.0
+Version:        8.11.0
 Release:        %autorelease
 Summary:        Client library for OpenStack DBaaS API
 
@@ -18,7 +18,7 @@ License:        Apache-2.0
 URL:            http://www.openstack.org/
 Source0:        https://tarballs.openstack.org/%{name}/python_%{sname}-%{version}.tar.gz
 # py 3.14 removed _format_actions_usage
-%if 0%{?fc43}%{?fc44}%{?fc45}
+%if 0%{?fc43}%{?fc44}%{?fc45}%{?fc46}
 Patch0:         0001-py3.14-workound-for-no-_format_actions_usage.patch
 %endif
 # Required for tarball sources verification
@@ -106,7 +106,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 %{_bindir}/trove
 

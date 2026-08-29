@@ -10,7 +10,7 @@ to use the REST API directly, CLI is provided only for convenience of users.}
 
 
 Name:             python-osc-placement
-Version:          4.9.0
+Version:          4.9.1
 Release:          %{autorelease}
 Summary:          OpenStackClient plugin for the Placement service
 License:          Apache-2.0

@@ -5,7 +5,7 @@
 %global crate icu_collator
 
 Name:           rust-icu_collator
-Version:        2.2.1
+Version:        2.3.1
 Release:        %autorelease
 Summary:        API for comparing strings according to language-dependent conventions
 
@@ -14,13 +14,7 @@ URL:            https://crates.io/crates/icu_collator
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks.
-# * Remove the dev-dependency on arraystring, which does not appear actively
-#   maintained, and which we do not want to package, at the cost of one test.
 Patch:          icu_collator-fix-metadata.diff
-# * Downstream-only: unconditionally skip compiling tests that would require the
-#   arraystring crate. It does not appear actively maintained, and we do not
-#   wish to package it solely for these tests.
-Patch10:        0001-Downstream-patch-omit-tests-requiring-arraystring.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

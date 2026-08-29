@@ -11,7 +11,7 @@ command line tool (magnum).}
 
 
 Name:             python-%{sname}
-Version:          4.11.0
+Version:          5.0.0
 Release:          %autorelease
 Summary:          Python API and CLI for the Magnum Client
 License:          Apache-2.0
@@ -104,7 +104,6 @@ rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo doc/build/html/.htacce
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %doc ChangeLog README.rst
-%{_bindir}/magnum
 
 
 %if 0%{?with_doc}

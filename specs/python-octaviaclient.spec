@@ -9,7 +9,7 @@
 Client for OpenStack Octavia (Load Balancer as a Service)}
 
 Name:           python-%{pypi_name}
-Version:        3.14.0
+Version:        3.15.0
 Release:        %autorelease
 Summary:        Client for OpenStack Octavia (Load Balancer as a Service)
 
@@ -133,7 +133,7 @@ rm  ./octaviaclient/tests/unit/test_hacking.py
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.rst ChangeLog
 %exclude %{python3_sitelib}/%{pypi_name}/tests
 
 

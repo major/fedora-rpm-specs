@@ -24,7 +24,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}

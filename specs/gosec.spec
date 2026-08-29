@@ -3,7 +3,7 @@
 
 # https://github.com/securego/gosec
 %global goipath         github.com/securego/gosec/v2
-Version:                2.28.0
+Version:                2.29.0
 
 %gometa -L -f
 

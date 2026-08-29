@@ -10,7 +10,7 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.46.4
+Version:        2.46.5
 Release:        %autorelease
 Summary:        Core validation logic for pydantic written in rust
 
@@ -37,8 +37,7 @@ Patch:          pydantic_core-2.46.4-pyo3-0.29.patch
 # https://github.com/pydantic/pydantic/commit/f257d01
 Patch:          fix-pytest-9.1.patch
 
-BuildRequires:  python3-devel
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
 
 %global _description %{expand:
@@ -59,14 +58,14 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib
 License:        %{shrink:
-                (MIT OR Apache-2.0)
-                AND MIT
-                AND Unicode-3.0
-                AND Unicode-DFS-2016
-                AND Zlib
-                AND (BSD-2-Clause OR Apache-2.0 OR MIT)
-                AND (Unlicense OR MIT)
-                }
+    (MIT OR Apache-2.0)
+    AND MIT
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
+    }
 
 %description -n python3-pydantic-core %_description
 
@@ -75,7 +74,7 @@ License:        %{shrink:
 %autosetup -p1 -n pydantic_core-%{version}
 
 # Remove unused Cargo config that contains buildflags for Darwin
-rm -v .cargo/config.toml
+rm --verbose .cargo/config.toml
 
 # Upstream tests with certain dependencies on x86_64 only (and only on certain
 # Python interpreter versions) due to the limited availability of precompiled
@@ -143,7 +142,7 @@ tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-impor
 
 %install
 %pyproject_install
-%pyproject_save_files -l pydantic_core
+%pyproject_save_files --assert-license pydantic_core
 
 
 %check

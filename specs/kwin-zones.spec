@@ -1,6 +1,6 @@
 Name:          kwin-zones
 Version:       1.0.12
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Wayland ext-zones for KWin
 
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND MIT
@@ -46,6 +46,9 @@ BuildRequires: pkgconfig(wayland-client)
 %{_kf6_qmldir}/org/kde/zones/
 
 %changelog
+* Fri Aug 28 2026 Steve Cossette <farchord@gmail.com> - 1.0.12-6
+- Bump for new kwin
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

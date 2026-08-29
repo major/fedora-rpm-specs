@@ -7,7 +7,7 @@
 %bcond tests %[%{undefined rhel} && %{with extras}]
 
 Name:           python-build
-Version:        1.5.1
+Version:        1.6.0
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
