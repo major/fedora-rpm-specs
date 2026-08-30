@@ -1,10 +1,10 @@
 %global npm_name aw-webui
 
-%global commit 7db0598d8526efc36e7ef411c7e523dd4111fcb0
+%global commit 13a9428ef854f357bbf2aa9e09ad04ded811c000
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           nodejs-%{npm_name}
-Version:        0^20260816.%{short_commit}
+Version:        0^20260829.%{short_commit}
 Release:        %autorelease
 Summary:        A web-based UI for ActivityWatch, built with Vue.js
 
@@ -15,7 +15,7 @@ License:        MPL-2.0 AND Apache-2.0 AND ISC
 
 URL:            https://github.com/ActivityWatch/%{npm_name}
 Source0:        %{url}/archive/%{commit}/%{npm_name}-%{short_commit}.tar.gz
-# prepared with "nodejs-packaging-bundler %%{npm_name} %%{short_commit} %%{SOURCE0}"
+# prepared with nodejs-packaging-bundler-wrapper.sh -c %%{commit}
 Source1:        %{npm_name}-%{short_commit}-nm-prod.tgz
 Source2:        %{npm_name}-%{short_commit}-nm-dev.tgz
 Source3:        %{npm_name}-%{short_commit}-bundled-licenses.txt
@@ -26,6 +26,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 BuildRequires:  nodejs-npm, /usr/bin/npm
 BuildRequires:  nodejs-devel
+BuildRequires:  nodejs-esbuild
 BuildRequires:  fdupes
 
 %description

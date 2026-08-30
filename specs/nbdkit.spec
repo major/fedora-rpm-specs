@@ -51,11 +51,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.48-stable
+%global source_directory 1.49-development
 
 Name:           nbdkit
-Version:        1.48.0
-Release:        6%{?dist}
+Version:        1.49.1
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Sat Aug 29 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.1-1
+- New upstream development version 1.49.1
+
 * Tue Aug 11 2026 Richard W.M. Jones <rjones@redhat.com> - 1.48.0-6
 - Rebuild for libnfs SONAME 16 -> 17
 

@@ -5,7 +5,7 @@
 %global crate keccak
 
 Name:           rust-keccak
-Version:        0.1.6
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Pure Rust implementation of the Keccak sponge function
 
@@ -16,8 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pure Rust implementation of the Keccak sponge function including the
-keccak-f and keccak-p variants.}
+Pure Rust implementation of the Keccak sponge functions.}
 
 %description %{_description}
 
@@ -49,40 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+asm-devel
+%package     -n %{name}+parallel-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+asm-devel %{_description}
+%description -n %{name}+parallel-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "asm" feature of the "%{crate}" crate.
+use the "parallel" feature of the "%{crate}" crate.
 
-%files       -n %{name}+asm-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+no_unroll-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+no_unroll-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "no_unroll" feature of the "%{crate}" crate.
-
-%files       -n %{name}+no_unroll-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+simd-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simd-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simd" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simd-devel
+%files       -n %{name}+parallel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

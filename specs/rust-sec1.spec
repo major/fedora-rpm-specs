@@ -5,23 +5,19 @@
 %global crate sec1
 
 Name:           rust-sec1
-Version:        0.7.3
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Elliptic Curve Cryptography encoding formats (SEC1)
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/sec1
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * allow hex-literal 1.0:
-#   https://github.com/RustCrypto/formats/commit/ed08fc043e7abb38a86fca10f114d15a86f4cb25
-Patch:          sec1-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Pure Rust implementation of SEC1: Elliptic Curve Cryptography encoding
-formats including ASN.1 DER-serialized private keys as well as the
+formats including ASN.1 DER encoded private keys as well as the
 Elliptic-Curve-Point-to-Octet-String encoding.}
 
 %description %{_description}
@@ -66,6 +62,18 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ctutils-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ctutils-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ctutils" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ctutils-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+der-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -88,18 +96,6 @@ This package contains library source intended for building other packages which
 use the "pem" feature of the "%{crate}" crate.
 
 %files       -n %{name}+pem-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pkcs8-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pkcs8-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pkcs8" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pkcs8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+point-devel

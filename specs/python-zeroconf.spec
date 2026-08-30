@@ -1,7 +1,7 @@
 %global pypi_name zeroconf
 
 Name:           python-%{pypi_name}
-Version:        0.150.0
+Version:        0.151.1
 Release:        %autorelease
 Summary:        Pure Python Multicast DNS Service Discovery Library
 

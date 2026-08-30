@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Tiny-Paranoid
-Version:        0.07
-Release:        9%{?dist}
+Version:        0.08
+Release:        1%{?dist}
 Summary:        Safer HTTP::Tiny
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTTP-Tiny-Paranoid
@@ -11,6 +11,8 @@ BuildRequires:  perl(Class::Method::Modifiers)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(HTTP::Tiny) >= 0.070
 BuildRequires:  perl(Net::DNS::Paranoid)
+BuildRequires:  perl(Test::Fake::HTTPD)
+BuildRequires:  perl(Test::More)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -33,9 +35,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} %{buildroot}/*
 
 %check
-# no tests so do a manual load check
-#make test
-perl -I./lib -MHTTP::Tiny::Paranoid -e '1;'
+make test
 
 %files
 %doc Changes README
@@ -44,6 +44,10 @@ perl -I./lib -MHTTP::Tiny::Paranoid -e '1;'
 %{_mandir}/man3/HTTP::Tiny::*
 
 %changelog
+* Sat Aug 29 2026 Chris Adams <linux@cmadams.net> - 0.08-1
+- new upstream version
+- adds tests so run them
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

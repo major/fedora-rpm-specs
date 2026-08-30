@@ -1,11 +1,11 @@
 Name:		unuran
-Version:	1.11.0
-Release:	5%{?dist}
+Version:	1.12.0
+Release:	1%{?dist}
 Summary:	Universal Non-Uniform Random number generator
 
 License:	GPL-2.0-or-later
-URL:		http://statistik.wu-wien.ac.at/unuran
-Source0:	http://statistik.wu-wien.ac.at/unuran/%{name}-%{version}.tar.gz
+URL:		https://statmath.wu.ac.at/unuran/
+Source0:	%{url}/unuran/%{name}-%{version}.tar.gz
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -19,9 +19,9 @@ distributions.
 
 The library and an extensive online documentation are available at:
 
-	  -------------------------------------------
-	     http://statistik.wu-wien.ac.at/unuran/
-	  -------------------------------------------
+          ------------------------------------------
+               http://statmath.wu.ac.at/unuran/
+          ------------------------------------------
 
 %package devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -31,7 +31,7 @@ Summary: Header and object files for unuran
 Header and object files for unuran, and pdf docs.
 
 %prep
-%autosetup -p1
+%setup -q
 
 %build
 %configure --enable-shared --disable-static
@@ -67,6 +67,10 @@ mv __clean_examples __dist_examples/examples
 SEED=2742664 make check
 
 %changelog
+* Sat Aug 29 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.12.0-1
+- Update to 1.12.0
+- Update the URL tag
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

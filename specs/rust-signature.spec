@@ -5,17 +5,13 @@
 %global crate signature
 
 Name:           rust-signature
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Traits for cryptographic signature algorithms (e.g. ECDSA, Ed25519)
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/signature
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow hex-literal 1.0. Downstream-only since this dev-dependency is no
-#   longer present in v3.0.0 prereleases.
-Patch:          signature-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -64,18 +60,6 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+derive-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+digest-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -98,18 +82,6 @@ This package contains library source intended for building other packages which
 use the "rand_core" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rand_core-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-IO-Compress-Lzma
-Version:	2.217
-Release:	2%{?dist}
+Version:	2.224
+Release:	1%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-Compress-Lzma
@@ -101,6 +101,13 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
+- Update to 2.224
+  - Put "use private::MakeUtil;" back into Makefile.PL
+  - Remove 5.6-specific code and make 5.8 the minimum version supported
+  - Equivalent fix for https://github.com/pmqs/IO-Compress/pull/82
+  - Fix spelling typo
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.217-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           viking
 
 %global forgeurl https://github.com/viking-gps/viking
 %global version0 1.11
-%global tag0 viking-%version0
+%global commit 2a2420963e4b913d0b37dcf8801dc3695ca72a6c
 %forgemeta
 Version:        %forgeversion
 Release:        %autorelease
@@ -12,9 +12,6 @@ License:        GPL-2.0-or-later
 URL:            %forgeurl
 
 Source0:        %forgesource
-# https://github.com/viking-gps/viking/issues/387
-# https://github.com/viking-gps/viking/pull/388
-Patch0:         nettle-4.patch
 
 # Fails to build on s390x, not needed for multilib
 ExcludeArch:    s390x %{ix86}

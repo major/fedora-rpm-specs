@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/spyder-ide/spyder
 %global tag v%{version}
-Version:        6.1.6
+Version:        6.1.7
 %forgemeta
 
 Name:           spyder
@@ -21,6 +21,7 @@ URL:            https://www.spyder-ide.org/
 Source:         %forgesource
 
 
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -35,6 +36,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  dos2unix
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(python-lsp-black) >= 2
+BuildRequires:  python3dist(python-lsp-ruff) >= 2.3
+BuildRequires:  python3dist(python-lsp-server) >= 1.13
+BuildRequires:  python3dist(spyder-kernels) >= 3.1
 
 %global appname org.spyder_ide.spyder
 
@@ -59,8 +64,6 @@ Summary:    %{summary}
 
 Requires:       hicolor-icon-theme
 Requires:       mathjax
-Requires:       python3-pylint
-Requires:       python3-pylint-venv
 Requires:       python3dist(python-lsp-black) >= 2
 Requires:       python3dist(python-lsp-ruff) >= 2.3
 Requires:       python3dist(python-lsp-server) >= 1.13
@@ -80,14 +83,6 @@ find . -type f \( \
     -name '*.rst' -o -name '*.md' -o -name '*.py' -o -name '*.css' \
     \) -exec dos2unix --keepdate '{}' '+'
 
-# Temporary measure since the 6.x pre-releases are behind stable 5.x
-# releases wrt to the version boundaries of dependencies, but we would
-# like to keep rawhide and F39 in sync.
-# Drop dependency on linters (pylint and pylint-venv)
-sed -i \
--e '/pylint>.*/d' \
--e '/pylint-venv>.*/d' setup.py
-
 # Drop runtime requirements from setup.py to avoid build-time dependency issues
 sed -i \
     -e '/python-lsp-black/d' \
@@ -98,12 +93,8 @@ sed -i -e "s/PYLSP_REQVER = .*/PYLSP_REQVER = '>=1.13.0'/g" spyder/dependencies.
 sed -i -e "s/SPYDER_KERNELS_REQVER = .*/SPYDER_KERNELS_REQVER = '>=3.1.0'/g" spyder/dependencies.py
 
 
-# Don't show warning regarding newer version
-sed -r -i "s|(PYLINT_REQVER.*),<.*'|\1'|" spyder/dependencies.py
-
-
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -r
 
 
 %build
@@ -128,6 +119,7 @@ ln -s spyder %{buildroot}%{_bindir}/spyder3
 
 
 %check
+desktop-file-validate %{buildroot}%{_datadir}/applications/spyder.desktop
 # Still required by guidelines for now since Fedora uses appstream-builder
 # (https://pagure.io/packaging-committee/issue/1053):
 appstream-util validate-relax --nonet \
@@ -135,6 +127,9 @@ appstream-util validate-relax --nonet \
 # Matches what gnome-software and others use:
 appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
+
+export QT_QPA_PLATFORM=offscreen
+%pyproject_check_import -t
 
 
 %files -n python3-spyder -f %{pyproject_files}

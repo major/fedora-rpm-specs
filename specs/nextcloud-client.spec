@@ -168,7 +168,8 @@ sed -i 's/-fPIE/-fPIC/g' src/cmd/CMakeLists.txt
 %cmake_kf6 \
   -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed" \
   -DNO_SHIBBOLETH=1 \
-  -DBUILD_UPDATER=False
+  -DBUILD_UPDATER=False \
+  -DPLUGINDIR=%{_kf6_qtplugindir}
 
 %cmake_build
 
@@ -222,12 +223,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 %doc README.md
 %config %{_sysconfdir}/Nextcloud/sync-exclude.lst
 %dir %{_sysconfdir}/Nextcloud
+%{_kf6_qtplugindir}/nextcloudsync_vfs_suffix.so
+%{_kf6_qtplugindir}/nextcloudsync_vfs_xattr.so
 
 %files devel
 %{_includedir}/nextcloudsync/
 %{_libdir}/libnextcloudsync.so
-%{_libdir}/nextcloudsync_vfs_suffix.so
-%{_libdir}/nextcloudsync_vfs_xattr.so
 
 %files nautilus
 %{_datadir}/nautilus-python/extensions/*

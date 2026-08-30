@@ -1,10 +1,9 @@
 Name:           libjaylink
-Version:        0.4.0
-Release:        2%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Library for SEGGER J-Link and compatible devices
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        LGPL-2.1-or-later
 URL:            https://gitlab.zapb.de/libjaylink/libjaylink
 Source0:        https://gitlab.zapb.de/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -54,12 +53,15 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_prefix}/lib/udev/rules.d/*
 
 %files devel
-%doc HACKING
+%doc HACKING.md
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Aug 29 2026 David Auer <dreua@posteo.de> - 0.5.0-1
+- update to 0.5.0
+
 * Tue Aug 18 2026 David Auer <dreua@posteo.de> - 0.4.0-2
 - fix udev rules
 

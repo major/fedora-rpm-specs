@@ -52,10 +52,6 @@ autoreconf -vfi
 # Fix incorrect FSF address in libtest/readme.txt to satisfy rpmlint
 sed -i '/write to the Free Software/{N;s|write to the Free Software\nFoundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.|see <https://www.gnu.org/licenses/>.|}' libtest/readme.txt
 
-# Suppress rpmlint error.
-iconv --from-code ISO8859-1 --to-code UTF-8 ./html/contact.html \
-  --output contact.utf-8 && mv contact.utf-8 ./html/contact.html
-
 # Fix AppStream icon validation error by removing the invalid stock icon tag
 sed -i '/<icon type="stock">httrack<\/icon>/d' html/server/div/com.httrack.WebHTTrack.metainfo.xml
 

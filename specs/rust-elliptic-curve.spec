@@ -5,24 +5,20 @@
 %global crate elliptic-curve
 
 Name:           rust-elliptic-curve
-Version:        0.13.8
+Version:        0.14.1
 Release:        %autorelease
 Summary:        General purpose Elliptic Curve Cryptography
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/elliptic-curve
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow hex-literal 1.0:
-#   https://github.com/RustCrypto/traits/commit/6bbf1a4a67a52c5863e3101b232e7f3f33bb47a5
-Patch:          elliptic-curve-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 General purpose Elliptic Curve Cryptography (ECC) support, including
-types and traits for representing various elliptic curve forms, scalars,
-points, and public/secret keys composed thereof.}
+traits and generic types for representing various elliptic curve forms,
+scalars, points, and public/secret keys composed thereof.}
 
 %description %{_description}
 
@@ -78,18 +74,6 @@ use the "arithmetic" feature of the "%{crate}" crate.
 %files       -n %{name}+arithmetic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bits-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bits-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bits" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bits-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+dev-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -138,6 +122,18 @@ use the "ff" feature of the "%{crate}" crate.
 %files       -n %{name}+ff-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+getrandom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+getrandom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "getrandom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+group-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -148,42 +144,6 @@ This package contains library source intended for building other packages which
 use the "group" feature of the "%{crate}" crate.
 
 %files       -n %{name}+group-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+hash2curve-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+hash2curve-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "hash2curve" feature of the "%{crate}" crate.
-
-%files       -n %{name}+hash2curve-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+hazmat-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+hazmat-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "hazmat" feature of the "%{crate}" crate.
-
-%files       -n %{name}+hazmat-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+jwk-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+jwk-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "jwk" feature of the "%{crate}" crate.
-
-%files       -n %{name}+jwk-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pem-devel
@@ -244,18 +204,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+voprf-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+voprf-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "voprf" feature of the "%{crate}" crate.
-
-%files       -n %{name}+voprf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

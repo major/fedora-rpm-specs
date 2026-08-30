@@ -2,22 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pkcs5
+%global crate primeorder
 
-Name:           rust-pkcs5
-Version:        0.8.1
+Name:           rust-primeorder0.13
+Version:        0.13.6
 Release:        %autorelease
-Summary:        Pure Rust implementation of PKCS#5 (RFC 8018)
+Summary:        Complete addition formulas for prime order elliptic curves
 
 License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/pkcs5
+URL:            https://crates.io/crates/primeorder
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pure Rust implementation of Public-Key Cryptography Standards (PKCS) #5:
-Password-Based Cryptography Specification Version 2.1 (RFC 8018).}
+Pure Rust implementation of complete addition formulas for prime order
+elliptic curves (Renes-Costello-Batina 2015). Generic over field
+elements and curve equation coefficients.}
 
 %description %{_description}
 
@@ -49,18 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+3des-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+3des-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "3des" feature of the "%{crate}" crate.
-
-%files       -n %{name}+3des-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -73,64 +62,52 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+des-insecure-devel
+%package     -n %{name}+dev-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+des-insecure-devel %{_description}
+%description -n %{name}+dev-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "des-insecure" feature of the "%{crate}" crate.
+use the "dev" feature of the "%{crate}" crate.
 
-%files       -n %{name}+des-insecure-devel
+%files       -n %{name}+dev-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pbes2-devel
+%package     -n %{name}+serdect-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pbes2-devel %{_description}
+%description -n %{name}+serdect-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pbes2" feature of the "%{crate}" crate.
+use the "serdect" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pbes2-devel
+%files       -n %{name}+serdect-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_core-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand_core-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand_core-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sha1-insecure-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha1-insecure-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha1-insecure" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha1-insecure-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

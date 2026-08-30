@@ -1,9 +1,9 @@
 Name:       perl-Text-Password-Pronounceable 
-Version:    0.30
-Release:    41%{?dist}
-License:    Artistic-1.0-Perl 
+Version:    0.31
+Release:    1%{?dist}
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Generate pronounceable passwords 
-Source0:    https://cpan.metacpan.org/authors/id/T/TS/TSIBLEY/Text-Password-Pronounceable-%{version}.tar.gz
+Source0:    https://cpan.metacpan.org/authors/id/B/BP/BPS/Text-Password-Pronounceable-%{version}.tar.gz
 Url:        https://metacpan.org/release/Text-Password-Pronounceable
 BuildArch:  noarch
 BuildRequires: coreutils
@@ -11,11 +11,17 @@ BuildRequires: make
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators
 BuildRequires: perl(inc::Module::Install)
+BuildRequires: perl(Module::Install::Base)
+BuildRequires: perl(Module::Install::Can)
+BuildRequires: perl(Module::Install::Fetch)
+BuildRequires: perl(Module::Install::Makefile)
 BuildRequires: perl(Module::Install::Metadata)
+BuildRequires: perl(Module::Install::ReadmeFromPod)
 BuildRequires: perl(Module::Install::WriteAll)
 BuildRequires: sed
 # Run-time:
 BuildRequires: perl(Carp)
+BuildRequires: perl(Crypt::URandom) >= 0.55
 BuildRequires: perl(strict)
 BuildRequires: perl(warnings)
 # Tests:
@@ -35,22 +41,27 @@ rm -r ./inc/*
 sed -i -e '/^inc\//d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc CHANGES README 
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Text*
+%{_mandir}/man3/Text*.3*
 
 %changelog
+* Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.31-1
+- Update to 0.31
+- Use %%{make_build} and %%{make_install} where appropriate
+- Fix incorrect License value
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

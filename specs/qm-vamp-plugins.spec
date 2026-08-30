@@ -18,7 +18,7 @@ Patch1:         qm-vamp-plugins-1.8.0-unbundle.patch
 BuildRequires:  make
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
-BuildRequires:  kiss-fft-static
+BuildRequires:  kiss-fft-devel
 BuildRequires:  qm-dsp-static >= 1.8.0
 BuildRequires:  vamp-plugin-sdk-devel
 

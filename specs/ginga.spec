@@ -15,8 +15,11 @@ plugins are provided for features that we expect from a modern FITS viewer:
 panning and zooming windows, star catalog access, cuts, star pick/fwhm,
 thumbnails, etc.}
 
+%global forgeurl https://github.com/ejeschke/ginga
+Version:        7.4.0
+%forgemeta
+
 Name:           ginga
-Version:        7.0.0
 Release:        %autorelease
 Summary:        %{sum}
 # License breakdown
@@ -27,24 +30,27 @@ Summary:        %{sum}
 #   ginga/util/heaptimer.py
 # 
 License:        BSD-3-Clause AND Apache-2.0
-URL:            https://ejeschke.github.io/ginga/
-Source0:        %{pypi_source}
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 # General build reqs
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontpackages-devel
+BuildRequires:  google-roboto-condensed-fonts
+BuildRequires:  google-roboto-fonts
+BuildRequires:  python3-pyqt6
 Requires:       python3-%{name} = %{version}-%{release}
 
 BuildArch:      noarch
-Recommends:     google-roboto-fonts
 Recommends:     google-roboto-condensed-fonts
+Recommends:     google-roboto-fonts
 
 %description %_description
 
 %package -n python3-%{name}
 Summary:        %{sum}
-Requires:       google-roboto-fonts
 Requires:       google-roboto-condensed-fonts
+Requires:       google-roboto-fonts
 
 %description -n python3-%{name} %_description 
 
@@ -56,7 +62,7 @@ Requires:       python3-%{name} = %{version}-%{release}
 Examples for %{name}
 
 %pyproject_extras_subpkg -n python3-ginga recommended
-%pyproject_extras_subpkg -n python3-ginga qt5
+%pyproject_extras_subpkg -n python3-ginga qt6
 
 %prep
 %autosetup
@@ -65,13 +71,16 @@ sed -i -e s/opencv-python-headless/opencv/ setup.cfg
 sed -i -e /pillow-heif/d setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -x recommended -x qt5 -t
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires -x recommended -x qt6 -t
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %py3_shebang_fix ginga/examples
 %pyproject_wheel
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files ginga
 sed -i '/Roboto.*LICENSE/d' %{pyproject_files}
@@ -97,7 +106,10 @@ ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Regular.ttf %{buildroot}/%{
 # TODO - Bundled Ubuntu_Mono
 
 %check
-%tox
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+export QT_API=pyqt6
+%pyproject_check_import -e '*.tests*' -e 'ginga.aggw.*' -e 'ginga.gtk3w.*' -e 'ginga.gtk4w.*' -e 'ginga.tkw.*' -e 'ginga.mplw.*' -e 'ginga.opengl.*' -e 'ginga.web.*' -e 'ginga.examples.*' -e 'ginga.gw.*' -e 'ginga.rv.*' -e 'ginga.util.wcsmod.wcs_astlib' -e 'ginga.util.wcsmod.wcs_kapteyn' -e 'ginga.util.wcsmod.wcs_starlink'
+%pytest
 
 %files
 %doc README.md LONG_DESC.txt doc/WhatsNew.rst

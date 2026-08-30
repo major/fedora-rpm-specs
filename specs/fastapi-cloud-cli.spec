@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.23.0
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -12,45 +12,53 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Written for Fedora in groff_man(7) format based on --help output
 Source11:       fastapi-deploy.1
 Source13:       fastapi-login.1
-Source100:      fastapi-cloud.1
-Source110:      fastapi-cloud-deploy.1
-Source120:      fastapi-cloud-link.1
-Source130:      fastapi-cloud-login.1
-Source140:      fastapi-cloud-logs.1
-Source150:      fastapi-cloud-logout.1
-Source160:      fastapi-cloud-whoami.1
-Source170:      fastapi-cloud-unlink.1
-Source180:      fastapi-cloud-setup-ci.1
-Source190:      fastapi-cloud-env.1
-Source191:      fastapi-cloud-env-list.1
-Source192:      fastapi-cloud-env-get.1
-Source193:      fastapi-cloud-env-set.1
-Source194:      fastapi-cloud-env-delete.1
-Source200:      fastapi-cloud-auth.1
-Source201:      fastapi-cloud-auth-login.1
-Source202:      fastapi-cloud-auth-wait.1
-Source210:      fastapi-cloud-apps.1
-Source211:      fastapi-cloud-apps-create.1
-Source212:      fastapi-cloud-apps-get.1
-Source213:      fastapi-cloud-apps-link.1
-Source214:      fastapi-cloud-apps-list.1
-Source215:      fastapi-cloud-apps-logs.1
-Source216:      fastapi-cloud-apps-unlink.1
-Source217:      fastapi-cloud-apps-update.1
-Source220:      fastapi-cloud-ci.1
-Source221:      fastapi-cloud-ci-print-workflow.1
-Source222:      fastapi-cloud-ci-setup.1
-Source230:      fastapi-cloud-deployments.1
-Source231:      fastapi-cloud-deployments-get.1
-Source232:      fastapi-cloud-deployments-build-logs.1
-Source233:      fastapi-cloud-deployments-list.1
-Source240:      fastapi-cloud-teams.1
-Source241:      fastapi-cloud-teams-list.1
-Source242:      fastapi-cloud-teams-get.1
-Source250:      fastapi-cloud-tokens.1
-Source251:      fastapi-cloud-tokens-create.1
-Source252:      fastapi-cloud-tokens-delete.1
-Source253:      fastapi-cloud-tokens-list.1
+Source1000:      fastapi-cloud.1
+Source1100:      fastapi-cloud-deploy.1
+Source1200:      fastapi-cloud-link.1
+Source1300:      fastapi-cloud-login.1
+Source1400:      fastapi-cloud-logs.1
+Source1500:      fastapi-cloud-logout.1
+Source1600:      fastapi-cloud-whoami.1
+Source1700:      fastapi-cloud-unlink.1
+Source1800:      fastapi-cloud-setup-ci.1
+Source1900:      fastapi-cloud-env.1
+Source1910:      fastapi-cloud-env-list.1
+Source1920:      fastapi-cloud-env-get.1
+Source1930:      fastapi-cloud-env-set.1
+Source1940:      fastapi-cloud-env-delete.1
+Source2000:      fastapi-cloud-auth.1
+Source2010:      fastapi-cloud-auth-login.1
+Source2020:      fastapi-cloud-auth-wait.1
+Source2100:      fastapi-cloud-apps.1
+Source2110:      fastapi-cloud-apps-create.1
+Source2120:      fastapi-cloud-apps-get.1
+Source2130:      fastapi-cloud-apps-link.1
+Source2140:      fastapi-cloud-apps-list.1
+Source2150:      fastapi-cloud-apps-logs.1
+Source2160:      fastapi-cloud-apps-unlink.1
+Source2170:      fastapi-cloud-apps-update.1
+Source2200:      fastapi-cloud-ci.1
+Source2210:      fastapi-cloud-ci-print-workflow.1
+Source2220:      fastapi-cloud-ci-setup.1
+Source2300:      fastapi-cloud-deployments.1
+Source2310:      fastapi-cloud-deployments-get.1
+Source2320:      fastapi-cloud-deployments-build-logs.1
+Source2330:      fastapi-cloud-deployments-list.1
+Source2400:      fastapi-cloud-integrations.1
+Source2410:      fastapi-cloud-integrations-providers.1
+Source2411:      fastapi-cloud-integrations-providers-list.1
+Source2420:      fastapi-cloud-integrations-resources.1
+Source2421:      fastapi-cloud-integrations-resources-connect.1
+Source2422:      fastapi-cloud-integrations-resources-disconnect.1
+Source2423:      fastapi-cloud-integrations-resources-get.1
+Source2424:      fastapi-cloud-integrations-resources-list.1
+Source2500:      fastapi-cloud-teams.1
+Source2510:      fastapi-cloud-teams-list.1
+Source2520:      fastapi-cloud-teams-get.1
+Source2600:      fastapi-cloud-tokens.1
+Source2610:      fastapi-cloud-tokens-create.1
+Source2620:      fastapi-cloud-tokens-delete.1
+Source2630:      fastapi-cloud-tokens-list.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -118,23 +126,26 @@ Conflicts:      python3-fastapi < 0.136.3-3
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE11}' '%{SOURCE13}' \
-    '%{SOURCE100}' \
-    '%{SOURCE110}' \
-    '%{SOURCE120}' \
-    '%{SOURCE130}' \
-    '%{SOURCE140}' \
-    '%{SOURCE150}' \
-    '%{SOURCE160}' \
-    '%{SOURCE170}' \
-    '%{SOURCE180}' \
-    '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' '%{SOURCE193}' '%{SOURCE194}' \
-    '%{SOURCE200}' '%{SOURCE201}' '%{SOURCE202}' \
-    '%{SOURCE210}' '%{SOURCE211}' '%{SOURCE212}' '%{SOURCE213}' '%{SOURCE214}' \
-      '%{SOURCE215}' '%{SOURCE216}' '%{SOURCE217}' \
-    '%{SOURCE220}' '%{SOURCE221}' '%{SOURCE222}' \
-    '%{SOURCE230}' '%{SOURCE231}' '%{SOURCE232}' '%{SOURCE233}' \
-    '%{SOURCE240}' '%{SOURCE241}' '%{SOURCE242}' \
-    '%{SOURCE250}' '%{SOURCE251}' '%{SOURCE252}' '%{SOURCE253}'
+    '%{SOURCE1000}' \
+    '%{SOURCE1100}' \
+    '%{SOURCE1200}' \
+    '%{SOURCE1300}' \
+    '%{SOURCE1400}' \
+    '%{SOURCE1500}' \
+    '%{SOURCE1600}' \
+    '%{SOURCE1700}' \
+    '%{SOURCE1800}' \
+    '%{SOURCE1900}' '%{SOURCE1910}' '%{SOURCE1920}' '%{SOURCE1930}' \
+      '%{SOURCE1940}' \
+    '%{SOURCE2000}' '%{SOURCE2010}' '%{SOURCE2020}' \
+    '%{SOURCE2100}' '%{SOURCE2110}' '%{SOURCE2120}' '%{SOURCE2130}' \
+      '%{SOURCE2140}' '%{SOURCE2150}' '%{SOURCE2160}' '%{SOURCE2170}' \
+    '%{SOURCE2200}' '%{SOURCE2210}' '%{SOURCE2220}' \
+    '%{SOURCE2300}' '%{SOURCE2310}' '%{SOURCE2320}' '%{SOURCE2330}' \
+    '%{SOURCE2400}' '%{SOURCE2410}' '%{SOURCE2411}' '%{SOURCE2420}' \
+      '%{SOURCE2421}' '%{SOURCE2422}' '%{SOURCE2423}' '%{SOURCE2424}' \
+    '%{SOURCE2500}' '%{SOURCE2510}' '%{SOURCE2520}' \
+    '%{SOURCE2600}' '%{SOURCE2610}' '%{SOURCE2620}' '%{SOURCE2630}'
 
 
 %check -a

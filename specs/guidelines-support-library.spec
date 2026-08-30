@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: guidelines-support-library
-Version: 4.2.0
+Version: 5.0.0
 Release: %autorelease
 
 License: MIT
@@ -43,7 +43,6 @@ it is simplest to just include gsl/gsl and gain access to the entire library.
 
 %prep
 %autosetup -n GSL-%{version} -p1
-sed -e 's/4.1.0/%{version}/g' -i CMakeLists.txt
 sed -e '/-Werror/d' -i tests/CMakeLists.txt
 
 %build

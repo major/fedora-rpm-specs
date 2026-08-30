@@ -1,5 +1,5 @@
 Name:           python-types-docutils
-Version:        0.22.3.20260724
+Version:        0.23.0.20260827
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 

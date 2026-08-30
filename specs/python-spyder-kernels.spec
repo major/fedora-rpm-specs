@@ -1,7 +1,7 @@
 %global pypi_name spyder-kernels
 
 %global forgeurl https://github.com/spyder-ide/spyder-kernels
-Version:        3.1.5
+Version:        3.1.6
 %global tag     v%{version}
 %forgemeta
 
@@ -21,6 +21,11 @@ Patch:          https://github.com/spyder-ide/spyder-kernels/pull/589.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-anyio
+BuildRequires:  python3-cython
+BuildRequires:  python3-dask
+BuildRequires:  python3-distributed
+BuildRequires:  python3-django
 BuildRequires:  python3-flaky
 BuildRequires:  python3-h5py
 BuildRequires:  python3-ipython
@@ -28,6 +33,8 @@ BuildRequires:  python3-matplotlib
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pandas
 BuildRequires:  python3-pillow
+BuildRequires:  python3-pyarrow
+BuildRequires:  python3-pydicom
 BuildRequires:  python3-pytest
 BuildRequires:  python3-scipy
 BuildRequires:  python3-xarray
@@ -68,7 +75,7 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
-%pytest -k "not test_get_value_with_polars and not test_matplotlib_inline and not test_do_complete and not test_django_settings and not test_load_dicom_files and not test_polars_dataframe"
+%pytest -k "not test_get_value_with_polars and not test_polars_dataframe"
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

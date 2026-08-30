@@ -1,10 +1,10 @@
 %bcond check 1
 
-%global commit b2e2dee7eead1152df5489e60ccdf78328127352
+%global commit 840d11c9cb97b1485a60fe77fdbca6537b508eda
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           aw-server-rust
-Version:        0.14.0^20260816.git%{short_commit}
+Version:        0.14.0^20260829.git%{short_commit}
 Release:        %autorelease
 Summary:        A re-implementation of aw-server in Rust
 # (Apache-2.0 OR MIT) AND BSD-3-Clause

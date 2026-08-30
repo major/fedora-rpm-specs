@@ -1,13 +1,14 @@
 Name:           perl-Data-Entropy
-Version:        0.008
-Release:        5%{?dist}
+Version:        0.010
+Release:        1%{?dist}
 Summary:        Entropy (randomness) management
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Data-Entropy
+URL:            https://metacpan.org/dist/Data-Entropy
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Entropy-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -15,6 +16,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::Rijndael)
 BuildRequires:  perl(Crypt::URandom) >= 0.36
 BuildRequires:  perl(Data::Float) >= 0.008
+BuildRequires:  perl(Devel::Deprecate)
 BuildRequires:  perl(Errno) >= 1.00
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -65,6 +67,9 @@ explicitly configure a source at all.
 %{_mandir}/man3/Data*
 
 %changelog
+* Sun Aug 02 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.010-1
+- Update to 0.010
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

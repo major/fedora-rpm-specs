@@ -1,5 +1,5 @@
 Name:       virtualbox-guest-additions
-Version:    7.2.14
+Version:    7.2.16
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
@@ -143,8 +143,7 @@ install -m 0755 -t %{buildroot}%{_sbindir}   \
 install -m 0755 -t %{buildroot}%{_bindir}    \
     out/linux.*/release/bin/additions/VBoxDRMClient          \
     out/linux.*/release/bin/additions/VBoxClient             \
-    out/linux.*/release/bin/additions/VBoxControl            \
-    out/linux.*/release/bin/additions/vboxwl
+    out/linux.*/release/bin/additions/VBoxControl
 
 # Guest libraries
 install -m 0755 -t %{buildroot}%{_libdir}/security \
@@ -182,7 +181,6 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 %files
 %license COPYING*
-%{_bindir}/vboxwl
 %{_bindir}/VBoxClient
 %{_bindir}/VBoxControl
 %{_bindir}/VBoxClient-all
@@ -199,6 +197,13 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Sun Aug 23 2026 Sérgio Basto <sergio@serjux.com> - 7.2.16-1
+- Update virtualbox-guest-additions to 7.2.16 (rhbz#2517898)
+- Drop vboxwl from the installer and stop building it; its basic
+  functionality is now part of VBoxClient.
+  Based on upstream commit:
+  https://github.com/VirtualBox/virtualbox/commit/3501612c59703f6c03f7a94e97dc0bcd93949a9f
+
 * Sat Jul 25 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.14-1
 - Update Virtualbox Guest Additions to 7.2.14 (rhbz#2503394)
 - Drop i686 architecture builds as no longer relevant (rhbz#2499679)

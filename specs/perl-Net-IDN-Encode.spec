@@ -1,16 +1,13 @@
 Name:           perl-Net-IDN-Encode
 Summary:        Internationalizing Domain Names in Applications (IDNA)
-Version:        2.500
-Release:        29%{?dist}
+Version:        2.502
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Encode
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Net-IDN-Encode-%{version}.tar.gz
 # Make Unicode property generator compatible with perl 5.30-RC1,
 # CPAN RT#129588, <https://github.com/cfaerber/Net-IDN-Encode/pull/8>
 Patch0:         Net-IDN-Encode-2.500-Make-generated-arrays-available-at-compile-time.patch
-# Adapt to perl-5.38.0 and stricter GCC, bug #2241714, CPAN RT#149108,
-# proposed to an upstream.
-Patch1:         Net-IDN-Encode-2.500-use_uvchr_to_utf8_flags_instead_of_uvuni_to_utf8_flags.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -90,6 +87,10 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %changelog
+* Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.502-1
+- Update to 2.502
+- Remove upstreamed patch
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.500-29
 - Perl 5.44 rebuild
 

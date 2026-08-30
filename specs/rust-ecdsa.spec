@@ -5,26 +5,22 @@
 %global crate ecdsa
 
 Name:           rust-ecdsa
-Version:        0.16.9
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Pure Rust implementation of the Elliptic Curve Digital Signature Algorithm
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/ecdsa
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax signature dependency from >=2.0,<2.3 to ^2.0
-# * allow hex-literal 1.0:
-#   https://github.com/RustCrypto/signatures/commit/0e69f92b566383ed4b5ecd176536428d0f60d499
-Patch:          ecdsa-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Pure Rust implementation of the Elliptic Curve Digital Signature
 Algorithm (ECDSA) as specified in FIPS 186-4 (Digital Signature
-Standard), providing RFC6979 deterministic signatures as well as support
-for added entropy.}
+Standard), implemented generically over elliptic curves, providing
+RFC6979 deterministic signing support as well as randomized signatures
+and signature verification.}
 
 %description %{_description}
 
@@ -56,6 +52,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+algorithm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+algorithm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "algorithm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+algorithm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -66,18 +74,6 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+arithmetic-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+arithmetic-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "arithmetic" feature of the "%{crate}" crate.
-
-%files       -n %{name}+arithmetic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+der-devel
@@ -116,16 +112,16 @@ use the "digest" feature of the "%{crate}" crate.
 %files       -n %{name}+digest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+hazmat-devel
+%package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+hazmat-devel %{_description}
+%description -n %{name}+getrandom-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "hazmat" feature of the "%{crate}" crate.
+use the "getrandom" feature of the "%{crate}" crate.
 
-%files       -n %{name}+hazmat-devel
+%files       -n %{name}+getrandom-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pem-devel
@@ -152,18 +148,6 @@ use the "pkcs8" feature of the "%{crate}" crate.
 %files       -n %{name}+pkcs8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rfc6979-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rfc6979-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rfc6979" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rfc6979-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -176,18 +160,6 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serdect-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serdect-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serdect" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serdect-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+sha2-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -198,18 +170,6 @@ This package contains library source intended for building other packages which
 use the "sha2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+signing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+signing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "signing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+signing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+spki-devel
@@ -234,18 +194,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+verifying-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+verifying-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "verifying" feature of the "%{crate}" crate.
-
-%files       -n %{name}+verifying-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

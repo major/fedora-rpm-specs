@@ -15,6 +15,9 @@ Patch0:         thefuck-support-python-3.11.patch
 Patch1:         thefuck-fix-pytest8.patch
 # https://github.com/nvbn/thefuck/pull/1437
 Patch2:         thefuck-replace-mock.patch
+# Fix Python 3.12+ compatibility: replace deprecated imp module
+# https://github.com/nvbn/thefuck/pull/1619
+Patch4:         https://patch-diff.githubusercontent.com/raw/nvbn/thefuck/pull/1619.patch
 
 BuildArch:      noarch
 
