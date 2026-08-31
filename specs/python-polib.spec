@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A library to parse and manage gettext catalogs
 
 License:        MIT
@@ -24,8 +24,6 @@ POFile, MOFile, POEntry and MOEntry for creating new files/entries.
 %package -n python3-%{srcname}
 Summary:        A library to parse and manage gettext catalogs
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 polib allows you to manipulate, create, modify gettext files (pot, po and
@@ -37,24 +35,31 @@ polib provides a simple and pythonic API, exporting only three convenience
 functions 'pofile', 'mofile' and 'detect_encoding', and the 4 core classes:
 POFile, MOFile, POEntry and MOEntry for creating new files/entries.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files polib
 
 %check
 %{__python3} tests/tests.py
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/*
 
 %changelog
+* Sun Aug 30 2026 David Shea <reallylongword@gmail.com> - 1.2.0-17
+- Use the newer python build macros in the spec file
+  Resolves: rhbz#2378003
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

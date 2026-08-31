@@ -2,28 +2,28 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate Inflector
+%global crate trustfall_rustdoc
 
-Name:           rust-Inflector
-Version:        0.11.4
+Name:           rust-trustfall_rustdoc
+Version:        0.41.0
 Release:        %autorelease
-Summary:        Adds String based inflections for Rust
+Summary:        Run Trustfall queries across multiple rustdoc JSON format versions
 
-License:        BSD-2-Clause
-URL:            https://crates.io/crates/Inflector
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/trustfall_rustdoc
 Source:         %{crates_source}
-Source2:        https://github.com/whatisinternet/Inflector/raw/0.11.3/LICENSE.md
 # Manually created patch for downstream crate metadata changes
-# * include license text in the list of installed files
-Patch:          Inflector-fix-metadata.diff
+# * Exclude maintainer scripts in scripts/ from the crate
+Patch:          trustfall_rustdoc-fix-metadata.diff
+# * Fix wrong license text in LICENSE-MIT
+# * https://github.com/obi1kenobi/trustfall-rustdoc/pull/135
+# * Accepted and merged upstream.
+Patch10:        https://github.com/obi1kenobi/trustfall-rustdoc/pull/135.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Adds String based inflections for Rust. Snake, kebab, camel, sentence,
-class, title and table cases as well as ordinalize, deordinalize,
-demodulize, foreign key, and pluralize/singularize are supported as both
-traits and pure functions acting on String types.}
+Run Trustfall queries across multiple rustdoc JSON format versions.}
 
 %description %{_description}
 
@@ -37,7 +37,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,58 +54,69 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+heavyweight-devel
+%package     -n %{name}+rayon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+heavyweight-devel %{_description}
+%description -n %{name}+rayon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "heavyweight" feature of the "%{crate}" crate.
+use the "rayon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+heavyweight-devel
+%files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+lazy_static-devel
+%package     -n %{name}+rustc-hash-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+lazy_static-devel %{_description}
+%description -n %{name}+rustc-hash-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "lazy_static" feature of the "%{crate}" crate.
+use the "rustc-hash" feature of the "%{crate}" crate.
 
-%files       -n %{name}+lazy_static-devel
+%files       -n %{name}+rustc-hash-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+regex-devel
+%package     -n %{name}+v57-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+regex-devel %{_description}
+%description -n %{name}+v57-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "regex" feature of the "%{crate}" crate.
+use the "v57" feature of the "%{crate}" crate.
 
-%files       -n %{name}+regex-devel
+%files       -n %{name}+v57-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-devel
+%package     -n %{name}+v60-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unstable-devel %{_description}
+%description -n %{name}+v60-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
+use the "v60" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unstable-devel
+%files       -n %{name}+v60-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v61-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v61-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v61" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v61-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -5,8 +5,8 @@
 
 Summary:	Ruby binding of VTE
 Name:		rubygem-%{gem_name}
-Version:	4.3.7
-Release:	2%{?dist}
+Version:	4.3.8
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -58,7 +58,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # patches
 
 # Relax the version dependency
-sed -i -e 's|= 4\.3\.7|>= 4.3.7|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.8|>= 4.3.8|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -143,6 +143,9 @@ popd
 %exclude	%{gem_instdir}/test
 
 %changelog
+* Sun Aug 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.8-1
+- 4.3.8
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

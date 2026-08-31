@@ -1,6 +1,6 @@
 Name:           perl-Net-OAuth
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OAuth
@@ -12,27 +12,29 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(base)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor) >= 0.31
 BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::Data::Inheritable) >= 0.06
-BuildRequires:  perl(constant)
 BuildRequires:  perl(Crypt::SysRandom) >= 0.006
 BuildRequires:  perl(Digest::SHA) >= 5.47
-BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(LWP::UserAgent) >= 1
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Module::Build::Compat)
 BuildRequires:  perl(Module::Metadata)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(URI) >= 5.15
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(URI::QueryParam)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(utf8)
@@ -73,8 +75,11 @@ make test
 
 
 %changelog
+* Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.33-2
+- Rework dependencies
+
 * Thu Aug 27 2026 Xavier Bachelot <xacier@bachelot.org> -  0.33-1
-- Update to 0.32 (RHBZ#2517683)
+- Update to 0.33 (RHBZ#2517683)
   - Fixes CVE-2026-72889 (RHBZ#2519409)
 
 * Sun Aug 16 2026 Xavier Bachelot <xacier@bachelot.org> -  0.32-1

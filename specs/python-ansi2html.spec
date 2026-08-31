@@ -4,8 +4,8 @@
 %global srcname ansi2html
 
 Name:       python-%{srcname}
-Version:    1.9.2
-Release:    10%{?dist}
+Version:    1.9.3
+Release:    1%{?dist}
 Summary:    Python module that converts text with ANSI color to HTML
 # While the project was previously licensed as GPLv3+, it is now LGPLv3.
 # See https://github.com/pycontribs/ansi2html/issues/72 and also
@@ -72,6 +72,9 @@ install -Dpm 644 man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Sun Aug 30 2026 Federico Pellegrin <fede@evolware.org> - 1.9.3-1
+- Upgrade to 1.9.3 (rhbz#2525929)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

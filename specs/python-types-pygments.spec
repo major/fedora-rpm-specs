@@ -1,5 +1,5 @@
 Name:           python-types-pygments
-Version:        2.20.0.20260728
+Version:        2.21.0.20260819
 Release:        %autorelease
 Summary:        Typing stubs for Pygments
 

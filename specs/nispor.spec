@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           nispor
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0
@@ -23,19 +23,19 @@ BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 4.2.0 with crate(clap/cargo) < 5.0)
 BuildRequires:  (crate(clap/default) >= 4.2.0 with crate(clap/default) < 5.0)
 BuildRequires:  (crate(env_logger/default) >= 0.11 with crate(env_logger/default) < 0.12)
-BuildRequires:  (crate(ethtool/default) >= 0.2.8 with crate(ethtool/default) < 0.3)
+BuildRequires:  (crate(ethtool/default) >= 0.3.0 with crate(ethtool/default) < 0.4)
 BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4)
-BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
+BuildRequires:  (crate(libc/default) >= 0.2.155 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(mptcp-pm/default) >= 0.1.4 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(rtnetlink/default) >= 0.21.0 with crate(rtnetlink/default) < 0.22)
+BuildRequires:  (crate(mptcp-pm/default) >= 0.2.0 with crate(mptcp-pm/default) < 0.3)
+BuildRequires:  (crate(rtnetlink/default) >= 0.23.0 with crate(rtnetlink/default) < 0.24)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
 BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 0.10)
 BuildRequires:  (crate(tokio/macros) >= 1.19 with crate(tokio/macros) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.19 with crate(tokio/rt) < 2.0)
-BuildRequires:  (crate(wl-nl80211/default) >= 0.4 with crate(wl-nl80211/default) < 0.5)
+BuildRequires:  (crate(wl-nl80211/default) >= 0.7 with crate(wl-nl80211/default) < 0.8)
 BuildRequires:  (crate(pretty_assertions/default) >= 1.2 with crate(pretty_assertions/default) < 2)
 %endif
 

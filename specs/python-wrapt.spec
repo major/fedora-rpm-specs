@@ -1,5 +1,5 @@
 Name:           python-wrapt
-Version:        2.2.2
+Version:        2.4.0
 Release:        %autorelease
 Summary:        A Python module for decorators, wrappers and monkey patching
 

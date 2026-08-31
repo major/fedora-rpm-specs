@@ -62,7 +62,7 @@ BuildArch:      noarch
 # Documentation requirements
 BuildRequires:  make
 BuildRequires:  texinfo
-BuildRequires:  thorvg
+BuildRequires:  plutosvg-samples
 BuildRequires:  python3dist(docutils)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx_rtd_theme
@@ -106,12 +106,10 @@ pushd docs
 # Yelp SVG image workaround
 # https://gitlab.gnome.org/GNOME/yelp/-/issues/92
 pushd images
-# >=F43: tvg-svg2png
-# <=F42: tvg_svg2png
-tvg-svg2png . || tvg_svg2png .
+find . -type f -name '*.svg' -exec bash -c 'plutosvg_svg2png ${0} ${0}.png' {} \;
 popd
-sed -i "s/\.svg/\.png/g" *.rst
-tvg-svg2png RAUC_Logo_outline.svg || tvg_svg2png RAUC_Logo_outline.svg
+sed -i "s/\.svg/\.svg.png/g" *.rst
+plutosvg_svg2png RAUC_Logo_outline.svg RAUC_Logo_outline.png
 sed -i "s/html_logo = 'RAUC_Logo_outline.svg'/html_logo = 'RAUC_Logo_outline.png'/g" conf.py
 sphinx-build . texinfo -b texinfo
 pushd texinfo
@@ -145,4 +143,3 @@ cp -p -r docs/texinfo/%{name}-figures %{buildroot}%{_datadir}/help/en/%{name}
 
 %changelog
 %autochangelog
-

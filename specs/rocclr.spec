@@ -24,12 +24,14 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_major 7
-%global rocm_minor 14
+%global rocm_major 10
+%global rocm_minor 0
 %else
 %global rocm_major 7
 %global rocm_minor 14
 %endif
+
+%global pkg_library_version 7
 
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
@@ -426,9 +428,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 
 %files -n rocm-hip%{pkg_suffix}
 %license hipamd/LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/libamdhip64.so.%{rocm_major}{,.*}
-%{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{rocm_major}{,.*}
-%{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libamdhip64.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/share/hip
 %{pkg_prefix}/bin/hrr-playback
 

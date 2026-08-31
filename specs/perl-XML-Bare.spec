@@ -1,12 +1,20 @@
 Name:           perl-XML-Bare
 Version:        0.53
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Minimal XML parser implemented via a C state engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/XML-Bare
+URL:            https://metacpan.org/dist/XML-Bare
 Source0:        https://cpan.metacpan.org/authors/id/C/CO/CODECHILD/XML-Bare-%{version}.tar.gz
+# https://rt.cpan.org/Ticket/Display.html?id=145653
 Patch0:         perl-XML-Bare-c99.patch
-Patch1: perl-XML-Bare-c99-2.patch
+# https://rt.cpan.org/Public/Bug/Display.html?id=151041
+Patch1:         perl-XML-Bare-c99-2.patch
+# https://github.com/nanoscopic/perl-XML-Bare/pull/1
+# https://security.metacpan.org/patches/X/XML-Bare/0.53/CVE-2026-57074-r1.patch
+Patch2:         CVE-2026-57074-r1.patch
+# https://github.com/nanoscopic/perl-XML-Bare/pull/2
+# https://security.metacpan.org/patches/X/XML-Bare/0.53/CVE-2026-13401-r1.patch
+Patch3:         CVE-2026-13401-r1.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-devel
@@ -49,11 +57,14 @@ chmod 644 Bare.pm
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/XML*
 %{perl_vendorarch}/XML*
 %{_mandir}/man3/XML*
 
 %changelog
+* Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.53-47
+- Include two security fixes for XML-Bare =< 0.53
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.53-46
 - Perl 5.44 rebuild
 

@@ -1,11 +1,11 @@
 %global	gem_name	graphene1
 
-%global	gem_ver	4.3.7
+%global	gem_ver	4.3.8
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
 Version:	%{gem_ver}
-Release:	2%{?dist}
+Release:	1%{?dist}
 
 Summary:	Ruby/Graphene1 is a Ruby binding of Graphene
 License:	LGPL-2.1-or-later
@@ -83,6 +83,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Aug 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.8-1
+- 4.3.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

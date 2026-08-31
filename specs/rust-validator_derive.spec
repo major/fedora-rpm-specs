@@ -5,21 +5,16 @@
 %global crate validator_derive
 
 Name:           rust-validator_derive
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Macros 1.1 implementation of #[derive(Validate)]
 
 License:        MIT
 URL:            https://crates.io/crates/validator_derive
 Source:         %{crates_source}
-# * Include license files in published crates
-# * https://github.com/Keats/validator/pull/387
-Source10:       https://github.com/Keats/validator/raw/refs/tags/v0.20.0/LICENSE
 # Manually created patch for downstream crate metadata changes
-# * Update darling from 0.20 to 0.21,
-#   https://github.com/Keats/validator/pull/394, and furthermore, allow through
-#   0.23 based on our testing in a git checkout. We have only proposed updating
-#   to 0.21 upstream for MSRV reasons, which do not apply downstream.
+# * Temporarily allow older darling 0.21 and 0.22:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2379365
 Patch:          validator_derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -57,7 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

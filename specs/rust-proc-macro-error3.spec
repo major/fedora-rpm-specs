@@ -2,22 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate validator
+%global crate proc-macro-error3
 
-Name:           rust-validator
-Version:        0.21.0
+Name:           rust-proc-macro-error3
+Version:        3.1.1
 Release:        %autorelease
-Summary:        Common validation functions
+Summary:        Almost drop-in replacement to panics in proc-macros
 
-License:        MIT
-URL:            https://crates.io/crates/validator
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/proc-macro-error3
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop test that requires an unpublished test_crate workspace member
+Patch:          proc-macro-error3-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
-Common validation functions (email, url, length, ...) and trait - to be
-used with `validator_derive`.}
+Almost drop-in replacement to panics in proc-macros.}
 
 %description %{_description}
 
@@ -31,7 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,44 +52,45 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+syn-error-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+syn-error-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "syn-error" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+syn-error-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+indexmap-devel
+%package     -n %{name}+syn2-error-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+indexmap-devel %{_description}
+%description -n %{name}+syn2-error-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "indexmap" feature of the "%{crate}" crate.
+use the "syn2-error" feature of the "%{crate}" crate.
 
-%files       -n %{name}+indexmap-devel
+%files       -n %{name}+syn2-error-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+validator_derive-devel
+%package     -n %{name}+syn3-error-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+validator_derive-devel %{_description}
+%description -n %{name}+syn3-error-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "validator_derive" feature of the "%{crate}" crate.
+use the "syn3-error" feature of the "%{crate}" crate.
 
-%files       -n %{name}+validator_derive-devel
+%files       -n %{name}+syn3-error-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+dos2unix --keepdate LICENSE-APACHE
 %cargo_prep
 
 %generate_buildrequires

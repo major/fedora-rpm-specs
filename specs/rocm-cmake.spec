@@ -22,12 +22,11 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
-%global rocm_patch 0
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
-%global rocm_patch 0
 %endif
+%global rocm_patch 0
 
 %global pkg_src therock-%{rocm_release}
 
@@ -50,7 +49,7 @@
 Name:     %{pkg_name}
 Version:  %{rocm_version}
 %if %{with preview}
-Release:  1%{?dist}
+Release:  0%{?dist}
 %else
 Release:  1%{?dist}
 %endif

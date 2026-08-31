@@ -1,7 +1,7 @@
 Name:           getdp
 # TODO: Enablee building with gmsh support as soon as getdp does not require private gmsh api anymore
 Version:        3.6.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
@@ -96,6 +96,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Sun Aug 30 2026 Ali Erdinc Koroglu <aekoroglu@fedorapoject.org> - 3.6.0-18
+- Rebuild for petsc-3.25.4-2 (rhbz#2507022)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

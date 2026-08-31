@@ -2,25 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate bencher
+%global crate tar-codec
 
-Name:           rust-bencher
-Version:        0.1.5
+Name:           rust-tar-codec
+Version:        0.0.14
 Release:        %autorelease
-Summary:        Port of the libtest benchmark runner to stable Rust
+Summary:        Tar-codec is a small, fast, constrained tar encoder and decoder for Rust
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/bencher
+URL:            https://crates.io/crates/tar-codec
 Source:         %{crates_source}
+# * Fix missing license texts in published crates
+# * https://github.com/astral-sh/tar-codec/pull/113
+Source10:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
+Source11:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-MIT
+# Manually created patch for downstream crate metadata changes
+# * Remove unused, benchmark-only dev-dependency on criterion
+Patch:          tar-codec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A port of the libtest (unstable Rust) benchmark runner to Rust stable
-releases. Supports running benchmarks and filtering based on the name.
-Benchmark execution works exactly the same way and no more (caveat:
-black_box is still missing!).}
+Tar-codec is a small, fast, constrained tar encoder and decoder for
+Rust.}
 
 %description %{_description}
 
@@ -36,7 +40,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.rst
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -54,6 +58,7 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp --preserve '%{SOURCE10}' '%{SOURCE11}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

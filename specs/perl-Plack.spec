@@ -35,8 +35,8 @@
 %bcond_without perl_Plack_enables_ssl
 
 Name:           perl-Plack
-Version:        1.0051
-Release:        8%{?dist}
+Version:        1.0054
+Release:        1%{?dist}
 Summary:        Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack
@@ -357,6 +357,9 @@ export TEST_APACHE2=0
 %{perl_vendorlib}/auto/*
 
 %changelog
+* Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0054-1
+- Update to 1.0054
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0051-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

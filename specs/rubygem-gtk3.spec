@@ -7,8 +7,8 @@
 # Planned for F-20+ only
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.7
-Release:	2%{?dist}
+Version:	4.3.8
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -82,7 +82,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.7|>= 4.3.7|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.8|>= 4.3.8|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -202,6 +202,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Aug 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.8-1
+- 4.3.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

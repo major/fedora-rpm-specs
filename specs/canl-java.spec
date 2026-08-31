@@ -1,6 +1,6 @@
 Name:		canl-java
-Version:	2.8.3
-Release:	13%{?dist}
+Version:	2.9.0
+Release:	1%{?dist}
 Summary:	EMI Common Authentication library - bindings for Java
 
 #		The main parts of the code are BSD
@@ -9,20 +9,29 @@ Summary:	EMI Common Authentication library - bindings for Java
 #		Parts derived from Apache Commons IO are Apache 2.0
 #		See LICENSE.txt for details
 License:	BSD-3-Clause AND Apache-2.0 AND MIT
-URL:		https://github.com/eu-emi/%{name}/
-Source0:	https://github.com/eu-emi/%{name}/archive/canl-%{version}/%{name}-%{version}.tar.gz
+URL:		https://github.com/eu-emi/%{name}
+Source0:	%{url}/archive/canl-%{version}/%{name}-%{version}.tar.gz
 #		Disable tests that require network connections
 Patch0:		%{name}-test.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
+%if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 11
 BuildRequires:	maven-local-openjdk25
-BuildRequires:	mvn(commons-io:commons-io) >= 2.4
-BuildRequires:	mvn(junit:junit) >= 4.8
+%else
+BuildRequires:	maven-local
+%endif
+BuildRequires:	mvn(commons-io:commons-io)
+BuildRequires:	mvn(junit:junit)
 BuildRequires:	mvn(org.assertj:assertj-core)
-BuildRequires:	mvn(org.bouncycastle:bcpkix-jdk18on) >= 1.69
-Requires:	mvn(org.bouncycastle:bcpkix-jdk18on) >= 1.69
+%if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
+BuildRequires:	mvn(org.bouncycastle:bcprov-jdk18on)
+BuildRequires:	mvn(org.bouncycastle:bcpkix-jdk18on)
+%else
+BuildRequires:	mvn(org.bouncycastle:bcprov-jdk15on)
+BuildRequires:	mvn(org.bouncycastle:bcpkix-jdk15on)
+%endif
 
 %description
 This is the Java part of the EMI caNl -- the Common Authentication Library.
@@ -35,10 +44,12 @@ Javadoc documentation for EMI caNl.
 
 %prep
 %setup -q -n %{name}-canl-%{version}
-%patch -P 0 -p1
+%patch -P0 -p1
 
-# Remove maven-wagon-webdav-jackrabbit dependency
-%pom_xpath_remove pom:build/pom:extensions
+%if ! ( %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10 )
+%pom_change_dep org.bouncycastle:bcprov-jdk18on org.bouncycastle:bcprov-jdk15on
+%pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
+%endif
 
 # GPG signing requires a GPG key
 %pom_remove_plugin org.apache.maven.plugins:maven-gpg-plugin
@@ -51,7 +62,7 @@ Javadoc documentation for EMI caNl.
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
 
 # Do not stage
-%pom_remove_plugin org.sonatype.plugins:nexus-staging-maven-plugin
+%pom_remove_plugin org.sonatype.central:central-publishing-maven-plugin
 
 %build
 %mvn_build
@@ -67,6 +78,9 @@ Javadoc documentation for EMI caNl.
 %license LICENSE.txt
 
 %changelog
+* Fri Aug 21 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.9.0-1
+- Update to 2.9.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,13 +1,12 @@
 Name:    txt2tags
 Summary: Summary: Converts text files to HTML, XHTML, LaTeX, and other formats
-Version: 3.3
-Release: 26%{?dist}
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License: GPL-2.0-only
-URL:     http://txt2tags.sourceforge.net/
+Version: 3.9
+Release: 1%{?dist}
+License: GPL-2.0-or-later
+URL:     https://txt2tags.org
+Source0: https://github.com/txt2tags/txt2tags/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/txt2tags/txt2tags/issues/207#issuecomment-544905237
-Source0: https://github.com/jendrikseipp/txt2tags/archive/%{version}.tar.gz
+Patch0:  0000-fix-tests.patch
 
 BuildArch: noarch
 
@@ -33,7 +32,7 @@ Txt2tags is a document generator. It reads a text file with minimal markup as
     * Plain text 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -47,12 +46,17 @@ Txt2tags is a document generator. It reads a text file with minimal markup as
 
 %check
 %pyproject_check_import
+export TXT2TAGS_EXE="%{buildroot}%{_bindir}/txt2tags"
+PYTHONPATH="%{buildroot}%{python3_sitelib}:$(pwd)/test" ./test/run.py
 
 %files -f %{pyproject_files}
 %doc CHANGELOG.md README.md
 %{_bindir}/txt2tags
 
 %changelog
+* Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.9-1
+- Update to v3.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

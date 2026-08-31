@@ -5,7 +5,7 @@
 %global crate proc-macro-error-attr3
 
 Name:           rust-proc-macro-error-attr3
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Attribute macro for the proc-macro-error3 crate
 

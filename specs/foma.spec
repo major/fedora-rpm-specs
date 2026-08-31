@@ -9,7 +9,7 @@
 
 Name:           foma
 Version:        0.10.0
-Release:        0.16.%{snapshotdate}git%{shortcommit0}%{?dist}
+Release:        0.17.%{snapshotdate}git%{shortcommit0}%{?dist}
 Summary:        Xerox-compatible finite-state compiler
 
 License:        Apache-2.0
@@ -28,6 +28,7 @@ Source0:        https://github.com/mhulden/%{name}/archive/%{commit0}.tar.gz#/%{
 Patch0:         foma-harden-build-fedora.patch
 Patch1: foma-c99.patch
 Patch2: foma-avoid-deprecated-inet-functions.patch
+Patch3: foma-improve-file-reading.patch
 
 BuildRequires:  gcc zlib-devel readline-devel flex bison
 BuildRequires: make
@@ -106,6 +107,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Aug 20 2026 Mike FABIAN <mfabian@redhat.com> - 0.10.0-0.17.20210601gitdfe1ccb
+- Add patch from upstream to improve file reading
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-0.16.20210601gitdfe1ccb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

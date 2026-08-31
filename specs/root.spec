@@ -38,9 +38,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/.*/lib.*\\.so$
 
 Name:		root
-Version:	6.40.02
+Version:	6.40.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -87,14 +87,15 @@ Patch6:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
 Patch7:		%{name}-Revert-cppyy-Mark-addressof-test-as-xfail-on-modules.patch
 #		Adjust stressGraphics reference
 Patch8:		%{name}-Adjust-stressGraphics-reference.patch
-#		https://github.com/root-project/root/pull/22722
-Patch9:		%{name}-Use-different-output-filenames-in-tests-pdftitle.cxx.patch
 #		https://github.com/root-project/root/pull/22723
-Patch10:	%{name}-tmva-sofie-Fix-big-endian.patch
+Patch9:		%{name}-tmva-sofie-Fix-big-endian.patch
+Patch10:	%{name}-tmva-sofie-Complete-big-endian-support-for-ONNX-init.patch
 #		https://github.com/root-project/root/pull/22724
 Patch11:	%{name}-core-The-old-TUUID-constructor-can-create-either-ver.patch
 Patch12:	%{name}-tree-df-Do-not-fail-test-on-32-bit-due-to-mis-aligne.patch
 Patch13:	%{name}-tree-nt-Compare-size-to-the-size-of-the-struct.patch
+#		https://github.com/root-project/root/pull/23188
+Patch14:	%{name}-pdf-Fix-calculation-of-kerning-distances-in-generate.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -426,7 +427,7 @@ Obsoletes:	%{name}-notebook < 6.32.00
 #		Package renamed (jupyroot is now a submodule)
 %py_provides	python3-jupyroot
 Obsoletes:	python3-jupyroot < 6.40.00
-Requires:	js-jsroot >= 7.11
+Requires:	js-jsroot >= 7.11.1
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
@@ -1194,7 +1195,7 @@ access to http based storage such as webdav and S3.
 Summary:	HTTP server extension for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	js-jsroot >= 7.11
+Requires:	js-jsroot >= 7.11.1
 #		Library split (net-httpsniff from net-http)
 Obsoletes:	%{name}-net-http < 6.14.00
 
@@ -1341,41 +1342,22 @@ automatic hardware detection mechanism that this library contains.
 %package roofit-hs3
 Summary:	RooFit HS3
 License:	BSD-2-Clause
+#		roofit-jsoninterface was merged with roofit-hs3
+Provides:	%{name}-roofit-jsoninterface = %{version}-%{release}
+Obsoletes:	%{name}-roofit-jsoninterface < 6.40.04
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist-factory%{?_isa} = %{version}-%{release}
 Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-roofit-jsoninterface%{?_isa} = %{version}-%{release}
 
 %description roofit-hs3
 When using RooFit, statistical models can be conveniently handled and
 stored as a RooWorkspace. However, for the sake of interoperability
 with other statistical frameworks, and also ease of manipulation, it
 may be useful to store statistical models in text form. This library
-sets out to achieve exactly that, exporting to and importing from JSON
-and YML.
-
-%package roofit-jsoninterface
-Summary:	JSON interface to RooFit
-License:	BSD-2-Clause
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-
-%description roofit-jsoninterface
-The RooFit packages provide a toolkit for modeling the expected
-distribution of events in a physics analysis. Models can be used to
-perform likelihood fits, produce plots, and generate "toy Monte
-Carlo" samples for various studies. The RooFit tools are integrated
-with the object-oriented and interactive ROOT graphical environment.
-
-RooFit has been developed for the BaBar collaboration, a high energy
-physics experiment at the Stanford Linear Accelerator Center, and is
-primarily targeted to the high-energy physicists using the ROOT
-analysis environment, but the general nature of the package make it
-suitable for adoption in different disciplines as well.
-
-This package contains the JSON interface to RooFit.
+sets out to achieve exactly that, exporting to and importing from JSON.
 
 %package roofit-codegen
 Summary:	Code generation support for RooFit
@@ -1963,6 +1945,7 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * ftgl
@@ -2423,9 +2406,6 @@ popd
 #
 # - tutorial-visualisation-webcanv-fonts_ttf.cxx:
 #   Requires web graphics
-#
-# - tmva-sofie-test-TestCladAutodiff
-#   Fails often...
 excluded="\
 test-stressIOPlugins-http|\
 test-stressIOPlugins-xroot|\
@@ -2461,8 +2441,7 @@ tutorial-machine_learning-tmva100_DataPreparation-py|\
 test-webgui-ping|\
 test-stressgraphics-firefox-skip3d|\
 test-stressgraphics-svg|\
-tutorial-visualisation-webcanv-fonts_ttf.cxx|\
-tmva-sofie-test-TestCladAutodiff"
+tutorial-visualisation-webcanv-fonts_ttf.cxx"
 
 %if %{?rhel}%{!?rhel:0} == 9
 # - pyunittests-bindings-pyroot-cppyy-cppyy-test-datatypes
@@ -3315,11 +3294,6 @@ fi
 %{_libdir}/%{name}/libRooFitHS3_rdict.pcm
 %dir %{_includedir}/%{name}/RooFitHS3
 
-%files roofit-jsoninterface -f includelist-roofit-jsoninterface
-%{_libdir}/%{name}/libRooFitJSONInterface.*
-%{_libdir}/%{name}/libRooFitJSONInterface_rdict.pcm
-%dir %{_includedir}/%{name}/RooFit
-
 %files roofit-codegen -f includelist-roofit-codegen
 %{_libdir}/%{name}/libRooFitCodegen.*
 %{_libdir}/%{name}/libRooFitCodegen_rdict.pcm
@@ -3567,6 +3541,13 @@ fi
 %endif
 
 %changelog
+* Sat Aug 29 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-1
+- Update to 6.40.04
+- The root-roofit-jsoninterface package was merged with root-roofit-hs3
+- Fix calculation of kerning distances in generated PDF files
+- Dropped patches: 1
+- New patches: 2
+
 * Wed Aug 26 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.02-5
 - Use the system civetweb library since it now supports web sockets
 - Drop the davix module for Fedora 45+ (davix will soon be retired)

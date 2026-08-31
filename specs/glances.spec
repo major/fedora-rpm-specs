@@ -26,8 +26,11 @@ Patch0:		disable-update-check.patch
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-selenium
 BuildRequires:	systemd-units
+# python3-selenium is not available in EPEL yet
+%if 0%{?fedora}
+BuildRequires:	python3-selenium
+%endif
 Requires:	python3-fastapi
 Requires:	python3-orjson
 Requires:	python3-uvicorn
@@ -40,6 +43,11 @@ Requires:	python3-uvicorn
 
 # pyinstrument
 sed -i '/pyinstrument/d' pyproject.toml
+
+%if 0%{?rhel}
+# # EPEL setuptools 69.x lacks PEP 639 SPDX; use the legacy table form.
+sed -i 's/^license = "LGPL-3.0-only"$/license = {text = "LGPL-3.0-only"}/' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t

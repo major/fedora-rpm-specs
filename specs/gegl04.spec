@@ -25,6 +25,12 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://www.gegl.org/
 Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.xz
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2521118
+# https://gitlab.gnome.org/GNOME/gegl/-/work_items/462
+# https://gitlab.gnome.org/GNOME/gegl/-/commit/d3d262008299341c5b032b354021632ceadb2799
+Patch:          0001-libs-ctx-synchronize-with-upstream.patch.xz
+Patch:          0001-libs-rgbe-fix-200kb-report-from-ZDI.patch.xz
+
 BuildRequires:  chrpath
 BuildRequires:  enscript
 BuildRequires:  gcc-c++

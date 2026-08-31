@@ -27,6 +27,7 @@ Source10:       LICENSE-MIT
 #   - Update env_logger dependency from v0.10 to v0.11
 #   - Update validator dependency from v0.19 to v0.20
 #   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/862
+# * Further update validator to 0.21; not offered upstream for MSRV reasons
 # * Adjust license to “Apache-2.0 AND MIT”; see comment for Source10
 Patch:          cargo-cyclonedx-fix-metadata.diff
 

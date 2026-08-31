@@ -5,18 +5,15 @@
 # For non-Fedora builds
 %bcond dkms 0
 
-# For FUSE fallback
-%bcond fuse 1
-
 # While there are no observable issues with LTO, Kent thinks it's bad,
 # so disable for now until more testing can be done.
 %global _lto_cflags %{nil}
 
-%global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
+%global make_opts VERSION="%{version}" BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.38.6
-Release:        2%{?dist}
+Version:        1.39.3
+Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -45,6 +42,8 @@ Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/key
 # Fedora-specific patches
 ## Ensure that the makefile doesn't run rust itself, so we can build with our flags properly
 Patch1001:      bcachefs-tools-no-make-rust.patch
+## Ensure that if DKMS is used, it always builds the module locally
+Patch1002:      bcachefs-tools-no-prebuilt-dkms.patch
 
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -67,6 +66,7 @@ BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  systemd-rpm-macros
 
+BuildRequires:  bindgen-cli
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  cargo
 BuildRequires:  rust
@@ -78,6 +78,15 @@ BuildRequires:  llvm-devel
 %if %{with dkms}
 Requires:       (dkms-bcachefs = %{version}-%{release} if kernel-core%{?_isa})
 %endif
+
+# Merge fuse subpackage back
+Obsoletes:      %{name}-fuse < %{version}-%{release}
+Provides:       %{name}-fuse = %{version}-%{release}
+Provides:       %{name}-fuse%{?_isa} = %{version}-%{release}
+Obsoletes:      fuse-%{name} < %{version}-%{release}
+Provides:       fuse-%{name} = %{version}-%{release}
+Provides:       fuse-%{name}-fuse%{?_isa} = %{version}-%{release}
+
 
 # Rust parts FTBFS on 32-bit arches
 ExcludeArch:    %{ix86} %{arm32}
@@ -102,43 +111,26 @@ check, modify and correct any inconsistencies in the bcachefs filesystem.
 %{_mandir}/man8/bcachefs.8*
 %{_udevrulesdir}/64-bcachefs.rules
 %{_unitdir}/bcachefs-wait-devices@.service
+%{_systemdgeneratordir}/bcachefs-mount-generator
 %{bash_completions_dir}/bcachefs
-
-%if %{with fuse}
-%dnl ----------------------------------------------------------------------------
-
-%package -n fuse-bcachefs
-Summary:        FUSE implementation of bcachefs
-BuildRequires:  pkgconfig(fuse3) >= 3.7
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{name}-fuse < %{version}-%{release}
-Provides:       %{name}-fuse = %{version}-%{release}
-Provides:       %{name}-fuse%{?_isa} = %{version}-%{release}
-
-%description -n fuse-bcachefs
-This package is an experimental implementation of bcachefs leveraging FUSE to
-mount, create, check, modify and correct any inconsistencies in the bcachefs filesystem.
-
-%files -n fuse-bcachefs
-%license COPYING
 %{_sbindir}/mount.fuse.bcachefs
 %{_sbindir}/fsck.fuse.bcachefs
 %{_sbindir}/mkfs.fuse.bcachefs
-
-%dnl ----------------------------------------------------------------------------
-%endif
 
 %if %{with dkms}
 %dnl ----------------------------------------------------------------------------
 
 %package -n dkms-bcachefs
 Summary:        Bcachefs kernel module managed by DKMS
+Requires:       bindgen-cli
+Requires:       cargo
 Requires:       diffutils
 Requires:       dkms >= 3.2.1
 Requires:       gcc
 Requires:       make
 Requires:       perl
 Requires:       python3
+Requires:       rust
 
 Requires:       %{name} = %{version}-%{release}
 
@@ -206,11 +198,6 @@ cd ../
 # Purge debian stuff
 rm -rfv %{buildroot}/%{_datadir}/initramfs-tools
 
-%if ! %{with fuse}
-# Purge useless symlink stubs
-rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
-%endif
-
 %if ! %{with dkms}
 # Purge dkms files
 rm -rf %{buildroot}%{_usrsrc}
@@ -218,6 +205,11 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Sun Aug 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.39.3-1
+- Update to version 1.39.3
+- Resolves: rhbz#2496903
+- Add patch to disable external bcachefs.ko fetch in dkms
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.38.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

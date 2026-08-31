@@ -27,7 +27,7 @@ ExcludeArch:    %{ix86}
 %endif
 
 Name:       libindi
-Version:    2.2.4.1
+Version:    2.2.4.2
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 

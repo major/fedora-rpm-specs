@@ -8,8 +8,8 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.7
-Release:	2%{?dist}
+Version:	4.3.8
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -190,11 +190,16 @@ popd
 %{gem_instdir}/lib/glib2.rb
 %{gem_instdir}/lib/glib-mkenums.rb
 %dir %{gem_instdir}/lib/glib2
+%{gem_instdir}/lib/glib2/callable-info.rb
+%{gem_instdir}/lib/glib2/collection-reader.rb
 %{gem_instdir}/lib/glib2/date-time.rb
 %{gem_instdir}/lib/glib2/deprecatable.rb
 %{gem_instdir}/lib/glib2/deprecated.rb
+%{gem_instdir}/lib/glib2/interface-info.rb
 %{gem_instdir}/lib/glib2/regex.rb
+%{gem_instdir}/lib/glib2/repository.rb
 %{gem_instdir}/lib/glib2/time-zone.rb
+%{gem_instdir}/lib/glib2/type-info.rb
 %{gem_instdir}/lib/glib2/variant.rb
 %{gem_instdir}/lib/glib2/variant-type.rb
 %{gem_instdir}/lib/glib2/value.rb
@@ -234,6 +239,9 @@ popd
 
 
 %changelog
+* Sun Aug 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.8-1
+- 4.3.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -6,23 +6,20 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.41.0
+Version:        2.42.0
 Release:        %autorelease
 Summary:        A Modern Linker
 
+%global forgeurl https://github.com/rui314/%{name}
+%global tag      v%{version}
+%forgemeta
+
 License:        MIT AND (Apache-2.0 OR MIT)
-URL:            https://github.com/rui314/mold
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 # Allow building against the system-provided `xxhash.h`
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# Fix `textrel2` test on Fedora 44 (https://github.com/rui314/mold/pull/1547)
-Patch1:         0002-Fix-textrel2-test-on-Fedora-44.patch
-
-# Fix `gdb-index-dwarf5` test on Fedora 45
-# (https://github.com/rui314/mold/pull/1586)
-Patch2:         0003-Fix-ambiguous-readelf-option-in-gdb-index-dwarf5-tes.patch
 
 BuildRequires:  blake3-devel
 BuildRequires:  cmake
@@ -33,7 +30,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++ >= 10
 %endif
 BuildRequires:  libzstd-devel
-BuildRequires:  mimalloc-devel
+BuildRequires:  mimalloc-devel >= 3
 BuildRequires:  xxhash-static
 BuildRequires:  zlib-devel
 
@@ -75,7 +72,7 @@ mold is designed to increase developer productivity by reducing
 build time, especially in rapid debug-edit-rebuild cycles.
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 rm -r third-party/{blake3,mimalloc,xxhash,zlib,zstd}
 %if %{use_system_tbb}
 rm -r third-party/tbb

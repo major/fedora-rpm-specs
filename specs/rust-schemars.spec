@@ -16,6 +16,7 @@ Source:         %{crates_source}
 # * drop garde dev-dependency (not packaged)
 # * drop jsonschema dev-dependency (not packaged)
 # * drop integration tests, which would require jsonschema
+# * allow validator 0.21 in dev-dependency; updated upstream in 1.2.2
 Patch:          schemars-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
