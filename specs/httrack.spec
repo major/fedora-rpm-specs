@@ -1,7 +1,7 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
 
 Name:           httrack
-Version:        3.49.23
+Version:        3.50.0
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -49,15 +49,8 @@ rmdir src/coucal
 mv coucal-%{coucal_commit} src/coucal
 autoreconf -vfi
 
-# Fix incorrect FSF address in libtest/readme.txt to satisfy rpmlint
-sed -i '/write to the Free Software/{N;s|write to the Free Software\nFoundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.|see <https://www.gnu.org/licenses/>.|}' libtest/readme.txt
-
 # Fix AppStream icon validation error by removing the invalid stock icon tag
 sed -i '/<icon type="stock">httrack<\/icon>/d' html/server/div/com.httrack.WebHTTrack.metainfo.xml
-
-# Avoid duplicate files warning in rpmlint by symlinking license.txt to COPYING
-rm -f license.txt
-ln -s COPYING license.txt
 
 %build
 %configure  --disable-static \
@@ -85,9 +78,6 @@ rm -frv %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}%{_datadir}/%{name}/libtest %{buildroot}%{_pkgdocdir}/libtest
 mv %{buildroot}%{_datadir}/%{name}/templates %{buildroot}%{_pkgdocdir}/templates
 
-# Now packaged in %%license
-rm %{buildroot}%{_pkgdocdir}/html/license.txt
-
 # Replace absolute symlink with a relative one to avoid rpmbuild warning
 rm %{buildroot}%{_datadir}/%{name}/html
 ln -s ../doc/%{name}/html %{buildroot}%{_datadir}/%{name}/html
@@ -105,7 +95,7 @@ appstream-util validate-relax --nonet \
 %files
 %{_pkgdocdir}
 %exclude %{_pkgdocdir}/libtest
-%license COPYING license.txt
+%license COPYING README *.md
 %{_bindir}/htsserver
 %{_bindir}/%{name}
 %{_bindir}/proxytrack

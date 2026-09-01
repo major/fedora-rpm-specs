@@ -1,10 +1,10 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.70
+%global cpan_version 1.71
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -43,7 +43,6 @@ BuildRequires:  perl(IO::Uncompress::Unzip)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(LWP::Protocol::http)
 BuildRequires:  perl(LWP::Protocol::https)
-BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(LWP::UserAgent) >= 6.48
 BuildRequires:  perl(Module::Load) >= 0.36
 BuildRequires:  perl(POSIX)
@@ -146,9 +145,7 @@ make test
 %{_mandir}/man3/Finance::Quote::GoogleWeb.3*
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
 %{_mandir}/man3/Finance::Quote::MarketWatch.3*
-%{_mandir}/man3/Finance::Quote::MorningstarCH.3*
 %{_mandir}/man3/Finance::Quote::MorningstarJP.3*
-%{_mandir}/man3/Finance::Quote::MorningstarUK.3*
 %{_mandir}/man3/Finance::Quote::NSEIndia.3*
 %{_mandir}/man3/Finance::Quote::NZX.3*
 %{_mandir}/man3/Finance::Quote::OnVista.3*
@@ -171,6 +168,16 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 1.7100-1
+- Update to 1.71
+  - NZX.pm: Fixed JSON mapping (GH#586)
+  - IndiaMutual.pm: Update AMFI NAV file parsing to 8-column format with Plan
+    and Option fields (GH#584)
+  - Removed MorningstarCH.pm (GH#582)
+  - Removed MorningstarUK.pm (GH#579)
+  - IndiaMutual.pm: Add support for SIF quotes from AMFI (GH#580)
+  - FTfunds.pm: Added useragent, cloned from BVB.pm (GH#577)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

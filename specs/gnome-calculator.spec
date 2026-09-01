@@ -1,8 +1,9 @@
 %global gtksourceview_version 5.3.0
-%global libadwaita_version 1.6~beta
+%global gtk4_version 4.17.0
+%global libadwaita_version 1.8~alpha
 
 Name:           gnome-calculator
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        A desktop calculator
 
@@ -21,7 +22,7 @@ BuildRequires:  meson
 BuildRequires:  mpfr-devel
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gtksourceview-5) >= %{gtksourceview_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libsoup-3.0)

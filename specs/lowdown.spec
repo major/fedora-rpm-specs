@@ -1,5 +1,5 @@
 Name:           lowdown
-Version:        2.0.2
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Simple markdown translator
 
@@ -8,7 +8,6 @@ URL:            https://kristaps.bsd.lv/lowdown/
 %global github_version_tag %(tr '.' '_' <<<VERSION_%{version})
 
 Source:         https://github.com/kristapsdz/lowdown/archive/%{github_version_tag}/%{name}-%{version_no_tilde}.tar.gz
-Patch:          0001-Makefile-link-lowdown-dynamically-and-lowdown-diff-s.patch
 Patch:          0001-Makefile-use-standard-make-syntax.patch
 
 BuildRequires:  make
@@ -17,7 +16,7 @@ BuildRequires:  libbsd-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global soversion 2
+%global soversion 4
 %global _docdir_fmt %{name}
 
 %description

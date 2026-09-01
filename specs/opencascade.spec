@@ -1,6 +1,6 @@
 %global major 7
 %global minor 9
-%global patch 1
+%global patch 3
 %global ver_under %{major}_%{minor}_%{patch}
 
 Name:           opencascade
@@ -12,7 +12,7 @@ Summary:        SDK intended for development of applications dealing with 3D CAD
 License:        LGPL-2.1-only WITH OCCT-exception-1.0
 URL:            https://www.opencascade.com/content/overview
 
-Source0:        https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=refs/tags/V%{ver_under};sf=tgz#/%{name}-%{version}.tgz
+Source0:        https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V%{ver_under}/%{name}-%{version}.tar.gz
 Source1:        DRAWEXE.1
 Source2:        opencascade-draw.desktop
 Source3:        occ-256.png
@@ -162,7 +162,7 @@ OpenCASCADE CAE platform library development files
 
 
 %prep
-%autosetup -p1 -n occt-V%{ver_under}
+%autosetup -p1 -n OCCT-%{ver_under}
 
 # Sources are marked executable for no good reason...
 find ./src -type f -exec chmod -x {} \;

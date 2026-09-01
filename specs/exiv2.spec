@@ -1,5 +1,5 @@
 Name:           exiv2
-Version:        0.28.6
+Version:        0.28.9
 Release:        %autorelease
 Summary:        Exif, IPTC and XMP metadata manipulation library
 
@@ -19,11 +19,6 @@ Source:         %{vcs}/archive/v%{version}-%{beta}/%{name}-%{version}-%{beta}.ta
 %else
 Source:         %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
-
-# Make methods non-virtual
-# https://github.com/Exiv2/exiv2/pull/3378
-# Will be fixed in 0.28.7.
-Patch0:         3378.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

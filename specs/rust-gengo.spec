@@ -5,7 +5,7 @@
 %global crate gengo
 
 Name:           rust-gengo
-Version:        0.14.3
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -14,10 +14,6 @@ URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Allow gix through version 0.85:
-#   https://github.com/spenserblack/gengo/commit/d4f7d079454bd5a2c01e2176bfe3f5569972ffd3,
-#   https://github.com/spenserblack/gengo/commit/bf5baee1cedbcc0b3cf5a09bed8f0aab7296b414,
-#   https://github.com/spenserblack/gengo/commit/37a959b485ac06ed851ba49e60f17fa2ac3e5165
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

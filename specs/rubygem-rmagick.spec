@@ -8,7 +8,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	7.1.2
+Version:	7.1.3
 Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
@@ -19,8 +19,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # %%{SOURCE2} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rmagick-create-full-tarball.sh
-# Increase timelimit on i686 (to be the same value as 7.1.1)
-Patch0:	rmagick-7.1.2-spec-timelimit-i686.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	rubygems-devel 
@@ -64,8 +62,6 @@ Documentation for %{name}.
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-
-%patch -P0 -p1
 
 # permission
 find . -name \*.rb -or -name \*.gif | xargs chmod ugo-x 
@@ -148,6 +144,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Mon Aug 31 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.1.3-1
+- 7.1.3
+
 * Sun Aug 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.1.2-1
 - 7.1.2
 

@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.9.2
+Version:        3.9.3
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -95,8 +95,8 @@ Requires:     stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --no-default-features --features engine,min,systemd_compat
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-utils --no-default-features --features dbus_enabled,engine,min,systemd_compat
-%{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
-%{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+CARGO_PROFILE_RELEASE_LTO=thin %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+CARGO_PROFILE_RELEASE_LTO=thin %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd-tools --no-default-features --features engine,extras
 a2x -f manpage docs/stratisd.txt
 a2x -f manpage docs/stratis-dumpmetadata.txt

@@ -61,19 +61,18 @@
 # Non root result for gfx1100 and this kernel 6.13.0-0.rc0.20241126git7eef7e306d3c.10.fc42.x86_64
 # 25 pass, 5 fail
 # No oops
-%bcond_with test
-%if %{with test}
-%global build_test ON
-%else
-%global build_test OFF
-%endif
-
 %bcond_with static
 %if %{with static}
 %global build_static ON
+# Test does not link without static libs
+%bcond_with test
 %else
 %global build_static OFF
-# Test does not link without static libs, disable tests
+%endif
+
+%if %{with test}
+%global build_test ON
+%else
 %global build_test OFF
 %endif
 
@@ -82,7 +81,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -353,6 +352,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Mon Aug 31 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- testing does not work without static
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

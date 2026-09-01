@@ -296,7 +296,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %if %{with test}
 %files test
 %{pkg_prefix}/bin/rocfft-test
+%if %{without preview}
 %{pkg_prefix}/bin/rtc_helper_crash
+%endif
 %endif
 
 %changelog

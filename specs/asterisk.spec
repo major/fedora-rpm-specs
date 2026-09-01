@@ -2,7 +2,7 @@
 #%%global _beta 3
 
 %global           pjsip_version   2.17
-%global           jansson_version 2.14
+%global           jansson_version 2.15.1
 %global           jwt_version 1.15.3
 
 %global           optflags        %{optflags} -Werror-implicit-function-declaration -DLUA_COMPAT_MODULE -fPIC
@@ -56,8 +56,8 @@
 
 Summary:          The Open Source PBX
 Name:             asterisk
-Version:          23.4.1
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
+Version:          23.5.0
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -65,8 +65,6 @@ URL:              http://www.asterisk.org/
 Source0:          http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}.tar.gz
 Source1:          http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}.tar.gz.asc
 Source2:          asterisk-logrotate
-Source3:          menuselect.makedeps
-Source4:          menuselect.makeopts
 Source5:          asterisk.service
 Source6:          asterisk-tmpfiles
 # GPG keyring with Asterisk developer signatures
@@ -105,12 +103,12 @@ Patch2:           asterisk-18.4.0-astmm_ignore_for_console_board.patch
 # Removed macros from ilbc library for RFC 3951 compatibility.
 Patch3:           asterisk-18.12.1-ilbc_macros.patch
 
+# Fedora-specific
+Patch4:           asterisk-23.5.0-Bundled-pjproject-do-not-discard-the-ambient-CFLAGS.patch
+
 # Asterisk now builds against a bundled copy of pjproject, as they apply some patches
 # directly to pjproject before the build against it
 Provides:         bundled(pjproject) = %{pjsip_version}
-
-# Does not build on s390x: https://bugzilla.redhat.com/show_bug.cgi?id=1465162
-#ExcludeArch:      s390x
 
 BuildRequires:    autoconf
 BuildRequires:    automake
@@ -303,20 +301,12 @@ Requires: asterisk = %{version}-%{release}
 %description ael
 AEL (Asterisk Extension Logic) mdoules for Asterisk
 
-# %%package alsa
-# Summary: Modules for Asterisk that use Alsa sound drivers
-# Requires: asterisk = %%{version}-%%{release}
-
 %package alembic
 Summary: Alembic scripts for the Asterisk DB (realtime)
 Requires: asterisk = %{version}-%{release}
 
 %description alembic
 Alembic scripts for the Asterisk DB
-
-
-# %%description alsa
-# Modules for Asterisk that use Alsa sound drivers.
 
 %if 0%{?apidoc}
 %package apidoc
@@ -441,13 +431,6 @@ Requires(pre): %{_sbindir}/usermod
 mISDN channel for Asterisk.
 %endif
 
-# %%package mgcp
-# Summary: MGCP channel driver for Asterisk
-# Requires: asterisk = %%{version}-%%{release}
-
-# %%description mgcp
-# MGCP channel driver for Asterisk
-
 %package mobile
 Summary: Mobile (BlueTooth) channel for Asterisk
 Requires: asterisk = %{version}-%{release}
@@ -455,6 +438,17 @@ Requires(pre): %{_sbindir}/usermod
 
 %description mobile
 Mobile (BlueTooth) channel for Asterisk.
+
+%package mp3
+Summary: MP3 streaming application for Asterisk
+Requires: asterisk = %{version}-%{release}
+# app_mp3 fork+execs the mpg123 command-line binary at runtime (it does not
+# link or dlopen libmpg123), so depend on the executable itself.
+Requires: /usr/bin/mpg123
+
+%description mp3
+The app_mp3 application plays and streams MP3 audio by executing the external
+mpg123 command-line program.
 
 %package minivm
 Summary: MiniVM applicaton for Asterisk
@@ -499,13 +493,6 @@ Requires: asterisk = %{version}-%{release}
 H.323 channel for Asterisk using the Objective Systems Open H.323 for C library.
 %endif
 
-# %%package oss
-# Summary: Modules for Asterisk that use OSS sound drivers
-# Requires: asterisk = %%{version}-%%{release}
-
-# %%description oss
-# Modules for Asterisk that use OSS sound drivers.
-
 %package phone
 Summary: Channel driver for Quicknet Technologies, Inc.'s Telephony cards
 Requires: asterisk = %{version}-%{release}
@@ -546,20 +533,6 @@ Requires: asterisk = %{version}-%{release}
 %description radius
 Applications for Asterisk that use RADIUS.
 %endif
-
-# %%package skinny
-# Summary: Modules for Asterisk that support the SCCP/Skinny protocol
-# Requires: asterisk = %%{version}-%%{release}
-
-# %%description skinny
-# Modules for Asterisk that support the SCCP/Skinny protocol.
-
-# %%package sip
-# Summary: Legacy SIP channel driver for Asterisk
-# Requires: asterisk = %%{version}-%%{release}
-
-# %%description sip
-# Legacy SIP channel driver for Asterisk
 
 %if 0%{?snmp}
 %package snmp
@@ -682,8 +655,7 @@ echo '*************************************************************************'
 
 %patch -P3 -p1
 
-cp %{S:3} menuselect.makedeps
-cp %{S:4} menuselect.makeopts
+%patch -P4 -p1
 
 cp %{S:99} ./third-party/pjproject/patches
 
@@ -691,73 +663,7 @@ cp %{S:99} ./third-party/pjproject/patches
 %{__perl} -pi -e 's/^all:.*$/all:/' sounds/Makefile
 %{__perl} -pi -e 's/^install:.*$/install:/' sounds/Makefile
 
-# convert comments in one file to UTF-8
-mv main/fskmodem.c main/fskmodem.c.old
-iconv -f iso-8859-1 -t utf-8 -o main/fskmodem.c main/fskmodem.c.old
-touch -r main/fskmodem.c.old main/fskmodem.c
-rm main/fskmodem.c.old
-
 chmod -x contrib/scripts/dbsep.cgi
-
-%if ! 0%{?corosync}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_corosync/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?mysql}
-%{__perl} -pi -e 's/^MENUSELECT_ADDONS=(.*)$/MENUSELECT_ADDONS=\1 res_config_mysql app_mysql cdr_mysql/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?postgresql}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_config_pgsql/g' menuselect.makeopts
-%{__perl} -pi -e 's/^MENUSELECT_CDR=(.*)$/MENUSELECT_CDR=\1 cdr_pgsql/g' menuselect.makeopts
-%{__perl} -pi -e 's/^MENUSELECT_CEL=(.*)$/MENUSELECT_CEL=\1 cel_pgsql/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?radius}
-%{__perl} -pi -e 's/^MENUSELECT_CDR=(.*)$/MENUSELECT_CDR=\1 cdr_radius/g' menuselect.makeopts
-%{__perl} -pi -e 's/^MENUSELECT_CEL=(.*)$/MENUSELECT_CEL=\1 cel_radius/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?snmp}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_snmp/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?misdn}
-%{__perl} -pi -e 's/^MENUSELECT_CHANNELS=(.*)$/MENUSELECT_CHANNELS=\1 chan_misdn/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?ices}
-# %%{__perl} -pi -e 's/^MENUSELECT_APPS=(.*)$/MENUSELECT_APPS=\1 app_ices/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?jack}
-%{__perl} -pi -e 's/^MENUSELECT_APPS=(.*)$/MENUSELECT_APPS=\1 app_jack/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?ldap}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_config_ldap/g' menuselect.makeopts
-%endif
-
-%if ! 0%{?gmime}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_http_post/g' menuselect.makeopts
-%endif
-
-%if ! 0%{xmpp}
-%{__perl} -pi -e 's/^MENUSELECT_RES=(.*)$/MENUSELECT_RES=\1 res_xmpp/g' menuselect.makeopts
-# %%{__perl} -pi -e 's/^MENUSELECT_CHANNELS=(.*)$/MENUSELECT_CHANNELS=\1 chan_motif/g' menuselect.makeopts
-%endif
-
-%if ! 0%{meetme}
-%{__perl} -pi -e 's/^MENUSELECT_APPS=(.*)$/MENUSELECT_APPS=\1 app_meetme/g' menuselect.makeopts
-%endif
-
-%if ! 0%{ooh323}
-%{__perl} -pi -e 's/^MENUSELECT_ADDONS=(.*)$/MENUSELECT_ADDONS=\1 chan_ooh323/g' menuselect.makeopts
-%endif
-
-%if ! 0%{imap}
-%{__perl} -pi -e 's/^MENUSELECT_APPS=(.*)$/MENUSELECT_APPS=\1 app_voicemail_imap/g' menuselect.makeopts
-%endif
 
 # Create a sysusers.d config file
 cat >asterisk.sysusers.conf <<EOF
@@ -800,6 +706,39 @@ popd
 %make_build menuselect-tree NOISY_BUILD=1
 %{__perl} -n -i -e 'print unless /openr2/i' menuselect-tree
 
+rm -f menuselect.makeopts menuselect.makedeps
+%make_build menuselect.makeopts NOISY_BUILD=1
+
+menuselect/menuselect \
+    --enable aelparse \
+%if 0%{?meetme}
+    --enable app_meetme \
+%endif
+    --enable app_saycounted \
+    --enable app_statsd \
+    --enable astman \
+    --enable chan_mobile \
+%if 0%{?ooh323}
+    --enable chan_ooh323 \
+%endif
+    --enable res_chan_stats \
+    --enable res_cliexec \
+    --enable res_endpoint_stats \
+    --enable res_remb_modifier \
+    --enable smsq \
+    --enable stereorize \
+    --enable streamplayer \
+%if 0%{?mysql}
+    --enable res_config_mysql \
+%endif
+%if 0%{?corosync}
+    --enable res_corosync \
+%endif
+    --enable res_mwi_external \
+    --enable res_mwi_external_ami \
+    --enable res_stasis_mailbox \
+    --enable res_ari_mailboxes \
+    --disable BUILD_NATIVE menuselect.makeopts
 
 # Build with plain voicemail and directory
 echo "### Building with plain voicemail and directory"
@@ -834,12 +773,6 @@ mv apps/app_directory.so apps/app_directory_odbc.so
 # so that these modules don't get built again
 touch apps/app_voicemail.o apps/app_directory.o
 touch apps/app_voicemail.so apps/app_directory.so
-
-sed -i -e 's/^MENUSELECT_RES=\(.*\)\bres_mwi_external\b\(.*\)$/MENUSELECT_RES=\1 \2/g' menuselect.makeopts
-sed -i -e 's/^MENUSELECT_RES=\(.*\)\bres_mwi_external_ami\b\(.*\)$/MENUSELECT_RES=\1 \2/g' menuselect.makeopts
-sed -i -e 's/^MENUSELECT_RES=\(.*\)\bres_stasis_mailbox\b\(.*\)$/MENUSELECT_RES=\1 \2/g' menuselect.makeopts
-sed -i -e 's/^MENUSELECT_RES=\(.*\)\bres_ari_mailboxes\b\(.*\)$/MENUSELECT_RES=\1 \2/g' menuselect.makeopts
-sed -i -e 's/^MENUSELECT_APP=\(.*\)$/MENUSELECT_RES=\1 app_voicemail/g' menuselect.makeopts
 
 %make_build %{makeargs}
 
@@ -1416,10 +1349,6 @@ fi
 %{_libdir}/asterisk/modules/pbx_ael.so
 %{_libdir}/asterisk/modules/res_ael_share.so
 
-# %%files alsa
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/alsa.conf
-# %%{_libdir}/asterisk/modules/chan_alsa.so
-
 %files alembic
 %{_datadir}/asterisk/ast-db-manage/
 
@@ -1527,15 +1456,12 @@ fi
 %{_libdir}/asterisk/modules/chan_misdn.so
 %endif
 
-# %%files mgcp
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/mgcp.conf
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/res_pktccops.conf
-# %%{_libdir}/asterisk/modules/chan_mgcp.so
-# %%{_libdir}/asterisk/modules/res_pktccops.so
-
 %files mobile
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/chan_mobile.conf
 %{_libdir}/asterisk/modules/chan_mobile.so
+
+%files mp3
+%{_libdir}/asterisk/modules/app_mp3.so
 
 %if 0%{mysql}
 %files mysql
@@ -1575,10 +1501,6 @@ fi
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/ooh323.conf
 %{_libdir}/asterisk/modules/chan_ooh323.so
 %endif
-
-# %%files oss
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/oss.conf
-# %%{_libdir}/asterisk/modules/chan_oss.so
 
 %if 0%{phone}
 %files phone
@@ -1671,15 +1593,6 @@ fi
 %{_libdir}/asterisk/modules/cel_radius.so
 %endif
 
-# %%files sip
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/sip.conf
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/sip_notify.conf
-# %%{_libdir}/asterisk/modules/chan_sip.so
-
-# %%files skinny
-# %%attr(0640,asterisk,asterisk) %%config(noreplace) %%{_sysconfdir}/asterisk/skinny.conf
-# %%{_libdir}/asterisk/modules/chan_skinny.so
-
 %if 0%{snmp}
 %files snmp
 #doc doc/asterisk-mib.txt
@@ -1738,8 +1651,14 @@ fi
 %endif
 
 %changelog
+* Mon Aug 31 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-1
+- update to 23.5.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.4.1-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Thu Jun 25 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.4.1-1
+- update to 23.4.1
 
 * Sat Jun 13 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.4.0-1
 - update to 23.4.0

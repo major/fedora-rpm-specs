@@ -2,7 +2,7 @@
 %global gem_name process_executer
 
 Name: rubygem-%{gem_name}
-Version: 4.0.4
+Version: 4.1.0
 Release: %autorelease
 Summary: An API for executing commands in a sub process
 License: MIT
@@ -20,6 +20,8 @@ BuildRequires: ruby >= 3.0.0
 BuildRequires: rubygem(logger)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(track_open_instances)
+# for tests
+BuildRequires: procps-ng
 
 BuildArch:     noarch
 
@@ -46,8 +48,12 @@ An API for executing commands in a sub process
 tar zxf %{SOURCE1} %{gem_name}-%{version}/spec --strip-components 1
 
 # Skip coverage test formatter, not available and undesirable
-sed -i '/# SimpleCov configuration/,/^end/s/.*//'  spec/spec_helper.rb
-sed -i '/^SimpleCov::RSpec.start/,/^end/s/.*//' spec/spec_helper.rb
+sed -i \
+    -e "s/require 'simplecov'//" \
+    -e "s/require 'simplecov-lcov'//" \
+    -e "s/require 'simplecov-rspec'//" \
+    -e "s/SimpleCov::RSpec.start.*//" \
+    spec/spec_helper.rb
 
 
 %build
@@ -86,6 +92,8 @@ rspec spec
 %exclude %{gem_instdir}/.release-please-manifest.json
 %exclude %{gem_instdir}/release-please-config.json
 %exclude %{gem_instdir}/process_spawn_test
+%exclude %{gem_instdir}/.editorconfig
+%exclude %{gem_instdir}/.vscode
 %{gem_instdir}/process_executer.gemspec
 %{gem_libdir}
 %exclude %{gem_cache}

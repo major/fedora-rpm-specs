@@ -1,5 +1,5 @@
 Name: subscription-manager-cockpit
-Version: 17
+Version: 18
 Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Thu Aug 27 2026 Packit <hello@packit.dev> - 18-1
+- Translation updates
+
 * Thu Jul 30 2026 Packit <hello@packit.dev> - 17-1
 - Translations and dependency updates
 

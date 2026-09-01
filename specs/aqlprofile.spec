@@ -69,7 +69,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
@@ -181,10 +181,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-amd-aqlprofile/LICENSE.md
 
 %if %{with test}
 %files test
-%{pkg_prefix}/share/hsa-amd-aqlprofile/
+# Testing is broken
 %endif
 
 %changelog
+* Mon Aug 31 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- testing is broken
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

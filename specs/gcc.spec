@@ -3375,7 +3375,7 @@ for f in /%{_lib}/libgcc_s.so.1 \
 %endif
 %if %{build_libubsan}
   %{_prefix}/%{_lib}/libubsan.so.1 \
-%%endif
+%endif
   ; do
     mkdir -p %{buildroot}/%{sysroot_prefix}/$(dirname $f)
     cp %{buildroot}$f %{buildroot}/%{sysroot_prefix}/$f
@@ -5173,6 +5173,9 @@ end
 %endif
 
 %changelog
+* Tue Aug 25 2026 Sun Haiyong <sunhaiyong@zdbr.net>
+- fix a typo.
+
 * Fri Aug 21 2026 Jakub Jelinek <jakub@redhat.com>
 - add cross compiler support for Fedora arches, for the time being
   disabled through macros

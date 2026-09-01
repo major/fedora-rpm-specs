@@ -7,8 +7,8 @@
 
 Name:           perl-DateTime
 Epoch:          2
-Version:        1.66
-Release:        8%{?dist}
+Version:        1.67
+Release:        1%{?dist}
 Summary:        Date and time object for Perl
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime
@@ -114,6 +114,17 @@ make test
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 2:1.67-1
+- Update to 1.67 (rhbz#2526041)
+  - Documented that the 'truncate' method can throw a fatal error if the
+    truncation produces a datetime that doesn't exist in the local time zone,
+    which can happen when truncating to a day (or more) in a time zone with a
+    DST transition at midnight (GH#155)
+  - Documented that 'rfc3339' does not include nanoseconds (GH#150)
+  - Fixed docs for 'strftime' to remove the bit that said it returned the same
+    values as the POSIX 'strftime'; this hasn't been the case for a long time
+    (GH#148)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.66-8
 - Perl 5.44 re-rebuild of bootstrapped packages
 

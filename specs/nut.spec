@@ -13,7 +13,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -192,6 +192,8 @@ export LDFLAGS="-Wl,-z,now"
     --disable-static \
     --with-udev-dir=%{_usr}/lib/udev \
     --libdir=%{_libdir} \
+    --enable-ldflags-nut-rpath=no \
+    --enable-ldflags-nut-rpath-cxx=no \
     --enable-docs-changelog=no
 #    --with-doc # does not work in 2.7.1
 
@@ -534,6 +536,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Tue Aug 25 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.8.5-8.2
+- Explicitly set no rpath options for ldflags in pkg-config files
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.8.5-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

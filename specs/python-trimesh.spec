@@ -13,7 +13,7 @@
 %bcond manifold %{without bootstrap}
 
 Name:           python-trimesh
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -250,8 +250,10 @@ EOF
 
 # test_more extra:
 #
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-%pyproject_patch_dependency pyright:ignore
+%if %{without meshio}
+# Apparently unmaintained, https://github.com/nschloe/meshio/issues/1558.
+%pyproject_patch_dependency meshio:ignore
+%endif
 # Not yet packaged, https://github.com/mworchel/xatlas-python; depends on
 # https://github.com/jpcy/xatlas, also not yet packaged.
 %pyproject_patch_dependency xatlas:ignore
@@ -263,10 +265,8 @@ EOF
 %pyproject_patch_dependency triangle:ignore
 # Not yet packaged.
 %pyproject_patch_dependency marimo:ignore
-%if %{without meshio}
-# Apparently unmaintained, https://github.com/nschloe/meshio/issues/1558.
-%pyproject_patch_dependency meshio:ignore
-%endif
+# Not yet packaged.
+%pyproject_patch_dependency dracopy:ignore
 
 
 %install -a

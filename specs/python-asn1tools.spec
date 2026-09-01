@@ -1,7 +1,7 @@
 %global pypi_name asn1tools
 
 Name:          python-%{pypi_name}
-Version:       0.167.0
+Version:       0.168.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ASN.1 parsing, encoding and decoding

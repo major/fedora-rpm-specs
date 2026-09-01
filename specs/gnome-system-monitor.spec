@@ -1,9 +1,9 @@
-%global gtk4_version 4.12
-%global libadwaita_version 1.5~beta
+%global gtk4_version 4.17.5
+%global libadwaita_version 1.8~beta
 %global libgtop2_version 2.41.2
 
 Name:           gnome-system-monitor
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        Process and resource monitor
 

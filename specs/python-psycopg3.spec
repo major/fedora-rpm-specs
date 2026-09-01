@@ -25,7 +25,7 @@ any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL 
 and Python features.
 
 Name:		python-%{src_name}
-Version:	3.3.4
+Version:	3.3.5
 Release:	%autorelease
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 

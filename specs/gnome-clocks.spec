@@ -1,9 +1,9 @@
 %global geoclue2_version 2.6.0
 %global gtk4_version 4.5
-%global libadwaita_version 1.5
+%global libadwaita_version 1.8~rc
 
 Name:           gnome-clocks
-Version:        50.0
+Version:        51~rc
 Release:        %autorelease
 Summary:        Clock application designed for GNOME 3
 

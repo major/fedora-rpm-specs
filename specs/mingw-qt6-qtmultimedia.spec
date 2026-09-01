@@ -18,7 +18,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -39,11 +39,13 @@ BuildRequires:  ninja-build
 BuildRequires:  mingw32-filesystem >= 107
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt6-qtbase = %{version}
+BuildRequires:  mingw32-qt6-qtdeclarative = %{version}
 BuildRequires:  mingw32-qt6-qtshadertools = %{version}
 
 BuildRequires:  mingw64-filesystem >= 107
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt6-qtbase = %{version}
+BuildRequires:  mingw64-qt6-qtdeclarative = %{version}
 BuildRequires:  mingw64-qt6-qtshadertools = %{version}
 
 
@@ -101,9 +103,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %files -n mingw32-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6Multimedia.dll
+%{mingw32_bindir}/Qt6MultimediaQuick.dll
 %{mingw32_bindir}/Qt6MultimediaWidgets.dll
 %{mingw32_bindir}/Qt6SpatialAudio.dll
 %{mingw32_includedir}/qt6/QtMultimedia/
+%{mingw32_includedir}/qt6/QtMultimediaQuick/
 %{mingw32_includedir}/qt6/QtMultimediaTestLib/
 %{mingw32_includedir}/qt6/QtMultimediaWidgets/
 %{mingw32_includedir}/qt6/QtSpatialAudio/
@@ -120,9 +124,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw32_libdir}/cmake/Qt6Multimedia/
 %{mingw32_libdir}/cmake/Qt6MultimediaPrivate/
+%{mingw32_libdir}/cmake/Qt6MultimediaQuickPrivate/
 %{mingw32_libdir}/cmake/Qt6MultimediaTestLibPrivate/
 %{mingw32_libdir}/cmake/Qt6MultimediaWidgets/
 %{mingw32_libdir}/cmake/Qt6MultimediaWidgetsPrivate/
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw32_libdir}/cmake/Qt6SpatialAudio/
 %{mingw32_libdir}/cmake/Qt6SpatialAudioPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Multimedia.pc
@@ -130,11 +136,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/pkgconfig/Qt6SpatialAudio.pc
 %{mingw32_libdir}/libQt6BundledResonanceAudio.a
 %{mingw32_libdir}/libQt6Multimedia.dll.a
+%{mingw32_libdir}/libQt6MultimediaQuick.dll.a
 %{mingw32_libdir}/libQt6MultimediaTestLib.a
 %{mingw32_libdir}/libQt6MultimediaWidgets.dll.a
 %{mingw32_libdir}/libQt6SpatialAudio.dll.a
 %{mingw32_libdir}/Qt6MultimediaWidgets.prl
 %{mingw32_libdir}/Qt6Multimedia.prl
+%{mingw32_libdir}/Qt6MultimediaQuick.prl
 %{mingw32_libdir}/Qt6MultimediaTestLib.prl
 %{mingw32_libdir}/Qt6SpatialAudio.prl
 %dir %{mingw32_libdir}/qt6/plugins/multimedia/
@@ -148,13 +156,17 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
 %{mingw32_libdir}/qt6/metatypes/qt6multimedia_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimediaquickprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6multimediatestlibprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6multimediawidgets_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6spatialaudio_metatypes.json
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimediaquick_private.pri
 %{mingw32_libdir}/qt6/modules/Multimedia.json
+%{mingw32_libdir}/qt6/modules/MultimediaQuickPrivate.json
 %{mingw32_libdir}/qt6/modules/MultimediaTestLibPrivate.json
 %{mingw32_libdir}/qt6/modules/MultimediaWidgets.json
 %{mingw32_libdir}/qt6/modules/SpatialAudio.json
+%{mingw32_libdir}/qt6/qml/QtMultimedia/
 %{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
@@ -162,9 +174,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6Multimedia.dll
+%{mingw64_bindir}/Qt6MultimediaQuick.dll
 %{mingw64_bindir}/Qt6MultimediaWidgets.dll
 %{mingw64_bindir}/Qt6SpatialAudio.dll
 %{mingw64_includedir}/qt6/QtMultimedia/
+%{mingw64_includedir}/qt6/QtMultimediaQuick/
 %{mingw64_includedir}/qt6/QtMultimediaTestLib/
 %{mingw64_includedir}/qt6/QtMultimediaWidgets/
 %{mingw64_includedir}/qt6/QtSpatialAudio/
@@ -181,9 +195,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw64_libdir}/cmake/Qt6Multimedia/
 %{mingw64_libdir}/cmake/Qt6MultimediaPrivate/
+%{mingw64_libdir}/cmake/Qt6MultimediaQuickPrivate/
 %{mingw64_libdir}/cmake/Qt6MultimediaTestLibPrivate/
 %{mingw64_libdir}/cmake/Qt6MultimediaWidgets/
 %{mingw64_libdir}/cmake/Qt6MultimediaWidgetsPrivate/
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw64_libdir}/cmake/Qt6SpatialAudio/
 %{mingw64_libdir}/cmake/Qt6SpatialAudioPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Multimedia.pc
@@ -191,11 +207,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/pkgconfig/Qt6SpatialAudio.pc
 %{mingw64_libdir}/libQt6BundledResonanceAudio.a
 %{mingw64_libdir}/libQt6Multimedia.dll.a
+%{mingw64_libdir}/libQt6MultimediaQuick.dll.a
 %{mingw64_libdir}/libQt6MultimediaTestLib.a
 %{mingw64_libdir}/libQt6MultimediaWidgets.dll.a
 %{mingw64_libdir}/libQt6SpatialAudio.dll.a
 %{mingw64_libdir}/Qt6MultimediaWidgets.prl
 %{mingw64_libdir}/Qt6Multimedia.prl
+%{mingw64_libdir}/Qt6MultimediaQuick.prl
 %{mingw64_libdir}/Qt6MultimediaTestLib.prl
 %{mingw64_libdir}/Qt6SpatialAudio.prl
 %dir %{mingw64_libdir}/qt6/plugins/multimedia/
@@ -209,17 +227,24 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
 %{mingw64_libdir}/qt6/metatypes/qt6multimedia_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimediaquickprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6multimediatestlibprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6multimediawidgets_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6spatialaudio_metatypes.json
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimediaquick_private.pri
 %{mingw64_libdir}/qt6/modules/Multimedia.json
+%{mingw64_libdir}/qt6/modules/MultimediaQuickPrivate.json
 %{mingw64_libdir}/qt6/modules/MultimediaTestLibPrivate.json
 %{mingw64_libdir}/qt6/modules/MultimediaWidgets.json
 %{mingw64_libdir}/qt6/modules/SpatialAudio.json
+%{mingw64_libdir}/qt6/qml/QtMultimedia/
 %{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Sat Aug 29 2026 fornacis origin <fornacis.origin@gmail.com> - 6.11.2-2
+- Activate build of QML types by enabling qtdeclarative build dep
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

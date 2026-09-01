@@ -5,7 +5,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        Map application for GNOME
 

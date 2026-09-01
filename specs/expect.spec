@@ -5,7 +5,7 @@
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
@@ -53,6 +53,8 @@ Patch17: expect-5.45.4-tcl9-eval-tokens.patch
 Patch18: expect-5.45.4-tcl9-alloc.patch
 # Patch19: update int to Tcl_Size for tcl9 API changes, fix function signatures
 Patch19: expect-5.45.4-tcl9-size.patch
+# Patch20: fix segfault when Ctrl-C is pressed with tclreadline loaded, rhbz#2497646
+Patch20: expect-5.45.4-exit-sighandler.patch
 # examples patches
 # Patch100: changes random function
 Patch100: expect-5.32.2-random.patch
@@ -128,6 +130,7 @@ of expectk.
 %patch -P17 -p1 -b .tcl9-eval-tokens
 %patch -P18 -p1 -b .tcl9-alloc
 %patch -P19 -p1 -b .tcl9-size
+%patch -P20 -p1 -b .exit-sighandler
 # examples fixes
 %patch -P100 -p1 -b .random
 %patch -P101 -p1 -b .mkpasswd-dash
@@ -219,6 +222,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Mon Aug 31 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-34
+- Fix segfault on Ctrl-C when tclreadline is loaded
+  Resolves: #2497646
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.45.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

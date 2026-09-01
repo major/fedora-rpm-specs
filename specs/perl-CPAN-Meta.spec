@@ -1,7 +1,7 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
-Version:        2.150013
-Release:        527%{?dist}
+Version:        2.150014
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
@@ -94,6 +94,10 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 2.150014-1
+- Update to 2.150014 (rhbz#2526086)
+  - Minor documentation fixes
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.150013-527
 - Increase release to favour standalone package
 

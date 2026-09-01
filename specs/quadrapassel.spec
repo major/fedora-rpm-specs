@@ -1,5 +1,5 @@
 Name:           quadrapassel
-Version:        51~alpha
+Version:        51~rc.1
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 License:        GPL-3.0-or-later AND CC0-1.0
@@ -64,7 +64,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Quad
 %{_datadir}/metainfo/org.gnome.Quadrapassel.metainfo.xml
 %dir %{_datadir}/sounds/quadrapassel/
 %{_datadir}/sounds/quadrapassel/*
-%{_mandir}/man6/quadrapassel.6*
 
 
 %changelog

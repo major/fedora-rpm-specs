@@ -1,5 +1,5 @@
 Name:           auditwheel
-Version:        6.8.1
+Version:        6.8.2
 Release:        %autorelease
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 

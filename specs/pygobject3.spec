@@ -4,7 +4,7 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.57.1
+Version:        3.58.0
 Release:        %autorelease -b6
 Summary:        Python bindings for GObject Introspection
 

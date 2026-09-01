@@ -218,7 +218,7 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
     -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
     -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DROCM_SYMLINK_LIBS=OFF \
-    -DGPU_TARGETS=%{rocm_gpu_list} \
+    -DGPU_TARGETS=%{rocm_gpu_list_default} \
     -DHIP_PLATFORM=amd \
     -DHIP_HIPCC_FLAGS="-I%{pkg_prefix}/include -L%{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
     -DBUILD_SHARED_LIBS=ON

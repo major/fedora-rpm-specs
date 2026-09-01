@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
 %endif
@@ -107,7 +107,9 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%if %{without preview}
 Patch1:         0001-rccl-multiple-nccl_domain.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}

@@ -1,9 +1,9 @@
-%global gtk4_version 4.19
-%global libadwaita_version 1.8
+%global gtk4_version 4.22
+%global libadwaita_version 1.9
 %global vte_version 0.77.0
 
 Name:           gnome-console
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 

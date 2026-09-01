@@ -1148,7 +1148,6 @@ fi
 %endif
 %{_bindir}/firefox
 %{mozappdir}/firefox
-%{mozappdir}/glxtest
 %doc %{_mandir}/man1/*
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/*
@@ -1197,11 +1196,7 @@ fi
 %{mozappdir}/platform.ini
 %{mozappdir}/gmp-clearkey
 %{mozappdir}/fonts
-%ifarch aarch64 riscv64
-%{mozappdir}/v4l2test
-%endif
-%{mozappdir}/vaapitest
-%{mozappdir}/vulkantest
+%{mozappdir}/gfxtest
 %if !%{?system_nss}
 %exclude %{mozappdir}/libnssckbi.so
 %endif

@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        51~beta
+Version:        51~rc.1
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 

@@ -1,11 +1,12 @@
 Name:           pungi
 Version:        4.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://forge.fedoraproject.org/pungi/pungi
 Source0:        https://forge.fedoraproject.org/pungi/pungi/archive/%{name}-%{version}.tar.gz
+Patch:          https://forge.fedoraproject.org/pungi/pungi/pulls/1924.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -134,6 +135,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Mon Aug 31 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.14.0-2
+- Backport patch 1924
+
 * Thu Aug 20 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.14.0-1
 - Add support for building boot.iso via image-builder and kiwibuild (supakeen)
 - phase/imagebuilder: vhd-compressed mapping (cmdr)

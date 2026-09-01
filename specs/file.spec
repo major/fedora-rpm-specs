@@ -5,17 +5,10 @@
 %bcond_with python3
 %endif
 
-# python2 is not available on RHEL > 7
-%if 0%{?fedora} > 31 || 0%{?rhel} > 7
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Summary: Utility for determining file types
 Name: file
 Version: 5.48
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -47,6 +40,10 @@ Patch2: file-5.04-volume_key.patch
 Patch3: file-5.45-readelf-limit-revert.patch
 
 Patch4: file-5.46-fix-tests-rpm-magic.patch
+
+# Disable Landlock execute restrictions so external decompressors can run
+# Upstream: https://github.com/file/file/commit/dcf3495219a0ccae60f10c00e6b16696c6fe3977
+Patch5: file-5.49-landlock-execute.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -85,26 +82,10 @@ Requires: file-devel = %{version}-%{release}
 %description static
 The file-static package contains the static version of the libmagic library.
 
-%if %{with python2}
-%package -n python2-magic
-Summary: Python 2 bindings for the libmagic API
-BuildRequires: python2-devel
-BuildRequires: python2-setuptools
-BuildArch: noarch
-Requires: file-libs = %{version}-%{release}
-%{?python_provide:%python_provide python2-magic}
-
-%description -n python2-magic
-This package contains the Python 2 bindings to allow access to the
-libmagic API. The libmagic library is also used by the familiar
-file(1) command.
-%endif
-
 %if %{with python3}
 %package -n python3-file-magic
 Summary: Python 3 bindings for the libmagic API
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildArch: noarch
 Requires: file-libs = %{version}-%{release}
 Conflicts: python3-magic
@@ -123,9 +104,11 @@ iconv -f iso-8859-1 -t utf-8 < doc/libmagic.man > doc/libmagic.man_
 touch -r doc/libmagic.man doc/libmagic.man_
 mv doc/libmagic.man_ doc/libmagic.man
 
+%generate_buildrequires
 %if %{with python3}
-rm -rf %{py3dir}
-cp -a python %{py3dir}
+cd python
+%pyproject_buildrequires
+cd ..
 %endif
 
 %build
@@ -139,13 +122,10 @@ sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 export LD_LIBRARY_PATH=$PWD/src/.libs
 %make_build
-%if %{with python2}
-cd python
-CFLAGS="%{optflags}" %{__python2} setup.py build
-%endif
 %if %{with python3}
-cd %{py3dir}
-CFLAGS="%{optflags}" %{__python3} setup.py build
+cd python
+%pyproject_wheel
+cd ..
 %endif
 
 %install
@@ -166,13 +146,11 @@ cat magic/Magdir/* > ${RPM_BUILD_ROOT}%{_datadir}/misc/magic
 ln -s misc/magic ${RPM_BUILD_ROOT}%{_datadir}/magic
 ln -s ../magic ${RPM_BUILD_ROOT}%{_datadir}/file/magic
 
-%if %{with python2}
-cd python
-%{__python2} setup.py install -O1 --skip-build --root ${RPM_BUILD_ROOT}
-%endif
 %if %{with python3}
-cd %{py3dir}
-%{__python3} setup.py install -O1 --skip-build --root ${RPM_BUILD_ROOT}
+cd python
+%pyproject_install
+%pyproject_save_files magic
+cd ..
 %endif
 %{__install} -d ${RPM_BUILD_ROOT}%{_datadir}/%{name}
 
@@ -214,28 +192,19 @@ make -C tests check
 %files static
 %{_libdir}/libmagic.a
 
-%if %{with python2}
-%files -n python2-magic
-%license COPYING
-%doc python/README.md python/example.py
-%{python2_sitelib}/magic.py
-%{python2_sitelib}/magic.pyc
-%{python2_sitelib}/magic.pyo
-%if 0%{?fedora} || 0%{?rhel} >= 6
-%{python2_sitelib}/*egg-info
-%endif
-%endif
-
 %if %{with python3}
-%files -n python3-file-magic
-%license COPYING
+%files -n python3-file-magic -f %{pyproject_files}
 %doc python/README.md python/example.py
-%{python3_sitelib}/magic.py
-%{python3_sitelib}/*egg-info
-%{python3_sitelib}/__pycache__/*
 %endif
 
 %changelog
+* Mon Aug 31 2026 Vincent Mihalkovic <vmihalko@redhat.com> - 5.48-3
+- Allow external decompressors to execute under Landlock
+- Migrate Python bindings to pyproject macros
+  Resolves: rhbz#2513643
+  Resolves: rhbz#2427330
+  Resolves: rhbz#2378541
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 
 %global gjs_version 1.50
 %global gtk4_version 4.6
-%global libadwaita_version 1.5~alpha
+%global libadwaita_version 1.9~alpha
 
 Name:		gnome-characters
-Version:	50.0
+Version:	51~rc
 Release:	%autorelease
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.

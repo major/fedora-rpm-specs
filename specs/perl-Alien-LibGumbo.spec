@@ -1,10 +1,10 @@
 Name:           perl-Alien-LibGumbo
-Version:        0.05
-Release:        16%{?dist}
+Version:        0.06
+Release:        1%{?dist}
 Summary:        Gumbo parser library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-LibGumbo
-Source0:        https://cpan.metacpan.org/authors/id/R/RU/RUZ/Alien-LibGumbo-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Alien-LibGumbo-%{version}.tar.gz
 
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter >= 0:5.010
@@ -59,6 +59,9 @@ sed -i -e '/gumbo-0.10.1.tar.*/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Mon Aug 31 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.06-1
+- 0.06
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

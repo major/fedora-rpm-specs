@@ -1,12 +1,12 @@
 %bcond cloudproviders %{undefined rhel}
 
-%global glib2_version 2.84.0
+%global glib2_version 2.89.0
 %global gnome_autoar_version 0.4.4
 %global gtk4_version 4.22.0
 %global libadwaita_version 1.8~alpha
 
 Name:           nautilus
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        File manager for GNOME
 

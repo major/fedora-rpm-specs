@@ -1,8 +1,8 @@
 %bcond examples %{undefined rhel}
 
 Name: pdfio
-Version: 1.6.4
-Release: 2%{?dist}
+Version: 1.6.5
+Release: 1%{?dist}
 Summary: C library for PDF I/O
 # Apache 2.0 with exception - pdfio code
 # GPL-2.0-or-later - code128 font from examples
@@ -130,6 +130,9 @@ make test
 
 
 %changelog
+* Mon Aug 31 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.5-1
+- 1.6.5
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

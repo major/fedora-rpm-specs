@@ -6,7 +6,7 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        Web browser for GNOME
 

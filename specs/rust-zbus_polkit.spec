@@ -5,7 +5,7 @@
 %global crate zbus_polkit
 
 Name:           rust-zbus_polkit
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        PolicyKit binding
 

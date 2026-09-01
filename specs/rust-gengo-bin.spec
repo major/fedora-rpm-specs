@@ -7,7 +7,7 @@
 %global crate gengo-bin
 
 Name:           rust-gengo-bin
-Version:        0.14.3
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -81,7 +81,8 @@ License:        %{shrink:
 
 %install
 %cargo_install
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --target='%{buildroot}%{_mandir}/man1' \
+    --preserve-timestamps --mode=0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 %if %{with check}

@@ -5,7 +5,7 @@
 %global crate bstr
 
 Name:           rust-bstr
-Version:        1.13.0
+Version:        1.13.1
 Release:        %autorelease
 Summary:        String type that is not required to be valid UTF-8
 
@@ -33,6 +33,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/AI_POLICY.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

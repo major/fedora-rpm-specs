@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 43
+Version: 44
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -31,7 +31,7 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
@@ -85,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Aug 27 2026 Packit <hello@packit.dev> - 44-1
+- Translation updates
+
 * Thu Jul 30 2026 Packit <hello@packit.dev> - 43-1
 - Translations and dependency updates
 

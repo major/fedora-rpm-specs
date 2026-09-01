@@ -168,7 +168,19 @@ tests for the rocPRIM package
 #   'tex1Dfetch<int, nullptr>' is unavailable: The image/texture API not supported on the device
 # Remove fail to build test
 sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test("rocprim.texture_cache_iterator"@' test/rocprim/CMakeLists.txt
-grep texture_cach test/rocprim/CMakeLists.txt
+# grep texture_cach test/rocprim/CMakeLists.txt
+
+%if %{with preview}
+# rocprim-10.0.0-build/rocprim/test/rocprim/test_device_segmented_topk.cpp:96:8: error:
+# redefinition of 'hash<__int128>'
+#   96 | struct hash<rocprim::int128_t>
+#      |        ^~~~~~~~~~~~~~~~~~~~~~~
+# /usr/lib/gcc/x86_64-redhat-linux/16/../../../../include/c++/16/bits/functional_hash.h:206:3:
+# note: previous definition is here
+#  206 |   _Cxx_hashtable_define_trivial_hash(__int128)
+#      |   ^
+sed -i -e 's@add_rocprim_test("rocprim.device_topk_segmented" test_device_segmented_topk.cpp)@#add_rocprim_test("rocprim.device_topk_segmented" test_device_segmented_topk.cpp)@' test/rocprim/CMakeLists.txt     
+%endif
 
 %build
 %cmake \

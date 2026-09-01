@@ -1,5 +1,5 @@
 Name:           python-blurb
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Command-line tool to manage CPython Misc/NEWS.d entries
 
@@ -35,10 +35,6 @@ Misc/NEWS conflicts.
 %autosetup -p1 -n blurb-%{version}
 # avoid code coverage dependencies
 sed -i '/"pytest-cov"/d' pyproject.toml
-
-# script in site-packages
-sed -i '1d' src/blurb/blurb.py
-chmod -x src/blurb/blurb.py
 
 
 %generate_buildrequires

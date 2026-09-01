@@ -305,7 +305,7 @@ sed -i -e "s/^\\(complete.*\\) pip%{python3_version}\$/\\1 pip%{python3_version}
 
 # Install the built wheel and inject SBOM into it (if the macro is available)
 mkdir -p %{buildroot}%{python_wheel_dir}
-install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
+install -pm0644 %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
 %{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{python_wheel_dir}/%{python_wheel_name}}
 
 

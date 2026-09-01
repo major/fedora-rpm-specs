@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        355
+Version:        356
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -78,7 +78,7 @@ Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.6
-Provides: bundled(npm(ipaddr.js)) = 2.4.0
+Provides: bundled(npm(ipaddr.js)) = 2.5.0
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -118,6 +118,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Aug 27 2026 Packit <hello@packit.dev> - 356-1
+- Translation updates
+- Stability improvements
+
 * Thu Jul 30 2026 Packit <hello@packit.dev> - 355-1
 - Translations and dependency updates
 

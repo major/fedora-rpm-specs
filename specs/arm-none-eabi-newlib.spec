@@ -9,13 +9,13 @@
 %global pkg_version %{version}
 
 Name:           %{target}-newlib
-Version:        4.5.0.20241231
-Release:        6%{?dist}
+Version:        4.6.0.20260123
+Release:        1%{?dist}
 Summary:        C library intended for use on %{target} embedded systems
 # For a breakdown of the licensing, see NEWLIB-LICENSING
 License:        BSD-2-Clause AND BSD-4-Clause AND LGPL-2.1-or-later AND ISC AND GPL-3.0-or-later AND MIT
 URL:            http://sourceware.org/newlib/
-Source0:        ftp://sourceware.org/pub/newlib/newlib-%{pkg_version}.tar.gz
+Source0:        http://sourceware.org/pub/newlib/newlib-%{pkg_version}.tar.gz
 Source1:        README.fedora
 Source2:        NEWLIB-LICENSING
 
@@ -121,6 +121,9 @@ rm -rf $NANO_ROOT
 %{_prefix}/%{target}/lib/*
 
 %changelog
+* Wed Aug 26 2026 Michal Hlavinka <mhlavink@redhat.com> - 4.6.0.20260123-1
+- updated to 4.6.0.20260123 (#2432508)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0.20241231-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

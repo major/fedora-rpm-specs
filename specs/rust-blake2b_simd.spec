@@ -5,7 +5,7 @@
 %global crate blake2b_simd
 
 Name:           rust-blake2b_simd
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Pure Rust BLAKE2b implementation with dynamic SIMD
 

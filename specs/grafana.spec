@@ -22,7 +22,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -86,8 +86,8 @@ BuildRequires:    go-srpm-macros
 BuildRequires:    go-rpm-macros
 
 %ifarch x86_64
-BuildRequires:    nodejs24
-BuildRequires:    nodejs24-npm
+BuildRequires:    /usr/bin/node
+BuildRequires:    /usr/bin/npm
 %endif
 
 %if %{enable_fips_mode}
@@ -923,12 +923,7 @@ Built from source on x86_64 and installable on all architectures.
 
 %build
 %ifarch x86_64
-# nodejs24 installs binaries as node-24, npm-24, and npx-24;
-# vendored tools (webpack, jest, nx, etc.) expect "node", "npm", and "npx"
 mkdir -p .nodejs_bin
-ln -s %{_bindir}/node-24 .nodejs_bin/node
-ln -s %{_bindir}/npm-24 .nodejs_bin/npm
-ln -s %{_bindir}/npx-24 .nodejs_bin/npx
 # upstream scripts call yarn directly (e.g. themes-generate); wrap it to use npm
 cat > .nodejs_bin/yarn <<'YARNWRAPPER'
 #!/bin/sh
@@ -1195,6 +1190,9 @@ done
 %endif
 
 %changelog
+* Thu Aug 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12.4.3-6
+- Build with latest nodejs
+
 * Thu Aug 27 2026 Sam Feifer <sfeifer@redhat.com> 12.4.3-5
 - Fix the rpmdeplint failure caused by the new grafana-frontend.noarch
 

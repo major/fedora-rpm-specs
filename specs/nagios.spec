@@ -5,7 +5,7 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.5.13
+Version:        4.5.14
 Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
@@ -491,6 +491,9 @@ fi
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/nagios.conf
 
 %changelog
+* Mon Aug 31 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.5.14-1
+- 4.5.14
+
 * Tue Aug 04 2026 Guido Aulisi <guido.aulisi@inps.it> - 4.5.13-1
 - Update to 4.5.13
 

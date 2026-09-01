@@ -3672,6 +3672,12 @@ fi
 }}
 %endif
 
+%if %{maj_ver} >= 24
+%{expand_bins %{expand:
+    clang-ssaf-src-edit-merge
+}}
+%endif
+
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
 %{_emacs_sitestartdir}/clang-include-fixer.el
@@ -3763,6 +3769,7 @@ fi
 %if %{maj_ver} >= 24
 %{expand_libs %{expand:
     libLLVMOffloadKernel.so
+    LLVMOffloadKernelPerThreadDefaultStream.o
 }}
 %endif
 

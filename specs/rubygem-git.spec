@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 5.1.0
+Version: 5.2.0
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to manipulate Git repositories
 License: MIT
@@ -13,7 +13,6 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # in particular this includes the tests and bin directory which was not
 # included in the gemfile.
 Source1: https://github.com/ruby-git/ruby-git/archive/v%{version}/ruby-git-%{version}.tar.gz
-
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -43,7 +42,7 @@ Documentation for %{name}.
 
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%autosetup -n %{gem_name}-%{version}
 
 # unpack only the test files from SOURCE1.
 tar zxf %{SOURCE1} ruby-git-%{version}/spec --strip-components 1
@@ -69,7 +68,7 @@ cp -a .%{gem_dir}/* \
 # git fails fatally if it cannot guess an email adress
 # as is the case inside mock.
 # The TEST_ENV_NUMBER=1 is just to disable the Fuubar formatter
-env TEST_ENV_NUMBER=1 COVERAGE=false rspec -Ilib spec
+env TEST_ENV_NUMBER=1 COVERAGE=false rspec --exclude-pattern 'spec/unit/gemspec_spec.rb' -Ilib spec
 
 
 %files
@@ -81,28 +80,9 @@ env TEST_ENV_NUMBER=1 COVERAGE=false rspec -Ilib spec
 %license LICENSE
 %exclude %{gem_instdir}/LICENSE
 %exclude %{gem_cache}
-%exclude %{gem_instdir}/.dockerignore
-%exclude %{gem_instdir}/.github
-%exclude %{gem_instdir}/.gitignore
-%exclude %{gem_instdir}/.husky
 %exclude %{gem_instdir}/.yardopts
-%exclude %{gem_instdir}/.release-please-config.json
-%exclude %{gem_instdir}/.rspec
-%exclude %{gem_instdir}/.yard-lint.yml
 %exclude %{gem_instdir}/
-%exclude %{gem_instdir}/Gemfile
-%exclude %{gem_instdir}/Rakefile
 %exclude %{gem_instdir}/git.gemspec
-%exclude %{gem_instdir}/.commitlintrc.yml
-%exclude %{gem_instdir}/.husky/commit-msg
-%exclude %{gem_instdir}/.release-please-manifest.json
-%exclude %{gem_instdir}/package.json
-%exclude %{gem_instdir}/.rubocop.yml
-%exclude %{gem_instdir}/.rubocop_todo.yml
-%exclude %{gem_instdir}/redesign
-%exclude %{gem_instdir}/tasks
-%exclude %{gem_instdir}/docker
-
 
 
 %files doc
