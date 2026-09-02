@@ -7,27 +7,26 @@ Summary:        Free Pascal Compiler
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception
 URL:            http://www.freepascal.org/
 
-%global version_code 3.2.3
+%global version_code 3.2.4
 
 %global beta 1
-%global version_beta 3.2.4
-%global version_suffix rc1
+%global version_suffix rc2
 
 %if ! 0%{?beta}
 Version:        %{version_code}
 %else
-Version:        %{version_beta}~%{version_suffix}
+Version:        %{version_code}~%{version_suffix}
 %endif
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 %if ! 0%{?beta}
   %global archive_type dist
   %global archive_suffix %{version_code}
 %else
   %global archive_type beta
-  %global archive_suffix %{version_beta}-%{version_suffix}
+  %global archive_suffix %{version_code}-%{version_suffix}
 %endif
-Source0:        https://downloads.freepascal.org/fpc/%{archive_type}/%{archive_suffix}/source/fpcbuild-%{archive_suffix}.tar.gz
+Source0:        https://downloads.freepascal.org/fpc/%{archive_type}/%{archive_suffix}/source/fpcbuild-%{archive_suffix}.source.tar.gz
 
 # Bootstrap the compiler for a new architecture. Set this to 0 after we've bootstrapped.
 %global bootstrap 0
@@ -546,7 +545,7 @@ popd
 # tedious due exceeding terminal scrollback buffers.
 #
 # FIXME: -j1 as there is a race - seen on "missing" `rtl.xct'.
-make -j1 -C fpcdocs pdf FPC=${NEWPP} >/dev/null 2>/dev/null
+make -j1 -C fpcdocs pdf FPC="${NEWPP} -Fu$(pwd)/fpcsrc/rtl/units/%{native_arch}-linux/" >/dev/null 2>/dev/null
 
 
 %install
@@ -819,6 +818,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Mon Aug 31 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.4~rc2-1
+- Update to v3.2.4~rc2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4~rc1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

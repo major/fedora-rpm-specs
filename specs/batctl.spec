@@ -1,5 +1,5 @@
 Name:           batctl
-Version:        2026.2
+Version:        2026.3
 Release:        %autorelease
 Summary:        B.A.T.M.A.N. advanced control and management tool
 

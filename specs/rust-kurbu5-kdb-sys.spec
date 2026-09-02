@@ -5,7 +5,7 @@
 %global crate kurbu5-kdb-sys
 
 Name:           rust-kurbu5-kdb-sys
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        KDB plugin API re-export — thin wrapper over kurbu5-sys adding libkdb5 linkage
 

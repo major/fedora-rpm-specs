@@ -2,9 +2,9 @@
 #
 # remirepo spec file for libmemcached-awesome
 #
-# Copyright (c) 2009-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# https://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2009-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -24,7 +24,7 @@
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:   11%{?dist}
+Release:   12%{?dist}
 # SPDX:
 License:   BSD-3-Clause
 URL:       https://github.com/%{gh_owner}/%{gh_project}
@@ -32,6 +32,8 @@ Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{g
 
 # Fix test with memcached 1.6.40
 Patch0:    162.patch
+# Fix docs with Sphinx 9
+Patch1:    159.patch
 
 BuildRequires: cmake >= 3.9
 # Cannot use Ninja generator because of "multiple rules generate docs/man"
@@ -122,6 +124,7 @@ rm test/tests/memcached/regression/lp_000-583-031.cpp
 rm test/tests/memcached/regression/gh-php-memcached_0531.cpp
 
 %patch -P0 -p1
+%patch -P1 -p1
 
 
 %build
@@ -196,6 +199,12 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 
 
 %changelog
+* Tue Sep  1 2026 Remi Collet <remi@remirepo.net> - 1.1.4-12
+- fix FTBFS #2504281
+- add patch for Sphinx 9 from
+  https://github.com/awesomized/libmemcached/pull/159
+- re-license spec file to CECILL-2.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

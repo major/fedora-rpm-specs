@@ -30,8 +30,8 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.20.0
-Release:        9%{?dist}
+Version:        1.21.0
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -140,6 +140,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Tue Sep 01 2026 Marek Blaha <mblaha@redhat.com> - 1.21.0-1
+- Update to version 1.21.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.20.0-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

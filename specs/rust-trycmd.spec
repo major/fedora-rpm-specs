@@ -15,6 +15,15 @@ Summary:        Snapshot testing for a herd of CLI tests
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/trycmd
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow shlex version 2:
+#   https://github.com/assert-rs/snapbox/commit/b5608b41f91021e948f54264ec7ba9f9126ec5fd
+Patch:          trycmd-fix-metadata.diff
+# * refactor: Resolve deprecations
+# * https://github.com/assert-rs/snapbox/commit/5f82c86150f64acd85288333003e388b0c320645
+# * Needed for forward-compatibility with shlex version 2
+# * Exported with git format-patch --relative to apply to the crate
+Patch10:        0001-refactor-Resolve-deprecations.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

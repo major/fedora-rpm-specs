@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           yaksa
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        High-performance library for noncontiguous data
 

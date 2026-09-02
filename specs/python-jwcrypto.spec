@@ -1,5 +1,5 @@
 Name:           python-jwcrypto
-Version:        1.5.8
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Implements JWK, JWS, JWE specifications using python-cryptography
 

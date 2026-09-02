@@ -11,10 +11,10 @@ Name:           variety
 %if 0%{?usesnapshot}
 #Release:        0.17%%{?snapshottag}%%{?dist}
 Version:        0.9.0
-Release:        0.4.beta1%{?dist}
+Release:        0.3.beta1%{?dist}
 %else
-Version:        0.9.0
-Release:        3%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -159,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Sep 01 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.1-1
+- Update to 0.9.1-1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

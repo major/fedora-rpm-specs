@@ -1,6 +1,6 @@
 Name:    kquickimageeditor
-Version: 0.6.0
-Release: 7%{?dist}
+Version: 0.7.0
+Release: 1%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/%{name}
@@ -11,10 +11,12 @@ BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6ShaderTools)
 
 BuildRequires: cmake(KF6Config)
 
 BuildRequires: cmake(OpenCV)
+BuildRequires: pkgconfig(libhwy)
 
 %description
 %{summary}
@@ -53,10 +55,12 @@ applications that use %{name}-qt6.
 %{_kf6_libdir}/libKQuickImageEditor.so
 %{_kf6_libdir}/cmake/KQuickImageEditor
 %{_includedir}/KQuickImageEditor/
-%{_includedir}/kquickimageeditor/
 %{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog
+* Tue Sep 01 2026 Steve Cossette <farchord@gmail.com> - 0.7.0-1
+- 0.7.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

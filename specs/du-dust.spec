@@ -8,21 +8,17 @@ Summary:        More intuitive version of du
 SourceLicense:  Apache-2.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
 # MIT
 # MIT OR Apache-2.0
-# MPL-2.0
 # Unlicense OR MIT
 License:        %{shrink:
     Apache-2.0 AND
     BSD-2-Clause AND
     MIT AND
-    MPL-2.0 AND
     Unicode-DFS-2016 AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (Unlicense OR MIT)

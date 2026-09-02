@@ -2,7 +2,7 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        2.20260724
+Version:        2.20260827
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(:VERSION) >= 5.40.2
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(CGI)
 BuildRequires:  perl(Config::Tiny)
 # CPAN never used, bin/install_deps.pl not used and not installed.
 BuildRequires:  perl(Data::Dumper)
@@ -32,42 +31,35 @@ BuildRequires:  perl(DBD::SQLite) >= 1.31
 # an example <https://github.com/msimerson/mail-dmarc/issues/287>.
 BuildRequires:  perl(DBIx::Simple) >= 1.35
 BuildRequires:  perl(Email::MIME)
-BuildRequires:  perl(Email::Sender)
-BuildRequires:  perl(Email::Sender::Simple) >= 1.300032
+BuildRequires:  perl(Email::Sender::Simple) >= 2.000
 BuildRequires:  perl(Email::Sender::Transport::SMTP)
 BuildRequires:  perl(Email::Sender::Transport::SMTP::Persistent)
 BuildRequires:  perl(Email::Sender::Transport::Test)
 BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(English)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(IO::Compress::Gzip)
 BuildRequires:  perl(IO::Compress::Zip)
 BuildRequires:  perl(IO::File)
-BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(IO::Uncompress::Gunzip)
 BuildRequires:  perl(IO::Uncompress::Unzip)
 BuildRequires:  perl(JSON)
-BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Mail::DKIM::PrivateKey)
 BuildRequires:  perl(Mail::DKIM::Signer)
 BuildRequires:  perl(Mail::DKIM::TextWrap)
 BuildRequires:  perl(Module::Load)
 BuildRequires:  perl(Net::DNS::Resolver)
 BuildRequires:  perl(Net::IMAP::Simple)
-BuildRequires:  perl(Net::IP)
 BuildRequires:  perl(Net::Server::HTTP)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(POSIX)
-BuildRequires:  perl(Regexp::Common) >= 2013031301
-BuildRequires:  perl(Socket)
-BuildRequires:  perl(Socket6) >= 0.23
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Socket) >= 2.000
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(URI)
@@ -75,13 +67,17 @@ BuildRequires:  perl(URI::_idna)
 BuildRequires:  perl(XML::LibXML)
 # Optional run-time:
 # GeoIP2::Database::Reader not used at tests
+BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(Net::HTTP)
 # Tests only:
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Email::Sender::Success)
+BuildRequires:  perl(Email::Sender::Transport)
 BuildRequires:  perl(Email::Sender::Transport::Failable)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(Moo)
 BuildRequires:  perl(Net::DNS::Resolver::Mock)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::File::ShareDir)
@@ -94,17 +90,18 @@ BuildRequires:  perl(XML::Validator::Schema)
 %endif
 Requires:       perl(DBD::SQLite) >= 1.31
 Requires:       perl(DBIx::Simple) >= 1.35
-Requires:       perl(Email::Sender::Simple) >= 1.300032
+Requires:       perl(Email::Sender::Simple) >= 2.000
+Recommends:     perl(IO::Socket::SSL)
 Recommends:     perl(GeoIP2::Database::Reader)
 Requires:       perl(Mail::DKIM::PrivateKey)
 Requires:       perl(Mail::DKIM::Signer)
 Requires:       perl(Mail::DKIM::TextWrap)
 Recommends:     perl(Net::HTTP)
 Requires:       perl(Net::IMAP::Simple)
-Requires:       perl(Socket6) >= 0.23
+Requires:       perl(Socket) >= 2.000
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((DBIx::Simple|Email::Sender::Simple|Socket6)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((DBIx::Simple|Email::Sender::Simple|Socket)\\)$
 
 %description
 This Perl module is a suite of tools for implementing DMARC. It adheres to the
@@ -137,6 +134,7 @@ Requires:       %{name}-HTTP = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-Test = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
+Requires:       perl(Email::Sender::Transport)
 %if %{with perl_Mail_DMARC_enables_optional_test}
 Requires:       perl(XML::SAX::ParserFactory)
 Requires:       perl(XML::Validator::Schema)
@@ -213,7 +211,13 @@ make test
 %{perl_vendorlib}/Mail/DMARC/Result.pm
 %dir %{perl_vendorlib}/auto
 %dir %{perl_vendorlib}/auto/share
-%{perl_vendorlib}/auto/share/dist/Mail-DMARC
+%dir %{perl_vendorlib}/auto/share/dist/Mail-DMARC
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/dmarc_whitelist
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail-dmarc.*
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail_dmarc_indexes.*
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail_dmarc_schema.*
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/public_suffix_list
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/rua-schema.xsd
 %{_mandir}/man1/dmarc_http_client.*
 %{_mandir}/man1/dmarc_lookup.*
 %{_mandir}/man1/dmarc_receive.*
@@ -232,6 +236,7 @@ make test
 %files HTTP
 %{_bindir}/dmarc_httpd
 %{perl_vendorlib}/Mail/DMARC/HTTP.pm
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/html
 %{_mandir}/man1/dmarc_httpd.*
 %{_mandir}/man3/Mail::DMARC::HTTP.*
 
@@ -242,6 +247,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 01 2026 Petr Pisar <ppisar@redhat.com> - 2.20260827-1
+- 2.20260827 bump
+- Move HTML files from perl-Mail-DMARC to perl-Mail-DMARC-HTTP package
+
 * Tue Aug 04 2026 Petr Pisar <ppisar@redhat.com> - 2.20260724-1
 - 2.20260724 bump
 

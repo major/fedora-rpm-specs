@@ -234,7 +234,65 @@
 %global python3_alternate1_version 3.12
 %global python3_alternate1_version_nodots 312
 %endif
-#EL9 endif
+#EL10 endif
+%endif
+
+%if 0%{?rhel} == 11
+# EPEL11 does not have gcc-go
+%bcond_with go
+%bcond_without python3
+# EPEL11 does not have python-greenlet-devel any more
+%bcond_with python3_greenlet
+%bcond_without ruby19
+%bcond_without tuntap
+# EPEL11 doesn't have zeromq yet
+%bcond_with zeromq
+%bcond_without perl
+# EPEL11 doesn't have perl-Coro yet
+%bcond_with perlcoro
+# EPEL11 doesn't have glusterfs yet
+%bcond_with glusterfs
+%bcond_without php
+%bcond_without pq
+%bcond_without ruby_rack
+# EPEL11 doesn't have gloox yet
+%bcond_with gloox
+# EPEL11 doesn't have GeoIP yet
+%bcond_with geoip
+# javapackages-tools retired (apache-ivy orphanage)
+%bcond_with java
+# Fedora httpd includes mod_proxy_uwsgi
+# https://bugzilla.redhat.com/show_bug.cgi?id=1574335
+%bcond_with mod_proxy_uwsgi
+#mono
+# EPEL11 doesn't have mono yet
+%ifarch %{mono_arches}
+%bcond_with mono
+%else
+%bcond_with mono
+%endif
+# mongodblibs
+# mongo-cxx-driver-legacy broken in rawhide rhbz#1675407
+%bcond_with mongodblibs
+# v8-314 retired
+%bcond_with v8
+#mongodblibs dependency
+%if %{without mongodblibs}
+%bcond_with gridfs
+%else
+%bcond_without gridfs
+%endif
+
+# EL11 has multiple python3 versions
+%bcond_without python3_alternate1
+%if %{with python3_alternate1}
+%global python3_alternate1_pkgname python3.15
+%global __python3_alternate1 python3.15
+%global python3_alternate1_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate1} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")}
+%global python3_alternate1_version 3.15
+%global python3_alternate1_version_nodots 315
+%endif
+#EL11 endif
 %endif
 
 %global manual_py_compile 1
@@ -274,7 +332,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2100,6 +2158,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Mon Aug 24 2026 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-16
+- Enable EPEL11
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 2.0.31-15
 - Rebuilt for Python 3.15.0b4 ABI change
 

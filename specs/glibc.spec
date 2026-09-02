@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -225,6 +225,16 @@ Source10: wrap-find-debuginfo.sh
 Source11: parse-SUPPORTED.py
 # Include in the source RPM for reference.
 Source12: ChangeLog.old
+
+# Flaky tests that do not fail the build.  The noarch file is used on all
+# architectures.
+Source20: allowed-failures-noarch.txt
+Source21: allowed-failures-aarch64.txt
+Source22: allowed-failures-i386.txt
+Source23: allowed-failures-ppc64le.txt
+Source24: allowed-failures-riscv64.txt
+Source25: allowed-failures-s390x.txt
+Source26: allowed-failures-x86_64.txt
 
 # glibc_ldso: ABI-specific program interpreter name.  Used for debuginfo
 # extraction (wrap-find-debuginfo.sh) and smoke testing ($run_ldso below).
@@ -1989,19 +1999,20 @@ split_sysroot_file_list \
 # synchronization issues with make and shell tracing output if
 # standard output and standard error are different pipes.
 run_tests () {
-  # This hides a test suite build failure, which should be fatal.  We
-  # check "Summary of test results:" below to verify that all tests
-  # were built and run.
-  %make_build check |& tee rpmbuild.check.log >&2
-  test -n tests.sum
-  if ! grep -Eq '^\s+=== Summary of results ===$' rpmbuild.check.log ; then
-    echo "FAIL: test suite build of target: $(basename "$(pwd)")" >& 2
-    exit 1
-  fi
+  # Delay exiting from a test suite failure after reporting.
+  local ret=0
+  %make_build check || ret=$?
   set +x
   grep -v ^PASS: tests.sum > rpmbuild.tests.sum.not-passing || true
+  # Only used FAILED TESTS if there were failures not on the allow-list.
+  local label
+  if test $ret -eq 0; then
+      label=NON-PASSING
+  else
+      label=FAILED
+  fi
   if test -n rpmbuild.tests.sum.not-passing ; then
-    echo ===================FAILED TESTS===================== >&2
+    echo ===================$label TESTS===================== >&2
     echo "Target: $(basename "$(pwd)")" >& 2
     cat rpmbuild.tests.sum.not-passing >&2
     while read failed_code failed_test ; do
@@ -2020,12 +2031,21 @@ run_tests () {
   echo "* System call consistency checks:" >&2
   cat misc/tst-syscall-list.out >&2
   set -x
+
+  test $ret -eq 0 || exit $ret
 }
 
 # Increase timeouts
 export TIMEOUTFACTOR=16
 parent=$$
 echo ====================TESTING=========================
+
+# Install the allow-list into the source tree.  The
+# architecture-specific file is optional (but all files should exist
+# on the regular Fedora architectures).
+cp %{_sourcedir}/allowed-failures-noarch.txt allowed-failures.txt
+(cat %{_sourcedir}/allowed-failures-%{_arch}.txt || true) \
+    >> allowed-failures.txt
 
 # Default libraries.
 pushd build-%{target}
@@ -2459,6 +2479,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Sep 01 2026 Florian Weimer  <fweimer@redhat.com> - 2.44.9000-2
+- Fail the build if there are unexpected test failures (#2449608)
+
 * Tue Aug 25 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-1
 - Auto-sync with upstream branch master,
   commit 53e5f02a6bca102884daed79abd1540aa9b9d19c:

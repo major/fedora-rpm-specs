@@ -29,6 +29,7 @@ SourceLicense:  MIT
 # ISC
 # MIT
 # MIT AND (MIT OR Apache-2.0)
+# MIT AND Apache-2.0
 # MIT AND BSD-3-Clause
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
@@ -78,6 +79,10 @@ Patch:          atuin-remove-divan.patch
 # Bump prost-* dependencies to 0.14
 # Cherry-picked from https://github.com/atuinsh/atuin/pull/3203
 Patch:          3203.patch
+# refactor(deps): bump shlex from v1 to v2 - #4024
+# https://github.com/atuinsh/atuin/pull/4024
+# Rebased on v18.12.1; without changes to Cargo.lock; allows v1 for EPEL10.3
+Patch:          atuin-18.12.1-shlex2.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check} && %{with pgtests}

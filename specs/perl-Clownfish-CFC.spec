@@ -1,5 +1,5 @@
 Name:           perl-Clownfish-CFC
-Version:        0.7.0
+Version:        0.8.0
 Release:        1%{?dist}
 Summary:        Compiler for Clownfish
 # other files:          Apache-2.0
@@ -129,7 +129,7 @@ set -e
 DIR=$(mktemp -d)
 cp -a %{_libexecdir}/%{name}/* "$DIR"
 pushd "$DIR"
-unset CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
+unset CFISH_EXTRA_CFLAGS CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 popd
 rm -r "$DIR"
@@ -137,7 +137,7 @@ EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
+unset CFISH_EXTRA_CFLAGS CHARM_VALGRIND CHARM_VERBOSITY CLOWNFISH_INCLUDE
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
@@ -155,6 +155,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 01 2026 Petr Pisar <ppisar@redhat.com> - 0.8.0-1
+- 0.8.0 bump
+
 * Tue Aug 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.0-1
 - 0.7.0 bump
 

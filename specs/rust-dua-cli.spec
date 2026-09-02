@@ -13,8 +13,9 @@ License:        MIT
 URL:            https://crates.io/crates/dua-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump gix dependency to 0.85
 # * relax trash dependency to >=3,<6
+# * allow shlex 2, gix 0.86:
+#   https://github.com/Byron/dua-cli/commit/86b5db8dd147e47a302845b346b9af17774b52fa
 Patch:          dua-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -57,6 +57,8 @@ Patch:     0016-v3.5.0-fix-linking.patch
 Patch:     0017-v3.5.0-remove-boxm2-processes-that-use-sdnet-that-re.patch
 # remove ctest dashboard config
 Patch:     0018-chore-remove-ctest-dashboard-config.patch
+# fix missing brdb_value_t<vpgl_camera_double_sptr> instantiation in bbas_pro (RISC-V linker)
+Patch:     0019-v3.5.0-fix-bbas_pro-missing-vpgl_camera-template.patch
 
 BuildRequires:  cmake
 BuildRequires:  Coin4-devel

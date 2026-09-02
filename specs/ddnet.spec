@@ -2,9 +2,12 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.9
+Version:        20.0
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
+
+# Enable testing release candidate releases
+%global upstream_version %(echo %{version} | sed 's/rc/-rc/')
 
 #
 # CC-BY-SA
@@ -30,7 +33,7 @@ Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 # Automatically converted from old format: zlib and CC-BY-SA and ASL 2.0 and MIT and Public Domain - review is highly recommended.
 License:        Zlib AND CC-BY-SA-3.0 AND Apache-2.0 AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://ddnet.org/
-Source0:        https://github.com/ddnet/ddnet/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/ddnet/ddnet/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 # Disable network lookup test because without internet access tests not pass
 Patch1:         0001-Disabled-network-lookup-test.patch
@@ -114,18 +117,16 @@ Standalone server for %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{upstream_version}
 find -type f -exec sed -i 's|engine/external/md5/md5.h|md5/md5.h|g' {} +
 find -type f -exec sed -i 's|engine/external/json-parser/json.h|json-parser/json.h|g' {} +
-find -type f -name Cargo.toml -exec sed -i '/^cxx\s=\s/s|"=|"|' {} +
 CXXBRIDGE_VERSION=$(cxxbridge --version | cut -d' ' -f2)
-sed -i "s|version=\".*\"|version=\"${CXXBRIDGE_VERSION}\"|" scripts/generate_rust_bridge.py
+find -type f -name Cargo.toml -exec sed -i "s|^cxx =.*|cxx = \"=${CXXBRIDGE_VERSION}\"|" {} +
 python3 scripts/generate_rust_bridge.py
 
 %cargo_prep
 sed '/Cargo.lock/d' -i CMakeLists.txt
 sed '/RUST_CARGO/s/--locked/--offline/' -i CMakeLists.txt
-sed '/foreach.*VULKAN_SHADER_/s/FILE_LIST/OUTPUT_PATHS/' -i CMakeLists.txt
 touch CMakeLists.txt
 
 # Remove bundled stuff...
@@ -186,10 +187,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
-* Thu Jul 19 2026 Packit <hello@packit.dev> - 19.9-1
+* Wed Aug 26 2026 Packit <hello@packit.dev> - 20.0-1
+- Update to version 20.0
+- Resolves: rhbz#2524725
+
+* Sun Jul 19 2026 Packit <hello@packit.dev> - 19.9-1
 - Update to version 19.9
 - Resolves: rhbz#2419773
-- migrated to SPDX license
+- Migrated to SPDX license
 
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

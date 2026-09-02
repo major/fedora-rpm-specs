@@ -9,7 +9,7 @@ Client library and command line utility for interacting with Openstack
 Share API.}
 
 Name:       python-manilaclient
-Version:    6.2.0
+Version:    6.3.0
 Release:    %autorelease
 Summary:    Client Library for OpenStack Share API
 License:    Apache-2.0
@@ -96,7 +96,7 @@ rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 %license LICENSE
 
 

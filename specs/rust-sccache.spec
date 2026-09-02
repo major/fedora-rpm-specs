@@ -23,6 +23,7 @@ Patch:          sccache-fix-metadata-auto.diff
 # * Allow which version 8
 # * Allow serde_json version 1.0.149
 # * Allow tokio-serde version < 1.0
+# * Allow shlex version 2: https://github.com/mozilla/sccache/pull/2836
 Patch:          sccache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -51,7 +52,6 @@ Summary:        %{summary}
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # CDLA-Permissive-2.0
@@ -66,7 +66,6 @@ Summary:        %{summary}
 # Zlib
 License:        %{shrink:
     Apache-2.0 AND (Apache-2.0 OR MIT)
-    AND BSD-2-Clause
     AND BSD-3-Clause
     AND CDLA-Permissive-2.0
     AND ISC

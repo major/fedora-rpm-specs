@@ -5,11 +5,11 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.1.1
+%global doc_version 9.1.2
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
-%global upstream_version 9.1.1
+%global upstream_version 9.1.2
 #%%global upstream_prever
 
 Name:              valkey
@@ -450,6 +450,10 @@ fi
 
 
 %changelog
+* Tue Sep  1 2026 Remi Collet <remi@remirepo.net> - 9.1.2-1
+- Valkey 9.1.2 - Released Mon 31 August 2026
+- Upgrade urgency SECURITY: This release includes security fixes
+
 * Wed Jul 22 2026 Remi Collet <remi@remirepo.net> - 9.1.1-1
 - Valkey 9.1.1 - Released Tue 21 July 2026
 - Upgrade urgency SECURITY: This release includes security fixes

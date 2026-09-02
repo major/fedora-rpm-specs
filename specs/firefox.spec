@@ -77,7 +77,11 @@ ExcludeArch: i686
 %global system_webp       1
 %global system_drm        1
 %global system_gbm        1
+%if 0%{?fedora} > 43
 %global system_pipewire   1
+%else
+%global system_pipewire   0
+%endif
 %global build_tests       1
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.

@@ -2,20 +2,20 @@
 %global gem_name cucumber-tag-expressions
 
 Name: rubygem-%{gem_name}
-Version: 4.0.2
-Release: 12%{?dist}
+Version: 11.0.1
+Release: 1%{?dist}
 Summary: Cucumber tag expressions for ruby
 License: MIT
 URL: https://cucumber.io/docs/cucumber/api/#tag-expressions
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/cucumber/tag-expressions.git && cd tag-expressions
+# git archive -v -o rubygem-cucumber-tag-expressions-11.0.1-specs.tar.gz v11.0.1 ruby/spec/ testdata/
+Source1: %{name}-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.9.3
 BuildRequires: rubygem(rspec)
 BuildArch: noarch
-
-Provides: rubygem-cucumber-tag_expressions = %{version}-%{release}
-Obsoletes: rubygem-cucumber-tag_expressions < 2.0.2-10
 
 %description
 Cucumber tag expressions for ruby.
@@ -30,7 +30,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -48,9 +48,12 @@ cp -a .%{gem_dir}/* \
 
 
 %check
-pushd .%{gem_instdir}
-rspec spec
-popd
+( cd .%{gem_instdir}
+ln -s %{builddir}/ruby/spec .
+ln -s %{builddir}/testdata ../testdata
+
+rspec -rspec_helper spec
+)
 
 %files
 %dir %{gem_instdir}
@@ -62,9 +65,12 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/spec
 
 %changelog
+* Thu Aug 27 2026 Vít Ondruch <vondruch@redhat.com> - 11.0.1-1
+- Update to Cucumber Tag Expressions 11.0.1.
+  Resolves: rhbz#2157785
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

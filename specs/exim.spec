@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.99.5
-Release: 2%{?dist}
+Version: 4.100
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -44,10 +44,10 @@ Source25: exim-gen-cert
 Source26: clamd.exim.service
 Source30: exim.sysusers.conf
 
-Patch: exim-4.99-config.patch
+Patch: exim-4.100-config.patch
 Patch: exim-4.94-libdir.patch
-Patch: exim-4.97-dlopen-localscan.patch
-Patch: exim-4.99-pic.patch
+Patch: exim-4.100-dlopen-localscan.patch
+Patch: exim-4.100-pic.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -512,6 +512,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Sep 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.100-1
+- New version
+  Resolves: rhbz#2520663
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.99.5-2
 - Perl 5.44 re-rebuild updated packages
 

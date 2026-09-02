@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b10353
+Version:        b10630
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -195,15 +195,15 @@ rm -rf exmples/llma.android
 # git cruft
 find . -name '.gitignore' -exec rm -rf {} \;
 
-# Some so version help
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/batched-bench/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/llama-bench/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/cli/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/completion/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/fit-params/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/perplexity/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/quantize/CMakeLists.txt
-sed -i -e 's@WINDOWS_EXPORT_ALL_SYMBOLS ON@WINDOWS_EXPORT_ALL_SYMBOLS ON VERSION ${LLAMA_INSTALL_VERSION} SOVERSION 0@' tools/server/CMakeLists.txt
+# Some lib*-impl's do not have so versions, so make them static
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/batched-bench/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/llama-bench/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/cli/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/completion/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/fit-params/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/perplexity/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET} @add_library(${TARGET} STATIC @' tools/quantize/CMakeLists.txt
+sed -i -e 's@add_library(${TARGET}@add_library(${TARGET} STATIC @' tools/server/CMakeLists.txt
 
 %build
 
@@ -229,8 +229,9 @@ export HIPCC_COMPILE_FLAGS_APPEND="--offload-compress"
     -DGGML_F16C=OFF \
     -DGGML_HIP=%{build_hip} \
     -DGGML_VULKAN=%{build_vulkan} \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list} \
+    -DGPU_TARGETS=%{rocm_gpu_list} \
     -DLLAMA_BUILD_EXAMPLES=%{build_examples} \
+    -DLLAMA_BUILD_IS_DEV=OFF \
     -DLLAMA_BUILD_TESTS=%{build_test}
 
 %cmake_build
@@ -254,6 +255,9 @@ cp -r %{_vpath_srcdir}/README.md %{buildroot}%{_datarootdir}/%{name}/
 rm -rf %{buildroot}%{_datarootdir}/%{name}/examples/llama.android
 %endif
 
+# Static libraries are used in build, do not package them
+rm -rf %{buildroot}%{_libdir}/lib*.a
+
 %if %{with test}
 %if %{with check}
 %check
@@ -270,15 +274,7 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %files
 %license LICENSE
 %{_libdir}/libllama.so.*
-%{_libdir}/libllama-bench-impl.so.*
-%{_libdir}/libllama-batched-bench-impl.so.*
-%{_libdir}/libllama-cli-impl.so.*
 %{_libdir}/libllama-common.so.*
-%{_libdir}/libllama-completion-impl.so.*
-%{_libdir}/libllama-fit-params-impl.so.*
-%{_libdir}/libllama-perplexity-impl.so.*
-%{_libdir}/libllama-quantize-impl.so.*
-%{_libdir}/libllama-server-impl.so.*
 %{_libdir}/libmtmd.so.*
 %{_libdir}/libggml.so.*
 %{_libdir}/libggml-base.so.*
@@ -293,7 +289,6 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_bindir}/llama-batched-bench
 %{_bindir}/llama-bench
 %{_bindir}/llama-cli
-%{_bindir}/llama-debug-template-parser
 %{_bindir}/llama-completion
 %{_bindir}/llama-cvector-generator
 %{_bindir}/llama-export-lora
@@ -305,7 +300,6 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_bindir}/llama-quantize
 %{_bindir}/llama-results
 %{_bindir}/llama-server
-%{_bindir}/llama-template-analysis
 %{_bindir}/llama-tokenize
 %{_bindir}/llama-tts
 
@@ -318,15 +312,7 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %{_includedir}/llama*.h
 %{_includedir}/mtmd*.h
 %{_libdir}/libllama.so
-%{_libdir}/libllama-batched-bench-impl.so
-%{_libdir}/libllama-bench-impl.so
-%{_libdir}/libllama-cli-impl.so
 %{_libdir}/libllama-common.so
-%{_libdir}/libllama-completion-impl.so
-%{_libdir}/libllama-fit-params-impl.so
-%{_libdir}/libllama-perplexity-impl.so
-%{_libdir}/libllama-quantize-impl.so
-%{_libdir}/libllama-server-impl.so
 %{_libdir}/libmtmd.so
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so

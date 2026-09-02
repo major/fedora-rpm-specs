@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Exclude nginx_modconfigure artifacts
 # * Remove dependencies of "vendored"
+# * Allow shlex version 2:
+#   https://github.com/nginx/ngx-rust/commit/c81e90c8f745ed2a67bdeb8e88d6527ca6c8fa32
 Patch:          nginx-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

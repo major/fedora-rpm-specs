@@ -5,7 +5,7 @@
 %global crate astral_async_http_range_reader
 
 Name:           rust-astral_async_http_range_reader
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Library for streaming reading of files over HTTP using range requests
 
@@ -88,7 +88,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-install -t test-data -D -m 0644 -p '%{SOURCE10}'
+install -D --target=test-data --mode=0644 --preserve-timestamps '%{SOURCE10}'
 %cargo_test
 %endif
 

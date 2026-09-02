@@ -14,6 +14,10 @@ URL:            https://crates.io/crates/mdbook-driver
 Source:         %{crates_source}
 # * https://github.com/rust-lang/mdBook/pull/3135
 Source2:        https://github.com/rust-lang/mdBook/raw/refs/tags/v0.5.3/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * Allow shlex version 2:
+#   https://github.com/rust-lang/mdBook/commit/d4311fe9a183e92c03319f2f5d6de565ea1ebe47
+Patch:          mdbook-driver-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

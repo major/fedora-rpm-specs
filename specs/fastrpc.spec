@@ -9,6 +9,8 @@ Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/qualcomm/fastrpc/pull/372
 Patch0:		372.patch
+# https://github.com/qualcomm/fastrpc/pull/378
+Patch1:		378.patch
 
 ExclusiveArch:	%{arm64}
 
@@ -74,7 +76,7 @@ autoreconf -fiv
 %systemd_postun_with_restart adsprpcd.service adsprpcd_audiopd.service
 %systemd_postun_with_restart cdsp1rpcd.service cdsprpcd.service
 %systemd_postun_with_restart gdsp0rpcd.service gdsp1rpcd.service
-%systemd_postun sdsprpcd.service
+%systemd_postun_with_restart sdsprpcd.service
 
 %files
 %license LICENSE.txt

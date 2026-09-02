@@ -69,7 +69,7 @@
 
 
 Name:		erlang
-Version:	27.3.4.16
+Version:	27.3.4.17
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1944,6 +1944,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Tue Sep  1 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.17-1
+- Ver. 27.3.4.17
+
 * Tue Aug  4 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.16-1
 - Ver. 27.3.4.16
 

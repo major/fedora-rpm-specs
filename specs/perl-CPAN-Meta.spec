@@ -1,10 +1,10 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
-Version:        2.150014
+Version:        2.150015
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
-Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/CPAN-Meta-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -15,7 +15,7 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.121
+BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.145
 BuildRequires:  perl(CPAN::Meta::YAML) >= 0.011
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
@@ -94,6 +94,11 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Tue Sep  1 2026 Paul Howarth <paul@city-fan.org> - 2.150015-1
+- Update to 2.150015 (rhbz#2526487)
+  - Bump prereq for CPAN::Meta::Requirements to fix a test (GH#154)
+  - No longer normalizing alpha versions in provides hash (GH#139)
+
 * Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 2.150014-1
 - Update to 2.150014 (rhbz#2526086)
   - Minor documentation fixes

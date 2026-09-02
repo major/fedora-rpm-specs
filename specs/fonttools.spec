@@ -30,18 +30,14 @@ an XML text format, which is also called TTX. It supports TrueType, OpenType,
 AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
-Version:        4.63.0
-Release:        9%{?dist}
+Version:        4.64.0
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
 Source:         %{url}/archive/%{version}/fonttools-%{version}.tar.gz
-
-# Avoid the undocumented `glob.glob1` API, removed in Python 3.15
-# https://github.com/fonttools/fonttools/pull/4133
-Patch:          %{url}/pull/4133.patch
 
 Requires:       python3-fonttools = %{version}-%{release}
 Provides:       ttx = %{version}-%{release}
@@ -205,6 +201,9 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Tue Sep 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.64.0-1
+- Update to 4.64.0 version (#2526453)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.63.0-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

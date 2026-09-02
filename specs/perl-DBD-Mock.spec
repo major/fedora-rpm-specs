@@ -2,13 +2,12 @@
 %bcond_without perl_DBD_Mock_enabled_optional_test
 
 Name:           perl-DBD-Mock
-Version:        1.59
-Release:        16%{?dist}
+Version:        1.60
+Release:        1%{?dist}
 Summary:        Mock database driver for testing
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-Mock
-Source0:        https://cpan.metacpan.org/modules/by-module/DBD/DBD-Mock-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/J/JL/JLCOOPER/DBD-Mock-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -105,13 +104,18 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.md README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/DBD
+%{perl_vendorlib}/DBD/Mock
+%{perl_vendorlib}/DBD/Mock.pm
+%{_mandir}/man3/DBD::Mock.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 01 2026 Petr Pisar <ppisar@redhat.com> - 1.60-1
+- 1.60 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

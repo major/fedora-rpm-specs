@@ -12,6 +12,10 @@ Summary:        Build-time dependency for Cargo build scripts to invoke the nati
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cc
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow shlex version 2:
+#   https://github.com/rust-lang/cc-rs/commit/71a5688b2d5a97afe9f6b89224012d2769318a12
+Patch:          cc-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  /usr/bin/gcc

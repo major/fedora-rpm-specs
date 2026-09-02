@@ -5,23 +5,13 @@
 %global crate insta
 
 Name:           rust-insta
-Version:        1.46.3
+Version:        1.48.0
 Release:        %autorelease
 Summary:        Snapshot testing library for Rust
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/insta
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update console dependency from 0.15.4 to 0.16.0:
-#   https://github.com/mitsuhiko/insta/pull/789
-# * Allow ron 0.10 and 0.11 for now:
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2391241
-# * Remove upper bound on globset, which was pinned in
-#   https://github.com/mitsuhiko/insta/commit/53e209fde72948ab63a60bc144f53ae4a8151441
-#   solely for MSRV reasons
-# * Allow toml_edit 0.24; downstream-only for MSRV reasons
-Patch:          insta-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -237,6 +227,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+strip-ansi-escapes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+strip-ansi-escapes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "strip-ansi-escapes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+strip-ansi-escapes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+toml-devel

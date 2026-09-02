@@ -8,7 +8,7 @@
 %bcond check 0
 
 Name:           cobbler
-Version:        3.3.7
+Version:        3.3.9
 Release:        %autorelease
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
@@ -22,16 +22,10 @@ Source4:        %{name}.fc
 
 # Do not run coverage tests
 Patch0:         cobbler-nocov.patch
-# Python 3.13 support (backport of https://github.com/cobbler/cobbler/pull/3842)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2335620
-Patch1:         cobbler-python3.13.patch
 # Upstream fix for reposync --tries
 # https://bugzilla.redhat.com/show_bug.cgi?id=2401605
 # Backport of https://github.com/cobbler/cobbler/pull/3378
 Patch2:         cobbler-reposync.patch
-# Use systemctl is-active to prevent some SELinux denials checking service status
-# https://bugzilla.redhat.com/show_bug.cgi?id=2353898
-Patch3:         https://github.com/cobbler/cobbler/pull/3945.patch
 BuildArch:      noarch
 
 BuildRequires: make

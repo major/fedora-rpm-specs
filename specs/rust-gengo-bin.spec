@@ -18,6 +18,10 @@ Source:         %{crates_source}
 Source10:       gengo.1
 Source11:       gengo-git.1
 Source12:       gengo-directory.1
+# Manually created patch for downstream crate metadata changes
+# * For EPEL9, loosen the Rust version 1.97.1 (bumped from 1.86 in
+#   https://github.com/spenserblack/gengo/commit/fe06a46b): allow 1.91.
+Patch:          gengo-bin-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 

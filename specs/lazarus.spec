@@ -2,7 +2,7 @@ Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        4.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Version suffix added to subpackages using separate versioning
 %global version_suffix laz%{version}
@@ -718,6 +718,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Mon Aug 31 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.8-4
+- Rebuilt for fpc-3.2.4~rc2
+
 * Mon Aug 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.8-3
 - Build the IDE for all widgetsets, not just GTK2
 - Suffix qt5pas/qt6pas versions with Lazarus version instead of abusing the Release number

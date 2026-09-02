@@ -46,7 +46,7 @@
 %endif
 %global           meetme     0
 %global           ooh323     0
-%if 0%{?fedora} > 37 || 0%{?rhel} > 7
+%if 0%{?rhel} > 7
 # Do nothing. We want this to be undefined.
 %else
 %global           sysilbc    1
@@ -57,7 +57,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          23.5.0
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Release:          %{?_rc||?_beta:0.}2%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -100,10 +100,10 @@ Patch1:           asterisk-16.1.0-explicit-python3.patch
 
 Patch2:           asterisk-18.4.0-astmm_ignore_for_console_board.patch
 
-# Removed macros from ilbc library for RFC 3951 compatibility.
+# https://github.com/asterisk/asterisk/pull/2136
 Patch3:           asterisk-18.12.1-ilbc_macros.patch
 
-# Fedora-specific
+# https://github.com/asterisk/asterisk/pull/2133
 Patch4:           asterisk-23.5.0-Bundled-pjproject-do-not-discard-the-ambient-CFLAGS.patch
 
 # Asterisk now builds against a bundled copy of pjproject, as they apply some patches
@@ -174,7 +174,6 @@ BuildRequires:    SDL_image-devel
 BuildRequires:    libedit-devel
 
 # codec_ilbc
-# Fedora 37+ ships ilbc v3 which asterisk does not (yet?) support
 %if 0%{?sysilbc}
 BuildRequires:    ilbc-devel
 %endif
@@ -1651,6 +1650,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep  1 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-2
+- Reenable system-wide iLBC
+
 * Mon Aug 31 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-1
 - update to 23.5.0
 

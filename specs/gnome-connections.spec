@@ -3,7 +3,7 @@
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/gnome-connections/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:           gnome-connections
-Version:        51~beta2
+Version:        51~rc.1
 Release:        %autorelease
 Summary:        A remote desktop client for the GNOME desktop environment
 

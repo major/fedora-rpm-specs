@@ -5,15 +5,13 @@
 %global crate kurbu5-kdb-rs
 
 Name:           rust-kurbu5-kdb-rs
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Safe, idiomatic Rust API for writing MIT Kerberos KDB driver plugins
 
 License:        BSD-2-Clause
 URL:            https://crates.io/crates/kurbu5-kdb-rs
 Source:         %{crates_source}
-# * Fix building on aarch64 - https://codeberg.org/abbra/kurbu5/pulls/25
-Patch2:         kurbu5-kdb-rs-fix-aarch64.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  krb5-devel

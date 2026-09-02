@@ -3,10 +3,10 @@
 %global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
 %global visualcommit 7dfd4568d6181da8be3543c8b7522b596a79b774
 
-%global mapnik_version 4.3.0
+%global mapnik_version 4.3.1
 
 Name:           python-%{srcname}
-Version:        4.3.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Python bindings for Mapnik
 

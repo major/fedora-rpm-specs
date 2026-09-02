@@ -5,7 +5,7 @@
 %global crate kurbu5-derive
 
 Name:           rust-kurbu5-derive
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Proc-macro derives for kurbu5-rs non-KDB plugin interfaces
 

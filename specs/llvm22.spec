@@ -1,8 +1,8 @@
 #region globals
 #region version
-%global maj_ver 23
+%global maj_ver 22
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 8
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -43,7 +43,7 @@
 
 # Build compat packages llvmN instead of main package for the current LLVM
 # version. Used on Fedora.
-%bcond_with compat_build
+%bcond_without compat_build
 # Bundle compat libraries for a previous LLVM version, as part of llvm-libs and
 # clang-libs. Used on RHEL.
 %bcond_with bundle_compat_lib
@@ -246,7 +246,7 @@ end
 %global _lto_cflags %nil
 %endif
 
-%if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build}
+%if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build} && %{with snapshot_build}
 %bcond_without libclc
 %else
 %bcond_with libclc
@@ -308,7 +308,7 @@ end
 %global src_manpage_tarball_dir llvm_man_pages-%{llvm_snapshot_yyyymmdd}
 %else
 %global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}.src
-%global src_manpage_tarball_dir llvm_man_pages-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}
+%global src_manpage_tarball_dir llvm_man_pages-%{maj_ver}.%{min_ver}.%{patch_ver}
 %endif
 
 # LLD uses "fast" as the algortithm for generating build-id
@@ -579,10 +579,6 @@ Patch2302: 0001-22-polly-shared-libs.patch
 Patch2401: 0001-22-polly-shared-libs.patch
 #endregion polly patches
 
-#region libclc patches
-Patch2217: 207264.patch
-#endregion libclc patches
-
 #region RHEL patches
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
@@ -609,10 +605,6 @@ Patch2105: 43cb4631c1f42dbfce78288b8ae30b5840ed59b3.patch
 
 # Fix for s390x vector miscompilation (rhbz#2430017)
 Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
-
-# Fix an illegal zext from combined loads (rhbz#2512927)
-# https://github.com/llvm/llvm-project/pull/207229
-Patch2207: 0001-AggressiveInstCombine-Fix-crash-when-folding-consecu.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -1336,9 +1328,6 @@ Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
 # flang implicitly calls ld.bfd when linking and depends on the gcc runtime objects.
 Requires: binutils
 Requires: gcc
-# While flang itself does not require libgcc, most programs compiled by flang
-# will need libgcc.
-Requires: libgcc
 # Up to version 17.0.6-1, flang used to provide a flang-devel package.
 # This changed in 17.0.6-2 and all development-related files are now
 # distributed in the main flang package.
@@ -3324,6 +3313,7 @@ fi
     llvm-reduce
     llvm-remarkutil
     llvm-rtdyld
+    llvm-sim
     llvm-size
     llvm-split
     llvm-stress
@@ -3355,16 +3345,6 @@ fi
 %else
 %{expand_bins %{expand:
     bugpoint
-}}
-%endif
-
-%if %{maj_ver} < 24
-%{expand_bins %{expand:
-    llvm-sim
-}}
-%else
-%{expand_bins %{expand:
-    llvm-calc-occupancy
 }}
 %endif
 
@@ -3435,13 +3415,6 @@ fi
 %else
 %{expand_mans %{expand:
     bugpoint
-}}
-%endif
-
-%if %{maj_ver} >= 24
-%{expand_mans %{expand:
-  llvm-calc-occupancy
-  llvm-gsymutil
 }}
 %endif
 
@@ -3544,11 +3517,6 @@ fi
     clang-cpp
     clang-scan-deps
 }}
-%if %{maj_ver} >= 24
-%{expand_bins %{expand:
-    clang-dxc
-}}
-%endif
 %{install_bindir}/clang-%{maj_ver}
 
 %{expand_mans clang clang++}
@@ -3677,12 +3645,6 @@ fi
 }}
 %endif
 
-%if %{maj_ver} >= 24
-%{expand_bins %{expand:
-    clang-ssaf-src-edit-merge
-}}
-%endif
-
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
 %{_emacs_sitestartdir}/clang-include-fixer.el
@@ -3753,9 +3715,6 @@ fi
 %if %{with offload}
 %expand_libs libomptarget.so.%{so_suffix}
 %expand_libs libLLVMOffload.so.%{so_suffix}
-%if %{maj_ver} >= 24
-%expand_libs libLLVMOffloadKernel.so.%{so_suffix}
-%endif
 %endif
 
 %files -n %{pkg_name_libomp}-devel
@@ -3771,12 +3730,6 @@ fi
     libomptarget.so
     libLLVMOffload.so
 }}
-%if %{maj_ver} >= 24
-%{expand_libs %{expand:
-    libLLVMOffloadKernel.so
-    LLVMOffloadKernelPerThreadDefaultStream.o
-}}
-%endif
 
 %{expand_libs %{expand:
     amdgcn-amd-amdhsa/libompdevice.a

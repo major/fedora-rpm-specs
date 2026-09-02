@@ -1,7 +1,7 @@
-%define glib2_version 2.44.0
+%define glib2_version 2.76
 
 Name:           dconf
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        A configuration system
 

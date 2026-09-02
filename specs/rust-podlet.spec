@@ -11,6 +11,9 @@ Summary:        Generate Podman Quadlet files
 License:        MPL-2.0
 URL:            https://crates.io/crates/podlet
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow shlex version 2: https://github.com/containers/podlet/pull/227
+Patch:          podlet-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

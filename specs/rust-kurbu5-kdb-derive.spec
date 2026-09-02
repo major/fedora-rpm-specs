@@ -5,7 +5,7 @@
 %global crate kurbu5-kdb-derive
 
 Name:           rust-kurbu5-kdb-derive
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Proc-macro derive for kurbu5-kdb-rs KDB driver plugins
 

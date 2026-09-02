@@ -3,7 +3,7 @@
 
 # https://github.com/syncthing/syncthing
 %global goipath         github.com/syncthing/syncthing
-Version:                2.1.1
+Version:                2.1.3
 
 %gometa -L -f
 

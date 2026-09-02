@@ -5,7 +5,7 @@
 %global crate kurbu5-kadm5-rs
 
 Name:           rust-kurbu5-kadm5-rs
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Rust API for writing MIT Kerberos KADM5_AUTH and KADM5_HOOK plugins
 

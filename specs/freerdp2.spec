@@ -26,7 +26,7 @@
 
 Name:           freerdp2
 Version:        2.11.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -41,6 +41,137 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
+
+# CVE-2026-23532
+Patch:          gdi-gfx-properly-clamp-SurfaceToSurface.patch
+
+# CVE-2026-23533
+Patch:          codec-clear-fix-clear_resize_buffer-checks.patch
+
+# CVE-2026-23534
+Patch:          codec-clear-fix-off-by-one-length-check.patch
+
+# CVE-2026-23530
+Patch:          codec-planar-fix-decoder-length-checks.patch
+
+# CVE-2026-23531
+Patch:          codec-clear-check-clear_decomress-glyphData.patch
+
+# CVE-2026-23883
+Patch:          client-x11-fix-double-free-in-case-of-invalid-pointe.patch
+
+# CVE-2026-23884
+Patch:          cache-offscreen-invalidate-bitmap-before-free.patch
+
+# CVE-2026-22855
+Patch:          utils-smartcard-add-length-validity-checks.patch
+
+# CVE-2026-22858
+Patch:          crypto-base64-ensure-char-is-singend.patch
+
+# CVE-2026-22859
+Patch:          channels-urbdrc-check-interface-indices-before-use.patch
+
+# CVE-2026-26955
+Patch:          codec-clear-fix-destination-checks.patch
+
+# CVE-2026-26965
+Patch:          codec-planar-fix-missing-destination-bounds-checks.patch
+
+# CVE-2026-22852
+Patch:          channels-audin-free-up-old-audio-formats.patch
+
+# CVE-2026-22854
+Patch:          channels-drive-fix-constant-type.patch
+
+# CVE-2026-22856
+Patch:          channels-serial-lock-list-dictionary.patch
+Patch:          channels-serial-explicitly-lock-serial-IrpThreads.patch
+
+# CVE-2026-23732
+Patch:          codec-color-add-freerdp_glyph_convert_ex.patch
+Patch:          gdi-graphics-Use-freerdp_glyph_convert_ex.patch
+
+# CVE-2026-23948
+Patch:          core-info-fix-missing-NULL-check.patch
+
+# CVE-2026-24491
+Patch:          channels-drdynvc-reset-channel_callback-before-close.patch
+Patch:          channels-video-unify-error-handling.patch
+Patch:          channels-video-fix-wrong-cast.patch
+
+# CVE-2026-24675
+Patch:          channels-urbdrc-do-not-free-MsConfig-on-failure.patch
+
+# CVE-2026-24676
+Patch:          channels-audin-reset-audin-format.patch
+
+# CVE-2026-24679
+Patch:          channels-urbdrc-ensure-InterfaceNumber-is-within-ran.patch
+
+# CVE-2026-24681
+Patch:          channels-urbdrc-cancel-all-usb-transfers-on-channel-.patch
+
+# CVE-2026-24683
+Patch:          channels-ainput-lock-context-when-updating-listener.patch
+
+# CVE-2026-24684
+Patch:          channels-rdpsnd-terminate-thread-before-free.patch
+Patch:          channel-rdpsnd-only-clean-up-thread-before-free.patch
+
+# CVE-2026-31806
+Patch:          codec-nsc-limit-copy-area-in-nsc_process_message.patch
+Patch:          codec-nsc-fix-use-of-nsc_process_message.patch
+
+# CVE-2026-33984
+Patch:          codec-clear-update-CLEAR_VBAR_ENTRY-size-after-alloc.patch
+
+# CVE-2026-33983
+Patch:          codec-progressive-fail-progressive_rfx_quant_sub-on-invalid-values.patch
+Patch:          codec-progressive-fix-underflow-guard-in-progressive_rfx_quant_sub.patch
+
+# CVE-2026-26986
+Patch:          client-x11-fix-xf_rail_window_common-cleanup.patch
+
+# CVE-2026-27951
+Patch:          allocations-fix-growth-of-preallocated-buffers.patch
+
+# CVE-2026-29775
+Patch:          cache-bitmap-overallocate-bitmap-cache.patch
+Patch:          cache-bitmap-initialize-overallocated-bitmap-cache-extra-slot.patch
+
+# CVE-2026-31884
+Patch:          codec-dsp-add-format-checks.patch
+
+# CVE-2026-31883
+# CVE-2026-31885
+Patch:          codec-dsp-fix-array-bounds-checks.patch
+
+# CVE-2026-33985
+Patch:          codec-clear-update-clear_glyph_entry-count-after-alloc.patch
+
+# CVE-2026-25952
+Patch:          client-x11-lock-appwindow.patch
+Patch:          client-x11-improve-rails-window-locking.patch
+Patch:          client-x11-refactor-locking.patch
+Patch:          client-x11-fix-deadlock-on-output-expose.patch
+
+# CVE-2026-45700
+Patch:          codec-planar-fix-bounds-checks.patch
+
+# CVE-2026-68580
+Patch:          channels-audin-limit-FramesPerPacket.patch
+
+# CVE-2026-67299
+Patch:          core-message-fix-update_message_WindowIcon.patch
+
+# CVE-2026-64624
+Patch:          client-common-deactivate-cli-parsing-in-rdp-files.patch
+
+# CVE-2026-67289
+Patch:          winpr-crt-add-functions-to-test-string.patch
+Patch:          core-redirection-check-redirection-values-for-validity.patch
+Patch:          core-redirection-relax-checks.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -270,6 +401,27 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Mon Aug 31 2026 Ondrej Holy <oholy@redhat.com> - 2.11.7-16
+- Backport several CVE fixes (CVE-2026-22852, CVE-2026-22854, CVE-2026-22855,
+  CVE-2026-22856, CVE-2026-22858, CVE-2026-22859, CVE-2026-23530,
+  CVE-2026-23531, CVE-2026-23532, CVE-2026-23533, CVE-2026-23534,
+  CVE-2026-23732, CVE-2026-23883, CVE-2026-23884, CVE-2026-23948,
+  CVE-2026-24491, CVE-2026-24675, CVE-2026-24676, CVE-2026-24679,
+  CVE-2026-24681, CVE-2026-24683, CVE-2026-24684, CVE-2026-25952,
+  CVE-2026-26955, CVE-2026-26965, CVE-2026-26986, CVE-2026-27951,
+  CVE-2026-29775, CVE-2026-31806, CVE-2026-31883, CVE-2026-31884,
+  CVE-2026-31885, CVE-2026-33983, CVE-2026-33984, CVE-2026-33985,
+  CVE-2026-45700, CVE-2026-64624, CVE-2026-67289, CVE-2026-67299 and
+  CVE-2026-68580)
+  Resolves: rhbz#2430919, rhbz#2430908, rhbz#2430898, rhbz#2430914, rhbz#2430903
+  Resolves: rhbz#2430924, rhbz#2430933, rhbz#2429808, rhbz#2429823, rhbz#2429794
+  Resolves: rhbz#2443146, rhbz#2442975, rhbz#2429799, rhbz#2429814, rhbz#2429821
+  Resolves: rhbz#2438309, rhbz#2438321, rhbz#2438308, rhbz#2438328, rhbz#2438324
+  Resolves: rhbz#2438302, rhbz#2438310, rhbz#2438300, rhbz#2447394, rhbz#2453243
+  Resolves: rhbz#2453240, rhbz#2442837, rhbz#2442810, rhbz#2447426, rhbz#2447422
+  Resolves: rhbz#2447413, rhbz#2447416, rhbz#2453247, rhbz#2442857, rhbz#2491683
+  Resolves: rhbz#2510295, rhbz#2510643, rhbz#2503646, rhbz#2510448
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

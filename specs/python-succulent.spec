@@ -14,8 +14,8 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.4.4
-Release:        4%{?dist}
+Version:        0.4.6
+Release:        1%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -91,6 +91,9 @@ done
 %endif
 
 %changelog
+* Tue Sep 1 2026 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.6-1
+- Update to 0.4.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

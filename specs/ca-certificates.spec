@@ -35,10 +35,10 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2025.2.80_v9.0.304
+Version: 2026.2.90_v9.0.317
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 9%{?dist}
+Release: 1%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -447,6 +447,38 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+*Tue Sep 01 2026 Krenželok František <fkrenzel@redhat.com> - 2026.2.90_v9.0.317-1
+- Update to CKBI 2.90_v9.0.317 from NSS 3.126
+  Removing:
+  - XRamp Global CA Root
+  - ePKI Root Certification Authority
+  - certSIGN ROOT CA
+  - Explicitly Distrust DigiNotar Root CA
+  - CommScope Public Trust ECC Root-01
+  - CommScope Public Trust ECC Root-02
+  - CommScope Public Trust RSA Root-01
+  - CommScope Public Trust RSA Root-02
+  - FIRMAPROFESIONAL CA ROOT-A WEB
+  - SecureSign Root CA12
+  
+  Adding:
+  - OISTE Client Root ECC G1
+  - OISTE Client Root RSA G1
+  - OISTE Server Root ECC G1
+  - OISTE Server Root RSA G1
+  - e-Szigno TLS Root CA 2023
+  - SecureSign Root CA16
+  - SECOM TLS RSA Root CA 2024
+  - SECOM TLS ECC Root CA 2024
+  - SECOM SMIME RSA Root CA 2024
+  - Telia EC Email Root CA v3
+  - Telia EC TLS Root CA v3
+  - Telia RSA Email Root CA v3
+  - Telia RSA TLS Root CA v3
+  - certSIGN
+  - Chunghwa Telecom Co., Ltd.
+  - XRamp Global Certification Authority
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.2.80_v9.0.304-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

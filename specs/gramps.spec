@@ -1,11 +1,14 @@
 Name:           gramps
 Version:        6.0.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
 URL:            https://gramps-project.org/
 Source0:        https://github.com/gramps-project/gramps/archive/v%{version}/gramps-%{version}.tar.gz
+# Allow GExiv2 0.16
+Patch:          https://github.com/gramps-project/gramps/pull/2271.patch
+
 BuildArch:	noarch
 
 BuildRequires:  desktop-file-utils
@@ -43,6 +46,7 @@ based plugin system.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -116,6 +120,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Tue Sep 01 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.8-4
+- Allow GExiv2 0.16
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

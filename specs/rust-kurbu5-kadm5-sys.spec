@@ -5,7 +5,7 @@
 %global crate kurbu5-kadm5-sys
 
 Name:           rust-kurbu5-kadm5-sys
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        KADM5 plugin API bindings
 

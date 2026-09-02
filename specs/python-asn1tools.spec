@@ -1,7 +1,7 @@
 %global pypi_name asn1tools
 
 Name:          python-%{pypi_name}
-Version:       0.168.0
+Version:       0.169.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ASN.1 parsing, encoding and decoding
@@ -9,7 +9,6 @@ License:       MIT
 URL:           https://github.com/eerimoq/%{pypi_name}
 VCS:           git:%{url}.git
 Source:        %{pypi_source %{pypi_name}}
-Patch:         python-asn1tools-0001-Fix-test-compatibility-with-Python-3.15.patch
 BuildRequires: python3-diskcache
 BuildRequires: python3-prompt-toolkit
 BuildRequires: python3-pytest

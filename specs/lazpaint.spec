@@ -11,7 +11,7 @@ URL: https://lazpaint.github.io
 License: GPL-3.0-only AND LGPL-3.0-only
 
 Version: 7.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
 %global bitmap_version   11.6.6
@@ -195,6 +195,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name_rtld}.m
 
 
 %changelog
+* Tue Sep 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.3-6
+- Fix build with FPC 3.2.4-rc2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -202,7 +205,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name_rtld}.m
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
 * Fri Aug 15 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.3-3
-- Fix build with FPC 3.2.4
+- Fix build with FPC 3.2.4-rc1
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

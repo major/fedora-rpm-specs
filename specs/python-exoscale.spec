@@ -1,5 +1,5 @@
 Name:           python-exoscale
-Version:        0.16.3
+Version:        0.16.4
 Release:        %autorelease
 Summary:        Python bindings for Exoscale API
 

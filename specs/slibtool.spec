@@ -12,15 +12,17 @@
 %global _build %{_target_platform}
 
 Name:           slibtool
-Version:        0.5.28
-Release:        17%{?dist}
+Version:        0.7.4
+Release:        1%{?dist}
 Summary:        A skinny libtool implementation, written in C
 
 License:        MIT
 URL:            http://git.midipix.org/cgit.cgi/slibtool
 Source0:        http://midipix.org/dl/slibtool/%{name}-%{version}.tar.xz
 
-BuildRequires:  gcc, make
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  m4
 
 # slibtool uses libslibtool internally
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -80,8 +82,10 @@ to use functionality provided by %{name}.
 %doc README NEWS THANKS CONTRIB
 %{_bindir}/clibtool*
 %{_bindir}/dlibtool*
+%{_bindir}/dclibtool*
 %{_bindir}/r*libtool
 %{_bindir}/slibtool*
+%{_datadir}/%{name}/
 
 %files libs
 %license COPYING.SLIBTOOL
@@ -94,6 +98,9 @@ to use functionality provided by %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Aug 31 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.4-1
+- Update to v0.7.4 (rhbz#1876730)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.28-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

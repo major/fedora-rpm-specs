@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        10.0.2
+Version:        10.0.3
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 # MIT for the source code, and OFL-1.1 for the unifont font.
@@ -29,8 +29,6 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
-
-Patch: seat-Fix-use-after-free-in-kmscon_seat_remove_video.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).

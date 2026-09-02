@@ -6,7 +6,7 @@
 ###
 
 Name: darktable
-Version: 5.4.1
+Version: 5.6.1
 Release: %autorelease
 
 Summary: Utility to organize and develop raw images
@@ -18,16 +18,12 @@ Source0: https://github.com/darktable-org/darktable/releases/download/release-%{
 #Source1: https://github.com/darktable-org/darktable/releases/download/release-%%{version}/%%{name}-%%{version}.tar.xz.asc
 #Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf10f9686652b0e949fcd94c318dca123f949bd3b
 
-Patch0: 0001-Add-5.4.1-in-appdata.patch
 
-Patch1: darktable-5.4.1-lua-5.5.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2454222
-Patch2: cve-2026-5318.patch
-# This upstream change is necessary for the CVE-2026-5318 patch above to actually find the enum values
-# https://github.com/LibRaw/LibRaw/commit/8dc68e2a4551f03838b7f2da9276e5d1eb20bca0
-Patch3: 8dc68e2a4551f03838b7f2da9276e5d1eb20bca0.patch
+# Lua 5.5 build support
+Patch0: darktable-5.6.1-lua-5.5.patch
+
 # https://github.com/darktable-org/lua-scripts/pull/678
-Patch4: darktable-5.4.1-lua-5.5-scripts.patch
+Patch1: darktable-5.6.1-lua-5.5-scripts.patch
 
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)
@@ -38,17 +34,9 @@ BuildRequires: colord-devel
 BuildRequires: cups-devel
 BuildRequires: desktop-file-utils
 BuildRequires: exiv2-devel >= 0.27.2
-%if %{defined fedora}
 BuildRequires: gcc
-%endif
-%if 0%{?rhel}
-BuildRequires: gcc-toolset-12
-#BuildRequires: gcc-toolset-12-gcc
-#BuildRequires: gcc-toolset-12-annobin-plugin-gcc
-%endif
-%if %{defined fedora}
-BuildRequires: gmic-devel
-%endif
+BuildRequires: glib2-devel >= 2.56
+BuildRequires: gmic-devel >= 2.7.0
 BuildRequires: GraphicsMagick-devel
 BuildRequires: gtk3-devel >= 3.24.15
 BuildRequires: intltool
@@ -60,10 +48,8 @@ BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 BuildRequires: cmake(libavif) >= 0.9.3
 BuildRequires: libcurl-devel >= 7.56
-BuildRequires: libgphoto2-devel >= 2.4.5
-%if ((%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora})
+BuildRequires: libgphoto2-devel >= 2.5
 BuildRequires: libheif-devel >= 1.13.0
-%endif
 BuildRequires: libicu-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel >= 0.7.0
@@ -71,24 +57,20 @@ BuildRequires: libpng-devel >= 1.5.0
 BuildRequires: librsvg2-devel >= 2.26
 BuildRequires: libsecret-devel
 BuildRequires: libtiff-devel
-BuildRequires: libwebp-devel
+BuildRequires: libwebp-devel >= 0.3.0
 # llvm-devel is optional (OpenCL kernel build test)
 BuildRequires: llvm-devel >= 7
-%if (%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora}
 BuildRequires: pkgconfig(lua)
-%endif
 # opencl-headers is optional (OpenCL kernel build test)
 BuildRequires: opencl-headers
-%if (%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora}
 BuildRequires: cmake(OpenEXR) > 3.0
-BuildRequires: cmake(Imath)
-%else
-BuildRequires: OpenEXR-devel
+BuildRequires: cmake(Imath) >= 3.1.0
+%if (%{defined fedora} && 0%{?fedora} > 43)
+BuildRequires: libarchive-devel >= 3.8.5
+BuildRequires: onnxruntime-devel >= 1.18
 %endif
 BuildRequires: openjpeg2-devel
-%if %{defined fedora}
 BuildRequires: osm-gps-map-devel >= 1.0
-%endif
 BuildRequires: perl-interpreter
 BuildRequires: perl(FindBin)
 BuildRequires: perl(lib)
@@ -96,9 +78,10 @@ BuildRequires: pkgconfig >= 0.22
 BuildRequires: po4a
 BuildRequires: perl-podlators
 BuildRequires: portmidi-devel
-BuildRequires: pugixml-devel >= 1.5
+BuildRequires: potrace-devel >= 1.16
+BuildRequires: pugixml-devel >= 1.8
 BuildRequires: cmake(SDL2)
-BuildRequires: sqlite-devel
+BuildRequires: sqlite-devel >= 3.26
 BuildRequires: zlib-devel >= 1.2.11
 
 Requires: iso-codes >= 3.66
@@ -108,9 +91,6 @@ Requires: iso-codes >= 3.66
 Provides: bundled(rawspeed)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2252432
 Provides: bundled(libraw)
-%if %{defined rhel} && 0%{?rhel} == 8
-Provides: bundled(lua)
-%endif
 
 # Unsupported CPU architectures
 # filled https://bugzilla.redhat.com/show_bug.cgi?id=2038684
@@ -159,35 +139,18 @@ sed -i -e 's, \"external/CL/\*\.h\" , ,' src/CMakeLists.txt
 
 
 %build
-
-#
-# Germano Massullo: I wanted to use %%elseif but it is not yet active in
-# Fedora, etc., despite is supported upstream. I did not compare the Fedora RPM version
-# but I empirically verified that %%elseif and %%elif do not work here, even if you don't get
-# errors during builds
-# https://github.com/rpm-software-management/rpm/issues/311
-# https://github.com/debbuild/debbuild/issues/182
-# 
-#
-#%%if %%{defined rhel}
-%if %{defined rhel}
-. /opt/rh/gcc-toolset-12/enable
-%endif
-%if (%{defined rhel} && 0%{?rhel} == 8)
-mkdir %{_target_platform}
-pushd %{_target_platform}
+%if (%{defined fedora} && 0%{?fedora} > 43)
 %cmake \
         -DCMAKE_LIBRARY_PATH:PATH=%{_libdir} \
         -DUSE_GEO:BOOLEAN=ON \
         -DCMAKE_BUILD_TYPE:STRING=Release \
         -DBINARY_PACKAGE_BUILD=1 \
-        -DDONT_USE_INTERNAL_LUA=OFF \
         -DBUILD_NOISE_TOOLS=ON \
         -DBUILD_CURVE_TOOLS=ON \
-        -DHAVE_GMIC=OFF \
         -DRAWSPEED_ENABLE_LTO=ON \
-        ..
-%else
+        -DUSE_AI=ON \
+        -DONNXRUNTIME_OFFLINE=ON
+%elif (%{defined fedora} && 0%{?fedora} == 43)
 %cmake \
         -DCMAKE_LIBRARY_PATH:PATH=%{_libdir} \
         -DUSE_GEO:BOOLEAN=ON \
@@ -198,25 +161,13 @@ pushd %{_target_platform}
         -DRAWSPEED_ENABLE_LTO=ON
 %endif
 
-%if ((%{defined rhel} && 0%{?rhel} > 8) || %{defined fedora})
+
 %cmake_build
-%else
-%make_build
-popd
-%endif
 
 
 %install
-%if %{defined rhel}
-. /opt/rh/gcc-toolset-12/enable
-%endif
-%if ((%{defined rhel} && 0%{?rhel} > 8) || %{defined fedora})
 %cmake_install
-%else
-pushd %{_target_platform}
-%make_install
-popd
-%endif
+
 
 %find_lang %{name}
 rm -rf %{buildroot}%{_datadir}/doc/darktable
