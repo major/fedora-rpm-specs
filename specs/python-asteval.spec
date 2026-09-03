@@ -1,13 +1,14 @@
 %global pypi_name asteval
 
 Name:           python-%{pypi_name}
-Version:        1.0.6
-Release:        7%{?dist}
+Version:        1.0.10
+Release:        1%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
-URL:            http://github.com/newville/asteval
+URL:            https://github.com/newville/asteval
 Source0:        %{pypi_source}
+Patch:          python-asteval-doc-bizstyle-theme.patch
 BuildArch:      noarch
 
 %description
@@ -21,10 +22,7 @@ and used if available.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
+BuildRequires:  python3dist(numpy)
 
 %description -n python3-%{pypi_name}
 ASTEVAL is a safe(ish) evaluator of Python expressions and statements,
@@ -37,17 +35,18 @@ and used if available.
 Summary:        The %{name} documentation
 
 BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(sphinx-copybutton)
 
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 sed -i -e '/^#!\//, 1d' asteval/asteval.py
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
@@ -61,7 +60,7 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %check
 %pytest -v tests
 
-%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
@@ -70,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Sat Aug 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.0.10-1
+- Update to 1.0.10
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

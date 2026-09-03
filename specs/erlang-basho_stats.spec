@@ -8,8 +8,8 @@ Summary:	Basic Erlang statistics library
 License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch:		erlang-basho_stats-0001-We-still-do-not-use-eqc-for-checking.patch
+Source:		%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+BuildRequires:	erlang-rebar3-eqc
 BuildSystem:	rebar3
 
 %description

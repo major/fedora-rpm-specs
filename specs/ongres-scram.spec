@@ -1,7 +1,7 @@
 %global upstream_version 3.3
 
 Name:           ongres-scram
-Version:        %(echo %{upstream_version} | sed 's/-/~/g')
+Version:        %{gsub %{upstream_version} - ~}
 Release:        %autorelease
 Summary:        Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
 License:        BSD-2-Clause

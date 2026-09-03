@@ -7,8 +7,8 @@ Name: newt
 Version: 0.52.25
 Release: 9%{?dist}
 License: LGPL-2.0-only
-URL: https://pagure.io/newt
-Source: https://pagure.io/releases/newt/newt-%{version}.tar.gz
+URL: https://gitlab.com/newt-ui/newt
+Source: https://gitlab.com/newt-ui/newt/-/releases/%{version}/downloads/newt-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: gcc popt-devel python3-devel slang-devel
 %{?with_python2:BuildRequires: python2-devel}

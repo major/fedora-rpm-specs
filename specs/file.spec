@@ -104,11 +104,9 @@ iconv -f iso-8859-1 -t utf-8 < doc/libmagic.man > doc/libmagic.man_
 touch -r doc/libmagic.man doc/libmagic.man_
 mv doc/libmagic.man_ doc/libmagic.man
 
-%generate_buildrequires
 %if %{with python3}
-cd python
-%pyproject_buildrequires
-cd ..
+%generate_buildrequires
+%pyproject_buildrequires --directory python
 %endif
 
 %build
@@ -123,9 +121,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 export LD_LIBRARY_PATH=$PWD/src/.libs
 %make_build
 %if %{with python3}
-cd python
-%pyproject_wheel
-cd ..
+%pyproject_wheel --directory python
 %endif
 
 %install
@@ -147,10 +143,8 @@ ln -s misc/magic ${RPM_BUILD_ROOT}%{_datadir}/magic
 ln -s ../magic ${RPM_BUILD_ROOT}%{_datadir}/file/magic
 
 %if %{with python3}
-cd python
 %pyproject_install
 %pyproject_save_files magic
-cd ..
 %endif
 %{__install} -d ${RPM_BUILD_ROOT}%{_datadir}/%{name}
 

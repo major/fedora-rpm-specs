@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.8
-Release: 9%{?dist}
+Version: 3.2.10
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -603,6 +603,7 @@ fi
 %config(missingok) /etc/raddb/mods-enabled/unpack
 %config(missingok) /etc/raddb/mods-enabled/utf8
 %config(missingok) /etc/raddb/mods-enabled/proxy_rate_limit
+%config(missingok) /etc/raddb/mods-enabled/dpsk
 
 # policy
 %dir %attr(750,root,radiusd) /etc/raddb/policy.d
@@ -933,6 +934,9 @@ fi
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
 
 %changelog
+* Wed Sep 02 2026 Antonio Torres <antorres@redhat.com> - 3.2.10-1
+- Rebase to upstream release 3.2.10
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 3.2.8-9
 - Rebuilt for Python 3.15.0b4 ABI change
 
@@ -945,7 +949,7 @@ fi
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
-* Fri June 12 2026 Pavol Žáčik <pzacik@redhat.com> - 3.2.8-5
+* Fri Jun 12 2026 Pavol Žáčik <pzacik@redhat.com> - 3.2.8-5
 - Fix OpenSSL 4.0 compatibility
 
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.2.8-4

@@ -3,7 +3,7 @@
 %global polkit_version 0.105
 
 Name:           sysprof
-Version:        51~alpha
+Version:        51~rc
 Release:        %autorelease
 Summary:        A system-wide Linux profiler
 

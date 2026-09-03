@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           gsettings-desktop-schemas
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        A collection of GSettings schemas
 
@@ -71,10 +71,6 @@ glib-compile-schemas --dry-run --strict %{buildroot}%{_datadir}/glib-2.0/schemas
 %doc AUTHORS MAINTAINERS NEWS README
 %license COPYING
 %{_datadir}/glib-2.0/schemas/*
-%dir %{_datadir}/GConf
-%dir %{_datadir}/GConf/gsettings
-%{_datadir}/GConf/gsettings/gsettings-desktop-schemas.convert
-%{_datadir}/GConf/gsettings/wm-schemas.convert
 %{_libdir}/girepository-1.0/GDesktopEnums-3.0.typelib
 
 %files devel

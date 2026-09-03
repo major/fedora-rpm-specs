@@ -116,8 +116,8 @@ done
 %make_install PREFIX=%{_prefix} -C man
 install -D -m644 -vp greetd.service     %{buildroot}%{_unitdir}/%{name}.service
 install -D -m644 -vp config.toml        %{buildroot}%{_sysconfdir}/%{name}/config.toml
-install -D -m644 -vp %{SOURCE101}       %{buildroot}%{_sysconfdir}/pam.d/%{name}
-install -D -m644 -vp %{SOURCE102}       %{buildroot}%{_sysconfdir}/pam.d/%{name}-greeter
+install -D -m644 -vp %{SOURCE101}       %{buildroot}%{_prefix}/lib/pam.d/%{name}
+install -D -m644 -vp %{SOURCE102}       %{buildroot}%{_prefix}/lib/pam.d/%{name}-greeter
 install -D -m644 -vp %{SOURCE103}       %{buildroot}%{_sysusersdir}/%{name}.conf
 install -D -m644 -vp %{SOURCE104}       %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d -m750 -vp                    %{buildroot}%{_sharedstatedir}/%{name}
@@ -177,8 +177,8 @@ fi
 %attr(-,%{username},%{username}) %dir %{_sharedstatedir}/%{name}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/config.toml
-%config(noreplace) %{_sysconfdir}/pam.d/%{name}
-%config(noreplace) %{_sysconfdir}/pam.d/%{name}-greeter
+%{_prefix}/lib/pam.d/%{name}
+%{_prefix}/lib/pam.d/%{name}-greeter
 %{_bindir}/%{name}
 %{_bindir}/agreety
 %{_mandir}/man1/agreety.1*

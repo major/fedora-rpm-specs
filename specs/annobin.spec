@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.30
+Version: 13.31
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 02 2026 Nick Clifton  <nickc@redhat.com> - 13.31-1
+- Annocheck: Add exception to AArch64 branch protection test for gcc binaries.
+
 * Tue Sep 01 2026 Nick Clifton  <nickc@redhat.com> - 13.30-1
 - Annocheck: Fix bug adding debug rpm filename to list.
 - Annocheck: Add more exceptions for gcc binaries.

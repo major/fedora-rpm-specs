@@ -1,6 +1,6 @@
 Name:           libnftnl
-Version:        1.3.1
-Release:        3%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Wed Sep 02 2026 Phil Sutter <psutter@redhat.com> - 1.3.2-1
+- new version
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

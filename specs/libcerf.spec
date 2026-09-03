@@ -1,12 +1,13 @@
 Name:           libcerf
-Version:        3.3
+%global rname   cerf
+Version:        3.5
 %global         sover 3
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A library that provides complex error functions
 
 License:        MIT
-URL:            https://jugit.fz-juelich.de/mlz/libcerf
-Source0:        https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+URL:            https://jugit.fz-juelich.de/mlz/lib/cerf
+Source0:        %{url}/-/archive/v%{version}/%{rname}-v%{version}.tar.gz
 
 %if (0%{?rhel} || (0%{?fedora} && 0%{?fedora} < 33))
 %undefine __cmake_in_source_build
@@ -34,7 +35,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -q -n %{rname}-v%{version}
 
 %build
 # avoid non-portable default build flags (-march=native -O3), by setting overwrite
@@ -69,6 +70,10 @@ mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{n
 
 
 %changelog
+* Wed Sep 02 2026 Christoph Junghans <junghans@votca.org> - 3.5-1
+- Version bump to v3.5
+- Fixes: rhbz#2525599
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

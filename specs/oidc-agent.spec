@@ -5,8 +5,8 @@
 %endif
 
 Name:		oidc-agent
-Version:	5.3.6
-Release:	2%{?dist}
+Version:	5.3.8
+Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -116,6 +116,13 @@ This package provides headers for the oidc-agent library.
 # Remove bundled cJSON and clib-list (use system versions)
 rm -rf lib/cJSON lib/list
 
+%if %{?rhel}%{!?rhel:0} == 8
+# Workaround for gcc 8.5 in RHEL 8:
+# error: a label can only be part of a statement and a declaration is
+# not a statement
+sed 's!oidc:!& ;!' -i src/oidc-gen/gen_handler.c
+%endif
+
 %build
 %set_build_flags
 %make_build %{maketrace} WEBKITGTK=%{webkitgtk}
@@ -181,6 +188,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Wed Sep 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.8-1
+- Update to version 5.3.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

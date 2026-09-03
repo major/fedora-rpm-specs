@@ -9,12 +9,12 @@ Summary:	Riak Pipelines
 License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
-Patch1:         erlang-riak_pipe-0001-Disable-eqc-rebar3-plugin.patch
+Source:		%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-cluster_info
 BuildRequires:	erlang-exometer_core
 BuildRequires:	erlang-lager
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-eqc
 BuildRequires:	erlang-riak_core
 
 

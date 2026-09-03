@@ -14,7 +14,7 @@
 
 Name:           vdr-%{pname}
 Version:        1.2.15
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -83,6 +83,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Wed Sep 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.15-8
+- gumbo-parser rebuild
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

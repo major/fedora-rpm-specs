@@ -7,12 +7,18 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 
 License:        MPL-2.0 and BSD-3-Clause
 URL:            https://gitlab.com/VelocityLimitless/Projects/slitherer
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# Temporary patch to force xcb platform
+# Works around https://bugzilla.redhat.com/show_bug.cgi?id=2483236
+# Shouldn't really be upstreamed unless we can't find any better way
+# to fix the bug
+Patch:          0001-Force-xcb-platform-to-work-around-RHBZ-2483236.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -63,6 +69,9 @@ ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
 
 
 %changelog
+* Wed Sep 02 2026 Adam Williamson <adamwill@fedoraproject.org> - 0~git20251108.d230dba-6
+- Force xcb platform to work around dropdown bugs (#2483236)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20251108.d230dba-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

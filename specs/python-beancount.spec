@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           python-%{srcname}
-Version:        3.1.0
+Version:        3.2.3
 Release:        %autorelease
 Summary:        Double-Entry Accounting from Text Files
 
@@ -20,7 +20,6 @@ BuildRequires:  sed
 
 %if %{with check}
 BuildRequires:  gpg
-BuildRequires:  make
 BuildRequires:  python3dist(pytest)
 %endif
 
@@ -33,6 +32,7 @@ variety of reports from them, and provides a web interface.}
 
 %package -n     %{srcname}
 Summary:        %{summary}
+BuildArch:      noarch
 Requires:       python3-%{srcname} = %{version}-%{release}
 Suggests:       %{srcname}-doc = %{version}-%{release}
 
@@ -59,6 +59,7 @@ This package provides the Python libraries for Beancount.
 
 # Remove useless files
 find examples/ -type f -name .keep -delete
+echo "# empty" > examples/ingest/office/importers/acme/acmebank1.pdf.extract
 
 # Fix end of line encoding
 sed -i 's/\r$//' examples/tutorial/holdings-csv.output
@@ -66,6 +67,9 @@ sed -i 's/\r$//' examples/tutorial/holdings-csv.output
 # Drop shebang as bean-web no longer exists
 sed -e "\|#!/usr/bin/env bean-web|d" -i examples/simple/starter.beancount
 chmod -x examples/simple/starter.beancount
+
+# Drop bundled/fake binary python wheels requirements
+sed -i -e "/bison-bin/d" -e "/flex-bin/d" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -p
@@ -84,14 +88,7 @@ meson setup --reconfigure -Dtests=enabled build/ && meson test -C build/
 ln -s \
   %{buildroot}%{python3_sitearch}/beancount/parser/_parser%{python3_ext_suffix} \
   beancount/parser/
-# Disable broken tests in Python 3.14
-%pytest -v \
-  --deselect beancount/parser/lexer_test.py::TestLexer::test_bad_date \
-  --deselect beancount/parser/parser_test.py::TestReferenceCounting::test_parser_lex \
-  --deselect beancount/parser/parser_test.py::TestReferenceCounting::test_parser_lex_filename \
-  --deselect beancount/parser/parser_test.py::TestReferenceCounting::test_parser_lex_multi \
-  --deselect beancount/parser/parser_test.py::TestReferenceCounting::test_parser_parse \
-  %{nil}
+%pytest -v
 
 %else
 %pyproject_check_import
@@ -111,6 +108,7 @@ ln -s \
 %doc examples/
 
 %files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.rst
 %license COPYING
 
 %changelog

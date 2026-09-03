@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 152.0.7977.64
+Version: 152.0.7977.75
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -291,6 +291,11 @@ Patch21: chromium-123-screen-ai-service.patch
 
 # Fix link error when building with system libcxx
 Patch22: chromium-131-fix-qt-ui.pach
+
+# Workaround for build error: ERROR Unresolved dependencies.
+#//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
+#  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
+Patch23: chromium-152-build-error-libpng_for_testonly.patch
 
 # patch from Melvin - melvin@pixilab.se
 Patch24: glibc-2.42-baud-rate-fix.patch
@@ -315,7 +320,8 @@ Patch93: chromium-141-csss_style_sheet.patch
 
 # revert the patch to fix the build error: "ld.lld: error: undefined symbol: __sanitizer_set_death_callback"
 Patch94: chromium-148-v8-sanitize-build-error.patch
-
+# Fix rust build error
+Patch95: chromium-152-build-error-rust-cbor.patch
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
 #     |
@@ -400,7 +406,7 @@ Patch315: chromium-145-rustc-ftbfs.patch
 # llvm <= 22
 # clang++: error: unknown argument: '-fno-lifetime-dse'
 # unknown warning option -Wno-nontrivial-memcall
-Patch316: chromium-151-clang++-unknown-argument.patch
+Patch316: chromium-152-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
 
@@ -1068,7 +1074,7 @@ Qt6 UI for chromium.
 %if ! %{use_custom_libcxx}
 %patch -P22 -p1 -b .fix-qt-ui
 %endif
-
+%patch -P23 -p1 -b .build-error-libpng_for_testonly
 %if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
 %patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
 %endif
@@ -1091,6 +1097,7 @@ Qt6 UI for chromium.
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P94 -p1 -R -b .v8-sanitize-build-error
+%patch -P95 -p1 -b .build-error-rust-cbor
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if ! %{bundleffmpegfree}
@@ -1911,6 +1918,35 @@ fi
 %endif
 
 %changelog
+* Wed Sep 02 2026 Than Ngo <than@redhat.com> - 152.0.7977.75-1
+- Update to 152.0.7977.75
+  * CVE-2026-84353: Use after free in Shared Tab Groups
+  * CVE-2026-84352: Use after free in WebGL
+  * CVE-2026-84354: Incorrect authorization in FileSystem
+  * CVE-2026-84359: Information leak in Skia
+  * CVE-2026-84357: Improper input validation in Omnibox
+  * CVE-2026-84324: Use after free in Proxy
+  * CVE-2026-84349: Use after free in Browser
+  * CVE-2026-84326: Uninitialized resource in V8
+  * CVE-2026-84333: Use after free in Dawn
+  * CVE-2026-84351: Buffer overflow in GPU
+  * CVE-2026-84325: Improper input validation in DataTransfer
+  * CVE-2026-84328: Missing authorization in FileSystem
+  * CVE-2026-84347: Use after free in WebRTC
+  * CVE-2026-84323: Missing authorization in FileSystem
+  * CVE-2026-84355: Incorrect authorization in Navigation
+  * CVE-2026-84358: Improper privilege management in Downloads
+  * CVE-2026-84332: Incorrect authorization in SiteSettings
+  * CVE-2026-84330: UI misrepresentation in FullScreen
+  * CVE-2026-84334: Incorrect authorization in Chromoting
+  * CVE-2026-84348: Information leak in MediaCapture
+  * CVE-2026-84335: Incorrect authorization in TabStrip
+  * CVE-2026-84327: Incorrect authorization in Autofill
+  * CVE-2026-84329: Confused deputy in CredentialProvider
+  * CVE-2026-84356: UI misrepresentation in FullScreen
+  * CVE-2026-84350: Use after free in TabStrip
+  * CVE-2026-84331: Incorrect authorization in Actor
+
 * Wed Sep 02 2026 Than Ngo <than@redhat.com> - 152.0.7977.64-1
 - Update to 152.0.7977.64 
   * CVE-2026-79282: Use after free in ANGLE

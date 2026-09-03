@@ -1,5 +1,5 @@
 Name:          perl-Net-DNS
-Version:       1.56
+Version:       1.57
 Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
@@ -182,6 +182,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.57-1
+- 1.57 bump (rhbz#2526802)
+
 * Mon Jul 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.56-1
 - 1.56 bump (rhbz#2501994)
 

@@ -5,10 +5,10 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_Rawhide/src/
 # update the obsrel to match the upstream release number
-%global obsrel 1.2
+%global obsrel 1.4
 
 Name:           obs-build
-Version:        20260721
+Version:        20260901
 Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 

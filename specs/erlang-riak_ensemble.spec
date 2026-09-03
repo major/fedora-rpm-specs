@@ -8,11 +8,11 @@ License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source:		%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
-Patch:		erlang-riak_ensemble-0001-We-do-not-have-eqc-rebar3-plugin-yet.patch
 Patch:		erlang-riak_ensemble-0002-Do-not-use-a-keyword-reserved-in-Erlang-27.patch
 BuildRequires:	erlang-eleveldb
 BuildRequires:	erlang-lager
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-eqc
 BuildRequires:	erlang-rebar3-pc
 BuildRequires:	gcc
 

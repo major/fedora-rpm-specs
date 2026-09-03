@@ -1,7 +1,7 @@
 %global	mainver		1.19.4
 #%%global	prever		.rc4
 
-%global	baserelease		3
+%global	baserelease		4
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -298,6 +298,13 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Wed Sep 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-4
+- Bump release
+- CVE-2026-79769 is GHSA-g9g8-vgvw-g3vf , fixed in 1.19.4
+- CVE-2026-79770 is GHSA-c4rq-3m3g-8wgx , fixed in 1.19.3
+- CVE-2026-79771 is GHSA-v2fc-qm4h-8hqv , fixed in 1.19.3
+- CVE-2026-79772 is GHSA-wx95-c6cv-8532 , fixed in 1.19.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

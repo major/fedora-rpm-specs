@@ -4,7 +4,7 @@
 
 Name:		rdesktop
 Version:	1.9.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	X client for remote desktop into Windows Terminal Server
 
 License:	GPL-3.0-or-later
@@ -20,6 +20,9 @@ Patch1:         rdesktop-crypto.patch
 Patch2: rdesktop-configure-c99.patch
 # Upstream fix: use correct modulus and exponent in rdssl_rkey_get_exp_mod
 Patch3:         https://github.com/rdesktop/rdesktop/commit/53ba87dc174175e98332e22355ad8662c02880d6.patch
+# from https://github.com/rdesktop/rdesktop/pull/435
+# ssl: support Nettle 4 digest API
+Patch4:         https://github.com/rdesktop/rdesktop/commit/1aac0717f1ed4c1fb07ed966189e4d17b7508616.patch
 BuildRequires: make
 BuildRequires:	gnutls-devel
 BuildRequires:	krb5-devel
@@ -57,6 +60,9 @@ autoreconf -vif
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 01 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.0-21
+- Fix build with nettle 4.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

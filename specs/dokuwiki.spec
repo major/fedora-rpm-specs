@@ -2,7 +2,7 @@ Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
 License:	GPL-2.0-only
 
-%global		releasenum 2026-07-14b
+%global		releasenum 2026-07-14c
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
 Release:	1%{?dist}
@@ -276,6 +276,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Wed Sep 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20260714c-1
+- Update to version 2026-07-14c (security hotfix update)
+
 * Tue Aug 11 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20260714b-1
 - Update to version 2026-07-14b (bugfix update)
 

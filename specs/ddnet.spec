@@ -3,7 +3,7 @@
 
 Name:           ddnet
 Version:        20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Enable testing release candidate releases
@@ -179,6 +179,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/*/apps/%{name}-server.png
+%exclude %{_datadir}/%{name}/data/announcement.txt
+%exclude %{_datadir}/%{name}/data/censorlist.txt
 
 %files server
 %{_mandir}/man6/DDNet-Server.6*
@@ -187,6 +189,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Sep 03 2026 Rafael Fontenelle <rffontenelle@gmail.com> - 20.0-2
+- Exclude empty files from the data package
+
 * Wed Aug 26 2026 Packit <hello@packit.dev> - 20.0-1
 - Update to version 20.0
 - Resolves: rhbz#2524725

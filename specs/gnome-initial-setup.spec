@@ -1,6 +1,6 @@
 %global nm_version 1.2
 %global nma_version 1.0
-%global glib_required_version 2.64
+%global glib_required_version 2.76
 %global gtk_required_version 4.17
 %global geoclue_version 2.6.0
 %global gnome_desktop_version 44.0-7
@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 

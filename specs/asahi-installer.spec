@@ -28,7 +28,7 @@
 %global installer_python_package python-%{installer_python_version}-macos11.pkg
 
 Name:           asahi-installer
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Asahi Linux installer
 

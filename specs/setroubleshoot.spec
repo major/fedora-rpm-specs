@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.37
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
@@ -16,6 +16,12 @@ Source2: %{name}.sysusers
 # for j in 00*patch; do printf "Patch: %s\n" $j; done
 Patch: 0001-Update-GPL2-license-texts-to-the-latest-version.patch
 Patch: 0002-Limit-RPC-request-size-in-RequestReceiver-to-prevent.patch
+Patch: 0003-Restrict-RPC-dispatch-to-registered-methods-only.patch
+Patch: 0004-Reject-logon-when-peer-credentials-are-unavailable.patch
+Patch: 0005-Fix-port-handling.patch
+Patch: 0006-Require-root-to-delete-alerts-via-D-Bus.patch
+Patch: 0007-Protect-against-malicious-socket-blocking.patch
+Patch: 0008-Require-privileged-access-to-change-email-alert-reci.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -194,6 +200,14 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Fri Aug 07 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-6
+- Require privileged access to change email alert recipients
+- Protect against malicious socket blocking
+- Require root to delete alerts via D-Bus
+- Fix port handling
+- Reject logon() when peer credentials are unavailable
+- Restrict RPC dispatch to registered methods only
+
 * Wed Jul 29 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-5
 - Update GPL2 license texts to the latest version
 - Limit RPC request size in RequestReceiver to prevent memory exhaustion

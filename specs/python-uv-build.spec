@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.12.3
+Version:        0.12.5
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -142,6 +142,13 @@ tomcli set Cargo.toml false profile.release.strip
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
+# tar-codec
+#   wanted: 0.0.13
+#   currently packaged: 0.0.14
+# A subsequent uv release will want the newer version, and it’s
+# backwards-compatible enough in practice.
+tomcli set Cargo.toml str workspace.dependencies.tar-codec.version 0.0.14
+
 %cargo_prep
 
 
@@ -165,6 +172,7 @@ tomcli set Cargo.toml false profile.release.strip
 # These tests require files from scripts/packages/built-by-uv/, which are not
 # included in the sdist.
 skip="${skip-} --skip tests::built_by_uv_building"
+skip="${skip-} --skip tests::built_by_uv_building_tar_codec"
 skip="${skip-} --skip wheel::test::test_prepare_metadata"
 
 %cargo_test -- -- --exact ${skip-}

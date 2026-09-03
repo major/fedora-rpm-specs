@@ -13,7 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tar
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Relax astral-tokio-tar requirement from 0.6 to also allow 0.5
+# * Allow astral-tokio-tar 0.7 for testing:
+#   https://github.com/composefs/tar-rs/pull/475
 Patch:          tar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

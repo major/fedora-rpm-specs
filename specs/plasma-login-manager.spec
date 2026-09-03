@@ -3,7 +3,7 @@
 
 Name:           plasma-login-manager
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
@@ -27,8 +27,10 @@ Source13:       plasmalogin.conf
 # upstream patches
 
 # VirtualTerminal: replace unconditional VT takeover with a bounded wait
-# https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/170
-Patch0:         170.patch
+Patch0:         https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/170.patch
+
+# Add support for unlocking oo7 wallets on login
+Patch1:         https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/200.patch
 
 # proposed patches
 
@@ -219,6 +221,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Wed Sep 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.7.4-2
+- Backport support for unlocking oo7 wallets with login
+
 * Tue Aug 04 2026 Steve Cossette <farchord@gmail.com> - 6.7.4-1
 - 6.7.4
 

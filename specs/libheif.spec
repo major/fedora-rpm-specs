@@ -13,7 +13,7 @@
 %bcond bootstrap 0
 
 Name:           libheif
-Version:        1.23.1
+Version:        1.23.3
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 

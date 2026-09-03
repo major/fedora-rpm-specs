@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000173
-Version:        1.0.173
+%global cpan_version 1.000177
+Version:        1.0.177
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,7 +161,7 @@ Requires:       perl(Test::Builder::Formatter) >= 1.302170
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|List::Util|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover|Test2::Require::Module)\\)$
 # Filter private modules
 %global __requires_exclude %{__requires_exclude}|^perl\\((Ax|Bar|Baz|Bx|Cx|Foo|main::HBase|main::HBase::Wrapped)\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|ArrayrefHook|Bar|Baz|Bx|BBB|Broken|CCC|CoderefHook|Cx|FakeHook|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SchedulerKillerResource|SmokePlugin|StalledResource|TestPreload|TestSimplePreload|UnavailableResource)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|ArrayrefHook|Bar|Baz|BlockingResource|Bx|BBB|Broken|CCC|CoderefHook|Cx|FakeHook|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SchedulerKillerResource|SmokePlugin|StalledResource|TestPreload|TestSimplePreload|UnavailableResource)\\)
 
 %description
 This is a test harness toolkit for Perl Test2 system. It provides a yath tool,
@@ -239,7 +239,8 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST YATH_TESTER_TIMEOUT
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SCRIPT YATH_SELF_TEST \
+    YATH_TESTER_HEARTBEAT YATH_TESTER_TIMEOUT
 export AUTOMATED_TESTING=1
 T2_HARNESS_JOB_COUNT="$(getconf _NPROCESSORS_ONLN)" ./test.pl
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r ./t
@@ -257,7 +258,8 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST YATH_TESTER_TIMEOUT
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SCRIPT YATH_SELF_TEST \
+    YATH_TESTER_HEARTBEAT YATH_TESTER_TIMEOUT
 export AUTOMATED_TESTING=1
 export T2_HARNESS_JOB_COUNT=$(perl -e \
     'for (@ARGV) { $j=$1 if m/\A-j(\d+)\z/; }; $j=1 unless $j; print "$j"' -- \
@@ -291,6 +293,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 02 2026 Petr Pisar <ppisar@redhat.com> - 1.0.177-1
+- 1.000177 bump
+
 * Mon Aug 17 2026 Petr Pisar <ppisar@redhat.com> - 1.0.173-1
 - 1.000173 bump
 

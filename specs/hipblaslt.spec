@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
 %endif
@@ -66,7 +66,10 @@
 %global _smp_mflags %{nil}
 
 # gfx90a: 10343 pass, 152 fail
+%if %{without preview}
+# testing broken in preview
 %bcond_with test
+%endif
 # Disable rpatch checks for a local build
 %if %{with test}
 %global __brp_check_rpaths %{nil}

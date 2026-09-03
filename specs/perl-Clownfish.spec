@@ -1,5 +1,5 @@
 Name:           perl-Clownfish
-Version:        0.7.0
+Version:        0.8.0
 Release:        1%{?dist}
 Summary:        Clownfish symbiotic object system
 # The LICENSE file declares sinces 0.5.0 that portions of the libcmark libary
@@ -25,7 +25,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.007000
+BuildRequires:  perl(Clownfish::CFC::Perl::Build) >= 0.008000
 BuildRequires:  perl(Clownfish::CFC::Perl::Build::Charmonic)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
@@ -91,6 +91,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_mandir}/man3/Clownfish::*
 
 %changelog
+* Wed Sep 02 2026 Petr Pisar <ppisar@redhat.com> - 0.8.0-1
+- 0.8.0 bump
+
 * Tue Aug 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.0-1
 - 0.7.0 bump
 

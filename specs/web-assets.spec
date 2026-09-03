@@ -3,7 +3,7 @@
 
 Name:           web-assets
 Version:        5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A simple framework for bits pushed to browsers
 License:        MIT
 URL:            https://fedoraproject.org/wiki/User:Patches/PackagingDrafts/Web_Assets
@@ -81,18 +81,18 @@ install -Dpm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/nginx/default.d/web-asset
 
 %if %{with httpd}
 %post httpd
-[ -x %{_bindir}/systemctl ] && reload-or-try-restart httpd.service || :
+[ -x %{_bindir}/systemctl ] && systemctl try-reload-or-restart httpd.service || :
 
 %postun httpd
-[ -x %{_bindir}/systemctl ] && reload-or-try-restart httpd.service || :
+[ -x %{_bindir}/systemctl ] && systemctl try-reload-or-restart httpd.service || :
 %endif
 
 %if %{with nginx}
 %post nginx
-[ -x %{_bindir}/systemctl ] && systemctl reload-or-try-restart nginx.service || :
+[ -x %{_bindir}/systemctl ] && systemctl try-reload-or-restart nginx.service || :
 
 %postun nginx
-[ -x %{_bindir}/systemctl ] && systemctl reload-or-try-restart nginx.service || :
+[ -x %{_bindir}/systemctl ] && systemctl try-reload-or-restart nginx.service || :
 %endif
 
 %files filesystem
@@ -117,6 +117,9 @@ install -Dpm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/nginx/default.d/web-asset
 %endif
 
 %changelog
+* Wed Sep 02 2026 Petr Pisar <ppisar@redhat.com> - 5-27
+- Fix restarting systemd services
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

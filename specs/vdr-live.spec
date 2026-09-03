@@ -16,17 +16,17 @@
 %endif
 
 Name:           vdr-live
-Version:        3.5.6
+Version:        3.5.7
 # Release:        0.1.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-MIT
-##URL:            https://github.com/MarkusEh/vdr-plugin-live
 URL:            https://codeberg.org/MarkusE/vdr-plugin-live
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.conf
+Patch0:         vdr-live-c++20.diff
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -69,6 +69,7 @@ rm -rf httpd
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 %build
+#%%make_build CFLAGS="%%{optflags} -fPIC" CXXFLAGS="%%{optflags} -fPIC -std=gnu++17"
 %make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
 
 %install
@@ -91,6 +92,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Wed Aug 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.7-1
+- Update to 3.5.7-1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

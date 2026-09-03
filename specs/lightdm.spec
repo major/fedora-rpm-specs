@@ -202,8 +202,10 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{__rm} -rfv %{buildroot}%{_sysconfdir}/init
 
 # install pam file
-%{__install} -Dpm 0644 %{SOURCE10} %{buildroot}%{_sysconfdir}/pam.d/lightdm
-%{__install} -Dpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/pam.d/lightdm-autologin
+mkdir -p %{buildroot}%{_prefix}/lib
+mv %{buildroot}%{_sysconfdir}/pam.d %{buildroot}%{_prefix}/lib
+%{__install} -Dpm 0644 %{SOURCE10} %{buildroot}%{_prefix}/lib/pam.d/lightdm
+%{__install} -Dpm 0644 %{SOURCE11} %{buildroot}%{_prefix}/lib/pam.d/lightdm-autologin
 %{__install} -Dpm 0644 %{SOURCE12} %{buildroot}%{_prefix}/lib/tmpfiles.d/lightdm.conf
 %{__install} -Dpm 0644 %{SOURCE13} %{buildroot}%{_unitdir}/lightdm.service
 %{__install} -Dpm 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/logrotate.d/lightdm
@@ -238,7 +240,7 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %doc NEWS
 %dir %{_sysconfdir}/lightdm/
 %dir %{_sysconfdir}/lightdm/lightdm.conf.d
-%config(noreplace) %{_sysconfdir}/pam.d/lightdm*
+%{_prefix}/lib/pam.d/lightdm*
 %config(noreplace) %{_sysconfdir}/lightdm/keys.conf
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm.conf
 %config(noreplace) %{_sysconfdir}/lightdm/users.conf

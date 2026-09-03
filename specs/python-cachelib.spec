@@ -1,7 +1,7 @@
 %global srcname cachelib
 
 Name:           python-%{srcname}
-Version:        0.13.0
+Version:        0.16.1
 Release:        %autorelease
 Summary:        A collection of cache libraries with a common API
 License:        BSD-3-Clause
@@ -21,13 +21,15 @@ Extracted from Werkzeug.}
 Summary:        %{summary}
 BuildRequires:  memcached
 BuildRequires:  redis
+BuildRequires:  valkey
+BuildRequires:  python3-boto3
 BuildRequires:  python3-devel
 BuildRequires:  python3-pylibmc
-#BuildRequires:  python3-pymongo
+BuildRequires:  python3-pymongo
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-xprocess
 BuildRequires:  python3-redis
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3-valkey
 
 %description -n python3-%{srcname} %{_description}
 
@@ -46,13 +48,12 @@ BuildRequires:  python3dist(setuptools)
 %pyproject_save_files -l cachelib
 
 %check
-# uWSGI is not packaged for Fedora and there is no straightforward way to test
-# Amazon DynamoDB so skip tests for these backends.
-# MongoDb is new as of 0.12.0, however, it fails the test suite even with
-# pymongo installed. Leave it disabled until fixed.
+# uWSGI is not packaged for Fedora, and MongoDB / DynamoDB require external
+# services without embedded mocks in upstream tests, so skip these backends.
 %pytest -v -r s -k 'not Uwsgi and not DynamoDb and not MongoDb'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
+%doc CHANGES.rst README.md
 
 %changelog
 %autochangelog

@@ -13,7 +13,7 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 1
+%global         release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -40,6 +40,14 @@ Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp
 # Then go to https://github.com/dogtagpki/jss/releases and download the source
 # tarball.
 Source:         https://github.com/dogtagpki/jss/archive/v%{version}%{?phase:-}%{?phase}/jss-%{version}%{?phase:-}%{?phase}.tar.gz
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2490607
+# https://github.com/dogtagpki/jss/pull/1116
+# Fix post-handshake auth hang with TLS 1.3
+# Fixes FreeIPA replication with OpenSSL 4
+Patch:          0001-Fix-TLS-1.3-post-handshake-authentication-hanging-at.patch
+Patch:          0002-Integrate-post-handshake-auth-into-the-handshake-sta.patch
+Patch:          0003-Add-JSSSocketChannel-TLS-1.3-post-handshake-auth-tes.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -420,6 +428,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Wed Sep 02 2026 Adam Williamson <adamwill@fedoraproject.org> -5.10.1-2
+- Backport PR #1116 to fix post-handshake auth hang (FreeIPA replication) (#2490607)
+
 * Tue Jul 28 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.10.1-1
 - Rebase to JSS 5.10.1
 

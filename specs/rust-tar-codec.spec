@@ -18,6 +18,7 @@ Source10:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}
 Source11:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
 # * Remove unused, benchmark-only dev-dependency on criterion
+# * Allow astral-tokio-tar 0.7: https://github.com/astral-sh/tar-codec/pull/119
 Patch:          tar-codec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

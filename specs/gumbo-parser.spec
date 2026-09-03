@@ -1,7 +1,7 @@
 Name:           gumbo-parser
 Epoch:          1
-Version:        0.13.2
-Release:        3%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        A HTML5 parser
 
 License:        Apache-2.0
@@ -104,7 +104,7 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{_pkgdocdir}
 %exclude %{_pkgdocdir}/html
 %exclude %{_pkgdocdir}/*.md
-%{_libdir}/*.so.3*
+%{_libdir}/*.so.4*
 
 %files devel
 %doc %{_pkgdocdir}/html
@@ -117,6 +117,9 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %files python -f %{pyproject_files}
 
 %changelog
+* Wed Aug 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.14.0-1
+- 0.14.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

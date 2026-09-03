@@ -4,7 +4,7 @@
 # Use a specific order for building as libraries are linked to each other:
 %global components libschily libdeflt libmdigest libfind librmt rmt star
 Name:           star
-Version:        %(echo %version_schily | tr '-' '.')
+Version:        %{gsub %version_schily - .}
 Release:        %autorelease 
 Summary:        An archiving tool with ACL support
 

@@ -5,7 +5,7 @@
 %global crate fat-macho
 
 Name:           rust-fat-macho
-Version:        0.4.11
+Version:        0.4.12
 Release:        %autorelease
 Summary:        Mach-O Fat Binary Reader and Writer
 

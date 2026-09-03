@@ -1,14 +1,11 @@
 Name:           python-bytecode
-Version:        0.18.1
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Python module to generate and modify bytecode
 
 License:        MIT
 URL:            https://github.com/MatthieuDartiailh/bytecode
 Source:         %{pypi_source bytecode}
-
-# rebase from https://github.com/MatthieuDartiailh/bytecode/pull/192
-Patch:          192.patch
 
 BuildArch:      noarch
 BuildRequires:  make

@@ -1,5 +1,5 @@
 Name:          libcec
-Version:       8.1.3
+Version:       8.1.7
 Release:       1%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
@@ -109,6 +109,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{python3_sitearch}/*
 
 %changelog
+* Wed Sep 02 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 8.1.7-1
+- 8.1.7 release RHBZ#2509770
+
 * Sun Aug 02 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 8.1.3-1
 - 8.1.3 release RHBZ# 2509770
 

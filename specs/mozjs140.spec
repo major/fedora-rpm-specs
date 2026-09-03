@@ -81,7 +81,9 @@ BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+%if %{undefined rhel}
 BuildRequires:  python3-six
+%endif
 BuildRequires:  readline-devel
 BuildRequires:  wget
 BuildRequires:  zip

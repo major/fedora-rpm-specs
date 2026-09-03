@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.3
+Version:        0.12.5
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -89,6 +89,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
+# Apache-2.0 OR Apache-2.0 WITH LLVM-exception
 # Apache-2.0 OR BSD-2-Clause
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
@@ -116,6 +117,8 @@ License:        %{shrink:
     0BSD AND
     (0BSD OR Apache-2.0 OR MIT) AND
     Apache-2.0 AND
+    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
+    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception) AND
     (Apache-2.0 OR BSD-2-Clause) AND
     (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND
@@ -124,7 +127,6 @@ License:        %{shrink:
     (Apache-2.0 OR MIT OR Zlib) AND
     (Apache-2.0 OR MIT-0) AND
     (Apache-2.0 WITH LLVM-exception) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     BSD-3-Clause AND
     CC0-1.0 AND
     CDLA-Permissive-2.0 AND
@@ -547,6 +549,13 @@ sed --regexp-extended --in-place \
 # https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
 # rust-blake2 to a pre-release. There is an anccompanying source-code patch.
 tomcli set Cargo.toml str workspace.dependencies.blake2.version 0.10.6
+
+# tar-codec
+#   wanted: 0.0.13
+#   currently packaged: 0.0.14
+# A subsequent uv release will want the newer version, and it’s
+# backwards-compatible enough in practice.
+tomcli set Cargo.toml str workspace.dependencies.tar-codec.version 0.0.14
 
 %cargo_prep
 

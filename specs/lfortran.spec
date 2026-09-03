@@ -1,6 +1,6 @@
-Version:        0.63.0
+Version:        0.65.0
 Name:           lfortran
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -9,15 +9,18 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
+Patch0:         https://github.com/lfortran/lfortran/pull/12679.patch
 
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 
-%global with_jupyter 1
+# needs xeus-6
+%global with_jupyter 0
 
 BuildRequires: binutils-devel
 BuildRequires: bison
 BuildRequires: cmake
+BuildRequires: clang
 BuildRequires: fmt-devel
 BuildRequires: gcc-c++
 BuildRequires: json-devel
@@ -26,6 +29,7 @@ BuildRequires: libunwind-devel
 BuildRequires: libuuid-devel
 BuildRequires: llvm-devel
 BuildRequires: python3-devel
+BuildRequires: python3-tomli
 BuildRequires: rapidjson-devel
 BuildRequires: re2c
 BuildRequires: zlib-ng-compat-devel
@@ -157,6 +161,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Wed Sep 02 2026 Christoph Junghans <junghans@votca.org> - 0.65.0-1
+- Update to version 0.65.0
+- Resolves: rhbz#2501985
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.63.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

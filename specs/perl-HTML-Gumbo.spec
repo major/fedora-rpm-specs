@@ -1,6 +1,6 @@
 Name:           perl-HTML-Gumbo
 Version:        0.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML5 parser based on gumbo C library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-Gumbo
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/HTML*
 
 %changelog
+* Wed Sep 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.20-2
+- gumbo-parser rebuild
+
 * Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.20-1
 - Update to 0.20
 

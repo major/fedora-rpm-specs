@@ -7,8 +7,8 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.43
-Release:	3%{?dist}
+Version:	4.44
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
 Source0:	https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-%{version}.tar.gz
@@ -164,6 +164,13 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Wed Sep  2 2026 Paul Howarth <paul@city-fan.org> - 4.44-1
+- Update to 4.44
+  - Fix canonical sort infinite loop (GH#252): malformed UTF-8 keys (e.g.
+    Latin-1 byte strings mixed with Unicode) made utf16_cmp treat the decoder's
+    (STRLEN)-1 malformed sentinel as a length, wrapping the buffer pointer: now
+    checked as 0 or > remaining length
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.43-3
 - Perl 5.44 re-rebuild of bootstrapped packages
 

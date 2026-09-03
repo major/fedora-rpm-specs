@@ -1,5 +1,4 @@
 %global realname riak_pb
-%global upstream basho
 
 Name:		erlang-%{realname}
 Version:	3.0.10
@@ -9,12 +8,12 @@ Summary:	Riak Protocol Buffers Messages
 License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch:		erlang-riak_pb-0001-FIXME-remove-eqc-we-do-not-use-it.patch
+Source:		%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Patch:		erlang-riak_pb-0002-Include-gpb.hrl-ad-include_lib.patch
 BuildRequires:	erlang-gpb
 BuildRequires:	erlang-hamcrest
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-eqc
 BuildRequires:	erlang-rebar3-gpb
 BuildRequires:	erlang-rebar3-riak_pb_msgcodegen
 

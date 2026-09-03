@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -307,6 +307,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Wed Sep 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-16
+- Add support for unlocking oo7 wallets with login
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

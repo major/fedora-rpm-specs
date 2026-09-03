@@ -5,7 +5,7 @@
 %global crate time
 
 Name:           rust-time
-Version:        0.3.47
+Version:        0.3.55
 Release:        %autorelease
 Summary:        Date and time library
 
@@ -17,6 +17,9 @@ Patch:          time-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove WASM-specific features
 Patch:          time-fix-metadata.diff
+# * Fix alignment tests on 32-bit architectures:
+# * https://github.com/time-rs/time/pull/809
+Patch10:        time-fix-alignment-tests-on-32bit.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -149,6 +152,18 @@ use the "rand" feature of the "%{crate}" crate.
 %files       -n %{name}+rand-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+rand010-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand010-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand010" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand010-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+rand08-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -236,8 +251,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a test that encodes 64-bit memory layout assumptions
-%cargo_test -a -- -- --exact --skip meta::alignment
+%cargo_test -a
 %endif
 
 %changelog

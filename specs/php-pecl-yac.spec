@@ -24,7 +24,7 @@
 Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -87,13 +87,13 @@ cat > %{ini_name} << 'EOF'
 ; Enable Yet Another Cache extension module
 extension = %{pecl_name}.so
 
-;yac.enable=1
-;yac.enable_cli=0
-;yac.debug=0
-;yac.keys_memory_size=4M
-;yac.values_memory_size=64M
-;yac.compress_threshold=-1
-;yac.serializer=php
+;yac.enable = 1
+;yac.enable_cli = 0
+;yac.debug = 0
+;yac.keys_memory_size = 8M
+;yac.values_memory_size = 64M
+;yac.compress_threshold = 4K
+;yac.serializer = php
 EOF
 
 
@@ -148,6 +148,9 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep  2 2026 Remi Collet <remi@remirepo.net> - 2.4.1-1
+- update to 2.4.1
+
 * Wed Aug 26 2026 Remi Collet <remi@remirepo.net> - 2.4.0-1
 - update to 2.4.0
 - switch from fastlz to lz4

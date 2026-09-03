@@ -37,6 +37,7 @@ developing applications that use %{name}.
 %conf
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCATCH_ENABLE_REPRODUCIBLE_BUILD=OFF \
     -DCATCH_BUILD_EXTRA_TESTS=ON \
     -DCATCH_ENABLE_WERROR=OFF \
     -DCATCH_INSTALL_DOCS=OFF \

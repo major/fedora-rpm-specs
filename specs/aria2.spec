@@ -2,12 +2,14 @@
 
 Name:           aria2
 Version:        1.37.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        High speed download utility with resuming and segmented downloading
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
 URL:            http://aria2.github.io/
 Source0:        https://github.com/aria2/%{name}/releases/download/release-%{version}/%{name}-%{version}.tar.xz
+# Fix build against Nettle 4.0
+Patch0:         https://github.com/aria2/aria2/pull/2358.patch
 
 BuildRequires:  bison
 BuildRequires:  c-ares-devel
@@ -80,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 %{_mandir}/*/man1/aria2c.1.gz
 
 %changelog
+* Wed Sep 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.37.0-11
+- Fix build with nettle 4.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

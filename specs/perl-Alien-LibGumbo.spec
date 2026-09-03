@@ -1,6 +1,6 @@
 Name:           perl-Alien-LibGumbo
 Version:        0.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Gumbo parser library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-LibGumbo
@@ -59,6 +59,9 @@ sed -i -e '/gumbo-0.10.1.tar.*/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Wed Sep 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.06-2
+- gumbo-parser rebuild
+
 * Mon Aug 31 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.06-1
 - 0.06
 

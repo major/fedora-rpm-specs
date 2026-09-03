@@ -5,7 +5,7 @@
 %global crate num-conv
 
 Name:           rust-num-conv
-Version:        0.2.0
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Num_conv is a crate to convert between integer types without using as casts
 

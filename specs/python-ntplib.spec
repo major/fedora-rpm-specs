@@ -1,13 +1,11 @@
-# tests require internet connection
-%global with_tests 0
 Name:           python-ntplib
-Version:        0.3.3
-Release:        42%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Python module that offers a simple interface to query NTP servers
 
 License:        MIT
-URL:            http://pypi.python.org/pypi/ntplib/
-Source0:        https://pypi.python.org/packages/source/n/ntplib/ntplib-%{?version}.tar.gz
+URL:            https://github.com/cf-natali/ntplib
+Source0:        %{url}/archive/%{version}/ntplib-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -22,7 +20,8 @@ modules, it should work on any platform with a Python implementation.
 %package -n python3-ntplib
 Summary:        Python 3 module that offers a simple interface to query NTP servers
 
-BuildRequires:	python3-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -38,26 +37,31 @@ Python 3 version.
 
 
 %prep
-%setup -q -n ntplib-%{?version}
+%autosetup -p1 -n ntplib-%{version}
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-
-%if 0%{?with_tests}
-
-%{__python3} test_ntplib.py
-%endif # with_tests
+%pyproject_save_files ntplib
 
 
-%files -n python3-ntplib
-%doc CHANGELOG
-%{python3_sitelib}/ntplib*
-%{python3_sitelib}/__pycache__/*
+%check
+%pyproject_check_import
+# test_request and test_helpers require internet access to pool.ntp.org
+%pytest -k "test_basic"
+
+
+%files -n python3-ntplib -f %{pyproject_files}
+%license LICENSE
+%doc CHANGELOG README.md
 
 %changelog
+* Sun Aug 23 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.4.0-1
+- Update to 0.4.0
+- Resolves: rhbz#1829034
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

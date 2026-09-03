@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.14
+%global rocm_release 10.0
 %else
 %global rocm_release 7.14
 %endif
@@ -134,7 +134,7 @@ URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # Force sync to same version of hipblaslt
-Source1:        %{url}/releases/download/rocm-%{version}/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{pkg_src}/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
 
 %global nanobind_version 2.9.2
 %global nanobind_giturl https://github.com/wjakob/nanobind

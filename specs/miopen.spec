@@ -73,7 +73,10 @@
 # For testing
 # hardcoded use of gtest and dirs is not suitable for mock building
 # Testsuite is not in great shape, fails instead of skips ck tests
+%if %{without preview}
+# testing broken in preview
 %bcond_with test
+%endif
 %if %{with test}
 %global build_test ON
 %else
@@ -115,7 +118,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -130,7 +133,6 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 #   src/md5.cpp
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
 # New source needed for testing
 # Request a real ctest project here
 # https://github.com/ROCm/rocm-libraries/issues/6500
@@ -246,6 +248,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}
 tar xf %{SOURCE1}
+
+%if %{with preview}
+sed -i -e 's@set(MIOPEN_TEST_CATEGORIES_CMAKE ${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@set(MIOPEN_TEST_CATEGORIES_CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
+
+%endif
+
 sed -i -e 's@include(${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@include(${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
 
 # problem with trying to use ck for tests even when disabled

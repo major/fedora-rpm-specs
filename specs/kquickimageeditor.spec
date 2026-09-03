@@ -1,10 +1,16 @@
 Name:    kquickimageeditor
 Version: 0.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/%{name}
 Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+
+# UPSTREAM
+
+# Fix build on ARM with SVE
+# https://invent.kde.org/libraries/kquickimageeditor/-/merge_requests/68
+Patch0:  68.patch
 
 BuildRequires: extra-cmake-modules
 
@@ -36,7 +42,7 @@ The %{name}-qt6-devel package contains cmake and mkspecs for developing
 applications that use %{name}-qt6.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -58,6 +64,9 @@ applications that use %{name}-qt6.
 %{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog
+* Wed Sep 02 2026 Steve Cossette <farchord@gmail.com> - 0.7.0-2
+- Add fix to build on aarch64
+
 * Tue Sep 01 2026 Steve Cossette <farchord@gmail.com> - 0.7.0-1
 - 0.7.0
 

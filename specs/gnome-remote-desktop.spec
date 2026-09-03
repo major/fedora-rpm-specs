@@ -7,13 +7,13 @@
 %bcond vnc %[0%{?fedora} || 0%{?rhel} < 10]
 
 %global meson_version 1.4.0
-%global libei_version 1.0.901
+%global libei_version 1.3.901
 %global pipewire_version 1.2.0
 %global glib_version 2.75.0
 %global vncserver_version 0.9.11-7
 
 Name:           gnome-remote-desktop
-Version:        51~beta
+Version:        51~rc
 Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 
@@ -25,9 +25,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
-
-# https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/merge_requests/416
-Patch1:         001-Fix-building-when-pointers-are-32-bit.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
