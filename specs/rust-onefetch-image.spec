@@ -5,7 +5,7 @@
 %global crate onefetch-image
 
 Name:           rust-onefetch-image
-Version:        2.27.1
+Version:        2.28.1
 Release:        %autorelease
 Summary:        Display images in the terminal
 

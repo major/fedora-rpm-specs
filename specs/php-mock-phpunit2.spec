@@ -16,12 +16,14 @@
 
 Name:           php-mock-phpunit%{major}
 Version:        2.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+
+Patch0:         upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7
@@ -70,6 +72,7 @@ No further extension is needed.
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 : Create autoloader
 cat << 'AUTOLOAD' | tee rpm.php
@@ -185,6 +188,10 @@ exit $ret
 
 
 %changelog
+* Thu Sep  3 2026 Remi Collet <remi@remirepo.net> - 2.15.0-3
+- add upstream patches for PHPUnit 13.1
+- fix FTBFS #2504405
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

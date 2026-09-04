@@ -1,7 +1,7 @@
 # Try opting-out of LTO, due to test failures
 %define _lto_cflags %{nil}
 
-%global soversion 28
+%global soversion 30
 
 %bcond openh264 0
 
@@ -33,13 +33,18 @@ FFmpegReader:Duration_Strategy_Audio_Preferred|\\\
 FFmpegReader:Duration_And_Length|\\\
 FFmpegReader:Duration_Strategy_Video_Preferred|\\\
 FFmpegReader:Duration_Strategy_Longest_Stream|\\\
+FFmpegReader:HardwareDecodeSuccessful_IsFalse_WhenHardwareDecodeIsDisabled|\\\
 FFmpegWriter:DisplayInfo|\\\
+FFmpegWriter:SizeOrdering_vp9_CRF|\\\
+FFmpegWriter:SizeOrdering_x264_CRF|\\\
 FFmpegWriter:Webm|\\\
 FFmpegWriter:Gif|\\\
 Frame:Convert_Image|\\\
 Frame:Data_Access|\\\
+FrameMapper:concurrent_change_mapping_and_getframe_is_safe|\\\
 KeyFrame:AttachToObject|\\\
 Timeline:ApplyJSONDiff Update Reader Info|\\\
+Timeline:GetMaxFrame|\\\
 Timeline:Multi-threaded Timeline Add/Remove Clip|\\\
 Timeline:Multi-threaded Timeline GetFrame|\\\
 VideoCacheThread:prefetchWindow: interrupt on userSeeked flag|\\\
@@ -60,17 +65,17 @@ CVOutline:Outline_Tests
 %endif
 
 Name:           libopenshot
-Version:        0.5.0
-Release:        9%{?dist}
+Version:        0.7.0
+Release:        2%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
 License:        LGPL-3.0-or-later and BSD-3-Clause
 URL:            http://www.openshot.org/
 Source0:        https://github.com/OpenShot/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix build with FFmpeg 8
-# https://github.com/OpenShot/libopenshot/pull/1018
-Patch0:         %{name}-ffmpeg8.patch
+# Fix build with FFmpeg 9
+# https://github.com/OpenShot/libopenshot/issues/1083
+Patch0:         https://github.com/OpenMandrivaAssociation/libopenshot/raw/refs/heads/master/libopenshot-0.7.0-ffmpeg9.patch
 # Fix babl detection
 Patch1:         %{name}-fix-babl-detection.patch
 
@@ -96,7 +101,7 @@ BuildRequires:  unittest-cpp-devel
 BuildRequires:  cppzmq-devel
 BuildRequires:  zeromq-devel
 BuildRequires:  jsoncpp-devel
-BuildRequires:  libopenshot-audio-devel >= %{version}
+BuildRequires:  libopenshot-audio-devel >= 0.6.0
 BuildRequires:  catch-devel
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-setuptools
@@ -177,6 +182,15 @@ export QT_QPA_PLATFORM=offscreen
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.7.0-2
+- Rebuilt for FFmpeg 9
+
+* Thu Aug 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.7.0-1
+- Updated to 0.7.0 (resolves rhbz#2449868)
+- Dropped obsolete patch
+- Fixed build with FFmpeg 9
+- Skipped some more tests requiring openh264
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.5.0-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

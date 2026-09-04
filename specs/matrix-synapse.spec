@@ -4,7 +4,7 @@
 %bcond saml2 0
 
 Name:       matrix-synapse
-Version:    1.159.0
+Version:    1.160.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -20,7 +20,6 @@ Source3:    matrix-synapse.sysusers
 Patch1:     matrix-synapse-1.159-pyo3-Disable-abi3-feature.patch
 Patch2:     matrix-synapse-1.159-Build-RustExtension-with-debug-symbols.patch
 Patch3:     matrix-synapse-1.151.0-no_parameterized.patch
-Patch4:     matrix-synapse-1.159-pyo3_pythonize_0.29.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
@@ -136,6 +135,7 @@ rm -f \
   tests/rest/client/sliding_sync/test_connection_tracking.py \
   tests/rest/client/sliding_sync/test_extension_account_data.py \
   tests/rest/client/sliding_sync/test_extension_e2ee.py \
+  tests/rest/client/sliding_sync/test_extension_profiles.py \
   tests/rest/client/sliding_sync/test_extension_receipts.py \
   tests/rest/client/sliding_sync/test_extension_sticky_events.py \
   tests/rest/client/sliding_sync/test_extension_thread_subscriptions.py \

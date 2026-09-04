@@ -1,6 +1,6 @@
 Name:           cxx-rust-cssparser
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for parsing CSS using the Rust cssparser crate
 
 # Rust Crates Licensing:
@@ -81,6 +81,9 @@ cd ..
 %{_kf6_libdir}/lib%{name}.so
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.0.0-3
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
 Version:        4.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -606,6 +606,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.11.0-2
+- Rebuilt for FFmpeg 9
+
 * Mon Aug 31 2026 Robert Scheck <robert@fedoraproject.org> 4.11.0-1
 - Upgrade to 4.11.0 (#2523411)
 

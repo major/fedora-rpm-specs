@@ -1,19 +1,17 @@
 Name:           nvmetcli
 License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
-Version:        0.8
-Release:        9%{?dist}
-URL:            ftp://ftp.infradead.org/pub/nvmetcli/
-Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
+Version:        0.9
+Release:        1%{?dist}
+URL:            https://github.com/linux-nvme/nvmetcli
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires: make
-BuildRequires:  python3-devel python3-setuptools systemd-units asciidoc xmlto
-Requires:       python3-configshell python3-kmod python3-six
+BuildRequires:  python3-devel systemd-units asciidoc xmlto
+Requires:       kmod
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-
-%define _sbindir %{_exec_prefix}/sbin
 
 %description
 This package contains the command line interface to the NVMe over Fabrics
@@ -23,19 +21,22 @@ as well as saving / restoring the configuration to / from a json file.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 cd Documentation
 make
-gzip --stdout nvmetcli.8 > nvmetcli.8.gz
 
 %install
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
+%pyproject_save_files -L nvmet
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_sysconfdir}/nvmet
 install -m 644 nvmet.service %{buildroot}%{_unitdir}/nvmet.service
 mkdir -p %{buildroot}%{_mandir}/man8/
-install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
+install -m 644 Documentation/nvmetcli.8 %{buildroot}%{_mandir}/man8/
 
 %post
 %systemd_post nvmet.service
@@ -46,16 +47,18 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %postun
 %systemd_postun_with_restart nvmet.service
 
-%files
-%{python3_sitelib}/*
+%files -f %{pyproject_files}
 %dir %{_sysconfdir}/nvmet
-%{_sbindir}/nvmetcli
+%{_bindir}/nvmetcli
 %{_unitdir}/nvmet.service
 %doc README
 %license COPYING
-%{_mandir}/man8/nvmetcli.8.gz
+%{_mandir}/man8/nvmetcli.8*
 
 %changelog
+* Fri Aug 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9-1
+- Update to 0.9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

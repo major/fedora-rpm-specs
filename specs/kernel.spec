@@ -195,13 +195,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc1.260902g89a312991dc6.20
+%define pkgrelease 0.rc1.260903g940de590b839.21
 %define kversion 7
-%define tarfile_release 7.3-rc1-99-g89a312991dc6
+%define tarfile_release 7.3-rc1-101-g940de590b839
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260902g89a312991dc6.20%{?buildid}%{?dist}
+%define specrelease 0.rc1.260903g940de590b839.21%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4964,10 +4964,14 @@ fi\
 #
 #
 %changelog
-* Wed Sep 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.89a312991dc6.20]
+* Thu Sep 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.940de590b839.21]
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Sep 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.940de590b839.20]
+- random: Drop the extrng module reference when import_ubuf() fails (Junjie Cao) [2524262]
+- Linux v7.3.0-0.rc1.940de590b839
 
 * Wed Sep 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.89a312991dc6.19]
 - rh_messages.h: Disable ConnectX-10 NVLink-C2C device (Benjamin Poirier)

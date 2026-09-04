@@ -1,7 +1,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
 Version:          3.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    cargo
@@ -153,6 +153,9 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 3.2.0-3
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

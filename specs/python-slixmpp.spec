@@ -4,7 +4,7 @@
 
 Name:           python-slixmpp
 Version:        1.13.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
@@ -130,6 +130,9 @@ install -pDm0644 docs/texinfo/slixmpp.xml \
 
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.13.2-6
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.13.2-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

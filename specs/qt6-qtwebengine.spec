@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.11.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -859,6 +859,9 @@ done
 %endif
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 6.11.2-3
+- Rebuilt for FFmpeg 9
+
 * Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-2
 - PPC/s390: Codegen - fix signed integer overdlow in Assembler:GrowBuffer
 

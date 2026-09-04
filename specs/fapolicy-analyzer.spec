@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -212,6 +212,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.5.1-7
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.1-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -2,7 +2,7 @@
 
 Name:           guvcview
 Version:        2.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK+ UVC Viewer and Capturer
 License:        GPL-2.0-or-later
 URL:            https://guvcview.sourceforge.net/
@@ -123,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.2.2-4
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

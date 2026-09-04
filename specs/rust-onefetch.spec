@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.27.1
+Version:        2.28.1
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -18,17 +18,22 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Bump gix to version 0.85: https://github.com/o2sh/onefetch/pull/1740,
-#   https://github.com/o2sh/onefetch/pull/1783
-# * Remove direct dependency on gix-features:
-#   https://github.com/o2sh/onefetch/pull/1720
-# * Allow older strum 0.27 for EPEL10.2 and older
+# * Use older gix 0.85 (upstream wants 0.87):
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2506441. We must carry a
+#   downstream patch reverting the source-code change from
+#   https://github.com/o2sh/onefetch/commit/f43b0cb3ad4076974e942b54751ee462ce2a6ca5;
+#   this patch must be removed when we are ready to update to gix 0.86+.
+# * Allow human-panic 2.0.6 for now (upstream wants 2.0.8):
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2453435
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
 Patch:          onefetch-fix-metadata.diff
+# * Downstream-only: revert the source-code change for gix 0.86+ so we can
+#   temporarily keep using gix 0.85.
+Patch10:        0001-Revert-chore-deps-Update-Rust-crate-gix-to-0.86.0-18.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  help2man

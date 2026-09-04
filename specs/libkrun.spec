@@ -14,7 +14,7 @@
 
 Name:           libkrun
 Version:        1.19.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -241,6 +241,9 @@ capabilities.
 %endif
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.19.0-4
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

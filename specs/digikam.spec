@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 9.1.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -334,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.1.0-4
+- Rebuilt for FFmpeg 9
+
 * Mon Aug 10 2026 Simone Caronni <negativo17@gmail.com> - 9.1.0-3
 - Rebuilt for updated dependencies.
 

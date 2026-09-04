@@ -5,13 +5,16 @@
 %global crate gdk-pixbuf-sys
 
 Name:           rust-gdk-pixbuf-sys
-Version:        0.22.0
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libgdk_pixbuf-2.0
 
 License:        MIT
 URL:            https://crates.io/crates/gdk-pixbuf-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gdk-pixbuf-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.36.8

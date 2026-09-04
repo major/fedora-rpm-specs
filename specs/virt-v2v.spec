@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.4
+Version:       2.13.5
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -376,6 +376,9 @@ done
 
 
 %changelog
+* Thu Sep 03 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.5-1
+- New upstream development version 2.13.5
+
 * Tue Aug 25 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.4-1
 - New upstream development version 2.13.4
 

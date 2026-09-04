@@ -1,19 +1,17 @@
 Name:           python-wand
-Version:        0.6.13
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Ctypes-based simple MagickWand API binding for Python
 
 License:        MIT
 URL:            https://github.com/emcconville/wand
-Source:         %{pypi_source Wand}
+Source:         %{pypi_source wand}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  ImageMagick-c++-devel
+BuildRequires:  ImageMagick-libs
 # Documentation
 BuildRequires:  texinfo
-BuildRequires:  python3dist(docutils)
-BuildRequires:  python3dist(sphinx)
 
 %global _description %{expand:
 Wand is a ctypes-based simple ImageMagick binding for Python. All
@@ -23,12 +21,13 @@ functionalities of MagickWand API are implemented in Wand.}
 
 %package -n     python3-wand
 Summary:        %{summary}
+Requires:       ImageMagick-libs
 
 %description -n python3-wand %_description
 
 
 %prep
-%autosetup -p1 -n Wand-%{version}
+%autosetup -p1 -n wand-%{version}
 
 
 %generate_buildrequires
@@ -40,7 +39,7 @@ Summary:        %{summary}
 pushd docs
 sphinx-build -b texinfo . texinfo
 pushd texinfo
-makeinfo --docbook wand.texi	
+makeinfo --docbook wand.texi
 popd
 popd
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.22
+Version: 45.23
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -523,6 +523,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 01 2026 Packit <hello@packit.dev> - 45.23-1
+- storage: Run do_partitioning for reqpart in custom partitioning (vtrefny)
+
 * Mon Aug 24 2026 Packit <hello@packit.dev> - 45.22-1
 - spec: add IOT to anaconda-gui variants in rich dep (kkoukiou)
 

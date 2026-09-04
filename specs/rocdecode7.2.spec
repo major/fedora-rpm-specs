@@ -88,9 +88,9 @@
 Name:           rocdecode%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
@@ -241,6 +241,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 7.2.0-6
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

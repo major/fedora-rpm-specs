@@ -5,16 +5,13 @@
 %global crate proc-macro-crate
 
 Name:           rust-proc-macro-crate
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Replacement for crate (macro_rules keyword) in proc-macros
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/proc-macro-crate
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow toml_edit 0.24; downstream-only for MSRV reasons
-Patch:          proc-macro-crate-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

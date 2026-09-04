@@ -37,6 +37,9 @@ Patch:         %{name}-use-system-fonts.patch
 Patch:         %{name}-disable-software-update.patch
 # A patch to fix build with poppler 26.04.0 and newer
 Patch:         %{name}-poppler-26.04.0.patch
+# Fix build with FFmpeg 9.0 and newer
+# https://github.com/OpenBoard-org/OpenBoard/pull/1219
+Patch:         https://github.com/OpenBoard-org/OpenBoard/commit/e81b3450c001ac3eb0dc7aa2bf15c605cb755910.patch#/%{name}-ffmpeg9.patch
 BuildRequires: cmake
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Concurrent)

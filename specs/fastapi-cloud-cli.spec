@@ -44,21 +44,27 @@ Source2300:      fastapi-cloud-deployments.1
 Source2310:      fastapi-cloud-deployments-get.1
 Source2320:      fastapi-cloud-deployments-build-logs.1
 Source2330:      fastapi-cloud-deployments-list.1
-Source2400:      fastapi-cloud-integrations.1
-Source2410:      fastapi-cloud-integrations-providers.1
-Source2411:      fastapi-cloud-integrations-providers-list.1
-Source2420:      fastapi-cloud-integrations-resources.1
-Source2421:      fastapi-cloud-integrations-resources-connect.1
-Source2422:      fastapi-cloud-integrations-resources-disconnect.1
-Source2423:      fastapi-cloud-integrations-resources-get.1
-Source2424:      fastapi-cloud-integrations-resources-list.1
-Source2500:      fastapi-cloud-teams.1
-Source2510:      fastapi-cloud-teams-list.1
-Source2520:      fastapi-cloud-teams-get.1
-Source2600:      fastapi-cloud-tokens.1
-Source2610:      fastapi-cloud-tokens-create.1
-Source2620:      fastapi-cloud-tokens-delete.1
-Source2630:      fastapi-cloud-tokens-list.1
+Source2400:      fastapi-cloud-domains.1
+Source2410:      fastapi-cloud-domains-add.1
+Source2420:      fastapi-cloud-domains-get.1
+Source2430:      fastapi-cloud-domains-list.1
+Source2440:      fastapi-cloud-domains-remove.1
+Source2450:      fastapi-cloud-domains-restart.1
+Source2500:      fastapi-cloud-integrations.1
+Source2510:      fastapi-cloud-integrations-providers.1
+Source2511:      fastapi-cloud-integrations-providers-list.1
+Source2520:      fastapi-cloud-integrations-resources.1
+Source2521:      fastapi-cloud-integrations-resources-connect.1
+Source2522:      fastapi-cloud-integrations-resources-disconnect.1
+Source2523:      fastapi-cloud-integrations-resources-get.1
+Source2524:      fastapi-cloud-integrations-resources-list.1
+Source2600:      fastapi-cloud-teams.1
+Source2610:      fastapi-cloud-teams-list.1
+Source2620:      fastapi-cloud-teams-get.1
+Source2700:      fastapi-cloud-tokens.1
+Source2710:      fastapi-cloud-tokens-create.1
+Source2720:      fastapi-cloud-tokens-delete.1
+Source2730:      fastapi-cloud-tokens-list.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -81,15 +87,15 @@ BuildArch:      noarch
 
 %py_provides python3-fastapi-cloud-cli
 
-# Since requirements-tests.txt contains overly-strict version bounds and
+# Since the “dev” dependency group contains overly-strict version bounds and
 # unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
 # we just list the few test dependencies we *do* want manually rather than
-# trying to patch the requirements file. We preserve upstream’s lower bounds
-# but remove upper bounds, as we must try to make do with what we have.
-BuildRequires:  %{py3_dist pytest} >= 7
-BuildRequires:  %{py3_dist respx} >= 0.22
-BuildRequires:  %{py3_dist time-machine} >= 2.15
+# trying to patch the requirements file.
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist respx}
+BuildRequires:  %{py3_dist time-machine}
+BuildRequires:  %{py3_dist inline-snapshot}
 # The “fastapi cloud setup-ci” command uses gh (the GitHub CLI) when available,
 # falling back to git (git-core suffices) where it can. One of these is
 # required both for testing the command and for using it at runtime.
@@ -142,10 +148,12 @@ install -D --preserve-timestamps --mode=0644 \
       '%{SOURCE2140}' '%{SOURCE2150}' '%{SOURCE2160}' '%{SOURCE2170}' \
     '%{SOURCE2200}' '%{SOURCE2210}' '%{SOURCE2220}' \
     '%{SOURCE2300}' '%{SOURCE2310}' '%{SOURCE2320}' '%{SOURCE2330}' \
-    '%{SOURCE2400}' '%{SOURCE2410}' '%{SOURCE2411}' '%{SOURCE2420}' \
-      '%{SOURCE2421}' '%{SOURCE2422}' '%{SOURCE2423}' '%{SOURCE2424}' \
-    '%{SOURCE2500}' '%{SOURCE2510}' '%{SOURCE2520}' \
-    '%{SOURCE2600}' '%{SOURCE2610}' '%{SOURCE2620}' '%{SOURCE2630}'
+    '%{SOURCE2400}' '%{SOURCE2410}' '%{SOURCE2420}' '%{SOURCE2430}' \
+      '%{SOURCE2440}' '%{SOURCE2450}' \
+    '%{SOURCE2500}' '%{SOURCE2510}' '%{SOURCE2511}' '%{SOURCE2520}' \
+      '%{SOURCE2521}' '%{SOURCE2522}' '%{SOURCE2523}' '%{SOURCE2524}' \
+    '%{SOURCE2600}' '%{SOURCE2610}' '%{SOURCE2620}' \
+    '%{SOURCE2700}' '%{SOURCE2710}' '%{SOURCE2720}' '%{SOURCE2730}'
 
 
 %check -a

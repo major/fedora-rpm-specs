@@ -19,8 +19,8 @@
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
 License:       MIT
-Version:       0.5.3
-Release:       2%{?dist}
+Version:       0.5.4
+Release:       1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -91,6 +91,9 @@ for %{libname}.
 
 
 %changelog
+* Thu Sep  3 2026 Remi Collet <remi@remirepo.net> - 0.5.4-1
+- update to 0.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

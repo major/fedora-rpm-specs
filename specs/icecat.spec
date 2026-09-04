@@ -7,9 +7,9 @@
 
 ExcludeArch: %{ix86} %{arm}
 
-# Bundled cbindgen-0.29.3
+# Bundled cbindgen-0.29.4
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen  1
+%global use_bundled_cbindgen 0
 
 ####################
 
@@ -160,6 +160,7 @@ Patch226: rhbz-1354671.patch
 # Build patches
 Patch228: %{name}-protobuf_s390.patch
 Patch229: mozilla-2034301.patch
+Patch230: icecat-rust-1.98_additional_targets_mzb2053518.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -346,17 +347,18 @@ tar -xf %{SOURCE5}
 %patch -P 227 -p 1 -b .build-seccomp
 %endif
 
+# ARM64
+%ifarch %{arm64}
+%patch -P 226 -p 1 -b .1354671
+%endif
+
 # s390x
 %ifarch s390x
 %patch -P 228 -p 1 -b .build-protobuf
 %endif
 
 %patch -P 229 -p 1 -b .incom-pointer
-
-# ARM64
-%ifarch %{arm64}
-%patch -P 226 -p 1 -b .1354671
-%endif
+%patch -P 230 -p 1 -b .rust_additional_targets
 
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162

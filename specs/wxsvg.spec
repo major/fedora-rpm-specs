@@ -1,6 +1,6 @@
 Name:          wxsvg
 Version:       1.5.25
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       C++ library to create, manipulate and render SVG files
 License:       LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:           https://sourceforge.net/projects/wxsvg
@@ -61,6 +61,9 @@ autoreconf -fiv
 %{_libdir}/pkgconfig/libwxsvg.pc
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.5.25-9
+- Rebuilt for FFmpeg 9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.25-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

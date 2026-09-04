@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    ffmpegthumbs
 Version: 26.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
 License: GPL-2.0-or-later
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.08.0-2
+- Rebuilt for FFmpeg 9
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

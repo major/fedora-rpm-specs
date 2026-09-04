@@ -5,13 +5,16 @@
 %global crate pangocairo-sys
 
 Name:           rust-pangocairo-sys
-Version:        0.22.0
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to PangoCairo
 
 License:        MIT
 URL:            https://crates.io/crates/pangocairo-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          pangocairo-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(pangocairo) >= 1.40
@@ -45,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_58-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_58-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_58" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_58-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

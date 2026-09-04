@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20241204git8ac191c-10
+- Rebuilt for FFmpeg 9
+
 * Fri Aug 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20241204git8ac191c-9
 - fix build with FFmpeg 9
 

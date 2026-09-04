@@ -5,7 +5,7 @@
 %global crate gio
 
 Name:           rust-gio
-Version:        0.22.8
+Version:        0.22.9
 Release:        %autorelease
 Summary:        Rust bindings for the Gio library
 
@@ -237,6 +237,18 @@ This package contains library source intended for building other packages which
 use the "v2_88" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_88-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_90-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_90-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_90" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_90-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

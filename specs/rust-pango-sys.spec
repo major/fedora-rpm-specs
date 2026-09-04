@@ -5,13 +5,16 @@
 %global crate pango-sys
 
 Name:           rust-pango-sys
-Version:        0.22.0
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libpango-1.0
 
 License:        MIT
 URL:            https://crates.io/crates/pango-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          pango-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(pango) >= 1.40
@@ -162,6 +165,19 @@ This package contains library source intended for building other packages which
 use the "v1_57" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_57-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_58-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(pango) >= 1.58
+
+%description -n %{name}+v1_58-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_58" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_58-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

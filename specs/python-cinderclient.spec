@@ -1,5 +1,5 @@
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg 1
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global sname cinderclient
 
@@ -10,7 +10,7 @@ Client library (cinderclient python module) and command line utility
 (cinder) for interacting with OpenStack Cinder (Block Storage) API.}
 
 Name:             python-cinderclient
-Version:          9.9.0
+Version:          9.10.0
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Cinder
 

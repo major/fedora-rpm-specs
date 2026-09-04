@@ -2,7 +2,7 @@
 
 Name:           python-pendulum
 Version:        3.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
@@ -96,6 +96,9 @@ popd
 %doc README.rst
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 3.2.0-4
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.2.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

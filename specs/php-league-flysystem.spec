@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-league-flysystem
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        1.1.10
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Filesystem abstraction: Many filesystems, one API
 
 License:        MIT
@@ -43,6 +43,7 @@ BuildRequires:  php-spl
 #        "phpspec/prophecy": "^1.11.1",
 #        "phpunit/phpunit": "^8.5.8"
 BuildRequires:  phpunit8 >= 8.5.8
+BuildRequires: (php-composer(phpspec/prophecy)           >= 1.11.1 with php-composer(phpspec/prophecy)          < 2)
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -110,7 +111,7 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php';
 EOF
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php82 php83 php84 php85 php86; do
   if which $cmd; then
    : Run upstream test suite
    $cmd %{_bindir}/phpunit8 \
@@ -131,6 +132,10 @@ exit $ret
 
 
 %changelog
+* Thu Sep  3 2026 Remi Collet <remi@remirepo.net> - 1.1.10-11
+- re-license spec file to CECILL-2.1
+- add missing build dependency fix FTBFS #2504404
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

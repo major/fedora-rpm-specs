@@ -14,6 +14,9 @@ Summary:        Determines the MIME type of a file by traversing a filetype tree
 License:        MIT
 URL:            https://crates.io/crates/tree_magic_mini
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Remove unused, benchmark-only dev-dependency on bencher
+Patch:          tree_magic_mini-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -47,18 +50,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+with-gpl-data-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+with-gpl-data-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "with-gpl-data" feature of the "%{crate}" crate.
-
-%files       -n %{name}+with-gpl-data-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

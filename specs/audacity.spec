@@ -13,7 +13,7 @@
 Name: audacity
 
 Version: 3.7.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -294,6 +294,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.7.9-2
+- Rebuilt for FFmpeg 9
+
 * Tue Sep 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.7.9-1
 - 3.7.9
 

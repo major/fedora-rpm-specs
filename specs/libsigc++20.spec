@@ -1,3 +1,6 @@
+# to not have filtered out inline symbols, see bug #2321251
+%global _lto_cflags %nil
+
 Name:           libsigc++20
 Version:        2.12.2
 Release:        %autorelease

@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -246,6 +246,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.6.0-9
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

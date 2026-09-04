@@ -8,7 +8,7 @@ grapheme clusters according to Unicode Standard Annex #29.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unicode segmentation and width for Python using Rust
 
 # The source is MIT (except for certain non-code files licensed CC0-1.0 that do
@@ -74,6 +74,9 @@ sed -i 's/maturin>=1.10/maturin>=1.9/' pyproject.toml
 %doc README.md
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 0.2.4-4
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.2.4-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

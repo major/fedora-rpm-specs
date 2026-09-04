@@ -7,13 +7,16 @@
 %global crate gobject-sys
 
 Name:           rust-gobject-sys
-Version:        0.22.6
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libgobject-2.0
 
 License:        MIT
 URL:            https://crates.io/crates/gobject-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gobject-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.56

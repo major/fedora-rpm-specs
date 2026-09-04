@@ -150,6 +150,10 @@ Patch:          0001-fix-Support-invent.kde.org-and-work_items-in-bug-URL.patch
 # https://github.com/os-autoinst/openQA/pull/7634
 # Drop token equality test that is invalid with Mojolicious 9.48+
 Patch:          0001-fix-test-Drop-test-for-token-equality.patch
+# https://github.com/os-autoinst/openQA/pull/7657
+# Escape @ sign in strings and regexes
+# Fixes tests with perl 5.44+
+Patch:          0001-fix-Escape-sign-in-strings-and-regexes.patch
 # https://github.com/os-autoinst/openQA/pull/7688
 # Add forge.fp.o support for bugurl/bugref stuff
 Patch:          0001-fix-Add-forge.fedoraproject.org-to-the-bugurl-bugref.patch

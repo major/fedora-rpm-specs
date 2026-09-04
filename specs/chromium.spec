@@ -272,7 +272,7 @@
 
 Name:	chromium
 Version: 152.0.7977.75
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1918,6 +1918,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 152.0.7977.75-2
+- Rebuilt for FFmpeg 9
+
 * Wed Sep 02 2026 Than Ngo <than@redhat.com> - 152.0.7977.75-1
 - Update to 152.0.7977.75
   * CVE-2026-84353: Use after free in Shared Tab Groups

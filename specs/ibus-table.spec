@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.17.19
+Version:    1.18.0
 Release:    %autorelease
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -11,8 +11,9 @@ Requires:       ibus > 1.3.0
 Recommends: python3-simpleaudio
 BuildRequires:  gcc
 BuildRequires:  ibus-devel > 1.3.0
-BuildRequires:  python3-devel >= 3.6.0
+BuildRequires:  python3-devel >= 3.9.0
 BuildRequires:  gobject-introspection
+BuildRequires:  python3-devel >= 3.9.0
 # for the unit tests
 %if 0%{?fedora}
 BuildRequires:  appstream

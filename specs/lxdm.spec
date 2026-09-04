@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -247,6 +247,9 @@ exit 0
 
 
 %changelog
+* Thu Sep 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.5.3^20220831git2d4ba970-17
+- Add support for unlocking oo7 wallets with login
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

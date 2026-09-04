@@ -82,9 +82,9 @@
 Name:           rocdecode%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
-Release:        0%{?dist}
-%else
 Release:        1%{?dist}
+%else
+Release:        2%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
@@ -226,6 +226,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 7.14.0-2
+- Rebuilt for FFmpeg 9
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

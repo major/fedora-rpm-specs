@@ -3,8 +3,8 @@
 %global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.27.0
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 # Main package license: MIT
@@ -18,7 +18,7 @@ Source2:        gpgkey-5BBD4992C116573F.asc
 Source3:        org.codeberg.dnkl.foot.metainfo.xml
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -148,6 +148,9 @@ desktop-file-validate \
 
 
 %changelog
+* Wed Sep 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.28.0-1
+- Update to 1.28.0 (#2527360)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

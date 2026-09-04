@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    2
+%define baserelease    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1210,6 +1210,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1:6.15-3
+- Rebuilt for FFmpeg 9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

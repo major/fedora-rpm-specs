@@ -126,6 +126,10 @@ Patch:          0003_use_system_zstd.patch
 # https://github.com/libretro/RetroArch/pull/17563
 Patch:          https://github.com/libretro/RetroArch/pull/17563.patch#/0002-Support-for-newer-glslang-versions-without-SPIRV-and-HLSL-libraries.patch
 
+# Support FFmpeg 9
+# https://github.com/libretro/RetroArch/issues/19351
+Patch:          https://github.com/libretro/RetroArch/commit/f5b422d5a81f0b4d263e2f52c8419ea9ce7467f6.patch#/retroarch-ffmpeg9.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
 BuildRequires:  git-core

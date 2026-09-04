@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -402,6 +402,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 32.1.1-7
+- Rebuilt for FFmpeg 9
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 32.1.1-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

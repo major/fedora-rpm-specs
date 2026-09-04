@@ -32,7 +32,7 @@ checks for dimensional consistency and automatic unit conversion.
 Read the documentation at http://neo.readthedocs.io/}
 
 Name:       python-neo
-Version:    0.14.4
+Version:    0.14.5
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
@@ -43,7 +43,6 @@ Summary:    Represent electrophysiology data in Python
 License:    BSD-3-Clause
 URL:        %forgeurl
 Source:     %forgesource
-Patch:      https://patch-diff.githubusercontent.com/raw/NeuralEnsemble/python-neo/pull/1849.patch
 BuildRequires:  git-core
 
 BuildArch:  noarch

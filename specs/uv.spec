@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.5
+Version:        0.12.7
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -160,6 +160,9 @@ Patch:          uv-0.12.1-revert-blake2-beta.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
+# Remove Python invocation from dirhash tests
+# https://github.com/astral-sh/uv/pull/21434
+Patch:          %{url}/pull/21434.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license uv
@@ -544,18 +547,10 @@ sed --regexp-extended --in-place \
 # blake2
 #   wanted: 0.11.0-rc.6
 #   currently packaged: 0.10.6
-#   https://github.com/astral-sh/uv/pull/19735
 # Downstream-only: revert “Upgrade BLAKE2 to unify hashing digest versions”,
 # https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
 # rust-blake2 to a pre-release. There is an anccompanying source-code patch.
 tomcli set Cargo.toml str workspace.dependencies.blake2.version 0.10.6
-
-# tar-codec
-#   wanted: 0.0.13
-#   currently packaged: 0.0.14
-# A subsequent uv release will want the newer version, and it’s
-# backwards-compatible enough in practice.
-tomcli set Cargo.toml str workspace.dependencies.tar-codec.version 0.0.14
 
 %cargo_prep
 
@@ -728,6 +723,12 @@ skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
 #   }
 # There are probably more of these.
 skip="${skip-} --skip retry::tests::retried_status_codes"
+# This has been seen to fail in koji, so far only on x86_64, but so far not in
+# a local mock build. It’s very possible that this is another testing race
+# condition that would be avoided by process isolation in “cargo nextest.” It
+# seems unlikely that it is a real and serious problem, although a proper
+# diagnosis would be welcome.
+skip="${skip-} --skip interpreter::tests::test_cache_eviction_with_unchanged_executable"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

@@ -1,13 +1,17 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL3
-Version:        3.4.14
+Version:        3.4.16
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL3 cross-platform multimedia library
 
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
-Source0:        http://www.libsdl.org/release/SDL3-%{version}.tar.gz
+Source0:        https://www.libsdl.org/release/SDL3-%{version}.tar.gz
+Source1:        https://www.libsdl.org/release/SDL3-%{version}.tar.gz.sig
+
+# Taken from: https://www.libsdl.org/signing-keys.php
+Source2:        SDL3.pgp
 
 BuildArch:      noarch
 
@@ -80,6 +84,7 @@ device.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n SDL3-%{version}
 
 
@@ -129,6 +134,10 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Thu Sep 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.16-1
+- Update to v3.4.16
+- gpgverify the sources
+
 * Tue Aug 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.14-1
 - Update to v3.4.14
 

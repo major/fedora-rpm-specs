@@ -72,7 +72,7 @@ Obsoletes: nagios-plugins-dbi < 2.4.0-6
 BuildRequires: iputils
 # nagios-plugins isn't compatible with openssl4-devel, use openssl3
 # openssl4-devel is a dependency of net-snmp-devel
-%if 0%{?fedora} >= 45
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 BuildRequires: openssl3-devel
 %endif
 BuildRequires: net-snmp-devel

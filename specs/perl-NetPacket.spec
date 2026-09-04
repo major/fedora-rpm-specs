@@ -11,18 +11,17 @@ Summary:        Assemble/disassemble network packets at the protocol level
 ## Not in any binary package
 # repackage.sh:     GPL-2.0-or-later
 ## Stripped from the source archive
-# CODE_OF_CONDUCT.md:   CC-BY ???
+# CODE_OF_CONDUCT.md:   Hippocratic-3.0-core
 #                       "adapted from
 #                       <https://www.contributor-covenant.org/version/2/0/code_of_conduct.html>"
 #                       Probaly Hippocratic License 3.0
 #                       <https://github.com/EthicalSource/contributor_covenant/blob/release/LICENSE.md>.
-#                       FIXME: License clarification requested
+#                       XXX: Later versions of contributor-covenant are
+#                       CC-BY-SA-4.0.
 #                       <https://github.com/EthicalSource/contributor_covenant/issues/1583>?
 #                       XXX: Hippocratic License 3.0 disapproved by Fedora legal
 #                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/717>.
-#                       FIXME: No SPDX identifier for Hippocratic License 3.0
-#                       <https://github.com/spdx/license-list-XML/issues/2931>
-#                       FIXME: A copy of the license is missing
+#                       XXX: A copy of the license is missing
 #                       <https://github.com/yanick/netpacket/issues/19>
 License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 SourceLicense:  %{license} AND GPL-2.0-or-later

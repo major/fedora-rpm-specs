@@ -21,7 +21,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -234,6 +234,9 @@ rm -r %{buildroot}%{_qt6_archdatadir}/mkspecs/features/ios/add_ios_ffmpeg_librar
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 6.11.2-2
+- Rebuilt for FFmpeg 9
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

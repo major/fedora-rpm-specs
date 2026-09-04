@@ -45,7 +45,7 @@ Version: 17.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -928,6 +928,11 @@ fi
 # endif scl
 
 %changelog
+* Wed Sep 2 2026  Andrew Burgess <aburgess@redhat.com> - 17.2-6
+- Backport two patches, de930032d8832195 and ca0908d623605250, to fix
+  upstream bug PR gdb/34330.  This bug is triggered when malloc is
+  implemented as a GNU IFUNC.
+
 * Wed Jul 22 2026 Guinevere Larsen <guinevere@redhat.com> - 17.2-5
 - Backport upstream commit f3ce0ce31fb3f056 to fix a regression on
   s390x.

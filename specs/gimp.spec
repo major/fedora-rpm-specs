@@ -25,6 +25,16 @@
 %bcond libunwind 0
 %endif
 
+%if ! 0%{?rhel} || 0%{?epel}
+%bcond aalib 1
+%bcond libheif 1
+%bcond libjxl 1
+%else
+%bcond aalib 0
+%bcond libheif 0
+%bcond libjxl 0
+%endif
+
 %bcond tests 1
 
 # When building in Koji or mock, networking isn’t available.
@@ -33,6 +43,10 @@
 %bcond skip_problematic_tests 1
 # Some tests fail under normal user environments, don’t skip them by default.
 %bcond skip_user_tests 0
+# Headless tests require xvfb-run, RHEL 10+ is wayland only
+%if 0%{?rhel} >= 10
+%bcond skip_headless_tests 1
+%endif
 
 # The lists of tests to skip should not have leading or trailing white space,
 # this breaks the logic in %%check.
@@ -153,7 +167,9 @@ URL:            https://www.gimp.org
 %if %{with label_overlay}
 BuildRequires:  ImageMagick
 %endif
+%if %{with aalib}
 BuildRequires:  aalib-devel
+%endif
 BuildRequires:  appdata-tools
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -206,10 +222,14 @@ BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0) >= %json_glib_minver
 BuildRequires:  pkgconfig(lcms2) >= %lcms_minver
 BuildRequires:  pkgconfig(libarchive)
+%if %{with libheif}
 BuildRequires:  pkgconfig(libheif) >= %libheif_minver
+%endif
 BuildRequires:  pkgconfig(libjpeg)
+%if %{with libjxl}
 BuildRequires:  pkgconfig(libjxl) >= %jpegxl_minver
 BuildRequires:  pkgconfig(libjxl_threads) >= %jpegxl_minver
+%endif
 BuildRequires:  pkgconfig(liblzma) >= %liblzma_minver
 BuildRequires:  pkgconfig(libmng)
 BuildRequires:  pkgconfig(libmypaint) >= %libmypaint_minver
@@ -240,7 +260,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3dist(pygobject) >= %pygobject_minver
 BuildRequires:  python3dist(pycairo)
 BuildRequires:  vala
+%if %{without skip_headless_tests}
 BuildRequires:  xorg-x11-server-Xvfb
+%endif
 BuildRequires:  yelp-tools
 
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -373,6 +395,18 @@ EOF
     -Denable-default-bin=disabled \
 %endif
     -Dilbm=disabled \
+%if %{without aalib}
+    -Daa=disabled \
+%endif
+%if %{without libheif}
+    -Dheif=disabled \
+%endif
+%if %{without libjxl}
+    -Djpeg-xl=disabled \
+%endif
+%if %{with skip_headless_tests}
+    -Dheadless-tests=disabled \
+%endif
     -Dbug-report-url="https://bugzilla.redhat.com/"
 
 %meson_build

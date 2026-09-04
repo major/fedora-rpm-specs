@@ -3,8 +3,8 @@
 
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
-Version:        0.33
-Release:        2%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
@@ -90,6 +90,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Thu Sep 03 2026 Terje Røsten <terjeros@gmail.com> - 0.34-1
+- 0.34
+
 * Mon Aug 24 2026 Terje Røsten <terjeros@gmail.com> - 0.33-2
 - Add BuildConflicts
 

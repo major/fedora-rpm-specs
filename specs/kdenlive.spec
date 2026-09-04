@@ -3,7 +3,7 @@
 Name:    kdenlive
 Summary: Non-linear video editor
 Version: 26.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
@@ -135,6 +135,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.08.0-2
+- Rebuilt for FFmpeg 9
+
 * Sat Aug 29 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

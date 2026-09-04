@@ -8,10 +8,10 @@ Summary:	Convergent replicated data types in Erlang
 License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
 Patch:		erlang-riak_dt-0001-A-couple-of-failing-tests-which-look-to-be-caused-by.patch
-Patch:		erlang-riak_dt-0001-FIXME-disable-plugins.patch
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-eqc
 
 %description
 A set of state based CRDTs implemented in Erlang.
@@ -26,7 +26,6 @@ A set of state based CRDTs implemented in Erlang.
 %{erlang3_install}
 
 %check
-# Some tests requires a proprietary library - QuickCheck
 %{erlang3_test}
 
 %files

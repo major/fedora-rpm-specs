@@ -2,12 +2,12 @@
 
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
-Version: 5.4
-Release: 2%{?dist}
+Version: 6.0
+Release: 1%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
-Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.4.tar.gz
-Source1: https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.4.tar.sign
+Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.gz
+Source1: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.sign
 # gpg --keyserver pgp.mit.edu --recv-key 6D0107BC69EE5A274FD9B60C2DB3C3321B6DDF86
 # gpg --output hpa.gpg --armor --export hpa@zytor.com
 Source2: hpa.gpg
@@ -15,10 +15,10 @@ Source3: tftp.socket
 Source4: tftp.service
 Source5: tftp-server-tmpfiles.conf
 
+# Upstream patches
+Patch: tftp-hpa-6.0-stats.patch
+
 # To-be upstreamed patches
-# https://www.syslinux.org/archives/2026-April/026959.html
-Patch: tftp-hpa-5.3-stats.patch
-Patch: tftp-doc.patch
 Patch: tftp-enhanced-logging.patch
 Patch: tftp-hpa-5.2-osh.patch
 Patch: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
@@ -96,6 +96,9 @@ install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.socket
 
 %changelog
+* Mon Aug 31 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.0-1
+- rebase to the latest upstream release (rhbz#2525859)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	%{dist_version}
-Release:	0.3
+Release:	0.5
 License:	MIT
 Source0:	LICENSE
 Source1:	README.developers
@@ -137,6 +137,39 @@ cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%fc%{dist_version}                1
 EOF
 
+# Set up DNF5 behavioral defaults
+install -d %{buildroot}%{_datadir}/dnf5/libdnf.conf.d
+cat >> %{buildroot}%{_datadir}/dnf5/libdnf.conf.d/20-defaults.conf <<EOF
+[main]
+allow_vendor_change=False
+best=False
+pkg_gpgcheck=True
+skip_if_unavailable=True
+EOF
+
+install -d %{buildroot}%{_datadir}/dnf5/vendors.d
+cat >> %{buildroot}%{_datadir}/dnf5/vendors.d/allow-cmdline.conf <<EOF
+# Allow vendor change for packages specified directly by path or URL (e.g.
+# "dnf install /path/to/package.rpm" or
+# "dnf install https://example.com/package.rpm"). This is an exception to
+# the global allow_vendor_change=False set in 20-defaults.conf.
+
+version = '1.1'
+
+[[incoming_packages]]
+filters = [
+  { filter = 'cmdline_repo', value = 'true' }
+]
+EOF
+
+# Create the copr vendor file
+install -d %{buildroot}%{_datadir}/dnf/plugins
+cat >> %{buildroot}%{_datadir}/dnf/plugins/copr.vendor.conf << EOF
+[main]
+distribution = %[0%{?fedora} >= 41 ? "fedora" : "Fedora"]
+releasever = %{releasever}
+EOF
+
 # Install readme
 mkdir -p readme
 install -pm 0644 %{SOURCE3} readme/README.Generic-Release-Notes
@@ -161,7 +194,13 @@ install -pm 0644 %{SOURCE2} licenses/README.license
 %attr(0644,root,root) %{_prefix}/lib/issue.net
 %config(noreplace) %{_sysconfdir}/issue.net
 %attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
-
+%dir %{_datadir}/dnf5
+%dir %{_datadir}/dnf5/libdnf.conf.d
+%{_datadir}/dnf5/libdnf.conf.d/20-defaults.conf
+%dir %{_datadir}/dnf5/vendors.d
+%{_datadir}/dnf5/vendors.d/allow-cmdline.conf
+%dir %{_datadir}/dnf/plugins
+%{_datadir}/dnf/plugins/copr.vendor.conf
 
 %files
 %{_prefix}/lib/os-release
@@ -172,14 +211,21 @@ install -pm 0644 %{SOURCE2} licenses/README.license
 
 
 %changelog
-* Thu Apr 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 43-0.3
+* Fri Sep 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 46-0.5
+- Bump to 46. I see you all. You cannot hide from me.
+
+* Fri Sep 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 45-0.4
+- Ship dnf5 and copr plugin vendor configuration
+- Fix changelog entries
+
+* Thu Apr 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 45-0.3
 - Replace included system presets with common packaged ones
 
 * Sat Feb 07 2026 Tom Callaway <spot@fedoraproject.org> - 45-0.2
 - holding very very still so i can be invisible
 - bump to 45
 
-* Tue Sep 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - %{fedora}-0.2
+* Tue Sep 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 44-0.2
 - 44. I don't see anyone here (rhbz#2388040)
 
 * Tue Apr 22 2025 Dan Streetman <ddstreet@ieee.org> - 43-0.2

@@ -178,7 +178,7 @@ install -d %{buildroot}%{_sysconfdir}/%{name}/preinstall.d
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
 
 %if 0%{?fedora}
-install -D -t %{buildroot}%{_unitdir} %{SOURCE1}
+install -D -p -m 0644 -t %{buildroot}%{_unitdir} %{SOURCE1}
 %endif
 
 %find_lang %{name}

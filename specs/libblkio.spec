@@ -9,7 +9,7 @@ Version:       1.5.0
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       6%{?dist}
+Release:       7%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 # To create the vendor tarball:
@@ -127,6 +127,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.5.0-7
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

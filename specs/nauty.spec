@@ -30,6 +30,8 @@ Patch:          %{name}-popcnt.patch
 Patch:          %{name}-unbundle-cliquer.patch
 # Fix uninitialized variable warnings
 Patch:          %{name}-uninitialized.patch
+# Avoid undefined behavior due to left shifts of signed values
+Patch:          %{name}-undefined-behavior.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -94,7 +96,7 @@ if [ '%{_lib}' != 'lib' ]; then
 fi
 
 %build
-export CFLAGS='%{build_cflags} -fwrapv -I%{_includedir}/cliquer'
+export CFLAGS='%{build_cflags} -I%{_includedir}/cliquer'
 export LIBS='-lz-ng'
 %configure \
     --enable-ansi \
@@ -129,7 +131,7 @@ done
 
 # Link identical executables
 rm %{buildroot}%{_bindir}/pickg
-ln countg %{buildroot}%{_bindir}/pickg
+ln %{buildroot}%{_bindir}/countg %{buildroot}%{_bindir}/pickg
 
 # Move the headers
 mkdir -p %{buildroot}%{_includedir}/nauty

@@ -1,13 +1,13 @@
 Name:           python-agent-detector
-Version:        1.1.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Detect AI coding agents from their execution environment or User-Agent
 
 License:        MIT
 URL:            https://github.com/patrick91/agent-detector
-# We must use the PyPI sdist for now. See “Release process tags the wrong
-# commit,” https://github.com/patrick91/agent-detector/issues/3.
-Source:         %{pypi_source agent_detector}
+Source0:        %{url}/archive/%{version}/agent-detector-%{version}.tar.gz
+# Man page hand-written for Fedora in groff_man(7) format based on --help text
+Source1:        agent-detector.1
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license agent_detector
@@ -48,6 +48,11 @@ tomcli set pyproject.toml lists delitem \
     tool.pytest.ini_options.filterwarnings error
 
 
+%install -a
+install -D --target='%{buildroot}%{_mandir}/man1' \
+    --preserve-timestamps --mode=0644 '%{SOURCE1}'
+
+
 %check -a
 %pytest
 
@@ -55,6 +60,9 @@ tomcli set pyproject.toml lists delitem \
 %files -n python3-agent-detector -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.md
+
+%{_bindir}/agent-detector
+%{_mandir}/man1/agent-detector.1*
 
 
 %changelog

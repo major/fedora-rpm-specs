@@ -7,7 +7,7 @@
 %global crate gio-sys
 
 Name:           rust-gio-sys
-Version:        0.22.8
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libgio-2.0
 
@@ -16,6 +16,9 @@ URL:            https://crates.io/crates/gio-sys
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          gio-sys-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gio-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gio-2.0) >= 2.56
@@ -249,7 +252,7 @@ use the "v2_86" feature of the "%{crate}" crate.
 %package     -n %{name}+v2_88-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gio-2.0) >= 2.87
+Requires:       pkgconfig(gio-2.0) >= 2.88
 
 %description -n %{name}+v2_88-devel %{_description}
 
@@ -257,6 +260,19 @@ This package contains library source intended for building other packages which
 use the "v2_88" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_88-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_90-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gio-2.0) >= 2.89
+
+%description -n %{name}+v2_90-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_90" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_90-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

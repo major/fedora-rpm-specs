@@ -13,7 +13,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
 URL: https://rubyonrails.org
@@ -173,6 +173,9 @@ bundle exec ruby -Itest -ractive_storage/engine -e 'Dir.glob "./test/**/*_test.r
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.3.1-2
+- Rebuilt for FFmpeg 9
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
 - Update to Active Storage 8.1.3.1.
   Related: rhzb#2405582

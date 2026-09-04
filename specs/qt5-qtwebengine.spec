@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.19
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -591,6 +591,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 5.15.19-10
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.19-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:	    rutabaga-gfx-ffi
 Version:    0.1.3
-Release:    6%{?dist}
+Release:    7%{?dist}
 
 Summary:    Handling virtio-gpu protocols
 URL:        https://chromium.googlesource.com/crosvm/crosvm
@@ -84,6 +84,9 @@ popd
 %{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 0.1.3-7
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     26.07.0
-Release:     3%{?dist}
+Release:     4%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -204,6 +204,9 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-4
+- Rebuilt for FFmpeg 9
+
 * Tue Aug 25 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.07.0-3
 - backport upstream patch to unbreak external code using string functions
 

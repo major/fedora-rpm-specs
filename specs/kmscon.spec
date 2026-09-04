@@ -30,6 +30,9 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
 
+# Upstream patch to fix pageflip with vmwgfx
+Patch1: terminal-Fix-error-handling-when-pageflip-failed.patch
+
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace

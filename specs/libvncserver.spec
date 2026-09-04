@@ -3,7 +3,7 @@
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
 Version:    0.9.15
-Release:    8%{?dist}
+Release:    9%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -140,6 +140,9 @@ done
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.15-9
+- Rebuilt for FFmpeg 9
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.15-8
 - Rebuilt for openssl 4.0
 

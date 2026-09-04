@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.7.8
+%define radicale_version  3.8.0
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -49,7 +49,6 @@ Source0:        https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{
 
 %define infcloud_version  0.13.1
 
-Source1:          %{name}.service
 Source4:          %{name}.te
 Source5:          %{name}.fc
 Source6:          %{name}.if
@@ -310,7 +309,7 @@ install -d -p  %{buildroot}%{_sharedstatedir}/%{name}
 # Create folder where the collection-cache can be stored optional
 install -d -p  %{buildroot}%{_localstatedir}/cache/%{name}
 
-install -D -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -D -p -m 644 contrib/systemd/radicale.service %{buildroot}%{_unitdir}/%{name}.service
 
 install -D -p -m 644 %{SOURCE7} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 mkdir -p %{buildroot}%{_rundir}/%{name}
@@ -527,6 +526,10 @@ fi
 
 
 %changelog
+* Thu Sep 03 2026 Peter Bieringer <pb@bieringer.de> - 3.8.0-1
+- Update to 3.8.0
+- Use radicale.service from contrib
+
 * Thu Aug 06 2026 Peter Bieringer <pb@bieringer.de> - 3.7.8-1
 - Update to 3.7.8
 

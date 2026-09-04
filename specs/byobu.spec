@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.18
+Version:	7.19
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -122,6 +122,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_bindir}/ctail
 %{_bindir}/manifest
 %{_bindir}/purge-old-kernels
+%{_bindir}/whats-my-public-ip
 %{_bindir}/wifi-status
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop

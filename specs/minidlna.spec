@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -141,6 +141,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.3.3-18
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

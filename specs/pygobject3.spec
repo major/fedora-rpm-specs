@@ -9,7 +9,7 @@ Release:        %autorelease -b6
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
-URL:            https://wiki.gnome.org/Projects/PyGObject
+URL:            https://pygobject.gnome.org/
 Source0:        https://download.gnome.org/sources/pygobject/%{gnome_major_minor_version}/pygobject-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(cairo-gobject)

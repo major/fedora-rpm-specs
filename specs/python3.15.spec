@@ -47,7 +47,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel rc1
+%global prerel rc2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: %autorelease
@@ -123,7 +123,7 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.2
+%global pip_version 26.2.1
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
@@ -272,7 +272,7 @@ Obsoletes: python%{pybasever}%{?1:-%{1}}\
 BuildRequires: autoconf
 BuildRequires: bluez-libs-devel
 BuildRequires: bzip2-devel
-BuildRequires: expat-devel
+BuildRequires: expat-devel >= 2.5.0-2
 BuildRequires: findutils
 BuildRequires: gcc
 BuildRequires: gdbm-devel
@@ -378,7 +378,9 @@ Source11: idle3.appdata.xml
 Source30: download-jit-stencils-from-koji.sh
 # This %%if-hack makes it easier to do step 1. from the above.
 # Use `fedpkg sources --force` to get the conditionally defined sources from the lookaside cache.
-%if (%{with jit} && %{without jit_build_stencils}) || %{exists:%{_sourcedir}/Python-%{upstream_version}-x86_64-optimized-jit_stencils.h}
+# Macro %%exists is not present in the rpm version available in EL9,
+# hence to prevent parsing errors, we add additional check for its existence.
+%if (%{with jit} && %{without jit_build_stencils}) || 0%{?exists:%{exists:%{_sourcedir}/Python-%{upstream_version}-x86_64-optimized-jit_stencils.h}}
 Source31: Python-%{upstream_version}-aarch64-debug-jit_stencils.h
 Source32: Python-%{upstream_version}-aarch64-optimized-jit_stencils.h
 Source33: Python-%{upstream_version}-x86_64-debug-jit_stencils.h
@@ -406,14 +408,24 @@ Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00466 # e10760fb955ee33d2917f8a57bb4e24d71e5341c
-# Downstream only: Skip tests not working with older expat version
+# 00466 # 6efa22fd3d3e5e8621713e6b3a257c459dcf4479
+# Downstream only: Lower XML_COMBINED_VERSION threshold for reparse deferral
 #
-# We want to run these tests in Fedora and EPEL 10, but not in EPEL 9,
-# which has too old version of expat. We set the upper bound version
-# in the conditionalized skip to a release available in CentOS Stream 10,
-# which is tested as working.
-Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+# RHEL 9 expat 2.5.0 has XML_SetReparseDeferralEnabled backported
+# via the CVE-2023-52425 fix, but XML_COMBINED_VERSION remains 20500.
+# CPython's #if XML_COMBINED_VERSION >= 20600 guards compile the setter
+# as a no-op, so SetReparseDeferralEnabled silently does nothing and
+# GetReparseDeferralEnabled always returns False, even though the expat
+# library actually supports (and enables) reparse deferral.
+#
+# Lower the threshold from 20600 to 20500 so that CPython uses the
+# backported function. This makes the Python API actually work on RHEL 9
+# and fixes test failures (test_reparse_deferral_disabled,
+# test_flush_reparse_deferral_disabled, test_simple_xml_chunk_*).
+#
+# The spec file BuildRequires expat-devel >= 2.5.0-2 to ensure the
+# backported function is available.
+Patch466: 00466-downstream-only-lower-xml_combined_version-threshold-for-reparse-deferral.patch
 
 # 00486 # 1a2c71465a24c72fd06c7839e7cbd2d17ddf4ebc
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
@@ -613,10 +625,12 @@ Requires: tzdata
 # This breaks many things, including python -m venv.
 # We avoid this problem by requiring at least the same version of expat that
 # was used during the build time.
+# We also include release, in case pyxpat uses ABI that was backported
+# (e.g. XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2).
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 # Since expat 2.7.4, the library has versioned symbols and this is no longer needed,
 # as the generated requirement will be in the form of libexpat.so.1(LIBEXPAT_2.7.2) etc.
-%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+%global expat_version %(LANG=C rpm -q --qf '%%{version}-%%{release}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
 %if v"%{expat_version}" < v"2.7.4"
 Requires: expat%{?_isa} >= %{expat_version}
 %endif

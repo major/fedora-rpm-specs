@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -423,6 +423,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-8
+- Rebuilt for FFmpeg 9
+
 * Wed Aug 19 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-7
 - Fixed build with nettle 4
 

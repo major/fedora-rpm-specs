@@ -2,7 +2,7 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	15.2
+Version:	15.3
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
@@ -77,7 +77,7 @@ mkdir -p %{buildroot}%{_libdir}/pkgconfig
 %cmake_install
 install -p -m 644 src/monitoring/include/monitoring.h %{buildroot}%{_includedir}/ntirpc
 mv src/monitoring/prometheus-cpp-lite/core/include/prometheus %{buildroot}%{_includedir}/ntirpc
-ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
+ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.15
 
 %files
 %{_libdir}/libntirpc.so.*
@@ -93,6 +93,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Thu Sep 3 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.3-1
+- ntirpc-15.3 GA (side tag f46-build-side-150285)
+
 * Mon Aug 24 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.2-1
 - ntirpc-15.2 GA (side tag f46-build-side-148584)
 

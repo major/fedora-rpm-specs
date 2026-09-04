@@ -1,10 +1,5 @@
-%define basever     5.0.0
-%define prerel      beta
-%define prerelnum   10
-%define tag         v%{basever}-%{prerel}.%{prerelnum}
-
 Name:           noctalia
-Version:        %{basever}~%{prerel}.%{prerelnum}
+Version:        5.0.1
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -30,8 +25,9 @@ Summary:        A sleek, customizable desktop shell crafted for Wayland
 # Apache-2.0 AND MIT:
 #   third_party/wuffs
 License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LGPL-2.1-or-later
+
 URL:            https://github.com/noctalia-dev/noctalia
-Source:         %{url}/archive/%{tag}/noctalia-%{tag}.tar.gz
+Source:         %{url}/archive/v%{version}/noctalia-%{version}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -113,12 +109,12 @@ notification daemon, lock screen, wallpaper tool, and settings UI.
 
 
 %prep
-%autosetup -p 1 -n noctalia-%{basever}-%{prerel}.%{prerelnum}
+%autosetup
 
 # Upstream uses a git describe command to determine part of the --version
 # output.  Since we're not building from a git checkout, we can change the
 # fallback value to set this instead.
-sed -e '/fallback/ s/unknown/%{tag}/' -i meson.build
+sed -e '/fallback/ s/unknown/v%{version}/' -i meson.build
 
 # Remove shebangs and execute permissions from template apply scripts to avoid
 # rpmlint errors/warnings.

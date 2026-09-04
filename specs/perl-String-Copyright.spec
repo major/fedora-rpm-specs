@@ -1,11 +1,11 @@
 Name:           perl-String-Copyright
-Version:        0.003014
-Release:        10%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Representation of text-based copyright statements
 License:        GPL-3.0-or-later
 
 URL:            https://metacpan.org/release/String-Copyright
-Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/String-Copyright-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/String-Copyright-v%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -13,17 +13,19 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter::Tiny)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Number::Range)
+BuildRequires:  perl(Log::Any)
+BuildRequires:  perl(Log::Any::Test)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(re)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Set::IntSpan)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Without::Module)
+BuildRequires:  perl(Test2::Require)
+BuildRequires:  perl(Test2::Require::Module)
 BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test::Without::Module)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
@@ -34,7 +36,7 @@ in normalized format.
 
 
 %prep
-%autosetup -n String-Copyright-%{version}
+%autosetup -n String-Copyright-v%{version}
 
 
 %build
@@ -59,6 +61,9 @@ make test
 
 
 %changelog
+* Thu Sep 03 2026 Sandro Mani <manisandro@gmail.com> - 0.4.1-1
+- Update to 0.4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003014-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

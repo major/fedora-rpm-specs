@@ -88,19 +88,19 @@
 # FIXME: GCC says there's incompatible pointer casts going on in libavdevice...
 %global build_type_safety_c 2
 
-%global av_codec_soversion 62
-%global av_device_soversion 62
-%global av_filter_soversion 11
-%global av_format_soversion 62
-%global av_util_soversion 60
-%global swresample_soversion 6
-%global swscale_soversion 9
+%global av_codec_soversion 63
+%global av_device_soversion 63
+%global av_filter_soversion 12
+%global av_format_soversion 63
+%global av_util_soversion 61
+%global swresample_soversion 7
+%global swscale_soversion 10
 
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        8.1.2
-Release:        12%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -121,12 +121,6 @@ Patch2:         ffmpeg-allow-fdk-aac-free.patch
 Patch3:         ffmpeg-allow-decklink.patch
 # VapourSynth R79 renamed libvapoursynth-script to libvsscript
 Patch4:         ffmpeg-vapoursynth-lib-rename.patch
-
-# Backport fix for CVE-2026-30998
-Patch10:        https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/18b83f2d0a0f9bcbafb0001a2911327c4b8df056#/ffmpeg-CVE-2026-30998.patch
-
-# Add upstream commit to address firefox vulkan direct-export rendering issue
-Patch11:         https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/25e187f8494966377a4b9d077260ce7b501a911c#/ffmpeg-vulkan-direct-export.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -152,6 +146,7 @@ BuildRequires:  game-music-emu-devel
 BuildRequires:  gcc
 BuildRequires:  git-core
 BuildRequires:  gnupg2
+BuildRequires:  glslc
 BuildRequires:  gsm-devel
 BuildRequires:  ladspa-devel
 BuildRequires:  lame-devel
@@ -230,7 +225,6 @@ BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(rav1e)
 BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(shaderc) >= 2019.1
 BuildRequires:  pkgconfig(smbclient)
 BuildRequires:  pkgconfig(snappy)
 BuildRequires:  pkgconfig(soxr)
@@ -811,7 +805,6 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-librtmp \
 %endif
     --enable-librubberband \
-    --enable-libshaderc \
     --disable-libshine \
     --enable-libsmbclient \
     --enable-libsnappy \
@@ -977,6 +970,13 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.1-1
+- update to 9.0.1 (resolves rhbz#2510859)
+- bump SONAMEs of all libraries
+- drop merged patches
+- drop removed configure option and BuildRequires on shaderc
+- add BuildRequires for SPIR-V compiler
+
 * Mon Aug 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 8.1.2-12
 - Unconditionally enable lc3
 

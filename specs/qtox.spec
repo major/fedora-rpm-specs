@@ -1,6 +1,6 @@
 Name:       qtox
 Version:    1.18.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Feature-rich Tox client
 
 # Main program: GPLv3+
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.qtox
 %{_datadir}/icons/hicolor/*/apps/qtox.*
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.18.5-3
+- Rebuilt for FFmpeg 9
+
 * Sat Jun 06 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.18.5-2
 - Use generic dependency names
 - Run tests using standard macro and stop ignoring failures

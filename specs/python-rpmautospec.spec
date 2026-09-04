@@ -18,13 +18,16 @@
 %bcond xdist %[%{without bootstrap} && %{undefined rhel}]
 
 # Whether to build only the minimal package for RHEL buildroot
-%bcond minimal %[%{defined rhel} && %{undefined epel}]
+%bcond minimal %[%{defined rhel} && %{undefined epel} && %{undefined eln}]
+
+# Whether to build extras with their dependencies
+%bcond extras %[%{undefined rhel} || %{defined epel}]
 
 # While bootstrapping or building the minimal package, ignore manpages
-%bcond manpages %[%{without bootstrap} && %{without minimal}]
+%bcond manpages %[%{without bootstrap} && %{with extras}]
 
 # While building the minimal package, ignore shell completions
-%bcond completions %{without minimal}
+%bcond completions %{with extras}
 
 # Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
@@ -149,7 +152,7 @@ Requires: this-is-broken-libgit2-missing-during-build
 Requires: rpm-libs
 Requires: rpm-build-libs
 
-%if %{without minimal}
+%if %{with extras}
 Recommends: python3-%{srcname} = %{version}-%{release}
 Recommends: python3-%{srcname}+click = %{version}-%{release}
 Recommends: python3-%{srcname}+pygit2 = %{version}-%{release}
@@ -170,7 +173,7 @@ enabled packages locally.
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_minimal:-x all}
+%pyproject_buildrequires %{?with_extras:-x all}
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -242,10 +245,10 @@ touch -r %{S:1} %{buildroot}%{_bindir}/rpmautospec
 
 %check
 # Always run the import checks, even when other tests are disabled
-%pyproject_check_import %{?with_minimal:-e '*click*'}
+%pyproject_check_import %{!?with_extras:-e '*click*'}
 
 %if %{with tests}
-%if %{without minimal}
+%if %{with extras}
 %pytest \
 %if %{with xdist}
 --numprocesses=auto

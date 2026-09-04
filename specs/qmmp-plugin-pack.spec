@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.3.1-3
+- Rebuilt for FFmpeg 9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:     neatvnc
 Version:  0.9.0
-Release:  7%{?dist}
+Release:  9%{?dist}
 Summary:  Liberally licensed VNC server library
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -14,6 +14,11 @@ Source:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Backport to fix i686 builds
 # From: https://github.com/any1/neatvnc/commit/e0e0ce5c579cafc763992f1c1bb964eb95999fb7
 Patch:    0001-server-Use-correct-type-for-length-in-compress.patch
+
+# Backport to fix build with nettle 4
+Patch:    https://github.com/any1/neatvnc/commit/5b190f0fd9e6b0bfd32752a9115242f87ec36c59.patch#/0001-Use-nettle-hogweed-version-4.patch
+Patch:    https://github.com/any1/neatvnc/commit/f97805deaaea489a1c8c851324163a92a3125195.patch#/0002-crypto-Remove-hash-digest-size-argument.patch
+Patch:    https://github.com/any1/neatvnc/commit/8e0d226064d05d8b090747e5876c8e6880798fcb.patch#/0003-stream-ws-handshake-Fix-crypto_hash_many-argument-mi.patch
 
 BuildRequires: gcc
 BuildRequires: git-core
@@ -64,6 +69,12 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.0-9
+- Rebuilt for FFmpeg 9
+
+* Wed Aug 19 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.0-8
+- Fix build with nettle 4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

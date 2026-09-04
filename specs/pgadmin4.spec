@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -37,6 +37,8 @@ Patch0:         pgadmin4_requirements.patch
 Patch1:         pgadmin4_azure-mgmt-rdbms.patch
 # Drop requirement on unpackaged python-sphinxcontrib-youtube
 Patch2:         pgadmin4_sphinx_youtube.patch
+# Fix compatibility with psycopg3-3.5
+Patch3:         pgadmin4_psycopg3.patch
 
 # For docs
 BuildRequires:  glibc-langpack-en
@@ -249,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Sep 03 2026 Sandro Mani <manisandro@gmail.com> - 9.17-2
+- Add patch to fix compatibility with pgadmin3 (#2527807)
+
 * Fri Jul 31 2026 Sandro Mani <manisandro@gmail.com> - 9.17-1
 - Update to 9.17
 

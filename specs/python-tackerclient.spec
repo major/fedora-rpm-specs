@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global client python-tackerclient
 %global sclient tackerclient
@@ -7,7 +7,7 @@
 %global with_doc 1
 
 Name:       %{client}
-Version:    2.5.0
+Version:    2.6.0
 Release:    %autorelease
 Summary:    OpenStack Tacker client
 License:    Apache-2.0
@@ -135,6 +135,7 @@ install -p -D -m 644 -v doc/build/man/tacker.1 %{buildroot}%{_mandir}/man1/tacke
 %license LICENSE
 %exclude %{python3_sitelib}/%{sclient}/tests
 %{_bindir}/%{executable}
+%doc ChangeLog README.rst
 
 %if 0%{?with_doc}
 %{_mandir}/man1/*

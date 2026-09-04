@@ -5,13 +5,16 @@
 %global crate gio-unix-sys
 
 Name:           rust-gio-unix-sys
-Version:        0.22.0
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libgio-2.0 Unix APIs
 
 License:        MIT
 URL:            https://crates.io/crates/gio-unix-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gio-unix-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.56

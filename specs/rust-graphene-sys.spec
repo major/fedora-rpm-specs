@@ -7,13 +7,16 @@
 %global crate graphene-sys
 
 Name:           rust-graphene-sys
-Version:        0.22.8
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libgraphene-1.0
 
 License:        MIT
 URL:            https://crates.io/crates/graphene-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          graphene-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(graphene-gobject-1.0) >= 1.10

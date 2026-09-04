@@ -3,8 +3,8 @@
 # This spec file assumes you are building on a Fedora or RHEL version
 # that's still supported by the vendor. It may work on other distros
 # or versions, but no effort will be made to ensure that going forward
-%define min_rhel 8
-%define min_fedora 33
+%define min_rhel 9
+%define min_fedora 43
 
 %if (0%{?fedora} && 0%{?fedora} >= %{min_fedora}) || (0%{?rhel} && 0%{?rhel} >= %{min_rhel})
     %define supported_platform 1
@@ -16,7 +16,7 @@
 
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
-Version: 12.6.0
+Version: 12.7.0
 Release: 1%{?dist}
 Source0: https://libvirt.org/sources/python/%{dist_name}-%{version}.tar.gz
 Url: https://libvirt.org
@@ -25,7 +25,6 @@ BuildRequires: libvirt-devel == %{version}
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-lxml
-BuildRequires: python3-setuptools
 BuildRequires: gcc
 
 # Don't want provides for python shared objects
@@ -59,35 +58,33 @@ of recent versions of Linux (and other OSes).
 # for the -python3 package
 find examples -type f -exec chmod 0644 \{\} \;
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %if ! %{supported_platform}
 echo "This RPM requires either Fedora >= %{min_fedora} or RHEL >= %{min_rhel}"
 exit 1
 %endif
 
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files libvirt libvirt_lxc libvirt_qemu libvirtaio 'libvirtmod*'
 
 %check
+%pyproject_check_import
 %pytest
 
-%files -n python3-libvirt
+%files -n python3-libvirt -f %{pyproject_files}
 %doc ChangeLog AUTHORS README COPYING examples/
-%{python3_sitearch}/libvirt.py*
-%{python3_sitearch}/libvirtaio.py*
-%{python3_sitearch}/libvirt_qemu.py*
-%{python3_sitearch}/libvirt_lxc.py*
-%{python3_sitearch}/__pycache__/libvirt.cpython-*.py*
-%{python3_sitearch}/__pycache__/libvirt_qemu.cpython-*.py*
-%{python3_sitearch}/__pycache__/libvirt_lxc.cpython-*.py*
-%{python3_sitearch}/__pycache__/libvirtaio.cpython-*.py*
-%{python3_sitearch}/libvirtmod*
-%{python3_sitearch}/*egg-info
-
 
 %changelog
+* Thu Sep  3 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.7.0-1
+- Update to 12.7.0 release
+- Convert to modern pyproject macros
+
 * Mon Aug  3 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.6.0-1
 - Update to 12.6.0 release
 

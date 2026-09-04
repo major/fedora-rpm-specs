@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -507,6 +507,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 2.53.24-2
+- Rebuild with latest Rust compiler to enable SHSTK support
+
 * Thu Jul 30 2026 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.24-1
 - update to 2.53.24
 

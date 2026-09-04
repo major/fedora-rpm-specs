@@ -7,6 +7,9 @@ License:	BSD-3-Clause
 URL:		https://github.com/tinyalsa/tinyalsa
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/tinyalsa/tinyalsa/pull/216
+Patch0:		216.patch
+
 ExcludeArch:	%{ix86}
 
 BuildRequires:	meson
@@ -24,7 +27,7 @@ The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %conf
 %meson

@@ -11,11 +11,13 @@ Version:  0.6.0
 
 Name:     wf-recorder
 Summary:  Screen recorder for wlroots-based compositors eg swaywm
-Release:  3%{?dist}
+Release:  5%{?dist}
 License:  MIT
 URL:      %{forgeurl}
 Source0:  %{forgesource}
 Patch0:   wf-recorder-use-free-codecs.patch
+# fix build with FFmpeg 9
+Patch1:   wf-recorder-fix-build-with-ffmpeg9.patch
 
 %ifarch ppc64le
 # fix compilation on ppc64le (gcc#58241)
@@ -66,6 +68,12 @@ and xdg-output).
 %license LICENSE
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.6.0-5
+- Rebuilt for FFmpeg 9
+
+* Wed Aug 19 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.6.0-4
+- Fixed build with FFmpeg 9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

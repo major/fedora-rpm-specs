@@ -7,7 +7,7 @@
 %bcond_with check
 %endif
 
-%global ignedgecommit 6be7c9429bca08066f5bbfa0cb8086421c0c538c
+%global ignedgecommit b6c8245e59b5b0cd6ead6448cd283a73d507fa63
 %global ignedgeshortcommit %(c=%{ignedgecommit}; echo ${c:0:7})
 
 # https://github.com/coreos/ignition
@@ -22,7 +22,7 @@ Version:                2.27.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -460,6 +460,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %endif
 
 %changelog
+* Wed Sep 02 2026 Klara Necasova <knecasov@redhat.com> - 2.27.0-2
+- Update ignition-edge commit to include https://github.com/fedora-iot/ignition-edge/pull/12
+
 * Wed Aug 26 2026 Steven Presti <spresti@redhat.com> - 2.27.0-1
 - New Release
 - Butane config transpiler merged into Ignition repository

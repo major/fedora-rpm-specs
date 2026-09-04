@@ -7,13 +7,16 @@
 %global crate glib-sys
 
 Name:           rust-glib-sys
-Version:        0.22.8
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libglib-2.0
 
 License:        MIT
 URL:            https://crates.io/crates/glib-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          glib-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(glib-2.0) >= 2.56
@@ -259,6 +262,19 @@ This package contains library source intended for building other packages which
 use the "v2_88" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_88-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_90-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(glib-2.0) >= 2.89
+
+%description -n %{name}+v2_90-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_90" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_90-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

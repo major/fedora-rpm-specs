@@ -2,7 +2,7 @@
 
 Name:           hedgewars
 Version:        1.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
@@ -224,6 +224,9 @@ install -pm 0644 %{SOURCE102} %{buildroot}%{_prefix}/lib/firewalld/services/
 %{_datadir}/%{name}/Data/Fonts/wqy-zenhei.ttc
 
 %changelog
+* Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.3-8
+- Rebuilt for FFmpeg 9
+
 * Tue Aug 18 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.3-7
 - Fixed build with FFmpeg 9
 

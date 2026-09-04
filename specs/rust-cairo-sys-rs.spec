@@ -5,7 +5,7 @@
 %global crate cairo-sys-rs
 
 Name:           rust-cairo-sys-rs
-Version:        0.22.0
+Version:        0.22.9
 Release:        %autorelease
 Summary:        FFI bindings to libcairo
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/cairo-sys-rs
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          cairo-sys-rs-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          cairo-sys-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(cairo) >= 1.14
