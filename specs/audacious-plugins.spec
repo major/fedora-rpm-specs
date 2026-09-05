@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global tar_ver %{version}
 
@@ -352,6 +352,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Fri Sep 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.6.1-4
+- Rebuilt for FFmpeg 9
+
 * Sat Aug 01 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-3
 - merge the fix for the accidental Turkish translations in en_GB
 

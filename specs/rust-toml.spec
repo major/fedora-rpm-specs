@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate toml
-%global crate_version 1.1.3+spec-1.1.0
+%global crate_version 1.1.5+spec-1.1.0
 
 Name:           rust-toml
-Version:        1.1.3
+Version:        1.1.5
 Release:        %autorelease
 Summary:        Native Rust encoder and decoder of TOML-formatted files and streams
 

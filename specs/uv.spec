@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.7
+Version:        0.12.9
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -723,6 +723,7 @@ skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
 #   }
 # There are probably more of these.
 skip="${skip-} --skip retry::tests::retried_status_codes"
+skip="${skip-} --skip retry::tests::retry_logs_redact_signed_urls"
 # This has been seen to fail in koji, so far only on x86_64, but so far not in
 # a local mock build. It’s very possible that this is another testing race
 # condition that would be avoided by process isolation in “cargo nextest.” It

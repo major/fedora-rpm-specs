@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.16.5
+Version:        0.16.6
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -149,11 +149,11 @@ URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 6b7f7b93300550eb55380db8ca62488eb0c78c77
+%global typeshed_rev cf09d2a4d7614f648e9109dce609887499a7c6ee
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260825
+%global typeshed_snapdate 20260831
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -164,6 +164,9 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+# [ty] Relax symlink_inside_project index assertion - #28245
+# https://github.com/astral-sh/ruff/pull/28245
+Patch:          %{url}/pull/28245.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ruff

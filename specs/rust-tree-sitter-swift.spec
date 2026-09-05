@@ -5,16 +5,13 @@
 %global crate tree-sitter-swift
 
 Name:           rust-tree-sitter-swift
-Version:        0.7.1
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Swift grammar for the tree-sitter parsing library
 
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-swift
 Source:         %{crates_source}
-# * LICENSE file not shipped, see
-#   https://github.com/alex-pinkus/tree-sitter-swift/pull/537
-Source1:        https://raw.githubusercontent.com/alex-pinkus/tree-sitter-swift/refs/tags/%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -34,6 +31,10 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/node_modules/isexe/LICENSE
+%license %{crate_instdir}/node_modules/node-gyp-build/LICENSE
+%license %{crate_instdir}/node_modules/tree-sitter-cli/LICENSE
+%license %{crate_instdir}/node_modules/which/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,7 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -62,7 +62,6 @@ cp -p %{SOURCE1} .
 
 %install
 %cargo_install
-cp -p LICENSE %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

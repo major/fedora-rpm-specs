@@ -5,7 +5,7 @@
 %global crate reqsign-oracle
 
 Name:           rust-reqsign-oracle
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Oracle Cloud signing implementation for reqsign
 

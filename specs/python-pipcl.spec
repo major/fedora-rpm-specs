@@ -5,7 +5,7 @@
 %bcond tests 1
 
 Name:		python-%{pypi_name}
-Version:	12
+Version:	13
 Release:	%autorelease
 Summary:	Python packaging operations including PEP-517 support
 

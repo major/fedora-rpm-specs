@@ -5,7 +5,7 @@
 %global libhandy_version 1.5.0
 
 Name:    eog
-Version: 50.2
+Version: 50.3
 Release: %autorelease
 Summary: Eye of GNOME image viewer
 

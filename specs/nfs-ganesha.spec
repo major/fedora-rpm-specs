@@ -142,12 +142,21 @@ Requires: openSUSE-release
 %bcond_without monitoring
 %global use_monitoring %{on_off_switch monitoring}
 
+%bcond_without legacy_metrics
+%global legacy_metrics %{on_off_switch legacy_metrics}
+
 %bcond_without grpc
 %global use_grpc %{on_off_switch grpc}
 
 %bcond_without nfs_rdma
 
 %bcond_without rpc_rdma
+
+%ifarch i686
+%bcond_with ceph_fscrypt
+%else
+%bcond_without ceph_fscrypt
+%endif
 
 %if ( 0%{?rhel} && 0%{?rhel} < 7 )
 %global _rundir %{_localstatedir}/run
@@ -160,7 +169,7 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	15.2
+Version:	15.3
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -170,6 +179,7 @@ Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%
 Source1:	https://github.com/ceph/libkmip/archive/%{kmip_ver_long}/libkmip-%{kmip_ver_short}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
 Patch:		0002-src-scripts-python.patch
+Patch:		0003-src-monitoring-prometheus_exposer.cc.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -206,7 +216,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc gcc-c++
 %if ( 0%{?with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 15.2
+BuildRequires:	libntirpc-devel >= 15.3
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -621,6 +631,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DENABLE_QOS=%{use_qos}				\
 	-DENABLE_CLUSTER_QOS=%{use_cluster_qos}		\
 	-DUSE_MONITORING=%{use_monitoring}		\
+	-DLEGACY_METRICS=%{legacy_metrics}		\
 	-DUSE_TLS=%{use_tls}				\
 	-DUSE_PRIO_INHERIT=%{use_prio_inherit}		\
 	-DUSE_OPENSSL=%{use_openssl}			\
@@ -788,7 +799,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %license src/LICENSE.txt
 %{_bindir}/ganesha.nfsd
 %{_libdir}/libganesha_nfsd.so*
+%if %{with ceph_fscrypt}
 %{_libdir}/ganesha/libkmip_fscrypt*
+%endif
 %config %{_sysconfdir}/dbus-1/system.d/org.ganesha.nfsd.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/ganesha
 %config(noreplace) %{_sysconfdir}/logrotate.d/ganesha
@@ -812,6 +825,8 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_mandir}/*/ganesha-export-config.8.gz
 %{_mandir}/*/ganesha-cache-config.8.gz
 %{_mandir}/*/ganesha-log-config.8.gz
+%{_mandir}/*/ganesha-fscrypt-config.8.gz
+%{_mandir}/*/ganesha-top.8.gz
 %endif
 %{_sysusersdir}/nfs-ganesha.conf
 
@@ -1017,6 +1032,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Sep 3 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.3-1
+- NFS-Ganesha 15.3 GA, build f46-build-side-150285
+
 * Mon Aug 24 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.2-1
 - NFS-Ganesha 15.2 GA
 

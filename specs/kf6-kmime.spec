@@ -1,7 +1,7 @@
 %global  framework kmime
 
 Name:    kf6-%{framework}
-Version: 6.29.0
+Version: 6.30.0
 Release: 1%{?dist}
 Summary: The KMime Library
 
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6Mime/
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
 - 6.29.0
 

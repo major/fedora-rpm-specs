@@ -3,10 +3,10 @@ ExcludeArch: %{ix86}
 
 #global forgeurl https://github.com/coccinelle/coccinelle
 %global forgeurl https://gitlab.inria.fr/coccinelle/coccinelle
-%global tag 1.3.1
+%global tag 1.3.3
 #global commit 09b475bb3dd2b29c6bd904cc455d4c25c6641649
 #global date   20251118
-Version:       1.3.1
+Version:       1.3.3
 %forgemeta
 
 # Build the documentation on Fedora only.
@@ -23,7 +23,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -34,19 +34,6 @@ Source0:        %{forgesource}
 # Used for running Python tests.
 Source1:        test.c
 Source2:        testpy.cocci
-
-# RWMJ: I backported some patches for ocaml-pcre2 support from upstream.
-# They can be found here:
-# https://github.com/rwmjones/coccinelle/tree/fedora-1.3.1
-Patch:          0001-replace-pcre-with-pcre2.patch
-Patch:          0002-use-pcre2-instead-of-pcre-in-some-more-places.patch
-Patch:          0003-replace-pcre-with-pcre2-in-install.txt-instructions.patch
-Patch:          0004-replace-pcre-bundle-with-pcre2-bundle.patch
-Patch:          0005-rename-some-bundled-pcre2-files-to-be-input-files.patch
-Patch:          0006-add-.gitignore-in-pcre2-bundle-to-exclude-generated-.patch
-Patch:          0007-rename-update-pcre-bundle-Makefile-to-reflect-bundle.patch
-Patch:          0008-configure.ac-use-pcre2-ocaml-lib-folder-to-reflect-n.patch
-Patch:          0009-replace-obsolescent-egrep-with-grep-E.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -300,6 +287,10 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Fri Sep 04 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-1
+- New version 1.3.3 (RHBZ#2519492)
+- Drop ocaml-pcre2, egrep patches which are now upstream.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.3.1-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

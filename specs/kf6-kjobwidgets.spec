@@ -1,7 +1,7 @@
 %global framework kjobwidgets
 
 Name:           kf6-%{framework}
-Version:        6.29.0
+Version:        6.30.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -101,6 +101,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
 - 6.29.0
 

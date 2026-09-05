@@ -21,6 +21,13 @@ Patch:   no-ntlm-in-fips-mode.patch
 # https://gitlab.gnome.org/GNOME/libsoup/-/work_items/530
 Patch:   skip-logger-test-on-32bit.patch
 
+Patch:   CVE-2026-77680.patch
+Patch:   CVE-2026-15711.patch
+Patch:   CVE-2026-15714.patch
+Patch:   CVE-2026-15709.patch
+Patch:   CVE-2026-15713.patch
+Patch:   CVE-2026-15712.patch
+
 
 BuildRequires: gcc
 BuildRequires: gettext

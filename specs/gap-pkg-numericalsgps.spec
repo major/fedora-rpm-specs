@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/numericalsgps
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Compute with numerical semigroups and affine semigroups
 
@@ -17,16 +17,18 @@ BuildSystem:    gap
 BuildOption(install): data gap tst version
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(4ti2interface) >= 2024.11.01
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(normalizinterface)
-BuildRequires:  gap(singular)
-BuildRequires:  gap-devel >= 4.7
+BuildRequires:  gap(normalizinterface) >= 1.1
+BuildRequires:  gap(singular) >= 2023.02.09
+BuildRequires:  gap-devel >= 4.12
 
-Requires:       gap-core >= 4.7
+Requires:       gap-core >= 4.12
 Requires:       xdg-utils
 
-Recommends:     gap(normalizinterface)
-Recommends:     gap(singular)
+Recommends:     gap(4ti2interface) >= 2024.11.01
+Recommends:     gap(normalizinterface) >= 1.1
+Recommends:     gap(singular) >= 2023.02.09
 
 Provides:       gap(NumericalSgps) = %{version}-%{release}
 Provides:       gap(numericalsgps) = %{version}-%{release}
@@ -64,6 +66,12 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
+
+%check -a
+module load 4ti2-$(uname -m)
+gap -l '%{gap_root_dir};' tst/test-with-4ti2.g
+gap -l '%{gap_root_dir};' tst/test-with-normaliz.g
+gap -l '%{gap_root_dir};' tst/test-with-singular.g
 
 %files
 %doc CHANGES EXAMPLES README.md

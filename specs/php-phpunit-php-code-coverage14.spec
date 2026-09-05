@@ -22,8 +22,8 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.3.1
-Release:        2%{?dist}
+Version:        14.3.2
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # Find nikic/php-parser version 5 from RPM database, using autoloader path
@@ -61,8 +61,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.3.1"
-BuildRequires:  phpunit13 >=  13.3.1
+#        "phpunit/phpunit": "^13.3.2"
+BuildRequires:  phpunit13 >=  13.3.2
 BuildRequires:  php-xdebug
 %endif
 
@@ -175,9 +175,14 @@ define('TEST_FILES_PATH', __DIR__ . '/_files/');
 ]);
 EOF
 
+# used in some tests
+mkdir vendor
+ln -s %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php vendor/autoload.php
+
 ret=0
 # test rely on Composer/InstalledVersions
 rm tests/tests/Util/PhpParserVersionTest.php
+
 # new test for our patch
 cp %{SOURCE2} tests/tests/Util/PhpParserVersionRPMTest.php
 
@@ -205,6 +210,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep  4 2026 Remi Collet <remi@remirepo.net> - 14.3.2-1
+- update to 14.3.2
+
 * Thu Aug 27 2026 Remi Collet <remi@remirepo.net> - 14.3.1-2
 - rebuild
 

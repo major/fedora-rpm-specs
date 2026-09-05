@@ -2,8 +2,8 @@
 
 Name:    kf6
 # This version MUST remain in sync with KF6 versions!
-Version: 6.29.0
-Release: 2%{?dist}
+Version: 6.30.0
+Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -95,6 +95,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Mon Aug 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.29.0-2
 - Add KDE_DOCS variable to build/install macros
 

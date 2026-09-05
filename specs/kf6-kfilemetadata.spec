@@ -2,8 +2,8 @@
 
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
-Version:        6.29.0
-Release:        2%{?dist}
+Version:        6.30.0
+Release:        1%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -98,6 +98,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 6.29.0-2
 - Rebuilt for FFmpeg 9
 

@@ -5,7 +5,7 @@
 %global crate reqsign-file-read-tokio
 
 Name:           rust-reqsign-file-read-tokio
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Tokio-based file reader implementation for reqsign
 

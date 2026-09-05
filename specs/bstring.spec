@@ -1,5 +1,5 @@
 Name:              bstring
-Version:           1.1.0
+Version:           1.1.1
 Release:           1%{?dist}
 Summary:           A string abstraction data type for the C language
 License:           BSD-3-Clause OR GPL-2.0-only
@@ -96,6 +96,9 @@ sed -i "s|/ 'doc' /|/ 'help' / 'en' /|" doc/meson.build
 %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Fri Sep 04 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.1.1-1
+- 1.1.1 Release RHBZ#2528924
+
 * Wed Aug 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1.0-1
 - Update to v1.1.0
 

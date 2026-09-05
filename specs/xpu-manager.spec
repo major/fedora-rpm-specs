@@ -1,7 +1,7 @@
 %global upstream_name xpumanager
 
 Name: xpu-manager
-Version: 2.0.1
+Version: 2.1.0
 Release: %{autorelease}
 Summary: Intel XPU System Management Interface
 License: MIT
@@ -54,8 +54,7 @@ rm -rf THIRD_PARTY_LICENSES
 %build
 %meson \
    -Duse_system_levelzero=true \
-   -Duse_system_igsc=true \
-   -Dwerror=false
+   -Duse_system_igsc=true
 
 %meson_build
 

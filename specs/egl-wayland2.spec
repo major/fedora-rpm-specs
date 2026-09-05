@@ -1,5 +1,5 @@
 Name:           egl-wayland2
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Dma-buf-based Wayland external platform library
 # src/wayland/dma-buf.h is GPL 2, rest is Apache 2.0

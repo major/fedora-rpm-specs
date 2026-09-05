@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        81.0.0
+Version:        82.0.0
 
 %gometa
 
@@ -27,18 +27,13 @@ Source0:        https://github.com/osbuild/image-builder/releases/download/v%{ve
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires:  libvirt-devel
 BuildRequires:  skopeo
+# We rely on systemd-escape to generate mount unit names. On install, it is pulled in by osbuild.
+BuildRequires:  systemd
 
 # Build requirements of the `kerby/kerby` package
 BuildRequires:  krb5-devel
-# Build requirements of 'theproglottis/gpgme' package
-BuildRequires:  gpgme-devel
-BuildRequires:  libassuan-devel
-# Build requirements of 'github.com/containers/storage' package
-BuildRequires:  device-mapper-devel
 BuildRequires:  libxcrypt-devel
 %if 0%{?fedora}
-# Build requirements of 'github.com/containers/storage' package
-BuildRequires:  btrfs-progs-devel
 # for _tmpfilesdir macro
 BuildRequires:  systemd-rpm-macros
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
@@ -62,13 +57,12 @@ Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/s
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.6.4
 Provides: bundled(golang(github.com/AzureAD/microsoft-authentication-library-for-go)) = 1.6.0
 Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.6.0
-Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp)) = 1.30.0
+Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp)) = 1.31.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric)) = 0.53.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping)) = 0.53.0
 Provides: bundled(golang(github.com/IBM/go-sdk-core/v5)) = 5.21.0
 Provides: bundled(golang(github.com/IBM/ibm-cos-sdk-go)) = 1.12.3
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
-Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.42.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.14
@@ -93,26 +87,24 @@ Provides: bundled(golang(github.com/aws/smithy-go)) = 1.27.3
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = 2.3.0
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/cncf/xds/go)) = ee656c7
-Provides: bundled(golang(github.com/containers/common)) = 0.64.2
+Provides: bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = 0.16.3
 Provides: bundled(golang(github.com/containers/image/v5)) = 5.36.2
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
 Provides: bundled(golang(github.com/containers/storage)) = 1.59.1
 Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
 Provides: bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.6
-Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = 19d51d7
 Provides: bundled(golang(github.com/davecgh/go-spew)) = d8f796a
-Provides: bundled(golang(github.com/distribution/reference)) = 0.6.0
+Provides: bundled(golang(github.com/docker/cli)) = 28.3.2+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = 2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker)) = 28.3.2+incompatible
-Provides: bundled(golang(github.com/docker/docker-credential-helpers)) = 0.9.3
-Provides: bundled(golang(github.com/docker/go-connections)) = 0.5.0
-Provides: bundled(golang(github.com/docker/go-units)) = 0.5.0
+Provides: bundled(golang(github.com/docker/docker-credential-helpers)) = 0.9.5
 Provides: bundled(golang(github.com/dougm/pretty)) = add1dbc
 Provides: bundled(golang(github.com/envoyproxy/go-control-plane/envoy)) = 1.36.0
 Provides: bundled(golang(github.com/envoyproxy/protoc-gen-validate)) = 1.3.0
 Provides: bundled(golang(github.com/fatih/color)) = 1.18.0
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
+Provides: bundled(golang(github.com/fsnotify/fsnotify)) = 1.9.0
 Provides: bundled(golang(github.com/gabriel-vasile/mimetype)) = 1.4.8
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.1.4
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
@@ -125,7 +117,6 @@ Provides: bundled(golang(github.com/go-playground/validator/v10)) = 10.26.0
 Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
 Provides: bundled(golang(github.com/gocomply/scap)) = 0.1.3
 Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.3.0
-Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.4
 Provides: bundled(golang(github.com/google/go-cmp)) = 0.7.0
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.20.3
 Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.9
@@ -133,93 +124,74 @@ Provides: bundled(golang(github.com/google/uuid)) = 1.6.0
 Provides: bundled(golang(github.com/googleapis/enterprise-certificate-proxy)) = 0.3.6
 Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.15.0
 Provides: bundled(golang(github.com/gophercloud/gophercloud/v2)) = 2.10.0
-Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.1
-Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
 Provides: bundled(golang(github.com/hashicorp/go-cleanhttp)) = 0.5.2
-Provides: bundled(golang(github.com/hashicorp/go-multierror)) = 1.1.1
 Provides: bundled(golang(github.com/hashicorp/go-retryablehttp)) = 0.7.8
 Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.9.0
 Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
 Provides: bundled(golang(github.com/jmespath/go-jmespath)) = b0104c8
-Provides: bundled(golang(github.com/json-iterator/go)) = 1.1.12
-Provides: bundled(golang(github.com/klauspost/compress)) = 1.18.0
-Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
+Provides: bundled(golang(github.com/klauspost/compress)) = 1.18.4
 Provides: bundled(golang(github.com/kolo/xmlrpc)) = a4b6fa1
 Provides: bundled(golang(github.com/kr/text)) = 0.2.0
 Provides: bundled(golang(github.com/kylelemons/godebug)) = 1.1.0
 Provides: bundled(golang(github.com/leodido/go-urn)) = 1.4.0
-Provides: bundled(golang(github.com/letsencrypt/boulder)) = de9c061
 Provides: bundled(golang(github.com/mattn/go-colorable)) = 0.1.14
 Provides: bundled(golang(github.com/mattn/go-isatty)) = 0.0.22
 Provides: bundled(golang(github.com/mattn/go-runewidth)) = 0.0.16
-Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.28
-Provides: bundled(golang(github.com/miekg/pkcs11)) = 1.1.1
+Provides: bundled(golang(github.com/mitchellh/go-homedir)) = 1.1.0
 Provides: bundled(golang(github.com/mitchellh/mapstructure)) = 1.5.0
-Provides: bundled(golang(github.com/moby/sys/capability)) = 0.4.0
-Provides: bundled(golang(github.com/moby/sys/mountinfo)) = 0.7.2
-Provides: bundled(golang(github.com/moby/sys/user)) = 0.4.0
-Provides: bundled(golang(github.com/modern-go/concurrent)) = bacd9c7
-Provides: bundled(golang(github.com/modern-go/reflect2)) = 1.0.2
+Provides: bundled(golang(github.com/nxadm/tail)) = 1.4.11
 Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
-Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.32.0
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
+Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/planetscale/vtprotobuf)) = 0393e58
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
-Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.4.7
 Provides: bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
-Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0.9.0
-Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.6
-Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
-Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.9.5
 Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.4
-Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
 Provides: bundled(golang(github.com/sony/gobreaker)) = dd874f9
 Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.2
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.10
 Provides: bundled(golang(github.com/spiffe/go-spiffe/v2)) = 2.6.0
-Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
 Provides: bundled(golang(github.com/supakeen/yamlplus)) = 1.1.0
-Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
 Provides: bundled(golang(github.com/ubccr/kerby)) = 412be7b
 Provides: bundled(golang(github.com/ulikunitz/xz)) = 0.5.15
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.12.1
-Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.10.2
 Provides: bundled(golang(github.com/vmware/govmomi)) = 0.52.0
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.17.2
 Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = 1.2.1
 Provides: bundled(golang(go.opentelemetry.io/contrib/detectors/gcp)) = 1.39.0
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = 0.61.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.61.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/sdk/metric)) = 1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.39.0
-Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
+Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.67.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.43.0
+Provides: bundled(golang(go.opentelemetry.io/otel/exporters/stdout/stdoutmetric)) = 1.42.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.43.0
+Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.43.0
+Provides: bundled(golang(go.opentelemetry.io/otel/sdk/metric)) = 1.43.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.43.0
+Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.3
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = 0.47.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.49.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
-Provides: bundled(golang(golang.org/x/mod)) = 0.31.0
-Provides: bundled(golang(golang.org/x/net)) = 0.49.0
+Provides: bundled(golang(golang.org/x/mod)) = 0.33.0
+Provides: bundled(golang(golang.org/x/net)) = 0.52.0
 Provides: bundled(golang(golang.org/x/oauth2)) = 0.35.0
-Provides: bundled(golang(golang.org/x/sync)) = 0.19.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.41.0
-Provides: bundled(golang(golang.org/x/term)) = 0.40.0
-Provides: bundled(golang(golang.org/x/text)) = 0.33.0
-Provides: bundled(golang(golang.org/x/time)) = 0.12.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.40.0
+Provides: bundled(golang(golang.org/x/sync)) = 0.20.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.42.0
+Provides: bundled(golang(golang.org/x/term)) = 0.41.0
+Provides: bundled(golang(golang.org/x/text)) = 0.35.0
+Provides: bundled(golang(golang.org/x/time)) = 0.14.0
+Provides: bundled(golang(golang.org/x/tools)) = 0.42.0
 Provides: bundled(golang(google.golang.org/api)) = 0.248.0
 Provides: bundled(golang(google.golang.org/genproto)) = 513f239
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = ff82c1b
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = ff82c1b
-Provides: bundled(golang(google.golang.org/grpc)) = 1.79.3
-Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.10
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 9d38bb4
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 9d38bb4
+Provides: bundled(golang(google.golang.org/grpc)) = 1.80.0
+Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.11
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.3
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.12005.0
@@ -262,11 +234,6 @@ export GOFLAGS+=" -mod=vendor"
 %undefine gomodulesmode
 %endif
 
-# btrfs-progs-devel is not available on RHEL
-%if 0%{?rhel}
-GOTAGS="exclude_graphdriver_btrfs"
-%endif
-
 export LDFLAGS="${LDFLAGS} -X 'main.version=%{version}'"
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/image-builder %{goipath}/cmd/image-builder
 
@@ -285,7 +252,7 @@ install -m 0644 -vp man/man1/image-builder*.1       %{buildroot}%{_mandir}/man1/
 %check
 export GOFLAGS="-buildmode=pie"
 %if 0%{?rhel}
-export GOFLAGS+=" -mod=vendor -tags=exclude_graphdriver_btrfs"
+export GOFLAGS+=" -mod=vendor"
 export GOPATH=$PWD/_build:%{gopath}
 # cd inside GOPATH, otherwise go with GO111MODULE=off ignores vendor directory
 cd $PWD/_build/src/%{goipath}
@@ -303,6 +270,46 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Fri Sep 04 2026 Packit <hello@packit.dev> - 82.0.0-1
+Changes with 82.0.0
+----------------
+  - Enable bootc-image-builder ISO tests on aarch64 [HMS-11073] (#2637)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Lucas Garfield
+  - Implement rootless container introspection (#2617)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Anna Vítová, Simon de Vlieger
+  - Rewrite container handling internals to drop graphdriver and gpgme dependencies [RHEL-56367] (#2607)
+    - Author: Achilleas Koutsou, Reviewers: Lucas Garfield, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2631)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260830 (#2630)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - client: Respect CONTAINERS_GRAPHROOT and CONTAINERS_RUNROOT (#2645)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - cmd/image-builder: only run findDistro once (#2651)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - cmd/image-builder: upload messages progress bar (#2654)
+    - Author: Simon de Vlieger, Reviewers: Florian Schüller, Sanne Raymaekers
+  - el9/10: parity bits (#2659)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - gce: ensure disk images are GiB-aligned (#2655)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - osbuild: compare Go against JSON (#2529)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - osinfo: never fall back if new prefix exists (#2649)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - osinfo: warn on old-prefix usage (#2648)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Sanne Raymaekers
+  - pkg/crypt: add support for yescrypt hashed passwords (#2650)
+    - Author: Loris Fauster, Reviewers: Lucas Garfield, Simon de Vlieger
+  - pkg/rhsm: use Katello CA as default on Satellite hosts (#2613)
+    - Author: Lukáš Zapletal, Reviewers: Lucas Garfield, Simon de Vlieger
+  - rm SECURITY.md: fall back to org-wide policy (#2633)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Simon de Vlieger
+  - rootless: Don't disallow --in-vm in rootless non-container (#2626)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-09-04
+
 * Thu Aug 27 2026 Packit <hello@packit.dev> - 81.0.0-1
 Changes with 81.0.0
 ----------------

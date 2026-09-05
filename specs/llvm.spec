@@ -1526,7 +1526,7 @@ cd llvm/utils/lit
 # TODO(kkleine): In clang we had this %ifarch s390 s390x aarch64 %ix86 ppc64le
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking.
 %global reduce_debuginfo 0
-%ifarch %ix86
+%ifarch %ix86 riscv64
 %global reduce_debuginfo 1
 %endif
 %if 0%{?rhel} == 8 || %{with fastclang}

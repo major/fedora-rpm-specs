@@ -25,7 +25,7 @@ Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # upstream, e.g. Debian does not like it.
 Patch0:     libfaketime-0.9.12-Dynamic-libraries-are-expected-to-be-executable-on-F.patch
 # Remove tests which pass NULL to syscalls and are surprised with a segfault,
-# proposed upstream, <https://github.com/wolfcw/libfaketime/issues/554>
+# in upstream after 0.9.13, <https://github.com/wolfcw/libfaketime/issues/554>
 Patch1:     libfaketime-0.9.13-Remove-tests-passing-NULL-to-sem_timedwait-and-clock.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc

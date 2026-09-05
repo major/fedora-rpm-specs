@@ -1,5 +1,5 @@
 Name:           python-resend
-Version:        2.42.0
+Version:        2.43.0
 Release:        %autorelease
 Summary:        Resend Python SDK
 

@@ -10,8 +10,11 @@
 
 # macro for el10 minor version
 %if 0%{?rhel} == 10
-%define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+%global rhel_minor_version %(echo %{dist} | sed -n 's/.*el10_\\([0-9]\\+\\).*/\\1/p')
 %endif
+
+# Fix installation issue caused by the hard link in locales
+%define __os_install_post_hardlink %{nil}
 
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
@@ -44,6 +47,12 @@
 %global build_target() \
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	ninja -j %{numjobs} -C '%1' '%2'
+
+# enable|disable chrome_management_service
+%global build_chrome_management_service 1
+%if 0%{?flatpak}
+%global build_chrome_management_service 0
+%endif
 
 # enable|disable chromedriver
 %global build_chromedriver 1
@@ -219,7 +228,7 @@
 %global bundlelibdrm 0
 %global bundleffmpegfree 0
 %global bundlefreetype 0
-%if 0%{?fedora} > 41
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
 # require libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
 %global bundlelibtiff 0
 %endif
@@ -235,12 +244,12 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 146
-%global chromium_branch 7680
+%global chromium_major 151
+%global chromium_branch 7922
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 177
+%global chromium_minor 173
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 3a0fcf1e1b6249b50c96ac77c429bfefade09d96
+%global cef_commit 2384915b7b1f0fe5ad1107e48d80c34e86b698d7
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
 %global cef_patch 11
@@ -281,15 +290,12 @@ Patch22: chromium-131-fix-qt-ui.pach
 #//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
 #  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
 Patch23: chromium-143-revert-libpng_for_testonly.patch
-
-# Get around the problem of auto darkmode webcontent inverting and making them unreadable
-Patch30: chromium-143-autodarkmode-workaround.patch
+ 
+# patch from Melvin - melvin@pixilab.se
+Patch24: glibc-2.42-baud-rate-fix.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
-
-# Disable tests on remoting build
-Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
 Patch89: chromium-142-system-brotli.patch
@@ -306,39 +312,45 @@ Patch92: chromium-138-checkversion-nodejs.patch
 # fix build error
 Patch93: chromium-141-csss_style_sheet.patch
 
+# revert the patch to fix the build error: "ld.lld: error: undefined symbol: __sanitizer_set_death_callback"
+Patch94: chromium-148-v8-sanitize-build-error.patch
+
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
 #     |
 # 210 |     #[cfg_attr(feature = "disable_cfi", sanitize(cfi = "off"))]
 Patch96: chromium-142-crabbyavif-ftbfs-old-rust.patch
 
-# FTBFS - /usr/include/bits/siginfo-consts.h:219:3: error: expected identifier
-# 219 |   SYS_SECCOMP = 1,              /* Seccomp triggered.  */
-Patch97: chromium-141-glibc-2.42-SYS_SECCOMP.patch
-
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
-Patch130: chromium-142-el9-ffmpeg-5.x-duration.patch
+Patch130: chromium-148-el9-ffmpeg-build-error.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-142-el9-ffmpeg-5.1.x.patch
+Patch133: chromium-151-el9-ffmpeg-5.1.x.patch
+Patch134: chromium-151-el9-build-error-system-ffmpeg5.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
 Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
-
+# fatal error: 'third_party/ffmpeg/libavutil/rational.h' file not found
+Patch137: chromium-147-system-ffmpeg.patch
+# Workaround for missing AVDynamicHDRSmpte2094App5 in system ffmpeg
+Patch138: chromium-150-ffmpeg-AVDynamicHDRSmpte2094App5.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
-
+# Fix FTBFS with rustc-1.88 on el9 and epel10.1
+Patch142: chromium-149-rust-1.88-build-error.patch
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
-Patch143: chromium-146-rust-1.88-enable-unstable_features.patch
+Patch143: chromium-148-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
-Patch145: chromium-146-ftbfs-rust-bytemuck.patch
+
+# Fix FTBFS with python-3.9 on el9
+Patch146: chromium-148-el9-python-3.9-build-error.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -377,10 +389,6 @@ Patch311: chromium-123-fstack-protector-strong.patch
 #    --> ../../build/rust/allocator/lib.rs:107:7
 Patch312: chromium-143-el9-rust-no-alloc-shim-is-unstable.patch
 
-# Fix FTBFS on EL9
-# - error: undefined symbol: __rust_alloc_error_handler_should_panic
-Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
-
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch
@@ -388,23 +396,24 @@ Patch314: chromium-136-rust-skrifa-build-error.patch
 # error with old rustc
 Patch315: chromium-145-rustc-ftbfs.patch
 
-# add -ftrivial-auto-var-init=zero and -fwrapv
-Patch316: chromium-122-clang-build-flags.patch
-
+# llvm <= 22
+# clang++: error: unknown argument: '-fno-lifetime-dse'
 # unknown warning option -Wno-nontrivial-memcall
-Patch317: chromium-142-clang++-unknown-argument.patch
+Patch316: chromium-151-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
 
 # compile swiftshader against llvm-16.0
 Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
-# Fix clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=array-bounds'
-Patch320: chromium-146-clang-unknown-argument.patch
+# Fix build error on fedora aarch64
+Patch320: chromium-149-aarch64-log-error.patch
 
-# Fix build error with rustc 1.95
-# error[E0425]: cannot find type `LaneCount` in module `core::simd`
-Patch321: chromium-148-rust-1.95-bytemuck-ftbfs.patch
+# Replace with system golang
+Patch321: chromium-151-system-golang.patch
+
+# Fix build error caused by Unresolved dependencies
+Patch322: chromium-151-histograms_xml-build-error.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -430,15 +439,19 @@ Patch357: chromium-134-type-mismatch-error.patch
 # set clang_lib path
 Patch358: chromium-144-rust-clanglib.patch
 
+# fix FTBFS with rustc 1.95
+Patch359: chromium-148-rust-1.95-bytemuck-ftbfs.patch
+
 # PowerPC64 LE support
 # Timothy Pearson's patchset
 # https://gitlab.raptorengineering.com/raptor-engineering-public/chromium/openpower-patches
-Patch359: add-ppc64-architecture-string.patch
+Patch360: add-ppc64-architecture-string.patch
 Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
 
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
-Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
+Patch378: 0001-third_party-libvpx-Disable-vsx-on-ppc64.patch
+Patch379: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -470,7 +483,6 @@ Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
-Patch404: fix-partition-alloc-compile.patch
 Patch405: fix-study-crash.patch
 Patch407: fix-different-data-layouts.patch
 Patch408: 0002-Add-ppc64-trap-instructions.patch
@@ -488,6 +500,10 @@ Patch415: add-ppc64-pthread-stack-size.patch
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
 Patch419: 0009-sandbox-ignore-byte-span-error.patch
+Patch420: 0005-blink-add-audio-vector-support.patch
+
+# Fix FTBSF with kernel-7.2.0 (fedora 45 and rhel-11)
+Patch450: chromium-150-pt_regs-kernel-7.2.0.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -501,7 +517,15 @@ Patch510: 0001-Remove-unused-OpenSSL-config.patch
 Patch511: 0001-fips-disable-options.patch
 %endif
 
-# upstream patches
+# Patches from ungoogle chromium, https://github.com/ungoogled-software/ungoogled-chromium
+# remove rollup binary, build with wasm-rollup 
+Patch520: build-with-wasm-rollup.patch
+Patch521: disable-ai.patch
+
+# Upstream patches
+# Darkmode
+Patch606: chromium-150-Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode.patch
+Patch607: chromium-150-Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -534,17 +558,13 @@ Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
 
-# https://github.com/rollup/rollup/blob/master/LICENSE-CORE.md
-# third_party/devtools-frontend/src/package-lock.json
-Source14: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.22.4.tgz
-Source15: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-powerpc64le-gnu/-/rollup-linux-powerpc64le-gnu-4.22.4.tgz
-
 ## CEF: CEF-specific sources
 Source22: https://github.com/chromiumembedded/cef/archive/%{cef_commit}.tar.gz
 Source23: mkspec.sh
 Source24: FindCEF.cmake
 ## END CEF
 
+BuildRequires: golang
 BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
@@ -1037,9 +1057,10 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
-%patch -P30 -p1 -b .autodarkmode-workaround
+%if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
+%patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
+%endif
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
-%patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
 %patch -P89 -p1 -b .system-brotli
@@ -1057,23 +1078,23 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
+%patch -P94 -p1 -R -b .v8-sanitize-build-error
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
-
-%if 0%{?fedora} > 43
-%patch -P97 -p1 -b .glibc-2.42-SYS_SECCOMP
-%endif
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
-%patch -P130 -p1 -b .el9-ffmpeg-5.x-duration
+%patch -P130 -p1 -b .el9-ffmpeg-build-error
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
+%patch -P134 -p1 -b .el9-ffmpeg-5.1.x
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
 %patch -P136 -p1 -b .workaround-system-ffmpeg-whitelist
+%patch -P137 -p1 -b .system-ffmpeg
+%patch -P138 -p1 -b .workaround-system-ffmpeg-AVDynamicHDRSmpte2094App5
 %endif
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
@@ -1081,11 +1102,14 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P142 -p1 -b .rust-1.88-build-error
 %patch -P143 -p1 -b .rust-1.88-enable-unstable_features
-%patch -P144 -p1 -b .rustc-1.88-undefined-symbol
+%patch -P144 -p1 -b .rust-1.88-undefined-symbol
 %endif
 
-%patch -P145 -p1 -b .ftbfs-rust-bytemuck
+%if 0%{?rhel} == 9
+%patch -P146 -p1 -b .el9-python-3.9-build-error
+%endif
 
 %patch -P150 -p1 -b .qt6
 
@@ -1115,22 +1139,24 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
 %endif
-%patch -P316 -p1 -b .clang-build-flags
 
-%if 0%{?fedora} && 0%{?fedora} < 42 || 0%{?rhel} && 0%{?rhel} < 10
-%patch -P317 -p1 -b .clang++-unsupported-argument
-%endif
+%patch -P316 -p1 -b .clang++-unknown-argument
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
-%patch -P320 -p1 -b .clang-unknown-argument
-%patch -P321 -p1 -b .rust-1.95-bytemuck
+
+%ifarch aarch64 && 0%{?fedora}
+%patch -P320 -p1 -b .aarch64-log-error
+%endif
+
+%patch -P321 -p1 -b .system-golang
+%patch -P322 -p1 -b .histograms_xml-build-error
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
-%ifarch aarch64 && 0%{?fedora} > 40
+%ifarch aarch64 && (0%{?fedora} > 40 || 0%{?rhel} > 10)
 %patch -P353 -p1 -b .duplicate-case-value
 %endif
 
@@ -1142,12 +1168,17 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P358 -p1 -b .rust-clang_lib
 
+%if  0%{?fedora} > 41 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} > 2)
+%patch -P359 -p1 -b .ftbfs-with-rustc-1.95
+%endif
+
 %ifarch ppc64le
-%patch -P359 -p1 -b .add-ppc64-architecture-string
+%patch -P360 -p1 -b .add-ppc64-architecture-string
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
-%patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
+%patch -P378 -p1 -b .0001-third_party-libvpx-Disable-vsx-on-ppc64
+%patch -P379 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .0002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1169,7 +1200,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
-%patch -P404 -p1 -b .fix-partition-alloc-compile
 %patch -P405 -p1 -b .fix-study-crash
 %patch -P407 -p1 -b .fix-different-data-layouts
 %patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
@@ -1182,6 +1212,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
+%patch -P420 -p1 -b .0005-blink-add-audio-vector-support
+%patch -P450 -p1 -b .pt_regs-kernel-7.2.0
 %endif
 
 %if 0%{?flatpak}
@@ -1190,7 +1222,12 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P502 -p1 -b .flatpak-widevine
 %endif
 
+%patch -P520 -p1 -b .build-with-wasm-rollup
+%patch -P521 -p1 -b .disable-ai
+
 # Upstream patches
+%patch -P606 -p1 -b .Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode
+%patch -P607 -p1 -b .Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot
@@ -1258,16 +1295,6 @@ EOF
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
 
-# unpack rollup binary for aarch64
-%ifarch aarch64
-tar xf %{SOURCE14} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-arm64-gnu
-%endif
-
-#unpack rollup binary for ppc64le
-%ifarch ppc64le
-tar xf %{SOURCE15} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-powerpc64le-gnu
-%endif 
-
 # Add correct path for nodejs binary
 mkdir -p third_party/node/linux/node-linux-x64/bin
 %if ! %{system_nodejs}
@@ -1282,11 +1309,20 @@ ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esb
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
+mkdir -p buildtools/linux64/
 %if %{bootstrap}
 ln -sf ../../%{chromebuilddir}/gn buildtools/linux64/gn
 %else
 ln -sf $(which gn) buildtools/linux64/gn
 %endif
+
+# Remove bundle gperf and replace it with system gperf
+mkdir -p third_party/gperf/cipd/bin
+ln -fs $(which gperf) third_party/gperf/cipd/bin/gperf
+
+# Remove bundle rustc and replace it with system rustc
+mkdir -p third_party/rust-toolchain/bin/
+ln -fs $(which rustc) third_party/rust-toolchain/bin/rustc
 
 %if %{bundlelibusbx}
 # no hackity hack hack
@@ -1301,7 +1337,7 @@ cp -a $(pkg-config --variable=includedir libusb-1.0)/libusb-1.0/libusb.h third_p
 sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channel_info_posix.cc
 
 # Fix hardcoded path in remoting code
-sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
+sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux_single_process.cc
 
 # bz#2265957, add correct platform
 sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
@@ -1358,6 +1394,9 @@ export READELF=llvm-readelf
 export CFLAGS
 export CXXFLAGS
 export LDFLAGS
+
+# Suppress linker_messages Warnings in Rust
+export RUSTFLAGS="-A linker_messages"
 
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1
@@ -1501,6 +1540,10 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libjpeg=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libpng=true'
 %endif
 
+%if ! %{bundleharfbuzz}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_harfbuzz=true'
+%endif 
+
 %if ! %{bundlelibopenjpeg2}
 CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libopenjpeg2=true'
 %endif
@@ -1560,7 +1603,7 @@ system_libs=()
 	system_libs+=(freetype)
 %endif
 %if ! %{bundleharfbuzz}
-	system_libs+=(harfbuzz-ng)
+	system_libs+=(harfbuzz)
 %endif
 %if ! %{bundleicu}
 	system_libs+=(icu)
@@ -1666,6 +1709,10 @@ sh %SOURCE23 cef/cef_api_versions.json > %{specpartsdir}/cef-api-versions.specpa
 # Build the CEF binary "distribution"
 python3 cef/tools/make_distrib.py --distrib-subdir=distrib --output-dir=.. --ninja-build --%{chromium_arch}-build --minimal --no-docs --no-archive
 ## END CEF
+
+%if %{build_chrome_management_service}
+%build_target %{chromebuilddir} chrome_management_service
+%endif
 
 %install
 rm -rf %{buildroot}

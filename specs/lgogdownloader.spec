@@ -1,6 +1,6 @@
 Name:		lgogdownloader
-Version:	3.16
-Release:	10%{?dist}
+Version:	3.18
+Release:	1%{?dist}
 Summary:	GOG.com download client
 
 License:	WTFPL
@@ -20,8 +20,9 @@ BuildRequires:	pkgconfig(tinyxml2)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
 BuildRequires:	rhash-devel
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:	pkgconfig(Qt5WebEngine)
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6WebEngineWidgets)
 %endif
 
 %description
@@ -29,14 +30,16 @@ LGOGDownloader is an unofficial GOG.com downloader for Linux users. It uses the
 same API as the official GOG Galaxy.
 
 %prep
-%autosetup
+%autosetup -C
 
-%build
-%ifarch %{qt5_qtwebengine_arches}
+%conf
+%ifarch %{qt6_qtwebengine_arches}
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=Release -DUSE_QT_GUI=ON
 %else
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=Release -DUSE_QT_GUI=OFF
 %endif
+
+%build
 %cmake_build
 
 %install
@@ -48,6 +51,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Fri Sep 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 3.18-1
+- Update to 3.18 and build with Qt 6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

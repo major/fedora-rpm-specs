@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -22,7 +22,7 @@ URL: https://sourceware.org/binutils
 # --with    debug        Build without optimizations and without splitting the debuginfo into a separate file.
 # --without debuginfod   Disable support for debuginfod.
 # --without docs         Skip building documentation.  Default is with docs, except when building a cross binutils.
-# --without gold         Disable building of the GOLD linker.
+# --with    gold         Enable the building of the GOLD linker.
 # --without gprofng      Do not build the GprofNG profiler.
 # --without systemzlib   Use the binutils version of zlib.  Default is to use the system version.
 # --without testsuite    Do not run the testsuite.  Default is to run it.
@@ -158,12 +158,13 @@ URL: https://sourceware.org/binutils
 # Default: Do not create cross targeted versions of the binutils.
 %bcond crossbuilds 0
 
-# Note - in the future the gold linker will become deprecated in Fedora.
-# And it will be deprecated in RHEL-11.
+# GOLD is deprecated in RHEL-11+ and Fedora 46+
 %if 0%{?rhel} >= 11
 %bcond gold 0
+%elif 0%{?fedora} >= 46
+%bcond gold 0
 %else
-# RISC-V does not have ld.gold thus disable by default.
+# Gold does not support the RISC-V architecture.
 %ifarch riscv64
 %bcond gold 0
 %else
@@ -1261,10 +1262,12 @@ EOH
         cat ld.lang >> binutils.lang
     fi
 
+%if %{with gold}
     if [ -x gold/ld-new ]; then
         %find_lang gold
         cat gold.lang >> binutils.lang
     fi
+%endif
 
     popd
 }
@@ -1500,6 +1503,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri Sep 04 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-7
+- Disable the gold linker by default.
+
 * Tue Sep 01 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-6
 - Rebase to commit 48c933a69a8
 

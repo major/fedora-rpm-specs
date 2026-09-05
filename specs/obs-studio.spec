@@ -33,8 +33,8 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.7.3
-%global obsbrowser_commit ea04212e4bbadd077f9e6038758c4e4779c24fa3
+%global obswebsocket_version 5.7.4
+%global obsbrowser_commit 3f0a2cdf378939ebe3c6f9ab36d4ea100c25aac2
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
 # and it works around a CEF versioning teething issue:
@@ -46,8 +46,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        32.1.1
-Release:        7%{?dist}
+Version:        32.2.2
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -70,8 +70,6 @@ Patch0101:      0101-frontend-Consider-settings-changed-if-an-output-sett.patch
 Patch0102:      0102-frontend-Allow-invalid-recording-encoder-if-quality-.patch
 ## From: https://github.com/obsproject/obs-studio/pull/8529
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
-## From: https://github.com/obsproject/obs-studio/pull/12507
-Patch0105:      0105-libobs-opengl-Reject-external-only-modifiers.patch
 
 # WIP code to improve new CEF support (based on upstream dev tree)
 ## From: https://github.com/asahilina/obs-browser/tree/lockdown
@@ -402,6 +400,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Sep 04 2026 Diego Herrera <dherrera@redhat.com> - 32.2.2-1
+- Update to 32.2.2
+- Fixed obs-studio patches 0101, 0102, 0103, 1001
+- Fixed obs-browser patches 0201, 0250
+- Removed merged patch 0105
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 32.1.1-7
 - Rebuilt for FFmpeg 9
 

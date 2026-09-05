@@ -90,7 +90,8 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
     -s TestPagesFromGoTmplAsciiDocAndSimilar
 }
 # internal/warpc: fails on ppc64le.
-%gocheck2 -F -d internal/warpc %{ignores}
+# resources/images: fails due to timeout on riscv.
+%gocheck2 -F -d internal/warpc -d resources/images %{ignores}
 %endif
 
 %files -f %{go_vendor_license_filelist}

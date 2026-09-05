@@ -5,7 +5,7 @@
 %global crate astral-tl
 
 Name:           rust-astral-tl
-Version:        0.7.11
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Fast HTML parser written in pure Rust
 

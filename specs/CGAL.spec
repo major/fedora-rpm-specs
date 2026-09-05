@@ -6,7 +6,7 @@
 %global qt_version 6.4
 %global cmake_version 3.22
 
-%global base_version 6.2
+%global base_version 6.2.1
 #global prerelease beta1
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
 %global upstream_version %{base_version}%{?prerelease:-%{prerelease}}

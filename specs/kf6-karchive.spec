@@ -1,7 +1,7 @@
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        6.29.0
+Version:        6.30.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
@@ -93,6 +93,9 @@ rm -f %{buildroot}%{_qt6_docdir}/karchive/karchivedirectory-obsolete.html
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
 - 6.29.0
 

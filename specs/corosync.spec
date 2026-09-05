@@ -17,7 +17,7 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -25,6 +25,8 @@ Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name
 Patch0: 0001-totemsrp-Return-error-if-sanity-check-fails.patch
 Patch1: 0002-totemsrp-Fix-integer-overflow-in-memb_join_sanity.patch
 Patch2: 0001-Enforce-encryption-at-compile-time.patch
+Patch3: 0001-totemsrp-Fix-int-overflow-in-commit_token_sanity.patch
+Patch4: 0002-totempg-Replace-assert-with-check-in-deliver_fn.patch
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -301,6 +303,12 @@ network splits)
 %endif
 
 %changelog
+* Fri Sep 04 2026 Jan Friesse <jfriesse@redhat.com> - 3.1.10-8
+- totemsrp: Fix int overflow in commit_token_sanity
+  (fixes CVE-2026-81666)
+- totempg: Replace assert with check in deliver_fn
+  (fixes CVE-2026-81665)
+
 * Tue Aug 04 2026 Jan Friesse <jfriesse@redhat.com> - 3.1.10-7
 - Enforce encryption at compile time
 

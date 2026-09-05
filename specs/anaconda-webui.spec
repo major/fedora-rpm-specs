@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        82
+Version:        83
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -44,10 +44,10 @@ BuildRequires: desktop-file-utils
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
 Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(error-stack-parser)) = 2.1.4
@@ -147,6 +147,14 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Sep 04 2026 Packit <hello@packit.dev> - 83-1
+- storage: fix LUKS kickstart race using GetUsableDisks tree walk
+- fix: reset boot drive on disk selection change and storage rescan
+- fix: return after onFail for bootloader on MDRAID detection
+- fix: wait for categoryProxy before subscribing to installation signals
+- fix: skip redundant re-renders during ProgressChanged signals
+- fix: disable cockpit transport health check during installation (Resolves: rhbz#2521241)
+
 * Wed Aug 26 2026 Packit <hello@packit.dev> - 82-1
 - packaging: add fedora soas to spins using slitherer (Resolves: rhbz#2517903)
 - boss: do not stop boss event monitor during installation (Needs anaconda#7270 Relevant: rhbz#2521241)

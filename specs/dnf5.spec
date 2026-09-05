@@ -1,26 +1,91 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 3
+%global project_version_minor 4
 %global project_version_micro 0
 
-%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
+# ========== build options ==========
 
+# Toolchain
+%bcond_with    clang
+%bcond_with    sanitizers
+
+# Core features
+%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
+%bcond_without acl
+%bcond_without comps
 %if 0%{?rhel} >= 11
-%bcond_with modulemd
+%bcond_with    modulemd
 %else
 %bcond_without modulemd
+%endif
+%bcond_without systemd
+# Disable SOLVER_FLAG_FOCUS_NEW only for RHEL
+%if 0%{?rhel} && 0%{?rhel} < 11
+%bcond_with    focus_new
+%else
+%bcond_without focus_new
+%endif
+
+# Main components
+%bcond_without dnf5
+%bcond_without dnf5daemon_client
+%bcond_without dnf5daemon_server
+%bcond_without libdnf_cli
+
+# Plugins
+%bcond_without dnf5_plugins
+%bcond_without plugin_actions
+%bcond_without plugin_appstream
+%bcond_without plugin_expired_pgp_keys
+%if 0%{?rhel} >= 10
+%bcond_with    plugin_local
+%else
+%bcond_without plugin_local
+%endif
+%bcond_without plugin_manifest
+%bcond_without plugin_rhsm
+%if %{with systemd}
+%bcond_without plugin_systemd_inhibit
+%else
+%bcond_with    plugin_systemd_inhibit
+%endif
+%bcond_without python_plugins_loader
+
+# Documentation
+%bcond_with    html
+%if 0%{?rhel} == 8
+%bcond_with    man
+%else
+%bcond_without man
+%endif
+
+# Language bindings
+# TODO Go bindings fail to build, disable for now
+%bcond_with    go
+%bcond_without perl5
+%bcond_without python3
+%bcond_without ruby
+
+# Testing
+%bcond_without tests
+%bcond_with    performance_tests
+%bcond_with    dnf5daemon_tests
+
+%if %{with clang}
+%global toolchain clang
 %endif
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-Fix-integer-overflow-on-32-bit-platforms-in-D-Bus-hi.patch
-Patch2:         0002-reposync-Prevent-a-min-buildtime-overflow-on-32-bit-.patch
-Patch3:         0003-Remove-libdnf5-base-Transaction-persistence-to-resto.patch
+Patch1:         0001-spec-Fix-bcond-ordering-so-plugin_systemd_inhibit-is.patch
+Patch2:         0002-libdnf5-Fix-dangling-reference-bug-in-is_vendor_chan.patch
+Patch3:         0003-spec-Mark-all-etc-configuration-files-as-noreplacibl.patch
+Patch4:         0004-spec-Build-require-perl-lib-for-tests.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -83,61 +148,6 @@ Provides:       dnf5-command(system-upgrade)
 Provides:       dnf5-command(upgrade)
 Provides:       dnf5-command(versionlock)
 
-
-# ========== build options ==========
-
-%bcond_without dnf5daemon_client
-%bcond_without dnf5daemon_server
-%bcond_without libdnf_cli
-%bcond_without dnf5
-%bcond_without dnf5_plugins
-%bcond_without plugin_actions
-%bcond_without plugin_appstream
-%bcond_without plugin_expired_pgp_keys
-%bcond_without plugin_rhsm
-%bcond_without plugin_manifest
-%bcond_without python_plugins_loader
-
-%if 0%{?rhel} >= 10
-%bcond_with plugin_local
-%else
-%bcond_without plugin_local
-%endif
-
-%bcond_without acl
-%bcond_without comps
-
-%bcond_without systemd
-
-%bcond_with    html
-%if 0%{?rhel} == 8
-%bcond_with    man
-%else
-%bcond_without man
-%endif
-
-# TODO Go bindings fail to build, disable for now
-%bcond_with    go
-%bcond_without perl5
-%bcond_without python3
-%bcond_without ruby
-
-%bcond_with    clang
-%bcond_with    sanitizers
-%bcond_without tests
-%bcond_with    performance_tests
-%bcond_with    dnf5daemon_tests
-
-# Disable SOLVER_FLAG_FOCUS_NEW only for RHEL
-%if 0%{?rhel} && 0%{?rhel} < 11
-%bcond_with    focus_new
-%else
-%bcond_without focus_new
-%endif
-
-%if %{with clang}
-    %global toolchain clang
-%endif
 
 # ========== versions of dependencies ==========
 
@@ -254,6 +264,7 @@ BuildRequires:  swig >= %{swig_version}
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 %if %{with tests}
+BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Exception)
@@ -464,6 +475,7 @@ Requires:       librepo%{?_isa} >= %{librepo_version}
 Requires:       rpm-libs%{?_isa} >= 5.99.90
 %endif
 Requires:       sqlite-libs%{?_isa} >= %{sqlite_version}
+Recommends:     (libdnf5-plugin-systemd-inhibit if systemd)
 %if %{with dnf5_obsoletes_dnf}
 Conflicts:      dnf-data < 4.20.0
 %endif
@@ -521,7 +533,8 @@ Package management library.
 %if %{with libdnf_cli}
 %package -n libdnf5-cli
 Summary:        Library for working with a terminal in a command-line package manager
-License:        LGPL-2.1-or-later
+# libdnf5-cli/utils/userconfirm.cpp is GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 
 %description -n libdnf5-cli
@@ -720,7 +733,7 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 
 %files -n libdnf5-plugin-actions -f libdnf5-plugin-actions.lang
 %{_libdir}/libdnf5/plugins/actions.*
-%config %{_sysconfdir}/dnf/libdnf5-plugins/actions.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/actions.conf
 %dir %{_sysconfdir}/dnf/libdnf5-plugins/actions.d
 %if %{with man}
 %{_mandir}/man8/libdnf5-actions.8.*
@@ -742,7 +755,7 @@ Libdnf5 plugin that installs repository's AppStream data, for repositories which
 
 %files -n libdnf5-plugin-appstream
 %{_libdir}/libdnf5/plugins/appstream.so
-%config %{_sysconfdir}/dnf/libdnf5-plugins/appstream.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/appstream.conf
 
 %endif
 
@@ -763,7 +776,7 @@ Libdnf5 plugin for detecting and removing expired PGP keys.
 
 %files -n libdnf5-plugin-expired-pgp-keys -f libdnf5-plugin-expired-pgp-keys.lang
 %{_libdir}/libdnf5/plugins/expired-pgp-keys.*
-%config %{_sysconfdir}/dnf/libdnf5-plugins/expired-pgp-keys.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/expired-pgp-keys.conf
 %if %{with man}
 %{_mandir}/man8/libdnf5-expired-pgp-keys.8.*
 %endif
@@ -785,7 +798,7 @@ to the subscription levels.
 
 %files -n libdnf5-plugin-rhsm -f libdnf5-plugin-rhsm.lang
 %{_libdir}/libdnf5/plugins/rhsm.*
-%config %{_sysconfdir}/dnf/libdnf5-plugins/rhsm.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/rhsm.conf
 %endif
 
 
@@ -803,7 +816,7 @@ Libdnf5 plugin that allows loading Python plugins.
 
 %files -n python3-libdnf5-python-plugins-loader
 %{_libdir}/libdnf5/plugins/python_plugins_loader.*
-%config %{_sysconfdir}/dnf/libdnf5-plugins/python_plugins_loader.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/python_plugins_loader.conf
 %dir %{_sysconfdir}/dnf/libdnf5-plugins/python_plugins_loader.d
 %dir %{python3_sitelib}/libdnf_plugins/
 %doc %{python3_sitelib}/libdnf_plugins/README
@@ -823,10 +836,29 @@ Libdnf5 plugin that automatically copies all downloaded packages to a repository
 
 %files -n libdnf5-plugin-local
 %{_libdir}/libdnf5/plugins/local.*
-%config %{_sysconfdir}/dnf/libdnf5-plugins/local.conf
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/local.conf
 %if %{with man}
 %{_mandir}/man8/libdnf5-local.8.*
 %endif
+%endif
+
+# ========== libdnf5-plugin-systemd-inhibit ==========
+
+%if %{with plugin_systemd_inhibit}
+%package -n libdnf5-plugin-systemd-inhibit
+Summary:        Libdnf5 plugin that prevents system shutdown during a package transaction
+License:        LGPL-2.1-or-later
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+BuildRequires:  pkgconfig(sdbus-c++) >= 0.8.1
+
+%description -n libdnf5-plugin-systemd-inhibit
+Libdnf5 plugin that acquires a systemd inhibitor lock during a package
+transaction to prevent system shutdown or reboot while packages are being
+installed, removed, or updated.
+
+%files -n libdnf5-plugin-systemd-inhibit
+%{_libdir}/libdnf5/plugins/systemd-inhibit.*
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/00-systemd-inhibit.conf
 %endif
 
 
@@ -1048,6 +1080,7 @@ DNF5 plugin for working with RPM package manifest files.
     -DWITH_PLUGIN_LOCAL=%{?with_plugin_local:ON}%{!?with_plugin_local:OFF} \
     -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
     -DWITH_PLUGIN_MANIFEST=%{?with_plugin_manifest:ON}%{!?with_plugin_manifest:OFF} \
+    -DWITH_PLUGIN_SYSTEMD_INHIBIT=%{?with_plugin_systemd_inhibit:ON}%{!?with_plugin_systemd_inhibit:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
     -DWITH_ACL=%{?with_acl:ON}%{!?with_acl:OFF} \
@@ -1174,6 +1207,14 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Fri Aug 21 2026 Packit <hello@packit.dev> - 5.4.4.0-1
+- Update to version 5.4.4.0
+- Correct libdnf5-cli license to "GPL-2.0-or-later AND LGPL-2.1-or-later"
+- spec: Fix bcond ordering so plugin_systemd_inhibit is enabled
+- libdnf5: Fix dangling reference bug in is_vendor_change_allowed
+- spec: Mark all /etc configuration files as noreplacible
+- spec: Build-require perl(lib) for tests
+
 * Wed Aug 19 2026 Petr Pisar <ppisar@redhat.com> - 5.4.3.0-2
 - Restore ABI (upstream GH#2869)
 

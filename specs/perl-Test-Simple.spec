@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302224
+Version:        1.302225
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -409,6 +409,13 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep  4 2026 Paul Howarth <paul@city-fan.org> - 3:1.302225-1
+- Update to 1.302225
+  - Name the failing check when an IPC abort escapes a capture block in
+    t/Test2/modules/IPC/Driver/Files.t; the bare "die 255" reported only its
+    own line, and the message went to a captured STDERR that was then
+    discarded, so smoke failures carried no diagnostic at all (GH#1091)
+
 * Tue Aug 25 2026 Paul Howarth <paul@city-fan.org> - 3:1.302224-1
 - Update to 1.302224
   - Fix a typo in an earlier Changes entry (GH#1083)

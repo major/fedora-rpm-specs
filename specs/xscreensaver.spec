@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.15
+%define mainversion   6.16
 %dnl %define extratarver   1
 %dnl %define beta_ver      b2
 
@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    3
+%define baserelease    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -104,6 +104,8 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
+# Fix graphstat dependency source dir in Makefile
+Patch5701:       xscreensaver-6.16-0001-Fix-graphstat-dependency-source-dir-in-Makefile.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -414,6 +416,7 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
+%__cat %PATCH5701 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -956,7 +959,10 @@ ln -sf ../../../..%{_sysconfdir}/xscreensaver/XScreenSaver.ad \
 
 # Add documents
 pushd $dd &> /dev/null
-for f in README* ; do
+for f in \
+   AGENTS.md \
+   README* \
+   ; do
    echo "%%doc $f" >> $dd/base.files
 done
 popd
@@ -1210,6 +1216,12 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 1:6.16-2
+- Rebuilt for FFmpeg 9
+
+* Fri Sep 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.16-1
+- Update to 6.16
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1:6.15-3
 - Rebuilt for FFmpeg 9
 

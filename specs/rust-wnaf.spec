@@ -5,7 +5,7 @@
 %global crate wnaf
 
 Name:           rust-wnaf
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        WNAF (w-ary non-adjacent form) variable-time scalar multiplication
 

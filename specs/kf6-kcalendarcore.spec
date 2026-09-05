@@ -1,7 +1,7 @@
 %global		framework kcalendarcore
 
 Name:		kf6-%{framework}
-Version:	6.29.0
+Version:	6.30.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 KCalendarCore Library
 License:	BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-3.0-or-later
@@ -25,6 +25,7 @@ BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  python3dist(build)
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  qt-devel
 
 %description
 %{summary}.
@@ -63,8 +64,9 @@ Developer Documentation files for %{name} in HTML format
 
 %install
 %cmake_install_kf6
+%find_lang kcalendarcore6 --all-name --with-qt
 
-%files
+%files -f kcalendarcore6.lang
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*kcalendarcore.*
 %{_kf6_libdir}/libKF6CalendarCore.so.*
@@ -92,6 +94,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
 - 6.29.0
 

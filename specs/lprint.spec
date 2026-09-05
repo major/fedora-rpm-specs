@@ -3,7 +3,7 @@
 
 Name: lprint
 Version: 1.3.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A Label Printer Application
 
 License: Apache-2.0
@@ -37,8 +37,9 @@ BuildRequires: systemd-rpm-macros
 # lprint server can run as a systemd service, but to don't require systemd by default,
 # require filesystem (provides /usr/lib/systemd/system too)
 Requires: filesystem
-# uses password-auth PAM module from authselect
-Requires: authselect-libs
+# uses CUPS PAM module - later we can make new module if don't wanna depend on cups
+# - which we want atm to print via cups
+Requires: cups
 # requires in the systemd unit
 Requires: avahi
 
@@ -70,6 +71,76 @@ export CC=%{__cc}
 %make_install DESTDIR=''
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/lprint.conf
+
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+
+cat > %{buildroot}%{_libexecdir}/%{name}/posttrans.sh << 'SCRIPT'
+#!/usr/bin/bash
+
+# upgrade script for adding new options into existing lprint.conf
+# runs once on upgrade via lprint-conf-upgrade.service
+
+conf=/etc/lprint.conf
+
+if test ! -f "$conf"
+then
+  exit 0
+fi
+
+# add auth-service if missing
+if ! grep -q "^auth-service=" "$conf"
+then
+  echo "" >> "$conf"
+  echo "# use PAM for cups" >> "$conf"
+  echo "auth-service=cups" >> "$conf"
+fi
+
+# add auth-group if missing
+if ! grep -q "^auth-group=" "$conf"
+then
+  echo "" >> "$conf"
+  echo "# set auth group for root to authenticate when adding printer" >> "$conf"
+  echo "auth-group=root" >> "$conf"
+fi
+
+# add listen-hostname if missing
+if ! grep -q "^listen-hostname=" "$conf"
+then
+  echo "" >> "$conf"
+  echo "# listen only on localhost" >> "$conf"
+  echo "listen-hostname=localhost" >> "$conf"
+fi
+
+# mark as upgraded so lprint-conf-upgrade.service won't run again
+echo "" >> "$conf"
+echo "# added in version 1.3.1-14" >> "$conf"
+
+exit 0
+SCRIPT
+
+mkdir -p %{buildroot}%{_unitdir}
+
+cat > %{buildroot}%{_unitdir}/lprint-conf-upgrade.service << EOF
+[Unit]
+Description=Upgrade lprint.conf with new default options
+ConditionPathExists=%{_sysconfdir}/lprint.conf
+
+[Service]
+Type=oneshot
+ExecCondition=bash -c '! grep -q "^# added in version" %{_sysconfdir}/lprint.conf'
+ExecStart=bash -c %{_libexecdir}/%{name}/posttrans.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mkdir -p %{buildroot}%{_unitdir}/lprint.service.d
+
+cat > %{buildroot}%{_unitdir}/lprint.service.d/10-conf-upgrade.conf << EOF
+[Unit]
+After=lprint-conf-upgrade.service
+Wants=lprint-conf-upgrade.service
+EOF
 
 
 %pre
@@ -103,17 +174,32 @@ then
 fi
 
 %systemd_post lprint.service
+%systemd_post lprint-conf-upgrade.service
 
 %preun
 %systemd_preun lprint.service
+%systemd_preun lprint-conf-upgrade.service
 
 %postun
 %systemd_postun_with_restart lprint.service
+%systemd_postun lprint-conf-upgrade.service
+
+%posttrans
+%systemd_posttrans_with_reload lprint-conf-upgrade.service
+
+if [ $1 -gt 1 ]
+then
+  systemctl start lprint-conf-upgrade.service || :
+fi
 
 %files
 %doc README.md DOCUMENTATION.md CONTRIBUTING.md CHANGES.md
 %license LICENSE NOTICE
 %config(noreplace) %{_sysconfdir}/lprint.conf
+%dir %{_libexecdir}/%{name}
+%attr(0744,root,root) %{_libexecdir}/%{name}/posttrans.sh
+%{_unitdir}/lprint-conf-upgrade.service
+%{_unitdir}/lprint.service.d/10-conf-upgrade.conf
 %{_bindir}/lprint
 %{_mandir}/man1/lprint-add.1*
 %{_mandir}/man1/lprint-cancel.1*
@@ -136,6 +222,9 @@ fi
 
 
 %changelog
+* Fri Sep 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-14
+- Added more default options
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

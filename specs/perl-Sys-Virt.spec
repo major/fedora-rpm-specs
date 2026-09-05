@@ -1,5 +1,5 @@
 Name:           perl-Sys-Virt
-Version:        12.6.0
+Version:        12.7.0
 Release:        1%{?dist}
 Summary:        Represent and manage a libvirt hypervisor connection
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -97,6 +97,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 12.7.0-1
+- 12.7.0 bump (rhbz#2528177)
+
 * Fri Aug 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 12.6.0-1
 - 12.6.0 bump (rhbz#2512042)
 

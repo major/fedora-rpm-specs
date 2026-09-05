@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       5.02c
+Version:       5.03c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global commit   e2dc5296bb9c13b019c870e884dd8c2a4e8acf02
+%global commit   bcd3b655bb2be1ac822b0e1651814d0245360fee
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -202,6 +202,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-g++-fast
 %{_bindir}/afl-gotcpu
 %{_bindir}/afl-health
+%{_bindir}/afl-merge
 %{_bindir}/afl-persistent-config
 %{_bindir}/afl-plot
 %{_bindir}/afl-showmap
@@ -238,6 +239,7 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-g++-fast.8*
 %{_mandir}/man8/afl-gotcpu.8*
 %{_mandir}/man8/afl-health.8*
+%{_mandir}/man8/afl-merge.8*
 %{_mandir}/man8/afl-plot.8*
 %{_mandir}/man8/afl-persistent-config.8*
 %{_mandir}/man8/afl-showmap.8*
@@ -265,7 +267,6 @@ test -n '%{clang_major}'
 
 %{afl_helper_path}/afl-llvm-dict2file.so
 %{afl_helper_path}/afl-llvm-lto-instrumentlist.so
-%{afl_helper_path}/afl-llvm-pass.so
 
 %if 0%{?__isa_bits} == 32
 %{afl_helper_path}/afl-llvm-rt-lto-32.o
@@ -297,6 +298,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Sep 04 2026 Richard W.M. Jones <rjones@redhat.com> - 5.03c-1
+- New upstream version 5.03c (RHBZ#2527312)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.02c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

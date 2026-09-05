@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.40.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -282,6 +282,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Fri Sep 04 2026 Gerald Cox <gbcox@fedoraproject.org> - 7.40.0-3
+- Rebuild for SoX 14.8.1 ABI transition
+
 * Thu Aug 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 7.40.0-2
 - Fix build with FFmpeg 9
 

@@ -8,7 +8,7 @@
 %endif
 
 Name:           perl-URI
-Version:        5.36
+Version:        5.37
 Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.37-1
+- 5.37 bump (rhbz#2528339)
+
 * Fri Aug 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.36-1
 - 5.36 bump (rhbz#2520744)
 - Fix CVE-2026-19953 (IDNA host encoding / Unicode NFC normalization)

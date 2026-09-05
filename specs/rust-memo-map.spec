@@ -5,7 +5,7 @@
 %global crate memo-map
 
 Name:           rust-memo-map
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Implementing a synchronized map for memoization
 

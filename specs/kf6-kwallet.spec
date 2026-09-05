@@ -1,7 +1,7 @@
 %global framework kwallet
 
 Name:    kf6-%{framework}
-Version: 6.29.0
+Version: 6.30.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
@@ -21,6 +21,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libgcrypt-devel
 BuildRequires:  cmake
 BuildRequires:  qt6-qtbase-devel
+BuildRequires:  desktop-file-utils
 
 BuildRequires:  cmake(Qt6Core5Compat)
 
@@ -104,6 +105,7 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_datadir}/xdg-desktop-portal/portals/kwallet.portal
 %{_kf6_datadir}/config.kcfg/kwalletsettings.kcfg
 %{_mandir}/man1/kwallet-query.1*
+%{_kf6_datadir}/applications/org.kde.kwalletd.desktop
 
 %files libs
 %{_kf6_libdir}/libKF6Wallet.so.*
@@ -126,6 +128,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
+- 6.30.0
+
 * Fri Aug 07 2026 Steve Cossette <farchord@gmail.com> - 6.29.0-1
 - 6.29.0
 

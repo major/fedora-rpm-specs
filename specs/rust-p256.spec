@@ -5,7 +5,7 @@
 %global crate p256
 
 Name:           rust-p256
-Version:        0.13.2
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Pure Rust implementation of the NIST P-256 elliptic curve
 
@@ -14,8 +14,6 @@ URL:            https://crates.io/crates/p256
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * allow hex-literal 1.0:
-#   https://github.com/RustCrypto/elliptic-curves/commit/45ee7f595d83381bc1d8c5707ae5ef929cb47019
 Patch:          p256-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -79,18 +77,6 @@ use the "arithmetic" feature of the "%{crate}" crate.
 %files       -n %{name}+arithmetic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bits-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bits-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bits" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bits-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+digest-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -139,16 +125,28 @@ use the "ecdsa-core" feature of the "%{crate}" crate.
 %files       -n %{name}+ecdsa-core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+expose-field-devel
+%package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+expose-field-devel %{_description}
+%description -n %{name}+getrandom-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "expose-field" feature of the "%{crate}" crate.
+use the "getrandom" feature of the "%{crate}" crate.
 
-%files       -n %{name}+expose-field-devel
+%files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+group-digest-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+group-digest-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "group-digest" feature of the "%{crate}" crate.
+
+%files       -n %{name}+group-digest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+hash2curve-devel
@@ -163,16 +161,16 @@ use the "hash2curve" feature of the "%{crate}" crate.
 %files       -n %{name}+hash2curve-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jwk-devel
+%package     -n %{name}+oprf-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+jwk-devel %{_description}
+%description -n %{name}+oprf-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "jwk" feature of the "%{crate}" crate.
+use the "oprf" feature of the "%{crate}" crate.
 
-%files       -n %{name}+jwk-devel
+%files       -n %{name}+oprf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pem-devel
@@ -197,6 +195,18 @@ This package contains library source intended for building other packages which
 use the "pkcs8" feature of the "%{crate}" crate.
 
 %files       -n %{name}+pkcs8-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+precomputed-tables-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+precomputed-tables-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "precomputed-tables" feature of the "%{crate}" crate.
+
+%files       -n %{name}+precomputed-tables-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -269,18 +279,6 @@ This package contains library source intended for building other packages which
 use the "test-vectors" feature of the "%{crate}" crate.
 
 %files       -n %{name}+test-vectors-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+voprf-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+voprf-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "voprf" feature of the "%{crate}" crate.
-
-%files       -n %{name}+voprf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

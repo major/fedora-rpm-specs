@@ -1,20 +1,11 @@
-%global commit0 3acc51828aceba310081c72a18f938f04d4487de
-%global date 20250407
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 Name:           egl-wayland
-Version:        1.1.21%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.1.22
 Release:        %autorelease
 Summary:        EGLStream-based Wayland external platform
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
 
-%if 0%{?tag:1}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  meson
@@ -53,11 +44,7 @@ EGL drivers that support the external platform mechanism.
 This package contains development files.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson

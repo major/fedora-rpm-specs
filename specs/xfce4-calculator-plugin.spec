@@ -1,4 +1,3 @@
-%global _hardened_build 1
 %global majorver 0.8
 %global gen_name calculator
 
@@ -7,17 +6,16 @@ Version:	0.8.0
 Release:	%autorelease
 Summary:	A calculator plugin for the Xfce4 panel
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		http://goodies.xfce.org/projects/panel-plugins/%{name}
-Source0:	http://archive.xfce.org/src/panel-plugins/%{name}/%{majorver}/%{name}-%{version}.tar.xz
+URL:		https://docs.xfce.org/panel-plugins/%{name}
+Source0:	https://archive.xfce.org/src/panel-plugins/%{name}/%{majorver}/%{name}-%{version}.tar.xz
 
-BuildRequires:	make
-BuildRequires:	gcc-c++
-BuildRequires:	libxfce4ui-devel
-BuildRequires:	xfce4-panel-devel
-BuildRequires:	gtk2-devel
+BuildRequires:	gcc
 BuildRequires:	meson
+BuildRequires:	gtk3-devel
+BuildRequires:	libxfce4ui-devel
+BuildRequires:	libxfce4util-devel
+BuildRequires:	xfce4-panel-devel
 Requires:	xfce4-panel
 
 %description
@@ -33,8 +31,6 @@ and constants.
 
 %prep
 %autosetup
-# remove empty file
-rm -f NEWS
 
 %build
 %meson
@@ -43,11 +39,17 @@ rm -f NEWS
 %install
 %meson_install
 
+# Remove invalid locale
+rm -rf %{buildroot}%{_datadir}/locale/hye
+
 %find_lang %{name}
+
+%check
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS
+%doc AUTHORS NEWS README.md
 %{_libdir}/xfce4/panel/plugins/libcalculator.so
 %{_datadir}/xfce4/panel/plugins/%{gen_name}.desktop
 %{_datadir}/icons/hicolor/*/*/*calculator*
