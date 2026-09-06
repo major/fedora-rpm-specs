@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.9
+Version:        0.12.10
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -160,9 +160,6 @@ Patch:          uv-0.12.1-revert-blake2-beta.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
-# Remove Python invocation from dirhash tests
-# https://github.com/astral-sh/uv/pull/21434
-Patch:          %{url}/pull/21434.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license uv

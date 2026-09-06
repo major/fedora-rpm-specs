@@ -5,7 +5,7 @@
 %global crate hickory-proto
 
 Name:           rust-hickory-proto
-Version:        0.26.1
+Version:        0.26.2
 Release:        %autorelease
 Summary:        Hickory-proto is a safe and secure low-level DNS library
 

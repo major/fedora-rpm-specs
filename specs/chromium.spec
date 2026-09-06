@@ -271,8 +271,8 @@
 %endif
 
 Name:	chromium
-Version: 152.0.7977.75
-Release: 2%{?dist}
+Version: 152.0.7977.82
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1918,6 +1918,21 @@ fi
 %endif
 
 %changelog
+* Sat Sep 05 2026 Than Ngo <than@redhat.com> - 152.0.7977.82-1
+- Update to 152.0.7977.82
+  * CVE-2026-85046: Type confusion in V8
+  * CVE-2026-85052: Out of bounds read in CrashReporting
+  * CVE-2026-85043: Incomplete cleanup in Network
+  * CVE-2026-85048: Use after free in Compositing
+  * CVE-2026-85045: Race condition in V8
+  * CVE-2026-85050: Out of bounds write in WebGL
+  * CVE-2026-85053: Improper resource exposure in CacheStorage
+  * CVE-2026-85042: Use after free in DevTools
+  * CVE-2026-85049: Use after free in Skia
+  * CVE-2026-85051: Type confusion in Compositing
+  * CVE-2026-85047: Improper input validation in Transactions Platform
+  * CVE-2026-85044: Use of released resource in Mobile
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 152.0.7977.75-2
 - Rebuilt for FFmpeg 9
 

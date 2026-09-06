@@ -39,6 +39,16 @@ Source10:       patch-no-download
 # cmake: fix test linking with c4core when using RYML_SYSTEM_C4CORE
 # https://github.com/biojppm/rapidyaml/pull/653
 Patch:          %{url}/pull/653.patch
+# Fix `c4_install_exports` call with system `c4core`
+# https://github.com/biojppm/rapidyaml/pull/662
+#
+# Fixes:
+#
+# Missing find_package() for c4core with RYML_SYSTEM_C4CORE=ON?
+# https://github.com/biojppm/rapidyaml/issues/659
+# CMake configuration fails due to missing c4core dependency
+# https://bugzilla.redhat.com/show_bug.cgi?id=2517507
+Patch:          %{url}/pull/662.patch
 
 BuildSystem:    cmake
 # Disable RYML_FUZZ_TEST so that we do not have to include the contents of

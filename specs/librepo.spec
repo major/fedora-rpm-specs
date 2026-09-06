@@ -31,12 +31,17 @@
 
 Name:           librepo
 Version:        1.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librepo
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/rpm-software-management/librepo/issues/384
+# https://github.com/rpm-software-management/librepo/pull/385
+# Fix file corruption when re-downloading a completed file with resume
+# This was heavily affecting Fedora CI and some other CI workflows
+Patch:          385.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -140,6 +145,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Sat Sep 05 2026 Adam Williamson <adamwill@fedoraproject.org> - 1.21.0-2
+- Backport PR #385 to fix bug #384 breaking Fedora CI
+
 * Tue Sep 01 2026 Marek Blaha <mblaha@redhat.com> - 1.21.0-1
 - Update to version 1.21.0
 

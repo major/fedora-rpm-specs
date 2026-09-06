@@ -7,8 +7,8 @@
 %global test_compositor cage
 
 Name:           neovim-qt
-Version:        0.2.19
-Release:        4%{?dist}
+Version:        0.2.20
+Release:        1%{?dist}
 Summary:        Qt GUI for Neovim
 
 # src/gui/shellwidget/konsole_wcwidth.cpp: HPND-Markus-Kuhn
@@ -16,6 +16,8 @@ Summary:        Qt GUI for Neovim
 License:        ISC AND HPND-Markus-Kuhn
 URL:            https://github.com/equalsraf/neovim-qt
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# equalsraf/neovim-qt#1193, equalsraf/neovim-qt#1194
+Patch:          neovim-qt-0.2.20-Raise-allowed-msgpack-version.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -26,7 +28,7 @@ BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6SvgWidgets)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(msgpack)
+BuildRequires:  cmake(msgpack-c)
 BuildRequires:  neovim
 %if %{with tests}
 BuildRequires:  font(dejavusansmono)
@@ -58,7 +60,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %if %{with tests}
 # UI component tests require running display server
 %global __ctest xwfb-run -c %{test_compositor} -- %{__ctest}
-%ctest -E tst_qsettings
+%ctest
 %endif
 
 %files
@@ -71,6 +73,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Wed Sep 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.20-1
+- Update to 0.2.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

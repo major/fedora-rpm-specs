@@ -52,6 +52,8 @@ Patch:          %{name}-Singular-4.3.2.patch
 Patch:          %{name}-sympol.patch
 # Use libson/libmongc version 2
 Patch:          %{name}-mongoc2.patch
+# Adapt to perl 5.44
+Patch:          %{name}-perl-5.44.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -260,16 +262,16 @@ sed -e 's|-Wl,-z,now|-Wl,-z,lazy|g' \
     -e 's/-lpthread -shared/-shared/g' \
     -i build.%{_arch}/config.ninja
 
-pushd build.%{_arch}/Opt
+cd build.%{_arch}/Opt
 %ninja_build
-popd
+cd -
 
 
 %install
 export Arch=%{_arch}
-pushd build.%{_arch}/Opt
+cd build.%{_arch}/Opt
 %ninja_install
-popd
+cd -
 
 # The doc building step looks in the wrong place for some files
 mkdir ../xml

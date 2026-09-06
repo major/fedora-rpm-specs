@@ -237,6 +237,9 @@ help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=vers
 %install
 %if %{with bootstrap}
 %cmake_install
+%if 0%{?rhel}
+rm -rf %{buildroot}%{_prefix}/doc
+%endif
 %else
 DESTDIR="%{buildroot}" zig build install %{zig_install_options}
 

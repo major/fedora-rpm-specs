@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.30.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMime Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -31,6 +31,18 @@ Requires:       cmake(KF6Codecs)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+ 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -38,10 +50,10 @@ developing applications that use %{name}.
 %cmake_kf6
 
 %build
-%cmake_build
+%cmake_build_kf6
 
 %install
-%cmake_install
+%cmake_install_kf6
 %find_lang libkmime6 --with-qt
 
 %files -f libkmime6.lang
@@ -54,7 +66,18 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6Mime.so
 %{_kf6_libdir}/cmake/KF6Mime/
 
+%files doc
+%{_qt6_docdir}/*.qch
+ 
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 %changelog
+* Sat Sep 05 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-2
+- Added qdocs to kmime
+
 * Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
 - 6.30.0
 

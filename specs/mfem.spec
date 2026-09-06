@@ -3,7 +3,7 @@
 %bcond_with check 0
 
 %global forgeurl https://github.com/mfem/mfem
-Version:        4.9
+Version:        4.10
 %global sover   %{version}.0
 %forgemeta
 
@@ -153,11 +153,13 @@ OPTIONS=(
 %install
 %global _vpath_builddir %{_target_platform}
 %cmake_install
+mv -v %{buildroot}%{_prefix}/data %{buildroot}%{_datadir}/mfem
 
 %if %{with openmpi}
 %{_openmpi_load}
 %global _vpath_builddir %{_target_platform}-openmpi
 %cmake_install
+rm -r %{buildroot}%{_prefix}/data
 %{_openmpi_unload}
 %endif
 
@@ -165,6 +167,7 @@ OPTIONS=(
 %{_mpich_load}
 %global _vpath_builddir %{_target_platform}-mpich
 %cmake_install
+rm -r %{buildroot}%{_prefix}/data
 %{_mpich_unload}
 %endif
 
@@ -211,9 +214,7 @@ OPTIONS=(
 %{_includedir}/mfem/mfem/
 %{_libdir}/cmake/mfem/
 %{_libdir}/libmfem.so
-%dir %{_datadir}/mfem
-%{_datadir}/mfem/config.mk
-%{_datadir}/mfem/test.mk
+%{_datadir}/mfem/
 
 %if %{with openmpi}
 %files openmpi
@@ -238,7 +239,7 @@ OPTIONS=(
 %files mpich-devel
 %dir %{_includedir}/mpich-%{_arch}
 %{_includedir}/mpich-%{_arch}/mfem/*.hpp
-%{_includedir}/mpich-%{_arch}/mfem/
+%{_includedir}/mpich-%{_arch}/mfem/mfem/
 %{_libdir}/mpich/lib/cmake/mfem/
 %{_libdir}/mpich/lib/libmfem.so
 %endif

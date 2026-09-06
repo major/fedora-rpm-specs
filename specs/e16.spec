@@ -1,12 +1,11 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
-Version:       1.0.31
-Release:       4%{?dist}
+Version:       1.0.32
+Release:       1%{?dist}
 # Automatically converted from old format: MIT with advertising and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-MIT-with-advertising AND GPL-2.0-or-later
 URL:           http://www.enlightenment.org/
 Source0:       http://downloads.sourceforge.net/enlightenment/e16-%{version}.tar.xz
-Patch:         0001-backgrounds-Save-backgrounds-after-modifying-one-in-.patch
 BuildRequires: dbus-devel
 BuildRequires: desktop-file-utils
 BuildRequires: freetype-devel
@@ -97,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Sep 05 2026 Terje Røsten <terjeros@gmail.com> - 1.0.32-1
+- 1.0.32
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

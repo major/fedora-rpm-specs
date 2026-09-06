@@ -73,7 +73,7 @@ Version:        4.13.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -103,6 +103,8 @@ Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch1:         opencv-vtk.patch
 Patch3:         opencv.python.patch
 Patch4:         Fix-macro-definition-for-Power10-architecture.patch
+# Fix build with FFmpeg 9 - https://github.com/opencv/opencv/pull/29533
+Patch5:         opencv-ffmpeg9.patch
 
 
 BuildRequires:  gcc-c++
@@ -401,6 +403,7 @@ popd &>/dev/null
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
 %patch -P 4 -p1 -b .ppc_macro
+%patch -P 5 -p1 -b .ffmpeg9
 
 pushd %{name}_contrib-%{version}
 %patch -P 1 -p1 -b .vtk
@@ -609,6 +612,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Wed Aug 19 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.13.0-11
+- Fixed build with FFmpeg 9
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.13.0-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

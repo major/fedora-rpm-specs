@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/weechat/plugins/.*$
 
 Name:      weechat
-Version:   4.10.0
+Version:   4.10.1
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications
@@ -17,7 +17,6 @@ BuildRequires: ca-certificates
 BuildRequires: cjson-devel
 BuildRequires: cmake
 BuildRequires: cpputest-devel
-BuildRequires: docbook-style-xsl
 BuildRequires: enchant2-devel
 BuildRequires: gcc
 BuildRequires: gettext
@@ -32,12 +31,18 @@ BuildRequires: lua-devel
 BuildRequires: ncurses-devel
 BuildRequires: perl-devel
 BuildRequires: perl-ExtUtils-Embed
+%ifnarch %{ix86}
+BuildRequires: php-embedded
+BuildRequires: php-devel
+%endif
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: ruby
 BuildRequires: ruby-devel
-BuildRequires: source-highlight
 BuildRequires: tcl-devel
+%ifnarch %{ix86}
+BuildRequires: uriparser-devel
+%endif
 BuildRequires: zlib-devel
 
 Requires:      hicolor-icon-theme
@@ -69,10 +74,14 @@ This package contains include files and pc file for weechat.
 %cmake \
   -DLIBDIR=%{_libdir} \
   -DENABLE_ENCHANT=ON \
+%ifarch %{ix86}
   -DENABLE_PHP=OFF \
+%endif
   -DENABLE_TESTS=ON \
   -DENABLE_DOC=ON \
+%ifarch %{ix86}
   -DENABLE_DOC_INCOMPLETE=ON \
+%endif
   -DENABLE_MAN=ON \
   %{nil}
 %cmake_build

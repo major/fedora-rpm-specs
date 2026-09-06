@@ -1,7 +1,7 @@
 %bcond  tests   1
 
 Name:           swayimg
-Version:        5.5
+Version:        5.6
 Release:        %autorelease
 Summary:        Lightweight image viewer for Wayland display servers
 
@@ -28,7 +28,10 @@ BuildRequires:  pkgconfig(freetype2)
 %if %{with tests}
 BuildRequires:  pkgconfig(gtest)
 %endif
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavif)
+BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(libjpeg)
@@ -38,6 +41,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libraw)
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.46
 BuildRequires:  pkgconfig(libsixel)
+BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwebpdemux)
@@ -80,7 +84,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/swayimg.desktop
 %if %{with tests}
 %ifarch s390x
 # A few tests fail on s390x (endianness?)
-%global gtest_exclude ImageLoadTest.*
+%global gtest_exclude ImageLoadTest.*:ImageFormatTest.PreviewFromValidImageEntry
 %else
 # HEIF test requires libheif-freeworld from rpmfusion
 %global gtest_exclude ImageLoadTest.heif

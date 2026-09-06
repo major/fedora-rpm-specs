@@ -1,5 +1,5 @@
 Name:           qtractor
-Version:        1.5.11
+Version:        1.6.3
 Release:        %autorelease
 Summary:        Audio/MIDI multi-track sequencer
 License:        GPL-2.0-or-later

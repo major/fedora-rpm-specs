@@ -71,6 +71,9 @@ Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Custom RPM macros
 Source1:        %{name}-macros-source
 
+# Backport support for FFmpeg 9
+Patch0:         https://github.com/blender/blender/commit/e3c92c22817dc0310a460c22f6b1e8e397517e3b.patch#/blender-ffmpeg9.patch
+
 # Build requirements
 BuildRequires:  boost-devel
 BuildRequires:  ccache

@@ -8,8 +8,8 @@
 %global srcname obs-vkcapture
 
 Name:           obs-studio-plugin-vkcapture
-Version:        1.5.1
-Release:        6%{?dist}
+Version:        1.5.6
+Release:        1%{?dist}
 Summary:        OBS plugin for Vulkan/OpenGL game capture
 
 License:        GPL-2.0-or-later and Zlib
@@ -116,6 +116,9 @@ Hook libraries for %{name}.
 %{_datadir}/vulkan/implicit_layer.d/obs_vkcapture_%{__isa_bits}.json
 
 %changelog
+* Sat Sep 05 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.5.6-1
+- update to 1.5.6 (resolves rhbz#2444770 rhbz#2525618)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

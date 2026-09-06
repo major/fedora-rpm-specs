@@ -3,7 +3,7 @@
 %endif
 
 Name:           hardinfo2
-Version:        2.2.16
+Version:        2.3.1
 Release:        %autorelease
 Summary:        System Information and Benchmark for Linux Systems
 
@@ -46,8 +46,6 @@ Summary:        System Information and Benchmark for Linux Systems
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only
 URL:            https://github.com/hardinfo2/hardinfo2
 Source0:        %{url}/archive/release-%{version}/hardinfo2-release-%{version}.tar.gz
-# PACKAGE ELN and RHEL 11
-Patch0:         %{url}/pull/294.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

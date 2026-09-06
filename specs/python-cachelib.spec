@@ -1,7 +1,7 @@
 %global srcname cachelib
 
 Name:           python-%{srcname}
-Version:        0.16.1
+Version:        0.17.0
 Release:        %autorelease
 Summary:        A collection of cache libraries with a common API
 License:        BSD-3-Clause
