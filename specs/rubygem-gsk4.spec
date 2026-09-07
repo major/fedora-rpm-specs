@@ -1,6 +1,6 @@
 %global	gem_name	gsk4
 
-%global	gem_ver	4.3.8
+%global	gem_ver	4.3.9
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
@@ -84,5 +84,8 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Sun Sep  6 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.9-1
+- 4.3.9
+
 * Fri Sep 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.8-1
 - Initial package

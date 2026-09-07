@@ -1,5 +1,5 @@
 Name:           python-configargparse
-Version:        1.7.5
+Version:        1.7.6
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 

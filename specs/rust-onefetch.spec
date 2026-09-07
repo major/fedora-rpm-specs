@@ -23,8 +23,6 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   downstream patch reverting the source-code change from
 #   https://github.com/o2sh/onefetch/commit/f43b0cb3ad4076974e942b54751ee462ce2a6ca5;
 #   this patch must be removed when we are ready to update to gix 0.86+.
-# * Allow human-panic 2.0.6 for now (upstream wants 2.0.8):
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2453435
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
 #   but the maintainer of the gix stack in Fedora does not intend to do so,

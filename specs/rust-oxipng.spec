@@ -4,7 +4,7 @@
 %global crate oxipng
 
 Name:           rust-oxipng
-Version:        10.2.0
+Version:        10.2.1
 Release:        %autorelease
 Summary:        Lossless PNG compression optimizer
 
@@ -20,8 +20,20 @@ Source:         %{crates_source}
 Source10:       https://github.com/shssoichiro/oxipng/archive/v%{version}/oxipng-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          oxipng-fix-metadata-auto.diff
+# * Support SOURCE_DATE_EPOCH for reproducible man page
+Patch10:        https://github.com/oxipng/oxipng/pull/871.patch
+# * Port man-page date generation from tz-rs to jiff
+# * Applies on top of the SOURCE_DATE_EPOCH patch.
+# * This is really just motivated by the desire to avoid adding a rust-tz-rs
+#   package to Fedora solely for the man page. Any of the more popular date/time
+#   libraries (jiff, chrono, time) would serve equally well here. The general
+#   idea and a sample patch were offered upstream in the comments on
+#   https://github.com/oxipng/oxipng/pull/871, but we’re waiting for upstream
+#   input before opening a PR or deciding to carry the patch downstream-only.
+Patch11:        oxipng-10.2.1-man-jiff.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
 
 %global _description %{expand:
 A lossless PNG compression optimizer.}
@@ -159,7 +171,10 @@ use the "zopfli" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{version} -p1 -N
+# NOTE: The -N option must be manually added to the %%autosetup invocation so
+# that we can also apply patches to the contents of the xtask/ directory.
+
 # Copy in the xtask/ directory from the GitHub archive, required for generating
 # the man page. Remove upstream’s lock file, which we cannot respect. Note that
 # the mangen xtask has its own dependencies, so we must run
@@ -167,6 +182,11 @@ use the "zopfli" feature of the "%{crate}" crate.
 # in the build.
 tar -xzvf '%{SOURCE10}' --strip-components=1 oxipng-%{version}/xtask
 rm xtask/Cargo.lock
+
+# Now we can apply all patches, including those that touch xtask/.
+%autopatch -p1
+# Temporarily allow older clap_mangen 0.2
+tomcli set xtask/Cargo.toml str dependencies.clap_mangen '>=0.2, <0.4'
 %cargo_prep
 
 %generate_buildrequires

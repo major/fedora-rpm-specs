@@ -7,12 +7,11 @@ Name:           workflow
 # src/kernel/rbtree.h available under GPL-2.0-or-later
 License:        Apache-2.0 AND BSD-2-Clause AND Zlib AND GPL-2.0-or-later
 
-Version:        0.11.11
+Version:        1.1.0
 Release:        %autorelease
 
 URL:            https://github.com/sogou/workflow
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          workflow-0.11.10-test-c++17.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -102,8 +101,8 @@ make check
 %license LICENSE LICENSE_GPLV2
 %doc README.md
 %doc README_cn.md
-%{_libdir}/libworkflow.so.0.*
-%{_libdir}/libworkflow.so.0
+%{_libdir}/libworkflow.so.1.*
+%{_libdir}/libworkflow.so.1
 
 %files devel
 %{_libdir}/libworkflow.so

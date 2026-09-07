@@ -4,7 +4,7 @@
 %global srcname ansi2html
 
 Name:       python-%{srcname}
-Version:    1.9.4
+Version:    1.9.5
 Release:    1%{?dist}
 Summary:    Python module that converts text with ANSI color to HTML
 # While the project was previously licensed as GPLv3+, it is now LGPLv3.
@@ -72,6 +72,9 @@ install -Dpm 644 man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Sun Sep 06 2026 Federico Pellegrin <fede@evolware.org> - 1.9.5-1
+- Upgrade to 1.9.5 (rhbz#2529176)
+
 * Fri Sep 04 2026 Federico Pellegrin <fede@evolware.org> - 1.9.4-1
 - Upgrade to 1.9.4 (rhbz#2527799)
 

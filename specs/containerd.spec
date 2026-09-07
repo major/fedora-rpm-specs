@@ -7,7 +7,7 @@
 
 # https://github.com/containerd/containerd
 %global goipath         github.com/containerd/containerd/v2
-Version:                2.3.4
+Version:                2.3.5
 %{lua:
     local version0 = rpm.expand("%{version}"):gsub("~", "-")
     rpm.define("tag " .. "v" .. version0)
@@ -30,6 +30,7 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 Source3:        containerd.toml
 
+BuildRequires:  fdupes
 BuildRequires:  /usr/bin/go-md2man
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  go-vendor-tools
@@ -125,6 +126,9 @@ install -d -m 0755 %{buildroot}%{_mandir}/man8
 install -p -m 0644 man/ctr.8                    %{buildroot}%{_mandir}/man8
 install -p -m 0644 man/containerd.8             %{buildroot}%{_mandir}/man8
 install -p -m 0644 man/containerd-config.8      %{buildroot}%{_mandir}/man8
+
+# remove duplicate license files
+%fdupes %{buildroot}%{_datadir}/licenses/%{name}
 
 %check
 %go_vendor_license_check -c %{S:2}

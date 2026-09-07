@@ -1,11 +1,11 @@
 Name:           perl-HTML-FormHandler
-Version:        0.40068
-Release:        27%{?dist}
+Version:        0.410001
+Release:        1%{?dist}
 Summary:        HTML forms using Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/HTML-FormHandler
-Source0:        https://cpan.metacpan.org/authors/id/G/GS/GSHANK/HTML-FormHandler-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABRAXXA/HTML-FormHandler-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires: make
@@ -45,6 +45,7 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Memory::Cycle) >= 1.04
 BuildRequires:  perl(Test::More) >= 0.94
+BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(utf8)
@@ -79,24 +80,28 @@ produce alternative rendering modules.
 find lib -type f -print0 | xargs -0 chmod 644
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README TODO
 %license LICENSE
-%{perl_vendorlib}/*
+%{perl_vendorlib}/HTML*
+%{perl_vendorlib}/auto/share/dist/HTML-FormHandler
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Sep 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.410001-1
+- Update to 0.410001 (fixes CVE-2022-4993, CVE-2026-19872 and CVE-2022-4993)
+- modernize specfile
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.40068-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

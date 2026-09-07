@@ -1,10 +1,10 @@
-%global commit aaf963c95b30b9afb2b3749bb078f973ac3ab19a
+%global commit 8739c5c1d6621e4fd1e9618f19671c304cd91d84
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20251209
+%global commitdate 20260116
 
 Name:           dynamic-hibernate
 Version:        0.1.0%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Automatic dynamic swapfile management on Btrfs for hibernation
 
 # No code uses CC0, just documentation and unused Cargo.lock
@@ -13,19 +13,20 @@ SourceLicense:  (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0
 #
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 ###  END LICENSE SUMMARY  ###
-License:        (GPL-2.0-only OR GPL-3.0-only) AND ((MIT OR Apache-2.0) AND Unicode-3.0) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT)
+License:        (GPL-2.0-only OR GPL-3.0-only) AND ((MIT OR Apache-2.0) AND Unicode-3.0) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT)
 URL:            https://invent.kde.org/tduck/dynamic-hibernate
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
-# Fix for packaging
-Patch:          https://invent.kde.org/tduck/dynamic-hibernate/-/merge_requests/1.patch
+# Manually created patch for downstream crate metadata changes
+# * Allow sysinfo versions through 0.39:
+#   https://invent.kde.org/tduck/dynamic-hibernate/-/merge_requests/2
+Patch:          dynamic-hibernate-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 28
 BuildRequires:  cmake
@@ -108,6 +109,10 @@ It also provides a notifier which alerts the user if and why hibernation fails.
 
 
 %changelog
+* Mon Aug 31 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.0~git20260116.8739c5c-1
+- Update to latest upstream commit
+- Update License field based on a current build in Rawhide
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20251209.aaf963c-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

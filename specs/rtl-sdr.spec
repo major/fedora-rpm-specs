@@ -13,8 +13,8 @@
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 #Version:          0.6.0^%%{git_suffix}
-Version:          2.0.1
-Release:          8%{?dist}
+Version:          2.0.3
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    gcc
@@ -84,6 +84,9 @@ install -m0644 -D rtl-sdr.sysusers.conf %{buildroot}%{_sysusersdir}/rtl-sdr.conf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Sep 07 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.3-1
+- New version
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

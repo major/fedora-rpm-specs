@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        191
+Version:        193
 %global         osbuild_initrd_version 0.2
 
 %forgemeta
@@ -488,6 +488,28 @@ fi
 %endif
 
 %changelog
+* Sun Sep 06 2026 Packit <hello@packit.dev> - 193-1
+Changes with 193
+----------------
+  - Update images dependency ref to latest (#2555)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild-ci container images (#2556)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild-ci container images (#2558)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260830 (#2553)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - qemu: Uncompress kernels not supported by qemu (#2551)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - rm SECURITY.md: fall back to org-wide policy (#2554)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Simon de Vlieger
+  - rootless: Use the correct container storage (#2550)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Anna Vítová, Simon de Vlieger
+  - stages/tree-delta: produce delta trees (#2527)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová, Florian Schüller
+
+— Somewhere on the Internet, 2026-09-06
+
 * Sun Aug 23 2026 Packit <hello@packit.dev> - 191-1
 Changes with 191
 ----------------

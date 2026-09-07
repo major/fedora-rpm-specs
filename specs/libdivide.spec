@@ -1,7 +1,7 @@
 %bcond ctest 1
 
 Name:           libdivide
-Version:        5.3.0
+Version:        5.4.0
 Release:        %autorelease
 Summary:        Optimized integer division
 
@@ -31,9 +31,9 @@ sequence of shift, add and multiply instructions that will calculate the
 integer division much faster.
 
 On current CPUs you can get a speedup of up to 10x for 64-bit integer division
-and a speedup of up to to 5x for 32-bit integer division when using libdivide.
-libdivide also supports SSE2, AVX2 and AVX512 vector division which provides an
-even larger speedup.}
+and a speedup of up to 5x for 32-bit integer division when using libdivide.
+libdivide also supports SSE2, AVX2, AVX512, NEON, and SVE vector division,
+which can provide an even larger speedup.}
 
 %description %_description
 

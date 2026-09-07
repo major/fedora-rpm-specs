@@ -13,7 +13,7 @@
 %global giturl         https://github.com/gap-packages/hap
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.78
+Version:        1.79
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
@@ -137,7 +137,7 @@ fixtimestamp www/SideLinks/HAPpagestyles.css
 # Remove incorrect executable bits
 chmod a-x lib/Functors/pause.p \
           lib/Orru/tutorial/tutorialSL3.xml \
-          lib/Perturbations/Gcomplexes/bsSL2Z \
+          lib/Perturbations/Gcomplexes/*.gz \
           lib/Voronoi/*.m \
           www/SideLinks/About/7dimBieberback.g
 

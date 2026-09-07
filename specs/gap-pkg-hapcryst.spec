@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/hapcryst
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Integral cohomology computations of Bieberbach groups
 
@@ -12,8 +12,6 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Fix documentation bugs
 Patch:          %{name}-doc.patch
-# Adapt to Carat -> CaratInterface name change
-Patch:          %{name}-carat.patch
 
 BuildArch:      noarch
 BuildSystem:    gap
@@ -23,7 +21,7 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(aclib) >= 1.1
 BuildRequires:  gap(autodoc)
-BuildRequires:  gap(caratinterface) >= 1.1
+BuildRequires:  gap(caratinterface) >= 2.3.1
 BuildRequires:  gap(cryst) >= 4.1.5
 BuildRequires:  gap(crystcat) >= 1.1.2
 BuildRequires:  gap(gapdoc) >= 0.99
@@ -41,7 +39,7 @@ Requires:       gap(polycyclic) >= 2.8.1
 Requires:       gap(polymaking) >= 0.8.6
 Requires:       gap-core >= 4.12
 
-Recommends:     gap(caratinterface) >= 1.1
+Recommends:     gap(caratinterface) >= 2.3.1
 Recommends:     gap(crystcat) >= 1.1.2
 
 Provides:       gap(HAPcryst) = %{version}-%{release}

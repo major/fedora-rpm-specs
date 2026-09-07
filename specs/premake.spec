@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/premake/premake-core
-%global date 20251127
-%global commit e38ef3f7d23b24984228ce605f7885ec32f7958d
+%global date 20270905
+%global commit ddab06a6d74ce3ae6237ee7f846e295ff687e5ab
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %forgemeta
 
@@ -41,8 +41,6 @@ install -pDm 644 packages/debian/premake.1 %{buildroot}%{_mandir}/man1/premake5.
 
 %check
 # for aarch64 and s390x, base_os.findlib_FindSystemLib failed.
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=103879506
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=103879508
 %ifnarch aarch64 s390x riscv64
 bin/release/premake5 test
 %endif

@@ -13,22 +13,20 @@ Summary:	Distributed systems infrastructure used by Riak
 License:	Apache-2.0 and ErlPL-1.1 and MIT and MPL-1.1
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
 # Fedora-specific
-Patch1:	erlang-riak_core-0001-Don-t-use-pbkdf2-as-application.patch
+Patch:	erlang-riak_core-0001-Don-t-use-pbkdf2-as-application.patch
 # Fedora-specific (unbundle mochiglobal)
-Patch2:	erlang-riak_core-0002-Revert-Copy-in-mochiglobal-as-riak_core_mochiglobal.patch
+Patch:	erlang-riak_core-0002-Revert-Copy-in-mochiglobal-as-riak_core_mochiglobal.patch
 # Fedora-specific (we have more directories to search for code artifacts)
-Patch3:	erlang-riak_core-0003-Be-more-greedy-while-loading-schemas.patch
+Patch:	erlang-riak_core-0003-Be-more-greedy-while-loading-schemas.patch
 # Fedora-specific (we have more directories to search for code artifacts)
-Patch4:	erlang-riak_core-0004-Load-cuttlefish-schemas-from-noarch-dir-as-well.patch
-# Fedora-specific (very likely we will never have eqc packaged - it's proprietary)
-Patch5:	erlang-riak_core-0005-Disable-eqc-rebar3-plugin.patch
-Patch6: erlang-riak_core-0006-Don-t-threat-warnings-as-errors.patch
+Patch:	erlang-riak_core-0004-Load-cuttlefish-schemas-from-noarch-dir-as-well.patch
+Patch:	erlang-riak_core-0006-Don-t-threat-warnings-as-errors.patch
 # https://github.com/basho/riak_core/pull/639
-Patch7:	erlang-riak_core-0007-Use-poolboy-API-for-stopping-poolboy.patch
-Patch8:	erlang-riak_core-0008-Ignore-completely-reply-value.patch
-Patch9:	erlang-riak_core-0009-Fix-test-with-self-signed-certificates.patch
+Patch:	erlang-riak_core-0007-Use-poolboy-API-for-stopping-poolboy.patch
+Patch:	erlang-riak_core-0008-Ignore-completely-reply-value.patch
+Patch:	erlang-riak_core-0009-Fix-test-with-self-signed-certificates.patch
 BuildRequires:	erlang-basho_stats >= 1.1.0
 BuildRequires:	erlang-clique >= 0.3.12
 BuildRequires:	erlang-cluster_info >= 2.1.0
@@ -43,6 +41,7 @@ BuildRequires:	erlang-mochiweb
 # BuildRequires:	erlang-pbkdf2 >= 2.1.0
 BuildRequires:	erlang-poolboy >= 1.5.2
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-eqc
 BuildRequires:	erlang-riak_ensemble >= 3.0.10
 BuildRequires:	erlang-riak_sysmon >= 2.2.1
 BuildRequires:	openssl

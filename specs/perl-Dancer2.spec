@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -136,6 +136,12 @@ Requires:       perl(Test::EOL)
 Requires:       perl(Test::More) >= 0.92
 Requires:       perl(Types::Standard)
 Requires:       perl(YAML) >= 0.86
+# CVE-2026-13577
+# Dancer2 générates sessions id from low-entropy sources if
+# Crypt::URandom and Math::Random::ISAAC::XS are not present
+# We add them to the Requires so they are always there
+Requires:  perl(Crypt::URandom)
+Requires:  perl(Math::Random::ISAAC::XS)
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Exporter\\)$
@@ -189,6 +195,9 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Sep 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.1.0-3
+- Add CSPRNG modules as Requires, fixes CVE-2026-13577 (#2509105)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

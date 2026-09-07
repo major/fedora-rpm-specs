@@ -13,6 +13,7 @@ License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/crypto-auditing
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Allow sysinfo 0.39: https://github.com/latchset/crypto-auditing/pull/299
 Patch:          crypto-auditing-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

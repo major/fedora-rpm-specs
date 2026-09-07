@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ArthurSonzogni/FTXUI
-Version:        6.1.9
+Version:        7.0.3
 %forgemeta
 
 Name:           ftxui
@@ -33,14 +33,7 @@ The %{name}-devel package contains development files for %{name}.
 %forgeautosetup -p1
 
 %build
-%cmake \
-    -GNinja \
-%if 0%{?fedora}
-    -DFTXUI_BUILD_TESTS=ON \
-%else
-    -DFTXUI_BUILD_TESTS=OFF \
-%endif
-
+%cmake
 %cmake_build
 
 %install
@@ -48,13 +41,15 @@ The %{name}-devel package contains development files for %{name}.
 
 %check
 %if 0%{?fedora}
+%cmake -DBUILD_SHARED_LIBS=OFF -DFTXUI_BUILD_TESTS=ON
+%cmake_build
 %ctest
 %endif
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libftxui-*.so.%{version}
+%{_libdir}/libftxui-*.so.7*
 
 %files devel
 %{_includedir}/ftxui/

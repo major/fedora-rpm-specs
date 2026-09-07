@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.1
-Release: 4%{?dist}
+Release: 6%{?dist}
 
 %global tar_ver %{version}
 
@@ -37,6 +37,8 @@ Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
 Patch2: audacious-plugins-3.6-ladspa.patch
 # upstream fix for the accidental Turkish translations in en_GB
 Patch3: audacious-plugins-4.6.1-en_GB.patch
+# upstream #1873
+Patch4: audacious-plugins-streamtuner.patch
 
 BuildRequires: gcc-c++
 BuildRequires: meson
@@ -352,6 +354,12 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Sun Sep 06 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.6.1-6
+- Rebuilt for FFmpeg 9
+
+* Sun Sep 06 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-5
+- merge streamtuner activate() fix
+
 * Fri Sep 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.6.1-4
 - Rebuilt for FFmpeg 9
 

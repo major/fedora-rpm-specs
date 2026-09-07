@@ -4,8 +4,8 @@
 
 %global crate lru
 
-Name:           rust-lru
-Version:        0.18.4
+Name:           rust-lru0.16
+Version:        0.16.4
 Release:        %autorelease
 Summary:        LRU cache implementation
 
