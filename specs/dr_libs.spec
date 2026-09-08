@@ -128,12 +128,13 @@ install -D --preserve-timestamps --mode=0644 \
 # in the corresponding headers.
 while read -r version header
 do
-  grep --extended-regexp "\\bv$(echo "${version}" | sed -r 's/\./\\./g')\\b" \
+  grep --extended-regexp \
+      "\\bv$(echo "${version}" | sed --regexp-extended 's/\./\\./g')\\b" \
       "%{buildroot}%{_includedir}/${header}" >/dev/null
 done <<'EOF'
-%(printf '%s\n' '%{dr_flac_version}' | sed -r 's/[~^].*//') dr_flac.h
-%(printf '%s\n' '%{dr_mp3_version}' | sed -r 's/[~^].*//') dr_mp3.h
-%(printf '%s\n' '%{dr_wav_version}' | sed -r 's/[~^].*//') dr_wav.h
+%(printf '%s\n' '%{dr_flac_version}' | sed --regexp-extended 's/[~^].*//') dr_flac.h
+%(printf '%s\n' '%{dr_mp3_version}' | sed --regexp-extended 's/[~^].*//') dr_mp3.h
+%(printf '%s\n' '%{dr_wav_version}' | sed --regexp-extended 's/[~^].*//') dr_wav.h
 EOF
 
 skips='^($.'

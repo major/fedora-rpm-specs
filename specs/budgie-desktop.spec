@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -28,6 +28,8 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
+
+Patch0:         0001-feat-build-add-opt-in-oo7-secret-service-support.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -67,6 +69,7 @@ BuildRequires:  gtklock
 BuildRequires:  intltool
 BuildRequires:  magpie-devel
 BuildRequires:  meson
+BuildRequires:  oo7-portal
 BuildRequires:  sassc
 BuildRequires:  slurp
 BuildRequires:  swaybg
@@ -79,12 +82,13 @@ Requires:       gammastep
 Requires:       grim
 Requires:       gnome-settings-daemon
 Requires:       gsettings-desktop-schemas
-Requires:       gnome-keyring-pam
 Requires:       hicolor-icon-theme
 Requires:       labwc
 # mutter-common is required for gschemas that the labwc bridge uses
 Requires:       mutter-common
 Requires:       network-manager-applet
+Requires:       oo7-portal
+Requires:       pam_oo7
 Requires:       python3-psutil
 Requires:       slurp
 Requires:       swaybg
@@ -135,7 +139,7 @@ Documentation for budgie-desktop
 %autosetup -p1
 
 %build
-%meson -Dwith-hibernate=false
+%meson -Dwith-hibernate=false -Dwith-oo7=true
 %meson_build
 
 %install
@@ -228,6 +232,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Mon Sep 07 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-4
+- Add support for oo7 secret service provider
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

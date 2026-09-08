@@ -33,11 +33,9 @@ Patch:          c4log-b8b86f3-external-c4core.patch
 BuildSystem:    cmake
 # We can stop the CMake scripts from downloading doctest by setting
 # C4LOG_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-BuildOption(conf): %{shrink:
-    -DCMAKE_CXX_STANDARD=%{cxx_std}
-    -DC4LOG_CACHE_DOWNLOAD_DOCTEST:PATH=/
-    -DC4LOG_BUILD_TESTS=ON
-    }
+BuildOption(conf): -DCMAKE_CXX_STANDARD=%{cxx_std}
+BuildOption(conf): -DC4LOG_CACHE_DOWNLOAD_DOCTEST:PATH=/
+BuildOption(conf): -DC4LOG_BUILD_TESTS=ON
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

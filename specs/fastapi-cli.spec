@@ -12,9 +12,9 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:          0001-Downstream-only-run-test_script-without-coverage.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --extras standard,standard-no-fastapi-cloud-cli,new
-    }
+BuildOption(generate_buildrequires): --extras standard
+BuildOption(generate_buildrequires): --extras standard-no-fastapi-cloud-cli
+BuildOption(generate_buildrequires): --extras new
 BuildOption(install): --assert-license fastapi_cli
 
 BuildArch:      noarch
@@ -32,9 +32,9 @@ Obsoletes:      fastapi-cli-slim < 0.0.21-1
 # we just list the few test dependencies we *do* want manually rather than
 # trying to patch pyproject.toml. We preserve upstream’s lower bounds but
 # remove upper bounds, as we must try to make do with what we have.
-BuildRequires:  %{py3_dist pytest} >= 4.4
-BuildRequires:  %{py3_dist fastapi} >= 0.128
-BuildRequires:  %{py3_dist uvicorn} >= 0.39
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist fastapi}
+BuildRequires:  %{py3_dist uvicorn}
 
 %global common_description %{expand:
 FastAPI CLI is a command line program fastapi that you can use to serve your

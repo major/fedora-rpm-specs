@@ -5,7 +5,7 @@
 %global crate ureq
 
 Name:           rust-ureq
-Version:        3.4.0
+Version:        3.4.1
 Release:        %autorelease
 Summary:        Simple, safe HTTP client
 
@@ -20,11 +20,13 @@ Patch:          ureq-fix-metadata-auto.diff
 #   ureq without compiling ring.”
 # * Drop the auto_args dev-dependency since we don’t have rust-auto_args; drop
 #   the cureq example that would have required it.
-# * Support testing in release mode: https://github.com/algesten/ureq/pull/1180
 Patch:          ureq-fix-metadata.diff
 # * Downstream-only: omit tests that require network access (and are not
 #   practical to skip by name, e.g. anonymous doctests).
 Patch10:        0001-Downstream-only-omit-tests-that-require-network-acce.patch
+# * Downstream-only: omit tests that require rustls/aws-lc-rs to compile
+# * We don’t have aws-lc-rs, and patched out the dependency on this feature
+Patch11:        0002-Downstream-only-omit-tests-that-would-require-rustls.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

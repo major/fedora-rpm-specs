@@ -70,7 +70,7 @@
 
 Name:		erlang
 Version:	27.3.4.17
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -723,14 +723,7 @@ ERL_FLAGS="${RPM_OPT_FLAGS} -mcpu=ultrasparc -fno-strict-aliasing"
 ERL_FLAGS="${RPM_OPT_FLAGS} -fno-strict-aliasing"
 %endif
 
-# Kernel poll is buggy on s390x for unknown reasons, disable it
-# See rhbz#1770256
-%ifarch s390x
-%define __without_kernel_poll 1
-%endif
-
 CFLAGS="${ERL_FLAGS}" CXXFLAGS="${ERL_FLAGS}" %configure --enable-shared-zlib --enable-sctp --enable-systemd --disable-silent-rules \
-        %{?__without_kernel_poll:--disable-kernel-poll} \
         %{?with_fips:--enable-fips} \
 %if %{__with_java}
 	\
@@ -1944,6 +1937,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Sun Sep  6 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.17-2
+- Remove workaround for s390x
+
 * Tue Sep  1 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.17-1
 - Ver. 27.3.4.17
 

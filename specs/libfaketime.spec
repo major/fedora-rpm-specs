@@ -1,5 +1,3 @@
-%define _lto_cflags %{nil}
-
 Name:       libfaketime
 Version:    0.9.13
 Release:    %autorelease
@@ -27,6 +25,9 @@ Patch0:     libfaketime-0.9.12-Dynamic-libraries-are-expected-to-be-executable-o
 # Remove tests which pass NULL to syscalls and are surprised with a segfault,
 # in upstream after 0.9.13, <https://github.com/wolfcw/libfaketime/issues/554>
 Patch1:     libfaketime-0.9.13-Remove-tests-passing-NULL-to-sem_timedwait-and-clock.patch
+# Enable LTO, in upstream after 0.9.13,
+# <https://github.com/wolfcw/libfaketime/pull/557>
+Patch2:     libfaketime-0.9.13-Adapt-symbol-versioning-to-LTO.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make

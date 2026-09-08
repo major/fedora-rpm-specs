@@ -3,7 +3,7 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        26.8.1
+Version:        26.9.6
 Release:        1%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
@@ -161,6 +161,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg uk Ukrainian
 %lang_subpkg zh_CN %{quote:(Chinese (S))}
 %lang_subpkg zh_TW %{quote:(Chinese (T))}
+%lang_subpkg zh-Hans %{quote:(Chinese (Simplified))}
 
 %prep
 %autosetup -p0
@@ -242,6 +243,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Mon Sep 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.9.6-1
+- Update to version 26.9.6
+- Add Chinese (Simplified) language
+
 * Mon Aug 03 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.8.1-1
 - Update to version 26.8.1
 

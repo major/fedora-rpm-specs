@@ -1,6 +1,6 @@
 Name:           perl-Authen-SASL
-Version:        2.2000
-Release:        2%{?dist}
+Version:        2.2100
+Release:        1%{?dist}
 Summary:        SASL Authentication framework for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-SASL
@@ -92,6 +92,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.2100-1
+- 2.2100 bump (rhbz#2529197)
+- Fix CVE-2026-86219 (replay attack in Authen::SASL::Perl::DIGEST_MD5)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

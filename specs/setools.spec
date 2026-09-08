@@ -13,6 +13,7 @@ Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            https://github.com/SELinuxProject/setools/wiki
+VCS:            git:https://github.com/SELinuxProject/setools.git
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
 Source2:        apol.desktop

@@ -2,13 +2,13 @@
 
 %global ezlib_ver 1.0.16
 %global fast_tls_ver 1.1.26
-%global fast_xml_ver 1.1.58
+%global fast_xml_ver 1.1.60
 %global idna_ver 7.1.0
 %global p1_utils_ver 1.0.29
 %global stringprep_ver 1.0.34
 
 Name:       erlang-%{srcname}
-Version:    1.13.1
+Version:    1.13.4
 Release:    %autorelease
 Summary:    Erlang/Elixir XMPP parsing and serialization library
 License:    Apache-2.0

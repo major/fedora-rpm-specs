@@ -7,6 +7,7 @@ Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 URL: https://github.com/SELinuxProject/selinux/wiki
+VCS: git:https://github.com/SELinuxProject/selinux.git
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
 # $ git format-patch -N libsepol-3.11 -- libsepol

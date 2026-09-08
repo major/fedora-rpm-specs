@@ -48,10 +48,6 @@ sed -e 's/-O0//g' -i CMakeLists.txt
 %install
 %cmake_install
 
-# install default config
-install -Dpm0644 example_configurations/%{name}_default.conf \
-    %{buildroot}%{_sysconfdir}/%{name}.conf
-
 %post
 %systemd_post oscillatord.service
 
@@ -66,7 +62,6 @@ install -Dpm0644 example_configurations/%{name}_default.conf \
 %doc README.md example_configurations
 %{_bindir}/*
 %{_unitdir}/%{name}.service
-%config(noreplace) %{_sysconfdir}/%{name}.conf
 %exclude %{_unitdir}/%{name}@.service
 
 %changelog

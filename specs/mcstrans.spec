@@ -6,6 +6,7 @@ Version: 3.11
 Release: 2%{?dist}
 License: GPL-2.0-or-later
 Url: https://github.com/SELinuxProject/selinux/wiki
+VCS: git:https://github.com/SELinuxProject/selinux.git
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/mcstrans-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/mcstrans-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg

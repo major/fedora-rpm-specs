@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.22.0
+Version:        0.23.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -42,6 +42,7 @@ SourceLicense:  (Apache-2.0 OR MIT) AND LicenseRef-Fedora-Public-Domain
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 License:        %{shrink:
     (Apache-2.0 OR MIT) AND
     LicenseRef-Fedora-Public-Domain AND
@@ -53,13 +54,13 @@ License:        %{shrink:
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     BSD-3-Clause AND
     MPL-2.0 AND
-    (Unlicense OR MIT)
+    (Unlicense OR MIT) AND
+    Zlib
 }
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          https://github.com/slopfest/sandogasa/commit/0ceff134e879443b2bd1884e2b9221ea0bd1d5cf.patch#/sandogasa-fix-store-scripts.patch
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}

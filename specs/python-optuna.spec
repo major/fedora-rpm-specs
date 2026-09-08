@@ -2,8 +2,8 @@
 %global pypi_name optuna
 
 Name:           python-%{pypi_name}
-Version:        4.9.0
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Sep 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.0.0-1
+- 5.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

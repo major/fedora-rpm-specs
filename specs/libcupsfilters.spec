@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -21,6 +21,8 @@ Patch001: 0001-pclmtoraster.c-Fix-getting-MediaBox-from-input.patch
 Patch002: 0001-pclmtoraster.c-Fix-processing-image-in-PCLm.patch
 # https://github.com/OpenPrinting/libcupsfilters/pull/167/commits/a9acdb22cc898076bf6c5d9d20474274ed123458
 Patch003: 0001-Fix-printing-error-pdfio-output-Missing-Root-object..patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/228
+Patch004: 0001-Honor-data-copies-in-cfFilterPDFToPDF.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -206,6 +208,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Fri Sep 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-3
+- fix multiple copies not working for raster drivers (rhbz#2517684)
+
 * Wed Aug 19 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-2
 - fix printing of PDF which lack Root object
 

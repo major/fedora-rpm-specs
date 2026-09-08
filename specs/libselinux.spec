@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
@@ -14,6 +14,7 @@ Source3: selinuxconlist.8
 Source4: selinuxdefcon.8
 
 Url: https://github.com/SELinuxProject/selinux/wiki
+VCS: git:https://github.com/SELinuxProject/selinux.git
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
 # $ git format-patch -N 3.11 -- libselinux
@@ -21,6 +22,8 @@ Url: https://github.com/SELinuxProject/selinux/wiki
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
 Patch0002: 0002-libselinux-Replace-PyString_FromString-with-PyUnicod.patch
+Patch0003: 0003-libselinux-restorecon_xattr-reset-dir_xattr_list-on-.patch
+Patch0004: 0004-Add-support-for-UTF-8-in-file-context-specifications.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel

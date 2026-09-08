@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.16.2
+Version:        1.16.3
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Sep 04 2026 Packit <hello@packit.dev> - 1.16.3-1
+- Packit now retries when it encounters connection errors during authentication when attempting to create a Bodhi update. (#2749)
+- Fixed an issue where a relative `--dist-git-path` (e.g. `.`) could cause packit to incorrectly identify a dist-git directory as an upstream repository. (#2736)
+- Resolves: rhbz#2528471
+
 * Mon Jul 20 2026 Packit <hello@packit.dev> - 1.16.2-1
 - Add HTTP timeouts and make `get_monitoring_metadata()` unauthenticated which should improve the UX of `packit validate`. (#2730)
 - Resolves: rhbz#2502899

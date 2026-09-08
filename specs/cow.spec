@@ -1,10 +1,10 @@
 Name:           cow
-Version:        0.2
+Version:        0.3
 Release:        1%{?dist}
 Summary:        Compositor on Wayland - A stacking window manager
 
 License:        ISC
-URL:            https://codeberg.org/thomasadam/cow
+URL:            https://codeberg.org/cow-wm/cow
 Source0:        %{url}/archive/%{version_no_tilde}.tar.gz#/%{name}-%{version_no_tilde}.tar.gz
 
 BuildRequires: bison
@@ -15,6 +15,7 @@ BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: meson
 BuildRequires: pkgconfig(cairo)
+BuildRequires: pkgconfig(ncurses)
 BuildRequires: pkgconfig(pangocairo)
 BuildRequires: pkgconfig(scdoc)
 BuildRequires: pkgconfig(wayland-client)
@@ -49,7 +50,9 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %{_bindir}/cow
 %{_bindir}/cow-start
 %{_bindir}/cowbar
+%{_bindir}/cowdiag
 %{_bindir}/cowpager
+%{_bindir}/cowclock
 %{_bindir}/moocow
 %{_bindir}/cowident
 %{_bindir}/cowrearrange
@@ -58,18 +61,25 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %dir %{_sysconfdir}/cow
 %config(noreplace) %{_sysconfdir}/cow/cow.conf
 %config(noreplace) %{_sysconfdir}/cow/cowbar.conf
+%config(noreplace) %{_sysconfdir}/cow/cowclock.conf
 %{_datadir}/wayland-sessions/cow.desktop
 %{_datadir}/cow/icons/default.png
 %{_mandir}/man1/cow.1*
 %{_mandir}/man1/cowbar.1*
+%{_mandir}/man1/cowdiag.1.*
 %{_mandir}/man1/cowident.1*
 %{_mandir}/man1/cowpager.1*
+%{_mandir}/man1/cowclock.1*
 %{_mandir}/man1/moocow.1*
 %{_mandir}/man1/cowrearrange.1*
 %{_mandir}/man1/cowbuttons.1*
 %{_mandir}/man1/cowiconman.1*
+%{_mandir}/man1/cow-module-cmd.1.*
 
 %changelog
+* Mon Sep 07 2026 Martin Cermak <mcermak@redhat.com> - 0.3-1
+- Release: 0.3
+
 * Thu Aug 27 2026 Martin Cermak <mcermak@redhat.com> - 0.2-1
 - Release: 0.2
 

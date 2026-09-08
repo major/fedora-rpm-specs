@@ -8,7 +8,7 @@
 %global srcname pykcs11
 
 Name:           python-%{srcname}
-Version:        1.5.19
+Version:        1.5.20
 Release:        %autorelease
 Summary:        A Full PKCS11 wrapper for Python
 

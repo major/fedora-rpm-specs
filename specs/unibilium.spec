@@ -1,5 +1,5 @@
 Name:           unibilium
-Version:        2.1.2
+Version:        2.1.4
 Release:        %autorelease
 Summary:        Terminfo parsing library
 
@@ -8,10 +8,9 @@ URL:            https://github.com/neovim/unibilium
 
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  autoconf
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  libtool
 # For docs
 BuildRequires:  %{_bindir}/pod2man
 # For tests
@@ -31,18 +30,16 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %prep
 %autosetup -p1
-autoreconf -fi
 
 %build
-%configure
-%make_build
+%cmake -DBUILD_TOOLS=ON -DBUILD_TESTS=ON
+%cmake_build
 
 %install
-%make_install
-rm -vf %{buildroot}%{_libdir}/*.{a,la}
+%cmake_install
 
 %check
-make test
+%ctest
 
 %ldconfig_scriptlets
 

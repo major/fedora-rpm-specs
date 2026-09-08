@@ -106,12 +106,12 @@ License:        GPL-2.0-only AND BSD-3-Clause AND GPL-2.0-or-later
 # which it is not-allowed).
 #   - util/installer/cog.svg
 SourceLicense:  %{shrink:
-                %{license} AND
-                BSL-1.0 AND
-                CC0-1.0 AND
-                MIT AND
-                Unlicense
-                }
+    %{license} AND
+    BSL-1.0 AND
+    CC0-1.0 AND
+    MIT AND
+    Unlicense
+    }
 URL:            https://www.pencil2d.org
 %global forgeurl https://github.com/pencil2d/pencil
 Source:         %{forgeurl}/archive/v%{version}/pencil-%{version}.tar.gz
@@ -332,15 +332,16 @@ Pencil2D是适用于Mac OS X，Windows和Linux的动画/绘图软件。它允许
 %autosetup -n pencil-%{version} -p1
 
 # Unbundle miniz
-rm -v core_lib/src/miniz.h core_lib/src/miniz.cpp
-sed -r -i '/\bminiz\.(h|cpp)/d' core_lib/core_lib.pro
-echo "LIBS_PRIVATE += $(pkgconf --libs miniz)" | tee -a */*.pro >/dev/null
-echo "INCLUDEPATH += $(pkgconf --variable=includedir miniz)" | tee -a */*.pro >/dev/null
+rm core_lib/src/miniz.h core_lib/src/miniz.cpp
+sed --regexp-extended --in-place '/\bminiz\.(h|cpp)/d' core_lib/core_lib.pro
+printf 'LIBS_PRIVATE += %s\nINCLUDEPATH += %s\n' \
+    "$(pkgconf --libs miniz)" "$(pkgconf --variable=includedir miniz)" |
+  tee --append */*.pro >/dev/null
 
 # Unbundle catch2, using version 3.x
 # https://catch2-temp.readthedocs.io/en/latest/migrate-v2-to-v3.html
-echo '#include <catch2/catch_all.hpp>' > tests/src/catch.hpp
-echo "LIBS += $(pkgconf --libs catch2)" >> tests/tests.pro
+printf '#include <%s>\n' 'catch2/catch_all.hpp' > tests/src/catch.hpp
+printf 'LIBS += %s\n' "$(pkgconf --libs catch2)" >> tests/tests.pro
 
 
 %conf
@@ -368,7 +369,8 @@ QT_QPA_PLATFORM=offscreen help2man --no-info --output=pencil2d.1 ./app/pencil2d
 %install
 %make_install INSTALL_ROOT='%{buildroot}'
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 pencil2d.1
+install -D --target='%{buildroot}%{_mandir}/man1' \
+    --preserve-timestamp --mode=0644 pencil2d.1
 
 
 %check

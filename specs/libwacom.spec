@@ -1,6 +1,6 @@
 Name:           libwacom
-Version:        2.19.0
-Release:        2%{?dist}
+Version:        2.20.0
+Release:        1%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
 
@@ -94,6 +94,9 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-show-stylus.1*
 
 %changelog
+* Mon Sep 07 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.20.0-1
+- libwacom 2.20.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

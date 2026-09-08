@@ -30,12 +30,18 @@ Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz
 Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_commit}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
-    -DSYSTEM_DOCTEST:BOOL=ON
-    -DFASTFLOAT_TEST:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DFASTFLOAT_EXHAUSTIVE:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
-    }
+BuildOption(conf): -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+BuildOption(conf): -DSYSTEM_DOCTEST:BOOL=ON
+%if %{with ctest}
+BuildOption(conf): -DFASTFLOAT_TEST:BOOL=ON
+%else
+BuildOption(conf): -DFASTFLOAT_TEST:BOOL=OFF
+%endif
+%if %{with exhaustive}
+BuildOption(conf): -DFASTFLOAT_EXHAUSTIVE:BOOL=ON
+%else
+BuildOption(conf): -DFASTFLOAT_EXHAUSTIVE:BOOL=OFF
+%endif
 
 BuildRequires:  gcc-c++
 

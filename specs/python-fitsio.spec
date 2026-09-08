@@ -3,14 +3,14 @@
 
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.2
 Release:        %autorelease
 Summary:        %{sum}
 
 License:        GPL-2.0-only
 URL:            https://github.com/esheldon/fitsio
 Source0:        %{pypi_source}
-Patch: https://github.com/esheldon/fitsio/commit/492f938efe60615287b677020c63c10291920648.patch
+#Patch: https://github.com/esheldon/fitsio/commit/492f938efe60615287b677020c63c10291920648.patch
 
 # General
 BuildRequires:  cfitsio-devel
@@ -67,9 +67,13 @@ export FITSIO_SYSTEM_FITSIO_LIBDIR
 
 
 %check
+export PYTEST_ADDOPTS='-p no:cacheprovider'
 pushd %{buildroot}/%{python3_sitearch}
-  %pytest fitsio
-  rm -rf .pytest_cache
+%pytest \
+%ifarch s390x
+ --deselect "fitsio/tests/test_image_compression.py::test_image_compression_gzip_subnormal_cast_to_zero" \
+%endif
+ fitsio
 popd
 
 

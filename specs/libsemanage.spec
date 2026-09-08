@@ -14,6 +14,7 @@ Source2: https://github.com/bachradsusi.gpg
 # Patch list start
 # Patch list end
 URL: https://github.com/SELinuxProject/selinux/wiki
+VCS: git:https://github.com/SELinuxProject/selinux.git
 Source3: semanage.conf
 
 BuildRequires: gcc make

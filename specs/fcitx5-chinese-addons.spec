@@ -7,7 +7,7 @@
 %endif
 
 Name:           fcitx5-chinese-addons
-Version:        5.1.13
+Version:        5.1.14
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -27,6 +27,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libime-devel
 BuildRequires:  ninja-build
 BuildRequires:  gettext-devel
+BuildRequires:  json-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(fmt)
 %if %{qtwebengine}

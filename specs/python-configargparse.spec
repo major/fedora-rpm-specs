@@ -1,5 +1,13 @@
+# We can’t package the “toml” extra because it depends on python3dist(toml),
+# which was deprecated and eventually removed from Fedora. See
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonToml. However, if
+# upstream migrates to tomli as discussed in
+# https://github.com/bw2/ConfigArgParse/issues/355, we might be able to enable
+# this in the future.
+%bcond toml 0
+
 Name:           python-configargparse
-Version:        1.7.6
+Version:        1.7.7
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
@@ -10,7 +18,7 @@ Source:         %{url}/archive/v%{version}/ConfigArgParse-%{version}.tar.gz
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license configargparse
-BuildOption(generate_buildrequires): --extras yaml
+BuildOption(generate_buildrequires): --extras %{?with_toml:toml,}yaml
 
 BuildArch:      noarch
 
@@ -40,7 +48,7 @@ Summary:        %{summary}
 %description -n python3-configargparse %{common_description}
 
 
-%pyproject_extras_subpkg --name python3-configargparse yaml
+%pyproject_extras_subpkg --name python3-configargparse %{?with_toml:toml} yaml
 
 
 %generate_buildrequires -p

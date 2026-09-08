@@ -7,7 +7,7 @@
 %global crate pathrs
 
 Name:           rust-pathrs
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        C-friendly API to make path resolution safer on Linux
 
@@ -113,7 +113,4 @@ rm '%{buildroot}%{_libdir}/libpathrs.a'
 %endif
 
 %changelog
-* Wed Jun 24 2026  - 0.2.5-%autorelease
-
-
 %autochangelog

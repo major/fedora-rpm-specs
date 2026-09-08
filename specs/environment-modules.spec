@@ -1,8 +1,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           environment-modules
-Version:        5.6.1
-Release:        4%{?dist}
+Version:        5.6.2
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -204,6 +204,9 @@ fi
 
 
 %changelog
+* Mon Sep 07 2026 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.6.2-1
+- Update to 5.6.2 (fix CVE-2026-85013)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -27,10 +27,11 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/AsahiLinux/asahi-fix27
-Source0:        %{url}/archive/%{version}/asahi-fix27-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/asahi-fix27-%{version}.tar.gz
+
 # Add a simple hand-written man page
 # https://github.com/AsahiLinux/asahi-fix27/pull/1
-Source1:        asahi-fix27.1
+Patch:          %{url}/commit/7718b90e0dbc103a6845fca980252229e83cb453.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -60,7 +61,7 @@ BuildRequires:  cargo-rpm-macros
 install -D --preserve-timestamps --mode=0755 \
     --target='%{buildroot}%{_bindir}' target/rpm/asahi-fix27
 install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
+    --target='%{buildroot}%{_mandir}/man1' asahi-fix27.1
 
 
 %check

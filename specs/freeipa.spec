@@ -196,8 +196,8 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.13.3
-%global TARBALL_IPA_VERSION 4.13.3
+%define IPA_VERSION 4.13.4
+%global TARBALL_IPA_VERSION 4.13.4
 %global IPA_RELEASE_PATH %(echo $IPA_VERSION|tr . -)
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1.1%{?rc_version:.%rc_version}%{?dist}
+Release:        1.2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -230,10 +230,14 @@ Source1:        https://codeberg.org/freeipa/freeipa/releases/download/release-%
 # Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 # Release 4.13.3 is signed by Rafael Jeffman
 # Rafael's key: 4B7E7AFBB0AAA98947CA2427F17E2569BEE3800C
-Source2:        gpgkey-4B7E7AFBB0AAA98947CA2427F17E2569BEE3800C.asc
+# Back to Antonio's key
+Source2:        gpgkey-B40A78FBA576C4A3FC7D7BBC359FAF777296F653.asc
 %endif
 
 Patch0:         freeipa-version-upgrade-fedora-only.patch
+Patch1:         freeipa-pr-8557.patch
+Patch2:         freeipa-pr-8558.patch
+
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
 # header-logo.png, login-screen-background.jpg, login-screen-logo.png,
@@ -1970,6 +1974,16 @@ fi
 %endif
 
 %changelog
+* Mon Sep 07 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-1.2
+- Fine-tune privilege checks (upstream PR 8558)
+
+* Mon Sep 07 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-1.1
+- Fix cross-forest trust identity confusion protection (upstream PR 8557)
+
+* Mon Sep 07 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-1
+- FreeIPA 4.13.4
+- Resolves: CVE-2026-79678, CVE-2026-76578
+
 * Fri Aug 21 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.3-1.1
 - Force upgrade for versions that falsely represent themselves as 4.13.5 (not existing yet)
 

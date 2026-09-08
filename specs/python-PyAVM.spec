@@ -2,7 +2,7 @@
 %global srcname pyavm
 
 Name: python-%{pypi_name}
-Version: 0.9.8
+Version: 0.9.9
 Release: %autorelease
 Summary: Python package to handle Astronomy Visualization Metadata
 License: MIT AND BSD-3-Clause
@@ -13,6 +13,7 @@ Source0: %{pypi_source}
 BuildArch: noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pytest)
 
 #BuildRequires: python3dist(astropy)
 #BuildRequires: python3dist(pillow)
@@ -36,7 +37,7 @@ Summary: %{summary}
 %autosetup -n %{srcname}-%{version} 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -47,7 +48,7 @@ Summary: %{summary}
 %pyproject_save_files pyavm
 
 %check
-%{tox}
+%{pytest}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst 

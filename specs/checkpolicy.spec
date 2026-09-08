@@ -6,6 +6,7 @@ Name: checkpolicy
 Version: 3.11
 Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
+VCS: git:https://github.com/SELinuxProject/selinux.git
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg

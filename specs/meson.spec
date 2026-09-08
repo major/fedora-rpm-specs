@@ -17,6 +17,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 Requires:       ninja-build
 
+Requires:       meson-srpm-macros = %{version}-%{release}
+
 %if %{with docs}
 BuildRequires:  python3-pyyaml
 %endif
@@ -112,10 +114,18 @@ productivity. It aims to do this by providing simple, out-of-the-box
 support for modern software development tools and practices, such as
 unit tests, coverage reports, Valgrind, CCache and the like.
 
+%package srpm-macros
+Summary:        rpm macros to build projects using meson
+
+%description srpm-macros
+This package contains %{summary}.
+
 %prep
-%autosetup -p1 -n meson-%{version_no_tilde %{quote:}}
+%autosetup -p1 -C
 # Macro should not change when we are redefining bindir
 sed -i -e "/^%%__meson /s| .*$| %{_bindir}/%{name}|" data/macros.%{name}
+# Automatically pull in meson if the build system is used
+sed -i -e '/^%%buildsystem_meson_generate_buildrequires/s|%%{nil}|echo "meson"|' data/macros.%{name}
 
 %build
 %pyproject_wheel
@@ -150,12 +160,14 @@ export MESON_PRINT_TEST_OUTPUT=1
 %if %{with docs}
 %{_mandir}/man3/%{name}-reference.3*
 %endif
-%{rpmmacrodir}/macros.%{name}
 %dir %{_datadir}/polkit-1
 %dir %{_datadir}/polkit-1/actions
 %{_datadir}/polkit-1/actions/com.mesonbuild.install.policy
 %{_datadir}/bash-completion/completions/meson
 %{_datadir}/zsh/site-functions/_meson
+
+%files srpm-macros
+%{rpmmacrodir}/macros.%{name}
 
 %changelog
 %autochangelog

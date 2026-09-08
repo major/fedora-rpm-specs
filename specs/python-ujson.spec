@@ -1,5 +1,5 @@
 Name:           python-ujson
-Version:        5.13.0
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
@@ -22,11 +22,6 @@ Summary:        Ultra fast JSON encoder and decoder written in pure C
 License:        BSD-3-Clause AND TCL
 URL:            https://github.com/ultrajson/ultrajson
 Source:         %{pypi_source ujson}
-
-# Update build dependencies to avoid warning about missing
-# [tool.setuptools_scm] section
-# https://github.com/ultrajson/ultrajson/pull/746
-Patch:          %{url}/pull/746.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ujson

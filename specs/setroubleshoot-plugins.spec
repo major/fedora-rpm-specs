@@ -9,6 +9,7 @@ Version: 3.3.15
 Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/plugins
+VCS: git:https://gitlab.com/setroubleshoot/plugins.git
 Source0: https://gitlab.com/-/project/24478430/uploads/1d856bff1c9fb16a8c6fc877d7fe91ca/setroubleshoot-plugins-3.3.15.tar.gz
 # git format-patch -N setroubleshoot-plugins-<version>
 # for j in 00*patch; do printf "Patch: %s\n" $j; done

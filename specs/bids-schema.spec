@@ -87,10 +87,8 @@ Source13:       bst-pre-receive-hook.1
 Patch:          0001-Downstream-only-allow-pyparsing-3.1.2-for-now.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --directory tools/schemacode
-    --extras expressions,render,validation,all
-    }
+BuildOption(generate_buildrequires): --directory tools/schemacode
+BuildOption(generate_buildrequires): --extras expressions,render,validation,all
 BuildOption(build): --directory tools/schemacode
 BuildOption(install): --no-assert-license bidsschematools
 

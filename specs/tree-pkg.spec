@@ -1,9 +1,9 @@
 Summary: File system tree viewer
 Name: tree-pkg
-Version: 2.3.1
-Release: 2%{?dist}
+Version: 2.3.2
+Release: 1%{?dist}
 
-# The entire source code is LGPL-2.1-or-later except strverscmp.c
+# The entire source code is GPL-2.0-or-later except strverscmp.c
 # which is LGPL-2.1-or-later.
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 
@@ -15,7 +15,7 @@ BuildRequires: git-core
 BuildRequires: make
 
 # prevent rpmlint from reporting incorrect-fsf-address
-# Sent upstream via email 20210920
+# Use the contact URLs from the current GNU GPLv2 text
 Patch1: tree-license-fsf-addr.patch
 
 # Keep file size field length constant regardless of whether SI units
@@ -28,7 +28,6 @@ Patch2: tree-size-field-len.patch
 Patch3: tree-static-analysis.patch
 
 # fix programming mistakes detected by static analysis
-# Upstream is not active
 Patch4: tree-static-analysis-2.patch
 
 %description
@@ -63,6 +62,11 @@ sed -e 's/LINUX/__linux__/' -i tree.c
 %doc README
 
 %changelog
+* Mon Sep 07 2026 Vincent Mihalkovic <vmihalko@redhat.com> - 2.3.2-1
+- Update to 2.3.2 (rhbz#2448297)
+- Drop the path allocation fix included upstream
+- Refresh FSF contact references in LICENSE
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

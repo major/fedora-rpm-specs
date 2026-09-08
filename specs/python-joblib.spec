@@ -3,17 +3,13 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.5.3
+Version: 1.6.0
 Release: %autorelease
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
 License: BSD-3-Clause
 URL: https://joblib.readthedocs.io
 Source0: %{pypi_source}
-
-Patch: joblib-unbundle-cloudpickle.patch
-# https://github.com/joblib/loky/issues/624
-Patch: python-3.15-resource-tracker.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -44,7 +40,7 @@ BuildRequires:  %{py3_dist threadpoolctl}
 Recommends:     %{py3_dist lz4}
 Recommends:     %{py3_dist numpy}
 Recommends:     %{py3_dist psutil}
-Provides:       bundled(python3dist(loky)) = 3.5.6
+Provides:       bundled(python3dist(loky)) = 3.6.0
 
 %description -n python3-%{srcname} %_description
 

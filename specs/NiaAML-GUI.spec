@@ -22,9 +22,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 # pyproject.toml: [tool.poetry.dev-dependencies]
-# pytest = "^7.4.3"
-# Version specification loosened to allow newer versions
-BuildRequires:  python3dist(pytest) >= 7.4.3
+BuildRequires:  python3dist(pytest)
 
 Requires:       hicolor-icon-theme
 
@@ -40,17 +38,17 @@ Python package.}
 %prep -a
 # Do not upper-bound the version of Python!
 # https://github.com/firefly-cpp/NiaAML-GUI/commit/d0084e6d2f05c6af848678db731c41a49c1a2a22#commitcomment-146060179
-sed -r -i 's/^(python[[:blank:]]*=[[:blank:]]*"[^"]+),[^"]+"/\1"/' \
-    pyproject.toml
+sed --regexp-extended --in-place \
+    's/^(python[[:blank:]]*=[[:blank:]]*"[^"]+),[^"]+"/\1"/' pyproject.toml
 
 
 %install -a
 desktop-file-install --dir='%{buildroot}%{_datadir}/applications' \
     AppData/%{app_id}.desktop
-install -t '%{buildroot}%{_metainfodir}' -p -m 0644 -D \
-    AppData/%{app_id}.metainfo.xml
-install -t '%{buildroot}%{_datadir}/icons/hicolor/256x256/apps' -p -m 0644 -D \
-    AppData/niaaml-gui.png
+install -D --target='%{buildroot}%{_metainfodir}' \
+    --preserve-timestamps --mode=0644 AppData/%{app_id}.metainfo.xml
+install -D --target='%{buildroot}%{_datadir}/icons/hicolor/256x256/apps' \
+    --preserve-timestamps --mode=0644 AppData/niaaml-gui.png
 
 
 %check -a

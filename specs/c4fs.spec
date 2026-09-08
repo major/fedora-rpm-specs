@@ -39,11 +39,9 @@ Patch:          0001-Fix-missing-include-for-u32-type.patch
 BuildSystem:    cmake
 # We can stop the CMake scripts from downloading doctest by setting
 # C4FS_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-BuildOption(conf): %{shrink:
-    -DCMAKE_CXX_STANDARD=%{cxx_std}
-    -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/
-    -DC4FS_BUILD_TESTS=ON
-    }
+BuildOption(conf): -DCMAKE_CXX_STANDARD=%{cxx_std}
+BuildOption(conf): -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/
+BuildOption(conf): -DC4FS_BUILD_TESTS=ON
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

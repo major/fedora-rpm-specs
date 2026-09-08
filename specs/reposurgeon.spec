@@ -6,8 +6,8 @@
 # https://gitlab.com/esr/reposurgeon
 %global goipath         gitlab.com/esr/reposurgeon
 %global forgeurl        https://gitlab.com/esr/reposurgeon
-Version:                5.9
-%global tag             5.9
+Version:                5.10
+%global tag             5.10
 
 %gometa -L -f
 

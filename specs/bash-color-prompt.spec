@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           bash-color-prompt
-Version:        0.96
+Version:        0.96.1
 Release:        1%{?dist}
 Summary:        Bash Color Prompt with customization
 
@@ -61,6 +61,10 @@ bats --timing --gather-test-outputs-in logs tests
 
 
 %changelog
+* Mon Sep 07 2026 Jens Petersen <petersen@redhat.com> - 0.96.1-1
+- fix quoting of '\$' prompt in strings
+- `_bcp_compat_layout`: use EUID ternary test to set default color
+
 * Sun Aug 23 2026 Jens Petersen <petersen@redhat.com> - 0.96-1
 - update to 0.96
 

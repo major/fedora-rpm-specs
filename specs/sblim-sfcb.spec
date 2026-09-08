@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 43%{?dist}
+Release: 44%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -58,6 +58,15 @@ Patch15: sblim-sfcb-1.4.9-fix-ftell-overflow.patch
 Patch16: sblim-sfcb-1.4.9-fix-double-free.patch
 # Patch17: fix incorrect free of non-allocated pointer
 Patch17: sblim-sfcb-1.4.9-fix-incorrect-free.patch
+# Patch18: validate IPC message fields in processProviderMgrRequests() before
+#   pointer fixup and handler dispatch to prevent OOB access via malformed
+#   OperationHdr (CVE-2026-73583)
+Patch18: sblim-sfcb-1.4.9-validate-ipc-msg.patch
+# Patch19: use mktemp for sfcbrepos instance migration temp file to prevent
+#   TOCTOU symlink attack via /tmp/sfcbinst.mof (CVE-2026-73584)
+Patch19: sblim-sfcb-1.4.9-secure-tmpfile.patch
+
+
 Provides: cim-server = 0
 Requires: cim-schema
 Requires: sblim-sfcCommon
@@ -105,6 +114,8 @@ Programming Interface (CMPI).
 %patch -P15 -p1 -b .fix-ftell-overflow
 %patch -P16 -p1 -b .fix-double-free
 %patch -P17 -p1 -b .fix-incorrect-free
+%patch -P18 -p1 -b .validate-ipc-msg
+%patch -P19 -p1 -b .secure-tmpfile
 
 # Create a sysusers.d config file
 cat >sblim-sfcb.sysusers.conf <<EOF
@@ -173,6 +184,12 @@ fi
 %{_tmpfilesdir}/sblim-sfcb.conf
 
 %changelog
+* Mon Sep 07 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-44
+- Validate IPC message in provider-manager to prevent OOB access
+  via malformed OperationHdr (CVE-2026-73583)
+- Use mktemp for sfcbrepos instance migration temp file to prevent
+  TOCTOU symlink attack via /tmp/sfcbinst.mof (CVE-2026-73584)
+
 * Wed Jul 22 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-43
 - Fix multiple issues discovered by static analysis
 

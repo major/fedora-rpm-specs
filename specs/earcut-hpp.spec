@@ -11,20 +11,22 @@ URL:            https://github.com/mapbox/earcut.hpp
 
 Source0:        %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
 # The %%check section uses test fixtures from the JavaScript implementation,
-# normally downloaded at built time. This source is also licensed ISC, and does
+# normally downloaded at build time. This source is also licensed ISC, and does
 # not contribute to the binary RPMs.
 Source1:        https://github.com/mapbox/earcut/archive/v%{version}/earcut-%{version}.tar.gz
 
 BuildSystem:    cmake
 # We do want to build the tests, but we have no use for the benchmarks or the
 # visualizer program.
-BuildOption(conf): %{shrink:
-    -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
-    -DEARCUT_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DEARCUT_BUILD_BENCH:BOOL=OFF
-    -DEARCUT_BUILD_VIZ:BOOL=OFF
-    -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
-    }
+BuildOption(conf): -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+%if %{with ctest}
+BuildOption(conf): -DEARCUT_BUILD_TESTS:BOOL=ON
+%else
+BuildOption(conf): -DEARCUT_BUILD_TESTS:BOOL=OFF
+%endif
+BuildOption(conf): -DEARCUT_BUILD_BENCH:BOOL=OFF
+BuildOption(conf): -DEARCUT_BUILD_VIZ:BOOL=OFF
+BuildOption(conf): -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
 
 BuildRequires:  gcc-c++
 # We need picojson for a “fixtures” convenience library that is used by tests,

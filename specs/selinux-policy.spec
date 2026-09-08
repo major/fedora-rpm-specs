@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 20502349848410c85d23159a7997ce9c6ec71687
+%global commit 3047fd170af8423b39897491ee952e9ae428936f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -19,8 +19,8 @@
 %define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 45.15
-Release: 2%{?dist}
+Version: 45.16
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: Makefile.devel
@@ -53,11 +53,6 @@ Source38: selinux-policy-targeted.conf
 Source39: selinux-policy-mls.conf
 # Script to convert /usr/sbin file context entries to /usr/bin
 Source40: binsbin-convert.sh
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2484542
-# https://github.com/fedora-selinux/selinux-policy/pull/3396
-# Fix denials for initial-setup on kmscon
-Patch: 0001-Support-console-version-of-initial-setup.patch
 
 # add_changelog
 %{load:%{SOURCE7}}

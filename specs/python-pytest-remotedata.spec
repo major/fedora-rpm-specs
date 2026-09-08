@@ -1,14 +1,15 @@
-%global srcname pytest-remotedata
+%global upname pytest-remotedata
+%global srcname pytest_remotedata
 %global sum Pytest plugin for controlling remote data access
 
-Name:           python-%{srcname}
-Version:        0.4.1
-Release:        13%{?dist}
+Name:           python-%{upname}
+Version:        0.4.2
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
 URL:            https://github.com/astropy/pytest-remotedata
-Source0:        %{pypi_source}
+Source0:        %{pypi_source %{srcname}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -26,10 +27,10 @@ any given run of the test suite.}
 
 %description %_description
 
-%package -n python3-%{srcname}
+%package -n python3-%{upname}
 Summary:        %{sum}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-%{upname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -52,11 +53,14 @@ Summary:        %{sum}
 --deselect "tests/test_strict_check.py::test_strict_with_decorator[any]"
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-%{upname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc CHANGES.rst README.rst
 
 %changelog
+* Mon Sep 07 2026 Sergio Pascual <sergiopr@fedoraproject.org> - 0.4.2-1
+- New upstream source 0.4.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

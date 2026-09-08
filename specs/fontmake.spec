@@ -32,12 +32,18 @@ BuildOption(install): --assert-license fontmake
 #   - MutatorMath is no longer supported but a dummy extras [sic] is kept below
 #     to avoid fontmake installation failing if requested
 # We therefore don’t need to generate dependencies for these.
-BuildOption(generate_buildrequires): %{shrink:
-    %{?with_pathops:--extras pathops}
-    %{?with_autohint:--extras autohint}
-    %{?with_json:--extras json}
-    %{?with_repacker:--extras repacker}
-    }
+%if %{with pathops}
+BuildOption(generate_buildrequires): --extras pathops
+%endif
+%if %{with autohint}
+BuildOption(generate_buildrequires): --extras autohint
+%endif
+%if %{with json}
+BuildOption(generate_buildrequires): --extras json
+%endif
+%if %{with repacker}
+BuildOption(generate_buildrequires): --extras repacker
+%endif
 
 BuildArch:      noarch
 
@@ -45,7 +51,7 @@ BuildRequires:  help2man
 
 # See test_requirements.txt, which also contains unwanted dependencies for
 # linting, coverage, etc.
-BuildRequires:  %{py3_dist pytest} >= 4.5
+BuildRequires:  %{py3_dist pytest}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides python3-fontmake
@@ -74,9 +80,7 @@ fonts.
 # We do this in %%install rather than in %%build because we need to use the
 # script entry point that was generated during installation.
 install --directory '%{buildroot}%{_mandir}/man1'
-%{py3_test_envvars} help2man \
-    --no-info \
-    --name='%{summary}' \
+%{py3_test_envvars} help2man --no-info --name='%{summary}' \
     --output='%{buildroot}%{_mandir}/man1/fontmake.1' \
     %{buildroot}%{_bindir}/fontmake
 

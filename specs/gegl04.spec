@@ -16,7 +16,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.70
+Version:        0.4.72
 Release:        %autorelease
 Summary:        Graph based image processing framework
 
@@ -24,12 +24,6 @@ Summary:        Graph based image processing framework
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://www.gegl.org/
 Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.xz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2521118
-# https://gitlab.gnome.org/GNOME/gegl/-/work_items/462
-# https://gitlab.gnome.org/GNOME/gegl/-/commit/d3d262008299341c5b032b354021632ceadb2799
-Patch:          0001-libs-ctx-synchronize-with-upstream.patch.xz
-Patch:          0001-libs-rgbe-fix-200kb-report-from-ZDI.patch.xz
 
 BuildRequires:  chrpath
 BuildRequires:  enscript
@@ -71,6 +65,11 @@ BuildRequires:  pkgconfig(lua) >= 5.1.0
 %ifarch aarch64 %{ix86} x86_64
 BuildRequires:  pkgconfig(luajit) >= 2.0.4
 %endif
+%endif
+
+BuildRequires:  pkgconfig(OpenCL-Headers) >= 3.0
+
+%if ! 0%{?rhel}
 BuildRequires:  pkgconfig(OpenEXR) >= 2.5.4
 %endif
 
@@ -78,6 +77,7 @@ BuildRequires:  pkgconfig(pango) >= 1.38.0
 BuildRequires:  pkgconfig(pangocairo) >= 1.38.0
 BuildRequires:  pkgconfig(pygobject-3.0) >= 3.2
 BuildRequires:  pkgconfig(sdl2) >= 2.0.5
+BuildRequires:  pkgconfig(sdl3) >= 3.2.0
 BuildRequires:  pkgconfig(vapigen) >= 0.20.0
 BuildRequires:  pkgconfig(libtiff-4) >= 4.0.0
 

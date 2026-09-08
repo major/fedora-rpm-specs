@@ -22,24 +22,14 @@
 %global _bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo %{_sysconfdir}/bash_completion.d)
 
 Name:		nordugrid-arc
-Version:	7.1.2
-Release:	8%{?dist}
+Version:	7.2.0
+Release:	1%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
 License:	Apache-2.0 AND MIT
 URL:		https://www.nordugrid.org/
 Source:		https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-#		Support SWIG 4.4.0 (patch from William S Fulton)
-#		https://github.com/nordugrid/arc/pull/15
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1964
-Patch0:		0001-Handle-Python-multi-phase-initialization-support-in-.patch
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1971
-Patch1:		0001-Fix-compilation-with-Python-3.15.patch
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1997
-Patch2:		0001-Support-OpenSSL-4.patch
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/2012
-Patch3:		0001-Use-Python-3-API-in-SWIG-wrwppers.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -484,7 +474,7 @@ Header files and libraries needed to develop applications using ARC.
 
 %package -n python3-%{name}
 Summary:	ARC Python 3 wrapper
-%{?python_provide:%python_provide python3-%{name}}
+%py_provides	python3-%{name}
 Requires:	%{name} = %{version}-%{release}
 
 %description -n python3-%{name}
@@ -536,7 +526,7 @@ management features on the worker nodes (WN).
 
 %package -n python3-arcrest
 Summary:	ARC REST client
-%{?python_provide:%python_provide python3-arcrest}
+%py_provides	python3-arcrest
 BuildArch:	noarch
 
 %description -n python3-arcrest
@@ -561,10 +551,6 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
 
 %build
 autoreconf -v -f -i
@@ -1143,6 +1129,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Tue Sep 01 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.2.0-1
+- Update to version 7.2.0
+
 * Tue Aug 18 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.2-8
 - Use upstream's patch for SWIG 4.5.0 support
 

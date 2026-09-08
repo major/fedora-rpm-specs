@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.122.0
+Version:                2.124.0
 
 %gometa -L -f
 
@@ -33,42 +33,19 @@ the JFrog products.
 %prep
 %goprep -p1
 tar -xf %{S:1}
-# these tests require access to Artifactory instance
+
+# These tests require access to an Artifactory instance, which is identified by a serverDetails configuration:
+find . -path ./vendor -prune -o -name '*_test.go' -print |
+  while read -r test; do
+    if grep -qi serverdetails "${test}"; then
+      rm -v "${test}"
+    fi
+  done
+# These do not configure serverDetails themselves, but use helpers defined in the files removed above:
 rm -v \
-  access_test.go \
-  agent_skills_test.go \
-  agent_plugins_test.go \
-  apk_test.go \
   apt_test.go \
   artifactorybulkrepository_test.go \
-  artifactory_test.go \
-  buildinfo_test.go \
-  conan_test.go \
-  distribution_test.go \
-  docker_test.go \
-  evidence_test.go \
-  go_test.go \
-  gradle_test.go \
-  ghostfrog_test.go \
-  helm_test.go \
-  huggingface_test.go \
-  ide_test.go \
-  lifecycle_test.go \
-  main_test.go \
-  maven_test.go \
-  metrics_visibility_test.go \
-  nix_test.go \
-  npm_test.go \
-  nuget_test.go \
-  pipenv_test.go \
-  pip_test.go \
-  plugins_test.go \
-  pnpm_test.go \
-  poetry_test.go \
-  poetry_buildinfo_integration_test.go \
-  ruby_integration_test.go \
-  transfer_test.go \
-  uv_test.go \
+  metrics_visibility_test.go
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

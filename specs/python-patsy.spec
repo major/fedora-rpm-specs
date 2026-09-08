@@ -8,7 +8,7 @@ design matrices. It is closely inspired by and compatible with
 the 'formula' mini-language used in R and S.}
 
 Name: python-%{srcname}
-Version: 1.0.2
+Version: 1.0.3
 Release: %autorelease
 Summary: Describing statistical models in Python using symbolic formulas
 # All code is under BSD except patsy.compat that is under Python
@@ -17,9 +17,6 @@ License: BSD-2-Clause AND PSF-2.0
 
 URL: https://github.com/pydata/patsy
 Source0:  %{pypi_source %srcname} 
-
-# Fix re.Scanner capturing group for Python 3.15+
-Patch: https://github.com/pydata/patsy/pull/258.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel

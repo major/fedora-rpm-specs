@@ -1,16 +1,17 @@
 Name:           perl-Shell-Config-Generate
-Version:        0.34
-Release:        19%{?dist}
+Version:        0.35
+Release:        1%{?dist}
 Summary:        Portably generate configuration for any shell
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Shell-Config-Generate
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Shell-Config-Generate-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -20,29 +21,63 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Shell::Guess) >= 0.02
 # Tests:
 BuildRequires:  perl(base)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Env)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(FindBin)
-# IPC::Open3 not used
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test2::API) >= 1.302015
-BuildRequires:  perl(Test2::Mock) >= 0.000060
-BuildRequires:  perl(Test2::V0) >= 0.000060
+BuildRequires:  perl(Test2::Mock) >= 0.000121
+BuildRequires:  perl(Test2::V0) >= 0.000121
+# Optional tests:
+# t/shell_config_generate__alias_array.t exhibits various shells
+BuildRequires:  bash
+BuildRequires:  fish
+BuildRequires:  ksh
+# tcsh not needed
+BuildRequires:  zsh
 Requires:       perl(Shell::Guess) >= 0.02
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Shell::Guess\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Shell::Guess|Test2::API|Test2::Mock|Test2::V0)\\)$
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((TestLib|TestPath)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((TestLib|TestPath)\\)
 
 %description
 This Perl module provides an interface for specifying shell configurations for
 different shell environments without having to worry about the arcane
 differences between shells such as csh, sh, cmd.exe and command.com.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Data::Dumper)
+Requires:       perl(IPC::Open3)
+Requires:       perl(Test2::API) >= 1.302015
+Requires:       perl(Test2::Mock) >= 0.000121
+Requires:       perl(Test2::V0) >= 0.000121
+# Optional tests:
+Requires:       bash
+Requires:       fish
+Requires:       ksh
+Requires:       zsh
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Shell-Config-Generate-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -50,18 +85,36 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Shell
+%dir %{perl_vendorlib}/Shell/Config
+%{perl_vendorlib}/Shell/Config/Generate.pm
+%{_mandir}/man3/Shell::Config::Generate.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 07 2026 Petr Pisar <ppisar@redhat.com> - 0.35-1
+- 0.35 bump
+- Package the tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

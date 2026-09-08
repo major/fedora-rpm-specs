@@ -9,6 +9,7 @@ Version: 3.3.37
 Release: 6%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
+VCS: git:https://gitlab.com/setroubleshoot/setroubleshoot.git
 Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers

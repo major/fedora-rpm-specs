@@ -12,6 +12,7 @@ Patch0005: 0005-use-relative-paths-it-s-undefined-behavior-with-abso.patch
 License: GPL-3.0-or-later
 BuildArch: noarch
 Url: https://github.com/containers/udica
+VCS: git:https://github.com/containers/udica.git
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: python3 python3-devel
 Requires: python3 python3-libsemanage python3-libselinux

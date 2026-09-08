@@ -36,11 +36,9 @@ Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 BuildSystem:    cmake
 # We can stop the CMake scripts from downloading doctest by setting
 # C4CORE_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-BuildOption(conf): %{shrink:
-    -DCMAKE_CXX_STANDARD=%{cxx_std}
-    -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/
-    -DC4CORE_BUILD_TESTS=ON
-    }
+BuildOption(conf): -DCMAKE_CXX_STANDARD=%{cxx_std}
+BuildOption(conf): -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/
+BuildOption(conf): -DC4CORE_BUILD_TESTS=ON
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

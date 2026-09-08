@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.62.4
+Version:        0.63.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,13 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Sep 04 2026 Packit <hello@packit.dev> - 0.63.0-1
+- `ogr` now supports the `allow_maintainer_edit` option for PRs/MRs for GitHub, GitLab and Forgejo. (#1011, #1012)
+- A potential bug has been fixed in the GitHub implementation of `PullRequest.update_info()`. Previously, `None` values
+  could have been passed to the underlying method called to edit a PR, which could result in an `AssertionError` being raised
+  as this method doesn't support `None` values. (#1011)
+- Resolves: rhbz#2528470
+
 * Fri Aug 21 2026 Packit <hello@packit.dev> - 0.62.4-1
 - The `ForgejoService.get_project_from_url()` method has been updated to ensure repository names are parsed accurately. It now correctly removes the `.git` extension from the repository name, addressing an issue where the extension was previously retained. (#1005)
 - The implementation of `__str__`, `__eq__`, and `__hash__` methods has been added to `ForgejoService`. (#1001)

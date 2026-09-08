@@ -1,6 +1,6 @@
 Name:           perl-UUID
-Version:        0.38
-Release:        3%{?dist}
+Version:        0.39
+Release:        1%{?dist}
 Summary:        Universally Unique Identifier library for Perl
 # lib/UUID.pm:  Artistic-2.0
 # README:       Artistic-2.0
@@ -94,6 +94,8 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+# t/1cover/no-time-hires.t requires UUID in blib without Time::HiRes in @INC.
+rm %{buildroot}%{_libexecdir}/%{name}/t/1cover/no-time-hires.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 export USE_ITHREADS=1
@@ -116,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 07 2026 Petr Pisar <ppisar@redhat.com> - 0.39-1
+- 0.39 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.38-3
 - Perl 5.44 rebuild
 

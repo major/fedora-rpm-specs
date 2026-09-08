@@ -29,7 +29,7 @@ BuildArch:      noarch
 # unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
 # we just list the few test dependencies we *do* want manually.
-BuildRequires:  %{py3_dist pytest} >= 8.3.5
+BuildRequires:  %{py3_dist pytest}
 
 # As described in README.md, uv is required; however, there is no dependency on
 # python3-uv, only an expectation that the uv executable is in PATH.

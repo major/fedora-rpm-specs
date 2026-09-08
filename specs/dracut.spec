@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 111
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -82,6 +82,12 @@ Patch19: 0019-fix-devicetree-firmware-include-soc-specific-firmwar.patch
 # fix(devicetree-firmware): include Qualcomm X2 laptop model specific firmwares
 # Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Patch20: 0020-fix-devicetree-firmware-include-Qualcomm-X2-laptop-m.patch
+# fix(dracut-install): remove FTS_NOSTAT in install_modules() fts traversal
+# Author: Josh Poimboeuf <jpoimboe@kernel.org>
+Patch21: 0021-fix-dracut-install-remove-FTS_NOSTAT-in-install_modu.patch
+# fix(drm): add leds-qcom-lpg to aarch64 specific modules needed by drm
+# Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Patch22: 0022-fix-drm-add-leds-qcom-lpg-to-aarch64-specific-module.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -529,6 +535,12 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Fri Sep 11 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-3
+- fix(drm): add leds-qcom-lpg to aarch64 specific modules needed by drm
+
+* Fri Sep 04 2026 Pavel Valena <pvalena@redhat.com> - 111-3
+- fix(dracut-install): remove FTS_NOSTAT in install_modules() fts traversal
+
 * Tue Aug 18 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-2
 - fix(devicetree-firmware): include soc specific firmwares in install_generic()
 - fix(devicetree-firmware): include Qualcomm X2 laptop model specific firmwares
@@ -538,7 +550,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 - fix(base): replace eval with safe variable indirection in splitsep and export_n
 - spec: json support for dracut-install (needed for detecting dlopen dependencies)
 
-* Mon aug 10 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-2
+* Mon Aug 10 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 111-2
 - feat(dracut): add module to load Qualcomm ADSP module pre-udev
 
 * Fri Jul 31 2026 Pavel Valena <pvalena@redhat.com> - 111-1
