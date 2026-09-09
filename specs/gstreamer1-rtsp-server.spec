@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-rtsp-server
-Version:        1.28.6
+Version:        1.28.7
 Release:        1%{?dist}
 Summary:        GStreamer RTSP server library
 
@@ -83,6 +83,9 @@ chrpath --delete %{buildroot}%{_libdir}/libgstrtspserver-%{majorminor}.so*
 %endif
 
 %changelog
+* Tue Sep 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.7-1
+- 1.28.7
+
 * Wed Aug 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.6-1
 - 1.28.6
 

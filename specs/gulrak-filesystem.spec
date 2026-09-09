@@ -20,9 +20,11 @@ URL:            https://github.com/gulrak/filesystem
 Source:         %{url}/archive/v%{version}/filesystem-%{version}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DGHC_FILESYSTEM_BUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-}
+%if %{with ctest}
+BuildOption(conf): -DGHC_FILESYSTEM_BUILD_TESTING:BOOL=ON
+%else
+BuildOption(conf): -DGHC_FILESYSTEM_BUILD_TESTING:BOOL=OFF
+%endif
 
 BuildRequires:  gcc-c++
 

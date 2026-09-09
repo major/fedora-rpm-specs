@@ -52,6 +52,10 @@ Patch:          update-avt-from-0.17-to-0.18.0.patch
 # Update tokio-tungstenite dependency from 0.28 to 0.29
 Patch:          update-tokio-tungstenite-from-0.28-to-0.29.patch
 
+# Update clap_mangen dependency from 0.2 to 0.3
+# https://github.com/asciinema/asciinema/pull/753
+Patch:          update-clap_mangen-from-0.2-to-0.3.patch
+
 BuildRequires:  cargo-rpm-macros
 
 %description

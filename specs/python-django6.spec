@@ -14,13 +14,13 @@
 %bcond all_tests 1
 %endif
 
-%if %{defined fedora} && 0%{?fedora} == 42
+%if %{defined fedora} && 0%{?fedora} == 44
 %bcond old_setuptools 1
 %else
 %bcond old_setuptools 0
 %endif
 
-Version:        6.0.5
+Version:        6.1.1
 %global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
 
@@ -40,20 +40,9 @@ Source:         %{pypi_source django}
 Source:         %{name}.rpmlintrc
 
 # conditional patches: >= 1000
-# test_strip_tags() failing with Python 3.14
-# https://code.djangoproject.com/ticket/36499
-#
-# also test_parsing_errors()
-# https://code.djangoproject.com/ticket/36515
-# ======================================================================
-# FAIL: test_parsing_errors (test_utils.tests.HTMLEqualTests.test_parsing_errors)
-# ----------------------------------------------------------------------
-# AssertionError: &lt; div&gt; != <div>
-# - &lt; div&gt;   
-# + <div>
-#Patch1000:      django-py314-skip-failing-tests.diff
-# setuptools 77 is only needed to support the new license metadata
-#Patch1001:      django-allow-setuptools-ge-69.diff
+# revert setuptools requirement back to 77.0.1 for F44 compatibility
+Patch1001:      0001-Revert-Bumped-minimum-setuptools-version-to-83.patch
+
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1
 
@@ -113,9 +102,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-asgiref
 
 # see django/contrib/admin/static/admin/js/vendor/
-Provides:       bundled(jquery) = 3.6.4
+Provides:       bundled(jquery) = 3.7.1
 Provides:       bundled(select2) = 4.0.13
-Provides:       bundled(xregexp) = 3.2.0
+Provides:       bundled(xregexp) = 5.1.1
 
 # Make sure this replaces any other Django package
 Provides:       python-django-impl

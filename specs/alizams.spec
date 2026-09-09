@@ -1,25 +1,31 @@
 %global forgeurl https://github.com/AlizaMedicalImaging/AlizaMS
 
 Name:    alizams
-Version: 1.9.10
+Version: 1.10.3
 
 %forgemeta
 
 Release: %autorelease
 Summary: Aliza MS DICOM Viewer
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License: GPL-3.0-only
+# Mixed licensed source files:
+# GPL-3.0-only is the main license;
+# vectormath/sse/*, vectormath/scalar/* and GUI/qxtspanslider*.h are BSD-3-Clause;
+# common/colorspace/colorspace.cpp is BSD 2-Clause License;
+# common/codecutils.* are Apache-2.0
+License: GPL-3.0-only AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
 URL:     %{forgeurl}
 Source0: %{forgesource}
+Patch0:  alizams-find_CharLS.patch
+Patch1:  alizams-find_system_openjpeg_before.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  g++
 BuildRequires:  libuuid-devel
 BuildRequires:  zlib-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  vxl-devel
-BuildRequires:  openjpeg2-devel >= 2.0
+BuildRequires:  openjpeg-devel
 BuildRequires:  CharLS-devel
 BuildRequires:  cmake(LIBMINC)
 BuildRequires:  cmake(ITK)
@@ -30,8 +36,6 @@ BuildRequires:  bullet-devel
 BuildRequires:  lcms2-devel
 
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtsvg
-
 Provides:       bundled(vectormath)
 Provides:       bundled(colorspace)
 
@@ -64,8 +68,8 @@ rm -fr CG/glew/
 
 %build
 %cmake \
-  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
-  -DALIZA_QT_VERSION:STRING=5 \
+  -DCMAKE_BUILD_TYPE:STRING=Release \
+  -DALIZA_QT_VERSION:STRING=6 \
   -DALIZA_USE_SYSTEM_BULLET:BOOL=ON \
   -DALIZA_USE_SYSTEM_LCMS2:BOOL=ON \
   -DMDCM_USE_SYSTEM_ZLIB:BOOL=ON \

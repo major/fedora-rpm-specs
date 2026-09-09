@@ -14,6 +14,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * prevent test fixtures from getting installed and shipped
 # * allow hex-literals 1.0 (not suitable for upstream due to MSRV)
+# * Update clap_mangen to version 0.3; still allow version 0.2, as upstream:
+#   https://gitlab.com/sequoia-pgp/sha1collisiondetection/-/merge_requests/33
 Patch:          sha1collisiondetection-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

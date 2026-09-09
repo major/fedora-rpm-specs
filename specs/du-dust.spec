@@ -29,6 +29,9 @@ URL:            https://github.com/bootandy/dust
 Source:         %{url}/archive/v%{version}.tar.gz
 # Manually created patch for downstream crate metadata changes
 # * Remove windows-only dependencies
+# * Allow sysinfo versions through 0.39:
+#   https://github.com/bootandy/dust/pull/617
+# * Allow clap_mangen 0.3: https://github.com/bootandy/dust/pull/618
 Patch:          du-dust-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

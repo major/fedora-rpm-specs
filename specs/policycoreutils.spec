@@ -20,6 +20,7 @@ Source2: https://github.com/bachradsusi.gpg
 Source3: changelog
 Source4: macros
 URL:     https://github.com/SELinuxProject/selinux
+VCS:     git:https://github.com/SELinuxProject/selinux.git
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
 Source15: selinux-autorelabel

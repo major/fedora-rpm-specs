@@ -2,11 +2,11 @@
 %global _hardened_build	1
 
 # version revision
-%global revision	11259
+%global revision	11710
 
 Name:		yadifa
-Version:	2.6.7
-Release:	7%{?dist}
+Version:	3.0.3
+Release:	1%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD-3-Clause
@@ -15,12 +15,14 @@ Source0:	http://cdn.yadifa.eu/sites/default/files/releases/%{name}-%{version}-%{
 Source1:	yadifad.service
 Source3:	yadifa.logrotate
 
-BuildRequires:	gcc
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	coreutils
 BuildRequires:	findutils
+BuildRequires:	gcc
+BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	openssl-devel
-BuildRequires:	openssl-devel-engine
 BuildRequires:	sed
 
 Requires:	logrotate
@@ -64,6 +66,9 @@ required for development with YADIFA DNS server
 %build
 export CPPFLAGS="%{optflags} -DNDEBUG -g"
 export LDFLAGS="$LDFLAGS -lssl -lcrypto"
+
+# prepare build script
+./autogen.sh
 
 %configure \
     --with-tools \
@@ -160,9 +165,9 @@ exit 0
 %{_mandir}/man8/yakeyrolld.8*
 
 %files libs
-%{_libdir}/libdnscore.so.7*
-%{_libdir}/libdnsdb.so.7*
-%{_libdir}/libdnslg.so.7*
+%{_libdir}/libdnscore.so.*
+%{_libdir}/libdnsdb.so.*
+%{_libdir}/libdnslg.so.*
 
 %files tools
 %license COPYING
@@ -183,6 +188,9 @@ exit 0
 
 
 %changelog
+* Tue Sep 08 2026 Denis Fateyev <denis@fateyev.com> - 3.0.3-1
+- Update to 3.0.3 release
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

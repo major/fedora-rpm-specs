@@ -2,7 +2,7 @@
 
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
-Version: 6.0
+Version: 6.1
 Release: 1%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
@@ -14,9 +14,6 @@ Source2: hpa.gpg
 Source3: tftp.socket
 Source4: tftp.service
 Source5: tftp-server-tmpfiles.conf
-
-# Upstream patches
-Patch: tftp-hpa-6.0-stats.patch
 
 # To-be upstreamed patches
 Patch: tftp-enhanced-logging.patch
@@ -96,6 +93,10 @@ install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.socket
 
 %changelog
+* Mon Sep 07 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.1-1
+- rebase to the latest upstream release (rhbz#2529277)
+- use the native support for systemd socket activation in tftpd
+
 * Mon Aug 31 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.0-1
 - rebase to the latest upstream release (rhbz#2525859)
 

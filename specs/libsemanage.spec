@@ -4,7 +4,7 @@
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz.asc
@@ -12,6 +12,8 @@ Source2: https://github.com/bachradsusi.gpg
 # git format-patch -N 3.11 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
+Patch0001: 0001-libsemanage-optionally-sort-file_contexts.local-by-s.patch
+Patch0002: 0002-libsemanage-genhomedircon-reject-users-with-a-relati.patch
 # Patch list end
 URL: https://github.com/SELinuxProject/selinux/wiki
 VCS: git:https://github.com/SELinuxProject/selinux.git
@@ -158,10 +160,4 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.11-3
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 %autochangelog

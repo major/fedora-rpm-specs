@@ -6,21 +6,19 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    fefffe762b02be155dcc32eec57feff8a49bc4b5
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     JamesHeinrich
 %global gh_project   getID3
 %global pk_owner     james-heinrich
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.25
-Release:   2%{?dist}
+Version:   1.9.26
+Release:   1%{?dist}
 Epoch:     1
 License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
 Summary:   The PHP media file parser
 URL:       https://www.getid3.org/
-Source0:   %{name}-%{version}-%{gh_short}.tgz
+Source0:   %{name}-%{version}.tgz
 Source1:   makesrc.sh
 
 BuildArch: noarch
@@ -58,7 +56,7 @@ Autoloader: %{_datadir}/php/getid3/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -91,6 +89,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Mon Sep  7 2026 Remi Collet <remi@remirepo.net> - 1.9.26-1
+- update to 1.9.26
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,15 +1,15 @@
-%global srcname pytest-arraydiff
+%global pypi_name pytest-arraydiff
+%global srcname pytest_arraydiff
 %global modname pytest_arraydiff
-%global sum Pytest plugin to help with comparing array output from tests
 
-Name:           python-%{srcname}
-Version:        0.6.1
+Name:           python-%{pypi_name}
+Version:        0.7.0
 Release:        %autorelease
-Summary:        %{sum}
+Summary:        Pytest plugin to help with comparing array output from tests
 
 License:        BSD-2-Clause
 URL:            https://github.com/astropy/pytest-arraydiff
-Source0:        %{pypi_source}
+Source0:        %{pypi_source %{srcname}}
 
 BuildArch:      noarch
 # pytable is missing in the following arch
@@ -33,10 +33,10 @@ At the moment, the supported file formats for the reference files are:
 
 %description %_description
 
-%package -n python3-%{srcname}
-Summary:        %{sum}
+%package -n python3-%{pypi_name}
+Summary:        %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -61,7 +61,7 @@ rm -r %{modname}.egg-info
 %pytest
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGES.md README.rst
 

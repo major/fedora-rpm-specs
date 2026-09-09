@@ -1,5 +1,5 @@
 Name:           perl-App-perlimports
-Version:        0.000061
+Version:        0.000063
 Release:        %autorelease
 Summary:        A command line utility for cleaning up imports in your Perl code
 
@@ -153,6 +153,7 @@ make test
 %{_mandir}/man3/App::perlimports::Include.3pm*
 %{_mandir}/man3/App::perlimports::Role::Logger.3pm*
 %{_mandir}/man3/App::perlimports::Sandbox.3pm*
+%{_mandir}/man3/App::perlimports::Sorter.3pm*
 %dir %{perl_vendorlib}/App
 %dir %{perl_vendorlib}/App/perlimports
 %dir %{perl_vendorlib}/App/perlimports/Role
@@ -165,6 +166,7 @@ make test
 %{perl_vendorlib}/App/perlimports/Include.pm
 %{perl_vendorlib}/App/perlimports/Role/Logger.pm
 %{perl_vendorlib}/App/perlimports/Sandbox.pm
+%{perl_vendorlib}/App/perlimports/Sorter.pm
 
 
 %changelog

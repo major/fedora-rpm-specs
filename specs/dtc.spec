@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.8.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -21,7 +21,6 @@ Patch0:        dtc-swig45.patch
 BuildRequires: gcc
 BuildRequires: meson
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: libyaml-devel
 BuildRequires: swig bison flex
 BuildRequires: valgrind-devel
@@ -65,11 +64,10 @@ This package provides the static library of libfdt
 
 %package -n python3-libfdt
 Summary: Python 3 bindings for device tree library
-%{?python_provide:%python_provide python2-libfdt}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-libfdt
-This package provides python2 bindings for libfdt
+This package provides python3 bindings for libfdt
 
 %if %{with_mingw}
 %package -n mingw32-libfdt
@@ -110,10 +108,13 @@ This package provides the static library of mingw64-libfdt
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires --pyproject-dependencies
 
 %build
-%meson -Dtools=true -Dpython=enabled
+%meson -Dtools=true -Dpython=disabled
 %meson_build
+%pyproject_wheel
 
 %if %{with_mingw}
 %mingw_meson -Dtools=false -Dtests=false
@@ -123,6 +124,8 @@ This package provides the static library of mingw64-libfdt
 
 %install
 %meson_install
+%pyproject_install
+%pyproject_save_files libfdt _libfdt
 
 %if %{with_mingw}
 %mingw_ninja_install
@@ -132,6 +135,7 @@ This package provides the static library of mingw64-libfdt
 
 %check
 %meson_test
+%pyproject_check_import
 
 
 %ldconfig_scriptlets -n libfdt
@@ -157,9 +161,7 @@ This package provides the static library of mingw64-libfdt
 %{_libdir}/pkgconfig/libfdt.pc
 %{_includedir}/*fdt*
 
-%files -n python3-libfdt
-%{python3_sitearch}/_libfdt%{python3_ext_suffix}
-%pycached %{python3_sitearch}/libfdt.py
+%files -n python3-libfdt -f %{pyproject_files}
 
 %if %{with_mingw}
 %files -n mingw32-libfdt
@@ -184,6 +186,11 @@ This package provides the static library of mingw64-libfdt
 %endif
 
 %changelog
+* Tue Sep 08 2026 Miro Hrončok <mhroncok@redhat.com> - 1.8.1-6
+- Restore Python packaging metadata for python3-libfdt
+- Drop unused BuildRequries for python3-setuptools
+- Related: rhbz#2503859
+
 * Mon Jul 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.1-5
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

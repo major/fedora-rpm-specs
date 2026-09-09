@@ -22,23 +22,31 @@ Source:         %{url}/archive/v%{version}/benchmark-%{version}.tar.gz
 Patch:          0001-In-PerfCountersTest.MultiThreaded-serialize-worker-t.patch
 
 BuildSystem:    cmake
+
+BuildOption(conf): -DCMAKE_BUILD_TYPE=Release
+BuildOption(conf): -DGIT_VERSION='%{version}'
+BuildOption(conf): -DBENCHMARK_DOWNLOAD_DEPENDENCIES:BOOL=OFF
 # Do not enable BENCHMARK_ENABLE_ASSEMBLY_TESTS, since it is for a very
 # specific OS and compiler:
 # https://github.com/google/benchmark/issues/1326#issuecomment-1015221235
-BuildOption(conf): %{shrink:
-    -DCMAKE_BUILD_TYPE=Release
-    -DGIT_VERSION='%{version}'
-    -DBENCHMARK_DOWNLOAD_DEPENDENCIES:BOOL=OFF
-    -DBENCHMARK_ENABLE_DOXYGEN:BOOL=OFF
-    -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DBENCHMARK_ENABLE_ASSEMBLY_TESTS:BOOL=OFF
-    -DBENCHMARK_ENABLE_LIBPFM:BOOL=%{?with_libfpm:ON}%{?!with_libfpm:OFF}
-    -DBENCHMARK_ENABLE_INSTALL:BOOL=ON
-    -DBENCHMARK_ENABLE_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DBENCHMARK_INSTALL_DOCS:BOOL=OFF
-    -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF
-    -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
-    }
+BuildOption(conf): -DBENCHMARK_ENABLE_ASSEMBLY_TESTS:BOOL=OFF
+BuildOption(conf): -DBENCHMARK_ENABLE_DOXYGEN:BOOL=OFF
+BuildOption(conf): -DBENCHMARK_ENABLE_INSTALL:BOOL=ON
+BuildOption(conf): -DBENCHMARK_INSTALL_DOCS:BOOL=OFF
+BuildOption(conf): -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF
+BuildOption(conf): -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
+%if %{with libfpm}
+BuildOption(conf): -DBENCHMARK_ENABLE_LIBPFM:BOOL=ON
+%else
+BuildOption(conf): -DBENCHMARK_ENABLE_LIBPFM:BOOL=OFF
+%endif
+%if %{with ctest}
+BuildOption(conf): -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=ON
+BuildOption(conf): -DBENCHMARK_ENABLE_TESTING:BOOL=ON
+%else
+BuildOption(conf): -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=OFF
+BuildOption(conf): -DBENCHMARK_ENABLE_TESTING:BOOL=OFF
+%endif
 %ifarch s390x
 # [BUG] Multiple PerfCountersTest failures with counter.num_counters() zero on
 # some s390x systems

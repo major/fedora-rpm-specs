@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.7.4
+%global musescore_ver             4.7.5
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -11,29 +11,29 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           43%{?dist}
+%global mscore_font_rel           44%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       43%{?dist}
+%global mscoretext_font_rel       44%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    43%{?dist}
+%global musescoreicon_font_rel    44%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         43%{?dist}
+%global mscorebc_font_rel         44%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 43%{?dist}
+%global mscoretabulature_font_rel 44%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         43%{?dist}
+%global musejazz_font_rel         44%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        43%{?dist}
+%global gootville_font_rel        44%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   43%{?dist}
+%global gootville_text_font_rel   44%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             43%{?dist}
+%global soundfont_rel             44%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
 # IMPORTANT: Change all the release numbers above, too!
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -104,9 +104,6 @@ Release:        %{mscore_font_rel}
 %global fontpkgheader2  %{expand:
 Version:        %{mscoretext_font_ver}
 Release:        %{mscoretext_font_rel}
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-mscoretext-fonts < 4.0
-Provides:       mscore-mscoretext-fonts = %{musescore_ver}-%{release}
 }
 
 %global fontfamily3     MusescoreIcon
@@ -130,9 +127,6 @@ matching glyphs in the main MuseScore font.}
 %global fontpkgheader4  %{expand:
 Version:        %{mscorebc_font_ver}
 Release:        %{mscorebc_font_rel}
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-bc-fonts < 4.0
-Provides:       mscore-bc-fonts = %{musescore_ver}-%{release}
 }
 
 %global fontfamily5     MScoreTabulature
@@ -144,9 +138,6 @@ Provides:       mscore-bc-fonts = %{musescore_ver}-%{release}
 %global fontpkgheader5  %{expand:
 Version:        %{mscoretabulature_font_ver}
 Release:        %{mscoretabulature_font_rel}
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-mscoretab-fonts < 4.0
-Provides:       mscore-mscoretab-fonts = %{musescore_ver}-%{release}
 }
 
 %global fontfamily6     MuseJazz
@@ -160,9 +151,6 @@ names, etc.}
 %global fontpkgheader6  %{expand:
 Version:        %{musejazz_font_ver}
 Release:        %{musejazz_font_rel}
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-musejazz-fonts < 4.0
-Provides:       mscore-musejazz-fonts = %{musescore_ver}-%{release}
 }
 
 %global fontfamily7     MuseJazz Text
@@ -189,9 +177,6 @@ glyph order, and other aspects of Gootville have been modified for MuseScore.}
 %global fontpkgheader8  %{expand:
 Version:        %{gootville_font_ver}
 Release:        %{gootville_font_rel}
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore-gootville-fonts < 4.0
-Provides:       mscore-gootville-fonts = %{musescore_ver}-%{release}
 }
 
 %global fontfamily9     Gootville Text
@@ -245,6 +230,10 @@ Patch:          %{name}-vst.patch
 # https://github.com/musescore/MuseScore/pull/34204
 Patch:          %{name}-styleddropdownnavigation.patch
 
+# Add FFmpeg 9 support
+# https://github.com/musescore/muse_framework/pull/201
+Patch:          %{name}-ffmpeg9.patch
+
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildSystem:    cmake
@@ -289,7 +278,6 @@ BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
-BuildRequires:  ffmpeg-free-devel
 BuildRequires:  font(bravura)
 BuildRequires:  font(bravuratext)
 BuildRequires:  font(campania)
@@ -315,7 +303,6 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(libopusenc)
-BuildRequires:  (pkgconfig(libpostproc) if libavcodec-free < 8.0)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(mnxdom)
@@ -364,6 +351,8 @@ Requires:       liblouis-tables
 Requires:       soundfont2
 Requires:       soundfont2-default
 
+Recommends:     ((libavcodec-free and libavformat-free and libavutil-free and libswresample-free and libswscale-free) or ffmpeg-libs)
+
 # The following products have been modified from their upstream versions,
 # or MuseScore uses internal (non-public) APIs
 Provides:       bundled(beatroot-vamp) = 1.0
@@ -385,14 +374,6 @@ Provides:       bundled(kors_rpcqueue) = 1.0
 # It might be possible to unbundle libmei.  However, libmei is unmaintained
 # upstream: https://github.com/DDMAL/libmei
 Provides:       bundled(libmei) = 3.1.0
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      mscore < 4.0
-Provides:       mscore = %{musescore_ver}-%{release}
-Obsoletes:      mscore-fonts-all < 4.0
-Provides:       mscore-fonts-all = %{musescore_ver}-%{release}
-Obsoletes:      mscore-doc < 4.0
-Provides:       mscore-doc = %{musescore_ver}-%{release}
 
 %description
 MuseScore is a free cross platform WYSIWYG music notation program.  Some
@@ -769,6 +750,15 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Tue Sep 08 2026 Jerry James <loganjerry@gmail.com> - 4.7.5-1
+- Version 4.7.5
+- Drop ancient Obsoletes
+- Recommend the Ffmpeg libraries
+
+* Mon Sep 07 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.7.4-3
+- Backport upstream PR to support FFmpeg 9
+- Drop unnecessary BuildRequires on FFmpeg (uses bundled headers)
+
 * Mon Jul 20 2026 Jerry James <loganjerry@gmail.com> - 4.7.4-2
 - Add patch to fix StyledDropdown null references
 

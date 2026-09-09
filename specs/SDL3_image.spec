@@ -1,5 +1,5 @@
 Name:           SDL3_image
-Version:        3.4.4
+Version:        3.4.6
 Release:        %autorelease
 Summary:        Image loading library for SDL
 License:        Zlib AND (HPND-Pbmplus AND Zlib) AND MIT AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
@@ -23,7 +23,7 @@ BuildRequires:  cmake
 BuildRequires:  cmake(libavif)
 BuildRequires:  cmake(libjpeg-turbo)
 BuildRequires:  cmake(webp)
-BuildRequires:  cmake(sdl3) >= 3.2.4
+BuildRequires:  cmake(sdl3) >= 3.4
 BuildRequires:  gcc
 BuildRequires:  libjxl-devel
 BuildRequires:  libpng-devel

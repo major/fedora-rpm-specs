@@ -1,36 +1,31 @@
 %global srcname aplpy
 
 Name:           APLpy
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        The Astronomical Plotting Library in Python
 
 # SPDX license is MIT
 License:        MIT
 URL:            http://aplpy.github.com
-Source0:        %{pypi_source}
+Source0:        %{pypi_source %{srcname}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel 
 
-%description
+%global _description %{expand:
 APLpy (the Astronomical Plotting Library in Python) is a Python module aimed at 
 producing publication-quality plots of astronomical imaging data in FITS format.
 The module uses Matplotlib, a powerful and interactive plotting package. It is
 capable of creating output files in several graphical formats, including EPS,
-PDF, PS, PNG, and SVG.
+PDF, PS, PNG, and SVG.}
+
+%description %_description
 
 %package -n python3-APLpy
-Summary:        The Astronomical Plotting Library in Python
-%{?python_provide:%python_provide python3-%{srcname}}
-BuildRequires: python3dist(setuptools)
+Summary: %{summary}
 
-%description -n python3-APLpy
-APLpy (the Astronomical Plotting Library in Python) is a Python module aimed at 
-producing publication-quality plots of astronomical imaging data in FITS format.
-The module uses Matplotlib, a powerful and interactive plotting package. It is
-capable of creating output files in several graphical formats, including EPS,
-PDF, PS, PNG, and SVG.
+%description -n python3-APLpy %_description
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1

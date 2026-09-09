@@ -89,7 +89,7 @@ autoreconf --force --install --verbose
 %make_build
 
 # Build the documentation
-# The makefile does not invoke LaTex enough times, so do it manually
+# The makefile does not invoke LaTeX enough times, so do it manually
 cd doc
 pdflatex -interaction=nonstopmode gp2c.tex
 pdflatex -interaction=nonstopmode gp2c.tex

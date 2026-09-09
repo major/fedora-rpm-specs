@@ -1,8 +1,8 @@
 %bcond tests 1
 
 Name:           bash-color-prompt
-Version:        0.96.1
-Release:        1%{?dist}
+Version:        0.96.2
+Release:        %autorelease
 Summary:        Bash Color Prompt with customization
 
 License:        GPL-3.0-or-later
@@ -35,6 +35,8 @@ source ./bash-color-prompt.sh
 bcp_static _bcp_compat_layout
 export PS1
 perl -i -pe 's/\@BCP_STATIC_PS1\@/$ENV{PS1}/' %{profilesh}
+bcp_static _bcp_compat_layout 1
+perl -i -pe 's/\@BCP_STATIC_PS1_BOLD\@/$ENV{PS1}/' %{profilesh}
 
 
 %install
@@ -61,21 +63,4 @@ bats --timing --gather-test-outputs-in logs tests
 
 
 %changelog
-* Mon Sep 07 2026 Jens Petersen <petersen@redhat.com> - 0.96.1-1
-- fix quoting of '\$' prompt in strings
-- `_bcp_compat_layout`: use EUID ternary test to set default color
-
-* Sun Aug 23 2026 Jens Petersen <petersen@redhat.com> - 0.96-1
-- update to 0.96
-
-* Wed Jul 01 2026 Jens Petersen <petersen@redhat.com> - 0.95.3-1
-- update to 0.95.3
-
-* Wed Jul 01 2026 Jens Petersen <petersen@redhat.com> - 0.95.2-1
-- update to 0.95.2
-
-* Wed Jan 14 2026 Jens Petersen <petersen@redhat.com> - 0.95.1
-- update to 0.95.1
-
-* Tue Jan 06 2026 Jens Petersen <petersen@redhat.com> - 0.90
-- initial package of major new version
+%autochangelog

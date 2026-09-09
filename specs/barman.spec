@@ -1,5 +1,5 @@
 Name:       barman
-Version:    3.18.0
+Version:    3.20.0
 Release:    %autorelease
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPL-3.0-only
@@ -11,7 +11,6 @@ Source1:    %{name}.cron
 Source2:    %{name}.logrotate
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CronFiles/#_cron_job_files_packaging:
 Requires:       cronie
@@ -56,6 +55,9 @@ cat >barman.sysusers.conf <<EOF
 u barman - 'Backup and Recovery Manager for PostgreSQL' %{_sharedstatedir}/%{name} /bin/bash
 EOF
 
+# Remove duplicate with old name
+rm -f docs/_build/man/%{name}-list_backups.1*
+
 %build
 %pyproject_wheel
 
@@ -68,22 +70,60 @@ mkdir -p %{buildroot}%{_sysconfdir}/cron.d/
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d/
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
+mkdir -p %{buildroot}%{_mandir}/man1/
+mkdir -p %{buildroot}%{_mandir}/man5/
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
+mkdir -p %{buildroot}%{_sysusersdir}/
 
+install -p -m 644 docs/_build/man/*.1 %{buildroot}%{_mandir}/man1/
+install -p -m 644 docs/_build/man/%{name}.5 %{buildroot}%{_mandir}/man5/
 install -p -m 644 docs/%{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -p -m 644 docs/%{name}.d/* %{buildroot}%{_sysconfdir}/%{name}/conf.d
 install -p -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/cron.d/%{name}
 install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -p -m 644 scripts/%{name}.bash_completion %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+install -p -m 644 barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 
 sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
-
-install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 
 %files
 %{_bindir}/%{name}
 %{_datadir}/bash-completion/completions/%{name}
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-archive-wal.1*
+%{_mandir}/man1/%{name}-backup.1*
+%{_mandir}/man1/%{name}-check.1*
+%{_mandir}/man1/%{name}-check-backup.1*
+%{_mandir}/man1/%{name}-config-switch.1*
+%{_mandir}/man1/%{name}-config-update.1*
+%{_mandir}/man1/%{name}-cron.1*
+%{_mandir}/man1/%{name}-delete.1*
+%{_mandir}/man1/%{name}-diagnose.1*
+%{_mandir}/man1/%{name}-generate-manifest.1*
+%{_mandir}/man1/%{name}-get-wal.1*
+%{_mandir}/man1/%{name}-keep.1*
+%{_mandir}/man1/%{name}-list-backups.1*
+%{_mandir}/man1/%{name}-list-files.1*
+%{_mandir}/man1/%{name}-list-processes.1*
+%{_mandir}/man1/%{name}-list-servers.1*
+%{_mandir}/man1/%{name}-lock-directory-cleanup.1*
+%{_mandir}/man1/%{name}-put-wal.1*
+%{_mandir}/man1/%{name}-rebuild-xlogdb.1*
+%{_mandir}/man1/%{name}-receive-wal.1*
+%{_mandir}/man1/%{name}-recover.1*
+%{_mandir}/man1/%{name}-replication-status.1*
+%{_mandir}/man1/%{name}-restore.1*
+%{_mandir}/man1/%{name}-show-backup.1*
+%{_mandir}/man1/%{name}-show-servers.1*
+%{_mandir}/man1/%{name}-status.1*
+%{_mandir}/man1/%{name}-switch-wal.1*
+%{_mandir}/man1/%{name}-switch-xlog.1*
+%{_mandir}/man1/%{name}-sync-backup.1*
+%{_mandir}/man1/%{name}-sync-info.1*
+%{_mandir}/man1/%{name}-sync-wals.1*
+%{_mandir}/man1/%{name}-terminate-process.1*
+%{_mandir}/man1/%{name}-verify.1*
+%{_mandir}/man1/%{name}-verify-backup.1*
 %{_mandir}/man5/%{name}.5*
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
@@ -106,10 +146,6 @@ install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 %{_bindir}/%{name}-cloud-wal-restore
 %{_bindir}/%{name}-wal-archive
 %{_bindir}/%{name}-wal-restore
-%{_mandir}/man1/%{name}-archive-wal.1*
-%{_mandir}/man1/%{name}-backup.1*
-%{_mandir}/man1/%{name}-check.1*
-%{_mandir}/man1/%{name}-check-backup.1*
 %{_mandir}/man1/%{name}-cloud-backup.1*
 %{_mandir}/man1/%{name}-cloud-backup-delete.1*
 %{_mandir}/man1/%{name}-cloud-backup-keep.1*
@@ -119,35 +155,6 @@ install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 %{_mandir}/man1/%{name}-cloud-restore.1*
 %{_mandir}/man1/%{name}-cloud-wal-archive.1*
 %{_mandir}/man1/%{name}-cloud-wal-restore.1*
-%{_mandir}/man1/%{name}-config-switch.1*
-%{_mandir}/man1/%{name}-config-update.1*
-%{_mandir}/man1/%{name}-cron.1*
-%{_mandir}/man1/%{name}-delete.1*
-%{_mandir}/man1/%{name}-diagnose.1*
-%{_mandir}/man1/%{name}-generate-manifest.1*
-%{_mandir}/man1/%{name}-get-wal.1*
-%{_mandir}/man1/%{name}-keep.1*
-%{_mandir}/man1/%{name}-list_backups.1*
-%{_mandir}/man1/%{name}-list-files.1*
-%{_mandir}/man1/%{name}-list-processes.1.gz
-%{_mandir}/man1/%{name}-list-servers.1*
-%{_mandir}/man1/%{name}-lock-directory-cleanup.1*
-%{_mandir}/man1/%{name}-put-wal.1*
-%{_mandir}/man1/%{name}-rebuild-xlogdb.1*
-%{_mandir}/man1/%{name}-receive-wal.1*
-%{_mandir}/man1/%{name}-replication-status.1*
-%{_mandir}/man1/%{name}-restore.1*
-%{_mandir}/man1/%{name}-show-backup.1*
-%{_mandir}/man1/%{name}-show-servers.1*
-%{_mandir}/man1/%{name}-status.1*
-%{_mandir}/man1/%{name}-switch-wal.1*
-%{_mandir}/man1/%{name}-switch-xlog.1*
-%{_mandir}/man1/%{name}-sync-backup.1*
-%{_mandir}/man1/%{name}-sync-info.1*
-%{_mandir}/man1/%{name}-sync-wals.1*
-%{_mandir}/man1/%{name}-terminate-process.1.gz
-%{_mandir}/man1/%{name}-verify.1*
-%{_mandir}/man1/%{name}-verify-backup.1*
 %{_mandir}/man1/%{name}-wal-archive.1*
 %{_mandir}/man1/%{name}-wal-restore.1*
 

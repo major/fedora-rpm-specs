@@ -1,34 +1,36 @@
-%global srcname astropy-healpix
+%global pypi_name astropy-healpix
+%global srcname astropy_healpix
 %global modname astropy_healpix
 
-Name:           python-%{srcname}
-Version:        1.1.2
+Name:           python-%{pypi_name}
+Version:        2.0.1
 Release:        %autorelease
 Summary:        HEALPix for Astropy
 
 License:        BSD-3-Clause
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        %{pypi_source astropy_healpix}
+URL:            https://pypi.python.org/pypi/%{pypi_name}
+Source0:        %{pypi_source %{srcname}}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 
-%description
+%global _description %{expand:
 This is a BSD-licensed Python package for HEALPix, which is based on the C
 HEALPix code written by Dustin Lang originally in astrometry.net, and was
-added here with a Cython wrapper and expanded with a Python interface.
+added here with a Cython wrapper and expanded with a Python interface.}
+
+%description %_description
 
 
-%package -n python3-%{srcname}
+%package -n python3-%{pypi_name}
 Summary: %{summary}
 
-%description -n python3-%{srcname}
-%{description}
+%description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 # Remove egg files from source
 rm -r %{modname}.egg-info
@@ -67,7 +69,7 @@ pushd %{buildroot}/%{python3_sitearch}
 rm -rf .hypothesis
 popd
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md
 %doc README.rst
 

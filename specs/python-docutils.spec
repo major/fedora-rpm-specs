@@ -45,6 +45,10 @@ sed -i -e '/#! *\/usr\/bin\/.*/{1D}' $(grep -Erl '^#!.+python' docutils)
 # We want the licenses but don't need this build file
 rm -f licenses/docutils.conf
 
+# This package builds successfully with flit-core 4
+# Not sent upstream, as they are on sourceforge :/
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r

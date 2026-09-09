@@ -84,6 +84,8 @@ as JSON documents and HTML pages.
 %endif
 %autopatch -p1
 
+sed -r -i "/unordered_map/a #include <mutex>" src/backends/freebsd/fbsdpkg.h
+
 %conf
 %meson -Ddownload-js=false
 

@@ -35,7 +35,7 @@ greater refinement.
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
   grep --extended-regexp '\bCRLF\b' |
-  cut --delimiter=':' --fields1 |
+  cut --delimiter=':' --fields=1 |
   xargs --no-run-if-empty dos2unix --keepdate
 
 # Remove include paths for unbundled header-only library dependencies

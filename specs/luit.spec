@@ -1,16 +1,17 @@
 Summary: Locale and ISO 2022 support for Unicode terminals
 
-%global AppVersion 20250912
+%global AppVersion 20260907
 
 Name: luit
 Version: 2.0.%{AppVersion}
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: MIT
 URL: https://invisible-island.net/%{name}/
 Source0: https://invisible-island.net/archives/%{name}/%{name}-%{AppVersion}.tgz
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: zlib-devel
+BuildRequires: xorg-x11-fonts-misc
 
 %description
 Luit is a filter that can be run between an arbitrary application and a
@@ -34,6 +35,9 @@ the fontenc package.
 %install
 %make_install
 
+%check || :
+make check
+
 %files
 %license COPYING
 %doc %{name}.log.html
@@ -41,6 +45,9 @@ the fontenc package.
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 08 2026 Thomas E. Dickey <dickey@his.com> - 2.0.20260907-9
+- update to 2.0.20260907 (RHBZ #2529579)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20250912-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

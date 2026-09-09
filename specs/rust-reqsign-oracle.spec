@@ -5,7 +5,7 @@
 %global crate reqsign-oracle
 
 Name:           rust-reqsign-oracle
-Version:        3.0.3
+Version:        3.0.6
 Release:        %autorelease
 Summary:        Oracle Cloud signing implementation for reqsign
 
@@ -31,6 +31,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

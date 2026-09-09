@@ -1,6 +1,6 @@
 
 Name:		nfdump
-Version:	1.7.9
+Version:	1.7.10
 Release:	1%{?dist}
 Summary:	NetFlow collecting and processing tools
 
@@ -87,6 +87,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 
 
 %changelog
+* Tue Sep 08 2026 Denis Fateyev <denis@fateyev.com> - 1.7.10-1
+- Update to version 1.7.10
+
 * Mon Sep 07 2026 Denis Fateyev <denis@fateyev.com> - 1.7.9-1
 - Update to version 1.7.9
 

@@ -8,7 +8,7 @@
 Name:		roc-toolkit
 #Version:	0.2.1^%%{git_suffix}
 Version:	0.4.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
@@ -38,7 +38,9 @@ BuildRequires:	openssl-devel
 BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel
 # https://github.com/roc-streaming/roc-toolkit/issues/481
-Patch0:		roc-toolkit-0.3.0-no-explicit-cpp98.patch
+Patch:		roc-toolkit-0.3.0-no-explicit-cpp98.patch
+# https://bugzilla-attachments.redhat.com/attachment.cgi?id=2156508
+Patch:		roc-toolkit-0.4.0-increase-max-drivers.patch
 
 %description
 Roc is a toolkit for real-time audio streaming over the network.
@@ -103,6 +105,10 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0-8
+- Rebuilt for sox_ng transition
+  Resolves: rhbz#2527803
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

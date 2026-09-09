@@ -1,19 +1,3 @@
-# TODO, maybe some day:
-# - livebuffer patch, http://www.vdr-portal.de/board/thread.php?threadid=37309
-# - channelfilter patch, http://www.u32.de/vdr.html#patches
-# - pause patch (causes OSD placement issues at least with unrebuilt text2skin)
-#   http://www.tolleri.net/vdr/vdr/vdr-1.6.0-2-pause-0.0.1.patch
-
-# - The dvbhddevice plugin is no longer part of the VDR source archive.
-#  You can get the latest version of this plugin from the author's repository at
-#  https://bitbucket.org/powARman/dvbhddevice.
-# - The dvbsddevice and rcu plugins are no longer part of the VDR source archive.
-#  You can get the latest versions of these plugins from ftp://ftp.tvdr.de/vdr/Plugins.
-
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
-%global _hardened_build 1
-%bcond_without    docs
-
 %global varbase   %{_var}/lib/vdr
 %global videodir  %{varbase}/video
 %global vardir    %{varbase}/data
@@ -23,137 +7,99 @@
 %global rundir    /run/vdr
 %global vdr_user  vdr
 %global vdr_group video
-# From APIVERSION in config.h
-%global apiver    13
+
+%bcond_without    docs
+
+%global __provides_exclude_from ^%{plugindir}/.*\\.so.*$
 
 Name:           vdr
 Version:        2.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
-URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.2;sf=tbz2
-# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.2;sf=tbz2"
-Source0:        %{name}-%{version}.tar.bz2
+URL:            https://www.tvdr.de/
+Source0:        https://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/%{version};sf=tbz2#/%{name}-%{version}.tar.bz2
+
+# The plugin ABI version, extracted from config.h in the tarball at parse
+# time.  Must stay below Source0: the %%() shell runs when %%global is
+# defined, so %%{S:0} has to exist already.  Fallback 0 for spec-only tools
+# (rpmlint); %%check verifies the packaged value against vdr.pc.
+%global apiver %(v=$(tar -xOf %{S:0} %{name}-%{version}/config.h 2>/dev/null | sed -ne '/define APIVERSION/s/^.*"\\(.*\\)".*$/\\1/p' | head -n1); echo ${v:-0})
+
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
 Source3:        %{name}.sudoers
+Source4:        %{name}.macros
 Source5:        %{name}-reccmds.conf
 Source6:        %{name}-commands.conf
-Source7:        %{name}-runvdr.sh
-Source8:        %{name}-dvbsddevice.conf
-Source9:        %{name}-config.sh
-Source10:       %{name}-README.package
-Source11:       %{name}-skincurses.conf
-Source12:       %{name}-dvbhddevice.conf
-Source13:       %{name}-timercmds.conf
-Source14:       %{name}-shutdown.sh
-Source15:       %{name}-moveto.sh
-Source16:       %{name}-CHANGES.package.old
-Source17:       %{name}.macros
-Source18:       http://cdn.debian.net/debian/pool/main/v/vdr/vdr_2.2.0-5.debian.tar.bz2
-Source19:       %{name}-check-setup.sh
-Source20:       %{name}-rcu.conf
-Source21:       %{name}-set-wakeup.sh
-Source30:       https://bitbucket.org/powARman/dvbhddevice/get/3473a7b939d7.zip
-Source31:       ftp://ftp.tvdr.de/vdr/Plugins/vdr-dvbsddevice-2.2.0.tgz
-Source32:       ftp://ftp.tvdr.de/vdr/Plugins/vdr-rcu-2.2.0.tgz
+Source7:        %{name}-timercmds.conf
+Source8:        %{name}-skincurses.conf
+Source9:        %{name}-README.package
+Source10:       %{name}-runvdr.sh
+Source11:       %{name}-config.sh
+Source12:       %{name}-shutdown.sh
+Source13:       %{name}-moveto.sh
+Source14:       %{name}-check-setup.sh
+Source15:       %{name}-set-wakeup.sh
 
-Patch0:         define_AUDIO_GET_PTS.patch
-Patch1:         http://zap.tartarus.org/~ds/debian/dists/stable/main/source/vdr_1.4.5-2.ds.diff.gz
-# Extracted from http://copperhead.htpc-forum.de/downloads/extensionpatch/extpngvdr1.7.21v1.diff.gz
-Patch3:         %{name}-1.7.21-plugin-missing.patch
-Patch4:         %{name}-2.4.0-paths.patch
-# http://vdrportal.de/board/thread.php?postid=343665#post343665
-Patch5:         12_osdbase-maxitems.patch
-Patch6:         %{name}-2.7.4-fedora-pkgconfig.patch
-# https://www.vdr-portal.de/file-download/40760/
-Patch11:	%{name}-%{version}-MainMenuHooks-v1_0_5.diff
-# https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff
-Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
+# Fedora/FHS integration: export datadir/rundir/vardir/user/group from vdr.pc
+Patch:          %{name}-fedora.patch
+# MainMenuHooks, reduced to the only hook any shipped plugin implements
+# (epgsearch's "Replace original schedule").
+Patch:          %{name}-mainmenuhooks.patch
+# Sent upstream: replace the FSF's stale postal address in COPYING with the
+# license URLs; rpmlint rejects the old address.
+Patch:          %{name}-fsf-address.patch
 
-BuildRequires:  make
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libjpeg-devel
-BuildRequires:  libcap-devel
-BuildRequires:  pkgconfig
-BuildRequires:  perl(File::Spec)
-BuildRequires:  fontconfig-devel
-BuildRequires:  freetype-devel
+BuildRequires:  make
 BuildRequires:  gettext
-# systemd >= 186 for scriptlet macros
-BuildRequires:  systemd >= 186
-BuildRequires:  systemd-devel
+BuildRequires:  libcap-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  sudo
+BuildRequires:  systemd-rpm-macros
 %if %{with docs}
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 %endif
-# udev >= 136-1 for the audio, cdrom, dialout, and video groups
-Requires:       udev >= 136-1
-# sudo for the shutdown script, >= 1.7.2p2-3 for sudoers.d functionality
-Requires:       sudo >= 1.7.2p2-3
-# util-linux >= 2.15 for "rtcwake -m no" timer driven wakeups
-Requires:       util-linux >= 2.15
+
+# sudo authorizes the shutdown script's privileged commands (sudoers.d/vdr);
+# util-linux provides "rtcwake -m no" for timer-driven wakeups
+Requires:       sudo
+Requires:       util-linux
 Requires:       vdrsymbol-fonts
-# systemd >= 189 for RestartPreventExitStatus=
-Requires(post,preun,postun): systemd >= 189
+%{?systemd_requires}
 Provides:       vdr(abi)%{?_isa} = %{apiver}
-Obsoletes:      vdr-subtitles <= 0.5.0
-Obsoletes:      vdr-sky < 1.7.11
 
 %description
 VDR implements a complete digital set-top-box and video recorder.
 It can work with signals received from satellites (DVB-S) as well as
-cable (DVB-C) and terrestrial (DVB-T) signals.  At least one DVB card
+cable (DVB-C) and terrestrial (DVB-T) signals. At least one DVB card
 is required to run VDR.
 
 %package        devel
 Summary:        Development files for VDR
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gettext-runtime
 Provides:       vdr-devel(api) = %{apiver}
 
 %description    devel
-%{summary}.
+Headers, pkg-config file and RPM macros needed to build VDR plugins.
 
 %package        docs
 Summary:        Developer documentation for VDR
 BuildArch:      noarch
 
 %description    docs
-%{summary}.
-
-%package        dvbhddevice
-Summary:        VDR output device plugin for TechnoTrend S2-6400 DVB cards
-Requires:       vdr(abi)%{?_isa} = %{apiver}
-
-%description    dvbhddevice
-The dvbhddevice plugin implements a VDR output device for the "Full
-Featured TechnoTrend S2-6400" DVB cards.
-
-%package        dvbsddevice
-Summary:        VDR output device plugin for full featured SD DVB cards
-Requires:       vdr(abi)%{?_isa} = %{apiver}
-# To get this subpackage pulled in on upgrades
-Obsoletes:      vdr < 1.7.11
-
-%description    dvbsddevice
-The dvbsddevice plugin implements the output device for the "Full
-Featured" DVB cards based on the TechnoTrend/Fujitsu-Siemens design.
-
-%package        rcu
-Summary:        VDR remote control unit plugin
-Requires:       vdr(abi)%{?_isa} = %{apiver}
-# To get this subpackage pulled in on upgrades
-Obsoletes:      vdr < 1.7.25
-
-%description    rcu
-The rcu plugin implements a remote control unit for VDR.
+Developer documentation for the VDR core, generated from its sources.
 
 %package        skincurses
 Summary:        Shell window skin plugin for VDR
-BuildRequires:  ncurses-devel
 Requires:       vdr(abi)%{?_isa} = %{apiver}
 
 %description    skincurses
@@ -162,67 +108,25 @@ window, using only plain text output.
 
 
 %prep
-%setup -q -a 18
-# dvbhddevice
-unzip -o %{SOURCE30} -d $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/powARman-dvbhddevice-3473a7b939d7 $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbhddevice
-cd PLUGINS/src
-%patch 0 -p3
-cd ../..
-# dvbsddevice
-tar -xzf %{SOURCE31} -C $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbsddevice-2.2.0 $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbsddevice
-# rcu
-tar -xzf %{SOURCE32} -C $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/rcu-2.2.0 $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/rcu
+%autosetup -p1
 
-%patch 1 -p1
-# sort_options would be nice, but it conflicts with channel+epg which is nicer
-#patch -F 0 -i debian/patches/02_sort_options.dpatch
-# TODO: does not apply since 1.7.24
-#patch -F 0 -i debian/patches/06_recording_scan_speedup.dpatch
-patch -F 2 -i debian/patches/07_blockify_define.dpatch
-%patch 3 -p1
-sed \
-    -e 's|__CACHEDIR__|%{cachedir}|'   \
-    -e 's|__CONFIGDIR__|%{configdir}|' \
-    -e 's|__PLUGINDIR__|%{plugindir}|' \
-    -e 's|__VARDIR__|%{vardir}|'       \
-    -e 's|__VIDEODIR__|%{videodir}|'   \
-    %{PATCH4} | %{__patch} -p1
-%patch 5 -p1
-%patch 6 -p1
-%patch 11 -p1
-%patch 99 -p1
-
-# Patch APIVERSION TO 2.4.8 to match VDRVERSION
-# sed -i 's/2\.4\.3/2.4.8/' config.h
-# sed -i 's/20406/20407/' config.h
-
-for f in CONTRIBUTORS HISTORY UPDATE-1.4.0 \
-    PLUGINS/src/dvbhddevice/HISTORY; do
+for f in CONTRIBUTORS HISTORY ; do
     iconv -f iso-8859-1 -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 done
 
 cp -p %{SOURCE5} reccmds.conf
-cp -p %{SOURCE13} timercmds.conf
 cp -p %{SOURCE6} commands.conf
-# Unfortunately these can't have comments in them, so ship 'em empty.
-cat /dev/null > channels.conf
-cat /dev/null > remote.conf
-cat /dev/null > setup.conf
-cat /dev/null > timers.conf
+cp -p %{SOURCE7} timercmds.conf
+install -pm 644 %{SOURCE9} README.package
 
-install -pm 644 %{SOURCE10} README.package
-install -pm 644 %{SOURCE16} CHANGES.package.old
+printf '\n' > channels.conf
+printf '\n' > remote.conf
+printf '\n' > setup.conf
+printf '\n' > timers.conf
 
-# Would like to do "files {channels,setup,timers}.conf" from config dir
-# only, but rename() in cSafeFile barks "device or resource busy", cf.
-# http://lists.suse.com/archive/suse-programming-e/2003-Mar/0051.html
-cat << EOF > %{name}.rwtab
-dirs    %{cachedir}
-files   %{configdir}
-files   %{vardir}
+cat << EOF > %{name}.sysusers
+u %{vdr_user} -:%{vdr_group} 'Video Disk Recorder' %{vardir} -
+m %{vdr_user} audio
 EOF
 
 # Disable some graphs that end up too big to be useful.
@@ -230,13 +134,6 @@ for g in COLLABORATION INCLUDE INCLUDED_BY ; do
     sed -i -e 's/^\(\s*'$g'_GRAPH\s*=\s*\).*/\1NO/' Doxyfile
 done
 
-# Create a sysusers.d config file
-cat >vdr.sysusers.conf <<EOF
-u vdr -:%{vdr_group} 'Video Disk Recorder' %{vardir} -
-m vdr audio
-m vdr cdrom
-m vdr dialout
-EOF
 
 %build
 cat << EOF > Make.config
@@ -245,7 +142,7 @@ CXX          = %{__cxx}
 
 CFLAGS       = \$(shell pkg-config vdr --variable=cflags)
 CXXFLAGS     = \$(shell pkg-config vdr --variable=cxxflags)
-LDFLAGS      = $RPM_LD_FLAGS
+LDFLAGS      = %{build_ldflags}
 
 PREFIX       = %{_prefix}
 MANDIR       = \$(shell pkg-config vdr --variable=mandir)
@@ -261,14 +158,13 @@ INCDIR       = %{_includedir}
 LIBDIR       = \$(PLUGINLIBDIR)
 
 PLGCFG       = \$(LIBDIR)/plugins.mk
-LIRC_DEVICE  = %{_localstatedir}/run/lirc/lircd
-# New Bug 1873027 LIRC_DEVICE  = /run/lirc/lircd
+LIRC_DEVICE  = /run/lirc/lircd
 VDR_USER     = \$(shell pkg-config vdr --variable=user)
 SDNOTIFY     = 1
 EOF
 
 cat << EOF > plugins.mk
-LDFLAGS = $RPM_LD_FLAGS
+LDFLAGS = %{build_ldflags}
 EOF
 
 cp plugins.mk bundled-plugins.mk
@@ -277,22 +173,20 @@ CFLAGS += -I$PWD/include
 CXXFLAGS += -I$PWD/include
 EOF
 
-cflags="${RPM_OPT_FLAGS/-O2/-O3} -fPIC" # see HISTORY for 1.7.17 for -O3
+cflags="%{build_cflags} -fPIC"
 
 make vdr.pc BINDIR=%{_bindir} MANDIR=%{_mandir} CONFDIR=%{configdir} \
     VIDEODIR=%{videodir} CACHEDIR=%{cachedir} RESDIR=%{_datadir}/vdr \
     LIBDIR=%{plugindir} LOCDIR=%{_datadir}/locale RUNDIR=%{rundir} \
     VARDIR=%{vardir} VDR_USER=%{vdr_user} VDR_GROUP=%{vdr_group} \
-    LDFLAGS="$RPM_LD_FLAGS" CFLAGS="$cflags" \
+    LDFLAGS="%{build_ldflags}" CFLAGS="$cflags" \
     CXXFLAGS="$cflags -Werror=overloaded-virtual -Wno-parentheses"
 
 PKG_CONFIG_PATH="$PWD:$PKG_CONFIG_PATH" \
 %make_build vdr include-dir i18n
 
-for plugin in dvbhddevice dvbsddevice rcu skincurses ; do
-    %make_build -C PLUGINS/src/$plugin VDRDIR=$PWD \
-        PLGCFG=$PWD/bundled-plugins.mk all
-done
+%make_build -C PLUGINS/src/skincurses VDRDIR=$PWD \
+    PLGCFG=$PWD/bundled-plugins.mk all
 
 %if %{with docs}
 %make_build srcdoc
@@ -301,154 +195,122 @@ done
 
 %install
 # Not using the install-pc target to preserve our already good vdr.pc
-install -Dpm 644 vdr.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/vdr.pc
+install -Dpm 644 vdr.pc %{buildroot}%{_libdir}/pkgconfig/vdr.pc
 
-PKG_CONFIG_PATH="$RPM_BUILD_ROOT%{_libdir}/pkgconfig:$PKG_CONFIG_PATH" \
+PKG_CONFIG_PATH="%{buildroot}%{_libdir}/pkgconfig:$PKG_CONFIG_PATH" \
 make install-bin install-dirs install-conf install-doc install-i18n \
-    install-includes DESTDIR=$RPM_BUILD_ROOT
+    install-includes DESTDIR=%{buildroot}
 
-install -pm 755 epg2html $RPM_BUILD_ROOT%{_bindir}
-install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
-#mv $RPM_BUILD_ROOT%{_bindir}/vdr $RPM_BUILD_ROOT%{_sbindir}
+install -pm 755 epg2html %{buildroot}%{_bindir}
 
-# Avoid mv error by checking if source and destination are the same
-if [ "$RPM_BUILD_ROOT%{_bindir}/vdr" != "$RPM_BUILD_ROOT%{_sbindir}/vdr" ]; then
-    mv $RPM_BUILD_ROOT%{_bindir}/vdr $RPM_BUILD_ROOT%{_sbindir}
-fi
+install -dm 755 %{buildroot}%{configdir}/plugins
+install -dm 755 %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d
+install -dm 755 %{buildroot}%{vardir}
+install -dm 755 %{buildroot}%{configdir}/themes
+install -dm 755 %{buildroot}%{_datadir}/vdr/{logos,plugins}
+install -dm 755 %{buildroot}%{plugindir}/bin
 
-install -dm 755 $RPM_BUILD_ROOT%{configdir}/plugins
+touch %{buildroot}%{configdir}/themes/{classic,sttng}-default.theme
+touch %{buildroot}%{videodir}/.update
+touch %{buildroot}%{cachedir}/epg.data
 
-install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d
-
-install -dm 755 $RPM_BUILD_ROOT%{vardir}/themes
-touch $RPM_BUILD_ROOT%{vardir}/themes/{classic,sttng}-default.theme
-
-install -pm 755 %{SOURCE7} $RPM_BUILD_ROOT%{_sbindir}/runvdr
+install -pm 755 %{SOURCE10} %{buildroot}%{_bindir}/runvdr
 sed -i \
-    -e 's|/usr/sbin/|%{_sbindir}/|'                    \
+    -e 's|/usr/sbin/|%{_bindir}/|'                     \
     -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|g' \
     -e 's|/usr/lib/vdr\b|%{plugindir}|'                \
     -e 's|VDR_PLUGIN_VERSION|%{apiver}|'               \
-    $RPM_BUILD_ROOT%{_sbindir}/runvdr
+    %{buildroot}%{_bindir}/runvdr
 
-install -Dm 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr
+install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/vdr
 sed -i \
     -e 's|/usr/lib/vdr/|%{plugindir}/|' \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr
+    %{buildroot}%{_sysconfdir}/sysconfig/vdr
 
-touch $RPM_BUILD_ROOT%{videodir}/.update
-
-install -dm 755 $RPM_BUILD_ROOT%{plugindir}/bin
-
-install -m 755 %{SOURCE14} $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-shutdown.sh
+install -pm 755 %{SOURCE12} %{buildroot}%{plugindir}/bin/%{name}-shutdown.sh
 sed -i \
     -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|' \
     -e 's|/var/run/vdr/|%{rundir}/|'                  \
-    $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-shutdown.sh
+    -e 's|/usr/lib/vdr/|%{plugindir}/|'               \
+    %{buildroot}%{plugindir}/bin/%{name}-shutdown.sh
 
-install -m 755 %{SOURCE15} $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-moveto.sh
+install -pm 755 %{SOURCE13} %{buildroot}%{plugindir}/bin/%{name}-moveto.sh
 sed -i \
     -e 's|/var/lib/vdr/video|%{videodir}|' \
     -e 's|/etc/vdr/|%{configdir}/|'        \
-    $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-moveto.sh
+    %{buildroot}%{plugindir}/bin/%{name}-moveto.sh
 
-install -m 755 %{SOURCE19} $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-check-setup
+install -pm 755 %{SOURCE14} %{buildroot}%{plugindir}/bin/%{name}-check-setup
 sed -i \
     -e 's|/etc/vdr/|%{configdir}/|' \
     -e 's|VDR_USER|%{vdr_user}|'    \
     -e 's|VDR_GROUP|%{vdr_group}|'  \
-    $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-check-setup
+    %{buildroot}%{plugindir}/bin/%{name}-check-setup
 
-install -m 755 %{SOURCE21} $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-set-wakeup
+install -pm 755 %{SOURCE15} %{buildroot}%{plugindir}/bin/%{name}-set-wakeup
 sed -i \
-    -e 's|/usr/sbin/|%{_sbindir}/|'  \
+    -e 's|/usr/sbin/|%{_bindir}/|'   \
     -e 's|/var/run/vdr/|%{rundir}/|' \
-    $RPM_BUILD_ROOT%{plugindir}/bin/%{name}-set-wakeup
+    %{buildroot}%{plugindir}/bin/%{name}-set-wakeup
 
-install -Dm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 sed -i \
     -e 's|/usr/lib/vdr/|%{plugindir}/|'        \
-    -e 's|/usr/sbin/|%{_sbindir}/|'            \
+    -e 's|/usr/sbin/|%{_bindir}/|'             \
     -e 's|/usr/share/doc/vdr/|%{_pkgdocdir}/|' \
-    $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+    %{buildroot}%{_unitdir}/%{name}.service
 
-install -Dpm 440 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sudoers.d/vdr
+install -Dpm 440 %{SOURCE3} %{buildroot}%{_sysconfdir}/sudoers.d/vdr
+sed -i \
+    -e 's|/usr/lib/vdr/|%{plugindir}/|' \
+    %{buildroot}%{_sysconfdir}/sudoers.d/vdr
+install -Dpm 644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.conf
 
-touch $RPM_BUILD_ROOT%{cachedir}/epg.data
-install -dm 755 $RPM_BUILD_ROOT%{_datadir}/vdr/{logos,plugins}
-install -dm 755 $RPM_BUILD_ROOT%{rundir}
-touch $RPM_BUILD_ROOT%{rundir}/next-timer
-install -dm 755 $RPM_BUILD_ROOT%{vardir}
-
-install -Dpm 644 %{name}.rwtab $RPM_BUILD_ROOT%{_sysconfdir}/rwtab.d/%{name}
-
-install -dm 755 $RPM_BUILD_ROOT%{_pkgdocdir}
-install -pm 644 CHANGES.package.old CONTRIBUTORS \
-    HISTORY* INSTALL MANUAL PLUGINS.html README* UPDATE-?.?.0 \
-    $RPM_BUILD_ROOT%{_pkgdocdir}
+install -dm 755 %{buildroot}%{_pkgdocdir}
+install -pm 644 CONTRIBUTORS HISTORY* INSTALL MANUAL PLUGINS.html \
+    README* %{buildroot}%{_pkgdocdir}
 %if %{with docs}
-cp -pR srcdoc/html $RPM_BUILD_ROOT%{_pkgdocdir}
+cp -pR srcdoc/html %{buildroot}%{_pkgdocdir}
 %endif
 
 # devel
 
-abs2rel() { perl -MFile::Spec -e 'print File::Spec->abs2rel(@ARGV)' "$@" ; }
-
-install -pm 755 %{SOURCE9} $RPM_BUILD_ROOT%{_bindir}/vdr-config
-install -pm 755 newplugin $RPM_BUILD_ROOT%{_bindir}/vdr-newplugin
-install -pm 644 Make.{config,global} plugins.mk $RPM_BUILD_ROOT%{_libdir}/vdr
-ln -s $(abs2rel %{_includedir}/vdr/config.h %{_libdir}/vdr) \
-    $RPM_BUILD_ROOT%{_libdir}/vdr
-macrodir=%{_sysconfdir}/rpm
-[ -d %{_rpmconfigdir}/macros.d ] && macrodir=%{_rpmconfigdir}/macros.d
-install -Dpm 644 %{SOURCE17} $RPM_BUILD_ROOT$macrodir/macros.vdr
-echo $macrodir/macros.vdr > %{name}-devel.files
-
-# i18n
-
-%find_lang %{name}
-sed -i -e '1i%%defattr(-,root,root,-)' %{name}.lang
-
-install -dm 755 $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d
-echo "d %{rundir} 0755 %{vdr_user} root -" \
-    > $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/%{name}.conf
-echo "%{_prefix}/lib/tmpfiles.d/%{name}.conf" \
-    >> %{name}.lang
-
+install -pm 755 %{SOURCE11} %{buildroot}%{_bindir}/vdr-config
+install -pm 755 newplugin %{buildroot}%{_bindir}/vdr-newplugin
+install -pm 644 Make.{config,global} plugins.mk %{buildroot}%{plugindir}
+ln -sr %{buildroot}%{_includedir}/vdr/config.h %{buildroot}%{plugindir}
+install -Dpm 644 %{SOURCE4} %{buildroot}%{_rpmmacrodir}/macros.vdr
 
 # plugins
 
-%make_install -C PLUGINS/src/dvbhddevice
-install -pm 644 %{SOURCE12} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/dvbhddevice.conf
-%find_lang %{name}-dvbhddevice
-
-%make_install -C PLUGINS/src/dvbsddevice
-install -pm 644 %{SOURCE8} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/dvbsddevice.conf
-
-%make_install -C PLUGINS/src/rcu
-install -pm 644 %{SOURCE20} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/rcu.conf
-
 %make_install -C PLUGINS/src/skincurses
-install -pm 644 %{SOURCE11} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/skincurses.conf
-%find_lang %{name}-skincurses
+install -pm 644 %{SOURCE8} \
+    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/skincurses.conf
 
-install -m0644 -D vdr.sysusers.conf %{buildroot}%{_sysusersdir}/vdr.conf
+%find_lang %{name}
+%find_lang %{name}-skincurses
 
 
 %check
-export PKG_CONFIG_PATH=$RPM_BUILD_ROOT%{_libdir}/pkgconfig
-if [ "$(pkg-config vdr --variable=apiversion)" != "%{apiver}" ] ; then
-    echo "ERROR: API version mismatch in vdr.pc / package / config.h" ; exit 1
-fi
+export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig
+test "$(pkg-config vdr --variable=apiversion)" = "%{apiver}"
+test "$(pkg-config vdr --modversion)" = "%{version}"
+# The Fedora patch must have taken effect
+test "$(pkg-config vdr --variable=user)" = "%{vdr_user}"
+test "$(pkg-config vdr --variable=vardir)" = "%{vardir}"
+# The MainMenuHooks patch must have taken effect
+grep -q 'MainMenuHooksPatch-v1.0::osSchedule' vdr
+# The FSF address patch must have taken effect (rpmlint rejects the old address)
+! grep -qr 'Franklin' COPYING PLUGINS/src/skincurses/COPYING
+# vdr resolves VDRPluginCreator after dlopen; a plugin without that export
+# is broken even if it links cleanly
+nm -D --defined-only %{buildroot}%{plugindir}/libvdr-skincurses.so.%{apiver} | grep -q ' VDRPluginCreator$'
+# The sudoers drop-in must parse
+visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 
 
 %post
 %systemd_post %{name}.service
-systemctl daemon-reload
 
 %preun
 %systemd_preun %{name}.service
@@ -456,21 +318,22 @@ systemctl daemon-reload
 %postun
 %systemd_postun_with_restart %{name}.service
 
+
 %files -f %{name}.lang
+%license COPYING
 %{_pkgdocdir}
-%exclude %{_pkgdocdir}/PLUGINS.html
 %if %{with docs}
 %exclude %{_pkgdocdir}/html/
 %endif
-%config(noreplace) %{_sysconfdir}/sudoers.d/vdr
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr
-%config(noreplace) %{_sysconfdir}/rwtab.d/%{name}
 %config %dir %{_sysconfdir}/sysconfig/vdr-plugins.d/
 %{_bindir}/epg2html
+%{_bindir}/runvdr
 %{_bindir}/svdrpsend
-%{_sbindir}/runvdr
-%{_sbindir}/vdr
+%{_bindir}/vdr
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/%{name}.conf
+%config(noreplace) %attr(0440,root,root) %{_sysconfdir}/sudoers.d/vdr
 %dir %{plugindir}/
 %dir %{plugindir}/bin/
 %{plugindir}/bin/%{name}-check-setup
@@ -482,74 +345,50 @@ systemctl daemon-reload
 %{_mandir}/man1/vdr.1*
 %{_mandir}/man5/vdr.5*
 %dir %{varbase}/
-%defattr(-,%{vdr_user},%{vdr_group},-)
-# TODO: tighten ownerships to root:root for some files in %%{configdir}
-%config(noreplace) %{configdir}/*.conf
-%dir %{videodir}/
-%ghost %{videodir}/.update
-%ghost %{vardir}/themes/*.theme
-%ghost %{cachedir}/epg.data
-%defattr(-,%{vdr_user},root,-)
-%dir %{configdir}/
-%dir %{configdir}/plugins/
-%dir %{rundir}/
-%ghost %{rundir}/next-timer
-%dir %{vardir}/
-%dir %{vardir}/themes/
-%dir %{cachedir}/
-%{_sysusersdir}/vdr.conf
+%attr(-,%{vdr_user},%{vdr_group}) %config(noreplace) %{configdir}/*.conf
+%dir %attr(-,%{vdr_user},%{vdr_group}) %{videodir}/
+%ghost %attr(-,%{vdr_user},%{vdr_group}) %{videodir}/.update
+%ghost %attr(-,%{vdr_user},%{vdr_group}) %{configdir}/themes/*.theme
+%ghost %attr(-,%{vdr_user},%{vdr_group}) %{cachedir}/epg.data
+%dir %attr(-,%{vdr_user},root) %{configdir}/
+%dir %attr(-,%{vdr_user},root) %{configdir}/plugins/
+%dir %attr(-,%{vdr_user},root) %{vardir}/
+%dir %attr(-,%{vdr_user},root) %{configdir}/themes/
+%dir %attr(-,%{vdr_user},root) %{cachedir}/
 
-%files devel -f %{name}-devel.files
-%{!?_with_docs:%dir %{_pkgdocdir}}
+%files devel
 %license COPYING
-%if ! %{with docs}
-%{_pkgdocdir}/PLUGINS.html
-%endif
 %{_bindir}/vdr-config
 %{_bindir}/vdr-newplugin
 %{_includedir}/libsi/
 %{_includedir}/vdr/
 %{_libdir}/pkgconfig/vdr.pc
-%dir %{_libdir}/vdr/
-%{_libdir}/vdr/Make.config
-%{_libdir}/vdr/Make.global
-%{_libdir}/vdr/config.h
-%{_libdir}/vdr/plugins.mk
+%{_rpmmacrodir}/macros.vdr
+%{plugindir}/Make.config
+%{plugindir}/Make.global
+%{plugindir}/config.h
+%{plugindir}/plugins.mk
 
 %if %{with docs}
 %files docs
-%dir %{_pkgdocdir}
 %license COPYING
-%{_pkgdocdir}/PLUGINS.html
 %{_pkgdocdir}/html/
 %endif
 
-%files dvbhddevice -f %{name}-dvbhddevice.lang
-%license PLUGINS/src/dvbhddevice/COPYING
-%doc PLUGINS/src/dvbhddevice/{HISTORY,README}
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/dvbhddevice.conf
-%{plugindir}/libvdr-dvbhddevice.so.%{apiver}
-
-%files dvbsddevice
-%license PLUGINS/src/dvbsddevice/COPYING
-%doc PLUGINS/src/dvbsddevice/{HISTORY,README}
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/dvbsddevice.conf
-%{plugindir}/libvdr-dvbsddevice.so.%{apiver}
-
-%files rcu
-%license PLUGINS/src/rcu/COPYING
-%doc PLUGINS/src/rcu/{HISTORY,README}
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/rcu.conf
-%{plugindir}/libvdr-rcu.so.%{apiver}
-
 %files skincurses -f %{name}-skincurses.lang
 %license PLUGINS/src/skincurses/COPYING
-%doc PLUGINS/src/skincurses/{HISTORY,README}
+%doc PLUGINS/src/skincurses/HISTORY PLUGINS/src/skincurses/README
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/skincurses.conf
 %{plugindir}/libvdr-skincurses.so.%{apiver}
 
 
 %changelog
+* Thu Aug 13 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.2-3
+- Refactor the spec file
+- Themes live in /etc/vdr/themes: stock VDR's path, now that the old
+  theme-directory rewriting patch is gone
+- vdr-devel now requires the base package (fully versioned, arch-specific)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -678,7 +517,7 @@ systemctl daemon-reload
 
 * Thu Oct 21 2021 Martin Gansser <martinkg@fedoraproject.org> - 2.4.7-5
 - Delete missing kernel header files #Source33 because they are
-  available again in kernel-headers-5.14.0-300 package 
+  available again in kernel-headers-5.14.0-300 package
 
 * Tue Aug 03 2021 Martin Gansser <martinkg@fedoraproject.org> - 2.4.7-4
 - Add missing kernel-header files audio.h osd.h and video.h via #Source33

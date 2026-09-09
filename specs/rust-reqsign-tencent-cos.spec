@@ -5,7 +5,7 @@
 %global crate reqsign-tencent-cos
 
 Name:           rust-reqsign-tencent-cos
-Version:        3.0.3
+Version:        3.0.6
 Release:        %autorelease
 Summary:        Tencent Cloud COS signing implementation for reqsign
 
@@ -31,6 +31,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

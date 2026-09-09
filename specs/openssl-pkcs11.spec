@@ -1,4 +1,4 @@
-Version: 0.4.20
+Version: 0.4.21
 Release: %autorelease
 
 Name:           openssl-pkcs11

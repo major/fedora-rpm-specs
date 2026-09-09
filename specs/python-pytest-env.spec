@@ -1,5 +1,5 @@
 Name:           python-pytest-env
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Pytest plugin that allows you to add environment variables
 
@@ -12,6 +12,9 @@ BuildSystem:    pyproject
 BuildOption(install): --assert-license pytest_env
 
 BuildArch:      noarch
+
+# From “test” dependency group, which also has unwanted coverage dependencies:
+BuildRequires:  %{py3_dist pytest-mock}
 
 %global common_description %{expand:
 A pytest plugin that sets environment variables from pyproject.toml,

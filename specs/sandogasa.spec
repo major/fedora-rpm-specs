@@ -62,6 +62,10 @@ License:        %{shrink:
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Manually created patch for downstream crate metadata changes
+# * Allow clap_mangen 0.3: https://github.com/slopfest/sandogasa/pull/12
+Patch:          sandogasa-fix-metadata.diff
+
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}
 # needed by dbranch

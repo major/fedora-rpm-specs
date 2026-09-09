@@ -32,6 +32,8 @@ Source2:        activate.sh
 #   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/c56743ac36efb9e12f29e31fd36aeba12ff111f7;
 #   a source-code patch in the tests is also required
 # * bump sequoia-wot dependency from 0.14 to 0.15
+# * Update clap_mangen to version 0.3; still allow version 0.2, as upstream:
+#   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/e504b30e2e09d34d87526838e4e429d1095a119a
 Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
 # * fix running integration tests in release mode with prebuilt executable
 Patch2:         0001-fix-integration-tests-for-release-mode-and-use-prebu.patch
@@ -57,6 +59,7 @@ Sequoia's reimplementation of the GnuPG interface.}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR Apache-2.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND MIT
@@ -90,6 +93,7 @@ License:        %{shrink:
     Unicode-DFS-2016 AND
     Zlib AND
     bzip2-1.0.6 AND
+    (0BSD OR Apache-2.0) AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND

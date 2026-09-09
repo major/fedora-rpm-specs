@@ -38,7 +38,6 @@ SourceLicense:  MIT
 # Apache-2.0 OR GPL-2.0-only
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # CC0-1.0
@@ -60,7 +59,6 @@ License:        %{shrink:
     AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
     AND (Apache-2.0 OR GPL-2.0-only)
     AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
-    AND BSD-2-Clause
     AND (BSD-2-Clause OR Apache-2.0 OR MIT)
     AND BSD-3-Clause
     AND CC0-1.0
@@ -77,6 +75,8 @@ Source:         https://github.com/uutils/coreutils/archive/%{version}/%{name}-%
 # disable benchmarks
 # loosen notify version bound from =8.2.0 to 8.2.0 and drop macos_kqueue feature
 # loosen selinux version bound from =0.6.0 to 0.6.0
+# update clap_mangen to 0.3:
+#   https://github.com/uutils/coreutils/commit/9397a9c09332dd4a701f344be58d0d59782b2d91
 Patch:          coreutils-fix-metadata.diff
 # bump ctor from 0.6 to 1
 Patch:          coreutils-ctor-1_x.diff

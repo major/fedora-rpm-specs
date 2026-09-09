@@ -1,8 +1,8 @@
 %global open_iscsi_version	2.1
-%global open_iscsi_build	12
-%global commit0			7e00642c40123e0b3f949e74c3945872c17a407e
+%global open_iscsi_build	13
+%global commit0			40f6b2944f8a8553ad57975d1f2bb512cc23d7d1
 %global shortcommit0		%(c=%{commit0}; echo ${c:0:7})
-%global commitdate0		20260715
+%global commitdate0		20260908
 # set this to 1 if commit0 is a snapshot after the tagged version
 %global with_snapshot		0
 

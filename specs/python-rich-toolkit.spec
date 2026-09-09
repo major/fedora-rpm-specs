@@ -3,7 +3,7 @@
 %bcond tests %{with inline_snapshot}
 
 Name:           python-rich-toolkit
-Version:        0.20.4
+Version:        0.20.5
 Release:        %autorelease
 Summary:        Rich toolkit for building command-line applications
 
@@ -22,9 +22,9 @@ BuildArch:      noarch
 # this also includes a number of dependencies that are only used for debugging,
 # typechecking, running the examples, etc.; we therefore maintain this list
 # manually rather than attempting to generate it.
-BuildRequires:  %{py3_dist pytest} >= 8.3.2
+BuildRequires:  %{py3_dist pytest}
 %if %{with inline_snapshot}
-BuildRequires:  %{py3_dist inline-snapshot} >= 0.12.1
+BuildRequires:  %{py3_dist inline-snapshot}
 %endif
 # For tests/test_input_validator.py:
 BuildRequires:  %{py3_dist pydantic}

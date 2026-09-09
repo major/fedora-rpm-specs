@@ -6,7 +6,7 @@
 %global crate clap_mangen
 
 Name:           rust-clap_mangen
-Version:        0.2.33
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Manpage generator for clap
 
@@ -58,6 +58,18 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+env-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+env-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "env" feature of the "%{crate}" crate.
+
+%files       -n %{name}+env-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

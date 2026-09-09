@@ -29,7 +29,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.28.6
+Version:        1.28.7
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
@@ -790,7 +790,7 @@ EOF
 %{_libdir}/libgstcodecs-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstcuda-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstdxva-%{majorminor}.so.0{,.*}
-%{_libdir}/libgsthip.so.0{,.*}
+%{_libdir}/libgsthip-1.0.so.0{,.*}
 %{_libdir}/libgstinsertbin-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstisoff-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstmpegts-%{majorminor}.so.0{,.*}
@@ -863,7 +863,7 @@ EOF
 %{_libdir}/libgstcodecparsers-%{majorminor}.so
 %{_libdir}/libgstcodecs-%{majorminor}.so
 %{_libdir}/libgstdxva-%{majorminor}.so
-%{_libdir}/libgsthip.so
+%{_libdir}/libgsthip-1.0.so
 %{_libdir}/libgstinsertbin-%{majorminor}.so
 %{_libdir}/libgstisoff-%{majorminor}.so
 %{_libdir}/libgstmpegts-%{majorminor}.so
@@ -930,6 +930,9 @@ EOF
 
 
 %changelog
+* Tue Sep 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.7-1
+- 1.28.7
+
 * Wed Aug 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.6-1
 - 1.28.6
 

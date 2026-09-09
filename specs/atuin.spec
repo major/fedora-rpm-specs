@@ -89,6 +89,8 @@ BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  postgresql-test-rpm-macros
 %endif
 
+Requires:       bash-preexec
+
 %global _description %{expand:
 Atuin replaces your existing shell history with a SQLite database, and records
 additional context for your commands. Additionally, it provides optional and
@@ -101,9 +103,8 @@ server.
 %package        all-users
 Summary:        atuin init script for all users
 Requires:       atuin = %{version}-%{release}
+Requires:       bash-preexec-all-users
 BuildArch:      noarch
-
-# TODO: Add Requires/Recommends to bash-preexec
 
 %description    all-users %{_description}
 

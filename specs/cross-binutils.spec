@@ -65,7 +65,7 @@
 %define default_generate_notes 0
 
 Name: %{cross}-binutils
-Version: 2.46.1
+Version: 2.47
 Release: 1%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -75,7 +75,7 @@ URL: https://sourceware.org/binutils
 # many controversial patches so we stick with the official FSF version
 # instead.
 
-Source: http://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+Source: http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 
 Source2: binutils-2.19.50.0.1-output-format.sed
 
@@ -156,8 +156,7 @@ Patch13: binutils-aarch64-small-plt0.patch
 
 # Purpose:  Fix ld testsuite failures when enable_textrel is set.
 # Lifetime: Permanent.
-Patch20: binutils-ld-default-z-text.patch
-
+Patch21: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
 
@@ -275,7 +274,7 @@ Cross-build binary image generation, manipulation and query tools. \
 #
 ###############################################################################
 %prep
-%global srcdir binutils-with-gold-%{version}
+%global srcdir binutils-%{version}
 %setup -q -n %{srcdir} -c
 cd %{srcdir}
 %patch -P01 -p1
@@ -291,7 +290,7 @@ cd %{srcdir}
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
-%patch -P20 -p1
+%patch -P21 -p1
 %patch -P98 -p1
 %patch -P99 -p1
 
@@ -423,6 +422,13 @@ function config_target () {
     export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -std=gnu11"
     CARGS=
 
+    # The binutils build system enables -Werror by default, which is a problem
+    # because there is a known issue with the libiberty library sources:
+    #   libiberty/make-relative-prefix.c:230:1: error: stack usage might be
+    #   unbounded [-Werror=stack-usage=]
+    # So we explicitly disable werror for builds.
+    CARGS="$CARGS --enable-werror=no"
+
     case $target in i?86*|sparc*|ppc*|s390*|sh*|arm*|aarch64*|riscv*)
 	    CARGS="$CARGS --enable-64-bit-bfd"
 	    ;;
@@ -551,7 +557,10 @@ cd %{cross}-binutils
     --program-prefix=%{cross}- \
     --disable-shared \
     --enable-gprofng=no \
-    --with-bugurl=http://bugzilla.redhat.com/bugzilla/
+    --with-bugurl=http://bugzilla.redhat.com/bugzilla/ \
+    --enable-werror=no \
+    %{nil}
+
 %make_build tooldir=%{_prefix} all
 cd ..
 
@@ -775,6 +784,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Tue Sep 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.47-1
+- Update to 2.47
+
 * Mon Sep 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.46.1-1
 - Update to the binutils 2.46.1 release
 

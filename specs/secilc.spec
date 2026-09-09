@@ -7,6 +7,7 @@ Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
+VCS:            git:https://github.com/SELinuxProject/selinux.git
 Source0:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz
 Source1:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz.asc
 Source2:        https://github.com/bachradsusi.gpg

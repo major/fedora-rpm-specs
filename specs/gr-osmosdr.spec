@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       30%{?dist}
+Release:       31%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -107,6 +107,10 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.5-31
+- Rebuilt for new rtl-sdr
+  Resolves: rhbz#2529358
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.2.5-30
 - Rebuilt for Python 3.15.0b4 ABI change
 

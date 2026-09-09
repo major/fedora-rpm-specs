@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -23,6 +23,12 @@ Patch002: 0001-pclmtoraster.c-Fix-processing-image-in-PCLm.patch
 Patch003: 0001-Fix-printing-error-pdfio-output-Missing-Root-object..patch
 # https://github.com/OpenPrinting/libcupsfilters/pull/228
 Patch004: 0001-Honor-data-copies-in-cfFilterPDFToPDF.patch
+# fix scaling
+# https://github.com/OpenPrinting/libcupsfilters/pull/238/
+Patch005: 0001-pdftopdf-assume-print-scaling-auto-by-default.-Fixes.patch
+# fix output order and booklet printing
+# https://github.com/OpenPrinting/libcupsfilters/commit/cb82339e748b6c1b0509060526dbd52e74968829
+Patch006: 0001-Fix-minor-errors-this-caused-issue-239.-240.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -208,6 +214,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Tue Sep 08 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-4
+- fix scaling, output order and booklet printing
+
 * Fri Sep 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-3
 - fix multiple copies not working for raster drivers (rhbz#2517684)
 

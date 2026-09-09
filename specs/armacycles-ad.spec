@@ -17,6 +17,7 @@ Source2: armacycles-ad.desktop
 BuildRequires: libxml2-devel >= 2.6.12, SDL_image-devel, SDL_mixer-devel
 BuildRequires: libpng-devel, desktop-file-utils, autoconf, automake, gcc-c++
 BuildRequires: make
+BuildRequires: libcurl-devel
 Requires: libxml2 >= 2.6.12, hicolor-icon-theme
 
 %description

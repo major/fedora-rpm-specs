@@ -5,7 +5,7 @@
 %global crate reqsign-http-send-reqwest
 
 Name:           rust-reqsign-http-send-reqwest
-Version:        4.0.3
+Version:        4.0.6
 Release:        %autorelease
 Summary:        Reqwest-based HTTP client implementation for reqsign
 
@@ -36,6 +36,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

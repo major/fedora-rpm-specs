@@ -6,7 +6,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -42,6 +42,12 @@ Provides: bundled(zlib) = 1.2.8
 #popt provided by popt-devel from the system. Should this change, X11 license should be 
 #mentioned here as well.
 License: GPL-3.0-or-later
+
+# This is a regression that denies rsync user access to legit paths like
+# /var/run/ or /var/log/
+# https://github.com/sysfce2/rsync/commit/3b1eb8dd
+# https://github.com/sysfce2/rsync/commit/240bd9df
+Patch1: rsync-3.5.0-o_path-dir-traversal.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -138,6 +144,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Tue Sep 08 2026 Michal Ruprich <mruprich@redhat.com> - 3.5.0-2
+- Fixing a path traversal regression
+
 * Tue Aug 18 2026 Michal Ruprich <mruprich@redhat.com> - 3.5.0-1
 - New version 3.5.0
 

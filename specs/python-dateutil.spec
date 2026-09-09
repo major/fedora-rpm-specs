@@ -37,6 +37,13 @@ Patch:          remove-ctypes-mock.patch
 # https://github.com/dateutil/dateutil/pull/1523
 Patch:          fix-pytest-9.1-parametrize.patch
 
+# Drop dependency on six, which upstream is not ready to do,
+# but we want to avoid it in ELN.
+# https://github.com/dateutil/dateutil/issues/1202
+# https://github.com/dateutil/dateutil/pull/1203 with a small fix
+# https://github.com/fedora-eln/eln/issues/255
+Patch:          remove-six.patch
+
 # when bootstrapping dateutil-freezegun, we cannot run tests
 # on RHEL, we do not have or want all test dependencies
 %bcond tests %{undefined rhel}
@@ -54,7 +61,6 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(freezegun)
 BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(six)
 %endif
 
 %global _description \

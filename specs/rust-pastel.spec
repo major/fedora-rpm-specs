@@ -19,6 +19,8 @@ Source:         %{crates_source}
 #   removes the call into this crate.
 # * Exclude doc/demo-scripts/* to avoid generating a dependency on bash
 # * Exclude generated man pages, completions from the -devel package
+# * Update clap_mangen from 0.2 to 0.3:
+#   https://github.com/sharkdp/pastel/pull/323
 Patch:          pastel-fix-metadata.diff
 # * Downstream-only: bypass output_vt100 (no-op on non-Windows)
 Patch10:        0001-Downstream-only-bypass-output_vt100-no-op-on-non-Win.patch

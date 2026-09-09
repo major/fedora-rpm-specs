@@ -14,8 +14,8 @@
 %endif
 
 Name:           bzip3
-Version:        1.5.3
-Release:        4%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
 # bz3grep:                  BSD-2-Clause
@@ -55,9 +55,6 @@ Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
 # <https://github.com/kspalaiologos/bzip3/pull/75>.
 Patch0:         bzip3-1.5.0-Do-not-use-usr-bin-env-in-shell-bangs.patch
-# Fix pkg-config file, in upstream after 1.5.3,
-# <https://github.com/iczelia/bzip3/pull/169>.
-Patch1:         bzip3-1.5.3-autoconf-Define-extra_cflags-variable.patch
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -270,6 +267,9 @@ fi
 %{_mandir}/man1/%{programs}.1*
 
 %changelog
+* Tue Sep 08 2026 Petr Pisar <ppisar@redhat.com> - 1.5.4-1
+- 1.5.4 bump
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

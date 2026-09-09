@@ -14,7 +14,7 @@
 
 Name:       nodejs-%{npm_name}
 Summary:    An HTTP/1.1 client, written from scratch for Node.js
-Version:    7.24.0
+Version:    7.29.0
 Release:    %autorelease
 
 License:    MIT
@@ -61,10 +61,15 @@ then
 fi
 
 # Link node_modules
-mkdir -p node_modules/.bin/
+mkdir -p node_modules/
 tar -xzf %{S:1}
 ln -srt node_modules/       node_modules_prod/*
-ln -srt node_modules/.bin/  node_modules_prod/.bin
+test ! -d node_modules_prod/.bin || ln -srt node_modules/ node_modules_prod/.bin
+
+# Clean extraneous files we do not need to package
+find . -type f -name '.gitkeep' -size 0 -delete
+# https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json?v=true#hidden-lockfiles
+rm -f node_modules_prod/.package-lock.json
 
 %build
 export WASM_CC=clang
@@ -93,6 +98,7 @@ install -p -Dt %{buildroot}%{nodejs_sitelib}/%{npm_name}/            loader.js
 
 tar -xzf %{S:2}
 ln -fsrt node_modules/      node_modules_dev/*
+test -d node_modules/.bin || mkdir node_modules/.bin
 ln -fsrt node_modules/.bin/ node_modules_dev/.bin/*
 
 # Built-in test run using borp. Some tests are ignored on purpose.

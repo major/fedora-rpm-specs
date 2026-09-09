@@ -33,7 +33,6 @@ Patch10:        https://github.com/oxipng/oxipng/pull/871.patch
 Patch11:        oxipng-10.2.1-man-jiff.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 A lossless PNG compression optimizer.}
@@ -185,8 +184,6 @@ rm xtask/Cargo.lock
 
 # Now we can apply all patches, including those that touch xtask/.
 %autopatch -p1
-# Temporarily allow older clap_mangen 0.2
-tomcli set xtask/Cargo.toml str dependencies.clap_mangen '>=0.2, <0.4'
 %cargo_prep
 
 %generate_buildrequires

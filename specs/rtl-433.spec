@@ -13,6 +13,10 @@ Url: https://github.com/merbanan/rtl_433
 
 Source0: https://github.com/merbanan/rtl_433/archive/%{commit_long}/%{name}-%{commit_long}.tar.gz
 
+# Per i686 leaf package policy 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires: coreutils
 BuildRequires: sed
 BuildRequires: gcc-c++

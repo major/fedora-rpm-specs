@@ -9,7 +9,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.6.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -22,13 +22,8 @@ Source3:	wireshark.sysusers
 # Fedora-specific
 Patch2:   wireshark-0002-Customize-permission-denied-error.patch
 # Fedora-specific
-Patch4:   wireshark-0004-Restore-Fedora-specific-groups.patch
-# Fedora-specific
-Patch5:   wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
-# Fedora-specific
 Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
-Patch7:   wireshark-0007-cmakelists.patch
-Patch8:   wireshark-0008-pkgconfig.patch
+# Proposed upstream - https://gitlab.com/wireshark/wireshark/-/merge_requests/26425
 Patch9:   wireshark-0009-remove-strato-manpages.patch
 
 #install tshark together with wireshark GUI
@@ -305,6 +300,17 @@ fi
 %endif
 
 %changelog
+* Tue Sep 08 2026 Peter Lemenkov <lemenkov@gmail.com> - 1:4.6.7-3
+- Rewrite the /var/tmp patch to set TMPDIR in configuration_init() rather
+  than add wsutil/wstmpdir.{c,h} and rewrite create_tempfile(). TMPDIR is
+  read by GLib, by Qt and by child processes such as dumpcap, so one
+  default now covers every temporary file instead of three of the roughly
+  seventeen places that ask for a temporary directory
+- Drop wireshark-0007-cmakelists.patch, which existed only to build the
+  files the rewrite removes
+- Drop the stray wireshark-0003 patch, applied upstream in 0bc06ec1086 and
+  unreferenced by the spec since 4.6.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

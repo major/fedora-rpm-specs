@@ -8,7 +8,7 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           4.5.1
+Version:           4.5.2
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
@@ -263,7 +263,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 
 %dir %{_libdir}/netatalk
 %{_libdir}/netatalk/uams_*.so
-%{_libdir}/libatalk.so.20{,.*}
+%{_libdir}/libatalk.so.21{,.*}
 
 %{_mandir}/man1/nad.1*
 %{_mandir}/man1/afpldaptest.1*
@@ -371,6 +371,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/manual
 
 %changelog
+* Tue Sep 08 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.5.2-1
+- 4.5.2 release
+
 * Thu Jul 16 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.5.1-1
 - 4.5.1 release
 

@@ -1,6 +1,6 @@
 Name:           perl-String-License
 Version:        0.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Detect source code license statements in a text string
 License:        AGPL-3.0-or-later
 
@@ -45,6 +45,11 @@ BuildRequires:  perl(Test::Without::Module)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
+# Because upstream changed "package" to "class" in lib/String/License.pm
+# Fedora's perl provides generator no longer picks it up
+# Not sure if this is something to fix in this source code or the generator
+# but in the meantime, hard code it.
+Provides:	perl(String::License) = %{version}
 
 %description
 String::License identifies license statements in a string and serializes them
@@ -77,6 +82,9 @@ make test
 
 
 %changelog
+* Tue Sep 08 2026 Tom Callaway <spot@fedoraproject.org> - 0.1.1-2
+- hard-code perl(String::License) provide
+
 * Thu Sep 03 2026 Sandro Mani <manisandro@gmail.com> - 0.1.1-1
 - Update to 0.1.1
 

@@ -1,8 +1,8 @@
-%global upname sphinx-argparse
+%global pypi_name sphinx-argparse
 %global srcname sphinx_argparse
 
-Name: python-%{upname}
-Version: 0.5.2
+Name: python-%{pypi_name}
+Version: 0.6.1
 Release: %autorelease
 Summary: Sphinx extension that automatically documents argparse commands and options
 BuildArch: noarch
@@ -18,10 +18,10 @@ BuildRequires: %{py3_dist lxml}
 %description
 Sphinx extension that automatically documents argparse commands and options
 
-%package -n python3-%{upname}
+%package -n python3-%{pypi_name}
 Summary: %{summary}
 
-%description -n python3-%{upname}
+%description -n python3-%{pypi_name}
 Sphinx extension that automatically documents argparse commands and options
 
 %prep
@@ -40,8 +40,8 @@ Sphinx extension that automatically documents argparse commands and options
 %check
 %pytest
 
-%files -n python3-%{upname} -f %{pyproject_files}
-%license LICENCE.rst
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%license LICENSE.rst
 %doc README.rst
 
 %changelog

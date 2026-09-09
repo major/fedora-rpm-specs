@@ -14,10 +14,14 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Update some dependencies across SemVer boundaries:
 #   https://github.com/dmorawetz/cargo-rpmstatus/pull/9. Use rusqlite 0.40, rand
-#   0.10, and quick-xml 0.41 (fixing RUSTSEC-2026-0194 and RUSTSEC-2026-0195).
-#   Downstream, we still allow rusqlite as old as 0.38 until we update it,
+#   0.10, quick-xml 0.41 (fixing RUSTSEC-2026-0194 and RUSTSEC-2026-0195), and
+#   update clap_mangen to 0.3. Downstream, we still allow rusqlite as old as
+#   0.38 until we update it,
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2447695.
 Patch:          cargo-rpmstatus-fix-metadata.diff
+# * Re-generated man page and SYNOPSYS/SYNOPSIS typo fix from
+#   https://github.com/dmorawetz/cargo-rpmstatus/pull/9
+Patch10:        cargo-rpmstatus-man.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

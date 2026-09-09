@@ -10,9 +10,12 @@ URL:            https://www.lprp.fr/gimp_plugin_en/
 Source:         %{forgeurl}/archive/v%{version}/plugin-gimp-fourier-%{srcversion}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+#
 # The gimp package dropped s390x support in
 # https://src.fedoraproject.org/rpms/gimp/c/778e871c1051ea063ce679b18ae84f0a3c47b6f7.
-# We have asked the maintainer to create a tracking bug.
+# Per the tracking bug https://bugzilla.redhat.com/show_bug.cgi?id=2318369,
+# there is no upstream support in the gimp project for big-endian
+# architectures, so this ExcludeArch is likely to be permanent.
 ExcludeArch:    %{ix86} s390x
 
 BuildRequires:  gcc

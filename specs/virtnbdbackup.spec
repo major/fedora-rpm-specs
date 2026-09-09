@@ -1,5 +1,5 @@
 Name:           virtnbdbackup
-Version:        2.50
+Version:        2.53
 Release:        1%{?dist}
 Summary:        Backup utility for libvirt
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ install -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/virtnbd*
 
 %changelog
+* Tue Sep 08 2026 Chris Adams <linux@cmadams.net> 2.53-1
+- new version
+
 * Mon Aug 31 2026 Chris Adams <linux@cmadams.net> 2.50-1
 - new version
 

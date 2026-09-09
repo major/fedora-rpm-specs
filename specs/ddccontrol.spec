@@ -1,7 +1,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          3.2.0
-Release:          3%{?dist}
+Version:          3.3.0
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    cargo
@@ -153,6 +153,10 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.3.0-1
+- New version
+  Resolves: rhbz#2529570
+
 * Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 3.2.0-3
 - Rebuild with latest Rust compiler to enable SHSTK support
 

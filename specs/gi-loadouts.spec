@@ -3,7 +3,7 @@
 %global         identity net.gridhead.gi-loadouts
 
 Name:           %{hyphen}
-Version:        0.1.18
+Version:        0.1.19
 Release:        1%{?dist}
 Summary:        Loadouts for Genshin Impact
 
@@ -62,6 +62,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{identity}.me
 %{_datadir}/icons/hicolor/scalable/apps/%{identity}.svg
 
 %changelog
+* Tue Sep 08 2026 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.19-1
+- Version 0.1.19 release of Loadouts for Genshin Impact
+- Announcement - https://gridhead.net/loadouts-for-genshin-impact-v0-1-19-released/
+
 * Fri Jul 17 2026 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.18-1
 - Version 0.1.18 release of Loadouts for Genshin Impact
 - Announcement - https://gridhead.net/loadouts-for-genshin-impact-v0-1-18-released/

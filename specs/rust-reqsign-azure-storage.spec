@@ -5,7 +5,7 @@
 %global crate reqsign-azure-storage
 
 Name:           rust-reqsign-azure-storage
-Version:        3.1.1
+Version:        3.2.1
 Release:        %autorelease
 Summary:        Azure Storage signing implementation for reqsign
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,7 +50,7 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Remove unused mock server scripts from tests to avoid a Python dependency
-rm -rv tests/mocks
+rm --recursive --verbose tests/mocks
 %cargo_prep
 
 %generate_buildrequires

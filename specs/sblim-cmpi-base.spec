@@ -2,7 +2,7 @@
 
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -30,6 +30,8 @@ Patch9:         sblim-cmpi-base-1.6.4-fix-possible-null-dereference.patch
 Patch10:        sblim-cmpi-base-1.6.4-gcc15-fixes.patch
 # Patch11: adds support for Image Mode
 Patch11:        sblim-cmpi-base-1.6.4-image-mode.patch
+# Patch12: drops bogus bare -Wc libtool flag that breaks LTO link (FTBFS)
+Patch12:        sblim-cmpi-base-1.6.4-remove-wc-ldflag.patch
 Requires:       cim-server sblim-indication_helper
 BuildRequires: make
 BuildRequires:  perl-generators
@@ -78,6 +80,7 @@ autoreconf --install --force
 %patch -P9 -p1 -b .fix-possible-null-dereference
 %patch -P10 -p1 -b .gcc15-fixes
 %patch -P11 -p1 -b .image-mode
+%patch -P12 -p1 -b .no-wc-ldflag
 
 %build
 %configure \
@@ -136,6 +139,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Tue Sep 08 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-34
+- Drop bogus bare -Wc libtool flag that breaks the LTO link (fixes FTBFS)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

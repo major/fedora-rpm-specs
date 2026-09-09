@@ -24,6 +24,10 @@ Source1:        https://codeberg.org/chewing/%{name}/releases/download/v%{versio
 Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
 
 Patch0:         0001-delete-sqlite-bundled-feature.patch
+# Update clap_mangen from 0.2 to 0.3
+# https://codeberg.org/chewing/libchewing/pulls/857
+# Without changes to Cargo.lock.
+Patch1:         libchewing-0.13.1-clap_mangen0.13.patch
 
 BuildRequires:  gcc cmake make pkgconf texinfo
 BuildRequires:  cargo-rpm-macros >= 24

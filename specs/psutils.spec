@@ -2,7 +2,7 @@
 %bcond psutils_enables_tests %{undefined rhel}
 
 Name:       psutils
-Version:    3.3.16
+Version:    3.3.17
 Release:    1%{?dist}
 Summary:    PDF and PostScript utilities
 # COPYING:          GPL-3.0 text
@@ -145,6 +145,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %endif
 
 %changelog
+* Tue Sep 08 2026 Petr Pisar <ppisar@redhat.com> - 3.3.17-1
+- 3.3.17 bump
+
 * Thu Aug 06 2026 Petr Pisar <ppisar@redhat.com> - 3.3.16-1
 - 3.3.16 bump
 

@@ -1,7 +1,7 @@
 %global branch 1.28
 
 Name:          mate-control-center
-Version:       %{branch}.1
+Version:       %{branch}.2
 Release:       %autorelease
 Summary:       MATE Desktop control-center
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.

@@ -1,24 +1,23 @@
 Name:           rsync-bpc
-Version:        3.1.3.0
-Release:        17%{?dist}
+Version:        3.1.3.2
+Release:        1%{?dist}
 Summary:        A customized fork of rsync that is used as part of BackupPC
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/backuppc/rsync-bpc
-Source0:        https://github.com/backuppc/rsync-bpc/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-# Fix for building on CentOS 6 in COPR
-Patch0:         rsync-bpc-rsync_h.patch
-Patch1:         rsync-bpc-configure-c99.patch
-Patch2:         rsync-bpc-gcc_15.patch
+Source0:        https://github.com/backuppc/rsync-bpc/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libacl-devel
 BuildRequires:  libattr-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  lz4-devel
 BuildRequires:  make
+BuildRequires:  openssl-devel
 BuildRequires:  popt-devel
 BuildRequires:  perl
+BuildRequires:  xxhash-devel
 
 Provides:       bundled(rsync) = 3.1.3
 
@@ -43,7 +42,7 @@ Rsync-bpc serves no purpose outside of BackupPC.
 
 
 %build
-%configure
+%configure --disable-md2man
 %make_build
 
 
@@ -58,6 +57,9 @@ Rsync-bpc serves no purpose outside of BackupPC.
 
 
 %changelog
+* Tue Sep 08 2026 Richard Shaw <hobbes1069@gmail.com> - 3.1.3.2-1
+- Update to 3.1.3.2.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
