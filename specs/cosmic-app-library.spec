@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 7ecfcf5bb25d14066a5b88cfa75befeaad8a97d4
-%global commitdatestring 2026-08-18 14:10:43 +0200
-%global cosmic_minver 1.6.0
+%global commit 5b7638f116360c1139efe795c8739cc89c87dca1
+%global commitdatestring 2026-09-01 16:53:18 -0600
+%global cosmic_minver 1.8.0
 
 Name:           cosmic-app-library
-Version: 1.6.0
+Version: 1.8.0
 Release:        %autorelease
 Summary:        App Library program for the COSMIC Desktop Environment
 
@@ -61,9 +61,16 @@ else
 fi
 
 %build
+# Used by build.rs to expand the .desktop and .metainfo.xml files
+export APP_ID="com.system76.CosmicAppLibrary"
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
+# The zbus-lockstep #[validate] macro resolves the AT-SPI XML directory to
+# "vendor/xml" (the vendored xml crate) instead of atspi-common's own
+# "xml" directory, which makes it panic on files without an extension.
+# Explicitly point it at the right directory.
+export LOCKSTEP_XML_PATH="$PWD/vendor/atspi-common/xml"
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
@@ -76,10 +83,20 @@ sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
+# The justfile installs the generated metainfo file into
+# %{_datadir}/appdata, but the files section expects it in %{_metainfodir}
+# (%{_datadir}/metainfo). Move it to the correct location.
+mkdir -p %{buildroot}%{_metainfodir}
+mv %{buildroot}%{_datadir}/appdata/com.system76.CosmicAppLibrary.metainfo.xml \
+    %{buildroot}%{_metainfodir}/
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicAppLibrary.desktop
 %if %{with check}
+# Used by build.rs to expand the .desktop and .metainfo.xml files
+export APP_ID="com.system76.CosmicAppLibrary"
+# Required by zbus-lockstep to resolve the AT-SPI XML directory
+export LOCKSTEP_XML_PATH="$PWD/vendor/atspi-common/xml"
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"

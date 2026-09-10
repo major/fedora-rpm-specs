@@ -66,7 +66,7 @@ http://magic.io/blog/asyncpg-1m-rows-from-postgres-to-python/.}
 %description %{common_description}
 
 
-%package -n     python3-asyncpg
+%package -n python3-asyncpg
 Summary:        %{summary}
 
 Obsoletes:      %{name}-doc < 0.27.0-5
@@ -93,13 +93,13 @@ find asyncpg -type f -name '*.c' ! -name 'recordobj.c' -print -delete
 # uvloop bcond; second, we may have a working python3-uvloop packaged even if
 # there is no corresponding binary wheel on PyPI. We use sed since "tomcli set
 # ... lists replace ..." only supports a fixed replacement string.
-sed -r -i "s/('uvloop\\b.*);.*'/\\1'/" pyproject.toml
+sed --regexp-extended --in-place "s/('uvloop\\b.*);.*'/\\1'/" pyproject.toml
 %if %{without uvloop}
 %pyproject_patch_dependency uvloop:ignore
 %endif
 
 # Unbundle pythoncapi-compat.
-ln -svf /usr/include/pythoncapi_compat.h \
+ln --symbolic --verbose --force /usr/include/pythoncapi_compat.h \
     asyncpg/protocol/record/pythoncapi_compat.h
 
 

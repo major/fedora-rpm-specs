@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 1685f7fc99cbb9cbe981ac672d6451ba6faff7db
 %global commitdatestring 2026-07-29 20:27:48 +0200
-%global cosmic_minver 1.6.0
+%global cosmic_minver 1.8.0
 
 Name:           cosmic-bg
-Version: 1.6.0
+Version: 1.8.0
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 

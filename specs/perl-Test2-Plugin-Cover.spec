@@ -1,7 +1,7 @@
 Name:           perl-Test2-Plugin-Cover
-%global cpan_version 0.000028
-Version:        0.0.28
-Release:        2%{?dist}
+%global cpan_version 0.000029
+Version:        0.0.29
+Release:        1%{?dist}
 Summary:        Collect minimal file coverage data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Plugin-Cover
@@ -92,7 +92,9 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%dir %{perl_vendorarch}/auto/Test2
+%dir %{perl_vendorarch}/auto/Test2/Plugin
+%{perl_vendorarch}/auto/Test2/Plugin/Cover
 %dir %{perl_vendorarch}/Test2
 %dir %{perl_vendorarch}/Test2/EventFacet
 %{perl_vendorarch}/Test2/EventFacet/Coverage.pm
@@ -105,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 09 2026 Petr Pisar <ppisar@redhat.com> - 0.0.29-1
+- 0.000029 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.0.28-2
 - Perl 5.44 rebuild
 

@@ -7,7 +7,7 @@
 Name:           gnatcoll
 Epoch:          2
 Version:        %{upstream_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
@@ -28,6 +28,9 @@ Patch:          %{name}-core-doc-examples-dir.patch
 Patch:          %{name}-core-refine-dependencies-gnatcoll.patch
 # [GCC 15.2.1] Fix unsupported use of the Access attribute.
 Patch:          %{name}-core-fix-base64-coder-example.patch
+# security patches, backported and modified to avoid interface changes:
+Patch:          GNATCOLL-CORE-0162.patch
+Patch:          GNATCOLL-CORE-0164.patch
 
 BuildRequires:  gcc-gnat gprbuild make sed
 BuildRequires:  fedora-gnat-project-common
@@ -421,6 +424,10 @@ done
 ###############
 
 %changelog
+* Wed Sep 09 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:26.0.0-5
+- Patched the vulnerabilities GNATCOLL-CORE-0162 and GNATCOLL-CORE-0164 in
+  advance of version 27.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

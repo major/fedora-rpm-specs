@@ -4,23 +4,21 @@
 %bcond_with deprecated
 %endif
 
+# Snapshot generated with:
+# git config tar.tar.xz.command "xz -c"
+# export SHA=`git rev-parse --short HEAD` ; export VERSION=5.87 ; git archive --format=tar.xz -o bluez-$VERSION+1.git$SHA.tar.xz --prefix=bluez-$VERSION+1.git$SHA/ HEAD
+# as a post-release snapshot, see:
+# https://fedoraproject.org/wiki/PackagingDrafts/TildeVersioning
+%global gitsha 8750129efca8
+
 Name:    bluez
-Version: 5.87
-Release: 7%{?dist}
+Version: 5.87+1.git%{gitsha}
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-
-# git format-patch --stdout 5.87...30db66dc971bd1cd95d4a7b0eea296367ab65b3b
-Patch1: 5.87-bug-fixes-1.patch
-# CVE-2026-75032
-Patch2: avrcp-getfolderitems.patch
-# CVE-2026-80186
-Patch3: name2utf8-overflow.patch
-# CVE-2026-80185
-Patch4: sdp-xml-type-confusion.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -180,7 +178,7 @@ install -m0755 tools/btsnoop $RPM_BUILD_ROOT%{_bindir}
 # some issues and to set the MAC address on HCIs which don't have their
 # MAC address configured 
 install -m0755 tools/btmgmt $RPM_BUILD_ROOT%{_bindir}
-install -m0644 doc/btmgmt.1 $RPM_BUILD_ROOT%{_mandir}/man1/
+rst2man doc/btmgmt.rst --no-datestamp --no-generator $RPM_BUILD_ROOT%{_mandir}/man1/btmgmt.1
 
 # Remove libtool archive
 find $RPM_BUILD_ROOT -name '*.la' -delete
@@ -346,6 +344,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Wed Sep 09 2026 Bastien Nocera <bnocera@redhat.com> - 5.87+1.git8750129efca8-1
+- Rebase to latest upstream HEAD (Closes: #2528181, #2525293)
+
 * Wed Aug 26 2026 Bastien Nocera <bnocera@redhat.com> - 5.87-7
 - Fix CVE-2026-80185 (Closes: #2524397)
 

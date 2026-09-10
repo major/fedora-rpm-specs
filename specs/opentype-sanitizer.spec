@@ -39,7 +39,6 @@ Source2:        ots-%{version}-excluded-font-checksums.txt
 ExcludeArch:    %{ix86}
 
 BuildRequires:  meson
-BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(libwoff2dec)
@@ -78,7 +77,8 @@ closed-source blob running with high privilege.}
 
 # Disable tests that use fonts that were filtered out for license issues.
 sed --regexp-extended --in-place \
-    "/$(tr '\n' '|' < '%{SOURCE2}' | sed -r 's@\|+$@@')/d" tests/meson.build
+    "/$(tr '\n' '|' < '%{SOURCE2}' | sed --regexp-extended 's@\|+$@@')/d" \
+    tests/meson.build
 
 
 %conf

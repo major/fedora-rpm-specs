@@ -1,3 +1,4 @@
+%bcond ctest 1
 %bcond mingw %{defined fedora}
 
 # Installed library version
@@ -24,13 +25,7 @@ Summary:        C++ Common Libraries
 #     (https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/205).
 License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
-Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Omit the “bind” block in test Test Mutex::FunctorCondition
-#
-# Work around failure to compile with GCC 16,
-# https://github.com/abseil/abseil-cpp/issues/1992.
-Patch:          0001-Omit-the-bind-block-in-test-Test-Mutex-FunctorCondit.patch
+Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/abseil-cpp-%{version}.tar.gz
 
 # PR #2071: Include immintrin.h instead of bmi2intrin.h
 # https://github.com/abseil/abseil-cpp/commit/d851fdd768b27c02b3fb786fd0987faddd279ece
@@ -39,10 +34,29 @@ Patch:          0001-Omit-the-bind-block-in-test-Test-Mutex-FunctorCondit.patch
 # e.g., when targeting x86_64-v3 on ELN/RHEL.
 Patch:          https://github.com/abseil/abseil-cpp/commit/d851fdd768b27c02b3fb786fd0987faddd279ece.patch
 
-BuildRequires:  cmake
-# The default make backend would work just as well; ninja is observably faster
-BuildRequires:  ninja-build
+BuildSystem:    cmake
+
+BuildOption(conf): -DABSL_ENABLE_INSTALL:BOOL=ON
+BuildOption(conf): -DABSL_FIND_GOOGLETEST:BOOL=ON
+BuildOption(conf): -DABSL_USE_EXTERNAL_GOOGLETEST:BOOL=ON
+BuildOption(conf): -DCMAKE_BUILD_TYPE:STRING=None
+BuildOption(conf): -DCMAKE_CXX_STANDARD:STRING=17
+%if %{defined ctest}
+BuildOption(conf): -DABSL_BUILD_TESTING:BOOL=ON
+%else
+BuildOption(conf): -DABSL_BUILD_TESTING:BOOL=OFF
+%endif
+# Needed to build libraries for the -testing subpackage when tests are not
+# enabled: therefore redundant here, but still supplied to be more explicit.
+BuildOption(conf): -DABSL_BUILD_TEST_HELPERS:BOOL=ON
+BuildOption(check): --exclude-regex "${skips}"
+
 BuildRequires:  gcc-c++
+# The ninja backend for CMake (which is observably faster than the UNIX
+# Makefiles backend) is the default since
+# https://fedoraproject.org/wiki/Changes/CMake_ninja_default; we choose to
+# be explicit since the MinGW build uses a ninja-specific macro.
+BuildRequires:  ninja-build
 
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
@@ -90,8 +104,8 @@ found that many of these utilities serve a purpose within our code base,
 and we now want to provide those resources to the C++ community as a whole.
 
 %package testing
-Summary:        Libraries needed for running tests on the installed %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Summary:        Libraries needed for running tests on the installed abseil-cpp
+Requires:       abseil-cpp%{?_isa} = %{version}-%{release}
 
 Provides:       bundled(cctz)
 
@@ -99,16 +113,16 @@ Provides:       bundled(cctz)
 %{summary}.
 
 %package devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       %{name}-testing%{?_isa} = %{version}-%{release}
+Summary:        Development files for abseil-cpp
+Requires:       abseil-cpp%{?_isa} = %{version}-%{release}
+Requires:       abseil-cpp-testing%{?_isa} = %{version}-%{release}
 
 # Some of the headers from CCTZ are part of the -devel subpackage. See the
 # corresponding virtual Provides in the base package for full details.
 Provides:       bundled(cctz)
 
 %description devel
-Development headers for %{name}
+Development headers for abseil-cpp
 
 %if %{with mingw}
 %package -n mingw32-abseil-cpp
@@ -129,39 +143,21 @@ MinGW Windows abseil-cpp library.
 %endif
 
 %prep
-%autosetup -p1 -S gendiff
-
-%build
-# ABSL_BUILD_TEST_HELPERS is needed to build libraries for the -testing
-# subpackage when tests are not enabled. It is therefore redundant here, but we
-# still supply it to be more explicit.
-%cmake \
-    -GNinja \
-    -DABSL_USE_EXTERNAL_GOOGLETEST:BOOL=ON \
-    -DABSL_FIND_GOOGLETEST:BOOL=ON \
-    -DABSL_ENABLE_INSTALL:BOOL=ON \
-    -DABSL_BUILD_TESTING:BOOL=ON \
-    -DABSL_BUILD_TEST_HELPERS:BOOL=ON \
-    -DCMAKE_BUILD_TYPE:STRING=None \
-    -DCMAKE_CXX_STANDARD:STRING=17
-%cmake_build
+%autosetup -p1
 
 %if %{with mingw}
-%mingw_cmake \
-    -DABSL_BUILD_TESTING:BOOL=OFF \
-    -GNinja
+%build -a
+%mingw_cmake -GNinja -DABSL_BUILD_TESTING:BOOL=OFF
 %mingw_ninja --verbose
 %endif
 
-%install
-%cmake_install
-
 %if %{with mingw}
+%install -a
 %mingw_ninja_install
 %mingw_debug_install_post
 %endif
 
-%check
+%check -p
 skips='^($.'
 %ifarch ppc64le %{ix86}
 # [Bug]: Flaky test failures in absl_failure_signal_handler_test on ppc64le in
@@ -173,9 +169,29 @@ skips="${skips}|absl_failure_signal_handler_test"
 # https://github.com/abseil/abseil-cpp/issues/1925
 skips="${skips}|absl_stacktrace_test"
 %endif
+%ifarch %{ix86}
+# Seven of eight KernelTimeout tests fail with errors like:
+#
+# [ RUN      ] KernelTimeout.InfiniteFuture
+# /builddir/build/BUILD/abseil-cpp-20260526.0-build/abseil-cpp-20260526.0/…
+#   absl/synchronization/internal/kernel_timeout_test.cc:130: Failure
+# Expected: (absl::TimeFromTimespec(t.MakeAbsTimespec())) > (absl::Now() +
+#   absl::Hours(100000)), actual: 2038-01-19T03:14:07.999999999+00:00 vs
+#   2038-02-05T02:18:03.245767566+00:00
+# /builddir/build/BUILD/abseil-cpp-20260526.0-build/abseil-cpp-20260526.0/…
+#   absl/synchronization/internal/kernel_timeout_test.cc:133: Failure
+# Expected: (absl::TimeFromTimespec(t.MakeClockAbsoluteTimespec(0))) >
+#   (absl::Now() + absl::Hours(100000)), actual:
+#   2038-01-19T03:14:07.999999999+00:00 vs 2038-02-05T02:18:03.245848097+00:00
+# [  FAILED  ] KernelTimeout.InfiniteFuture (0 ms)
+#
+# This looks like a Year 2038 problem triggered by the passage of (actual,
+# wall-clock) time. We haven’t attempted to report it upstream because we
+# couldn’t easily reproduce it in a git checkout (working in a
+# fedora-rawhide-i386 mock chroot) and because i686 is a low priority.
+skips="${skips}|absl_kernel_timeout_internal_test"
+%endif
 skips="${skips})$"
-
-%ctest --exclude-regex "${skips}"
 
 %files
 %license LICENSE

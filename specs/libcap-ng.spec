@@ -1,7 +1,7 @@
 %global bpf_supported_arches aarch64 x86_64 ppc64le riscv64 s390x
 Summary: Alternate posix capabilities library
 Name: libcap-ng
-Version: 0.9.5
+Version: 0.9.6
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
@@ -12,7 +12,7 @@ BuildRequires: kernel-headers >= 2.6.11
 BuildRequires: libattr-devel
 %ifarch %{bpf_supported_arches}
 # These next ones are needed by cap-audit
-BuildRequires: clang
+BuildRequires: clang, llvm
 BuildRequires: bpftool libbpf-devel
 BuildRequires: audit-libs-devel
 BuildRequires: kernel-devel
@@ -130,6 +130,9 @@ make check
 %endif
 
 %changelog
+* Wed Sep 09 2026 Steve Grubb <sgrubb@redhat.com> 0.9.6-1
+- New upstream bugfix release
+
 * Thu Aug 20 2026 Steve Grubb <sgrubb@redhat.com> 0.9.5-1
 - New upstream feature release
 

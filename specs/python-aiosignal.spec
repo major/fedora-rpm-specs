@@ -19,8 +19,8 @@ BuildOption(install): --assert-license aiosignal
 
 BuildArch:      noarch
 
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
 
 %global common_description %{expand:
 A project to manage callbacks in asyncio projects.}

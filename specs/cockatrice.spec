@@ -1,4 +1,4 @@
-%global		gittag0			2025-04-03-Release-2.10.2
+%global		gittag0			2026-06-26-Release-3.0.2
 
 %define			lang_subpkg() \
 %package		langpack-%{1}\
@@ -15,7 +15,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 %{_datadir}/oracle/translations/oracle_%{1}.qm
 
 Name:		cockatrice
-Version:	2.10.2
+Version:	3.0.2
 Release:	%autorelease
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
@@ -37,17 +37,17 @@ Patch0:		cockatrice-ea9e966330-fix-desktop-entry-files.patch
 BuildRequires:	gcc-c++
 BuildRequires:	cmake >= 3.1
 BuildRequires:	protobuf-devel
-BuildRequires:	qt5-qttools-devel
-BuildRequires:	qt5-qtsvg-devel
-BuildRequires:	qt5-qtmultimedia-devel
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	qt6-qtsvg-devel
+BuildRequires:	qt6-qtmultimedia-devel
+BuildRequires:	qt6-qtwebsockets-devel
 BuildRequires:	zlib-devel
 BuildRequires:	sqlite-devel
-BuildRequires:	qt5-qtwebsockets-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	desktop-file-utils
 Requires:		wget
 Requires:		hicolor-icon-theme
-Requires:		%{name}-utils = %{version}-%{release}
 
 %description
 Cockatrice is an open-source multi-platform supported program for playing
@@ -60,7 +60,6 @@ without being connected to a server.
 %package server
 Summary:	Standalone server for Cockatrice
 Provides:	servatrice = %{version}-%{release}
-Requires:	%{name}-utils = %{version}-%{release}
 
 %description server
 Cockatrice is an open-source multi-platform supported program for playing
@@ -72,34 +71,16 @@ without being connected to a server.
 This is the standalone server, "servatrice".
 
 
-%package utils
-Summary:	Utilities common to both cockatrice and servatrice
-
-%description utils
-Cockatrice is an open-source multi-platform supported program for playing
-tabletop card games over a network. The program's server design prevents any
-kind of client modifications to gain an unfair advantage in a game.
-The client also has a built in single-player mode where you can create decks
-without being connected to a server.
-
-This package provides utilities required by both cockatrice and servatrice.
-
-
 %prep
 %setup -q -n Cockatrice-%{gittag0}
 %patch -P 0
 find . -iname "*.h" -exec chmod a-x "{}" \;
 find . -iname "*.cpp" -exec chmod a-x "{}" \;
-# The API for Protobuf v4 (23.x) requires at least C++14. When compiled as
-# C++17, abseil-cpp (a transitive dependency via the generated bindings)
-# requires API users to compile with at least C++17.
-sed -r -i 's/(CMAKE_CXX_STANDARD )11\b/\117/' CMakeLists.txt
 
 
 %build
 %cmake \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DBUILD_SHARED_LIBS=OFF \
 	-DWITH_SERVER=ON
 
 %cmake_build
@@ -134,10 +115,13 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 
 %lang_subpkg cs Czech
 %lang_subpkg de German
+%lang_subpkg el Greek
 %lang_subpkg en_US English
 %lang_subpkg es Spanish
 %lang_subpkg et Estonian
+%lang_subpkg fi Finnish
 %lang_subpkg fr French
+%lang_subpkg hu Hungarian
 %lang_subpkg it Italian
 %lang_subpkg ja Japanese
 %lang_subpkg ko Korean
@@ -149,11 +133,21 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %lang_subpkg ru Russian
 %lang_subpkg sr Serbian
 %lang_subpkg sv Swedish
+%lang_subpkg tr Turkish
+%lang_subpkg yue Cantonese
 %lang_subpkg zh-Hans "Chinese (Simplified)"
 
-%files utils
-%license LICENSE
-%{_bindir}/dbconverter
+%package langpack-zh-Hant
+Summary:	Chinese (Traditional) language data for %{name}
+BuildArch:	noarch
+Requires:	%{name} = %{version}-%{release}
+Supplements:	(%{name} = %{version}-%{release} and langpacks-zh-Hant)
+
+%description langpack-zh-Hant
+Chinese (Traditional) language data for %{name}.
+
+%files langpack-zh-Hant
+%{_datadir}/%{name}/translations/%{name}_zh-Hant.qm
 
 %files server
 %license LICENSE

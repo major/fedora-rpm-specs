@@ -21,7 +21,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 
 BuildRequires:  libpq-devel
 
-
 %description
 The Pg module permits you to access all functions of the Libpq interface of
 PostgreSQL. Libpq is the programmer’s interface to PostgreSQL. For examples of

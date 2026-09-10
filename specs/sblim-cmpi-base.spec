@@ -32,6 +32,8 @@ Patch10:        sblim-cmpi-base-1.6.4-gcc15-fixes.patch
 Patch11:        sblim-cmpi-base-1.6.4-image-mode.patch
 # Patch12: drops bogus bare -Wc libtool flag that breaks LTO link (FTBFS)
 Patch12:        sblim-cmpi-base-1.6.4-remove-wc-ldflag.patch
+# Patch13: uses mktemp for temporary files in provider registration script (CVE-2026-73585)
+Patch13:        sblim-cmpi-base-1.6.4-secure-tmpfiles.patch
 Requires:       cim-server sblim-indication_helper
 BuildRequires: make
 BuildRequires:  perl-generators
@@ -81,6 +83,7 @@ autoreconf --install --force
 %patch -P10 -p1 -b .gcc15-fixes
 %patch -P11 -p1 -b .image-mode
 %patch -P12 -p1 -b .no-wc-ldflag
+%patch -P13 -p1 -b .secure-tmpfiles
 
 %build
 %configure \
@@ -139,8 +142,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
-* Tue Sep 08 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-34
+* Wed Sep 09 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-34
 - Drop bogus bare -Wc libtool flag that breaks the LTO link (fixes FTBFS)
+- Use mktemp for temporary files in provider registration script (CVE-2026-73585)
 
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

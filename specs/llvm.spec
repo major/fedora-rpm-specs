@@ -488,6 +488,7 @@ Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz.sig
 %if %{build_docs} == 0
 Source42: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_manpage_tarball_dir}.tar.xz
+Source43: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_manpage_tarball_dir}.tar.xz.sig
 %endif
 %endif
 Source6: release-keys.asc
@@ -1420,6 +1421,10 @@ Mesa OpenCL support with RustiCL.
 %if %{without snapshot_build}
 # llvm
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+
+%if %{build_docs} == 0
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE43}' --data='%{SOURCE42}'
+%endif
 %endif
 
 %if %{with bundle_compat_lib}
@@ -2782,6 +2787,17 @@ reset_test_opts
 reset_test_opts
 # Xfail testing of update utility tools
 export LIT_XFAIL="tools/UpdateTestChecks"
+
+# Disable gold plugin tests on rhel-8-s390x,
+# because ld.bfd incorrectly reports supported emulations there:
+# https://redhat.atlassian.net/browse/RHEL-251501
+%if 0%{?rhel} == 8
+%ifarch s390x
+test_list_filter_out+=("LLVM :: tools/gold")
+%endif
+%endif
+
+adjust_lit_filter_out test_list_filter_out
 
 %cmake_build --target check-llvm
 #endregion Test LLVM

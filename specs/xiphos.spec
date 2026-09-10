@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           xiphos
-Version:        4.4.0
+Version:        4.5.0
 Release:        1%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -97,6 +97,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Wed Sep 09 2026 Greg Hellings <greg.hellings@gmail.com> - 4.5.0-1
+- New upstream release 4.5.0
+
 * Sun Aug 02 2026 Greg Hellings <greg.hellings@gmail.com> - 4.4.0-1
 - New upstream release 4.4.0
 - Introduction of speech services for TTS

@@ -1,10 +1,10 @@
 %bcond x11 %[!(0%{?rhel} >= 10)]
 
 %global forgeurl https://github.com/qtile/qtile
-%global tag v0.36.0
+%global tag v0.37.0
 
 Name: qtile
-Version: 0.36.0
+Version: 0.37.0
 Release: %{autorelease}
 Summary: A pure-Python tiling window manager
 %forgemeta
@@ -28,7 +28,7 @@ BuildRequires:  xorg-x11-server-Xephyr
 %endif
 BuildRequires:  xterm
 BuildRequires:  rsvg-pixbuf-loader
-BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(wlroots-0.20)
 
 # Recommended packages for widgets
 Recommends: python3-psutil
@@ -97,7 +97,11 @@ BuildRequires: wayland-protocols-devel
 %pyproject_patch_dependency check-manifest:ignore
 %pyproject_patch_dependency mailbox:ignore
 %pyproject_patch_dependency imaplib2:ignore
-
+# desktop-file-install doesn't support this valid property yet
+sed -i '/DesktopNames/d' ./resources/qtile.desktop
+# Prevent rpmlint non-executable-script error caused by a shebang that shouldn't
+# be present. This file isn't intended to be run directly.
+sed -i '/^#!\/usr\/bin\/env python3$/d' libqtile/scripts/cmd_obj.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -127,7 +131,7 @@ desktop-file-install \
 mkdir -p %{buildroot}%{_datadir}/wayland-sessions/
 desktop-file-install \
     --dir %{buildroot}%{_datadir}/wayland-sessions/ \
-    resources/qtile-wayland.desktop
+    resources/qtile.desktop
 
 
 %check
@@ -163,9 +167,8 @@ ulimit -n 10240 ||:
 
 
 %files wayland
-%{_datadir}/wayland-sessions/qtile-wayland.desktop
+%{_datadir}/wayland-sessions/qtile.desktop
 %{python3_sitearch}/libqtile/backend/wayland/_ffi.*.so
-%{python3_sitelib}/libqtile/backend/wayland/qw/proto/
 
 
 %autochangelog

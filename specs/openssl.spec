@@ -30,7 +30,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 4.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source4: openssl.rpmlintrc
@@ -53,6 +53,8 @@ Patch0013: 0013-FIPS-PKCS12-PBMAC1-defaults.patch
 Patch0014: 0014-FIPS-EC-disable-weak-curves.patch
 Patch0015: 0015-Make-openssl-speed-run-in-FIPS-mode.patch
 Patch0016: 0016-Allow-hybrid-MLKEM-in-FIPS-mode.patch
+# https://github.com/openssl/openssl/commit/457c55324724f385e968eeee00955b8b1bec8910
+Patch0017: 0017-Dont-advertise-config-loading-as-done-soon.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -376,6 +378,11 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Sep 09 2026 Pavol Žáčik <pzacik@redhat.com> - 1:4.0.2-3
+- Do not advertise OPENSSL_INIT_LOAD_CONFIG in optsdone too soon
+  (Backport https://github.com/openssl/openssl/pull/32646)
+  Relates: rhbz#2524692
+
 * Tue Sep 08 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.2-2
 - Obsolete openssl-devel-engine explicitly
   Resolves: rhbz#2527847

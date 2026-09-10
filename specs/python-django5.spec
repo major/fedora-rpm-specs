@@ -17,13 +17,13 @@
 %bcond all_tests 1
 %endif
 
-%if %{defined fedora} && 0%{?fedora} == 42
+%if %{defined fedora} && 0%{?fedora} <= 44
 %bcond old_setuptools 1
 %else
 %bcond old_setuptools 0
 %endif
 
-Version:        5.2.16
+Version:        5.2.17
 %global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
 
@@ -42,8 +42,9 @@ URL:            https://www.djangoproject.com/
 Source:         %{pypi_source django}
 Source:         %{name}.rpmlintrc
 
-# setuptools 77 is only needed to support the new license metadata
-Patch1001:      django-allow-setuptools-ge-69.diff
+# conditional patches: >= 1000
+# revert setuptools requirement back to 77.0.3 for F43/F44 compatibility
+Patch1001:      django-allow-setuptools-ge-77.diff
 
 BuildArch:      noarch
 
@@ -101,9 +102,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-asgiref
 
 # see django/contrib/admin/static/admin/js/vendor/
-Provides:       bundled(jquery) = 3.6.4
+Provides:       bundled(jquery) = 3.7.1
 Provides:       bundled(select2) = 4.0.13
-Provides:       bundled(xregexp) = 3.2.0
+Provides:       bundled(xregexp) = 5.1.1
 
 # Make sure this replaces any other Django package
 Provides:       python-django-impl
@@ -113,7 +114,7 @@ Conflicts:      python-django-impl
 
 %prep
 %autosetup -N -n django-%{version}
-%autopatch -p1 -M 999
+#autopatch -p1 -M 999
 %if %{with old_setuptools}
 %autopatch -p1 1001
 %endif

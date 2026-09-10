@@ -3,7 +3,7 @@
 # Enable gpg signature verification by default
 %bcond gpgcheck 1
 
-%global osslver 4.0.1
+%global osslver 4.0.2
 
 %global features fips,nssdb,ossl400
 
@@ -134,7 +134,7 @@ pushd openssl-%{osslver}
 
 ./Configure \
     --prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls \
-    ${sslflags} ${sslarch} enable-fips \
+    ${sslflags} enable-fips \
     no-deprecated no-engine no-legacy no-tests \
     no-atexit no-comp no-egd no-static-engine no-ui-console \
     no-dgram no-http no-ssl no-ssl-trace no-sock no-srtp \
@@ -144,6 +144,7 @@ pushd openssl-%{osslver}
     no-des no-dsa no-ec2m no-gost no-idea no-ktls no-mdc2 \
     no-md4 no-poly1305 no-rc2 no-rc4 no-rc5 no-rmd160 no-seed no-siphash \
     no-sm2 no-sm2-precomp no-sm3 no-sm4 no-whirlpool \
+    ${sslarch} $RPM_OPT_FLAGS \
     -DDEVRANDOM='"\"/dev/urandom\""' \
     -DOPENSSL_PEDANTIC_ZEROIZATION \
     -DKRYOPTIC_FIPS_VENDOR='"\"Kryoptic FIPS Provider\""' \

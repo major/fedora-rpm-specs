@@ -194,10 +194,11 @@ the functionality of libfplll.
 %prep
 %autosetup -n fplll-%{version} -p1
 # Unbundle “JSON for Modern C++”:
-echo '#include <nlohmann/json.hpp>' > fplll/io/json.hpp
+printf '#include <%s>' 'nlohmann/json.hpp' > fplll/io/json.hpp
 %if %{without bundled_thread_pool}
 # Unbundle cr-marcstevens-snippets-thread_pool-devel
-echo '#include <cr-marcstevens/thread_pool.hpp>' > fplll/io/thread_pool.hpp
+printf '#include <%s>' 'cr-marcstevens/thread_pool.hpp' \
+    > fplll/io/thread_pool.hpp
 %endif
 
 

@@ -5,16 +5,13 @@
 %bcond tests %[%{defined fedora} && %{without bootstrap}]
 
 Name:           python-%{pypi_name}
-Version:        7.0.3
+Version:        7.1.1
 Release:        %autorelease
 Summary:        Python Build Reasonableness
 
 License:        Apache-2.0
 URL:            https://docs.openstack.org/pbr/latest/
 Source:         %{pypi_source %{pypi_name}}
-# Extend rather than reset PYTHONPATH
-# https://review.opendev.org/c/openstack/pbr/+/989910
-Patch0:         0001-functional-tests-extend-PYTHONPATH-rather-than-repla.patch
 
 BuildArch:      noarch
 

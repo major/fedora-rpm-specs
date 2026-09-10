@@ -61,9 +61,9 @@ ExcludeArch: i686
 %endif
 
 # Build cockpit plugin
-# Enabled on Fedora and EPEL community builds.
+# Enabled on Fedora, ELN, and EPEL community builds.
 # Disabled on RHEL/CentOS Stream unless RHDS (distribution contains "dsrv").
-%if 0%{?rhel} && !0%{?epel}
+%if 0%{?rhel} && !0%{?epel} && !0%{?eln}
 %bcond cockpit %(echo "%{?distribution}" | grep -q dsrv && echo 1 || echo 0)
 %else
 %bcond cockpit 1
@@ -712,9 +712,7 @@ mkdir -p ../%{libdb_base_version}
 pushd ../%{libdb_base_version}
 tar -xjf %{_topdir}/SOURCES/%{libdb_full_version}.tar.bz2
 mv %{libdb_full_version} SOURCES
-%if 0%{?fedora}
 sed -i -e '/^CFLAGS=/s/-fno-strict-aliasing/& -std=gnu99/' %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec.in
-%endif
 rpmbuild  --define "_topdir $PWD" -bc %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec.in
 popd
 %endif
@@ -733,6 +731,7 @@ autoreconf -fiv
 %endif
            --with-selinux \
            --with-systemd \
+           --with-tmpfiles-d=%{_sysconfdir}/tmpfiles.d \
            $ASAN_FLAGS $MSAN_FLAGS $TSAN_FLAGS $UBSAN_FLAGS $RUST_FLAGS $CLANG_FLAGS $COCKPIT_FLAGS $USDT_FLAGS \
            --with-libldap-r=no \
 %if %{with hibp}
@@ -775,7 +774,7 @@ cp -r %{_builddir}/%{name}-%{version}/man/man3 %{buildroot}/%{_mandir}/man3
 # lib389
 pushd src/lib389
 %pyproject_install
-%if 0%{?fedora} <= 41 || (0%{?rhel} && 0%{?rhel} <= 10)
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 11)
 for clitool in dsconf dscreate dsctl dsidm openldap_to_ds; do
     mv %{buildroot}%{_bindir}/$clitool %{buildroot}%{_sbindir}/
 done
@@ -1086,4 +1085,3 @@ fi
 
 %changelog
 %autochangelog
-

@@ -20,10 +20,12 @@ URL:            https://github.com/BenHanson/lexertl17
 Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DBUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DBUILD_EXAMPLES:BOOL=ON
-    }
+%if %{with ctest}
+BuildOption(conf): -DBUILD_TESTING:BOOL=ON
+%else
+BuildOption(conf): -DBUILD_TESTING:BOOL=OFF
+%endif
+BuildOption(conf): -DBUILD_EXAMPLES:BOOL=ON
 
 %if %{undefined fc43}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -62,7 +64,7 @@ Conflicts:      lexertl14-devel
 %prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep --regexp-extended '\bCRLF\b' |
+  grep --extended-regexp '\bCRLF\b' |
   cut --delimiter=':' --fields=1 |
   xargs --no-run-if-empty dos2unix --keepdate
 

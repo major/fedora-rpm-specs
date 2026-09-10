@@ -4,9 +4,9 @@
 Summary: Secure imap and pop3 server
 Name: dovecot
 Epoch: 1
-Version: 2.4.4
+Version: 2.4.5
 %global prever %{nil}
-Release: 6%{?dist}
+Release: 1%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -46,15 +46,20 @@ Patch17: dovecot-2.3.15-fixvalcond.patch
 Patch18: dovecot-2.3.15-valbasherr.patch
 Patch19: dovecot-2.4.2-lua-5.5.patch
 
-# Fedora/RHEL specific, drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
-Patch23: dovecot-2.4.1-nolibotp.patch
+# Fedora/RHEL specific
 Patch24: dovecot-2.4.2-fixbuild.patch
 # temporary workaround for s390x build test failure
 # https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/FZBVU55TK5332SMZSSDNWIVJCWGUAJQS/
 Patch25: dovecot-2.4.2-ftbfs-workaround.patch
-# openssl 4.0 FTBFS fix, form upsteam, for <= 2.4.4
-# https://github.com/dovecot/core/commit/fda272dc196d368625c425d309ca77241dbf50a1
-Patch26: dovecot-2.4.4-openssl4.patch
+# ftbfs fix from upstream, https://patch-diff.githubusercontent.com/raw/dovecot/core/pull/314.diff
+# test-hash-method.c:483: Assert(#29) failed: memcmp(result, test_vectors[i].output, test_vectors[i].olen) == 0
+# hash method xxh64 (test vectors) ..................................... : FAILED
+Patch26: dovecot-2.4.5-pr314.patch
+# ftbfs fix
+# ostream multiplex stream (backpressure): sub-process ended properly .. : FAILED
+# Warning: test: Sub-process forcibly terminated with signal 9
+# ostream multiplex stream (backpressure) .............................. : FAILED
+Patch27: dovecot-2.4.5-test_w_small_pipe.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
@@ -163,28 +168,14 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 17 -p2 -b .fixvalcond
 %patch -P 18 -p1 -b .valbasherr
 %patch -P 19 -p1 -b .lua55
-%patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
 %patch -P 25 -p1 -b .ftbfs-workaround
-%patch -P 26 -p1 -b .openssl4
+%patch -P 26 -p1 -b .pr314
+%patch -P 27 -p1 -b .test_w_small_pipe
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
 
-# drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
-#rm -rf src/lib-otp
-echo >src/auth/mech-otp-common.c
-echo >src/auth/mech-otp-common.h
-echo >src/auth/mech-otp.c
-echo >src/lib-auth/password-scheme-otp.c
-echo >src/lib-sasl/sasl-server-mech-otp.c
-echo >src/lib-sasl/dsasl-client-mech-otp.c
-pushd src/lib-otp
-for f in *.c *.h
-do
-  echo >$f
-done
-popd
 
 %build
 #required for fdpass.c line 125,190: dereferencing type-punned pointer will break strict-aliasing rules
@@ -202,6 +193,7 @@ else
 fi
 
 %configure                       \
+    --enable-experimental-mail-utf8 \
     INSTALL_DATA="install -c -p -m644" \
     --with-rundir=%{_rundir}/%{name}   \
     --with-systemd               \
@@ -493,6 +485,12 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Sep 09 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.5-1
+- updated to 2.4.5 (#2525525)
+
+* Tue Aug 18 2026 Brad Kollmyer <bradkollmyer@fedoraproject.org> - 1:2.4.4-7
+- Enable --enable-experimental-mail-utf8 so mail_utf8_extensions can be set
+
 * Thu Jul 23 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.4-6
 - fix FTBFS caused by openssl 4.0
 

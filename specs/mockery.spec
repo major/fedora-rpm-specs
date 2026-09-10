@@ -4,7 +4,7 @@
 # https://github.com/vektra/mockery
 %global goipath         github.com/vektra/mockery/v3
 %global forgeurl        https://github.com/vektra/mockery
-Version:                3.7.4
+Version:                3.8.0
 
 %gometa -L -f
 

@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        2.66.0
-Release:        2%{?dist}
+Version:        2.68.1
+Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -88,22 +88,6 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %build
-# remove unnecessary ascii logos to shrink binary
-find src/logo/ascii/ -type f       \
-  -regex 'src/logo/ascii/[a-z]/.*' \
-  ! -name 'almalinux.txt'          \
-  ! -name 'fedora*.txt'            \
-  ! -name 'rhel*.txt'              \
-  ! -name 'rocky*.txt'             \
-  ! -name 'centos*.txt'            \
-  ! -name 'oracle.txt'             \
-  ! -name 'miracle_linux.txt'      \
-  ! -name 'asahi*.txt'             \
-  ! -name 'ultramarine*.txt'       \
-  ! -name 'nobara*.txt'            \
-  -delete
-# remove empty left-over ascii directories
-find src/logo/ascii -type d -empty -delete
 %cmake -DBUILD_TESTS=ON -DENABLE_SYSTEM_YYJSON=ON -DBUILD_FLASHFETCH=OFF
 %cmake_build
 
@@ -128,6 +112,10 @@ find src/logo/ascii -type d -empty -delete
 
 
 %changelog
+* Wed Sep 09 2026 Jonathan Wright <jonathan@almalinux.org> - 2.68.1-1
+- update to 2.68.1 rhbz#2511968
+- Remove logo exclusion conditionals
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

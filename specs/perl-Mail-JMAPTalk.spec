@@ -1,6 +1,6 @@
 Name:           perl-Mail-JMAPTalk
-Version:        0.17
-Release:        4%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        Perl client for JMAP protocol
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-JMAPTalk
@@ -12,15 +12,15 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Convert::Base64)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(File::LibMagic)
 BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(JSON)
+BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
+Recommends:     perl(File::LibMagic)
 
 %description
 This is a really basic wrapper around the JMAP protocol <http://jmap.io/>. It
@@ -72,6 +72,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.19-1
+- 0.19 bump
+- Remove unused rpmlintrc file.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

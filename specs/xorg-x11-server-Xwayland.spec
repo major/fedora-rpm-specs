@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   26.0.99.901
+Version:   26.0.99.902
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -133,6 +133,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Sep 09 2026 Olivier Fourdan <ofourdan@redhat.com> - 26.0.99.902-1
+- Update to xwayland 26.0.99.902 (xwayland 26.1 rc2)
+
 * Wed Aug 19 2026 Olivier Fourdan <ofourdan@redhat.com> - 26.0.99.901-1
 - Update to xwayland 26.0.99.901 (xwayland 26.1 rc1) - (#2483867)
 

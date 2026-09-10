@@ -2,8 +2,8 @@
 %global gem_name red-colors
 
 Name:		rubygem-%{gem_name}
-Version:	0.4.0
-Release:	6%{?dist}
+Version:	0.5.0
+Release:	1%{?dist}
 
 Summary:	Red Colors provides a wide array of features for dealing with colors
 # SPDX confirmed
@@ -78,6 +78,9 @@ popd
 %doc	%{gem_instdir}/doc/
 
 %changelog
+* Wed Sep 09 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-1
+- 0.5.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

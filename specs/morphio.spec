@@ -21,8 +21,7 @@ analysis:
   loaded cell but also provides accessors to the different sections.
 
 One important concept is that MorphIO is split into a read-only part and a
-read/write one.
-}
+read/write one.}
 
 # cpp tests
 %bcond tests 1
@@ -146,24 +145,26 @@ This package provides documentation for MorphIO
 %autosetup -n MorphIO-%{version} -p1
 
 # Unbundle gsl-lite
-rm -rvf 3rdparty/GSL_LITE
-sed -r -i '/GSL_LITE/d' MANIFEST.in
-sed -r -i '/director.*\(.*(gsl-lite|GSL_LITE).*\)/d' 3rdparty/CMakeLists.txt
-sed -r -i \
-    -e '/TARGET_PROPERTY:gsl-lite,INTERFACE_INCLUDE_DIRECTORIES/d' \
-    -e 's/PUBLIC[[:blank:]]+gsl-lite[[:blank:]]+(PRIVATE)/\1/' \
+rm --recursive --verbose --force 3rdparty/GSL_LITE
+sed --regexp-extended --in-place '/GSL_LITE/d' MANIFEST.in
+sed --regexp-extended --in-place '/director.*\(.*(gsl-lite|GSL_LITE).*\)/d' \
+    3rdparty/CMakeLists.txt
+sed --regexp-extended --in-place \
+    --expression='/TARGET_PROPERTY:gsl-lite,INTERFACE_INCLUDE_DIRECTORIES/d' \
+    --expression='s/PUBLIC[[:blank:]]+gsl-lite[[:blank:]]+(PRIVATE)/\1/' \
     src/CMakeLists.txt
 # Update includes. Note that this affects the public API headers.
 #
 # The grep-then-sed pattern means we only modify those files that need it,
 # preserving the mtimes on the others.
-grep -ErIl '#[[:blank:]]*include[[:blank:]]+["<]gsl/gsl[">]' . |
-  xargs -r sed -r -i \
+grep --extended-regexp --recursive --files-with-matches -I \
+    '#[[:blank:]]*include[[:blank:]]+["<]gsl/gsl[">]' . |
+  xargs --no-run-if-empty sed --regexp-extended --in-place \
       's@(#[[:blank:]]*include[[:blank:]]+["<]gsl/gsl)([">])@\1-lite\.hpp\2@'
 
 # Unbundle lexertl
-rm -rvf '3rdparty/lexertl'
-ln -s '%{_includedir}/lexertl' '3rdparty/'
+rm --recursive --verbose --force '3rdparty/lexertl'
+ln --symbolic '%{_includedir}/lexertl' '3rdparty/'
 
 # Some of these could make it into the installed package:
 find . -type f -name .gitignore -print -delete
@@ -219,13 +220,13 @@ export MORPHIO_CMAKE_DEFS="${mcd-}"
 %install
 %cmake_install
 %pyproject_install
-%pyproject_save_files -l morphio
+%pyproject_save_files --assert-license morphio
 
 
 %check
 %if %{with tests}
 # From ci/cpp_test.sh
-%ctest -VV
+%ctest --extra-verbose
 %endif
 %if %{with pytests}
 # We will change directories so that the “un-built” package is not imported
@@ -276,7 +277,7 @@ k="${k} and not test_mitochondria"
 k="${k} and not test_mitochondria_read"
 # TODO: pytest segfaults while writing a temporary file..
 k="${k} and not test_dendritic_spine_round_trip_empty_postsynaptic_density"
-%pytest "${xdir}/tests" -k "${k}" -v
+%pytest "${xdir}/tests" -k "${k}" --verbose
 %endif
 
 
@@ -296,7 +297,8 @@ k="${k} and not test_dendritic_spine_round_trip_empty_postsynaptic_density"
 
 %files doc
 %license LICENSE.txt
-%doc AUTHORS.txt CHANGELOG.md CONTRIBUTING.md README.rst examples
+%doc AUTHORS.txt CHANGELOG.md CONTRIBUTING.md README.rst examples/
+
 
 %changelog
 %autochangelog

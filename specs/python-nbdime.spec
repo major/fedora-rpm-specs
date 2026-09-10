@@ -23,6 +23,9 @@ Patch:          %{name}-undefined-string.patch
 # Remove unused dependency on python-mock
 # https://github.com/jupyter/nbdime/pull/808
 Patch:          %{name}-rm-python-mock-usage.diff
+# Compatibility with new jupyter-builder and jupyterlab
+# https://github.com/jupyter/nbdime/issues/815
+Patch:          %{name}-jupyter-builder.patch
 
 # The build uses nx 16.10.0 (https://github.com/nrwl/nx), which has native
 # components for x86_64 and aarch64 only.  Check later releases to see if

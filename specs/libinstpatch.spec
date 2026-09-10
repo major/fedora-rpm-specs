@@ -39,10 +39,12 @@ SourceLicense:  %{license} AND GPL-2.0-only
 Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DINTROSPECTION_ENABLED:BOOL=%{?with_introspection:ON}%{!?with_introspection:OFF}
-    -DGTKDOC_ENABLED:BOOL=ON
-    }
+BuildOption(conf): -DGTKDOC_ENABLED:BOOL=ON
+%if %{with introspection}
+BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=ON
+%else
+BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=OFF
+%endif
 # Upstream provides no tests.
 
 BuildRequires:  gcc

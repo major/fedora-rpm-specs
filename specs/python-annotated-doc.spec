@@ -14,7 +14,7 @@ BuildArch:      noarch
 
 # See the “tests” dependency group. Since it contains many unwanted
 # dependencies for things like linting and coverage, we list these manually:
-BuildRequires:  %{py3_dist pytest} >= 8.3.5
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 Document parameters, class attributes, return types, and variables inline, with

@@ -157,7 +157,7 @@ autoreconf -fi
     --without-libcurl \
 %endif
     --enable-curlreauthorizationbug
-%{make_build}
+%{make_build} CFLAGS="$CFLAGS -Wdeprecated-declarations"
 
 %check
 make check %{?_smp_mflags}

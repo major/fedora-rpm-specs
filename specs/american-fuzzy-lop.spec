@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -298,6 +298,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Wed Sep 09 2026 Timm Baeder <tbaeder@redhat.com> - 5.03c-2
+- Bump release for LLVM 23
+
 * Fri Sep 04 2026 Richard W.M. Jones <rjones@redhat.com> - 5.03c-1
 - New upstream version 5.03c (RHBZ#2527312)
 

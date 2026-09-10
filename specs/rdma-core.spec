@@ -142,7 +142,7 @@ RDMA core development libraries and headers.
 Summary: InfiniBand Diagnostic Tools
 Requires: %{name}-common = %{version}-%{release}
 Requires: libibumad%{?_isa} = %{version}-%{release}
-Provides: perl(IBswcountlimits)
+Provides: perl(IBswcountlimits) = %{version}-%{release}
 Provides: libibmad = %{version}-%{release}
 Obsoletes: libibmad < %{version}-%{release}
 Obsoletes: openib-diags < 1.3
@@ -163,7 +163,7 @@ often at a reduced performance. These are maintained for the time being for
 compatibility reasons.
 
 %package -n libibverbs
-Summary: A library and drivers for direct userspace use of RDMA (InfiniBand/iWARP/RoCE) hardware
+Summary: A library and drivers for direct userspace use of RDMA hardware
 Requires: %{name}-common = %{version}-%{release}
 Provides: libcxgb4 = %{version}-%{release}
 Obsoletes: libcxgb4 < %{version}-%{release}
@@ -353,7 +353,7 @@ easy, object-oriented access to IB verbs.
 %if %{with_pyverbs}
          -DNO_PYVERBS=0
 %else
-	 -DNO_PYVERBS=1
+         -DNO_PYVERBS=1
 %endif
 %make_jobs
 

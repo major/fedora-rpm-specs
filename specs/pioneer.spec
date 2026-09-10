@@ -5,7 +5,6 @@ ExclusiveArch: %{ix86} x86_64
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
-
 %global fontlicense       OFL-1.1
 %global fontlicenses      licenses/SIL-1.1.txt
 %global common_description %{expand:
@@ -59,7 +58,7 @@ Obsoletes: %{name}-pionilliumtext22l-medium-fonts < %{version}-%{release}
 
 Name: pioneer
 Summary: A game of lonely space adventure
-Version: 20260203
+Version: 20260907
 Release: %autorelease
 
 ## Main license: GPLv3
@@ -69,7 +68,6 @@ Release: %autorelease
 License: GPL-3.0-only AND GPL-2.0-or-later AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain AND BSD-2-Clause
 URL: http://pioneerspacesim.net/
 Source0: https://github.com/pioneerspacesim/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
 
 BuildRequires: make
 BuildRequires: cmake
@@ -94,31 +92,23 @@ BuildRequires: NaturalDocs
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: libglvnd-devel
-
-Requires: %{name}-data = %{version}-%{release}
-Requires: hicolor-icon-theme
-Requires: graphviz%{?_isa}
-
-Provides: bundled(fmt) = 10
-
-Obsoletes: %{name}-doc < 0:20191117-3
+Requires:      %{name}-data = %{version}-%{release}
+Requires:      hicolor-icon-theme
+Requires:      graphviz%{?_isa}
+Provides:      bundled(fmt) = 10
+Provides:      bundled(lua) = 5.2.2
+Obsoletes:     %{name}-doc < 0:20191117-3
 
 # I prefer to install binary files manually
 Patch0: %{name}-use_manual_installation.patch
-
 Patch1: %{name}-gcc14.patch
 Patch2: %{name}-fix_GCC15.patch
 
-# https://github.com/pioneerspacesim/pioneer/issues/6343
-Patch3: %{name}-bug6320.patch
-
 %fontpkg -a
-
 
 %description
 A space adventure game set in the Milky Way galaxy at the turn of
 the 31st century.
-
 The game is open-ended, and you are free to explore the millions of star
 systems in the game. You can land on planets, slingshot past gas giants, and
 burn yourself to a crisp flying between binary star systems. You can try your
@@ -134,11 +124,10 @@ BuildRequires: dejavu-sans-fonts
 BuildRequires: dejavu-sans-mono-fonts
 BuildRequires: pionilliumtext22l-fonts
 BuildRequires: wqy-microhei-fonts
-Requires: wqy-microhei-fonts
-Requires: dejavu-sans-fonts
-Requires: dejavu-sans-mono-fonts
-Requires: pionilliumtext22l-fonts
-
+Requires:      wqy-microhei-fonts
+Requires:      dejavu-sans-fonts
+Requires:      dejavu-sans-mono-fonts
+Requires:      pionilliumtext22l-fonts
 %description data
 Data files of %{name}.
 
@@ -147,7 +136,6 @@ Data files of %{name}.
 %patch -P 0 -p1 -b .backup0
 %patch -P 1 -p1 -b .backup1
 %patch -P 2 -p1 -b .backup2
-%patch -P 3 -p1 -b .backup3
 
 %build
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
@@ -162,7 +150,6 @@ Data files of %{name}.
 #pushd doxygen
 #doxygen
 #popd
-
 
 %fontbuild -a
 
@@ -186,6 +173,8 @@ rm -rf %{buildroot}%{_libdir}/%{name}/pkgconfig
 # Install bundled libraries
 mkdir -p %{buildroot}%{_libdir}/%{name}
 install -pm 755 %_vpath_builddir/contrib/fmt/libfmt.so* %{buildroot}%{_libdir}/%{name}/
+ln -sf %{_libdir}/%{name}/libfmt.so.12 %{buildroot}%{_libdir}/%{name}/libfmt.so
+ln -sf %{_libdir}/%{name}/libfmt.so.12.1.0 %{buildroot}%{_libdir}/%{name}/libfmt.so.12
 
 ## Install icons
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}

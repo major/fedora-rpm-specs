@@ -1,21 +1,19 @@
 Name:           electrum
-Version:        4.5.8
-Release:        12%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
 URL:            https://electrum.org/
 Source0:        https://download.electrum.org/%{version}/Electrum-sourceonly-%{version}.tar.gz
 Source1:        https://download.electrum.org/%{version}/Electrum-sourceonly-%{version}.tar.gz.asc
-#Wed Feb 01 2017, exported the upstream gpg key using the command:
-#gpg2 --export --export-options export-minimal 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6 9EDAFF80E080659604F4A76B2EBB056FD847F8A7 0EEDCFD5CAFB459067349B23CA9EEEC43DF911DC > gpgkey-electrum.gpg
+#Sat Sep 05 2026, exported the upstream gpg key using the command:
+#gpg2 --export --export-options export-minimal 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6 9EDAFF80E080659604F4A76B2EBB056FD847F8A7 0EEDCFD5CAFB459067349B23CA9EEEC43DF911DC AA0BC6824B397BBA99776E157ED8D82B37192688 33C103B4B2794170546CCF7BCFB2C83C66CD792A> gpgkey-electrum.gpg
 Source2:        gpgkey-%{name}.gpg
 Source3:        %{name}.metainfo.xml
 Source4:        %{name}.1
 
-Patch0:         relax-protobuf-requirement.patch
-Patch1:         fix-secp256k1.patch
-Patch2:         relax-aiorpcx-requirements.patch
+Patch0:         relax-requirements.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -37,7 +35,7 @@ Requires:       libsecp256k1
 
 # Extra items are not tracked by runtime autodeps yet
 Requires:       %{py3_dist cryptography}
-Requires:       %{py3_dist pyqt5}
+Requires:       %{py3_dist pyqt6}
 
 Recommends:     zbar
 Recommends:     python3-trezor >= 0.13.0
@@ -57,10 +55,9 @@ it does not download the Bitcoin block chain.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p0 -n Electrum-%{version}
 rm -rf Electrum.egg-info
-rm -rf packages
+rm -rf electrum/_vendor
 
-contrib/generate_payreqpb2.sh
-contrib/build_locale.sh electrum/locale electrum/locale
+electrum/plugins/keepkey/keepkeylib/device-protocol/build_pb.sh
 
 %generate_buildrequires
 %pyproject_buildrequires -x gui -x crypto

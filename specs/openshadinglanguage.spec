@@ -1,6 +1,6 @@
 # Required for the plugin directory name, see https://github.com/OpenImageIO/oiio/issues/2583
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
-%bcond  qt5     1
+%bcond  qt5     0
 %bcond  qt6     1
 
 %dnl %global llvm_compat __
@@ -9,7 +9,7 @@
 #global snapdate YYYYMMDD
 
 Name:           openshadinglanguage
-Version:        1.15.6.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+Version:        1.15.7.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
 # This is based on the first two components of the version, so we could produce
 # it automatically, but we rewrite it manually here as a reminder, to reduce
 # the likelihood of undetected SONAME version bumps.
@@ -89,6 +89,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  bison >= 2.7
 BuildRequires:  clang%{?llvm_compat}-devel
 BuildRequires:  cmake >= 3.12
+BuildRequires:	config(ccache)
 BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
 BuildRequires:  llvm%{?llvm_compat}-devel
@@ -294,7 +295,7 @@ rm -fr %{buildroot}%{_prefix}/cmake/llvm_macros.cmake
 
 %{_mandir}/man1/oslc.1*
 %{_mandir}/man1/oslinfo.1*
-%if %{with qt5}
+%if %{with qt5} || %{with qt6}
 %{_mandir}/man1/osltoy.1*
 %endif
 %{_mandir}/man1/testrender.1*

@@ -33,6 +33,10 @@ Obsoletes:      python3-roman-numerals-py < 4~~
 %prep
 %autosetup -p1 -n roman_numerals-%{version}
 
+# This package builds successfully with flit-core 4
+# https://github.com/AA-Turner/roman-numerals/pull/124
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 %pyproject_buildrequires

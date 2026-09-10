@@ -12,7 +12,7 @@
 %global giturl         https://github.com/gap-packages/AutoDoc
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2026.06.30
+Version:        2026.09.09
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 
@@ -33,7 +33,7 @@ BuildRequires:  gap(gapdoc) >= 1.6.3
 %if %{without bootstrap}
 BuildRequires:  gap(io)
 %endif
-BuildRequires:  gap-devel >= 4.11
+BuildRequires:  gap-devel >= 4.13
 BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
 
@@ -41,7 +41,7 @@ BuildRequires:  tex(a4wide.sty)
 Requires:       coreutils
 # AUTODOC_Diff invokes diff
 Requires:       diffutils
-Requires:       gap-core >= 4.11
+Requires:       gap-core >= 4.13
 Requires:       GAPDoc-latex >= 1.6.3
 
 Provides:       gap(autodoc) = %{version}-%{release}

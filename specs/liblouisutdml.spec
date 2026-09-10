@@ -81,7 +81,7 @@ provided by %{name}-utils.
 %build
 autoreconf -fi
 %configure --disable-static --disable-java-bindings
-make %{?_smp_mflags}
+make %{?_smp_mflags} "CFLAGS=$CFLAGS -DATTRIBUTE_UNUSED='__attribute__((unused))'"
 make -C doc liblouisutdml.pdf
 
 %check

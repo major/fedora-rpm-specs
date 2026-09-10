@@ -10,7 +10,7 @@ Summary: GNU file archiving program
 Name: tar
 Epoch: 2
 Version: 1.35
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/tar/
 
@@ -58,9 +58,35 @@ Patch22: tar-1.35-no-overwrite-dir-no-overwrite-even-temporarily.patch
 # d1aeb7388926e045bdec0f7934c5522c4745f02c
 # 45b6e6898d1f931bfca41d961289bd6ac33238e5
 Patch23: tar-1.35-CVE-2025-45582.patch
+# merely a preparation to apply Patch27, the change is obsoleted by it
+Patch24: tar-1.35-tar-one-top-level-DIR-must-be-relative.patch
 # Source: https://cgit.git.savannah.gnu.org/cgit/tar.git/commit/?id=08c3fc2e9337094aff01a511170fd35fdb8f1ee3
 # Fixes build with acl 2.4.0
 Patch25: tar-1.35-Avoid-acl_-prefix-for-functions.patch
+#Upstream commits
+# b009124ffde415515081db844d7a104e1d1c6c58
+# b8d8a61b25588caca4efaf9bdd2e3f1a49da77e3
+# 67981bbb1587803bb1e029393d2228492cef8c4f
+# 19a3a73e8c48bd3c59cbea9b5ed6780fc6836c6d
+Patch26: tar-1.35-CVE-2026-5704.patch
+#Upstream commits
+# bfc33463942060316f70f275471ed202b0076972
+# b4fc9ca13617411c5db57286a3ff534bd40acdc1
+# 67c8dff6968aae58fcdfb05268eb1b4c07308f1a
+# 55e8233438b3c13294109df502a9b220a9a3f4f5
+# 0470c109c08f466d8332ba3326070554b4d81aa1
+# 1b91f5f66f8e6c490eef0fdee50f652cfe155844
+# 325b899214ac13519153318e66c889a31c15342d
+# 1980e032afe60c5fe0e5df573457885ece4e69d5
+# e335e2c8b102f83b63ffd373f0b88401da3ebe6c
+# part of 941f62b2
+# Also "by the way" fixes CVE-2026-18508.
+Patch27: tar-1.35-fix-absolute-one-top-level.patch
+#Upstream commits
+# 0714d2f082104005a1c70ee6ec4175194943ea88
+# d479b2cc9160d9c2fb61afbc9ee70c2faadf80db
+# b17665b2c0548c77b6cd8d2d5b61e4c4fcc4f770
+Patch28: tar-1.35-CVE-2026-18477.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -159,6 +185,17 @@ make check || (
 
 
 %changelog
+* Mon Sep  7 2026 Pavel Cahyna <pcahyna@redhat.com> - 2:1.35-10
+- Backport upstream fix for CVE-2026-5704 (file injection hidden from -t) (fedora#2527317)
+- Fix --one-top-level with absolute path (broken by the CVE-2025-45582 fix) (fedora#2498061)
+  Also fixes CVE-2026-18508 (escape from --one-top-level via hardlinks) (fedora#2509845).
+- Backport upstream patches for CVE-2026-18477, fixes a bug
+  where incremental restore with cyclic renames between backups
+  may create a temporary directory at an archive-controlled path
+  outside the extraction tree. (fedora#2509846)
+  The fix for CVE-2025-45582 already prevents exploiting
+  this problem, so it is more a correctness and hardening change.
+  
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.35-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

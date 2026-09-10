@@ -67,7 +67,7 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.5.0
+Version: 4.5.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
@@ -397,6 +397,9 @@ _EOF
 %endif
 
 %changelog
+* Tue Sep 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.5.1-1
+- 4.5.1 bump (rhbz#2529405)
+
 * Thu Aug 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.5.0-1
 - 4.5.0 bump (rhbz#2511871)
 

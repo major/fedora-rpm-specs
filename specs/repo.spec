@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.66.1
+Version:        2.67
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
@@ -41,6 +41,7 @@ to work with Git.
 install -Dpm0755 -t %{buildroot}%{_bindir} %{name}
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/%{name}*.1
 install -Dpm0644 completion.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+install -Dpm0644 completion.zsh %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 
 %check
 %{py3_test_envvars} %{python3} -m pytest
@@ -50,9 +51,8 @@ install -Dpm0644 completion.bash %{buildroot}%{_datadir}/bash-completion/complet
 %doc README.md docs/*.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*.1*
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
 %autochangelog

@@ -101,7 +101,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 %changelog
 * Fri Sep 04 2026 Petr Pisar <ppisar@redhat.com> - 1.14-1
-- 1.14 bump
+- 1.14 bump (CVE-2026-16028)
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

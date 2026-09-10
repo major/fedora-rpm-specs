@@ -42,7 +42,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 1.2
+Version: 1.3
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -94,12 +94,14 @@ use container tools like Podman.
 ### qmctl ###
 ###################
 
-%package ctl
+%package -n qmctl
 Summary:	QM service controller command line tool
 Requires:	%{name} = %{version}-%{release}
 Requires:	python3 >= 3.9
+Provides:	%{name}-ctl = %{version}-%{release}
+Obsoletes:	%{name}-ctl < %{version}-%{release}
 
-%description ctl
+%description -n qmctl
 QM is a containerized environment for running Quality Management software.
 This package contains the service controller command line tool for managing
 and interacting with QM containers and services.
@@ -184,7 +186,7 @@ fi
 %ghost %dir %{_installscriptdir}/rootfs
 %ghost %{_installscriptdir}/rootfs/*
 
-%files ctl
+%files -n qmctl
 %doc README.md
 %license LICENSE
 %{_bindir}/qmctl
@@ -192,6 +194,9 @@ fi
 %{python3_sitelib}/qmctl/
 
 %changelog
+* Wed Sep 09 2026 Packit <hello@packit.dev> - 101:1.3-1
+- Update to version 1.3
+
 * Mon Jul 20 2026 Packit <hello@packit.dev> - 101:1.2-1
 - Update to version 1.2
 

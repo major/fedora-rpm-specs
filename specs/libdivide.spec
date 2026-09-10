@@ -12,9 +12,11 @@ VCS:            git:%{forgeurl}.git
 Source:         %{forgeurl}/archive/v%{version}/libdivide-%{version}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DLIBDIVIDE_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    }
+%if %{with ctest}
+BuildOption(conf): -DLIBDIVIDE_BUILD_TESTS:BOOL=ON
+%else
+BuildOption(conf): -DLIBDIVIDE_BUILD_TESTS:BOOL=OFF
+%endif
 
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}

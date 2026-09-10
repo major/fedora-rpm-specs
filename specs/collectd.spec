@@ -616,6 +616,7 @@ This is a collectd plugin that reads data from Zookeeper's MNTR command.
 # recompile generated files
 touch src/pinba.proto
 
+sed -r -i 's/ATTRIBUTE_UNUSED/__attribute__((unused))/' src/virt.c
 
 %build
 %configure \

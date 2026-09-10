@@ -7,10 +7,9 @@ Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
 Release: 85%{?dist}
-# TODO:
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/721
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/722
-License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
+# rogue has invalid license https://gitlab.com/fedora/legal/fedora-license-data/-/work_items/722 and is not packaged
+# atc is atc-game
+License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain AND atc-game
 URL: ftp://metalab.unc.edu/pub/Linux/games/
 Source0: ftp://metalab.unc.edu/pub/Linux/games/bsd-games-%{version}.tar.gz
 Source1: config.params

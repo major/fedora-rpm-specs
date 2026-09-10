@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
 Version: 6.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -227,6 +227,9 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-2
+- Rebuild for Qt Update
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

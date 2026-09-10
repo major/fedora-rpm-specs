@@ -1,5 +1,5 @@
 Name:           python-mapbox-earcut
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Python bindings to the mapbox earcut C++ library
 
@@ -10,23 +10,17 @@ Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.g
 
 BuildSystem:    pyproject
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
-BuildOption(build):     %{shrink:
-    --config-settings logging.level=INFO
-    --config-settings build.verbose=true
-    --config-settings cmake.build-type="RelWithDebInfo"
-    }
+BuildOption(build): --config-settings logging.level=INFO
+BuildOption(build): --config-settings build.verbose=true
+BuildOption(build): --config-settings cmake.build-type=RelWithDebInfo
 BuildOption(install): --no-assert-license mapbox_earcut
 
 BuildRequires:  gcc-c++
 BuildRequires:  dos2unix
 
 # Header-only libraries; -static is for tracking, required by guidelines
-# Minimum version added downstream to ensure the latest bug fixes are present.
-# Note that upstream of this package bundles earcut.hpp 2.2.4 in release 1.0.1.
-# See also:
-#   Update earcut.hpp to version 3.2.3
-#   https://github.com/skogler/mapbox_earcut_python/pull/32
-BuildRequires:  earcut-hpp-devel >= 2.2.4
+# Minimum version is the version bundled upstream.
+BuildRequires:  earcut-hpp-devel >= 3.2.3
 BuildRequires:  earcut-hpp-static
 # An extension built with nanobind uses the C++ sources shipped inside the
 # package, and therefore also the header-only robin-map library.

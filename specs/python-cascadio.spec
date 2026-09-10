@@ -11,13 +11,11 @@ Source:         %{url}/archive/%{version}/cascadio-%{version}.tar.gz
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras tests
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
-BuildOption(build): %{shrink:
-    --config-settings cmake.define.SYSTEM_OPENCASCADE=ON
-    --config-settings logging.level=INFO
-    --config-settings build.verbose=true
-    --config-settings cmake.build-type=RelWithDebInfo
-    --config-settings install.strip=false
-    }
+BuildOption(build): --config-settings cmake.define.SYSTEM_OPENCASCADE=ON
+BuildOption(build): --config-settings logging.level=INFO
+BuildOption(build): --config-settings build.verbose=true
+BuildOption(build): --config-settings cmake.build-type=RelWithDebInfo
+BuildOption(build): --config-settings install.strip=false
 BuildOption(install): --no-assert-license cascadio
 
 # Tests for cascadio fail on s390x, wrong endianness

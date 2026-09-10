@@ -1,4 +1,6 @@
-%global sover 1
+# We use non-standard sover to avoid conflict with protobuf-c, linked to more recent protobuf
+#global sover 1
+%global sover 30
 %global origname protobuf-c
 
 Name:           protobuf3-c
@@ -11,15 +13,14 @@ License:        BSD-2-Clause
 URL:            https://github.com/protobuf-c/protobuf-c
 Source0:        %{url}/releases/download/v%{version}/%{origname}-%{version}.tar.gz
 
-Provides:       protobuf-c = %{version}-%{release}
-Obsoletes:      protobuf-c < %{version}-%{release} 
-
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  protobuf-devel < 4
-BuildRequires:  pkgconfig(protobuf)
+BuildRequires:  autoconf
+BuildRequires:  libtool
+BuildRequires:  sed
+BuildRequires:  pkgconfig(protobuf) < 4
 
 %description
 Protocol Buffers are a way of encoding structured data in an efficient yet
@@ -33,6 +34,7 @@ This is bindings for compat package protobuf3
 %package compiler
 Summary:        Protocol Buffers C compiler
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Conflicts:      protobuf-c-compiler
 
 %description compiler
 This package contains a modified version of the Protocol Buffers
@@ -42,6 +44,7 @@ compiler for the C programming language called protoc-c.
 Summary:        Protocol Buffers C headers and libraries
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-compiler%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Conflicts:      protobuf-c-devel
 
 %description devel
 This package contains protobuf-c headers and libraries.
@@ -50,6 +53,13 @@ This is bindings for compat package protobuf3
 
 %prep
 %autosetup -p1 -n'%{origname}-%{version}'
+
+# Ensure our sover matches the protobuf one
+realpath %{_libdir}/libprotobuf.so | grep "libprotobuf\.so\.%{sover}"
+# Provide fake sover
+sed -i -e "/^LIBPROTOBUF_C_CURRENT=/ s|=1$|=%{sover}|" Makefile.am
+
+autoreconf -fiv
 
 %build
 %configure --disable-static

@@ -24,9 +24,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc
 BuildRequires:  cmake(zlib)
 
-# Removed for Fedora 43; Obsoletes can be removed after Fedora 45.
-Obsoletes:      pngcheck-extras < 4.0.0-2
-
 %description
 pngcheck is a command-line utility to check PNG image files, including animated
 PNG, for validity and to give information about metadate inside the file (apart
