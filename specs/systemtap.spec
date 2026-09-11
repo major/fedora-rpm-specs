@@ -130,7 +130,7 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 Name: systemtap
 # PRERELEASE
 Version: 5.6~pre17846435g2da140e3
-Release: 3%{?release_override}%{?dist}
+Release: 4%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1295,6 +1295,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.6~pre17846435g2da140e3-4
+- Rebuilt for libxml-2.5.4
+
 * Mon Jul 27 2026 Miro Hrončok <mhroncok@redhat.com> - 5.6~pre17846435g2da140e3-3
 - Drop redundant BuildRequires on python3-wheel when setuptools has the functionality
 

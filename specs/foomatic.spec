@@ -1,7 +1,7 @@
 Summary: Tools for using the foomatic database of printers and printer drivers
 Name:       foomatic
 Version:    4.0.13
-Release:    37%{?dist}
+Release:    38%{?dist}
 License:    GPL-2.0-or-later
 
 # The database engine.
@@ -139,6 +139,9 @@ exit 0
 %{_var}/cache/foomatic
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.13-38
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.13-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

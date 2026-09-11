@@ -5,7 +5,7 @@
 
 Name:           osc-source_validator
 Version:        0.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 Summary:        OBS source service to validate sources
 URL:            https://github.com/openSUSE/obs-service-source_validator
@@ -58,6 +58,9 @@ git init
 %{obssvcroot}/*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.43-2
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 31 2026 Dan Čermák <dan.cermak@posteo.net> - 0.43-1
 - New upstream release 0.43
 

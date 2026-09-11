@@ -1,11 +1,14 @@
 Name:		planarity
 Summary:	Implementations of several planarity-related graph algorithms
-Version:	5.0.0.0
+Version:	5.1.0.0
 Release:	%autorelease
 License:	BSD-3-Clause
 URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
 VCS:		git:%{url}.git
 Source:		%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
+# Add a discarded const qualifier
+# https://github.com/graph-algorithms/edge-addition-planarity-suite/pull/334
+Patch:          %{name}-discarded-const.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}

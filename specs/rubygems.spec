@@ -7,14 +7,14 @@
 %global rubygems_net_http_version 0.7.0
 %global rubygems_net_protocol_version 0.2.2
 %global rubygems_optparse_version 0.8.0
-%global rubygems_resolv_version 0.7.0
+%global rubygems_resolv_version 0.7.2
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.4
 %global rubygems_tsort_version 0.2.0
 %global rubygems_uri_version 1.1.1
 
 # Requires versions
-%global bundler_version 4.0.19
+%global bundler_version 4.0.20
 %global psych_version 5.3.1
 %global rdoc_version 7.0.3
 
@@ -38,7 +38,7 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 4.0.19
+Version: 4.0.20
 Release: 1%{?dist}
 # BSD-2-Clause OR Ruby:
 #   lib/rubygems/net-http/
@@ -79,7 +79,9 @@ Source12: check_CVE-2013-4363.rb
 # https://bugs.ruby-lang.org/issues/11002
 # NOTE: Keep this patch in sync with ruby.spec.
 Patch0: ruby-2.3.0-ruby_version.patch
-
+# Backport from ruby/ruby_4_0 branch to update resolv to 0.7.2 (fixes CVE-2026-80212 CVE-2026-80213)
+# https://github.com/ruby/ruby/pull/18528
+Patch1: rubygem-4.0.20-update-resolv-0_7_2.patch
 
 Requires:   ruby(release)
 Recommends: rubygem(bundler) >= 4.0
@@ -132,6 +134,7 @@ Documentation for %{name}.
 %setup -q -b 2
 
 %patch 0 -p1
+%patch 1 -p1
 
 %build
 # Nothing
@@ -334,6 +337,12 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Thu Sep 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.20-1
+- Update to RubyGems 4.0.20
+- Backport ruby upstream patch to update resolv to 0.7.2
+- Resolves: CVE-2026-80212 (rhbz#2527309)
+- Resolves: CVE-2026-80213 (rhbz#2527311)
+
 * Sat Aug 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.19-1
 - Update to RubyGems 4.0.19
 

@@ -1,6 +1,6 @@
 Name:           tomboy
 Version:        1.15.9
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Note-taking application
 # Automatically converted from old format: LGPLv2+ and GPLv2+ and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
@@ -183,6 +183,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/tomboy.desktop
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.15.9-27
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

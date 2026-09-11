@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -110,11 +110,6 @@ notification daemon, lock screen, wallpaper tool, and settings UI.
 
 %prep
 %autosetup
-
-# Upstream uses a git describe command to determine part of the --version
-# output.  Since we're not building from a git checkout, we can change the
-# fallback value to set this instead.
-sed -e '/fallback/ s/unknown/v%{version}/' -i meson.build
 
 # Remove shebangs and execute permissions from template apply scripts to avoid
 # rpmlint errors/warnings.

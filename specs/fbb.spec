@@ -6,7 +6,7 @@
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
 Version:          7.0.11
-Release:          %{?prerel:0.}2%{?prerel:.%{prerel}}%{?dist}.2
+Release:          %{?prerel:0.}2%{?prerel:.%{prerel}}%{?dist}.3
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 Summary:          Packet radio mailbox and utilities
@@ -212,6 +212,9 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 7.0.11-2.3
+- Motif rebuild
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

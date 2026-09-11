@@ -20,11 +20,9 @@ BuildOption(install): --assert-license engineio
 # We omit the async drivers for eventlet (retired since Fedora 41), gevent, and
 # uwsgi. There are no integration tests for them and they are not otherwise
 # BuildRequires, and we don’t want to add them solely for this purpose.
-BuildOption(check):     %{shrink:
-    --exclude engineio.async_drivers.eventlet
-    --exclude engineio.async_drivers.gevent
-    --exclude engineio.async_drivers.gevent_uwsgi
-    }
+BuildOption(check): --exclude engineio.async_drivers.eventlet
+BuildOption(check): --exclude engineio.async_drivers.gevent
+BuildOption(check): --exclude engineio.async_drivers.gevent_uwsgi
 
 BuildArch:      noarch
 

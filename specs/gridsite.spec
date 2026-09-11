@@ -6,7 +6,7 @@
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.39.20260121git%{shortcommit}%{?dist}
+Release:        0.40.20260121git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -250,6 +250,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.0-0.40.20260121git7a7b764
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.39.20260121git7a7b764
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

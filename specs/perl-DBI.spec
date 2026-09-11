@@ -30,13 +30,12 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.652
+Version:        1.653
 Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-%{version}.tgz
-Patch0:         DBI-1.652-Fix-test-for-32bit-perl-report-in-PR-189.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -106,6 +105,7 @@ BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More)
@@ -268,6 +268,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.653-1
+- 1.653 bump (rhbz#2530990)
+- Fix CVE-2026-78030 (arbitrary module and file loading via dbm_type/dbm_mldbm)
+- Fix CVE-2026-15392 (tighten symlink outside of f_dir check)
+
 * Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.652-1
 - 1.652 bump (rhbz#2517102)
 - Fix CVE-2026-73194 and CVE-2026-73193

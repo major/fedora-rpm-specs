@@ -1,5 +1,5 @@
 Name:           python-docs-theme
-Version:        2026.4
+Version:        2026.7
 Release:        %autorelease
 Summary:        The Sphinx theme for the CPython docs and related projects
 
@@ -9,6 +9,7 @@ Source:         %{url}archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  babel
 
 %global _description Python Docs Sphinx Theme is the theme for the Python documentation.
 

@@ -1,11 +1,11 @@
 Name:           yaz
-Version:        5.37.3
-Release:        3%{?dist}
+Version:        5.38.0
+Release:        2%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
-URL:            http://www.indexdata.com/yaz/
-Source0:        http://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
+URL:            https://www.indexdata.com/yaz/
+Source0:        https://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  bison
@@ -150,6 +150,12 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Fri Sep 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.38.0-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Libxml215
+
+* Fri Sep 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.38.0-1
+- 5.38.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.37.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -206,6 +206,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.16.0-2
+- Rebuilt for libxml-2.5.4
+
 * Fri Aug 28 2026 Michael Jeanson <mjeanson@efficios.com> - 2.16.0-1
 - New upstream release
 

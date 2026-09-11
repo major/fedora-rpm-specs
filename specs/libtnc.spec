@@ -2,7 +2,7 @@
 
 Name:		libtnc
 Version:	1.25
-Release:	52%{?dist}
+Release:	53%{?dist}
 Summary:	Library implementation of the Trusted Network Connect (TNC) specification
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -106,6 +106,9 @@ popd
 %{_mandir}/man3/Interface::TNC*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.25-53
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-52
 - Perl 5.44 rebuild
 

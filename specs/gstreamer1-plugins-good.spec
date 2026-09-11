@@ -35,7 +35,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.28.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -375,6 +375,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.28.7-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Sep 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.7-1
 - 1.28.7
 

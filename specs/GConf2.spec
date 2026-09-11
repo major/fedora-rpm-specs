@@ -9,7 +9,7 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 50%{?dist}
+Release: 51%{?dist}
 Summary: A process-transparent configuration system
 # COPYING:                                  GPL-2.0 text
 # defaults/gconf-defaults-main.c:           GPL-2.0-or-later
@@ -191,6 +191,9 @@ fi
 %{_datadir}/gir-1.0/GConf-2.0.gir
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2.6-51
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           koko
-Version:        26.08.0
+Version:        26.08.1
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3 and LGPLv2 and LGPLv2+ and CC0 and BSD - review is highly recommended.
 License:        GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND CC0-1.0 AND LicenseRef-Callaway-BSD
@@ -15,9 +15,6 @@ Source2:        https://download.geonames.org/export/dump/admin1CodesASCII.txt
 Source3:        https://download.geonames.org/export/dump/admin2Codes.txt
 
 # Upstream patches
-# Don't use APIs not available for 26.08
-# https://invent.kde.org/graphics/koko/-/merge_requests/347
-Patch0:        347.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -98,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

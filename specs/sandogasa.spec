@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.23.0
+Version:        0.24.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -62,10 +62,6 @@ License:        %{shrink:
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Manually created patch for downstream crate metadata changes
-# * Allow clap_mangen 0.3: https://github.com/slopfest/sandogasa/pull/12
-Patch:          sandogasa-fix-metadata.diff
-
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}
 # needed by dbranch
@@ -90,6 +86,18 @@ for Bugzilla, Bodhi, NVD, dist-git, Discourse, FASJSON, and HyperKitty.
 
 The name **sandogasa** (菅笠) refers to a Japanese straw hat often
 associated with "slum" or post-apocalyptic robots in popular culture.
+
+%package -n fedrq-config-hyperscale
+Summary:        CentOS Hyperscale SIG repositories for fedrq
+License:        Apache-2.0 OR MIT
+
+BuildArch:      noarch
+
+Requires:       fedrq
+Supplements:    (fedrq and mock-centos-sig-configs)
+
+%description -n fedrq-config-hyperscale
+Repository definitions to allow querying Hyperscale packages with fedrq.
 
 
 %prep
@@ -125,6 +133,13 @@ for tool in %{tools}; do
   cp -p tools/${tool}/man/${tool}.1 %{buildroot}%{_mandir}/man1/
   install -dm 0755 %{buildroot}%{_sysconfdir}/${tool}
 done
+
+# fedrq repos
+for f in centos-hyperscale.toml repos/centos-hyperscale.repo; do
+  install -Dpm 0644 configs/fedrq/${f} \
+    %{buildroot}%{_sysconfdir}/fedrq/${f}
+done
+
 # koji-lag scripts
 for action in backup fetch publish vacuum; do
   install -pm 0755 scripts/${action}-store.sh %{buildroot}%{_bindir}/koji-lag-${action}-store
@@ -214,6 +229,14 @@ done
 %ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-acl/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-health/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/sandogasa-report/config.toml
+
+%files -n fedrq-config-hyperscale
+%license LICENSE-APACHE
+%license LICENSE-MIT
+%dir %{_sysconfdir}/fedrq
+%config(noreplace) %{_sysconfdir}/fedrq/centos-hyperscale.toml
+%dir %{_sysconfdir}/fedrq/repos
+%config(noreplace) %{_sysconfdir}/fedrq/repos/centos-hyperscale.repo
 
 
 %changelog

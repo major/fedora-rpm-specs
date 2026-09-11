@@ -2,7 +2,7 @@
 
 Name:           telepathy-gabble
 Version:        0.18.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A Jabber/XMPP connection manager
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -107,6 +107,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*.html
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.18.4-29
+- Rebuilt for libxml-2.5.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

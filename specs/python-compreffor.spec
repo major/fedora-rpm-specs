@@ -41,14 +41,15 @@ Summary:        %{summary}
 # preserves mtimes on sources that did not need to be modified.
 find 'src' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r sed -r -i '1{/^#!/d}'
+  xargs --no-run-if-empty sed --regexp-extended --in-place '1{/^#!/d}'
 
 # Remove Cython-generated sources; we must ensure they are regenerated.
 find src/cython -type f -name '*.c*' -print -delete
 
 # Do not use requirements.txt for tox dependencies, as it contains (only) an
 # overly-strict pinned fonttools version.
-sed -r -i '/^[[:blank:]]*-rrequirements.txt[[:blank:]]*/d' 'tox.ini'
+sed --regexp-extended --in-place \
+    '/^[[:blank:]]*-rrequirements.txt[[:blank:]]*/d' tox.ini
 
 
 %generate_buildrequires -p

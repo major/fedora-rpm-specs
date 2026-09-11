@@ -1,6 +1,6 @@
 Name:           perl-XML-DifferenceMarkup
 Version:        1.05
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        XML diff and merge
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.05-44
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-43
 - Perl 5.44 rebuild
 

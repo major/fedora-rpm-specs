@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.28.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 # BSD-3-Clause:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -273,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@amutable.com> - 0.28.0-7
+- Rebuild for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

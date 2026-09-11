@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.0.1-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Sep  1 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0.1-1
 - Update to 2.0.1
 

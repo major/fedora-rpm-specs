@@ -40,7 +40,7 @@
 Name:		root
 Version:	6.40.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3541,6 +3541,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.40.04-2
+- Rebuilt for libxml-2.5.4
+
 * Sat Aug 29 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-1
 - Update to 6.40.04
 - The root-roofit-jsoninterface package was merged with root-roofit-hs3

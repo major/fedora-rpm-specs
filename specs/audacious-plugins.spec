@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 %global tar_ver %{version}
 
@@ -354,6 +354,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.6.1-7
+- Rebuilt for libxml-2.5.4
+
 * Sun Sep 06 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.6.1-6
 - Rebuilt for FFmpeg 9
 

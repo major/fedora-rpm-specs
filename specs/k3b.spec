@@ -4,8 +4,8 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 26.08.0
-Release: 2%{?dist}
+Version: 26.08.1
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/multimedia/k3b
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 1:26.08.1-1
+- 26.08.1
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1:26.08.0-2
 - Rebuilt for FFmpeg 9
 

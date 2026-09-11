@@ -25,7 +25,7 @@
 
 Name:           libnbd
 Version:        1.25.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -405,6 +405,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.25.7-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Jul 28 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.7-1
 - New upstream development version 1.25.7
 

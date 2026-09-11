@@ -332,7 +332,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2158,6 +2158,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.31-17
+- Rebuilt for libxml-2.5.4
+
 * Mon Aug 24 2026 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-16
 - Enable EPEL11
 

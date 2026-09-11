@@ -1,20 +1,22 @@
+%global forgeurl https://github.com/phoronix-test-suite/phoronix-test-suite
+%global commit   f977d6e270d5eb9eebfa26d3ca62385c00a547a6
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date     20260826
+
 Name:       phoronix-test-suite
-Version:    10.8.4
+Version:    10.8.6~%{date}git%{shortcommit}
 Release:    %autorelease
 Summary:    An Automated, Open-Source Testing Framework
 
 License:    GPL-3.0-or-later
-URL:        http://%{name}.com/
-Source0:    http://www.%{name}.com/releases/%{name}-%{version}.tar.gz
+URL:        %{forgeurl}
+Source0:    %{forgeurl}/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:    README.Fedora
-# Fix for CVE reported in https://github.com/phoronix-test-suite/phoronix-test-suite/issues/650
-Patch0:     https://github.com/phoronix-test-suite/phoronix-test-suite/commit/d3880d9d3ba795138444da83f1153c3c3ac27640.diff#/CVE-2022-40704.diff
 BuildArch:  noarch
 
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
-BuildRequires: libappstream-glib
-BuildRequires: appdata-tools
+BuildRequires: appstream
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -30,12 +32,6 @@ Requires: php-posix
 Requires: php-curl
 Requires: hicolor-icon-theme
 
-
-#These packages are not included anymore
-#Packages required by tests. Use the following command to create this list:
-#cat phoronix-test-suite/pts-core/external-test-dependencies/xml/fedora-packages.xml phoronix-test-suite/pts-core/external-test-dependencies/xml/generic-packages.xml| grep PackageName |sed -e 's/^.*<PackageName>\([^<]*\)<\/PackageName>.*$/\1/g' |xargs yum info|grep Name|sed -e 's/.*:\s\([^\s]*\)/\1/g'|grep -v devel$|sort|uniq|xargs
-#Requires: autoconf automake bison blas cmake curl flex gcc gcc-c++ gcc-gfortran jam libcurl libtool make openmpi p7zip perl python scons tcl tcsh yasm
-
 %description
 The Phoronix Test Suite is the most comprehensive testing and benchmarking 
 platform available for the Linux operating system. This software is designed to 
@@ -48,7 +44,7 @@ and software components is heavily automated and completely repeatable, asking
 users only for confirmation of actions.
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -p1 -n %{name}-%{commit}
 cp -p %{SOURCE1} documentation/
 
 %build
@@ -59,7 +55,14 @@ export DESTDIR=%{buildroot}
 ./install-sh %{_prefix}
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-launcher.desktop
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
+
+# Fix AppStream validation warnings and missing OARS content rating
+sed -i '/<content_rating/d' %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+sed -i '/<\/component>/i \  <url type="homepage">https://www.phoronix-test-suite.com/</url>' %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+sed -i '/<\/component>/i \  <developer_name>Phoronix Media</developer_name>' %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+sed -i '/<\/component>/i \  <content_rating type="oars-1.1"/>' %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %post
 %systemd_post phoromatic-client.service
@@ -86,7 +89,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %config(noreplace) %{_sysconfdir}/bash_completion.d
 %{_datadir}/applications/*
 %{_datadir}/mime/packages/*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/com.phoronix_test_suite.phoronix_test_suite.metainfo.xml
 %{_unitdir}/phoromatic-client.service
 %{_unitdir}/phoromatic-server.service
 %{_unitdir}/phoronix-result-server.service

@@ -4,7 +4,7 @@
 
 Name: rtl-433
 Version: 25.02
-Release: 3.%{commit_date}git%{commit_short}%{dist}
+Release: 4.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -92,6 +92,9 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Thu Sep 10 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.02-4.20260907git3792adf
+- rebuild to account for changes in rtl-sdr
+
 * Mon Sep 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.02-3.20260907git3792adf
 - bump to latest git release
 

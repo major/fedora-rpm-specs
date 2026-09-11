@@ -33,9 +33,9 @@ Source11:       fastapi-dev.1
 Source12:       fastapi-run.1
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --extras standard,standard-no-fastapi-cloud-cli,all
-    }
+BuildOption(generate_buildrequires): --extras standard
+BuildOption(generate_buildrequires): --extras standard-no-fastapi-cloud-cli
+BuildOption(generate_buildrequires): --extras all
 BuildOption(install): --assert-license fastapi
 
 BuildArch:      noarch
@@ -53,37 +53,37 @@ Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 #
 %if %{with deprecated_responses}
 # For UJSONResponse
-BuildRequires:  %{py3_dist ujson} >= 5.8
+BuildRequires:  %{py3_dist ujson}
 # For ORJSONResponse
-BuildRequires:  %{py3_dist orjson} >= 3.9.3
+BuildRequires:  %{py3_dist orjson}
 %endif
 # docs-tests:
-BuildRequires:  %{py3_dist httpx} >= 0.23
-BuildRequires:  %{py3_dist httpx2} >= 2
+BuildRequires:  %{py3_dist httpx}
+BuildRequires:  %{py3_dist httpx2}
 # (we don’t actually need ruff)
 # tests:
-BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
-BuildRequires:  %{py3_dist dirty-equals} >= 0.9
-BuildRequires:  %{py3_dist flask} >= 3
-BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
+BuildRequires:  %{py3_dist anyio[trio]}
+BuildRequires:  %{py3_dist dirty-equals}
+BuildRequires:  %{py3_dist flask}
+BuildRequires:  %{py3_dist inline-snapshot}
 %if %{with pwdlib}
-BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
+BuildRequires:  %{py3_dist pwdlib[argon2]}
 %endif
 %if %{with pyjwt}
-BuildRequires:  %{py3_dist pyjwt} >= 2.9
+BuildRequires:  %{py3_dist pyjwt}
 %endif
-BuildRequires:  %{py3_dist pytest} >= 9
-BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pyyaml}
 %if %{with sqlmodel}
-BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
+BuildRequires:  %{py3_dist sqlmodel}
 %endif
 %if %{with strawberry_graphql}
-BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
+BuildRequires:  %{py3_dist strawberry-graphql}
 %endif
-BuildRequires:  %{py3_dist typer} >= 0.24.1
-BuildRequires:  %{py3_dist a2wsgi} >= 1.9
-BuildRequires:  %{py3_dist pytest-xdist[psutil]} >= 2.5
-BuildRequires:  %{py3_dist pytest-timeout} >= 2.4
+BuildRequires:  %{py3_dist typer}
+BuildRequires:  %{py3_dist a2wsgi}
+BuildRequires:  %{py3_dist pytest-xdist[psutil]}
+BuildRequires:  %{py3_dist pytest-timeout}
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}

@@ -13,7 +13,7 @@ Name:             php-pecl-%{pecl_name}
 Summary:          Pecl package for XML diff and merge
 License:          BSD-2-Clause
 Version:          1.1.6
-Release:          4%{?dist}
+Release:          5%{?dist}
 %forgemeta
 URL:              %{forgeurl}
 Source0:          %{forgesource}
@@ -115,6 +115,9 @@ php -n run-tests.php -q --show-diff
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.6-5
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

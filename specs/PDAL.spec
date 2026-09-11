@@ -12,7 +12,7 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 Version:	2.10.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -229,6 +229,9 @@ sphinx-build -b html . build/html
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.10.2-5
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

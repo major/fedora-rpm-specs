@@ -251,8 +251,7 @@ This package provides an importable Python module for ruff.
 # tikv-jemallocator
 #   wanted: 0.6.0
 #   currently packaged: 0.7.0
-# We haven’t suggested this upstream because we know they use renovate with
-# dependency cooldowns, and we expect they will soon update without prompting.
+#   https://github.com/astral-sh/ruff/pull/25582
 tomcli set Cargo.toml str workspace.dependencies.tikv-jemallocator.version \
     '>=0.6.0, <0.8.0'
 

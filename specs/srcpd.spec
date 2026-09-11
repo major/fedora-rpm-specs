@@ -1,7 +1,7 @@
 
 Name:		srcpd
 Version:	2.1.7
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Simple Railroad Command Protocol (SRCP) server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -75,6 +75,9 @@ exit 0
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.7-8
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

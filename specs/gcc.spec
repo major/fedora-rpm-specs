@@ -201,7 +201,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}
+Release: %{gcc_release}%{?dist}.1
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -5173,6 +5173,9 @@ end
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 16.2.1-2.1
+- Rebuilt for libxml-2.5.4
+
 * Tue Aug 25 2026 Sun Haiyong <sunhaiyong@zdbr.net>
 - fix a typo.
 

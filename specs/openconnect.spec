@@ -11,7 +11,7 @@
 
 Name:       openconnect
 Version:    9.21
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Open multi-protocol SSL VPN client
 License:    LGPL-2.1-or-later
 URL:        https://www.infradead.org/%{name}/
@@ -118,6 +118,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.21-3
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

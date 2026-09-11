@@ -6,7 +6,7 @@
 
 Name: libabigail
 Version: 2.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -171,6 +171,9 @@ time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exi
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.10-4
+- Rebuilt for libxml-2.5.4
+
 * Sun Jul 26 2026 Dodji Seketeli <dodji@seketeli.org> - 2.10-3
 - Apply patch 0001-tests-mockfedabipkgdiff.in-Fix-python-module-loading.patch
   to fix FTBS https://bugzilla.redhat.com/show_bug.cgi?id=2504261

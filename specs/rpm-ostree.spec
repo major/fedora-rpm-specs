@@ -3,23 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2026.2
+Version: 2026.3
 Release: %{autorelease}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-
-# Support relocated repo configs and GPG keys (Fedora 45+) - #5624
-# Main commit from https://github.com/coreos/rpm-ostree/pull/5624
-# Second commit is a subproject update that cannot apply, instead
-# we have the next patch
-Patch: 2d177dfd66ab45ae27661a0899f0c64d49aa8154.patch
-# keyring: Also search /usr/share/pki/rpm-gpg for GPG keys
-# https://github.com/rpm-software-management/libdnf/commit/a8e9fcc5c5b80fe25e725d028e9f9b808cb0273f
-# edited to apply to the rpm-ostree's bundled libdnf (just added one extra libdnf/)
-Patch: 0001-keyring-Also-search-usr-share-pki-rpm-gpg-for-GPG-ke.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

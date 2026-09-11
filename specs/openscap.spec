@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.4.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -325,6 +325,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.4.4-10
+- Rebuilt for libxml-2.5.4
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.4.4-9
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

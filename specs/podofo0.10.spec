@@ -1,6 +1,6 @@
 Name:           podofo0.10
 Version:        0.10.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Podofo 0.10.x compatibility library
 
 License:        LGPL-2.0-or-later
@@ -79,6 +79,9 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.5-5
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

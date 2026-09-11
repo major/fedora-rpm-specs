@@ -15,7 +15,7 @@
 Summary: Generic library for reporting various problems
 Name: libreport
 Version: 2.17.15
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -669,6 +669,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.17.15-14
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.17.15-13
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -6,7 +6,7 @@
 
 Name:           libbluray
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPL-2.0-or-later
 URL:            https://www.videolan.org/developers/libbluray.html
@@ -114,6 +114,9 @@ mv %{buildroot}%{_docdir}/%{name}/html .
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5.0-2
+- Rebuilt for libxml-2.5.4
+
 * Thu Aug 20 2026 Xavier Bachelot <xavier@bachelot.org> - 1.5.0-1
 - Update to 1.5.0 (RHBZ#2520270)
 

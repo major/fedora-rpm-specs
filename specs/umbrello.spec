@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
-Version: 26.08.0
-Release: 1%{?dist}
+Version: 26.08.1
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/development/umbrello/
@@ -96,6 +96,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 26.08.1-2
+- Rebuilt for libxml-2.5.4
+
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

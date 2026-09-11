@@ -1,7 +1,7 @@
 Name:		ots
 Summary:	A text summarizer
 Version:	0.5.0
-Release:	37%{?dist}
+Release:	38%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5.0-38
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

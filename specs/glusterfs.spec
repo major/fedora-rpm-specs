@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.2
-Release:          11%{?prereltag:%{prereltag}}%{?dist}
+Release:          12%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.33
+Release:          0.@PACKAGE_RELEASE@%{?dist}.34
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1642,6 +1642,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.2-12
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 11.2-11
 - Rebuilt for Python 3.15.0b4 ABI change
 

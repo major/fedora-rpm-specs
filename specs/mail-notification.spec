@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        118.git.%{git_revision}%{?dist}
+Release:        119.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -234,6 +234,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.4-119.git.9ae8768
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 5.4-118.git.9ae8768
 - add patch for openssl4 (#2504317)
 

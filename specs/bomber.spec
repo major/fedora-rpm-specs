@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    bomber
 Summary: Arcade bombing game
-Version: 26.08.0
+Version: 26.08.1
 Release: 1%{?dist}
 
 # code LGPLv2+, docs GFDL
@@ -84,6 +84,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

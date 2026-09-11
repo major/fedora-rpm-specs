@@ -1,5 +1,5 @@
 Name:    akonadi-mime
-Version: 26.08.0
+Version: 26.08.1
 Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
@@ -83,6 +83,9 @@ find ./po -type f -name libakonadi-kmime5-serializer.po -execdir mv {} libakonad
 %files doc
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

@@ -1,10 +1,10 @@
 %bcond x11 %[!(0%{?rhel} >= 10)]
 
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-%global tag v0.36.0
+%global tag v0.37.0
 
 Name: qtile-extras
-Version: 0.36.0
+Version: 0.37.0
 Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta
@@ -20,7 +20,23 @@ BuildRequires: qtile = %{version}
 BuildRequires: qtile-wayland = %{version}
 
 # Test dependencies
+BuildRequires: pre-commit
+BuildRequires: python3-anyio
+BuildRequires: python3-build
+BuildRequires: python3-dbus-fast
+BuildRequires: python3-gobject
+BuildRequires: python3-isort
+BuildRequires: python3-mypy
+BuildRequires: python3-pint
+BuildRequires: python3-psutil
+BuildRequires: python3-pulsectl-asyncio
 BuildRequires: python3-pytest
+BuildRequires: python3-pytest-rerunfailures
+BuildRequires: python3-pytest-lazy-fixture
+BuildRequires: python3-pywayland
+BuildRequires: python3-requests
+BuildRequires: python3-xkbcommon
+BuildRequires: twine
 %if %{with x11}
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: xorg-x11-server-Xephyr
@@ -55,12 +71,13 @@ Qtile. For more, please read https://qtile-extras.readthedocs.io
 %pyproject_patch_dependency coverage:ignore
 %pyproject_patch_dependency coveralls:ignore
 %pyproject_patch_dependency pytest-cov:ignore
-# widget deps not in Fedora
-%pyproject_patch_dependency stravalib:ignore
+# widget deps not in Fedora, or different versions
 %pyproject_patch_dependency iwlib:ignore
+%pyproject_patch_dependency stravalib:ignore
+%pyproject_patch_dependency xkbcommon:drop_upper
 # test deps not in Fedora, or different versions
-%pyproject_patch_dependency pytest:drop_upper
 %pyproject_patch_dependency check-manifest:ignore
+%pyproject_patch_dependency pytest:drop_upper
 
 git init
 

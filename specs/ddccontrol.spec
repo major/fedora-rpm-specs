@@ -1,7 +1,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
 Version:          3.3.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    cargo
@@ -153,6 +153,9 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.0-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.3.0-1
 - New version
   Resolves: rhbz#2529570

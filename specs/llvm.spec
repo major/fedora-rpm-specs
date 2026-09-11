@@ -103,6 +103,14 @@
 %bcond_with mlir
 %endif
 
+%ifarch riscv64
+# MLIR Execution Engine doesn't quite work on riscv64, see:
+# https://github.com/llvm/llvm-project/issues/162655
+%global mlir_jit OFF
+%else
+%global mlir_jit ON
+%endif
+
 #region flang
 %if %{without compat_build} && %{defined fedora} && 0%{?fedora} >= 44
 # Link error on i686.
@@ -613,6 +621,11 @@ Patch2105: 43cb4631c1f42dbfce78288b8ae30b5840ed59b3.patch
 
 # Fix for s390x vector miscompilation (rhbz#2430017)
 Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
+
+# Disable tests when the execution engine is disabled.
+# https://github.com/llvm/llvm-project/pull/220741
+Patch2203: 0001-mlir-Disable-some-tests-when-the-execution-engine-is.patch
+Patch2301: 0001-mlir-Disable-some-tests-when-the-execution-engine-is.patch
 
 # Fix an illegal zext from combined loads (rhbz#2512927)
 # https://github.com/llvm/llvm-project/pull/207229
@@ -1832,8 +1845,8 @@ popd
         -DMLIR_INCLUDE_INTEGRATION_TESTS:BOOL=OFF \\\
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \\\
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \\\
-        -DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=ON
-
+        -DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=%{mlir_jit} \\\
+        -DMLIR_ENABLE_EXECUTION_ENGINE:BOOL=%{mlir_jit}
 %endif
 #endregion mlir options
 
@@ -2136,7 +2149,9 @@ cd $OLD_CWD
 %if %{with mlir}
 %cmake_build --target libMLIR.so
 %cmake_build --target libMLIR-C.so
+%if "%{mlir_jit}" == "ON"
 %cmake_build --target libMLIRPythonCAPI.so
+%endif
 %endif
 
 %cmake_build
@@ -2469,7 +2484,7 @@ ln -vsf "../../../${liblldb}" %{buildroot}%{python3_sitearch}/lldb/_lldb.so
 #endregion LLDB installation
 
 #region mlir installation
-%if %{with mlir}
+%if %{with mlir} && "%{mlir_jit}" == "ON"
 mkdir -p %{buildroot}/%{python3_sitearch}
 mv %{buildroot}%{install_prefix}/python_packages/mlir_core/mlir %{buildroot}/%{python3_sitearch}
 # These directories should be empty now.
@@ -3899,6 +3914,10 @@ fi
 %files -n %{pkg_name_mlir}
 %license LICENSE.TXT
 %{expand_libs %{expand:
+    libMLIR*.so.%{maj_ver}*
+}}
+%if "%{mlir_jit}" == "ON"
+%{expand_libs %{expand:
     libmlir_apfloat_wrappers.so.%{maj_ver}*
     libmlir_arm_runner_utils.so.%{maj_ver}*
     libmlir_arm_sme_abi_stubs.so.%{maj_ver}*
@@ -3906,8 +3925,8 @@ fi
     libmlir_c_runner_utils.so.%{maj_ver}*
     libmlir_float16_utils.so.%{maj_ver}*
     libmlir_runner_utils.so.%{maj_ver}*
-    libMLIR*.so.%{maj_ver}*
 }}
+%endif
 
 %files -n %{pkg_name_mlir}-static
 %expand_libs libMLIR*.a
@@ -3922,12 +3941,16 @@ fi
     mlir-query
     mlir-reduce
     mlir-rewrite
-    mlir-runner
     mlir-tblgen
     mlir-translate
     tblgen-lsp-server
     tblgen-to-irdl
 }}
+%if "%{mlir_jit}" == "ON"
+%{expand_bins %{expand:
+    mlir-runner
+}}
+%endif
 %if %{maj_ver} >= 23
 %{expand_bins %{expand:
     mlir-irdl-to-cpp
@@ -3937,6 +3960,10 @@ fi
 %expand_includes mlir mlir-c
 %{expand_libs %{expand:
     cmake/mlir
+    libMLIR*.so
+}}
+%if "%{mlir_jit}" == "ON"
+%{expand_libs %{expand:
     libmlir_apfloat_wrappers.so
     libmlir_arm_runner_utils.so
     libmlir_arm_sme_abi_stubs.so
@@ -3944,11 +3971,13 @@ fi
     libmlir_c_runner_utils.so
     libmlir_float16_utils.so
     libmlir_runner_utils.so
-    libMLIR*.so
 }}
+%endif
 
+%if "%{mlir_jit}" == "ON"
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/
+%endif
 %endif
 #endregion MLIR files
 

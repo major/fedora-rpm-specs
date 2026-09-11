@@ -31,7 +31,7 @@ Summary:        Functions to write XML-RPC servers and clients
 # Library is MIT
 License:        PHP-3.01 AND MIT
 Version:        %{upver}%{?rclower:~%{rclower}}
-Release:        19%{?dist}
+Release:        20%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -131,6 +131,9 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.0~rc3-20
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

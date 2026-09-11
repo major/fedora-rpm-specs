@@ -10,7 +10,7 @@
 
 Name:           cinnamon
 Version:        6.7.5^unstable
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -313,6 +313,9 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.7.5^unstable-4
+- Rebuilt for libxml-2.5.4
+
 * Sun Aug 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-3
 - Improve menu applet fix
 

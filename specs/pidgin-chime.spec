@@ -9,7 +9,7 @@
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
 Version:        1.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -132,6 +132,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5-16
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 31 2026 Milan Crha <mcrha@redhat.com> - 1.5-15
 - Rebuild for evolution-data-server soname bump
 

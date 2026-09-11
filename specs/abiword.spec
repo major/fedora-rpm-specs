@@ -4,7 +4,7 @@
 
 Name: abiword
 Version: 3.0.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 %global tag release-%{version}
 %forgemeta
 
@@ -187,6 +187,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@amutable.com> - 1:3.0.8-6
+- Rebuild for libxml-2.5.4
+
 * Sat Aug 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.0.8-5
 - Disable collab tcp / service backend for F45 with boost issue for now
 

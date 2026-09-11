@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 26.08.0
+Version: 26.08.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.sw
 %{_datadir}/icons/hicolor/scalable/apps/sweeper.svg
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

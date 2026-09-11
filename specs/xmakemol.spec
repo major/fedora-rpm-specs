@@ -1,6 +1,6 @@
 Name:           xmakemol
 Version:        5.16
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Program for visualizing atomic and molecular systems
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -70,6 +70,9 @@ bonds.  Features include:
 %{_bindir}/xmake_anim.pl
 
 %changelog
+* Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.16-26
+- Motif rebuild
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

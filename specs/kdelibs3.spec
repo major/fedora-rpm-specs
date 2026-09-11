@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 137%{?dist}
+Release: 138%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -730,6 +730,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.5.10-138
+- Rebuilt for libxml-2.5.4
+
 * Thu Aug 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.10-137
 - Drop pcre1 support on F45 as it is no longer available
 - Support openssl 4

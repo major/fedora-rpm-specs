@@ -35,7 +35,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.61.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1031,6 +1031,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.61.2-3
+- Rebuilt for libxml-2.5.4
+
 * Tue Sep 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.61.2-2
 - Rebuild for libsystemd SONAME bump
 

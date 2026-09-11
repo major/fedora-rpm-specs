@@ -1,6 +1,6 @@
 %global pkgver 2.4.2
 #global prerel rc1
-%global baserelease 2
+%global baserelease 3
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.2-3
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.4.2-2
 - Rebuilt for Python 3.15.0b4 ABI change
 

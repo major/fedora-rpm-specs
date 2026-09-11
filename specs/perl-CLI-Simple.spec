@@ -1,5 +1,5 @@
 Name:           perl-CLI-Simple
-Version:        2.1.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Minimalist object oriented base class for CLI applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -16,45 +16,43 @@ BuildRequires:  perl(Class::Accessor::Fast) >= 0.51
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::ShareDir) >= 1.118
 BuildRequires:  perl(File::ShareDir::Install)
-BuildRequires:  perl(File::Which) >= 1.23
+BuildRequires:  perl(File::Which) >= 1.27
 BuildRequires:  perl(IO::Interactive)
 BuildRequires:  perl(IO::Pager)
-BuildRequires:  perl(JSON) >= 4.07
+BuildRequires:  perl(JSON) >= 4.10
 BuildRequires:  perl(List::Util) >= 1.56
-BuildRequires:  perl(Log::Log4perl) >= 1.57
-BuildRequires:  perl(Log::Log4perl::Level)
 BuildRequires:  perl(Readonly) >= 2.05
 BuildRequires:  perl(Role::Tiny) >= 2.002004
 BuildRequires:  perl(Test::Exit) >= 0.11
 BuildRequires:  perl(Test::Output) >= 1.036
 BuildRequires:  perl(YAML::Tiny) >= 1.76
 # Runtime
+BuildRequires:  perl(Archive::Tar)
+BuildRequires:  perl(B)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::ShareDir) >= 1.118
-BuildRequires:  perl(File::Which)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(JSON) >= 4.07
-BuildRequires:  perl(List::Util) >= 1.56
-BuildRequires:  perl(Log::Log4perl) >= 1.57
-BuildRequires:  perl(Log::Log4perl::Level)
 BuildRequires:  perl(Pod::Usage)
-BuildRequires:  perl(Readonly) >= 2.05
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(YAML::Tiny) >= 1.76
+BuildRequires:  perl(Perl::Tidy)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # tests
-BuildRequires:  perl(FindBin)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Log::Log4perl)
+BuildRequires:  perl(Test::More)
 Requires:       perl(File::ShareDir) >= 1.118
 Requires:       perl(YAML::Tiny) >= 1.76
 Recommends:     perl(IO::Pager)
+Recommends:     perl(Log::Log4perl)
 Recommends:     perl(Term::ANSIColor)
 
 %description
@@ -88,6 +86,9 @@ make test
 %{_bindir}/create-modulino
 
 %changelog
+* Thu Sep 10 2026 Xavier Bachelot <xavier@bachelot.org> 2.2.2-1
+- Update to 2.2.2 (RHBZ#2526243,RHBZ#2526281)
+
 * Fri Jul 24 2026 Xavier Bachelot <xavier@bachelot.org> 2.1.1-1
 - Update to 2.1.1
 

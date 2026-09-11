@@ -34,7 +34,7 @@
 %global e2fsprogs_version 1.47.4
 %global fuse_overlayfs_version 1.16
 %global squashfs_tools_version 4.7.5
-%ifnarch ppc64le s390x
+%ifnarch ppc64le s390x riscv64
 %if !(0%{?fedora} >= 45 || 0%{?rhel} >= 11) || "%{_arch}" != "x86_64"
 # On fedora45 x86_64 building PRoot dies with
 # "relocation truncated to fit: R_X86_64_PC32 against `.rodata'"
@@ -49,7 +49,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.5.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
 # See LICENSE_THIRD_PARTY.md for incorporated code (Apache-2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -524,6 +524,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Mon Sep 07 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.5.3-7
+- Enable building for RISC-V.
+
 * Mon Aug  3 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-6
 - Rebuild again for fc45 side tag because it hadn't yet been merged.
 

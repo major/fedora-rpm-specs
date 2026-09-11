@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/groupoids
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.83
+Version:        1.84
 Release:        %autorelease
 Summary:        Groupoids, group graphs, and groupoid graphs
 
@@ -71,7 +71,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %check -p
 # Skip tests that tend to get OOM killed
-SKIP='manual/gpd.tst extra/rt-act.tst'
+SKIP='extra/rt-act.tst'
 for test in $SKIP; do
   rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/$test
 done

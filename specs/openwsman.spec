@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -424,6 +424,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8.1-22
+- Rebuilt for libxml-2.5.4
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.8.1-21
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

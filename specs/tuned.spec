@@ -57,8 +57,8 @@
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.27.0
-Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Version: 2.28.0
+Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -108,6 +108,7 @@ Requires: pygobject3-base
 %endif
 Requires: virt-what
 Requires: ethtool
+Requires: iw
 Requires: gawk
 Requires: util-linux
 Requires: dbus
@@ -134,6 +135,12 @@ Recommends: subscription-manager
 %if 0%{?rhel} > 7
 Requires: python3-syspurpose
 %endif
+%endif
+# On image mode (bootc) systems, rpm-ostree is needed by the bootloader
+# plugin for kernel argument management when bootc's native
+# set-options-for-source is not yet available
+%if 0%{?fedora} || 0%{?rhel} >= 9
+Requires: (rpm-ostree if bootc)
 %endif
 
 %description
@@ -521,6 +528,9 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/tuned-main.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/bootcmdline
 %verify(not size mtime md5) %{_sysconfdir}/modprobe.d/tuned.conf
+# https://bugzilla.redhat.com/show_bug.cgi?id=2444143
+%dir %{_sysconfdir}/systemd/system.conf.d
+%verify(not size mtime md5) %{_sysconfdir}/systemd/system.conf.d/00-tuned.conf
 %{_tmpfilesdir}/tuned.conf
 %{_unitdir}/tuned.service
 %dir %{_localstatedir}/log/tuned
@@ -648,6 +658,35 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.28.0-1
+- new release
+  - rebased tuned to latest upstream
+  - spec: require rpm-ostree on image mode (bootc) systems
+  - scheduler: check for EPERM when setting IRQ affinity
+    resolves: RHEL-153655
+  - bootloader: set correct permission for tempdir
+    resolves: RHEL-121198
+  - commands: better error msgs when creating directory and hardened dir mode
+  - docs: build reference guide
+  - systemd: used drop-ins for configuration
+    resolves: RHEL-97580
+  - systemd: do not backup the drop-in configuration
+  - net: add more coalescing options, filter out unsupported ones
+    resolves: RHEL-152675
+  - cpu: do not log error if boost isn't supported
+    resolves: RHEL-169618
+  - bootloader: add bootc loader-entries set-options-for-source support
+    resolves: RHEL-170825
+  - cpu: fixed TypeError when load_threshold is set in a profil
+  - openshift: include network-throughput profile
+  - drop support for vm.laptop_mode which is deprecated in kernel 7.0
+  - net: fixed ring parser to work with rx-mini and rx-jumbo
+    resolves: RHEL-168025
+  - lscpu_check: do not traceback on invalid regex
+    resolves: RHEL-132575
+  - network-latency: increase AVC cache to 8192
+  - functions: use iw for Wi-Fi power saving
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.27.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

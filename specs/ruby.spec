@@ -41,7 +41,7 @@
 %global rubygems_net_http_version 0.7.0
 %global rubygems_net_protocol_version 0.2.2
 %global rubygems_optparse_version 0.8.0
-%global rubygems_resolv_version 0.7.0
+%global rubygems_resolv_version 0.7.2
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.4
 %global rubygems_tsort_version 0.2.0
@@ -84,7 +84,7 @@
 %global prettyprint_version 0.2.0
 %global prism_version 1.8.1
 %global psych_version 5.3.1
-%global resolv_version 0.7.0
+%global resolv_version 0.7.2
 %global ruby2_keywords_version 0.0.5
 %global securerandom_version 0.4.1
 %global shellwords_version 0.2.2
@@ -189,7 +189,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 37%{?dist}
+Release: 38%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -298,6 +298,10 @@ Patch8: ruby-4.0.1-Support-customizable-rustc_flags-for-rustc-builds.patch
 # Fix error with `gem install --document=rdoc,ri`
 # Fixed in rdoc 7.1.0 but not in 7.0.4
 Patch9: rdoc-pr1531-fix-mutilple-document-installation.patch
+# Backport from ruby_4_0 branch to update resolv to 0.7.2 (fixes CVE-2026-80212 CVE-2026-80213)
+# https://github.com/ruby/ruby/pull/18528
+# Also copied the patch to apply the fix also for vendored resolv
+Patch10: ruby-4_0-pr18528-update-resolv-0_7_2.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -808,6 +812,7 @@ popd
 %patch 6 -p1
 %patch 7 -p1
 %patch 8 -p1
+%patch 10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1947,7 +1952,12 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
+* Thu Sep 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-38
+- Backport upstream patch to update resolv to 0.7.2
+- Resolves: CVE-2026-80212 (rhbz#2527308)
+- Resolves: CVE-2026-80213 (rhbz#2527310)
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
 * Tue Jul 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-36

@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20251009
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20251009-6
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 20251009-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

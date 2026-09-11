@@ -9,7 +9,7 @@
 
 Name:           podofo
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        (LGPL-2.0-or-later or MPL-2.0) and MIT and Apache-2.0 and BSD-3-Clause and BSL-1.0
@@ -223,6 +223,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.1-4
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

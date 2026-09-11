@@ -1,7 +1,7 @@
 Name:           perl-podlators
 Epoch:          1
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        Format POD source into various output formats
 # pod/perlpodstyle.pod:     FSFAP
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -147,6 +147,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:6.1.1-1
+- 6.1.1 bump (rhbz#2531235)
+- Fix CVE-2026-82560 (infinite loop in Pod::Text when margin >= output width)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:6.1.0-2
 - Perl 5.44 rebuild
 

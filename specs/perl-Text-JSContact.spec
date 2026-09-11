@@ -1,8 +1,8 @@
 Name:           perl-Text-JSContact
-Version:        0.01
-Release:        2%{?dist}
+Version:        0.02
+Release:        1%{?dist}
 Summary:        Convert between vCard and JSContact
-License:        Artistic-2.0
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Text-JSContact
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRONG/Text-JSContact-%{version}.tar.gz
 BuildArch:      noarch
@@ -37,8 +37,22 @@ Text::JSContact provides bidirectional conversion between vCard (RFC 6350)
 and JSContact (RFC 9553), following the mapping rules in RFC 9555 and the
 extensions in RFC 9554.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Text-JSContact-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -46,6 +60,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -54,8 +76,16 @@ make test
 %files
 %doc Changes README
 %{perl_vendorlib}/Text*
+%{_mandir}/man3/Text::JSContact*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.02-1
+- 0.02 bump
+- Package tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

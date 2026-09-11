@@ -1,8 +1,8 @@
 Name:           perl-Text-JSCalendar
-Version:        0.05
+Version:        0.06
 Release:        2%{?dist}
 Summary:        Convert between iCalendar and JSCalendar
-License:        Artistic-2.0
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Text-JSCalendar
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRONG/Text-JSCalendar-%{version}.tar.gz
 # Trailing XML::Spice Perl module
@@ -59,9 +59,23 @@ Text::JSCalendar provides bidirectional conversion between iCalendar
  - draft-ietf-calext-jscalendarbis (JSCalendar data model)
  - draft-ietf-calext-icalendar-jscalendar-extensions (new iCal properties)
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Text-JSCalendar-%{version}
 %patch -P0 -p1
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -69,6 +83,15 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cp -a testdata %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -76,10 +99,21 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorlib}/Text*
 %{_mandir}/man3/Text::JSCalendar*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Sep 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.06-2
+- Add LICENSE file
+
+* Thu Sep 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.06-1
+- 0.06 bump
+- Package tests.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           livesys-scripts
 Version:        0.9.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scripts for auto-configuring live media during boot
 
 License:        GPL-3.0-or-later
-URL:            https://pagure.io/livesys-scripts
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://codeberg.org/livecd-tools/livesys-scripts
+Source:         %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
@@ -18,7 +18,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -p1
+%autosetup -n %{name} -p1
 
 
 %build
@@ -57,6 +57,9 @@ touch %{buildroot}%{_sharedstatedir}/livesys/livesys-session-late-extra
 
 
 %changelog
+* Thu Sep 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.9.7-3
+- Migrate to new upstream location on codeberg.org
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

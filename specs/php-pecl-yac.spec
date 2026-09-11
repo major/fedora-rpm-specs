@@ -24,7 +24,7 @@
 Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
-Version:        2.4.1
+Version:        2.4.2
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -148,6 +148,9 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Sep 10 2026 Remi Collet <remi@remirepo.net> - 2.4.2-1
+- update to 2.4.2
+
 * Wed Sep  2 2026 Remi Collet <remi@remirepo.net> - 2.4.1-1
 - update to 2.4.1
 

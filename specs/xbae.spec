@@ -12,6 +12,7 @@ Patch0:         xbae-link_Mri_with_lXmp.diff
 Patch1:         xbae-4.60.4-multilib.patch
 Patch2:         xbae-configure-c99.patch
 Patch3:         pointer-types.patch
+Patch4:         includes.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -77,6 +78,7 @@ developing applications that use %{name}.
 %patch -P 1 -p1 -b .multilib
 %patch -P 2 -p1
 %patch -P 3 -p0
+%patch -P 4 -p0
 
 for file in COPYING ChangeLog NEWS; do
  iconv -f latin1 -t utf8 < $file > $file.utf8

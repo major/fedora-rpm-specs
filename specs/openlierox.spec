@@ -4,7 +4,7 @@ Name:           openlierox
 # Because we downgraded from 0.59 to 0.58 as 0.59 never became stable
 Epoch:          1
 Version:        0.58
-Release:        0.42.%{prever}%{?dist}
+Release:        0.43.%{prever}%{?dist}
 Summary:        Addictive realtime multi-player 2D shoot-em-up
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://openlierox.sourceforge.net/
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.58-0.43.rc5
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.58-0.42.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

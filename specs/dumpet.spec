@@ -1,6 +1,6 @@
 Name:           dumpet
 Version:        2.1
-Release:        35%{?dist} 
+Release:        36%{?dist} 
 Summary:        A tool to dump and debug bootable CD images
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -38,6 +38,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/dumpet
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1-36
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

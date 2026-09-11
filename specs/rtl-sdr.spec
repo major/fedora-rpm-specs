@@ -14,7 +14,7 @@ Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 #Version:          0.6.0^%%{git_suffix}
 Version:          2.0.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    gcc
@@ -27,6 +27,8 @@ Summary:          SDR utilities for Realtek RTL2832 based DVB-T dongles
 Source0:          https://github.com/steve-m/librtlsdr/archive/refs/tags/v%{version}/librtlsdr-%{version}.tar.gz
 #Source0:          https://github.com/steve-m/librtlsdr/archive/%%{version}/librtlsdr-%%{version}.tar.gz
 # https://osmocom.org/projects/rtl-sdr/repository/revisions/222517b506278178ab93182d79ccf7eb04d107ce
+# https://github.com/steve-m/librtlsdr/issues/92
+Patch:            rtl-sdr-2.0.3-soname-fix.patch
 
 %description
 This package can turn your RTL2832 based DVB-T dongle into a SDR receiver.
@@ -84,6 +86,9 @@ install -m0644 -D rtl-sdr.sysusers.conf %{buildroot}%{_sysusersdir}/rtl-sdr.conf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.3-2
+- Reverted SONAME back to 2
+
 * Mon Sep 07 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.3-1
 - New version
 

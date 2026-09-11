@@ -8,7 +8,7 @@
 Name:		roc-toolkit
 #Version:	0.2.1^%%{git_suffix}
 Version:	0.4.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
@@ -105,6 +105,9 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0-9
+- Rebuilt for sox_ng transition
+
 * Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0-8
 - Rebuilt for sox_ng transition
   Resolves: rhbz#2527803

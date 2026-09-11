@@ -731,6 +731,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{mozappdir}/fonts
 %{mozappdir}/pingsender
 %{mozappdir}/interesting_serverknobs.json
+%{mozappdir}/gfxtest
 
 #===============================================================================
 

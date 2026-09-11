@@ -1,7 +1,7 @@
 Name:           atomes
 %global upname atomes-GNU
 Version:        1.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An atomistic toolbox
 License:        AGPL-3.0-or-later
 Source0:        https://github.com/Slookeur/%{upname}/archive/refs/tags/v%{version}.tar.gz
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/fr.ipcms.%{nam
 %{_metainfodir}/fr.ipcms.%{name}.appdata.xml
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.1-5
+- Rebuilt for libxml-2.5.4
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.3.1-4
 - Rebuilt for FFmpeg 9
 

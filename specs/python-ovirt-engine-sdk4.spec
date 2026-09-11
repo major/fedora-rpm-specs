@@ -2,7 +2,7 @@ Name: python-ovirt-engine-sdk4
 Summary: Python SDK for version 4 of the oVirt Engine API
 Version: 4.6.2
 %global major_version %(v=%{version}; echo ${v:0:3})
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/oVirt/python-ovirt-engine-sdk4
@@ -61,6 +61,9 @@ done
 %doc examples
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.6.2-17
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.6.2-16
 - Rebuilt for Python 3.15.0b4 ABI change
 

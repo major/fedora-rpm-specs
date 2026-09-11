@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.6.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -340,6 +340,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.6.5-6
+- Rebuilt for libxml-2.5.4
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8.6.5-5
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

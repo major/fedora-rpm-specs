@@ -1,6 +1,6 @@
 Name:           shigofumi
 Version:        0.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Command line client for accessing the Czech Data Boxes
 # COPYING:          GPL-3.0 text
 # README:           GPL-3.0-or-later
@@ -73,6 +73,7 @@ Information System) client.
 autoreconf -fi
 
 %build
+export CFLAGS="$CFLAGS -Wno-error=deprecated-declarations"
 %configure \
     --disable-debug \
     --enable-doc \
@@ -97,6 +98,9 @@ autoreconf -fi
 %{_mandir}/*/man5/shigofumirc.*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9-17
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

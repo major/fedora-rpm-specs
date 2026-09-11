@@ -6,7 +6,7 @@
 
 Name:		hidrd
 Version:	0.2.0
-Release:	28.%{git_suffix}%{?dist}
+Release:	29.%{git_suffix}%{?dist}
 Summary:	HID report descriptor I/O library and conversion tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -64,6 +64,9 @@ rm -vf %{buildroot}%{_libdir}/*.{a,la}
 %{_includedir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.0-29.20180117git7e94881a
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-28.20180117git7e94881a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.44.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -253,6 +253,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.44.2-2
+- Rebuilt for libxml-2.5.4
+
 * Wed Sep 02 2026 Terje Røsten <terjeros@gmail.com> - 1.44.2-1
 - 1.44.2
 

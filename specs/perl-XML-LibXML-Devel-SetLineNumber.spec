@@ -1,6 +1,6 @@
 Name:           perl-XML-LibXML-Devel-SetLineNumber
 Version:        0.002
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Set the line number for an XML::LibXML::Node
 # README:       GPL+ or Artistic
 # COPYRIGHT:    Public Domain
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.002-35
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-34
 - Perl 5.44 rebuild
 

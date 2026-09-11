@@ -1,5 +1,5 @@
-%global commit 904aa67e1e2d1dec92959df63e700b166d5c1022
-%global snapdate 20260313
+%global commit 2c980bb59875b0d32144a71867fbdebb2f77cd20
+%global snapdate 20260802
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -22,7 +22,7 @@ Name:           stb
 # collection is not, and there are no releases. See:
 #   https://github.com/nothings/stb/issues/359
 #   https://github.com/nothings/stb/issues/1101
-%global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
+%global snapinfo ^%{snapdate}.%{sub %{commit} 1 7}
 Version:        0%{snapinfo}
 Release:        %autorelease
 Summary:        Single-file public domain libraries for C/C++
@@ -225,6 +225,18 @@ Patch:          %{url}/pull/1863.patch
 # stbi__bmp_load: uninitialized stack memory leak via palette index > biClrUsed
 # https://github.com/nothings/stb/issues/1929
 Patch:          issue-1929.patch
+
+# stb_sprintf: don't write buf[-1] on snprintf(buf, 0, ...) (fixes #1963)
+# https://github.com/nothings/stb/pull/1995
+#
+# Fixes CVE-2026-79516:
+#
+# [SECURITY] stbsp_snprintf with count=0 writes null terminator before buffer
+# https://github.com/nothings/stb/issues/1963
+#
+# Patch rejected upstream without comment, presumably because the PR was
+# drafted with AI/LLM assistance.
+Patch:          %{url}/pull/1995.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96

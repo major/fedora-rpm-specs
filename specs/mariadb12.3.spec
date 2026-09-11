@@ -211,7 +211,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          100%{?with_debug:.debug}%{?dist}
+Release:          101%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          Fast and robust SQL database server
@@ -1847,6 +1847,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3:12.3.2-101
+- Rebuilt for libxml-2.5.4
+
 * Tue Jul 21 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.2-100
 - Disable the 'distribution default' in MariaDB 11.8 (package 'mariadb11.8')
 - Enable the 'distribution default' in MariaDB 12.3 in this package

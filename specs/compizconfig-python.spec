@@ -2,7 +2,7 @@
 
 Name:           compizconfig-python
 Version:        0.8.18
-Release:        23%{?dist}
+Release:        24%{?dist}
 Epoch:          1
 Summary:        Python bindings for the Compiz Configuration System
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -53,6 +53,9 @@ find %{buildroot} -type f -name "*.a" -o -name "*.la" | xargs rm -f
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.8.18-24
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:0.8.18-23
 - Rebuilt for Python 3.15.0b4 ABI change
 

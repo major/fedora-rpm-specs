@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 26.03.1
-Release: 54%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 26.03.2
+Release: 122%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit 0cc1ea5bb71d29b91244f5368ecbbda8837bc542
+%define ovncommit 608aa1c3f6aa94ca5e5afc093452228f481d3b9b
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit bdb95cc1920d4ab66fe062a9470eeb33a51d33e2
-%define ovsshortcommit bdb95cc
+%define ovscommit 45ee6f7d96dec264df2c044bc9afa61d4ef5af37
+%define ovsshortcommit 45ee6f7
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -456,6 +456,15 @@ fi
 %{_unitdir}/ovn-br-db.service
 
 %changelog
+* Thu Sep 10 2026 Dumitru Ceara <dceara@redhat.com> - 26.03.2-122
+- Updated the OVN sources to upstream release v26.03.2 with the
+  commit 608aa1c3f6aa94ca5e5afc093452228f481d3b9b and picked up
+  the commits from v26.03.2 till the tip of branch-26.03
+  572bc48cf71e9409d32674371a4c9a5ca603bed1 (99 commits) in
+  ovn.patch.
+- Updated the OVS sources to the branch-26.03 ovs submodule
+  commit 45ee6f7d96dec264df2c044bc9afa61d4ef5af37.
+
 * Thu Aug 6 2026 Nicholas Hubbard <nhubbard@redhat.com> - 26.03.1-54
 - Prevent RPM macro expansion in the version-suffix changelog entry.
 

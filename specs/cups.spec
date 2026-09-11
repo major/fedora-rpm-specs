@@ -69,6 +69,9 @@ Patch11: cups-failover-backend.patch
 Patch12: cups-dymo-deviceid.patch
 
 %if %{lspp}
+# lspp - labeled security protection profile
+# includes implementation for MLS - multi-level security - done by selinux,
+# audit and labels
 # selinux and audit enablement for CUPS - needs work and CUPS upstream wants
 # to have these features implemented their way in the future
 Patch100: cups-lspp.patch

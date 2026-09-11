@@ -2,7 +2,7 @@
 
 Name:           aria2
 Version:        1.37.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        High speed download utility with resuming and segmented downloading
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 %{_mandir}/*/man1/aria2c.1.gz
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.37.0-12
+- Rebuilt for libxml-2.5.4
+
 * Wed Sep 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.37.0-11
 - Fix build with nettle 4.0
 

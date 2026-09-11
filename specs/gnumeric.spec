@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.59
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Spreadsheet program for GNOME
 License:          GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:              http://www.gnumeric.org
@@ -150,6 +150,9 @@ desktop-file-validate \
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.12.59-8
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 1:1.12.59-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

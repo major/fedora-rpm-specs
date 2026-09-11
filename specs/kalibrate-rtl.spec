@@ -6,7 +6,7 @@
 Name:             kalibrate-rtl
 URL:              http://github.com/steve-m/kalibrate-rtl
 Version:          0.4.1^%{git_suffix}
-Release:          12%{?dist}
+Release:          13%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
 BuildRequires:    gcc-c++
@@ -45,6 +45,10 @@ mv %{buildroot}%{_bindir}/kal %{buildroot}%{_bindir}/kal-rtl
 %{_bindir}/*
 
 %changelog
+* Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.1^20230403git340003eb-13
+- Rebuilt for rtl-sdr
+  Resolves: rhbz#2531328
+
 * Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.1^20230403git340003eb-12
 - Rebuilt for new rtl-sdr
   Resolves: rhbz#2529359

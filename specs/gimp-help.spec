@@ -1,5 +1,5 @@
 # NOTE: en/English is in the main package
-# LANGUAGES: bg,Bulgarian ca,Catalan cs,Czech da,Danish de,German el,Greek en_GB,British_English eo,Esperanto es,Spanish fa,Farsi fi,Finnish fr,French hr,Croatian hu,Hungarian it,Italian ja,Japanese ko,Korean lt,Lithuanian nl,Dutch nn,Norwegian_Nynorsk pl,Polish pt,Portuguese pt_BR,Brazilian_Portuguese ro,Romanian ru,Russian sk,Slovak sl,Slovenian sv,Swedish tr,Turkish uk,Ukrainian zh_CN,Simplified_Chinese
+# LANGUAGES: bg,Bulgarian ca,Catalan cs,Czech da,Danish de,German el,Greek en_GB,British_English eo,Esperanto es,Spanish fa,Farsi fi,Finnish fr,French hr,Croatian hu,Hungarian it,Italian ja,Japanese ko,Korean lt,Lithuanian nl,Dutch nn,Norwegian_Nynorsk pl,Polish pt,Portuguese pt_BR,Brazilian_Portuguese ro,Romanian ru,Russian sk,Slovak sl,Slovenian sr,Serbian sv,Swedish tr,Turkish uk,Ukrainian zh_CN,Simplified_Chinese
 
 %global _smp_tasksize_proc 6144
 
@@ -7,7 +7,7 @@
 
 Summary: Help files for GIMP
 Name: gimp-help
-Version: 3.0.2
+Version: 3.2.0
 Release: %autorelease
 License: GFDL-1.2-invariants-only
 URL: https://docs.gimp.org/
@@ -273,6 +273,14 @@ Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-s
 %description sl
 Slovenian language support for gimp-help.
 
+%package sr
+Summary: Serbian (sr) language support for gimp-help
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-sr)
+
+%description sr
+Serbian language support for gimp-help.
+
 %package sv
 Summary: Swedish (sv) language support for gimp-help
 Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -373,6 +381,7 @@ popd
 %files ru -f files.list.ru
 %files sk -f files.list.sk
 %files sl -f files.list.sl
+%files sr -f files.list.sr
 %files sv -f files.list.sv
 %files tr -f files.list.tr
 %files uk -f files.list.uk

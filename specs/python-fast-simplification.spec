@@ -30,11 +30,9 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): requirements_test.txt
 %endif
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
-BuildOption(build): %{shrink:
-    --config-settings logging.level=INFO
-    --config-settings build.verbose=true
-    --config-settings cmake.build-type="RelWithDebInfo"
-    }
+BuildOption(build): --config-settings logging.level=INFO
+BuildOption(build): --config-settings build.verbose=true
+BuildOption(build): --config-settings cmake.build-type=RelWithDebInfo
 BuildOption(install): --no-assert-license fast_simplification
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

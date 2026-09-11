@@ -18,7 +18,7 @@ Requires:       %{_bindir}/%{1}
 
 Name:           libzypp
 Version:        17.38.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A package management library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -271,6 +271,9 @@ end
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 17.38.1-4
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.38.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

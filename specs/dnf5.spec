@@ -77,7 +77,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1207,6 +1207,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.4.4.0-2
+- Rebuilt for libxml-2.5.4
+
 * Fri Aug 21 2026 Packit <hello@packit.dev> - 5.4.4.0-1
 - Update to version 5.4.4.0
 - Correct libdnf5-cli license to "GPL-2.0-or-later AND LGPL-2.1-or-later"

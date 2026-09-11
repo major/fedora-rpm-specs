@@ -4,8 +4,8 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20260810
-Release:	2%{?dist}
+Version:	20260910
+Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
 URL:		http://www.kernel.org/
@@ -37,13 +37,6 @@ Recommends:	nvidia-gpu-firmware
 Recommends:	nxpwireless-firmware
 Recommends:	realtek-firmware
 Recommends:	tiwilink-firmware
-
-
-# RHEL and Fedora ELN lack GNU parallel
-# Instead of failing when the build macros pass -jN, just force it to run
-# serially.
-# Upstream MR (merged): https://gitlab.com/kernel-firmware/linux-firmware/-/merge_requests/1190
-Patch: 0001-copy-firmware-Do-not-fail-without-GNU-parallel.patch
 
 %description
 This package includes firmware files required for some devices to
@@ -673,11 +666,12 @@ end
 %files -n qcom-firmware
 %license LICENSES/LICENSE.qcom LICENSES/LICENSE.qcom_yamato LICENSES/NOTICE.qcom
 %dir %{_firmwarepath}/qcom
+%{_firmwarepath}/a300_p*
 %{_firmwarepath}/qcom/eliza/
 %{_firmwarepath}/qcom/glymur/
 %{_firmwarepath}/qcom/hawi/
 %{_firmwarepath}/qcom/kaanapali/
-%{_firmwarepath}/a300_p*
+%{_firmwarepath}/qcom/nord/
 %{_firmwarepath}/qcom/*.fw*
 %{_firmwarepath}/qcom/*.bin*
 %{_firmwarepath}/qcom/*.m*
@@ -736,6 +730,59 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Thu Sep 10 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260910-1
+- Update to 20260910
+- cirrus: cs35l56: Update firmware for Cirrus Amps for some HP laptops
+- qcom: Update ADSP firmware for sa8775p platform
+- cs35l56: Add non-spkid firmware names for Thinkbook 16P Gen6 (17AA3921)
+- QCA: Add Bluetooth firmware for WCN7750 on Maili platform
+- qcom: point qcs8300 firmawre to sa8775p instance
+- qcom: update ADSP firmware for qcs615 platform
+- qcom: Add ADSP firmware for sc8280xp-radxa-dragon-q8b
+- qcom: vpu: Update video firmware binary for Glymur
+- qcom: sdm845: Add GPU firmware for SHIFT6mq
+- qcom: Update ADSP firmware for QCM6490 platform
+- amdgpu: DMCUB updates for various ASICs
+- cirrus: Version and cleanup of SDCA FW files
+- cirrus: cs35l41: Add Firmware for ASUS Zenbook Laptop using CS35L41 HDA
+- QCA: Add Bluetooth firmware hmtnv20.b201/b202 for WCN7850 on Nord platform
+- ath12k: QCC2072 hw1.0: update to WLAN.COL.1.0.c2-00277-QCACOLSWPL_V1_TO_SILICONZ-1
+- [cypress]: Update firmware for cyfmac43455 SDIO
+- QCA: Update Bluetooth QCA6698 firmware to 2.1.2-00079
+- amdgpu: DMCUB updates for various ASICs
+- amdgpu: add VCN 5.3.0 firmware
+- qcom: update CDSP firmware for x1e80100 platform
+- qcom: add QUPv3/HPASS/NSP firmware for nord
+- Update firmware file for Intel BlazarIW/BlazarU/Scorpius core
+- qcom/sa8775p: update signature on cdsp1 firmware
+- cirrus: cs35l54: Add Cirrus CS35L54 firmware mappings for an HP laptop
+- Upload firmware for tas2573 stereo
+- intel: avs: Add AudioDSP base firmware for LKF platforms
+- intel: avs: Update AudioDSP firmware for APL-based platforms
+- intel: avs: Update AudioDSP firmware for SKL-based platforms
+- intel: catpt: Update AudioDSP firmware for BDW platforms
+- mediatek MT7925: update bluetooth firmware to 20260813113236
+- update firmware for MT7925 WiFi device
+- copy-firmware: Do not fail without GNU parallel
+- QCA: Update Bluetooth WCN3988 firmware 2.1.5.c5-00042 to 2.1.5.c5-00060
+- amdgpu: add a number of new firmwares
+- amdgpu: DMCUB update for DCN314
+- qca: Update Bluetooth QCC2072 UART interface firmware from 1.1.0-00295 to 1.1.0-00340
+- iwlwifi: add Hr/Gf/Bz/Sc FW for core24.70-49 release
+- iwlwifi: update cc/Qu/QuZ/ty/So/Ma firmwares for core24.70-49 release
+- cirrus: cs42l45: Add CS42L45 SDCA codec firmware for Samsung laptops
+- cirrus: cs42l45: Add new SSIDs for Dell laptops
+- cirrus: cs35l56: Add firmware for Cirrus Amps for an ASUS laptop
+- cirrus: cs35l56: Add Cirrus CS35L56 firmware mappings for some Dell laptops
+- WHENCE: Move qcom qcdxkmsuc8[23]80.mbn firmwares to Adreno section
+- WHENCE: Separate qcom SoC remoteproc firmwares
+- amdgpu: DMCUB updates for various ASICs
+- Revert "amdgpu: update GC 10.3.6 firmware"
+- qcom: add CDSP firmware for eliza platform
+- qcom: vpu: add Gen2 firmware binary for Eliza
+- ath12k: QCC2072 hw1.0: update to WLAN.COL.1.0.c2-00228-QCACOLSWPL_V1_TO_SILICON-1
+- cirrus: cs35l63: Add Cirrus CS35L63 firmware mappings for some Dell laptops
+
 * Fri Aug 14 2026 Stephen Gallagher <sgallagh@redhat.com> - 20260810-2
 - Allow building on systems lacking 'parallel`, such as Fedora ELN
 
@@ -1078,434 +1125,3 @@ end
 - intel_vpu: Update NPU firmware
 - qcom: vpu: update video firmware binary for SM8250
 - xe: Update GUC to v70.54.0 for BMG, PTL
-
-* Tue Nov 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251125-1
-- Update to 20251125
-- Revert "amdgpu: update GC 11.0.1 firmware"
-- QCA: Add Bluetooth firmware for WCN685x uart interface
-- qcom: Add ADSP firmware for qcs6490-thundercomm-rubikpi3
-- qcom: venus-5.4: update firmware binary for v5.4
-- qcom: venus-5.4: remove unused firmware file
-- iwlwifi: add Sc/Wh FW for core98-181 release
-- amdgpu: DMCUB updates for various ASICs
-- rtl_bt: Update RTL8852B BT USB FW to 0x42D3_4E04
-- ASoC: tas2781: Add more symbol links on SPI devices
-- amdgpu: update numerous firmware
-- amdgpu: add vce1 firmware
-- mediatek MT7922: update bluetooth firmware to 20251118163447
-- update firmware for MT7922 WiFi device
-- qcom: update ADSP, CDSP firmware for kaanapali platform, change the license
-- qcom: add ADSP, CDSP firmware for sm8750 platform
-- rtl_nic: add firmware rtl9151a-1
-- qcom: Update aic100 firmware files
-- mt76: add firmware for MT7990
-- mt76: update firmware for MT7992/MT7996
-- cirrus: cs35l57: Add firmware for a few Dell products
-- cirrus: cs42l45: Add firmware for Cirrus Logic CS42L45 SDCA codec
-- qcom: Add sdx35 Foxconn vendor firmware image file
-- Update AMD cpu microcode
-
-* Wed Nov 12 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251111-1
-- Update to 20251111
-- rtl_bt: Update RTL8922A BT USB firmware to 0x41C0_C905
-- add firmware for mt7987 internal 2.5G ethernet phy
-- rtw88: 8822b: Update firmware to v30.20.0
-- rtl_nic: add firmware rtl8125k-1
-- ASoC: tas2781: Update dsp firmware for HP and ASUS projects
-- amdgpu: DMCUB updates for various ASICs
-- qcom: add SOCCP firmware for kaanapali platform
-- xe: Update GUC to v70.53.0 for BMG, LNL, PTL
-- i915: Update GUC to v70.53.0 for DG2, MTL
-- rtw89: 8851b: update fw to v0.29.41.5
-- rtw89: 8852b: update fw to v0.29.128.0 with format suffix -2
-- rtw89: 8852b: update fw to v0.29.29.14
-- rtw89: 8852bt: update fw to v0.29.127.0 with format suffix -1
-- Update firmware file for Intel BlazarI/BlazarU core
-- Create audio folder in ti folder, and move all the audio firmwares into it
-- amdgpu: DMCUB updates for various ASICs
-- Update AMD cpu microcode
-- mediatek MT7925: update bluetooth firmware to 20251015213201
-- rtl_bt: Add firmware and config files for RTL8761CUV
-- Update AMD cpu microcode
-- qcom: add ADSP firmware for kaanapali platform
-- amdgpu: DMCUB updates for various ASICs
-- mediatek MT7920: update bluetooth firmware to 20251020151255
-- update firmware for MT7920/MT7922/MT7925 WiFi device
-- amd-ucode: Fix minimum revisions in README
-- cirrus: cs35l41: Rename various Asus Laptop firmware files to not have Speaker ID
-- mediatek MT7922: update bluetooth firmware to 20251020143443
-
-* Tue Oct 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251021-1
-- Update to 20251021
-- Revert "update firmware for MT7922 WiFi device"
-- QCA: Update Bluetooth WCN6856 firmware 2.1.0-00653 to 2.1.0-00659
-- iwlwifi: add Bz/Fm and gl FW for core98-161 release
-- iwlwifi: update Bz/Hr and Bz/Gf firmwares for core98-161 release
-- iwlwifi: update ty/So/Ma firmwares for core98-161 release
-- iwlwifi: update cc/Qu/QuZ firmwares for core98-161 release
-- intel: qat: Fix missing link
-- amdgpu: DMCUB updates for various ASICs
-- nvidia: add generic bootloader for GSP-enabled systems
-- qcom: sync audioreach firmwares from v1.0.0 build
-- qcom: vpu: rename firmware binaries
-- Intel IPU7: Update product signed firmware binary
-- i915: DMC Xe2LPD v2.29 / Xe3LPD v2.32 / Xe3LPD_3002 v2.27
-- WHENCE: nvidia: rearrange GSP-RM firmware lines
-- Add ISH firmware file for Intel Pather Lake platform
-- Update firmware file for Intel Magnetar/BlazarU/BlazarI core
-
-* Sat Oct 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251011-1
-- Update to 20251011
-- qcom: add CDSP firmware for kaanapali platform
-- qcom: add version for A650 GMU firmware
-- qca: Update Bluetooth WCN6750 1.1.3-00091 firmware to 1.1.3-00100
-- qcom: Add firmwares for Kaanapali GPU
-- qcom: Update A623 GMU fw
-- qcom: Fix QCS615 chipset's GPU secure fw
-- qcom: Update DSP firmware for sa8775p platform
-- amdgpu: DMCUB updates for various ASICs
-- WHENCE: remove link for Kaanapali video firmware
-- intel_vpu: Update NPU firmware
-- Add Dell ISH firmware for Intel Lunar Lake systems
-- Update VCN for Navi1x, Green Sardine and Renoir
-- qcom: vpu: update video firmware binary for SM8550
-- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x3BAC_ADBA
-- qcom: vpu: add video firmware for Kaanapali
-- qcom: Update DSP firmware for qcs8300 platform.
-- qcom: Add Audio topology for HAMOA-EVK
-- intel/ish:Add ISH firmware file for Intel Lunar Lake platform
-- mediatek: update firmware version info for MT7986/81/16
-- ql2500_fw: update ISP25xx Firmware
-- qcom: Update aic100 firmware files
-- qcom: Add audio topology and ADSP firmware for qcs6490-radxa-dragon-q6a
-- mediatek: mtk_wed: drop links for mt7988
-- qcom: Update DSP firmware for qcs8300 platform.
-- powervr: update firmware for Imagination Technologies BXS-4-64 GPU
-- qcom: Update DSP firmware for sa8775p platform.
-- ath12k: WCN7850 hw2.0: update board-2.bin
-- qcom: move LEMANS EVK firmware to correct location
-
-* Fri Sep 26 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250917-2
-- Adjust various mediatek firmware packaging
-
-* Wed Sep 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250917-1
-- Update to 20250917
-- first phase split out newer iwlwifi firmware for newer driver
-- handle move of iwlwifi firmware to subdir (FINALLY!!)
-- amdgpu: lots of firmware (131!) updates
-- update firmware for en8811h 2.5G ethernet phy
-- intel/ish: Add firmware for LENOVO THINKPAD X1 2-in-1 Gen 10
-- mediatek MT7922: update bluetooth firmware to 20250903123504
-- update firmware for MT7922 WiFi device
-- qcom: move Monaco EVK topology from qcs8275 to qcs8300 subdir
-- qcom: Add Audio topology for MONACO-EVK
-- qcom: add CDSP firmware for qcs615 platform
-- qcom: Add Audio topology for LEMANS-EVK
-- ath12k: WCN7850 hw2.0@ncm865: add to WLAN.IOE_HMT.1.1-00018-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1
-- update firmware for MT7925 WiFi device
-- mediatek MT7925: update bluetooth firmware to 20250825220109
-- qcom: vpu: update firmware binaries to fix encoder drain handling
-- xe: Update GUC to v70.49.4 for BMG, LNL, PTL
-- i915: Update GUC to v70.49.4 for ADL-P, DG1, DG2, MTL, TGL
-- qcom: add ADSP firmware for qcs615 platform
-- rtl_bt: Update RTL8822C BT USB firmware to 0x2B66_D962
-- iwlwifi: add Bz-HR FW for core90-93 release
-- Fix link entry for qat_895xcc.bin
-- Move QAT firmware to intel/ subdirectory
-- Move all iwlwifi top level files to intel/ directory
-- Revert "intel/ish: Add firmware for LENOVO THINKPAD X1 2-in-1 Gen 10"
-- ath11k: Support WCN6855 hw2.1 with NFA firmware variant
-- intel_vpu: Update NPU firmware
-- intel/ish: Add firmware for LENOVO THINKPAD X1 2-in-1 Gen 10
-- cirrus: cs35l56: Update firmware for Cirrus Amps for some Lenovo laptops
-- ath11k: WCN6855 hw2.0@nfa765: add to WLAN.HSP.1.1-04685-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
-- cirrus: cs35l56: Add firmware for Cirrus Amps for some Lenovo laptops
-- qcom: Add firmware binary for SM8650.
-- Link rtl8723b_config.bin to rtl8723bs
-- rtw89: 8922a: update fw to v0.35.80.3
-- rtw89: 8852c: update fw to v0.27.129.4
-- rtw89: 8852c: update fw to v0.27.129.3
-- qcom: add CDSP firmware for x1e80100 platform
-- iwlwifi: add Bz/gl FW for core97-84 release
-- iwlwifi: update ty/So/Ma firmwares for core97-84 release
-- iwlwifi: update cc/Qu/QuZ firmwares for core97-84 release
-- realtek: rt1321: Add patch firmware of MCU
-- mediatek: Add MT8189 SCP firmware
-- panthor: Add firmware for more Mali GPUs
-- qca: Update Bluetooth WCN6750 1.1.3-00069 firmware to 1.1.3-00091
-
-* Sun Aug 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250808-1
-- Update to 20250808
-- Split out QCom Datacenter/Open-vRAN accelerator firmware
-- Split out QCom 4G/5G WWan Adapters
-- qcom: Add QDSP firmware file for Qualcomm QDU100 device.
-- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00302-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.115823.3
-- ath12k: QCN9274 hw2.0: update to WLAN.WBE.1.5-01651-QCAHKSWPL_SILICONZ-1
-- ath11k: WCN6855 hw2.0: update board-2.bin
-- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04650-QCAHSPSWPL_V1_V2_SILICONZ_IOE-2
-- ath11k: QCA2066 hw2.1: update to WLAN.HSP.1.1-03926.13-QCAHSPSWPL_V2_SILICONZ_CE-2.52297.9
-- ath11k: QCA2066 hw2.1: update board-2.bin
-- qcom: Update xbl_config firmware file.
-- qcom: Add QDU100 firmware image files required for booting.
-- Add firmware for airoha-npu driver
-- update firmware for MT7925 WiFi device
-- mediatek MT7925: update bluetooth firmware to 20250721233113
-- qcom: Update DSP firmware for qcm6490 platform
-- qcom: update Venus firmware file for v6.0
-- i915: Xe3LPD DMC v2.29
-- Update AMD cpu microcode
-- qcom: Add QCS6490 symlink for QUPv3 firmware
-- qcom: Add firmware binary for SM8750.
-- amdgpu: various firmware updates
-- cirrus: cs35l41/cs35l56: Update Firmwares for Dell/ASUS laptops
-- qcom: Add Audio topology for QCS6490 RB3Gen2
-- intel_vpu: Update NPU firmware
-- rtw89: Updated firmware for 8852b/8852bt/8922a/8852c/8922a
-- qcom: Update gpu firmwares of QCS615 chipset
-- Update firmware file for Intel WiFi Solar/BlazarU/BlazarI core
-
-* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250708-1
-- Update to 20250708
-- Drop incorrect nvidia ghost entries
-- xe: Add fan_control v203.0.0.0 for BMG
-- Update AMD cpu microcode
-- amdgpu: Add DCN 3.6/PSP 14.0.5/SDMA 6.1.3/GC 11.5.3
-- mediatek MT7921: update bluetooth firmware to 20250625154126
-- qcom/adreno: document firmware revisions
-- qcom/adreno: move A610 and A702 ZAP files to Adreno driver section
-- qcom: Add sdx61 Foxconn vendor firmware image file
-- Revert "Update firmware file for Intel Pulsar core"
-- xe: First GuC/HuC release for Pantherlake
-- update firmware for MT7921 WiFi device
-- rtw89: 8922a: update fw to v0.35.80.0
-- rtw89: 8852c: update fw to v0.27.129.1
-- rtw89: 8852c: update fw to v0.27.128.0
-
-* Fri Jun 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250627-1
-- Update to 20250627
-- amdgpu: A metric ton of fixes for their GPU firmware
-- WHENCE: various updates
-- qcom: update firmware binary for SM8550
-- qcom: venus-5.4: add the firmware binary for qcs615
-- brcm: Fix symlinks for Khadas VIM SDIO wifi config
-- mediatek: Update mt8186 SCP firmware
-- qcom: add gpu firmwares for X1P42100 chipset
-
-* Fri Jun 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250613-1
-- Update to 20250613
-- Upgrade path for nvidia firmware changes (thanks Denys Vlasenko)
-- QCA: Update WCN785x btusb firmware to 2.0.0-00799-5
-- rtl_nic: update firmware of RTL8153A
-- qcom: sc8280xp: Updated power FW for X13s
-- update firmware for MT7986/MT7981/MT7916
-- cirrus: cs35l41: Add Firmware for ASUS NUC using CS35L41
-- Revert "iwlwifi: add Bz/gl FW for core96-76 release"
-- amdgpu: DMCUB updates for various ASICs
-- mediatek MT7922: update bluetooth firmware to 20250523103438
-- mediatek MT7921: update bluetooth firmware to 20250523111333
-- update firmware for MT7921/MT7922 WiFi device
-- xe: Update GUC to v70.45.2 for BMG, LNL
-- i915: Update GUC to v70.45.2 for DG2
-- xe: Update LNL GSC to v104.0.5.1429
-- amdgpu: DMCUB updates for various ASICs
-- qcom: add QUPv3 firmware for QCS8300 platform
-- Intel IPU7: Add firmware binary files
-- ice: update wireless_edge package to 1.3.23.0
-- ice: update comms package to 1.3.55.0
-- ice: update package to 1.3.43.0
-- Update firmware for Intel Pulsar/BlazarI/Quasar/Solar/Magnetar/BlazarU core
-- iwlwifi: add Bz/gl/ty/So/Ma/cc/Qu/QuZ FW for core96-76 release
-- iwlwifi: update firmwares for 8000 series
-- iwlwifi: update 7265D firmware
-- mediatek MT7925: update bluetooth firmware to 20250526153203
-- update firmware for MT7925 WiFi device
-- qcom: sc8280xp: FW blob updates for X13s
-- brcm: Add symlinks for Khadas VIM SDIO wifi config to AW-CM256SM.txt
-- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00284.1-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
-- cirrus: cs35l41: Fix firmware links for several ASUS laptops
-- cirrus: cs35l41: Add Firmware for various HP Agusta Laptops using CS35L41 HDA
-- Adjust QUPv3 driver name
-- cnm: Add Chips&Media wave633c firmware for NXP i.MX9
-- qcom: add QUPv3 firmware for QCM6490 platform
-- mediatek: Add mt8196 VCP firmware
-- cirrus: cs35l41: Add Firmware for various ACER Laptops using CS35L41 HDA
-- nvidia: add GSP-RM version 570.144 firmware images
-- amdgpu: DMCUB updates for various ASICs
-- powervr: add firmware for Imagination Technologies BXS-4-64 GPU
-- rtl_bt: Update RTL8822C BT USB and UART firmware to 0x7C20
-- brcmfmac: Add a couple of NanoPi devices
-- rtl_nic: add firmware rtl8127a-1
-- cnm: update chips&media wave521c firmware.
-- intel_vpu: Update NPU firmware
-- intel: avs: Update topology file for Digital Microphone Array
-- amdgpu: updates for dcn 3.20 and dcn 4.01 firmware to 0.1.10.0
-
-* Fri May 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250509-1
-- Update to 20250509
-- Amphion: Update vpu firmware
-- amd_pmf: Update AMD PMF TA Firmware to v3.1
-- amdgpu: update dcn 4.01 firmware to 0.1.8.0
-- qcom: Add link for SM8350 GPU firmware
-- cirrus: cs35l56: Add/update firmware for Cirrus Amps for some ASUS/Lenovo laptops
-- update firmware for MT7925 WiFi device
-- mediatek MT7925: update bluetooth firmware to 20250425073330
-- rtw89: 8852c: add tables for dynamic antenna TXPWR
-- rtw89: 8922a: update fw to v0.35.71.0
-- brcm: Add NVRAM file for Radxa Rock Pi X mini PC
-- i915: Update Xe3LPD DMC to v2.23
-- rtl_bt: Update RTL8852B BT USB FW to 0x098B_154B
-- ath11k: WCN6855 hw2.0: update board-2.bin
-- ath11k: IPQ5018 hw1.0: update to WLAN.HK.2.6.0.1-01300-QCAHKSWPL_SILICONZ-1
-- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00284-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
-- ath12k: QCN9274 hw2.0: update board-2.bin
-- qcom: vpu: update video firmware binary for SA8775p
-- iwlwifi: add/update firmwares to core95-82 release
-- iwlwifi: add Bz-hr FW for core93-123 release
-- qcom: add QUPv3 firmware for QCS9100 platform
-- ASoC: tas2781: Swap channel for SPI projects.
-- bmi260: Add BMI260 IMU initial configuration data file
-- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x1881_BA06
-- rtw89: 8922a: update element RF TXPWR to R40
-- rtw89: 8852c: update element RF TXPWR to R78
-- rtw89: 8852c: add fw v0.27.125.0 with format version 2
-- Revert "rtw89: 8852c: update fw to v0.27.125.0"
-- qcom: vpu: add video firmware binary for qcm6490
-- amdgpu: many firmware updates
-- intel: ish: Update license file for ISH
-- intel: avs: Update topology file for I2S for many codecs
-- intel: avs: Update topology file for HDMI/HDAudio codecs
-- intel: avs: Update topology file for Digital Microphone Array
-- xe: Update GUC to v70.44.1 for BMG and LNL
-- i915: Update GUC to v70.44.1 for i915 platforms
-
-* Thu Apr 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250410-1
-- Update to 20250410
-- qcom:x1e80100: Iris Support for Lenovo T14s G6 Qualcomm platform
-- qcom:x1e80100: Support for Lenovo Yoga Slim 7 Snapdragon platform
-- Mellanox: Add new mlxsw_spectrum firmware xx.2014.4012
-- add firmware for Aeonsemi AS21x1x 1G/2.5G/5G/10G Ethernet Phy
-- QCA: Add 8 bluetooth nvm files for WCN785x btusb
-- QCA: Update WCN785x btusb firmware to 2.0.0-00790-3
-- qcom: update firmware binary for SM8250
-- mediatek: Add new mt8188/mt8195 SOF firmware
-- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x17E9_16ED
-- intel_vpu: Update NPU firmware
-- cirrus: cs35l56: Correct filenames of SSID 103c8e1b and 103c8e1c
-- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x0471_70A6
-- amdgpu: update dcn 3.5 and dcn 3.5.1 firmware to 9.0.27.0
-- amdgpu: update dcn 3.1.4 firmware to 8.0.78.0
-- amdgpu: update dcn 4.01 firmware to 0.1.3.0
-- amdgpu: update dcn 3.5 firmware to 0.1.0.0
-- cirrus: cs35l41: Add Firmware for various HP Laptops using CS35L41 HDA
-- cirrus: Add cs35l56 firmware symlinks for Asus UM5606KA
-- qcom: Add DSP firmware for QCS8300 platform
-- mediatek: Add MT8188 SCP firmware
-- Update firmware file for Intel BlazarI core
-- qcom: Add Audio firmware for Lenovo Slim 7x/T14s
-- amdgpu: DMCUB updates for various ASICs
-- rtw88: Add firmware v33.6.0 for RTL8814AE/RTL8814AU
-- rtw89: 8922a: update fw to v0.35.64.0
-- rtw89: 8852c: update fw to v0.27.125.0
-- iwlwifi: add Bz/gl FW for core94-91 release
-- iwlwifi: update ty/So/Ma/cc/Qu/QuZ firmwares for core94-91 release
-
-* Tue Mar 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250311-1
-- Update to 20250311
-- amdgpu: many firmware updates
-- qcom: Update gpu firmwares for qcs8300 chipset
-- add firmware for qat_420xx devices
-- amdgpu: DMCUB updates for various ASICs
-- i915: Update Xe3LPD DMC to v2.20
-- update firmware for MT7920/MT7925 WiFi device
-- mediatek MT7920/MT7925 bluetooth firmware update
-- Update firmware file for Intel BlazarI/BlazarU core
-- intel_vpu: Add firmware for 37xx and 40xx NPUs
-- QCA: Add Bluetooth firmwares for QCA2066 with USB transport
-- QCA: Add two bluetooth firmware nvm files for QCA2066
-- QCA: Update Bluetooth QCA2066 firmware to 2.1.0-00653
-- QCA: Update Bluetooth WCN685x 2.1 firmware to 2.1.0-00653
-- cirrus: cs35l41: Add firmware and tuning for ASUS Commercial/Consumer laptops
-- ASoC: tas2781: Update dsp firmware for Gemtree project
-- xe: Update GUC to v70.40.2 for BMG, LNL
-- cirrus: cs35l41: Add firmware and tunings for CS35L41 driver for Steam Deck
-- ath11k: QCN9074 hw1.0: update to WLAN.HK.2.9.0.1-02175-QCAHKSWPL_SILICONZ-2
-- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04604-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
-- ath11k: QCA6698AQ hw2.1: update board-2.bin
-- rtw89: 8852bt: update fw to v0.29.122.0 and BB parameter to 07
-- Update AMD SEV firmware
-- qca: update WCN3988 firmware
-- amdgpu: Update ISP FW for isp v4.1.1
-- qcom: add firmware for Adreno A225
-- cirrus: cs35l56: Add / update firmware for Cirrus CS35L56 for ASUS/Dell/HP/Lenovo laptops
-- update firmware for en8811h 2.5G ethernet phy
-- ASoC: tas2781: Change regbin firmwares for single device
-
-* Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250211-1
-- Update to 20250211
-- i915: Update Xe2LPD DMC to v2.28
-- ASoC: tas2781: Add regbin firmware by index for single device
-- rtl_bt: Update RTL8852B BT USB FW to 0x0474_842D
-- iwlwifi: add Bz/gl/ty/So/Ma FW for core93-123 release
-- iwlwifi: update cc/Qu/QuZ firmwares for core93-82 release
-- ASoC: tas2781: Add dsp firmware for new projects
-- amdgpu: DMCUB update for DCN401
-- ath12k: WCN7850 hw2.0: update board-2.bin
-- ath12k: QCN9274 hw2.0: update to WLAN.WBE.1.4.1-00199-QCAHKSWPL_SILICONZ-1
-- ath12k: QCN9274 hw2.0: update board-2.bin
-- ath11k: WCN6750 hw1.0: update board-2.bin
-- ath11k: QCN9074 hw1.0: update to WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-- ath11k: QCA6698AQ hw2.1: add to WLAN.HSP.1.1-04479-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
-- ath11k: QCA6698AQ hw2.1: add board-2.bin
-- ath11k: QCA6390 hw2.0: update board-2.bin
-- ath11k: QCA2066 hw2.1: update to WLAN.HSP.1.1-03926.13-QCAHSPSWPL_V2_SILICONZ_CE-2.52297.6
-- ath11k: QCA2066 hw2.1: update board-2.bin
-- ath11k: IPQ8074 hw2.0: update to WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-- ath11k: IPQ6018 hw1.0: update to WLAN.HK.2.7.0.1-02409-QCAHKSWPL_SILICONZ-1
-- ath11k: add device-specific firmware for QCM6490 boards
-- qca: add more WCN3950 1.3 NVM files
-- qca: add firmware for WCN3950 chips
-- qca: move QCA6390 firmware to separate section
-- qca: restore licence information for WCN399x firmware
-- qca: Update Bluetooth WCN6750 1.1.0-00476 firmware to 1.1.3-00069
-- qcom:x1e80100: Support for Lenovo T14s G6 Qualcomm platform
-- Update FW files for MRVL SD8997 chips
-- i915: Update Xe2LPD DMC to v2.27
-- qca: Update Bluetooth WCN6856 firmware 2.1.0-00642 to 2.1.0-00650
-- rtl_bt: Update RTL8852B BT USB FW to 0x049B_5037
-- amdgpu: Update ISP FW for isp v4.1.1
-- QCA: Add Bluetooth firmware for QCA6698
-- amlogic: update firmware for w265s2
-- mediatek MT7925: update bluetooth firmware to 20250113153307
-- update firmware for MT7925 WiFi device
-- amdgpu: LOTS of firmware updates
-- qcom: update SLPI firmware for RB5 board
-- amdgpu: DMCUB updates for various AMDGPU ASICs
-- qcom: add DSP firmware for SA8775p platform
-- qcom: correct venus firmware versions
-- qcom: add missing version information
-- Update firmware (v10) for mt7988 internal
-- iwlwifi: add Bz FW for core90-93 release
-- wilc3000: add firmware for WILC3000 WiFi device
-- rtw89: 8852b: update fw to v0.29.29.8
-- rtw89: 8852c: update fw to v0.27.122.0
-- rtw89: 8922a: update fw to v0.35.54.0
-- rtw89: 8852bt: update fw to v0.29.110.0
-- rtw89: 8852b: update fw to v0.29.29.7
-- cirrus: cs35l56: Correct some links to address the correct amp instance
-- Update firmware file for Intel Bluetooth Magnetar/BlazarU/Solar core
-
-* Fri Jan 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250109-1
-- Update to 20250109
-- cirrus: cs35l41: Add Firmware for Ayaneo system 1f660105
-- rtl_bt: Add separate config for RLT8723CS Bluetooth part
-- amdgpu: revert some firmwares
-- WHENCE: Link the Raspberry Pi CM5 and 500 to the 4B
-- Add support to install files/symlinks in parallel.
-- rtl_bt: Update RTL8852B BT USB FW to 0x04BE_1F5E
-- cnm: update chips&media wave521c firmware.
-- rtl_nic: add firmware rtl8125bp-2
-- qcom: venus-5.4: update firmware binary for sc7180 and qcs615
-- cirrus: cs35l56: Correct filenames of SSID 17aa3832
-- cirrus: cs35l56: Add and update firmware for various Cirrus CS35L54/CS35L56 laptops
-- cirrus: cs35l56: Correct SSID order for 103c8d01 103c8d08 10431f43
-- rtl_nic: add firmware rtl8125d-2

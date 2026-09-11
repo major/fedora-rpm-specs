@@ -31,7 +31,7 @@
 
 Name:           librepo
 Version:        1.21.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -145,6 +145,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.21.0-3
+- Rebuilt for libxml-2.5.4
+
 * Sat Sep 05 2026 Adam Williamson <adamwill@fedoraproject.org> - 1.21.0-2
 - Backport PR #385 to fix bug #384 breaking Fedora CI
 

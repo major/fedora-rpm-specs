@@ -10,13 +10,6 @@ License:        MIT
 URL:            https://github.com/robotools/defcon
 Source:         %{pypi_source defcon}
 
-# Temporary downstream workaround for
-# https://github.com/robotools/defcon/issues/478,
-# https://github.com/fonttools/fonttools/issues/3947, with fonttools 4.60.0.
-# The proper fix will be to update F43 to fonttools 4.60.1,
-# https://src.fedoraproject.org/rpms/fonttools/pull-request/21.
-Patch:          defcon-0.12.2-fonttools-4.60.0.patch
-
 BuildArch:      noarch
 
 BuildSystem:    pyproject

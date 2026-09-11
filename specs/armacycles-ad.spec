@@ -5,7 +5,7 @@
 
 Name: armacycles-ad
 Version: 0.2.9.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A lightcycle game in 3D
 
 License: GPL-2.0-or-later
@@ -162,6 +162,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/armacyclesad-dedicated/language/update.py
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.9.3.0-2
+- Rebuilt for libxml-2.5.4
+
 * Thu Aug 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.3.0-1
 - 0.2.9.3.0
 

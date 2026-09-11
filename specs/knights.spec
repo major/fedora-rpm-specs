@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:		knights
-Version:	26.08.0
+Version:	26.08.1
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/qlogging-categories6/knights.renamecategories
 
 %changelog
+* Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
+- 26.08.1
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 26.08.0-1
 - 26.08.0
 

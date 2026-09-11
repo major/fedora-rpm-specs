@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.9.2
-Release: 1.rc1%{?dist}
+Release: 1.rc1%{?dist}.1
 Epoch: 1
 
 # group all 32bit related archs
@@ -476,6 +476,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.9.2-1.rc1.1
+- Rebuilt for libxml-2.5.4
+
 * Sat Aug 15 2026 Steve Dickson <steved@redhat.com> 2.9.2-1-rc1
 - Updated to the latest RC release: nfs-utils-2-9-3-rc1
 

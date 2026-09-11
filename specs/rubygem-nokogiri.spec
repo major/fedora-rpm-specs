@@ -1,7 +1,7 @@
 %global	mainver		1.19.4
 #%%global	prever		.rc4
 
-%global	baserelease		4
+%global	baserelease		5
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -298,6 +298,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.19.4-5
+- Rebuilt for libxml-2.5.4
+
 * Wed Sep 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.4-4
 - Bump release
 - CVE-2026-79769 is GHSA-g9g8-vgvw-g3vf , fixed in 1.19.4

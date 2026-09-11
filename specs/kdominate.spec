@@ -1,12 +1,10 @@
 Name:       kdominate
-%global shortcommit 5b25f76c
-%global gitdate 20260826.004236
-Version:    26.11.70~%{gitdate}.%{shortcommit}
+Version:    26.08.1
 Release:    %autorelease
 Summary:    KDominate is a tactical game for one or two players
 License:    GPL-2.0-or-later AND BSD-3-Clause AND CC0-1.0
 URL:        https://invent.kde.org/games/kdominate
-Source0:    https://invent.kde.org/games/kdominate/-/archive/%{shortcommit}/%{name}-%{shortcommit}.tar.gz
+Source0:    https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 Requires: hicolor-icon-theme
 
@@ -37,7 +35,7 @@ where players place and convert tiles with the goal of
 controlling the majority of the board.
 
 %prep
-%autosetup -n %{name}-%{shortcommit}
+%autosetup -p1
 
 %conf
 %cmake_kf6

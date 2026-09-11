@@ -4,7 +4,7 @@
 # https://github.com/kubernetes-sigs/kind
 %global goipath         sigs.k8s.io/kind
 %global forgeurl        https://github.com/kubernetes-sigs/kind
-Version:                0.31.0
+Version:                0.33.0
 
 %gometa -L -f
 

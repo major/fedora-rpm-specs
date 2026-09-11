@@ -1,6 +1,6 @@
 Name:		urh
 Version:	2.10.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 # Automatically converted from old format: ASL 2.0 and GPLv2 - review is highly recommended.
 License:	Apache-2.0 AND GPL-2.0-only
@@ -93,6 +93,10 @@ install -Dpm 0644 %{SOURCE1} \
 %{_metainfodir}/io.github.jopohl.urh.metainfo.xml
 
 %changelog
+* Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.10.0-9
+- Rebuilt for new rtl-sdr
+  Resolves: rhbz#2531332
+
 * Tue Sep 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.10.0-8
 - Rebuilt for new rtl-sdr
   Resolves: rhbz#2529366

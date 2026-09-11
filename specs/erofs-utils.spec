@@ -19,7 +19,7 @@
 
 Name:           erofs-utils
 Version:        1.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND (BSD-2-Clause OR GPL-2.0-only) AND (BSD-2-Clause OR GPL-2.0-or-later) AND (GPL-2.0-or-later OR MIT) AND MIT AND Unlicense
@@ -123,6 +123,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.4-2
+- Rebuilt for libxml-2.5.4
+
 * Sat Aug 22 2026 David Michael <fedora.dm0@gmail.com> - 1.9.4-1
 - Update to the 1.9.4 release.
 

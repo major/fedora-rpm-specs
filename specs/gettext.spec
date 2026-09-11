@@ -8,7 +8,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -461,6 +461,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0-4
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 29 2026 Manish Tiwari <matiwari@redhat.com> - 1.0-3
 - https://lists.gnu.org/archive/html/bug-gnulib/2026-07/msg00165.html
 - Upstream patch to fix gnulib posix_spawn_file_actions_addchdir detection on glibc 2.44

@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -240,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.8.9-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Aug 18 2026 Pavol Sloboda <psloboda@redhat.com> - 3.8.9-1
 - Update to version 3.8.9
 

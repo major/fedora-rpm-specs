@@ -3,7 +3,7 @@
 
 Name:		twlog
 Version:	3.4
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Records basic ham radio log information
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -74,6 +74,9 @@ install -p -D -m 0644 ./src/Twlog %{buildroot}/%{_datadir}/X11/app-defaults/Twlo
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.4-17
+- Motif rebuild
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

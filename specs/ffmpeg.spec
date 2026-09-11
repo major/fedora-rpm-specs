@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        9.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -970,6 +970,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.0.1-2
+- Rebuilt for libxml-2.5.4
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.1-1
 - update to 9.0.1 (resolves rhbz#2510859)
 - bump SONAMEs of all libraries

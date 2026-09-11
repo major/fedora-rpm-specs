@@ -29,7 +29,7 @@
 %endif
 
 Name:           slurm
-Version:        26.05.3
+Version:        26.05.4
 Release:        %autorelease
 Summary:        Simple Linux Utility for Resource Management
 # ./src/common/log.c: BSD 2-Clause License

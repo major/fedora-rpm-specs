@@ -46,6 +46,8 @@ Provides:           python3-dogpile-core = %{version}-%{release}
 %description -n python3-dogpile-cache
 %{desc}
 
+# python-pifpaf is not avilable in Fedora (20260907)
+%pyproject_extras_subpkg -n python3-dogpile-cache pymemcache memcached bmemcached pylibmc redis valkey
 
 %prep
 %autosetup -n %{pypi_name}-%{version}

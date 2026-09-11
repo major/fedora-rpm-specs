@@ -1,6 +1,6 @@
 Name:       ramond
 Version:    0.5
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Router advertisement monitoring daemon
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -73,6 +73,9 @@ install -m 0644 -t '%{buildroot}%{_unitdir}' '%{SOURCE1}'
 %{_unitdir}/%{name}.service
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5-33
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

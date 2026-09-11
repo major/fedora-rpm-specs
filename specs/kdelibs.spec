@@ -56,7 +56,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 55%{?dist}
+Release: 56%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -943,6 +943,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6:4.14.38-56
+- Rebuilt for libxml-2.5.4
+
 * Wed Aug 12 2026 Than Ngo <than@redhat.com> - 6:4.14.38-55
 - Fix rhbz#2504172, FTBFS with openssl4
 

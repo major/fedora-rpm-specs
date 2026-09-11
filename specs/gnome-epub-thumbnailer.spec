@@ -1,6 +1,6 @@
 Name:           gnome-epub-thumbnailer
 Version:        1.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Thumbnailers for EPub and MOBI books
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ Thumbnailers for EPub and MOBI books
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8-6
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       Network performance tool with modelling and replay support
 Name:          uperf
 Version:       1.0.8
-Release:       11%{?dist}
+Release:       12%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 URL:           http://www.uperf.org/
@@ -22,7 +22,7 @@ networking patterns.
 
 %prep
 %autosetup -N
-%if 0%{?fedora} > 44
+%if 0%{?fedora} > 44 || 0%{?rhel} >= 10
 %autopatch -p1
 %endif
 chmod 0644 workloads/{tcp-change-cc.xml,sctp-over-udp.xml,tcp-freebsd-change-stack.xml}
@@ -53,6 +53,9 @@ rm -rf %{buildroot}%{_datadir}/*.xml %{buildroot}%{_datadir}/doc
 %{_datadir}/uperf
 
 %changelog
+* Wed Sep 09 2026 Michel Lind <salimma@fedoraproject.org> - 1.0.8-12
+- Support building for EL >= 10
+
 * Thu Aug 06 2026 Terje Røsten <terjeros@gmail.com> - 1.0.8-11
 - Newer OpenSSL has removed engine support
 

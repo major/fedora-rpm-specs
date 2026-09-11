@@ -13,7 +13,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.69.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -231,6 +231,9 @@ popd
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.69.0-6
+- Rebuilt for libxml-2.5.4
+
 * Fri Aug 07 2026 Jan Macku <jamacku@redhat.com> - 1.69.0-5
 - fix HTTP Request/Response Smuggling and Response-Queue Poisoning via ambiguous HTTP/1.1 Upgrade requests (CVE-2026-58055)
 

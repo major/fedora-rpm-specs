@@ -1,6 +1,6 @@
 Name:		nemiver
 Version:	0.9.6
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	A GNOME C/C++ Debugger
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -148,6 +148,9 @@ desktop-file-install                                    \
 %{_mandir}/man?/%{name}.*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.6-30
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

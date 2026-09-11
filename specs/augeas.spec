@@ -14,7 +14,7 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 %global commit ada6219325d9a835b71b62a42c3e150427b91882
 %forgemeta
 
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -199,6 +199,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.14.2-0.13
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

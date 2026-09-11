@@ -109,6 +109,8 @@ combination.
 %autosetup -S git
 
 %build
+export CFLAGS="$CFLAGS -Wno-error=deprecated-declarations -DATTRIBUTE_UNUSED='__attribute__((unused))'"
+
 %meson \
     -Denable-gtk-doc=true \
     -Denable-tests=true \

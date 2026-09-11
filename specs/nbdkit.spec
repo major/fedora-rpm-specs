@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.49.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Thu Sep 10 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-2
+- Rebuild for libnfs SONAME 16 -> 17, second time
+
 * Tue Sep 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-1
 - New upstream development version 1.49.3
 

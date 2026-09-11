@@ -25,6 +25,9 @@ Patch:          calibre-9.13.0-feedparser-downgrade.patch
 # fix openssl test
 Patch:          calibre-9.12.0-openssl.patch
 
+# use system pycryptodomex instead of the bundled Cryptodome->Crypto redirect
+Patch:          calibre-cryptodome-unbundle.patch
+
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  python3-devel
@@ -103,6 +106,7 @@ BuildRequires:  python3-pyqt6-webengine-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-zstd
 BuildRequires:  python3dist(xxhash)
+BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  pykakasi
 BuildRequires:  mesa-libEGL
 BuildRequires:  python3-tzlocal
@@ -166,6 +170,7 @@ Requires:       python3-jeepney
 Requires:       qt6-qtmultimedia
 Requires:       (qt6-qtspeech-flite or qt6-qtspeech-speechd)
 Requires:       python3-xxhash
+Requires:       python3dist(pycryptodomex)
 Recommends:     python3dist(zeroconf)
 
 %description

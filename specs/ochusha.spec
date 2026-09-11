@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	24
+%define		baserelease	25
 %define		pre_release	1
 
 %if %{pre_release}
@@ -238,6 +238,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.0.1-0.25.cvs20100817T0000
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.1-0.24.cvs20100817T0000
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

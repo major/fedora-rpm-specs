@@ -2,7 +2,7 @@
 
 Name:           libxml++50
 Version:        5.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 License:        LGPL-2.1-or-later
 URL:            https://libxmlplusplus.github.io/libxmlplusplus/
@@ -75,6 +75,9 @@ This package contains the full API documentation for %{name}.
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.4.0-7
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

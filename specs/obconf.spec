@@ -4,7 +4,7 @@
 
 Name:		obconf
 Version:	2.0.4
-Release:	31.%{git_date}git%{git_rev}%{?dist}
+Release:	32.%{git_date}git%{git_rev}%{?dist}
 Summary:	A graphical configuration editor for the Openbox window manager
 
 License:	GPL-2.0-or-later
@@ -58,6 +58,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.4-32.20150213git63ec47
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-31.20150213git63ec47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

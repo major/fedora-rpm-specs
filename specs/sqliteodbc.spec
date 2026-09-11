@@ -1,6 +1,6 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -97,6 +97,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.99991-12
+- Rebuilt for libxml-2.5.4
+
 * Mon Jul 20 2026 Michal Schorm <mschorm@redhat.com> - 0.99991-11
 - Ship drop-in snippet for ODBC driver self-registration
 

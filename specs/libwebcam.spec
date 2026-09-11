@@ -1,6 +1,6 @@
 Name:           libwebcam
 Version:        0.2.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A library for user-space configuration of the uvcvideo driver
 License:        LGPL-3.0-or-later
 URL:            http://sourceforge.net/p/libwebcam/wiki/Home/
@@ -105,6 +105,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libwebcam.a
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.5-26
+- Rebuilt for libxml-2.5.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

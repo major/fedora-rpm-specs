@@ -9,7 +9,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 70%{?dist}
+Release: 71%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1233,6 +1233,9 @@ make check
 
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.12.0-71
+- Rebuild for libxml-2.5.4
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 5.12.0-70
 - Rebuilt for Python 3.15.0b4 ABI change
 

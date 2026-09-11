@@ -3,7 +3,7 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        COBOL compiler
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
@@ -125,6 +125,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/libocsql.so*
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2-12
+- Rebuilt for libxml-2.5.4
+
 * Thu Aug 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2-11
 - Correct file ownership
 

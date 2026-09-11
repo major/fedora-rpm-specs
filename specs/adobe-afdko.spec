@@ -6,7 +6,7 @@
 
 Name:		adobe-afdko
 Version:	4.0.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 # Everything is Apache-2.0 except:
 #
@@ -68,6 +68,9 @@ export XFLAGS="${CFLAGS} ${LDFLAGS}"
 %{_bindir}/type1
 
 %changelog
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@amutable.com> - 4.0.3-5
+- Rebuild for libxml-2.5.4
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
