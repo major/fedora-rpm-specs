@@ -1,6 +1,6 @@
 Name:           xcb-proto
 Version:        1.17.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        XCB protocol descriptions
 
 License:        X11-distribute-modifications-variant
@@ -51,6 +51,9 @@ autoreconf -fiv
 
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.17.0-12
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

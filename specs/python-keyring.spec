@@ -15,13 +15,13 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras %{?with_tests:test,}completion
 BuildOption(install): --assert-license keyring
 # - keyring.backends.macOS does not import on this platform
+BuildOption(check): --exclude 'keyring.backends.macOS*'
+%if %{without tests}
 # - keyring.devpi_client and keyring.testing are test hooks that require pluggy
 #   and/or pytest; we can import them only if the test dependencies are present
-BuildOption(check): %{shrink:
-    --exclude 'keyring.backends.macOS*'
-    %{?!with_tests:--exclude 'keyring.devpi_client'}
-    %{?!with_tests:--exclude 'keyring.testing*'}
-    }
+BuildOption(check): --exclude 'keyring.devpi_client'
+BuildOption(check): --exclude 'keyring.testing*'
+%endif
 
 BuildArch:      noarch
 

@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -232,7 +232,7 @@ Patch:		0049-src-rocksdb-db-blob-blob_file_meta.h.patch
 Patch:		0051-src-googletest-nosharedlibs.patch
 Patch:		0052-src-tracing.patch
 Patch:		0053-src-test-neorados-common_tests.h.patch
-Patch:		0056-libarrow-20.0.0.patch
+Patch:		0056-libarrow-25.0.0.patch
 Patch:		0059-iso646.patch
 Patch:		0062-src-rgw-driver-dbstore-CMakeLists.txt.patch
 Patch:		0063-src-jaegertracing-opentelemetry-cpp-CMakeLists.txt.patch
@@ -3203,6 +3203,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 11 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.0-7
+- rebuild for libarrow (Apache Arrow) 25.0.1
+
 * Thu Aug 13 2026 Jason Montleon <jason@montleon.com> - 2:21.1.0-6
 - rhbz#2515956, fix FTBFS on riscv64 regression
 

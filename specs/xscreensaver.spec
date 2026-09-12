@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    2
+%define baserelease    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1216,6 +1216,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:6.16-3
+- Rebuilt for libxml-2.5.4
+
 * Fri Sep 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 1:6.16-2
 - Rebuilt for FFmpeg 9
 

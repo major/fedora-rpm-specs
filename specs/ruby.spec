@@ -189,7 +189,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -845,6 +845,9 @@ pushd %{_vpath_builddir}
         --enable-shared \
         --with-ruby-version='' \
         --enable-multiarch \
+%ifarch x86_64
+        --with-coroutine=ucontext \
+%endif
         %{?with_yjit: --enable-yjit} \
         %{?with_zjit: --enable-zjit} \
         %{?with_rust: rustc_flags='%{build_rustflags}'} \
@@ -1952,6 +1955,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Thu Sep 10 2026 Arjun Shankar <arjun@redhat.com> - 4.0.6-39
+- x86_64: Use ucontext based coroutines for CET compatibility
+
 * Thu Sep 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-38
 - Backport upstream patch to update resolv to 0.7.2
 - Resolves: CVE-2026-80212 (rhbz#2527308)

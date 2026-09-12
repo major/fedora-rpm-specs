@@ -1,13 +1,24 @@
 %global daemon_name intel_lpmd
 
+%global commit 40d18a6cc22c37addc3e636bc9c5cf1ab5d5fbda
+%global commitdate 20260608
+%global shortcommit %{sub %{commit} 1 7}
+
 Name:		intel-lpmd
-Version:	0.1.0
+Version:	0.1.0^git%{commitdate}.%{shortcommit}
 Release:	%autorelease
 Summary:	Intel Low Power Mode Daemon
 
 License:	GPL-2.0-or-later
 URL:		https://github.com/intel/intel-lpmd
-Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%dnl Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:		%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# Proposed upstream
+## Arrow Lake H support: https://github.com/intel/intel-lpmd/pull/121
+Patch0101:	0101-config-arrowlake-h-enabling.patch
+## Wildcat Lake support: https://github.com/intel/intel-lpmd/pull/124
+Patch0102:	0102-config-enable-Wildcat-Lake-in-LPMD.patch
 
 ExclusiveArch:	%{x86_64}
 

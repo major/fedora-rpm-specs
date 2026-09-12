@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate selectors
+%global crate cssparser-color
 
-Name:           rust-selectors
-Version:        0.40.0
+Name:           rust-cssparser-color0.3
+Version:        0.3.0
 Release:        %autorelease
-Summary:        CSS Selectors matching for Rust
+Summary:        Color implementation based on cssparser
 
 License:        MPL-2.0
-URL:            https://crates.io/crates/selectors
+URL:            https://crates.io/crates/cssparser-color
 Source:         %{crates_source}
+# * https://github.com/servo/rust-cssparser/pull/424
+Source2:        https://github.com/servo/rust-cssparser/raw/refs/tags/v0.35.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-CSS Selectors matching for Rust.}
+Color implementation based on cssparser.}
 
 %description %{_description}
 
@@ -30,9 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
-%doc %{crate_instdir}/CHANGES.md
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,21 +47,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bench-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bench-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bench" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bench-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -74,7 +75,8 @@ use the "bench" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * https://github.com/servo/rust-cssparser/issues/213
+%cargo_test -- --doc
 %endif
 
 %changelog

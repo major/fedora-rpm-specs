@@ -11,12 +11,19 @@
 %endif
 #endregion version
 
-# Components enabled if supported by target architecture:
+# LLVMgold is a BFD plugin, not specific to the (deprecated) gold linker;
+# however, some of its tests do use gold, which is packaged separately
+# since RHEL 9 but dropped in RHEL 11 and Fedora 46.
+# Since LLVM 24, most tests use ld.bfd instead, and gold is no longer needed.
+%if %{maj_ver} < 24
+%if (0%{?rhel} > 8 && 0%{?rhel} < 11) || (%{defined fedora} && 0%{?fedora} < 46)
 %define gold_arches %{ix86} x86_64 aarch64 %{power64} s390x
 %ifarch %{gold_arches}
   %bcond_without gold
 %else
   %bcond_with gold
+%endif
+%endif
 %endif
 
 # Build compat packages llvmN instead of main package for the current LLVM
@@ -440,6 +447,9 @@ Patch2007: 21-146424.patch
 # Fix for highway package build on ppc64le
 Patch2005: 0001-PowerPC-Fix-handling-of-undefs-in-the-PPC-isSplatShu.patch
 Patch2006: 0001-Add-REQUIRES-asserts-to-test-added-in-145149-because.patch
+
+# linux/scc.h is removed in recent kernels
+Patch2010: https://patch-diff.githubusercontent.com/raw/llvm/llvm-project/pull/194116.patch
 
 # Fix for offload builds: The DeviceRTL libraries target device code and
 # don't support the mtls-dialect flag, so we need to patch the clang driver

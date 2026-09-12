@@ -6,7 +6,7 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.42.0
+Version:        2.42.1
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -45,6 +45,7 @@ BuildRequires:  hwloc-devel
 %endif
 
 # The following packages are only required for executing the tests
+BuildRequires:  binutils-devel
 BuildRequires:  clang
 BuildRequires:  gdb
 BuildRequires:  glibc-static
@@ -54,6 +55,8 @@ BuildRequires:  glibc-static
 # Koji 64-bit buildroots do not contain packages from 32-bit builds, therefore
 # the 'glibc-devel.i686' variant is provided as 'glibc32'.
 BuildRequires: (glibc32 or glibc-devel(%__isa_name-32))
+BuildRequires: libatomic
+BuildRequires: libatomic(%__isa_name-32)
 %endif
 %endif
 BuildRequires:  libdwarf-tools

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.16.6
+Version:        0.16.7
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -149,11 +149,11 @@ URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev cf09d2a4d7614f648e9109dce609887499a7c6ee
+%global typeshed_rev bc016545988403f13b2dd9b56e88b931683c80b1
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260831
+%global typeshed_snapdate 20260904
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -164,9 +164,6 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
-# [ty] Relax symlink_inside_project index assertion - #28245
-# https://github.com/astral-sh/ruff/pull/28245
-Patch:          %{url}/pull/28245.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ruff
@@ -366,6 +363,8 @@ skip="${skip-} --skip python_environment::ty_environment_and_discovered_venv"
 skip="${skip-} --skip python_environment::ty_environment_is_only_environment"
 # Not confirmed flaky, but the other ty_environment_* ones are, so…
 skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
+# See https://github.com/astral-sh/ruff/pull/28245
+skip="${skip-} --skip unix::symlink_inside_project"
 
 %ifarch s390x
 # This panics consistently on s390x only; not reported upstream since it

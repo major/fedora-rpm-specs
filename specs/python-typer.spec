@@ -59,8 +59,8 @@ BuildArch:      noarch
 # we just list the few test dependencies we *do* want manually rather than
 # trying to patch pyproject.toml. We preserve upstream’s lower bounds but
 # remove upper bounds, as we must try to make do with what we have.
-BuildRequires:  %{py3_dist pytest} >= 9
-BuildRequires:  %{py3_dist pytest-xdist} >= 1.32
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-xdist}
 
 %global common_description %{expand:
 Typer is a library for building CLI applications that users will love using and

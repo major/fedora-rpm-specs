@@ -1,18 +1,18 @@
-%global _firmwarepath /lib/firmware/updates/intel/vpu
-
 
 Name:		intel-npu-driver
-Version:	1.32.0
+Version:	1.35.0
 Release:	%autorelease
 Summary:	Intel Neural Processing Unit Driver
 
 License:	MIT AND Apache-2.0
 URL:		https://github.com/intel/linux-npu-driver
 Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:	https://github.com/intel/level-zero-npu-extensions/archive/42768cc73e74f6d371bd9dd51b1860b07774e7ec/level-zero-npu-extensions-42768cc.tar.gz
-Source2:	https://github.com/openvinotoolkit/npu_compiler_elf/archive/82c444bcb9feb0f55fa33e18fbd711ec35426fba/npu_compiler_elf-82c444b.tar.gz
+Source1:	https://github.com/intel/level-zero-npu-extensions/archive/f9ad3bf89c2418d714aef2e6b96a5aafb12a1971/level-zero-npu-extensions-f9ad3bf.tar.gz
+Source2:	https://github.com/openvinotoolkit/npu_compiler_elf/archive/a301d97e0717fb797c79ec51f8cdc13152878700/npu_compiler_elf-a301d97.tar.gz
 
-Patch0:		npu-driver-fedora.patch
+%if 0%{?fedora} > 44
+Patch0:         add-initializer-umd-level_zero_driver-ze_device.patch
+%endif
 
 ExclusiveArch:	x86_64
 
@@ -45,6 +45,12 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 The %{name}-test package contains kernel-mode (kmd) and user-mode (umd)
 parts of the %{name}.
 
+%package -n intel-npu-smi
+Summary:        Utility tool to track NPU telemetry data
+
+%description -n intel-npu-smi
+The intel-npu-smi package utility tool for tracking NPU telemetry power reporting
+
 %prep
 %autosetup -N -n linux-npu-driver-%{version}
 
@@ -52,7 +58,6 @@ parts of the %{name}.
 rm -rf third_party/googletest \
   third_party/level-zero-npu-extensions \
   third_party/npu_compiler_elf \
-  third_party/perfetto \
   third_party/yaml-cpp
 tar xf %{SOURCE1}
 mv level-zero-npu-extensions-* third_party/level-zero-npu-extensions
@@ -65,13 +70,13 @@ mv npu_compiler_elf-* third_party/npu_compiler_elf
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DUSE_SYSTEM_LIBRARIES=ON \
+	-DENABLE_NPU_PERFETTO_BUILD=ON \
+	-DENABLE_TOOLS_BUILD=ON \
 	-DENABLE_NPU_COMPILER_BUILD=OFF
 %cmake_build
 
 %install
 %cmake_install
-# remove the fw files since they are not packaged here
-rm -rf %{buildroot}%{_firmwarepath}
 
 # remove the unversioned so file
 rm -vf %{buildroot}%{_libdir}/libze_intel_npu.so
@@ -87,7 +92,9 @@ mkdir -p redhat-linux-build/third_party/npu_compiler_elf
 cp -a third_party/npu_compiler_elf/. redhat-linux-build/third_party/npu_compiler_elf/
 cp -a umd/.                          redhat-linux-build/umd/
 cp -a validation/.                   redhat-linux-build/validation/
-
+mkdir -p redhat-linux-build/third_party/perfetto/sdk
+cp -a third_party/perfetto/sdk/.     redhat-linux-build/third_party/perfetto/sdk/
+cp -a tools/intel-npu-smi/.          redhat-linux-build/tools/intel-npu-smi/
 
 %files
 %license LICENSE.md
@@ -99,6 +106,9 @@ cp -a validation/.                   redhat-linux-build/validation/
 %{_bindir}/npu-kmd-test
 %{_bindir}/npu-umd-test
 %{_bindir}/*npu_*tests
+
+%files -n intel-npu-smi
+%{_bindir}/intel-npu-smi
 
 %changelog
 %autochangelog

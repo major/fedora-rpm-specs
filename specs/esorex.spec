@@ -1,7 +1,7 @@
 Name: esorex
-Version: 3.13.7
-Release: 10%{?dist}
-Summary: Recipe Execution Tool of the European Southern Observatory 
+Version: 3.13.11
+Release: 1%{?dist}
+Summary: Recipe Execution Tool of the European Southern Observatory
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -16,11 +16,11 @@ BuildRequires: autoconf >= 2.71
 BuildRequires: automake
 
 %description
-EsoRex is the ESO Recipe Execution Tool. It can list, configure and 
+EsoRex is the ESO Recipe Execution Tool. It can list, configure and
 execute CPL-based recipes from the command line.
-One of the features provided by the CPL is the ability to create 
-data-reduction algorithms that run as plugins (dynamic libraries). These 
-are called recipes and are one of the main aspects of the 
+One of the features provided by the CPL is the ability to create
+data-reduction algorithms that run as plugins (dynamic libraries). These
+are called recipes and are one of the main aspects of the
 CPL data-reduction development environment.
 
 %prep
@@ -42,6 +42,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/bash-completion/completions/esorex
 
 %changelog
+* Mon Aug 31 2026 Federico Pellegrin <fede@evolware.org> - 3.13.11-1
+- New upstream version (3.13.11)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

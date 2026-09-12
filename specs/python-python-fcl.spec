@@ -129,7 +129,7 @@ This package also supports most of FCL’s object shapes, including:
 %description %{common_description}
 
 
-%package -n     python3-python-fcl
+%package -n python3-python-fcl
 Summary:        %{summary}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
@@ -281,7 +281,7 @@ done
 popd
 %endif
 
-rm -rvf fcl
+rm --recursive --verbose --force fcl
 %pytest --verbose
 
 

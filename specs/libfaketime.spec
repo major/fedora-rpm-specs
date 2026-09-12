@@ -1,6 +1,6 @@
 Name:       libfaketime
 Version:    0.9.13
-Release:    %autorelease
+Release:    5%{?dist}
 Summary:    Manipulate system time per process for testing purposes
 # COPYING:                  GPLv2 text
 # man/faketime.1:           "GNU General Public License, see COPYING"
@@ -82,4 +82,88 @@ rm -fr %{buildroot}/%{_docdir}/faketime
 %{_mandir}/man1/faketime.1*
 
 %changelog
-%autochangelog
+* Fri Sep 11 2026 Petr Pisar <ppisar@redhat.com> - 0.9.13-5
+- Move from automatic release numbering to manual one
+
+* Mon Sep 07 2026 Petr Písař <ppisar@redhat.com> - 0.9.13-3
+- Enable LTO
+
+* Thu Sep 03 2026 Petr Písař <ppisar@redhat.com> - 0.9.13-1
+- 0.9.13 bump
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jul 01 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 0.9.12-13
+- Add loongarch64 support.
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Tue Jan 06 2026 Petr Písař <ppisar@redhat.com> - 0.9.12-10
+- Adapt to GCC 16
+
+* Tue Jan 06 2026 Petr Písař <ppisar@redhat.com> - 0.9.12-9
+- Strip the librararies from debugging symbols
+
+* Mon Jan 05 2026 Petr Písař <ppisar@redhat.com> - 0.9.12-8
+- Correct license tag and dependencies
+
+* Mon Dec 15 2025 Tomas Korbar <tkorbar@redhat.com> - 0.9.12-7
+- Fix build with ISO C23
+
+* Tue Dec 09 2025 U2FsdGVkX1 <U2FsdGVkX1@gmail.com> - 0.9.12-6
+- Fix riscv64 build hang in check
+
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Fri Jul 18 2025 Simone Caronni <negativo17@gmail.com> - 0.9.12-4
+- Fix hardcoded paths (#2381595)
+
+* Mon Jul 14 2025 Simone Caronni <negativo17@gmail.com> - 0.9.12-1
+- Update to 0.9.12.
+- Revamp completely SPEC file and build.
+
+* Mon Jul 14 2025 Simone Caronni <negativo17@gmail.com> - 0.9.10-12
+- Trim changelog.
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Wed Jan 10 2024 Paul Wouters <paul.wouters@aiven.io> - 0.9.10-7
+- Fix for building for riscv64
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Wed Feb 22 2023 Pablo Greco <pgreco@centosproject.org> - 0.9.10-5
+- Fix tests in ELN builds (yselkowitz)
+
+* Tue Feb 21 2023 Pablo Greco <pgreco@centosproject.org> - 0.9.10-4
+- Also disable i686 in rhel>=10 (ELN failures)
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue May 10 2022 Pablo Greco <pgreco@centosproject.org> - 0.9.10-1
+- Update to 0.9.10
+- Disable i686 and armhfp in fedora >=36
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

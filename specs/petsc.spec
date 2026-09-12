@@ -614,6 +614,8 @@ cp -a %{name}-%{version} build64
 pushd build64
 %if %{with metis64}
 %patch -P 4 -p1 -b .metis64
+# Set include/petsc directory, need to be fixed during installation
+%patch -P 6 -p1 -b .backup
 %endif
 popd
 %endif
@@ -850,6 +852,11 @@ cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc64.p
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
+sed -e 's|-lpetsc|-lpetsc64|g' -i %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
+# Set include/petsc64 directory
+sed -e 's|-I${includedir}/petsc|-I${includedir}/petsc64|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
+sed -e 's|-I${includedir}/petsc|-I${includedir}/petsc64|g' -i %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
+ln -srf %{_libdir}/pkgconfig/petsc64.pc %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}64/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}64/conf/

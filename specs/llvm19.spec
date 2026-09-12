@@ -11,12 +11,19 @@
 %endif
 #endregion version
 
-# Components enabled if supported by target architecture:
+# LLVMgold is a BFD plugin, not specific to the (deprecated) gold linker;
+# however, some of its tests do use gold, which is packaged separately
+# since RHEL 9 but dropped in RHEL 11 and Fedora 46.
+# Since LLVM 24, most tests use ld.bfd instead, and gold is no longer needed.
+%if %{maj_ver} < 24
+%if (0%{?rhel} > 8 && 0%{?rhel} < 11) || (%{defined fedora} && 0%{?fedora} < 46)
 %define gold_arches %{ix86} x86_64 aarch64 %{power64} s390x
 %ifarch %{gold_arches}
   %bcond_without gold
 %else
   %bcond_with gold
+%endif
+%endif
 %endif
 
 # Build compat packages llvmN instead of main package for the current LLVM

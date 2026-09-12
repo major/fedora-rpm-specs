@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        7.4.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:7.4.14-2
+- Rebuilt for libxml-2.5.4
+
 * Tue Aug 25 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.14-1
 - 7.4.14
 

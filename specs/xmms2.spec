@@ -1,7 +1,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
 Version:		0.9.7
-Release:		8%{?dist}
+Release:		9%{?dist}
 License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -227,6 +227,9 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.7-9
+- Rebuilt for libxml-2.5.4
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.7-8
 - Rebuilt for FFmpeg 9
 

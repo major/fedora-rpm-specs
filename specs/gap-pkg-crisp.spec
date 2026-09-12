@@ -2,7 +2,7 @@
 %global giturl      https://github.com/bh11/crisp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.9
+Version:        1.4.11
 Release:        %autorelease
 Summary:        Computing subgroups of finite soluble groups
 

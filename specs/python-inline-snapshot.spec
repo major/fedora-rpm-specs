@@ -19,10 +19,8 @@ URL:            https://github.com/15r10nk/inline-snapshot
 Source:         %{pypi_source inline_snapshot}
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --dependency-groups dev
-    --extras black,dirty-equals
-    }
+BuildOption(generate_buildrequires): --dependency-groups dev
+BuildOption(generate_buildrequires): --extras black,dirty-equals
 BuildOption(install): --assert-license inline_snapshot
 
 BuildArch:      noarch

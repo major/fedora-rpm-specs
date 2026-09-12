@@ -51,7 +51,8 @@ dos2unix --keepdate CHANGES.md
 # pyproject.toml and offer upstream a PR, but we’re not quite sure what to
 # suggest. Help is welcome.
 rm '%{buildroot}%{python3_sitearch}/pyxdameraulevenshtein/_initialize.c'
-sed -r -i 's/.*\/_initialize\.c$/# &/' %{pyproject_files}
+sed --regexp-extended --in-place \
+    's/.*\/_initialize\.c$/# &/' %{pyproject_files}
 
 
 %check -a

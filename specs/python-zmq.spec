@@ -47,19 +47,17 @@ Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
 BuildSystem:    pyproject
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
-BuildOption(build): %{shrink:
-    --config-settings cmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF
-    --config-settings cmake.define.PYZMQ_NO_BUNDLE=ON
-    --config-settings logging.level=INFO
-    --config-settings build.verbose=true
-    --config-settings cmake.build-type="RelWithDebInfo"
-    }
+BuildOption(build): --config-settings cmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF
+BuildOption(build): --config-settings cmake.define.PYZMQ_NO_BUNDLE=ON
+BuildOption(build): --config-settings logging.level=INFO
+BuildOption(build): --config-settings build.verbose=true
+BuildOption(build): --config-settings cmake.build-type="RelWithDebInfo"
 BuildOption(install): --no-assert-license zmq
 # - The cffi backend does not apply when we build with Cython.
-BuildOption(check): %{shrink:
-    --exclude 'zmq.backend.cffi*'
-    %{?!with_gevent:--exclude 'zmq.green*'}
-    }
+BuildOption(check): --exclude 'zmq.backend.cffi*'
+%if %{without gevent}
+BuildOption(check): --exclude 'zmq.green*'
+%endif
 
 BuildRequires:  gcc
 # This package contains no C++ code, but there are some checks in

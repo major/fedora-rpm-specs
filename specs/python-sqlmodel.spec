@@ -30,13 +30,13 @@ BuildArch:      noarch
 # - Already a direct dependency, perhaps with different version bounds:
 #   typing-extensions
 # - Only needed for ignored tests/test_select_gen.py: black, jinja2
-BuildRequires:  %{py3_dist dirty-equals} >= 0.11
-BuildRequires:  %{py3_dist fastapi} >= 0.128
-# Upstream asks for httpx >= 0.28.1, but this is just an indirect dependency
-# via Starlette, and Starlette has deprecated httpx in favor of httpx2.
+BuildRequires:  %{py3_dist dirty-equals}
+BuildRequires:  %{py3_dist fastapi}
+# Upstream asks for httpx, but this is just an indirect dependency via
+# Starlette, and Starlette has deprecated httpx in favor of httpx2.
 BuildRequires:  %{py3_dist httpx2}
-BuildRequires:  %{py3_dist pytest} >= 7.0.1
-BuildRequires:  %{py3_dist typer} >= 0.24.1
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist typer}
 
 %global common_description %{expand:
 SQLModel is a library for interacting with SQL databases from Python code, with

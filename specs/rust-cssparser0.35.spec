@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate selectors
+%global crate cssparser
 
-Name:           rust-selectors
-Version:        0.40.0
+Name:           rust-cssparser0.35
+Version:        0.35.0
 Release:        %autorelease
-Summary:        CSS Selectors matching for Rust
+Summary:        Rust implementation of CSS Syntax Level 3
 
 License:        MPL-2.0
-URL:            https://crates.io/crates/selectors
+URL:            https://crates.io/crates/cssparser
 Source:         %{crates_source}
+# * fix typo in code block attribute to fix issues with Rust 1.80+
+Patch:          0001-Fix-typo-in-code-block-attribute-to-fix-issues-with-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-CSS Selectors matching for Rust.}
+Rust implementation of CSS Syntax Level 3.}
 
 %description %{_description}
 
@@ -30,8 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
-%doc %{crate_instdir}/CHANGES.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -59,6 +60,30 @@ use the "bench" feature of the "%{crate}" crate.
 %files       -n %{name}+bench-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dummy_match_byte-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dummy_match_byte-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dummy_match_byte" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dummy_match_byte-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -74,7 +99,8 @@ use the "bench" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * https://github.com/servo/rust-cssparser/issues/213
+%cargo_test -- --doc
 %endif
 
 %changelog

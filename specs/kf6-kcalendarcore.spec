@@ -25,7 +25,6 @@ BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  python3dist(build)
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  qt-devel
 
 %description
 %{summary}.

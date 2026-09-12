@@ -5,7 +5,7 @@
 %global crate char_str
 
 Name:           rust-char_str
-Version:        0.0.2
+Version:        0.0.4
 Release:        %autorelease
 Summary:        Compact owned string types forked from lean_string for Ruff and ty
 
@@ -16,8 +16,6 @@ Source:         %{crates_source}
 Patch:          char_str-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Remove unused, benchmark-only codspeed-criterion-compat package
-# * Exclude release script from published crate:
-#   https://github.com/astral-sh/char_str/pull/30
 Patch:          char_str-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

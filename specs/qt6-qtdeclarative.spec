@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,6 +34,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
+Patch0:  qtdeclarative-qml-engine-correctly-compare-composites-with-multi-engines.patch
 
 ## upstreamable patches
 
@@ -759,6 +760,10 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Fri Sep 11 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-2
+- Upstream backport:
+  - QML Engine: correctly compare composites when multiple engines are used
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

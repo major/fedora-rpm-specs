@@ -5,15 +5,13 @@
 %global crate cssparser
 
 Name:           rust-cssparser
-Version:        0.35.0
+Version:        0.37.0
 Release:        %autorelease
 Summary:        Rust implementation of CSS Syntax Level 3
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/cssparser
 Source:         %{crates_source}
-# * fix typo in code block attribute to fix issues with Rust 1.80+
-Patch:          0001-Fix-typo-in-code-block-attribute-to-fix-issues-with-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -60,16 +58,28 @@ use the "bench" feature of the "%{crate}" crate.
 %files       -n %{name}+bench-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dummy_match_byte-devel
+%package     -n %{name}+fast_match_byte-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+dummy_match_byte-devel %{_description}
+%description -n %{name}+fast_match_byte-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "dummy_match_byte" feature of the "%{crate}" crate.
+use the "fast_match_byte" feature of the "%{crate}" crate.
 
-%files       -n %{name}+dummy_match_byte-devel
+%files       -n %{name}+fast_match_byte-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fast_match_color-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fast_match_color-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fast_match_color" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fast_match_color-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

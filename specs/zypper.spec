@@ -5,7 +5,7 @@
 
 Name:           zypper
 Version:        1.14.94
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line package manager using libzypp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -156,6 +156,9 @@ popd
 
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.14.94-3
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.94-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

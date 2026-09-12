@@ -22,12 +22,12 @@ Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 Patch:          %{url}/pull/343.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --extras h3
-    --extras trio
-    %{?with_uvloop:--extras uvloop}
-    --dependency-groups dev
-    }
+BuildOption(generate_buildrequires): --extras h3
+BuildOption(generate_buildrequires): --extras trio
+%if %{with uvloop}
+BuildOption(generate_buildrequires): --extras uvloop
+%endif
+BuildOption(generate_buildrequires): --dependency-groups dev
 BuildOption(install): --no-assert-license hypercorn
 
 BuildArch:      noarch
@@ -59,7 +59,7 @@ Summary:        %{summary}
 %install -a
 # We must wait until %%install to generate the man page so we can use the
 # generated entry point that was installed in the buildroot.
-install -d %{buildroot}%{_mandir}/man1
+install --directory %{buildroot}%{_mandir}/man1
 %{py3_test_envvars} help2man \
     --no-info \
     --version-string=%{version} \

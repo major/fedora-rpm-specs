@@ -21,7 +21,6 @@
 %bcond_with use_plasma
 %bcond_with use_gandiva
 %bcond_with use_mimalloc
-%bcond_without use_ninja
 # TODO: Enable this. This works on local but is fragile on GitHub Actions and
 # Travis CI.
 %bcond_with use_s3
@@ -33,8 +32,8 @@
 %global parquet_test_data_commit 92d45b0752487a4b55fb7f1581c8126ee3e73b0d
 
 Name:		libarrow
-Version:	23.0.1
-Release:	11%{?dist}
+Version:	25.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -44,6 +43,7 @@ Source1:	https://github.com/apache/arrow-testing/archive/%{arrow_test_data_commi
 Source2:	https://github.com/apache/parquet-testing/archive/%{parquet_test_data_commit}/apache-arrow-parquet-test-data-%{parquet_test_data_commit}.tar.gz
 Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
+Patch:		0003-cpp-src-parquet-CMakeLists.txt.patch
 Patch:		0004-cpp-src-arrow-compute-kernels-CMakeLists.txt.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
@@ -56,9 +56,7 @@ BuildRequires:	boost-devel
 BuildRequires:	brotli-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
-%if %{with use_ninja}
 BuildRequires:	ninja-build
-%endif
 BuildRequires:	meson
 %if %{with use_s3}
 BuildRequires:	curl-devel
@@ -74,12 +72,15 @@ BuildRequires:	lz4-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python%{python3_pkgversion}-scikit-build-core
+BuildRequires:	python%{python3_pkgversion}-setuptools_scm
 BuildRequires:	python%{python3_pkgversion}-numpy
 BuildRequires:	python%{python3_pkgversion}-Cython
 BuildRequires:	python%{python3_pkgversion}-pandas
 BuildRequires:	python%{python3_pkgversion}-pytest
 BuildRequires:	python%{python3_pkgversion}-hypothesis
 BuildRequires:	python%{python3_pkgversion}-pytzdata
+BuildRequires:	python%{python3_pkgversion}-libcst
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
@@ -176,6 +177,7 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_includedir}/arrow/flight/
 %exclude %{_includedir}/arrow-flight-glib
 %endif
+%exclude %{_libdir}/cmake/Arrow/FindabslAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindBrotliAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/Findlz4Alt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindorcAlt.cmake
@@ -302,7 +304,7 @@ This package contains the libraries for Apache Arrow Flight.
 %{_libdir}/libarrow_flight.so.*
 %{_libdir}/libarrow-flight-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowFlight-23.0.typelib
+     %{_libdir}/girepository-1.0/ArrowFlight-25.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -325,7 +327,7 @@ Libraries and header files for Apache Arrow Flight.
 %{_libdir}/pkgconfig/arrow-flight.pc
 %{_libdir}/pkgconfig/arrow-flight-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/ArrowFlight-23.0.gir
+     %{_datadir}/gir-1.0/ArrowFlight-25.0.gir
 %endif
 
 #--------------------------------------------------------------------
@@ -520,7 +522,7 @@ This package contains the libraries for Apache Arrow GLib.
 %files glib-libs
 %{_libdir}/libarrow-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Arrow-23.0.typelib
+     %{_libdir}/girepository-1.0/Arrow-25.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -544,7 +546,7 @@ Libraries and header files for Apache Arrow GLib.
 %dir %{_datadir}/arrow-glib/
      %{_datadir}/arrow-glib/*
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Arrow-23.0.gir
+     %{_datadir}/gir-1.0/Arrow-25.0.gir
 
 #--------------------------------------------------------------------
 
@@ -561,7 +563,7 @@ This package contains the libraries for Apache Arrow dataset GLib.
 %files dataset-glib-libs
 %{_libdir}/libarrow-dataset-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowDataset-23.0.typelib
+     %{_libdir}/girepository-1.0/ArrowDataset-25.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -581,7 +583,7 @@ Libraries and header files for Apache Arrow dataset GLib.
 %{_libdir}/libarrow-dataset-glib.so
 %{_libdir}/pkgconfig/arrow-dataset-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/ArrowDataset-23.0.gir
+     %{_datadir}/gir-1.0/ArrowDataset-25.0.gir
 
 #--------------------------------------------------------------------
 
@@ -663,7 +665,7 @@ This package contains the libraries for Apache Parquet GLib.
 %files -n parquet-glib-libs
 %{_libdir}/libparquet-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Parquet-23.0.typelib
+     %{_libdir}/girepository-1.0/Parquet-25.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -683,7 +685,7 @@ Libraries and header files for Apache Parquet GLib.
 %{_libdir}/libparquet-glib.so
 %{_libdir}/pkgconfig/parquet-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Parquet-23.0.gir
+     %{_datadir}/gir-1.0/Parquet-25.0.gir
 
 #--------------------------------------------------------------------
 
@@ -708,7 +710,6 @@ Requires:       python3-pyarrow%{?_isa} = %{version}-%{release}
 Development files for python3-pyarrow
 
 %files -n python3-pyarrow-devel
-%{python3_sitearch}/pyarrow/lib_api.h
 %{python3_sitearch}/pyarrow/include
 
 #--------------------------------------------------------------------
@@ -768,6 +769,7 @@ pushd cpp
   -DARROW_PYTHON:BOOL=ON \
   -DARROW_JEMALLOC:BOOL=OFF \
   -DARROW_SIMD_LEVEL:STRING='NONE' \
+  -DARROW_RUNTIME_SIMD_LEVEL:STRING='NONE' \
   -Dxsimd_SOURCE="SYSTEM" \
 %if %{with use_s3}
   -DARROW_S3:BOOL=ON \
@@ -788,9 +790,7 @@ pushd cpp
   -DPARQUET_REQUIRE_ENCRYPTION:BOOL=ON \
   -DPythonInterp_FIND_VERSION:BOOL=ON \
   -DPythonInterp_FIND_VERSION_MAJOR=3 \
-%if %{with use_ninja}
   -GNinja
-%endif
 
 export VERBOSE=1
 export GCC_COLORS=
@@ -857,9 +857,7 @@ export \
    PARQUET_TEST_DATA=$PWD/parquet-testing-%{parquet_test_data_commit}/data \
    PYTHON=%{python3}
 pushd cpp
-# arrow-dataset-file-orc-test segfaults and is temporarily excluded
-# to unblock the Python 3.15 rebuild :(
-%ctest --exclude-regex arrow-dataset-file-orc-test
+%ctest
 popd
 %endif
 export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
@@ -884,32 +882,8 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
-* Mon Aug 10 2026 Orion Poplawski <orion@nwra.com> - 23.0.1-11
-- Rebuild for thrift 0.24
-
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 23.0.1-10
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Mon Jul 20 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.1-9
-- rebuild with liborc-2.3.1, (side tag f45-build-side-144275)
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue Jun 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 23.0.1-7
-- Rebuilt for abseil-cpp 20260526.0
-
-* Mon Jun 22 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.1-6
-- rebuild with liborc-2.3.0, protobuf3 (side tag f45-build-side-141772)
-
-* Mon Jun 15 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.1-5
-- rebuild with liborc-2.3.0, protobuf3 (side tag f45-build-side-141058)
-
-* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 23.0.1-4
-- Rebuilt for openssl 4.0
-
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 23.0.1-3
-- Rebuilt for Python 3.15
+* Thu Sep 10 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 25.0.1-1
+- Arrow 25.0.1 GA
 
 * Wed Mar 4 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-5
 - rebuild with liborc-2.3.0

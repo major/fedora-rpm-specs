@@ -9,6 +9,10 @@ License:        GPL-3.0-only
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
 
+# Check for deprecated attributes in GnomeDesktop
+# https://github.com/lutris/lutris/pull/6833
+Patch0:         6833.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 Requires:       cabextract

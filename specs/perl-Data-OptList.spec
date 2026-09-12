@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Data-OptList
-Version:        0.114
-Release:        9%{?dist}
+Version:        0.115
+Release:        1%{?dist}
 Summary:        Parse and validate simple name/value option pairs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-OptList
@@ -26,7 +26,7 @@ BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Module Runtime
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Params::Util)
+BuildRequires:  perl(Params::SomeUtil)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Sub::Install) >= 0.921
 BuildRequires:  perl(warnings)
@@ -40,7 +40,11 @@ BuildRequires:  perl(CPAN::Meta::Prereqs)
 %endif
 %if %{with perl_Data_OptList_enables_extra_test}
 # Extra Tests
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
@@ -77,12 +81,11 @@ for F in t/*; do
 done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} %{buildroot}
 
 %check
@@ -98,6 +101,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Data::OptList.3*
 
 %changelog
+* Sun Sep  6 2026 Paul Howarth <paul@city-fan.org> - 0.115-1
+- Update to 0.115 (rhbz#2529000)
+  - Switch from Params::Util to Params::SomeUtil
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.114-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

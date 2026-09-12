@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -97,6 +97,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.5.0-2
+- Rebuilt for libxml-2.5.4
+
 * Wed Sep 09 2026 Greg Hellings <greg.hellings@gmail.com> - 4.5.0-1
 - New upstream release 4.5.0
 

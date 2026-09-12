@@ -1,6 +1,6 @@
 Name:           perl-Mail-JMAPTalk
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl client for JMAP protocol
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-JMAPTalk
@@ -65,6 +65,7 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
@@ -72,6 +73,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 11 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.19-2
+- Add LICENSE file
+
 * Wed Sep 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.19-1
 - 0.19 bump
 - Remove unused rpmlintrc file.

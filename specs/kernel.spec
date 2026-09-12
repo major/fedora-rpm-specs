@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc2.260910g50d05c7c76c9.27
+%define pkgrelease 0.rc2.260911g08df884136f1.29
 %define kversion 7
-%define tarfile_release 7.3-rc2-99-g50d05c7c76c9
+%define tarfile_release 7.3-rc2-352-g08df884136f1
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260910g50d05c7c76c9.27%{?buildid}%{?dist}
+%define specrelease 0.rc2.260911g08df884136f1.29%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4855,10 +4855,14 @@ fi\
 #
 #
 %changelog
-* Thu Sep 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-0.rc2.260910g50d05c7c76c9.27]
+* Fri Sep 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.08df884136f1.29]
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Sep 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.08df884136f1.28]
+- gitlab-ci: remove default gitlab config file (Scott Weaver)
+- Linux v7.3.0-0.rc2.08df884136f1
 
 * Thu Sep 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.50d05c7c76c9.27]
 - Linux v7.3.0-0.rc2.50d05c7c76c9

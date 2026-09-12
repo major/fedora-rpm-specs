@@ -41,7 +41,7 @@ export PYTHONPATH='%{buildroot}%{python3_sitelib}'
 # belong to other packages, like scipy or pooch, since these are more likely to
 # be brittle.
 
-echo '==== Self-test with SciPy and MPL ====' 1>&2
+printf '==== %s ====\n' 'Self-test with SciPy and MPL' 1>&2
 pkg='%{buildroot}%{python3_sitelib}/scipy_doctest'
 %pytest --pyargs "${pkg}" -k "${k-}" --verbose
 # Ideally, setting PYTEST_ADDOPTS to '-p no:cacheprovider' would prevent the
@@ -49,17 +49,17 @@ pkg='%{buildroot}%{python3_sitelib}/scipy_doctest'
 # after the fact.
 rm -rv "${pkg}/tests/.pytest_cache"
 
-echo '==== Self-test CLI with SciPy and MPL ====' 1>&2
+printf '==== %s ====\n' 'Self-test CLI with SciPy and MPL' 1>&2
 f='scipy_doctest/tests/finder_cases.py'
 %{py3_test_envvars} %{python3} -m scipy_doctest \
     "%{buildroot}%{python3_sitelib}/${f}" -vv
 
-echo '==== Test testfile CLI ====' 1>&2
+printf '==== %s ====\n' 'Test testfile CLI' 1>&2
 f='scipy_doctest/tests/scipy_ndimage_tutorial_clone.rst'
 %{py3_test_envvars} %{python3} -m scipy_doctest \
     "%{buildroot}%{python3_sitelib}/${f}" -v
 
-echo '==== Test pytest plugin ====' 1>&2
+printf '==== %s ====\n' 'Test pytest plugin' 1>&2
 for f in \
     'scipy_doctest/tests/module_cases.py' \
     'scipy_doctest/tests/stopwords_cases.py' \

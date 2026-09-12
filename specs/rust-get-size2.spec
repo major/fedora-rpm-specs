@@ -8,7 +8,7 @@
 %global crate get-size2
 
 Name:           rust-get-size2
-Version:        0.10.3
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Determine the size in bytes an object occupies inside RAM
 
@@ -47,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytes-devel
@@ -215,6 +227,18 @@ This package contains library source intended for building other packages which
 use the "smallvec" feature of the "%{crate}" crate.
 
 %files       -n %{name}+smallvec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+thin-vec-devel

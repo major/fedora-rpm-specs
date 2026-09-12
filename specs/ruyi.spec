@@ -1,5 +1,5 @@
 Name:           ruyi
-Version:        0.47.0
+Version:        0.52.0
 Release:        %autorelease
 Summary:        RuyiSDK Package Manager
 
@@ -12,7 +12,6 @@ Source1:        config.toml
 
 BuildArch:      noarch
 BuildRequires:  help2man
-BuildRequires:  libgit2-devel
 BuildRequires:  python3-devel
 BuildRequires:  pytest
 

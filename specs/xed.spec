@@ -3,7 +3,7 @@
 
 Name:		xed
 Version:	3.8.9
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -128,6 +128,9 @@ This package contains the documentation files for %{name}.
 %doc %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.8.9-5
+- Rebuilt for libxml-2.5.4
+
 * Wed Aug 26 2026 Leigh Scott <leigh123linux@gmail.com> - 3.8.9-4
 - Add requires xapp-symbolic-icons
 

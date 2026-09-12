@@ -72,7 +72,7 @@ app - gimp:ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.2.4
+Version:        3.2.6
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -132,7 +132,7 @@ URL:            https://www.gimp.org
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
 %global freetype2_minver 2.1.7
-%global gdk_pixbuf_minver 2.30.8
+%global gdk_pixbuf_minver 2.32.0
 %global gegl_minver 0.4.64
 %global exiv2_minver 0.27.4
 %global gettext_minver 0.19.8

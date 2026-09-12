@@ -8,7 +8,7 @@
 
 Name:           libclc22
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -116,6 +116,9 @@ cd libclc
 %{_libdir}/pkgconfig/libclc.pc
 
 %changelog
+* Fri Sep 11 2026 Timm Baeder <tbaeder@redhat.com> - 22.1.8-4
+- Bump release for llvm23 update
+
 * Tue Sep 01 2026 Konrad Kleine <kkleine@redhat.com> - 22.1.8-3
 - Build the libclc22 package
 

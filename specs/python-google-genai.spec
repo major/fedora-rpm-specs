@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        2.22.0
+Version:        2.23.0
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 

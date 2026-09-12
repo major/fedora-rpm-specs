@@ -57,7 +57,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          23.5.0
-Release:          %{?_rc||?_beta:0.}2%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
+Release:          %{?_rc||?_beta:0.}3%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -93,6 +93,7 @@ Source9:          https://github.com/akheron/jansson/releases/download/v%{jansso
 Source10:         https://github.com/benmcollins/libjwt/releases/download/v%{jwt_version}/libjwt-%{jwt_version}.tar.gz
 
 Source99:         0030-ssl_sock_ossl-fix-OpenSSL-4.0-compatibility-5036.patch
+Source100:        0031-Merge-commit-from-fork.patch
 
 %if 0%{?fedora} || 0%{?rhel} >=7
 Patch1:           asterisk-16.1.0-explicit-python3.patch
@@ -657,6 +658,7 @@ echo '*************************************************************************'
 %patch -P4 -p1
 
 cp %{S:99} ./third-party/pjproject/patches
+cp %{S:100} ./third-party/pjproject/patches
 
 # Fixup makefile so sound archives aren't downloaded/installed
 %{__perl} -pi -e 's/^all:.*$/all:/' sounds/Makefile
@@ -1650,6 +1652,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 11 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-3
+- Fix for CVE-2026-57160
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 23.5.0-2.1
 - Rebuilt for libxml-2.5.4
 

@@ -3,13 +3,18 @@
 %global srcname flask-caching
 
 Name:           python-%{srcname}
-Version:        2.4.1
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Adds caching support to your Flask application
 
 License:        BSD-3-Clause
 URL:            https://github.com/sh4nks/flask-caching
 Source0:        https://github.com/sh4nks/%{srcname}/archive/v%{version}/%{srcname}-v%{version}.tar.gz
+# https://github.com/pallets-eco/flask-caching/pull/685
+# this returns back code requires by redis-py 5.x but that is deprecated in redis-py >= 5.3.0
+# once redis-py is rebased https://bugzilla.redhat.com/show_bug.cgi?id=2363123
+# this patch can be removed
+Patch0:         fix-redis-get-connection.patch
 
 BuildArch:      noarch
 

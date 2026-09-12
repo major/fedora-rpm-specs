@@ -9,8 +9,6 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit   2194f58d0f024ce923e685cdf92af3daf9951908
-%global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    maxmind
 %global gh_project  MaxMind-DB-Reader-php
 # Extension
@@ -24,6 +22,8 @@
 %global _configure   ../ext/configure
 
 %if 0%{?fedora}
+# Option to disable library tests (phpunit)
+# Extension is always tested
 %bcond_without       tests
 %else
 %bcond_with          tests
@@ -32,18 +32,19 @@
 Name:          php-maxminddb
 Summary:       MaxMind DB Reader extension
 License:       Apache-2.0
-Version:       1.13.1
-Release:       4%{?dist}
+Version:       1.14.0
+Release:       1%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
-Source0:       %{name}-%{version}-%{gh_short}.tgz
+Source0:       %{name}-%{version}.tgz
 Source1:       makesrc.sh
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel >= 7.2
+# Upstream requires 7.2, 8.0 because of test suite
+BuildRequires: php-devel >= 8.0
 BuildRequires: pkgconfig(libmaxminddb) >= 1.0.0
 
 Requires:      php(zend-abi) = %{php_zend_api}
@@ -87,7 +88,7 @@ BuildRequires: php-gmp
 #        "php-coveralls/php-coveralls": "^2.1",
 #        "phpunit/phpcov": ">=6.0.0",
 #        "squizlabs/php_codesniffer": "3.*"
-BuildRequires: phpunit8
+BuildRequires: phpunit9
 %endif
 
 # from composer.json "require": {
@@ -101,7 +102,7 @@ Recommends:    php-bcmath
 Recommends:    php-gmp
 Recommends:    php-maxminddb
 # from composer.json "conflict": {
-#        "ext-maxminddb": "<1.11.1,>=2.0.0"
+#        "ext-maxminddb": "<1.14.0,>=2.0.0"
 Conflicts:     php-maxminddb < %{version}
 # Weak dependencies on databases
 Recommends:    geolite2-country
@@ -130,7 +131,8 @@ Autoloader: %{_datadir}/php/MaxMind/Db/Reader/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
+
 %{_bindir}/phpab \
     --template fedora \
     --output src/MaxMind/Db/Reader/autoload.php \
@@ -193,19 +195,23 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 %if %{with tests}
 cd ..
+mkdir vendor
+%{_bindir}/phpab \
+    --template fedora \
+    --output vendor/autoload.php \
+    tests
+
+cat << 'EOF' | tee -a vendor/autoload.php
+require_once "%{buildroot}%{_datadir}/php/MaxMind/Db/Reader/autoload.php";
+EOF
+
 : Upstream test suite for the library
-for cmd in php80 php81 php82 php83 php84; do
-  if which $cmd; then
-    $cmd %{_bindir}/phpunit8 \
-      --bootstrap %{buildroot}%{_datadir}/php/MaxMind/Db/Reader/autoload.php \
-      --verbose || ret=1
-  fi
-done
+php %{_bindir}/phpunit9 \
+    --verbose || ret=1
 
 : Upstream test suite for the library with the extension
 php --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-  %{_bindir}/phpunit8 \
-    --bootstrap %{buildroot}%{_datadir}/php/MaxMind/Db/Reader/autoload.php \
+  %{_bindir}/phpunit9 \
     --verbose || ret=1
 %endif
 exit $ret
@@ -228,6 +234,10 @@ exit $ret
 
 
 %changelog
+* Fri Sep 11 2026 Remi Collet <remi@remirepo.net> - 1.14.0-1
+- update to 1.14.0
+- switch to phpunit9
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

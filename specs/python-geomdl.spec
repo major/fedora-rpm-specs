@@ -32,12 +32,12 @@ ExcludeArch:    %{ix86}
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras test,vis
 BuildOption(install): --assert-license geomdl
-%if %{without vtk_dep} || %{without plotly}
-BuildOption(check): %{shrink:
-    %{?!with_vtk_dep:--exclude geomdl.visualization.vtk_helpers}
-    %{?!with_vtk_dep:--exclude geomdl.visualization.VisVTK}
-    %{?!with_plotly:--exclude geomdl.visualization.VisPlotly}
-    }
+%if %{without vtk_dep}
+BuildOption(check): --exclude geomdl.visualization.vtk_helpers
+BuildOption(check): --exclude geomdl.visualization.VisVTK
+%endif
+%if %{without plotly}
+BuildOption(check): --exclude geomdl.visualization.VisPlotly
 %endif
 
 BuildRequires:  gcc

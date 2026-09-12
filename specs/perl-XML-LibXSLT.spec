@@ -3,7 +3,7 @@
 Name:       perl-XML-LibXSLT
 # NOTE: also update perl-XML-LibXML to a compatible version.  See below why.
 Version:    %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Perl module for interfacing to GNOME's libxslt
 # lib/XML/LibXSLT.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/XML/LibXSLT/Quick.pm: MIT
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.003.000-9
+- Rebuilt for libxml-2.5.4
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.003.000-8
 - Perl 5.44 rebuild
 

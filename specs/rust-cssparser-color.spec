@@ -5,15 +5,13 @@
 %global crate cssparser-color
 
 Name:           rust-cssparser-color
-Version:        0.3.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Color implementation based on cssparser
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/cssparser-color
 Source:         %{crates_source}
-# * https://github.com/servo/rust-cssparser/pull/424
-Source2:        https://github.com/servo/rust-cssparser/raw/refs/tags/v0.35.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -62,7 +60,6 @@ use the "serde" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/bh11/irredsol
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.5
+Version:        1.4.6
 Release:        %autorelease
 Summary:        Irreducible soluble linear groups over finite fields
 

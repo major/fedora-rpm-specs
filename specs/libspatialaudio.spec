@@ -1,16 +1,15 @@
-%global commit0 850bdb747b234d6a89f9547fbc6dfa1cf2a6722d
+%global commit0 d149ed9744fd399b835c6f2920511f8cbcfce5ea
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251204
+%global date0 20260701
 
 Name:           libspatialaudio
-Version:        4.0
+Version:        4.1
 Release:        %autorelease
 Summary:        Ambisonic encoding / decoding and binauralization library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/videolabs/libspatialaudio
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-Patch0:           0001-Drop-config.h-install.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

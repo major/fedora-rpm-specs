@@ -25,6 +25,9 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://www.gegl.org/
 Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/gegl/-/merge_requests/284
+Patch:		0001-meson-Declare-opencl-as-a-dependency.patch
+
 BuildRequires:  chrpath
 BuildRequires:  enscript
 BuildRequires:  gcc-c++

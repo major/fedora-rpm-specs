@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.78
+Version:        0.0.80
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,17 +159,17 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 827326f12bbbfc1c9cc52f6effa4033bc84ce66a
+%global ruff_rev e7230cac059fa28bd0e534e4571c3560c695efbe
 %global ruff_baseversion 0.16.6
-%global ruff_snapdate 20260902
+%global ruff_snapdate 20260909
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev cf09d2a4d7614f648e9109dce609887499a7c6ee
+%global typeshed_rev bc016545988403f13b2dd9b56e88b931683c80b1
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260831
+%global typeshed_snapdate 20260904
 
 # Downstream patch: always find the system-wide ty executable
 #
@@ -277,19 +277,10 @@ popd
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set ruff/Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
-# get-size2
-#   wanted: 0.9.0
-#   currently packaged: 0.10.0
-# We haven’t suggested this upstream because we know they use renovate with
-# dependency cooldowns, and we expect they will soon update without prompting.
-tomcli set ruff/Cargo.toml str workspace.dependencies.get-size2.version \
-    '>=0.9.0, <0.11.0'
-
 # tikv-jemallocator
 #   wanted: 0.6.0
 #   currently packaged: 0.7.0
-# We haven’t suggested this upstream because we know they use renovate with
-# dependency cooldowns, and we expect they will soon update without prompting.
+#   https://github.com/astral-sh/ruff/pull/25582
 tomcli set ruff/Cargo.toml str \
     workspace.dependencies.tikv-jemallocator.version '>=0.6.0, <0.8.0'
 

@@ -1,14 +1,9 @@
 %global glib2_version 2.80
-%global libdnf_version 0.43.1
-%global libdnf5_version 5.2.17.0
-
-# For https://fedoraproject.org/wiki/Changes/PackageKit-DNF5
-%bcond dnf5_default %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
-%bcond dnf4 %[(0%{?rhel} && 0%{?rhel} < 11) || (0%{?fedora} && 0%{?fedora} < 44)]
+%global libdnf5_version 5.4.3.0
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.3.6
+Version:   1.4.0
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later AND FSFAP
 URL:       http://www.freedesktop.org/software/PackageKit/
@@ -17,9 +12,9 @@ Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{ver
 # Backports from upstream (1~500)
 
 # Patches proposed upstream (501~1000)
-## Alias "dnf" to "dnf5"
-## Pulled out from https://github.com/PackageKit/PackageKit/pull/938
-Patch0501:    PackageKit-alias-dnf-to-dnf5.patch
+## Use RepoConfigOverride API to support repo config in /usr
+## Reference: https://fedoraproject.org/wiki/Changes/RelocateRpmRepoConfigsToUsr
+Patch0501:    https://github.com/PackageKit/PackageKit/pull/1014.patch
 
 # Downstream only patches (1001+)
 ## https://pagure.io/fedora-workstation/issue/233
@@ -27,10 +22,10 @@ Patch0501:    PackageKit-alias-dnf-to-dnf5.patch
 Patch1001:    package-inst+rem-sysupgrade-password-prompt.patch
 
 ## Fedora patches (2001~3000)
-Patch2001:    PackageKit-0.3.8-Fedora-Vendor.conf.patch
+Patch2001:    PackageKit-1.4.0-Fedora-Vendor.conf.patch
 
 ## RHEL patches (3001~4000)
-Patch3001:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
+Patch3001:    PackageKit-1.4.0-RHEL-Vendor.conf.patch
 
 BuildRequires: docbook-utils
 BuildRequires: docbook5-schemas
@@ -58,12 +53,6 @@ BuildRequires: pkgconfig(sdbus-c++)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: systemd
 BuildRequires: python3-devel
-
-%if %{with dnf4}
-BuildRequires: pkgconfig(appstream)
-BuildRequires: pkgconfig(libdnf) >= %{libdnf_version}
-Requires: libdnf%{?_isa} >= %{libdnf_version}
-%endif
 
 # Validate metainfo
 BuildRequires: libappstream-glib
@@ -94,14 +83,11 @@ Obsoletes: PackageKit-backend-devel < 0.9.6
 # Udev no longer provides this functionality
 Obsoletes: PackageKit-device-rebind < 0.8.13-2
 
-%if ! %{with dnf4}
 # No longer needed since we don't support DNF4
 Obsoletes: dnf4-plugin-notify-PackageKit < %{version}-%{release}
 # No longer needed since we don't support DNF4+DNF5
 Obsoletes: libdnf5-plugin-notify-PackageKit < %{version}-%{release}
-%endif
 
-%if %{with dnf5_default}
 Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
@@ -111,50 +97,11 @@ Provides: PackageKit-backend-dnf5 = %{version}-%{release}
 Provides: PackageKit-backend-dnf5%{?_isa} = %{version}-%{release}
 Provides: PackageKit-dnf5 = %{version}-%{release}
 Provides: PackageKit-dnf5%{?_isa} = %{version}-%{release}
-%endif
 
 %description
 PackageKit is a D-Bus abstraction layer that allows the session user
 to manage packages in a secure way using a cross-distro,
 cross-architecture API.
-
-%if ! %{with dnf5_default}
-%package backend-dnf5
-Summary: DNF5 backend for PackageKit
-%dnl Supplements: (libdnf5%{?_isa} and PackageKit%{?_isa})
-Provides: %{name}-dnf5 = %{version}-%{release}
-Provides: %{name}-dnf5%{?_isa} = %{version}-%{release}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: libdnf5%{?_isa} >= %{libdnf5_version}
-# Ensure AppStream repodata is processed
-Requires: libdnf5-plugin-appstream%{?_isa}
-
-%description backend-dnf5
-PackageKit is a D-Bus abstraction layer that allows the session user
-to manage packages in a secure way using a cross-distro,
-cross-architecture API.
-
-This package provides the DNF5 backend for PackageKit.
-%endif
-
-%if %{with dnf4}
-%package -n dnf4-plugin-notify-PackageKit
-Summary: DNF4 plugin to notify PackageKit of DNF4 actions
-Supplements: (dnf4 and PackageKit)
-Conflicts: %{name} < 1.3.1-3
-BuildArch: noarch
-
-%description -n dnf4-plugin-notify-PackageKit
-DNF4 plugin to notify PackageKit of DNF4 actions.
-
-%package -n libdnf5-plugin-notify-PackageKit
-Summary: DNF5 plugin to notify PackageKit of DNF5 actions
-Supplements: (libdnf5%{?_isa} and PackageKit%{?_isa})
-Conflicts: %{name} < 1.3.1-2
-
-%description -n libdnf5-plugin-notify-PackageKit
-DNF5 plugin to notify PackageKit of DNF5 actions.
-%endif
 
 %package glib
 Summary: GLib libraries for accessing PackageKit
@@ -236,19 +183,12 @@ using PackageKit.
 %autopatch -p1 -m 3001 -M 4000
 %endif
 
-# Revert dnf->dnf5 for <F43 and <EL11
-%if ! %{with dnf5_default}
-%patch -p1 -P 501 -R
-%endif
-
-
 %conf
 %meson \
         -Dgtk_doc=true \
         -Dpython_backend=false \
-        -Dpackaging_backend=%{?with_dnf4:dnf,}dnf5 \
-        -Dlegacy_tools=true \
-        -Dlocal_checkout=false
+        -Dpackaging_backend=dnf5 \
+        -Dlegacy_tools=true
 
 %build
 %meson_build
@@ -321,31 +261,9 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_unitdir}/packagekit.service
 %{_unitdir}/system-update.target.wants/
 %{_libexecdir}/pk-*offline-update
-%if %{with dnf4}
-%{_libexecdir}/packagekit-dnf-refresh-repo
-%{_libdir}/packagekit-backend/libpk_backend_dnf.so
-%endif
-%if %{with dnf5_default}
 %{_libdir}/packagekit-backend/libpk_backend_dnf5.so
 %{_libdir}/rpm-plugins/notify_packagekit.so
 %{_rpmmacrodir}/macros.transaction_notify_packagekit
-%endif
-
-%if ! %{with dnf5_default}
-%files backend-dnf5
-%{_libdir}/packagekit-backend/libpk_backend_dnf5.so
-%{_libdir}/rpm-plugins/notify_packagekit.so
-%{_rpmmacrodir}/macros.transaction_notify_packagekit
-%endif
-
-%if %{with dnf4}
-%files -n dnf4-plugin-notify-PackageKit
-%pycached %{python3_sitelib}/dnf-plugins/notify_packagekit.py
-
-%files -n libdnf5-plugin-notify-PackageKit
-%{_libdir}/libdnf5/plugins/notify_packagekit.so
-%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/notify_packagekit.conf
-%endif
 
 %files glib
 %{_libdir}/*packagekit-glib2.so.*
@@ -375,9 +293,7 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %files glib-devel
 %{_libdir}/libpackagekit-glib2.so
 %{_libdir}/pkgconfig/packagekit-glib2.pc
-%dir %{_includedir}/PackageKit
-%dir %{_includedir}/PackageKit/packagekit-glib2
-%{_includedir}/PackageKit/packagekit-glib*/*.h
+%{_includedir}/packagekit/
 %{_datadir}/gir-1.0/PackageKitGlib-1.0.gir
 %{_datadir}/gtk-doc/html/PackageKit
 %{_datadir}/vala/vapi/packagekit-glib2.vapi

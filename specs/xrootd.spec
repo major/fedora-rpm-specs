@@ -11,7 +11,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	6.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -676,6 +676,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:6.1.1-2
+- Rebuilt for libxml-2.5.4
+
 * Wed Aug 12 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.1.1-1
 - Update to version 6.1.1
 

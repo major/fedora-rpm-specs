@@ -45,8 +45,8 @@ License: GPL-3.0-or-later
 
 # This is a regression that denies rsync user access to legit paths like
 # /var/run/ or /var/log/
-# https://github.com/sysfce2/rsync/commit/3b1eb8dd
-# https://github.com/sysfce2/rsync/commit/240bd9df
+# https://github.com/RsyncProject/rsync/commit/3b1eb8dd
+# https://github.com/RsyncProject/rsync/commit/240bd9df
 Patch1: rsync-3.5.0-o_path-dir-traversal.patch
 
 %description

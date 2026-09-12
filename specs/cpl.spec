@@ -1,6 +1,6 @@
 Name: cpl
-Version: 7.3.2
-Release: 13%{?dist}
+Version: 7.4
+Release: 1%{?dist}
 Summary: ESO library for automated astronomical data-reduction tasks
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -16,13 +16,13 @@ BuildRequires: wcslib-devel >= 4.24
 BuildRequires: fftw-devel > 3.3.4
 
 %description
-The Common Pipeline Library (CPL) comprises a set of ISO-C libraries 
-that provide a comprehensive, efficient and robust software toolkit. 
-It forms a basis for the creation of automated astronomical data-reduction 
-tasks (known as "pipelines") for ESO (European Southern Observatory) 
-instruments. The CPL was developed to standardize the way 
-VLT (Very Large Telescope) instrument pipelines are built, 
-to shorten their development cycle and to ease their maintenance. 
+The Common Pipeline Library (CPL) comprises a set of ISO-C libraries
+that provide a comprehensive, efficient and robust software toolkit.
+It forms a basis for the creation of automated astronomical data-reduction
+tasks (known as "pipelines") for ESO (European Southern Observatory)
+instruments. The CPL was developed to standardize the way
+VLT (Very Large Telescope) instrument pipelines are built,
+to shorten their development cycle and to ease their maintenance.
 
 %package devel
 Summary: Libraries, includes, etc. used to develop an application with %{name}
@@ -36,7 +36,7 @@ application
 %patch 0 -p1
 
 %build
-%configure --disable-static
+%configure --disable-static --with-system-cext=no
 # http://fedoraproject.org/wiki/PackagingGuidelines#Beware_of_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -49,7 +49,7 @@ make DESTDIR=%{buildroot} install
 
 %files
 %doc AUTHORS BUGS COPYING NEWS
-%license COPYING 
+%license COPYING
 %{_libdir}/*so.*
 
 %files devel
@@ -57,8 +57,17 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/cext.pc
+%{_libdir}/pkgconfig/cpl.pc
+%{_libdir}/pkgconfig/cplcore.pc
+%{_libdir}/pkgconfig/cpldfs.pc
+%{_libdir}/pkgconfig/cpldrs.pc
+%{_libdir}/pkgconfig/cplgasgano.pc
+%{_libdir}/pkgconfig/cplui.pc
 
 %changelog
+* Mon Aug 31 2026 Federico Pellegrin <fede@evolware.org> - 7.4-1
+- New upstream source 7.4 (rhbz#2449652), pkg-config files are now supplied and installed
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

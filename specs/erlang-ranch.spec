@@ -1,7 +1,7 @@
 %global realname ranch
 
 Name:		erlang-%{realname}
-Version:	2.2.1
+Version:	2.3.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Socket acceptor pool for TCP protocols
@@ -10,7 +10,6 @@ URL:		https://github.com/ninenines/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Patch:		erlang-ranch-0001-Fix-testing-with-rebar.patch
-Patch:		erlang-ranch-0002-Don-t-care-about-return-value.patch
 BuildRequires:	erlang-ct_helper
 BuildRequires:	erlang-rebar3
 

@@ -5,7 +5,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtk4
-Version:        4.23.4
+Version:        4.24.0
 Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
@@ -213,6 +213,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 
 
 %changelog
+* Fri Sep 11 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.24.0-1
+- new version
+
 * Thu Sep 10 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.23.4-1
 - new version, rhbz#2459489
 

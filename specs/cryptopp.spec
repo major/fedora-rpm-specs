@@ -5,7 +5,7 @@
 %global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
 
 Name:           cryptopp
-Version:        2026.8.1
+Version:        2026.9.1
 Release:        %autorelease
 Summary:        C++ class library of cryptographic schemes
 License:        BSL-1.0
@@ -77,32 +77,15 @@ Tests for %{name}.
 # build shared
 %cmake \
   -DCRYPTOPP_BUILD_SHARED=ON \
-  -DCRYPTOPP_BUILD_TESTING=OFF
-
-%cmake_build
-
-# save shared build
-mv %{__cmake_builddir} build-shared
-
-# build static
-%cmake \
-  -DCRYPTOPP_BUILD_SHARED=OFF\
+  -DCRYPTOPP_BUILD_STATIC=ON \
   -DCRYPTOPP_BUILD_TESTING=ON
 
 %cmake_build
 
+
 %install
 %cmake_install
 
-# back to shared-build
-mv %{__cmake_builddir} build-static
-mv build-shared %{__cmake_builddir}
-
-%cmake_install
-
-# back to static-build for tests
-mv %{__cmake_builddir} build-shared
-mv build-static %{__cmake_builddir}
 
 %check
 %ctest

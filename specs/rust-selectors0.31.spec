@@ -4,8 +4,8 @@
 
 %global crate selectors
 
-Name:           rust-selectors
-Version:        0.40.0
+Name:           rust-selectors0.31
+Version:        0.31.0
 Release:        %autorelease
 Summary:        CSS Selectors matching for Rust
 

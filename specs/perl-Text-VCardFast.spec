@@ -1,6 +1,6 @@
 Name:           perl-Text-VCardFast
-Version:        0.11
-Release:        34%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Perl extension for very fast parsing of VCards
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-VCardFast
@@ -80,6 +80,7 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Text*
 %{_mandir}/man3/*
@@ -88,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.12-1
+- 0.12 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-34
 - Perl 5.44 rebuild
 

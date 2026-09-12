@@ -1,5 +1,5 @@
 Name:           python-oracledb
-Version:        4.0.2
+Version:        26.0.0
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 
@@ -18,7 +18,8 @@ is the new name for Oracle's popular cx_Oracle driver.}
 %description %_description
 
 
-%pyproject_extras_subpkg -n python3-oracledb oci_config oci_auth azure_config azure_auth
+# optional gcp_config needs pypi - google-cloud-secret-manager
+%pyproject_extras_subpkg -n python3-oracledb oci_config oci_auth azure_config azure_auth aws_config
 
 
 %package -n python3-oracledb
@@ -32,7 +33,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x oci_config,oci_auth,azure_config,azure_auth
+%pyproject_buildrequires -x oci_config,oci_auth,azure_config,azure_auth,aws_config
 
 
 %build
@@ -46,7 +47,8 @@ Summary:        %{summary}
 
 # Tests require an Oracle database to connect to.
 %check
-%pyproject_check_import
+# google extension not available
+%pyproject_check_import -e oracledb.plugins.gcp_config_provider
 
 
 %files -n python3-oracledb -f %{pyproject_files}

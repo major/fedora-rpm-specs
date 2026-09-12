@@ -10,7 +10,7 @@ Source:         %{pypi_source typing_inspection}
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --dependency-groups tests
-BuildOption(install):   --assert-license typing_inspection
+BuildOption(install): --assert-license typing_inspection
 
 BuildArch:      noarch
 

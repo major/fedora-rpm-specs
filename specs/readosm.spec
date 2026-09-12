@@ -36,13 +36,13 @@ License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 # X11:
 #   - install-sh
 SourceLicense:  %{shrink:
-                (%{license}) AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later WITH Libtool-exception AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                X11
-                }
+    (%{license}) AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    X11
+    }
 Source:         https://www.gaia-gis.it/gaia-sins/readosm-sources/readosm-%{version}.tar.gz
 URL:            https://www.gaia-gis.it/fossil/readosm
 

@@ -1,6 +1,6 @@
 Name:           yaz
 Version:        5.38.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
@@ -150,6 +150,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.38.0-3
+- Rebuilt for libxml-2.5.4
+
 * Fri Sep 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.38.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Libxml215
 

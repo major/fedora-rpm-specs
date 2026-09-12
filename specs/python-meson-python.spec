@@ -11,8 +11,8 @@
 %bcond patchelf %{expr:%{undefined rhel} || %{defined epel}}
 
 Name:           python-meson-python
-Summary:        Meson Python build backend (PEP 517)
-Version:        0.20.0
+Summary:        The Python build backend for Meson projects
+Version:        0.21.0
 Release:        %autorelease
 
 # SPDX
@@ -25,10 +25,10 @@ Source:         %{pypi_source meson_python}
 Patch100:       meson-python-0.18.0-remove-patchelf.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    --pyproject-dependencies
-    %{?with_tests:--dependency-groups test}
-    }
+BuildOption(generate_buildrequires): --pyproject-dependencies
+%if %{with tests}
+BuildOption(generate_buildrequires): --dependency-groups test
+%endif
 # LICENSE duplicates LICENSES/MIT.txt, which is handled automatically.
 BuildOption(install): --assert-license mesonpy
 
@@ -42,8 +42,8 @@ BuildRequires:  gcc-c++
 %endif
 
 %global common_description %{expand:
-meson-python is a Python build backend built on top of the Meson build system.
-It enables to use Meson for the configuration and build steps of Python
+meson-python is a Python build back-end built on top of the Meson build system.
+It enables using Meson for the configuration and build steps of Python
 packages. Meson is an open source build system meant to be both extremely fast,
 and, even more importantly, as user friendly as possible. meson-python is best
 suited for building Python packages containing extension modules implemented in

@@ -76,6 +76,10 @@ The package contains documentation for pyparsing.
 
 dos2unix -k examples/*
 
+# This package builds successfully with flit-core 4
+# https://github.com/pyparsing/pyparsing/pull/654
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 # tox lists only the [diagrams] extra and coverage as deps, so we bypass it

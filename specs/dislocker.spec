@@ -1,7 +1,7 @@
 Summary:         Utility to access BitLocker encrypted volumes
 Name:            dislocker
 Version:         0.7.3
-Release:         25%{?dist}
+Release:         26%{?dist}
 License:         GPL-2.0-or-later
 URL:             https://github.com/Aorimn/dislocker
 Source0:         https://github.com/Aorimn/dislocker/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -9,6 +9,8 @@ Source0:         https://github.com/Aorimn/dislocker/archive/v%{version}/%{name}
 Patch0:          https://github.com/Aorimn/dislocker/compare/v0.7.3...3e7aea196eaa176c38296a9bc75c0201df0a3679.patch#/dislocker-0.7.3-upstream-changes.patch
 # Multibyte character support in passwords, see https://github.com/Aorimn/dislocker/pull/118
 Patch1:          https://github.com/Aorimn/dislocker/pull/333.patch#/dislocker-0.7.3-multibyte-support.patch
+# OpenSSL backend support, see https://github.com/Aorimn/dislocker/pull/358
+Patch2:          dislocker-openssl-support.patch
 Requires:        %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:        ruby(release)
 Requires:        ruby(runtime_executable)
@@ -17,7 +19,7 @@ Requires(preun): %{?el8:/usr/sbin/}alternatives
 Provides:        %{_bindir}/%{name}
 BuildRequires:   cmake
 BuildRequires:   gcc
-BuildRequires:   mbedtls-devel
+BuildRequires:   openssl-devel
 BuildRequires:   ruby-devel
 BuildRequires:   %{_bindir}/ruby
 
@@ -71,6 +73,7 @@ reading from it or writing to it is possible.
 %build
 %cmake \
   -D WARN_FLAGS="-Wall -Wno-error -Wextra" \
+  -D CRYPTO_BACKEND=openssl \
   -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
@@ -83,6 +86,9 @@ rm -f $RPM_BUILD_ROOT{%{_bindir}/%{name},%{_mandir}/man1/%{name}.1*}
 # Clean up files for later usage in documentation
 for file in *.md; do mv -f $file ${file%.md}; done
 for file in *.txt; do mv -f $file ${file%.txt}; done
+
+%check
+%ctest
 
 %post
 alternatives --install %{_bindir}/%{name} %{name} %{_bindir}/%{name}-file 60
@@ -122,6 +128,10 @@ fi
 %{_mandir}/man1/%{name}-fuse.1*
 
 %changelog
+* Mon Aug 03 2026 Connor Cihula <connor.cihula@gmail.com> - 0.7.3-26
+- Build against OpenSSL instead of MbedTLS backend
+- Run CMake testsuite
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -25,9 +25,11 @@ License:        Unlicense OR MIT-0
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DDR_LIBS_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    }
+%if %{with ctest}
+BuildOption(conf): -DDR_LIBS_BUILD_TESTS:BOOL=ON
+%else
+BuildOption(conf): -DDR_LIBS_BUILD_TESTS:BOOL=OFF
+%endif
 BuildOption(check): --exclude-regex "${skips}"
 
 BuildRequires:  gcc-c++

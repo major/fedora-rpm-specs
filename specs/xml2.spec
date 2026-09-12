@@ -1,6 +1,6 @@
 Name:           xml2
 Version:        0.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        XML/Unix Processing Tools
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ symlinks -c %{buildroot}%{_bindir}
 
 
 %changelog
+* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5-35
+- Rebuilt for libxml-2.5.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

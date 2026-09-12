@@ -2,7 +2,7 @@
 %global gap_upname  CaratInterface
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.3.9
+Version:        2.3.11
 Release:        %autorelease
 Summary:        GAP interface to CARAT
 
@@ -13,17 +13,17 @@ Source:         https://www.math.uni-bielefeld.de/~gaehler/gap/%{gap_upname}/%{g
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): gap htm tst
+BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  carat
+BuildRequires:  gap(autodoc)
 BuildRequires:  gap(io) >= 4.8.0
-BuildRequires:  gap-devel >= 4.11.1
-BuildRequires:  tth
+BuildRequires:  gap-devel >= 4.12
 
 Requires:       carat
 Requires:       gap(io) >= 4.8.0
-Requires:       gap-core >= 4.11.1
+Requires:       gap-core >= 4.12
 
 Suggests:       gap(cryst) >= 4.1.24
 
@@ -62,7 +62,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}
 
-%build
+%build -p
 # Don't use the bundled version of CARAT
 rm -f carat*.tgz
 
@@ -72,14 +72,6 @@ for f in read.g PackageInfo.g; do
   touch -r ${f}.orig $f
   rm -f ${f}.orig
 done
-
-# Link to main GAP documentation
-ln -s %{gap_libdir}/etc ../../etc
-ln -s %{gap_libdir}/doc ../../doc
-cd doc
-./make_doc
-cd -
-rm -f ../../{doc,etc}
 
 %files
 %doc Changelog README
@@ -91,9 +83,7 @@ rm -f ../../{doc,etc}
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog
