@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:    plasma-wayland-protocols
-Version: 1.21.0
-Release: 2%{?dist}
+Version: 1.22.0
+Release: 1%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND MIT-CMU
@@ -50,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 1.22.0-1
+- 1.22.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

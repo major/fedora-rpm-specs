@@ -31,10 +31,8 @@ Source:         %{url}/archive/%{version}/tinyxml2-%{version}.tar.gz
 # meson are reasonable choices; choosing CMake allows us to generate and
 # install .cmake files to be used by dependent packages, which is worthwhile.
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -Dtinyxml2_BUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -Dtinyxml2_INSTALL_PKGCONFIG:BOOL=ON
-    }
+BuildOption(conf): -Dtinyxml2_BUILD_TESTING:BOOL=%{with ctest}
+BuildOption(conf): -Dtinyxml2_INSTALL_PKGCONFIG:BOOL=ON
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

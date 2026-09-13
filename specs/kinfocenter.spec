@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6Package)
 BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(Qt6Graphs)
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libEGL-devel
@@ -106,7 +107,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_datadir}/applications/kcm_about-distro.desktop
 %{_kf6_datadir}/dbus-1/system-services/org.kde.kinfocenter.dmidecode.service
 %{_kf6_datadir}/dbus-1/system.d/org.kde.kinfocenter.dmidecode.conf
-%{_libexecdir}/kinfocenter-opengl-helper
+%{_libexecdir}/kinfocenter-egl-helper
 %{_kf6_datadir}/kinfocenter/
 %{_kf6_datadir}/polkit-1/actions/org.kde.kinfocenter.dmidecode.policy
 %{_qt6_archdatadir}/qml/org/kde/kinfocenter/
@@ -114,6 +115,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

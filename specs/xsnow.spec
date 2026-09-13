@@ -1,5 +1,5 @@
 Name:           xsnow
-Version:        3.9.0
+Version:        3.9.4
 Release:        %autorelease
 Summary:        Let it snow on your desktop
 License:        GPL-3.0-or-later
@@ -15,6 +15,7 @@ BuildRequires:  libXext-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  gsl-devel
 BuildRequires:  gtk3-devel
+BuildRequires:  opencv-devel
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib

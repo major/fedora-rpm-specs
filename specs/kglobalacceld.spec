@@ -1,6 +1,6 @@
 Name:    kglobalacceld
 Summary: Daemon providing Global Keyboard Shortcut functionality
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -59,12 +59,7 @@ Requires:       qt6-qtbase-devel
 
 %files
 %license LICENSES/*.txt
-%{_sysconfdir}/xdg/autostart/kglobalacceld.desktop
-%{_userunitdir}/plasma-kglobalaccel.service
 %{_libdir}/libKGlobalAccelD.so.*
-%dir %{_qt6_plugindir}/org.kde.kglobalacceld.platforms
-%{_qt6_plugindir}/org.kde.kglobalacceld.platforms/KGlobalAccelDXcb.so
-%{_libexecdir}/kglobalacceld
 %{_kf6_datadir}/qlogging-categories6/kglobalacceld.categories
 
 %files devel
@@ -72,6 +67,9 @@ Requires:       qt6-qtbase-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

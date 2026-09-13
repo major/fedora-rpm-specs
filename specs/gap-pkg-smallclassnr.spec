@@ -3,7 +3,7 @@
 %global giturl      https://github.com/stertooy/SmallClassNr
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Library of finite groups with small class number
 
@@ -22,15 +22,14 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(atlasrep) >= 2.1.9
 BuildRequires:  gap(autodoc) >= 2026.03.17
+BuildRequires:  gap(perfgrp) >= 1.0.0
 BuildRequires:  gap(primgrp) >= 3.4.4
 BuildRequires:  gap(smallgrp) >= 1.5.4
 BuildRequires:  gap(transgrp) >= 3.6.5
-BuildRequires:  gap-devel >= 4.14
+BuildRequires:  gap-devel >= 4.15
 BuildRequires:  gap-pkg-packagemanager-doc
 
-Requires:       gap-core >= 4.14
-
-Recommends:     gap(smallgrp) >= 1.5.4
+Requires:       gap-core >= 4.15
 
 Provides:       gap(SmallClassNr) = %{version}-%{release}
 Provides:       gap(smallclassnr) = %{version}-%{release}
@@ -64,7 +63,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 mkdir ~/.gap
 cat > ~/.gap/gap.ini << EOF
 SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/" );
-SetUserPreference( "AtlasRep", "AtlasRepJsonFilesAddresses", fail );
 EOF
 
 %files

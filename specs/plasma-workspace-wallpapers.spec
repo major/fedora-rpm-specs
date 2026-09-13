@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-workspace-wallpapers
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -83,8 +83,12 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Coast/
 %{_datadir}/wallpapers/Orionids/
 %{_datadir}/wallpapers/Sub-Arctic/
+%{_datadir}/wallpapers/Waterfall/
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

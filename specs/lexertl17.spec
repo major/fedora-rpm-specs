@@ -20,11 +20,7 @@ URL:            https://github.com/BenHanson/lexertl17
 Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
 
 BuildSystem:    cmake
-%if %{with ctest}
-BuildOption(conf): -DBUILD_TESTING:BOOL=ON
-%else
-BuildOption(conf): -DBUILD_TESTING:BOOL=OFF
-%endif
+BuildOption(conf): -DBUILD_TESTING:BOOL=%{with ctest}
 BuildOption(conf): -DBUILD_EXAMPLES:BOOL=ON
 
 %if %{undefined fc43}

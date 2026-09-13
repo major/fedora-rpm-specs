@@ -57,7 +57,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          23.5.0
-Release:          %{?_rc||?_beta:0.}3%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Release:          %{?_rc||?_beta:0.}4%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -98,8 +98,6 @@ Source100:        0031-Merge-commit-from-fork.patch
 %if 0%{?fedora} || 0%{?rhel} >=7
 Patch1:           asterisk-16.1.0-explicit-python3.patch
 %endif
-
-Patch2:           asterisk-18.4.0-astmm_ignore_for_console_board.patch
 
 # https://github.com/asterisk/asterisk/pull/2136
 Patch3:           asterisk-18.12.1-ilbc_macros.patch
@@ -166,10 +164,6 @@ BuildRequires:    libvorbis-devel
 
 # codec_gsm
 BuildRequires:    gsm-devel
-
-# additional dependencies
-BuildRequires:    SDL-devel
-BuildRequires:    SDL_image-devel
 
 # cli
 BuildRequires:    libedit-devel
@@ -650,8 +644,6 @@ echo '*************************************************************************'
 %if 0%{?fedora} || 0%{?rhel} >=7
 %patch -P1 -p1
 %endif
-
-%patch -P2 -p1
 
 %patch -P3 -p1
 
@@ -1652,6 +1644,9 @@ fi
 %endif
 
 %changelog
+* Sat Sep 12 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-4
+- Remove outdated experimental functionality
+
 * Fri Sep 11 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-3
 - Fix for CVE-2026-57160
 

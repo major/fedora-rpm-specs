@@ -40,11 +40,7 @@ Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
 BuildSystem:    cmake
 BuildOption(conf): -DGTKDOC_ENABLED:BOOL=ON
-%if %{with introspection}
-BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=ON
-%else
-BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=OFF
-%endif
+BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=%{with introspection}
 # Upstream provides no tests.
 
 BuildRequires:  gcc

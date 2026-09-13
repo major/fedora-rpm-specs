@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.7.5
+Version:        6.7.90
 Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -50,6 +50,7 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  /usr/bin/winpr-makecert
 BuildRequires:  qt6qml(org.kde.kirigamiaddons.formcard)
 BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(libei-1.0)
 Requires:       qt6qml(org.kde.kirigamiaddons.formcard)
 Requires:       /usr/bin/openssl
 
@@ -114,6 +115,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_krdpserver.so
 %{_userunitdir}/app-org.kde.krdpserver.service
 %{_userpresetdir}/00-krdp.preset
+%{_kf6_datadir}/config.kcfg/krdpserversettings.kcfg
 
 %files libs
 %license LICENSES/LGPL-*.txt LICENSES/LicenseRef-KDE-*
@@ -125,6 +127,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

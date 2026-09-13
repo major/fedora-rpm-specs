@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/rapidfuzz/rapidfuzz-cpp
-Version: 3.3.3
+Version: 3.3.4
 %forgemeta
 
 Name: rapidfuzz-cpp

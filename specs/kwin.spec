@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -232,7 +232,7 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %files
 %{_bindir}/kwin
 %{_bindir}/kwin_wayland_wrapper
-%{_datadir}/kwin-wayland/
+%{_sysconfdir}/xdg/kwinrulesrc
 %caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_wayland
 %{_userunitdir}/plasma-kwin_wayland.service
 %dir %{_sysconfdir}/xdg/Xwayland-session.d
@@ -243,7 +243,6 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_kf6_qtplugindir}/kwin/
 %{_kf6_qtplugindir}/kf6/packagestructure/kwin_*.so
 %{_qt6_qmldir}/org/kde/kwin/
-%{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-delete-desktop-switching-shortcuts
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-remove-breeze-tabbox-default
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-reset-active-mouse-screen
@@ -264,6 +263,7 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows.desktop
 %{_datadir}/applications/*.desktop
+%{_kf6_datadir}/kwin/
 %{_bindir}/kwindowprop
 
 %files libs
@@ -283,6 +283,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

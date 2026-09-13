@@ -1,6 +1,6 @@
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -44,6 +44,10 @@ BuildRequires:  cmake(KF6WindowSystem)
 
 # Plasma
 BuildRequires:  cmake(KWayland)
+BuildRequires:  cmake(KPipeWire)
+
+# Others
+BuildRequires:  pkgconfig(libpipewire-0.3)
 
 Requires:       xdg-desktop-portal
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2240211
@@ -82,6 +86,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

@@ -28,12 +28,10 @@ URL:            https://teem.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/teem-%{version}-src.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DCMAKE_SKIP_INSTALL_RPATH=ON
-    -DTeem_USE_LIB_INSTALL_SUBDIR=ON
-    -DTeem_FFTW3=ON
-    -DTeem_LEVMAR=%{?with_levmar:ON}%{?!with_levmar:OFF}
-    }
+BuildOption(conf): -DCMAKE_SKIP_INSTALL_RPATH=ON
+BuildOption(conf): -DTeem_USE_LIB_INSTALL_SUBDIR=ON
+BuildOption(conf): -DTeem_FFTW3=ON
+BuildOption(conf): -DTeem_LEVMAR=%{with levmar}
 # Tests probeSS_ctmr04 and probeSS_ctmr10 have overly-strict rounding
 # requirements; they fail on certain architectures, and the details may differ
 # in e.g. EPEL branches. We find it best to skip them unconditionally.

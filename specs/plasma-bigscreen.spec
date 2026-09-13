@@ -1,5 +1,5 @@
 Name:          plasma-bigscreen
-Version:       6.7.5
+Version:       6.7.90
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
@@ -52,10 +52,12 @@ BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6WebEngineCore)
+# Runtime requirement, but forced on build
+BuildRequires: qt6qml(org.kde.kdeconnect)
 
 Requires:   %{name}-wayland = %{version}-%{release}
 Requires:   qt6qml(org.kde.plasma.private.nanoshell)
-
+Requires:   qt6qml(org.kde.kdeconnect)
 
 %package  wayland
 Summary:   Wayland support for %{name}
@@ -91,7 +93,7 @@ Conflicts: %{name}-x11 < %{version}-%{release}
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kcm_mediacenter_{audiodevice,bigscreen_settings,kdeconnect,wifi}.desktop
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.{inputhandler,uvcviewer}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.{inputhandler,uvcviewer,settings}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f plasma-bigscreen.lang
@@ -112,6 +114,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
 %{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
 %{_kf6_libdir}/udev/rules.d/40-uinput.rules
+%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.settings.desktop
 
 %files wayland
 %{_kf6_bindir}/plasma-bigscreen-wayland
@@ -119,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

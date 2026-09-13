@@ -26,15 +26,13 @@ Patch:          %{url}/commit/c44b279033be35c55efa74267259f5df4321c213.patch
 BuildSystem:    cmake
 # BUILD_UTILS: These utilities (genmathcoef, mkrpitab) are intended for library
 # maintainers, and are not installed, so we do not build them.
-BuildOption(conf): %{shrink:
-    -DBUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DBUILD_UTILS:BOOL=OFF
-    -DBUILD_EXHAUSTIVE_TESTING:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
-    -DENABLE_EXHAUSTIVE_TESTING:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
-    }
+BuildOption(conf): -DBUILD_TESTS:BOOL=%{with ctest}
+BuildOption(conf): -DBUILD_UTILS:BOOL=OFF
+BuildOption(conf): -DBUILD_EXHAUSTIVE_TESTING:BOOL=%{with exhaustive}
+BuildOption(conf): -DENABLE_EXHAUSTIVE_TESTING:BOOL=%{with exhaustive}
+%if %{with exhaustive}
 # Set a one-week timeout if we are doing exhaustive tests. See notes above the
 # conditional; these may take over a day on some server-class hardware.
-%if %{with exhaustive}
 BuildOption(check): --timeout 604800
 %endif
 

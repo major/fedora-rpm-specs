@@ -7,13 +7,13 @@
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        1b526bb3a0ff326ecd05af4c2c541407f53c6d4b
+%global commit1        f037264d23e2472a444a157370647fcd601ed81b
 %global monado_version 25.1.0
 
 %forgemeta
 
 Name:           wivrn
-Version:        26.6.2
+Version:        26.9
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
@@ -57,10 +57,14 @@ Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-don-t-verify-GL-stuff.patch
 # downstream-only - WiVRn specific Monado patches
 Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-configure-u_git_tag-in-WiVRn.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-ipc-join-client-threads-before-teardown.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-a-math-Add-m_relation_history_get_clamped.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-d-steamvr_lh-Add-LH_MAX_EXTRAPOLATION_MS.patch
 
 
-# If BuildRequires change, be sure to update envision-wivrn Requires
-# https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -195,6 +199,9 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
+%patch -P0009 -p1
+%patch -P0010 -p1
+%patch -P0011 -p1
 popd
 
 
@@ -248,11 +255,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wivrn.wivrn
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
-%files -f %{name}-dashboard.lang
+%files
 %license COPYING LICENSE-OFL-1.1 _deps/monado-src/LICENSES/*
 %doc README.md docs/
 %{_bindir}/wivrn-server
 %{_bindir}/wivrnctl
+%{_datadir}/bash-completion/completions/wivrnctl
+%{_datadir}/zsh/site-functions/_wivrnctl
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/libopenxr_wivrn.so
 %{_libdir}/%{name}/libmonado_wivrn.so
@@ -261,14 +270,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datarootdir}/openxr/1/openxr_wivrn.json
 %{_userunitdir}/wivrn.service
 %{_prefix}/lib/firewalld/services/wivrn.xml
-%{_metainfodir}/io.github.wivrn.wivrn.metainfo.xml
 %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %{_environmentdir}/%{name}.conf
 
-%files -n %{name}-dashboard
+%files -n %{name}-dashboard -f %{name}-dashboard.lang
 %{_bindir}/wivrn-dashboard
 %{_datarootdir}/applications/io.github.wivrn.wivrn.desktop
 %{_datarootdir}/icons/hicolor/scalable/apps/io.github.wivrn.wivrn.svg
+%{_metainfodir}/io.github.wivrn.wivrn.metainfo.xml
 
 
 %post

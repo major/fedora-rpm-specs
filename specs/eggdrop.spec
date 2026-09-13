@@ -3,8 +3,8 @@
 
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
-Version:        1.10.1
-Release:        6%{?dist}
+Version:        1.10.2
+Release:        1%{?dist}
 # Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-2.0-only: src/mod/pbkdf2.mod/{pbkdf2,tclpbkdf2}.c
 # BSD-3-Clause: src/compat/inet_aton.c
@@ -13,8 +13,8 @@ Release:        6%{?dist}
 # MIT: doc/html/_static/{jquery,underscore}.js
 License:        GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain AND MIT
 URL:            https://www.eggheads.org/
-Source0:        https://ftp.eggheads.org/pub/eggdrop/source/1.10/%{name}-%{version}.tar.gz
-Source1:        https://ftp.eggheads.org/pub/eggdrop/source/1.10/%{name}-%{version}.tar.gz.asc
+Source0:        https://ftp.eggheads.org/pub/eggdrop/source/%(b=%{version}; echo ${b%.*})/%{name}-%{version}.tar.gz
+Source1:        https://ftp.eggheads.org/pub/eggdrop/source/%(b=%{version}; echo ${b%.*})/%{name}-%{version}.tar.gz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/E01C240484DE7DBE190FE141E7667DE1D1A39AFF
 Patch0:         eggdrop-1.6.17-langdir.patch
 BuildRequires:  gnupg2
@@ -87,6 +87,9 @@ done
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Sep 12 2026 Robert Scheck <robert@fedoraproject.org> 1.10.2-1
+- Upgrade to 1.10.2 (#2480981)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.10.1-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

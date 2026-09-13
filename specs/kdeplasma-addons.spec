@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.7.5
-Release: 2%{?dist}
+Version: 6.7.90
+Release: 1%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -41,12 +41,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
-
-# Specify SemVer-bounded Rust dependencies for `kameleon-qmk-helper`; update
-# `qmk-via-api` to 0.8
-# https://invent.kde.org/plasma/kdeplasma-addons/-/merge_requests/1080
-# (Without changes to Cargo.lock, which would only cause merge conflicts.)
-Patch:          kdeplasma-addons-6.7.0-qmk-via-api-0.8.patch
 
 ExcludeArch: %{ix86}
 
@@ -227,6 +221,9 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-2
 - Rebuild for Qt Update
 

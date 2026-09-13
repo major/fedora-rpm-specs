@@ -207,6 +207,8 @@ BuildRequires:  /usr/bin/python3.13
 BuildRequires:  /usr/bin/python3.13t
 BuildRequires:  /usr/bin/python3.14
 BuildRequires:  /usr/bin/python3.14t
+BuildRequires:  /usr/bin/python3.15
+BuildRequires:  /usr/bin/python3.15t
 %endif
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,

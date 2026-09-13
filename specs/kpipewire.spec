@@ -1,6 +1,6 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -91,6 +91,8 @@ developing applications that use %{name}.
 %{_libdir}/libKPipeWireRecord.so.%{version}
 %{_libdir}/libKPipeWireDmaBuf.so.6
 %{_libdir}/libKPipeWireDmaBuf.so.%{version}
+%{_libdir}/libKPipeWireMonitor.so.6
+%{_libdir}/libKPipeWireMonitor.so.%{version}
 %{_qt6_qmldir}/org/kde/pipewire/*
 %{_kf6_datadir}/qlogging-categories6/*.categories
 
@@ -98,12 +100,16 @@ developing applications that use %{name}.
 %{_libdir}/libKPipeWire.so
 %{_libdir}/libKPipeWireRecord.so
 %{_libdir}/libKPipeWireDmaBuf.so
+%{_libdir}/libKPipeWireMonitor.so
 %dir %{_includedir}/KPipeWire
 %{_includedir}/KPipeWire/*
 %dir %{_libdir}/cmake/KPipeWire
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

@@ -5,7 +5,7 @@
 %global crate smallvec
 
 Name:           rust-smallvec
-Version:        1.16.0
+Version:        1.16.1
 Release:        %autorelease
 Summary:        Store up to a small number of items on the stack
 

@@ -1,6 +1,6 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -64,17 +64,13 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %files -f libkscreen6_qt.lang
 %license LICENSES/*
-%{_datadir}/dbus-1/services/org.kde.kscreen.service
 %{_datadir}/qlogging-categories6/libkscreen.categories
 %{_datadir}/zsh/site-functions/_kscreen-doctor
 %{_kf6_bindir}/kscreen-doctor
-%{_kf6_libexecdir}/kscreen_backend_launcher
 %{_kf6_libdir}/libKF6Screen.so.8
 %{_kf6_libdir}/libKF6Screen.so.%{version}
 %{_kf6_libdir}/libKF6ScreenDpms.so.8
 %{_kf6_libdir}/libKF6ScreenDpms.so.%{version}
-%{_kf6_plugindir}/kscreen/
-%{_userunitdir}/plasma-kscreen.service
 
 %files devel
 %{_kf6_includedir}/KScreen/
@@ -89,6 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

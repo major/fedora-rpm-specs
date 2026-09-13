@@ -32,16 +32,8 @@ Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_c
 BuildSystem:    cmake
 BuildOption(conf): -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
 BuildOption(conf): -DSYSTEM_DOCTEST:BOOL=ON
-%if %{with ctest}
-BuildOption(conf): -DFASTFLOAT_TEST:BOOL=ON
-%else
-BuildOption(conf): -DFASTFLOAT_TEST:BOOL=OFF
-%endif
-%if %{with exhaustive}
-BuildOption(conf): -DFASTFLOAT_EXHAUSTIVE:BOOL=ON
-%else
-BuildOption(conf): -DFASTFLOAT_EXHAUSTIVE:BOOL=OFF
-%endif
+BuildOption(conf): -DFASTFLOAT_TEST:BOOL=%{with ctest}
+BuildOption(conf): -DFASTFLOAT_EXHAUSTIVE:BOOL=%{with exhaustive}
 
 BuildRequires:  gcc-c++
 

@@ -12,7 +12,7 @@ Source1:        shybrid.desktop
 # https://github.com/jwouters91/shybrid/pull/13
 Patch:          %{url}/pull/13.patch
 
-BuildArch:      noarch 
+BuildArch:      noarch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license hybridizer

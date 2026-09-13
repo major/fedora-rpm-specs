@@ -27,11 +27,7 @@ BuildSystem:    cmake
 # We do want to build the tests, but we have no use for the benchmarks or the
 # visualizer program.
 BuildOption(conf): -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
-%if %{with ctest}
-BuildOption(conf): -DEARCUT_BUILD_TESTS:BOOL=ON
-%else
-BuildOption(conf): -DEARCUT_BUILD_TESTS:BOOL=OFF
-%endif
+BuildOption(conf): -DEARCUT_BUILD_TESTS:BOOL=%{with ctest}
 BuildOption(conf): -DEARCUT_BUILD_BENCH:BOOL=OFF
 BuildOption(conf): -DEARCUT_BUILD_VIZ:BOOL=OFF
 BuildOption(conf): -DEARCUT_WARNING_IS_ERROR:BOOL=OFF

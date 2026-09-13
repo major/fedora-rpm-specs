@@ -64,6 +64,7 @@ This package contains the documentation for php-libvirt.
 %prep
 %autosetup -n %{extname}-%{version} -p1
 
+sed -r -i 's/ATTRIBUTE_UNUSED/__attribute__((unused))/' src/libvirt-php.{h,c}
 
 %build
 %configure \

@@ -1,5 +1,6 @@
 %bcond cpp_tests 1
-# Disabled for now because protobuf-devel does not provide CMake files
+# Disabled for now because the protobuf3-devel compat package (needed for the
+# obsolete version of grpc that is packaged) does not provide CMake files.
 %bcond cpp_grpc_test 0
 %bcond py_tests 1
 
@@ -207,14 +208,11 @@ sed --regexp-extended --in-place=.upstream \
 export VERSION='%{version}'
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
-%if %{with cpp_tests}
-    -DFLATBUFFERS_BUILD_TESTS:BOOL=ON \
-%if %{with cpp_grpc_test}
+    -DFLATBUFFERS_BUILD_TESTS:BOOL=%{with cpp_tests} \
+%if %{with cpp_tests} && %{with cpp_grpc_test}
     -DFLATBUFFERS_BUILD_GRPCTEST:BOOL=ON \
     -DGRPC_INSTALL_PATH:PATH=%{_prefix} \
-%endif
 %else
-    -DFLATBUFFERS_BUILD_TESTS:BOOL=OFF \
     -DFLATBUFFERS_BUILD_GRPCTEST:BOOL=OFF \
 %endif
     -DFLATBUFFERS_BUILD_SHAREDLIB=ON \
@@ -254,7 +252,8 @@ popd
 %cmake_install
 %pyproject_install
 %pyproject_save_files --no-assert-license flatbuffers
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 %if %{with mingw}
 (

@@ -5,7 +5,7 @@
 %global crate hashlink
 
 Name:           rust-hashlink
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        HashMap-like containers with user controllable order
 

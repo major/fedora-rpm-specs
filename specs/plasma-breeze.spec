@@ -7,7 +7,7 @@
 %endif
 
 Name:    plasma-breeze
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
@@ -142,6 +142,8 @@ popd
 %{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_breezedecoration.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.breeze.so
 %{_libdir}/cmake/Breeze/
+%{_kf6_datadir}/config.kcfg/breeze-decoration.kcfg
+%{_kf6_datadir}/config.kcfg/breeze.kcfg
 
 %if %{with kf5}
 %files qt5
@@ -170,6 +172,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

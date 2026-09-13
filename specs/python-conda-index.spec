@@ -4,7 +4,7 @@
 %global srcname conda_index
 
 Name:           python-conda-index
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause

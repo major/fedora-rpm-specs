@@ -5,7 +5,7 @@
 
 Name:		linux-firmware
 Version:	20260910
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
 URL:		http://www.kernel.org/
@@ -109,6 +109,7 @@ inside the provided LICENSE file. Please read it carefully.
 Summary:	DVM Firmware for Intel(R) Wireless WiFi adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
 Requires:	linux-firmware-whence = %{version}-%{release}
+Requires:	iwlbluetooth-firmware = %{version}-%{release}
 %description -n iwlwifi-dvm-firmware
 This package contains the firmware required by the iwlwifi driver
 for Linux built with DVM firmware support (CONFIG_IWLDVM=y/m). Usage of
@@ -119,6 +120,7 @@ provided LICENSE file. Please read it carefully.
 Summary:	MVM Firmware for Intel(R) Wireless WiFi adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
 Requires:	linux-firmware-whence = %{version}-%{release}
+Requires:	iwlbluetooth-firmware = %{version}-%{release}
 # Same hardware, newer firmware with a different driver, enables smooth migration
 Requires:	iwlwifi-mld-firmware = %{version}-%{release}
 %description -n iwlwifi-mvm-firmware
@@ -131,11 +133,20 @@ provided LICENSE file. Please read it carefully.
 Summary:	MLD Firmware for Intel(R) Wireless WiFi adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
 Requires:	linux-firmware-whence = %{version}-%{release}
+Requires:	iwlbluetooth-firmware = %{version}-%{release}
 %description -n iwlwifi-mld-firmware
 This package contains the firmware required by the iwlwifi driver
 for Linux built with MLD firmware support (CONFIG_IWLMLD=y/m).  Usage of
 the firmware is subject to the terms and conditions contained inside the
 provided LICENSE file. Please read it carefully.
+
+%package -n iwlbluetooth-firmware
+Summary:	Bluetooth Firmware for Intel(R) Wireless WiFi adapters
+License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
+Requires:	linux-firmware-whence = %{version}-%{release}
+%description -n iwlbluetooth-firmware
+This package contains the firmware required by the iwlwifi devices that
+support bluetooth.
 
 %package -n libertas-firmware
 Summary:	Firmware for Marvell Libertas SD/USB WiFi Network Adapters
@@ -354,6 +365,7 @@ sed \
 	-i -e '/^intel\/IntcSST2.bin/d' \
 	-i -e '/^intel\/dsp_fw/d' \
 	-i -e '/^intel\/fw_sst/d' \
+	-i -e '/^intel\/ibt/d' \
 	-i -e '/^intel\/ipu/d' \
 	-i -e '/^intel\/ipu3/d' \
 	-i -e '/^intel\/irci_irci/d' \
@@ -385,6 +397,7 @@ sed \
 	-i -e '/^tdmb/d' \
 	-i -e '/^ti-connectivity/d' \
 	-i -e '/^v4l-cx2/d' \
+	-i -e '/^xe/d' \
 	linux-firmware.{files,dirs}
 sed -i -e 's!^!/usr/lib/firmware/!' linux-firmware.{files,dirs}
 sed -i -e 's/^/"/;s/$/"/' linux-firmware.files
@@ -573,6 +586,10 @@ end
 %{_firmwarepath}/iwlwifi-sc-a0-*1??.ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-sc-a0-*1??.ucode*
 
+%files -n iwlbluetooth-firmware
+%license LICENSES/LICENCE.ibt_firmware
+%{_firmwarepath}/intel/ibt*
+
 %files -n libertas-firmware
 %license LICENSES/LICENCE.Marvell LICENSES/LICENCE.OLPC
 %dir %{_firmwarepath}/libertas
@@ -730,6 +747,10 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sat Sep 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260910-2
+- Split out Intel Bluetooth into subpackage
+- Fix location of Intel Xe GPU firmware
+
 * Thu Sep 10 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260910-1
 - Update to 20260910
 - cirrus: cs35l56: Update firmware for Cirrus Amps for some HP laptops

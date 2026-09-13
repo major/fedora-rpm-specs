@@ -38,44 +38,38 @@ Source0:        sleef-%{tag}-filtered.tar.zst
 Source1:        get_source.sh
 
 BuildSystem:    cmake
-# -DSLEEFDFT_ENABLE_STREAM: The author writes, “The recommended value for
-#   SLEEFDFT_ENABLE_STREAM depends on the architecture, and it is only
-#   recommended to be turned on on x86_64.”
-#   https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
-%ifarch %{x86_64}
-%global stream_enabled 1
-%endif
+
+BuildOption(conf): -DSLEEF_BUILD_DFT:BOOL=%{with dft}
+BuildOption(conf): -DSLEEF_ENFORCE_DFT:BOOL=%{with dft}
+# The author writes, “The recommended value for SLEEFDFT_ENABLE_STREAM depends
+# on the architecture, and it is only recommended to be turned on on x86_64.”
 #
-# -DSLEEF_BUILD_GNUABI_LIBS: See https://sleef.org/additional.xhtml#gnuabi. The
-#   gnuabi version of the library only applies to these architectures.
+# https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
+%ifarch %{x86_64}
+BuildOption(conf): -DSLEEFDFT_ENABLE_STREAM:BOOL=ON
+%endif
+# See https://sleef.org/additional.xhtml#gnuabi. The gnuabi version of the
+# library only applies to these architectures.
 %global gnuabi_arches %{ix86} %{x86_64} %{arm64}
 %ifarch %{gnuabi_arches}
-%global gnuabi_enabled 1
+BuildOption(conf): -DSLEEF_BUILD_GNUABI_LIBS:BOOL=ON
+%else
+BuildOption(conf): -DSLEEF_BUILD_GNUABI_LIBS:BOOL=OFF
 %endif
-#
-# -DSLEEF_BUILD_INLINE_HEADERS: See https://github.com/shibatch/sleef/pull/283.
-#   This would provide an arch-specific collection of sleefinline_*.h headers
-#   in %%_includedir, as well as a static support library, libsleefinline.a, in
-#   %%_libdir.
-%if %{with static}
-%global inline_enabled 1
-%endif
-#
-# -DENFORCE_TESTER3: The build should fail if we cannot build all tests.
-# -DENFORCE_TESTER4: Likewise, except that tester4 requires tlfloat.
-BuildOption(conf): %{shrink:
-    -DSLEEF_BUILD_DFT:BOOL=%{?with_dft:ON}%{?!with_dft:OFF}
-    -DSLEEF_ENFORCE_DFT:BOOL=%{?with_dft:ON}%{?!with_dft:OFF}
-    -DSLEEFDFT_ENABLE_STREAM:BOOL=%{?stream_enabled:ON}%{?!stream_enabled:OFF}
-    -DSLEEF_BUILD_GNUABI_LIBS:BOOL=%{?gnuabi_enabled:ON}%{?!gnuabi_enabled:OFF}
-    -DSLEEF_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DSLEEF_BUILD_INLINE_HEADERS:BOOL=%{?inline_enabled:ON}%{?!inline_enabled:OFF}
-    -DSLEEF_BUILD_QUAD:BOOL=%{?with_quad:ON}%{?!with_quad:OFF}
-    -DSLEEF_BUILD_SHARED_LIBS:BOOL=ON
-    -DSLEEF_ENFORCE_TESTER3:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    -DSLEEF_ENFORCE_TESTER4:BOOL=%{?with_tlfloat:ON}%{?!with_tlfloat:OFF}
-    -DSLEEF_ENABLE_TLFLOAT:BOOL=%{?with_tlfloat:ON}%{?!with_tlfloat:OFF}
-    }
+BuildOption(conf): -DSLEEF_BUILD_TESTS:BOOL=%{with ctest}
+# See https://github.com/shibatch/sleef/pull/283. This would provide an
+# arch-specific collection of sleefinline_*.h headers in %%_includedir, as well
+# as a static support library, libsleefinline.a, in %%_libdir.
+BuildOption(conf): -DSLEEF_BUILD_INLINE_HEADERS:BOOL=%{with static}
+BuildOption(conf): -DSLEEF_BUILD_QUAD:BOOL=%{with quad}
+BuildOption(conf): -DSLEEF_BUILD_SHARED_LIBS:BOOL=ON
+# The build should fail if we cannot build all tests.
+BuildOption(conf): -DSLEEF_ENFORCE_TESTER3:BOOL=%{with ctest}
+# Likewise, except that tester4 requires tlfloat.
+%global enable_tester4 %[ %{with ctest} && %{with tlfloat} ]
+BuildOption(conf): -DSLEEF_ENFORCE_TESTER4:BOOL=%{enable_tester4}
+BuildOption(conf): -DSLEEF_ENABLE_TLFLOAT:BOOL=%{with tlfloat}
+
 BuildOption(check): --exclude-regex "${skips}" --extra-verbose
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -101,7 +95,7 @@ ExcludeArch:    %{ix86}
 # combination with shared libraries.
 #
 # - We could still build the library with LTO and not test it
-#   (-DSLEEF_BUILD_TESTS:BOOL=FALSE) on aarch64.
+#   (-DSLEEF_BUILD_TESTS:BOOL=OFF) on aarch64.
 # - It’s not clear how we could disable LTO *only for the tests*.
 # - We choose to disable LTO entirely on aarch64, because we really want to run
 #   the tests. We hope that the performance impact is not significant. It
@@ -149,7 +143,7 @@ The sleef-devel package contains libraries and header files for
 developing applications that use sleef.
 
 
-%if 0%{?inline_enabled}
+%if %{with static}
 %package static
 Summary:        Inline headers and static library for sleef
 Requires:       sleef-devel%{?_isa} = %{version}-%{release}
@@ -292,7 +286,7 @@ skips="${skips})$"
 %{_libdir}/cmake/sleef/
 
 
-%if 0%{?inline_enabled}
+%if %{with static}
 %files static
 %{_includedir}/sleefinline_*.h
 %{_libdir}/libsleefinline.a

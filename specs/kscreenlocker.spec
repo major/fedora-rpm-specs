@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -81,11 +81,14 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKScreenLocker.so.*
 %{_kf6_datadir}/knotifications6/*.notifyrc
 %{_libexecdir}/kscreenlocker_greet
-%dir %{_kf6_datadir}/ksmserver/
-%{_kf6_datadir}/ksmserver/screenlocker/
 %{_kf6_datadir}/applications/kcm_screenlocker.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_screenlocker.so
 %{_kf6_datadir}/qlogging-categories6/kscreenlocker.categories
+%{_kf6_qmldir}/org/kde/kscreenlocker/kscreenlocker_greet.qmltypes
+%{_kf6_qmldir}/org/kde/kscreenlocker/qmldir
+%{_libexecdir}/kscreenlocker_worker
+%{_kf6_datadir}/config.kcfg/kscreenlockersettings.kcfg
+
 
 %files devel
 %{_kf6_libdir}/libKScreenLocker.so
@@ -96,6 +99,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

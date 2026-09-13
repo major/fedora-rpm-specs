@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:           grub2-breeze-theme
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary:        Breeze theme for GRUB
 
@@ -64,6 +64,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

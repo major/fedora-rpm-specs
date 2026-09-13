@@ -84,14 +84,11 @@ URL:            https://github.com/MirServer/wlcs
 Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
 
 BuildSystem:    cmake
-# WLCS_FATAL_COMPILE_WARNINGS: makes sense for upstream CI, but too strict for
-#                              downstream packaging
-BuildOption(conf): %{shrink:
-    -DWLCS_BUILD_ASAN=%{?with_asan:ON}%{?!with_asan:OFF}
-    -DWLCS_BUILD_TSAN=%{?with_tsan:ON}%{?!with_tsan:OFF}
-    -DWLCS_BUILD_UBSAN=%{?with_ubsan:ON}%{?!with_ubsan:OFF}
-    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF
-    }
+BuildOption(conf): -DWLCS_BUILD_ASAN=%{with asan}
+BuildOption(conf): -DWLCS_BUILD_TSAN=%{with tsan}
+BuildOption(conf): -DWLCS_BUILD_UBSAN=%{with ubsan}
+# Makes sense for upstream CI, but too strict for downstream packaging
+BuildOption(conf): -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF
 # We have built a test suite for compositors, but we have no tests for the test
 # suite, i.e., %%ctest would find no tests and there is nothing useful we could
 # do in %%check.

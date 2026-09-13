@@ -1,18 +1,16 @@
-%global gitcommit 92115c258d04282e79c63c41de01644fe0b04d3b
-%global gitdate 20260214.094327
-%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
 # kup already exists in the Fedora namespace, so we used a different name
 %global projectname kup
 
 Name:           kup-backup
-Version:        0.10.0^git%{gitdate}.%{shortcommit}
-Release:        2%{?dist}
+Version:        6.7.90
+Release:        1%{?dist}
 Summary:        Backup scheduler for the Plasma desktop
 
 # CC0-1.0 is used but only in a couple upstream-related CI files, which we aren't using.
 License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only
 URL:            https://apps.kde.org/%{projectname}/
-Source0:        https://invent.kde.org/system/%{projectname}/-/archive/%{gitcommit}/%{projectname}-%{gitcommit}.tar.gz
+Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{projectname}-%{version}.tar.xz
+Source1:        http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{projectname}-%{version}.tar.xz.sig
 
 # Base
 BuildRequires:  cmake
@@ -65,11 +63,11 @@ Requires:       qt6qml(QtQuick.Layouts)
 %{summary}.
 
 %prep
-%autosetup -n %{projectname}-%{gitcommit} -p1
+%autosetup -n %{projectname}-%{version} -p1
 
 
 %build
-%cmake_kf6 -DQT_MAJOR_VERSION=6
+%cmake_kf6
 %cmake_build
 
 
@@ -79,8 +77,8 @@ Requires:       qt6qml(QtQuick.Layouts)
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_kup.desktop
-# Error: Stock icon is not valid (Will report upstream)
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kup.appdata.xml ||:
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kup-daemon.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kup.appdata.xml
 
 %files -f %{projectname}.lang
 %doc README.md MAINTAINER
@@ -90,18 +88,20 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ku
 %{_kf6_qtplugindir}/kf6/kfileitemaction/kupfileitemaction.so
 %{_kf6_qtplugindir}/kf6/kio/kio_bup.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kup.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_kup.so
 %{_kf6_datadir}/applications/kcm_kup.desktop
 %{_kf6_datadir}/icons/hicolor/scalable/apps/kup.svg
 %{_kf6_datadir}/knotifications6/kupdaemon.notifyrc
 %{_kf6_metainfodir}/org.kde.kup.appdata.xml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.kupapplet/
-%{_kf6_datadir}/plasma5support/services/kup*.operations
 %{_kf6_datadir}/qlogging-categories6/kup.categories
+%{_kf6_datadir}/applications/kup-daemon.desktop
+%{_kf6_qtplugindir}/plasma/applets/org.kde.kupapplet.so
 
 
 
 %changelog
+* Sat Sep 12 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0^git20260214.094327.92115c2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

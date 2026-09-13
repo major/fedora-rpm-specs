@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    ksshaskpass
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
@@ -24,6 +24,7 @@ BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6Wallet)
 BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  cmake(KF6Config)
 
 %description
 %{summary}.
@@ -61,6 +62,9 @@ EOF
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -203,6 +203,7 @@ Requires:       NetworkManager-iodine
 
 %install
 %cmake_install
+%find_lang plasmanetworkmanagement-kcm-qml
 
 %if ! 0%{?fedora}
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
@@ -241,7 +242,7 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 
-%files -f plasma_applet_org.kde.plasma.networkmanagement.lang -f plasmanetworkmanagement-kded.lang -f plasmanetworkmanagement-libs.lang -f plasmanetworkmanagement-kcm.lang -f kcm_cellular_network.lang -f kcm_mobile_wifi.lang -f kcm_mobile_hotspot.lang -f kcm_mobile_wired.lang
+%files -f plasma_applet_org.kde.plasma.networkmanagement.lang -f plasmanetworkmanagement-kded.lang -f plasmanetworkmanagement-libs.lang -f plasmanetworkmanagement-kcm.lang -f kcm_cellular_network.lang -f kcm_mobile_wifi.lang -f kcm_mobile_hotspot.lang -f kcm_mobile_wired.lang -f plasmanetworkmanagement-kcm-qml.lang
 %{_libdir}/libplasmanm_internal.so
 %{_libdir}/libplasmanm_editor.so
 # plasma-nm applet
@@ -313,6 +314,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

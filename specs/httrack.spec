@@ -1,7 +1,7 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
 
 Name:           httrack
-Version:        3.50.1
+Version:        3.50.2
 Release:        %autorelease
 Summary:        Website copier and offline browser
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -79,7 +79,7 @@ mv %{buildroot}%{_datadir}/%{name}/libtest %{buildroot}%{_pkgdocdir}/libtest
 mv %{buildroot}%{_datadir}/%{name}/templates %{buildroot}%{_pkgdocdir}/templates
 
 # Replace absolute symlink with a relative one to avoid rpmbuild warning
-rm %{buildroot}%{_datadir}/%{name}/html
+rm -rf %{buildroot}%{_datadir}/%{name}/html
 ln -s ../doc/%{name}/html %{buildroot}%{_datadir}/%{name}/html
 
 %check

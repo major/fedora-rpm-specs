@@ -18,9 +18,7 @@ URL:            https://github.com/martinmoene/variant-lite
 Source:         %{url}/archive/v%{version}/variant-lite-%{version}.tar.gz
 
 BuildSystem:    cmake
-BuildOption(conf): %{shrink:
-    -DVARIANT_LITE_OPT_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
-    }
+BuildOption(conf): -DVARIANT_LITE_OPT_BUILD_TESTS:BOOL=%{with ctest}
 
 BuildRequires:  gcc-c++
 

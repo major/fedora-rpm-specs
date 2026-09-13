@@ -8,7 +8,7 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -234,7 +234,9 @@ cat kcm_updates.lang plasma-discover.lang | sort | uniq -u > discover.lang
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.packagekit.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.appstreampreview.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.appstreampreview.desktop
 
 
 %files -f discover.lang
@@ -250,11 +252,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_libexecdir}/discover/
 %endif
 %{_kf6_datadir}/applications/kcm_updates.desktop
+%{_kf6_datadir}/config.kcfg/discover*.kcfg
+%{_kf6_metainfodir}/org.kde.discover.appstreampreview.metainfo.xml
 
 %files notifier -f plasma-discover-notifier.lang
 %{_datadir}/knotifications6/discoverabstractnotifier.notifyrc
 %{_sysconfdir}/xdg/autostart/org.kde.discover.notifier.desktop
 %{_datadir}/applications/org.kde.discover.notifier.desktop
+%{_datadir}/applications/org.kde.discover.appstreampreview.desktop
 %{_libexecdir}/DiscoverNotifier
 
 %files libs -f libdiscover.lang
@@ -268,6 +273,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %if 0%{?fwupd}
 %{_kf6_qtplugindir}/discover/fwupd-backend.so
 %endif
+%{_kf6_qtplugindir}/discover/appstream-preview-backend.so
 %dir %{_datadir}/libdiscover
 %dir %{_datadir}/libdiscover/categories
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_updates.so
@@ -312,6 +318,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

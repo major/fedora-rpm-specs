@@ -2,8 +2,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.7.5
-Release: 2%{?dist}
+Version: 6.7.90
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -149,6 +149,7 @@ BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(KWayland)
 BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(PlasmaActivitiesStats)
+BuildRequires:  cmake(Union)
 
 # workaround for
 #   The imported target "Qt6::XkbCommonSupport" references the file
@@ -488,8 +489,6 @@ fi
 %{_kf6_datadir}/xdg-desktop-portal/kde-portals.conf
 %{_sysconfdir}/xdg/menus/plasma-applications.menu
 %{_kf6_bindir}/gmenudbusmenuproxy
-%{_kf6_bindir}/kcminit
-%{_kf6_bindir}/kcminit_startup
 %{_kf6_bindir}/krunner
 %{_kf6_bindir}/ksmserver
 %{_kf6_bindir}/ksplashqml
@@ -563,7 +562,6 @@ fi
 %endif
 %{_userunitdir}/plasma-workspace.target
 %{_userunitdir}/plasma-workspace-wayland.target
-%{_userunitdir}/plasma-workspace-x11.target
 %dir %{_userunitdir}/plasma-workspace@.target.d/
 %{_libdir}/kconf_update_bin/plasma6.3-update-clipboard-database-2-to-3
 %{_datadir}/kconf_update/plasma6.3-update-clipboard-database-2-to-3.upd
@@ -579,6 +577,9 @@ fi
 %{_kf6_bindir}/startplasma
 %{_kf6_bindir}/startplasma-wayland
 %{_datadir}/wayland-sessions/plasma.desktop
+%{_kf6_libdir}/kconf_update_bin/plasma6.8-replace-ignore-settings
+%{_libexecdir}/plasma-setup-xwayland
+%{_kf6_datadir}/kconf_update/plasma6.8-replace-ignore-settings.upd
 
 %files doc -f %{name}-doc.lang
 
@@ -589,7 +590,6 @@ fi
 %{_libdir}/libbatterycontrol.so.*
 %{_libdir}/libtaskmanager.so.*
 %{_libdir}/libklipper.so.*
-%{_libdir}/libkrdb.so
 %{_libdir}/libnotificationmanager.*
 %{_libdir}/libkfontinst*
 %{_libdir}/libkmpris.so.*
@@ -616,8 +616,6 @@ fi
 %{_kf6_qtplugindir}/plasma/containmentactions/org.kde.switchdesktop.so
 %{_kf6_qtplugindir}/plasma/containmentactions/switchwindow.so
 %{_kf6_qtplugindir}/plasma/containmentactions/switchactivity.so
-%{_kf6_qtplugindir}/plasma/kcminit/kcm_fonts_init.so
-%{_kf6_qtplugindir}/plasma/kcminit/kcm_style_init.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_fontinst.so
 %{_libexecdir}/plasma-sourceenv.sh
 %{_kf6_datadir}/kconf_update/plasma6.0-remove-dpi-settings.upd
@@ -649,10 +647,7 @@ fi
 %{_libdir}/cmake/LibTaskManager/
 %{_libdir}/cmake/LibNotificationManager/
 %{_datadir}/dbus-1/interfaces/*.xml
-%{_includedir}/krdb/krdb.h
-%{_includedir}/krdb/krdb_export.h
 %{_includedir}/klookandfeel/
-%{_libdir}/cmake/Krdb/*.cmake
 %{_libdir}/libklookandfeel.so
 
 %files -n sddm-wayland-plasma
@@ -663,6 +658,9 @@ fi
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-2
 - Rebuild for Qt Update
 

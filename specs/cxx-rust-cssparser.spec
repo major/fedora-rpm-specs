@@ -1,6 +1,6 @@
 Name:           cxx-rust-cssparser
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Library for parsing CSS using the Rust cssparser crate
 
 # Rust Crates Licensing:
@@ -15,13 +15,6 @@ License:        BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND
 
 URL:            https://invent.kde.org/libraries/cxx-rust-cssparser
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
-
-# Hard modify a crate version
-Patch0:         crate-fix.patch
-
-# Fixes the build
-# https://invent.kde.org/libraries/cxx-rust-cssparser/-/merge_requests/18
-Patch1:         testpatch.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -81,6 +74,9 @@ cd ..
 %{_kf6_libdir}/lib%{name}.so
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 1.1.0-1
+- 1.1.0
+
 * Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.0.0-3
 - Rebuild with latest Rust compiler to enable SHSTK support
 

@@ -1,11 +1,35 @@
 Summary:        Wherever Change Directory: chdir for DOS and Unix
 Name:           wcd
-Version:        6.0.5
+Version:        6.0.7
 Release:        %autorelease
 
 License:        GPL-2.0-or-later
-URL:            https://waterlan.home.xs4all.nl/wcd.html
-Source:         https://waterlan.home.xs4all.nl/wcd/wcd-%{version}.tar.gz
+URL:            https://waterlander.net/wcd
+Source0:        %{url}/files/wcd-%{version}.tar.gz
+Source1:        %{url}/files/wcd-%{version}.tar.gz.asc
+# Keyring created on 2026-09-12 with:
+#   workdir="$(mktemp --directory)"
+#   gpg2 --with-fingerprint wcd-6.0.5.tar.gz.asc 2>&1 |
+#     awk '$2 == "using" { print "0x" $NF }' |
+#     xargs gpg2 --homedir="${workdir}" \
+#         --keyserver=hkps://keyserver.ubuntu.com --recv-keys
+#   gpg2 --homedir="${workdir}" --export --export-options export-minimal \
+#       > wcd.gpg
+#   rm -rf "${workdir}"
+# Inspect keys using:
+#   gpg2 --show-keys wcd.gpg
+Source2:        wcd.gpg
+
+# “If the upstream tarball is signed using old keys depending on SHA1 digest or
+# otherwise incompatible with current OpenPGP standard, legacy %%{gpgverify}
+# macro can be used until this is resolved (it has the same API and could be
+# used as a drop-in replacement).”
+#
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_verifying_signatures
+#
+# Please avoid using SHA1 to sign releases
+# https://sourceforge.net/p/wcd/feature-requests/16
+BuildRequires:  gpgverify
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -82,6 +106,7 @@ plain-text documentation files, changelogs, and so on.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 

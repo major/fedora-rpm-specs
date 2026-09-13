@@ -5,7 +5,7 @@
 #%%global snapshotver 20250518git%%{shortcommit}
 
 Name:     gimp-%{pkgname}
-Version:  3.0.0
+Version:  3.0.1
 Release:  %autorelease %{?snapshotver:-p -s %{snapshotver}}
 Summary:  GIMP plug-in for texture synthesis
 License:  GPL-3.0-or-later
@@ -34,7 +34,7 @@ ExcludeArch: s390x
 
 %description
 Modern texture synthesis plugin for GIMP 3 implementing:
-- AI-assisted inpainting and object removal
+- AI-assisted in-painting and object removal
 - Neural texture synthesis
 - Seamless pattern generation
 - Context-aware image manipulation
@@ -52,20 +52,21 @@ Modern texture synthesis plugin for GIMP 3 implementing:
 %install
 %meson_install
 mkdir -p %{buildroot}%{_metainfodir}
-install -Dpm 644 %{name}.metainfo.xml %{buildroot}%{_metainfodir}/
+install -Dpm 644 %{name}.metainfo.xml \
+    %{buildroot}%{_metainfodir}/%{pkgname}.bootchk.com.github.metainfo.xml
 
 %check
 %meson_test
 
 # Post-process desktop file with AppStream metadata
 appstream-util validate-relax --nonet \
-    %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+    %{buildroot}%{_metainfodir}/%{pkgname}.bootchk.com.github.metainfo.xml
 
 %files
 %license COPYING
 %doc ChangeLog README.md
 %{_libdir}/gimp/3.0/plug-ins/
-%{_metainfodir}/%{name}.metainfo.xml
+%{_metainfodir}/%{pkgname}.bootchk.com.github.metainfo.xml
 
 %changelog
 %autochangelog

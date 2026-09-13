@@ -1,5 +1,5 @@
 Name:          pgrouting
-Version:       4.0.1
+Version:       4.0.2
 Release:       %autorelease
 Summary:       Provides routing functionality to PostGIS / PostgreSQL
 License:       GPL-2.0-or-later AND BSL-1.0 AND MIT

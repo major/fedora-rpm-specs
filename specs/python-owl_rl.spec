@@ -1,15 +1,12 @@
 Name:           python-owl_rl
-Version:        7.1.4
+Version:        7.6.2
 Release:        %autorelease
 Summary:        A simple implementation of the OWL2 RL Profile
-
-%global forgeurl https://github.com/RDFLib/OWL-RL
-%global tag %{version}
-%forgemeta
-
 License:        W3C
-URL:            %forgeurl
-Source:         %forgesource
+URL:            https://github.com/RDFLib/OWL-RL
+# tarball on pypi does not have scripts
+# we have to use github tarball
+Source:         https://github.com/RDFLib/OWL-RL/archive/refs/tags/v%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -39,7 +36,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n OWL-RL-%{version}
 
 
 %generate_buildrequires
@@ -66,7 +63,7 @@ install -t %{buildroot}%{_bindir} -D -p -m 0755 \
 
 
 %files -n python3-owl_rl -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 %{_bindir}/owlrl
 %{_bindir}/RDFConvertService
 

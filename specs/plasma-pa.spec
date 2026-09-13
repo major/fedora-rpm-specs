@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-pa
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
@@ -79,8 +79,12 @@ rm -fv %{buildroot}%{_kf6_libdir}/libplasma-volume.so
 %{_kf6_libdir}/libplasma-volume.so.6
 %{_kf6_libdir}/libplasma-volume.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/plasmapa.categories
+%{_kf6_datadir}/config.kcfg/plasmapa.kcfg
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

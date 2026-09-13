@@ -130,7 +130,7 @@ BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(latex)
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 
 # https://fedorahosted.org/fpc/ticket/174
 # Unclear which version of gnulib is currently bundled.
@@ -146,7 +146,8 @@ produce a nicer display of word differences between the original files.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} \
+    --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

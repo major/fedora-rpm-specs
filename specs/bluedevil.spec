@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -98,9 +98,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 %{_kf6_plugindir}/kio/*.so
 %{_kf6_qmldir}/org/kde/plasma/private/bluetooth/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_bluetooth.so
-
+%{_kf6_datadir}/config.kcfg/filereceiver.kcfg
+%{_kf6_datadir}/config.kcfg/bluedevilglobalsettings.kcfg
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

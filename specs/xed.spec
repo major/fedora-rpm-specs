@@ -9,7 +9,7 @@ Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/linuxmint/%{name}
-Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 ExcludeArch:   %{ix86}
 
@@ -66,7 +66,7 @@ BuildArch:	noarch
 This package contains the documentation files for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 # Use 'classic'-theme by default.
 %{__sed} -i -e 's!xed!classic!g' data/org.x.editor.gschema.xml.in
@@ -85,11 +85,6 @@ This package contains the documentation files for %{name}.
 %meson_install
 %{__sed} -i -e '/.*<project_group>.*/d'				\
 	%{buildroot}%{_metainfodir}/org.x.editor.metainfo.xml
-
-%if 0%{?fedora} > 42
-# libpeas is broken
-#rm -rf %{buildroot}%{_libdir}/%{name}/plugins/{bracket-complete,joinlines*,open-uri-context-menu,textsize*}
-%endif
 
 %find_lang %{name} --with-gnome
 
@@ -118,7 +113,7 @@ This package contains the documentation files for %{name}.
 %{_mandir}/man1/%{name}.1*
 
 %files devel
-%{_datadir}/%{name}/gir-1.0
+%{_datadir}/%{name}/gir-1.0/
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 

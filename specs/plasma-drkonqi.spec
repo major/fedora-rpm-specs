@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF6/Plasma6
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -37,6 +37,7 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6IdleTime)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(PolkitQt6-1)
 BuildRequires:  systemd-devel
 BuildRequires:  git-core
@@ -110,11 +111,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.cor
 %{_kf6_datadir}/knotifications6/drkonqi-coredump-launcher.notifyrc
 %{_bindir}/drkonqi-sentry-data
 %{_unitdir}/systemd-coredump@.service.wants/drkonqi-coredump-processor@.service
-%{_userunitdir}/default.target.wants/*
+%{_kf6_datadir}/config.kcfg/drkonqi.kcfg
 %{_userunitdir}/drkonqi-sentry-postman.*
 %{_userunitdir}/plasma-core.target.wants/drkonqi-*
-%{_userunitdir}/sockets.target.wants/drkonqi-coredump-launcher.socket
-%{_userunitdir}/timers.target.wants/drkonqi-*
 %{_libexecdir}/drkonqi-sentry-postman
 %{_kf6_libexecdir}/drkonqi-polkit-helper
 %{_kf6_datadir}/dbus-1/system-services/org.kde.drkonqi.service
@@ -122,6 +121,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.cor
 %{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 

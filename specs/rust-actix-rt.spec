@@ -6,7 +6,7 @@
 %global crate actix-rt
 
 Name:           rust-actix-rt
-Version:        2.12.0
+Version:        2.13.0
 Release:        %autorelease
 Summary:        Tokio-based single-threaded async runtime for the Actix ecosystem
 

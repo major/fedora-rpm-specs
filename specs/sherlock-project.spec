@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/sherlock-project/sherlock
-Version:        0.16.0
+Version:        0.16.2
 %forgemeta
 Name:           sherlock-project
 Release:        %autorelease
@@ -7,8 +7,6 @@ Summary:        Hunt down social media accounts by username across social networ
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
-
-Patch0:         0001-Remove-tor.patch
 
 BuildArch:      noarch
 BuildRequires:  help2man
@@ -22,21 +20,15 @@ websites. New targets are tested and implemented regularly.}
 
 
 %prep
-%forgeautosetup -p1
-sed -i '/torrequest/d' 'pyproject.toml' # Pending upstream removal
+%forgeautosetup -v
 
 %generate_buildrequires
-# Relax requirements on pandas and requests, since Fedora Rawhide has newer versions
-# Also remove torrequest since we patch out tor.
+# Relax requirements on pandas, since Fedora Rawhide has newer versions
 sed -i 's/pandas = "\^2.2.1"/pandas = ">=2.2.1"/' pyproject.toml
 %pyproject_buildrequires -t
 
 
 %build
-# Project now uses Poetry and dynamic versioning, so pyproject version is 0
-# __init__ is currently the single source of truth for version info
-sherlock_version=$(sed -n 's/^__version__ *= *"\([0-9.]*\)"/\1/p' sherlock_project/__init__.py)
-sed -r -i "s/^version *= .*?$/version = \"$sherlock_version\"/" pyproject.toml
 %pyproject_wheel
 
 

@@ -1,7 +1,7 @@
 %global pypi_name pytest-github-actions-annotate-failures
 
 Name:           python-%{pypi_name}
-Version:        0.2.0
+Version:        0.4.2
 Release:        %{autorelease}
 Summary:        Pytest plugin to annotate failed tests in GitHub Actions
 
@@ -14,6 +14,9 @@ Source:         %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
+BuildRequires:  python3-pytest-rerunfailures
+BuildRequires:  python3-pytest-xdist
 
 %global _description %{expand:
 Pytest plugin to annotate failed tests with a workflow command for
@@ -33,10 +36,12 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 

@@ -3,7 +3,7 @@
 %global pkgname conda_package_handling
 
 Name:           python-%{srcname}
-Version:        2.5.0
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Create and extract conda packages of various formats
 

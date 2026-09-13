@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.44
+Version:	4.51
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -47,6 +47,7 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Devel::Peek)
 BuildRequires:	perl(Encode) >= 1.9081
+BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(POSIX)
 BuildRequires:	perl(Test)
@@ -164,6 +165,27 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Sat Sep 12 2026 Paul Howarth <paul@city-fan.org> - 4.51-1
+- Update to 4.51
+  - Add $json->encode_to($fh, $data, [$type]) to stream encoded JSON directly
+    to a filehandle instead of building the whole result in memory (GH#250,
+    GH#58); internally flushes a bounded 8k chunk buffer as it fills, keeping
+    peak memory bounded for large data structures
+  - Encoder performance improvements suggested in GH#237:
+    - Large-integer encoding now uses a 100-digit lookup table instead of
+      snprintf, roughly 2x faster for integers outside the existing branchless
+      small-integer fast path (|value| > 59000)
+    - encode_str now bulk-copies runs of consecutive bytes that need no
+      escaping instead of a need()+store per byte, notably faster for strings
+      with few or no characters to escape
+    - Added eg/bench_large.pl with results
+  - Add faster SIMD UTF-8 validation
+    (GH#213, https://github.com/cyb70289/utf8, MIT)
+  - Fix tests for yath (GH#255): the test files now work with Test2::Harness
+    instead of only Test::Harness, and a yath run is added to 'make xtest' when
+    yath is installed
+  - Skip one t/117_numbers.t test on Perls with 32-bit IVs (GH#254)
+
 * Wed Sep  2 2026 Paul Howarth <paul@city-fan.org> - 4.44-1
 - Update to 4.44
   - Fix canonical sort infinite loop (GH#252): malformed UTF-8 keys (e.g.

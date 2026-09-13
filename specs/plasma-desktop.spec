@@ -5,7 +5,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 6.7.5
+Version: 6.7.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -21,12 +21,6 @@ Source20:       breeze-fedora-0.3.tar.gz
 ## upstream patches
 
 ## downstream patches
-# default kickoff/kicker favorites: +kwrite +konsole
-# Patch100: plasma-desktop-5.90.0-default_favorites.patch
-
-# Hide virtual keyboard indicator on sddm.
-# Do not remove this as it breaks Fedora's QA policy
-Patch101:       hide-virtual-keyboard-indicator-on-sddm.patch
 
 ## upstreamable patches
 
@@ -292,13 +286,13 @@ sed -i -e 's|^logo=.*$|logo=%{_datadir}/pixmaps/fedora_whitelogo.svg|g' %{buildr
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{keyboard,access,clock,splashscreen,landingpage,keys,smserver,desktoppaths,gamecontroller,activities,recentFiles,kded,krunnersettings,plasmasearch,qtquicksettings,touchscreen,workspace,baloofile,solid_actions,mouse,touchpad,tablet}.desktop
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcmspellchecking.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.plasma.emojier.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 %files -f plasmadesktop6.lang
 %license LICENSES
+%{_kf6_datadir}/kglobalaccel/org.kde.screenreader.desktop
 %{_bindir}/kaccess
 %{_bindir}/knetattach
 %{_bindir}/solid-action-desktop-gen
@@ -312,7 +306,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_qtplugindir}/plasma/kcms/desktop/kcm_krunnersettings.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
-%{_kf6_qtplugindir}/plasma/kcminit/kcm_touchpad_init.so
 %{_kf6_plugindir}/kded/*.so
 %{_kf6_plugindir}/krunner/krunner*.so
 %{_kf6_qmldir}/org/kde/plasma/activityswitcher
@@ -320,18 +313,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_qmldir}/org/kde/private/desktopcontainment/*
 %{_kf6_datadir}/plasma/*
 %{_kf6_datadir}/applications/kde-mimeapps.list
-%ifnarch s390 s390x
-# kcminput
-%{_kf6_bindir}/kapplymousetheme
-%{_kf6_bindir}/kcm-touchpad-list-devices
-%endif
 %{_kf6_datadir}/kcmmouse/
-%{_kf6_qtplugindir}/plasma/kcminit/kcm_mouse_init.so
 %{_datadir}/config.kcfg/*.kcfg
 %{_datadir}/kglobalaccel/org.kde.plasma.emojier.desktop
 %{_datadir}/kglobalaccel/org.kde.touchpadshortcuts.desktop
 %{_datadir}/qlogging-categories6/*.categories
-%{_kf6_datadir}/dbus-1/interfaces/org.kde.touchpad.xml
 %{_kf6_datadir}/kcmkeys
 %{_kf6_datadir}/knsrcfiles/
 %{_kf6_datadir}/kcmsolidactions/
@@ -370,6 +356,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
+- 6.7.90
+
 * Tue Sep 08 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-1
 - 6.7.5
 
