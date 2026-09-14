@@ -59,11 +59,7 @@ BuildSystem:    cmake
 BuildOption(conf): -DRYML_CXX_STANDARD=%{cxx_std}
 BuildOption(conf): -DRYML_SYSTEM_C4CORE:BOOL=ON
 BuildOption(conf): -DRYML_BUILD_BENCHMARKS:BOOL=OFF
-%if %{with tests}
-BuildOption(conf): -DRYML_BUILD_TESTS:BOOL=ON
-%else
-BuildOption(conf): -DRYML_BUILD_TESTS:BOOL=OFF
-%endif
+BuildOption(conf): -DRYML_BUILD_TESTS:BOOL=%{with tests}
 BuildOption(conf): -DRYML_FUZZ_DRIVERS:BOOL=OFF
 BuildOption(conf): -DRYML_FUZZ_TEST:BOOL=OFF
 

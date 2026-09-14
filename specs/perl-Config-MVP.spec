@@ -1,8 +1,7 @@
 Name:           perl-Config-MVP
-Version:        2.200013
-Release:        11%{?dist}
+Version:        2.200015
+Release:        1%{?dist}
 Summary:        Multivalue-property package-oriented configuration
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Config-MVP
@@ -20,7 +19,7 @@ BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(MooseX::OneArgNew)
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Params::Util)
+BuildRequires:  perl(Params::SomeUtil)
 BuildRequires:  perl(Role::HasMessage)
 BuildRequires:  perl(Role::Identifiable::HasIdent)
 BuildRequires:  perl(StackTrace::Auto)
@@ -67,6 +66,9 @@ things that do.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Sep 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.200015-1
+- Update to 2.200015
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.200013-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

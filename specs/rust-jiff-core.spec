@@ -5,7 +5,7 @@
 %global crate jiff-core
 
 Name:           rust-jiff-core
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Low level datetime primitives for the Jiff library
 
@@ -61,6 +61,18 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+logging-devel

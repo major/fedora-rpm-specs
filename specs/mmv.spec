@@ -1,12 +1,12 @@
 Name:		mmv
 Version:	2.10
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Move/copy/link multiple files
 
 License:	GPL-3.0-or-later
 URL:		https://github.com/rrthomas/mmv
 Source0:	https://github.com/rrthomas/mmv/releases/download/v%{version}/mmv-%{version}.tar.gz
-BuildRequires:	make gcc gc-devel
+BuildRequires:	make gcc
 
 %description
 This is mmv, a program to move/copy/append/link multiple files
@@ -27,9 +27,6 @@ beginning, or proceeding by avoiding the offending parts.
 
 %install
 %make_install
-ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mcp.1.gz
-ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mln.1.gz
-ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mad.1.gz
 
 %check
 make check
@@ -44,6 +41,10 @@ make check
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Feb 27 2026 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.10-5
+- Remove libgc build requirement, no longer used by mmv
+- Don't manually rebuild manpage symlinks, rpmbuild handles it
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

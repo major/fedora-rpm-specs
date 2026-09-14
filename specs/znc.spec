@@ -12,7 +12,7 @@
 %endif # 0%{?fedora} || 0%{?rhel} >= 7
 
 Name:           znc
-Version:        1.10.2
+Version:        1.10.3
 Release:        1%{?dist}
 Summary:        An advanced IRC bouncer
 
@@ -243,6 +243,10 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Sun Sep 13 2026 Nick Bebout <nb@fedoraproject.org> - 1.10.3-1
+- Update to 1.10.3
+- Fix CVE-2026-82373, CVE-2026-82374, CVE-2020-11022, CVE-2020-11023
+
 * Sun Aug 02 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.10.2-1
 - Update to 1.10.2 + fix build with OpenSSL4+
 - Enable Argon2 and i18n support

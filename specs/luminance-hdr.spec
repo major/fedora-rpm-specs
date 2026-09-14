@@ -139,11 +139,7 @@ Patch:          luminance-hdr-clamp.patch
 
 BuildSystem:    cmake
 BuildOption(conf): -DCMAKE_BUILD_TYPE=RelWithDebInfo
-%if %{with ctest}
-BuildOption(conf): -DENABLE_UNIT_TEST:BOOL=ON
-%else
-BuildOption(conf): -DENABLE_UNIT_TEST:BOOL=OFF
-%endif
+BuildOption(conf): -DENABLE_UNIT_TEST:BOOL=%{with ctest}
 BuildOption(check): --exclude-regex "^Test(${x})\$"
 
 BuildRequires:  gcc-c++

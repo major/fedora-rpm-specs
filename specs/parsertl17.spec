@@ -16,11 +16,7 @@ URL:            https://github.com/BenHanson/parsertl17
 Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
 
 BuildSystem:    cmake
-%if %{with ctest}
-BuildOption(conf): -DBUILD_TESTING:BOOL=OFF
-%else
-BuildOption(conf): -DBUILD_TESTING:BOOL=OFF
-%endif
+BuildOption(conf): -DBUILD_TESTING:BOOL=%{with ctest}
 
 %if %{undefined fc43}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

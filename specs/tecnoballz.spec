@@ -1,6 +1,6 @@
 Name: tecnoballz
-Version: 0.92
-Release: 49%{?dist}
+Version: 0.93.1
+Release: 1%{?dist}
 Summary: A Brick Busting game
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -10,28 +10,12 @@ Source0: http://linux.tlk.fr/games/TecnoballZ/download/%{name}-%{version}.tgz
 Source1: %{name}.xpm
 Source2: %{name}.desktop
 # Andrea Musuruane
-# Fix dependencies
-Patch0: tecnoballz-0.92-dependecies.patch
-# Andrea Musuruane
 # Don't combine explicit and implicit rules for make 3.82
 # Set correct gamedir for Fedora
-Patch1: tecnoballz-0.92-Makefile.patch
-# Debian
-# Fix configure.ac Makefile.am to include missing files
-Patch2: tecnoballz-0.92-level_data.patch
-Patch3: tecnoballz-0.92-texts_dir.patch
-# Debian
-# Use tinyxml system library
-Patch4: tecnoballz-0.92-tinyxml.patch
-# Upstream CVS
-# Compile with gcc 4.3
-Patch5: tecnoballz-0.92-gcc43.patch
+Patch1: tecnoballz-0.93.1-Makefile.patch
 # Hans de Goede
 # Drop setgid privileges when not needed
-Patch6: tecnoballz-0.92-dropsgid.patch
-# Raphael Groner/Upstream GIT
-# Compile with gcc 6
-Patch7: tecnoballz-0.92-gcc6-narrowing.patch
+Patch6: tecnoballz-0.93.1-dropsgid.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -53,16 +37,7 @@ complete this great game. This game was ported from the Commodore Amiga.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-# Patch4 must be called after Patch0
-%patch -P4 -p1
-%patch -P5 -p2
-%patch -P6 -p1
-%patch -P7 -p1
+%autosetup -p1
 
 
 %build
@@ -98,6 +73,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 
 
 %changelog
+* Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.93.1-1
+- Update to v0.93.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

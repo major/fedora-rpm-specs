@@ -19,7 +19,7 @@ URL:            https://github.com/pydantic/pydantic-core
 Source:         %{pypi_source pydantic_core}
 
 # Manually created patch for downstream crate metadata changes
-# * Allow jiter 0.15 and 0.16. API changes from 0.14 to 0.16 are purely
+# * Allow jiter 0.15 through 0.17. API changes from 0.14 to 0.17 are purely
 #   additive, plus switching to PyO3 0.29, which we are also doing here, so
 #   this is compatible. Downstream-only because jiter is developed by the
 #   Pydantic people, and we can reasonably assume that they will update in due
@@ -124,6 +124,9 @@ tomcli-set pyproject.toml list 'tool.pytest.ini_options.markers' \
 
 # Remove Windows-only dependencies
 tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-import-lib'
+
+# Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
+tomcli set pyproject.toml append project.license-files LICENSES.dependencies
 
 %cargo_prep
 

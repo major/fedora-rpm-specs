@@ -213,8 +213,7 @@ popd
   -DENABLE_COLOURED_OUTPUT=OFF \
   -DFETCHCONTENT_BASE_DIR="_deps" \
   -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
-  -DGIT_DESC=v%{version} \
-  -DGIT_COMMIT=v%{version} \
+  -DGIT_TAG=v%{version} \
   -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime:%{_libdir}/xrizer/runtime:/opt/opencomposite:/opt/xrizer \
   -DWIVRN_BUILD_CLIENT=OFF \
   -DWIVRN_BUILD_DASHBOARD=ON \

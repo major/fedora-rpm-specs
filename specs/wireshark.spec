@@ -21,9 +21,9 @@ Source3:	wireshark.sysusers
 
 # Fedora-specific
 Patch2:   wireshark-0002-Customize-permission-denied-error.patch
-# Fedora-specific
+# Proposed upstream - https://gitlab.com/wireshark/wireshark/-/merge_requests/26506
 Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
-# Proposed upstream - https://gitlab.com/wireshark/wireshark/-/merge_requests/26425
+# Merged upstream - https://gitlab.com/wireshark/wireshark/-/merge_requests/26425
 Patch9:   wireshark-0009-remove-strato-manpages.patch
 
 #install tshark together with wireshark GUI

@@ -5,7 +5,7 @@
 %global crate ringbuf
 
 Name:           rust-ringbuf
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Lock-free SPSC FIFO ring buffer with direct access to inner data
 

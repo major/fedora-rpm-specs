@@ -1,7 +1,7 @@
 Name:           snapraid
 Summary:        Disk array backup for many large rarely-changed files
-Version:        14.1
-Release:        2%{?dist}
+Version:        14.9
+Release:        1%{?dist}
 # snapraid itself is GPL-3.0-or-later but uses other source codes, breakdown:
 # Apache-2.0 AND GPL-3.0-or-later: cmdline/metro.c
 # BSD-2-Clause: tommyds/*
@@ -23,7 +23,6 @@ lot of big files that rarely change.
 
 %prep
 %setup -q
-mv raid/COPYING raid/COPYING-raid
 
 %build
 %configure
@@ -36,13 +35,16 @@ make check
 %make_install
 
 %files
-%license COPYING tommyds/LICENSE raid/COPYING-raid
+%license COPYING LICENSES/*
 %doc AUTHORS HISTORY README
 %{_bindir}/snapraid
 %{_mandir}/man1/snapraid*
 %{_mandir}/*/man1/snapraid*
 
 %changelog
+* Wed Aug 26 2026 Jens Kuehnel <JensKuehnel@users.noreply.github.com> - 14.9-1
+- update to 14.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

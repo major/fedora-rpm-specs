@@ -17,7 +17,7 @@
 
 
 Name:           certbot
-Version:        5.7.0
+Version:        5.8.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -386,6 +386,9 @@ fi
 
 
 %changelog
+* Sun Sep 13 2026 Nick Bebout <nb@fedoraproject.org> - 5.8.0-1
+- Update to 5.8.0
+
 * Thu Aug  6 2026 Andreas Haupt <andreas.haupt@desy.de> - 5.7.0-1
 - update to 5.7.0 rhbz#2497869
 - added certbot-python315-deprecation-warning.patch rhbz#2466655

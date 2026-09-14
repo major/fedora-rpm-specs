@@ -1,8 +1,8 @@
 %global pypi_name pytest-datafiles
 
 Name:           python-%{pypi_name}
-Version:        3.0.0
-Release:        6%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        A pytest plugin to create a 'tmpdir' containing predefined content
 
 License:        MIT
@@ -46,12 +46,15 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %pytest -v tests
 
 %files -n python3-%{pypi_name}
 %license LICENSE
-%doc README.rst CHANGELOG.rst
+%doc README.md CHANGELOG.md
 %{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/pytest_datafiles.py
 %{python3_sitelib}/*.dist-info/
 
 %changelog
+* Sun Sep 13 2026 Federico Pellegrin <fede@evolware.org> - 3.0.1-1
+- Bump to 3.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

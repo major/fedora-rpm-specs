@@ -7,7 +7,7 @@
 
 Name:           znc-%{modname}
 Version:        0
-Release:        0.33%{?dist}
+Release:        0.34%{?dist}
 Summary:        ZNC module for client specific buffers
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -39,6 +39,9 @@ install -Dpm0755 %{modname}.so %{buildroot}%{_libdir}/znc/%{modname}.so
 %{_libdir}/znc/%{modname}.so
 
 %changelog
+* Sun Sep 13 2026 Neil Hanlon <neil@shrug.pw> - 0-0.34
+- Rebuilt for znc 1.10.3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

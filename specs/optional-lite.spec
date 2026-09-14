@@ -10,11 +10,7 @@ URL:            https://github.com/martinmoene/optional-lite
 Source:         %{url}/archive/v%{version}/optional-lite-%{version}.tar.gz
 
 BuildSystem:    cmake
-%if %{with ctest}
-BuildOption(conf): -DOPTIONAL_LITE_OPT_BUILD_TESTS:BOOL=ON
-%else
-BuildOption(conf): -DOPTIONAL_LITE_OPT_BUILD_TESTS:BOOL=OFF
-%endif
+BuildOption(conf): -DOPTIONAL_LITE_OPT_BUILD_TESTS:BOOL=%{with ctest}
 
 BuildRequires:  gcc-c++
 

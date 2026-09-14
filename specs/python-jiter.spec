@@ -1,5 +1,5 @@
 Name:           python-jiter
-Version:        0.16.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 
@@ -16,6 +16,10 @@ License:        %{shrink:
     }
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
+# Manually created patch for downstream crate metadata changes
+# * Temporarily allow maturin 1.14:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2522075
+Patch:          jiter-fix-metadata.diff
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jiter
@@ -23,9 +27,10 @@ BuildOption(install): --assert-license jiter
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
 
-# The following are from the “dev” dependency group in the *workspace* pyproject.toml, not
-# included in the PyPI sdist. We omit maturin (since it is already in the
-# build-system.requires) and pytest-pretty (since it is purely cosmetic).
+# The following are from the “dev” dependency group in the *workspace*
+# pyproject.toml, not included in the PyPI sdist. We omit maturin (since it is
+# already in the build-system.requires) and pytest-pretty (since it is purely
+# cosmetic).
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist dirty-equals}
 
@@ -54,6 +59,9 @@ tomcli set Cargo.toml lists delitem workspace.members 'crates/jiter'
 # ensure the versions remain exactly synchronized.
 tomcli set crates/jiter-python/Cargo.toml str dependencies.jiter.version "=%{version}"
 tomcli set crates/jiter-python/Cargo.toml del dependencies.jiter.path
+
+# Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
+tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 %cargo_prep
 

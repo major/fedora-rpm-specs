@@ -1,8 +1,8 @@
 %global pypi_name cmap
-%global forgeurl https://github.com/tlambert03/cmap
+%global forgeurl https://github.com/pyapp-kit/cmap
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
+Version:        0.7.2
 Release:        %{autorelease}
 Summary:        Scientific colormaps for python, without dependencies
 %forgemeta
@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # For hatch-vcs
 BuildRequires:  git-core
+
 
 %global _description %{expand:
 Scientific colormaps for python, with no dependencies beyond numpy.
@@ -41,7 +42,7 @@ git tag v%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test_min
+%pyproject_buildrequires -g test_min
 
 
 %build

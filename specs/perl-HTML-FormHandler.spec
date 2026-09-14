@@ -1,5 +1,5 @@
 Name:           perl-HTML-FormHandler
-Version:        0.410001
+Version:        0.410002
 Release:        1%{?dist}
 Summary:        HTML forms using Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -98,6 +98,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Sep 13 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.410002-1
+- Update to 0.410002 (fixes CVE-2026-85484, CVE-2026-85485 and CVE-2026-85630)
+
 * Sun Sep 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.410001-1
 - Update to 0.410001 (fixes CVE-2022-4993, CVE-2026-19872 and CVE-2022-4993)
 - modernize specfile

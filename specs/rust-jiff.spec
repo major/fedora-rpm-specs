@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.35
+Version:        0.2.37
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -63,9 +63,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-MIT
 %license %{crate_instdir}/UNLICENSE
-%doc %{crate_instdir}/AI_POLICY.md
-%doc %{crate_instdir}/CONTRIBUTING.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -90,6 +87,18 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+logging-devel

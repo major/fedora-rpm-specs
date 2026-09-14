@@ -1,19 +1,18 @@
 Name:           budgie-backgrounds
-Version:        3.0
-Release:        8%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        Default set of background images for the Budgie Desktop
 
 License:        CC0-1.0
 URL:            https://github.com/BuddiesOfBudgie/budgie-backgrounds
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
-Source2:        https://serebit.com/openpgp/git-at-serebit-dot-com.asc
+Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
 
 BuildArch:      noarch
 BuildRequires:  ImageMagick
 BuildRequires:  gcc
 BuildRequires:  gnupg2
-BuildRequires:  jhead
 BuildRequires:  meson
 
 %description
@@ -35,10 +34,13 @@ Default set of background images for the Budgie Desktop.
 %license LICENSE
 %dir %{_datadir}/backgrounds/budgie
 %dir %{_datadir}/gnome-background-properties
-%{_datadir}/backgrounds/budgie/*.jpg
+%{_datadir}/backgrounds/budgie/*.jxl
 %{_datadir}/gnome-background-properties/%{name}.xml
 
 %changelog
+* Sun Sep 13 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 4.1-1
+- Update to 4.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

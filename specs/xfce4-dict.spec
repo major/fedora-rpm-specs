@@ -4,25 +4,24 @@
 %global xfceversion 4.16
 
 Name:           xfce4-dict
-Version:        0.8.9
+Version:        0.8.10
 Release:        %autorelease
 Summary:        A Dictionary Client for the Xfce desktop environment
 Summary(de):    Ein Wörterbuch-Client für die Xfce Desktop-Umgebung
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://goodies.xfce.org/projects/applications/%{name}
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
-#VCS:           git:git://git.xfce.org/apps/xfce4-dict
+URL:            https://docs.xfce.org/apps/xfce4-dict/start
+Source0:        https://archive.xfce.org/src/apps/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  make
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
-BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  desktop-file-utils
+BuildRequires:  make
 BuildRequires:  meson
-Requires:       enchant, xdg-utils
+BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 
+Requires:       enchant
+Requires:       xdg-utils
 
 %description
 Xfce4 Dictionary is a client program to query different dictionaries. It can
@@ -33,7 +32,7 @@ too.
 
 %package        plugin
 Summary:        Xfce panel plugin to query a Dict server
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description    plugin
@@ -42,10 +41,8 @@ query a Dict server (RFC 2229), open online dictionaries in a web browser or
 verify the spelling of a word using enchant. This package contains the plugin
 for the Xfce panel.
 
-
 %prep
-%setup -q
-
+%autosetup
 
 %build
 %meson
@@ -62,22 +59,21 @@ chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 %find_lang %{name}
 
+%check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-
-%ldconfig_scriptlets
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/org.xfce.Dictionary.png
 %{_datadir}/icons/hicolor/scalable/apps/org.xfce.Dictionary.svg
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1*
 
 %files plugin
-%{_libdir}/xfce4/panel/plugins/*.so
+%{_libdir}/xfce4/panel/plugins/libxfce4dict.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 
 %changelog

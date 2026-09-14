@@ -126,6 +126,11 @@ done
 
 
 %check -a
+# If upstream adopts PEP 639 metadata in pyproject.toml and starts listing
+# license files explicitly, LICENSES.dependencies may be dropped from the
+# .dist-info directory. Guard against this.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSES.dependencies)" ]
+
 %if %{with tests}
 # Test failures in test_variants_decompress_into with recent hypothesis
 # versions: https://github.com/milesgranger/cramjam/issues/201

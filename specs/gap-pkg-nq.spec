@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/nq
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.5.11
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Nilpotent Quotients of finitely presented groups
 
@@ -63,7 +63,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %make_build
 
 %files
-%doc CHANGES README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_archdir}/pkg/%{gap_upname}/
 %{gap_archdir}/pkg/%{gap_upname}/*.g

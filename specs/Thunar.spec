@@ -2,12 +2,11 @@
 %global xfceversion 4.20
 
 Name:           Thunar
-Version:        4.20.9
+Version:        4.20.10
 Release:        %autorelease
 Summary:        Thunar File Manager
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://thunar.xfce.org/
 #VCS git:git://git.xfce.org/xfce/thunar
 Source0:        http://archive.xfce.org/src/xfce/thunar/%{xfceversion}/thunar-%{version}.tar.bz2
@@ -19,8 +18,8 @@ Source4:        thunar-sendto-blueman.desktop
 
 Patch:          https://gitlab.xfce.org/xfce/thunar/-/merge_requests/620.patch
 
+BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(exo-2) >= %{xfceversion}
 BuildRequires:  pkgconfig(glib-2.0) >= 2.72.0
 BuildRequires:  pkgconfig(gudev-1.0) >= 145
@@ -30,11 +29,9 @@ BuildRequires:  pkgconfig(libnotify) >= 0.4.0
 BuildRequires:  pkgconfig(libxfce4ui-2) >= %{xfceversion}
 BuildRequires:  pkgconfig(libxfce4panel-2.0) >= %{xfceversion}
 BuildRequires:  libSM-devel
-BuildRequires:  freetype-devel
-BuildRequires:  libpng-devel >= 2:1.2.2-16
 BuildRequires:  libICE-devel
 BuildRequires:  pkgconfig
-BuildRequires:  intltool gettext
+BuildRequires:  gettext
 BuildRequires:  desktop-file-utils >= 0.7
 BuildRequires:  libappstream-glib
 BuildRequires:  gobject-introspection-devel
@@ -66,6 +63,7 @@ libraries and header files for the Thunar file manager.
 %package docs
 Summary: GTK docs for Thunar file manager
 Requires: %{name} = %{version}-%{release}
+BuildArch: noarch
 
 %description docs
 Thunarx GTK documentation files for the Thunar file manager.
@@ -90,9 +88,10 @@ export LD_LIBRARY_PATH="`pwd`/thunarx/.libs"
 %make_install
 
 # fixes wrong library permissions
-chmod 755 %{buildroot}/%{_libdir}/*.so
+chmod 755 %{buildroot}%{_libdir}/*.so
 
 make -C examples distclean
+rm -f examples/Makefile.am examples/tex-open-terminal/Makefile.am
 
 # 2 of the example files need to not be executable 
 # so they don't pull in dependencies. 
@@ -101,19 +100,24 @@ chmod 644 examples/xfce-file-manager.py
 
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
+# Rename non-standard hye locale to hy
+if [ -d %{buildroot}%{_datadir}/locale/hye ]; then
+    mv %{buildroot}%{_datadir}/locale/hye %{buildroot}%{_datadir}/locale/hy
+fi
+
 %find_lang thunar
 
 desktop-file-install --delete-original          \
-        --dir %{buildroot}/%{_datadir}/applications         \
-        %{buildroot}/%{_datadir}/applications/thunar-settings.desktop
+        --dir %{buildroot}%{_datadir}/applications         \
+        %{buildroot}%{_datadir}/applications/thunar-settings.desktop
 
 desktop-file-install --delete-original          \
-        --dir %{buildroot}/%{_datadir}/applications          \
-        %{buildroot}/%{_datadir}/applications/thunar-bulk-rename.desktop
+        --dir %{buildroot}%{_datadir}/applications          \
+        %{buildroot}%{_datadir}/applications/thunar-bulk-rename.desktop
 
 desktop-file-install --delete-original          \
-        --dir %{buildroot}/%{_datadir}/applications         \
-        %{buildroot}/%{_datadir}/applications/thunar.desktop
+        --dir %{buildroot}%{_datadir}/applications         \
+        %{buildroot}%{_datadir}/applications/thunar.desktop
 
 # install additional sendto helpers
 for source in %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} ; do
@@ -122,24 +126,17 @@ for source in %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} ; do
             $source
 done
 
-# appdata
+
+%check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-
-%pre
-for target in %{_defaultdocdir}/Thunar/html/*/images
-do
-       if [ -d $target ]
-       then
-               rm -rf $target
-       fi
-done
 
 %ldconfig_scriptlets
 
 %files -f thunar.lang
-%license COPYING
-%doc ChangeLog NEWS INSTALL AUTHORS HACKING THANKS
+%license COPYING COPYING.LIB
+%doc ChangeLog NEWS AUTHORS HACKING THANKS
 %doc docs/README.gtkrc
 # exclude docs that we have moved to the above
 %exclude %{_datadir}/doc/thunar/README.gtkrc

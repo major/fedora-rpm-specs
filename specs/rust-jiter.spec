@@ -5,7 +5,7 @@
 %global crate jiter
 
 Name:           rust-jiter
-Version:        0.16.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Fast Iterable JSON parser
 
@@ -100,7 +100,14 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * A few tests requires ../json-cases/ from the workspace. We could support
+#   these, using the GitHub archive as an extra source to supply the necessary
+#   test data, but it doesn’t seem worth it for this small handful of tests.
+%{cargo_test -- -- --exact %{shrink:
+    --skip compare_to_serde_json
+    --skip inf_nan_extension
+    --skip similar_cases_agree
+}}
 %endif
 
 %changelog

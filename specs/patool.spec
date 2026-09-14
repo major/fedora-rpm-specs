@@ -1,5 +1,5 @@
 Name:           patool
-Version:        4.0.2
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Portable command line archive file manager
 
@@ -172,7 +172,7 @@ Summary:        %{summary}
 # Upstream switched to setuptools-reproducible, which is not in Fedora.
 # Revert to setuptools / setuptools.build_meta
 tomcli set pyproject.toml arrays replace \
-    build-system.requires 'setuptools-reproducible' 'setuptools'
+    build-system.requires 'setuptools-reproducible>=0.1' 'setuptools'
 tomcli set pyproject.toml replace \
     build-system.build-backend 'setuptools_reproducible' 'setuptools.build_meta'
 

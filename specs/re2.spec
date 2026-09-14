@@ -27,11 +27,7 @@ Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
 BuildSystem:    cmake
 BuildOption(conf): -DRE2_BENCHMARK:BOOL=OFF
 BuildOption(conf): -DRE2_USE_ICU:BOOL=ON
-%if %{with ctest}
-BuildOption(conf): -DRE2_TEST:BOOL=ON
-%else
-BuildOption(conf): -DRE2_TEST:BOOL=OFF
-%endif
+BuildOption(conf): -DRE2_TEST:BOOL=%{with ctest}
 
 BuildRequires:  gcc-c++
 
