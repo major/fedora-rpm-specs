@@ -1,7 +1,7 @@
 %global pypi_name convertdate
 
 Name:           python-%{pypi_name}
-Version:        2.4.1
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Python module to convert date formats and calculating holidays
 

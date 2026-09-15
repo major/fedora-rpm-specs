@@ -1,7 +1,7 @@
 #%%global prever rc1
 
 Name: cyrus-imapd
-Version: 3.12.2
+Version: 3.12.4
 Release: %autorelease %{?prever:-e %prever}
 Summary: A high-performance email, contacts and calendar server
 License: BSD-Attribution-HPND-disclaimer
@@ -169,7 +169,6 @@ BuildRequires: perl(MIME::Base64)
 BuildRequires: perl(Module::Load::Conditional)
 BuildRequires: perl(Net::CalDAVTalk)
 BuildRequires: perl(Net::CardDAVTalk)
-BuildRequires: perl(Net::CardDAVTalk::VCard)
 BuildRequires: perl(Net::DAVTalk)
 BuildRequires: perl(Net::LDAP::Filter)
 BuildRequires: perl(Net::LDAP::FilterMatch)
@@ -207,6 +206,7 @@ BuildRequires: perl(XML::Generator)
 BuildRequires: perl(XML::Simple)
 BuildRequires: perl(XML::Spice)
 # These were reported as missing during the build itself
+BuildRequires: perl(Convert::Base64)
 BuildRequires: perl(DBD::SQLite)
 BuildRequires: perl(Digest::CRC)
 BuildRequires: perl(Moo)
@@ -410,49 +410,22 @@ make notifyd/notifytest
 
 # CASSANDANE_BUILD
 %if %{with cassandane}
-# This module is not available in Fedora:
-yes | cpan -T IO::File::fcntl
+# These modules are not available in Fedora:
+yes | cpan -T IO::File::fcntl Net::CardDAVTalk::VCard
 
 pushd cassandane
 # This is the test suite, which doesn't build much but does verify its dependencies.
 export NOCYRUS=1
 make
 
-export IMAPTEST_COMMIT=44ff753f51d1a767b8d71b04e882847664d9f0c8
+export IMAPTEST_COMMIT=3bde0f4a4398ebc6a7204c894ddf0b29bedf5dcf
 
 # Do not depend on imaptest package (missing on RHEL10)
-wget https://src.fedoraproject.org/lookaside/pkgs/imaptest/imaptest-44ff753f51d1a767b8d71b04e882847664d9f0c8.tar.gz/sha512/35ce05ebb69d393d101d11959513ff4c699bfce47a81291b69e50c861cb81713ed216f0760e5984e72f8ad0cd7406716b9c9a159a2b472955b17e6e3cb9b3093/imaptest-44ff753f51d1a767b8d71b04e882847664d9f0c8.tar.gz
+wget https://src.fedoraproject.org/lookaside/pkgs/imaptest/imaptest-3bde0f4a4398ebc6a7204c894ddf0b29bedf5dcf.tar.gz/sha512/d5d0afd80bf7cefd880ab50f24eeb8692d7ca866259f7e78a7e15c595ec5ae6af0c0d36e6b9cb12557fe21eb8b8602e0529def8a0bcfcc3e83775993dd85440a/imaptest-3bde0f4a4398ebc6a7204c894ddf0b29bedf5dcf.tar.gz
 rm -rf imaptest-src
 mkdir imaptest-src
 tar -xf imaptest-$IMAPTEST_COMMIT.tar.gz  --strip-components=1 -C imaptest-src
 pushd imaptest-src
-cat <<'EOF_so-file.patch' > so-file.patch
-From 39d3dcc8f8ae4e7e751cb0ba633301630e32f54e Mon Sep 17 00:00:00 2001
-From: Aki Tuomi <aki.tuomi@open-xchange.com>
-Date: Tue, 20 May 2025 11:47:24 +0300
-Subject: [PATCH] configure: Use libssl_iostream_openssl.so with installed
- dovecot
-
----
- configure.ac | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/configure.ac b/configure.ac
-index d8c3405..df881b5 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -25,8 +25,8 @@ AS_IF([test "$DOVECOT_INSTALLED" = 'no'], [
- 	LIBDOVECOT=$abs_dovecotdir/src/lib-dovecot/libdovecot.la
- 	LIBDOVECOT_SSL=$abs_dovecotdir/src/lib-ssl-iostream/libssl_iostream_openssl.la
- ], [
--	LIBDOVECOT=$dovecot_pkglibdir/libdovecot.la
--	LIBDOVECOT_SSL=$dovecot_moduledir/libssl_iostream_openssl.la
-+	LIBDOVECOT=$dovecot_pkglibdir/libdovecot.so
-+	LIBDOVECOT_SSL=$dovecot_moduledir/libssl_iostream_openssl.so
- ])
- AC_SUBST([LIBDOVECOT_SSL])
-EOF_so-file.patch
-patch -p1 < so-file.patch
 autoreconf -i
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1103927#c4 (and later)
 sed -e 's@\(^LIBDOVECOT .*\)@\1 -Wl,-rpath -Wl,/usr/lib64/dovecot@' -i src/Makefile.in
@@ -643,7 +616,7 @@ pushd cassandane
 # ---------------------------------------------------------
 exclude=()
 tests=(
-    # This exclusion list was verified on 2025-12-19.
+    # This exclusion list was verified on 2026-09-11.
 
     # This tests coredumping and won't work on a machine where systemd
     # intercepts coredumps, which includes our builders.
@@ -655,11 +628,24 @@ tests=(
     Cyrus::Admin.imap_admins_virtdomains
 
     # TODO currently failing
+    Cyrus::Caldav.attendee_exdate
+    Cyrus::Caldav.delete_recur_extraattendee
     Cyrus::Caldav.freebusy_empty_rrule
+    Cyrus::Caldav.invite_change_organizer
+    Cyrus::Caldav.invite_change_organizer_recur
+    Cyrus::Caldav.multiinvite_add_person_changes
+    Cyrus::Caldav.multiinvite_add_person_only
+    Cyrus::Caldav.multiinvite_remove_person_only
+    Cyrus::Caldav.remove_oneattendee_recurring
+    Cyrus::Caldav.reply
+    Cyrus::Caldav.reply_scheduleaddress
+    Cyrus::Caldav.reply_withothers
+    # Test infrastructure bug: Wide character in warn in perl-Text-JSCalendar/perl-Mail-JMAPTalk
+    Cyrus::JMAPCore.blob_download_name
     Cyrus::ImapTest.urlauth2
-    Cyrus::IMAPLimits.maxargssize_append_flags
     Cyrus::JMAPCalendars.calendarevent_guesstz_ignore_xjmapid
     Cyrus::JMAPCalendars.itip_ignore_invalid_timezone
+    Cyrus::JMAPCalendars.rscale_in_jmap_hidden_in_caldav
     Cyrus::JMAPEmail.email_query_emailaddress
     Cyrus::JMAPEmail.email_query_messageid
     Cyrus::LibCyrus.example_libcyrus
@@ -670,6 +656,18 @@ tests=(
     Cyrus::SearchSquat.nonincremental
     Cyrus::SearchSquat.incremental
     Cyrus::SearchSquat.one_doc_per_message
+    Cyrus::Sieve.imip_cancel_instance
+    Cyrus::Sieve.imip_invite_single_then_master
+    Cyrus::Sieve.imip_override
+    Cyrus::Sieve.imip_reply
+    Cyrus::Sieve.imip_reply_no_organizer
+    Cyrus::Sieve.imip_reply_one_recurrence
+    Cyrus::Sieve.imip_reply_override
+    Cyrus::Sieve.imip_reply_override_google
+    Cyrus::Sieve.imip_reply_override_invalid
+    Cyrus::Sieve.imip_reply_override_rdate
+    Cyrus::Sieve.imip_reply_two_recurrences
+    Cyrus::Sieve.imip_reply_with_alarm
     Cyrus::Simple.sasl_ir
 )
 for i in ${tests[@]}; do exclude+=("!$i"); done

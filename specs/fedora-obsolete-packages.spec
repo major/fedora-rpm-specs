@@ -1242,6 +1242,9 @@ Source0:    README
 %obsolete_ticket https://forge.fedoraproject.org/fesco/tickets/issues/3671
 %obsolete low-memory-monitor 2.1-16
 
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2531812
+%obsolete cloudcompare 2.11.3-26
+
 # Removed packages with broken dependencies on Python 3.14
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2492124
 %obsolete atomic-reactor 4.21.0-9
@@ -1600,6 +1603,14 @@ Source0:    README
 %obsolete xcat 1.0.4-22
 %obsolete zezere 0.5.2-14
 
+# Remove in F48
+# Broken dependency: requires libgnome-desktop-3.so.20 (gnome-desktop3 not in distupgrade repo)
+%obsolete_ticket https://src.fedoraproject.org/rpms/cheese/c/339d2bd6eecc0f825cb91e5d99471e662d2ff390?branch=rawhide
+%obsolete cheese 2:44.1-17
+# Broken dependency: requires libllhttp.so.9.3 (llhttp not in distupgrade repo)
+%obsolete_ticket https://src.fedoraproject.org/rpms/libgit2_1.8/c/5246077f76c50fc872348ec623df885b0fad1b7d?branch=rawhide
+%obsolete libgit2_1.8 1.8.5-2
+%obsolete libgit2_1.8-devel 1.8.5-2
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

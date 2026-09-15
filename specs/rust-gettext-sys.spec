@@ -5,7 +5,7 @@
 %global crate gettext-sys
 
 Name:           rust-gettext-sys
-Version:        0.26.0
+Version:        0.27.0
 Release:        %autorelease
 Summary:        Raw FFI bindings for gettext
 

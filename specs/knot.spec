@@ -101,6 +101,10 @@ Recommends:	%{name}-keymgr
 Provides:	group(knot)
 %endif
 
+# LMDB 1.0 makes incompatible changes to the binary database format. If LMDB
+# is updated in Fedora, we can switch to the embedded version.
+Conflicts: lmdb >= 1.0
+
 %description
 Knot DNS is a high-performance authoritative DNS server implementation.
 
@@ -409,20 +413,16 @@ V=1 make check
 %license COPYING
 %doc NEWS
 %doc README.md
-%{_libdir}/libdnssec.so.*
 %{_libdir}/libknot.so.*
 %{_libdir}/libzscanner.so.*
 
 %files devel
-%{_includedir}/libdnssec
 %{_includedir}/knot
 %{_includedir}/libknot
 %{_includedir}/libzscanner
-%{_libdir}/libdnssec.so
 %{_libdir}/libknot.so
 %{_libdir}/libzscanner.so
 %{_libdir}/pkgconfig/knotd.pc
-%{_libdir}/pkgconfig/libdnssec.pc
 %{_libdir}/pkgconfig/libknot.pc
 %{_libdir}/pkgconfig/libzscanner.pc
 

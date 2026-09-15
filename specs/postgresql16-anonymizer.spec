@@ -3,11 +3,11 @@
 %global shortname       anonymizer
 %global extension       postgresql_%{shortname}
 %global pgversion       16
-%global pgrx_version    0.18.1
+%global pgrx_version    0.19.1
 %global pg_config       %{_bindir}/pg_config
 
 Name:           postgresql%{pgversion}-%{shortname}
-Version:        3.1.3
+Version:        3.2.2
 Release:        %autorelease
 Summary:        Mask or replace personally identifiable information (PII) or sensitive data
 
@@ -63,7 +63,8 @@ Patch:          remove-disallowed-licenses.patch
 # drop i686 support (https://fedoraproject.org/wiki/Changes/Noi686Repositories)
 # pgrx-sql-entity-graph 0.18.1 doesn't work on big endian arches, issue submitted
 # at https://github.com/pgcentralfoundation/pgrx/issues/2332
-ExcludeArch:    %{ix86} s390x
+# as of 3.2.2, it stopped compiling on ppc due to pgrx internals, seemingly
+ExcludeArch:    %{ix86} s390x ppc64le
 
 %if %?postgresql_default
 %global pkgname %{extension}
@@ -117,11 +118,7 @@ and specify your anonymization policy inside the table definition itself.
 %prep
 %autosetup -a1 -p1 -n %{extension}-%{version}
 %{cargo_prep -v vendor}
-# Upstream release uses 0.18.0 which depends on an old version of the openssl crate
-# that's incompatible with openssl 4.0, so we need to update it.
-sed -i 's/0\.18\.0/0\.18\.1/g' Cargo.toml
 echo "[patch.crates-io]
-dunce = { path = 'vendor/dunce-1.0.5' }
 constant_time_eq = { path = 'vendor/constant_time_eq-0.4.2' }
 imgref = { path = 'vendor/imgref-1.12.2' }
 ppmd-rust = { path = 'vendor/ppmd-rust-1.4.0' }

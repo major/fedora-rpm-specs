@@ -64,16 +64,17 @@ Summary:        %{summary}
 %prep -a
 %cargo_prep
 
-%build -a
+%build -p
 %{cargo_license_summary}
+# Do this before %%pyproject_wheel so it’s included in .dist-info metadata.
 %{cargo_license} > LICENSE.dependencies
 
-%check
-%pyproject_check_import
+%check -a
+# If upstream starts listing license files explicitly, LICENSE.dependencies may
+# be dropped from the .dist-info directory. Guard against this.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
 
 %files -n python3-fastuuid -f %{pyproject_files}
-%license LICENSE
-%license LICENSE.dependencies
 %doc README.rst
 
 %changelog

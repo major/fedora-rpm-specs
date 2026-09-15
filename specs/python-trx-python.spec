@@ -1,5 +1,9 @@
+# The “utils” extra enables more functionality, but at least python3dist(dipy)
+# and python3dist(fury) are not currently packaged.
+%bcond utils_extra 0
+
 Name:           python-trx-python
-Version:        0.4.0
+Version:        0.5.0
 Release:        %{autorelease}
 Summary:        Community-oriented file format for tractography
 
@@ -24,50 +28,47 @@ Source4:        %{test_data_base_url}/gold_standard.zip
 
 BuildArch:      noarch
 
-# This would enable more tests, but it was orphaned and retired.
-# BuildRequires:  %%{py3_dist dipy}
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras=test
+%if %{with utils_extra}
+BuildOption(generate_buildrequires): --extras=utils
+%endif
+BuildOption(install): --assert-license trx
 
-%global _description %{expand:
-This is a Python implementation of the trx file-format for tractography
-data.
+%global common_description %{expand:
+This is a Python implementation of the trx file-format for tractography data.
 
 For details, please visit the documentation web-page at
 https://tee-ar-ex.github.io/trx-python/.}
 
-%description %_description
+%description %{common_description}
 
 
 %package -n python3-trx-python
 Summary:        %{summary}
 
-%description -n python3-trx-python %_description
+%description -n python3-trx-python %{common_description}
 
 
-%prep
-%autosetup -C -p1
+%if %{with utils_extra}
+%pyproject_extras_subpkg -n python3-trx-python utils
+%endif
 
+
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 %pyproject_patch_dependency pytest-cov:ignore
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires --extras test
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files --assert-license trx
-
-
-%check
-%pyproject_check_import
-
+%check -a
 export TRX_HOME="${PWD}/_home"
 mkdir --parents "${TRX_HOME}"
 ln '%{SOURCE1}' '%{SOURCE2}' '%{SOURCE3}' '%{SOURCE4}' "${TRX_HOME}"
@@ -76,6 +77,7 @@ ln '%{SOURCE1}' '%{SOURCE2}' '%{SOURCE3}' '%{SOURCE4}' "${TRX_HOME}"
 
 %files -n python3-trx-python -f %{pyproject_files}
 %doc README.md
+
 %{_bindir}/trx
 %{_bindir}/trx_concatenate_tractograms
 %{_bindir}/trx_convert_dsi_studio

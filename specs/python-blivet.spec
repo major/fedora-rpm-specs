@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storaged.org/blivet
-Version: 3.14.1
+Version: 3.14.2
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,8 +16,6 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
-
-Patch1: 0002-Fix-extra-mount-options-for-Stratis-filesystems-in-fstab.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -135,6 +133,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Mon Sep 14 2026 Packit <hello@packit.dev> - 1:3.14.2-1
+- Update to version 3.14.2
+
 * Mon Aug 10 2026 Vojtech Trefny <vtrefny@redhat.com> - 1:3.14.1-2
 - Fix extra mount options for Stratis filesystems in fstab
 

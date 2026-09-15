@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
-Version: 3.7
-Release: 4%{?dist}
+Version: 3.7.13
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -9,10 +9,6 @@ Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: pubkey.phillip.susi
 Source3: pubkey.brian.lane
-
-Patch0001: 0001-bug-80795-PATCH-build-mark-functions-with-const-attr.patch
-Patch0004: 0004-Cleanup-zero-as-null-pointer-constant-warnings.patch
-Patch0005: 0005-Adding-support-for-ExFAT-filesystem.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -118,6 +114,18 @@ make check
 
 
 %changelog
+* Mon Sep 14 2026 Brian C. Lane <bcl@redhat.com> - 3.7.13-1
+- Removed included patches
+- version 3.7.13 (bcl)
+- maint: Update to latest gnulib and bootstrap script (bcl)
+- parted: Fix partition number allocation in do_print (bcl)
+- fdasd: Make sure data set name is positive (bcl)
+- resize: Make sure hfsc_new_cachetable cannot overflow on 32bit (bcl)
+- resize: Make sure 32bit build cannot overflow frag_count (bcl)
+- libparted: Catch FAT metadata triggered errors (bcl)
+  Resolves: CVE-2026-89085
+  Resolves: CVE-2026-89088
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

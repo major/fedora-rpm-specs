@@ -22,6 +22,11 @@ BuildRequires:  mpfr-devel
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
+# tools/install_python_metadata.py needs tomllib, which is stdlib only in
+# Python 3.11+; EL9 (Python 3.9) falls back to the tomli backport
+%if 0%{?rhel} && 0%{?rhel} < 10
+BuildRequires:  python3-tomli
+%endif
 %if %{quad}
 BuildRequires:  libquadmath-devel
 %endif
@@ -47,6 +52,7 @@ Python 3.}
 %package devel
 Summary:        Development files for libwignernj
 Requires:       libwignernj%{?_isa} = %{version}-%{release}
+Requires:       libwignernj-fortran%{?_isa} = %{version}-%{release}
 Requires:       mpfr-devel%{?_isa}
 %if %{quad}
 Requires:       libquadmath-devel%{?_isa}
@@ -120,7 +126,7 @@ quadmath="-DWIGNERNJ_BUILD_QUADMATH:BOOL=ON"
 %check
 %ctest
 # Run the more comprehensive Python test suite, pointing pytest at the
-# Python module and shared library that %install just placed in the
+# Python module and shared library that %%install just placed in the
 # buildroot (the system locations are not yet populated).
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}

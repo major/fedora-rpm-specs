@@ -5,7 +5,7 @@
 %global crate gettext-rs
 
 Name:           rust-gettext-rs
-Version:        0.7.7
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Safe bindings for gettext
 

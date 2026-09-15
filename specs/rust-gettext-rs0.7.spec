@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate gufo-tiff
+%global crate gettext-rs
 
-Name:           rust-gufo-tiff
-Version:        0.5.0
+Name:           rust-gettext-rs0.7
+Version:        0.7.7
 Release:        %autorelease
-Summary:        Data structure for TIFF images
+Summary:        Safe bindings for gettext
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/gufo-tiff
+License:        MIT
+URL:            https://crates.io/crates/gettext-rs
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax gettext-sys dependency range to include v0.27
+Patch:          gettext-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Data structure for TIFF images.}
+Safe bindings for gettext.}
 
 %description %{_description}
 
@@ -30,9 +33,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -45,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gettext-system-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gettext-system-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gettext-system" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gettext-system-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -4,16 +4,15 @@
 %global debug_package %{nil}
 
 %global crate gufo-exif
-%global crate_version 0.5.0-beta.1
 
 Name:           rust-gufo-exif
-Version:        0.5.0~beta.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Read and manipulate Exif metadata
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-exif
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -75,7 +74,7 @@ use the "tracing" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

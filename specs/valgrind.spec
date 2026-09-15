@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.27.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -84,6 +84,10 @@ Patch3: valgrind-3.26.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.26.0-some-Wl-z-now.patch
+
+# VALGRIND_3_27_BRANCH patches
+Patch5: 0001-Prepare-NEWS-for-branch-3.27.x-fixes.patch
+Patch6: 0002-Valgrind-s-vgdb-extended-remote-mode-broken-on-aarch.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -263,6 +267,9 @@ Valgrind User Manual for details.
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
+
+%patch -P5 -p1
+%patch -P6 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -503,6 +510,11 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Sep 14 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.27.1-3
+- Add VALGRIND_3_27_BRANCH patches
+  - 0001-Prepare-NEWS-for-branch-3.27.x-fixes.patch
+  - 0002-Valgrind-s-vgdb-extended-remote-mode-broken-on-aarch.patch
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.27.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond patchelf %[ %{undefined rhel} || %{defined epel} ]
 
 Name:           maturin
-Version:        1.14.1
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0
@@ -95,10 +95,6 @@ Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch
 
 # * revert to building maturin with setuptools instead of bootstrapping maturin
 Patch:          0003-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
-
-# Don’t specify generate-import-lib for PyO3 0.29
-# https://github.com/PyO3/maturin/pull/3258
-Patch:          %{url}/pull/3258.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with patchelf}
@@ -228,6 +224,7 @@ skip="${skip-} --skip=integration::integration_pyo3_bin"
 skip="${skip-} --skip=integration::pyo3_cffi_build_script"
 skip="${skip-} --skip=pep517::pep517_default_profile"
 skip="${skip-} --skip=pep517::pep517_editable_profile"
+skip="${skip-} --skip=pgo::pgo_pyo3_mixed"
 
 # This relies on a hard-coded PyO3 version number, which needs to match the one
 # in test-crates/pyo3-pure/Cargo.lock. This is correct upstream as long as the

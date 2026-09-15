@@ -1,9 +1,7 @@
-%global _hardened_build 1
-
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 6.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.gz
@@ -13,16 +11,21 @@ Source1: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.ta
 Source2: hpa.gpg
 Source3: tftp.socket
 Source4: tftp.service
-Source5: tftp-server-tmpfiles.conf
+Source5: tftp-server-sysusers.conf
+Source6: tftp-server-tmpfiles.conf
 
-# To-be upstreamed patches
+# Upstreamed patches
+# https://github.com/hpax/tftp-hpa/commit/ab93a245747ada8948f4594de54a4b2b30c4b462
 Patch: tftp-enhanced-logging.patch
+# https://github.com/hpax/tftp-hpa/commit/43a86cbcbfd38e992d6f5d5009eea60f436711e4
 Patch: tftp-hpa-5.2-osh.patch
+# https://github.com/hpax/tftp-hpa/commit/85b246c2bb3887ec19367841b342312f89090aaf
 Patch: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
 
 # Downstream-only patches
-Patch: tftp-0.42-tftpboot.patch
+Patch: tftp-fedora-tftpboot.patch
 
+BuildRequires: bc
 BuildRequires: gcc
 BuildRequires: gpgverify
 BuildRequires: make
@@ -65,7 +68,14 @@ gzip -cd '%{SOURCE0}' > 'tftp-hpa-%{version}.tar'
 mkdir -p %{buildroot}%{_localstatedir}/lib/tftpboot
 install -D -p -m 644 %SOURCE3 %{buildroot}%{_unitdir}/%{name}.socket
 install -D -p -m 644 %SOURCE4 %{buildroot}%{_unitdir}/%{name}.service
-install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -D -p -m 644 %SOURCE5 %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -p -m 644 %SOURCE6 %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
+mkdir -p %{buildroot}%{_sysconfdir}/tftp
+echo '# See tftpd(8) for the definition of remap rules' > %{buildroot}%{_sysconfdir}/%{name}/map-file
+
+%check
+tests/test-tftp.sh
 
 %post server
 %systemd_post tftp.socket
@@ -85,14 +95,28 @@ install -D -p -m 644 %SOURCE5 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %files server
 %doc README README.security CHANGES
 %dir %{_localstatedir}/lib/tftpboot
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/map-file
 %{_sbindir}/in.tftpd
 %{_mandir}/man8/in.tftpd.8*
 %{_mandir}/man8/tftpd.8*
+%{_sysusersdir}/%{name}.conf
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.service
 %{_unitdir}/tftp.socket
 
 %changelog
+* Fri Sep 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.1-3
+- sync patches with upstream
+- execute testsuite in %%check
+
+* Fri Sep 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.1-2
+- tftp systemd service improvements
+  - use the same verbosity level as older releases (-v is now necessary)
+  - execute transfers under tftpd user instead of nobody
+  - include a default map-file
+  - increase the default blocksize (1468) and windowsize (64)
+
 * Mon Sep 07 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.1-1
 - rebase to the latest upstream release (rhbz#2529277)
 - use the native support for systemd socket activation in tftpd

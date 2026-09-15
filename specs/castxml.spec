@@ -2,12 +2,13 @@
 
 Name:		castxml
 Version:	0.7.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:		0001-Port-to-LLVM-Clang-Git-main-as-of-2026-10-10-6f47b6d.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -29,6 +30,7 @@ may support alternative output formats.
 
 %prep
 %setup -q -n CastXML-%{version}
+%patch -P0 -p1
 
 %build
 %cmake -DCastXML_INSTALL_DOC_DIR:STRING=share/doc/%{name} \
@@ -60,6 +62,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.7.0-4
+- Apply upstream patch to supporm llvm 23
+
 * Mon Aug 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.7.0-3
 - Rebuild for llvm/clang 21 (EPEL 8/9)
 - Rebuild for llvm/clang 22 (fedora 44)

@@ -1,5 +1,5 @@
 Name:           osmpbf
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        C library to read and write OpenStreetMap PBF files
 

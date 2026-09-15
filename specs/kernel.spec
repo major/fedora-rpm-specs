@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc2.260911g08df884136f1.29
+%define pkgrelease 0.rc3.260914g704340f1cd0d.32
 %define kversion 7
-%define tarfile_release 7.3-rc2-352-g08df884136f1
+%define tarfile_release 7.3-rc3-9-g704340f1cd0d
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260911g08df884136f1.29%{?buildid}%{?dist}
+%define specrelease 0.rc3.260914g704340f1cd0d.32%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4855,10 +4855,23 @@ fi\
 #
 #
 %changelog
-* Fri Sep 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.08df884136f1.29]
+* Mon Sep 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.704340f1cd0d.32]
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Sep 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.704340f1cd0d.31]
+- redhat/configs: automotive: disable CONFIG_CRYPTO_DEV_TEGRA (Erico Nunes)
+- redhat/configs: automotive: disable CONFIG_CRYPTO_DEV_VIRTIO (Erico Nunes)
+- Linux v7.3.0-0.rc3.704340f1cd0d
+
+* Sun Sep 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.2f0c1cf72f46.30]
+- Linux v7.3.0-0.rc2.2f0c1cf72f46
+
+* Sat Sep 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.5225b8eec4c9.29]
+- Switch to NTFS_FS module for Fedora (Justin M. Forbes)
+- redhat: configs: fedora: Enable Sony IMX471 image sensor (Kate Hsuan)
+- Linux v7.3.0-0.rc2.5225b8eec4c9
 
 * Fri Sep 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.08df884136f1.28]
 - gitlab-ci: remove default gitlab config file (Scott Weaver)

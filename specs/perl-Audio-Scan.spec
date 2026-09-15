@@ -15,6 +15,7 @@ Provides:       bundled(libmpcdec)
 BuildRequires:  /usr/bin/chmod
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(FindBin)

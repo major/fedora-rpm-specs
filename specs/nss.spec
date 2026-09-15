@@ -1,5 +1,5 @@
 %global nspr_version 4.39.0
-%global nss_version 3.127.0
+%global nss_version 3.129.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+5]
+%global nspr_release %[%baserelease+6]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -111,7 +111,6 @@ Source23:         cert8.db.xml
 Source25:         key3.db.xml
 Source27:         secmod.db.xml
 %endif
-Source30:         nss-3.118-ml-dsa-test-for-sign-verify-pkcs12_files.tar.xz
 
 Source101:        nspr-config.xml
 
@@ -127,23 +126,12 @@ Source101:        nspr-config.xml
 # Once the buildroot has been bootstrapped the patch may be removed
 # but it doesn't hurt to keep it.
 Patch4:           iquote.patch
-Patch12:          nss-signtool-format.patch
 Patch13:          nss-dso-ldflags.patch
 # fedora disabled dbm by default
 Patch40:          nss-no-dbm-man-page.patch
 
 # https://issues.redhat.com/browse/FC-1613
 Patch50:          nss-3.110-dissable_test-ssl_policy_pkix_oscp.patch
-
-# ML-DSA support patches that haven't made it to the 3.118.1 release
-Patch60:          nss-3.118-ml-dsa-leancrypto.patch
-Patch61:          nss-3.118-ml-dsa-tls.patch
-#Patch62:          nss-3.118-prefer-all-hybrid.patch
-
-Patch65:          nss-3.118-ml-dsa-test-for-sign-verify-pkcs12.patch
-Patch66:          nss-3.118-ml-dsa-tls-test.patch
-Patch67:          nss-3.118-ml-dsa-unittests.patch
-Patch68:          nss-3.123-fix-mldsa-import-regeneration.patch
 
 # Reseed the freebl DRBG in the child after fork(), so forked children do not
 # replay the parent's random stream (mozbz#2056509)
@@ -321,9 +309,6 @@ popd
 pushd nss
 %autopatch -p1 -M 99
 popd
-
-tar -xf %{SOURCE30}
-cp -r nss-3.118-ml-dsa-test-for-sign-verify-pkcs12_files/* nss/tests/tools/
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1247353
 find nss/lib/libpkix -perm /u+x -type f -exec chmod -x {} \;
@@ -1103,6 +1088,9 @@ fi
 
 
 %changelog
+* Thu Sep 10 2026 Krenželok František <fkrenzel@redhat.com> - 3.129.0-1
+- Update NSS to 3.129.0
+
 * Tue Aug 18 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.127.0-1
 - Update NSS to 3.127.0
 

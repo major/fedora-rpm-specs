@@ -21,6 +21,9 @@ Patch:          0001-fix-avoid-dependency-cycle-on-Fedora.patch
 # https://github.com/canonical/cloud-init/pull/6922
 # feat: add ELN support to distros
 Patch:          0002-feat-add-ELN-support-to-distros.patch
+# https://github.com/canonical/cloud-init/pull/7082.patch
+# Fixes reformatting disks with util-linux 2.42.
+Patch:          7082.patch
 
 BuildArch:      noarch
 

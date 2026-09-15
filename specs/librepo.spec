@@ -30,18 +30,13 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.21.0
-Release:        3%{?dist}
+Version:        1.21.1
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librepo
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/rpm-software-management/librepo/issues/384
-# https://github.com/rpm-software-management/librepo/pull/385
-# Fix file corruption when re-downloading a completed file with resume
-# This was heavily affecting Fedora CI and some other CI workflows
-Patch:          385.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -145,6 +140,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Mon Sep 14 2026 Packit <hello@packit.dev> - 1.21.1-1
+- Update to version 1.21.1
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.21.0-3
 - Rebuilt for libxml-2.5.4
 

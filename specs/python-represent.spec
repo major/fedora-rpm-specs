@@ -2,8 +2,8 @@
 %global sum Create __repr__ automatically or declaratively
 
 Name:           python-%{srcname}
-Version:        2.1.0
-Release:        11%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
@@ -29,7 +29,7 @@ Python3 package which creates __repr__ automatically or declaratively.
 %setup -q -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -g test
 
 %build
 %pyproject_wheel
@@ -50,6 +50,9 @@ Python3 package which creates __repr__ automatically or declaratively.
 
 
 %changelog
+* Mon Sep 14 2026 Federico Pellegrin <fede@evolware.org> - 2.2.0-1
+- Bump to 2.2.0 (rhbz#2502755)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

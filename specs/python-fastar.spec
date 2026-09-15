@@ -59,6 +59,10 @@ License:        %{shrink:
 
 
 %check -a
+# If upstream starts listing license files explicitly, LICENSE.dependencies may
+# be dropped from the .dist-info directory. Guard against this.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
+
 # These tests assume there are no open file descriptors inherited from the
 # environment, which is not a good assumption. They fail because the process
 # has /usr/lib/sysimage/rpm/.rpm.lock open.

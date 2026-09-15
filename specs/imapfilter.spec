@@ -1,5 +1,5 @@
 Name:           imapfilter
-Version:        2.8.3
+Version:        2.8.5
 Release:        %autorelease
 Summary:        A flexible client side mail filtering utility for IMAP servers
 
@@ -12,6 +12,8 @@ URL:            %forgeurl
 Source:         %forgesource
 # Fix paths for MANDIR, SSLCAFILE and keep existing CFLAGS
 Patch0:         imapfilter-makefile-fix.patch
+# Fix build with OpenSSL4+ (opaque ASN1_INTEGER structures)
+Patch1:         imapfilter-openssl4.patch
 
 BuildRequires:  gcc, make
 BuildRequires:  openssl-devel
@@ -34,12 +36,12 @@ protocol are supported.
 
 %build
 # imapfilter does not have any autotools based ./configure - just a plain Makefile
-CFLAGS=$RPM_OPT_FLAGS make PREFIX=%{_prefix} %{?_smp_mflags}
+%set_build_flags
+%make_build PREFIX=%{_prefix}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT
+%make_install PREFIX=%{_prefix}
 
 
 %files

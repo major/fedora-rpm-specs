@@ -3,8 +3,8 @@
 %global rpcbind_state_dir %{_rundir}/rpcbind
 
 Name:           rpcbind
-Version:        1.2.9
-Release:        3%{?dist}
+Version:        1.3.1
+Release:        0%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            https://sourceforge.net/projects/rpcbind
@@ -22,8 +22,6 @@ Requires(pre): coreutils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd coreutils
-
-Patch001: rpcbind-0.2.9-mem-leak-main.patch
 
 Patch100: rpcbind-0.2.3-systemd-tmpfiles.patch
 Patch101: rpcbind-0.2.4-systemd-rundir.patch
@@ -120,6 +118,9 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Mon Sep 14 2026 Steve Dickson <steved@redhat.com> 1.3.1-0
+- Updated to latest upstream release: rpcbind-1_3_1 
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

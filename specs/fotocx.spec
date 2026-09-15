@@ -1,5 +1,5 @@
 Name:    fotocx
-Version: 26.7
+Version: 26.8
 Release: 1%{?dist}
 Summary: Photo editor
 
@@ -20,10 +20,10 @@ BuildRequires: libappstream-glib
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libtiff-devel
 BuildRequires: lcms2-devel
-BuildRequires: libchamplain-devel
 BuildRequires: clutter-gtk-devel
 BuildRequires: make
 BuildRequires: libjxl-devel
+BuildRequires: webkit2gtk4.1-devel
 
 # Presence checked at build time
 Requires: perl-Image-ExifTool
@@ -40,10 +40,6 @@ Recommends: libwebp-tools
 Recommends: openjpeg2-tools
 Recommends: rawtherapee
 Recommends: vlc-cli vlc-plugins-video-out
-
-# Drop after Fedora 43
-Provides: fotoxx = %{version}-%{release}
-Obsoletes: fotoxx < 23.82-5
 
 %description
 Fotocx is a free open source Linux program for editing image files
@@ -95,6 +91,10 @@ rm -f %{buildroot}%{_datadir}/icons/fotocx.png
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Sun Sep 06 2026 Packit <hello@packit.dev> - 26.8-1
+- Update to version 26.8
+- Resolves: rhbz#2496965
+
 * Fri Jul 31 2026 Packit <hello@packit.dev> - 26.7-1
 - Update to version 26.7
 - Resolves: rhbz#2496965

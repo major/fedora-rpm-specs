@@ -1,6 +1,6 @@
 Name:           perl-Pod-Weaver
-Version:        4.020
-Release:        6%{?dist}
+Version:        4.021
+Release:        1%{?dist}
 Summary:        Weave together a POD document from an outline
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Weaver
@@ -34,7 +34,7 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(namespace::autoclean)
-BuildRequires:  perl(Params::Util)
+BuildRequires:  perl(Params::SomeUtil)
 BuildRequires:  perl(Pod::Elemental) >= 0.100220
 BuildRequires:  perl(Pod::Elemental::Document)
 BuildRequires:  perl(Pod::Elemental::Element::Nested)
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 10 2026 Petr Pisar <ppisar@redhat.com> - 4.021-1
+- 4.021 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.020-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

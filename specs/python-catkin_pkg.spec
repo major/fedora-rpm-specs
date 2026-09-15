@@ -1,8 +1,8 @@
 %global srcname catkin_pkg
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        5%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Library for retrieving information about catkin packages
 
 License:        BSD-3-Clause
@@ -31,7 +31,6 @@ Requires:       python%{python3_pkgversion}-dateutil
 Requires:       python%{python3_pkgversion}-docutils
 Requires:       python%{python3_pkgversion}-packaging
 Requires:       python%{python3_pkgversion}-pyparsing
-Requires:       python%{python3_pkgversion}-setuptools
 %endif
 
 %if !0%{?rhel} || 0%{?rhel} >= 8
@@ -105,6 +104,9 @@ popd
 
 
 %changelog
+* Mon Sep 14 2026 Scott K Logan <logans@cottsay.net> - 1.1.1-1
+- Update to 1.1.1 (rhbz#2531132)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

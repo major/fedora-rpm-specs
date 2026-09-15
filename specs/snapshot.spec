@@ -1,9 +1,9 @@
-%bcond_without check
+%bcond check 1
 
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           snapshot
-Version:        51~beta
+Version:        51.0
 Release:        %autorelease
 Summary:        Take pictures and videos
 

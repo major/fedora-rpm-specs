@@ -7,7 +7,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           pygsl
-Version:        2.6.5
+Version:        2.6.6
 Release:        %autorelease
 Summary:        %{sum}
 
@@ -21,13 +21,14 @@ Patch:          %{name}-flexiblas.patch
 # Fix the multinomial rng test
 # See https://github.com/pygsl/pygsl/pull/58
 Patch:          %{name}-rng-test.patch
-# Fix FTBFS due to incompatible pointer types
-Patch:          %{name}-incompatible-pointer.patch
 # Fix warnings due to printf format mismatches
 Patch:          %{name}-format-mismatch.patch
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch:          %{name}-swig45.patch
+# Fix autodoc failure due to deleting a nonexistent variable
+Patch:          %{name}-del.patch
+# Fix autodoc errors on the API page
+Patch:          %{name}-api.patch
+# Fix some swig errors
+Patch:          %{url}/pull/105.patch
 
 # Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -77,6 +78,9 @@ Reference manual for pygsl.
 
 %prep
 %autosetup -p1
+
+# Fix version number for the 2.6.6 release
+sed -i 's/2\.6\.6rc1/2.6.6/' pyproject.toml
 
 %conf
 fixtimestamp() {

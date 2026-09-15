@@ -1,7 +1,7 @@
 Summary: A utility for retrieving files using the HTTP or FTP protocols
 Name: wget1
 Version: 1.25.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Generally wget is distributed under GPLv3 or later but there are files in lib/ directory
 # which are under LGPLv2.1 or later and are actually built into the resulting rpm.
 # This version of wget is built with gnutls so I believe that the 'with openssl'
@@ -16,6 +16,8 @@ Patch3: wget-1.25-fix-cve-2026-58470.patch
 Patch4: wget-1.25-fix-cve-2026-58471.patch
 Patch5: wget-1.25-fix-cve-2026-58472.patch
 Patch6: wget-1.24.5-no-nettle.patch
+# https://gitlab.com/gnuwget/wget/-/commit/e9697d98
+Patch7: wget-1.25-fix-cve-2026-16599.patch
 
 Provides: bundled(gnulib) 
 # needed for test suite
@@ -117,6 +119,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 %config(noreplace) %{_sysconfdir}/wgetrc
 
 %changelog
+* Mon Sep 14 2026 Michal Ruprich <mruprich@redhat.com> - 1.25.0-6
+- Fix for CVE-2026-16599
+
 * Tue Aug 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.25.0-5
 - Use gnutls for NTLM crypto
 

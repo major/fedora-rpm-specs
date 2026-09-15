@@ -1,8 +1,8 @@
 %global srcname rospkg
 
 Name:           python-%{srcname}
-Version:        1.6.0
-Release:        8%{?dist}
+Version:        1.6.3
+Release:        1%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 License:        BSD-3-Clause
@@ -101,6 +101,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Mon Sep 14 2026 Scott K Logan <logans@cottsay.net> - 1.6.3-1
+- Update to 1.6.3 (rhbz#2423778)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

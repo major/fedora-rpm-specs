@@ -271,7 +271,7 @@
 %endif
 
 Name:	chromium
-Version: 152.0.7977.82
+Version: 153.0.8010.36
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -353,11 +353,8 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 # Fix FTBFS with rustc-1.88 on el9 and epel10.1
 Patch142: chromium-149-rust-1.88-build-error.patch
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
-Patch143: chromium-148-rust-1.88-enable-unstable_features.patch
+Patch143: chromium-153-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
-
-# Fix FTBFS with python-3.9 on el9
-Patch146: chromium-148-el9-python-3.9-build-error.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -391,10 +388,11 @@ Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 # enable fstack-protector-strong
 Patch311: chromium-123-fstack-protector-strong.patch
 
-# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable on EL9
-# Error: unsafe attribute used without unsafe
-#    --> ../../build/rust/allocator/lib.rs:107:7
-Patch312: chromium-143-el9-rust-no-alloc-shim-is-unstable.patch
+# Fix FTBFS:
+# ERROR at //build/rust/crubit/BUILD.gn:12:5: 
+# Unable to load third_party/rust-toolchain/lib/third_party/crubit/support/rs_std/BUILD.gn
+# "$crubit_src_dir/support/rs_std:rs_std_cpp",
+Patch312: chromium-153-ftbfs-crubit.patch
 
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
@@ -406,7 +404,7 @@ Patch315: chromium-145-rustc-ftbfs.patch
 # llvm <= 22
 # clang++: error: unknown argument: '-fno-lifetime-dse'
 # unknown warning option -Wno-nontrivial-memcall
-Patch316: chromium-152-clang++-unknown-argument.patch
+Patch316: chromium-153-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
 
@@ -492,7 +490,6 @@ Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
 Patch405: fix-study-crash.patch
 Patch407: fix-different-data-layouts.patch
-Patch408: 0002-Add-ppc64-trap-instructions.patch
 
 Patch409: fix-page-allocator-overflow.patch
 Patch410: 0001-Enable-ppc64-pointer-compression.patch
@@ -1126,10 +1123,6 @@ Qt6 UI for chromium.
 %patch -P144 -p1 -b .rust-1.88-undefined-symbol
 %endif
 
-%if 0%{?rhel} == 9
-%patch -P146 -p1 -b .el9-python-3.9-build-error
-%endif
-
 %patch -P150 -p1 -b .qt6
 
 %patch -P300 -p1 -b .swiftshader-missing-include
@@ -1154,6 +1147,7 @@ Qt6 UI for chromium.
 %patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
+%patch -P312 -p1 -b .ftbfs-crubit
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1221,7 +1215,6 @@ Qt6 UI for chromium.
 %patch -P403 -p1 -b .fix-breakpad-compile
 %patch -P405 -p1 -b .fix-study-crash
 %patch -P407 -p1 -b .fix-different-data-layouts
-%patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
 %patch -P409 -p1 -b .fix-page-allocator-overflow
 %patch -P410 -p1 -b .0001-Enable-ppc64-pointer-compression
 %patch -P411 -p1 -b .dawn-fix-ppc64le-detection
@@ -1918,6 +1911,239 @@ fi
 %endif
 
 %changelog
+* Mon Sep 14 2026 Than Ngo <than@redhat.com> - 153.0.8010.36-1
+- Update to 153.0.8010.36
+  * CVE-2026-87429: Missing authorization in ServiceWorker
+  * CVE-2026-87430: Buffer overflow in WebRTC
+  * CVE-2026-87431: Missing authorization in Extensions
+  * CVE-2026-87432: Incorrect authorization in Navigation
+  * CVE-2026-87433: Race condition in FileAPI
+  * CVE-2026-87434: Missing authorization in CORS
+  * CVE-2026-87435: Information leak in ControlledFrame
+  * CVE-2026-87436: Incomplete cleanup in Browser
+  * CVE-2026-87437: Information leak in Frames
+  * CVE-2026-87438: Out of bounds write in WebGL
+  * CVE-2026-87439: Information leak in ServiceWorker
+  * CVE-2026-87440: Out of bounds read in Media
+  * CVE-2026-87441: Missing authorization in Downloads
+  * CVE-2026-87442: Confused deputy in Prerender
+  * CVE-2026-87443: Missing authorization in Actor
+  * CVE-2026-87444: Memory corruption in Codecs
+  * CVE-2026-87445: UI misrepresentation in Session
+  * CVE-2026-87446: Incomplete cleanup in Extensions
+  * CVE-2026-87447: Incorrect authorization in Network
+  * CVE-2026-87448: Use after free in DevTools
+  * CVE-2026-87449: Cross-site request forgery in DeviceBoundSessionCredentials
+  * CVE-2026-87450: Incorrect authorization in Permissions
+  * CVE-2026-87451: Information leak in Downloads
+  * CVE-2026-87452: Incorrect authorization in GPU
+  * CVE-2026-87453: Confused deputy in BackgroundFetch
+  * CVE-2026-87454: Information leak in Enterprise
+  * CVE-2026-87455: Use after free in Aura
+  * CVE-2026-87456: Uninitialized resource in Media
+  * CVE-2026-87457: Race condition in Updater
+  * CVE-2026-87458: UI misrepresentation in Geometry
+  * CVE-2026-87459: Observable discrepancy in Select
+  * CVE-2026-87460: Use after free in Platform
+  * CVE-2026-87461: Information leak in Core
+  * CVE-2026-87462: UI misrepresentation in FedCM
+  * CVE-2026-87463: Incorrect authorization in Certificate
+  * CVE-2026-87464: Use after free in WebGL
+  * CVE-2026-87465: Incorrect authorization in Downloads
+  * CVE-2026-87466: Incorrect authorization in Workers
+  * CVE-2026-87467: Race condition in Updater
+  * CVE-2026-87468: Incorrect authorization in Isolated
+  * CVE-2026-87469: Improper input validation in Extensions
+  * CVE-2026-87470: Improper quantity validation in Tint
+  * CVE-2026-87471: Incorrect authorization in ServiceWorker
+  * CVE-2026-87472: Improper input validation in FedCM
+  * CVE-2026-87473: Incorrect authorization in FileHandling
+  * CVE-2026-87474: Use after free in Payments
+  * CVE-2026-87475: Missing authorization in Omnibox
+  * CVE-2026-87476: Incorrect authorization in Loader
+  * CVE-2026-87477: Information leak in Core
+  * CVE-2026-87478: Observable discrepancy in Autofill
+  * CVE-2026-87479: Insufficient policy enforcement in Extensions
+  * CVE-2026-87480: Use after free in Printing
+  * CVE-2026-87481: Incorrect authorization in WebView
+  * CVE-2026-87482: Cleartext transmission of sensitive data in HttpsUpgrades
+  * CVE-2026-87483: Incorrect authorization in Browser
+  * CVE-2026-87484: UI misrepresentation in Geometry
+  * CVE-2026-87485: Incorrect authorization in CORS
+  * CVE-2026-87486: Clickjacking in TrustedWebActivities
+  * CVE-2026-87487: Missing authorization in FileSystem
+  * CVE-2026-87488: Use after free in WebGL
+  * CVE-2026-87489: Memory corruption in V8
+  * CVE-2026-87490: Information leak in Transactions Platform
+  * CVE-2026-87491: Out of bounds write in V8
+  * CVE-2026-87492: Incorrect authorization in DevTools
+  * CVE-2026-87493: Missing authorization in FileSystem
+  * CVE-2026-87494: Use after free in Browser
+  * CVE-2026-87495: Information leak in Scroll
+  * CVE-2026-87496: UI misrepresentation in Browser
+  * CVE-2026-87497: Uninitialized resource in Codecs
+  * CVE-2026-87498: Missing authorization in WebUI
+  * CVE-2026-87499: Incorrect authorization in Network
+  * CVE-2026-87500: Improper validation of array index in ANGLE
+  * CVE-2026-87501: UI misrepresentation in Passwords
+  * CVE-2026-87502: Confused deputy in Fullscreen
+  * CVE-2026-87503: Inappropriate implementation in Downloads
+  * CVE-2026-87504: Use after free in Core
+  * CVE-2026-87505: Incorrect authorization in FileSystem
+  * CVE-2026-87506: Privilege elevation in WebUI
+  * CVE-2026-87507: UI misrepresentation in Downloads
+  * CVE-2026-87508: Incorrect authorization in Loader
+  * CVE-2026-87509: Incorrect authorization in Updater
+  * CVE-2026-87510: Improper input validation in FileAPI
+  * CVE-2026-87511: Missing authorization in DevTools
+  * CVE-2026-87512: Use after free in ANGLE
+  * CVE-2026-87513: Missing authorization in ControlledFrame
+  * CVE-2026-87514: Use after free in Views
+  * CVE-2026-87515: Incorrect authorization in FileAPI
+  * CVE-2026-87516: Observable discrepancy in Navigation
+  * CVE-2026-87517: Race condition in Mobile
+  * CVE-2026-87518: Observable discrepancy in Safebrowsing
+  * CVE-2026-87519: Incorrect authorization in Safebrowsing
+  * CVE-2026-87520: Use after free in Dawn
+  * CVE-2026-87521: Information leak in WebMCP
+  * CVE-2026-87522: Missing authorization in WebView
+  * CVE-2026-87523: Race condition in DataTransfer
+  * CVE-2026-87524: Use after free in Core
+  * CVE-2026-87525: Out of bounds read in Chromoting
+  * CVE-2026-87526: Use after free in Passwords
+  * CVE-2026-87527: Buffer overflow in WebGL
+  * CVE-2026-87528: Type confusion in Rust
+  * CVE-2026-87529: Numeric truncation error in Media
+  * CVE-2026-87530: Uncontrolled search path element in CredentialProvider
+  * CVE-2026-87531: Information leak in CORS
+  * CVE-2026-87532: Improper state validation in Safebrowsing
+  * CVE-2026-87533: Use after free in DevTools
+  * CVE-2026-87534: Missing authorization in WebView
+  * CVE-2026-87535: Information loss or omission in Safebrowsing
+  * CVE-2026-87536: Use after free in V8
+  * CVE-2026-87537: Missing authorization in Extensions
+  * CVE-2026-87538: Clickjacking in Input
+  * CVE-2026-87539: Observable discrepancy in Network
+  * CVE-2026-87540: Incorrect authorization in Isolated
+  * CVE-2026-87541: Information leak in Navigation
+  * CVE-2026-87542: Use after free in Input
+  * CVE-2026-87543: Missing authorization in Core
+  * CVE-2026-87544: Incorrect authorization in Extensions
+  * CVE-2026-87545: Information leak in Mobile
+  * CVE-2026-87546: Incorrect type conversion or cast in Safebrowsing
+  * CVE-2026-87547: Incorrect reference resolution in FileSystem
+  * CVE-2026-87548: Improper state validation in Installer
+  * CVE-2026-87549: Incomplete cleanup in Downloads
+  * CVE-2026-87550: Improper encoding or escaping of output in CSS
+  * CVE-2026-87551: Improper certificate validation in CORS
+  * CVE-2026-87552: Missing authorization in TrustedWebActivities
+  * CVE-2026-87553: Improper input validation in SiteIsolation
+  * CVE-2026-87554: Race condition in Chromoting
+  * CVE-2026-87555: Uninitialized resource in GPU
+  * CVE-2026-87556: Missing authorization in Browser
+  * CVE-2026-87557: Missing authorization in LocalNetworkAccess
+  * CVE-2026-87558: Use after free in Payments
+  * CVE-2026-87559: UI misrepresentation in UI
+  * CVE-2026-87560: Missing authorization in Browser
+  * CVE-2026-87561: Incorrect authorization in Web Authentication
+  * CVE-2026-87562: Incorrect reference resolution in Accessibility
+  * CVE-2026-87563: Origin validation error in Paint
+  * CVE-2026-87564: Type confusion in V8
+  * CVE-2026-87565: Information leak in Passwords
+  * CVE-2026-87566: Observable discrepancy in Layout
+  * CVE-2026-87567: UI misrepresentation in UrlFormatting
+  * CVE-2026-87568: Improper input validation in Chromium
+  * CVE-2026-87569: Missing authorization in Views
+  * CVE-2026-87570: Incorrect authorization in SiteIsolation
+  * CVE-2026-87571: Improper certificate validation in Loader
+  * CVE-2026-87572: Injection in DevTools
+  * CVE-2026-87573: Improper input validation in Network
+  * CVE-2026-87574: Information leak in ServiceWorker
+  * CVE-2026-87575: Incorrect authorization in Loader
+  * CVE-2026-87576: Uninitialized resource in GPU
+  * CVE-2026-87577: Incorrect authorization in Isolated
+  * CVE-2026-87578: Use after free in Receiver
+  * CVE-2026-87579: Buffer overflow in WebRTC
+  * CVE-2026-87580: Incorrect authorization in WebAppInstalls
+  * CVE-2026-87581: Use after free in Payments
+  * CVE-2026-87582: Confused deputy in DataTransfer
+  * CVE-2026-87583: UI misrepresentation in Passwords
+  * CVE-2026-87584: Incorrect authorization in WebUI
+  * CVE-2026-87585: Double free in PDFium
+  * CVE-2026-87586: Out of bounds read in ANGLE
+  * CVE-2026-87587: Use after free in V8
+  * CVE-2026-87588: Use after free in Chromecast
+  * CVE-2026-87589: Incorrect authorization in SiteIsolation
+  * CVE-2026-87590: Improper input validation in Passwords
+  * CVE-2026-87591: Incorrect authorization in Extensions
+  * CVE-2026-87592: Out of bounds read in Tint
+  * CVE-2026-87593: Information leak in Editing
+  * CVE-2026-87594: Incorrect authorization in DataTransfer
+  * CVE-2026-87595: Server-side request forgery in Mobile
+  * CVE-2026-87596: Out of bounds read in ANGLE
+  * CVE-2026-87597: UI misrepresentation in CustomTabs
+  * CVE-2026-87598: Incorrect authorization in ServiceWorker
+  * CVE-2026-87599: Improper input validation in Interstitials
+  * CVE-2026-87600: Improper input validation in Safebrowsing
+  * CVE-2026-87601: Race condition in V8
+  * CVE-2026-87602: Out of bounds read in ANGLE
+  * CVE-2026-87603: Missing authorization in FileSystem
+  * CVE-2026-87604: Out of bounds read in ANGLE
+  * CVE-2026-87605: Missing authorization in Contacts
+  * CVE-2026-87606: Missing authorization in SiteIsolation
+  * CVE-2026-87607: Use after free in Device
+  * CVE-2026-87608: Improper certificate validation in FedCM
+  * CVE-2026-87609: Use after free in Sharing
+  * CVE-2026-87610: Incorrect authorization in Omnibox
+  * CVE-2026-87611: Missing authorization in FileSystem
+  * CVE-2026-87612: Type confusion in V8
+  * CVE-2026-87613: Incorrect reference resolution in Extensions
+  * CVE-2026-87614: Incorrect authorization in ServiceWorker
+  * CVE-2026-87615: Race condition in Payments
+  * CVE-2026-87616: Improper initialization in Views
+  * CVE-2026-87617: Use after free in DevTools
+  * CVE-2026-87618: Incorrect reference resolution in Storage
+  * CVE-2026-87619: Observable discrepancy in Prefetch
+  * CVE-2026-87620: Observable discrepancy in SVG
+  * CVE-2026-87621: Out of bounds write in ANGLE
+  * CVE-2026-87622: Missing authorization in FedCM
+  * CVE-2026-87623: Observable discrepancy in DOM
+  * CVE-2026-87624: UI misrepresentation in Passwords
+  * CVE-2026-87625: Use after free in V8
+  * CVE-2026-87626: Incorrect authorization in DeviceBoundSessionCredentials
+  * CVE-2026-87627: Interpretation conflict in Safebrowsing
+  * CVE-2026-87628: Use after free in Cast
+  * CVE-2026-87629: Incorrect authorization in Sources
+  * CVE-2026-87630: Integer overflow in WebRTC
+  * CVE-2026-87631: Missing authorization in DOM
+  * CVE-2026-87632: Cross-site scripting in SanitizerAPI
+  * CVE-2026-87633: Use after free in Views
+  * CVE-2026-87634: Use after free in WebPackaging
+  * CVE-2026-87635: UI misrepresentation in Payments
+  * CVE-2026-87636: Type confusion in XML
+  * CVE-2026-87637: Use after free in Extensions
+  * CVE-2026-87638: Out of bounds write in Media
+  * CVE-2026-87639: Use after free in WebPackaging
+  * CVE-2026-87640: Out of bounds read in WebView
+  * CVE-2026-87641: Race condition in Browser
+  * CVE-2026-87642: Uninitialized resource in WebGL
+  * CVE-2026-87643: Integer overflow in GPU
+  * CVE-2026-87644: Incorrect authorization in Views
+  * CVE-2026-87645: Improper state validation in Safebrowsing
+  * CVE-2026-87646: Use after free in Web Authentication
+  * CVE-2026-87647: Uninitialized resource in GPU
+  * CVE-2026-87648: Use after free in ANGLE
+  * CVE-2026-87649: UI misrepresentation in Downloads
+  * CVE-2026-87650: Out of bounds read in WebGL
+  * CVE-2026-87651: Incorrect authorization in Paint
+  * CVE-2026-87652: Incorrect authorization in PushAPI
+  * CVE-2026-87653: UI misrepresentation in FullScreen
+  * CVE-2026-87654: Buffer overflow in ANGLE
+  * CVE-2026-87655: Clickjacking in Downloads
+  * CVE-2026-87656: Improper state validation in Safebrowsing
+  * CVE-2026-87657: Use after free in V8
+  * CVE-2026-87658: Information leak in Extensions
+
 * Sat Sep 05 2026 Than Ngo <than@redhat.com> - 152.0.7977.82-1
 - Update to 152.0.7977.82
   * CVE-2026-85046: Type confusion in V8

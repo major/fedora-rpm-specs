@@ -18,12 +18,11 @@
     %global gittar              aexpect-%{shortcommit}.tar.gz
 %endif
 
-# Selftests are provided but skipped because they use unsupported tooling.
-%global with_tests 0
+%global with_tests 1
 
 Name: python-aexpect
-Version: 1.6.2
-Release: 21%{?gitrel}%{?dist}
+Version: 1.8.0
+Release: 1%{?gitrel}%{?dist}
 Summary: A python library to control interactive applications
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -38,7 +37,9 @@ Source0: %{url}/archive/%{commit}/%{gittar}
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+%if %{with_tests}
+BuildRequires: python3dist(pytest)
+%endif
 
 %description
 Aexpect is a python library used to control interactive applications, very
@@ -60,27 +61,34 @@ sftp, telnet, among others.
 %autosetup -n aexpect-%{commit} -p 1
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files aexpect
 ln -s aexpect_helper %{buildroot}%{_bindir}/aexpect_helper-%{python3_pkgversion}
 ln -s aexpect_helper %{buildroot}%{_bindir}/aexpect_helper-%{python3_version}
 
 %if %{with_tests}
 %check
-selftests/checkall
+# We need to disable some tests that try to connect on network
+%pytest -v tests/ -k "not test_pass_fds_spawn and not test_share_remote_objects"
 %endif
 
-%files -n python%{python3_pkgversion}-aexpect
+%files -n python%{python3_pkgversion}-aexpect -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/aexpect/
-%{python3_sitelib}/aexpect-%{version}-py%{python3_version}.egg-info/
 %{_bindir}/aexpect_helper*
 
 %changelog
+* Mon Sep 14 2026 Federico Pellegrin <fede@evolware.org> - 1.8.0-1
+- Bump to 1.8.0 (rhbz#2026200 and rhbz#2414808), new Python macros (rhbz#2377418)
+- Enable some unit tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

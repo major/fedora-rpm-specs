@@ -2,21 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate glycin-external
+%global crate opendal-core
 
-Name:           rust-glycin-external
-Version:        4.0.0
+Name:           rust-opendal-core
+Version:        0.59.1
 Release:        %autorelease
-Summary:        Sandboxed image decoding
+Summary:        Apache OpenDAL™: One Layer, All Storage
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/glycin-external
+License:        Apache-2.0
+URL:            https://crates.io/crates/opendal-core
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          opendal-core-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Use asyncband 0.7 or newer
+Patch:          opendal-core-fix-metadata.diff
+# * Remove logforth setup
+Patch2:         opendal-core-disable-logforth-in-test.patch
+# * Fix tests on i686, https://github.com/apache/opendal/pull/8274
+Patch3:         opendal-core-fix-tests-on-i686.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Sandboxed image decoding.}
+Apache OpenDAL™: One Layer, All Storage.}
 
 %description %{_description}
 
@@ -31,8 +40,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%license %{crate_instdir}/NOTICE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,64 +57,64 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-io-devel
+%package     -n %{name}+blocking-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-io-devel %{_description}
+%description -n %{name}+blocking-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-io" feature of the "%{crate}" crate.
+use the "blocking" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-io-devel
+%files       -n %{name}+blocking-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gdk4-devel
+%package     -n %{name}+executors-tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gdk4-devel %{_description}
+%description -n %{name}+executors-tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gdk4" feature of the "%{crate}" crate.
+use the "executors-tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gdk4-devel
+%files       -n %{name}+executors-tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gobject-devel
+%package     -n %{name}+internal-tokio-rt-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gobject-devel %{_description}
+%description -n %{name}+internal-tokio-rt-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gobject" feature of the "%{crate}" crate.
+use the "internal-tokio-rt" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gobject-devel
+%files       -n %{name}+internal-tokio-rt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tests-devel
+%package     -n %{name}+reqsign-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tests-devel %{_description}
+%description -n %{name}+reqsign-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tests" feature of the "%{crate}" crate.
+use the "reqsign" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tests-devel
+%files       -n %{name}+reqsign-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tokio-devel
+%package     -n %{name}+services-memory-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tokio-devel %{_description}
+%description -n %{name}+services-memory-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
+use the "services-memory" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tokio-devel
+%files       -n %{name}+services-memory-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -113,17 +122,17 @@ use the "tokio" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f async-io
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -f async-io
+%cargo_build
 
 %install
-%cargo_install -f async-io
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -f async-io
+%cargo_test
 %endif
 
 %changelog

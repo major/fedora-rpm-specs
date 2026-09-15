@@ -2,8 +2,8 @@
 %bcond_without perl_LWP_MediaTypes_enables_mailcap
 
 Name:           perl-LWP-MediaTypes
-Version:        6.04
-Release:        23%{?dist}
+Version:        6.05
+Release:        1%{?dist}
 Summary:        Guess media type for a file or a URL
 # lib/LWP/media.types:      CC0-1.0
 # lib/LWP/MediaTypes.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -27,7 +27,6 @@ BuildRequires:  perl(Scalar::Util)
 # Tests only:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not helpful
@@ -99,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 14 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.05-1
+- 6.05 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

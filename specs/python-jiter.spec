@@ -16,10 +16,6 @@ License:        %{shrink:
     }
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
-# Manually created patch for downstream crate metadata changes
-# * Temporarily allow maturin 1.14:
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2522075
-Patch:          jiter-fix-metadata.diff
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license jiter

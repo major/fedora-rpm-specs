@@ -5,7 +5,7 @@
 %global crate wycheproof
 
 Name:           rust-wycheproof
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Wycheproof test vectors
 
@@ -57,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "aead" feature of the "%{crate}" crate.
 
 %files       -n %{name}+aead-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+chunked_encryption-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chunked_encryption-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chunked_encryption" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chunked_encryption-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+cipher-devel
@@ -179,6 +191,42 @@ use the "mac" feature of the "%{crate}" crate.
 %files       -n %{name}+mac-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+mldsa_sign-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mldsa_sign-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mldsa_sign" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mldsa_sign-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+mldsa_verify-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mldsa_verify-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mldsa_verify" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mldsa_verify-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+mlkem-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mlkem-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mlkem" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mlkem-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+num-bigint-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -189,6 +237,30 @@ This package contains library source intended for building other packages which
 use the "num-bigint" feature of the "%{crate}" crate.
 
 %files       -n %{name}+num-bigint-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pbes2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pbes2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pbes2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pbes2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pbkdf2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pbkdf2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pbkdf2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pbkdf2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+primality-devel

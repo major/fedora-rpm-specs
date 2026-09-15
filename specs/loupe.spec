@@ -3,7 +3,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           loupe
-Version:        51~beta
+Version:        51.0
 Release:        %autorelease
 Summary:        Image viewer
 
@@ -46,10 +46,6 @@ Source0:        https://download.gnome.org/sources/loupe/%{gnome_major_version}/
 #   tar Jcvf ../loupe-%%{gnome_tarball_version}-vendor.tar.xz vendor/ ; \
 #   popd
 Source1:        loupe-%{gnome_tarball_version}-vendor.tar.xz
-
-# backport https://gitlab.gnome.org/GNOME/loupe/-/commit/7ea1175
-# to account for https://github.com/gufo-rs/gufo/commit/a8a4905
-Patch:          0001-Backport-support-for-gufo-0.5.0-beta.1.patch
 
 %gnome_check_version
 

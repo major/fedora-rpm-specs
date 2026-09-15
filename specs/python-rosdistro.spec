@@ -1,8 +1,8 @@
 %global srcname rosdistro
 
 Name:           python-%{srcname}
-Version:        1.0.1
-Release:        9%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        File format for managing ROS Distributions
 
 License:        BSD-3-Clause AND MIT
@@ -40,6 +40,7 @@ Summary:        File format for managing ROS Distributions
 BuildRequires:  git
 BuildRequires:  python%{python3_pkgversion}-catkin_pkg
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-packaging >= 16.8.0
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-PyYAML
 BuildRequires:  python%{python3_pkgversion}-rospkg
@@ -49,6 +50,7 @@ Obsoletes:      python2-%{srcname} < 0.7.4-4
 
 %if %{undefined __pythondist_requires}
 Requires:       python%{python3_pkgversion}-catkin_pkg
+Requires:       python%{python3_pkgversion}-packaging >= 16.8.0
 Requires:       python%{python3_pkgversion}-PyYAML
 Requires:       python%{python3_pkgversion}-rospkg
 Requires:       python%{python3_pkgversion}-setuptools
@@ -119,6 +121,9 @@ popd
 
 
 %changelog
+* Thu Sep 03 2026 Scott K Logan <logans@cottsay.net> - 1.1.0-1
+- Update to 1.1.0 (rhbz#2527831)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

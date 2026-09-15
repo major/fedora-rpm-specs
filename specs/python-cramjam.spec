@@ -122,14 +122,14 @@ done
 
 %build -p
 %cargo_license_summary
-%{cargo_license} > LICENSES.dependencies
+%{cargo_license} > LICENSE.dependencies
 
 
 %check -a
 # If upstream adopts PEP 639 metadata in pyproject.toml and starts listing
-# license files explicitly, LICENSES.dependencies may be dropped from the
+# license files explicitly, LICENSE.dependencies may be dropped from the
 # .dist-info directory. Guard against this.
-[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSES.dependencies)" ]
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
 
 %if %{with tests}
 # Test failures in test_variants_decompress_into with recent hypothesis

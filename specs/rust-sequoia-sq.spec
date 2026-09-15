@@ -4,7 +4,7 @@
 %global crate sequoia-sq
 
 Name:           rust-sequoia-sq
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Command-line frontends for Sequoia
 
@@ -55,23 +55,23 @@ Summary:        %{summary}
 # Zlib OR Apache-2.0 OR MIT
 # bzip2-1.0.6
 License:        %{shrink:
-    LGPL-2.0-or-later AND
-    Apache-2.0 AND
-    BSL-1.0 AND
-    BSD-3-Clause AND
-    MIT AND
-    MPL-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib AND
-    bzip2-1.0.6 AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
-    (Unlicense OR MIT)
+    LGPL-2.0-or-later
+    AND Apache-2.0
+    AND BSL-1.0
+    AND BSD-3-Clause
+    AND MIT
+    AND MPL-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND bzip2-1.0.6
+    AND (0BSD OR MIT OR Apache-2.0)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (MIT OR Apache-2.0 OR Zlib)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 

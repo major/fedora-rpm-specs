@@ -6,8 +6,8 @@
 # https://gitlab.com/esr/reposurgeon
 %global goipath         gitlab.com/esr/reposurgeon
 %global forgeurl        https://gitlab.com/esr/reposurgeon
-Version:                5.10
-%global tag             5.10
+Version:                5.11
+%global tag             5.11
 
 %gometa -L -f
 
@@ -85,6 +85,11 @@ install -pDm644 reposurgeon-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/repo
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
+# fqme requires a specified identity
+export GIT_CONFIG_NOSYSTEM=1
+export GIT_CONFIG_GLOBAL="$PWD/.test-gitconfig"
+git config --global user.name "Mock User"
+git config --global user.email "mock@example.com"
 make test
 for command in %commands; do
   ln -s %{gobuilddir}/bin/repo$command $(pwd)
