@@ -10,8 +10,8 @@
 
 Summary:	Incredibly simple helpers for testing code with exceptions 
 Name:		perl-Test-Fatal
-Version:	0.018
-Release:	3%{?dist}
+Version:	0.019
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Fatal
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Fatal-%{version}.tar.gz
@@ -21,12 +21,12 @@ BuildRequires:	coreutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(:VERSION) >= 5.12
+BuildRequires:	perl(:VERSION) >= 5.8
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.78
-BuildRequires:	perl(strict)
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter) >= 5.57
+BuildRequires:	perl(strict)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Try::Tiny) >= 0.07
 BuildRequires:	perl(warnings)
@@ -42,7 +42,11 @@ BuildRequires:	perl(CPAN::Meta) >= 2.120900
 %if %{with perl_Test_Fatal_enables_extra_test}
 # Extra Tests
 BuildRequires:	findutils
+BuildRequires:	perl(blib)
 BuildRequires:	perl(Encode)
+BuildRequires:	perl(IO::Handle)
+BuildRequires:	perl(IPC::Open3)
+BuildRequires:	perl(Test::More) >= 0.94
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
@@ -80,6 +84,10 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::Fatal.3*
 
 %changelog
+* Tue Sep 15 2026 Paul Howarth <paul@city-fan.org> - 0.019-1
+- Update to 0.019
+  - Lower required Perl to v5.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.018-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

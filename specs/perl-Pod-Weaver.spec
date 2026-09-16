@@ -1,5 +1,5 @@
 Name:           perl-Pod-Weaver
-Version:        4.021
+Version:        4.022
 Release:        1%{?dist}
 Summary:        Weave together a POD document from an outline
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,7 +10,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.20.0
+BuildRequires:  perl(:VERSION) >= 5.22.0
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 15 2026 Petr Pisar <ppisar@redhat.com> - 4.022-1
+- 4.022 bump
+
 * Thu Sep 10 2026 Petr Pisar <ppisar@redhat.com> - 4.021-1
 - 4.021 bump
 

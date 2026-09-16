@@ -3,7 +3,7 @@
 %global glib_version 2.84.0
 
 Name:           libadwaita
-Version:        1.10~beta.1
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -11,9 +11,6 @@ Summary:        Building blocks for modern GNOME applications
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/1802
-Patch0:         fix-sassc-requirement-for-tarball-builds.patch
 
 %gnome_check_version
 

@@ -1,17 +1,15 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# There's a circular build dependency from ocaml-yojson ->
-# ocaml-sedlex -> [.. lots of packages ..] -> ocaml-ppxlib ->
-# ocaml-yojson.  Avoid this by setting bootstrap to 1, building, then
-# setting it back to 0 and building (just this package) again.  All
-# this does is avoid building the 'five' subpackage which is the bit
-# that needs sedlex.
+# If you enable this then there's a circular build dependency from
+# ocaml-yojson -> ocaml-sedlex -> [.. lots of packages ..] ->
+# ocaml-ppxlib -> ocaml-yojson.  This is because the 'five' subpackage
+# needs sedlex.  Don't build this package by default.
 %bcond five 0
 
 Name:           ocaml-yojson
 Version:        3.0.0
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -114,6 +112,12 @@ files for developing applications that use %{name}-five.
 %endif
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-14
+- Bump release and rebuild
+
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-13
+- OCaml 5.5.1 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

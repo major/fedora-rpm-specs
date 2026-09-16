@@ -12,7 +12,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.62.3
+Version:        2.63.0
 Release:        %autorelease
 
 # librsvg itself is LGPL-2.1-or-later
@@ -58,6 +58,8 @@ Source1:        librsvg-%{version}-vendor.tar.xz
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 Patch:          0002-Fedora-Drop-dependencies-and-references-to-mutation-.patch
 Patch:          0003-Fedora-Drop-windows-specific-dependencies.patch
+Patch:          0004-Fedora-drop-fuzz-testing-target-from-workspace.patch
+Patch:          0005-Fedora-relax-version-ranges-for-some-dependencies.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 1.3.0
@@ -125,9 +127,6 @@ This package provides extra utilities based on the librsvg library.
 # the lock file (Cargo.lock), allowing more wiggle room when
 # providing Rust dependencies.
 sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
-
-# This test consistently fails, no idea why.
-sed -r -i "/svg1_1_text_text_03_b_svg/d" rsvg/tests/reference.rs
 
 %if ! 0%{?bundled_rust_deps}
 %generate_buildrequires

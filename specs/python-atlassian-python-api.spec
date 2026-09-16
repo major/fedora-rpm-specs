@@ -5,7 +5,7 @@
 %bcond tests 1
 %bcond docs 1
 
-Version:        5.0.4
+Version:        5.0.5
 %global forgeurl https://github.com/atlassian-api/%{projname}
 %global tag %version
 %forgemeta

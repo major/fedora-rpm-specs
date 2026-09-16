@@ -1,8 +1,16 @@
 %global cross cross
 %global rpmprefix %{nil}
 
+%if 0%{?fedora} >= 46 || 0%{?rhel} >= 11                                                                                                                                             
+# In FC46+ and RHEL-11+ the binutils package provides cross binutils for the RHEL architectures.
+%global build_base             0                                                                                                                                                     
+%else                                                                                                                                                                                
+%global build_base             1                                                                                                                                                     
+%endif                                                                                                                                                                               
+
 %global build_all		1
-%global build_aarch64		%{build_all}
+
+%global build_aarch64           %{build_base}                                                                                                                                         
 %global build_alpha		%{build_all}
 %global build_arc		%{build_all}
 %global build_arm		%{build_all}
@@ -25,15 +33,15 @@
 %global build_mn10300		%{build_all}
 %global build_openrisc		%{build_all}
 %global build_powerpc64		%{build_all}
-%global build_powerpc64le	%{build_all}
+%global build_powerpc64le	%{build_base}
 %global build_riscv32		%{build_all}
 %global build_riscv64		%{build_all}
-%global build_s390x		%{build_all}
+%global build_s390x		%{build_base}
 %global build_score		%{build_all}
 %global build_sh		%{build_all}
 %global build_sparc64		%{build_all}
 %global build_tile		%{build_all}
-%global build_x86_64		%{build_all}
+%global build_x86_64		%{build_base}
 %global build_xtensa		%{build_all}
 
 # 32-bit packages we don't build as we can use the 64-bit package instead
@@ -66,7 +74,7 @@
 
 Name: %{cross}-binutils
 Version: 2.47
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -784,6 +792,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Mon Sep 14 2026 Jakub Jelinek <jakub@redhat.com>- 2.47-2
+- Disable building crosses for AArch64, PowerPC, s390x and x86_64.  (#2523594)
+
 * Tue Sep 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.47-1
 - Update to 2.47
 

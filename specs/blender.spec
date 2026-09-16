@@ -48,7 +48,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        5.2.1
+Version:        5.2.2
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production

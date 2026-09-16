@@ -1,7 +1,7 @@
 %global srcname uv-dynamic-versioning
 
 Name:           python-uv-dynamic-versioning
-Version:        0.12.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Dynamic versioning based on VCS tags
 

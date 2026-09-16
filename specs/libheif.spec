@@ -13,7 +13,7 @@
 %bcond bootstrap 0
 
 Name:           libheif
-Version:        1.23.3
+Version:        1.23.4
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -32,9 +32,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(aom)
 BuildRequires:  pkgconfig(dav1d)
-%if !%{with bootstrap}
-BuildRequires:  pkgconfig(libavcodec)
-%endif
 BuildRequires:  pkgconfig(libbrotlidec)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libopenjp2)
@@ -57,6 +54,7 @@ BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
 
 Obsoletes:      heif-pixbuf-loader < %{version}-%{release}
+Recommends:     %{name}-ffmpeg%{_isa}
 
 %description
 libheif is an ISO/IEC 23008-12:2017 HEIF and AVIF (AV1 Image File Format)
@@ -70,9 +68,6 @@ file format decoder and encoder.
 %{_libdir}/%{name}/%{name}-aomdec.so
 %{_libdir}/%{name}/%{name}-aomenc.so
 %{_libdir}/%{name}/%{name}-dav1d.so
-%if !%{with bootstrap}
-%{_libdir}/%{name}/%{name}-ffmpegdec.so
-%endif
 %{_libdir}/%{name}/%{name}-j2kdec.so
 %{_libdir}/%{name}/%{name}-j2kenc.so
 %{_libdir}/%{name}/%{name}-jpegdec.so
@@ -83,6 +78,25 @@ file format decoder and encoder.
 %endif
 %{_libdir}/%{name}/%{name}-rav1e.so
 %{_libdir}/%{name}/%{name}-svtenc.so
+
+# ----------------------------------------------------------------------
+
+%if !%{with bootstrap}
+%package        ffmpeg
+Summary:        FFmpeg plugin that enables hardware accelerated decoding of HEIF files
+License:        MIT
+BuildRequires:  pkgconfig(libavcodec)
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Conflicts:      %{name} < 1.23.4-5
+Obsoletes:      %{name} < 1.23.4-5
+
+%description    ffmpeg
+The FFMPEG decoding plugin is an alternative decoder for all HEIF codecs and
+can make use of hardware decoders.
+
+%files ffmpeg
+%{_libdir}/%{name}/%{name}-ffmpegdec.so
+%endif
 
 # ----------------------------------------------------------------------
 
@@ -152,14 +166,11 @@ rm -rf third-party/
  -DWITH_OpenJPEG_DECODER_PLUGIN=ON \
  -DWITH_OpenJPEG_ENCODER=ON \
  -DWITH_OpenJPEG_ENCODER_PLUGIN=ON \
- -DWITH_OPENJPH_DECODER=ON \
  -DWITH_OPENJPH_ENCODER=ON \
  -DWITH_OPENJPH_ENCODER_PLUGIN=ON \
 %ifnarch %{ix86}
  -DWITH_OpenH264_DECODER=ON \
  -DWITH_OpenH264_DECODER_PLUGIN=ON \
- -DWITH_OpenH264_ENCODER=ON \
- -DWITH_OpenJPEG_ENCODER_PLUGIN=ON \
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
  -DWITH_RAV1E=ON \

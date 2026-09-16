@@ -1,4 +1,4 @@
-Name:           nv-codec-headers
+Name:           nv-codec-headers13.0
 Version:        13.1.15.0
 Release:        %autorelease
 Summary:        FFmpeg version of Nvidia Codec SDK headers
@@ -7,6 +7,7 @@ URL:            https://github.com/FFmpeg/nv-codec-headers
 Source0:        %{url}/archive/n%{version}/nv-codec-headers-n%{version}.tar.gz
 
 BuildArch:      noarch
+Conflicts:      nv-codec-headers
 
 BuildRequires:  make
 

@@ -6,7 +6,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -414,7 +414,7 @@ p=$(pwd)
 %endif
 
 %ifarch %ix86
-%define flags %{nil}
+%define flags "-mstackrealign"
 %define base_options "-A PIII -V 512"
 %endif
 
@@ -782,6 +782,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep 15 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-36
+- Fix the ftbfs in Fedora on i686
+- Add the -msstackallign option for the i686 builds
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -15,6 +15,8 @@
 %bcond postproc %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 # disabled due to various issues
 %bcond projectm 0
+# freerdp3 not yet supported upstream
+%bcond freerdp 0
 
 # some dependencies are not yet in EPEL 10
 %bcond daala 1
@@ -134,7 +136,9 @@ BuildRequires:	pkgconfig(flac)
 #BuildRequires:	pkgconfig(fluidlite)
 BuildRequires:	pkgconfig(fluidsynth) >= 1.1.2
 BuildRequires:	pkgconfig(fontconfig) >= 2.11
+%if %{with freerdp}
 BuildRequires:	pkgconfig(freerdp2)
+%endif
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fribidi)
 BuildRequires:	pkgconfig(gl)
@@ -361,7 +365,9 @@ Requires:	(%{name}-plugin-notify%{?_isa} = %{epoch}:%{version}-%{release} if gtk
 Requires:	%{name}-plugin-opencv%{?_isa} = %{epoch}:%{version}-%{release}
 %endif
 Requires:	(%{name}-plugin-pulseaudio%{?_isa} = %{epoch}:%{version}-%{release} if (pipewire-pulseaudio or pulseaudio))
+%if %{with freerdp}
 Requires:	%{name}-plugin-rdp%{?_isa} = %{epoch}:%{version}-%{release}
+%endif
 Requires:	%{name}-plugin-samba%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-plugin-svg%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-plugin-visualization%{?_isa} = %{epoch}:%{version}-%{release}
@@ -393,6 +399,9 @@ Obsoletes:	%{name}-plugin-ieee1394 < %{epoch}:%{version}-%{release}
 %endif
 %if %{without opencv}
 Obsoletes:	%{name}-plugin-opencv < %{epoch}:%{version}-%{release}
+%endif
+%if %{without freerdp}
+Obsoletes:	%{name}-plugin-rdp < %{epoch}:%{version}-%{release}
 %endif
 
 %description plugins-base
@@ -518,6 +527,7 @@ Requires:	%{name}-plugins-base%{?_isa} = %{epoch}:%{version}-%{release}
 %description plugin-pulseaudio
 PulseAudio plugins for VLC media player
 
+%if %{with freerdp}
 # requires freerdp2, for RDP remote desktop support
 %package plugin-rdp
 Summary:	VLC media player RDP plugin
@@ -525,6 +535,7 @@ Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-plugins-base%{?_isa} = %{epoch}:%{version}-%{release}
 %description plugin-rdp
 RDP access plugin for VLC media player
+%endif
 
 # requires libsmbclient, for SMB protocol support
 %package plugin-samba
@@ -630,7 +641,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-libcddb					\
 	--enable-screen						\
 	--enable-vnc						\
-	--enable-freerdp					\
+	--enable-freerdp%{!?with_freerdp:=no}			\
 	--enable-realrtsp					\
 	--enable-asdcp%{!?with_asdcp:=no}			\
 								\
@@ -1240,8 +1251,10 @@ make check
 %{vlc_plugindir}/audio_output/libpulse_plugin.so
 %{vlc_plugindir}/services_discovery/libpulselist_plugin.so
 
+%if %{with freerdp}
 %files plugin-rdp
 %{vlc_plugindir}/access/librdp_plugin.so
+%endif
 
 %files plugin-samba
 %{vlc_plugindir}/access/libsmb_plugin.so

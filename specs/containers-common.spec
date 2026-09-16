@@ -13,6 +13,12 @@
 %define netavark_epoch 2
 %endif
 
+# Red Hat keys already exist on rhel envs, need them on Fedora
+# and CentOS Stream.
+%if %{defined fedora} || %{defined centos}
+%define need_redhat_keys 1
+%endif
+
 Name: containers-common
 %if %{defined copr_build}
 Epoch: 102
@@ -25,7 +31,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.69.0
+Version: 0.69.2
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -50,10 +56,15 @@ Conflicts: skopeo < 1:1.23
 URL: https://github.com/%{project}/%{repo}
 Source0: %{url}/archive/refs/tags/common/v%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/containers/shortnames/refs/heads/main/shortnames.conf
-# Fetch RPM-GPG-KEY-redhat-release from the authoritative source instead of storing
-# a copy in repo or dist-git. Depending on distribution-gpg-keys rpm is also
-# not an option because that package doesn't exist on CentOS Stream.
-Source2: https://access.redhat.com/security/data/fd431d51.txt
+# Fetch Red Hat sigstore keys from the authoritative source instead of storing
+# a copy in repo or dist-git.
+# SIGSTORE-redhat-release3
+Source2: https://security.access.redhat.com/data/63405576.txt
+# REKOR-signing-key
+# FIXME: This should be fetched from an official .redhat.com URL once available.
+# CentOS Stream doesn't currently use Packit for updates so we're ok to point to
+# this URL.
+Source3: https://gitlab.com/redhat/centos-stream/rpms/containers-common/-/raw/c10s/REKOR-signing-key
 
 %description
 This package contains common configuration files and documentation for container
@@ -107,7 +118,7 @@ touch %{buildroot}%{_prefix}/lib/containers/storage/overlay-layers/layers.lock
 
 install -Dp -m0644 %{SOURCE1} %{buildroot}%{_datadir}/containers/registries.conf.d/000-shortnames.conf
 install -Dp -m0644 image/default.yaml %{buildroot}%{_datadir}/containers/registries.d/default.yaml
-install -Dp -m0644 image/default-policy.json %{buildroot}%{_datadir}/containers/policy.json
+install -Dp -m0644 common/rpm/policy.json %{buildroot}%{_datadir}/containers/policy.json
 install -Dp -m0644 image/registries.conf %{buildroot}%{_datadir}/containers/registries.conf
 install -Dp -m0644 storage/storage.conf %{buildroot}%{_datadir}/containers/storage.conf
 
@@ -123,11 +134,10 @@ install -Dp -m0644 common/rpm/00-fedora-registries.conf %{buildroot}%{_datadir}/
 install -Dp -m0644 common/rpm/00-rhel-registries.conf %{buildroot}%{_datadir}/containers/registries.conf.d/00-vendor.conf
 %endif
 
-
-# RPM-GPG-KEY-redhat-release already exists on rhel envs, install only on
-# fedora and centos
-%if %{defined fedora} || %{defined centos}
-install -Dp -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+# Install redhat sigstore keys on Fedora and CentOS
+%if %{defined need_redhat_keys}
+install -Dp -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/pki/sigstore/SIGSTORE-redhat-release3
+install -Dp -m0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/pki/sigstore/REKOR-signing-key
 %endif
 
 install -Dp -m0644 common/contrib/redhat/registry.access.redhat.com.yaml -t %{buildroot}%{_datadir}/containers/registries.d
@@ -187,8 +197,9 @@ ln -s ../../../..%{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/
 %{_prefix}/lib/containers/storage/overlay-layers/layers.lock
 
 
-%if 0%{?fedora} || 0%{?centos}
-%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+%if %{defined need_redhat_keys}
+%{_sysconfdir}/pki/sigstore/SIGSTORE-redhat-release3
+%{_sysconfdir}/pki/sigstore/REKOR-signing-key
 %endif
 %ghost %{_sysconfdir}/containers/storage.conf
 %ghost %{_sysconfdir}/containers/containers.conf

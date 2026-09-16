@@ -2,8 +2,8 @@
 %global pkgname osrf-pycommon
 
 Name:           python-%{pkgname}
-Version:        2.1.5
-Release:        9%{?dist}
+Version:        2.1.7
+Release:        1%{?dist}
 Summary:        Commonly needed Python modules used by software developed at OSRF
 
 # The entire source code is ASL 2.0 except parts of osrf_pycommon/terminal_color/windows.py which is BSD
@@ -104,6 +104,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Tue Sep 15 2026 Scott K Logan <logans@cottsay.net> - 2.1.7-1
+- Update to 2.1.7 (rbhz#2354866)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

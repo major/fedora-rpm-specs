@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Sub-Exporter
-Version:	0.991
-Release:	9%{?dist}
+Version:	0.992
+Release:	1%{?dist}
 Summary:	Sophisticated exporter for custom-built routines
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Exporter
@@ -25,7 +25,7 @@ BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Data::OptList) >= 0.1
 BuildRequires:	perl(Package::Generator)
-BuildRequires:	perl(Params::Util) >= 0.14
+BuildRequires:	perl(Params::SomeUtil) >= 0.14
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Sub::Install) >= 0.92
 BuildRequires:	perl(warnings)
@@ -40,7 +40,10 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Extra tests
 %if %{with perl_Sub_Exporter_enables_extra_test}
+BuildRequires:	perl(blib)
 BuildRequires:	perl(Encode)
+BuildRequires:	perl(IO::Handle)
+BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
@@ -94,6 +97,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Sub::Exporter::Util.3*
 
 %changelog
+* Tue Sep 15 2026 Paul Howarth <paul@city-fan.org> - 0.992-1
+- Update to 0.992
+  - Replace Params::Util with Params::SomeUtil
+  - docs: Fix typo in tutorial
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

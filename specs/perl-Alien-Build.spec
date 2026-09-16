@@ -11,8 +11,8 @@
 %endif
 
 Name:           perl-Alien-Build
-Version:        2.84
-Release:        7%{?dist}
+Version:        2.87
+Release:        1%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -28,7 +28,7 @@ Patch0:         Alien-Build-2.83-Remove-redundant-pkgconfig-implementations.patc
 Patch1:         Alien-Build-2.65-Remove-redundant-SHA-implementations.patch
 # Replace Alien::cmake3 with Alien::cmake4, proposed upstream
 # <https://github.com/PerlAlien/Alien-Build/pull/435>
-Patch2:         Alien-Build-2.84-Replace-Alien-cmake3-with-Alien-cmake4.patch
+Patch2:         Alien-Build-2.87-Replace-Alien-cmake3-with-Alien-cmake4.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -83,7 +83,7 @@ BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
-BuildRequires:  perl(Path::Tiny) >= 0.077
+BuildRequires:  perl(Path::Tiny) >= 0.130
 # Alien::Build::Plugin::PkgConfig::Negotiate finds a pkgconfig implementation
 # in this order:
 # PkgConfig::LibPkgConf 0.04, pkgconf, pkg-config, PkgConfig 0.14026.
@@ -185,7 +185,7 @@ Requires:       perl(File::Find)
 Requires:       perl(HTTP::Tiny) >= 0.044
 # (HTTP::Tiny and Mozilla::CA) or curl for Alien::Build::Plugin::Download::Negotiate
 Requires:       perl(Mozilla::CA)
-Requires:       perl(Path::Tiny) >= 0.077
+Requires:       perl(Path::Tiny) >= 0.130
 # Alien::Build::Plugin::PkgConfig::Negotiate finds a pkgconfig implementation
 # in this order:
 # PkgConfig::LibPkgConf 0.04, pkgconf, pkg-config, PkgConfig 0.14026
@@ -228,7 +228,7 @@ Requires:       perl(DynaLoader)
 Requires:       perl(FFI::CheckLib)
 Requires:       perl(File::Find)
 Requires:       perl(JSON::PP)
-Requires:       perl(Path::Tiny) >= 0.077
+Requires:       perl(Path::Tiny) >= 0.130
 Requires:       perl(Storable)
 Requires:       perl(Text::ParseWords) >= 3.26
 # pkgconf-pkg-config for pkg-config tool executed by
@@ -473,6 +473,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 15 2026 Petr Pisar <ppisar@redhat.com> - 2.87-1
+- 2.87 bump
+
 * Mon Jul 27 2026 Petr Pisar <ppisar@redhat.com> - 2.84-7
 - Support CMake with Alien::cmake4 (bug #2507309)
 

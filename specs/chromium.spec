@@ -560,6 +560,8 @@ Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
 
+# TypeScript for ppc64le
+Source14: https://github.com/microsoft/TypeScript/releases/download/v7.0.2/typescript-linux-ppc64.tgz
 BuildRequires: golang
 BuildRequires: clang
 BuildRequires: clang-tools-extra
@@ -1147,7 +1149,7 @@ Qt6 UI for chromium.
 %patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
-%patch -P312 -p1 -b .ftbfs-crubit
+%patch -P312 -p1 -R -b .ftbfs-crubit
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1271,6 +1273,21 @@ ln -fs $(which gperf) third_party/gperf/cipd/bin/gperf
 # Remove bundle rustc and replace it with system rustc
 mkdir -p third_party/rust-toolchain/bin/
 ln -fs $(which rustc) third_party/rust-toolchain/bin/rustc
+
+# need bundle typescript on ppc64le as workaround for FTBFS
+%ifarch ppc64le
+tar xf %{SOURCE14} -C third_party/typescript/linux-amd64/src/
+pushd third_party/typescript/linux-amd64/src/
+cp package/lib/tsc* lib/
+popd
+%endif
+
+# remove bundle python3 and replace it with system one
+# fix FTBFS on aarch64, ppc64le
+# ERROR at //build/toolchain/concurrent_links.gni:156:19: Script returned non-zero exit code.
+%ifnarch x86_64
+cp $(which python3) third_party/cpython3/host/bin/python3
+%endif
 
 %if %{bundlelibusbx}
 # no hackity hack hack

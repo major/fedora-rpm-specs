@@ -1,7 +1,7 @@
 %global srcname dbus-signature-pyparsing
 
 Name:           python-%{srcname}
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Parser for a D-Bus Signature
 

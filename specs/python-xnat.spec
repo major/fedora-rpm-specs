@@ -19,6 +19,10 @@ License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
+# Downstream-only: avoid the python3dist(xnat4tests) test dependency, which we
+# prefer not to maintain.
+Patch:          xnatpy-0.8.1-avoid-xnat4tests.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -29,7 +33,6 @@ BuildRequires:  help2man
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(requests-mock)
-BuildRequires:  python3dist(xnat4tests)
 %endif
 
 %global desc %{expand: \

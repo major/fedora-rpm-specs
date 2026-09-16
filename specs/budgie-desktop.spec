@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -89,7 +89,9 @@ Requires:       mutter-common
 Requires:       network-manager-applet
 Requires:       oo7-portal
 Requires:       pam_oo7
+Requires:       python3-dbus
 Requires:       python3-psutil
+Requires:       python3-systemd
 Requires:       slurp
 Requires:       swaybg
 Requires:       swayidle
@@ -232,6 +234,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Tue Sep 15 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-5
+- Add missing python3 deps for labwc bridge
+
 * Mon Sep 07 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-4
 - Add support for oo7 secret service provider
 

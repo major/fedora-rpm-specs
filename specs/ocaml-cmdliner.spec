@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cmdliner
 Version:        2.1.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
@@ -83,6 +83,9 @@ sed -i '\@/usr/bin@d;/bash-completion/d;/powershell/d;/zsh/d' .ofiles
 %{zsh_completions_dir}/_cmdliner_generic
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 2.1.1-4
+- OCaml 5.5.1 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

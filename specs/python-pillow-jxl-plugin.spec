@@ -37,6 +37,7 @@ Patch:          0002-Allow-jpegxl-rs-as-old-as-0.12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 BuildRequires:  jpegxl-devel
 BuildRequires:  libstdc++-devel
 
@@ -53,6 +54,8 @@ Summary:        Pillow plugin for JPEG-XL
 %prep
 %autosetup -n pillow-jpegxl-plugin-%{version} -p1
 %cargo_prep
+# Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
+tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 %generate_buildrequires
 %pyproject_buildrequires

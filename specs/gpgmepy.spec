@@ -1,7 +1,7 @@
 Name:           gpgmepy
 Version:        2.0.0
 Epoch:          1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for GPGME
 
 # library LGPL-2.1-or-later, tests and examples use GPL-2.0-or-later
@@ -10,10 +10,12 @@ URL:            https://gnupg.org/related_software/gpgme/
 Source0:        https://gnupg.org/ftp/gcrypt/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://gnupg.org/ftp/gcrypt/%{name}/%{name}-%{version}.tar.bz2.sig
 Source2:        https://gnupg.org/signature_key.asc
+# fix build with SWIG 4.5
+Patch0:         0001-Drop-Python-2-compatibility.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(gpgme) >= %{version}
 
 %global _description %{expand:
@@ -30,7 +32,7 @@ Summary:        %{summary}
 
 %prep
 # signing key for gpgmepy is different than for gpgme and unavailable atm
-#{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+#{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -p1 -S gendiff
 
 %generate_buildrequires
@@ -62,6 +64,9 @@ make check
 %license COPYING*
 
 %changelog
+* Wed Sep 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.0.0-5
+- Fix build with SWIG 4.5
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:2.0.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

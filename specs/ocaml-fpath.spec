@@ -4,7 +4,7 @@
 
 Name:           ocaml-fpath
 Version:        0.7.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        File paths for OCaml
 
 License:        ISC
@@ -67,6 +67,9 @@ done
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.3-34
+- OCaml 5.5.1 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

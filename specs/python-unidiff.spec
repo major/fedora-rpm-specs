@@ -2,7 +2,7 @@
 %global pypi_name unidiff
 
 Name:           python-%{modname}
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Python library to parse and interact with unified diffs (patches)
 License:        MIT
@@ -46,6 +46,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest discover -s t
 %{_bindir}/%{modname}
 
 %changelog
+* Tue Sep 15 2026 Packit <hello@packit.dev> - 1.0.1-1
+- New upstream release 1.0.1 (rhbz#2533561)
+
 * Thu Aug 20 2026 Packit <hello@packit.dev> - 1.0.0-1
 - New upstream release 1.0.0 (rhbz#2520211)
 - Drop unnecessary patch

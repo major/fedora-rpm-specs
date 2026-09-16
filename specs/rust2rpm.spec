@@ -1,7 +1,7 @@
-%bcond_without check
+%bcond check 1
 
 Name:           rust2rpm
-Version:        28.0.0
+Version:        28.1.0
 Release:        %autorelease
 Summary:        Generate RPM spec files for Rust crates
 License:        MIT
@@ -17,11 +17,13 @@ BuildRequires:  /usr/bin/asciidoctor
 %if %{with check}
 BuildRequires:  cargo
 BuildRequires:  rust2rpm-helper >= 0.1.2
+BuildRequires:  python3-libdnf5
 %endif
 
 Requires:       cargo
 Requires:       cargo-rpm-macros
 Recommends:     rust2rpm-helper >= 0.1.2
+Recommends:     python3-libdnf5
 
 # obsolete old provides (removed in Fedora 38)
 Obsoletes:      cargo-inspector < 24
@@ -68,6 +70,7 @@ install -Dpm 644 docs/rust2rpm.toml.5 -t %{buildroot}/%{_mandir}/man5/
 %doc README.md
 %doc CHANGELOG.md
 %{_bindir}/rust2rpm
+%{_bindir}/cratedeps
 %{_mandir}/man1/rust2rpm.1*
 %{_mandir}/man5/rust2rpm.{conf,toml}.5*
 

@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.3.2
+Version:        14.3.3
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -61,8 +61,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.3.2"
-BuildRequires:  phpunit13 >=  13.3.2
+#        "phpunit/phpunit": "^13.3.3"
+BuildRequires:  phpunit13 >=  13.3.3
 BuildRequires:  php-xdebug
 %endif
 
@@ -210,6 +210,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 10 2026 Remi Collet <remi@remirepo.net> - 14.3.3-1
+- update to 14.3.3
+
 * Fri Sep  4 2026 Remi Collet <remi@remirepo.net> - 14.3.2-1
 - update to 14.3.2
 

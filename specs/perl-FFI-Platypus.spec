@@ -6,8 +6,8 @@
 %bcond_without perl_FFI_Platypus_enables_optional_test
 
 Name:           perl-FFI-Platypus
-Version:        2.11
-Release:        4%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://pl.atypus.org/
@@ -97,7 +97,7 @@ Requires:       perl(IPC::Cmd)
 # FFI::Platypus::Memory as a fallback
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^libplfill.so\\(\\)
 # Filter underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Test2::API|Test2::V0)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((FFI::CheckLib|Test2::API|Test2::V0)\\)$
 # Filter private modules
 %global __provides_exclude %{__provides_exclude}|^perl\\((FFI::Build::Plugin::Foo(1|2)|Test::Cleanup|Test::FauxAttach|Test::Platypus)\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\((Test::Cleanup|Test::FauxAttach|Test::Platypus)\\)
@@ -120,6 +120,7 @@ Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
+Requires:       perl(FFI::CheckLib) >= 0.05
 Requires:       perl(Test2::API) >= 1.302015
 Requires:       perl(Test2::V0) >= 0.000121
 %if %{with perl_FFI_Platypus_enables_optional_test}
@@ -193,7 +194,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes* CONTRIBUTING examples README SUPPORT
+%doc Changes* CONTRIBUTING examples README SECURITY SUPPORT
 %dir %{perl_vendorarch}/auto/FFI
 %{perl_vendorarch}/auto/FFI/Platypus
 %dir %{perl_vendorarch}/auto/share
@@ -220,6 +221,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 15 2026 Petr Pisar <ppisar@redhat.com> - 2.12-1
+- 2.12 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.11-4
 - Perl 5.44 rebuild
 

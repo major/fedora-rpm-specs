@@ -23,8 +23,8 @@
 %global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        5.8.0
-Release:        3%{?dist}
+Version:        5.9.0
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 14 2026 Remi Collet <remi@remirepo.net> - 5.9.0-1
+- update to 5.9.0
+
 * Fri Aug  7 2026 Remi Collet <remi@remirepo.net> - 5.8.0-3
 - define RPM_NIKIC_PHP_PARSER_VERSION in autoloader
 

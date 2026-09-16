@@ -45,7 +45,8 @@ export CGO_CFLAGS=$CFLAGS
 CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-flto=auto//g')
 CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-Wp,D_GLIBCXX_ASSERTIONS//g')
 CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g')
-export LDFLAGS=''
+# As seen at https://github.com/buildpacks/pack/blob/9321d2c/Makefile#L61
+export LDFLAGS='-X github.com/buildpacks/pack/pkg/client.Version=%{version}'
 
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"

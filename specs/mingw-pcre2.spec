@@ -3,17 +3,13 @@
 %global pkgname pcre2
 
 Name:          mingw-%{pkgname}
-Version:       10.47
-Release:       2%{?dist}
+Version:       10.48
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
 URL:           http://www.pcre.org/
 Source:        https://github.com/PhilipHazel/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2
-
-## Patches taken from native package ##
-# Do no set RPATH if libdir is not /usr/lib
-Patch0:        pcre2-10.10-Fix-multilib.patch
 
 
 BuildArch:     noarch
@@ -173,10 +169,13 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 10.48-1
+- Update to 10.48
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.47-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
-* Sat Nov 15 2025 Sandro Mani <manisandro@gmail.com> - 10.47-1
+* Sat Jan 17 2026 Sandro Mani <manisandro@gmail.com> - 10.47-1
 - Update to 10.47
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.46-2

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -59,6 +59,9 @@ files for developing applications that use %{name}.
 %endif
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-30
+- OCaml 5.5.1 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

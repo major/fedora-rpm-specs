@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 4
+%global project_version_minor 5
 %global project_version_micro 0
 
 # ========== build options ==========
@@ -77,15 +77,11 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-spec-Fix-bcond-ordering-so-plugin_systemd_inhibit-is.patch
-Patch2:         0002-libdnf5-Fix-dangling-reference-bug-in-is_vendor_chan.patch
-Patch3:         0003-spec-Mark-all-etc-configuration-files-as-noreplacibl.patch
-Patch4:         0004-spec-Build-require-perl-lib-for-tests.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -114,39 +110,39 @@ Obsoletes:      yum < 5
 Conflicts:      python3-dnf-plugins-core < 4.7.0
 %endif
 
-Provides:       dnf5-command(advisory)
-Provides:       dnf5-command(autoremove)
-Provides:       dnf5-command(check)
-Provides:       dnf5-command(check-upgrade)
-Provides:       dnf5-command(clean)
-Provides:       dnf5-command(debuginfo-install)
-Provides:       dnf5-command(distro-sync)
-Provides:       dnf5-command(downgrade)
-Provides:       dnf5-command(download)
-Provides:       dnf5-command(environment)
-Provides:       dnf5-command(group)
-Provides:       dnf5-command(history)
-Provides:       dnf5-command(info)
-Provides:       dnf5-command(install)
-Provides:       dnf5-command(leaves)
-Provides:       dnf5-command(list)
-Provides:       dnf5-command(makecache)
-Provides:       dnf5-command(mark)
+Provides:       dnf5-command(advisory) = %{version}-%{release}
+Provides:       dnf5-command(autoremove) = %{version}-%{release}
+Provides:       dnf5-command(check) = %{version}-%{release}
+Provides:       dnf5-command(check-upgrade) = %{version}-%{release}
+Provides:       dnf5-command(clean) = %{version}-%{release}
+Provides:       dnf5-command(debuginfo-install) = %{version}-%{release}
+Provides:       dnf5-command(distro-sync) = %{version}-%{release}
+Provides:       dnf5-command(downgrade) = %{version}-%{release}
+Provides:       dnf5-command(download) = %{version}-%{release}
+Provides:       dnf5-command(environment) = %{version}-%{release}
+Provides:       dnf5-command(group) = %{version}-%{release}
+Provides:       dnf5-command(history) = %{version}-%{release}
+Provides:       dnf5-command(info) = %{version}-%{release}
+Provides:       dnf5-command(install) = %{version}-%{release}
+Provides:       dnf5-command(leaves) = %{version}-%{release}
+Provides:       dnf5-command(list) = %{version}-%{release}
+Provides:       dnf5-command(makecache) = %{version}-%{release}
+Provides:       dnf5-command(mark) = %{version}-%{release}
 %if %{with modulemd}
-Provides:       dnf5-command(module)
+Provides:       dnf5-command(module) = %{version}-%{release}
 %endif
-Provides:       dnf5-command(offline)
-Provides:       dnf5-command(provides)
-Provides:       dnf5-command(reinstall)
-Provides:       dnf5-command(replay)
-Provides:       dnf5-command(remove)
-Provides:       dnf5-command(repo)
-Provides:       dnf5-command(repoquery)
-Provides:       dnf5-command(search)
-Provides:       dnf5-command(swap)
-Provides:       dnf5-command(system-upgrade)
-Provides:       dnf5-command(upgrade)
-Provides:       dnf5-command(versionlock)
+Provides:       dnf5-command(offline) = %{version}-%{release}
+Provides:       dnf5-command(provides) = %{version}-%{release}
+Provides:       dnf5-command(reinstall) = %{version}-%{release}
+Provides:       dnf5-command(replay) = %{version}-%{release}
+Provides:       dnf5-command(remove) = %{version}-%{release}
+Provides:       dnf5-command(repo) = %{version}-%{release}
+Provides:       dnf5-command(repoquery) = %{version}-%{release}
+Provides:       dnf5-command(search) = %{version}-%{release}
+Provides:       dnf5-command(swap) = %{version}-%{release}
+Provides:       dnf5-command(system-upgrade) = %{version}-%{release}
+Provides:       dnf5-command(upgrade) = %{version}-%{release}
+Provides:       dnf5-command(versionlock) = %{version}-%{release}
 
 
 # ========== versions of dependencies ==========
@@ -157,7 +153,7 @@ Provides:       dnf5-command(versionlock)
 %global librepo_version 1.20.0
 %global libsolv_version 0.7.36
 %global sqlite_version 3.35.0
-%global swig_version 4
+%global swig_version 4.3
 
 
 # ========== build requires ==========
@@ -336,12 +332,8 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %dir %{_sysconfdir}/dnf/dnf5-plugins
 %doc %{_libdir}/dnf5/plugins/README
 %dir %{_libdir}/libdnf5/plugins
-%dir %{_datadir}/bash-completion/
-%dir %{_datadir}/bash-completion/completions/
-%{_datadir}/bash-completion/completions/dnf*
-%dir %{_datadir}/zsh/
-%dir %{_datadir}/zsh/site-functions/
-%{_datadir}/zsh/site-functions/_dnf5
+%{bash_completions_dir}/dnf*
+%{zsh_completions_dir}/_dnf5
 %license COPYING.md
 %license gpl-2.0.txt
 %doc AUTHORS.md CHANGELOG.md CONTRIBUTING.md README.md
@@ -377,6 +369,7 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %{_mandir}/man8/dnf5-repo.8.*
 %{_mandir}/man8/dnf5-repoquery.8.*
 %{_mandir}/man8/dnf5-search.8.*
+%{_mandir}/man8/dnf5-status.8.*
 %{_mandir}/man8/dnf5-swap.8.*
 %{_mandir}/man8/dnf5-system-upgrade.8.*
 %{_mandir}/man8/dnf5-upgrade.8.*
@@ -431,6 +424,7 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %{_mandir}/man8/dnf-repo.8.*
 %{_mandir}/man8/dnf-repoquery.8.*
 %{_mandir}/man8/dnf-search.8.*
+%{_mandir}/man8/dnf-status.8.*
 %{_mandir}/man8/dnf-swap.8.*
 %{_mandir}/man8/dnf-system-upgrade.8.*
 %{_mandir}/man8/dnf-upgrade.8.*
@@ -533,8 +527,7 @@ Package management library.
 %if %{with libdnf_cli}
 %package -n libdnf5-cli
 Summary:        Library for working with a terminal in a command-line package manager
-# libdnf5-cli/utils/userconfirm.cpp is GPL-2.0-or-later
-License:        GPL-2.0-or-later AND LGPL-2.1-or-later
+License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 
 %description -n libdnf5-cli
@@ -751,7 +744,8 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 BuildRequires:  pkgconfig(appstream) >= 0.16
 
 %description -n libdnf5-plugin-appstream
-Libdnf5 plugin that installs repository's AppStream data, for repositories which provide them.
+Libdnf5 plugin that installs repository's AppStream data, for repositories
+which provide them.
 
 %files -n libdnf5-plugin-appstream
 %{_libdir}/libdnf5/plugins/appstream.so
@@ -826,13 +820,14 @@ Libdnf5 plugin that allows loading Python plugins.
 
 %if %{with plugin_local}
 %package -n libdnf5-plugin-local
-Summary:        Libdnf5 plugin that automatically copies all downloaded packages to a local repository
+Summary:        Libdnf5 plugin that copies all downloaded packages to a local repository
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       createrepo_c
 
 %description -n libdnf5-plugin-local
-Libdnf5 plugin that automatically copies all downloaded packages to a repository on the local filesystem and generates repo metadata.
+Libdnf5 plugin that automatically copies all downloaded packages to
+a repository on the local filesystem and generates repo metadata.
 
 %files -n libdnf5-plugin-local
 %{_libdir}/libdnf5/plugins/local.*
@@ -955,14 +950,14 @@ Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libcurl%{?_isa} >= 7.62.0
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
-Provides:       dnf5-command(builddep)
-Provides:       dnf5-command(changelog)
-Provides:       dnf5-command(config-manager)
-Provides:       dnf5-command(copr)
-Provides:       dnf5-command(needs-restarting)
-Provides:       dnf5-command(repoclosure)
-Provides:       dnf5-command(reposync)
-Provides:       dnf5-command(repomanage)
+Provides:       dnf5-command(builddep) = %{version}-%{release}
+Provides:       dnf5-command(changelog) = %{version}-%{release}
+Provides:       dnf5-command(config-manager) = %{version}-%{release}
+Provides:       dnf5-command(copr) = %{version}-%{release}
+Provides:       dnf5-command(needs-restarting) = %{version}-%{release}
+Provides:       dnf5-command(repoclosure) = %{version}-%{release}
+Provides:       dnf5-command(reposync) = %{version}-%{release}
+Provides:       dnf5-command(repomanage) = %{version}-%{release}
 
 %description -n dnf5-plugins
 Core DNF5 plugins that enhance dnf5 with builddep, changelog, config-manager,
@@ -1000,7 +995,7 @@ Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Recommends:     libcurl-full%{?_isa}
-Provides:       dnf5-command(automatic)
+Provides:       dnf5-command(automatic) = %{version}-%{release}
 %if %{with dnf5_obsoletes_dnf}
 Provides:       dnf-automatic = %{version}-%{release}
 Obsoletes:      dnf-automatic < 5
@@ -1041,7 +1036,7 @@ License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
-Provides:       dnf5-command(manifest)
+Provides:       dnf5-command(manifest) = %{version}-%{release}
 
 %description plugin-manifest
 DNF5 plugin for working with RPM package manifest files.
@@ -1125,7 +1120,7 @@ DNF5 plugin for working with RPM package manifest files.
 %if %{with dnf5_obsoletes_dnf}
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/dnf
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/yum
-ln -sr %{buildroot}%{_datadir}/bash-completion/completions/dnf5 %{buildroot}%{_datadir}/bash-completion/completions/dnf
+ln -sr %{buildroot}%{bash_completions_dir}/dnf5 %{buildroot}%{bash_completions_dir}/dnf
 %if %{with man}
     for file in %{buildroot}%{_mandir}/man[578]/dnf5[-.]*; do
         dir=$(dirname $file)
@@ -1207,6 +1202,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Mon Sep 14 2026 Packit <hello@packit.dev> - 5.4.5.0-1
+- Update to version 5.4.5.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.4.4.0-2
 - Rebuilt for libxml-2.5.4
 

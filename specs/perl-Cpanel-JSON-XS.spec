@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.51
+Version:	4.52
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -165,6 +165,11 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Tue Sep 15 2026 Paul Howarth <paul@city-fan.org> - 4.52-1
+- Update to 4.52
+  - OSX 10.9 fix for SIMD UTF-8
+  - Change maintainer email to reini.urban@gmail.com
+
 * Sat Sep 12 2026 Paul Howarth <paul@city-fan.org> - 4.51-1
 - Update to 4.51
   - Add $json->encode_to($fh, $data, [$type]) to stream encoded JSON directly

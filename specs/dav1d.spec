@@ -1,5 +1,5 @@
 Name:           dav1d
-Version:        1.5.3
+Version:        1.5.4
 Release:        %autorelease
 Summary:        AV1 cross-platform Decoder
 

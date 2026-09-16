@@ -1,5 +1,5 @@
 Name: zswap-cli
-Version: 1.2.0
+Version: 2.0.0
 Release: %autorelease
 
 License: MIT
@@ -8,9 +8,7 @@ URL: https://github.com/xvitaly/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} && 0%{?fedora} >= 42
 ExcludeArch: %{ix86}
-%endif
 
 BuildRequires: boost-devel
 BuildRequires: glibc-headers
@@ -46,6 +44,7 @@ a compressed cache is much faster than reading from a swap device.
     -DBUILD_MANPAGE:BOOL=ON \
     -DBUILD_METAINFO:BOOL=ON \
     -DBUILD_SHELL_COMPLETION:BOOL=ON \
+    -DINSTALL_CONFIG_FILE:BOOL=ON \
     -DSYSTEMD_INTEGRATION:BOOL=ON
 %cmake_build
 
@@ -68,11 +67,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %doc docs/*
 %license LICENSE
 %{_bindir}/%{name}
+%{_datadir}/%{name}
 %{_unitdir}/%{name}.service
 %{_mandir}/man1/%{name}.*
 %{_metainfodir}/*.metainfo.xml
 %dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
+%ghost %config(noreplace) %{_sysconfdir}/%{name}/system.conf
 %{bash_completions_dir}/%{name}
 
 %changelog

@@ -46,6 +46,9 @@ Source3:        https://www.python.org/ftp/python/%{installer_python_version}/%{
 # Python release binaries for macOS
 Source4:        https://keybase.io/nad/pgp_keys.asc?fingerprint=0d96df4d4110e5c43fbfb17f2d347ea6aa65421d#/key.asc
 
+# Do not require expert for M3
+Patch:          %{url}/pull/444.patch
+
 BuildRequires:  gnupg2
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(asn1)

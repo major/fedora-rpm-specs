@@ -1,6 +1,6 @@
 Name:           perl-Test2-Plugin-Cover
-%global cpan_version 0.000029
-Version:        0.0.29
+%global cpan_version 0.000030
+Version:        0.0.30
 Release:        1%{?dist}
 Summary:        Collect minimal file coverage data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 15 2026 Petr Pisar <ppisar@redhat.com> - 0.0.30-1
+- 0.000030 bump
+
 * Wed Sep 09 2026 Petr Pisar <ppisar@redhat.com> - 0.0.29-1
 - 0.000029 bump
 

@@ -7,7 +7,7 @@
 
 Name:           perl-Net-CalDAVTalk
 Version:        0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CalDAV client with JSON data interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CalDAVTalk
@@ -108,6 +108,7 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
@@ -115,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 15 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.18-2
+- Add missing LICENSE file
+
 * Wed Sep 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.18-1
 - 0.18 bump
 

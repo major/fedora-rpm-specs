@@ -1,6 +1,6 @@
-Version:        0.65.0
+Version:        0.66.0
 Name:           lfortran
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -9,10 +9,6 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
-# toml -> tomli
-Patch0:         https://github.com/lfortran/lfortran/pull/12679.patch
-# support for xeus-5
-Patch1:         https://github.com/lfortran/lfortran/pull/12688.patch
 
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
@@ -163,6 +159,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Tue Sep 15 2026 Christoph Junghans <junghans@votca.org> - 0.66.0-1
+- Update to version 0.66.0
+- Resolves: rhbz#2532852
+
 * Thu Sep 03 2026 Christoph Junghans <junghans@votca.org> - 0.65.0-2
 - Bring back jupyter package
 

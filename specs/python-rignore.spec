@@ -58,6 +58,10 @@ License:        %{shrink:
 
 
 %check -a
+# If upstream starts listing license files explicitly, LICENSE.dependencies may
+# be dropped from the .dist-info directory. Guard against this.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
+
 %pytest
 
 

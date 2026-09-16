@@ -6,8 +6,8 @@
 }
 
 Name:           python-%{srcname}
-Version:        1.35
-Release:        3%{?dist}
+Version:        1.36
+Release:        %autorelease
 Summary:        Font Querying tool for Fedora
 License:        MIT
 URL:            https://github.com/fedora-i18n/fontquery
@@ -83,123 +83,4 @@ This package contains the image build tools for %{srcname}.
 %{_bindir}/fontquery-build
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.35-2
-- Rebuilt for Python 3.15
-
-* Fri Apr 17 2026 Packit <hello@packit.dev> - 1.35-1
-- Update to version 1.35
-- Resolves: rhbz#2459123
-
-* Tue Apr 14 2026 Akira TAGOH <tagoh@redhat.com> - 1.33-1
-- New upstream release.
-- Fix the exception when redirecting output
-  Resolves: rhbz#2457780
-
-* Fri Jan 30 2026 Akira TAGOH <tagoh@redhat.com> - 1.32-1
-- New upstream release.
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Nov 21 2025 Akira TAGOH <tagoh@redhat.com> - 1.31-1
-- New upstream release.
-
-* Thu Nov 20 2025 Akira TAGOH <tagoh@redhat.com> - 1.30-1
-- New upstream release.
-
-* Fri Nov  7 2025 Akira TAGOH <tagoh@redhat.com> - 1.28-2
-- Fix a typo in Summary
-  Resolves rhbz#2411973
-
-* Thu Oct  9 2025 Akira TAGOH <tagoh@redhat.com> - 1.28-1
-- New upstream release.
-- Resolves rhbz#2402655
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.27-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Mon Sep  8 2025 Akira TAGOH <tagoh@redhat.com> - 1.27-1
-- New upstream release.
-
-* Fri Sep  5 2025 Akira TAGOH <tagoh@redhat.com> - 1.26-1
-- New upstream release.
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.24-2
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Aug  7 2025 Akira TAGOH <tagoh@redhat.com> - 1.24-1
-- New upstream release..
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.23-2
-- Rebuilt for Python 3.14
-
-* Fri Apr 18 2025 Akira TAGOH <tagoh@redhat.com> - 1.23-1
-- New upstream release.
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 11 2024 Akira TAGOH <tagoh@redhat.com> - 1.21-2
-- Add missing dependency of git-core.
-
-* Tue Sep 10 2024 Akira TAGOH <tagoh@redhat.com> - 1.21-1
-- New upstream release.
-
-* Mon Sep  2 2024 Akira TAGOH <tagoh@redhat.com> - 1.20-1
-- New upstream release.
-
-* Fri Aug 30 2024 Akira TAGOH <tagoh@redhat.com> - 1.16-1
-- New upstream release.
-
-* Mon Aug 26 2024 Akira TAGOH <tagoh@redhat.com> - 1.14-1
-- New upstream release.
-
-* Fri Aug 02 2024 Adam Williamson <awilliam@redhat.com> - 1.13-4
-- Backport PR #5 to exit 1 on diff as well as missing
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.13-2
-- Rebuilt for Python 3.13
-
-* Fri May 10 2024 Akira TAGOH <tagoh@redhat.com> - 1.13-1
-- New upstream release.
-
-* Wed May  8 2024 Akira TAGOH <tagoh@redhat.com> - 1.12-1
-- New upstream release.
-- Add fontconfig as a dependency.
-  Resolves: rhbz#2278116
-
-* Mon Mar 25 2024 Akira TAGOH <tagoh@redhat.com> - 1.10-1
-- New upstream release.
-
-* Mon Mar 11 2024 Akira TAGOH <tagoh@redhat.com> - 1.9-1
-- New upstream release.
-
-* Mon Mar  4 2024 Akira TAGOH <tagoh@redhat.com> - 1.8-2
-- Move fontquery-container from fontquery-builder to fontquery package.
-  Resolves: rhbz#2267616
-- Add podman as Recommends to fontquery.
-- Add podman and buildah as Requires to fontquery-builder.
-
-* Thu Feb  1 2024 Akira TAGOH <tagoh@redhat.com> - 1.8-1
-- New upstream release.
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Nov 30 2023 Akira TAGOH <tagoh@redhat.com> - 1.6-1
-- New upstream release.
-
-* Mon Sep  4 2023 Akira TAGOH <tagoh@redhat.com> - 1.4-1
-- Initial packaging.
+%autochangelog

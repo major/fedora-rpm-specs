@@ -6,7 +6,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-httpx2
-Version:        2.12.0
+Version:        2.13.0
 Release:        %autorelease
 Summary:        A next-generation HTTP client for Python
 
@@ -28,6 +28,13 @@ License:        BSD-3-Clause
 SourceLicense:  %{license} AND MIT
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
+
+# Downstream-only: make tests backward-compatible with chardet v6
+#
+# We are intentionally keeping python-chardet at v6 for the time being due to
+# the controversial relicensing in v7. See https://bugzilla.redhat.com/2441716,
+# https://lwn.net/Articles/1061534.
+Patch:          0001-Downstream-only-make-tests-backward-compatible-with-.patch
 
 BuildArch:      noarch
 
@@ -152,6 +159,13 @@ tomcli set src/httpx2/pyproject.toml str \
 # https://src.fedoraproject.org/rpms/python-uv-dynamic-versioning/pull-request/1,
 # https://bugzilla.redhat.com/show_bug.cgi?id=2513025.
 %pyproject_patch_dependency uv-dynamic-versioning:set_lower:0.12.0
+
+# Temporarily permit an older trio. This dependency was updated by dependabot
+# in https://github.com/pydantic/httpx2/pull/1179, but it doesn’t seem anything
+# from the newer version is really required. We can drop this after python-trio
+# is updated to at least 0.34.0,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2513751.
+%pyproject_patch_dependency trio:set_lower:0.33.0
 
 # Do not generate BuildRequires on workspace packages.
 %pyproject_patch_dependency httpcore2:ignore:br_only

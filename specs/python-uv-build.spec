@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.12.13
+Version:        0.12.15
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -163,6 +163,10 @@ tomcli set Cargo.toml false profile.release.strip
 
 
 %check -a
+# If upstream starts listing license files explicitly, LICENSE.dependencies may
+# be dropped from the .dist-info directory. Guard against this.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
+
 %if %{with check}
 # These tests require files from scripts/packages/built-by-uv/, which are not
 # included in the sdist.

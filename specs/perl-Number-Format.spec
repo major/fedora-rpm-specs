@@ -1,6 +1,6 @@
 Name:           perl-Number-Format
-Version:        1.76
-Release:        9%{?dist}
+Version:        1.78
+Release:        1%{?dist}
 Summary:        Perl extension for formatting numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Format
@@ -11,7 +11,8 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
@@ -21,7 +22,8 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(POSIX)
 # Tests only
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Test::More) >= 0.96
 
 %description
 This module provides an easy means of formatting numbers in a manner
@@ -42,11 +44,19 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%doc CHANGES README TODO
+%license LICENSE
+%doc Changes README TODO
 %{perl_vendorlib}/Number/
 %{_mandir}/man3/Number::Format.3*
 
 %changelog
+* Tue Sep 15 2026 Paul Howarth <paul@city-fan.org> - 1.78-1
+- Update to 1.78 (rhbz#2533614)
+  - Added support for terabytes; this feature was intentionally omitted for a
+    long time for support of 32-bit perls
+  - Converted to Dist::Zilla for future maintenance
+- Package LICENSE file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

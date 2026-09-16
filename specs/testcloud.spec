@@ -3,21 +3,20 @@
 %endif
 
 Name:           testcloud
-# Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
-Version:        0.11.8
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Tool for running cloud images locally
 
 License:        GPL-2.0-or-later
-URL:            https://pagure.io/testcloud
-Source0:        https://releases.pagure.org/testcloud/%{name}-%{version}.tar.gz
+URL:            https://github.com/teemtee/testcloud
+Source0:        %{pypi_source testcloud}
 Source1:        testcloud.sysusers
 
 ExclusiveArch: %{kernel_arches} noarch
 BuildArch:      noarch
 
-# Ensure we can create the testcloud group
-Requires(pre):  shadow-utils
+BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 Requires:       polkit
 
@@ -44,6 +43,7 @@ Requires:       libvirt-daemon
 Requires:       libvirt-daemon-config-network
 Requires:       libvirt-daemon-driver-qemu
 Requires:       libvirt-daemon-driver-storage-core
+Requires:       python3-fedora-distro-aliases
 Recommends:     butane
 Suggests:       python3-libguestfs
 Suggests:       libguestfs-tools-c
@@ -51,9 +51,8 @@ Suggests:       libguestfs-tools-c
 %description -n python3-%{name}
 Python 3 interface to testcloud.
 
-# Create the testcloud group
 %pre
-getent group testcloud >/dev/null || groupadd testcloud
+%sysusers_create_compat %{SOURCE1}
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -64,11 +63,20 @@ sed -i 's/ --cov-report=term-missing --cov testcloud//g' tox.ini
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
 %pyproject_install
 %pyproject_save_files testcloud
+
+# man page
+mkdir -p %{buildroot}%{_mandir}/man1
+install -pm 644 manpages/testcloud.1 %{buildroot}%{_mandir}/man1
+
+# bash completion
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+install -pm 644 conf/testcloud %{buildroot}%{_datadir}/bash-completion/completions/testcloud
 
 # configuration files
 mkdir -p %{buildroot}%{_sysconfdir}/testcloud/
@@ -93,9 +101,6 @@ install -p -m644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 %check
 %pyproject_check_import
 %pytest
-# Remove compiled .py files from /etc after os_install_post
-rm -f %{buildroot}%{_sysconfdir}/testcloud/*.py{c,o}
-rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 
 %files
 %doc README.md

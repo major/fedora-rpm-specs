@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.80
+Version:        0.0.81
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,9 +159,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev e7230cac059fa28bd0e534e4571c3560c695efbe
-%global ruff_baseversion 0.16.6
-%global ruff_snapdate 20260909
+%global ruff_rev c2cd236b9cc5b2149c74247e179d6567ec74066f
+%global ruff_baseversion 0.16.7
+%global ruff_snapdate 20260914
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.

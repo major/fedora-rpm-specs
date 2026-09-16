@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -82,6 +82,9 @@ developing applications that use LWT with %{name}.
 
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.10.0-9
+- OCaml 5.5.1 rebuild
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

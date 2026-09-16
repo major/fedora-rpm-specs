@@ -13,10 +13,6 @@ Patch0:         %{name}-install.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
-%if 0%{?rhel}
-BuildRequires:  epel-rpm-macros
-%endif
-
 
 
 %description

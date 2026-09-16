@@ -52,6 +52,12 @@ Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
 %bcond_with bundled_gmp
 %endif
 
+%if 0%{?rhel} >= 10 && %{with fips}
+%bcond_without bundled_nettle
+%else
+%bcond_with bundled_nettle
+%endif
+
 
 %define fips_requires() %{lua:
 local f = assert(io.popen("rpm -q --queryformat '%{EVR}' --whatprovides "..rpm.expand("'%1%{?_isa}'")))
@@ -72,7 +78,9 @@ BuildRequires: zlib-devel, brotli-devel, libzstd-devel
 %if %{with bootstrap}
 BuildRequires: automake, autoconf, gperf, libtool, texinfo
 %endif
+%if !%{with bundled_nettle}
 BuildRequires: nettle-devel >= 3.10.1
+%endif
 %if %{with leancrypto}
 BuildRequires: meson
 %endif
@@ -96,8 +104,10 @@ BuildRequires: p11-kit-trust, ca-certificates
 Requires: crypto-policies
 Requires: p11-kit-trust
 Requires: libtasn1 >= 4.3
+%if !%{with bundled_nettle}
 # always bump when a nettle release is packaged
 Requires: nettle >= 3.10.1
+%endif
 %if %{with tpm12}
 Recommends: trousers >= 0.3.11.2
 %endif
@@ -133,11 +143,22 @@ Source1: https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/%{name}-%{ver
 Source2: https://gnutls.org/gnutls-release-keyring.gpg
 
 %if %{with bundled_gmp}
-Provides:	bundled(gmp) = 6.2.1
-Source100:	gmp-6.2.1.tar.xz
+Provides:	bundled(gmp) = 6.3.0
+Source100:	gmp-6.3.0.tar.xz
 # Taken from the main gmp package
-Source101:	gmp-6.2.1-intel-cet.patch
-Source102:	gmp-6.2.1-c23.patch
+Source101:	gmp-6.3.0-intel-cet.patch
+Source102:	gmp-6.3.0-c23.patch
+Source103:      gmp-6.3.0-s390x-popcount.patch
+%endif
+
+%if %{with bundled_nettle}
+Provides:	bundled(nettle) = 4.0
+Source200:	nettle-4.0.tar.gz
+# Taken from the main nettle package
+Source201:	nettle-4.0.tar.gz.sig
+Source202:	nettle-release-keyring.gpg
+Source203:	nettle-4.0-zeroize-stack.patch
+Source204:	nettle-4.0-hobble-to-configure.patch
 %endif
 
 %if %{with leancrypto}
@@ -179,7 +200,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package fips
 Summary: Virtual package to install packages required to use %{name} under FIPS mode
 Requires: %{name}%{?_isa} = %{version}-%{release}
+%if !%{with bundled_nettle}
 %{fips_requires nettle}
+%endif
 %if !%{with bundled_gmp}
 %{fips_requires gmp}
 %endif
@@ -274,6 +297,18 @@ pushd bundled_gmp
 tar --strip-components=1 -xf %{SOURCE100}
 patch -p1 < %{SOURCE101}
 patch -p1 < %{SOURCE102}
+patch -p1 < %{SOURCE103}
+popd
+%endif
+
+%if %{with bundled_nettle}
+%{gpgverify} --keyring='%{SOURCE202}' --signature='%{SOURCE201}' --data='%{SOURCE200}'
+
+mkdir -p bundled_nettle
+pushd bundled_nettle
+tar --strip-components=1 -xf %{SOURCE200}
+patch -p1 < %{SOURCE203}
+patch -p1 < %{SOURCE204}
 popd
 %endif
 
@@ -294,8 +329,39 @@ autoreconf -ifv
 %make_build
 popd
 
-export GMP_CFLAGS="-I$PWD/bundled_gmp"
-export GMP_LIBS="$PWD/bundled_gmp/.libs/libgmp.a"
+export GMP_DIR="$PWD/bundled_gmp"
+export GMP_CFLAGS="-I$GMP_DIR"
+export GMP_LIBS="$GMP_DIR/.libs/libgmp.a"
+%endif
+
+%if %{with bundled_nettle}
+pushd bundled_nettle
+./.bootstrap
+
+# Disable -ggdb3 which makes debugedit unhappy
+sed s/ggdb3/g/ -i configure
+
+autoreconf -ifv
+# For annocheck
+export ASM_FLAGS="-Wa,--generate-missing-build-notes=yes"
+CFLAGS="$CFLAGS -I$GMP_DIR" \
+LDFLAGS="$LDFLAGS -L$GMP_DIR/.libs" \
+%configure --disable-shared --enable-fat \
+	   --disable-sm3 --disable-sm4 \
+	   --disable-ecc-secp192r1 --disable-ecc-secp224r1 \
+	   --disable-documentation \
+	   %{nil}
+%make_build
+ln -s . nettle
+popd
+
+export NETTLE_DIR="$PWD/bundled_nettle"
+
+export NETTLE_CFLAGS="-I$NETTLE_DIR"
+export NETTLE_LIBS="$NETTLE_DIR/libnettle.a"
+
+export HOGWEED_CFLAGS="-I$NETTLE_DIR"
+export HOGWEED_LIBS="$NETTLE_DIR/libhogweed.a $NETTLE_LIBS $GMP_LIBS"
 %endif
 
 %if %{with leancrypto}
@@ -416,6 +482,11 @@ pushd native_build
            --with-default-priority-string="@SYSTEM"
 
 %make_build
+
+%if %{with bundled_nettle}
+sed -i '/^Requires.private:/s/\(nettle\|hogweed\)[ ,]*//g' lib/gnutls.pc
+%endif
+
 %if %{with leancrypto}
 sed -i '/^Requires.private:/s/leancrypto[ ,]*//g' lib/gnutls.pc
 %endif

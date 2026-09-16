@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -18,7 +18,7 @@ URL: https://sourceware.org/binutils
 
 # --with    bootstrap    Build with minimal dependencies.
 # --with    clang        Force building with CLANG instead of GCC.
-# --with    crossbuilds  Build cross targeted versions of the binutils as well as natives.
+# --without crossbuilds  Do not build cross targeted versions of the binutils.
 # --with    debug        Build without optimizations and without splitting the debuginfo into a separate file.
 # --without debuginfod   Disable support for debuginfod.
 # --without docs         Skip building documentation.  Default is with docs, except when building a cross binutils.
@@ -155,8 +155,39 @@ URL: https://sourceware.org/binutils
 %bcond xxhash 1
 # Default: Use the libztsd-devel library.
 %bcond zstd 1
-# Default: Do not create cross targeted versions of the binutils.
+
+# For newer versions of RHEL and Fedora (ie RHEL-11+ and F46+) we build
+# cross-targeted versions of the binutils for the "major" architectures
+# (ie AArch64, PowerPC, S390X and X86_64).  Cross target builds for other
+# architectures are handled by the cross-binutils package.  There are
+# a couple of differences between the two packages however:
+#
+# 1) The rpm names.  The binutils package builds rpms called
+#       cross-binutils-<target_arch>-NVR.<host_arch>.rpm
+#    whereas the cross-binutils package creates rpms called
+#       binutils-<target_arch>-NVR.<host_arch>.rpm
+#
+# 2) The executable names.  The binutils package uses
+#     "<target_arch>-redhat-linux" as a prefix for executables, whereas
+#     the cross-binutils packge uses "<target_arch>=linux-gnu".
+#  eg:
+#      /usr/bin/s390x-redhat-linux-readelf
+#      /usr/s390x-redhat-linux/bin/readelf
+#  vs:
+#      /usr/bin/s390x-linux-gnu-readelf
+#      /usr/s390x-linux-gnu/bin/readelf
+#
+# As a further wrinkle the cross-binutils package uses "powerpc64le"
+# for the PowerPC architecture name, whereas the binutils package uses
+# "ppc64le".
+
+%if 0%{?rhel} >= 11
+%bcond crossbuilds 1
+%elif 0%{?fedora} >= 46
+%bcond crossbuilds 1
+%else
 %bcond crossbuilds 0
+%endif
 
 # GOLD is deprecated in RHEL-11+ and Fedora 46+
 %if 0%{?rhel} >= 11
@@ -541,25 +572,29 @@ of Linux applications.
 
 #----------------------------------------------------------------------------
 
-%if %{with crossbuilds}
-
 # Uncomment this when testing changes to the spec file, especially the cross building support.
 # Remember to comment it out again once the testing is complete.
-# %%undefine with_testsuite
+%undefine with_testsuite
+
+%if %{with crossbuilds}
+
+%global redhat_system  redhat-linux
+%global linux_system   linux-gnu
 
 # The list of cross targets to build.
-%global system         redhat-linux
-%global cross_targets  aarch64-%{system} ppc64le-%{system} s390x-%{system} x86_64-%{system}
+%global cross_targets  aarch64-%{redhat_system} ppc64le-%{redhat_system} s390x-%{redhat_system} x86_64-%{redhat_system}
 
 %package -n cross-binutils-aarch64
 Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-aarch64 = %{version}-%{release}
+Obsoletes: binutils-aarch64
 Requires: coreutils
 %if %{with systemzlib}
+# zlib-devel provides libz.so
 Requires: zlib-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
-ExcludeArch: aarch64-linux-gnu aarch64-redhat-linux
+ExcludeArch: aarch64-%{linux_system} aarch64-%{redhat_system}
 
 %description -n cross-binutils-aarch64
 This package contains an AArch64 cross targeted version of the binutils for
@@ -569,12 +604,13 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-ppc64le
 Summary: Cross targeted PPC64LE binutils for developer use.  Not intended for production.
 Provides: cross-binutils-ppc64le = %{version}-%{release}
+Obsoletes: binutils-powerpc64le
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
-ExcludeArch: ppc64le-linux-gnu ppc64le-redhat-linux
+ExcludeArch: ppc64le-%{linux_system} ppc64le-%{redhat_system}
 
 %description -n cross-binutils-ppc64le
 This package contains a PPC64LE cross targeted version of the binutils for
@@ -584,12 +620,13 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-s390x
 Summary: Cross targeted S390X binutils for developer use.  Not intended for production.
 Provides: cross-binutils-s390x = %{version}-%{release}
+Obsoletes: binutils-s390x
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
-ExcludeArch: s390x-linux-gnu s390x-redhat-linux
+ExcludeArch: s390x-%{linux_system} s390x-%{redhat_system}
 
 %description -n cross-binutils-s390x
 This package contains a S390X cross targeted version of the binutils for
@@ -599,12 +636,13 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-x86_64
 Summary: Cross targeted X86_64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-x86_64 = %{version}-%{release}
+Obsoletes: binutils-x86_64
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
-ExcludeArch: x86_64-linux-gnu x86_64-redhat-linux i686-linux-gnu i686-redhat-linux
+ExcludeArch: x86_64-%{linux_system} x86_64-%{redhat_system} i686-%{linux_system} i686-%{redhat_system}
 
 %description -n cross-binutils-x86_64
 This package contains a X86_64 cross targeted version of the binutils for
@@ -825,6 +863,7 @@ run_target_configuration()
     local target="$1"
     local native="$2"
     local shared="$3"
+
     local builddir=build-$target
 
     # Create a build directory
@@ -909,9 +948,9 @@ run_target_configuration()
         # No extra targets are supported.
         TARGS=""
 
-        # Disable the GOLD linker for cross builds because although it does
-        # support sysroots specified on the command line, it does not support
-        # them in linker scripts via the =/$SYSROOT prefix.
+        # Always disable the GOLD linker for cross builds because although it
+	# does support sysroots specified on the command line, it does not
+	# support them in linker scripts via the =/$SYSROOT prefix.
         SARGS="--with-sysroot=yes \
                --program-prefix=$target- \
                --prefix=%{_prefix}/$target \
@@ -1104,13 +1143,11 @@ done
 #       Install the binutils.
 #        $1 is the target architecture
 #        $2 is 1 if this is a native build
-#        $3 is 1 if shared libraries should be built
 #
 install_binutils()
 {
     local target="$1"
     local native="$2"
-    local shared="$3"
 
     local local_root=%{buildroot}/%{_prefix}
     local local_bindir=$local_root/bin
@@ -1125,14 +1162,14 @@ install_binutils()
     mkdir -p $local_mandir
     mkdir -p $local_infodir
 
-    echo "INSTALLING the binutils FOR TARGET $target (native ? $native) (shared ? $shared)"
+    echo "INSTALLING the binutils FOR TARGET $target (is native ? $native)"
 
     pushd build-$target
     
     if test x$native == x1 ; then
 
 %if %{with docs}
-        %make_install DESTDIR=%{buildroot} 
+        %make_install DESTDIR=%{buildroot}
         make prefix=%{buildroot}%{_prefix} infodir=$local_infodir install-info
 %else
         %make_install DESTDIR=%{buildroot} MAKEINFO=true
@@ -1141,16 +1178,16 @@ install_binutils()
         # Rebuild the static libraries with -fPIC.
         # It would be nice to build the static libraries with -fno-lto so that
         # they can be used by programs that are built with a different version
-        # of GCC from the one used to build the libraries, but this will trigger
-        # warnings from annocheck.
+        # of GCC from the one used to build the libraries, but this will
+        # trigger warnings from annocheck.
 
         # Future: Remove libiberty together with its header file, projects should bundle it.
         %make_build -s -C libiberty clean
         %set_build_flags
         %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libiberty
 
-        # Without the hidden visibility the 3rd party shared libraries would export
-        # the bfd non-stable ABI.
+        # Without the hidden visibility the 3rd party shared libraries would
+	# export the bfd non-stable ABI.
         %make_build -s -C bfd clean
         %set_build_flags
         %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS -fvisibility=hidden" -C bfd
@@ -1192,7 +1229,8 @@ install_binutils()
 
         # Sanity check --enable-64-bit-bfd really works.
         grep '^#define BFD_ARCH_SIZE 64$' $local_incdir/bfd.h
-        # Fix multilib conflicts of generated values by __WORDSIZE-based expressions.
+        # Fix multilib conflicts of generated values by __WORDSIZE-based
+	# expressions.
 %ifarch %{ix86} x86_64 ppc %{power64} s390 s390x sh3 sh4 sparc sparc64 arm
         sed -i -e '/^#include "ansidecl.h"/{p;s~^.*$~#include <bits/wordsize.h>~;}' \
             -e 's/^#define BFD_DEFAULT_TARGET_SIZE \(32\|64\) *$/#define BFD_DEFAULT_TARGET_SIZE __WORDSIZE/' \
@@ -1208,7 +1246,8 @@ install_binutils()
 
         touch -r ../bfd/bfd-in2.h $local_incdir/bfd.h
 
-        # Generate .so linker scripts for dependencies; imported from glibc/Makerules:
+        # Generate .so linker scripts for dependencies; imported from
+	# glibc/Makerules:
 
         # This fragment of linker script gives the OUTPUT_FORMAT statement
         # for the configuration we are building.
@@ -1274,13 +1313,15 @@ EOH
 
 #----------------------------------------------------------------------------
 
-install_binutils %{_target_platform} 1 %{enable_shared}
+# Perform the native install
+install_binutils %{_target_platform} 1
 
 %if %{with crossbuilds}
 
 for f in %{cross_targets}; do
+    # Do not install a host == target cross binutils!
     if test x$f != x%{_target_platform}; then
-        install_binutils $f 0 0
+        install_binutils $f 0
     fi
 done
 
@@ -1304,16 +1345,74 @@ exit 0
 # Remove the /usr/bin/ld file so that the alternatives program
 # can replace it with a symbolic link.
 %__rm -f %{_bindir}/ld
-
 %{_sbindir}/alternatives --install %{_bindir}/ld ld \
   %{_bindir}/ld.bfd %{ld_bfd_priority}
-
 # Do not run "alternatives --auto ld" here.  Leave the setting to
 # however the user previously had it set.  See BZ 1592069 for more details.
 
 %ldconfig_post
 
 exit 0
+
+%if %{with crossbuilds}
+# Create symlinks mapping cross binutils pathnames created by
+# this package with those created by the cross-binutils packge.
+
+# FIXME: It would be nice if the following commands could be put into
+# a single function and called with an argument indicating the target
+# architecture.  (As is done in other sections).  But %%post <package>
+# sections are individual scripts that cannot reference scripts in
+# other sections.
+
+%post -n cross-binutils-aarch64
+# Link /usr/<target>-redhat-linux to /usr/<target>-linux-gnu
+if ! [ -d %{_prefix}/aarch64-%{linux_system} ] ; then
+  ln -s %{_prefix}/aarch64-%{redhat_system} %{_prefix}/aarch64-%{linux_system}
+fi
+
+# Link /usr/bin/<target>-redhat-linux-<exec>
+# to   /usr/bin/<target>-linux-gnu-<exec>
+pushd %{_bindir} > /dev/null
+for x in aarch64-%{redhat_system}-*; do
+    if ! [ -x ${x/%{redhat_system}/%{linux_system}} ] ; then
+	ln -s $x ${x/%{redhat_system}/%{linux_system}};
+    fi
+done
+popd > /dev/null
+exit 0
+
+%post -n cross-binutils-ppc64le
+# The non-standard naming is a "feature" of the cross-binutils package.
+ln -s %{_prefix}/ppc64le-%{redhat_system}  %{_prefix}/powerpc64le-%{linux_system}
+
+pushd %{_bindir} > /dev/null
+for x in ppc64le-%{redhat_system}-*; do
+    ln -s $x ${x/ppc64le-%{redhat_system}}/powerpc64le-%{linux_system}}
+done
+popd > /dev/null
+exit 0
+
+%post -n cross-binutils-s390x
+ln -s %{_prefix}/s390x-%{redhat_system}  %{_prefix}/s390x-%{linux_system}
+
+pushd %{_bindir} > /dev/null
+for x in s390x-%{redhat_system}-*; do
+    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+done
+popd > /dev/null
+exit 0
+
+%post -n cross-binutils-x86_64
+ln -s %{_prefix}/x86_64-%{redhat_system}  %{_prefix}/x86_64-%{linux_system}
+
+pushd %{_bindir} > /dev/null
+for x in x86_64-%{redhat_system}-*; do
+    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+done
+popd > /dev/null
+exit 0
+
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -1345,29 +1444,92 @@ exit 0
 %postun
 %ldconfig_postun
 
+%if %{with crossbuilds}
+# Remove the symlinks created by the %%post stage.
+
+# FIXME: See %%post for why we repeat all of the
+# commands for all of the cross build targets.
+
+%postun -n cross-binutils-aarch64
+if [ -L %{_prefix}/aarch64-%{linux_system} ] ; then
+  %__rm %{_prefix}/aarch64-%{linux_system}
+fi
+
+pushd %{_bindir} > /dev/null
+for x in aarch64-%{linux_system}-*; do
+    if [ -L $x ] ; then
+	%__rm $x
+    fi
+done
+popd > /dev/null
+exit 0
+
+%postun -n cross-binutils-ppc64le
+if [ -L %{_prefix}/powerpc64le-%{linux_system} ] ; then
+  %__rm %{_prefix}/powerpc64le-%{linux_system}
+fi
+
+pushd %{_bindir} > /dev/null
+for x in powerpc64le-%{linux_system}-*; do
+    if [ -L $x ] ; then
+	%__rm $x
+    fi
+done
+popd > /dev/null
+exit 0
+
+%postun -n cross-binutils-s390x
+if [ -L %{_prefix}/s390x-%{linux_system} ] ; then
+  %__rm %{_prefix}/s390x-%{linux_system}
+fi
+
+pushd %{_bindir} > /dev/null
+for x in s390x-%{linux_system}-*; do
+    if [ -L $x ] ; then
+	%__rm $x
+    fi
+done
+popd > /dev/null
+exit 0
+
+%postun -n cross-binutils-x86_64
+if [ -L %{_prefix}/x86_64-%{linux_system} ] ; then
+  %__rm %{_prefix}/x86_64-%{linux_system}
+fi
+
+pushd %{_bindir} > /dev/null
+for x in x86_64-%{linux_system}-*; do
+    if [ -L $x ] ; then
+	%__rm $x
+    fi
+done
+popd > /dev/null
+exit 0
+
+%endif
 #----------------------------------------------------------------------------
 
 %files -f build-%{_target_platform}/binutils.lang
 
 %if %{with crossbuilds}
-%if "%{_target_platform}" != "aarch64-%{system}"
-%exclude /usr/aarch64-%{system}/*
-%exclude /usr/bin/aarch64-%{system}-*
+%if "%{_target_platform}" != "aarch64-%{redhat_system}"
+%exclude /usr/aarch64-%{redhat_system}/*
+%exclude /usr/bin/aarch64-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "ppc64le-%{system}"
-%exclude /usr/ppc64le-%{system}/*
-%exclude /usr/bin/ppc64le-%{system}-*
+%if "%{_target_platform}" != "ppc64le-%{redhat_system}"
+%exclude /usr/ppc64le-%{redhat_system}/*
+%exclude /usr/bin/ppc64le-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "s390x-%{system}"
-%exclude /usr/s390x-%{system}/*
-%exclude /usr/bin/s390x-%{system}-*
+%if "%{_target_platform}" != "s390x-%{redhat_system}"
+%exclude /usr/s390x-%{redhat_system}/*
+%exclude /usr/bin/s390x-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "x86_64-%{system}"
-%exclude /usr/x86_64-%{system}/*
-%exclude /usr/bin/x86_64-%{system}-*
+%if "%{_target_platform}" != "x86_64-%{redhat_system}"
+%exclude /usr/x86_64-%{redhat_system}/*
+%exclude /usr/bin/x86_64-%{redhat_system}-*
 %endif
 %endif
 
@@ -1430,14 +1592,16 @@ exit 0
 %{_libdir}/lib*.a
 %{_libdir}/libbfd.so
 %{_libdir}/libopcodes.so
-
-%if %{enable_shared}
-%exclude %{_libdir}/lib*.la
-%endif
-
-%if %{with debug}
+%if %{with crossbuilds}
 %dir %{_libdir}/bfd-plugins
 %{_libdir}/bfd-plugins/libdep.a
+%endif
+
+%if %{enable_shared}
+%if %{with crossbuild}
+%else
+%exclude %{_libdir}/lib*.la
+%endif
 %endif
 
 #------------------------------------
@@ -1475,34 +1639,37 @@ exit 0
 
 %if %{with crossbuilds}
 
-%if "%{_target_platform}" != "aarch64-%{system}"
+%if "%{_target_platform}" != "aarch64-%{redhat_system}"
 %files -n cross-binutils-aarch64 
-/usr/aarch64-%{system}/
-/usr/bin/aarch64-%{system}-*
+/usr/aarch64-%{redhat_system}/
+/usr/bin/aarch64-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "ppc64le-%{system}"
+%if "%{_target_platform}" != "ppc64le-%{redhat_system}"
 %files -n cross-binutils-ppc64le
-/usr/ppc64le-%{system}/
-/usr/bin/ppc64le-%{system}-*
+/usr/ppc64le-%{redhat_system}/
+/usr/bin/ppc64le-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "s390x-%{system}"
+%if "%{_target_platform}" != "s390x-%{redhat_system}"
 %files -n cross-binutils-s390x
-/usr/s390x-%{system}/
-/usr/bin/s390x-%{system}-*
+/usr/s390x-%{redhat_system}/
+/usr/bin/s390x-%{redhat_system}-*
 %endif
 
-%if "%{_target_platform}" != "x86_64-%{system}"
+%if "%{_target_platform}" != "x86_64-%{redhat_system}"
 %files -n cross-binutils-x86_64
-/usr/x86_64-%{system}/
-/usr/bin/x86_64-%{system}-*
+/usr/x86_64-%{redhat_system}/
+/usr/bin/x86_64-%{redhat_system}-*
 %endif
 
 %endif
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Sep 14 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-8
+- Enable building of cross-binutils executables for RHEL architectures.  (#2523586)
+
 * Fri Sep 04 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-7
 - Disable the gold linker by default.
 

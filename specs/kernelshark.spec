@@ -34,7 +34,6 @@ BuildRequires: libtraceevent-devel
 BuildRequires: libtracefs-devel
 BuildRequires: libtracecmd >= 1.5.0
 BuildRequires: trace-cmd
-BuildRequires: xmlto
 BuildRequires: make
 BuildRequires: chrpath
 BuildRequires: freeglut-devel

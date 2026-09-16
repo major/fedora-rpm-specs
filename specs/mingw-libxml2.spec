@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-libxml2
-Version:        2.12.10
-Release:        4%{?dist}
+Version:        2.15.4
+Release:        1%{?dist}
 Summary:        MinGW Windows libxml2 XML processing library
 
 License:        MIT
@@ -106,7 +106,7 @@ find %{buildroot} -name "*.la" -delete
 # Win32
 %files -n mingw32-libxml2
 %license Copyright
-%{mingw32_bindir}/libxml2-2.dll
+%{mingw32_bindir}/libxml2-16.dll
 %{mingw32_bindir}/xml2-config
 %{mingw32_bindir}/xmlcatalog.exe
 %{mingw32_bindir}/xmllint.exe
@@ -114,7 +114,6 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_libdir}/cmake/libxml2/
 %{mingw32_libdir}/pkgconfig/libxml-2.0.pc
 %{mingw32_includedir}/libxml2
-%{mingw32_datadir}/aclocal/*
 
 %files -n mingw32-libxml2-static
 %{mingw32_libdir}/libxml2.a
@@ -122,7 +121,7 @@ find %{buildroot} -name "*.la" -delete
 # Win64
 %files -n mingw64-libxml2
 %license Copyright
-%{mingw64_bindir}/libxml2-2.dll
+%{mingw64_bindir}/libxml2-16.dll
 %{mingw64_bindir}/xml2-config
 %{mingw64_bindir}/xmlcatalog.exe
 %{mingw64_bindir}/xmllint.exe
@@ -130,13 +129,18 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_libdir}/cmake/libxml2/
 %{mingw64_libdir}/pkgconfig/libxml-2.0.pc
 %{mingw64_includedir}/libxml2
-%{mingw64_datadir}/aclocal/*
 
 %files -n mingw64-libxml2-static
 %{mingw64_libdir}/libxml2.a
 
 
 %changelog
+* Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 2.15.4-1
+- Update to 2.15.4
+
+* Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 2.15.3-1
+- Update to 2.15.3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

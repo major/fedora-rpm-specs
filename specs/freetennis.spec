@@ -1,6 +1,6 @@
 Name:           freetennis
 Version:        0.4.8
-Release:        68%{?dist}
+Release:        69%{?dist}
 Summary:        Tennis simulation game
 License:        GPL-2.0-or-later
 URL:            http://freetennis.sourceforge.net/
@@ -64,6 +64,9 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.4.8-69
+- OCaml 5.5.1 rebuild
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

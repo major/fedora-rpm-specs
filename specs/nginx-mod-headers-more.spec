@@ -3,7 +3,7 @@
 
 Name:           nginx-mod-headers-more
 Version:        0.40
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        This module allows adding, setting, or clearing specified input/output headers
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ popd
 
 
 %changelog
+* Tue Sep 15 2026 Felix Kaechele <felix@kaechele.ca> - 0.40-4
+- Rebuild for 1.30.5
+
 * Sun Jul 19 2026 Felix Kaechele <felix@kaechele.ca> - 0.40-3
 - Rebuild for 1.30.4
 

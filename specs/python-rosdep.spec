@@ -1,18 +1,13 @@
 %global srcname rosdep
 
 Name:           python-%{srcname}
-Version:        0.26.0
-Release:        7%{?dist}
+Version:        0.27.0
+Release:        1%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD-3-Clause
 URL:            http://ros.org/wiki/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Merged upstream as ros-infrastructure/rosdep#1012
-Patch0:         intersphinx-mapping.patch
-# Merged upstream as ros-infrastructure/rosdep/1020
-Patch1:         drop-aggressive-asserts.patch
 
 BuildArch:      noarch
 
@@ -111,6 +106,9 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Tue Sep 15 2026 Scott K Logan <logans@cottsay.net> - 0.27.0-1
+- Update to 0.27.0 (rbhz#2532535)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

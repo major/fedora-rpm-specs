@@ -22,7 +22,7 @@ Version:                2.27.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -31,6 +31,11 @@ URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
 Source2:        91-ignition-authorized-keys-file.conf
+
+# Backport fix for SELinux relabelling failures when specifying a symlink for home_dir
+# https://github.com/coreos/ignition/pull/2316
+# https://github.com/coreos/fedora-coreos-tracker/issues/2216
+Patch0:         0001-internal-exec-stages-files-resolve-intermediate-syml.patch
 
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
@@ -225,7 +230,7 @@ Summary:  Enablement glue for bootupd's grub2 config
 License:  Apache-2.0
 
 # `ignition-grub` is a rename `ignition-ignition-grub` so let's obsolete `ignition-ignition-grub`
-Obsoletes: ignition-ignition-grub
+Obsoletes: ignition-ignition-grub < 2.21.0-2
 
 %description grub
 This package contains the grub2 config which is compatable with bootupd.
@@ -460,6 +465,12 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %endif
 
 %changelog
+* Mon Sep 14 2026 Rolv Apneseth <rapneset@redhat.com> - 2.27.0-3
+- Backport fix for SELinux relabelling failures when specifying a symlink for home_dir
+  https://github.com/coreos/ignition/pull/2316
+  https://github.com/coreos/fedora-coreos-tracker/issues/2216
+- Add version to ignition-ignition-grub Obsoletes to fix rpmbuild warning
+
 * Wed Sep 02 2026 Klara Necasova <knecasov@redhat.com> - 2.27.0-2
 - Update ignition-edge commit to include https://github.com/fedora-iot/ignition-edge/pull/12
 

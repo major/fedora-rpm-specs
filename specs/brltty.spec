@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.9.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -675,6 +675,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 6.9.1-9
+- OCaml 5.5.1 rebuild
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.9.1-8
 - Rebuilt for Python 3.15.0b4 ABI change
 

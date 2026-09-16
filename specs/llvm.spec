@@ -553,7 +553,10 @@ Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
-Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch2107: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch2218: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch2303: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch2402: 0001-24-Workaround-a-bug-in-ORC-on-ppc64le.patch
 
 # With the introduction of --gcc-include-dir in the clang config file,
 # this might no longer be needed.

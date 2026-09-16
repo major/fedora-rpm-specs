@@ -24,22 +24,20 @@
 # package is currently clashing in koji, so don't bother.
 %global debug_package %{nil}
 
-%global forgeurl https://github.com/ipxe/ipxe/
 %global commit 13a83f4ab30bd75831261e6b197903244f1ad753
 %global date 20260614
 %global version0 2.0.0
-%forgemeta
 
 Name:    ipxe
 Summary: A network boot loader
 Epoch:   1
-Version: %forgeversion
+Version: %{version0}^%{date}git%{sub %{commit} 1 7}
 Release: %autorelease
 
 License: BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND (GPL-2.0-only OR MPL-1.1) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH UBDL-exception AND ISC AND MIT
 URL:     http://ipxe.org/
 
-Source:  %forgesource
+Source:  https://github.com/ipxe/ipxe/archive/%{commit}/ipxe-%{commit}.tar.gz
 
 # Enable IPv6 for qemu's config
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
@@ -112,7 +110,7 @@ replacement for proprietary PXE ROMs, with many extra features such as
 DNS, HTTP, iSCSI, etc.
 
 %prep
-%forgeautosetup -p1
+%autosetup -C -p1
 
 %build
 cd src

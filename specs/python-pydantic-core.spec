@@ -126,7 +126,7 @@ tomcli-set pyproject.toml list 'tool.pytest.ini_options.markers' \
 tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-import-lib'
 
 # Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
-tomcli set pyproject.toml append project.license-files LICENSES.dependencies
+tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 %cargo_prep
 
@@ -138,7 +138,7 @@ tomcli set pyproject.toml append project.license-files LICENSES.dependencies
 
 %build
 %cargo_license_summary
-%{cargo_license} > LICENSES.dependencies
+%{cargo_license} > LICENSE.dependencies
 
 %pyproject_wheel
 

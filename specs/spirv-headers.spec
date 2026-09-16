@@ -4,7 +4,7 @@
 
 Name:           spirv-headers
 Version:        1.5.5
-Release:        %autorelease
+Release:        %autorelease -b 46
 Summary:        Header files from the SPIR-V registry
 
 License:        MIT
