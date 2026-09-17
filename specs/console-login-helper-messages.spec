@@ -2,17 +2,12 @@
 %global github_project  console-login-helper-messages
 
 Name:           console-login-helper-messages
-Version:        0.22.0
-Release:        2%{?dist}
+Version:        0.23.1
+Release:        1%{?dist}
 Summary:        Combines motd, issue, profile features to show system information to the user before/on login
 License:        BSD-3-Clause
 URL:            https://github.com/%{github_owner}/%{github_project}
 Source0:        https://github.com/%{github_owner}/%{github_project}/archive/v%{version}.tar.gz
-
-# On RHEL < 11, revert the move to /run/issue.d and keep using /etc/issue.d
-%if 0%{?rhel} && 0%{?rhel} < 11
-Patch0:         0001-revert-issue-to-etc.patch
-%endif
 
 BuildArch:      noarch
 BuildRequires:  systemd make
@@ -35,13 +30,7 @@ Requires:       bash systemd
 #   * https://pagure.io/setup/pull-request/14
 #   * https://pagure.io/setup/pull-request/15
 #   * https://pagure.io/setup/pull-request/16
-# Make exception for fc29 - soft requires as we will create /run/motd.d
-# ourselves if it doesn't already exist.
-%if 0%{?fc29}
-Requires:       setup
-%else
 Requires:       setup >= 2.12.7-1
-%endif
 # pam: to display motds in /run/motd.d.
 #   * https://github.com/linux-pam/linux-pam/issues/47
 #   * https://github.com/linux-pam/linux-pam/pull/69
@@ -49,13 +38,7 @@ Requires:       setup >= 2.12.7-1
 Requires:       ((pam >= 1.3.1-15) if openssh)
 # selinux-policy: to apply pam_var_run_t contexts:
 #   * https://github.com/fedora-selinux/selinux-policy/pull/244
-# Make exception for fc29, as PAM will create the tmpfiles. (In Fedora 30 and
-# above, setup is responsible for this).
-%if 0%{?fc29}
 Requires:       ((selinux-policy >= 3.14.2-50) if openssh)
-%else
-Requires:       ((selinux-policy >= 3.14.3-23) if openssh)
-%endif
 # Needed to display MOTDs in `/run/motd.d` before upon login through 
 # the serial console.
 Requires:       util-linux >= 2.36-1
@@ -122,17 +105,12 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %dir %{_prefix}/lib/%{name}
 %dir %{_prefix}/share/%{name}
 %{_prefix}/lib/%{name}/libutil.sh
-# tmpfiles.d/console-login-helper-messages.conf was removed upstream in v0.22.0
-# but is restored by the revert patch on RHEL < 11
-%if 0%{?rhel} && 0%{?rhel} < 11
 %{_tmpfilesdir}/%{name}.conf
-%endif
 
 %files issuegen
 %{_unitdir}/%{name}-gensnippet-ssh-keys.service
 %{_sysconfdir}/NetworkManager/dispatcher.d/90-%{name}-gensnippet_if
 %{_prefix}/lib/%{name}/issue.defs
-%{_tmpfilesdir}/%{name}-issuegen.conf
 %{_libexecdir}/%{name}/gensnippet_ssh_keys
 %{_libexecdir}/%{name}/gensnippet_if
 %{_libexecdir}/%{name}/gensnippet_if_udev
@@ -148,6 +126,9 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %ghost %{_sysconfdir}/profile.d/%{name}-profile.sh
 
 %changelog
+* Fri Jul 24 2026 Packit <hello@packit.dev> - 0.23.1-1
+- Update to version 0.23.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

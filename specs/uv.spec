@@ -721,7 +721,9 @@ skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
 #     source: General("No CA certificates were loaded from the system")
 #   }
 # There are probably more of these.
+skip="${skip-} --skip base_client::tests::test_redirect_no_referer_if_disabled"
 skip="${skip-} --skip base_client::tests::test_redirect_preserves_authorization_header_on_same_origin"
+skip="${skip-} --skip base_client::tests::test_redirect_removes_authorization_header_on_cross_origin"
 skip="${skip-} --skip retry::tests::retried_status_codes"
 skip="${skip-} --skip retry::tests::retry_logs_redact_signed_urls"
 # This has been seen to fail in koji, so far only on x86_64, but so far not in

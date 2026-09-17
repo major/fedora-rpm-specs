@@ -5,7 +5,7 @@
 %global crate crc32fast
 
 Name:           rust-crc32fast
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Fast, SIMD-accelerated CRC32 (IEEE) checksum computation
 

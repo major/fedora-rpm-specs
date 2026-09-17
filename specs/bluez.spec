@@ -9,11 +9,11 @@
 # export SHA=`git rev-parse --short HEAD` ; export VERSION=5.87 ; git archive --format=tar.xz -o bluez-$VERSION+1.git$SHA.tar.xz --prefix=bluez-$VERSION+1.git$SHA/ HEAD
 # as a post-release snapshot, see:
 # https://fedoraproject.org/wiki/PackagingDrafts/TildeVersioning
-%global gitsha 8750129efca8
+%global gitsha 789f6e154
 
 Name:    bluez
 Version: 5.87+1.git%{gitsha}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -344,6 +344,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Wed Sep 16 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.87+1.git789f6e154-2
+- Rebase to latest upstream. Fixes CVE-2026-19774 (rhbz:2535010)
+
 * Wed Sep 09 2026 Bastien Nocera <bnocera@redhat.com> - 5.87+1.git8750129efca8-1
 - Rebase to latest upstream HEAD (Closes: #2528181, #2525293)
 

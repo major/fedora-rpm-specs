@@ -23,7 +23,7 @@ Version:       1.3.3
 %endif
 
 Name:           coccinelle
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -287,6 +287,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-2
+- OCaml 5.5.1 rebuild
+
 * Fri Sep 04 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-1
 - New version 1.3.3 (RHBZ#2519492)
 - Drop ocaml-pcre2, egrep patches which are now upstream.

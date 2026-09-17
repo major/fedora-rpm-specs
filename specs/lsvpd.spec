@@ -10,6 +10,7 @@ Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{versi
 # upstream patches
 # lsvpd: Enhance tools to print device information in tuple format
 Patch10: lsvpd-add-FRU-number-for-Spyre-cards.patch
+Patch11: 0001-Fix-description-for-nvidia-specific-adapters.patch 
 
 BuildRequires: gcc-c++
 BuildRequires: libvpd-devel >= 2.2.9
@@ -85,6 +86,9 @@ systemctl daemon-reload >/dev/null 2>&1 || :
 %{_unitdir}/vpdupdate.service
 
 %changelog
+*Thu Sep 3 2026 Aditi Mishra <aditi@linux.ibm.com> - 1.7.17-3
+- Fix the description for Nvidia specific Adapters
+
 * Thu Aug 20 2026 Dan Horák <dan@danny.cz> - 1.7.17-3
 - rebuilt for sg3_utils 1.49
 

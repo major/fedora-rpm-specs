@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           arapuca
-Version:        0.2.7
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Cross-platform process sandbox with kernel-enforced isolation
 
@@ -22,7 +22,7 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 
-URL:            https://github.com/sergio-correia/arapuca
+URL:            https://github.com/LeGambiArt/arapuca
 Source0:        %{url}/archive/v%{version}/arapuca-%{version}.tar.gz
 # The vendor tarball is created using cargo-vendor-filterer to remove
 # non-Linux platform files (https://github.com/cgwalters/cargo-vendor-filterer)

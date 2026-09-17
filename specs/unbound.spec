@@ -42,7 +42,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.26.0
+Version: 1.26.1
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -79,7 +79,7 @@ Source29: tmpfiles-unbound-libs.conf
 Patch1:   unbound-fedora-config.patch
 # https://github.com/NLnetLabs/unbound/commit/8b33c5d7ffb82d442f3d19021588449cd6b02a17
 Patch6:   unbound-1.26.0-disabled-ipsecmod-fix.patch
-# https://github.com/cgallred/unbound/commit/93a56205cfa6b9a6d34db7245aa71e5ca67d1fd7
+# https://github.com/NLnetLabs/unbound/commit/93a56205cfa6b9a6d34db7245aa71e5ca67d1fd7
 Patch7:   unbound-1.26.0-replace-python2-c-api-macros.patch
 
 BuildRequires: gcc

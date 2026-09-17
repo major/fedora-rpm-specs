@@ -1,24 +1,22 @@
 %global _mintlibdir %{_prefix}/lib/linuxmint/
 
 Name:           mintlocale
-Version:        1.4.7
-Release:        23%{?dist}
+Version:        1.6.7
+Release:        1%{?dist}
 Summary:        Language selection tool
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Revert https://github.com/linuxmint/mintlocale/commit/0206bbf7c12058999e701bb11f9012be54da2cbb
-# Using non utf8 breaks gnome apps
-Patch0:         fixes.patch
-Patch1:         %{url}/pull/56.patch#/add_apt_checking.patch
+Source0:        http://packages.linuxmint.com/pool/main/m/%{name}/%{name}_%{version}.tar.xz
+Patch0:         0001-fedora.patch
 
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 
 Requires:       accountsservice
+Requires:       gtk3
+Requires:       python3-gobject
 Requires:       %{name}-set-default-locale = %{version}-%{release}
 Requires:       xapps
 
@@ -33,7 +31,7 @@ Language selection tool for Cinnamon.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -41,14 +39,9 @@ echo 'nothing to build'
 
 
 %install
-%{__cp} -pr .%{_prefix} %{buildroot}
-%{__rm} %{buildroot}%{_bindir}/add-remove-locales \
-  %{buildroot}%{_datadir}/applications/%{name}-im.desktop \
-  %{buildroot}%{_mintlibdir}/mintlocale/add.py \
-  %{buildroot}%{_mintlibdir}/mintlocale/install_remove.py
-%{__chmod} -c 0755 %{buildroot}%{_mintlibdir}/mintlocale/mintlocale.py
-
-echo 'LANG=$locale' > %{buildroot}%{_datadir}/linuxmint/mintlocale/templates/default_locale.template
+rm -rf .%{_prefix}/share/icons/
+cp -pr .%{_prefix} %{buildroot}
+chmod -c 0755 %{buildroot}%{_mintlibdir}/mintlocale/mintlocale.py
 
 %{_bindir}/desktop-file-install \
   --add-only-show-in=X-Cinnamon \
@@ -63,7 +56,8 @@ echo 'LANG=$locale' > %{buildroot}%{_datadir}/linuxmint/mintlocale/templates/def
 %{_bindir}/%{name}
 %{_mintlibdir}/
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/linuxmint
+%exclude %{_datadir}/linuxmint/mintlocale/templates/mdm_pam_environment.template
+%{_datadir}/linuxmint/
 %{_datadir}/polkit-1/actions/com.linuxmint.mintlocale.policy
 
 %files set-default-locale
@@ -71,6 +65,9 @@ echo 'LANG=$locale' > %{buildroot}%{_datadir}/linuxmint/mintlocale/templates/def
 
 
 %changelog
+* Wed Sep 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-1
+- Update to 1.6.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

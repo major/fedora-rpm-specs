@@ -1,7 +1,7 @@
 Name:           gpgmepp
 Summary:        C++ bindings/wrapper for GPGME
-Version:        2.0.0
-Release:        2%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Epoch:          1
 
 License:        LGPL-2.0-or-later
@@ -57,6 +57,9 @@ Requires:       gpgme-devel%{?_isa} >= %{version}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Aug 24 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.1.0-1
+- updated to 2.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

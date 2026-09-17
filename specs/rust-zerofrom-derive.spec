@@ -5,7 +5,7 @@
 %global crate zerofrom-derive
 
 Name:           rust-zerofrom-derive
-Version:        0.1.7
+Version:        0.1.8
 Release:        %autorelease
 Summary:        Custom derive for the zerofrom crate
 

@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.49.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,12 @@ fi
 
 
 %changelog
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-4
+- Bump and rebuild
+
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-3
+- OCaml 5.5.1 rebuild
+
 * Thu Sep 10 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-2
 - Rebuild for libnfs SONAME 16 -> 17, second time
 

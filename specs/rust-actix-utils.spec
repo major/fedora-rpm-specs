@@ -6,7 +6,7 @@
 %global crate actix-utils
 
 Name:           rust-actix-utils
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Various utilities used in the Actix ecosystem
 

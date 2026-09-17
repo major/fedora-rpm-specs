@@ -1,6 +1,6 @@
 Name:           libcerf
 %global rname   cerf
-Version:        3.7
+Version:        3.8
 %global         sover 3
 Release:        1%{?dist}
 Summary:        A library that provides complex error functions
@@ -70,6 +70,10 @@ mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{n
 
 
 %changelog
+* Wed Sep 16 2026 Christoph Junghans <junghans@votca.org> - 3.8-1
+- Version bump to v3.8
+- Fixes: rhbz#2534010
+
 * Sun Sep 06 2026 Christoph Junghans <junghans@votca.org> - 3.7-1
 - Version bump to v3.7
 - Fixes: rhbz#2529039

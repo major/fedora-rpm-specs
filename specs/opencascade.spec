@@ -1,11 +1,11 @@
-%global major 7
-%global minor 9
-%global patch 3
+%global major 8
+%global minor 0
+%global patch 1
 %global ver_under %{major}_%{minor}_%{patch}
 
 Name:           opencascade
-Version:        7.9.3
-Release:        4%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -19,9 +19,6 @@ Source3:        occ-256.png
 Source4:        occ-128.png
 Source5:        occ-64.png
 Source6:        occ-48.png
-
-Patch0:         occt-config.patch
-
 
 # Utilities
 BuildRequires:  cmake gcc gcc-c++
@@ -245,6 +242,7 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 %{_libdir}/libTKPrim.so.*
 %{_libdir}/libTKBO.so.*
 %{_libdir}/libTKBool.so.*
+%{_libdir}/libTKHelix.so.*
 %{_libdir}/libTKHLR.so.*
 %{_libdir}/libTKFillet.so.*
 %{_libdir}/libTKOffset.so.*
@@ -322,13 +320,18 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 %files devel
 %{_bindir}/*.sh
-%{_bindir}/ExpToCasExe*
 %{_includedir}/opencascade
 %{_libdir}/*.so
 %{_libdir}/cmake/opencascade/*.cmake
 
 
 %changelog
+* Wed Sep 16 2026 Richard Shaw <hobbes1069@gmail.com> - 8.0.1-1
+- Update to 8.0.1.
+
+* Tue Sep 01 2026 Richard Shaw <hobbes1069@gmail.com> - 7.9.3-4.1
+- Rebuild with correct source for 7.9.3.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

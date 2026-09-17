@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.23
-Release: 2%{?dist}
+Version: 45.25
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -431,6 +431,8 @@ rm -rf \
 %define _empty_manifest_terminate_build 0
 
 %files install-img-deps
+%{_unitdir}/anaconda-shell@.service
+%{_prefix}/lib/systemd/logind.conf.d/*
 
 # Allow the lang file to be empty here too
 %define _empty_manifest_terminate_build 0
@@ -438,6 +440,7 @@ rm -rf \
 %files core -f %{name}.lang
 %license COPYING
 %{_unitdir}/*
+%exclude %{_unitdir}/anaconda-shell@.service
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
@@ -523,6 +526,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 15 2026 Packit <hello@packit.dev> - 45.25-1
+- progress: add a Finalization installation category (tfratrik)
+- progress: replace the CategoryChanged signal with a CurrentCategory property
+  (adamkankovsky)
+- anaconda-shell: logind dropin (cmdr)
+- anaconda-shell: alias to autovt (cmdr)
+- fix: clean up installation-error-msg file on installer quit (kkoukiou)
+- Add Fedora SoaS profile to override default firefox web engine with slitherer
+  (kkoukiou)
+  Resolves: rhbz#2531475
+- fix: default to grp:alt_shift_toggle when installing multiple layouts
+  (kkoukiou)
+  Resolves: rhbz#2508253
+- Show an error when unsupported password hash is used (mkolman)
+- anaconda-pre: don't require a tty (cmdr)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 45.23-2
 - Rebuilt for libxml-2.5.4
 

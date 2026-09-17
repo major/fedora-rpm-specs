@@ -12,6 +12,9 @@ Source0:        https://github.com/bchretien/tcptrack/archive/v%{version}.tar.gz
 # was already reported upstream in https://github.com/bchretien/tcptrack/pull/10/
 # line changed
 Patch0:         https://github.com/bchretien/tcptrack/commit/409007afbce8ec5a81312a2a4123dd83b62b4494.patch#/tcptrack-1.4.3-type-mismatch.patch
+# Drop variables that are set but not used
+# https://github.com/bchretien/tcptrack/pull/15
+Patch1:         https://github.com/bchretien/tcptrack/commit/26c16305fbb83f87dc0ff3541968e0eca3236456.patch#/tcptrack-1.4.3-unused-vars.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++

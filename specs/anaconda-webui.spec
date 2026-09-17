@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        83
+Version:        84
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -42,11 +42,11 @@ Requires: system-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -147,6 +147,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Sep 15 2026 Packit <hello@packit.dev> - 84-1
+- Move error to the footer so that it's sticky when dialog get's too long (Resolves: rhbz#2526398)
+- fix: remote installation: restore installation progress step on page reload
+- fix: remote installation: align progress stepper map with install categories
+
 * Fri Sep 04 2026 Packit <hello@packit.dev> - 83-1
 - storage: fix LUKS kickstart race using GetUsableDisks tree walk
 - fix: reset boot drive on disk selection change and storage rescan

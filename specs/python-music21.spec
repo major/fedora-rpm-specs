@@ -8,7 +8,7 @@ URL:            https://www.music21.org/music21docs/
 Source0:        https://github.com/cuthbertLab/music21/releases/download/v%{version}/music21-%{version}.tar.gz
 
 BuildRequires:  lilypond
-BuildRequires:  mscore
+BuildRequires:  musescore
 BuildRequires:  xorg-x11-server-Xvfb
 
 BuildArch:      noarch
@@ -58,7 +58,7 @@ Requires:       python3-matplotlib
 Requires:       python3-numpy
 Requires:       python3-scipy
 Requires:       lilypond
-Requires:       mscore
+Requires:       musescore
 Requires:       %{name}-common = %{version}-%{release}
 
 %description -n python3-music21 %_description

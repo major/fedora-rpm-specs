@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        82.0.0
+Version:        83.0.0
 
 %gometa
 
@@ -36,6 +36,8 @@ BuildRequires:  libxcrypt-devel
 %if 0%{?fedora}
 # for _tmpfilesdir macro
 BuildRequires:  systemd-rpm-macros
+# for gocheck2 macro
+BuildRequires:  go-vendor-tools
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(cel.dev/expr)) = 0.25.1
@@ -144,7 +146,7 @@ Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.32.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.33.0
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/planetscale/vtprotobuf)) = 0393e58
@@ -258,7 +260,7 @@ export GOPATH=$PWD/_build:%{gopath}
 cd $PWD/_build/src/%{goipath}
 %gotest ./...
 %else
-%gocheck
+%gocheck2
 %endif
 
 %files
@@ -270,6 +272,54 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Sep 16 2026 Packit <hello@packit.dev> - 83.0.0-1
+Changes with 83.0.0
+----------------
+  - Add rhel10 & fedora image-installer for s390x & ppc64 architectures (HMS-10747) (#2679)
+    - Author: Loris Fauster, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Change s3_touch() to tag objects and re-enable the function on cache hits [HMS-11071] (#2660)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Drop common runner and add architecture name to runner names in Schutzfile (#2672)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger
+  - README: swap image-builder - images READMEs [HMS-10586] (#2684)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Simon de Vlieger
+  - Schutzfile: replace RHOS runners with AWS KVM (#2689)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger
+  - Update osbuild dependency commit ID (#2668)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - bootc-image-builder: boot AMI in AWS after cross-arch building [HMS-11073] (#2644)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Ondřej Budai
+  - bootc: aarch64 bootc-generic-iso (#2687)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  - cmd/image-builder: support templating output directory and artifact names (HMS-11286) (#2677)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - defs: allow templating filesystem partition labels (#2683)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - distro/defs: drop the ImageTypeYAML property from defs.imageType (#2685)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger
+  - experimental: `image-version`, `image-id` (#2663)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - fedora: use LVM GPT UUID for server (#2686)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová
+  - manifest/raw_bootc: Label / and /boot before running bootc install (#2525)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - many: `riscv64` support for installer(s) (HMS-11278, HMS-11279, HSM-11280) (#2614)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - many: cross-arch bootstrapping from packages (HMS-11277) (#2676)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - many: support `kernel.version` customization (#2618)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - pkg/manifest: erofs pipeline generator (#2667)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - pkg/osbuild: import `tree-delta`, `dd`, `os-release` stages (#2665)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - spec: %%gocheck2 macro (HMS-11020) (#2653)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - test: enable fedora boot.iso (HMS-11283) (#2673)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2026-09-16
+
 * Fri Sep 04 2026 Packit <hello@packit.dev> - 82.0.0-1
 Changes with 82.0.0
 ----------------

@@ -110,6 +110,8 @@ combination.
 
 %build
 export CFLAGS="$CFLAGS -Wno-error=deprecated-declarations -DATTRIBUTE_UNUSED='__attribute__((unused))'"
+export MINGW32_CFLAGS="%mingw32_cflags -Wno-error=deprecated-declarations -DATTRIBUTE_UNUSED='__attribute__((unused))'"
+export MINGW64_CFLAGS="%mingw64_cflags -Wno-error=deprecated-declarations -DATTRIBUTE_UNUSED='__attribute__((unused))'"
 
 %meson \
     -Denable-gtk-doc=true \

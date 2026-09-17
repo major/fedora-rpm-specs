@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.44.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -15,6 +15,11 @@ Source0:        http://download.gnome.org/sources/gdk-pixbuf/%{release_version}/
 # If you want to rebuild this, do:
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gdk-pixbuf-query-loaders.exe | sed s@'Z:/usr/i686-w64-mingw32/sys-root/mingw'@'..'@ > gdk-pixbuf.loaders
 Source1:        gdk-pixbuf.loaders
+
+# Apply proposed fixed for CVE-2026-16768
+Patch0:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/279.patch
+# Backport fix for CVE-2026-81893
+Patch1:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/efe658674bd103d1c9bf50809d5767a3f6dd5a01.patch
 
 BuildArch:      noarch
 
@@ -140,6 +145,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 2.44.8-2
+- Apply patches for CVE-2026-16768 and CVE-2026-81893
+
 * Fri Aug 21 2026 Sandro Mani <manisandro@gmail.com> - 2.44.8-1
 - Update to 2.44.8
 

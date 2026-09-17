@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlbz2
 Version:        0.8.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -51,6 +51,9 @@ rm src/io.h
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 0.8.0-15
+- Bump and rebuild
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.8.0-14
 - OCaml 5.5.1 rebuild
 

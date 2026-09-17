@@ -9,7 +9,7 @@ of the library is to be the most memory efficient possible, even at low load
 factor, while keeping reasonable performances.}
 
 Name:           tsl-%{srcname}
-Version:        0.6.2
+Version:        0.7.0
 Release:        %autorelease
 Summary:        C++ implementation of a memory efficient hash map and hash set 
 
@@ -31,10 +31,10 @@ Summary:        %{summary}
 %description    devel %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
-# Warnings shouldn't break the build
-sed -i 's/-Werror//' tests/CMakeLists.txt
+# Upstream forces static Boost.Test; Fedora only ships the shared library
+sed -i 's/Boost_USE_STATIC_LIBS ON/Boost_USE_STATIC_LIBS OFF/' tests/CMakeLists.txt
 
 %build
 %cmake

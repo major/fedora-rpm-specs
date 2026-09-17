@@ -5,7 +5,7 @@
 %global crate quinn
 
 Name:           rust-quinn
-Version:        0.11.11
+Version:        0.11.12
 Release:        %autorelease
 Summary:        Versatile QUIC transport protocol implementation
 

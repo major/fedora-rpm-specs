@@ -1,6 +1,6 @@
 Name:           perl-Net-DAVTalk
 Version:        0.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client for DAV servers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-DAVTalk
@@ -92,6 +92,7 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
@@ -99,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 16 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.25-2
+- Add missing LICENSE file
+
 * Wed Sep 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.25-1
 - 0.25 bump
 

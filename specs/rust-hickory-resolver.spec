@@ -6,7 +6,7 @@
 %global crate hickory-resolver
 
 Name:           rust-hickory-resolver
-Version:        0.26.2
+Version:        0.26.3
 Release:        %autorelease
 Summary:        Hickory-resolver is a safe and secure DNS stub resolver library
 

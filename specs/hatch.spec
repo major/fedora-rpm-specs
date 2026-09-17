@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.18.0%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.18.1%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -83,10 +83,6 @@ Source1800:     hatch-version.1
 #
 # https://github.com/pypa/hatch/pull/2399
 Patch:          %{url}/pull/2399.patch
-
-# Mark a few more tests that require Internet access
-# https://github.com/pypa/hatch/pull/2400
-Patch:          %{url}/pull/2400.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license hatch

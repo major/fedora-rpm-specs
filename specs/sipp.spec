@@ -12,6 +12,10 @@ Patch:		sipp-0003-Make-SSL-library-mandatory.patch
 Patch:		sipp-0004-Removed-outdated-md5-implementation.patch
 Patch:		sipp-0005-Removed-outdated-Rijndael-Vincent-Rijmen-et-al.-impl.patch
 Patch:		sipp-0006-Raise-minimal-OpenSSL-version-to-1.1.1.patch
+# Security fixes backported from upstream master (unreleased as of 3.7.7)
+Patch:		sipp-0007-fix-use-getAuthParameter-for-algorithm-in-createAuth.patch
+Patch:		sipp-0008-fix-bound-get_peer_tag-copy-against-buffer-size.patch
+Patch:		sipp-0009-fix-bound-get_header-writes-against-last_header-buff.patch
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++

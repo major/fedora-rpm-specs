@@ -449,6 +449,7 @@ Requires: python%{python3_pkgversion}-%{name}-mpich%{?_isa} = %{version}-%{relea
 Requires: mpich-devel
 Requires: hdf5-mpich-devel%{?_isa}
 Requires: netcdf-mpich-devel%{?_isa}
+Requires: python3-mpi4py-mpich
 %{vtk_devel_requires}
 
 %description mpich-devel
@@ -522,6 +523,7 @@ Requires: python%{python3_pkgversion}-%{name}-openmpi%{?_isa} = %{version}-%{rel
 Requires: openmpi-devel
 Requires: hdf5-openmpi-devel%{?_isa}
 Requires: netcdf-openmpi-devel%{?_isa}
+Requires: python3-mpi4py-openmpi
 %{vtk_devel_requires}
 
 %description openmpi-devel

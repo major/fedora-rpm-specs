@@ -6,7 +6,7 @@
 %global crate actix-codec
 
 Name:           rust-actix-codec
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Codec utilities for working with framed protocols
 

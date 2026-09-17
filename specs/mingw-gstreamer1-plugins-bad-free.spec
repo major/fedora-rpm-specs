@@ -5,7 +5,7 @@
 
 Name:           mingw-gstreamer1-plugins-bad-free
 Version:        1.28.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -601,6 +601,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 1.28.6-2
+- Rebuild (mingw-libxml2)
+
 * Sun Aug 09 2026 Sandro Mani <manisandro@gmail.com> - 1.28.6-1
 - Update to 1.28.6
 

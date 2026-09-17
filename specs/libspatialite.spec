@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.1.0
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -21,6 +21,9 @@ Patch1:        libspatialite_mingw.patch
 Patch2:        libspatialite_geos.patch
 # Fix incompatibile pointer types
 Patch3:        libspatialite_incompat-ptrs.patch
+# Fix build with libxml2 > 2.14 (patch from Debian package)
+# https://www.gaia-gis.it/fossil/libspatialite/tktview/ac85f0fca35de00b9aaadb5078061791fc799d9c
+Patch4:        libspatialite-libxml2-nanohttp.patch
 
 BuildRequires: autoconf automake libtool
 BuildRequires: freexl-devel
@@ -181,6 +184,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 5.1.0-15
+- Rebuild (mingw-libxml2)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.1.0-14
 - Rebuilt for libxml-2.5.4
 

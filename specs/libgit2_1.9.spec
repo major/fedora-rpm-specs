@@ -40,6 +40,9 @@ BuildRequires:  zlib-devel
 
 Provides:       bundled(libxdiff)
 
+# libgit2_1.8 retired in f45+
+Obsoletes:      libgit2_1.8 < 1.8.5-3
+
 # renamed in Fedora 45:
 # keep this ahead of the version of libgit2 in Fedora 44 and 43
 Obsoletes:      libgit2 < 1.9.7-2
@@ -56,6 +59,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # explicitly conflict with other libgit2 devel packages
 Conflicts:      pkgconfig(libgit2)
+
+# libgit2_1.8 retired in f45+
+Obsoletes:      libgit2_1.8-devel < 1.8.5-3
 
 # renamed in Fedora 45:
 # keep this ahead of the version of libgit2 in Fedora 44 and 43

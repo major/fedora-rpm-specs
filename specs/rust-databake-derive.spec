@@ -6,7 +6,7 @@
 %global crate databake-derive
 
 Name:           rust-databake-derive
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Custom derive for the databake crate
 

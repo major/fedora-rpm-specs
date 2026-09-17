@@ -1,5 +1,5 @@
 Name:           ocaml-stdcompat
-Version:        21.1
+Version:        22.0
 Release:        %autorelease
 Summary:        Compatibility module for the OCaml standard library
 
@@ -7,8 +7,8 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz
-# Temporary patch to support OCaml 5.5
-Patch:          %{name}-ocaml5.5.patch
+# Temporary patch to support OCaml 5.5.1
+Patch:          %{name}-ocaml5.5.1.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -45,10 +45,20 @@ developing applications that use %{name}.
 %autosetup -n stdcompat-%{version} -p1
 
 %check
-# The tests assume that ocamlopt is available
+sed -r \
+    -e 's/.*@(BEGIN|END)_(WITH_UNIX|WITHOUT_WIN32)@//' \
+    -e 's/@BEGIN_(WITHOUT_UNIX|WITH_WIN32)@/\  (*/' \
+    -e 's/@END_(WITHOUT_UNIX|WITH_WIN32)@/\  *)/' \
+    stdcompat_tests.ml.in > _build/default/stdcompat_tests.ml
+OCAMLFLAGS='-I .stdcompat.objs/byte -cclib -L. -o stdcompat_tests'
+cd _build/default
 %ifarch %{ocaml_native_compiler}
-%dune_check
+ocamlopt $OCAMLFLAGS stdcompat.cmxa stdcompat_tests.ml
+%else
+ocamlc $OCAMLFLAGS stdcompat.cma stdcompat_tests.ml
 %endif
+./stdcompat_tests
+cd -
 
 %files -f .ofiles
 %doc AUTHORS CHANGES.md README.md

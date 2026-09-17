@@ -3,8 +3,8 @@
 %global forgeurl https://github.com/rpm-software-management/%{pkg_name}
 
 %global version_major 0
-%global version_minor 5
-%global version_patch 9
+%global version_minor 6
+%global version_patch 0
 
 %bcond_with    docs
 %bcond_without python
@@ -20,12 +20,11 @@ Summary:    Library for working with RPM manifests
 License:    LGPL-2.1-or-later
 URL:        %{forgeurl}
 Source:     %{forgesource}
-# Fix building with GCC 16, bug #2434767, proposed upstream
-Patch1:     0001-build-Turn-compiler-warnings-into-errors-only-for-ou.patch
 
 BuildRequires:  pkgconf-pkg-config
-BuildRequires:  cmake >= 3.13
+BuildRequires:  cmake >= 3.16
 BuildRequires:  pkgconfig(yaml-cpp) >= 0.7.0
+BuildRequires:  pkgconfig(rpm)
 
 %if "%{toolchain}" == "clang"
 BuildRequires:  clang

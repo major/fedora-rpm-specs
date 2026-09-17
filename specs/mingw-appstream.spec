@@ -3,7 +3,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    mingw-appstream
 Version: 1.0.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -22,6 +22,7 @@ BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: itstool
 BuildRequires: libxslt
+BuildRequires: docbook-style-xsl
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
@@ -123,6 +124,9 @@ BuildArch: noarch
 %{mingw64_datadir}/installed-tests/appstream/*
 
 %changelog
+* Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 1.0.6-5
+- Rebuild (mingw-libxml2)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

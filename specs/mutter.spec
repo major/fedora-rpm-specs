@@ -16,7 +16,7 @@
 %global mutter_api_version 51
 
 Name:          mutter
-Version:       51~rc
+Version:       51.0
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -24,10 +24,6 @@ Summary:       Window and compositing manager based on Clutter
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/mutter/-/work_items/5033
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5310
-# Fix anaconda gtkui sometimes going unresponsive
-Patch:         0001-clutter-frame-clock-Preserve-pending_reschedule-from.patch
 
 %gnome_check_version
 

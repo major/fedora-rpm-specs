@@ -50,6 +50,7 @@ ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 sed -i '/"--instafail"/d; /"-p instafail"/d' pyproject.toml
 %if %{without xdist}
 sed -i '/"-p xdist"/d' pyproject.toml
+sed -i '/@pytest\.mark\.xdist_group/d' tests/test_*.py
 %endif
 
 # Remove shebangs

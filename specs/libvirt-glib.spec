@@ -7,7 +7,7 @@
 
 Name: libvirt-glib
 Version: 5.0.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: libvirt glib integration for events
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -295,6 +295,9 @@ MinGW Windows libvirt-gobject virtualization library.
 %endif
 
 %changelog
+* Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 5.0.0-12
+- Rebuild (mingw-libxml2)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.0-11
 - Rebuilt for libxml-2.5.4
 

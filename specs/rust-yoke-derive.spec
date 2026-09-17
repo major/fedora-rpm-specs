@@ -5,7 +5,7 @@
 %global crate yoke-derive
 
 Name:           rust-yoke-derive
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Custom derive for the yoke crate
 

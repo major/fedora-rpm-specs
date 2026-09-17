@@ -300,6 +300,9 @@ Patch23: chromium-152-build-error-libpng_for_testonly.patch
 # patch from Melvin - melvin@pixilab.se
 Patch24: glibc-2.42-baud-rate-fix.patch
 
+# fix FTBFS with old pipewire on fedora < 44 and epel
+Patch25: chromium-153-ftbfs-pipewire-api.patch
+
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
 
@@ -1077,6 +1080,7 @@ Qt6 UI for chromium.
 %if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
 %patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
 %endif
+%patch -P25 -p1 -b .ftbfs-pipewire-api
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 
 %if ! %{bundlebrotli}

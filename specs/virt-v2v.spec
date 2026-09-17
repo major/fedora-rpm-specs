@@ -44,8 +44,8 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.5
-Release:       3%{?dist}
+Version:       2.13.6
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -376,6 +376,9 @@ done
 
 
 %changelog
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.6-1
+- New upstream development version 2.13.6
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.5-3
 - OCaml 5.5.1 rebuild
 

@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc3.260914g704340f1cd0d.32
+%define pkgrelease 0.rc3.260916g9b87fdc9af2f.34
 %define kversion 7
-%define tarfile_release 7.3-rc3-9-g704340f1cd0d
+%define tarfile_release 7.3-rc3-78-g9b87fdc9af2f
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260914g704340f1cd0d.32%{?buildid}%{?dist}
+%define specrelease 0.rc3.260916g9b87fdc9af2f.34%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4855,10 +4855,21 @@ fi\
 #
 #
 %changelog
-* Mon Sep 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.704340f1cd0d.32]
+* Wed Sep 16 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-0.rc3.260916g9b87fdc9af2f.34]
+- Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
+
+* Wed Sep 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.9b87fdc9af2f.34]
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Wed Sep 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.9b87fdc9af2f.33]
+- Linux v7.3.0-0.rc3.9b87fdc9af2f
+
+* Tue Sep 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.587858367581.32]
+- redhat/configs/fedora: Enable dwc dual-role and ulpi phy support (Hans de Goede)
+- redhat/configs/fedora: Enable some drivers for x86 tablets (Hans de Goede)
+- Linux v7.3.0-0.rc3.587858367581
 
 * Mon Sep 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.704340f1cd0d.31]
 - redhat/configs: automotive: disable CONFIG_CRYPTO_DEV_TEGRA (Erico Nunes)

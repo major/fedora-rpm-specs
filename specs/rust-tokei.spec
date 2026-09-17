@@ -4,7 +4,7 @@
 %global crate tokei
 
 Name:           rust-tokei
-Version:        14.0.0
+Version:        15.0.0
 Release:        %autorelease
 Summary:        Count your code, quickly
 
@@ -21,10 +21,6 @@ Source10:       tokei.1
 # * Update etcetera to 0.10, https://github.com/XAMPPRocky/tokei/pull/1253, and
 #   allow 0.11,
 #   https://github.com/XAMPPRocky/tokei/pull/1253#issuecomment-3471595554
-# * Update strum/strum_macros to 0.27,
-#   https://github.com/XAMPPRocky/tokei/pull/1316, and then to 0.28.0,
-#   https://github.com/XAMPPRocky/tokei/pull/1336.
-# * Update toml to 0.9, downstream-only for MSRV reasons
 # * Update colored to 3.0, downstream-only for MSRV reasons
 Patch:          tokei-fix-metadata.diff
 

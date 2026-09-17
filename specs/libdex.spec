@@ -1,11 +1,11 @@
 Name:    libdex
-Version: 1.2~beta
+Version: 1.2.0
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 
 License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/libdex
-Source0: https://download.gnome.org/sources/libdex/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 %gnome_check_version
 

@@ -5,7 +5,7 @@
 %bcond_without ssh_agent
 
 Name:           gnome-keyring
-Version:        50.0
+Version:        51.0
 Release:        %autorelease
 Summary:        Framework for managing passwords and other secrets
 
@@ -16,14 +16,6 @@ URL:            https://wiki.gnome.org/Projects/GnomeKeyring
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 %gnome_check_version
-
-# https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/78
-# https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/165
-# https://bugzilla.redhat.com/show_bug.cgi?id=2349314
-# Ensure the login collection is registered after unlocking
-Patch:          78.patch
-
-Patch:          prompt-crash.patch
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -117,7 +109,6 @@ automatically unlock the "login" keyring when the user logs in.
 %{_bindir}/gnome-keyring-3
 %{_datadir}/dbus-1/services/*.service
 %{_sysconfdir}/xdg/autostart/*
-%{_datadir}/GConf/gsettings/*.convert
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
 %{_datadir}/p11-kit/modules/gnome-keyring.module
 %dir %{_datadir}/xdg-desktop-portal

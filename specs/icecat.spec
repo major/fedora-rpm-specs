@@ -99,7 +99,7 @@ ExcludeArch: %{ix86} %{arm}
 %endif
 
 # Use clang?
-%bcond_with toolchain_clang
+%bcond_without toolchain_clang
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -112,7 +112,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.15.0
+Version: 140.16.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included

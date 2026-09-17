@@ -10,12 +10,11 @@
 
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
-Version:       3.6.3
+Version:       3.7.2
 Release:       %autorelease
 License:       Apache-2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
-Patch:         zsh-global-completion-fix.patch
 
 BuildRequires: python3-devel
 
@@ -98,7 +97,6 @@ export PIP_NO_BUILD_ISOLATION=0
 %license LICENSE.rst
 %doc README.rst
 %{_bindir}/activate-global-python-argcomplete
-%{_bindir}/python-argcomplete-check-easy-install-script
 %{_bindir}/register-python-argcomplete
 %{_sysconfdir}/bash_completion.d/_%{name}
 

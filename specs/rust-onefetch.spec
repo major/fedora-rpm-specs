@@ -28,6 +28,8 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
+# * chore(deps): Update tokei to version 15:
+#   https://github.com/o2sh/onefetch/pull/1862
 Patch:          onefetch-fix-metadata.diff
 # * Downstream-only: revert the source-code change for gix 0.86+ so we can
 #   temporarily keep using gix 0.85.
