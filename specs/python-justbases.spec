@@ -1,6 +1,6 @@
 %global srcname justbases
 Name:       python-%{srcname}
-Version:    0.15.2
+Version:    0.15.3
 Release:    %autorelease
 Summary:    A small library for precise conversion between arbitrary bases
 

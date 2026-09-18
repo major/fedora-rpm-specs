@@ -509,8 +509,8 @@ echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 export CCACHE_DISABLE=1
 %endif
 
-# Require 4 GB of RAM per CPU core
-%constrain_build -m 4096
+# Require 8 GB of RAM per CPU core
+%constrain_build -m 8096
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 
 

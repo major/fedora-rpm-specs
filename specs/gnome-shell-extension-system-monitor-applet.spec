@@ -8,15 +8,15 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit a14b4048c6e495163f972718eda26b6de4e93376
+  %global gitcommit b9edf519f21a19160fe0cd2f91d58bce64296f50
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20260411git%{gitshortcommit}
+  %global gitsnapinfo .20260916git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        43%{?gitsnapinfo}%{?dist}
+Release:        44%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -86,6 +86,79 @@ fi
 
 
 %changelog
+* Wed Sep 16 2026 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-44.20260916gitb9edf51
+- Updated to last upstream commits - massive changes
+- Extract widget infrastructure to base.js and mounts.js - code only motion
+- Extract all widgets to separate files
+- Fix change_usage signal handler argument
+- Add static metadata support to ElementBase
+- Migrate remaining widgets to static metadata
+- Add config-based widget instantiation for multi-device support
+- Simplify widget API with collect() and auto-derived metadata
+- Rewrite preferences UI for config-based monitors
+- Remove unused UI templates
+- Migrate Fan and Swap to collect() API
+- Migrate GPU and Thermal to collectAsync() API
+- Migrate CPU, Memory, Frequency, Disk, Network, Battery to collect()
+- Add declarative layout framework for widget UI construction
+- Migrate all widgets to declarative layout API
+- Add Prometheus metrics scraper widget
+- Move Display toggle to monitor row title bar
+- Fix pre-existing lint errors and suppress complexity warnings
+- Separate metrics from display values in collect() return
+- Fix speed-in-bits not updating on config change
+- Disconnect NM device signals on destroy
+- Add safety timeout for async collectors
+- Fix timer bugs, resource leaks, and null safety
+- Fix signal leaks, listener leaks, and destroy ordering
+- Respect theme foreground color
+- Make UI labels consistent
+- Guard GPU subprocess callback against post-destroy access
+- Add What's New page with feature highlights
+- Use lm-sensors for thermal and fan enumeration
+- Contain exceptions thrown during widget updates
+- Contain widget construction and settings-change failures
+- Rebuild tooltip rows instead of appending in tip_format()
+- Keep sysfs sensor labels resolvable alongside lm-sensors
+- Cache and coalesce lm-sensors subprocess calls
+- Restore AMD card autodetection in gpu_usage.sh
+- Replace bash-only 'let' with POSIX arithmetic in gpu_usage.sh
+- Improve Prometheus scrape failure feedback
+- Hide Prometheus monitor type when libsoup3 is unavailable
+- Restore disk usage style selector
+- Block adding monitors when no devices are detected
+- Reuse existing translation msgids
+- Extract new UI strings and merge catalogs
+- Don't call gettext with an empty string
+- Tolerate missing cpufreq in the frequency widget
+- Fix Prometheus fetching stale server URL after config change
+- Guard Battery D-Bus callback against post-destroy access
+- Fix thermal threshold styling applied on stale data and not cleared on disable
+- Clear tooltip timer source ID after callback fires
+- Tag async collect callbacks with a generation counter
+- Defer update timers to _activateTimers() called after construction
+- Disconnect signals and listeners on destroy
+- Cancel pending save timer on page destroy
+- Fetch battery state immediately after proxy discovery
+- Abort Soup.Session on Prometheus destroy
+- Release owned references in disable()
+- Disconnect signals explicitly in disable()
+- Convert network fallback detection to async I/O
+- Remove synchronous file I/O and subprocess calls
+- Convert sensor enumeration and subprocess to async APIs
+- Move panel box to this._box for explicit lifecycle
+- Guard async callbacks and timers against post-destroy access
+- Remove unnecessary try-catch from imports
+- Migrate signal handling to connectObject/disconnectObject
+- Add Georgian language
+- Guard gettext calls against empty strings
+- Avoid blocking the shell on unreachable mounts
+- Catch network filesystems missing from the fstype list
+- Derive system mountpoints from the mount table
+- Collect disk usage off the main thread
+- Query nvidia-smi asynchronously in the add-monitor dialog
+- Stop stale network mounts from freezing the shell
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-43.20260411gita14b404
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

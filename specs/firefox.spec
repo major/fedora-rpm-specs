@@ -190,7 +190,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        156.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -263,6 +263,7 @@ Patch402:        D324870.1789116963.diff
 Patch403:        D324871.1789116972.diff
 Patch404:        D324876.1789116899.diff
 Patch405:        D324877.1789117000.diff
+Patch406:        D326840.1789732703.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -551,6 +552,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 %patch -P403 -p1 -b .D324871
 %patch -P404 -p1 -b .D324876
 %patch -P405 -p1 -b .D324877
+%patch -P406 -p1 -b .D326840
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1206,6 +1208,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Sep 17 2026 Martin Stransky <stransky@redhat.com> - 156.0-2
+- Disabled session restore on Gnome.
+
 * Thu Sep 10 2026 Martin Stransky <stransky@redhat.com> - 156.0-1
 - Updated to 156.0
 - Enabled session restore on KDE

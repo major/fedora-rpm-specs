@@ -25,53 +25,97 @@
 %constrain_build -m 6144
 
 %global rustflags_codegen_units 16
+# Features used at build and test time via '%%cargo_build -n -f' and
+# '%%cargo_test -n -f' (-n = --no-default-features, -f = --features).
+# Must match the --features argument in generate-vendor-tarball.sh so the vendor
+# tarball contains exactly the crates needed to build this feature set.
+%global downstream_features native-tls,otel,telemetry,system-keyring,disable-update
+%global ring_ver 0.17.14
+%global zstd_sys_ver 2.0.16+zstd.1.5.7
+%global zstd_safe_ver 7.2.4
+%global zstd_ver 0.13.3
+
+# Shared cargo flags for '%%cargo_build'/'%%cargo_test' (see %%build/%%check),
+# kept in one place so both call sites can't drift out of sync.
+#
+# -n -f "%%{downstream_features}": explicitly disable upstream defaults
+# (includes rustls-tls, aws-providers, tui, code-mode, and other features
+# incompatible with Fedora packaging guidelines) and activate only the
+# features needed for downstream packaging.
+#
+# -- --package goose-cli: scopes the build/test to the goose-cli package and
+# its dependency tree only. With resolver = "2", building the whole
+# workspace in one invocation activates any --features name across *every*
+# workspace member that defines it, not just the ones goose-cli actually
+# depends on; that let aws-lc-rs/aws-lc-sys leak into the build via unrelated
+# crates even though goose-cli never needs it. Scoping via a build flag
+# (rather than patching default-members into Cargo.toml) keeps this
+# controllable via build flags, which upstream also suggested and which is
+# easier to review/maintain across version bumps than a Cargo.toml patch.
+# '%%cargo_build'/'%%cargo_test's own getopt only recognizes -n/-a/-f, so a
+# bare '-p' errors ("Unknown option p"); everything after a literal '--' is
+# instead passed through raw to the underlying 'cargo build'/'cargo test'
+# invocation.
+#
+# --ignore-rust-version: goose 1.45.0 declares rust-version = "1.94.1", but
+# RHEL 9/10 and EPEL 9/10 currently ship an older Rust toolset (1.92.0) and
+# won't pick up 1.94 until ~Nov 2026. This skips cargo's pre-flight MSRV
+# check and attempts the build anyway; it only works if the code doesn't
+# actually rely on a post-1.92 compiler feature. EXPERIMENTAL — drop this
+# flag if a real build shows the older rustc genuinely can't compile it.
+%global goose_cargo_flags -n -f "%{downstream_features}" -- --package goose-cli --ignore-rust-version
 
 Name:           goose
-Version:        1.38.0
+Version:        1.45.0
 Release:        %autorelease
 Summary:        Extensible AI agent client
-URL:            https://github.com/block/goose
+URL:            https://github.com/aaif-goose/goose
 
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Source:         %{url}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
 # To create the vendor tarball, use the generate-vendor-tarball.sh script:
 #   chmod +x generate-vendor-tarball.sh
 #   ./generate-vendor-tarball.sh
-Source1:        %{name}-%{version}-vendor.tar.xz
+Source1:        %{name}-%{version}-vendor.tar.zstd
 # This script is used to generate the vendor tarball for goose, and while it
 # does not offer any practical/real usage for the application, it helps us to
 # easily generate the vendored tarball and apply the correct patches while
 # doing so.
 Source99:       generate-vendor-tarball.sh
+# This adds the changelog information used during Fedora/EPEL/RHEL builds to
+# inform what has changed from version to version. It has no practical effect
+# other than just being here to facilitate `fedpkg/rhpkg import` in the downstream.
+Source100:      changelog
 
 ## Dependency patches (1-19)
 #
 # Strip non-Linux platform deps (Windows winapi/winreg, macOS metal/apple-native
 # keyring), remove the vendor/v8 workspace member and all [patch.crates-io]
 # entries (v8, cudaforge). Remove keyring 'vendored' feature (use system dbus).
+# Switch sqlx from bundled 'sqlite' to 'sqlite-unbundled' to use system libsqlite3.
+# Remove 'nostr', 'aws-providers', and 'rustls-tls' from goose-cli default
+# features to prevent unwanted crates from leaking into the vendor tarball via
+# cargo vendor-filterer workspace-level resolution (resolver=2 does not propagate
+# --no-default-features to individual workspace members).
+# Feature flags (native-tls, otel, telemetry, system-keyring, disable-update) are
+# passed explicitly at build time via '%%cargo_build -n -f' and '%%cargo_test -n -f',
+# into Cargo.toml; see %build and %check.
 Patch1:         0001-Strip-non-Linux-deps-and-use-system-libraries.patch
-# Configure feature flags for downstream packaging: set default features to
-# native-tls, telemetry, otel, and system-keyring in goose-cli and goose-server.
-# Switch sqlx from bundled 'sqlite' to 'sqlite-unbundled' to link against system
-# sqlite.
-Patch2:         0002-Set-downstream-feature-flags.patch
-# Downgrade pkcs8 from 0.11.0 to 0.10.2 so that pkcs1 (0.7.5), pkcs8, and sec1
-# (0.7) all resolve against the same spki/der/const-oid generation. Upstream
-# defaults to rustls-tls and never activates these optional deps together;
-# native-tls activates all three, exposing a type mismatch between spki 0.7 and
-# 0.8.
-Patch3:         0003-Downgrade-pkcs8-to-0.10.2-for-native-tls-compat.patch
-# aws-lc-rs on rcgen is enabled, which pulls in aws-lc-rs even when rust-tls is
-# disabled. Put it in the feature list with rust-tls so it is properly disabled.
-Patch4:         0004-aws-lc-rs-feature-flag.patch
+# Remove aws_lc_rs from the workspace-level rustls default-features so it is
+# not pulled into the native-tls build path. Activate it explicitly only under
+# the rustls-tls feature flag in crates/goose/Cargo.toml.
+Patch2:         0002-aws-lc-rs-feature-flag.patch
 
 ## Code patches (20-99)
 #
-# Avoid the 'RETURNING' SQL statement which requires SQLite 3.35.0. EPEL 9 is
-# stuck on 3.34.1, so we split the INSERT + SELECT into two statements.
+# Avoid the 'RETURNING' SQL statement (requires SQLite 3.35.0) and the
+# 'unixepoch()' function (requires SQLite 3.38.0). EPEL 9 is stuck on
+# SQLite 3.34.1, so we split the INSERT + SELECT into two statements and
+# replace unixepoch() with CAST(strftime('%s', ...) AS INTEGER).
 Patch20:         0020-Fix-sql-statement-from-session-manager.patch
-# Since we are disabling codemode feature, we need to update the snapshot of a
-# test so it passes when running `cargo test`. That's better than skipping the
-# test entirely.
+# code-mode is not in the --features list passed at build time, so we update
+# the snapshot test so it passes without that feature. That's better than
+# skipping the test entirely.
 Patch21:         0021-Update-snapshot-test-without-codemode-instructions.patch
 
 ## Downstream only patches (100-799)
@@ -85,6 +129,9 @@ Patch21:         0021-Update-snapshot-test-without-codemode-instructions.patch
 # We have it placed in our directory due to the need of modifications depending
 # on the version bump from ring, otherwise, we should
 Patch0100:      0100-Downstream-only-never-use-pre-generated-object-files.patch
+# Enable the `pkg-config` feature in zstd-sys and zstd-safe so they link
+# against the system libzstd-devel instead of compiling from bundled sources.
+Patch0101:      0101-Downstream-only-enable-zstd-sys-pkg-config.patch
 
 ## RHEL only patches (800-899)
 # Patches in the 800-899 range are applied only to RHEL.
@@ -121,12 +168,13 @@ Conflicts: golang-github-pressly-goose
 # CC-BY-4.0:
 #   - All documentation (excluding specifications)
 #
-# licensecheck will report that set of 6 licenses for the source archive.
+# CDLA-Permissive-2.0:
+#   - introduced by the opentelemetry-semantic-conventions crate
 #
-# CC0-1.0 (constant_time_eq):
-#   - This package was discussed over the legal ML, due to it being present in
-#     Fedora already, but having a SPDX license that is not allowed.
-#   - https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/262UHMIUTLU3IMEQCFJUIS4EJIMEIRCN/
+# MPL-2.0+:
+#   - introduced by the option-ext crate.
+
+# licensecheck will report that set of 6 licenses for the source archive.
 #
 # A couple of files present under `crates/goose-mcp` and `crates/goose-cli`
 # were discussed in the legal ML due to them not having a clear license or
@@ -135,8 +183,8 @@ Conflicts: golang-github-pressly-goose
 #   - https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/JDE6YNL42ZKVA5ZF4PEUGI5SV2PCSHIR/
 #
 #   For convenience, the items discussed in the legal ML thread are namely:
-#   	- https://github.com/block/goose/tree/v1.38.0/crates/goose-mcp/src/computercontroller/tests/data
-#   	- https://github.com/block/goose/tree/v1.38.0/crates/goose-cli/src/scenario_tests/recordings
+#   	- https://github.com/block/goose/tree/v1.45.0/crates/goose-mcp/src/computercontroller/tests/data
+#   	- https://github.com/block/goose/tree/v1.45.0/crates/goose-cli/src/scenario_tests/recordings
 #
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
@@ -149,7 +197,10 @@ Conflicts: golang-github-pressly-goose
 # Apache-2.0
 # Apache-2.0 AND ISC
 # Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR BSL-1.0 OR MIT
+# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
+# Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -160,19 +211,23 @@ Conflicts: golang-github-pressly-goose
 # BSL-1.0
 # CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception
 # CC0-1.0 OR MIT-0 OR Apache-2.0
+# CDLA-Permissive-2.0
 # ISC
+# ISC AND (Apache-2.0 OR ISC)
+# ISC AND (Apache-2.0 OR ISC) AND Apache-2.0 AND MIT AND BSD-3-Clause AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR ISC OR MIT-0)
 # LGPL-3.0-or-later
 # MIT
 # MIT AND BSD-3-Clause
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR BSD-1-Clause
 # MIT OR Apache-2.0 OR LGPL-2.1-or-later
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MIT-0
 # MPL-2.0
+# MPL-2.0+
 # Unicode-3.0
 # Unlicense OR MIT
+# Unlicense OR MIT OR Apache-2.0 OR CC0-1.0
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
 # bzip2-1.0.6
@@ -182,11 +237,15 @@ License:        %{shrink:
                 AND (Apache-2.0 AND ISC)
                 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR CC0-1.0)
                 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
-                AND (Apache-2.0 OR BSD-1-Clause OR MIT)
                 AND (Apache-2.0 OR BSD-2-Clause OR MIT)
                 AND (Apache-2.0 OR BSD-3-Clause)
                 AND (Apache-2.0 OR BSL-1.0)
+                AND (Apache-2.0 OR BSL-1.0 OR MIT)
+                AND (Apache-2.0 OR CC0-1.0 OR MIT OR Unlicense)
                 AND (Apache-2.0 OR CC0-1.0 OR MIT-0)
+                AND (Apache-2.0 OR ISC)
+                AND (Apache-2.0 OR ISC OR MIT)
+                AND (Apache-2.0 OR ISC OR MIT-0)
                 AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT)
                 AND (Apache-2.0 OR MIT)
                 AND (Apache-2.0 OR MIT OR Zlib)
@@ -195,12 +254,14 @@ License:        %{shrink:
                 AND (BSD-3-Clause AND MIT)
                 AND (BSD-3-Clause OR MIT)
                 AND BSL-1.0
+                AND CDLA-Permissive-2.0
                 AND ISC
                 AND LGPL-3.0-or-later
                 AND MIT
                 AND (MIT OR Unlicense)
                 AND MIT-0
                 AND MPL-2.0
+                AND MPL-2.0+
                 AND Unicode-3.0
                 AND Zlib
                 AND bzip2-1.0.6
@@ -222,6 +283,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  /usr/bin/perl
 # Required by crate zstd-sys (vendored)
 BuildRequires:  libzstd-devel
+# Required in %%prep to zero out .cargo-checksum.json files dict after patching
+BuildRequires:  jq
 
 # Sublime Text 3 language definitions for syntax highlighting
 # from: https://github.com/sublimehq/Packages/tree/fa6b862
@@ -298,6 +361,12 @@ Provides:       bundled(syntect-theme-Solarized)
 # (src/dump.rs#L212) is included in the Spacegray theme.
 Provides:       bundled(sublime-theme-Spacegray)
 
+# BLAKE3 cryptographic hash function C/assembly implementation bundled in the
+# `blake3` crate. The upstream build.rs has no pkg-config hook to use the
+# system blake3-devel package, so the C sources are compiled at build time.
+# blake3: CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception
+Provides:       bundled(blake3) = 1.8.5
+
 # Minified JavaScript libraries and minified CSS stylesheets contained in
 # `goose-mcp` crate for the autovisualizer tool.
 #   * crates/goose-mcp/src/autovisualizer/templates/assets/
@@ -323,6 +392,32 @@ Provides:       bundled(leaflet-markercluster-min-js) = 1.5.3
 # any version here.
 Provides:       bundled(mermaid-min-js)
 
+# Tree-sitter parsing library and language grammars. The C sources are compiled
+# at build time from the vendored crates. System packages exist in Fedora for
+# most of these, but the upstream build.rs scripts have no pkg-config hook to
+# use them. tree-sitter-kotlin and tree-sitter-swift have no Fedora system
+# package at all.
+# tree-sitter: MIT
+Provides:       bundled(tree-sitter) = 0.26.10
+# tree-sitter-go: MIT
+Provides:       bundled(tree-sitter-go) = 0.25.0
+# tree-sitter-java: MIT
+Provides:       bundled(tree-sitter-java) = 0.23.5
+# tree-sitter-javascript: MIT
+Provides:       bundled(tree-sitter-javascript) = 0.25.0
+# tree-sitter-kotlin-ng: MIT (no Fedora system package available)
+Provides:       bundled(tree-sitter-kotlin) = 1.1.0
+# tree-sitter-python: MIT
+Provides:       bundled(tree-sitter-python) = 0.25.0
+# tree-sitter-ruby: MIT
+Provides:       bundled(tree-sitter-ruby) = 0.23.1
+# tree-sitter-rust: MIT
+Provides:       bundled(tree-sitter-rust) = 0.24.2
+# tree-sitter-swift: MIT (no Fedora system package available)
+Provides:       bundled(tree-sitter-swift) = 0.7.3
+# tree-sitter-typescript: MIT
+Provides:       bundled(tree-sitter-typescript) = 0.23.2
+
 %global _description %{expand:
 Goose is your on-machine AI agent, capable of automating complex development
 tasks from start to finish. More than just code suggestions, goose can build
@@ -345,8 +440,23 @@ faster and focus on innovation.}
 
 # Break the patches into batches since
 # patches >= 800 are only applied on RHEL systems.
-%setup -q -a1
+# The release artifact extracts to goose-v%%{version}/ (note the 'v' prefix),
+# unlike the old auto-generated archive which used goose-%%{version}/.
+%setup -q -n %{name}-v%{version} -a1
 %autopatch -p1 -M 799
+
+# Patch 0100 strips ring's pre-generated ASM objects from build.rs but cannot
+# patch .cargo-checksum.json reliably because its content varies depending on
+# which cargo-vendor-filterer version/fork generated the vendor tarball.
+# Zero out the files dict here so Cargo skips per-file verification entirely.
+jq -c '.files = {}' vendor/ring-%{ring_ver}/.cargo-checksum.json > vendor/ring-%{ring_ver}/.cargo-checksum.json.tmp \
+    && mv vendor/ring-%{ring_ver}/.cargo-checksum.json.tmp vendor/ring-%{ring_ver}/.cargo-checksum.json
+jq -c '.files = {}' vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json > vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json.tmp \
+    && mv vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json.tmp vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json
+jq -c '.files = {}' vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json > vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json.tmp \
+    && mv vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json.tmp vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json
+jq -c '.files = {}' vendor/zstd-%{zstd_ver}/.cargo-checksum.json > vendor/zstd-%{zstd_ver}/.cargo-checksum.json.tmp \
+    && mv vendor/zstd-%{zstd_ver}/.cargo-checksum.json.tmp vendor/zstd-%{zstd_ver}/.cargo-checksum.json
 
 %if 0%{?rhel}
 %autopatch -p1 -m 800 -M 899
@@ -388,54 +498,6 @@ rm -rf ui bin .claude .codex .cursor evals services oidc-proxy vendor/v8
 # the source of the image, it's better that we remove this anyway.
 rm crates/goose-cli/src/scenario_tests/test_data/test_image.jpg
 
-# Helper function to prune vendored folders that contains C libraries or
-# pre-defined objects. All pruned libraries here should be linked against
-# system libraries instead.
-#
-# Note: The operations `rm` and `find` in this helper function are split to
-# allow easier reading and maintenance, but they could be grouped together in
-# just one find command.
-prune_vendor() {
-    local crate_pattern="$1"
-    local path_to_remove="$2"
-
-    # We use ${var} without quotes here to allow the '*' glob to expand
-    rm -rf ${crate_pattern}/${path_to_remove}
-
-    # Patch the cargo checksum to ignore the deleted files
-    find . -path "*/${crate_pattern}/.cargo-checksum.json" \
-        -exec sed -i.uncheck -e 's/"files":{[^}]*}/"files":{ }/' '{}' '+'
-}
-
-pushd vendor
-
-prune_vendor "libdbus-sys-*" "vendor"
-prune_vendor "libsqlite3-sys-*" "{sqlite3,sqlcipher}"
-prune_vendor "onig_sys-*" "oniguruma"
-prune_vendor "ring-*" "pregenerated"
-
-# This expression will match:
-#   - zstd-* / zstd-*+zstd*
-#   - zstd-safe-* / zstd-safe*+zstd*
-#   - zstd-sys-*+zstd*
-# And will add the `pkg-config` to the default-features, and patch
-# .cargo-checksum.json to ignore the changed files.
-find . -maxdepth 1 -path "*/zstd-*" \
-    -exec sed -i '/^default = \[/s/\[/&"pkg-config", /' "{}/Cargo.toml" \; \
-    -exec sed -i.uncheck -e 's/"files":{[^}]*}/"files":{ }/' "{}/.cargo-checksum.json" \;
-
-# zstd-safe depends on zstd-sys with `default-features = false`, which
-# prevents the pkg-config default added above from taking effect. Explicitly
-# add the pkg-config feature to the dependency so that zstd-sys always links
-# against the system library instead of trying to build from bundled sources.
-sed -i '/\[dependencies\.zstd-sys\]/,/^$/{
-    /default-features = false/a\features = ["pkg-config"]
-}' zstd-safe-*/Cargo.toml
-
-prune_vendor "zstd-sys-*" "zstd"
-
-popd
-
 # Sometimes Rust sources start with #![...] attributes, and "smart" editors
 # think it's a shebang and make them executable. Then brp-mangle-shebangs gets
 # upset...
@@ -449,7 +511,8 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 # use pkg-config.
 export RUSTONIG_SYSTEM_LIBONIG=1
 
-%cargo_build
+# See the goose_cargo_flags definition above for what these flags do and why.
+%cargo_build %{goose_cargo_flags}
 
 # Generate man pages from clap CLI definitions
 export CARGO_MANIFEST_DIR="target/rpm"
@@ -461,7 +524,6 @@ target/rpm/generate_manpages
 
 %install
 install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
-install -Dpm 0755 target/rpm/goosed -t %{buildroot}%{_bindir}
 
 # Install man pages
 install -d %{buildroot}%{_mandir}/man1
@@ -482,13 +544,17 @@ skip="${skip-} --skip providers::gcpauth::tests::test_token_refresh_race_conditi
 skip="${skip-} --skip scenario_tests::scenarios::tests::test_image_analysis"
 #   * Flaky test failing, better to skip for now.
 skip="${skip-} --skip model::tests::with_canonical_limits::skips_canonical_output_limit_when_it_equals_context_limit"
-#   * Timing-sensitive test: races against run completion in slow build environments.
-skip="${skip-} --skip test_steer_session_adds_input_to_active_prompt"
 skip="${skip-} --skip plugins::tests::auto_update_plugins_skips_recently_checked_plugins"
 skip="${skip-} --skip plugins::tests::auto_update_plugins_updates_enabled_plugins"
 skip="${skip-} --skip plugins::tests::updates_git_backed_plugin"
+#   * Timing-sensitive test: races against run completion in slow build environments.
+skip="${skip-} --skip test_steer_session_adds_input_to_active_prompt"
 
-%cargo_test -- -- ${skip-}
+# See the goose_cargo_flags definition above for what these flags do and why.
+# The trailing `-- ${skip-}` here is cargo test's own separator for the
+# test-harness skip args (goose_cargo_flags already has its own `--` to get
+# --package/--ignore-rust-version past %%cargo_test's getopt parsing).
+%cargo_test %{goose_cargo_flags} -- ${skip-}
 %endif
 
 
@@ -508,7 +574,6 @@ skip="${skip-} --skip plugins::tests::updates_git_backed_plugin"
 %license cargo-vendor.txt
 
 %{_bindir}/goose
-%{_bindir}/goosed
 %{_mandir}/man1/goose*.1*
 
 %changelog

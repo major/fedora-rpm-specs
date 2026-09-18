@@ -7,14 +7,13 @@
 %global rubygems_net_http_version 0.7.0
 %global rubygems_net_protocol_version 0.2.2
 %global rubygems_optparse_version 0.8.0
-%global rubygems_resolv_version 0.7.2
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.4
 %global rubygems_tsort_version 0.2.0
 %global rubygems_uri_version 1.1.1
 
 # Requires versions
-%global bundler_version 4.0.20
+%global bundler_version 4.0.21
 %global psych_version 5.3.1
 %global rdoc_version 7.0.3
 
@@ -38,13 +37,12 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 4.0.20
+Version: 4.0.21
 Release: 1%{?dist}
 # BSD-2-Clause OR Ruby:
 #   lib/rubygems/net-http/
 #   lib/rubygems/net-protocol/
 #   lib/rubygems/optparse/
-#   lib/rubygems/resolv/
 #   lib/rubygems/securerandom/
 #   lib/rubygems/timeout/
 #   lib/rubygems/tsort/
@@ -79,9 +77,6 @@ Source12: check_CVE-2013-4363.rb
 # https://bugs.ruby-lang.org/issues/11002
 # NOTE: Keep this patch in sync with ruby.spec.
 Patch0: ruby-2.3.0-ruby_version.patch
-# Backport from ruby/ruby_4_0 branch to update resolv to 0.7.2 (fixes CVE-2026-80212 CVE-2026-80213)
-# https://github.com/ruby/ruby/pull/18528
-Patch1: rubygem-4.0.20-update-resolv-0_7_2.patch
 
 Requires:   ruby(release)
 Recommends: rubygem(bundler) >= 4.0
@@ -110,7 +105,6 @@ Provides:   bundled(rubygem-molinillo) = %{rubygems_molinillo_version}
 Provides:   bundled(rubygem-net-http) = %{rubygems_net_http_version}
 Provides:   bundled(rubygem-net-protocol) = %{rubygems_net_protocol_version}
 Provides:   bundled(rubygem-optparse) = %{rubygems_optparse_version}
-Provides:   bundled(rubygem-resolv) = %{rubygems_resolv_version}
 Provides:   bundled(rubygem-securerandom) = %{rubygems_securerandom_version}
 Provides:   bundled(rubygem-timeout) = %{rubygems_timeout_version}
 Provides:   bundled(rubygem-tsort) = %{rubygems_tsort_version}
@@ -134,7 +128,6 @@ Documentation for %{name}.
 %setup -q -b 2
 
 %patch 0 -p1
-%patch 1 -p1
 
 %build
 # Nothing
@@ -235,16 +228,6 @@ RUBYOPT=-Ilib ruby -e " \
   exit 1 if Gem::OptionParser::Version != '%{rubygems_optparse_version}'; \
 "
 
-# Resolv.
-RUBYOPT=-Ilib ruby -e " \
-  module Gem; end; \
-  require 'rbconfig'; \
-  require 'rubygems/vendor/resolv/lib/resolv'; \
-  puts '%%{rubygems_resolv_version}: %{rubygems_resolv_version}'; \
-  puts %Q[Gem::Resolv::VERSION: #{Gem::Resolv::VERSION}]; \
-  exit 1 if Gem::Resolv::VERSION != '%{rubygems_resolv_version}'; \
-"
-
 # SecureRandom.
 RUBYOPT=-Ilib ruby -e " \
   module Gem; module Random; end; end; \
@@ -337,6 +320,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Thu Sep 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.21-1
+- Update to RubyGems 4.0.21
+
 * Thu Sep 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.20-1
 - Update to RubyGems 4.0.20
 - Backport ruby upstream patch to update resolv to 0.7.2

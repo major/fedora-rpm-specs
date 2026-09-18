@@ -35,6 +35,10 @@ Source103:      %{name}.sysusers
 Source104:      %{name}.tmpfiles
 
 Patch:          greetd-0.10.0-Unbundle-greetd_ipc.patch
+# https://lists.sr.ht/~kennylevinsen/greetd-devel/patches/68742
+# Add conflict with kmsconvt to the systemd service
+# Fixes greetd to work with kmscon (Fedora 45+)
+Patch:          kmscon.patch
 
 Provides:       service(graphical-login) = greetd
 

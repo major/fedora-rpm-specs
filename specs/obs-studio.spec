@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.2.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -122,7 +122,13 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  luajit-devel
 %endif
 BuildRequires:  mbedtls-devel
+%if 0%{?fedora} > 44
+# Lower nv-codec-headers to support older cards
+# https://bugzilla.redhat.com/show_bug.cgi?id=2521662#c3
+BuildRequires:  nv-codec-headers13.0
+%else
 BuildRequires:  nv-codec-headers
+%endif
 %if %{with vpl}
 BuildRequires:  libvpl-devel
 %endif
@@ -400,6 +406,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Sep 17 2026 Nicolas Chauvet <kwizart@gmail.com> - 32.2.2-3
+- Lower nv-codec-headers to support older cards
+
 * Fri Sep 04 2026 Diego Herrera <dherrera@redhat.com> - 32.2.2-1
 - Update to 32.2.2
 - Fixed obs-studio patches 0101, 0102, 0103, 1001

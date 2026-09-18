@@ -170,6 +170,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3-rpm-generators >= 11-8
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python%{python3_pkgversion}-flit-core
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  bash-completion
 BuildRequires:  ca-certificates
 Requires:       ca-certificates

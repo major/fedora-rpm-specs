@@ -5,12 +5,12 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.18.2
+%global xyz_version 3.18.3
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		https://github.com/libfuse/libfuse/
@@ -68,7 +68,7 @@ Common files for FUSE v2 and FUSE v3.
 
 %prep
 %if %{undefined rhel}
-# Fuse is using signify rather than PGG since 3.15.1 For more details see:
+# Fuse is using signify rather than PGP since 3.15.1 For more details see:
 #	https://github.com/libfuse/libfuse/releases/tag/fuse-3.15.1
 signify -V -m  '%{SOURCE0}' -p '%{SOURCE2}'
 %endif
@@ -121,6 +121,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Thu Sep 17 2026 Peter Lemenkov <lemenkov@gmail.com> - 3.18.3-1
+- update to 3.18.3
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

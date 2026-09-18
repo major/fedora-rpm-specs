@@ -5,7 +5,7 @@
 %global crate libdeflater
 
 Name:           rust-libdeflater
-Version:        1.26.0
+Version:        1.26.1
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 

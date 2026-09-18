@@ -8,7 +8,7 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        51~rc
+Version:        51.0
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 

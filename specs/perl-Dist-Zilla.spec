@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla
 Version:        6.039
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla
@@ -209,6 +209,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.039-3
+- Fix tests in *tests package
+
 * Tue Sep 15 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.039-2
 - Fix metaresources test
 

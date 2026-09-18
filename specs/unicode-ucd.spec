@@ -3,8 +3,8 @@
 %global ucddir %{unicodedir}/ucd
 
 Name:           unicode-ucd
-Version:        17.0.0
-Release:        3%{?dist}
+Version:        18.0.0
+Release:        2%{?dist}
 Summary:        Unicode Character Database
 
 # http://www.unicode.org/terms_of_use.html in ReadMe.txt redirects to:
@@ -17,7 +17,9 @@ URL:            http://www.unicode.org/ucd/
 Source0:        https://www.unicode.org/Public/%{version}/ucd/UCD.zip
 Source1:        https://www.unicode.org/Public/%{version}/ucd/Unihan.zip
 Source2:        https://www.unicode.org/license.txt
+Source3:        test.py
 BuildArch:      noarch
+BuildRequires:  python3
 
 %description
 The Unicode Character Database (UCD) consists of a number of data files listing
@@ -52,6 +54,10 @@ cp -p %{SOURCE1} %{buildroot}%{ucddir}
 cp %{SOURCE2} .
 
 
+%check
+%{SOURCE3} %{buildroot}%{ucddir}/UnicodeData.txt
+
+
 %files
 %license license.txt
 %dir %{unicodedir}
@@ -63,6 +69,13 @@ cp %{SOURCE2} .
 
 
 %changelog
+* Thu Sep 17 2026 Jens Petersen <petersen@redhat.com> - 18.0.0-2
+- run test.py script also in the check section
+
+* Thu Sep 17 2026 Jens Petersen <petersen@redhat.com> - 18.0.0-1
+- https://www.unicode.org/versions/Unicode18.0.0/ (#2434378)
+- https://blog.unicode.org/2026/09/announcing-unicode-standard-version-180.html
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

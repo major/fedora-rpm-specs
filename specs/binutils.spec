@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -156,24 +156,29 @@ URL: https://sourceware.org/binutils
 # Default: Use the libztsd-devel library.
 %bcond zstd 1
 
-# For newer versions of RHEL and Fedora (ie RHEL-11+ and F46+) we build
-# cross-targeted versions of the binutils for the "major" architectures
-# (ie AArch64, PowerPC, S390X and X86_64).  Cross target builds for other
-# architectures are handled by the cross-binutils package.  There are
-# a couple of differences between the two packages however:
+# For newer versions of Fedora (ie F46+) we build cross-targeted versions of
+# the binutils for the "major" architectures (ie AArch64, PowerPC, S390X and
+# X86_64).  Cross target builds for other architectures are handled by the
+# cross-binutils package.  There are a couple of differences between the two
+# packages however:
 #
-# 1) The rpm names.  The binutils package builds rpms called
+# 1) The rpm names.  The binutils package builds rpms called:
 #       cross-binutils-<target_arch>-NVR.<host_arch>.rpm
-#    whereas the cross-binutils package creates rpms called
+#    whereas the cross-binutils package creates rpms called:
 #       binutils-<target_arch>-NVR.<host_arch>.rpm
 #
-# 2) The executable names.  The binutils package uses
-#     "<target_arch>-redhat-linux" as a prefix for executables, whereas
-#     the cross-binutils packge uses "<target_arch>=linux-gnu".
-#  eg:
+# 2) The executable names.  The binutils package uses:
+#        <target_arch>-redhat-linux
+#     as a prefix for executables, whereas the cross-binutils packge uses:
+#        <target_arch>=linux-gnu
+#
+#  eg: cross-binutils-s390x.rpm (from this project) contains:
+#
 #      /usr/bin/s390x-redhat-linux-readelf
 #      /usr/s390x-redhat-linux/bin/readelf
-#  vs:
+#
+#  whilst binutils-s390x.rpm (frpm the cross-binutils project) contains:
+#
 #      /usr/bin/s390x-linux-gnu-readelf
 #      /usr/s390x-linux-gnu/bin/readelf
 #
@@ -182,10 +187,18 @@ URL: https://sourceware.org/binutils
 # "ppc64le".
 
 %if 0%{?rhel} >= 11
-%bcond crossbuilds 1
+# The RHEL kernel team uses cross compilers, but they are a special case and
+# builds for them are handled separately.  In general we do not want to
+# expose cross-compiling capabilities to ordinary RHEL users as this is
+# not something that is supported by Red Hat.
+%bcond crossbuilds 0
 %elif 0%{?fedora} >= 46
+# Fedora users on the other hand do get cross compilation capability
+# by default.
 %bcond crossbuilds 1
 %else
+# Before F46 cross binutils builds were handled exclusively by the
+# cross-binutils package.
 %bcond crossbuilds 0
 %endif
 
@@ -1671,6 +1684,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Sep 16 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-10
+- Do not build cross binutils for RHEL.
+
 * Tue Sep 15 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-9
 - Add Provides: binutils-<arch> for cross binutils sub-packages, and update Obsolete targets.
 

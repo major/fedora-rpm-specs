@@ -1,6 +1,6 @@
 Name:           sidplayfp
-Version:        2.15.0
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        SID chip music module player
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,6 +10,7 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libsidplayfp-devel >= 2.0
 BuildRequires:  alsa-lib-devel pulseaudio-libs-devel libtool
+BuildRequires:  fmt-devel
 BuildRequires:  gettext-devel
 
 %description
@@ -29,7 +30,7 @@ autoreconf -ivf
 
 
 %build
-%configure
+%configure --with-system-fmt
 make %{?_smp_mflags}
 
 
@@ -38,7 +39,7 @@ make %{?_smp_mflags}
 
 
 %files
-%doc AUTHORS README
+%doc AUTHORS.md README.md
 %license COPYING
 %{_bindir}/sidplayfp
 %{_bindir}/stilview
@@ -47,6 +48,11 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Sep 17 2026 Karel Volný <kvolny@redhat.com> - 3.2.0-1
+- Update to 3.2.0 (rhbz#2397206)
+- See the upstream changes at https://github.com/libsidplayfp/sidplayfp/releases
+- Use system fmt
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

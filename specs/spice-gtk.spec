@@ -19,6 +19,7 @@ Source0:        https://www.spice-space.org/download/gtk/%{name}-%{version}%{?_v
 #Source2:        victortoso-E37A484F.keyring
 
 Patch0000:     0001-build-sys-fix-spice-version.h-generation.patch
+Patch0001:     0001-spice-widget-update-cairo-scale-when-output-scale-ch.patch
 
 BuildRequires: git-core
 BuildRequires: meson

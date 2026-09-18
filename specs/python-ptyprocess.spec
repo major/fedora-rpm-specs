@@ -4,7 +4,7 @@
 
 Name:           python-ptyprocess
 Version:        0.7.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Run a subprocess in a pseudo terminal
 
 License:        ISC
@@ -13,6 +13,10 @@ Source:         %{pypi_source}
 
 # Remove unittest.makeSuite, gone from Python 3.13
 Patch:          https://github.com/pexpect/ptyprocess/pull/75.patch
+
+# Use PEP 621 metadata to fix flit-core-4 compatibility
+# Rebased very slightly from https://github.com/pexpect/ptyprocess/pull/84
+Patch:          84.patch
 
 BuildArch:      noarch
 
@@ -55,6 +59,9 @@ process and its pty.
 %doc README.rst
 
 %changelog
+* Mon Aug 24 2026 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-18
+- Fix build with flit-core version 4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

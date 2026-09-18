@@ -11,7 +11,7 @@ BuildRequires: fontpackages-devel
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    lyx
-Version: 2.5.2
+Version: 2.5.3
 Release: 1%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -242,6 +242,9 @@ make -k check ||:
 
 
 %changelog
+* Thu Sep 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.3-1
+- 2.5.3
+
 * Mon Aug 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.2-1
 - 2.5.2
 

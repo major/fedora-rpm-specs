@@ -13,18 +13,23 @@
 Name: python-dmidecode
 Summary: Python module to access DMI data
 Version: 3.12.3
-Release: 19%{date}%{shortcommit}%{?dist}
+Release: 20%{date}%{shortcommit}%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/nima/python-dmidecode
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0: python-dmidecode-rhbz2154949.patch
 
+# This patch derives by a fork, 
+# https://github.com/Yuzuru10/python-dmidecode/commit/4ad2e4ca0f6ca6c40fb994a72f8972d24b890554
+Patch1: python-dmidecode-libxml2.patch
+
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libxml2-devel
 BuildRequires: python3-devel
 BuildRequires: libxml2-python3
+BuildRequires: python3-lxml
 
 %global _description\
 python-dmidecode is a python extension module that uses the\
@@ -38,6 +43,7 @@ as python data structures or as XML data using libxml2.\
 %package -n python3-dmidecode
 Summary: Python 3 module to access DMI data
 Requires: libxml2-python3
+Requires: python3-lxml
 
 %description -n python3-dmidecode %_description
 
@@ -48,6 +54,10 @@ Requires: libxml2-python3
 # upstream Makefile calls src/setup.py which imports src/setup_common.py
 # we need the setup.py file in PWD to make the setuptools build backend see it
 mv src/setup*.py .
+
+%if 0%{?fedora} > 45
+%patch 1 -p1 -b .libxml2
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -65,13 +75,11 @@ export CXX=g++
 %pyproject_install
 %pyproject_save_files -L dmidecode dmidecodemod
 
-
 %check
 %pyproject_check_import
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
-export PYTHON_BIN=%{__python3}
+%{py3_test_envvars}
 make -C unit-tests
-
 
 %files -n python3-dmidecode -f %{pyproject_files}
 %license doc/LICENSE
@@ -79,6 +87,9 @@ make -C unit-tests
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Sep 17 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-20
+- Patched for libxml2-2.15.4
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.12.3-19
 - Rebuilt for Python 3.15.0b4 ABI change
 

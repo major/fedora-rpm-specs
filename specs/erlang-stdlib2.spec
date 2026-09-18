@@ -1,7 +1,7 @@
 %global realname stdlib2
 
 Name:		erlang-%{realname}
-Version:	1.4.6
+Version:	1.4.7
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Erlang stdlib extensions
@@ -10,7 +10,7 @@ Summary:	Erlang stdlib extensions
 License:	BSD-2-Clause AND Apache-2.0
 URL:		https://github.com/kivra/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-folsom
 BuildSystem:	rebar3
 

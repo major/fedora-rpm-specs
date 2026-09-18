@@ -101,6 +101,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Requires v2020.3 in adherence to VFX Reference Platform guideline
 # https://vfxplatform.com/
 Requires:       cmake(tbb)
+Requires:       pkgconfig(blosc) >= 1.5.0
 Requires:       pkgconfig(zlib) > 1.2.7
 Obsoletes:      %{name}-doc < 6.1.0-1
 %if %{with docs}

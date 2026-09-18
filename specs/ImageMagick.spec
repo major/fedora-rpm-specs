@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.29
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -68,7 +68,8 @@ BuildRequires:  pkgconfig(raqm)
 BuildRequires:  pkgconfig(lqr-1)
 %endif
 BuildRequires:  pkgconfig(libraw) >= 0.14.8
-# Ultra HDR support available of Fedora 43 and onward
+# Ultra HDR is currently enabled only on Fedora where libuhdr is available.
+# Keep EPEL disabled until the required libuhdr dependency is available there.
 %if 0%{?fedora} >= 43
 BuildRequires:  pkgconfig(libuhdr) >= 1.3.0
 %endif
@@ -423,6 +424,11 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Thu Sep 17 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.29-5
+- Enable Packit release automation and integration tests
+- Clarify that Ultra HDR support is currently available only on Fedora
+- Update packit.yaml
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:7.1.2.29-4
 - Rebuilt for libxml-2.5.4
 

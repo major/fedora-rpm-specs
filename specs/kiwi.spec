@@ -14,7 +14,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.3.11
+Version:        11.0.2
 Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -468,12 +468,25 @@ for booting oem images built with KIWI and configured to use an
 embedded verity metadata block via the embed_verity_metadata
 type attribute.
 
+%package selinux
+Summary:        SELinux module for KIWI
+BuildArch:      noarch
+BuildRequires:  selinux-policy
+BuildRequires:  selinux-policy-devel
+BuildRequires:  make
+%{?selinux_requires}
+
+%description selinux
+This package provides the SELinux policy module to ensure kiwi
+runs properly under an environment with SELinux enabled.
+
 %package cli
 Summary:        Flexible operating system appliance image builder
 Provides:       kiwi-schema = 8.2
 # So we can reference it by the source package name while permitting this to be noarch
 Provides:       %{name} = %{version}-%{release}
 Requires:       python3-%{name} = %{version}-%{release}
+Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy)
 Requires:       bash-completion
 BuildArch:      noarch
 
@@ -482,12 +495,6 @@ BuildArch:      noarch
 
 %prep
 %autosetup -p1
-
-# Temporarily switch things back to docopt for everything but Fedora 41+
-# FIXME: Drop this hack as soon as we can...
-%if ! (0%{?fedora} >= 41 || 0%{?rhel} >= 10)
-sed -e 's/docopt-ng.*/docopt = ">=0.6.2"/' -i pyproject.toml
-%endif
 
 # Drop shebang for kiwi/xml_parse.py, as we don't intend to use it as an independent script
 sed -e "s|#!/usr/bin/env python||" -i kiwi/xml_parse.py
@@ -503,9 +510,11 @@ sed -e "s|#!/usr/bin/env python||" -i kiwi/xml_parse.py
 
 %pyproject_wheel
 
+# Build SELinux module
+make -C selinux SHARE="%{_datadir}" TARGETS="kiwi"
+
 # Build man pages
 make -C doc man
-
 
 %install
 # Required for some parts
@@ -518,6 +527,9 @@ make buildroot=%{buildroot}/ install
 
 # Install dracut modules (yes, the slash is needed!)
 make buildroot=%{buildroot}/ install_dracut
+
+# Install SELinux module
+install -t %{buildroot}%{_datadir}/selinux/packages -Dpm 0644 selinux/kiwi.pp.bz2
 
 # Get rid of unnecessary doc files
 rm -rf %{buildroot}%{_docdir}/packages
@@ -540,24 +552,21 @@ done
 %fdupes %{buildroot}%{_sharedstatedir}/tftpboot
 %endif
 
+%pre selinux
+%selinux_relabel_pre
 
-%post cli
-if [ -x /usr/sbin/semanage -a -x /usr/sbin/restorecon ]; then
-    # file contexts
-    semanage fcontext --add --type install_exec_t        '%{_bindir}/kiwi'               2> /dev/null || :
-    semanage fcontext --add --type install_exec_t        '%{_bindir}/kiwi-ng(.*)'        2> /dev/null || :
-    restorecon -r %{_bindir}/kiwi %{_bindir}/kiwi-ng* || :
-fi
+%post selinux
+%selinux_modules_install %{_datadir}/selinux/packages/kiwi.pp.bz2
+%selinux_relabel_post
 
-%postun cli
+%posttrans selinux
+%selinux_relabel_post
+
+%postun selinux
+%selinux_modules_uninstall kiwi
 if [ $1 -eq 0 ]; then
-    if [ -x /usr/sbin/semanage ]; then
-        # file contexts
-        semanage fcontext --delete --type install_exec_t        '%{_bindir}/kiwi'               2> /dev/null || :
-        semanage fcontext --delete --type install_exec_t        '%{_bindir}/kiwi-ng(.*)'        2> /dev/null || :
-    fi
+    %selinux_relabel_post
 fi
-
 
 %if %{with check}
 %check
@@ -577,6 +586,11 @@ popd
 %{python3_sitelib}/kiwi*/
 %dir %{_datadir}/kiwi
 %{_datadir}/kiwi/xsl_to_v74/
+
+%files selinux
+%doc selinux/README.md
+%license LICENSE
+%{_datadir}/selinux/packages/kiwi.pp.bz2
 
 %files cli
 %{_bindir}/kiwi
@@ -657,6 +671,9 @@ popd
 
 
 %changelog
+* Thu Sep 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.0.2-1
+- Rebase to 11.0.2
+
 * Wed Aug 26 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.3.11-1
 - Update to 10.3.11
 

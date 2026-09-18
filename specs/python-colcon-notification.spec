@@ -1,8 +1,8 @@
 %global srcname colcon-notification
 
 Name:           python-%{srcname}
-Version:        0.3.0
-Release:        11%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        Extension for colcon to provide status notifications
 
 License:        Apache-2.0
@@ -20,14 +20,14 @@ An extension for colcon-core to provide status notifications.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.3.7
+BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.21.3
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-colcon-core >= 0.3.7
+Requires:       python%{python3_pkgversion}-colcon-core >= 0.21.3
 Requires:       python%{python3_pkgversion}-notify2
 %endif
 
@@ -61,6 +61,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.3.3-1
+- Update to 0.3.3 (rhbz#2452553)
+
 * Tue Aug 11 2026 Python Maint <python-maint@redhat.com> - 0.3.0-11
 - Rebuilt for Python 3.15
 

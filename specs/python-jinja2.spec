@@ -2,7 +2,7 @@
 
 Name:           python-jinja2
 Version:        3.1.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        General purpose template engine
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/jinja/
@@ -56,6 +56,10 @@ BuildRequires:  python3-sphinx-issues
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# This package builds successfully with flit-core 4
+# https://github.com/pallets/jinja/issues/2232
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x i18n
@@ -91,6 +95,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Mon Aug 24 2026 Miro Hrončok <mhroncok@redhat.com> - 3.1.6-11
+- Allow building with flit-core 4+
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

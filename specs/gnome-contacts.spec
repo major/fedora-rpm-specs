@@ -1,7 +1,7 @@
 %global gtk4_version 4.15.3
 
 Name:           gnome-contacts
-Version:        50.0
+Version:        51.0
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 

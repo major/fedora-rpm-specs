@@ -36,6 +36,10 @@ Summary:        %{summary}
 %autosetup -p1 -n pyproject_hooks-%{version}
 sed -i "/flake8/d" dev-requirements.txt
 
+# This package builds successfully with flit-core 4
+# https://github.com/pypa/pyproject-hooks/pull/233
+%pyproject_patch_dependency flit_core:set_upper:5
+
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:dev-requirements.txt}

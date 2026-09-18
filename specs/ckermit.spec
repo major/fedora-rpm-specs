@@ -1,37 +1,39 @@
-%global patchlevel 302
+%bcond_without tests
 
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
-Version:       9.0.%{patchlevel}
-Release:       43%{?dist}
+Version:       11.0.509
+Release:       1%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
-# ckaut2.h appears to be covered by three licenses:
+# ckuat2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
 #   BSD four-clause (w/ advertising)
 #   MIT Old Style (no advertising without permission)
 License:       BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-4-Clause-UC AND NTP AND X11
-Source0:       ftp://ftp.kermitproject.org/kermit/archives/cku%{patchlevel}.tar.gz
+Source0:       https://github.com/OpenKermit/ckermit/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:       ckermit.ini
 Source2:       cku-%{name}.local.ini
 Source3:       cku-%{name}.modem.generic.ini
 Source4:       cku-%{name}.locale.ini
 Source5:       cku-%{name}.phone
 Source6:       README.fedora
-# See: https://bugs.gentoo.org/669332
-Patch0:        ckermit-9.0.302-fix_build_with_glibc_2_28_and_earlier.patch
-Patch1:        ckermit-9.0.302-printw.patch
-# C99 fixes - unneeded for ckermit 10
-Patch2:        ckermit-9.0.302-fedora-c99.patch
-URL:           http://www.kermitproject.org/ck90.html
+URL:           https://www.openkermit.org/
 BuildRequires: gcc
 BuildRequires: pam-devel
 BuildRequires: pkgconfig
-BuildRequires: openssl-devel >= 0.9.7
+BuildRequires: openssl-devel >= 3.0.0
 BuildRequires: gmp-devel >= 3.1.1
 BuildRequires: ncurses-devel
 BuildRequires: lockdev-devel >= 1.0.1-8
 BuildRequires: make
 BuildRequires: libxcrypt-devel
+%if %{with tests}
+BuildRequires: check-devel
+BuildRequires: python3-pytest
+BuildRequires: python3-pytest-xdist
+BuildRequires: python3-pytest-timeout
+BuildRequires: python3-pyftpdlib
+%endif
 
 Requires:      lockdev >= 1.0.1-8
 # NB There used to be a spurious "Obsoletes: gkermit" line here, but ckermit
@@ -46,16 +48,14 @@ and management, character-set translation, and automation of
 communication tasks.
 
 %prep
-%setup -q -c
+%setup -q
 cp %{SOURCE6} .
-%patch -P 0 -p 1 -b .glibc2_28
-%patch -P 1 -p 1 -b .printw
-%patch -P 2 -p 1 -b .c99
 
 %build
 %make_build linux \
-        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -ansi -D_DEFAULT_SOURCE -DOPENSSL_097 -Dsdata=s_data -DHAVE_OPENPTY -D'krb5_init_ets(__ctx)=' -DMAINTYPE=int" \
+        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -D_DEFAULT_SOURCE -Dsdata=s_data -DHAVE_OPENPTY" \
         LNKFLAGS="%{?optflags} %{?__global_ldflags}" \
+        LIBS="-llockdev" \
         K4LIB= \
         K4INC= \
         K5LIB=-lutil \
@@ -63,13 +63,6 @@ cp %{SOURCE6} .
         SSLLIB= \
         SSLINC= \
 ;
-
-# convert doc file from ISO-8859-1 to UTF-8 encoding
-for f in ckc%{patchlevel}.txt ; do
-    iconv -fiso88591 -tutf8 $f >$f.new
-    touch -r $f $f.new
-    mv $f.new $f
-done
 
 %install
 install -D -m 0755 wermit %{buildroot}%{_bindir}/kermit
@@ -80,9 +73,20 @@ install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/kermit/ckermit.modem.in
 install -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/kermit/ckermit.locale.ini
 install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 
+%check
+%if %{with tests}
+make check
+# The suite locates the "wermit" binary and "tests/" by path relative
+# to tests/conftest.py.
+#
+# SSL/TLS tests are automatically skipped since we're not building
+# with SSL support.
+pytest-3 -n auto
+%endif
+
 %files
 %license COPYING.TXT
-%doc ckc%{patchlevel}.txt
+%doc doc/README.md
 %doc README.fedora
 %{_bindir}/kermit
 %dir %{_sysconfdir}/kermit
@@ -90,6 +94,40 @@ install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Thu Sep 17 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.509-1
+- Update to 11.0.509
+- Link with -llockdev (upstream linux target passes -DHAVE_LOCKDEV instead)
+- Keep optflags/ldflags so debuginfo is generated
+
+* Wed Jul 29 2026 John Goerzen <jgoerzen@complete.org> - 11.0.505-1
+- Update to 11.0.505
+- Upstream noticed the discussion in README.fedora and clarified the error
+  message.  Discussion in README.fedora updated.
+- Drop -D'krb5_init_ets(__ctx)=' from KFLAGS and the
+  The makefile rules in use here never define
+  CK_KERBEROS, so krb5_init_ets() was never compiled in to begin with;
+  the macro override has done nothing since we moved off the
+  old Kerberos-enabled Red Hat build target from around 2005 (see the
+  8.0.211 changelog entry below: "remove now-unnecessary use of
+  krb5_init_ets()").
+- Drop ckermit-9.0.302-fix_build_with_glibc_2_28_and_earlier.patch.
+  Upstream modernization already addressed this.
+- Drop ckermit-9.0.302-printw.patch; upstream independently replaced
+  the one remaining unsafe printw() call with fputs()
+- Drop ckermit-9.0.302-fedora-c99.patch: all missing #includes
+  it added have been added upstream via generic mechanisms
+- Drop -DMAINTYPE=int and -ansi from KFLAGS. -DMAINTYPE=int
+  is unnecessary due to typedef upstream.  -ansi also is no longer
+  necessary due to upstream modernization.
+- Add "make check"/pytest test suite integration, gated by a new
+  "tests" bcond
+- %%files: replace %%doc ckc302.txt, which no longer exists in this
+  release. doc/*.md in the source tree now provides various
+  documentation.
+- URL: point at the current project home, openkermit.org, instead of
+  the old kermitproject.org ck90.html page, which described the 9.0
+  release specifically
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

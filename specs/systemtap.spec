@@ -129,8 +129,8 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 
 Name: systemtap
 # PRERELEASE
-Version: 5.6~pre17846435g2da140e3
-Release: 4%{?release_override}%{?dist}
+Version: 5.6
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -165,7 +165,7 @@ Release: 4%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -478,6 +478,9 @@ Requires: stress
 #   testsuite/systemtap.examples/hw_watch_addr.meta
 #   testsuite/systemtap.examples/memory/hw_watch_sym.meta
 Requires: perf
+# enumname.exp, memcheck-p4.exp, memcheck-staprun.exp,
+# parallelism-helgrind.exp, map_hash.exp
+Recommends: valgrind
 
 %description testsuite
 This package includes the dejagnu-based systemtap stress self-testing
@@ -1295,6 +1298,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Sep 17 2026 Frank Ch. Eigler <fche@redhat.com> - 5.6-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.6~pre17846435g2da140e3-4
 - Rebuilt for libxml-2.5.4
 
@@ -1321,81 +1328,18 @@ exit 0
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
 
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 5.4-2
-- Patched to workaround Autoconf 2.72 incompatiblity with GCC 16
-
 * Fri Oct 31 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
-
-* Mon Sep 22 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-17585496g86ab88eb
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Mon Sep 22 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-17585473g1fe4178d
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.3-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.3-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.3-2
-- Rebuilt for Python 3.14
 
 * Fri May 02 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
 
-* Thu Feb 06 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.5
-- Respin against dyninst 13 redux
-
-* Fri Jan 24 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.3
-- Respin against dyninst 13, sans dyninst on i686.
-
-* Mon Jan 20 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373816g7a71d34b
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Mon Jan 20 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373794g3efe129d
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Sun Jan 19 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373422g9a48fbea
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Sun Jan 19 2025 Frank Ch. Eigler <fche@redhat.com> - 5.2-17373420g1e894ff0
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 * Fri Nov 08 2024 Frank Ch. Eigler <fche@redhat.com> - 5.2-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
-
-* Mon Oct 07 2024 William Cohen <wcohen@redhat.com> - 5.2-17283218gc5774e18
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Oct 01 2024 William Cohen <wcohen@redhat.com> - 5.2-17277956g0b7f6722
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Fri Aug 30 2024 Frank Ch. Eigler <fche@redhat.com> - 5.2-17250223gd07e4284
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
+  
 * Thu Aug 08 2024 Lumír Balhar <lbalhar@redhat.com> - 5.2-pre
 - Final split of sdt-dtrace and sdt-devel (rhbz#2296275)
   https://fedoraproject.org/wiki/Changes/Separate_dtrace_package

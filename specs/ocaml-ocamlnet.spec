@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -31,6 +31,10 @@ Patch:          0005-more-build-fixes-for-OCaml-5.patch
 Patch:          0006-Further-OCaml-5-changes.patch
 Patch:          0007-netsys_c.h-Don-t-redefine-caml_ba_element_size.patch
 Patch:          0008-configure-Assume-we-have-the-Bytes-type-immutable-st.patch
+
+# Support for nettle v4
+# https://bugzilla.redhat.com/show_bug.cgi?id=2535189#c2
+Patch:          0009-Support-nettle-v4.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.07.0
@@ -264,6 +268,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-36
+- Add patch for nettle v4 support (RHBZ#2535189)
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-35
 - OCaml 5.5.1 rebuild
 

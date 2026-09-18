@@ -2,7 +2,7 @@
 %global uuid        %{extension}@focustimerhq.github.io
 %global forgeurl    https://github.com/focustimerhq/gnome-shell-extension-focus-timer
 
-%global tag 3
+%global tag 4
 
 
 Name:           gnome-shell-extension-%{extension}

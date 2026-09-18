@@ -1,16 +1,18 @@
 Name:           zoitechat
-Version:        2.19.0
+Version:        2.19.1
 Release:        %autorelease
 Summary:        HexChat-based IRC client
 License:        GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://github.com/ZoiteChat/zoitechat
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 
+Patch: 0001-respect-fedora-system-crypto-policy.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.55.0
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  perl
 BuildRequires:  perl-devel
 BuildRequires:  python3
@@ -46,7 +48,7 @@ ZoiteChat is a HexChat-based IRC client for Windows and UNIX-like operating
 systems.
 
 %prep
-%autosetup -C
+%autosetup -C -p1
 
 %build
 %meson \

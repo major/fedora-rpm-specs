@@ -35,6 +35,11 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n installer-%{version}
 
+# This package builds successfully with flit-core 4
+# https://github.com/pypa/installer/pull/352
+%pyproject_patch_dependency flit_core:set_upper:5
+
+
 %generate_buildrequires
 %pyproject_buildrequires
 

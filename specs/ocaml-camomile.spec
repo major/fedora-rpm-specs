@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-camomile
-Version:        2.0.0
-Release:        25%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Unicode library for OCaml
 
 # LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
@@ -23,13 +23,14 @@ Source0:        %{url}/archive/v%{version}/Camomile-%{version}.tar.gz
 # accepted upstream: https://github.com/yoriyuki/Camomile/pull/84
 Patch:          0001-Camomile-locales-eo.txt-Fix-license-by-importing-dat.patch
 
-# Fix path handling from dune variable (for dune 3.24)
-Patch:          %{url}/pull/13.patch
-
 BuildSystem:    dune
+BuildOption(build): -p camomile
+BuildOption(install): camomile
+BuildOption(check): -p camomile
+
 BuildRequires:  ocaml >= 4.13
 BuildRequires:  ocaml-camlp-streams-devel
-BuildRequires:  ocaml-dune >= 3.4
+BuildRequires:  ocaml-dune >= 3.23
 BuildRequires:  ocaml-dune-site-devel
 BuildRequires:  ocaml-stdlib-random-devel
 
@@ -73,16 +74,6 @@ applications that use %{name}.
 %autosetup -p1 -n Camomile-%{version}
 
 
-%build -p
-# This avoids a stack overflow in the OCaml compiler on POWER only.
-# Originally found with OCaml 4.05, still affecting 4.13.0.
-# https://github.com/yoriyuki/Camomile/issues/39
-%ifarch %{power64}
-ulimit -Hs 65536
-ulimit -Ss 65536
-%endif
-
-
 %install -a
 # The data files are in their own package
 sed -i '\@%{_datadir}@d' .ofiles
@@ -103,6 +94,12 @@ sed -i '\@%{_datadir}@d' .ofiles
 
 
 %changelog
+* Thu Sep 17 2026 Jerry James <loganjerry@gmail.com> - 2.1.0-1
+- Version 2.1.0
+- Drop upstreamed dune 3.24 patch
+- Do not build the camomile-embedded package for now
+- ppc64le stack overflow fix is no longer needed
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-25
 - Bump release and rebuild
 

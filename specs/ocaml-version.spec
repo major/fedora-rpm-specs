@@ -5,7 +5,7 @@
 %global giturl  https://github.com/ocurrent/ocaml-version
 
 Name:           ocaml-version
-Version:        4.1.3
+Version:        4.1.4
 Release:        %autorelease
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 

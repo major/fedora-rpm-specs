@@ -47,23 +47,29 @@ BuildRequires: zlib-devel
 
 Requires:      hicolor-icon-theme
 
-%description
+%global _description %{expand:
 WeeChat (Wee Enhanced Environment for Chat) is a portable, fast, light and
 extensible IRC client. Everything can be done with a keyboard.
-It is customizable and extensible with scripts.
+It is customizable and extensible with scripts.}
+
+%description %{_description}
 
 %package devel
 Summary: Development files for weechat
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
-%description devel
-WeeChat (Wee Enhanced Environment for Chat) is a portable, fast, light and
-extensible IRC client. Everything can be done with a keyboard.
-It is customizable and extensible with scripts.
+%description devel %{_description}
 
 This package contains include files and pc file for weechat.
 
+%package php
+Summary: PHP plugin for weechat
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description php %{_description}
+
+This package provides the PHP plugin for weechat.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -104,7 +110,28 @@ This package contains include files and pc file for weechat.
 %{_bindir}/%{name}-curses
 %{_bindir}/%{name}
 %{_bindir}/%{name}-headless
-%{_libdir}/%{name}
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/alias.so
+%{_libdir}/%{name}/plugins/buflist.so
+%{_libdir}/%{name}/plugins/charset.so
+%{_libdir}/%{name}/plugins/exec.so
+%{_libdir}/%{name}/plugins/fifo.so
+%{_libdir}/%{name}/plugins/fset.so
+%{_libdir}/%{name}/plugins/guile.so
+%{_libdir}/%{name}/plugins/irc.so
+%{_libdir}/%{name}/plugins/logger.so
+%{_libdir}/%{name}/plugins/lua.so
+%{_libdir}/%{name}/plugins/perl.so
+%{_libdir}/%{name}/plugins/python.so
+%{_libdir}/%{name}/plugins/relay.so
+%{_libdir}/%{name}/plugins/ruby.so
+%{_libdir}/%{name}/plugins/script.so
+%{_libdir}/%{name}/plugins/spell.so
+%{_libdir}/%{name}/plugins/tcl.so
+%{_libdir}/%{name}/plugins/trigger.so
+%{_libdir}/%{name}/plugins/typing.so
+%{_libdir}/%{name}/plugins/xfer.so
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
@@ -123,6 +150,10 @@ This package contains include files and pc file for weechat.
 %{_includedir}/%{name}/weechat-plugin.h
 %{_libdir}/pkgconfig/*.pc
 
+%ifnarch %{ix86}
+%files php
+%{_libdir}/%{name}/plugins/php.so
+%endif
 
 %changelog
 %autochangelog

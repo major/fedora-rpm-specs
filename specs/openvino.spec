@@ -242,6 +242,9 @@ runtime.
 %prep
 %autosetup -p1
 
+# Fedora provides newer NumPy versions
+sed -i 's/numpy>=1\.16\.6,<2\.5\.0/numpy>=1.16.6/' pyproject.toml
+
 # Intel CPU plugin thirdparty deps
 tar xf %{SOURCE1}
 cp -r oneDNN-c6b79c1207bd5f20b9395536dab1d71a47cfcb1d/* src/plugins/intel_cpu/thirdparty/onednn

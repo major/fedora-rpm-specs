@@ -1,5 +1,5 @@
 Name:           perl-Number-Format
-Version:        1.78
+Version:        1.79
 Release:        1%{?dist}
 Summary:        Perl extension for formatting numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,20 @@ make test
 %{_mandir}/man3/Number::Format.3*
 
 %changelog
+* Thu Sep 17 2026 Paul Howarth <paul@city-fan.org> - 1.79-1
+- Update to 1.79
+  - Document that format_bytes inherits the object's format_number settings,
+    including decimal_fill for trailing zeroes (CPAN RT#125400)
+  - Document that format_price follows the locale's monetary sign rules and
+    does not consult NEG_FORMAT (CPAN RT#124862)
+  - Documentation no longer claims that assigning to the exported :vars
+    variables affects the functional interface; that has been broken since
+    v1.60 in 2008 (CPAN RT#73717)
+  - format_number keeps the sign on tiny negative numbers that fall back to
+    scientific notation (CPAN RT#77643)
+  - format_picture no longer warns about an uninitialized value when neg_format
+    has no prefix, like "x" (CPAN RT#148306)
+
 * Tue Sep 15 2026 Paul Howarth <paul@city-fan.org> - 1.78-1
 - Update to 1.78 (rhbz#2533614)
   - Added support for terabytes; this feature was intentionally omitted for a

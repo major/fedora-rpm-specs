@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-CPAN
-Version:        2.38
-Release:        528%{?dist}
+Version:        2.41
+Release:        1%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
@@ -80,8 +80,6 @@ BuildRequires:  perl(lib)
 # local::lib is optional
 # LWP is optional, prefer HTTP::Tiny and Net::FTP
 # LWP::UserAgent is optional
-# Mac::BuildTools not needed
-# Mac::Files not needed
 # Module::Signature is optional
 # Net::Config not used at tests
 # Net::FTP not used at tests
@@ -234,8 +232,6 @@ Suggests:       perl(YAML::Syck)
 %endif
 Provides:       cpan = %{version}
 
-# Filter non-Linux dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mac::BuildTools\\)
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(CPAN::Meta::Requirements\\)
 # Filter modules bundled for tests
@@ -336,6 +332,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.41-1
+- 2.41 bump (rhbz#2533611)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.38-528
 - Perl 5.44 re-rebuild of bootstrapped packages
 

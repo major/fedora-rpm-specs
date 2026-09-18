@@ -3,13 +3,17 @@
 %bcond_without debug
 %bcond_without nts
 
+%if ! 0%{?rhel}
+%bcond_without nettle
+%endif
+
 %ifarch %{ix86} x86_64 %{arm} aarch64 mipsel mips64el ppc64 ppc64le s390 s390x
 %bcond_without seccomp
 %endif
 
 Name:           chrony
 Version:        4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -26,8 +30,10 @@ Source10:       https://gitlab.com/chrony/clknetsim/-/archive/%{clknetsim_ver}/c
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
 
-BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
+BuildRequires:  libcap-devel libedit-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
+%{?with_nettle:BuildRequires: nettle-devel}
+%{!?with_nettle:BuildRequires: gnutls-devel}
 %{?with_nts:BuildRequires: gnutls-devel gnutls-utils}
 %{?with_seccomp:BuildRequires: libseccomp-devel}
 
@@ -107,7 +113,8 @@ mv clknetsim-%{clknetsim_ver} test/simulation/clknetsim
         --with-user=chrony \
         --with-hwclockfile=%{_sysconfdir}/adjtime \
         --with-pidfile=/run/chrony/chronyd.pid \
-        --with-sendmail=%{_sbindir}/sendmail
+        --with-sendmail=%{_sbindir}/sendmail \
+%{!?with_nettle: --without-nettle}
 %make_build
 
 %install
@@ -206,6 +213,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Thu Aug 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9-2
+- Use gnutls for crypto on RHEL
+
 * Thu Aug 27 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-1
 - update to 4.9
 

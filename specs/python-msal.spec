@@ -6,7 +6,7 @@
 %bcond bootstrap 0
 
 Name:           python-msal
-Version:        1.38.0
+Version:        1.39.0
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 

@@ -1,5 +1,5 @@
 Name:           python-ibm-vpc
-Version:        0.35.0
+Version:        0.35.1
 Release:        %autorelease
 Summary:        Python client library for IBM Cloud VPC Services
 

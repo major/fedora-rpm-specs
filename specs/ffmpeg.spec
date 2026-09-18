@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        9.0.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -168,7 +168,13 @@ BuildRequires:  pkgconfig(codec2)
 BuildRequires:  pkgconfig(dav1d)
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(dvdread)
+%if 0%{?fedora} > 44
+# Lower nv-codec-headers to support older cards
+# https://bugzilla.redhat.com/show_bug.cgi?id=2521662#c3
+BuildRequires:  nv-codec-headers13.0
+%else
 BuildRequires:  pkgconfig(ffnvcodec)
+%endif
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
@@ -970,6 +976,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Wed Sep 16 2026 Nicolas Chauvet <kwizart@gmail.com> - 9.0.1-4
+- Lower nv-codec-headers to support older cards
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.0.1-2
 - Rebuilt for libxml-2.5.4
 

@@ -6,7 +6,7 @@
 %global gtk4_version 4.21.2
 
 Name:           gnome-calendar
-Version:        51~rc
+Version:        51.0
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 

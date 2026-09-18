@@ -60,7 +60,13 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(egl)
+%if 0%{?fedora} > 44
+# Lower nv-codec-headers to support older cards
+# https://bugzilla.redhat.com/show_bug.cgi?id=2521662#c3
+BuildRequires:  nv-codec-headers13.0
+%else
 BuildRequires:  pkgconfig(ffnvcodec)
+%endif
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)

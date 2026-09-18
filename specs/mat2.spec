@@ -21,6 +21,8 @@ Source2:        gpgkey-9FCDEE9E1A381F311EA62A7404D041E8171901CC.gpg
 Patch0:          %{name}-skip-broken-tests.patch
 # Fix test failures with Python 3.15
 Patch1:          %{name}-py315-fix.patch
+# Fix test failures with FFmpeg 9
+Patch2:         %{name}-ffmpeg9-timescale.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject

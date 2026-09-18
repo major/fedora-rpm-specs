@@ -1,6 +1,6 @@
 Name:           createrepo-agent
-Version:        0.5.1
-Release:        4%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Rapidly and repeatedly generate RPM repository metadata
 
 License:        Apache-2.0
@@ -66,9 +66,13 @@ gives createrepo-agent its name.
 %files -n python3-createrepo-agent
 %{python3_sitearch}/createrepo_agent.so
 %{python3_sitearch}/createrepo_agent-%{version}.dist-info/
+%{python3_sitearch}/createrepo_agent-stubs/
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.6.0-1
+- Update to 0.6.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.5.1-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

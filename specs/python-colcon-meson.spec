@@ -1,8 +1,8 @@
 %global srcname colcon-meson
 
 Name:           python-%{srcname}
-Version:        0.5.0
-Release:        4%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        Extension for colcon to support Meson packages
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.6.1-1
+- Update to 0.6.1 (rhbz#2499306)
+
 * Tue Aug 11 2026 Python Maint <python-maint@redhat.com> - 0.5.0-4
 - Rebuilt for Python 3.15
 

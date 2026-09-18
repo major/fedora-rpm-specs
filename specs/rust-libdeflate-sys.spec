@@ -5,7 +5,7 @@
 %global crate libdeflate-sys
 
 Name:           rust-libdeflate-sys
-Version:        1.26.0
+Version:        1.26.1
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
@@ -14,9 +14,14 @@ URL:            https://crates.io/crates/libdeflate-sys
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Make the dependency on crate(pkg-config) non-optional instead of associating
-#   it with the “dynamic” feature, since we patch the crate to always link
-#   dynamically with the system libdeflate, regardless of the selected features.
+#   it with the “dynamic” feature; see also libdeflate-sys-always-dynamic.patch,
+#   which ensures build.rs always links dynamically with the system libdeflate,
+#   regardless of the selected features.
 Patch:          libdeflate-sys-fix-metadata.diff
+# * Downstream-only: Always link dynamically with the system libdeflate,
+#   regardless of the selected features. This works together with the metadata
+#   patch that makes the dependency on crate(pkg-config) non-optional.
+Patch10:        libdeflate-sys-always-dynamic.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(libdeflate)
@@ -83,19 +88,6 @@ use the "freestanding" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version} -p1
 # Remove the bundled copy of libdeflate.
 rm --recursive --verbose libdeflate
-# Make libdeflate detection with pkg-config unconditional.
-sed --regexp-extended --in-place \
-    's@^([[:blank:]]*)(#\[cfg\(feature *= *"dynamic"\)\])@\1// \2@' build.rs
-# Don’t require an exact version match. We would *like* the versions to stay
-# aligned, but we don’t *need* to update libdeflate and
-# rust-libdeflate-sys/rust-libdeflater concurrently.
-sed --regexp-extended --in-place \
-    's@^([[:blank:]]*)(\.exactly_version\()@\1// \2@' build.rs
-# The above two sed-patches effectively revert “Dynamic Linking Constraints”,
-# https://github.com/adamkewley/libdeflater/pull/32. Using sed instead of a
-# patch file keeps us from having to update the patch every time the version
-# number changes.
-
 %cargo_prep
 
 %generate_buildrequires

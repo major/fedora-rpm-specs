@@ -1,10 +1,10 @@
 Name:           perl-Clone-PP
-Version:        1.08
-Release:        16%{?dist}
+Version:        1.09
+Release:        1%{?dist}
 Summary:        Recursively copy Perl data-types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone-PP
-Source0:        https://cpan.metacpan.org/modules/by-module/Clone/Clone-PP-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Clone-PP-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Benchmark)
@@ -48,6 +47,9 @@ make test
 %{_mandir}/man3/Clone::PP.3*
 
 %changelog
+* Thu Sep 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-1
+- 1.09 bump (rhbz#2533609)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

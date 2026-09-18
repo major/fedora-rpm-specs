@@ -11,8 +11,8 @@
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 1.4.10
-#global upstream_prever  rc.1
+%global upstream_version 1.5.0
+#global upstream_prever  rc.3
 
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
 %global bashcomproot     %(dirname %{bashcompdir} 2>/dev/null)
@@ -134,6 +134,9 @@ done
 
 
 %changelog
+* Thu Sep 17 2026 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+
 * Thu Aug 20 2026 Remi Collet <remi@remirepo.net> - 1.4.10-1
 - update to 1.4.10
 

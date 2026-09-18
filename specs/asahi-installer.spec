@@ -28,7 +28,7 @@
 %global installer_python_package python-%{installer_python_version}-macos11.pkg
 
 Name:           asahi-installer
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -45,9 +45,6 @@ Source3:        https://www.python.org/ftp/python/%{installer_python_version}/%{
 # Per https://www.python.org/downloads/ this is Ned Deily's key, who signs the
 # Python release binaries for macOS
 Source4:        https://keybase.io/nad/pgp_keys.asc?fingerprint=0d96df4d4110e5c43fbfb17f2d347ea6aa65421d#/key.asc
-
-# Do not require expert for M3
-Patch:          %{url}/pull/444.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  python3-devel

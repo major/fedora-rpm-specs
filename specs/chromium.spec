@@ -351,11 +351,15 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 Patch137: chromium-147-system-ffmpeg.patch
 # Workaround for missing AVDynamicHDRSmpte2094App5 in system ffmpeg
 Patch138: chromium-150-ffmpeg-AVDynamicHDRSmpte2094App5.patch
+
+# Fix FTBFS with python-3.9 on el9
+Patch139: chromium-153-el9-python-3.9-build-error.patch
+
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
+
 # Fix FTBFS with rustc-1.88 on el9 and epel10.1
 Patch142: chromium-149-rust-1.88-build-error.patch
-# fix ftbfs caused by old rustc-1.88 on el9 and 10.1
 Patch143: chromium-153-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
 
@@ -1121,6 +1125,7 @@ Qt6 UI for chromium.
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
+%patch -P139 -p1 -b .el9-python-3.9-build-error.patch
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)

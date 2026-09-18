@@ -40,11 +40,11 @@
 ## Upstream pacemaker version, and its package version (baserelease
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 3.0.2
-%global baserelease 5 
+%global pcmkversion 3.0.3
+%global baserelease 1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit c75e25851c05c6b0ff48caeaa15854d5868ce428
+%global commit 7052efa194a519292349a0634fd08e1b653d0ab6
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -192,12 +192,8 @@ Url:           https://www.clusterlabs.org/
 Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{archive_github_url}
 Source1:       pacemaker.sysusers
 
-# upstream commits
-Patch0:        0001-Med-libcrmcommon-Fix-checks-in-localized_remote_head.patch
-Patch1:        0002-High-libcrmcommon-Fix-integer-overflow-in-remote-mes.patch
-Patch2:        0003-High-libcrmcommon-Limit-the-max-size-of-a-remote-mes.patch
-Patch3:        0004-High-libcrmcommon-Fix-an-integer-overflow-in-pcmk__r.patch
-Patch4:        0005-Refactor-libcib-Remove-an-unnecessary-coverity-suppr.patch
+# patches needed to get fedora 46 builds to work
+Patch0:        0001-pacemaker_mock_aggregate_return.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -207,7 +203,13 @@ Requires:      %{name}-cli = %{version}-%{release}
 
 Requires:      %{python_path}
 BuildRequires: %{python_name}-devel
+# as setup.py isn't yet built from setup.py.in when
+# pyproject_buildrequires is run use it with -N option
+# and require the tools manually for now
+BuildRequires: %{python_name}-wheel
+BuildRequires: %{python_name}-pip
 BuildRequires: %{python_name}-setuptools
+BuildRequires: pyproject-rpm-macros
 
 # Pacemaker requires a minimum libqb functionality
 Requires:      libqb >= 1.0.1
@@ -440,6 +442,9 @@ manager.
 # as configure.ac is checking for support
 sed -i configure.ac -e "s/-Wall/-Wall -Wno-format-truncation/"
 
+%generate_buildrequires
+%pyproject_buildrequires -N
+
 %build
 
 export systemdsystemunitdir=%{?_unitdir}
@@ -478,7 +483,7 @@ export LDFLAGS_HARDENED_LIB="%{?_hardening_ldflags}"
 make %{_smp_mflags} V=1
 
 pushd python
-%py3_build
+%pyproject_wheel
 popd
 
 %check
@@ -499,7 +504,9 @@ make install \
   %{?_python_bytecompile_extra:%{?py_byte_compile:am__py_compile=true}}
 
 pushd python
-%py3_install
+%pyproject_install
+# take care of the license-files manually for now
+%pyproject_save_files -L "*"
 popd
 
 mkdir -p %{buildroot}%{_datadir}/pacemaker/nagios/plugins-metadata
@@ -707,9 +714,7 @@ fi
 %doc COPYING
 %doc ChangeLog.md
 
-%files -n %{python_name}-%{name}
-%{python3_sitelib}/pacemaker/
-%{python3_sitelib}/pacemaker-*.egg-info
+%files -n %{python_name}-%{name} -f %{pyproject_files}
 %exclude %{python3_sitelib}/pacemaker/_cts/
 %license licenses/LGPLv2.1
 %doc COPYING
@@ -769,6 +774,15 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Tue Sep 08 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.3-1
+- Update for new upstream release tarball: Pacemaker-3.0.3,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.3
+- move from deprecated py3_build & py3_install to
+  pyproject_wheel & pyproject_install
+- adapt python-package files to the new tooling
+- disable "-Waggregate-return" in cmocka files
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.2-5
 - Rebuilt for libxml-2.5.4
 

@@ -1,6 +1,6 @@
 Summary:        Intrusion detection environment
 Name:           aide
-Version:        0.19.2
+Version:        0.19.4
 Release:        %autorelease
 URL:            https://github.com/aide/aide
 License:        GPL-2.0-or-later

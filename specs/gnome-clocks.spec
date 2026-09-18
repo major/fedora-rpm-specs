@@ -3,7 +3,7 @@
 %global libadwaita_version 1.8~rc
 
 Name:           gnome-clocks
-Version:        51~rc
+Version:        51.0
 Release:        %autorelease
 Summary:        Clock application designed for GNOME 3
 

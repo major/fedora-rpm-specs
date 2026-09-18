@@ -23,7 +23,7 @@ ExcludeArch:    %{ix86}
 
 Name:           libsedml
 Summary:        Library that fully supports SED-ML for SBML
-Version:        2.0.33
+Version:        2.0.34
 Release:        %autorelease
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML

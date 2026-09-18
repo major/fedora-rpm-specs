@@ -1,6 +1,6 @@
 Name:		qmmp
-Version:	2.3.3
-Release:	5%{?dist}
+Version:	2.4.2
+Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -146,6 +146,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Sep 17 2026 Karel Volný <kvolny@redhat.com> 2.4.2-1
+- new version 2.4.2 (rhbz#2515504)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.3.3-5
 - Rebuilt for FFmpeg 9
 

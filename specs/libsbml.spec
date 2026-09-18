@@ -30,7 +30,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 %global _docdir_fmt %{name}
 
 Name:           libsbml
-Version:        5.20.5
+Version:        5.21.2
 Release:        %autorelease
 Summary:        Systems Biology Markup Language library
 License:        LGPL-2.1-or-later

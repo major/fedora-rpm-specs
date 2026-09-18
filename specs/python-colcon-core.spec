@@ -1,7 +1,7 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.21.1
+Version:        0.21.3
 Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
@@ -84,6 +84,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.21.3-1
+- Update to 0.21.3 (rhbz#2532340)
+
 * Fri Aug 07 2026 Scott K Logan <logans@cottsay.net> - 0.21.1-1
 - Update to 0.21.1
 - Relax setuptools requirement

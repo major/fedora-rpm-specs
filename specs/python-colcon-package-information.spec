@@ -1,8 +1,8 @@
 %global srcname colcon-package-information
 
 Name:           python-%{srcname}
-Version:        0.4.0
-Release:        11%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Extension for colcon to output package information
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ An extension for colcon-core to provide information about the packages.
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.4.1-1
+- Update to 0.4.1 (rhbz#2452554)
+
 * Tue Aug 11 2026 Python Maint <python-maint@redhat.com> - 0.4.0-11
 - Rebuilt for Python 3.15
 

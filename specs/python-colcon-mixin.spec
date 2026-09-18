@@ -1,11 +1,10 @@
 %global srcname colcon-mixin
 
 Name:           python-%{srcname}
-Version:        0.2.3
-Release:        16%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Extension for colcon to read CLI mixins from files
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -20,13 +19,15 @@ For an example repository containing mixins see colcon-mixin-repository.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.12.0
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-PyYAML
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-colcon-core >= 0.7.0
+Requires:       python%{python3_pkgversion}-colcon-core >= 0.12.0
 Requires:       python%{python3_pkgversion}-PyYAML
 %endif
 
@@ -49,10 +50,12 @@ For an example repository containing mixins see colcon-mixin-repository.
 
 
 %check
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    test
+%if 0%{?rhel} && 0%{?rhel} < 9
+# Deprecation test is broken on Python < 3.8
+%pytest -m 'not linter' test -k 'not test_mixin_repositories_file'
+%else
+%pytest -m 'not linter' test
+%endif
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -63,6 +66,9 @@ For an example repository containing mixins see colcon-mixin-repository.
 
 
 %changelog
+* Thu Sep 17 2026 Scott K Logan <logans@cottsay.net> - 0.3.2-1
+- Update to 0.3.2 (rhbz#2524992)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

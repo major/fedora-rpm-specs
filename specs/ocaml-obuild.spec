@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global debug_package %{nil}
 
 Name:           ocaml-obuild
-Version:        0.2.2
+Version:        0.3.0
 Summary:        Simple package build system for OCaml
 
 %forgemeta
@@ -66,6 +66,9 @@ help2man \
 
 
 %changelog
+* Thu Sep 17 2026 Jerry James <loganjerry@gmail.com> - 0.3.0-3
+- Version 0.3.0
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.2.2-3
 - OCaml 5.5.1 rebuild
 
