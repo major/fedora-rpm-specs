@@ -6,14 +6,13 @@
 
 # Snapshot generated with:
 # git config tar.tar.xz.command "xz -c"
-# export SHA=`git rev-parse --short HEAD` ; export VERSION=5.87 ; git archive --format=tar.xz -o bluez-$VERSION+1.git$SHA.tar.xz --prefix=bluez-$VERSION+1.git$SHA/ HEAD
-# as a post-release snapshot, see:
-# https://fedoraproject.org/wiki/PackagingDrafts/TildeVersioning
-%global gitsha 789f6e154
+# export VERSION=5.87 ; export DATE=`date +%Y%m%d` ; export SHA=`git rev-parse --short HEAD` ; git archive --format=tar.xz -o bluez-${VERSION}^${DATE}git${SHA}.tar.xz --prefix=bluez-${VERSION}^${DATE}git${SHA}/ HEAD
+%global gitdate 20260918
+%global shortcommit b5ed56d8c
 
 Name:    bluez
-Version: 5.87+1.git%{gitsha}
-Release: 2%{?dist}
+Version: 5.87%{?shortcommit:^%{gitdate}git%{shortcommit}}
+Release: 3%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -344,6 +343,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Sep 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.87^20260918gitb5ed56d8c-3
+- Update to the latest b5ed56d8c snapshot
+- Update the snapshot naming to current spec
+
 * Wed Sep 16 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.87+1.git789f6e154-2
 - Rebase to latest upstream. Fixes CVE-2026-19774 (rhbz:2535010)
 

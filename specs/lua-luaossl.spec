@@ -5,14 +5,13 @@
 %global luapkgname luaossl
 
 Name:           lua-%{luapkgname}
-Version:        20250929
-Release:        4%{?dist}
+Version:        20260910
+Release:        1%{?dist}
 Summary:        Most comprehensive OpenSSL module in the Lua universe
 
 License:        MIT
 URL:            https://github.com/wahern/%{luapkgname}
 Source0:        https://github.com/wahern/%{luapkgname}/archive/rel-%{version}/%{name}-%{version}.tar.gz
-Patch0:         lua-luaossl-20250929-lua-5.5.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -53,7 +52,6 @@ for the Lua Programming Language
 
 %prep
 %setup -q -n %{luapkgname}-rel-%{version}
-%patch -P0 -p1 -b .lua55
 
 %build
 export CFLAGS="%{?optflags} -fPIC"
@@ -91,6 +89,9 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{luacompat
 %{_pkgdocdir}
 
 %changelog
+* Tue Sep 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20260910-1
+- update to 20260910
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250929-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

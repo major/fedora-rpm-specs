@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.15.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -253,6 +253,7 @@ xargs rm -rf
 # blossoms is nonfree, see contrib/blossoms/README.txt
 
 gmsh_cmake_args="\
+    -DENABLE_BLAS_LAPACK=ON -DENABLE_EIGEN=OFF \
     %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS} \
     -DENABLE_SYSTEM_CONTRIB=YES \
     -DENABLE_BUILD_SHARED=YES \
@@ -416,6 +417,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Fri Sep 18 2026 Richard Shaw <hobbes1069@gmail.com> - 4.15.2-5
+- Rebuild for opencascade 8.0.1.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

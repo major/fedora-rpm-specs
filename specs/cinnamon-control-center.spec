@@ -5,12 +5,12 @@
 %global cinnamon_menus_version 6.7.0
 %global redhat_menus_version 1.8
 
-%global upstream_version 6.7.3-unstable
+%global upstream_version 6.7.5-unstable
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.7.3^unstable
-Release: 1%{?dist}
+Version: 6.7.5^unstable
+Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -18,19 +18,9 @@ Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_
 
 ExcludeArch: %{ix86}
 
-Requires: cinnamon-settings-daemon >= %{csd_version}
-Requires: redhat-menus >= %{redhat_menus_version}
-Requires: hicolor-icon-theme
-Recommends: cinnamon-translations
-Requires: %{name}-filesystem%{?_isa} = %{version}-%{release}
-# For the network panel
-Requires: nm-connection-editor
-# For the colour panel
-Requires: gnome-color-manager
-
+BuildSystem:   meson
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
-BuildRequires: meson
 BuildRequires: pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
 BuildRequires: pkgconfig(libcinnamon-menu-3.0) >= %{cinnamon_menus_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= 3.16.0
@@ -48,6 +38,16 @@ BuildRequires: pkgconfig(mm-glib) >= 0.7
 BuildRequires: pkgconfig(colord) >= 0.1.14
 BuildRequires: pkgconfig(libwacom) >= 0.7
 BuildRequires: pkgconfig(xi) >= 1.2
+
+Requires: cinnamon-settings-daemon >= %{csd_version}
+Requires: redhat-menus >= %{redhat_menus_version}
+Requires: hicolor-icon-theme
+Recommends: cinnamon-translations
+Requires: %{name}-filesystem%{?_isa} = %{version}-%{release}
+# For the network panel
+Requires: nm-connection-editor
+# For the colour panel
+Requires: gnome-color-manager
 
 %description
 This package contains configuration utilities for the Cinnamon desktop, which
@@ -79,13 +79,7 @@ that link against libcinnamon-control-center.
 %prep
 %autosetup -a1 -p1 -n %{name}-%{upstream_version}
 
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 desktop-file-install                                  \
   --delete-original                                   \
   --dir %{buildroot}/%{_datadir}/applications/        \
@@ -126,26 +120,4 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.2^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.1-unstable
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
+%autochangelog

@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-uucp
-Version:        17.0.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Unicode character properties for OCaml
 
@@ -13,7 +13,9 @@ VCS:            git:https://erratique.ch/repos/uucp.git
 Source:         %{url}/releases/uucp-%{version}.tbz
 # Unicode character database, used by the tests
 # See B0.ml for the supported Unicode version
-Source:         https://www.unicode.org/Public/17.0.0/ucdxml/ucd.all.grouped.zip
+Source:         https://www.unicode.org/Public/18.0.0/ucdxml/ucd.all.grouped.zip
+# Revert changes for an unreleased version of ocaml-b0; affects tests only
+Patch:          %{name}-b0-downgrade.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -32,8 +34,8 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uucd-devel >= 17.0.0
-BuildRequires:  ocaml-uunf-devel >= 17.0.0
+BuildRequires:  ocaml-uucd-devel >= 18.0.0
+BuildRequires:  ocaml-uunf-devel >= 18.0.0
 
 %description
 Uucp is an OCaml library providing efficient access to a selection of
@@ -52,7 +54,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n uucp-%{version}
+%autosetup -n uucp-%{version} -p1
 unzip -d support %{SOURCE1}
 mv support/ucd.all.grouped.xml support/ucd.xml
 

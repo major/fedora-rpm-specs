@@ -1,20 +1,15 @@
-%global commit 78313b43dd0de6f124ca4d5aad33fd2248a52dab
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snap .git%{shortcommit}
+#global commit 78313b43dd0de6f124ca4d5aad33fd2248a52dab
+#global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           twinkle
-Version:        1.10.3
-Release:        12%{?snap}%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        SIP-based VoIP client
 
 # Incorrect FSF addresses: https://github.com/LubosD/twinkle/issues/71
 License:        GPL-2.0-or-later
 URL:            https://github.com/LubosD/%{name}
-%if 0%{?commit:1}
-Source0:        https://github.com/LubosD/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-%else
 Source0:        https://github.com/LubosD/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -47,11 +42,7 @@ Twinkle is a SIP-based VoIP client.
 
 
 %prep
-%if 0%{?commit:1}
-%autosetup -p1 -n %{name}-%{commit}
-%else
 %autosetup -p1
-%endif
 
 
 %build
@@ -94,6 +85,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop || :
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 1.11.0-1
+- Update to 1.11.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.10.3-12.git78313b4
 - Rebuilt for libxml-2.5.4
 

@@ -14,10 +14,13 @@ URL:      https://github.com/DavidAnson/markdownlint-cli2
 # Use github source because the one on npm doesn't include tests
 Source0:  https://github.com/DavidAnson/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Generated using command `nodejs-packaging-bundler  markdownlint-cli2 0.23.2`
-Source1:  %{npm_name}-%{version}-nm-prod.tgz
-Source2:  %{npm_name}-%{version}-nm-dev.tgz
+Source1:  %{npm_name}-%{version}-1-nm-prod.tgz
+Source2:  %{npm_name}-%{version}-1-nm-dev.tgz
 # Python-2.0 license was renamed to Python-2.0.1 because of argparse
 Source3:  %{npm_name}-%{version}-bundled-licenses.txt
+
+# Backported from upstream to fix bug 2528569 (CVE-2026-85730)
+Patch0:   %{name}-Bump-smol-toml-from-1.7.0-to-1.7.1.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch

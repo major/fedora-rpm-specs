@@ -29,7 +29,7 @@
 
 Name:           lib%{libname}
 Version:        0.7.39
-Release:        %autorelease
+Release:        9%{?dist}
 Summary:        Package dependency solver
 
 # LICENSE.BSD:      BSD-3-Clause text
@@ -317,4 +317,106 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %endif
 
 %changelog
-%autochangelog
+* Fri Sep 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.39-9
+- Move from automatic release numbering to manual one
+
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@amutable.com> - 0.7.39-8
+- Rebuilt for libxml-2.5.4
+
+* Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 0.7.39-7
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.7.39-6
+- Perl 5.44 rebuild
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.39-5
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.39-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Fri Jun 19 2026 Petr Písař <ppisar@redhat.com> - 0.7.39-3
+- Compute hashes with OpenSSL
+
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.39-2
+- Rebuilt for Python 3.15
+
+* Thu May 28 2026 Petr Písař <ppisar@redhat.com> - 0.7.39-1
+- Update to 0.7.39
+
+* Wed May 27 2026 Petr Písař <ppisar@redhat.com> - 0.7.38-2
+- Fix a buffer overflow when decompressing solv pages (CVE-2026-48864)
+
+* Tue May 26 2026 Petr Písař <ppisar@redhat.com> - 0.7.38-1
+- Update to 0.7.38
+
+* Tue Apr 28 2026 Petr Písař <ppisar@redhat.com> - 0.7.37-2
+- Cope with integer overflow in data size arithmetics in repo_add_solv()
+  (upstream GH#617)
+
+* Thu Apr 23 2026 Petr Písař <ppisar@redhat.com> - 0.7.37-1
+- Update to 0.7.37
+
+* Wed Apr 22 2026 Petr Písař <ppisar@redhat.com> - 0.7.36-3
+- Fix a buffer overflow when copying SHA-384/512 checksum from a Debian
+  repository (upstream GH#616)
+
+* Thu Mar 12 2026 Petr Písař <ppisar@redhat.com> - 0.7.36-1
+- Update to 0.7.36
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Mon Jan 05 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.35-3
+- Add INSTALLER to Python metadata
+
+* Wed Dec 10 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.35-2
+- Provide Python metadata
+
+* Thu Oct 30 2025 Petr Písař <ppisar@redhat.com> - 0.7.35-1
+- Update to 0.7.35
+
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.34-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.34-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.34-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.7.34-2
+- Perl 5.42 re-rebuild updated packages
+
+* Tue Jul 08 2025 Petr Písař <ppisar@redhat.com> - 0.7.34-1
+- Update to 0.7.34
+
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.7.33-2
+- Perl 5.42 rebuild
+
+* Wed Jun 04 2025 Petr Písař <ppisar@redhat.com> - 0.7.33-1
+- Update to 0.7.33
+
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.32-5
+- Rebuilt for Python 3.14
+
+* Fri Apr 04 2025 Petr Písař <ppisar@redhat.com> - 0.7.32-2
+- Package NEWS file and declare a source license
+
+* Thu Apr 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.7.32-1
+- Update to 0.7.32
+
+* Mon Feb 17 2025 Petr Písař <ppisar@redhat.com> - 0.7.31-5
+- Teach rpmlint
+
+* Mon Feb 17 2025 Petr Písař <ppisar@redhat.com> - 0.7.31-4
+- Fix building with GCC 15
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Wed Jan 08 2025 Vít Ondruch <vondruch@redhat.com> - 0.7.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
+* Tue Nov 12 2024 Evan Goode <mail@evangoo.de> - 0.7.31-1
+- Update to 0.7.31

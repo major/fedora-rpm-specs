@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -33,6 +33,16 @@ Patch2:         %{name}-nozlib.patch
 Patch3:         %{name}-docs.patch
 # Enable ctest
 Patch4:         %{name}-tests.patch
+# https://github.com/assimp/assimp/commit/eb84eec580d3f4ba2f0fd87409b7d0744620f11e
+Patch5:         CVE-2026-14610.patch
+# https://github.com/assimp/assimp/commit/c39d8c15dbbe03174af61d8eedbbf90120f4eb9f
+Patch6:         CVE-2026-19968.patch
+# https://github.com/assimp/assimp/commit/50d767984e78d51b53e2020fdf0967fd624bc377
+Patch7:         CVE-2026-19999.patch
+# https://github.com/DerDoktorX/assimp/commit/a07a25d9a348152f2eb7f3359909a2cb9d0b2702
+Patch8:         CVE-2026-14604.patch
+# https://github.com/assimp/assimp/pull/6869
+Patch9:         CVE-2025-15666.patch
 
 
 BuildRequires:  boost-devel
@@ -178,6 +188,10 @@ exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.impor
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 6.0.5-5
+- Add fixes for CVE-2026-14610, CVE-2026-19968, CVE-2026-19999, CVE-2026-14604,
+  CVE-2025-15666
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

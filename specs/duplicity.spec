@@ -28,6 +28,7 @@ Source0:        https://gitlab.com/duplicity/duplicity/-/archive/rel.%{version}/
 # Unpin the upper Python bound
 #Patch:          allow-python3.15-build.patch
 Patch:          pytest9.patch
+Patch:          py315.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6

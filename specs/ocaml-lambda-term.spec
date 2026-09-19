@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
 Version:        3.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -65,6 +65,9 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Fri Sep 18 2026 Jerry James <loganjerry@gmail.com> - 3.4.1-3
+- Rebuild for ocaml-uucp 18.0.0
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 3.4.1-2
 - OCaml 5.5.1 rebuild
 

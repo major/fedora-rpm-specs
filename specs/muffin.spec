@@ -1,8 +1,8 @@
-%global upstream_version 6.7.5-unstable
+%global upstream_version 6.7.7-unstable
 
 Name:          muffin
-Version:       6.7.5^unstable
-Release:       1%{?dist}
+Version:       6.7.7^unstable
+Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND SGI-B-2.0
@@ -11,7 +11,7 @@ Source0:       %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.
 
 ExcludeArch:   %{ix86}
 
-BuildRequires: meson
+BuildSystem:   meson
 BuildRequires: gcc
 BuildRequires: cvt
 BuildRequires: pkgconfig(graphene-gobject-1.0)
@@ -98,13 +98,7 @@ utilities for testing Metacity/Muffin themes.
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 rm -rf %{buildroot}%{_bindir}/
 rm -rf %{buildroot}%{_mandir}/man1/
 rm -rf %{buildroot}%{_datadir}/applications/
@@ -130,83 +124,4 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-1
-- Update to 6.7.5-unstable
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-1
-- Update to 6.7.4-unstable
-
-* Sun Jun 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-2
-- Fix license, that will teach me for copying from mutter spec
-
-* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Tue Jun 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
-- Add patch to fix desktop stacking issue
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.1-unstable
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Wed Mar 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-2
-- Add patch to fix nvidia refresh rate
-
-* Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
-- Update to 6.6.3
-
-* Fri Jan 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
-- Update to 6.6.2
-
-* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
-- Update to 6.6.1
-
-* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 02 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-1
-- Update t0 6.4.1
-
-* Tue Nov 26 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-1
-- Update to 6.4.0
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.0-3
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.0-1
-- Update to 6.2.0
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-3
-- Fix compile issue
-
-* Sun Jan 07 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-2
-- Fix f38 build issue
-
-* Thu Dec 28 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
-- Update to 6.0.1 release
-
-* Mon Dec 04 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
-- Drop eglstreams support
-
-* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
-- Update to 6.0.0 release
+%autochangelog

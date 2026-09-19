@@ -1,9 +1,9 @@
-%global upstream_version 6.7.6-unstable
+%global upstream_version 6.7.7-unstable
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.7.6^unstable
-Release:        1%{?dist}
+Version:        6.7.7^unstable
+Release:        %autorelease
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -11,21 +11,11 @@ Source1:        nemo-fedora.gschema.override
 
 ExcludeArch:   %{ix86}
 
-Requires:       redhat-menus
-Requires:       gvfs-fuse%{?_isa}
-Recommends:     gvfs-goa%{?_isa}
-Requires:       xapps%{?_isa} >= 2.2.0
-# required by nemo-action-layout-editor
-Requires:       libxmlb%{?_isa}
-Requires:       python3-cairo
-Requires:       python3-gobject
-# required for gtk-stock fallback
-Recommends:     xapp-symbolic-icons
-Recommends:     cinnamon-translations >= 6.7.0
-Recommends:     nemo-search-helpers
-Recommends:     folder-color-switcher-nemo
-
-BuildRequires:  meson
+BuildSystem:   meson
+BuildOption(conf): -D deprecated_warnings=false
+BuildOption(conf): -D gtk_doc=false
+BuildOption(conf): -D gtk_layer_shell=true
+BuildOption(conf): -D selinux=true
 BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  python3-gobject-base
@@ -54,6 +44,19 @@ BuildRequires:  pkgconfig(pango)
 # the main binary links against libnemo-extension.so
 # don't depend on soname, rather on exact version
 Requires:       %{name}-extensions%{?_isa} = %{version}-%{release}
+Requires:       redhat-menus
+Requires:       gvfs-fuse%{?_isa}
+Recommends:     gvfs-goa%{?_isa}
+Requires:       xapps%{?_isa} >= 2.2.0
+# required by nemo-action-layout-editor
+Requires:       libxmlb%{?_isa}
+Requires:       python3-cairo
+Requires:       python3-gobject
+# required for gtk-stock fallback
+Recommends:     xapp-symbolic-icons
+Recommends:     cinnamon-translations >= 6.7.0
+Recommends:     nemo-search-helpers
+Recommends:     folder-color-switcher-nemo
 
 %description
 Nemo is the file manager and graphical shell for the Cinnamon desktop
@@ -98,17 +101,7 @@ for developing nemo extensions.
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
-%build
-%meson \
-  -D deprecated_warnings=false \
-  -D gtk_doc=false \
-  -D gtk_layer_shell=true \
-  -D selinux=true
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 install -D -m 0644 %{SOURCE1} %{buildroot}/%{_datadir}/glib-2.0/schemas/nemo-fedora.gschema.override
 
 # Only autostart in cinnamon and budgie
@@ -177,111 +170,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
-* Mon Sep 07 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.6^unstable-1
-- Update to 6.7.6-unstable
-
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-1
-- Update to 6.7.5-unstable
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue Jul 07 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-2
-- Remove requires gvfs-archive
-
-* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-1
-- Update to 6.7.4-unstable
-
-* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-2
-- Drop some patches
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Tue Apr 14 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
-- Enable gtk_layer_shell
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sun Jan 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-2
-- Fix mount action so it works compressed archives
-- Add requires gvfs-archive
-
-* Thu Jan 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
-- Update to 6.6.3
-
-* Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
-- Update to 6.6.2
-
-* Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
-- Update to 6.6.1
-
-* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Feb 26 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.5-1
-- Update to 6.4.5
-
-* Sat Feb 08 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.4-1
-- Update to 6.4.4
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 06 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.3-1
-- Update to 6.4.3
-
-* Mon Dec 02 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-1
-- Update to 6.4.1
-
-* Wed Nov 27 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-1
-- Update to 6.4.0
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.8-2
-- convert license to SPDX
-
-* Tue Aug 13 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.8-1
-- Update to 6.2.8
-
-* Sat Jul 20 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.5-1
-- Update to 6.2.5
-
-* Wed Jul 17 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.4-1
-- Update to 6.2.4
-
-* Mon Jul 08 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.3-1
-- Update to 6.2.3
-
-* Tue Jun 18 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.1-1
-- Update to 6.2.1
-
-* Thu Jun 13 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.0-1
-- Update to 6.2.0
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.2-2
-- Add buildrequires python3-packaging
-
-* Fri Dec 29 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.2-1
-- Update to 6.0.2 release
-
-* Tue Dec 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
-- Update to 6.0.1 release
-
-* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
-- Update to 6.0.0 release
+%autochangelog

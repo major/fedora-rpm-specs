@@ -13,8 +13,8 @@
 
 Name:           ImageMagick
 Epoch:          1
-Version:        7.1.2.29
-Release:        5%{?dist}
+Version:        7.1.2.31
+Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -424,6 +424,10 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Fri Sep 18 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.31-1
+- Update to version 7.1.2.31
+- Resolves: rhbz#2521653
+
 * Thu Sep 17 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.29-5
 - Enable Packit release automation and integration tests
 - Clarify that Ultra HDR support is currently available only on Fedora

@@ -6,7 +6,7 @@
 %global libspelling_version 0.4.0
 
 Name:		gnome-text-editor
-Version:	51~beta
+Version:	51.0
 Release:	%autorelease
 Summary:	A simple text editor for the GNOME desktop
 

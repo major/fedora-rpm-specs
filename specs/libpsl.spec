@@ -1,5 +1,5 @@
 Name:           libpsl
-Version:        0.23.1
+Version:        0.23.3
 Release:        %autorelease
 Summary:        C library for the Publix Suffix List
 License:        MIT

@@ -2,7 +2,7 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        33~rc
+Version:        33.0
 Release:        %autorelease
 Summary:        A photo organizer for the GNOME desktop
 
@@ -10,7 +10,7 @@ Summary:        A photo organizer for the GNOME desktop
 # CC-BY-SA for some of the icons
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
-Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{version}/%{name}-%{gnome_tarball_version}.tar.xz
 
 %gnome_check_version
 

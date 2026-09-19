@@ -2,9 +2,9 @@
 %bcond_without perl_LWP_ConsoleLogger_enables_mojo
 
 Name:           perl-LWP-ConsoleLogger
-%define cpan_version 1.000002
-Version:        1.0.2
-Release:        2%{?dist}
+%define cpan_version 1.000003
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
@@ -20,19 +20,22 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(bytes)
 BuildRequires:  perl(Class::Method::Modifiers)
 BuildRequires:  perl(Data::Printer) >= 0.36
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(Hash::Util::FieldHash)
 BuildRequires:  perl(HTML::Restrict)
 BuildRequires:  perl(HTTP::Body)
 BuildRequires:  perl(HTTP::CookieMonster)
+BuildRequires:  perl(HTTP::Headers)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(JSON::MaybeXS) >= 1.003005
 BuildRequires:  perl(List::AllUtils)
 BuildRequires:  perl(Log::Dispatch) >= 2.56
-# LWP::ConsoleLogger::Everywhere tries loading LWP::UserAgent and
+# LWP::ConsoleLogger::Everywhere tries loading HTTP::Tiny, LWP::UserAgent, and
 # Mojo::UserAgent to install logging hooks. There is no need to require them
 # here. They will be pulled in by a third-party code.
 BuildRequires:  perl(Module::Load::Conditional)
@@ -45,9 +48,10 @@ BuildRequires:  perl(String::Trim)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Term::Size::Any)
 BuildRequires:  perl(Try::Tiny)
-BuildRequires:  perl(Term::Table) >= 0.028
+BuildRequires:  perl(Term::Table) >= 0.013
 BuildRequires:  perl(Types::Common::Numeric)
 BuildRequires:  perl(Types::Standard)
+BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::QueryParam)
 # Optional run-time:
 BuildRequires:  perl(HTML::FormatText::Lynx) >= 23
@@ -63,18 +67,20 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTML::FormatText::WithLinks)
 BuildRequires:  perl(HTTP::Cookies)
 BuildRequires:  perl(HTTP::CookieJar::LWP)
-BuildRequires:  perl(HTTP::Headers)
+BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(IPC::Run3)
 BuildRequires:  perl(Log::Dispatch::Array)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Plack::Handler::HTTP::Server::Simple)
+BuildRequires:  perl(Plack::Loader)
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Plack::Test::Agent)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::LWP::UserAgent)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Needs)
+BuildRequires:  perl(Test::TCP)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(URI::file)
 BuildRequires:  perl(version)
@@ -85,6 +91,7 @@ BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojolicious) >= 7.13
 %endif
 BuildRequires:  perl(Unicode::GCString)
+Requires:       perl(bytes)
 Requires:       perl(Data::Printer) >= 0.36
 Recommends:     perl(HTML::FormatText::Lynx) >= 23
 Requires:       perl(JSON::MaybeXS) >= 1.003005
@@ -165,6 +172,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 18 2026 Petr Pisar <ppisar@redhat.com> - 1.0.3-1
+- 1.000003 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

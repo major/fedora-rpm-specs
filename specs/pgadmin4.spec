@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.17
-Release:        2%{?dist}
+Version:        9.18
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -37,8 +37,6 @@ Patch0:         pgadmin4_requirements.patch
 Patch1:         pgadmin4_azure-mgmt-rdbms.patch
 # Drop requirement on unpackaged python-sphinxcontrib-youtube
 Patch2:         pgadmin4_sphinx_youtube.patch
-# Fix compatibility with psycopg3-3.5
-Patch3:         pgadmin4_psycopg3.patch
 
 # For docs
 BuildRequires:  glibc-langpack-en
@@ -58,7 +56,7 @@ Requires: python3dist(azure-mgmt-subscription) >= 3.1.1
 Requires: python3dist(bcrypt) >= 4.3
 Requires: python3dist(boto3) >= 1.43
 Requires: python3dist(certifi) >= 2026.1.4
-Requires: python3dist(cryptography) >= 49
+Requires: python3dist(cryptography) >= 50
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
 Requires: python3dist(flask-login) >= 0
@@ -78,18 +76,17 @@ Requires: python3dist(keyring) >= 25
 Requires: python3dist(ldap3) >= 2
 Requires: python3dist(libgravatar) >= 1
 Requires: python3dist(paramiko) >= 3.5.1
-Requires: python3dist(passlib) >= 1
 Requires: python3dist(psutil) >= 7.2
 Requires: python3dist(psycopg) >= 3.3.4
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2026
 Requires: python3dist(qrcode) >= 8
-Requires: python3dist(setuptools) >= 83
+Requires: python3dist(setuptools) >= 84
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
-Requires: python3dist(typer) >= 0.26
+Requires: python3dist(typer) >= 0.27
 Requires: python3dist(urllib3) >= 2.7
 Requires: python3dist(user-agents) >= 2.2
 Requires: python3dist(werkzeug) >= 3.1
@@ -251,6 +248,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Sep 17 2026 Sandro Mani <manisandro@gmail.com> - 9.18-1
+- Update to 9.18
+
 * Thu Sep 03 2026 Sandro Mani <manisandro@gmail.com> - 9.17-2
 - Add patch to fix compatibility with pgadmin3 (#2527807)
 

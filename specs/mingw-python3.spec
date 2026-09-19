@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.15
-Release:       5%{?dist}
+Version:       3.11.16
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -70,23 +70,8 @@ Patch13:       mingw-python3_module-select.patch
 Patch14:       mingw-python3_pkgconfig.patch
 # Backport: Fix build with tcl9
 Patch15:       https://github.com/python/cpython/commit/e0799352823289fafb8131341abd751923ee9c08.patch
-# Backport proposed fix for CVE-2026-2297
-# https://github.com/python/cpython/pull/145515
-Patch16:       CVE-2026-2297.patch
-# Backport fix for CVE-2026-4519
-Patch20:       https://github.com/python/cpython/commit/ceac1efc66516ac387eef2c9a0ce671895b44f03.patch
-# Backport fix for CVE-2026-3644
-Patch21:       https://github.com/python/cpython/pull/146026.patch
-# Backport fix for CVE-2026-4224
-Patch22:       https://github.com/python/cpython/pull/146000.patch
-# Backport fix for CVE-2026-6100
-Patch23:       https://github.com/python/cpython/commit/e20c6c9667c99ecaab96e1a2b3767082841ffc8b.patch
 # Backport fix for CVE-2026-3479
 Patch24:       https://github.com/python/cpython/pull/146136.patch
-# Backport fix for CVE-2026-1502
-Patch25:       https://github.com/python/cpython/pull/148351.patch
-# Backport fix for CVE-2026-4786
-Patch26:       https://github.com/python/cpython/pull/148520.patch
 
 
 BuildRequires: make
@@ -527,6 +512,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 3.11.16-1
+- Update to 3.11.16
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

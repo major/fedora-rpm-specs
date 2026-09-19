@@ -1,7 +1,7 @@
 %global app_id  app.drey.MultiplicationPuzzle
 
 Name:           gmult
-Version:        16.0
+Version:        16.1
 Release:        %autorelease
 Summary:        Multiplication Puzzle
 # CC0-1.0 applies only to build system files

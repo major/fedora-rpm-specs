@@ -12,7 +12,7 @@
 
 Name:       %{pkg_name}
 Version:    %{version_major}.%{version_minor}.%{version_patch}
-Release:    %{autorelease}
+Release:    5%{?dist}
 
 %forgemeta
 
@@ -20,6 +20,9 @@ Summary:    Library for working with RPM manifests
 License:    LGPL-2.1-or-later
 URL:        %{forgeurl}
 Source:     %{forgesource}
+Patch1:     0001-Bump-a-version-to-0.6.0.patch
+Patch2:     0002-spec-Package-COPYING.lib-not-LICENSE.patch
+Patch3:     0003-Move-from-automatic-release-numbering-to-manual-one.patch
 
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  cmake >= 3.16
@@ -54,7 +57,7 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %files -n %{name}
 %{_libdir}/%{name}.so.0
-%license LICENSE
+%license COPYING.LIB
 %doc README.md
 
 %package -n %{name}-devel
@@ -108,4 +111,44 @@ Python 3 bindings for the %{name} library.
 %cmake_install
 
 %changelog
-%autochangelog
+* Fri Sep 18 2026 Petr Pisar <ppisar@redhat.com> - 0.6.0-5
+- Move from automatic release numbering to manual one
+
+* Fri Sep 18 2026 Petr Písař <ppisar@redhat.com> - 0.6.0-4
+- Fix dangling symbolic link from a LICENSE file
+
+* Fri Sep 18 2026 Petr Písař <ppisar@redhat.com> - 0.6.0-3
+- Fix a pkg-config file version
+
+* Wed Sep 16 2026 Packit <hello@packit.dev> - 0.6.0-1
+- Update to 0.6.0 upstream release
+
+* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.5.9-10
+- Rebuilt for Python 3.15.0b4 ABI change
+
+* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.9-8
+- Rebuilt for Python 3.15
+
+* Fri Jan 30 2026 Petr Písař <ppisar@redhat.com> - 0.5.9-7
+- Fix building with GCC 16 (bug #2434767)
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.9-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.9-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.9-2
+- Rebuilt for Python 3.14
+
+* Thu Apr 03 2025 Packit <hello@packit.dev> - 0.5.9-1
+- Update to 0.5.9 upstream release

@@ -1,10 +1,8 @@
 %global srcname level-zero
-%global lib_version 1.33
-%global patch_version 1
 %global _lto_cflags %nil
 
 Name:           oneapi-%{srcname}
-Version:        %{lib_version}.%{patch_version}
+Version:        1.33.1
 Release:        %{autorelease}
 Summary:        OneAPI Level Zero Specification Headers and Loader
 
@@ -18,7 +16,6 @@ BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  help2man
-BuildRequires:  spdlog-devel
 
 # Useful for a quick oneAPI Level-Zero testing
 Recommends:     %{name}-zello_world
@@ -51,9 +48,7 @@ of the oneAPI Level-Zero driver and dumping out the basic device and driver char
 %autosetup -p1 -n %{srcname}-%{version}
 
 %build
-# spdlog uses fmt, but since this doesn't setup linking, use it in header only mode
-export CXXFLAGS="%{build_cxxflags} -DFMT_HEADER_ONLY=1"
-%cmake -DSYSTEM_SDPLOG=ON
+%cmake
 %cmake_build
 
 %install
@@ -77,11 +72,11 @@ done
 %files
 %license LICENSE
 %doc README.md SECURITY.md
-%{_libdir}/libze_loader.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_loader.so.%{version}
 %{_libdir}/libze_loader.so.1
-%{_libdir}/libze_validation_layer.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_validation_layer.so.%{version}
 %{_libdir}/libze_validation_layer.so.1
-%{_libdir}/libze_tracing_layer.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_tracing_layer.so.%{version}
 %{_libdir}/libze_tracing_layer.so.1
 
 %files zello_world

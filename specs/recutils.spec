@@ -1,6 +1,6 @@
 Name:		recutils
 Version:	1.9
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A set of tools to access GNU recfile databases
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -20,15 +20,14 @@ Patch2:		recutils-c99.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	gettext
-BuildRequires:	emacs-nox
 BuildRequires:	chrpath
 BuildRequires:	libgcrypt-devel
 BuildRequires:	help2man
 BuildRequires:	mdbtools-devel
 BuildRequires:	texinfo
 BuildRequires:	gnupg2
-BuildRequires:  bison flex
-Requires:	emacs(bin) >= %{_emacs_version}
+BuildRequires:	bison flex
+Recommends:	emacs-rec-mode = %{version}-%{release}
 # Gnulib is granted exception of "no bundled libraries" packaging guideline:
 # https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
 Provides: bundled(gnulib)
@@ -46,6 +45,18 @@ Requires:	%{name} = %{version}-%{release}
 %description devel
 Libraries and header files for recutils
 
+%package -n emacs-rec-mode
+Summary:       Emacs major mode for browsing and editing recfiles
+BuildArch:     noarch
+BuildRequires: emacs-nox
+BuildRequires: emacs-common
+Requires:      %{name} = %{version}-%{release}
+Requires:      emacs(bin) >= %{_emacs_version}
+
+%description -n emacs-rec-mode
+Rec Mode is a mode for browsing and editing recfiles, which are text files
+containing data structured in fields and records.  It is part of the GNU
+recutils suite, for more information visit http://www.gnu.org/software/recutils.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -93,16 +104,26 @@ chrpath --delete %{buildroot}%{_bindir}/*
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_datadir}/recutils
-%{_infodir}/*.info*
-%{_emacs_sitelispdir}/*.el*
-%{_emacs_sitestartdir}/*.el
+%{_infodir}/recutils.info*
 
 %files devel
 %{_includedir}/rec.h
 %{_libdir}/*.so
 
+%files -n emacs-rec-mode
+%doc rec-mode/README
+%license rec-mode/COPYING
+%{_emacs_sitelispdir}/*.el*
+%{_emacs_sitestartdir}/*.el
+%{_infodir}/rec-mode.info*
+
 
 %changelog
+* Tue Sep 15 2026 duli <duli4868@gmail.com> - 1.9-15
+- Split the Emacs rec-mode into a separate emacs-rec-mode subpackage
+- Only recommend the Emacs mode from the main package instead of
+  requiring emacs(bin) from it
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -65,7 +65,7 @@ module use the AAA API for performing Diameter ops.
 %package  aaa_radius
 Summary:  RADIUS backend for AAA API
 Requires: %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: radcli-devel
+BuildRequires: pkgconfig(radcli)
 
 %description aaa_radius
 This module provides the RADIUS backend for the AAA API - group, auth, uri

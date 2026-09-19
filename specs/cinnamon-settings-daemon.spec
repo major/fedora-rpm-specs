@@ -1,10 +1,10 @@
-%global cinnamon_desktop_version 6.7.0
+%global cinnamon_desktop_version 6.7.3
 
-%global upstream_version 6.7.3-unstable
+%global upstream_version 6.7.4-unstable
 
 Name:           cinnamon-settings-daemon
-Version:        6.7.3^unstable
-Release:        1%{?dist}
+Version:        6.7.4^unstable
+Release:        %autorelease
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
@@ -13,14 +13,14 @@ Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar
 
 ExcludeArch:    %{ix86}
 
-# add hard cinnamon-desktop required version due logind schema
-Requires:       cinnamon-desktop%{?_isa} >= %{cinnamon_desktop_version}
-Requires:       colord%{?_isa}
-Requires:       iio-sensor-proxy%{?_isa}
-
+BuildSystem:   meson
+BuildOption(conf): -Duse_smartcard=disabled
+BuildOption(conf): -Dgtk_layer_shell=true
+%ifarch s390 s390x
+BuildOption(conf): -Duse_wacom=disabled
+%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
-BuildRequires:  meson
 BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
 BuildRequires:  pkgconfig(colord) >= 0.1.27
@@ -49,6 +49,11 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(lcms2) >= 2.2
 BuildRequires:  pkgconfig(libsystemd)
 
+# add hard cinnamon-desktop required version due logind schema
+Requires:       cinnamon-desktop%{?_isa} >= %{cinnamon_desktop_version}
+Requires:       colord%{?_isa}
+Requires:       iio-sensor-proxy%{?_isa}
+
 %description
 A daemon to share settings from CINNAMON to other applications. It also
 handles global keybindings, and many of desktop-wide settings.
@@ -56,19 +61,7 @@ handles global keybindings, and many of desktop-wide settings.
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
-%build
-%meson \
- -Duse_smartcard=disabled \
- -Dgtk_layer_shell=true \
-%ifarch s390 s390x
- -Duse_wacom=disabled
-%endif
-
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 desktop-file-install --delete-original           \
   --dir %{buildroot}%{_sysconfdir}/xdg/autostart/  \
   %{buildroot}%{_sysconfdir}/xdg/autostart/*
@@ -90,7 +83,6 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/*.desktop
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*
 %{_libexecdir}/csd-a11y-settings
 %{_libexecdir}/csd-automount
-%{_libexecdir}/csd-background
 %{_libexecdir}/csd-backlight-helper
 %{_libexecdir}/csd-clipboard
 %{_libexecdir}/csd-color
@@ -117,80 +109,4 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/*.desktop
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.2^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.1-unstable
-
-* Tue Apr 14 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
-- Enable gtk_layer_shell
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Thu Feb 12 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
-- Update to 6.6.3
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jan 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
-- Update to 6.6.2
-
-* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
-- Update to 6.6.1
-
-* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 20 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.2-1
-- Update to 6.4.2
-
-* Tue Dec 10 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-2
-- Add requires colord, it is needed for nightlight
-
-* Mon Dec 02 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-1
-- Update t0 6.4.1
-
-* Wed Nov 27 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-1
-- Update to 6.4.0
-
-* Thu Nov 14 2024 Leigh Scott <leigh123linux@gmail.com> - 6.3.0^20241114git1b36b7a-1
-- Update to git snapshot
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.0-3
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.0-1
-- Update to 6.2.0
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-3
-- Fix compile issue
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
-- Update to 6.0.0 release
+%autochangelog

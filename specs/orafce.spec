@@ -1,5 +1,5 @@
 Name:		orafce
-Version:	4.16.8
+Version:	4.16.10
 Release:	%autorelease
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	0BSD

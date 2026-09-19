@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-uuseg
-Version:        17.0.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Unicode text segmentation for OCaml
 
@@ -11,6 +11,8 @@ License:        ISC
 URL:            https://erratique.ch/software/uuseg
 VCS:            git:https://erratique.ch/repos/uuseg.git
 Source:         %{url}/releases/uuseg-%{version}.tbz
+# Revert changes for an unreleased version of ocaml-b0; affects tests only
+Patch:          %{name}-b0-downgrade.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -29,7 +31,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uucp-devel >= 17.0.0
+BuildRequires:  ocaml-uucp-devel >= 18.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 BuildRequires:  unicode-ucd
 
@@ -57,7 +59,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n uuseg-%{version}
+%autosetup -n uuseg-%{version} -p1
 
 # Files needed for the tests
 cp -p %{_datadir}/unicode/ucd/auxiliary/*BreakTest.txt test

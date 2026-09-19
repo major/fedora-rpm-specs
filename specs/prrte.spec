@@ -1,5 +1,5 @@
 Name:           prrte
-Version:        3.0.6
+Version:        3.0.14
 Release:        %autorelease
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 # src/mca/prtereachable/netlink/reachable_netlink_utils_common.c is BSD-2-Clause
@@ -10,9 +10,16 @@ Summary:        PMIx Reference RunTime Environment (PRRTE)
 License:        BSD-3-Clause-Open-MPI AND BSD-2-Clause
 URL:            https://github.com/openpmix/%{name}
 Source0:        https://github.com/openpmix/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-# Upstream fix for --stdfor for non-zeron ranks - fixes rhbz#2307533
-Patch0:         https://patch-diff.githubusercontent.com/raw/openpmix/prrte/pull/2038.patch
+# Fix loss of hardening flags (including CET). Submitted as:
+# https://github.com/openpmix/prrte/pull/2776
+# Obsoleted by upstream removal of flex-based parser
+# in 11 commits f9ee7c5d57b8..cfc373e95c83 on master,
+# which were then backported to the "v5.0" branch, but not older branches.
+Patch0:         prrte-fix-cflags-before-picky.patch
 
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  make
@@ -50,6 +57,8 @@ Runtime libraries for %{name}.
 Summary:        Development files for %{name}
 License:        BSD-3-Clause-Open-MPI AND BSD-2-Clause AND MIT AND (MIT OR GPL-2.0-or-later) AND (OFL-1.1 OR MIT)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# For pmixcc, the target of the pcc symlink
+Requires:       pmix-tools%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -68,27 +77,35 @@ find src -name \*.l -print -exec touch --no-create {} \;
 echo '' > src/util/qsort.h
 echo 'typedef int x;' > src/util/qsort.c
 
+# Patch0 touches configure.ac-derived files; regenerate the build system.
+./autogen.pl
+
 
 %build
+# Install into openmpi dir to avoid conflict with putty
+# https://bugzilla.redhat.com/show_bug.cgi?id=2247407
 %configure \
     --sysconfdir=%{_sysconfdir}/prte \
+    --bindir=%{_libdir}/openmpi/bin \
+    --mandir=%{_libdir}/openmpi/share/man \
     --disable-static \
     --disable-silent-rules \
     --enable-shared \
-    --with-sge
+    --with-sge \
+    --with-pmix=%{_prefix}
 
 %make_build
 
 
 %install
 %make_install
-# Move to openmpi dir to avoid conflict with putty
-mkdir -p %{buildroot}%{_libdir}/openmpi/{bin,share/man}
-mv %{buildroot}%{_bindir}/* %{buildroot}%{_libdir}/openmpi/bin
-mv %{buildroot}%{_mandir}/* %{buildroot}%{_libdir}/openmpi/share/man/
 
 # remove libtool archives
 find %{buildroot} -name '*.la' -delete
+
+# remove Sphinx's own incremental-build cache markers, not useful in the
+# installed docs
+rm %{buildroot}%{_docdir}/%{name}/html/.buildinfo*
 
 
 %check

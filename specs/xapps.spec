@@ -1,8 +1,8 @@
-%global upstream_version 3.3.4-unstable
+%global upstream_version 3.3.5-unstable
 
 Name:           xapps
-Version:        3.3.4^unstable
-Release:        1%{?dist}
+Version:        3.3.5^unstable
+Release:        %autorelease
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -13,6 +13,9 @@ Patch0:         watcher_fix_libexec.patch
 
 ExcludeArch:    %{ix86}
 
+BuildSystem:   meson
+BuildOption(conf): --buildtype=debugoptimized
+BuildOption(conf): -D deprecated_warnings=false
 BuildRequires:  desktop-file-utils
 BuildRequires:  glib2-devel
 BuildRequires:  gobject-introspection-devel
@@ -21,7 +24,6 @@ BuildRequires:  gtk-layer-shell-devel
 BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libgnomekbd-devel
-BuildRequires:  meson
 BuildRequires:  python3-gobject-devel
 BuildRequires:  python3-devel
 BuildRequires:  vala
@@ -69,14 +71,7 @@ Python%{python3_version} files for XApp apps.
 %prep
 %autosetup -p1 -n xapp-%{upstream_version}
 
-%build
-%meson \
- --buildtype=debugoptimized \
- -D deprecated_warnings=false
-%meson_build
-
-%install
-%meson_install
+%install -a
 tar -xf %{SOURCE1} -C %{buildroot}%{_datadir} --strip 3
 rm %{buildroot}%{_datadir}/format
 
@@ -122,38 +117,4 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.4^unstable-1
-- Update to 3.3.4-unstable
-
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.3.3^unstable-3
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.3^unstable-1
-- Update to 3.3.3-unstable
-
-* Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.2^unstable-1
-- Update to 3.3.2-unstable
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.1^unstable-2
-- Rebuilt for Python 3.15
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.1^unstable-1
-- Update to 3.3.1-unstable
-
-* Sat Feb 28 2026 Leigh Scott <leigh123linux@gmail.com> - 3.2.2-3
-- Update flags
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 3.2.2-1
-- Update to 3.2.2
-
-* Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 3.2.1-1
-- Update to 3.2.1
-
-* Wed Nov 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.2.0-1
-- Update to 3.2.0
+%autochangelog

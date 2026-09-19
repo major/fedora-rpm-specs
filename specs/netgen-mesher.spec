@@ -27,8 +27,8 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2606
-Release:        3%{?dist}
+Version:        6.2.2607
+Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
 ExcludeArch:    %{ix86} aarch64
@@ -414,6 +414,12 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2607-1
+- Update to 6.2.2607
+
+* Fri Sep 18 2026 Richard Shaw <hobbes1069@gmail.com> - 6.2.2606-4
+- Rebuild for opencascade 8.0.1.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.2.2606-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

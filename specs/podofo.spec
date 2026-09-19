@@ -5,11 +5,11 @@
 %endif
 
 #global pre rc1
-%global podofo_resources_commit 1e0740f2183e01d6f8516399031f6dbccbe8cd0f
+%global podofo_resources_commit f3e6e289db3cb7fe0a1a21e65430f221fe598882
 
 Name:           podofo
-Version:        1.1.1
-Release:        5%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        (LGPL-2.0-or-later or MPL-2.0) and MIT and Apache-2.0 and BSD-3-Clause and BSL-1.0
@@ -20,11 +20,11 @@ Source1:        https://github.com/podofo/podofo-resources/archive/%{podofo_reso
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
 Patch1:         podofo_CVE-2019-20093.patch
-# Backport tentative support for openssl-4.x and dependent patches
-Patch2:         https://github.com/podofo/podofo/commit/aff6aa3866623cdce9dbefaee439dfc17b2d817c.patch
-Patch3:         https://github.com/podofo/podofo/commit/5ba0d826d325e5864d6adf4dea951124cf835adf.patch
-Patch4:         https://github.com/podofo/podofo/commit/c45b4b742274ad38011b7804df7f2340b544c29e.patch
-
+# Backport fmtlib commit "Fix fallback uint128 bitwise not"
+# https://github.com/fmtlib/fmt/commit/588b3a0f8f6a8bcf2a959cae882d5b2703e86737
+Patch2:         podofo_fmtlib.patch
+# Fix build (bcrypt library name case sensitivity)
+Patch3:         podofo_build.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -193,7 +193,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING.LGPL COPYING.MPL
-%{_libdir}/*.so.1.1.1
+%{_libdir}/*.so.1.1.2
 %{_libdir}/*.so.4
 
 %files devel
@@ -223,6 +223,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 1.1.1-5
 - Rebuild (mingw-libxml2)
 

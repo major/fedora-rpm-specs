@@ -143,7 +143,7 @@ use the "v4_20" feature of the "%{crate}" crate.
 %package     -n %{name}+v4_22-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gtk4) >= 4.21
+Requires:       pkgconfig(gtk4) >= 4.22
 
 %description -n %{name}+v4_22-devel %{_description}
 
@@ -151,6 +151,19 @@ This package contains library source intended for building other packages which
 use the "v4_22" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_22-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_24-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gtk4) >= 4.23
+
+%description -n %{name}+v4_24-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_24" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_24-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel

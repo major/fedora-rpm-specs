@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/anakryiko/wprof
-Version:        0.6
+Version:        0.7
 %forgemeta
 
 # run `fedpkg prep --define 'with_skip_vendored 1'`
@@ -139,6 +139,11 @@ Source102:      wprof-wpb-%{version}-vendor.tar.gz
 
 # share the bundled vmlinux header, don't try to fetch it again
 Patch:          wprof-blazesym-shared-vmlinux.diff
+# Linux 7.3 kernel-headers declare arm64 sigcontext vregs as __u128, but the
+# bundled libbpf's private include/linux/types.h shadows the UAPI one and lacks
+# that typedef, breaking the aarch64 build. Backport of libbpf commit f90a9c48;
+# drop once the bundled libbpf snapshot is at or after 2026-09-07.
+Patch:          libbpf-add-u128-types.patch
 
 # strobelight-libs only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64

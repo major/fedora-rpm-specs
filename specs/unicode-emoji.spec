@@ -2,19 +2,19 @@
 %global emojidir %{unicodedir}/emoji
 
 Name:           unicode-emoji
-Version:        16.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Unicode Emoji Data Files
 
 License:        Unicode-DFS-2016
 URL:            http://www.unicode.org/emoji/
 Source0:        https://www.unicode.org/license.txt
-Source1:        https://www.unicode.org/Public/emoji/15.1/ReadMe.txt
-Source2:        https://www.unicode.org/Public/15.1.0/ucd/emoji/emoji-data.txt
-Source3:        https://www.unicode.org/Public/emoji/15.1/emoji-sequences.txt
-Source4:        https://www.unicode.org/Public/emoji/15.1/emoji-test.txt
-Source5:        https://www.unicode.org/Public/15.1.0/ucd/emoji/emoji-variation-sequences.txt
-Source6:        https://www.unicode.org/Public/emoji/15.1/emoji-zwj-sequences.txt
+Source1:        https://www.unicode.org/Public/%{version}/ucd/emoji/ReadMe.txt
+Source2:        https://www.unicode.org/Public/%{version}/ucd/emoji/emoji-data.txt
+Source3:        https://www.unicode.org/Public/%{version}/emoji/emoji-sequences.txt
+Source4:        https://www.unicode.org/Public/%{version}/emoji/emoji-test.txt
+Source5:        https://www.unicode.org/Public/%{version}/ucd/emoji/emoji-variation-sequences.txt
+Source6:        https://www.unicode.org/Public/%{version}/emoji/emoji-zwj-sequences.txt
 BuildArch:      noarch
 
 %description

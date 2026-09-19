@@ -15,7 +15,7 @@
 
 Name:          scotch
 Summary:       Graph, mesh and hypergraph partitioning library
-Version:       7.0.14
+Version:       7.0.15
 Release:       1%{?dist}
 
 License:       CeCILL-C
@@ -451,6 +451,9 @@ rm -rf %{buildroot}%{_mandir}/*
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 7.0.15-1
+- Update to 7.0.15
+
 * Thu Sep 03 2026 Sandro Mani <manisandro@gmail.com> - 7.0.14-1
 - Update to 7.0.14
 

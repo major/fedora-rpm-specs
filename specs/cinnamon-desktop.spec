@@ -2,12 +2,12 @@
 %global glib2_version    2.37.3
 %global po_package       cinnamon-desktop-3.0
 
-%global upstream_version 6.7.3-unstable
+%global upstream_version 6.7.4-unstable
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.7.3^unstable
-Release: 1%{?dist}
+Version: 6.7.4^unstable
+Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
@@ -17,13 +17,14 @@ ExcludeArch: %{ix86}
 
 Patch0:   set_font_defaults.patch
 
-Requires: redhat-menus
-
-# Make sure to update libgnome schema when changing this
-%if 0%{?fedora}
-Requires: system-backgrounds-gnome
+BuildSystem:   meson
+BuildOption(conf): -Dalsa=true
+BuildOption(conf): -Ddeprecation_warnings=false
+%ifarch x86_64 aarch64
+BuildOption(conf): -Dbubblewrap=enabled
+%else
+BuildOption(conf): -Dbubblewrap=disabled
 %endif
-
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -42,9 +43,15 @@ BuildRequires: pkgconfig(xext)
 BuildRequires: pkgconfig(xkbfile)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(xrandr)
-BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: python3-packaging
+
+Requires: redhat-menus
+
+# Make sure to update libgnome schema when changing this
+%if 0%{?fedora}
+Requires: system-backgrounds-gnome
+%endif
 
 %description
 The cinnamon-desktop package contains an internal library
@@ -64,20 +71,7 @@ libcinnamon-desktop.
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
-%build
-%meson \
- -Dalsa=true \
-%ifarch x86_64 aarch64
- -Dbubblewrap=enabled \
-%else
- -Dbubblewrap=disabled \
-%endif
- -Ddeprecation_warnings=false
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 mkdir -p %{buildroot}%{_datadir}/applications/
 install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.list
 
@@ -99,90 +93,4 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.2^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
-- Enable alsa
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.1-unstable
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Wed Feb 25 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-8
-- Update gvc patch
-
-* Sun Feb 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-7
-- Bump spec
-
-* Sun Feb 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-6
-- Fix cvc patch
-
-* Fri Feb 06 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-5
-- Update cvc patch
-
-* Thu Feb 05 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-4
-- Add upstream pull request to fix cvc issues
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jan 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
-- Update to 6.6.2
-
-* Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
-- Update to 6.6.1
-
-* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
-
-* Mon Aug 18 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-4
-- Drop require gnome-themes-standard, gtk2 apps can handle their own theme
-  requires
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 02 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-1
-- Update to 6.4.1
-
-* Tue Nov 26 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-1
-- Update to 6.4.0
-
-* Thu Nov 14 2024 Leigh Scott <leigh123linux@gmail.com> - 6.3.0^20241114git4ff8433-1
-- Update to git snapshot
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.0-3
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.2.0-1
-- Update to 6.2.0
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
-- AAdd buildrequires python3-packaging
-
-* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
-- Update to 6.0.0 release
+%autochangelog

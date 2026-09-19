@@ -110,6 +110,8 @@ Requires:   mod_ssl
 # of installing buildreqs and these would cause blocking since they aren't built yet
 Requires: python3-acme = %{version}-%{release}
 Requires: python3-certbot = %{version}-%{release}
+# dependency of certbot[apache] extra
+Requires: python3-augeas
 # Provide the name users expect as a certbot plugin
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} >= 8)
 Provides:   certbot-apache = %{version}-%{release}
@@ -125,6 +127,8 @@ Provides:      certbot-nginx = %{version}-%{release}
 # of installing buildreqs and these would cause blocking since they aren't built yet
 Requires: python3-acme = %{version}-%{release}
 Requires: python3-certbot = %{version}-%{release}
+# dependency of certbot[nginx] extra
+Requires: python3-pyparsing
 # Recommend the CLI as that will be the interface most use
 Recommends:    certbot >= %{version}
 
@@ -221,9 +225,16 @@ find . -name pyproject.toml -exec sed -i -e s'@license = "Apache-2.0"@license = 
 %generate_buildrequires
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx
 do
+  # we need to avoid build deps on 'acme' and 'certbot[EXTRA]' in each module,
+  # as we are building everything in tandem, but we still need the deps pulled
+  # in by certbot's extras (e.g. pyparsing)
+  case $module in
+    certbot) extras="-x apache,nginx" ;;
+    *) extras= ;;
+  esac
   cd $module
   sed -Ei '/(acme|certbot)[^>]*>=\{version\}/d' setup.py
-    %pyproject_buildrequires
+    %pyproject_buildrequires $extras
   cd ..
 done
 

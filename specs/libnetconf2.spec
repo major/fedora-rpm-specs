@@ -1,6 +1,6 @@
 Name: libnetconf2
 Version: 3.7.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,6 +14,9 @@ BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libyang) >= 2
 BuildRequires:  curl-devel
+BuildRequires:  git-core
+
+Patch1: 0001-openssl4-changes.patch
 
 %package devel
 Summary:    Headers of libnetconf2 library
@@ -28,9 +31,8 @@ Headers of libnetconf library.
 libnetconf2 is a NETCONF library in C intended for building NETCONF clients and
 servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
-
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RELWITHDEBINFO
@@ -57,6 +59,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Fri Sep 18 2026 Michal Ruprich <mruprich@redhat.com> - 3.7.10-5
+- Fixing FTBFS with new openssl
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

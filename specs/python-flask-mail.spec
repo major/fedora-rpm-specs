@@ -1,13 +1,12 @@
 %{?python_enable_dependency_generator}
 %global pkg_name flask-mail
-%global mod_name Flask-Mail
+%global mod_name flask_mail
 
 Name:       python-%{pkg_name}
-Version:    0.9.1
-Release:    34%{?dist}
+Version:    0.10.0
+Release:    1%{?dist}
 Summary:    Flask extension for sending email
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
+License:    BSD-3-Clause
 URL:        http://github.com/mattupstate/%{pkg_name}/
 Source0:    %{pypi_source %{mod_name}}
 BuildArch:  noarch
@@ -26,27 +25,30 @@ BuildRequires:   python3-flask
 A Flask extension for sending email messages.
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
 %autosetup -n %{mod_name}-%{version} -p1
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{mod_name}
 
 
-%files -n python3-%{pkg_name}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/flask_mail.py
-%{python3_sitelib}/__pycache__/flask_mail*.py*
-%{python3_sitelib}/Flask_Mail*.egg-info/
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 0.10.0-1
+- Update to 0.10.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

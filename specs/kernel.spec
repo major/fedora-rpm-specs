@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc3.260916g9b87fdc9af2f.34
+%define pkgrelease 0.rc3.260918g5dd1818b15d9.36
 %define kversion 7
-%define tarfile_release 7.3-rc3-78-g9b87fdc9af2f
+%define tarfile_release 7.3-rc3-313-g5dd1818b15d9
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260916g9b87fdc9af2f.34%{?buildid}%{?dist}
+%define specrelease 0.rc3.260918g5dd1818b15d9.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -844,7 +844,7 @@ BuildRequires: (python3-wheel if python3-setuptools < 70)
 BuildRequires: openssl-devel
 
 %if %{with_selftests}
-BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel python3-docutils python3-jsonschema
+BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel libuuid-devel python3-docutils python3-jsonschema
 %ifarch x86_64 riscv64
 BuildRequires: lld
 %endif
@@ -893,10 +893,15 @@ BuildRequires: pesign >= 0.10-4
 %endif
 %endif
 
+# If CROSS_COMPILE is defined then we skip the BuildRequires because we do not
+# know which package maintains that toolchain prefix.
 %if %{with_cross}
+%if %{undefined CROSS_COMPILE}
 BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
-%define cross_opts CROSS_COMPILE=%{_build_arch}-linux-gnu-
-%define __strip %{_build_arch}-linux-gnu-strip
+%define CROSS_COMPILE %{_build_arch}-linux-gnu-
+%endif
+%define cross_opts CROSS_COMPILE=%{CROSS_COMPILE}
+%define __strip %{CROSS_COMPILE}strip
 %endif
 
 # These below are required to build man pages
@@ -1504,7 +1509,7 @@ Files installed under /usr/share/%{name}-kmap-internal/:
 
 %package selftests-internal
 Summary: Kernel samples and selftests
-Requires: binutils, bpftool, fuse-libs, iproute-tc, iputils, keyutils, nmap-ncat, python3
+Requires: binutils, bpftool, fuse-libs, iproute-tc, iputils, keyutils, libuuid, nmap-ncat, python3
 Provides: %{name}-selftests-internal-present
 %description selftests-internal
 Kernel sample programs and selftests.
@@ -3523,7 +3528,7 @@ pushd tools/testing/selftests
 export CFLAGS="%{build_cflags}"
 export CXXFLAGS="%{build_cxxflags}"
 
-%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill net/tcp_ao tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group nsfs openat2 proc safesetid seccomp tmpfs uevent vDSO" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill net/tcp_ao tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group nsfs openat2 proc safesetid seccomp tmpfs uevent vDSO vfio" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
 
 # Restore the original level of source fortification
 %define _fortify_level %{_fortify_level_bak}
@@ -3653,9 +3658,9 @@ find Documentation -type d | xargs chmod u+w
 # https://inbox.sourceware.org/debugedit/20250220153858.963312-1-mark@klomp.org/
 %if %{with_cross}
 %define __override_target_tools_for_debugedit \
-	export OBJCOPY=%{_build_arch}-linux-gnu-objcopy \
-	export NM=%{_build_arch}-linux-gnu-nm \
-	export READELF=%{_build_arch}-linux-gnu-readelf \
+	export OBJCOPY=%{CROSS_COMPILE}objcopy \
+	export NM=%{CROSS_COMPILE}nm \
+	export READELF=%{CROSS_COMPILE}readelf \
 %{nil}
 %endif
 
@@ -4100,6 +4105,12 @@ pushd tools/testing/selftests/vDSO
 find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
 find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
 find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
+popd
+# install vfio selftests
+pushd tools/testing/selftests/vfio
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
 popd
 %endif
 
@@ -4855,13 +4866,25 @@ fi\
 #
 #
 %changelog
-* Wed Sep 16 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-0.rc3.260916g9b87fdc9af2f.34]
-- Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
+* Fri Sep 18 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-0.rc3.260918g5dd1818b15d9.36]
+- Keep the older NTFS3 module around as well for Fedora (Justin M. Forbes)
 
-* Wed Sep 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.9b87fdc9af2f.34]
+* Fri Sep 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.5dd1818b15d9.36]
+- Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Sep 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.5dd1818b15d9.35]
+- redhat: add vfio selftests to kernel-modules-internal package (Rodolfo Vick) [RHEL-237560]
+- random: set vdso is_ready later during boot process (Vladislav Dronov) [RHEL-127733]
+- configs: rhel: riscv: Enable THERMAL_OF and UFSHCD (Jennifer Berringer)
+- redhat: kernel.spec: allow overriding CROSS_COMPILE (Scott Weaver)
+- redhat/configs: riscv: Enable SpacemiT V100 RISC-V platform support (Iker Pedrosa)
+- Linux v7.3.0-0.rc3.5dd1818b15d9
+
+* Thu Sep 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.238650ef6c7c.34]
+- Linux v7.3.0-0.rc3.238650ef6c7c
 
 * Wed Sep 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.9b87fdc9af2f.33]
 - Linux v7.3.0-0.rc3.9b87fdc9af2f

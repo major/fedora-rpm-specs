@@ -5,8 +5,8 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.4.350.1
-Release:       2%{?dist}
+Version:       1.4.357.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       MIT
@@ -69,6 +69,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 1:1.4.357.0-1
+- Update to 1.4.357.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.350.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

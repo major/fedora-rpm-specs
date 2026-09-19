@@ -1,13 +1,20 @@
-%global commit 02dcaa1ce900da296d1b91ecdd6e1f1ff0f5ab70
+%global commit b953eceebb0abc6ea954a14545420e3f97540a77
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-# not compatible with newer clang versions
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
-%global llvm_compat 15
+%global llvm_ver 22
+
+# f44 ships LLVM 22 as the main package; f45+ provide llvm22 compat
+%if 0%{?fedora} >= 45
+%global llvm_compat %{llvm_ver}
+%global llvm_bindir %{_libdir}/llvm%{llvm_ver}/bin
+%global llvm_cmake  %{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake
+%else
+%global llvm_bindir %{_bindir}
+%global llvm_cmake  %{_libdir}/cmake
 %endif
 
 Name: intel-opencl-clang
-Version: 15.0.9
+Version: 22.1.4
 Release: %autorelease
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 
@@ -16,17 +23,17 @@ URL:     https://github.com/intel/opencl-clang
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires: cmake
-BuildRequires: clang%{?llvm_compat}
-BuildRequires: gcc gcc-c++
-BuildRequires: libffi-devel
-BuildRequires: make
-BuildRequires: llvm%{?llvm_compat}-devel
 BuildRequires: clang%{?llvm_compat}-devel
-%if %{?llvm_compat} == 15
-BuildRequires: spirv-llvm15.0-translator-devel
-%else
+BuildRequires: gcc gcc-c++
+BuildRequires: make
+BuildRequires: ninja-build
+BuildRequires: libffi-devel
+BuildRequires: llvm%{?llvm_compat}
+BuildRequires: llvm%{?llvm_compat}-devel
+BuildRequires: llvm%{?llvm_compat}-static
 BuildRequires: spirv-llvm-translator%{?llvm_compat}-devel
-%endif
+BuildRequires: spirv-headers-devel
+BuildRequires: spirv-tools-devel
 BuildRequires: zlib-devel
 
 %description
@@ -43,13 +50,23 @@ developing against %{name}
 
 %prep
 %autosetup -n opencl-clang-%{commit} -p1
-sed -i 's/$<TARGET_FILE:clang>/$<TARGET_FILE:clang%{?llvm_compat}>/' cl_headers/CMakeLists.txt
+# compat clang keeps its resource dir in /usr/lib/clang/<major>, not under LLVM_LIBRARY_DIR
+sed -i -E 's|message\(FATAL_ERROR "\[OPENCL-CLANG\] Couldn.t find prebuilt LLVM include directory\."\)|set(OPENCL_HEADERS_DIR "%{_prefix}/lib/clang/%{llvm_ver}/include/")|' cl_headers/CMakeLists.txt
+grep -q 'OPENCL_HEADERS_DIR "/usr/lib/clang' cl_headers/CMakeLists.txt
 
 %build
+export PATH=%{llvm_bindir}:$PATH
+LLVM_FULL_VER=$(llvm-config --version | sed 's/~.*//;s/git//')
+LLVM_MAJOR=$(echo "$LLVM_FULL_VER" | cut -d. -f1)
+if [ "$LLVM_MAJOR" != "%{llvm_ver}" ]; then
+    echo "Expected LLVM %{llvm_ver}, got $LLVM_FULL_VER" >&2
+    exit 1
+fi
+
 %cmake \
-    -USE_PREBUILT_LLVM=ON \
-    -DPREFERRED_LLVM_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
-    -DLLVM_DIR=%{_libdir}/llvm%{?llvm_compat}/lib/cmake/llvm/ \
+    -DUSE_PREBUILT_LLVM=ON \
+    -DPREFERRED_LLVM_VERSION=$LLVM_FULL_VER \
+    -DLLVM_DIR=%{llvm_cmake}/llvm \
     -DLLVMSPIRV_INCLUDED_IN_LLVM=OFF \
     -DSPIRV_TRANSLATOR_DIR=/usr
 %cmake_build
@@ -57,22 +74,13 @@ sed -i 's/$<TARGET_FILE:clang>/$<TARGET_FILE:clang%{?llvm_compat}>/' cl_headers/
 %install
 %cmake_install
 
-# This is ugly, but a combined behavior of LLVM_DIR=*/lib/* and LLVM_LIBDIR_SUFFIX=64 is borked
-%ifnarch i686
-mkdir -p %{buildroot}%{_libdir}/
-cp %{buildroot}/usr/lib/libopencl-clang.so.* %{buildroot}%{_libdir}/
-cp %{buildroot}/usr/lib/libopencl-clang.so %{buildroot}%{_libdir}/
-rm %{buildroot}/usr/lib/libopencl-clang.so.*
-rm %{buildroot}/usr/lib/libopencl-clang.so
-%endif
-
 %files
 %license LICENSE
 %{_libdir}/libopencl-clang.so.*
 
 %files devel
 %{_libdir}/libopencl-clang.so
-%{_includedir}/cclang/common_clang.h
+%{_includedir}/cclang/opencl_clang.h
 %{_includedir}/cclang/opencl-c.h
 %{_includedir}/cclang/opencl-c-base.h
 %{_includedir}/cclang/module.modulemap

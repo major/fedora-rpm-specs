@@ -1,6 +1,6 @@
 Name: netopeer2
 Version: 2.4.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -8,6 +8,7 @@ Source2: netopeer2-server.service
 License: BSD-3-Clause
 
 Patch0: 0000-force-remove-modules.patch
+Patch1: 0001-openssl4-changes.patch
 
 BuildRequires: gcc
 BuildRequires: cmake
@@ -20,6 +21,7 @@ BuildRequires: libssh-devel
 BuildRequires: openssl-devel
 BuildRequires: systemd-devel
 BuildRequires: systemd
+BuildRequires: git-core
 
 %if 0%{?fedora}
 # c_rehash needed by CLI
@@ -69,7 +71,7 @@ a single established NETCONF session.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RELWITHDEBINFO \
@@ -127,6 +129,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Fri Sep 18 2026 Michal Ruprich <mruprich@redhat.com> - 2.4.5-7
+- Fixing FTBFS with new openssl
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

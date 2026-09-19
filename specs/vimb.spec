@@ -2,18 +2,21 @@ Summary:        A fast and lightweight vim like web browser
 Name:           vimb
 License:        GPL-3.0-only
 
-Version:        3.7.0
-Release:        7%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 
 URL:            https://fanglingsu.github.io/vimb/
 Source0:        https://github.com/fanglingsu/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# GDK sub-files have «#error "Only <gdk/gdk.h> can be included directly."»
+Patch0:         0000-include-gdk.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  pkgconfig(webkit2gtk-4.1)
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(webkitgtk-6.0)
+BuildRequires:  pkgconfig(gtk4)
 
 %description
 Vimb is a fast and lightweight vim like web browser based on the webkit
@@ -23,7 +26,7 @@ keyboard driven and does not distract you from your daily work.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 sed -i 's/EXTLDFLAGS  =/EXTLDFLAGS  = ${LDFLAGS} /g' config.mk
@@ -53,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.0.0-1
+- Update to v4.0.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

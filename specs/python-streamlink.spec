@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -24,6 +24,9 @@ Patch2:         %{name}-8.4.0-python3.15_tests.patch
 # Fix HTTPSession.request() params handling with requests >= 2.34 (partially
 # backported from https://github.com/streamlink/streamlink/commit/1ec2b2f)
 Patch3:         %{name}-8.4.0-requests_2.34.patch
+# session.http: fix urllib3 2.8.0 compatibility
+# https://github.com/streamlink/streamlink/commit/8f276a3362a2b9fbe3b3d822673524bbd0e95a32
+Patch4:         python-streamlink-8.4.0-urllib3-2.8.0.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
 # For easy patching of pyproject.toml
@@ -127,6 +130,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Fri Sep 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 8.4.0-5
+- Backport fix for urllib 2.8.0 compatibility
+
 * Mon Jul 27 2026 Miro Hrončok <mhroncok@redhat.com> - 8.4.0-4
 - Rebuilt with pyproject-rpm-macros 1.23.2+
 - Reintroduce accidentally dropped python-streamlink+decompress

@@ -1,7 +1,7 @@
 %global extras mkdocs,trio,toml,yaml
 
 Name:           python-cyclopts
-Version:        4.7.0
+Version:        4.25.3
 Release:        %autorelease
 Summary:        Intuitive, easy CLIs based on type hints
 
@@ -38,11 +38,11 @@ Source5:        https://docs.pytest.org/en/latest/objects.inv#/objects-pytest.in
 #
 #     * Removed the html_logo and html_favicon variables as we don't want the
 #     assets folder to be present in the sources.
-Patch:          patch-docs-conf-for-downstream-build.diff
+Patch:          patch-docs-conf-for-downstream-build.patch
 # Change from `autoexception` to `autoclass` the exception classes that are
 # inherinting from `Exception` directly instead of `CycloptsError`, due to
 # sphinx not being able to call `autodoc` on it.
-Patch1:         exclude-init-members-from-exception-class.diff
+Patch1:         exclude-init-members-from-exception-class.patch
 
 BuildArch:      noarch
 

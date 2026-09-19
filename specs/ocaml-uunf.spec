@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-uunf
-Version:        17.0.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Unicode text normalization for OCaml
 
@@ -11,6 +11,8 @@ License:        ISC
 URL:            https://erratique.ch/software/uunf
 VCS:            git:https://erratique.ch/repos/uunf.git
 Source:         %{url}/releases/uunf-%{version}.tbz
+# Revert changes for an unreleased version of ocaml-b0; affects tests only
+Patch:          %{name}-b0-downgrade.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -29,7 +31,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
-BuildRequires:  ocaml-uucd-devel >= 17.0.0
+BuildRequires:  ocaml-uucd-devel >= 18.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 BuildRequires:  unicode-ucd
 

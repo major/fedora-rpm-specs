@@ -6,7 +6,7 @@ Name:          cjs
 # Epoch needed: version dropped from 1.34.0 to 1.9.1 during package revival
 Epoch:         1
 Version:       140.1
-Release:       1%{?dist}
+Release:       %autorelease
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT AND BSD-3-Clause AND MPL-2.0 AND CC-BY-3.0 AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
@@ -15,9 +15,9 @@ Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 ExcludeArch:   %{ix86}
 
+BuildSystem:   meson
 BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: meson
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(cairo-gobject)
 BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
@@ -69,13 +69,6 @@ the functionality of the installed cjs package.
 %prep
 %autosetup -p1
 
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
-
 %check
 %{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5}
 
@@ -103,62 +96,4 @@ the functionality of the installed cjs package.
 
 
 %changelog
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 1:140.1-1
-- Update to 140.1
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:140.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 1:140.0-1
-- Update to 140.0
-
-* Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-4
-- Add pkgconfig variable to export the appropriate API version of mozjs
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-1
-- Update to 128.1
-
-* Fri Sep 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.0-3
-- Backport fixes to support GLib 2.86.0 typelibs
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Mar 28 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.0-1
-- Update to 128.0
-
-* Wed Mar 26 2025 Leigh Scott <leigh123linux@gmail.com> - 1:6.4.0-3
-- Switch to mozjs128
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Nov 25 2024 Leigh Scott <leigh123linux@gmail.com> - 1:6.4.0-1
-- Update to 6.4.0
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1:6.2.0-3
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 12 2024 Leigh Scott <leigh123linux@gmail.com> - 1:6.2.0-1
-- Update to 6.2.0
-
-* Tue May 14 2024 Leigh Scott <leigh123linux@gmail.com> - 1:6.0.0-4
-- Port to mozjs115
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Nov 16 2023 Leigh Scott <leigh123linux@gmail.com> - 1:6.0.0-1
-- Update to 6.0.0 release
+%autochangelog

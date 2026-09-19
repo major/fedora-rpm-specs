@@ -25,6 +25,9 @@ BuildRequires:  vala
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(bash-completion)
+BuildRequires:  python3-dbus
+BuildRequires:  python3-gobject
+BuildRequires:  /usr/bin/dbus-run-session
 
 %if %{with gnutls}
 BuildRequires:  pkgconfig(gnutls) >= 3.8.2
@@ -90,6 +93,8 @@ rm -rf build/valgrind/
 
 %meson_build
 
+%check
+%meson_test
 
 %install
 %meson_install

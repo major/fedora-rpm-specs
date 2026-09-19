@@ -4,8 +4,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.28.6
-Release:        2%{?dist}
+Version:        1.28.7
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -213,7 +213,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_bindir}/libgstd3d12-1.0-0.dll
 %{mingw32_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw32_bindir}/libgstdxva-1.0-0.dll
-%{mingw32_bindir}/libgsthip-0.dll
+%{mingw32_bindir}/libgsthip-1.0-0.dll
 %{mingw32_bindir}/libgstinsertbin-1.0-0.dll
 %{mingw32_bindir}/libgstisoff-1.0-0.dll
 %{mingw32_bindir}/libgstmpegts-1.0-0.dll
@@ -361,7 +361,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/libgstd3d12-%{api_version}.dll.a
 %{mingw32_libdir}/libgstd3dshader-%{api_version}.dll.a
 %{mingw32_libdir}/libgstdxva-%{api_version}.dll.a
-%{mingw32_libdir}/libgsthip.dll.a
+%{mingw32_libdir}/libgsthip-%{api_version}.dll.a
 %{mingw32_libdir}/libgstinsertbin-%{api_version}.dll.a
 %{mingw32_libdir}/libgstisoff-%{api_version}.dll.a
 %{mingw32_libdir}/libgstmpegts-%{api_version}.dll.a
@@ -415,7 +415,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_bindir}/libgstd3d12-1.0-0.dll
 %{mingw64_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw64_bindir}/libgstdxva-1.0-0.dll
-%{mingw64_bindir}/libgsthip-0.dll
+%{mingw64_bindir}/libgsthip-1.0-0.dll
 %{mingw64_bindir}/libgstinsertbin-1.0-0.dll
 %{mingw64_bindir}/libgstisoff-1.0-0.dll
 %{mingw64_bindir}/libgstmpegts-1.0-0.dll
@@ -563,7 +563,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/libgstd3d12-%{api_version}.dll.a
 %{mingw64_libdir}/libgstd3dshader-%{api_version}.dll.a
 %{mingw64_libdir}/libgstdxva-%{api_version}.dll.a
-%{mingw64_libdir}/libgsthip.dll.a
+%{mingw64_libdir}/libgsthip-%{api_version}.dll.a
 %{mingw64_libdir}/libgstinsertbin-%{api_version}.dll.a
 %{mingw64_libdir}/libgstisoff-%{api_version}.dll.a
 %{mingw64_libdir}/libgstmpegts-%{api_version}.dll.a
@@ -601,6 +601,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 1.28.7-1
+- Update to 1.28.7
+
 * Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 1.28.6-2
 - Rebuild (mingw-libxml2)
 

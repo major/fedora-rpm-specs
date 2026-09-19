@@ -10,7 +10,7 @@
 %global giturl         https://github.com/gap-packages/curlInterface
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.4.4
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Simple web access for GAP
 
@@ -30,6 +30,10 @@ BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig(libcurl)
+
+%if %{with tests}
+BuildRequires:  gap(io) >= 4.7.0
+%endif
 
 Requires:       gap-core%{?_isa} >= 4.12
 

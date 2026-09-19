@@ -1,5 +1,5 @@
 Name:           foundry
-Version:        1.2~beta
+Version:        1.2.0
 Release:        %autorelease
 Summary:        IDE library and command-line companion tool
 

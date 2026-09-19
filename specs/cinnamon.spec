@@ -4,13 +4,13 @@
 %global cjs_version 140.0
 %global cinnamon_desktop_version 6.7.1
 %global cinnamon_translations_version 6.7.0
-%global muffin_version 6.7.1
+%global muffin_version 6.7.7
 
-%global upstream_version 6.7.5-unstable
+%global upstream_version 6.7.7-unstable
 
 Name:           cinnamon
-Version:        6.7.5^unstable
-Release:        4%{?dist}
+Version:        6.7.7^unstable
+Release:        %autorelease
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:            https://github.com/linuxmint/%{name}
@@ -27,9 +27,12 @@ Patch4:         %url/pull/13947.patch#/glycin_ratelimit.patch
 
 ExcludeArch:    %{ix86}
 
-
+BuildSystem:   meson
+BuildOption(conf): --libexecdir=%{_libexecdir}/cinnamon/
+BuildOption(conf): -Ddeprecated_warnings=false
+BuildOption(conf): -Dpy3modules_dir=%{python3_sitelib}
+BuildOption(conf): -Ddocs=false
 BuildRequires:  gcc-c++
-BuildRequires:  meson
 BuildRequires:  systemd
 BuildRequires:  desktop-file-utils
 BuildRequires:  sassc
@@ -49,6 +52,8 @@ BuildRequires:  pkgconfig(polkit-agent-1)
 BuildRequires:  pkgconfig(xapp)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4-layer-shell-0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcomposite)
@@ -210,18 +215,7 @@ for file in files%{_datadir}/%{name}/applets/settings-example@cinnamon.org/*.py 
 done
 chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
 
-%build
-%meson \
- --libexecdir=%{_libexecdir}/cinnamon/ \
- -Ddeprecated_warnings=false \
- -Dpy3modules_dir=%{python3_sitelib} \
- -Ddocs=false
-
-%meson_build
-
-%install
-%meson_install
-
+%install -a
 # install common gschema override
 install --target-directory=%{buildroot}%{_datadir}/glib-2.0/schemas \
     -Dpm 0644 %{SOURCE1}
@@ -284,6 +278,7 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_bindir}/xlet-settings
 %config(noreplace) %{_sysconfdir}/xdg/menus/*
 %{_datadir}/applications/*
+%{_datadir}/dbus-1/services/org.Cinnamon.Background.service
 %{_datadir}/dbus-1/services/org.cinnamon.BackupLocker.service
 %{_datadir}/dbus-1/services/org.Cinnamon.HotplugSniffer.service
 %{_datadir}/dbus-1/services/org.Cinnamon.Melange.service
@@ -299,7 +294,8 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_datadir}/%{name}/
 %{_datadir}/%{name}-background-properties
 %{_libdir}/%{name}/
-%dir %{_libexecdir}/%{name}/
+%dir %{_libexecdir}/cinnamon/
+%{_libexecdir}/cinnamon/cinnamon-background-daemon
 %{_libexecdir}/cinnamon/cinnamon-backup-locker
 %{_libexecdir}/cinnamon/cinnamon-hotplug-sniffer
 %{_libexecdir}/cinnamon/cinnamon-perf-helper
@@ -313,92 +309,4 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
-* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.7.5^unstable-4
-- Rebuilt for libxml-2.5.4
-
-* Sun Aug 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-3
-- Improve menu applet fix
-
-* Wed Aug 19 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-2
-- Fix menu applet loading issue
-
-* Sat Aug 15 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.5^unstable-1
-- Update to 6.7.5-unstable
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.4^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jul 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.4^unstable-1
-- Update to 6.7.4-unstable
-
-* Sun Jun 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-2
-- Add requires gnome-keyring-pam
-
-* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.3^unstable-1
-- Update to 6.7.3-unstable
-
-* Sat Jun 20 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-2
-- Fix theme file
-
-* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
-- Update to 6.7.2-unstable
-
-* Wed May 27 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-3
-- Remove graphical-session target hack
-
-* Sun May 24 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
-- Delete cinnamon2d session files
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
-- Update to 6.7.1-unstable
-
-* Sat May 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
-- Switch to sassc
-
-* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
-- Update to 6.7.0-unstable
-
-* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-5
-- Rename systemd target file to service so it gets culled
-
-* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-4
-- Install systemd target file to satify graphical.target dependency required for xdg-desktop-portal
-
-* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-3
-- Use cinnamon-launcher to start/stop xdg-desktop-portal
-
-* Tue Mar 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-2
-- Fix missing checkboxes on clutter dialogs
-
-* Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-1
-- Update to 6.6.7
-
-* Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.5-2
-- Rebuild for aarch64 linking issue
-
-* Fri Jan 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.5-1
-- Update to 6.6.5
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.4-1
-- Update to 6.6.4
-
-* Sat Jan 03 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
-- Update to 6.6.3
-
-* Wed Dec 17 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-2
-- Use PAM system-auth
-
-* Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
-- Update to 6.6.2
-
-* Mon Dec 15 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-2
-- Fix ibus requires and recommends
-
-* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
-- Update to 6.6.0
+%autochangelog

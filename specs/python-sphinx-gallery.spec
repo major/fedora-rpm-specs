@@ -1,7 +1,7 @@
 %global srcname sphinx-gallery
 
 Name:           python-%{srcname}
-Version:        0.22.0
+Version:        0.22.1
 Release:        %autorelease
 Summary:        Sphinx extension to automatically generate an examples gallery
 
@@ -21,6 +21,7 @@ Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 # For tests
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 BuildRequires:  python%{python3_pkgversion}-absl-py
 BuildRequires:  python%{python3_pkgversion}-lxml
 BuildRequires:  python%{python3_pkgversion}-matplotlib

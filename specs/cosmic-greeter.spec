@@ -33,6 +33,9 @@ Source2:        vendor-config-%{version_no_tilde}.toml
 Patch:          0001-Make-service-a-display-manager.patch
 Patch:          include-greetd.patch
 
+# Upstream fix for kmscon, from https://github.com/pop-os/cosmic-greeter/pull/546
+Patch: 0001-feat-systemd-service-conflicts-with-kmscon.patch
+
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc
 BuildRequires:  lld

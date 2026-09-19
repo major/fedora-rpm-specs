@@ -1,17 +1,17 @@
 %global commit0 34bc51c79c6d0aeaae61c642cfb302594b1939b6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global modulename %{name}
-%global __cmake_in_source_build 1
 
 Name:           boomaga
-Version:        3.3.0
-Release:        30.git%{shortcommit0}%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
+# Release:        30.git%%{shortcommit0}%%{?dist}
 Summary:        A virtual printer for viewing a document before printing
 
-# Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-only AND LGPL-2.1-or-later
 URL:            https://www.boomaga.org
-Source0:        https://github.com/Boomaga/%{name}/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+# Source0:        https://github.com/Boomaga/%%{name}/archive/%%{commit0}/%%{name}-r%%{commit0}.tar.gz#/%%{name}-%%{shortcommit0}.tar.gz
+Source0:        https://github.com/Boomaga/boomaga/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  cups-devel
@@ -59,7 +59,8 @@ Requires(postun): policycoreutils
 SELinux policy module supporting boomaga
 
 %prep
-%autosetup -n %{name}-%{commit0} -p1
+#%%autosetup -n %%{name}-%%{commit0} -p1
+%autosetup -n %{name}-%{version} -p1
 
 # delete unused directories and files
 find -name .gitignore -type f -or -name .travis.yml -type f | xargs rm -rfv
@@ -70,7 +71,6 @@ sed -i -e 's|find "/usr/local/lib" "/usr/lib" -name|find "/usr/local/lib" "%{_li
 # TODO: Please submit an issue to upstream (rhbz#2380483)
 ##export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
-    -DUSE_QT5=Yes \
     -DCUPS_BACKEND_DIR=%{_cups_serverbin}/backend \
     -DCUPS_FILTER_DIR=%{_cups_serverbin}/filter   \
     -DSELINUX=Yes                                 \
@@ -165,6 +165,9 @@ fi
 %{_datadir}/selinux/*/%{modulename}.pp
 
 %changelog
+* Fri Sep 18 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+
 * Thu Aug 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.3.0-30.git34bc51c
 - qt6 support was added
 

@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       84.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -14,6 +14,9 @@ Source0:       %{pypi_source %{pypi_name} %{version}}
 
 # Don't append -s to linker commandline
 Patch0:        mingw-python-setuptools_nostrip.patch
+# Adapt is_mingw detection
+# NOTE: when running mingw-python3, sys.platform will be 'linux'
+Patch1:        setuptools-is_mingw.patch
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
@@ -91,6 +94,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 84.0.0-2
+- Add setuptools-is_mingw.patch
+
 * Wed Aug 26 2026 Sandro Mani <manisandro@gmail.com> - 84.0.0-1
 - Update to 84.0.0
 

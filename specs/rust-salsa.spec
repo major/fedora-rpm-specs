@@ -5,18 +5,23 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.28.2
+Version:        0.28.4
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/salsa
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          salsa-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Remove benchmark-only dev-dependency on codspeed-divan-compat
 # * Allow older test-log 0.2.19 for now; upstream pinned 0.2.21, but none of the
 #   changes are actually required. See
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2459446.
+# * Allow older trybuild 1.0.120 for now; upstream pinned 1.0.121, but none of
+#   the changes are actually required. See
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2529691.
 Patch:          salsa-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

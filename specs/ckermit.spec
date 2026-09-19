@@ -1,8 +1,13 @@
+# Disable tests on el8 and el9 because they lack python packages (pyftpdlib)
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
+%bcond_with tests
+%else
 %bcond_without tests
+%endif
 
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
-Version:       11.0.509
+Version:       11.0.510
 Release:       1%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckuat2.h appears to be covered by three licenses:
@@ -86,7 +91,7 @@ pytest-3 -n auto
 
 %files
 %license COPYING.TXT
-%doc doc/README.md
+%doc doc/*
 %doc README.fedora
 %{_bindir}/kermit
 %dir %{_sysconfdir}/kermit
@@ -94,6 +99,14 @@ pytest-3 -n auto
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Fri Sep 18 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.510-1
+- Update to 10.0.510
+
+* Thu Sep 17 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.509-2
+- Conditionalize tests - skip on EL8 and EL9 due to missing pyftpdlib.
+  Run tests by default.
+- Include new docs files.
+
 * Thu Sep 17 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.509-1
 - Update to 11.0.509
 - Link with -llockdev (upstream linux target passes -DHAVE_LOCKDEV instead)

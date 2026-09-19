@@ -7,21 +7,19 @@
 %bcond_with tests
 
 # See notes in make_release which patches this.
-## global     git_tag  .05c5b26
+## global     git_tag  .f03e4e7
 
 # Support jenkins build number if available.
 %global     build_nr %(echo "${BUILD_NUMBER:+.}${BUILD_NUMBER:-%%{nil\\}}")
 
 Name:       fedora-review
-Version:    0.11.0
-Release:    6%{?build_nr}%{?git_tag}%{?dist}
+Version:    0.12.0
+Release:    1%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
-URL:        https://pagure.io/FedoraReview
-Source0:    https://releases.pagure.org/FedoraReview/fedora_review-%{version}%{?git_tag}.tar.gz
-
-Patch:      https://forge.fedoraproject.org/packaging/FedoraReview/pulls/546.patch#/001-fix-emtpy-rpms.patch
+URL:        https://forge.fedoraproject.org/packaging/FedoraReview
+Source0:    %{url}/archive/%{version}.tar.gz#/fedora_review-%{version}%{?git_tag}.tar.gz
 
 BuildArch:  noarch
 
@@ -35,6 +33,7 @@ BuildRequires:  python3-straight-plugin
 BuildRequires:  python3-devel
 BuildRequires:  python3-rpm
 BuildRequires:  python3-dnf
+BuildRequires:  python3-pydantic
 
 Requires:       bc
 Requires:       fedora-packager
@@ -45,6 +44,7 @@ Requires:       python3-urlgrabber
 Requires:       python3-straight-plugin
 Requires:       python3-rpm
 Requires:       python3-dnf
+Requires:       python3-pydantic
 # licensecheck used to be in rpmdevtools, moved to devscripts later
 # this is compatible with both situations without ifdefs
 Requires:       %{_bindir}/licensecheck
@@ -156,6 +156,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Fri Sep 18 2026 Jakub Kadlcik <frostyx@email.cz> - 0.12.0-1
+- New upstream version
+
 * Thu Jul 16 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 0.11.0-6
 - Fix crash on RPMs containing no files
 
@@ -167,9 +170,6 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sat Dec 06 2025 Jakub Kadlcik <frostyx@email.cz> - 0.11.0-2
-- Drop leftover dependency on python3-nose
 
 * Sun Nov 16 2025 Jakub Kadlcik <frostyx@email.cz> - 0.11.0-1
 - New upstream version

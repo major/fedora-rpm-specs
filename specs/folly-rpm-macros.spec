@@ -1,34 +1,32 @@
 Name:           folly-rpm-macros
-Version:        37
+Version:        46
 Release:        %autorelease
-Summary:        Common RPM macros for the Folly stack
+Summary:        RPM macros for building Meta's C++ projects with getdeps
 
 License:        MIT
 URL:            https://src.fedoraproject.org/rpms/folly-rpm-macros
 Source0:        macros.folly-rpm
-Source1:        macros.folly-srpm
+Source1:        getdeps_vendor.attr
+Source2:        getdeps_vendor.prov
 
 BuildArch:      noarch
 
 Requires:       rpm
+# the %%getdeps_* macros run getdeps.py with %%{__python3}
+Requires:       python3
+# %%getdeps_install runs %%{__cmake}
+Requires:       cmake-rpm-macros
+# the %%getdeps_vendor_license_* macros wrap go_vendor_license
+Requires:       go-vendor-tools
+# the %%folly_toolchain macro and its subpackage were dropped in 46; nothing used them
+Obsoletes:      folly-srpm-macros < 46
 
-%global _description %{expand:
-
-folly-rpm-macros contains common RPM macros for building Folly and other
-software that depends on it.
-
-You should not need to install this package manually as folly-devel pulls it in.}
-
-%description %{_description}
-
-
-%package -n folly-srpm-macros
-Summary:        RPM macros for building Folly source packages
-Requires:       rpm
-
-%description -n folly-srpm-macros %{_description}
-
-This package contains the macros needed for building Folly source packages.
+%description
+folly-rpm-macros contains the %%getdeps_* macros for building Meta's C++
+projects (cachelib, mcrouter, ...) with build/fbcode_builder/getdeps.py from
+system packages plus a vendored tree of the remaining dependencies (folly,
+fizz, wangle, mvfst, fbthrift, ...), and the file attributes that turn the
+vendored tree into bundled() Provides.
 
 
 %prep
@@ -38,14 +36,15 @@ This package contains the macros needed for building Folly source packages.
 
 
 %install
-install -D -p -m 0644 -t %{buildroot}%{_rpmmacrodir} %{SOURCE0} %{SOURCE1}
+install -D -p -m 0644 -t %{buildroot}%{_rpmmacrodir} %{SOURCE0}
+install -D -p -m 0644 -t %{buildroot}%{_fileattrsdir} %{SOURCE1}
+install -D -p -m 0755 -t %{buildroot}%{_rpmconfigdir} %{SOURCE2}
 
 
 %files
 %{_rpmmacrodir}/macros.folly-rpm
-
-%files -n folly-srpm-macros
-%{_rpmmacrodir}/macros.folly-srpm
+%{_fileattrsdir}/getdeps_vendor.attr
+%{_rpmconfigdir}/getdeps_vendor.prov
 
 
 %changelog

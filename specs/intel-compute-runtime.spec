@@ -1,7 +1,7 @@
 %global neo_major 26
-%global neo_minor 22
-%global neo_build 38646
-%global neo_hotfix 6
+%global neo_minor 35
+%global neo_build 39758
+%global neo_hotfix 11
 
 %if 0%{?rhel}
 %global use_system_headers 0
@@ -114,6 +114,12 @@ Devel files for developing against intel-level-zero
 
 %prep
 %autosetup -p1 -n compute-runtime-%{version}
+
+%if 0%{?fedora} >= 46
+# Temporary workaround for level-zero-devel, version got bumped too quick
+sed -i 's/ze_pfnCommandList/mcl_ze_pfnCommandList/g' \
+level_zero/include/level_zero/driver_experimental/mcl_ext/ze_mutable_command_list_exp.h
+%endif
 
 # remove sse2neon completely as we're building just for x86(_64)
 rm -rv third_party/sse2neon

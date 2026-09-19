@@ -1,16 +1,16 @@
 %global forgeurl https://github.com/jemalloc/jemalloc
 
 Name:           jemalloc
-Version:        5.3.1
+Version:        5.4.0
 
 Release:        2%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://jemalloc.net/
 VCS:            git:%{forgeurl}
-Source0:        %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Source0:	%{forgeurl}/archive/refs/tags/%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/xsltproc
@@ -19,6 +19,8 @@ BuildRequires:  perl-generators
 BuildRequires:  valgrind-devel
 %endif
 BuildRequires: make
+BuildRequires: autoconf
+BuildRequires: automake
 
 %description
 General-purpose scalable concurrent malloc(3) implementation.
@@ -71,6 +73,7 @@ cat /sys/kernel/mm/transparent_hugepage/enabled || true
 echo "What kernel version and config is this?"
 uname -a
 
+autoreconf -vfi
 %configure %{?disable_thp} %{?lg_page} --enable-prof
 make %{?_smp_mflags}
 
@@ -95,18 +98,23 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %{_bindir}/jemalloc.sh
 %doc COPYING README VERSION
 %doc doc/jemalloc.html
+%{_bindir}/jeprof
 
 %files devel
 %{_includedir}/jemalloc
 %{_bindir}/jemalloc-config
 %{_libdir}/pkgconfig/jemalloc.pc
-%{_bindir}/jeprof
 %{_libdir}/libjemalloc.so
 %{_mandir}/man3/jemalloc.3*
 
 %ldconfig_scriptlets
 
 %changelog
+* Thu Sep 17 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.4.0-1
+- New upstream release
+- Moved jeprof to main package, closing rhbz#2157051
+- Converted license tag to new standard. Included BSD 3-clause for jeprof script
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

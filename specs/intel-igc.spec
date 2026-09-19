@@ -1,19 +1,20 @@
 %global vc_commit 27f7c4f34738f5eaf7a045b77edf8d9e034443d8
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
+%global llvm_ver 22.1.8
+%global llvm_sover %(echo %{llvm_ver} | cut -d. -f1,2)
+
 %if 0%{?rhel}
 # RHEL build here
 %global use_system_headers 0
-%global clang_commit 07e7c931d8bdb38549a907cf04fd06a278f7cdce
+%global clang_commit b953eceebb0abc6ea954a14545420e3f97540a77
 %global clang_shortcommit %(c=%{clang_commit}; echo ${c:0:7})
-%global translator_commit b84990a370e46748f7196af1d8f5a39f5834802d
+%global translator_commit 27afcfe385cf542197dfde8c658e1f5ff53fc2fc
 %global translator_shortcommit %(c=%{translator_commit}; echo ${c:0:7})
-%global spirv_headers_commit b8a32968473ce852a809b9de5f04f02a5a9dfa78
+%global spirv_headers_commit 575b6512579ebde466ed3dfc04e413439d14d95d
 %global spirv_headers_shortcommit %(c=%{spirv_headers_commit}; echo ${c:0:7})
-%global spirv_tools_commit 28a883ba4c67f58a9540fb0651c647bb02883622
+%global spirv_tools_commit f80351511e9c4672e284842c7b124315c511078a
 %global spirv_tools_shortcommit %(c=%{spirv_tools_commit}; echo ${c:0:7})
-%global llvm_ver 16.0.6
-%global llvm_compat 16
 # Disable LTO; LLVM/clang under LTO has produced miscompiled binaries here.
 %define _lto_cflags %{nil}
 # Disable dwz: this fails anyways, due to static linking, sometimes fails builds
@@ -22,17 +23,20 @@
 %else
 # Fedora build here
 %global use_system_headers 1
-%global llvm_compat 15
+# f44 ships LLVM 22 as the main package; f45+ provide the llvm22 compat package
+%if 0%{?fedora} >= 45
+%global llvm_compat 22
+%endif
 %endif
 
 # Keep this override here, otherwise LTO disable will not take affect in RHEL
 %global optflags %{optflags} -w
 
 # This patch level is reused in cflags
-%global igc_patch 3
+%global igc_patch 9
 
 Name: intel-igc
-Version: 2.36.%{igc_patch}
+Version: 2.41.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -48,8 +52,7 @@ Source5: https://github.com/KhronosGroup/SPIRV-Tools/archive/%{spirv_tools_commi
 Source6: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-%{llvm_ver}.tar.gz
 %endif
 
-Patch0: 0001-Fix-segfault-when-running-analysis-passes-after-SCCP.patch
-Patch1: 0002-Fix-incomplete-type-llvm-Triple-in-MemCpyOptimizer-w.patch
+Patch0: 0001-Use-Module-print-instead-of-Module-dump.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -73,12 +76,13 @@ BuildRequires: spirv-tools-devel
 %if 0%{?use_system_headers}
 BuildRequires: llvm%{?llvm_compat}-devel
 BuildRequires: lld%{?llvm_compat}-devel
+BuildRequires: libxml2-devel
 BuildRequires: clang%{?llvm_compat}
 BuildRequires: clang-tools-extra
 BuildRequires: spirv-headers-devel
 BuildRequires: intel-opencl-clang-devel
-BuildRequires: spirv-llvm15.0-translator-devel
-BuildRequires: spirv-llvm15.0-translator-tools
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-devel
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-tools
 %else
 BuildRequires: chrpath
 %endif
@@ -157,17 +161,12 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
     -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DIGC_API_PATCH_VERSION=%{igc_patch} \
-%ifarch x86_64
     -DIGC_OPTION__ARCHITECTURE_TARGET='Linux64' \
-%endif
-%ifarch i686
-    -DIGC_OPTION__ARCHITECTURE_TARGET='Linux32' \
-%endif
     -DIGC_BUILD__VC_ENABLED=ON \
     -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
     -DVC_INTRINSICS_SRC="%{_builddir}/vc-intrinsics-%{vc_commit}" \
+    -DIGC_OPTION__LLVM_PREFERRED_VERSION=%{llvm_ver} \
 %if 0%{?use_system_headers}
-    -DIGC_OPTION__LLVM_PREFERRED_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
     -DIGC_OPTION__LLD_MODE=Prebuilds \
     -DIGC_OPTION__LLVM_MODE=Prebuilds \
     -DLLVM_ROOT=%{_libdir}/llvm%{?llvm_compat}/ \
@@ -176,15 +175,10 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
     -DIGC_OPTION__SPIRV_TOOLS_MODE=Prebuilds \
     -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=ON \
     -DIGC_OPTION__CLANG_MODE=Prebuilds \
-    -DIGC_OPTION__API_ENABLE_OPAQUE_POINTERS=OFF \
-    -DIGC_OPTION__ENABLE_BF16_BIF=OFF \
-    -DINSTALL_GENX_IR=ON \
 %else
     -DIGC_OPTION__LLVM_MODE=Source \
-    -DIGC_OPTION__LLVM_PREFERRED_VERSION=%{llvm_ver} \
     -DIGC_OPTION__SPIRV_TOOLS_MODE=Source \
     -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR="%{_builddir}/SPIRV-Headers" \
-    -DIGC_OPTION__API_ENABLE_OPAQUE_POINTERS=ON \
 %endif
     -Wno-dev \
     -G Ninja
@@ -194,42 +188,34 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %install
 %cmake_install
 %if ! 0%{?use_system_headers}
-# Remove bundled standalone tools/plugins not shipped as part of intel-igc.
-# These are statically-linked-against-LLVM binaries built as a side-effect
-# of LLVM source mode, each ~500MB. Without these, libs subpkg drops dramatically.
-rm -fv %{buildroot}%{_bindir}/GenX_IR
-rm -fv %{buildroot}%{_bindir}/clang-%{llvm_compat}
-rm -fv %{buildroot}%{_bindir}/lld
-rm -fv %{buildroot}%{_prefix}/lib/NewPMPlugin.so
-rm -fv %{buildroot}%{_prefix}/lib/debug%{_prefix}/lib/NewPMPlugin.so*
 # Change permissions otherwise opencl install will fail
-chmod +x %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_compat}
-# Strip rpath from libclang.so.16 since its empty anyways and fails build
-chrpath -d %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_compat}
+chmod +x %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_sover}
+# Strip the empty rpath, otherwise check-rpaths fails the build
+chrpath -d %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_sover}
 # Removes additional non-essential symbols beyond what find-debuginfo.sh strips.
 # These files end up being huge. This cuts the debuginfo libs pkg in half
-strip --strip-unneeded %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_compat} %{buildroot}%{_libdir}/libigdfcl.so.*
+strip --strip-unneeded %{buildroot}%{_libdir}/libopencl-clang.so.%{llvm_sover} %{buildroot}%{_libdir}/libigdfcl.so.*
 %endif
 
 %files
-%{_bindir}/iga{32,64}
+%{_bindir}/iga64
 
 %files libs
 %license LICENSE.md
 %license %{_libdir}/igc2/NOTICES.txt
 %dir %{_libdir}/igc2/
-%{_libdir}/libiga{32,64}.so.2.*
+%{_libdir}/libiga64.so.2.*
 %{_libdir}/libigc.so.2.*+*
 %{_libdir}/libigdfcl.so.2.*
 %if ! 0%{?use_system_headers}
-%{_libdir}/libopencl-clang.so.%{llvm_compat}
+%{_libdir}/libopencl-clang.so.%{llvm_sover}
 %{_includedir}/opencl-c.h
 %{_includedir}/opencl-c-base.h
 %endif
 
 %files devel
-%{_libdir}/libiga{32,64}.so.2
-%{_libdir}/libiga{32,64}.so
+%{_libdir}/libiga64.so.2
+%{_libdir}/libiga64.so
 %{_libdir}/libigc.so.2
 %{_libdir}/libigc.so
 %{_libdir}/libigdfcl.so.2

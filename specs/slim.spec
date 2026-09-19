@@ -1,6 +1,13 @@
+# Bump this to the highest available fNN-backgrounds at the time of build
+%if 0%{?fedora} > 45 || 0%{?fedora} == 0
+%global bgver 45
+%else
+%global bgver %{?fedora}
+%endif
+
 Name:           slim
 Version:        1.4.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -38,7 +45,7 @@ BuildRequires:  pkgconfig gettext libselinux-devel pam-devel cmake
 BuildRequires:  scrot xterm freeglut-devel libXrandr-devel
 BuildRequires:  cmake
 BuildRequires:  ImageMagick
-BuildRequires:  f%{?fedora}-backgrounds-base
+BuildRequires:  f%{bgver}-backgrounds-base
 
 Requires:       scrot xterm /sbin/shutdown
 Requires:       %{_sysconfdir}/pam.d
@@ -86,8 +93,8 @@ install -d -m755 %{buildroot}%{_sysconfdir}/pam.d
 install -p -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 mkdir -p %{buildroot}%{_runstatedir}/%{name}
 rm -f %{buildroot}%{_datadir}/%{name}/themes/default/background.jpg
-#ln -s ../../../backgrounds/f%{?fedora}/default/f%{?fedora}-01-day.png
-magick %{_datadir}/backgrounds/f%{?fedora}/default/f%{?fedora}-01-day.jxl %{buildroot}%{_datadir}/%{name}/themes/default/background.jpg
+#ln -s ../../../backgrounds/f%{bgver}/default/f%{bgver}-01-day.png
+magick %{_datadir}/backgrounds/f%{bgver}/default/f%{bgver}-01-day.jxl %{buildroot}%{_datadir}/%{name}/themes/default/background.jpg
 # install logrotate entry
 install -m0644 -D %{SOURCE5} %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 
@@ -131,6 +138,9 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Fri Sep 18 2026 Adam Williamson <adamwill@fedoraproject.org> - 1.4.0-18
+- Add conflict with kmsconvt
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

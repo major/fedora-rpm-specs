@@ -1,7 +1,7 @@
 %global app_id  org.gnome.Nibbles
 
 Name:           gnome-nibbles
-Version:        4.6~rc1
+Version:        4.6.0
 Release:        %autorelease
 Summary:        GNOME Nibbles game
 # Source code is under GPLv3+, help is under CC-BY-SA, Appdata is under CC0.

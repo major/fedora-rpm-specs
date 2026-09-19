@@ -1,7 +1,7 @@
 %global srcname UxPlay
 
 Name:           uxplay
-Version:        1.73.3
+Version:        1.73.7
 Release:        %autorelease
 Summary:        AirPlay Unix mirroring server
 
@@ -10,6 +10,8 @@ URL:            https://github.com/FDH2/UxPlay
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Do not use vendored llhttp library
 Patch:          uxplay-unvendor-llhttp.patch
+# Relocate beacon modules
+Patch:          uxplay-relocate-beacon-modules.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -75,6 +77,7 @@ rm -r %{buildroot}%{_pkgdocdir}
 %files beacon
 %license LICENSE
 %{_bindir}/uxplay-beacon.py
+%{_prefix}/lib/uxplay-beacon/
 %{_mandir}/man1/uxplay-beacon.1*
 
 %changelog

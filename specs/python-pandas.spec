@@ -15,8 +15,8 @@
 %bcond_with single_tests
 
 Name:     python-pandas
-Version:  3.0.5
-Release:  4%{?dist}
+Version:  3.0.6
+Release:  1%{?dist}
 Summary:  Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -752,6 +752,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri Sep 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.6-1
+- Update to 3.0.6
+
 * Thu Jul 30 2026 Tomas Hrnciar <thrnciar@redhat.com> - 3.0.5-4
 - Backport upstream patch to add compatibility with pytest 9.1.1
 

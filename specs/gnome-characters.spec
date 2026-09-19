@@ -5,7 +5,7 @@
 %global libadwaita_version 1.9~alpha
 
 Name:		gnome-characters
-Version:	51~rc
+Version:	51.0
 Release:	%autorelease
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.

@@ -38,7 +38,7 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2604.0
+Version: 8.2608.0
 Release: %autorelease
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
@@ -56,6 +56,7 @@ Patch1: 0001-Use-OpenSSL-accessors-for-opaque-structs.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: autoconf
+BuildRequires: autoconf-archive
 BuildRequires: automake
 BuildRequires: bison
 BuildRequires: dos2unix
@@ -607,6 +608,8 @@ done
 %dir %{rsyslog_statedir}
 %dir %{rsyslog_pkidir}
 %{_sbindir}/rsyslogd
+%{_bindir}/rsyslog-segqueue
+%{_mandir}/man1/rsyslog-segqueue.1.gz
 %{_mandir}/man5/rsyslog.conf.5.gz
 %{_mandir}/man8/rsyslogd.8.gz
 %{_unitdir}/rsyslog.service

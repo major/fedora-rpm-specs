@@ -3,7 +3,7 @@
 %global libgtop2_version 2.41.2
 
 Name:           gnome-system-monitor
-Version:        51~rc
+Version:        51.0
 Release:        %autorelease
 Summary:        Process and resource monitor
 

@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-uucd
-Version:        17.0.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Unicode character database decoder for OCaml
 
@@ -13,7 +13,9 @@ VCS:            git:https://erratique.ch/repos/uucd.git
 Source:         %{url}/releases/uucd-%{version}.tbz
 # Unicode character database, used by the tests
 # See B0.ml for the supported Unicode version
-Source:         https://www.unicode.org/Public/17.0.0/ucdxml/ucd.all.grouped.zip
+Source:         https://www.unicode.org/Public/18.0.0/ucdxml/ucd.all.grouped.zip
+# Revert changes for an unreleased version of ocaml-b0; affects tests only
+Patch:          %{name}-b0-downgrade.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -51,7 +53,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n uucd-%{version}
+%autosetup -n uucd-%{version} -p1
 unzip -d test %{SOURCE1}
 mv test/ucd.all.grouped.xml test/ucd.xml
 
