@@ -3,11 +3,9 @@
 %global pkgname vulkan-tools
 %global srcname Vulkan-Tools
 
-%define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
-
 Name:          mingw-%{pkgname}
-Version:       1.4.350.1
-Release:       2%{?dist}
+Version:       1.4.357.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 # volk.h is MIT
@@ -22,13 +20,13 @@ BuildRequires: ninja-build
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-vulkan-headers >= %{baseversion}
-BuildRequires: mingw32-vulkan-loader >= %{baseversion}
+BuildRequires: mingw32-vulkan-headers >= %{version}
+BuildRequires: mingw32-vulkan-loader >= %{version}
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-vulkan-headers >= %{baseversion}
-BuildRequires: mingw64-vulkan-loader >= %{baseversion}
+BuildRequires: mingw64-vulkan-headers >= %{version}
+BuildRequires: mingw64-vulkan-loader >= %{version}
 
 
 %description
@@ -90,6 +88,9 @@ MINGW64_CMAKE_ARGS="-Dvolk_DIR=$PWD/volk-vulkan-sdk-%{version}/dist/%{mingw64_li
 
 
 %changelog
+* Sat Sep 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.357.0-1
+- Update to 1.4.357.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.350.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

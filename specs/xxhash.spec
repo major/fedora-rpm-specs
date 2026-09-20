@@ -1,6 +1,6 @@
 Name:		xxhash
-Version:	0.8.3
-Release:	5%{?dist}
+Version:	0.8.4
+Release:	1%{?dist}
 Summary:	Extremely fast hash algorithm
 
 #		The source for the library (xxhash.c and xxhash.h) is BSD-2-Clause
@@ -107,6 +107,9 @@ make test-xxhsum-c
 %doc doxygen/html
 
 %changelog
+* Sat Sep 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.4-1
+- Update to version 0.8.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

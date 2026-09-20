@@ -10,6 +10,8 @@ Source0:       https://archive.redwax.eu/dist/rt/%{name}-%{version}/%{name}-%{ve
 Source1:       https://archive.redwax.eu/dist/rt/%{name}-%{version}/%{name}-%{version}.tar.bz2.asc
 Source2:       https://source.redwax.eu/svn/dist/rt/keys/KEYS
 Source3:       redwax-test-certificates.pem
+Patch0:        0001-Support-OpenSSL4-by-using-opaque-function-accessors.patch
+Patch1:        0002-Fix-header-workarounds-for-p11kit-compilation.patch
 Url:           https://redwax.eu/rs/
 BuildRequires: gnupg2
 BuildRequires: gcc
@@ -32,8 +34,10 @@ common services.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
+
 %build
+autoreconf -fiv
 %configure --with-openssl --with-nss --with-p11-kit --with-libical --with-ldns --with-unbound --with-bash-completion-dir=%{bash_completions_dir}
 %make_build
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/guava
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.21
+Version:        3.22
 Release:        %autorelease
 Summary:        Computing with error-correcting codes
 
@@ -19,18 +19,19 @@ Patch:          %{name}-popcount.patch
 ExcludeArch:    %{ix86}
 BuildSystem:    gap
 BuildOption(install): bin lib tbl tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  gap(autodoc)
+BuildRequires:  gap(autodoc) >= 2019.04.10
 BuildRequires:  gap(sonata) >= 2.3
-BuildRequires:  gap-devel >= 4.8.0
+BuildRequires:  gap-devel >= 4.11
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  parallel
 
 Requires:       gap(sonata) >= 2.3
-Requires:       gap-core%{?_isa} >= 4.8.0
+Requires:       gap-core%{?_isa} >= 4.11
 
 Provides:       gap(GUAVA) = %{version}-%{release}
 Provides:       gap(guava) = %{version}-%{release}
@@ -98,24 +99,6 @@ parallel %{?_smp_mflags} --no-notice gzip --best ::: tbl/*.g
 pushd src/leon/doc
 pdftex manual.tex
 popd
-
-%check
-# Tests that generate random values often fail.
-# Only run the deterministic tests.
-cd tst
-gap -l '%{buildroot}%{gap_archdir};' << EOF
-LoadPackage("guava");
-if Test("bugfix.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("decoding.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("external.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("guava01.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("guava02.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("guava08.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("hadamard.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("QCLDPCCodeFromGroup.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("table.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-EOF
 
 %files
 %doc CHANGES HISTORY README.md README.ctjhai

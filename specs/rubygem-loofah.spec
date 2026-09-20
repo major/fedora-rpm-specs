@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.22.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -12,6 +12,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1: %{gem_name}-%{version}-test.tar.gz
 # Fix minitest6 compatibility
 Patch0:  %{gem_name}-2.22.0-minitest6.patch
+# Make testsuite accept libxml2 2.14
+# https://github.com/flavorjones/loofah/pull/298
+Patch1:  %{gem_name}-pr298-testsuite-accept-libxml2-2_14.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -41,6 +44,7 @@ Documentation for %{name}.
 (
 cd %{_builddir}
 %patch -P0 -p1
+%patch -P1 -p1
 )
 
 %build
@@ -75,6 +79,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Sat Sep 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-10
+- Backport upstream fix to accept libxml2 2.14 for testsuite
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

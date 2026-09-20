@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.19.2
+Version:          1.20.0
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -43,6 +43,7 @@ Documentation and status of Alembic is at https://alembic.sqlalchemy.org/}
 
 %package -n python3-alembic
 Summary:          %summary
+Conflicts:        python3-sqlalchemy < 2
 
 %description -n python3-alembic %_description
 

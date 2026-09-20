@@ -1,5 +1,5 @@
 Name:           bustle
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Visualize D-Bus activity
 
@@ -9,17 +9,20 @@ SourceLicense:  LGPL-2.1-or-later
 # - (MIT OR Apache-2.0) AND Unicode-3.0
 # - (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # - Apache-2.0 OR MIT
+# - Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# - LGPL-2.1-or-later
 # - MIT
 # - MIT OR Apache-2.0
 # - Unlicense OR MIT
 # LICENSE.dependencies contains a full license breakdown
 License:        %{shrink:
-    LGPL-2.1-or-later AND
-    MIT AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
+    LGPL-2.1-or-later
+    AND MIT
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 
 URL:            https://gitlab.gnome.org/World/bustle

@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate relm4-css
+%global crate freedesktop-desktop-entry
 
-Name:           rust-relm4-css
-Version:        0.11.0
+Name:           rust-freedesktop-desktop-entry
+Version:        0.8.3
 Release:        %autorelease
-Summary:        Idiomatic GUI library inspired by Elm and based on gtk4-rs
+Summary:        Freedesktop Desktop Entry Specification
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/relm4-css
+License:        MPL-2.0
+URL:            https://crates.io/crates/freedesktop-desktop-entry
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An idiomatic GUI library inspired by Elm and based on gtk4-rs.}
+Freedesktop Desktop Entry Specification.}
 
 %description %{_description}
 
@@ -30,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -45,6 +44,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gettext-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gettext-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gettext" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gettext-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

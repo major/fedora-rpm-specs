@@ -5,8 +5,8 @@
 %endif
 
 Name:           cppcheck
-Version:        2.21.1
-Release:        2%{?dist}
+Version:        2.22.0
+Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.sourceforge.io/
@@ -116,7 +116,7 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %ifnarch i686
 # Do not run tests in parallel to avoid sometimes failing tests (observed under x86_64):
 # TestCmdlineParser, TestCppcheck, TestFileLister, TestSettings, TestSuppressions
-%ctest --parallel 1
+%ctest --parallel 1 -E addon
 %endif
 
 %files
@@ -137,6 +137,9 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Sat Sep 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.22.0-1
+- 2.22.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

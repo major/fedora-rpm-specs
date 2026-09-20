@@ -23,8 +23,8 @@
 
 
 Name:           mapserver
-Version:        8.6.5
-Release:        6%{?dist}
+Version:        8.6.6
+Release:        1%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -340,6 +340,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Sat Sep 19 2026 Sandro Mani <manisandro@gmail.com> - 8.6.6-1
+- Update to 8.6.6
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.6.5-6
 - Rebuilt for libxml-2.5.4
 

@@ -8,15 +8,13 @@
 %global crate relm4
 
 Name:           rust-relm4
-Version:        0.9.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Idiomatic GUI library inspired by Elm and based on gtk4-rs
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/relm4
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          relm4-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -158,6 +156,42 @@ This package contains library source intended for building other packages which
 use the "gnome_47" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gnome_47-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gnome_48-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gnome_48-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gnome_48" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gnome_48-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gnome_49-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gnome_49-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gnome_49" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gnome_49-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gnome_50-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gnome_50-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gnome_50" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gnome_50-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+libadwaita-devel

@@ -5,7 +5,7 @@ Magic Enum is a header-only C++17 library that provides static reflection for
 enums, working with any enum type without any macro or boilerplate code.}
 
 Name:           magic_enum
-Version:        0.9.5
+Version:        0.9.8
 Release:        %autorelease
 Summary:        Static reflection for enums for modern C++
 
@@ -20,6 +20,7 @@ BuildRequires:  gcc-c++
 %description    %{common_description}
 
 %package        devel
+BuildArch:      noarch
 Summary:        %{summary}
 Provides:       %{name}-static%{?_isa} = %{version}-%{release}
 
@@ -47,9 +48,9 @@ rm %{buildroot}%{_datadir}/%{name}/package.xml
 %files devel
 %license LICENSE
 %doc README.md doc
-%{_includedir}/%{name}*.hpp
-%{_libdir}/cmake/%{name}/
-%{_libdir}/pkgconfig/%{name}.pc
+%{_includedir}/%{name}/%{name}*.hpp
+%{_datadir}/cmake/%{name}/
+%{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
 %autochangelog

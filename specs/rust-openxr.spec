@@ -5,7 +5,7 @@
 %global crate openxr
 
 Name:           rust-openxr
-Version:        0.21.1
+Version:        0.22.0
 Release:        %autorelease
 Summary:        High-level, mostly-safe OpenXR bindings
 
@@ -13,8 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/openxr
 Source:         %{crates_source}
 # * https://github.com/Ralith/openxrs/issues/179
-Source100:      https://raw.githubusercontent.com/Ralith/openxrs/refs/heads/master/LICENSE-APACHE
-Source101:      https://raw.githubusercontent.com/Ralith/openxrs/refs/heads/master/LICENSE-MIT
+Source100:      https://raw.githubusercontent.com/Ralith/openxrs/eba4c6a75081348a6e6ef77147e05958f34f882a/LICENSE-APACHE
+Source101:      https://raw.githubusercontent.com/Ralith/openxrs/eba4c6a75081348a6e6ef77147e05958f34f882a/LICENSE-MIT
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          openxr-fix-metadata-auto.diff
 

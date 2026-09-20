@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/notify-debouncer-mini
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove macOS-specific features
+# * relax flume version constraint
 Patch:          notify-debouncer-mini-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

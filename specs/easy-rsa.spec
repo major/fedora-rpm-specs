@@ -1,6 +1,6 @@
 Name:      easy-rsa
-Version:   3.2.6
-Release:   3%{?dist}
+Version:   3.2.7
+Release:   1%{?dist}
 
 Summary:   Simple shell based CA utility
 License:   GPL-2.0-only
@@ -47,6 +47,9 @@ cp -rp x509-types %{buildroot}%{_datadir}/easy-rsa/%{version}/
 
 
 %changelog
+* Sat Sep 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.7-1
+- 3.2.7
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

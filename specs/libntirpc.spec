@@ -2,8 +2,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	15.3
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	15.5
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -12,7 +12,6 @@ Url:		https://github.com/nfs-ganesha/ntirpc
 %global prometh_ver_short	48d09c45
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
 Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
-Patch:		0001-src-monitoring-include-monitoring.h.patch
 
 BuildRequires:	cmake gcc gcc-c++
 %ifarch x86_64 aarch64
@@ -94,6 +93,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.15
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Fri Sep 18 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.5-1
+- ntirpc-15.5 GA (side tag f46-build-side-152202)
+
 * Mon Sep 14 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.3-2
 - ntirpc-15.3 (side tag f46-build-side-151546)
 - ntirpc-15.4ish, include monitoring fix accidently omitted

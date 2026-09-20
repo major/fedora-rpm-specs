@@ -1,7 +1,7 @@
 %global framework kirigami-addons
 
 Name:           kf6-%{framework}
-Version:        1.13.1
+Version:        1.14.1
 Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -105,6 +105,9 @@ and header files for developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/librarymanager6.tar.bz2
 
 %changelog
+* Sat Sep 19 2026 Steve Cossette <farchord@gmail.com> - 1.14.1-1
+- 1.14.1
+
 * Wed Jul 29 2026 Steve Cossette <farchord@gmail.com> - 1.13.1-1
 - 1.13.1
 

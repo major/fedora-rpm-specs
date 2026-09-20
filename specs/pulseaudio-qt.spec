@@ -1,7 +1,7 @@
 Name:    pulseaudio-qt
 Summary: Qt bindings for PulseAudio
-Version: 1.8.1
-Release: 2%{?dist}
+Version: 1.9.0
+Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/pulseaudio-qt
@@ -53,6 +53,7 @@ rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
 %doc README.md
 %{_kf6_libdir}/libKF6PulseAudioQt.so.5
 %{_kf6_libdir}/libKF6PulseAudioQt.so.%{version}
+%{_kf6_libdir}/qt6/metatypes/qt6kf6pulseaudioqt_metatypes.json
 
 %files qt6-devel
 %{_kf6_includedir}/KF6PulseAudioQt/
@@ -65,6 +66,9 @@ rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Sep 19 2026 Steve Cossette <farchord@gmail.com> - 1.9.0-1
+- 1.9.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

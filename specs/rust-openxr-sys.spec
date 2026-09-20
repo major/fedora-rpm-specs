@@ -5,13 +5,16 @@
 %global crate openxr-sys
 
 Name:           rust-openxr-sys
-Version:        0.13.1
+Version:        0.14.0
 Release:        %autorelease
 Summary:        OpenXR FFI bindings
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/openxr-sys
 Source:         %{crates_source}
+# * https://github.com/Ralith/openxrs/issues/179
+Source100:      https://raw.githubusercontent.com/Ralith/openxrs/eba4c6a75081348a6e6ef77147e05958f34f882a/LICENSE-APACHE
+Source101:      https://raw.githubusercontent.com/Ralith/openxrs/eba4c6a75081348a6e6ef77147e05958f34f882a/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(openxr)
@@ -32,6 +35,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -100,6 +105,7 @@ use the "static" feature of the "%{crate}" crate.
 %cargo_prep
 # Remove bundled OpenXR-SDK
 rm -rf OpenXR-SDK
+cp -pav %{SOURCE100} %{SOURCE101} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

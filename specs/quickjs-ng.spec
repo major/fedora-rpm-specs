@@ -7,7 +7,7 @@ Summary: Small and embeddable JavaScript engine
 # Unicode Character Database, subject to the Unicode License v3.
 License: MIT AND Unicode-3.0
 
-Version: 0.16.2
+Version: 0.17.0
 Release: 1%{?dist}
 
 URL: https://github.com/quickjs-ng/quickjs
@@ -151,6 +151,9 @@ cp -a docs/docs -t %{buildroot}%{_docdir}/%{name}/
 
 
 %changelog
+* Sat Sep 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.17.0-1
+- Update to v0.17.0
+
 * Thu Aug 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.16.2-1
 - Update to v0.16.2
 

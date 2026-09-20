@@ -1,13 +1,11 @@
 Name:           bmon
-Version:        4.0
-Release:        16%{?dist}
+Version:        5.0
+Release:        1%{?dist}
 Summary:        Bandwidth monitor and rate estimator
 
 License:        BSD-2-Clause and MIT
-URL:            https://github.com/tgraf/bmon
-Source0:        https://github.com/tgraf/bmon/releases/download/v%{version}/bmon-%{version}.tar.gz
-
-Patch1:         bmon-4.0-buffer_size.patch
+URL:            https://github.com/Jafaral/bmon
+Source0:        https://github.com/Jafaral/bmon/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libconfuse-devel
@@ -39,6 +37,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_docdir}/bmon/examples/bmon.conf
 
 %changelog
+* Sat Sep 19 2026 Boian Bonev <bbonev@ipacct.com> - 5.0-1
+- New upstream release 5.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

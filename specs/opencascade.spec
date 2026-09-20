@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        8.0.1
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -326,6 +326,9 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %changelog
+* Sat Sep 19 2026 Richard Shaw <hobbes1069@gmail.com> - 8.0.1-1.1
+- Bump for vtk bootstrap build.
+
 * Wed Sep 16 2026 Richard Shaw <hobbes1069@gmail.com> - 8.0.1-1
 - Update to 8.0.1.
 

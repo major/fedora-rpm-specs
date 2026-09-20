@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1.2%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1974,6 +1974,10 @@ fi
 %endif
 
 %changelog
+* Sat Sep 19 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-2
+- Update post-4.13.4-release patches
+- Rebuild against Samba 4.25.0-RC2
+
 * Mon Sep 07 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-1.2
 - Fine-tune privilege checks (upstream PR 8558)
 

@@ -1,6 +1,6 @@
 Name:		dt-schema
-Version:	2026.06
-Release:	1%{?dist}
+Version:	2026.09
+Release:	%autorelease
 Summary:	Tooling for devicetree validation using YAML and jsonschema
 License:	BSD-2-Clause
 URL:		http://devicetree.org/
@@ -46,35 +46,4 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{_bindir}/dt*
 
 %changelog
-* Tue Sep 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2026.06-1
-- Update to 2026.06
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.04-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Apr 10 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2026.04-1
-- Update to 2026.04
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2024.05-7
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2024.05-6
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2024.05-4
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 23 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2024.05-1
-- Initial package
+%autochangelog

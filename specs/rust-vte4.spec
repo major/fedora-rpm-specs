@@ -5,7 +5,7 @@
 %global crate vte4
 
 Name:           rust-vte4
-Version:        0.8.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Rust bindings for the VTE Gtk4 library
 
@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Update io-lifetimes dependency to v3:
 #   https://gitlab.gnome.org/World/Rust/vte4-rs/-/merge_requests/6
+# * enable gtk4's v4_10 feature
 Patch:          vte4-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -48,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gtk_v4_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_18-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v0_66-devel
@@ -120,6 +133,42 @@ This package contains library source intended for building other packages which
 use the "v0_78" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v0_78-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v0_80-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v0_80-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v0_80" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v0_80-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v0_82-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v0_82-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v0_82" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v0_82-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v0_84-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v0_84-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v0_84" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v0_84-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

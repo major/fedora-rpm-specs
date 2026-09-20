@@ -13,6 +13,10 @@
 %global system_build_flags 0
 
 %global numjobs %{_smp_build_ncpus}
+# Limit to 48 cpus due to OOM on x86_64 platform
+%ifarch x86_64
+%global numjobs 48
+%endif
 
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1

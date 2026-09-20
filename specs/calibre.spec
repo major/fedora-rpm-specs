@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.14.0
+Version:        9.15.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -22,9 +22,6 @@ Patch:          calibre-nodisplay.patch
 # revert moving to newer python-feedparser until the fedora package updates
 Patch:          calibre-9.13.0-feedparser-downgrade.patch
 
-# fix openssl test
-Patch:          calibre-9.12.0-openssl.patch
-
 # use system pycryptodomex instead of the bundled Cryptodome->Crypto redirect
 Patch:          calibre-cryptodome-unbundle.patch
 
@@ -34,7 +31,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pyqt6-devel
 BuildRequires:  python3-pyqt6
-BuildRequires:  podofo0.10-devel
+BuildRequires:  podofo-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  xdg-utils
 BuildRequires:  chmlib-devel
@@ -377,7 +374,6 @@ TEST_ARGS=(
     --exclude-test-name test_imaging       # WEBP Transparency support ok' not found
     --exclude-test-name test_recipe_browser_qt # Accept-Encoding not found
     --exclude-test-name test_websocket_basic
-
     # fails with python3.13:
     # calibre.srv.tests.loop.LoopTest.test_ssl
     # ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Missing Authority Key Identifier (_ssl.c:1020)
@@ -397,6 +393,7 @@ TEST_ARGS=(
 %ifarch ppc64le
     --exclude-test-name test_fts_pool
     --exclude-test-name test_fts_search
+    --exclude-test-name test_download_deps_camoufox_release_selection # canoufox is only aarc64/x86
 %endif
 )
 

@@ -5,7 +5,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-urllib3
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
@@ -31,22 +31,14 @@ Source0:        %{url}/archive/%{version}/urllib3-%{version}.tar.gz
 %global hypercorn_commit d1719f8c1570cbd8e6a3719ffdb14a4d72880abb
 Source1:        %{hypercorn_url}/archive/%{hypercorn_commit}/hypercorn-%{hypercorn_commit}.tar.gz
 
-# Deal with ssl.PROTOCOL_TLSv1 removal from Python built with OpenSSL 4+
-Patch:          https://github.com/urllib3/urllib3/pull/5097.patch
-# Replace deprecated pyOpenSSL X509.get_subject and Context.set_passwd_cb methods
-# https://github.com/urllib3/urllib3/pull/5103 rebased
-Patch:          5103.patch
-
-# Compatibility with the latest pytest
-Patch:          https://github.com/urllib3/urllib3/commit/c420e267.patch
-
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-# The conditional is important: we benefit from tomcli for editing dependency
-# groups, but we do not want it when bootstrapping or in RHEL.
 %if %{with tests}
-BuildRequires:  tomcli
+# Make trustme a test dependency
+# https://github.com/urllib3/urllib3/pull/5261
+BuildRequires:  %{py3_dist trustme}
+# In the “dev” dependency, not “test”; however, enables additional tests
+BuildRequires:  %{py3_dist pyOpenSSL}
 %endif
 
 %global _description %{expand:
@@ -94,10 +86,16 @@ Recommends:     python3-urllib3+socks
 %autosetup -p1 -n urllib3-%{version}
 %setup -q -n urllib3-%{version} -T -D -b 1
 
-# Allow setuptools-scm 10+
-# Upstream PR pins to <11: https://github.com/urllib3/urllib3/pull/4954
-# We don't pin if we don't have to -- the build should fail if it doesn't work with future versions.
-sed -i 's/setuptools-scm>=8,<10/setuptools-scm>=8/' pyproject.toml
+# Remove build dep. upper bounds that would have to be adjusted frequently
+%pyproject_patch_dependency hatch-vcs:drop_upper
+%pyproject_patch_dependency setuptools-scm:drop_upper
+
+# Not packaged, and not strictly required.
+%pyproject_patch_dependency pytest-socket:ignore
+# We have a special forked version we must use for testing instead, so we do
+# not want to generate a dependency on the system copy. Note that the system
+# copy is still an indirect dependency via quart and quart-trio.
+%pyproject_patch_dependency hypercorn:ignore
 
 # Make sure that the RECENT_DATE value doesn't get too far behind what the current date is.
 # RECENT_DATE must not be older that 2 years from the build time, or else test_recent_date
@@ -115,42 +113,15 @@ sed -i 's/setuptools-scm>=8,<10/setuptools-scm>=8/' pyproject.toml
 # set to some time in the past, but not to far away from the present).
 # Next few lines update RECENT_DATE dynamically.
 recent_date=$(date --date "7 month ago" +"%Y, %_m, %_d")
-sed -i "s/^RECENT_DATE = datetime.date(.*)/RECENT_DATE = datetime.date($recent_date)/" src/urllib3/connection.py
-
-%if %{with tests}
-# Possible improvements to dependency groups
-# https://github.com/urllib3/urllib3/issues/3594
-# Adjust the contents of the "dev-base" dependency group by removing:
-remove_from_dev() {
-  tomcli set pyproject.toml lists delitem 'dependency-groups.dev-base' "($1)\b.*"
-}
-#   - Linters, coverage tools, profilers, etc.:
-#     https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-remove_from_dev 'coverage|pytest-memray'
-#   - Dependencies for maintainer tasks
-remove_from_dev 'build|towncrier'
-#   - Dependencies that are not packaged and not strictly required
-remove_from_dev 'pytest-socket'
-#   - Hypercorn, because we have a special forked version we must use for
-#     testing instead, so we do not want to generate a dependency on the system
-#     copy. Note that the system copy is still an indirect dependency via quart
-#     and quart-trio.
-remove_from_dev 'hypercorn'
-
-# Remove all version bounds for test dependencies. We must attempt to make do
-# with what we have. (This also removes any python version or platform
-# constraints, which is currently fine, but could theoretically cause trouble
-# in the future. We’ll cross that bridge if we ever arrive at it.)
-tomcli set pyproject.toml lists replace --type regex_search \
-    'dependency-groups.dev-base' '[>=]=.*' ''
-%endif
+sed --in-place "s/^RECENT_DATE = datetime.date(.*)/RECENT_DATE = datetime.date($recent_date)/" \
+    src/urllib3/connection.py
 
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 # Generate BR’s from packaged extras even when tests are disabled, to ensure
 # the extras metapackages are installable if the build succeeds.
-%pyproject_buildrequires %{?with_extradeps:-x brotli,zstd,socks,h2} %{?with_tests:-g dev}
+%pyproject_buildrequires %{?with_extradeps:--extras brotli,zstd,socks,h2} %{?with_tests:--dependency-groups test}
 
 
 %build
@@ -161,7 +132,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %install
 %pyproject_install
 
-%pyproject_save_files -l urllib3
+%pyproject_save_files --assert-license urllib3
 
 
 %check
@@ -171,11 +142,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 # urllib3.contrib.ntlmpool is deprecated and requires ntlm
 # urllib3.contrib.securetransport is macOS only
 # urllib3.contrib.pyopenssl requires pyOpenSSL
-%{pyproject_check_import %{!?with_extradeps:-e urllib3.contrib.socks -e urllib3.http2*}
-                         -e urllib3.contrib.emscripten*
-                         -e urllib3.contrib.ntlmpool
-                         -e urllib3.contrib.securetransport
-                         -e urllib3.contrib.pyopenssl}
+%{pyproject_check_import %{!?with_extradeps:-e urllib3.contrib.socks --exclude urllib3.http2*}
+                         --exclude urllib3.contrib.emscripten*
+                         --exclude urllib3.contrib.ntlmpool
+                         --exclude urllib3.contrib.securetransport
+                         --exclude urllib3.contrib.pyopenssl}
 
 # Increase the “long timeout” for slower environments; as of this writing, it
 # is increased from 0.1 to 0.5 second.
@@ -189,8 +160,8 @@ export PYTHONPATH="${hypercorndir}:%{buildroot}%{python3_sitelib}"
 # even when we export the CI environment variable to increase timeouts.
 k="${k-}${k+ and }not (TestHTTPProxyManager and test_tunneling_proxy_request_timeout[https-https])"
 
-%pytest -v -rs ${ignore-} -k "${k-}"
-%pytest -v -rs ${ignore-} -k "${k-}" --integration
+%pytest --verbose -rs ${ignore-} -k "${k-}"
+%pytest --verbose -rs ${ignore-} -k "${k-}" --integration
 %endif
 
 

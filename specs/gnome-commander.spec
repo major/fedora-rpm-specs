@@ -47,7 +47,7 @@
 %global	fedoraver	%{fullver}%{?if_pre:~}%{!?if_pre:^}%{git_version}
 %endif
 
-%global	baserelease	2
+%global	baserelease	3
 
 Name:		gnome-commander
 # Downgrade 3 times, sorry...
@@ -72,11 +72,6 @@ Source0:	https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{v
 %if		0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
-# https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/331/diffs?commit_id=b7bbb1d7d792a523e7b3a58e96dadc9db4c5152e
-# As currently we use old rust-gtk4, some changes in the above MR
-# has to be reverted.
-Patch0:		gnome-commander-pr203-rust-gtk4-change-revert.patch
-
 # meson.build
 BuildRequires:	meson
 BuildRequires:	gcc
@@ -176,18 +171,6 @@ git commit -m "base" -q
 sed -i.rpath src/meson.build \
 	-e "\@rpath =@s|^.*$|rpath = '%{_libdir}/%{name}'|"
 git commit -m "tweak rpath" -a
-
-# Relax Cargo deps for vte for now
-# ... and adjust other deps
-sed -i Cargo.toml \
-	-e '\@vte =.*vte4@s|0.10.0|0.8.0|' \
-	-e '\@glib =.*@s|0.22|0.20|' \
-	-e '\@gtk =.*gtk4@s|0.11|0.9|' \
-	%{nil}
-git commit -m "relax Cargo deps" -a
-
-%patch -P0 -p1
-git commit -m "revert some rust-gtk4 related changes" -a
 
 # FIXME
 # Is there better way to archive this?
@@ -308,6 +291,10 @@ popd
 %{_bindir}/%{name}
 
 %changelog
+* Sat Sep 19 2026 Jonathan Steffan <jonathansteffan@gmail.com> - 4:2.0.3-3
+- Build against the current rust gtk4/glib/vte4 generation (gtk4 0.11, glib 0.22,
+  vte4 0.10): drop the Cargo.toml downgrades and the rust-gtk4 revert patch
+
 * Mon Aug 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:2.0.3-2
 - Generate debuginfo for rust sources
 
