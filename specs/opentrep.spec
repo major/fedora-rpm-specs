@@ -6,7 +6,7 @@
 
 #
 Name:           opentrep
-Version:        0.08.01
+Version:        0.08.02
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
@@ -162,6 +162,7 @@ rm -f %{_bindir}/py%{name}
 %{_bindir}/%{name}-indexer
 %{_bindir}/%{name}-searcher
 %{_bindir}/%{name}-dbmgr
+%{_bindir}/%{name}-datasync
 %{_bindir}/%{name}-create-db-user-*.sh
 %{_libdir}/lib%{name}.so.0.*
 %{_mandir}/man1/%{name}-indexer.1.*
@@ -183,6 +184,7 @@ rm -f %{_bindir}/py%{name}
 %dir %{_datadir}/%{name}/samples/por/csv
 %{_datadir}/%{name}/samples/por/csv/test-optd-por-public.csv
 %{_datadir}/%{name}/samples/por/csv/test-world-schedule.csv
+%{_datadir}/%{name}/samples/por/csv/test-optd-por-qsw-as-suwayda.csv
 
 %files devel
 %{_includedir}/%{name}/

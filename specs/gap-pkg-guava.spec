@@ -21,8 +21,6 @@ BuildSystem:    gap
 BuildOption(install): bin lib tbl tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gap(autodoc) >= 2019.04.10
 BuildRequires:  gap(sonata) >= 2.3
 BuildRequires:  gap-devel >= 4.11

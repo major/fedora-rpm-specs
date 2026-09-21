@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
@@ -32,6 +32,9 @@ Patch0: rubygem-railties-8.1.3-Fix-test_precompile_shouldnt_use_the_digests_pres
 # ~~~
 # https://github.com/rails/rails/pull/58360
 Patch1: rubygem-railties-8.1.3.1-Use-local-fixtures.patch
+# Support json 2.20 and above
+# https://github.com/rails/rails/pull/57832
+Patch2: rubygem-railties-pr57832-support-json-2_20.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -103,12 +106,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -a1
 
-( cd %{builddir}
 %patch 0 -p2
 %patch 1 -p2
-)
+%patch 2 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -132,8 +134,9 @@ find %{buildroot}%{gem_instdir}/exe -type f | xargs chmod a+x
 ln -s %{gem_dir}/specifications/rails-%{version}%{?prerelease}.gemspec .%{gem_dir}/gems/rails.gemspec
 ln -s ${PWD}%{gem_instdir} .%{gem_dir}/gems/railties
 
-( cd .%{gem_dir}/gems/railties
-cp -a %{builddir}/test .
+(
+cp -a test .%{gem_dir}/gems/railties
+cd .%{gem_dir}/gems/railties
 
 mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
@@ -308,6 +311,9 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Sep 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.1.3.1-3
+- Backport upstream fix to support json 2.20
+
 * Wed Aug 05 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-2
 - Properly patch ActiveStorage analyzers integration tests.
 

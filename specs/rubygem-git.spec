@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 5.4.1
+Version: 5.6.0
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to manipulate Git repositories
 License: MIT

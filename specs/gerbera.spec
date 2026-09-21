@@ -1,6 +1,6 @@
 Name:           gerbera
-Version:        3.2.1
-Release:        7%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -123,6 +123,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Sun Sep 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-1
+- 3.3.0
+
 * Tue Jul 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.1-7
 - libupnp rebuild
 

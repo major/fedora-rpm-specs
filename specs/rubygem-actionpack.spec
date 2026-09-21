@@ -7,7 +7,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -19,6 +19,9 @@ Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # https://github.com/rails/rails/pull/57283
 # Support Minitest 6.0.6 assert_nil? implementation change
 Patch0:  rubygem-actionpack-pr57283-Minitest6_0_6-assert_nil.patch
+# https://github.com/rails/rails/pull/58826
+# Make testsuite support libxml2 2.15.4
+Patch1:  rubygem-actionpack-pr58826-testsuite-support-libxml2-2_15.patch
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
@@ -67,6 +70,7 @@ Documentation for %{name}.
 (
 cd %{_builddir}
 %patch -P0 -p2
+%patch -P1 -p2
 )
 
 %build
@@ -130,6 +134,9 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Sep 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.1.3.1-2
+- Apply upstream fix to make testsuite support libxml2 2.15
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
 - Update to Action Pack 8.1.3.1.
   Related: rhzb#2405582

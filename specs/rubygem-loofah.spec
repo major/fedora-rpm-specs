@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.22.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -15,6 +15,9 @@ Patch0:  %{gem_name}-2.22.0-minitest6.patch
 # Make testsuite accept libxml2 2.14
 # https://github.com/flavorjones/loofah/pull/298
 Patch1:  %{gem_name}-pr298-testsuite-accept-libxml2-2_14.patch
+# https://github.com/flavorjones/loofah/pull/307
+# Fix json 3 compatibility
+Patch2: %{gem_name}-pr307-support-json3-allow-comments.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -45,6 +48,7 @@ Documentation for %{name}.
 cd %{_builddir}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 )
 
 %build
@@ -79,6 +83,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Sun Sep 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-11
+- Apply upstream patch to support json 3
+
 * Sat Sep 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-10
 - Backport upstream fix to accept libxml2 2.14 for testsuite
 

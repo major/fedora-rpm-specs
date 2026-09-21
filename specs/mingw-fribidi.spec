@@ -3,8 +3,8 @@
 %global pkgname fribidi
 
 Name:          mingw-%{pkgname}
-Version:       1.0.16
-Release:       5%{?dist}
+Version:       1.0.17
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       LGPL-2.0-or-later
@@ -75,6 +75,9 @@ Static version of the MinGW Windows %{pkgname} library.
 %install
 %mingw_ninja_install
 
+rm -rf %{buildroot}%{mingw32_mandir}
+rm -rf %{buildroot}%{mingw64_mandir}
+
 
 %files -n mingw32-%{pkgname}
 %license COPYING
@@ -100,6 +103,9 @@ Static version of the MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Sun Sep 20 2026 Sandro Mani <manisandro@gmail.com> - 1.0.17-1
+- Update to 1.0.17
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

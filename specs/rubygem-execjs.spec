@@ -4,7 +4,7 @@
 Summary: Run JavaScript code from Ruby
 Name: rubygem-%{gem_name}
 Version: 2.8.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: MIT
 URL: https://github.com/rails/execjs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1: %{gem_name}-%{version}-tests.tgz
 # Revert f47c02c and 8b22842 fixing conflict to unbundle json2.js.
 Patch0: rubygem-execjs-2.7.0-delete-JScript-and-json2.js.patch
+# Support json 3
+# https://github.com/rails/execjs/pull/150/
+Patch1: rubygem-execjs-pr150-support-json3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
@@ -35,10 +38,11 @@ Documentation for %{name}
 %prep
 gem unpack %{SOURCE0}
 
-%setup -q -D -T -n  %{gem_name}-%{version}
+%setup -q -D -T -n  %{gem_name}-%{version} -a 1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 %patch 0 -p1
+%patch 1 -p1
 sed -i -e '/files/ s|"lib/execjs/support/jscript_runner.js".freeze, ||' \
     -e '/files/ s|"lib/execjs/support/json2.js".freeze, ||' %{gem_name}.gemspec
 
@@ -56,8 +60,8 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
+cp -a test/ .%{gem_instdir}
 pushd .%{gem_instdir}
-tar xzf %{SOURCE1}
 ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 popd
 
@@ -73,6 +77,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Sep 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-14
+- Backport upstream fix to support json 3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

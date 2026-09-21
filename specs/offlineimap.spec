@@ -1,4 +1,4 @@
-%global baserelease 3
+%global baserelease 1
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -7,7 +7,7 @@
 %global imaplib2_shortcommit %(c=%{imaplib2_commit}; echo ${c:0:7})
 
 Name:           offlineimap
-Version:        8.0.2
+Version:        8.0.3
 Release:        %{baserelease}%{?dist}
 Summary:        Powerful IMAP/Maildir synchronization and reader support
 
@@ -106,6 +106,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Sun Sep 20 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.3-1
+- Upstream release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

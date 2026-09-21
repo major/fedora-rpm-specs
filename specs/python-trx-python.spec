@@ -3,7 +3,7 @@
 %bcond utils_extra 0
 
 Name:           python-trx-python
-Version:        0.5.0
+Version:        0.6
 Release:        %{autorelease}
 Summary:        Community-oriented file format for tractography
 
@@ -58,6 +58,12 @@ Summary:        %{summary}
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 %pyproject_patch_dependency pytest-cov:ignore
+
+# It’s not obvious why these scripts are shipped inside the Python package as
+# package data rather than just kept in the repository, but since they will not
+# be installed with execute permissions, let’s at least remove their shebangs.
+# (If we didn’t, we would need to fix them up, since they use /usr/bin/env.)
+sed --regexp-extended --in-place '1{/^#!/d}' trx/tools/*.py
 
 
 %generate_buildrequires -p

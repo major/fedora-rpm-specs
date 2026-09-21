@@ -16,7 +16,7 @@
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        44%{?gitsnapinfo}%{?dist}
+Release:        45%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -45,7 +45,8 @@ CPU usage, and network rate...
 
 %prep
 %autosetup -n %{gitname}-%{?gitcommit}%{!?gitcommit:%{version}} -p 1
-
+# Manual patching for newer gnome-shell version
+%{__sed} -i -e 's%, "50"%, "50", "51"%g' %{extuuid}/metadata.json
 
 %build
 # Not needed as build target is a dependency of install target in
@@ -86,6 +87,9 @@ fi
 
 
 %changelog
+* Sun Sep 20 2026 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-45.20260916gitb9edf51
+- Manual patching in spec file to add gnome-shell 51 compatibility release 09/16/2026
+
 * Wed Sep 16 2026 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-44.20260916gitb9edf51
 - Updated to last upstream commits - massive changes
 - Extract widget infrastructure to base.js and mounts.js - code only motion

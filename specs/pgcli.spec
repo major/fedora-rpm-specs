@@ -1,5 +1,5 @@
 Name:           pgcli
-Version:        4.6.0
+Version:        4.7.1
 Release:        %autorelease
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
@@ -28,7 +28,7 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %pyproject_buildrequires --extras keyring --extras sshtunnel
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %pyproject_wheel

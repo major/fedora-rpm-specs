@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -24,9 +24,10 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Attribute::Handlers)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(CLI::Osprey)
+BuildRequires:  perl(CLI::Osprey) >= 0.09
 BuildRequires:  perl(Config::Any)
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Crypt::URandom) >= 0.36
 BuildRequires:  perl(Data::Censor) >= 0.04
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::SHA)
@@ -53,17 +54,17 @@ BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(Import::Into)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(JSON::MaybeXS)
-BuildRequires:  perl(List::Util)
-BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(List::Util) >= 1.29
+BuildRequires:  perl(MIME::Base64) >= 3.13
+BuildRequires:  perl(Math::Random::ISAAC::XS)
 BuildRequires:  perl(Module::Runtime)
-BuildRequires:  perl(Moo) >= 1.003000
+BuildRequires:  perl(Moo) >= 2.000000
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(MooX::Types::MooseLike) >= 0.16
 BuildRequires:  perl(MooX::Types::MooseLike::Base)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
-# Plack::Builder version from Plack >= 1.0035 in Makefile.PL
-BuildRequires:  perl(Plack::Builder) >= 1.0035
+BuildRequires:  perl(Plack::Builder) >= 1.0040
 BuildRequires:  perl(Plack::Middleware::FixMissingBodyInRedirect)
 BuildRequires:  perl(Plack::Middleware::Head)
 BuildRequires:  perl(Plack::Middleware::RemoveRedundantBody)
@@ -75,6 +76,7 @@ BuildRequires:  perl(Pod::Simple::Search)
 BuildRequires:  perl(Pod::Simple::SimpleTree)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Ref::Util)
+BuildRequires:  perl(Role::Tiny) >= 2.000000
 BuildRequires:  perl(Safe)
 BuildRequires:  perl(Safe::Isa)
 BuildRequires:  perl(Scalar::Util)
@@ -86,15 +88,14 @@ BuildRequires:  perl(Test::EOL)
 BuildRequires:  perl(Test::More) >= 0.92
 BuildRequires:  perl(Type::Library)
 BuildRequires:  perl(Type::Registry)
+BuildRequires:  perl(Type::Tiny) >= 1.000006
 BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
-BuildRequires:  perl(YAML) >= 0.86
+BuildRequires:  perl(YAML) >= 1.30
 # Optional run-time:
 BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(CGI::Deurl::XS)
-BuildRequires:  perl(Crypt::URandom)
-BuildRequires:  perl(Math::Random::ISAAC::XS)
 BuildRequires:  perl(MIME::Types)
 BuildRequires:  perl(URL::Encode::XS)
 # Tests:
@@ -160,10 +161,9 @@ Perl. It is a complete rewrite based on Moo and is meant to be easy and fun.
 
 %prep
 %setup -q -n Dancer2-%{version}
-%patch 0 -p1
+%patch -P 0 -p1
 /usr/bin/sed -i -e '1s,#!.*perl,#!/usr/bin/perl,' script/dancer2 share/skel/default/bin/+app.psgi share/skel/tutorial/bin/+app.psgi
 /usr/bin/chmod +x share/skel/default/bin/+app.psgi share/skel/tutorial/bin/+app.psgi
-/usr/bin/rm share/.gitignore
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -174,7 +174,7 @@ Perl. It is a complete rewrite based on Moo and is meant to be easy and fun.
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%{make_build} test
+make test
 
 %files
 %license LICENSE
@@ -195,6 +195,10 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.2.1-1
+- Update to 2.2.1
+- Downsize version check to make no check the default
+
 * Sun Sep 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.1.0-3
 - Add CSPRNG modules as Requires, fixes CVE-2026-13577 (#2509105)
 

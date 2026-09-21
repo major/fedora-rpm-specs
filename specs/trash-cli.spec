@@ -1,15 +1,10 @@
 Summary:        Command line interface to the freedesktop.org trashcan
 Name:           trash-cli
-Version:        0.24.5.26
+Version:        0.26.9.14
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL  :          https://github.com/andreafrancia/trash-cli
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Replace parameterized with built-in pytest functionality
-# https://github.com/andreafrancia/trash-cli/pull/373
-Patch2:         trash-cli-0.24.5.26-no-parameterized.patch
-# remove python-mock usage
-Patch3:         trash-cli-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -21,12 +16,12 @@ compatible with rm and you can use trash-put as an alias to rm.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
-# Remove pinned virtualenv version required for tox,
-# which we only run to get the test depndencies anyway.
-sed -i '/requires = virtualenv</d' tox.ini
+# clean specific requirements for older (eol) python versions
+# this removes the whole line if it matches in any combination
+sed -i -E "/; python_version (~=|<) '(2.7|3.4|3.3|3.5|3.8)'/d" setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x dev
 
 %build
 %pyproject_wheel
@@ -37,9 +32,8 @@ sed -i '/requires = virtualenv</d' tox.ini
 %pyproject_save_files -l trashcli
 
 %check
-# There is a tox.ini in the repo and buildrequires -t works, but the README
-# instructs to run pytest, so we do that. "not slow" should be enough for
-# a quick verification.
+# There is a tox.ini in the repo, but the README instructs to run pytest.
+# "not slow" should be enough for a quick verification.
 %pytest -m "not slow"
 
 %files -f %{pyproject_files}

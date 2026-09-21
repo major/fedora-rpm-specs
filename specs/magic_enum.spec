@@ -22,7 +22,7 @@ BuildRequires:  gcc-c++
 %package        devel
 BuildArch:      noarch
 Summary:        %{summary}
-Provides:       %{name}-static%{?_isa} = %{version}-%{release}
+Provides:       %{name}-static = %{version}-%{release}
 
 %description    devel %{common_description}
 

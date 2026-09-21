@@ -1,10 +1,10 @@
 %bcond x11 %[!(0%{?rhel} >= 10)]
 
 %global forgeurl https://github.com/qtile/qtile
-%global tag v0.37.0
+%global tag v0.37.1
 
 Name: qtile
-Version: 0.37.0
+Version: 0.37.1
 Release: %{autorelease}
 Summary: A pure-Python tiling window manager
 %forgemeta

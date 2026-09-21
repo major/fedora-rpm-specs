@@ -7,7 +7,7 @@
 
 # https://github.com/rootless-containers/rootlesskit
 %global goipath         github.com/rootless-containers/rootlesskit/v3
-Version:                3.1.0
+Version:                3.2.0
 
 %gometa -L -f
 
@@ -53,7 +53,16 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%gotest ./... -skip 'TestBuiltIn/Test(TCP|UDP)4?'
+%global test_ignores %{shrink:
+    %dnl tests below fail with unable to select IP from default routes
+    -s "TestSourceIPTransparentBackend"
+    %dnl test(s) fail with go test timeout error
+    -s "TestBuiltIn/Test(TCP|UDP)4?"
+}
+%gocheck2 -F %{test_ignores}
+
+# TestSourceIPTransparentBackend - time out after 10m0s
+# %%gotest ./... -skip 'TestBuiltIn' -skip 'TestSourceIPTransparentBackend' -skip 'TestBuiltIn/TestTCP'
 %endif
 
 %files -f %{go_vendor_license_filelist}

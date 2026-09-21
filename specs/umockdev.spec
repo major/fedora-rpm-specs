@@ -1,6 +1,6 @@
 Name:             umockdev
-Version:          0.19.8
-Release:          2%{?dist}
+Version:          0.19.9
+Release:          1%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Sep 20 2026 Packit <hello@packit.dev> - 0.19.9-1
+- Adjust to libpcap 1.11 USB header API change (#284)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

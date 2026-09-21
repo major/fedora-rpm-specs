@@ -3,15 +3,18 @@ Version:        5.0
 Release:        1%{?dist}
 Summary:        Bandwidth monitor and rate estimator
 
-License:        BSD-2-Clause and MIT
+License:        BSD-2-Clause AND MIT
 URL:            https://github.com/Jafaral/bmon
 Source0:        https://github.com/Jafaral/bmon/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  libconfuse-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
+BuildRequires:  pkgconfig
 
 %description
 bmon is a monitoring and debugging tool to capture networking related
@@ -21,13 +24,15 @@ interface and a programmable text output for scripting.
 
 %prep
 %autosetup -p1
+# upstream ships no generated autotools files in the release tarball
+autoreconf -fiv
 
 %build
 %configure
 make %{?_smp_mflags} V=1
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 
 %files
 %license LICENSE.BSD

@@ -1,12 +1,12 @@
 Name:           perl-Catalyst-Plugin-Static-Simple
 Version:        0.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make serving static pages painless
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Catalyst-Plugin-Static-Simple
+URL:            https://metacpan.org/dist/Catalyst-Plugin-Static-Simple
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Catalyst-Plugin-Static-Simple-%{version}.tar.gz
+Patch0:         Catalyst-Plugin-Static-Simple-CVE-2026-15743.patch
 BuildArch:      noarch
 
 BuildRequires:  coreutils
@@ -55,6 +55,7 @@ single line of code from you.
 
 %prep
 %setup -q -n Catalyst-Plugin-Static-Simple-%{version}
+%patch -P 0 -p1
 
 for file in t/07mime_types.t t/lib/IncTestApp/Controller/Root.pm \
             t/lib/TestApp.pm t/lib/TestApp/Controller/Root.pm; do
@@ -75,10 +76,13 @@ TEST_POD=1 %{make_build} test
 
 %files
 %doc Changes t/
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Catalyst*
+%{_mandir}/man3/Catalyst*
 
 %changelog
+* Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.38-2
+- Apply fix for CVE-2026-15743
+
 * Sun Jul 19 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.38-1
 - Update to 0.38
 

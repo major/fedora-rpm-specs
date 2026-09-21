@@ -1,10 +1,10 @@
 %bcond x11 %[!(0%{?rhel} >= 10)]
 
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-%global tag v0.37.0
+%global tag v0.37.1
 
 Name: qtile-extras
-Version: 0.37.0
+Version: 0.37.1
 Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta
@@ -33,7 +33,6 @@ BuildRequires: python3-pulsectl-asyncio
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-rerunfailures
 BuildRequires: python3-pytest-lazy-fixture
-BuildRequires: python3-pywayland
 BuildRequires: python3-requests
 BuildRequires: python3-xkbcommon
 BuildRequires: twine

@@ -1,11 +1,12 @@
 Name:           perl-HTML-FormFu
 Version:        2.07
-Release:        23%{?dist}
+Release:        25%{?dist}
 Summary:        HTML Form Creation, Rendering and Validation Framework
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+# lib/HTML/FormFu.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/HTML-FormFu
+URL:            https://metacpan.org/dist/HTML-FormFu
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFRANKS/HTML-FormFu-%{version}.tar.gz
+Patch0:         HTML-FormFu-CVE-2026-19873.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -97,31 +98,39 @@ anything else you might want to do (as long as it involves forms).
 
 %prep
 %setup -q -n HTML-FormFu-%{version}
+%patch -P 0 -p1
 
 find examples -type f | xargs chmod 644
 find examples -type f | xargs sed -i -e 's/\r//'
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 rm -rf $RPM_BUILD_ROOT/blib
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README examples
-%{perl_vendorlib}/*
-%{_bindir}/*.pl
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/auto/share/dist/HTML-FormFu
+%{perl_vendorlib}/HTML*
+%{_bindir}/html_formfu_*.pl
+%{_mandir}/man1/html_formfu_*
+%{_mandir}/man3/HTML::FormFu*
 
 %changelog
+* Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.07-25
+- Update release number
+
+* Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.07-24
+- Modernize spec file
+- Apply fix to CVE-2026-19873
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

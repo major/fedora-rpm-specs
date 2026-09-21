@@ -1,13 +1,15 @@
 %bcond check 1
 
 %global forgeurl https://gitlab.com/gabmus/envision
+%global version0 3.2.0
+%global commit   733995a6428586d2b3cef3178e3bfb7254df0313
+%global date     20260822
+%forgemeta
 
 Name:           envision
-Version:        3.2.0
+Version:        %{forgeversion}
 Release:        %autorelease
-Summary:        UI for building, configuring, and running Monado/WiVRn
-
-%forgemeta
+Summary:        UI for building, configuring, and running Monado
 
 # Licenses of statically linked Rust dependencies:
 # ================================================
@@ -50,14 +52,10 @@ License:        %{shrink:
 
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Reported upstream https://gitlab.com/gabmus/envision/-/issues/256
-Patch0:         0001-fix-drop-RUSTFLAGS-override-from-cargo-clippy-test.patch
-# https://gitlab.com/gabmus/envision/-/merge_requests/144
-Patch1:         0001-Bump-git2-dependency-from-0.19-to-0.20.patch
-# https://gitlab.com/gabmus/envision/-/merge_requests/145
-Patch2:         envision-fix-wivrn-apk-download-location.patch
-# Fix FTBFS with libmonado 1.6: DeviceLogic trait must be imported
-Patch3:         0001-fix-import-DeviceLogic-trait-for-libmonado-1.6.patch
+# https://gitlab.com/gabmus/envision/-/merge_requests/167
+Patch2:         0002-update-openxr-to-0.22-and-use-released-libmonado.patch
+# Fedora only: needs a gtk4 0.11 build of delicious-adwaita upstream
+Patch3:         0003-bump-gtk4-libadwaita-vte4-relm4-to-the-0.11-generation.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 26
@@ -91,11 +89,12 @@ BuildRequires:  vulkan-loader-devel
 
 Requires:       hicolor-icon-theme
 Requires:       patch
-Suggests:       android-tools
+# Obsolete the dropped wivrn subpackage
+Obsoletes:      envision-wivrn < %{version}-%{release}
 
 
 %description
-UI for building, configuring, and running Monado, the open source 
+UI for building, configuring, and running Monado, the open source
 OpenXR runtime.
 
 This is still highly experimental software, while it's unlikely that 
@@ -108,94 +107,16 @@ to encounter unexpected behavior that while in VR might cause motion
 sickness or physical injury. Be very careful while in VR using this app!
 
 
-%package wivrn
-
-Summary:        WiVRn Build Dependencies for Envision
-Requires:       %{name} = %{version}-%{release}
-# Sync with https://src.fedoraproject.org/rpms/wivrn/raw/rawhide/f/wivrn.spec
-Requires:       boost-devel
-Requires:       cmake
-Requires:       desktop-file-utils
-Requires:       extra-cmake-modules
-Requires:       gcc-c++
-Requires:       gettext-devel
-Requires:       git
-Requires:       glslc
-Requires:       kf6-kcoreaddons-devel
-Requires:       kf6-ki18n-devel
-Requires:       kf6-kiconthemes-devel
-Requires:       kf6-kirigami-devel
-Requires:       libappstream-glib
-Requires:       librsvg2-tools
-Requires:       ninja-build
-Requires:       openxr-devel
-Requires:       python
-Requires:       pkgconfig(avahi-client)
-Requires:       pkgconfig(avahi-glib)
-Requires:       pkgconfig(bluez)
-Requires:       pkgconfig(CLI11)
-Requires:       pkgconfig(dbus-1)
-Requires:       pkgconfig(eigen3)
-Requires:       pkgconfig(glslang)
-Requires:       pkgconfig(gstreamer-1.0)
-Requires:       pkgconfig(gstreamer-app-1.0)
-Requires:       pkgconfig(gstreamer-video-1.0)
-Requires:       pkgconfig(hidapi-libusb)
-Requires:       pkgconfig(libarchive)
-Requires:       pkgconfig(libavcodec)
-Requires:       pkgconfig(libavfilter)
-Requires:       pkgconfig(libavutil)
-Requires:       pkgconfig(libbsd)
-Requires:       pkgconfig(libcap)
-Requires:       pkgconfig(libcjson)
-Requires:       pkgconfig(libdrm)
-Requires:       pkgconfig(libjpeg)
-Requires:       pkgconfig(libnotify)
-Requires:       pkgconfig(libpipewire-0.3)
-Requires:       pkgconfig(libudev)
-Requires:       pkgconfig(libusb-1.0)
-Requires:       pkgconfig(libuvc)
-Requires:       pkgconfig(librsvg-2.0)
-Requires:       pkgconfig(libswscale)
-Requires:       pkgconfig(libva)
-Requires:       pkgconfig(nlohmann_json)
-Requires:       pkgconfig(opencv)
-Requires:       pkgconfig(openhmd)
-Requires:       pkgconfig(openssl)
-Requires:       pkgconfig(openvr)
-Requires:       pkgconfig(Qt6)
-Requires:       pkgconfig(Qt6Linguist)
-Requires:       pkgconfig(Qt6Quick)
-Requires:       pkgconfig(realsense2)
-Requires:       pkgconfig(sdl2)
-Requires:       pkgconfig(vulkan)
-Requires:       pkgconfig(wayland-client)
-Requires:       pkgconfig(wayland-eglstream)
-Requires:       pkgconfig(wayland-protocols)
-Requires:       pkgconfig(wayland-scanner)
-Requires:       pkgconfig(xrandr)
-Requires:       qcoro-qt6-devel
-Requires:       qt6-qtbase-private-devel
-Requires:       qt6-qtdeclarative-devel
-Requires:       qt6qml(org.kde.desktop)
-Requires:       android-tools
-Requires:       firewalld-filesystem
-Requires:       hicolor-icon-theme
-
-%description wivrn
-Build dependencies for WiVRn. Install this to automatically
-bring in all needed dependencies for building WiVRn.
-
-
 %package monado
 
 Summary:        Monado Build Dependencies for Envision
 Requires:       %{name} = %{version}-%{release}
-# Sync with https://jsteffan.fedorapeople.org/imrsv/monado.spec
+# Sync with https://src.fedoraproject.org/rpms/monado/blob/rawhide/f/monado.spec
 Requires:       cmake
 Requires:       gcc-c++
 Requires:       glslc
 Requires:       ninja-build
+Requires:       pkgconfig(basalt)
 Requires:       pkgconfig(bluez)
 Requires:       pkgconfig(dbus-1)
 Requires:       pkgconfig(dri)
@@ -210,8 +131,8 @@ Requires:       pkgconfig(libbsd)
 Requires:       pkgconfig(libcjson)
 Requires:       pkgconfig(libdrm)
 Requires:       pkgconfig(libjpeg)
-# ONNX only for x86_64, ppc64le and aarch64
-%ifnarch s390x %{arm} %{ix86}
+# ONNX only for aarch64 and x86_64 (handtracking)
+%ifarch aarch64 x86_64
 Requires:       pkgconfig(libonnxruntime)
 %endif
 Requires:       pkgconfig(libudev)
@@ -221,8 +142,13 @@ Requires:       pkgconfig(opencv)
 Requires:       pkgconfig(openhmd)
 Requires:       pkgconfig(openvr)
 Requires:       pkgconfig(openxr)
+# percetto only for aarch64 and x86_64 (perfetto tracing)
+%ifarch aarch64 x86_64
+Requires:       pkgconfig(percetto)
+%endif
 Requires:       pkgconfig(realsense2)
 Requires:       pkgconfig(sdl2)
+Requires:       pkgconfig(survive)
 Requires:       pkgconfig(vulkan)
 Requires:       pkgconfig(wayland-client)
 Requires:       pkgconfig(wayland-eglstream)
@@ -289,8 +215,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datarootdir}/icons/hicolor/scalable/apps/org.gabmus.envision.svg
 %{_datarootdir}/icons/hicolor/symbolic/apps/org.gabmus.envision-symbolic.svg
 %{_metainfodir}/org.gabmus.envision.appdata.xml
-
-%files wivrn
 
 %files monado
 

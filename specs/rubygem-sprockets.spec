@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
@@ -16,6 +16,9 @@ Source1: sprockets-%{version}-tests.tar.gz
 Patch0: rubygem-sprockets-4.2.0-Fix-Minitest-constant-name-in-tests.patch
 # Fix compatibility with minitest 6
 Patch1: rubygem-sprockets-4.2.0-minitest6.patch
+# Support json 3
+# https://github.com/rails/sprockets/pull/829
+Patch2: rubygem-sprockets-pr829-support-json3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -49,6 +52,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+%patch 2 -p1
 
 pushd %{_builddir}
 %patch 0 -p1
@@ -215,6 +219,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Sep 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-12
+- Apply upstream patch to support json 3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

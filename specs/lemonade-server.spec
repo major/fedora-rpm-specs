@@ -1,5 +1,5 @@
 Name:           lemonade-server
-Version:        11.5.2
+Version:        11.9.0
 Release:        %autorelease
 Summary:        Local LLM serving with GPU and NPU acceleration
 
@@ -9,6 +9,9 @@ Summary:        Local LLM serving with GPU and NPU acceleration
 License:        Apache-2.0 AND GPL-2.0-only WITH Linux-syscall-note AND MIT
 URL:            https://github.com/lemonade-sdk/lemonade
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# Disable LTO to prevent GCC Internal Compiler Errors / Segfaults during build
+%global _lto_cflags %{nil}
 
 ExclusiveArch:  x86_64
 
@@ -52,13 +55,16 @@ ONNX models.
 %prep
 %autosetup -n lemonade-%{version} -p1
 
+# Fix GCC 14 build failure: missing <optional> include
+sed -i '1i #include <optional>' src/cpp/include/lemon/routing_policy.h
+
 # Removing hidden upstream directories not needed for the build
 rm -rf .github .circleci .gitlab-ci
 
 # Removing Debian packaging directory (not used, makes license scanning easier)
 rm -rf contrib
 
-# Force CMake to use system-provided httplib instead of attempting 
+# Force CMake to use system-provided httplib instead of attempting
 ##  to download and vendor it via FetchContent during offline build.
 sed -i 's/FetchContent_MakeAvailable(httplib)/find_package(httplib REQUIRED)/g' CMakeLists.txt
 
@@ -68,6 +74,10 @@ sed -i 's/FetchContent_MakeAvailable(httplib)/find_package(httplib REQUIRED)/g' 
 
 %install
 %cmake_install
+
+# Create the configuration directories and empty secrets as a placeholder
+install -dm 0755 %{buildroot}%{_sysconfdir}/lemonade/conf.d
+touch %{buildroot}%{_sysconfdir}/lemonade/conf.d/zz-secrets.conf
 
 # Install tmpfiles.d config to create /var/lib/lemonade
 install -Dpm 0644 /dev/stdin %{buildroot}%{_tmpfilesdir}/%{name}.conf <<EOF
@@ -115,8 +125,12 @@ systemd-tmpfiles --create %{_tmpfilesdir}/%{name}.conf 2>/dev/null || :
 %dir %{_sysconfdir}/lemonade
 %dir %{_sysconfdir}/lemonade/conf.d
 %dir %attr(0755, lemonade, lemonade) %{_sharedstatedir}/lemonade
+
 # Restrict secrets file to be readable only by root and the lemonade service group
 %attr(0640, root, lemonade) %config(noreplace) %{_sysconfdir}/lemonade/conf.d/zz-secrets.conf
+
+# System service environment config
+%config(noreplace) %{_sysconfdir}/default/lemond
 
 %{_unitdir}/lemond.service
 %{_userunitdir}/lemond.service

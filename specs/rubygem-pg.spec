@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Pg is the Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
@@ -14,6 +14,9 @@ Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
 Patch0: rubygem-pg-1.3.0-remove-rpath.patch
+# Support json 3
+# https://github.com/ged/ruby-pg/pull/737
+Patch1: rubygem-pg-pr737-support-json3.patch
 # lib/pg/text_{de,en}coder.rb
 Requires: rubygem(json)
 # This is optional dependency now.
@@ -49,6 +52,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 %patch 0 -p1
+%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -119,6 +123,9 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Sun Sep 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.3-4
+- Apply upstream fix to support json 3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

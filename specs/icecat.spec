@@ -246,7 +246,7 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pulseaudio-libs-devel
 %endif
 
-%global llvm_suffix 20
+%global llvm_suffix 21
 #BuildRequires:  llvm
 #BuildRequires:  clang
 #BuildRequires:  clang-libs
@@ -565,7 +565,7 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 export RUSTFLAGS="-Cdebuginfo=0"
 %endif
 %if "%toolchain" == "clang"
-export RUSTFLAGS="$RUSTFLAGS -C target-cpu=native -C opt-level=3 -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+export RUSTFLAGS="$RUSTFLAGS -C target-cpu=native -C opt-level=3 -Clinker=clang-%{?llvm_suffix} -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
 %endif
 
 #  error "STL code can only be used with -fno-exceptions"
@@ -601,12 +601,7 @@ echo "export LLVM_OBJDUMP=llvm-objdump-%{?llvm_suffix}" >> .mozconfig
 
 # Require 4 GB of RAM per CPU core
 %global _smp_tasksize_proc 4096
-%if %{?less_optbuild}
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j1\"" >> .mozconfig
-%else
-echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
-%endif
-
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
 

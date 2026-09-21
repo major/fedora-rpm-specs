@@ -1,5 +1,5 @@
 # Ciruclar dependency with soupsieve which must be disabled at times
-%if 0%{?rhel} > 10
+%if 0%{?rhel} > 11
 %bcond soupsieve 0
 %bcond tests 0
 %else
@@ -9,7 +9,7 @@
 
 Name:           python-beautifulsoup4
 Version:        4.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -92,6 +92,9 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %{python3_sitelib}/bs4
 
 %changelog
+* Sun Sep 20 2026 Terje Røsten <terjeros@gmail.com> - 4.15.0.3
+- Enable soupsieve for rhel11 (rhbz#2536052)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

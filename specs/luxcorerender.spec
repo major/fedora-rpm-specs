@@ -19,6 +19,7 @@ ExclusiveArch:  x86_64
 BuildRequires:  cmake >= 3.29
 BuildRequires:  gcc-c++
 BuildRequires:  appstream
+BuildRequires:	blender
 BuildRequires:  blender-rpm-macros
 BuildRequires:  bison
 BuildRequires:  flex
@@ -80,7 +81,7 @@ spectral rendering, and advanced material modeling.
 Summary:        Blender 4.2+ integration extension
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
+Requires:       blender >= 4.2
 Obsoletes:      %{name}-blender < %{blend_version}
 Provides:       %{name}-blender = %{blend_version}-%{release}
 
