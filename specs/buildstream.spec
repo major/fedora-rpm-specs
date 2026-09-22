@@ -29,6 +29,7 @@ Requires:      patch
 Requires:      tar
 
 Recommends:    buildstream-plugins
+Recommends:    buildstream-plugins-community
 
 %description
 BuildStream is a Free Software tool for building/integrating software stacks.

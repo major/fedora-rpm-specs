@@ -4,7 +4,7 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.4.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -28,7 +28,6 @@ BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby
 # For %%check
-BuildRequires:  rubygem(childprocess)
 BuildRequires:  rubygem(contracts)
 BuildRequires:  rubygem(cucumber)
 BuildRequires:  rubygem(irb)
@@ -168,6 +167,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Mon Sep 21 2026 Vít Ondruch <vondruch@redhat.com> - 2.4.1-3
+- Drop `BR: rubygem(childprocess)`
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

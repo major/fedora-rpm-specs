@@ -1,5 +1,5 @@
 Name:           perl-Cache-FastMmap
-Version:        1.63
+Version:        1.65
 Release:        1%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,8 +26,9 @@ BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(Data::Dumper)
 # ExtUtils::testlib not used
 # lib not used
-# POSIX not used
 BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
@@ -96,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 18 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.65-1
+- 1.65 bump (rhbz#2535966)
+
 * Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.63-1
 - 1.63 bump (rhbz#2515967)
 

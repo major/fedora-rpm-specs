@@ -6,6 +6,10 @@ License:        LGPL-2.1-only
 URL:            https://github.com/groonga/groonga
 Source0:        %{url}/releases/download/v%{version}/groonga-%{version}.tar.gz
 Patch:          0001-lib-grn_arrow.hpp.patch
+# Add support for xsimd 14.0.0
+# https://github.com/groonga/groonga/pull/2706
+# removed .pre-commit-config.yaml changes (file not in the Source tarball)
+Patch:          2706.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

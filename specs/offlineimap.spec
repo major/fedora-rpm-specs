@@ -1,4 +1,4 @@
-%global baserelease 1
+%global baserelease 2
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -28,6 +28,7 @@ Patch3:         0003-PATCH-Sphinx-doc-compat.patch
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch
 Patch202:       https://github.com/jazzband/imaplib2/pull/6.patch
 Patch203:       https://github.com/jazzband/imaplib2/pull/15.patch
+Patch204:       0001-PATCH-Compatibility-layer-for-Python-3.15.patch
 
 BuildArch:      noarch
 
@@ -106,6 +107,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Mon Sep 21 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.3-2
+- Fix rhbz#2537264
+
 * Sun Sep 20 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.3-1
 - Upstream release
 

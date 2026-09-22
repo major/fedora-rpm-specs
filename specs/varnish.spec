@@ -4,7 +4,7 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 0a625649cd40af4b6c10be5e58a2e89a5e275baa
+%global abi 00d995548e7fc94e7530840ab90855b019de7bc4
 %global vrt 23.1
 
 # Package scripts are now external
@@ -31,8 +31,8 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 9.0.3
-Release: 3%{?dist}
+Version: 9.0.4
+Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: https://github.com/varnish/varnish/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ Source4: varnish.tmpfiles
 # Compatibility with openssl-4.0.0
 # https://github.com/varnish/varnish/issues/32
 Patch1:   varnish-9.0.1_openssl_4.0_asn1.patch
+
+# 32bit fixes, picked from vinyl cache upstream
+Patch2:   32bit_build_fixes.patch
 
 %if %{with bundled_jemalloc}
 # bundled jemalloc patch
@@ -157,6 +160,7 @@ Documentation files for %name
 %if 0%{?fedora} > 44 || 0%{?rhel} > 10
 %patch 1 -p1
 %endif
+%patch 2 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -427,6 +431,11 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Mon Sep 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.4-1
+- New upstream release, a security release
+- Includes fix for VSV00020 (CVE pending)
+- Added small patch from upstream for 32bit builds
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

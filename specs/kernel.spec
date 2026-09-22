@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc3.260918g5dd1818b15d9.36
+%define pkgrelease 0.rc4.38
 %define kversion 7
-%define tarfile_release 7.3-rc3-313-g5dd1818b15d9
+%define tarfile_release 7.3-rc4
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260918g5dd1818b15d9.36%{?buildid}%{?dist}
+%define specrelease 0.rc4.38%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4866,14 +4866,18 @@ fi\
 #
 #
 %changelog
-* Fri Sep 18 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-0.rc3.260918g5dd1818b15d9.36]
-- Keep the older NTFS3 module around as well for Fedora (Justin M. Forbes)
-
-* Fri Sep 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.5dd1818b15d9.36]
+* Mon Sep 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.38]
 - Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Sep 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.37]
+- Linux v7.3.0-0.rc4
+
+* Sat Sep 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.40288c9206c1.36]
+- Keep the older NTFS3 module around as well for Fedora (Justin M. Forbes)
+- Linux v7.3.0-0.rc3.40288c9206c1
 
 * Fri Sep 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.5dd1818b15d9.35]
 - redhat: add vfio selftests to kernel-modules-internal package (Rodolfo Vick) [RHEL-237560]

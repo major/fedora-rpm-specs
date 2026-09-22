@@ -3,47 +3,60 @@
 %global _without_bundled_deps 1
 
 # Build conditionals
-%bcond clang      0   # Use Clang compiler
+%bcond clang      0   # Enable Blender's Clang library integration
 %bcond draco      1   # Draco mesh compression support
 %bcond fribidi    1   # Fribidi support
 %bcond harfbuzz   1   # Harfbuzz support
-%bcond llvm       1   # Required for OSL support
+%bcond llvm       0   # Enable Blender's optional LLVM integration
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
 %bcond materialx  1   # MaterialX support
+%bcond meshoptimizer 0 # Meshoptimizer support (enable when available in the buildroot)
 %bcond nanovdb    1   # NanoVDB support
-%bcond ninja      1   # Use Ninja build system
 %bcond openvdb    1   # OpenVDB support
 %bcond vulkan     1   # Vulkan rendering support
 
-# Architecture-specific features
+%if %{with clang} && %{without llvm}
+%{error:--with clang requires --with llvm}
+%endif
+
+# Cycles are available on Fedora's supported 64-bit little-endian
+# architectures.
 %ifarch x86_64 aarch64 ppc64le
 %global cyclesflag ON
-    # x86_64/aarch64 specific features
-    %ifarch x86_64 aarch64
-    %bcond embree 1   # Intel Embree ray tracing
-    %bcond hidapi 1   # HIDAPI support
-
-    # x86_64 exclusive features
-    %ifarch x86_64
-    %bcond hip   1    # AMD HIP support
-    %bcond hiprt 0    # HIP ray tracing (requires Fedora 42+)
-    %bcond oidn  1    # OpenImageDenoise
-    %bcond oneapi 1   # Intel OneAPI support
-    %bcond openshading 1  # OpenShadingLanguage support
-    %bcond opgl  1    # OpenPGL
-    %global llvm_compat 20
-    %endif
-    %bcond usd   1    # Universal Scene Description
-%else
-    %bcond embree 0
-    %bcond hidapi 0
-    %bcond oidn  0
-    %bcond opgl  0
-    %bcond usd   0
-%endif
 %else
 %global cyclesflag OFF
+%endif
+
+# Embree, HIDAPI and USD are available on x86_64 and aarch64.
+%ifarch x86_64 aarch64
+%bcond embree 1
+%bcond hidapi 1
+%bcond usd 1
+%else
+%bcond embree 0
+%bcond hidapi 0
+%bcond usd 0
+%endif
+
+# GPU kernel generation and OSL/path-guiding support are currently x86_64-only.
+%ifarch x86_64
+%bcond hip 1
+%bcond hiprt 0
+%bcond oidn 1
+# Blender requires a SYCL compiler in addition to Level Zero. The Fedora
+# buildroot currently lacks the required SYCL toolchain.
+%bcond oneapi 0
+%bcond openshading 1
+%bcond opgl 1
+%global llvm_compat 20
+%else
+%bcond hip 0
+%bcond hiprt 0
+%bcond oidn 0
+%bcond oneapi 0
+%bcond openshading 0
+%bcond opgl 0
 %endif
 
 Name:           blender
@@ -58,13 +71,13 @@ Summary:        3D modeling, animation, rendering and post-production
 # Zlib License for Bullets
 # GPL-3.0-or-later for the whole project
 # https://www.blender.org/about/license/
-License:	%{shrink:
-		Apache-2.0 AND
-  		BSD-3-Clause AND
-  		GPL-2.0-or-later AND
-  		GPL-3.0-or-later AND
-  		Zlib
-		}
+License:        %{shrink:
+                Apache-2.0 AND
+                BSD-3-Clause AND
+                GPL-2.0-or-later AND
+                GPL-3.0-or-later AND
+                Zlib
+                }
 URL:            https://www.blender.org
 
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
@@ -74,28 +87,31 @@ Source1:        %{name}-macros-source
 # Backport support for FFmpeg 9
 Patch0:         https://github.com/blender/blender/commit/e3c92c22817dc0310a460c22f6b1e8e397517e3b.patch#/blender-ffmpeg9.patch
 
+# versions.cmake pins the libraries used for Blender's official precompiled
+# dependency bundle. Those pins are tested versions, not general minimums for
+# system libraries. Version constraints below are limited to requirements that
+# Blender 5.2's CMake files enforce directly, plus its embedded-Python ABI
+# baseline.
+# https://projects.blender.org/blender/blender/src/branch/blender-v5.2-release/build_files/build_environment/cmake/versions.cmake
+# https://projects.blender.org/blender/blender/src/branch/blender-v5.2-release/CMakeLists.txt
+
 # Build requirements
-BuildRequires:  boost-devel
-BuildRequires:  ccache
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.21
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 14
 BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  libharu-devel
-BuildRequires:  subversion-devel
 
 # Conditional build deps
 %if %{with clang}
-BuildRequires:  clang%{?llvm_compat}-devel
+BuildRequires:  clang%{?llvm_compat}-devel >= 17
 %endif
 %if %{with llvm}
 BuildRequires:  llvm%{?llvm_compat}-devel
 %endif
-%if %{with ninja}
 BuildRequires:  ninja-build
-%endif
 
 # System libraries
 BuildRequires:  mold
@@ -104,6 +120,7 @@ BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(epoxy) >= 1.5.10
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(fmt)
+BuildRequires:  glog-devel
 BuildRequires:  pkgconfig(gmp)
 %if %{with hidapi}
 BuildRequires:  pkgconfig(hidapi-hidraw)
@@ -113,7 +130,7 @@ BuildRequires:  pkgconfig(libpcre2-32)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
-BuildRequires:  pkgconfig(python3) >= 3.7
+BuildRequires:  pkgconfig(python3) >= 3.13
 %if %{with vulkan}
 BuildRequires:  pkgconfig(shaderc)
 BuildRequires:  pkgconfig(vulkan)
@@ -229,11 +246,15 @@ BuildRequires:  pkgconfig(libzstd)
 # 3D modeling stuff
 BuildRequires:  cmake(ceres)
 BuildRequires:  flexiblas-devel
+%if %{with draco}
+BuildRequires:  cmake(draco)
+BuildRequires:  draco-static
+%endif
 %if %{with embree}
-BuildRequires:  embree-devel
+BuildRequires:  embree-devel >= 4.0.0
 %endif
 %if %{with manifold}
-BuildRequires:	pkgconfig(manifold)
+BuildRequires:  pkgconfig(manifold)
 BuildRequires:  polyclipping2-devel
 %endif
 %if %{with materialx}
@@ -241,13 +262,16 @@ BuildRequires:  cmake(materialx)
 BuildRequires:  materialx-data
 BuildRequires:  python3-materialx
 %endif
+%if %{with meshoptimizer}
+BuildRequires:  cmake(meshoptimizer)
+%endif
 BuildRequires:  metis-devel
 BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
 # Use oslc compiler
 BuildRequires:  OpenImageIO-plugin-osl
-BuildRequires:  openshadinglanguage-common-headers >= 1.12.6.2
-BuildRequires:  pkgconfig(oslcomp)
+BuildRequires:  openshadinglanguage-common-headers >= 1.13.4
+BuildRequires:  pkgconfig(oslcomp) >= 1.13.4
 %endif
 %if %{with oidn}
 BuildRequires:  cmake(OpenImageDenoise)
@@ -292,8 +316,8 @@ BuildRequires:  pkgconfig(openjph)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(thorvg-1)
 BuildRequires:  pkgconfig(vpx)
-# OpenColorIO 2 and up required
-BuildRequires:  cmake(OpenColorIO) > 1
+# Blender 5.2 explicitly requires OpenColorIO 2.0 or newer.
+BuildRequires:  cmake(OpenColorIO) >= 2.0.0
 BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(OpenImageIO) >= 2.5.0.0
@@ -306,7 +330,7 @@ BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  pkgconfig(ao)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freealut)
-BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 1.1.0
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(opus)
@@ -334,7 +358,7 @@ BuildRequires:  libappstream-glib
 %if %{with hiprt}
 BuildRequires:  hiprt-devel
 %endif
-BuildRequires:	hipcc
+BuildRequires:  hipcc
 BuildRequires:  rocm-core
 BuildRequires:  rocm-device-libs
 BuildRequires:  rocm-hip-devel
@@ -356,7 +380,7 @@ Provides:       blender(ABI) = %{blender_api}
 # Starting from 2.90, Blender supports only 64-bits architectures
 # Starting from 5.0.0, Blender dropped big endian support impacting s390x arch
 # https://projects.blender.org/blender/blender/commit/bc80ef136e8af0a355d234205ed6c7b0acaa84ab
-ExcludeArch:	%{ix86} %{arm} s390x
+ExcludeArch:    %{ix86} %{arm} s390x
 
 %description
 Blender is the essential software solution you need for 3D, from modeling,
@@ -389,83 +413,98 @@ sed -i 's/CLOG_TRACE(&LOG, log_message\.c_str());/CLOG_TRACE(\&LOG, "%s", log_me
 
 %build
 %if %{with hip}
-export HIP_PATH=`hipconfig -p`
-export HIP_CLANG_PATH=`hipconfig -l`
+export HIP_PATH=$(hipconfig -p)
+export HIP_CLANG_PATH=$(hipconfig -l)
 %endif
 
+# Non-portable installs do not install Blender's CPU-check helper. Blender's
+# legacy FindGflags module conflicts with the gflags state imported by Ceres on
+# Fedora, so use Blender's bundled gflags as Fedora's package does. Ceres still
+# uses the system gflags library through its own imported target.
 %cmake \
-%if %{with ninja}
-    -G Ninja \
-%endif
     -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DPYTHON_VERSION=%{python3_version} \
-    -DWITH_COMPILER_CCACHE=ON \
+    -DWITH_COMPILER_CCACHE=OFF \
+    -DWITH_CLANG=%{with clang} \
     -DWITH_CYCLES=%{cyclesflag} \
-    -DWITH_CYCLES_EMBREE=%{?with_embree:ON}%{!?with_embree:OFF} \
+    -DWITH_CYCLES_EMBREE=%{with embree} \
+    -DWITH_CYCLES_DEVICE_CUDA=OFF \
+    -DWITH_CYCLES_DEVICE_OPTIX=OFF \
+    -DWITH_CYCLES_CUDA_BINARIES=OFF \
+    -DWITH_CYCLES_DEVICE_HIP=%{with hip} \
+    -DWITH_CYCLES_DEVICE_HIPRT=%{with hiprt} \
+    -DWITH_CYCLES_HIP_BINARIES=%{with hip} \
+    -DWITH_CYCLES_DEVICE_ONEAPI=%{with oneapi} \
+    -DWITH_CYCLES_ONEAPI_BINARIES=%{with oneapi} \
+    -DWITH_CYCLES_OSL=%{with openshading} \
+    -DWITH_CYCLES_PATH_GUIDING=%{with opgl} \
+    -DWITH_DRACO=%{with draco} \
+    -DWITH_CPU_CHECK=OFF \
     -DWITH_INSTALL_PORTABLE=OFF \
+    -DWITH_LLVM=%{with llvm} \
+    -DWITH_MANIFOLD=%{with manifold} \
+    -DWITH_MESHOPTIMIZER=%{with meshoptimizer} \
+    -DWITH_NANOVDB=%{with nanovdb} \
+    -DWITH_OPENIMAGEDENOISE=%{with oidn} \
+    -DWITH_OPENVDB=%{with openvdb} \
+    -DWITH_OPENVDB_BLOSC=%{with openvdb} \
     -DWITH_PYTHON_INSTALL=OFF \
-%if %{with fribidi}
-    -DWITH_FRIBIDI=ON \
-%endif
-%if %{with harfbuzz}
-    -DWITH_HARFBUZZ=ON \
-%endif
-%if %{with manpage}
-    -DWITH_DOC_MANPAGE=ON \
-%endif
-%if %{with materialx}
-    -DWITH_MATERIALX=ON \
-%else
-    -DWITH_MATERIALX=OFF \
-%endif
+    -DWITH_STRICT_BUILD_OPTIONS=ON \
+    -DWITH_SYSTEM_AUDASPACE=OFF \
+    -DWITH_SYSTEM_BULLET=OFF \
+    -DWITH_SYSTEM_GFLAGS=OFF \
+    -DWITH_SYSTEM_GLOG=ON \
+    -DWITH_VULKAN_BACKEND=%{with vulkan} \
+    -DWITH_DOC_MANPAGE=%{with manpage} \
+    -DWITH_FRIBIDI=%{with fribidi} \
+    -DWITH_HARFBUZZ=%{with harfbuzz} \
+    -DWITH_MATERIALX=%{with materialx} \
 %if %{with openshading}
     -DOSL_COMPILER=%{_bindir}/oslc \
 %endif
 %if %{with usd}
+    -DWITH_USD=ON \
     -DUSD_LIBRARY=%{_libdir}/libusd_ms.so \
 %else
     -DWITH_USD=OFF \
 %endif
     -D_ffmpeg_INCLUDE_DIR=$(pkg-config --variable=includedir libavformat) \
+%if %{with embree}
     -DEMBREE_INCLUDE_DIR=%{_includedir} \
+%endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
 %if %{with hip}
     -DHIP_HIPCC_EXECUTABLE=%{_bindir}/hipcc \
-    -DWITH_CYCLES_HIP_BINARIES=ON \
-%if %{with hiprt}
-    -DWITH_CYCLES_DEVICE_HIPRT=ON \
 %endif
-%endif
-%if %{with oneapi}
-    -DWITH_CYCLES_DEVICE_ONEAPI=ON \
-    -DWITH_CYCLES_ONEAPI_BINARIES=ON \
-%endif
-    -DWITH_OPENCOLLADA=OFF \
     -DWITH_LIBS_PRECOMPILED=OFF \
-    -DWITH_SYSTEM_GLOG=ON \
-    -W no-dev
+    -Wno-dev
 
 %cmake_build
 
 %install
 %cmake_install
 
-# Additional installs
+# RPM macros
 mkdir -p %{buildroot}%{macrosdir}
-install -pm 644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
-sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
+install -pm 0644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
+sed -i 's/@VERSION@/%{blender_api}/g' \
+    %{buildroot}%{macrosdir}/macros.%{name}
 
 # Metainfo
-install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
-          %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
+install -pm 0644 -D \
+    release/freedesktop/org.%{name}.Blender.metainfo.xml \
+    %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
-# Localization and cleanup
-%fdupes %{buildroot}%{_datadir}/%{name}/%{blender_api}/
+# Localization
 %find_lang %{name}
-find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec chmod 755 {} \;
-rm -rf %{buildroot}%{_docdir}/%{name}/*
+
+# Remove documentation installed by upstream; packaged from sources instead
+rm -rf %{buildroot}%{_docdir}/%{name}
+
+# Deduplicate installed Blender data
+%fdupes %{buildroot}%{_datadir}/%{name}/%{blender_api}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -476,10 +515,30 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Bl
 %doc release/text/readme.html
 %{_bindir}/%{name}{,-thumbnailer}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/%{name}/%{blender_api}/
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/%{blender_api}
+%dir %{_datadir}/%{name}/%{blender_api}/datafiles
+%{_datadir}/%{name}/%{blender_api}/datafiles/assets/
+%{_datadir}/%{name}/%{blender_api}/datafiles/colormanagement/
+%{_datadir}/%{name}/%{blender_api}/datafiles/fonts/
+%{_datadir}/%{name}/%{blender_api}/datafiles/icons/
+%dir %{_datadir}/%{name}/%{blender_api}/datafiles/locale
+%{_datadir}/%{name}/%{blender_api}/datafiles/locale/languages
+%dir %{_datadir}/%{name}/%{blender_api}/datafiles/locale/*/
+%dir %{_datadir}/%{name}/%{blender_api}/datafiles/locale/*/LC_MESSAGES/
+%{_datadir}/%{name}/%{blender_api}/datafiles/studiolights/
+%{_datadir}/%{name}/%{blender_api}/extensions/
+%{_datadir}/%{name}/%{blender_api}/scripts/
+%if %{with draco}
+# Blender deliberately installs the glTF Draco bridge below /usr/lib rather
+# than the multilib library directory.
+%{_prefix}/lib/%{name}/
+%endif
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_metainfodir}/org.%{name}.Blender.metainfo.xml
-%{?with_manpage:%{_mandir}/man1/%{name}.*}
+%if %{with manpage}
+%{_mandir}/man1/%{name}.1*
+%endif
 
 %files rpm-macros
 %{macrosdir}/macros.%{name}

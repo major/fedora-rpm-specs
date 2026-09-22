@@ -1,5 +1,5 @@
 Name:           python-trio
-Version:        0.33.0
+Version:        0.34.0
 Release:        %autorelease
 Summary:        A friendly Python library for async concurrency and I/O
 License:        Apache-2.0 OR MIT

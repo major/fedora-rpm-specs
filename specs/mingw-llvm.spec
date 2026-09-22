@@ -1,5 +1,10 @@
 %{?mingw_package_header}
 
+# FIXME Debuginfo is huuuuge
+# https://forge.fedoraproject.org/releng/tickets/issues/13282
+%bcond debuginfo 0
+
+%if %{with debuginfo}
 # Disable debuginfo subpackages and debugsource packages for now to use old logic
 %undefine _debugsource_packages
 %undefine _debuginfo_subpackages
@@ -7,13 +12,15 @@
 # Override the __debug_install_post argument as this package
 # contains both native as well as cross compiled binaries
 %global __debug_install_post %%{mingw_debug_install_post}; %{_bindir}/find-debuginfo.sh %{?_missing_build_ids_terminate_build:--strict-build-id} %{?_find_debuginfo_opts} "%{_builddir}/%%{?buildsubdir}" %{nil}
-
+%else
+%global debug_package %{nil}
+%endif
 
 %global pkgname llvm
-%global libver 22
+%global libver 23
 
 Name:          mingw-%{pkgname}
-Version:       22.1.3
+Version:       23.1.1
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 # i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
@@ -101,8 +108,9 @@ BuildArch:     noarch
 %description -n mingw64-%{pkgname}-tools
 LLVM for MinGW Windows - Runtime tools.
 
-
+%if %{with debuginfo}
 %{?mingw_debug_package}
+%endif
 
 
 %prep
@@ -112,11 +120,18 @@ LLVM for MinGW Windows - Runtime tools.
 %build
 pushd llvm
 
+%if %{with debuginfo}
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 # Technically only necessary on %%{arm}, but effectively needed everywhere to avoid the build failing due to
 #   The following noarch package built differently on different architectures: [...]
-mingw32_cflags_="%(echo %mingw32_cflags | sed 's/-g /-g1 /')"
-mingw64_cflags_="%(echo %mingw64_cflags | sed 's/-g /-g1 /')"
+mingw32_cflags_="%(echo %mingw32_cflags | sed 's/-g /-g0 /')"
+mingw64_cflags_="%(echo %mingw64_cflags | sed 's/-g /-g0 /')"
+cmakeBuildType="RelWithDebInfo"
+%else
+mingw32_cflags_="%(echo %mingw32_cflags | sed 's/-g / /')"
+mingw64_cflags_="%(echo %mingw64_cflags | sed 's/-g / /')"
+cmakeBuildType="Release"
+%endif
 export MINGW32_CFLAGS="${mingw32_cflags_}"
 export MINGW32_CXXFLAGS="${mingw32_cflags_}"
 export MINGW64_CFLAGS="${mingw64_cflags_}"
@@ -138,11 +153,11 @@ SET(CMAKE_EXE_LINKER_FLAGS "%{__global_ldflags}")
 EOF
 
 # Build native llvm-tblgen, rather than depending on version-matching native package
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_SKIP_RPATH=ON -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=OFF
+%cmake -DCMAKE_BUILD_TYPE=$cmakeBuildType -DCMAKE_SKIP_RPATH=ON -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=OFF
 %cmake_build --target llvm-tblgen
 
 CMAKE_OPTS="
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_BUILD_TYPE=$cmakeBuildType \
     -DLLVM_INCLUDE_DOCS=OFF \
      -DLLVM_INCLUDE_UTILS=OFF \
      -DLLVM_INCLUDE_EXAMPLES=OFF \
@@ -255,6 +270,9 @@ popd
 
 
 %changelog
+* Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 23.1.1-1
+- Update to 23.1.1
+
 * Mon Apr 13 2026 Sandro Mani <manisandro@gmail.com> - 22.1.3-1
 - Update to 22.1.3
 

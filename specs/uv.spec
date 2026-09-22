@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.15
+Version:        0.12.17
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -148,18 +148,30 @@ Source0:        %{url}/archive/%{version}/uv-%{version}.tar.gz
 # https://docs.astral.sh/uv/configuration/files
 Source1:        uv.toml
 
-# Downstream-only: Always find the system-wide uv executable
-# See discussion in
-#   Should uv.find_uv_bin() be able to find /usr/bin/uv?
-#   https://github.com/astral-sh/uv/issues/4451
-Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-# Downstream-only: revert source-code changes from “Upgrade BLAKE2 to unify
-# hashing digest versions”, https://github.com/astral-sh/uv/pull/20834. We do
-# not wish to upgrade rust-blake2 to a pre-release.
-Patch:          uv-0.12.1-revert-blake2-beta.patch
+# Downstream: Always find the system-wide uv executable
+# See discussion in “Should uv.find_uv_bin() be able to find /usr/bin/uv?”
+# https://github.com/astral-sh/uv/issues/4451
+Patch:          0001-Downstream-Always-find-the-system-wide-uv-executable.patch
+# Downstream: Revert source-code changes for pre-release blake2
+# Revert source changes from “Upgrade BLAKE2 to unify hashing digest versions”,
+# https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
+# rust-blake2 to a pre-release.
+Patch:          0002-Downstream-Revert-source-code-changes-for-pre-releas.patch
+# Downstream: Avoid embed-manifest dependency in uv crate build script
+# The embed-manifest dependency only does something useful when (cross-?)
+# compiling for Windows.
+Patch:          0003-Downstream-Avoid-embed-manifest-dependency-in-uv-cra.patch
+
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
+# Gate another test on `test-pypi`
+#
+# The test `upgrade_uses_extra_index_url_credentials_for_registry_source`
+# accesses PyPI and fails in offline builds, so gate it with the `test-pypi`
+# feature.
+# https://github.com/astral-sh/uv/pull/21883
+Patch:          %{url}/pull/21883.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license uv
@@ -429,11 +441,9 @@ rm --verbose crates/uv-trampoline-builder/trampolines/*.exe
 rm --recursive --verbose crates/uv-trampoline
 
 # Remove the dependency on embed-manifest, which applies only when (cross-?)
-# compiling for Windows.
+# compiling for Windows. This requires an accompanying source-code patch for
+# the uv crate’s build script.
 tomcli set Cargo.toml del workspace.dependencies.embed-manifest
-# We may have to do something more sophisticated if this build script ever
-# starts to do anything other than just embedding a manifest on Windows.
-rm --verbose crates/uv/build.rs
 tomcli set crates/uv/Cargo.toml del build-dependencies.embed-manifest
 # The embed-manifest depenency is also used in uv-trampoline, which we removed.
 
@@ -523,6 +533,13 @@ tomcli set crates/uv/Cargo.toml del dependencies.axoupdater
 tomcli set crates/uv/Cargo.toml del features.self-update
 tomcli set crates/uv/Cargo.toml del features.tracing-durations-export
 tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
+
+# Reproduce the patch we carry in the rust-rustls package:
+# - default to the ring crypto backend
+# - drop support for the aws-lc-rs crypto backend
+tomcli set Cargo.toml lists delitem workspace.dependencies.rustls.features \
+    '(aws_lc_rs|prefer-post-quantum)'
+tomcli set Cargo.toml append workspace.dependencies.rustls.features ring
 
 # We retain the following example even when there are currently no dependencies
 # that need to be adjusted.

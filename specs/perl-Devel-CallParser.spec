@@ -1,6 +1,6 @@
 Name:           perl-Devel-CallParser
-Version:        0.004
-Release:        3%{?dist}
+Version:        0.005
+Release:        1%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
@@ -77,6 +77,15 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Mon Sep 21 2026 Paul Howarth <paul@city-fan.org> - 0.005-1
+- Update to 0.005 (rhbz#2537324)
+  - Restore the pad name list as well as the pad when a keyword is declined on
+    ithreads perls: the first "my" of a block opened right after a declined
+    keyword (if, while, print, any of them) was never closed at the block's end
+    and masked an outer lexical of the same name for the rest of the scope;
+    loading the module broke "my" scoping in everything compiled after it
+    (t/blockscope.t)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-3
 - Perl 5.44 rebuild
 

@@ -1,14 +1,12 @@
 Name:           miriway
-Version:        26.06.1
-Release:        3%{?dist}
+Version:        26.08
+Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
 URL:            https://miriway.github.io/
 Source0:        https://github.com/Miriway/Miriway/archive/v%{version}/Miriway-%{version}.tar.gz
 Source1:        anaconda-initial-setup-run-gui-backend
-
-# Backports from upstream
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -77,9 +75,12 @@ compositor.
 sed -e "s/-Werror//g" -i CMakeLists.txt
 
 
-%build
+%conf
 # Deal with some goofiness around sysconfdir
 %cmake -GNinja -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} -DSDDM=ON
+
+
+%build
 %cmake_build
 
 
@@ -126,6 +127,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Mon Sep 21 2026 Neal Gompa <ngompa@fedoraproject.org> - 26.08-1
+- Update to 26.08
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.06.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

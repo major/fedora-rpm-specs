@@ -1,5 +1,5 @@
 Name:           uresourced
-Version:        0.5.4
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Dynamically allocate resources to the active user
 
@@ -32,6 +32,20 @@ to protect the sessions core processes (session.slice).
 %meson_install
 
 %post
+# before version 0.5.5 uresourced accidentally persisted the configuration,
+# remove the generated configuration files and directories.
+shopt -s nullglob
+
+for f in /etc/systemd/system.control/user{@*.service.d,-*.slice.d}/50-{CPUWeight,IOWeight,MemoryLow,MemoryMin}.conf; do
+  /usr/bin/rm -f "$f" || true
+done
+
+for d in /etc/systemd/system.control/user{@*.service.d,-*.slice.d}; do
+  /usr/bin/rmdir --ignore-fail-on-non-empty "$d"|| true
+done
+
+shopt -u nullglob
+
 %systemd_post uresourced.service
 %systemd_user_post uresourced.service
 

@@ -633,6 +633,11 @@ sed -i -e '/VERSION *"/d' ThirdParty/fast_float/CMakeLists.txt
 # Remove unused KWSys items
 find Utilities/KWSys/vtksys/ -name \*.[ch]\* | grep -vE '^Utilities/KWSys/vtksys/([a-z].*|Configure|SharedForward|Status|String\.hxx|Base64|CommandLineArguments|Directory|DynamicLoader|Encoding|FStream|FundamentalType|Glob|MD5|Process|RegularExpression|System|SystemInformation|SystemTools)(C|CXX|UNIX)?\.' | xargs rm
 
+# Convience header was removed in 8.x
+%if 0%{?fedora} > 45
+    sed -i '/#include <Standard_PrimitiveTypes.hxx>/d' IO/OCCT/vtkOCCTReader.cxx
+%endif
+
 # Save an unbuilt copy of the Example's sources for %doc
 mkdir vtk-examples
 cp -a Examples vtk-examples

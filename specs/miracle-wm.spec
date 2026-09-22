@@ -10,13 +10,16 @@
 %endif
 
 Name:           miracle-wm
-Version:        0.9.1
-Release:        2%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
 URL:            https://github.com/miracle-window-manager/miracle-wm
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Backport from upstream
+Patch0001:      https://github.com/miracle-wm-org/miracle-wm/commit/ae5afbf1f542ebfb17ad4901f8473ba4d05a489c.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -27,6 +30,8 @@ BuildRequires:  pkgconfig(mircommon) >= %{mirversion}
 BuildRequires:  pkgconfig(mirwayland) >= %{mirversion}
 BuildRequires:  pkgconfig(mirserver-internal) >= %{mirversion}
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4-layer-shell-0)
 BuildRequires:  pkgconfig(yaml-cpp)
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  cmake(nlohmann_json) >= 3.2.0
@@ -73,6 +78,12 @@ Requires:       %{name}-config-libs%{?_isa} = %{version}-%{release}
 This package provides the files to develop applications that use the
 libraries for manipulating the configuration of %{name}.
 
+%package debug-tools
+Summary:        Debugging tools for %{name}
+
+%description debug-tools
+This package provides additional tools useful for debugging %{name}.
+
 
 %prep
 %autosetup -S git_am
@@ -97,6 +108,9 @@ libraries for manipulating the configuration of %{name}.
 %{_bindir}/miracle-wm-session
 %{_bindir}/miraclemsg
 %{_libexecdir}/miracle-wm-*
+%if %{with wasm}
+%{_libdir}/miracle-wm/libmiracle-wm-plugins.so
+%endif
 %{_datarootdir}/miracle-wm/
 %{_datarootdir}/wayland-sessions/miracle-wm.desktop
 %{_userunitdir}/miracle-wm*
@@ -112,8 +126,15 @@ libraries for manipulating the configuration of %{name}.
 %{_libdir}/libmiracle-wm-c.so
 %{_libdir}/pkgconfig/miracle-wm-c.pc
 
+%files debug-tools
+%{_bindir}/miracle-wm-basic-error-reporter
+%{_bindir}/miracle-wm-debug-overlay
+
 
 %changelog
+* Mon Sep 21 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.11.0-1
+- Update to 0.11.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

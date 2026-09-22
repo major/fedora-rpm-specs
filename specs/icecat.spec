@@ -99,7 +99,8 @@ ExcludeArch: %{ix86} %{arm}
 %endif
 
 # Use clang?
-%bcond_without toolchain_clang
+# Currently broken with PGO enabled
+%bcond_with toolchain_clang
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -601,7 +602,11 @@ echo "export LLVM_OBJDUMP=llvm-objdump-%{?llvm_suffix}" >> .mozconfig
 
 # Require 4 GB of RAM per CPU core
 %global _smp_tasksize_proc 4096
+%if %{?less_optbuild}
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j1\"" >> .mozconfig
+%else
+echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
+%endif
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
 

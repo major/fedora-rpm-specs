@@ -58,6 +58,9 @@ Source2:        webkitgtk-keys.gpg
 # https://bugs.webkit.org/show_bug.cgi?id=312677
 Patch:          skia-s390x.patch
 
+# https://bugs.webkit.org/show_bug.cgi?id=322394
+Patch:          main-thread.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang

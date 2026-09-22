@@ -59,6 +59,7 @@
 %global with_libunwind 1
 %global with_lmsensors 1
 %global with_virtio    1
+%global with_vulkan_layers_anti_lag 1
 %endif
 
 %ifarch %{valgrind_arches}
@@ -442,7 +443,7 @@ rewrite_wrap_file rustc-hash
   -Dgallium-rusticl=true \
 %endif
   -Dvulkan-drivers=%{?vulkan_drivers} \
-  -Dvulkan-layers=device-select,anti-lag \
+  -Dvulkan-layers=device-select%{?with_vulkan_layers_anti_lag:,anti-lag} \
   -Dgles1=enabled \
   -Dgles2=enabled \
   -Dopengl=true \
@@ -692,8 +693,10 @@ ln -s libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 %{_datadir}/drirc.d/00-lavapipe-defaults.conf
 %{_libdir}/libVkLayer_MESA_device_select.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+%if 0%{?with_vulkan_layers_anti_lag}
 %{_libdir}/libVkLayer_MESA_anti_lag.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_anti_lag.json
+%endif
 %if 0%{?with_virtio}
 %{_libdir}/libvulkan_virtio.so
 %{_datadir}/vulkan/icd.d/virtio_icd.*.json

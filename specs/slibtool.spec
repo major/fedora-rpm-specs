@@ -13,7 +13,7 @@
 
 Name:           slibtool
 Version:        0.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A skinny libtool implementation, written in C
 
 License:        MIT
@@ -63,6 +63,10 @@ to use functionality provided by %{name}.
 %prep
 %autosetup -p1
 
+# This no-op script uses /dev/null in its shebang, which makes rpm tack "Requires(/dev/null)"
+# onto the resulting package, which makes it impossible to install.
+sed -e 's|^#!/dev/null$|#!/bin/sh|' -i aux/ltmain.sh
+
 
 %build
 %configure --enable-shared --all-shared \
@@ -98,6 +102,9 @@ to use functionality provided by %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Sep 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.4-2
+- Fix installability - replace /dev/null shebang
+
 * Mon Aug 31 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.4-1
 - Update to v0.7.4 (rhbz#1876730)
 

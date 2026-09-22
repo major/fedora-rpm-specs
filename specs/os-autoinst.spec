@@ -176,13 +176,15 @@ rm -f t/99-full-stack.t
 rm xt/00-tidy.t tools/tidyall
 # Remove test relying on a git working copy
 rm xt/30-make.t
-%ifarch aarch64 s390x
+%ifarch aarch64 s390x riscv64
 # https://progress.opensuse.org/issues/194359
 # https://progress.opensuse.org/issues/199940
 rm -f t/28-signalblocker.t
 # https://progress.opensuse.org/issues/200949
 rm -f t/26-video_stream.t
 %endif
+# increase timeouts for slow build environments
+sed -i 's/timeout 8/timeout 60/' t/44-scripts.t
 
 %build
 %cmake \
@@ -213,8 +215,8 @@ export CI=1
 export OPENQA_TEST_TIMEOUT_SCALE_CI=20
 # We don't want fatal warnings during package building
 export PERL_TEST_WARNINGS_ONLY_REPORT_WARNINGS=1
-# the default is 4 seconds, ppc64le is often a bit slower
-export EXPECTED_ISOTOVIDEO_RUNTIME=8
+# the default is 4 seconds, increase for slow build environments
+export EXPECTED_ISOTOVIDEO_RUNTIME=60
 # Enable verbose test output as we can not store test artifacts within package
 # build environments in case of needing to investigate failures
 export PROVE_ARGS="--timer -v --nocolor"

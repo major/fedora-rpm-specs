@@ -4,12 +4,12 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       5.2.0
-Release:       9%{?dist}
+Version:       6.0.0.post1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2
+License:       LGPL-2.1-or-later
 URL:           https://github.com/chardet/chardet
 Source0:       %{pypi_source}
 
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Mon Sep 21 2026 Sandro Mani <manisandro@gmail.com> - 6.0.0.post1-1
+- Update to 6.0.0.post1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

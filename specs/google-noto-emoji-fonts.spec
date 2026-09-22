@@ -5,8 +5,8 @@ BuildRequires:  fontpackages-devel
 
 # Version as found in the font file:
 # $ otfinfo -v static/NotoEmoji-Regular.ttf
-# Version 3.005
-Version: 3.005
+# Version 3.006
+Version: 3.006
 Release: %autorelease
 Epoch:   1
 URL:     https://github.com/googlefonts/noto-emoji
@@ -33,9 +33,9 @@ This package provides the Google “Noto Emoji” Black-and-White emoji variable
 # Download Noto_Emoji.zip from https://fonts.google.com/selection?query=Noto+emoji
 # and check the font versions in the .zip file for example with:
 # $ otfinfo -v NotoEmoji-VariableFont_wght.ttf
-# Version 3.005
+# Version 3.006
 # $ otfinfo -v static/NotoEmoji-Regular.ttf
-# Version 3.005
+# Version 3.006
 # then rename the .zip file:
 Source0: Noto_Emoji-%{version}.zip
 

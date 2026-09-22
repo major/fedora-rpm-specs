@@ -29,7 +29,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.68
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -491,8 +491,7 @@ sed 's,@HTTPDBIN@,%{_sbindir}/httpd,g' $RPM_SOURCE_DIR/apachectl.sh \
 
 # Create cache directory
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/httpd \
-         $RPM_BUILD_ROOT%{_localstatedir}/cache/httpd/proxy \
-         $RPM_BUILD_ROOT%{_localstatedir}/cache/httpd/ssl
+         $RPM_BUILD_ROOT%{_localstatedir}/cache/httpd/proxy
 
 # Make the MMN accessible to module packages
 echo %{mmnisa} > $RPM_BUILD_ROOT%{_includedir}/httpd/.mmn
@@ -828,7 +827,6 @@ exit $rv
 %{_libdir}/httpd/modules/mod_ssl.so
 %config(noreplace) %{_sysconfdir}/httpd/conf.modules.d/00-ssl.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/ssl.conf
-%attr(0700,apache,root) %dir %{_localstatedir}/cache/httpd/ssl
 %{_unitdir}/httpd-init.service
 %{_libexecdir}/httpd-ssl-pass-dialog
 %{_libexecdir}/httpd-ssl-gencerts
@@ -864,6 +862,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Mon Sep 21 2026 Luboš Uhliarik <luhliari@redhat.com> - 2.4.68-8
+- Remove the ssl directory from /var/cache/httpd
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.68-7
 - Rebuilt for libxml-2.5.4
 

@@ -48,6 +48,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+freetype-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+freetype-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "freetype" feature of the "%{crate}" crate.
+
+%files       -n %{name}+freetype-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+freetype-rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+freetype-rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "freetype-rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+freetype-rs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+glib-devel
 Summary:        %{summary}
 BuildArch:      noarch

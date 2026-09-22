@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:           glm
-Version:        1.0.1
-Release:        7%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
@@ -15,7 +15,6 @@ Patch1:         glm-1.0.1-without-werror.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.14
-BuildRequires: make
 
 %description
 GLM is a C++ library for doing mathematics operations
@@ -83,13 +82,12 @@ sed -i 's/\r//' glm/detail/setup.hpp
 sed -i 's/\r//' glm/simd/platform.h
 sed -i 's/\r//' test/core/core_setup_message.cpp
 
-%patch 0 -p1
-%patch 1 -p1
+%autopatch -p1
+
 
 %build
-
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
-%{cmake} -DGLM_TEST_ENABLE=ON -DGLM_BUILD_LIBRARY=OFF -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir}/cmake
+%{cmake} -DGLM_BUILD_LIBRARY=OFF -DGLM_BUILD_TESTS=ON -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir}/cmake
 %cmake_build
 
 %check
@@ -120,6 +118,9 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 %doc doc/api/
 
 %changelog
+* Mon Sep 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
+- Update to v1.0.3 (rhbz#2404136)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

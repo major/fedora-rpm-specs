@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.035
+Version:        1.036
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,12 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Sep 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.036-1
+- 1.036 bump (rhbz#2536979)
+- Fix CVE-2026-93019 (TGA large color map size interpreted as negative)
+- Fix CVE-2026-93018 (paletted images: out-of-range color index returned
+  uninitialized palette data)
+
 * Wed Aug 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.035-1
 - 1.035 bump (rhbz#2519477)
 - Fix CVE-2026-73639 (PNG buffer overflow)

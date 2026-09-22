@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.11
-Release: 6%{?dist}
+Version: 9.12
+Release: 1%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -19,33 +19,26 @@ Source106:  coreutils-colorls.csh
 # do not make coreutils-single depend on /usr/bin/coreutils
 %global __requires_exclude ^%{_bindir}/coreutils$
 
-# disable the test-lock gnulib test prone to deadlock
-Patch100: coreutils-8.26-test-lock.patch
-
 # require_selinux_(): use selinuxenabled(8) if available
-Patch101: coreutils-8.26-selinuxenable.patch
+Patch100: coreutils-8.26-selinuxenable.patch
 
 # downstream changes to default DIR_COLORS
-Patch102: coreutils-8.32-DIR_COLORS.patch
+Patch101: coreutils-8.32-DIR_COLORS.patch
 
 # use python3 in tests
-Patch103: coreutils-python3.patch
+Patch102: coreutils-python3.patch
 
 # df --direct
-Patch104: coreutils-df-direct.patch
+Patch103: coreutils-df-direct.patch
 
-# unexpand: fix heap overflows
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=b60a159fdc5bfcf9988d3a4cb6f53abe8ad5d35d
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=4ade9cf77f6c7b39e3fdc5ce97a778f8e294694c
-Patch200: coreutils-9.11-unexpand-heap-overflows.patch
+# env,printenv: only quote when outputting to terminals
+# https://github.com/coreutils/coreutils/commit/782a1e5b
+Patch200: coreutils-9.12-env-quote-fix.patch
 
-# CVE-2026-56391 - uniq: fix read overrun with -w
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=d64e35a8a4c0e4608321433e0d84d917e4e36371
-Patch201: coreutils-9.11-CVE-2026-56391.patch
-
-# tee: fix infinite loop when write returns EAGAIN and short write errors
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=0d6fcb99d691d920961938e61c43478566ef626e
-Patch202: coreutils-9.11-tee-infinite-loop.patch
+# regex: check for glibc greek locale bug 20381
+# fixes test failure with glibc-2.44.9000-2
+# https://github.com/coreutils/gnulib/commit/acc1d91810
+Patch201: coreutils-9.12-gnulib-regex-greek.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -79,6 +72,8 @@ BuildRequires: gnupg2
 # test-only dependencies
 BuildRequires: acl
 BuildRequires: gdb
+BuildRequires: glibc-all-langpacks
+BuildRequires: glibc-gconv-extra
 BuildRequires: perl-interpreter
 BuildRequires: perl(FileHandle)
 BuildRequires: perl(POSIX)
@@ -91,11 +86,6 @@ BuildRequires: valgrind
 %if 0%{?fedora}
 BuildRequires: perl(Expect)
 BuildRequires: python3-inotify
-%endif
-
-%if 23 < 0%{?fedora} || 7 < 0%{?rhel}
-# needed by i18n test-cases
-BuildRequires: glibc-all-langpacks
 %endif
 
 Requires: %{name}-common = %{version}-%{release}
@@ -170,12 +160,6 @@ find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 # FIXME: Force a newer gettext version to workaround `autoreconf -i` errors
 # with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
 sed -i "s/0.19.2/$(rpm -q --queryformat '%%{VERSION}\n' gettext-devel)/" bootstrap.conf configure.ac
-
-%if 0%{?rhel}
-# Temporarily disable test-getaddrinfo from gnulib because it malfunctions in
-# the environment used to bootstrap RHEL.
-sed -i 's/TESTS += test-getaddrinfo//' gnulib-tests/gnulib.mk
-%endif
 
 autoreconf -fiv
 
@@ -298,6 +282,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Sep 21 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.12-1
+- rebase to the latest upstream release (rhbz#2533195)
+
 * Mon Aug 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.11-6
 - CVE-2026-56391 - uniq: fix read overrun with -w (rhbz#2507449)
 - tee: fix infinite loop when write returns EAGAIN and short write errors

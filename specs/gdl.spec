@@ -41,6 +41,9 @@ Source1:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
+Patch2:         0001-Enable-float-to-unsigned-conversion-workaround-on-RI.patch
+Patch3:         0002-Use-signed-cast-for-float-to-BYTE-conversion-on-non-.patch
+Patch4:         0003-Remove-test_rounding-from-ARM_XFAIL_TESTS.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -136,7 +139,12 @@ Provides:       %{name}-runtime = %{version}-%{release}
 rm -rf src/antlr src/libdivide.h
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
+# Normalize CRLF line endings to LF so patches apply cleanly
+find . -name '*.cpp' -o -name '*.hpp' -o -name '*.h' | xargs sed -i 's/\r$//'
 %patch -P1 -p1 -b .antlr
+%patch -P2 -p1 -b .riscv-unsigned
+%patch -P3 -p1 -b .riscv-byte
+%patch -P4 -p1 -b .xfail-rounding
 
 pushd src
 for f in *.g

@@ -66,7 +66,7 @@ fitting and segmentation.
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       pkgconfig
-Requires:       eigen3-devel, qhull-devel, flann-devel, vtk-devel
+Requires:       eigen3-devel, flann-devel, libusbx-devel, qhull-devel, vtk-devel
 %ifarch x86_64
 Requires:       openni-devel
 %endif

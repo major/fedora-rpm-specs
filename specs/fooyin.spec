@@ -1,5 +1,5 @@
 Name:           fooyin
-Version:        0.12.6
+Version:        0.13.0
 Release:        %autorelease
 Summary:        A customizable music player
 
@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(libopenmpt)
 BuildRequires:  pkgconfig(libgme)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libebur128)
+BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(soundtouch)
 BuildRequires:  pkgconfig(soxr)
 BuildRequires:  cmake(GTest)

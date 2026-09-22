@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Parsing and returning cookies in Ruby
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD	
@@ -16,6 +16,10 @@ Patch1: cookiejar2-pr2-fix-regexp-3rd-arg.patch
 # Ref: https://github.com/ruby/uri/issues/125
 # Use URI::RFC2396_Parser explicitly for ruby34 (uri 1.0.1)
 Patch2: cookiejar-uri-1_0-use-rfc2396_regexp-explicitly.patch
+# Skip some test with json 3: creating class with create_additions option is removed
+# with json 3
+# ref: https://github.com/ruby/json/blob/v3.0.0/CHANGES.md?plain=1#L12
+Patch3: cookiejar-0.3.3-skip-test-with-json3.patch
 BuildRequires: rubygem(rspec)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel 
@@ -42,6 +46,7 @@ Documentation for %{name}
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -77,6 +82,9 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/Gemfile
 
 %changelog
+* Mon Sep 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-22
+- Skip some tests which depends on options removed on json 3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

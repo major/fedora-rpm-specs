@@ -1,19 +1,20 @@
 Name:           qmmp-plugin-pack
-Version:        2.3.1
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://qmmp.ylsoftware.com/plugins.php
-Source0:        %{url}/files/{%name}/2.3/%{name}-%{version}.tar.bz2
+Source0:        %{url}/files/{%name}/2.4/%{name}-%{version}.tar.bz2
 
-BuildRequires:  qmmp-devel >= 2.3.0
+BuildRequires:  qmmp-devel >= 2.4.0
 BuildRequires:  cmake
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  libmms-devel
 BuildRequires:  libmodplug-devel
 BuildRequires:  libsamplerate-devel
+BuildRequires:  libtimidity-devel
 BuildRequires:  mpv-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  taglib-devel
@@ -34,6 +35,7 @@ Plugin pack is a set of extra plugins for Qmmp.
  * ModPlug - module player with use of the libmodplug library
  * Mpv - video playback using mpv
  * SRC - sample rate converter
+ * TiMidity - MIDI player with use of the libTiMidity library
  * Ytb - audio playback from YouTube (uses yt-dlp or youtube-dl)
 
 
@@ -64,6 +66,10 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Thu Sep 17 2026 Karel Volný <kvolny@redhat.com> 2.4.0-1
+- new version 2.4.0 (rhbz#2515505)
+- add timidity plugin
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.3.1-3
 - Rebuilt for FFmpeg 9
 

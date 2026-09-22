@@ -75,6 +75,13 @@ uname -a
 
 autoreconf -vfi
 %configure %{?disable_thp} %{?lg_page} --enable-prof
+
+# https://github.com/jemalloc/jemalloc/issues/2753
+%ifarch s390x
+rm test/unit/retained.c
+sed -i '/test\/unit\/retained\.c/d' Makefile
+%endif
+
 make %{?_smp_mflags}
 
 
@@ -110,6 +117,9 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Mon Sep 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.4.0-2
+- Skipped a check to make s390x build, upstream issue 2753
+
 * Thu Sep 17 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.4.0-1
 - New upstream release
 - Moved jeprof to main package, closing rhbz#2157051

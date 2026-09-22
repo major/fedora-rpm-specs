@@ -14,9 +14,12 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Update input dependency from 0.8 to 0.9:
 #   https://github.com/AsahiLinux/tiny-dfr/pull/83
+# * Bump gtk-rs dependencies from 0.20 to 0.22:
+#   https://github.com/AsahiLinux/tiny-dfr/pull/85
 Patch:          tiny-dfr-fix-metadata.diff
 # * Add a battery state fallback for all arches
 Patch2:         https://github.com/AsahiLinux/tiny-dfr/pull/81.patch
+Patch3:         0001-Port-to-librsvg-rebind-0.3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

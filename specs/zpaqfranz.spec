@@ -7,6 +7,9 @@
 %bcond_with jit
 %endif
 
+# Add "mount" subcommand for mounting archives via FUSE
+%bcond_without fuse
+
 # Prefer GCC compiler
 %global toolchain gcc
 %bcond_with toolchain_clang
@@ -14,8 +17,8 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        64.8
-Release:        2%{?dist}
+Version:        65.1
+Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -57,6 +60,10 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 ## Not used at build time and not in any binary package
 # man/zpaqfranz.1:      LicenseRef-Fedora-Public-Domain (built from man/zpaqfranz.pod)
 # zpaqfranz.cpp parts from cURL: curl
+# zpaqfranz.cpp parts claimed to be from libfuse (LGPL-2.1-only AND GPL-2-only)
+#       but there is no such code
+# zpaqfranz.cpp parts clamimed for be from WinFsp (GPL-3-only WITH an exception)
+#       but there is no such code
 # ZSFX/libzpaq.cpp: MIT AND Unlicense AND LicenseRef-Fedora-Public-Domain
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
@@ -67,12 +74,15 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-64.6-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-65.1-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
 BuildRequires:  libssh-devel
 BuildRequires:  perl-podlators
+%if %{with fuse}
+BuildRequires:  pkgconfig(fuse3)
+%endif
 # rpm-build for elfdeps tool
 BuildRequires:  rpm-build
 BuildRequires:  sed
@@ -85,6 +95,10 @@ Provides:       bundled(libdivsufsort-lite) = 2.00
 # Unknown version of lz4 is bundeld to libzpaq.cpp from
 # <https://github.com/lz4/lz4>.
 Provides:       bundled(lz4)
+%if %{with fuse}
+# libfuse.so executes /usr/bin/fusermount3
+Recommends:     fuse3
+%endif
 # For cURL library with SFTP support. It's dlopened at run-time as an optional
 # feature.
 Recommends:     libcurl-full
@@ -139,7 +153,15 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
     -DBIG \
 %endif
     -DSFTP \
-    zpaqfranz.cpp %{?__global_ldflags} -ldl -pthread -o zpaqfranz
+%if %{with fuse}
+    -DZPAQMOUNT \
+    $(pkg-config --cflags fuse3) \
+%endif
+    zpaqfranz.cpp %{?__global_ldflags} -ldl -pthread \
+%if %{with fuse}
+    $(pkg-config --libs fuse3) \
+%endif
+    -o zpaqfranz
 pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
 
 %check
@@ -160,6 +182,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Mon Sep 21 2026 Petr Pisar <ppisar@redhat.com> - 1:65.1-1
+- 65.1 bump
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:64.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

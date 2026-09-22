@@ -2,8 +2,8 @@
 %global pypi_version %{version}
 
 Name:           python-%{pypi_name}
-Version:        17.0.1
-Release:        4%{?dist}
+Version:        18.0.0
+Release:        2%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -53,12 +53,24 @@ is data from Unicode 13.0.0.
 %check
 %pyproject_check_import
 
-%pytest -v
+# These tests read version-matched data files that upstream expects to be
+# fetched from unicode.org by tests/download_test_data.py; the sdist does not
+# ship them and the buildroot has no network access.
+%pytest -v \
+    --deselect tests/test_unicodedata2.py::NormalizationTest::test_normalization \
+    --deselect tests/test_unicodedata2.py::NormalizationTest::test_normalization_3_2_0 \
+    --deselect tests/test_unicodedata2.py::UnicodeFunctionsTest::test_all_names
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Mon Sep 21 2026 Parag Nemade <pnemade AT redhat DOT com> - 18.0.0-2
+- Skip tests that require downloading Unicode data files
+
+* Mon Sep 21 2026 Parag Nemade <pnemade AT redhat DOT com> - 18.0.0-1
+- Update to 18.0.0 version (#2536999)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 17.0.1-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

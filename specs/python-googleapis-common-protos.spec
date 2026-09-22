@@ -21,6 +21,10 @@ Patch:          %{url}/pull/212.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# grpc does not work with new protobuf and uses protobuf3
+# we have to use python3-protobuf3 otherwise this happens
+# https://bugzilla.redhat.com/show_bug.cgi?id=2530520
+BuildRequires:  python3-protobuf3
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)

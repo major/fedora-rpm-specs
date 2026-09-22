@@ -11,7 +11,7 @@
 %endif
 
 Name:           perl-Alien-Build
-Version:        2.87
+Version:        2.88
 Release:        1%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
@@ -22,7 +22,7 @@ URL:            https://metacpan.org/release/Alien-Build
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-%{version}.tar.gz
 # Support only the most advanced pkgconfig implementation,
 # the files are deleted in prep section
-Patch0:         Alien-Build-2.83-Remove-redundant-pkgconfig-implementations.patch
+Patch0:         Alien-Build-2.88-Remove-redundant-pkgconfig-implementations.patch
 # Support only the most common SHA implementation,
 # the files are deleted in prep section
 Patch1:         Alien-Build-2.65-Remove-redundant-SHA-implementations.patch
@@ -473,6 +473,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 21 2026 Petr Pisar <ppisar@redhat.com> - 2.88-1
+- 2.88 bump
+
 * Tue Sep 15 2026 Petr Pisar <ppisar@redhat.com> - 2.87-1
 - 2.87 bump
 

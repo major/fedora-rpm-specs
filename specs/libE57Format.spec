@@ -1,7 +1,7 @@
-%global test_data_version 0614c4812c1455aab38afa7abd63dc492eeebf60
+%global test_data_version 24201531715945ba7d49af6dfcb8e07b6b9b6b7f
 
 Name:           libE57Format
-Version:        3.4.0
+Version:        3.4.1
 Release:        %autorelease
 Summary:        Library for reading & writing the E57 file format
 

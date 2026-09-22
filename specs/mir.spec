@@ -23,19 +23,20 @@
 %endif
 
 # Track various library soversions
-%global miral_sover 7
-%global mircommon_sover 12
-%global mircore_sover 2
-%global miroil_sover 9
-%global mirplatform_sover 34
-%global mirserver_sover 67
-%global mirwayland_sover 6
-%global mirplatformgraphics_sover 23
-%global mirplatforminput_sover 10
+%global miral_sover 8
+%global mircommon_sover 13
+%global mircore_sover 3
+%global miroil_sover 10
+%global mirplatform_sover 35
+%global mirserver_sover 68
+%global mirwayland_sover 7
+%global mirplatformgraphics_sover 24
+%global mirplatforminput_sover 11
+
 
 Name:           mir
-Version:        2.28.0
-Release:        4%{?dist}
+Version:        2.29.0
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -223,8 +224,10 @@ Mir unit and integration tests.
 %autosetup -S git_am
 %cargo_prep
 
+
 %generate_buildrequires
 %cargo_generate_buildrequires
+
 
 %conf
 %cmake	-GNinja \
@@ -327,6 +330,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Mon Sep 21 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.29.0-1
+- Update to 2.29.0
+
 * Thu Sep 03 2026 Fabio Valentini <decathorpe@gmail.com> - 2.28.0-4
 - Rebuild with latest Rust compiler to enable SHSTK support
 

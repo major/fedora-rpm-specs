@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.12.15
+Version:        0.12.17
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -21,7 +21,6 @@ Summary:        The uv build backend
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
 # 0BSD OR MIT OR Apache-2.0
-# Apache-2.0
 # Apache-2.0 OR BSD-2-Clause
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
@@ -44,7 +43,6 @@ License:        %{shrink:
 %global extra_crate_licenses %{shrink:
     0BSD AND
     (0BSD OR Apache-2.0 OR MIT) AND
-    Apache-2.0 AND
     (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
     (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND

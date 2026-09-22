@@ -75,14 +75,10 @@ Summary:        %{summary}
 %autosetup -p1 -n fastmcp-%{version}
 
 # Relax authlib version
-tomcli set pyproject.toml arrays replace "project.dependencies" "authlib.*" "authlib >=1.4.0,<1.6.5"
+tomcli set pyproject.toml arrays replace "project.dependencies" "authlib.*" "authlib >=1.4.0"
 
-# Relax pyperclip version
-tomcli set pyproject.toml arrays replace "project.dependencies" "pyperclip.*" "pyperclip >=1.8.2,<1.9.0"
-tomcli set pyproject.toml arrays replace "dependency-groups.dev" "pyperclip.*" "pyperclip >=1.8.2,<1.9.0"
-
-# Adjust version of fakeredis
-tomcli set pyproject.toml arrays replace "project.dependencies" "fakeredis.*" "fakeredis[lua]>=2.35"
+# Remove upper bound on version of fakeredis
+tomcli set pyproject.toml arrays replace "project.dependencies" "fakeredis.*" "fakeredis[lua]"
 
 %generate_buildrequires
 %pyproject_buildrequires -x %{extras}

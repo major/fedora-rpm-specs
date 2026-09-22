@@ -1,8 +1,11 @@
 %global __remake_config 1
 
+%global mainver 4.37.0
+%global subver  1.1
+
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-Version:	4.36.0
+Version:	%{mainver}_%{subver}
 Release:	%autorelease
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
@@ -10,7 +13,15 @@ Release:	%autorelease
 # ext_libs/sqlite/ has the SQLite blessing.
 License:	(GPL-2.0-only OR Linux-OpenIB) AND BSD-3-Clause AND MIT AND blessing
 Url:		https://github.com/Mellanox/%{name}
-Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
+# The upstream tarball at
+# https://github.com/Mellanox/%{name}/releases/download/v%{mainver}-%{subver}/%{name}-%{mainver}-%{subver}.tar.gz
+# ships prebuilt, non-free libdpa_elf blobs (mlxdpa/dpa_elf/*/libdpa_elf).
+# Removing them in %%prep is not enough, since they would still be present
+# in the source RPM. Instead, Source0 is a repacked version with the
+# blobs stripped out by generate-tarball.sh, distinguished from the
+# pristine upstream tarball by a ".free" suffix.
+Source0:	%{name}-%{mainver}-%{subver}.free.tar.gz
+Source1:	generate-tarball.sh
 
 # jsoncpp and muParser are not in the RHEL/ELN content set, so we must
 # bundle them there. On Fedora, use the system libraries.
@@ -70,7 +81,7 @@ This package contains firmware update tool, vpd dump and register dump tools
 for network adapters based on Mellanox Technologies chips.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{mainver}
 
 # Make sure system libraries are used where possible. Delete the bundled
 # sources. Exception: Keep */Makefile.am files because Makefiles are listed
@@ -87,7 +98,7 @@ find . -type f -perm /a+x \( -name '*.[ch]' -o -name '*.cpp' \) -exec chmod a-x 
 %if %{__remake_config}
 autoreconf -fiv
 %endif
-%configure --enable-fw-mgr --enable-openssl --enable-adb-generic-tools
+%configure --enable-fw-mgr --enable-openssl --enable-adb-generic-tools --enable-cables
 %make_build
 
 %install

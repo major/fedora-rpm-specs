@@ -2,8 +2,8 @@
 # renamed from lxsession-lite. Original review at
 # https://bugzilla.redhat.com/show_bug.cgi?id=442268
 
-%global		use_release	0
-%global		use_gitbare	1
+%global		use_release	1
+%global		use_gitbare	0
 
 %if 0%{?use_gitbare} < 1
 # force
@@ -31,11 +31,11 @@
 %endif
 
 
-%global		main_version	0.5.6
+%global		main_version	0.5.7
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		5%{?dist}
+Release:		1%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -50,7 +50,7 @@ URL:			http://lxde.sourceforge.net/
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
 %if 0%{?use_release}
-Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:		https://github.com/lxde/releases/raw/refs/heads/master/releases/%{name}-%{version}.tar.xz
 %endif
 #http://sourceforge.net/p/lxde/bugs/760/
 Patch1000:		lxsession-0.5.2-git9f8d6133-reload.patch
@@ -199,10 +199,6 @@ sed -i.warn Makefile.am \
 git commit -m "Enable warnings" -a
 %endif
 
-# Don't start in Xfce to avoid bugs like
-# https://bugzilla.redhat.com/show_bug.cgi?id=616730
-sed -i 's/^NotShowIn=GNOME;KDE;/NotShowIn=GNOME;KDE;XFCE;/g' data/lxpolkit.desktop.in.in
-
 # fix icon in desktop file
 # http://lxde.git.sourceforge.net/git/gitweb.cgi?p=lxde/lxsession-edit;a=commit;h=3789a96691eadac9b8f3bf3034a97645860bd138
 sed -i 's/^Icon=xfwm4/Icon=session-properties/g' data/lxsession-edit.desktop.in
@@ -244,6 +240,7 @@ mkdir -p -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/xdg/%{name}
 
 desktop-file-install \
     --remove-key="NotShowIn" \
+    --remove-only-show-in="OPENBOX" \
     --add-only-show-in="LXDE;" \
     --delete-original \
     --dir=%{buildroot}%{_sysconfdir}/xdg/autostart \
@@ -312,6 +309,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Mon Sep 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.7-1
+- 0.5.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

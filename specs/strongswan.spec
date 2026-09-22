@@ -10,7 +10,7 @@
 %global forgeurl0 https://github.com/strongswan/strongswan
 
 Name:           strongswan
-Version:        6.0.7
+Version:        6.1.0
 Release:        %autorelease
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,7 +25,8 @@ Source3:        tmpfiles-strongswan.conf
 Patch1:         strongswan-5.9.7-error-no-format.patch
 # Use isolation to prevent pip attempting to download during build
 Patch2:         strongswan-6.0.2-no-isolation.patch
-Patch3:         strongswan-mldsa.patch
+# needs updating for 6.1.0
+# Patch3:         strongswan-mldsa.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

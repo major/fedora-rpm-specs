@@ -1,16 +1,20 @@
 Name:           milkytracker
-Version:        1.03.00
-Release:        16%{?dist}
+%global rtld_name org.milkytracker.MilkyTracker
+
+Version:        1.06
+Release:        1%{?dist}
 Summary:        Module tracker software for creating music
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:        GPL-3.0-or-later
+License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            http://www.milkytracker.org/
 Source0:        https://github.com/milkytracker/MilkyTracker/archive/v%{version}.tar.gz
-Patch0:         milkytracker-1.03.00-c++11.patch
-Patch1:         milkytracker-1.03.00-no-cmp0004.patch
 
-BuildRequires: make
+# Remove workaround for bug when using SDL2 <2.0.5
+Patch1:         milkytracker-1.06-no-cmp0004.patch
+
+# Milkytracker 1.06's CMakeLists.txt set "1.05.01" as the version
+Patch2:         milkytracker-1.06-VER_FULL.patch
+
 BuildRequires:  SDL2-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -25,16 +29,17 @@ BuildRequires:  jack-audio-connection-kit-devel
 MilkyTracker is an application for creating music in the .MOD and .XM formats.
 Its goal is to be free replacement for the popular Fasttracker II software.
 
+
 %prep
-%setup -q -n MilkyTracker-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n MilkyTracker-%{version}
 
 find . -regex '.*\.\(cpp\|h\|inl\)' -print0 | xargs -0 chmod 644
+
 
 %build
 %{cmake} -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
+
 
 %install
 %cmake_install
@@ -45,27 +50,37 @@ find . -regex '.*\.\(cpp\|h\|inl\)' -print0 | xargs -0 chmod 644
 mv -v %{buildroot}%{_docdir}/MilkyTracker %{buildroot}%{_pkgdocdir}
 
 # copy the icon
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-cp -p resources/pictures/carton.png %{buildroot}%{_datadir}/pixmaps/milkytracker.png
+install -m 755 -d %{buildroot}%{_datadir}/pixmaps
+install -m 644 -p resources/pictures/carton.png %{buildroot}%{_datadir}/pixmaps/milkytracker.png
 
 # copy the desktop file
-desktop-file-install \
-  --dir=%{buildroot}%{_datadir}/applications/ resources/milkytracker.desktop
+install -m 755 -d %{buildroot}%{_datadir}/applications
+install -m 644 -p resources/milkytracker.desktop %{buildroot}%{_datadir}/applications/
 
 # copy the appdata file
-install -v -D -m 644 resources/milkytracker.appdata %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+install -m 755 -d %{buildroot}%{_metainfodir}
+install -m 644 -p %{_vpath_builddir}/resources/org.milkytracker.MilkyTracker.metainfo.xml %{buildroot}%{_metainfodir}
+
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/milkytracker.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rtld_name}.metainfo.xml
 
 
 %files
+%{_bindir}/milkycli
 %{_bindir}/milkytracker
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/%{rtld_name}.metainfo.xml
 %{_datadir}/pixmaps/milkytracker.png
 %{_datadir}/%{name}
 %{_pkgdocdir}
 
+
 %changelog
+* Mon Sep 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.06-1
+- Update to v1.06
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.00-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

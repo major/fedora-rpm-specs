@@ -19,6 +19,9 @@ Summary:        A message protocol for representing results and other informatio
 License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
+# Reported: https://github.com/cucumber/messages/issues/528
+# Support ruby-json 3 change
+Patch0:         cucumber-messages-34.2.1-ruby-support-json3.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

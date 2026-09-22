@@ -1,14 +1,14 @@
 %global forgeurl    https://github.com/amule-org/amule
-%global commit      3cfd01faabed0757ba7b506e50f033c9cfd560e7
+%global commit      909d304d993ee07df6c6f6acf501a6d791d53666
 
 Name:           amule
-Version:        3.0.1
+Version:        3.1.0
 Summary:        File sharing client compatible with eDonkey
 License:        GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
+Release:        %autorelease
 
 %forgemeta
 
-Release:        %autorelease
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -54,25 +54,20 @@ It is useful for servers which don't have Xorg.
 %prep
 %forgesetup
 
-# Fedora provides picojson as a header-only system library. Ensure the
-# compiler cannot select the bundled copy and use the system header instead.
-sed -i 's/#include "picojson\.h"/#include <picojson.h>/' \
-    src/libwebcommon/Jwt.cpp \
-    src/webapi/Api.cpp
-rm -f src/libwebcommon/picojson.h
-
 %build
 %cmake \
+    -DUSE_SYSTEM_PICOJSON=ON \
     -DBUILD_MONOLITHIC=YES \
     -DBUILD_DAEMON=YES \
+    -DBUILD_REMOTEGUI=YES \
     -DBUILD_WEBSERVER=NO \
     -DBUILD_AMULEAPI=YES \
     -DBUILD_AMULECMD=YES \
     -DBUILD_ALCC=YES \
-    -DBUILD_BFD=NO \
-    -DBUILD_VERSION_CHECK=NO \
     -DBUILD_ED2K=YES \
     -DENABLE_NLS=YES \
+    -DENABLE_BFD=NO \
+    -DENABLE_VERSION_CHECK=NO \
     -DENABLE_IP2COUNTRY=YES
 
 %cmake_build
@@ -89,6 +84,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE.md
 desktop-file-validate \
     %{buildroot}%{_datadir}/applications/org.amule.aMule.desktop
 
+desktop-file-validate \
+    %{buildroot}%{_datadir}/applications/org.amule.aMule.gui.desktop
+
 appstream-util validate-relax --nonet \
     %{buildroot}%{_metainfodir}/org.amule.aMule.metainfo.xml
 
@@ -96,12 +94,19 @@ appstream-util validate-relax --nonet \
 %license LICENSE.md
 %doc %{_docdir}/%{name}
 %{_bindir}/amule
+%{_bindir}/amulegui
 %{_datadir}/applications/org.amule.aMule.desktop
+%{_datadir}/applications/org.amule.aMule.gui.desktop
 %{_datadir}/metainfo/org.amule.aMule.metainfo.xml
 %{_datadir}/pixmaps/org.amule.aMule.png
 %{_datadir}/icons/hicolor/128x128/apps/org.amule.aMule.png
 %{_datadir}/icons/hicolor/256x256/apps/org.amule.aMule.png
+%{_datadir}/icons/hicolor/scalable/apps/org.amule.aMule.svg
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-emule-collection.png
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-emule-collection.svg
+%{_datadir}/mime/packages/org.amule.aMule.xml
 %{_mandir}/man1/amule.1.*
+%{_mandir}/man1/amulegui.1.*
 %dir %{_datadir}/amule
 %{_datadir}/amule/skins
 

@@ -8,6 +8,7 @@ VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
 Source2:        69100FFB90E87A320DF8643CBEC39009E8321A61.gpg
+Patch:          0001-fix-prevent-stack-buffer-overflow-in-SIP-attribute-f.patch
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libpcap)

@@ -1,13 +1,12 @@
 %global debug_package %{nil}
 Name:   ibus-speech-to-text
-Version:  1.0.0
+Version:  1.1.0
 Release:  1%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
 ExcludeArch: %{ix86}
 License:  GPL-3.0-or-later
 URL:     https://github.com/Manish7093/IBus-Speech-To-Text
 Source0: https://github.com/Manish7093/IBus-Speech-To-Text/archive/refs/tags/%{version}.tar.gz
-Patch0: ibus-stt-1_0_0-backend-notify.patch
 
 BuildRequires:  meson
 BuildRequires:  python3-devel
@@ -27,6 +26,7 @@ Requires:    gst-vosk >= 0.3.0
 Requires:    gtk4
 Requires:    dconf
 Requires:    python3-pywhispercpp
+Requires:    libadwaita
 
 %description
 A speech to text IBus Input Method using VOSK and WhisperCpp
@@ -34,7 +34,6 @@ which can be used to dictate text to any application
 
 %prep
 %setup -q -n IBus-Speech-To-Text-%{version}
-%patch 0 -p1 -b .orig~
 
 %build
 %meson
@@ -57,6 +56,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Tue Sep 22 2026 Manish Tiwari <matiwari@redhat.com> 1.1.0-1
+- Update to release 1.1.0
+- https://github.com/Manish7093/IBus-Speech-To-Text/releases/tag/1.1.0
+
 * Fri Aug 7 2026 Manish Tiwari <matiwari@redhat.com> 1.0.0-1
 - Update to release 1.0.0
 - Add ibus-stt-1_0_0-backend-notify.patch to support backend notification dialog

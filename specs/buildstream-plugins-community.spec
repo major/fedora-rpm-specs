@@ -1,16 +1,20 @@
+%global srcname buildstream_plugins_community
+
 Name:          buildstream-plugins-community
 Summary:       A collection of community-maintained plugins for BuildStream
 License:       LGPL-2.0-or-later AND MIT AND Apache-2.0
 URL:           https://gitlab.com/BuildStream/buildstream-plugins-community
 
 BuildArch:     noarch
-# Match buildstream: the test suite imports buildstream._testing, and the
-# binary already Requires buildstream. Core is unavailable on these arches.
-ExcludeArch:   %{ix86} s390x
+# Tests import buildstream._testing._sourcetests, which only has
+# Alpine images for x86-64 and aarch64:
+# https://github.com/apache/buildstream/blob/master/src/buildstream/_testing/_sourcetests/project/project.conf
+# https://github.com/apache/buildstream/blob/master/src/buildstream/_testing/_sourcetests/project/elements/base/base-alpine.bst
+ExclusiveArch: x86_64 aarch64
 
 Version:       2.3.3
 Release:       %autorelease
-Source0:       https://files.pythonhosted.org/packages/source/b/buildstream-plugins-community/buildstream_plugins_community-%{version}.tar.gz
+Source0:       %{pypi_source}
 # https://gitlab.com/BuildStream/buildstream-plugins-community/-/merge_requests/487
 Patch:         no_click.patch
 
@@ -21,14 +25,25 @@ BuildRequires: git
 Requires:      buildstream >= %{version}
 
 Requires:      quilt
+# Plugin extras: +extra metapackages so the extras generator
+# supplies Python deps from upstream METADATA. Recommend them
+# from the base package. See:
+# - https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_extras
+# - https://fedoraproject.org/wiki/Changes/PythonExtras
+Recommends:    %{name}+pypi
+Recommends:    %{name}+deb
+Recommends:    %{name}+httpfetcher
+Recommends:    %{name}+git
+Recommends:    %{name}+cargo2
 
 
 %description
 A collection of community-maintained plugins for BuildStream
 
+%pyproject_extras_subpkg -n %{name} cargo2 deb git httpfetcher pypi
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -g test -x httpfetcher,pypi,deb,git,cargo2
@@ -38,7 +53,7 @@ A collection of community-maintained plugins for BuildStream
 
 %install
 %pyproject_install
-%pyproject_save_files -l buildstream_plugins_community
+%pyproject_save_files -l %{srcname}
 
 %check
 # Ignore test that require network access
