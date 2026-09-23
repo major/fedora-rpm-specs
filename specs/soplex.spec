@@ -11,7 +11,7 @@
 %global giturl  https://github.com/scipopt/soplex
 
 Name:           soplex
-Version:        8.0.3
+Version:        8.1.0
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
@@ -29,8 +29,6 @@ Patch:          %{name}-unbundle-zstr.patch
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildSystem:    cmake
-BuildOption(conf): -DMPFR:BOOL=ON
-BuildOption(conf): -DPAPILO:BOOL=ON
 BuildOption(conf): -DQUADMATH:BOOL=%{?quadmath:ON}%{!?quadmath:OFF}
 
 BuildRequires:  boost-devel
@@ -160,7 +158,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libsoplex
 %doc CHANGELOG README.md
 %license LICENSE src/soplex/external/fmt/LICENSE.rst
-%{_libdir}/libsoplex.so.8.0{,.*}
+%{_libdir}/libsoplex.so.8.1{,.*}
 
 %files -n libsoplex-devel
 %{_includedir}/soplex*

@@ -395,6 +395,9 @@ TEST_ARGS=(
     --exclude-test-name test_fts_search
     --exclude-test-name test_download_deps_camoufox_release_selection # canoufox is only aarc64/x86
 %endif
+%ifarch riscv64
+    --exclude-test-name test_download_deps_camoufox_release_selection # canoufox is only aarc64/x86
+%endif
 )
 
 CALIBRE_PY3_PORT=1 \

@@ -1,6 +1,6 @@
 Name:           libslirp
-Version:        4.9.3
-Release:        2%{?dist}
+Version:        4.9.5
+Release:        1%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
 # check the SPDX tags in source files for details
@@ -52,6 +52,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Sep 22 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.5-1
+- new version, rhbz#2524215
+- Fix CVE-2026-95508: heap buffer overflow in DHCPv6/TFTP response builders on small interface MTU
+- Fix CVE-2026-95507: out-of-bounds read in NC-SI OEM response handler discloses host memory to guest
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

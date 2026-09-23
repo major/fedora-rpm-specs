@@ -1,7 +1,7 @@
 %bcond_with check
 
 Name:		mongoose
-Version:	7.21
+Version:	7.23
 
 %global forgeurl https://github.com/cesanta/mongoose
 # upstream use tag without the v prefix

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A common interface to multiple JSON libraries
 License: MIT
 URL: https://github.com/intridea/multi_json
@@ -14,6 +14,24 @@ Source1: %{gem_name}-%{version}-spec.tar.gz
 # Fix RSpec 3.11.0+ compatibility due to improved kwargs handling.
 # https://github.com/intridea/multi_json/pull/205
 Patch0: rubygem-mulit_json-1.15.0-RSpec-3.11.0-distinguishes-between-hashed-and-Ruby-3.patch
+# https://github.com/intridea/multi_json/pull/220/changes/14d85ad2fc91fcb070ea519011b7c1858d8297c2
+# https://github.com/sferik/multi_json/commit/2a947b518dd4bc156f663957f1bb3d48ad450acf
+# Stop referencing JSON::PRETTY_STATE_PROTOTYPE: it is deprecated in json 2.11 and
+# is removed in json 3
+Patch1: multi_json-1.15.0-pr220-remove-json-pretty_state_prototype.patch
+# Stop setting defaults for deprecated option for json, which is removed in json 3
+# https://github.com/sferik/multi_json/pull/13
+Patch2: multi_json-1.15.0-pr13-stop-setting-deprecated-default.patch
+# Support json 3
+# From https://github.com/sferik/multi_json/pull/67
+# Note that there is some large refactoring in json_common.rb -> json_gem.rb: see
+# https://github.com/sferik/multi_json/pull/11
+Patch3: multi_json-1.15.0-pr67-support-json3.patch
+# Additional fix to support json 3:
+# The file in the patch (and the test in the patch) no longer exists in multi_json 1.21,
+# so this patch won't be upstreamed: removed in the following commit
+# https://github.com/sferik/multi_json/commit/34beaca1531adb72cf2d8574ca1073877e88efe2
+Patch4: multi_json-1.15.0-support-json3-misc.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel >= 1.3.5
 BuildRequires: ruby
@@ -38,11 +56,12 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b 1
-
-pushd %{_builddir}
+%setup -q -n %{gem_name}-%{version} -a 1
 %patch 0 -p1
-popd
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -58,8 +77,8 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
+cp -a spec .%{gem_instdir}
 pushd .%{gem_instdir}
-ln -s %{_builddir}/spec spec
 
 # json_pures is not available on Fedora.
 sed -i "/require.*json\/pure/ s/^/#/" spec/multi_json_spec.rb
@@ -96,6 +115,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Sep 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-15
+- Backport upstream change to support json 3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

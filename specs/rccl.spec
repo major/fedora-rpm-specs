@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -94,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Communication Collectives Library
 
@@ -107,9 +107,6 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%if %{without preview}
-Patch1:         0001-rccl-multiple-nccl_domain.patch
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}
@@ -330,6 +327,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Wed Aug 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Build with roctracer
 

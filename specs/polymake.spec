@@ -54,6 +54,8 @@ Patch:          %{name}-sympol.patch
 Patch:          %{name}-mongoc2.patch
 # Adapt to perl 5.44
 Patch:          %{name}-perl-5.44.patch
+# Link with zlib-ng instead of zlib when building with SCIP
+Patch:          %{name}-scip.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.

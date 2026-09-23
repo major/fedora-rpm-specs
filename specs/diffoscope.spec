@@ -63,7 +63,7 @@ ExcludeArch:  %{ix86}
     python3-defusedxml
     python3-h5py
     python3-jsondiff
-    python3-magic
+    python3-file-magic
     python3-pdfminer
     python3-tlsh
     python3-libarchive-c
@@ -135,6 +135,10 @@ was formerly known as "debbindiff".
 %prep
 %autosetup -p1
 sed -i '1{\@/usr/bin/env@d}' diffoscope/main.py
+
+# We use the python3-file-magic module instead of the python3-magic module.
+# They conflict, and python3-file-magic is required by rpmlint.
+sed -i s/python-magic/file-magic/ setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -23,13 +23,7 @@
 %global upstreamname rocr-runtime
 
 %bcond_with preview
-%if %{with preview}
-%global rocm_release 7.14
-%else
-%global rocm_release 7.14
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
-%endif
-
+%global rocm_release 10.0
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 
@@ -251,6 +245,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

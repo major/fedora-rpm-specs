@@ -1,5 +1,5 @@
 Name:           gnome-mahjongg
-Version:        49.1.1
+Version:        51.1
 Release:        %autorelease
 Summary:        GNOME Mahjongg game
 

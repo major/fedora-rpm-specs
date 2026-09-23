@@ -212,49 +212,43 @@ export CFLAGS="${CFLAGS} -DOPENSSL_NO_MD2"
 
 pushd openldap-%{version}
 %configure \
-	--enable-debug \
-	--enable-dynamic \
-	--enable-versioning \
-	\
-	--enable-dynacl \
-	--enable-cleartext \
-	--enable-crypt \
-	--enable-lmpasswd \
-	--enable-spasswd \
-	--enable-modules \
-	--enable-perl \
-	--enable-rewrite \
-	--enable-rlookups \
+        --enable-debug \
+        --enable-dynamic \
+        --enable-versioning \
+        \
+        --enable-dynacl \
+        --enable-cleartext \
+        --enable-crypt \
+        --enable-spasswd \
+        --enable-modules \
+        --enable-perl \
+        --enable-rlookups \
 %if %{with servers}
-	--enable-slapi \
+        --enable-slapi \
 %if %{with argon2}
         --enable-argon2 \
 %endif
 %endif
-	--disable-slp \
-	\
-	--enable-backends=mod \
-	--enable-bdb=yes \
-	--enable-hdb=yes \
-	--enable-mdb=yes \
-	--enable-monitor=yes \
-	--disable-ndb \
-	--disable-sql \
-	--disable-wt \
-	\
-	--enable-overlays=mod \
-	\
-	--disable-static \
-	\
-	--enable-balancer=mod \
+        --disable-slp \
         \
-	--with-cyrus-sasl \
-	--without-fetch \
-	--with-threads \
-	--with-pic \
-	--with-gnu-ld \
-	\
-	--libexecdir=%{_libdir}
+        --enable-backends=mod \
+        --enable-mdb=yes \
+        --disable-sql \
+        --disable-wt \
+        \
+        --enable-overlays=mod \
+        \
+        --disable-static \
+        \
+        --enable-balancer=mod \
+        \
+        --with-cyrus-sasl \
+        --without-fetch \
+        --with-threads \
+        --with-pic \
+        --with-gnu-ld \
+        \
+        --libexecdir=%{_libdir}
 
 %make_build
 popd
@@ -281,7 +275,6 @@ pushd openldap-ppolicy-check-password-%{check_password_version}
 mv check_password.so check_password.so.%{check_password_version}
 ln -s check_password.so.%{check_password_version} %{buildroot}%{_libdir}/openldap/check_password.so
 install -m 755 check_password.so.%{check_password_version} %{buildroot}%{_libdir}/openldap/
-# install -m 644 README %{buildroot}%{_libdir}/openldap
 install -d -m 755 %{buildroot}%{_sysconfdir}/openldap
 cat > %{buildroot}%{_sysconfdir}/openldap/check_password.conf <<EOF
 # OpenLDAP pwdChecker library configuration
@@ -397,7 +390,7 @@ rm %{buildroot}%{_sysconfdir}/openldap/slapd.ldif
 mv %{buildroot}%{_sysconfdir}/openldap/schema/README README.schema
 
 # remove files which we don't want packaged
-rm %{buildroot}%{_libdir}/*.la  # because we do not want files in %{_libdir}/openldap/ removed, yet
+rm %{buildroot}%{_libdir}/*.la  # because we do not want files in %%{_libdir}/openldap/ removed, yet
 
 %ldconfig_scriptlets
 
@@ -605,7 +598,7 @@ exit 0
 - Rebase to version 2.6.10 (rhbz#2368103)
 
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.9-5
-- Drop call to %sysusers_create_compat
+- Drop call to %%sysusers_create_compat
 
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.6.9-4
 - Add explicit BR: libxcrypt-devel

@@ -29,9 +29,9 @@
 %global rocm_patch 0
 %global pkg_library_version 27
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
-%global pkg_library_version 26
+%global pkg_library_version 27
 %endif
 
 %global pkg_src therock-%{rocm_release}
@@ -81,7 +81,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    2%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -110,11 +110,6 @@ Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ve
 # Build amdsminic as a SHARED library with version properties
 # https://github.com/ROCm/rocm-systems/issues/4535
 Patch1:     0001-amdsmi-so-libamdsminic.patch
-%if %{without preview}
-# Remove esmi version check that doesn't work without git files in source tarball
-# https://github.com/ROCm/rocm-systems/issues/8761
-Patch2:     0001-amdsmi-remove-esmi-version-check.patch
-%endif
 
 ExclusiveArch: x86_64
 
@@ -352,6 +347,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Mon Aug 31 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - testing does not work without static
 

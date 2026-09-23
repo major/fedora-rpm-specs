@@ -6,7 +6,7 @@
 %global crate actix-rt
 
 Name:           rust-actix-rt
-Version:        2.13.0
+Version:        2.15.0
 Release:        %autorelease
 Summary:        Tokio-based single-threaded async runtime for the Actix ecosystem
 
@@ -71,6 +71,30 @@ This package contains library source intended for building other packages which
 use the "macros" feature of the "%{crate}" crate.
 
 %files       -n %{name}+macros-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+net-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+net-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "net" feature of the "%{crate}" crate.
+
+%files       -n %{name}+net-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+signal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+signal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "signal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+signal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

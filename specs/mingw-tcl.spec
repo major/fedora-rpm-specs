@@ -6,7 +6,7 @@
 
 Name:          mingw-tcl
 Version:       9.0.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows Tool Command Language, pronounced tickle
 
 License:       TCL
@@ -183,6 +183,9 @@ rm -rf %{buildroot}%{mingw64_mandir}/man1/ %{buildroot}%{mingw64_mandir}/man3/ %
 
 
 %changelog
+* Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 9.0.4-3
+- Fix unsubstituted configura variables in pc file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

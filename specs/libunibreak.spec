@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/adah1972/libunibreak
 
 Name:           libunibreak
-Version:        6.1
+Version:        8.0
 Release:        %autorelease
 Summary:        A Unicode line-breaking library
 # Upstream uses tags of the form `libunibreak_X_Y`
@@ -16,9 +16,9 @@ Source0:        %forgesource
 Source1:        libunibreak-test-data.tar.gz
 
 # don't download test data
-Patch:          offline_files.patch
+Patch0:         0000-offline-files.patch
 # remove unused var and other build fixes
-Patch:          remove_unused_var.patch
+Patch1:         0001-remove-unused-variable.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

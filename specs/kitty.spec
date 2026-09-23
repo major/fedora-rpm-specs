@@ -8,7 +8,7 @@
 %endif
 
 Name:           kitty
-Version:        0.47.1
+Version:        0.48.2
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -34,6 +34,18 @@ Source4:        go-vendor-tools.toml
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source5:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 Source6:        https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.tar.xz
+
+# Don't fail the test suite on DeprecationWarnings (downstream-only)
+Patch:          kitty-do-not-treat-DeprecationWarnings-as-errors-in-tests.patch
+
+# Python 3.15 forbids capturing groups in re.Scanner lexicon patterns
+# see https://github.com/python/cpython/issues/140797
+# https://github.com/kovidgoyal/kitty/pull/10491 rebased
+Patch:          10491.patch
+
+# tests: accept coreutils >= 9.12 shell-quoted env output in test_ssh_env_vars
+# https://github.com/kovidgoyal/kitty/pull/10513 rebased
+Patch:          10513.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,17 +1,18 @@
 Name:		libbs2b
 Version:	3.1.0
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Bauer stereophonic-to-binaural DSP library
 
 License:	MIT
 URL:		http://bs2b.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/bs2b/libbs2b/%{version}/%{name}-%{version}.tar.lzma
 Patch0:		libbs2b-security.patch
+Patch1:		libbs2b-dont-clip-samples.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libsndfile-devel
-BuildRequires: make
+BuildRequires:	make
 # the dependency (required for bs2bconvert) gets added automatically
 #Requires:	libsndfile
 
@@ -34,8 +35,7 @@ stereophonic-to-binaural (bs2b) DSP effect library.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
+%autosetup -p1
 
 # automake 1.12 removes support for lzma, it has been replaced by xz
 # it is safe to substitute xz for lzma to get rid of autoreconf errors,
@@ -50,7 +50,7 @@ autoreconf -vif
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Removing_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags} V=1
+%make_build
 
 
 %install
@@ -59,7 +59,8 @@ rm %{buildroot}/%{_libdir}/%{name}.la
 
 
 %files
-%doc AUTHORS COPYING ChangeLog README
+%doc AUTHORS ChangeLog README
+%license COPYING
 %{_bindir}/*
 %{_libdir}/%{name}.so.*
 
@@ -74,6 +75,11 @@ rm %{buildroot}/%{_libdir}/%{name}.la
 
 
 %changelog
+* Tue Sep 22 2026 Karel Volný <kvolny@redhat.com> 3.1.0-39
+- add patch not to clip floating point samples (rhbz#2261991)
+- use %%autosetup for patching and %%make_build
+- mark COPYING as %%license
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

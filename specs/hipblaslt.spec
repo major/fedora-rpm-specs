@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -448,6 +448,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Wed Aug 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

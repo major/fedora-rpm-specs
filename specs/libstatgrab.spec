@@ -11,7 +11,7 @@
 Name:           libstatgrab
 Epoch:          1
 Version:        0.92.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A library that provides cross platform access to statistics of the system
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstatgrab/libstatgrab
@@ -193,6 +193,9 @@ make check
 %{_mandir}/*/*statgrab*
 
 %changelog
+* Fri Sep 18 2026 Martin Osvald <mosvald@redhat.com> - 1:0.92.1-18
+- Rebuilt for log4cplus 2.2.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

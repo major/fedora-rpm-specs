@@ -27,7 +27,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.5.3
+%global package_version 1.5.4
 
 %global gocryptfs_version 2.6.1
 %global squashfuse_version 0.6.2
@@ -36,7 +36,7 @@
 %global squashfs_tools_version 4.7.5
 %ifnarch ppc64le s390x riscv64
 %if !(0%{?fedora} >= 45 || 0%{?rhel} >= 11) || "%{_arch}" != "x86_64"
-# On fedora45 x86_64 building PRoot dies with
+# On fedora45 & epel11 x86_64 building PRoot dies with
 # "relocation truncated to fit: R_X86_64_PC32 against `.rodata'"
 # See https://github.com/proot-me/proot/issues/414
 %global PRoot_version 5.4.0-rootless.3
@@ -48,8 +48,8 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.5.3
-Release: 7%{?dist}
+Version: 1.5.4
+Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
 # See LICENSE_THIRD_PARTY.md for incorporated code (Apache-2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -57,7 +57,7 @@ Release: 7%{?dist}
 # plus BSD-3-Clause-LBNL was added because it missed that from LICENSE.md
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-3-Clause-LBNL AND ISC AND MIT AND MPL-2.0 AND Unlicense
 URL: https://apptainer.org
-Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}-2.tar.gz
+Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
 
 %if "%{?gocryptfs_version}" != ""
 # use the release asset that includes vendor directory
@@ -262,17 +262,17 @@ Provides: bundled(golang(github.com/xeipuuv/gojsonreference)) = v0.0.0_201801270
 Provides: bundled(golang(github.com/xeipuuv/gojsonschema)) = v1.2.0
 Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = v1.2.1
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.67.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.43.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.43.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.43.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.44.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.44.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.44.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = v2.4.4
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.4
 Provides: bundled(golang(go.yaml.in/yaml/v4)) = v4.0.0_rc.4
 Provides: bundled(golang(golang.org/x/crypto)) = v0.51.0
 Provides: bundled(golang(golang.org/x/mod)) = v0.36.0
-Provides: bundled(golang(golang.org/x/net)) = v0.54.0
+Provides: bundled(golang(golang.org/x/net)) = v0.55.0
 Provides: bundled(golang(golang.org/x/sync)) = v0.20.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.44.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.45.0
 Provides: bundled(golang(golang.org/x/term)) = v0.43.0
 Provides: bundled(golang(golang.org/x/text)) = v0.37.0
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20260414002931_afd174a4e478
@@ -347,7 +347,7 @@ Requires: fuse3-libs >= 3.3.0
 Provides the optional setuid-root portion of Apptainer.
 
 %prep
-%setup -n %{name}-%{package_version}-2
+%setup -n %{name}-%{package_version}
 # don't need to setup dependent source packages and patches because
 # that is done by the compile-dependencies script
 %if "%{?PRoot_version}" == ""
@@ -524,6 +524,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Sep 22 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.5.4
+- Update to upstream 1.5.4.
+
 * Mon Sep 07 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.5.3-7
 - Enable building for RISC-V.
 

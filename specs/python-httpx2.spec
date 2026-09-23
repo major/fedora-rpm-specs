@@ -160,12 +160,15 @@ tomcli set src/httpx2/pyproject.toml str \
 # https://bugzilla.redhat.com/show_bug.cgi?id=2513025.
 %pyproject_patch_dependency uv-dynamic-versioning:set_lower:0.12.0
 
-# Temporarily permit an older trio. This dependency was updated by dependabot
+# Permit an older trio for Fedora 44. This dependency was updated by dependabot
 # in https://github.com/pydantic/httpx2/pull/1179, but it doesn’t seem anything
-# from the newer version is really required. We can drop this after python-trio
-# is updated to at least 0.34.0,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2513751.
+# from the newer version is really required.
 %pyproject_patch_dependency trio:set_lower:0.33.0
+# Permit an older click for Fedora 44. This dependency was updated in a
+# dependabot PR https://github.com/pydantic/httpx2/pull/1112 along with a
+# number of others. There were some source code changes, but none of them seem
+# to have been required for the click update in particular.
+%pyproject_patch_dependency click:set_lower:8.3.3
 
 # Do not generate BuildRequires on workspace packages.
 %pyproject_patch_dependency httpcore2:ignore:br_only

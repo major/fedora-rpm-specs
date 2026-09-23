@@ -26,7 +26,7 @@ Name:           fips-provider-next
 %else
 Name:           fips-provider
 %endif
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        A FIPS provider built from the Kryoptic project
 

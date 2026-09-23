@@ -21,7 +21,7 @@
 #
 
 %global upstreamname mxdatagenerator
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -30,7 +30,7 @@
 
 Name:           mxdatagenerator
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's floating point data generator
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
@@ -107,6 +107,9 @@ rm -f %{buildroot}%_datadir/doc/mxDataGenerator/LICENSE.md
 %_datadir/cmake/mxDataGenerator/
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Fix spelling of provides
 

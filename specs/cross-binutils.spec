@@ -1,16 +1,16 @@
 %global cross cross
 %global rpmprefix %{nil}
 
-%if 0%{?fedora} >= 46 || 0%{?rhel} >= 11                                                                                                                                             
+%if 0%{?fedora} >= 46
 # In FC46+ and RHEL-11+ the binutils package provides cross binutils for the RHEL architectures.
-%global build_base             0                                                                                                                                                     
-%else                                                                                                                                                                                
-%global build_base             1                                                                                                                                                     
-%endif                                                                                                                                                                               
+%global build_base		0
+%else
+%global build_base		1
+%endif
 
 %global build_all		1
 
-%global build_aarch64           %{build_base}                                                                                                                                         
+%global build_aarch64		%{build_base}
 %global build_alpha		%{build_all}
 %global build_arc		%{build_all}
 %global build_arm		%{build_all}
@@ -74,7 +74,7 @@
 
 Name: %{cross}-binutils
 Version: 2.47
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -792,6 +792,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Wed Sep 16 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.47-3
+- Enable all targets in EPEL
+
 * Mon Sep 14 2026 Jakub Jelinek <jakub@redhat.com>- 2.47-2
 - Disable building crosses for AArch64, PowerPC, s390x and x86_64.  (#2523594)
 

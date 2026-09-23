@@ -6,10 +6,10 @@
 %global cinnamon_translations_version 6.7.0
 %global muffin_version 6.7.7
 
-%global upstream_version 6.7.7-unstable
+%global upstream_version 6.7.8-unstable
 
 Name:           cinnamon
-Version:        6.7.7^unstable
+Version:        6.7.8^unstable
 Release:        %autorelease
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT

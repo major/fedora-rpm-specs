@@ -6,7 +6,7 @@
 %global crate actix-tls
 
 Name:           rust-actix-tls
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        TLS acceptor and connector services for Actix ecosystem
 

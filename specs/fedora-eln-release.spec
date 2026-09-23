@@ -312,6 +312,21 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 # Install DNF 5 configuration defaults
 install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 
+install -d %{buildroot}%{_datadir}/dnf5/vendors.d
+cat >> %{buildroot}%{_datadir}/dnf5/vendors.d/allow-cmdline.conf <<EOF
+# Allow vendor change for packages specified directly by path or URL (e.g.
+# "dnf install /path/to/package.rpm" or
+# "dnf install https://example.com/package.rpm"). This is an exception to
+# the global allow_vendor_change=False set in 20-defaults.conf.
+
+version = '1.1'
+
+[[incoming_packages]]
+filters = [
+  { filter = 'cmdline_repo', value = 'true' }
+]
+EOF
+
 %if %{with repos}
 # Install DNF repo file
 install -d %{buildroot}%{_sysconfdir}/yum.repos.d
@@ -346,6 +361,8 @@ install -Dm0644 %{SOURCE50} -t %{buildroot}%{_sysconfdir}/cockpit/branding/
 %dir %{_sysconfdir}/cockpit/branding
 %{_sysconfdir}/cockpit/branding/branding.css
 %{_prefix}/share/dnf5/libdnf.conf.d/20-fedora-defaults.conf
+%dir %{_datadir}/dnf5/vendors.d
+%{_datadir}/dnf5/vendors.d/allow-cmdline.conf
 %{_presetdir}/80-server.preset
 %{_presetdir}/75-eln.preset
 

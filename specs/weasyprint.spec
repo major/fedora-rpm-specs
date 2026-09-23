@@ -2,8 +2,8 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        69.0
-Release:        2%{?dist}
+Version:        70.0
+Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -77,6 +77,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Tue Sep 22 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 70.0-1
+- update to 70.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 69.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

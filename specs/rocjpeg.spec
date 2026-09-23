@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -242,6 +242,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

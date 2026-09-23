@@ -5,7 +5,7 @@ URL:           https://buildstream.build/
 
 ExcludeArch:   %{ix86} s390x
 
-Version:       2.8.0
+Version:       2.8.1
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch

@@ -2,7 +2,7 @@
 %global srcname spdx_license_list
 
 Name:           python-%{pkgname}
-Version:        3.28.0
+Version:        3.29.0
 Release:        %autorelease
 Summary:        SPDX License List as a Python dictionary
 License:        MIT

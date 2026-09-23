@@ -6,7 +6,7 @@
 %global crate actix-web
 
 Name:           rust-actix-web
-Version:        4.13.0
+Version:        4.15.0
 Release:        %autorelease
 Summary:        Powerful, pragmatic, and extremely fast web framework for Rust
 
@@ -17,6 +17,7 @@ Source:         %{crates_source}
 # * drop unused support for brotli
 # * drop unused support for io_uring
 # * drop unused support for rustls
+# * add missing feature flags for actix-rt
 Patch:          actix-web-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

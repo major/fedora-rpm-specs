@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -118,7 +118,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -249,10 +249,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}
 tar xf %{SOURCE1}
 
-%if %{with preview}
 sed -i -e 's@set(MIOPEN_TEST_CATEGORIES_CMAKE ${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@set(MIOPEN_TEST_CATEGORIES_CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
-
-%endif
 
 sed -i -e 's@include(${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@include(${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
 
@@ -408,6 +405,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
@@ -21,6 +21,12 @@ Source2: https://raw.githubusercontent.com/rails/rails/refs/tags/v8.1.2/tools/st
 Source3: https://raw.githubusercontent.com/rails/rails/e25d738430bdc6bdd04cd28be705484ea953e74e/tools/test_common.rb
 # We don't always install railties with activesupport, so rescue this
 Patch3: rubygem-activesupport-pr56202-minitest6-rescue-loaderror.patch
+# Fix compatibility with json 2.20 with allowing comments
+# https://github.com/rails/rails/pull/57832
+Patch4: rubygem-activesupport-pr57832-json2_20-allow-comments.patch
+# Fix compatibility with json 3.0
+# https://github.com/rails/rails/pull/58601
+Patch5: rubygem-activesupport-pr58601-json3-compat.patch
 
 # Runtime dependency, lot of build failures in other packages.
 # https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
@@ -69,6 +75,8 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -a 1
 
 %patch 3 -p1
+%patch 4 -p2
+%patch 5 -p2
 
 # lib/active_support/testing/method_call_assertions.rb
 # always needs minitest/mock
@@ -129,6 +137,9 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Sep 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.1.3.1-2
+- Backport upstream fix for compatibility with json 2.20 / 3.0
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
 - Update to Active Support 8.1.3.1.
   Related: rhzb#2405582

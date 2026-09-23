@@ -99,8 +99,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        9.0.1
-Release:        4%{?dist}
+Version:        9.0.2
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -976,6 +976,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Tue Sep 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.2-1
+- update to 9.0.2 (resolves rhbz#2537027)
+
 * Wed Sep 16 2026 Nicolas Chauvet <kwizart@gmail.com> - 9.0.1-4
 - Lower nv-codec-headers to support older cards
 

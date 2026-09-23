@@ -9,7 +9,7 @@
 %global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic,profiles
 
 Name:           kryoptic
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -33,19 +33,13 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
-# Manually created patch for downstream crate metadata changes
-# * Update quick-xml dependency to 0.41:
-#   https://github.com/latchset/kryoptic/pull/475
-Patch:          kryoptic-fix-metadata.diff
-# https://github.com/latchset/kryoptic/pull/476
-Patch:          kryoptic-fix-deadlock.patch
 
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
 BuildRequires:  pandoc
 %if %{with gpgcheck}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 %global _description %{expand:
@@ -63,7 +57,7 @@ Most notably a migration tool for the SoftHSM database.
 
 %prep
 %if %{with gpgcheck}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 %cargo_prep

@@ -4,7 +4,7 @@
 %global giturl  https://github.com/scipopt/scip
 
 Name:           scip
-Version:        10.0.3
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 
@@ -42,6 +42,7 @@ BuildOption(conf): -DTPI:STRING=omp
 # The Queens test passes in mock but fails in koji. Why???
 BuildOption(check): -E '(classical_20_0)|(examples-)|(normalized-t2001.13queen13.1111218308)'
 
+BuildRequires:  cmake(papilo)
 BuildRequires:  cmake(soplex)
 BuildRequires:  cmake(zimpl)
 BuildRequires:  gcc-c++
@@ -106,7 +107,7 @@ Requires:       libscip%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 Requires:       libnauty-devel%{?_isa}
 Requires:       mpfr-devel%{?_isa}
-Requires:       zlib-devel%{?_isa}
+Requires:       zlib-ng-devel%{?_isa}
 
 %description -n libscip-devel
 This package contains headers and library links for developing applications
@@ -187,7 +188,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libscip
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libscip.so.10.0{,.*}
+%{_libdir}/libscip.so.10.1{,.*}
 
 %files -n libscip-devel
 %{_includedir}/scip/

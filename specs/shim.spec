@@ -5,7 +5,7 @@
 
 Name:		shim
 Version:	16.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 cd shim-%{version}
 install -D -d -m 0755 $RPM_BUILD_ROOT/boot/
 install -D -d -m 0700 $RPM_BUILD_ROOT%{_prefix}/lib/shim/
+install -D -d -m 0755 $RPM_BUILD_ROOT%{_libdir}/efi
+install -D -d -m 0755 $RPM_BUILD_ROOT%{_libdir}/efi/shim
+install -D -d -m 0755 $RPM_BUILD_ROOT%{shim_vr_dir}/
+install -D -d -m 0755 $RPM_BUILD_ROOT%{shim_vr_dir}/EFI
 install -D -d -m 0700 $RPM_BUILD_ROOT%{shim_efi_dir}/
 install -D -d -m 0700 $RPM_BUILD_ROOT%{shim_boot_dir}/
 
@@ -115,6 +119,9 @@ if [[ ! -e "/run/ostree-booted" ]]; then
 fi
 
 %changelog
+* Thu Sep 17 2026 Josue Hernandez <josherna@redhat.com> - 16.1.9
+- Fix /usr/lib/efi permissions and add directory installs
+
 * Tue Sep 15 2026 Josue Hernandez <josherna@redhat.com> - 16.1-8
 - Fix /usr/lib/efi folders ownership
 - Resolves: #2528260

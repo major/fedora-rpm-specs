@@ -14,18 +14,19 @@
 %bcond_without xinit
 %endif
 
-%global ibus_xinit_condition (%pcd1 or %pcd2 or %pcd3)
+%global ibus_xinit_condition (%icd1 or %icd2 or %icd3)
 # FIXME: How to write a condition with multiple lines
-%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1 or %wcd2)
-%global pcd1 cinnamon or deepin-desktop or i3
+%global ibus_panel_condition (%icd1 or %icd2 or %icd3 or %wcd1 or %wcd2 or %xcd1)
+%global icd1 cinnamon or deepin-desktop or i3
 # Currently imsettings invokes ibus-dameon directly and that way no longer work
 # in Wayland.
 # Comment out lxqt-x11-session until it's installed by default in LXQt Spin
 # Comment out xfce4-session until it's installed by default in XFCE Spin
-%global pcd2 lxsession or mate-panel or phosh or awesome
-%global pcd3 sugar
+%global icd2 lxsession or mate-panel or phosh or awesome
+%global icd3 sugar
 %global wcd1 cosmic-panel or hyprland or sway or waybar or lxqt-wayland-session
 %global wcd2 budgie-desktop or plasma-workspace or xfce4-session-wayland-session
+%global xcd1 xfce4-session
 
 %if %with_pkg_config
 %if %{with gtk2}
@@ -46,9 +47,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.35~beta2
+Version:        1.5.35~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -57,7 +58,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch:          %%{name}-HEAD.patch
-Patch:          %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch:          %{name}-1385349-segv-bus-proxy.patch
 
@@ -549,6 +549,13 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Sep 22 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~rc1-1
+- Bump to 1.5.35-rc1
+- Fix `ibus start` in KDE
+- Fix dead_diaeresis in both user and sys fr(ergol) keymap
+- Resolves #2531962 Missing ibus-panel in XFCE spins
+- Resolves #2537307 g_task_return_error(): ibus-daemon killed by SIGSEGV
+
 * Sun Aug 30 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~beta2-2
 - Fix IBusAttrList leak when converting text
 

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        110
+Version:        113
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -56,6 +56,24 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %ghost %attr(0700, root, root) %dir /var/cache/cockpit-image-builder
 
 %changelog
+* Mon Sep 21 2026 Packit <hello@packit.dev> - 113-1
+Changes with 113
+----------------
+  - Centralize validated input components (#4846)
+    - Author: Gianluca Zuccarelli, Reviewers: Katarína Sieklová
+  - build(deps): bump fast-uri to 3.1.8 (#4850)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  - build(deps): bump nanoid from 3.3.16 to 3.3.19 (#4848)
+    - Author: dependabot, Reviewers: Gianluca Zuccarelli
+  - chore(deps): update build-tools digest to 49d9006 (#4853)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#4852)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - chores(deps): fix release numbers (#4851)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-09-21
+
 * Fri Aug 21 2026 Packit <hello@packit.dev> - 110-1
 Changes with 110
 ----------------

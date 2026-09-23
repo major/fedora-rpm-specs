@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -225,6 +225,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Tue Aug 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

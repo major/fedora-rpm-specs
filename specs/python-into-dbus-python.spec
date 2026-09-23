@@ -1,7 +1,7 @@
 %global srcname into-dbus-python
 
 Name:           python-%{srcname}
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Transformer to dbus-python types
 

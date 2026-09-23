@@ -4,17 +4,13 @@
 %global crate ingredients
 
 Name:           rust-ingredients
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Check ingredients of published Rust crates
 
 License:        MIT
 URL:            https://crates.io/crates/ingredients
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow clap_mangen 0.3:
-#   https://codeberg.org/decathorpe/ingredients/commit/6438862e
-Patch:          ingredients-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

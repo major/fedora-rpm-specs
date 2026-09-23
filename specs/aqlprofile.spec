@@ -26,8 +26,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
-%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -69,7 +68,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
@@ -185,6 +184,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-amd-aqlprofile/LICENSE.md
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Mon Aug 31 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - testing is broken
 

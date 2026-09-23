@@ -26,7 +26,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -170,7 +170,6 @@ tests for the rocPRIM package
 sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test("rocprim.texture_cache_iterator"@' test/rocprim/CMakeLists.txt
 # grep texture_cach test/rocprim/CMakeLists.txt
 
-%if %{with preview}
 # rocprim-10.0.0-build/rocprim/test/rocprim/test_device_segmented_topk.cpp:96:8: error:
 # redefinition of 'hash<__int128>'
 #   96 | struct hash<rocprim::int128_t>
@@ -180,7 +179,6 @@ sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test
 #  206 |   _Cxx_hashtable_define_trivial_hash(__int128)
 #      |   ^
 sed -i -e 's@add_rocprim_test("rocprim.device_topk_segmented" test_device_segmented_topk.cpp)@#add_rocprim_test("rocprim.device_topk_segmented" test_device_segmented_topk.cpp)@' test/rocprim/CMakeLists.txt     
-%endif
 
 %build
 %cmake \
@@ -225,6 +223,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

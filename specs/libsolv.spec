@@ -28,8 +28,8 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.39
-Release:        9%{?dist}
+Version:        0.7.40
+Release:        1%{?dist}
 Summary:        Package dependency solver
 
 # LICENSE.BSD:      BSD-3-Clause text
@@ -317,6 +317,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %endif
 
 %changelog
+* Tue Sep 22 2026 Petr Pisar <ppisar@redhat.com> - 0.7.40-1
+- 0.7.40 bump
+
 * Fri Sep 18 2026 Petr Pisar <ppisar@redhat.com> - 0.7.39-9
 - Move from automatic release numbering to manual one
 

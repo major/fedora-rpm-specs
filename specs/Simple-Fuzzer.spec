@@ -1,7 +1,7 @@
 Summary: A simple fuzz test-case builder
 Name: Simple-Fuzzer
 Version: 0.7.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://aconole.bytheb.org/programs/sfuzz.html
@@ -17,6 +17,7 @@ Patch2: 0001-configure-disable-snoop-on-OS-X.patch
 Patch3: 0001-configure-Use-r-for-sed.patch
 Patch4: 0001-array_fuzz-Fix-a-sizeof-issue.patch
 Patch5: 0001-url-change-to-bytheb.org.patch
+Patch6: fix-werror.patch
 
 %description
 Simple-Fuzzer (sfuzz) is a simplistic fuzz test case generator.
@@ -37,6 +38,7 @@ plugins for Simple Fuzzer
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 
 %build
 %configure --force-symbols --aux-search-path=%{_libdir}/simple-fuzzer
@@ -65,6 +67,9 @@ mv %{buildroot}%{_datadir}/sfuzz-db/*.so %{buildroot}%{_libdir}/simple-fuzzer/
 %license LICENSING
 
 %changelog
+* Mon Sep 21 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.7.1-30
+- Drop not-used variable to make it build again
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

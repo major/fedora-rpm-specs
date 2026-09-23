@@ -4,7 +4,7 @@
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 75
+%global libdnf_minor_version 76
 %global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
@@ -56,14 +56,14 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
-# Key exported from Petr Pisar's keyring
-Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
+# Maintainers keyring
+Source2:        rpm-software-management.gpg
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
@@ -316,6 +316,9 @@ popd
 %endif
 
 %changelog
+* Fri Sep 18 2026 Ales Matej <amatej@redhat.com> - 0.76.0-1
+- Update to 0.76.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.75.0-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

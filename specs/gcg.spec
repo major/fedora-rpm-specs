@@ -4,7 +4,7 @@
 %global giturl  https://github.com/scipopt/gcg
 
 Name:           gcg
-Version:        4.0.2
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Branch-and-price and column generation
 
@@ -16,6 +16,8 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch:          %{name}-nauty-pkgconfig.patch
 # Link with flexiblas instead of gslcblas for GSL
 Patch:          %{name}-gsl-flexiblas.patch
+# Use zlib-ng directly rather than via the compatibility interface
+Patch:          %{name}-zlib-ng.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -32,6 +34,7 @@ BuildRequires:  pkgconfig(highs)
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libcliquer)
 BuildRequires:  pkgconfig(libnauty)
+BuildRequires:  pkgconfig(zlib-ng)
 
 Requires:       libgcg%{?_isa} = %{version}-%{release}
 
@@ -95,7 +98,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libgcg
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libgcg.so.4.0{,.*}
+%{_libdir}/libgcg.so.4.1{,.*}
 
 %files -n libgcg-devel
 %{_includedir}/gcg/

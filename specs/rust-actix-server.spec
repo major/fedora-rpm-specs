@@ -6,7 +6,7 @@
 %global crate actix-server
 
 Name:           rust-actix-server
-Version:        2.9.4
+Version:        2.9.5
 Release:        %autorelease
 Summary:        General purpose TCP server built for the Actix ecosystem
 

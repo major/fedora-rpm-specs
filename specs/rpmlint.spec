@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -41,6 +41,7 @@ Requires:       rpm-build
 Requires:       /usr/bin/appstream-util
 Requires:       /usr/bin/desktop-file-validate
 Requires:       rpmlint-fedora-license-data
+Requires:       glibc-langpack-en
 
 %description
 rpmlint is a tool for checking common errors in RPM packages. Binary
@@ -96,6 +97,10 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Tue Aug 25 2026 Miro Hrončok <mhroncok@redhat.com> - 2.10.0-3
+- Require English locale to avoid:
+  sh: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8): No such file or directory
+
 * Tue Aug 25 2026 Tom Callaway <spot@fedoraproject.org> - 2.10.0-2
 - remove patch, turned out to be legit bug in glibc
 

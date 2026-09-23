@@ -3,7 +3,7 @@ Version:        90
 
 %global uuid     kimpanel@kde.org
 %global forgeurl https://github.com/wengxt/gnome-shell-extension-kimpanel
-%global commit   8632e152fc2d331ebc9601d694256c0cf43b8712
+%global commit   b1e7718f445666cbe4e19ead8422f316e8cb3e39
 
 %forgemeta
 
@@ -22,7 +22,7 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  meson
 
-Requires:       (gnome-shell >= 48 with gnome-shell < 51)
+Requires:       (gnome-shell >= 48 with gnome-shell < 52)
 Requires:       fcitx5
 
 %description

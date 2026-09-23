@@ -1,6 +1,6 @@
 Name:           wildmidi
-Version:        0.4.6
-Release:        7%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Softsynth midi player
 License:        GPL-3.0-or-later
 URL:            https://github.com/Mindwerks/wildmidi
@@ -16,7 +16,7 @@ be used with other applications.
 
 %package libs
 Summary:        WildMidi Midi Wavetable Synth Lib
-License:        LGPL-3.0-or-later
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Requires:       timidity++-patches
 
 %description libs
@@ -27,7 +27,7 @@ through a buffer which an external program can then process further.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPL-3.0-or-later
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel
@@ -36,7 +36,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{name}-%{version}
 
 
 %build
@@ -73,6 +73,9 @@ ln -s ../timidity.cfg $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/%{name}.cfg
 
 
 %changelog
+* Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-1
+- Update to v0.5.0 (rhbz#2509263, rhbz#2520292)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

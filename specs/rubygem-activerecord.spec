@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -12,6 +12,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/activerecord
 # git archive -v -o activerecord-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: activerecord-%{version}%{?prerelease}-tests.tar.gz
+# Fix compatibility with json 3.0
+# https://github.com/rails/rails/pull/58601
+# (partly: https://github.com/rails/rails/pull/57991 )
+Patch1: rubygem-activerecord-pr58601-json3-compat.patch
+# Fix MessageSerializerTest to handle json 3.x
+# https://github.com/rails/rails/commit/ec449c1bab6385abe56bbffbb12058c390ed9693
+Patch2: rubygem-activerecord-8.1.3.1-Fix-MessageSerializerTest-for-json3.patch
 
 # Database dump/load reuires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -44,7 +51,10 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b 1
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -a 1
+
+%patch 1 -p2
+%patch 2 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -57,8 +67,9 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-( cd .%{gem_instdir}
-cp -a %{builddir}/test .
+(
+cp -a test .%{gem_instdir}
+cd .%{gem_instdir}
 
 mkdir ../tools
 # Fake strict_warnings.rb. It does not appear to be useful.
@@ -96,6 +107,9 @@ done
 %{gem_instdir}/examples
 
 %changelog
+* Fri Sep 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.1.3.1-2
+- Backport upstream fix for compatibility with json 3.0
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 1:8.1.3.1-1
 - Update to Active Record 8.1.3.1.
   Related: rhzb#2405582

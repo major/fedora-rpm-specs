@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -83,7 +83,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -270,6 +270,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libfile_plugin.so
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Wed Aug 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Test all gpus
 

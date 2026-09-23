@@ -14,7 +14,7 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.9
+Version: 1.10
 Summary: Run COPR build tasks
 Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
@@ -93,7 +93,6 @@ Recommends: python-srpm-macros
 Recommends: dist-git-client
 Suggests: tito
 Suggests: rubygem-gem2rpm
-Suggests: pyp2rpm
 Suggests: pyp2spec >= 0.10.0
 %endif
 
@@ -119,7 +118,6 @@ Requires: podman
 %if 0%{?openEuler} > 0 || 0%{?rhel} > 0
 # not supported
 %else
-Requires: pyp2rpm
 Requires: pyp2spec >= 0.10.0
 Requires: rubygem-gem2rpm
 Requires: fedora-review >= 0.8
@@ -303,6 +301,11 @@ EOF
 
 
 %changelog
+* Tue Sep 22 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.10-1
+- avoid ugly tracebacks on early failure in build_rpm()
+- uploadrpm: support multiple RPMs, optional srpm/logs
+- drop support for pyp2rpm
+
 * Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 1.9-1
 - Add direct RPM upload build type
 - Move URLs from pagure to forgejo

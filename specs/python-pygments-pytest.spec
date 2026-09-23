@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:           python-pygments-pytest
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        A pygments lexer for pytest output
 License:        MIT

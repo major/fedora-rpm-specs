@@ -23,12 +23,12 @@
 # Do we want libedit support
 %global libedit 1
 
-%global openssh_ver 10.3p1
+%global openssh_ver 10.5p1
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -48,13 +48,14 @@ Source20: gsissh-host-keys-migration.sh
 Source21: gsissh-host-keys-migration.service
 Source99: README.sshd-and-gsisshd
 
-Patch0001: 0001-Add-SELinux-role-and-MLS-Multi-Level-Security-suppor.patch
-Patch0002: 0002-Implement-SELinux-environment-variable-setup-for-sub.patch
-Patch0003: 0003-Pass-inetd-flags-and-auth-context-to-subprocess-call.patch
-Patch0004: 0004-openssh-6.6p1-keycat.patch
-Patch0005: 0005-openssh-6.6p1-allow-ip-opts.patch
-Patch0006: 0006-openssh-5.9p1-ipv6man.patch
-Patch0007: 0007-openssh-5.8p2-sigpipe.patch
+Patch0001: 0001-openssh-6.7p1-coverity.patch
+Patch0002: 0002-Add-SELinux-role-and-MLS-Multi-Level-Security-suppor.patch
+Patch0003: 0003-Implement-SELinux-environment-variable-setup-for-sub.patch
+Patch0004: 0004-Pass-inetd-flags-and-auth-context-to-subprocess-call.patch
+Patch0005: 0005-openssh-6.6p1-keycat.patch
+Patch0006: 0006-openssh-6.6p1-allow-ip-opts.patch
+Patch0007: 0007-openssh-5.9p1-ipv6man.patch
+Patch0008: 0008-openssh-5.8p2-sigpipe.patch
 Patch0009: 0009-openssh-5.1p1-askpass-progress.patch
 Patch0010: 0010-openssh-4.3p2-askpass-grab-info.patch
 Patch0011: 0011-openssh-8.7p1-redhat.patch
@@ -91,25 +92,23 @@ Patch0041: 0041-openssh-8.7p1-nohostsha1proof.patch
 Patch0042: 0042-openssh-9.9p1-separate-keysign.patch
 Patch0043: 0043-openssh-9.9p1-openssl-mlkem.patch
 Patch0044: 0044-openssh-9.9p2-error_processing.patch
-Patch0045: 0045-Provide-better-error-for-non-supported-private-keys.patch
-Patch0046: 0046-Ignore-bad-hostkeys-in-known_hosts-file.patch
-Patch0047: 0047-support-authentication-indicators-in-GSSAPI.patch
-Patch0048: 0048-NIST-curves-hybrid-KEX-implementation.patch
-Patch0049: 0049-openssh-7.3p1-x11-max-displays.patch
-Patch0050: 0050-Fix-ssh-pkcs11-client-helper-termination.patch
-Patch0051: 0051-openssh-10.2p1-pam-auth.patch
-Patch0052: 0052-gssapi-s4u.patch
-Patch0053: 0053-openssh-10.2p1-pkcs11-uri.patch
-Patch0054: 0054-gssapi-tests.patch
-Patch1000: 1000-openssh-6.7p1-coverity.patch
+Patch0045: 0045-Ignore-bad-hostkeys-in-known_hosts-file.patch
+Patch0046: 0046-support-authentication-indicators-in-GSSAPI.patch
+Patch0047: 0047-NIST-curves-hybrid-KEX-implementation.patch
+Patch0048: 0048-openssh-7.3p1-x11-max-displays.patch
+Patch0049: 0049-Fix-ssh-pkcs11-client-helper-termination.patch
+Patch0050: 0050-openssh-10.2p1-pam-auth.patch
+Patch0051: 0051-gssapi-s4u.patch
+Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
+Patch0053: 0053-gssapi-tests.patch
 
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
-Patch2000: 2000-openssh-10.3p1-gsissh.patch
+Patch2000: 2000-openssh-10.5p1-gsissh.patch
 
 # This is the HPN patch
-# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.9.0
-Patch2001: 2001-openssh-10.3p1-hpn-18.9.0.patch
+# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.11.1
+Patch2001: 2001-openssh-10.5p1-hpn-18.11.1.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: openssl-libs >= 1:3.5.0
@@ -381,7 +380,7 @@ fi
 
 %files
 %license LICENCE
-%doc CREDITS ChangeLog OVERVIEW PROTOCOL* README HPN-README README.platform README.privsep README.tun README.dns README.sshd-and-gsisshd TODO
+%doc CREDITS ChangeLog OVERVIEW PROTOCOL* README.md HPN-README README.platform README.privsep README.dns README.sshd-and-gsisshd TODO
 %attr(0755,root,root) %dir %{_sysconfdir}/gsissh
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/gsissh/moduli
 %attr(0755,root,root) %{_bindir}/gsissh-keygen
@@ -437,6 +436,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Sun Sep 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.5p1-1
+- Based on openssh-10.5p1-1.fc45
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.3p1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

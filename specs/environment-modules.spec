@@ -1,7 +1,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           environment-modules
-Version:        5.6.2
+Version:        5.7.0
 Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
@@ -14,6 +14,9 @@ BuildRequires:  dejagnu
 BuildRequires:  make
 BuildRequires:  sed
 BuildRequires:  less
+# python3_sitelib macro and byte-compilation of env_modules.py installed
+# in this directory
+BuildRequires:  python3-devel
 BuildRequires:  util-linux-core
 BuildRequires:  hostname
 BuildRequires:  procps-ng
@@ -87,8 +90,11 @@ have access to the module alias.
            --disable-doc-install \
            --enable-modulespath \
            --with-python=/usr/bin/python3 \
+           --with-pythondir=%{python3_sitelib} \
+           --disable-set-pythonpath \
            --with-modulepath=%{_datadir}/Modules/modulefiles:%{_sysconfdir}/modulefiles:%{_datadir}/modulefiles \
-           --with-quarantine-vars='LD_LIBRARY_PATH LD_PRELOAD'
+           --with-quarantine-vars='LD_LIBRARY_PATH LD_PRELOAD' \
+           --with-init-envvars='MANPATH='
 
 %make_build
 
@@ -157,7 +163,7 @@ fi
 
 
 %files
-%license COPYING.GPLv2
+%license COPYING
 %doc ChangeLog.gz README NEWS.txt MIGRATING.txt INSTALL.txt CONTRIBUTING.txt changes.txt
 %{_sysconfdir}/modulefiles
 %dir %{_datadir}/fish/vendor_conf.d
@@ -174,6 +180,8 @@ fi
 %{_datadir}/Modules/libexec/modulecmd.tcl
 %dir %{_datadir}/Modules/init
 %{_datadir}/Modules/init/*
+%{python3_sitelib}/env_modules.py
+%{python3_sitelib}/__pycache__/env_modules.cpython-*.pyc
 # do not need to require shell package as we "own" completion dir
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/module
@@ -191,6 +199,7 @@ fi
 %{_mandir}/man1/envml.1.gz
 %{_mandir}/man1/ml.1.gz
 %{_mandir}/man1/module.1.gz
+%{_mandir}/man1/modulecmd.1.gz
 %{_mandir}/man5/modulefile.5.gz
 %{macrosdir}/macros.%{name}
 %{vimfiles_root}/ftdetect/modulefile.vim
@@ -204,6 +213,13 @@ fi
 
 
 %changelog
+* Mon Sep 21 2026 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.7.0-1
+- Update to 5.7.0 (#2537583)
+- Add modulecmd(1) man page
+- Initialize MANPATH to an empty string when set for the first time
+- Rename COPYING.GPLv2 license file to COPYING
+- Install 'env_modules' Python module in %%python3_sitelib
+
 * Mon Sep 07 2026 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.6.2-1
 - Update to 5.6.2 (fix CVE-2026-85013)
 

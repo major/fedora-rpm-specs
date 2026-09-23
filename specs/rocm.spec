@@ -19,13 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -189,6 +189,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Tue Aug 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Remove version constraint on some packages
 

@@ -9,8 +9,8 @@
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
-%global upstream_version 9.1.2
-#%%global upstream_prever
+%global upstream_version 9.2.0
+%global upstream_prever rc1
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
@@ -450,6 +450,9 @@ fi
 
 
 %changelog
+* Fri Sep 18 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.2.0~rc1-1
+- Valkey 9.2.0-rc1
+
 * Tue Sep  1 2026 Remi Collet <remi@remirepo.net> - 9.1.2-1
 - Valkey 9.1.2 - Released Mon 31 August 2026
 - Upgrade urgency SECURITY: This release includes security fixes

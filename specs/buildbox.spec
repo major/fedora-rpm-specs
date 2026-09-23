@@ -6,6 +6,9 @@ Summary: Building blocks to execute actions conforming to the Remote Execution A
 License: Apache-2.0
 URL:     https://buildgrid.gitlab.io/buildbox/buildbox-home/
 Source0: https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/%{version}/buildbox-%{version}.tar.bz2
+# CmdLineSpecTest.NoActionCacheProxy: EXPECT_EQ(0.8775, cleanupThreshold)
+# fails on aarch64/ppc64le/s390x (0.87750000000000006).
+Patch0:  0001-casd-fix-default-cleanup-threshold-test-on-non-x86.patch
 
 ExcludeArch: %{ix86}
 

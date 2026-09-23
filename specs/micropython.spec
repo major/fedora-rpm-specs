@@ -9,7 +9,7 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.28.0
+Version:        1.29.0
 Release:        %autorelease
 Summary:        Implementation of Python 3 with very low memory footprint
 
@@ -28,7 +28,7 @@ Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_com
 %global mbedtls_commit 0bebf8b8c7f07abe3571ded48a11aa907a1ffb20
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit 8380c7bb8f9e5e5260e9539156742925e00366b2
+%global micropython_lib_commit ee4bb8ff139e24c42b739935fbd8ec7c4d061e02
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
 
 # Other arches need active porting, i686 removed via:

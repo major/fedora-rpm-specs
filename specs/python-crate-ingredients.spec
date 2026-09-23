@@ -1,5 +1,5 @@
 Name:           python-crate-ingredients
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Check contents of published Rust crates
 

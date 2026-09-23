@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		2.21.2
+%global	pkg_version_num		3.0.2
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -115,14 +115,12 @@ popd
 %doc %{gem_instdir}/README.md
 
 %{gem_libdir}/%{gem_name}.rb
-%{gem_libdir}/%{gem_name}/add
 %{gem_libdir}/%{gem_name}/common.rb
 %{gem_libdir}/%{gem_name}/ext.rb
 %dir	%{gem_libdir}/%{gem_name}/ext
 %dir	%{gem_libdir}/%{gem_name}/ext/generator/
 %{gem_libdir}/%{gem_name}/ext/generator/*.rb
 %{gem_libdir}/%{gem_name}/version.rb
-%{gem_libdir}/%{gem_name}/generic_object.rb
 
 %{ruby_libdir}/json*
 %{ruby_libarchdir}/json*
@@ -136,6 +134,9 @@ popd
 
 
 %changelog
+* Thu Sep 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-1
+- 3.0.2
+
 * Tue Aug 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.21.2-1
 - 2.21.2
 

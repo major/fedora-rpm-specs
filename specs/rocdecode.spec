@@ -27,7 +27,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -84,7 +84,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        1%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
@@ -226,6 +226,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 7.14.0-2
 - Rebuilt for FFmpeg 9
 

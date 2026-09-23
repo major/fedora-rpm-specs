@@ -29,7 +29,7 @@
 %global rocm_release 10.0
 %global rocm_patch 0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %endif
 
@@ -70,7 +70,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    2%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -251,6 +251,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Tue Aug 18 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 7.14.0-2
 - Enable LoongArch support.
 

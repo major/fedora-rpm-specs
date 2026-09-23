@@ -13,19 +13,18 @@
 %bcond bootstrap 0
 
 Name:           libheif
-Version:        1.23.4
+Version:        1.23.5
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/libheif
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         libheif-no-hevc-tests.patch
 # Fix multilib issues: PLUGIN_DIRECTORY is derived from CMAKE_INSTALL_LIBDIR, the
 # macro has exactly one user, get_plugin_paths() in libheif/init.cc, which is internal
 # to the library, so pass it as a private compile definition instead of exporting it in
 # a public header.
-Patch1:         libheif-multilib-plugin-dir.patch
+Patch0:         libheif-multilib-plugin-dir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -76,8 +75,10 @@ file format decoder and encoder.
 %ifnarch %{ix86}
 %{_libdir}/%{name}/%{name}-openh264dec.so
 %endif
+%if ! (0%{?rhel} && 0%{?rhel} <= 9)
 %{_libdir}/%{name}/%{name}-rav1e.so
 %{_libdir}/%{name}/%{name}-svtenc.so
+%endif
 
 # ----------------------------------------------------------------------
 

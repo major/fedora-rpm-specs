@@ -21,7 +21,7 @@
 #
 %global upstreamname rocshmem
 
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -58,12 +58,14 @@ ExclusiveArch: x86_64
 BuildRequires: chrpath
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: libdrm-devel
+BuildRequires: numactl-devel
 BuildRequires: rocm-cmake
 BuildRequires: rocm-comgr-devel
 BuildRequires: rocm-compilersupport-macros
 BuildRequires: rocm-core-devel
 BuildRequires: rocm-hip-devel
-BuildRequires: rocm-runtime-devel
+BuildRequires: rocm-runtime-static
 BuildRequires: rocm-rpm-macros
 
 %description
@@ -116,6 +118,7 @@ sed -i -e 's@rocm-core/@@' src/build_info.cpp
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DEXPLICIT_ROCM_VERSION=%{rocm_version} \
+    -DUSE_SDMA=ON
 
 %cmake_build
 
@@ -136,10 +139,14 @@ rm -f %{buildroot}%{_docdir}/rocshmem/LICENSE.md
 
 %files devel
 %{_includedir}/rocshmem/
+%{_includedir}/gin_anvil/
 %{_libdir}/cmake/rocshmem/
 %{_libdir}/librocshmem.so
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Wed Jul 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

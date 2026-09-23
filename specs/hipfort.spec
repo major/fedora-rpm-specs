@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname hipfort
-%global rocm_release 7.14
+%global rocm_release 10.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -55,7 +55,7 @@
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -103,6 +103,9 @@ The headers of libraries for %{name}.
 # Remove some tests that do not build
 sed -i '/hipfort_add_test(hip stream f2003)/d' test/CMakeLists.txt
 sed -i '/hipfort_add_test(hip graph f2003)/d' test/CMakeLists.txt
+
+# fix cmake install
+sed -i 's@DESTINATION lib/cmake/hipfort@DESTINATION lib64/cmake/hipfort@' lib/CMakeLists.txt
 
 %build
 
@@ -152,6 +155,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Fri Aug 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Fix check
 

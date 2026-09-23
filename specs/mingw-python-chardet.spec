@@ -12,14 +12,19 @@ BuildArch:     noarch
 License:       LGPL-2.1-or-later
 URL:           https://github.com/chardet/chardet
 Source0:       %{pypi_source}
+# Use flit for building, hatch is not packaged for mingw
+Patch0:        mingw-python-chardet_nohatch.patch
 
-BuildRequires: mingw32-filesystem >= 95
+
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description

@@ -1,7 +1,7 @@
 #%%global prever rc3
 
 Name: log4cplus
-Version: 2.1.2
+Version: 2.2.0.1
 Release: %autorelease
 Summary: Logging Framework for C++
 
@@ -13,7 +13,7 @@ License: (BSD-2-Clause OR Apache-2.0) AND Zlib AND BSL-1.0
 URL: https://github.com/log4cplus/log4cplus
 Source0: https://github.com/log4cplus/log4cplus/releases/download/REL_%{VER}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz
 Source1: https://github.com/log4cplus/log4cplus/releases/download/REL_%{VER}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz.sig
-Source2: codesign.key
+Source2: https://github.com/wilx.gpg
 
 %description
 log4cplus is a simple to use C++ logging API providing thread-safe, flexible,
@@ -59,7 +59,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 %files
 %doc LICENSE README.md ChangeLog
-%{_libdir}/liblog4cplus*.so.9*
+%{_libdir}/liblog4cplus*-2.2.so.11*
 
 %files devel
 %dir %{_includedir}/log4cplus

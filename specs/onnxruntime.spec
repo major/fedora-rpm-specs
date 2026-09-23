@@ -51,27 +51,25 @@ Source0:    https://github.com/microsoft/onnxruntime/archive/v%{version}/%{name}
 
 # Disable downloading dependencies
 Patch:      0001-Disable-download-deps.patch
-# Use the system abseil-cpp
-Patch:      0002-System-abseil.patch
 # Use the system date and boost
-Patch:      0003-System-date-and-mp11.patch
+Patch:      0002-System-date-and-mp11.patch
 # Use the system safeint
-Patch:      0004-System-safeint.patch
+Patch:      0003-System-safeint.patch
 # Use the system eigen3
-Patch:      0005-System-eigen3.patch
+Patch:      0004-System-eigen3.patch
 # Use the system flatbuffers
-Patch:      0006-System-flatbuffers.patch
-# Disable gcc -Werrors with false positives
-Patch:      0007-GCC-false-positives.patch
+Patch:      0005-System-flatbuffers.patch
+# Disable gcc -Werror, too strict for downstream packaging
+Patch:      0006-Do-not-set-COMPILE_WARNING_AS_ERROR.patch
 # Fix deprecated C++20 feature use in migraphx implementation
-Patch:      0008-migraphx-Fix-C-20-deprecated-this-capture.patch
+Patch:      0007-migraphx-Fix-C-20-deprecated-this-capture.patch
 # Use the system onednn lib
-Patch:      0009-System-dnnl.patch
-Patch:      0010-dnnl-Clean-unused-vars.patch
+Patch:      0008-System-dnnl.patch
+Patch:      0009-dnnl-Clean-unused-vars.patch
 # Use the system openVINO
-Patch:      0011-openVINO-runtime-fix.patch
+Patch:      0010-openVINO-runtime-fix.patch
 # Trigger onnx static registration fix
-Patch:      0012-onnx-static-registration-fix.patch
+Patch:      0011-onnx-static-registration-fix.patch
 
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
 # i686:    https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

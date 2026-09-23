@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.0
 %else
-%global rocm_release 7.14
+%global rocm_release 10.0
 %endif
 
 %global rocm_patch 0
@@ -142,7 +142,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT AND BSD-3-Clause
@@ -296,12 +296,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %if %{with test}
 %files test
 %{pkg_prefix}/bin/rocfft-test
-%if %{without preview}
-%{pkg_prefix}/bin/rtc_helper_crash
-%endif
 %endif
 
 %changelog
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
+- Update to 10.0
+
 * Wed Aug 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Fix build on RHEL
 

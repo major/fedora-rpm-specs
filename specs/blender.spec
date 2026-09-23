@@ -20,7 +20,7 @@
 %{error:--with clang requires --with llvm}
 %endif
 
-# Cycles are available on Fedora's supported 64-bit little-endian
+# Cycles and USD are available on Fedora's supported 64-bit little-endian
 # architectures.
 %ifarch x86_64 aarch64 ppc64le
 %global cyclesflag ON
@@ -28,7 +28,7 @@
 %global cyclesflag OFF
 %endif
 
-# Embree, HIDAPI and USD are available on x86_64 and aarch64.
+# Embree and HIDAPI are available on x86_64 and aarch64.
 %ifarch x86_64 aarch64
 %bcond embree 1
 %bcond hidapi 1
@@ -420,7 +420,8 @@ export HIP_CLANG_PATH=$(hipconfig -l)
 # Non-portable installs do not install Blender's CPU-check helper. Blender's
 # legacy FindGflags module conflicts with the gflags state imported by Ceres on
 # Fedora, so use Blender's bundled gflags as Fedora's package does. Ceres still
-# uses the system gflags library through its own imported target.
+# uses the system gflags library through its own imported target. Hydra requires
+# USD, so keep both options synchronized on architectures where USD is disabled.
 %cmake \
     -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_BUILD_TYPE=Release \
@@ -460,6 +461,7 @@ export HIP_CLANG_PATH=$(hipconfig -l)
     -DWITH_DOC_MANPAGE=%{with manpage} \
     -DWITH_FRIBIDI=%{with fribidi} \
     -DWITH_HARFBUZZ=%{with harfbuzz} \
+    -DWITH_HYDRA=%{with usd} \
     -DWITH_MATERIALX=%{with materialx} \
 %if %{with openshading}
     -DOSL_COMPILER=%{_bindir}/oslc \
