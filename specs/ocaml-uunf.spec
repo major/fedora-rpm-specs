@@ -11,6 +11,7 @@ License:        ISC
 URL:            https://erratique.ch/software/uunf
 VCS:            git:https://erratique.ch/repos/uunf.git
 Source:         %{url}/releases/uunf-%{version}.tbz
+Source:         https://www.unicode.org/Public/%{version}/ucd/NormalizationTest.txt
 # Revert changes for an unreleased version of ocaml-b0; affects tests only
 Patch:          %{name}-b0-downgrade.patch
 
@@ -33,7 +34,6 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
 BuildRequires:  ocaml-uucd-devel >= 18.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
-BuildRequires:  unicode-ucd
 
 %description
 Uunf is an OCaml library for normalizing Unicode text.  It supports all
@@ -55,7 +55,7 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n uunf-%{version} -p1
-ln -s %{_datadir}/unicode/ucd/NormalizationTest.txt test
+cp -p %{SOURCE1} test
 
 %install -a
 # Generate the man page

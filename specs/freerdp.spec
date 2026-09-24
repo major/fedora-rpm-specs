@@ -26,7 +26,7 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.31.1
+Version:        3.32.0
 Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
@@ -314,6 +314,7 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libuwac0.so.*
 }
 %{_libdir}/librdtk0.so.*
+%{_mandir}/man7/freerdp.*
 %{_mandir}/man7/wlog.*
 
 %files devel
@@ -374,6 +375,10 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Sep 23 2026 Ondrej Holy <oholy@redhat.com> - 2:3.32.0-1
+- Update to 3.32.0
+  Resolves: rhbz#2539239
+
 * Wed Sep 02 2026 Ondrej Holy <oholy@redhat.com> - 2:3.31.1-1
 - Update to 3.31.1
   Resolves: rhbz#2527242

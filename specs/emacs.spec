@@ -75,6 +75,10 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
+# Emacs arbitrary code execution: incomplete fix for CVE-2024-53920
+# https://www.openwall.com/lists/oss-security/2026/09/14/1
+Patch:         0001-flymake.el-Generalize-trusted-content-p-check-to-all.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

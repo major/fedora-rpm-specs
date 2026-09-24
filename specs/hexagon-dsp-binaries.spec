@@ -8,7 +8,7 @@
 %global debug_package %{nil}
 
 Name:		hexagon-dsp-binaries
-Version:	20260810
+Version:	20260916
 Release:	%autorelease
 Summary:	Hexagon DSP binaries for FastRPC
 
@@ -60,6 +60,7 @@ Hexagon DSP binaries and configuration for %{2}. \
 %boardpkg qualcomm-kaanapali-mtp %{quote:Qualcomm Kaanapali MTP}
 %boardpkg qualcomm-glymur-crd %{quote:Qualcomm Glymur CRD}
 %boardpkg qualcomm-shikra-cqs-evk %{quote:Qualcomm Shikra CQS EVK}
+%boardpkg qualcomm-eliza-mtp %{quote:Qualcomm Eliza MTP}
 # Hybrid board (own adsp, cdsp Linked to RB3gen2)
 %boardpkg thundercomm-rubikpi3 %{quote:Thundercomm Rubik Pi 3} thundercomm-rb3gen2
 # Linked boards (Link only)
@@ -71,6 +72,7 @@ Hexagon DSP binaries and configuration for %{2}. \
 %boardpkg qualcomm-iq9075-evk %{quote:Qualcomm IQ9075 EVK} qualcomm-sa8775p-ride
 %boardpkg qualcomm-purwa-iot-evk %{quote:Qualcomm Purwa IoT EVK} qualcomm-hamoa-iot-evk
 %boardpkg qualcomm-qcm6490-idp %{quote:Qualcomm QCM6490 IDP} thundercomm-rb3gen2
+%boardpkg qualcomm-mahua-crd %{quote:Qualcomm Mahua CRD} qualcomm-glymur-crd
 # Conf only
 %boardpkg qualcomm-db410c %{quote:Qualcomm DragonBoard 410c}
 
@@ -115,6 +117,7 @@ sed -i '/schema.json/d' Makefile
 %boardfiles qualcomm-kaanapali-mtp kaanapali Qualcomm Kaanapali-MTP
 %boardfiles qualcomm-glymur-crd glymur Qualcomm Glymur-CRD
 %boardfiles qualcomm-shikra-cqs-evk shikra Qualcomm Shikra-CQS-EVK
+%boardfiles qualcomm-eliza-mtp eliza Qualcomm Eliza-MTP
 %boardfiles qualcomm-sdm845-hdk sdm845 Qualcomm SDM845-HDK
 %boardfiles qualcomm-shikra-cqm-evk shikra Qualcomm Shikra-CQM-EVK
 %boardfiles qualcomm-shikra-iqs-evk shikra Qualcomm Shikra-IQS-EVK
@@ -124,6 +127,7 @@ sed -i '/schema.json/d' Makefile
 %boardfiles qualcomm-purwa-iot-evk x1p42100 Qualcomm Purwa-IoT-EVK
 %boardfiles qualcomm-qcm6490-idp qcm6490 Qualcomm QCM6490-IDP
 %boardfiles qualcomm-db410c
+%boardfiles qualcomm-mahua-crd mahua Qualcomm Mahua-CRD
 
 %changelog
 %autochangelog

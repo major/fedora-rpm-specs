@@ -1,6 +1,12 @@
-# OpenCL support requires packaged libxs/libxstream/libxsmm dependencies.
-# Keep it disabled until those packages are available in Fedora.
+# LIBXS is supported on x86_64, aarch64, and riscv64
+%bcond libxs %[ "%{_arch}" == "x86_64" || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64" ]
+
+# OpenCL support requires packaged libxs/libxstream dependencies.
+# Keep it disabled until libxstream is available in Fedora.
 %bcond opencl 0
+%if %{with opencl} && %{without libxs}
+%{error:OpenCL requires LIBXS}
+%endif
 
 # OpenMPI is not available on i686
 %bcond openmpi %[ 0%{?__isa_bits} != 32 ]
@@ -22,10 +28,12 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
 BuildRequires: flexiblas-devel
+%if %{with libxs}
+BuildRequires: cmake(libxs)
+BuildRequires: cmake(libxsmm)
+%endif
 %if %{with opencl}
-BuildRequires: libxs-devel
-BuildRequires: libxstream-devel
-BuildRequires: libxsmm-devel
+BuildRequires: cmake(libxstream)
 %endif
 BuildRequires: python3-fypp
 
@@ -98,9 +106,9 @@ developing applications that use %{name}-mpich.
 # Use system fypp, other tools not needed
 rm -r tools
 
-
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
 
 %conf
 %cmake \
@@ -108,8 +116,8 @@ rm -r tools
   -DBUILD_TESTING:BOOL=ON \
   -DUSE_MPI:BOOL=OFF \
   %{?with_opencl:-DUSE_ACCEL:STRING=opencl} \
-  -DUSE_LIBXS:BOOL=%{with opencl} \
-  -DUSE_LIBXSMM:BOOL=%{with opencl}
+  -DUSE_LIBXS:BOOL=%{with libxs} \
+  -DUSE_LIBXSMM:BOOL=%{with libxs}
 
 for mpi in %{mpi_list}
 do
@@ -119,8 +127,8 @@ do
     -DBUILD_TESTING:BOOL=ON \
     -DUSE_MPI:BOOL=ON \
     %{?with_opencl:-DUSE_ACCEL:STRING=opencl} \
-    -DUSE_LIBXS:BOOL=%{with opencl} \
-    -DUSE_LIBXSMM:BOOL=%{with opencl} \
+    -DUSE_LIBXS:BOOL=%{with libxs} \
+    -DUSE_LIBXSMM:BOOL=%{with libxs} \
     -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
     -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
     -DUSE_MPI_F08:BOOL=ON \
@@ -137,7 +145,6 @@ do
   %cmake_build
   module purge
 done
-
 
 
 %install

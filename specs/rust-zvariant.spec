@@ -5,7 +5,7 @@
 %global crate zvariant
 
 Name:           rust-zvariant
-Version:        5.13.1
+Version:        5.15.0
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 
@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only codspeed-criterion-compat dev-dependency
 Patch:          zvariant-fix-metadata.diff
+# * https://github.com/z-galaxy/zbus/commit/5f32837
+Patch:          0001-backport-zv-Don-t-assume-little-endian-host-in-dict_.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

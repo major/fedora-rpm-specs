@@ -1,6 +1,6 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
-Version: 3.7.13
+Version: 3.8
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
@@ -114,6 +114,9 @@ make check
 
 
 %changelog
+* Wed Sep 23 2026 Brian C. Lane <bcl@redhat.com> - 3.8-1
+- New upstream release with updated gnulib
+
 * Mon Sep 14 2026 Brian C. Lane <bcl@redhat.com> - 3.7.13-1
 - Removed included patches
 - version 3.7.13 (bcl)

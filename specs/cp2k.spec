@@ -1,6 +1,5 @@
-# libxs is not packaged yet
-# https://bugzilla.redhat.com/show_bug.cgi?id=2493314
-%bcond libxs 0
+# LIBXS is supported on x86_64, aarch64, and riscv64
+%bcond libxs %[ "%{_arch}" == "x86_64" || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64" ]
 
 # Disable LTO due to https://bugzilla.redhat.com/show_bug.cgi?id=2243158
 %global _lto_cflags %nil
@@ -35,11 +34,10 @@ BuildRequires: cmake(DBCSR)
 BuildRequires: cmake(libint2)
 BuildRequires: pkgconfig(fftw3)
 %if %{with libxs}
-BuildRequires: pkgconfig(libxsmm)
+BuildRequires: cmake(libxs)
+BuildRequires: cmake(libxsmm)
 %endif
-# cmake(Libxc) technically fails
-# https://github.com/cp2k/cp2k/issues/3767
-BuildRequires: libxc-devel
+BuildRequires: cmake(libxc)
 BuildRequires: cmake(Spglib)
 # Test dependencies
 BuildRequires: python3
@@ -47,14 +45,11 @@ BuildRequires: python3
 Requires:      %{name}-common = %{version}-%{release}
 
 %global _description %{expand:
-CP2K is a freely available (GPL) program, written in Fortran 95, to
-perform atomistic and molecular simulations of solid state, liquid,
-molecular and biological systems. It provides a general framework for
-different methods such as e.g. density functional theory (DFT) using a
-mixed Gaussian and plane waves approach (GPW), and classical pair and
-many-body potentials.
-
-CP2K does not implement Car-Parinello Molecular Dynamics (CPMD).}
+CP2K is a quantum chemistry and solid state physics software package that can
+perform atomistic simulations of solid state, liquid, molecular, periodic,
+material, crystal, and biological systems. It provides a general framework for
+different modeling methods such as DFT using the mixed Gaussian and plane waves
+approaches GPW and GAPW.}
 
 %description
 %{_description}
@@ -82,7 +77,6 @@ developing applications that use %{name}.
 %package openmpi
 Summary:        Molecular simulations software - openmpi version
 BuildRequires:  openmpi-devel
-BuildRequires:  blacs-openmpi-devel
 BuildRequires:  dbcsr-openmpi-devel
 BuildRequires:  scalapack-openmpi-devel
 
@@ -106,7 +100,6 @@ developing applications that use %{name}.
 %package mpich
 Summary:        Molecular simulations software - mpich version
 BuildRequires:  mpich-devel
-BuildRequires:  blacs-mpich-devel
 BuildRequires:  dbcsr-mpich-devel
 BuildRequires:  scalapack-mpich-devel
 
@@ -135,20 +128,19 @@ rm tools/build_utils/fypp
 # $MPI_SUFFIX will be evaluated in the loops below, set by mpi modules
 %global _vpath_builddir %{_vendor}-%{_target_os}-build${MPI_SUFFIX:-_serial}
 
-
-%build
+%conf
 cmake_common_args=(
   "-G Ninja"
   "-DCMAKE_BUILD_TYPE:STRING=Generic"
   "-DCP2K_BLAS_VENDOR:STRING=FlexiBLAS"
   "-DCP2K_USE_EVERYTHING:BOOL=OFF"
   "-DCP2K_USE_STATIC_BLAS:BOOL=OFF"
-  # Dependencies equivalent with Default
   "-DCP2K_USE_FFTW3:BOOL=ON"
   "-DCP2K_USE_LIBINT2:BOOL=ON"
   "-DCP2K_USE_LIBXC:BOOL=ON"
   "-DCP2K_USE_SPGLIB:BOOL=ON"
   "-DCP2K_USE_LIBXS:BOOL=%{with libxs}"
+  "-DCP2K_USE_LIBXSMM:BOOL=%{with libxs}"
 )
 for mpi in '' mpich openmpi; do
   if [ -n "$mpi" ]; then
@@ -173,8 +165,14 @@ for mpi in '' mpich openmpi; do
   %cmake \
     ${cmake_common_args[@]} \
     ${cmake_mpi_args[@]}
-  %cmake_build
 
+  [ -n "$mpi" ] && module unload mpi/${mpi}-%{_arch}
+done
+
+%build
+for mpi in '' mpich openmpi; do
+  [ -n "$mpi" ] && module load mpi/${mpi}-%{_arch}
+  %cmake_build
   [ -n "$mpi" ] && module unload mpi/${mpi}-%{_arch}
 done
 

@@ -6,8 +6,8 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.26.4
-Release: 9%{?dist}
+Version: 3.26.6
+Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -260,9 +260,6 @@ Patch73: hplip-plugin-stdout.patch
 # - connecting to HP site requires curl/wget to set user-agent to pretend to be a browser
 # https://bugs.launchpad.net/hplip/+bug/2154206
 Patch74: hplip-curl-fallback.patch
-# OSH fixes after CVE-2026-8631
-# https://bugs.launchpad.net/hplip/+bug/2156584
-Patch75: hplip-CVE-2026-8631-osh.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -628,8 +625,6 @@ done
 %patch -P 73 -p1 -b .plugin-stdout
 # https://bugs.launchpad.net/hplip/+bug/2154206
 %patch -P 74 -p1 -b .curl-fallback
-# OSH fixes after CVE-2026-8631
-%patch -P 75 -p1 -b .cve-2026-8631-osh
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -1001,6 +996,10 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Wed Sep 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.26.6-1
+- 3.26.6, fixes CVE-2026-91105,CVE-2026-91103,CVE-2026-91102,CVE-2026-91101,
+  CVE-2026-91100,CVE-2026-91099,CVE-2026-91098,CVE-2026-91097
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.26.4-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

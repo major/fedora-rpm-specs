@@ -1,10 +1,9 @@
 Name:           python-utils
-Version:        3.9.1
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Python Utils is a module with some convenient utilities
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/WoLpH/python-utils
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -16,6 +15,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-furo
+BuildRequires:  python3-myst-parser
 
 
 %description
@@ -44,7 +45,10 @@ Documentation for python-utils.
 %autosetup -p1 -n %{name}-%{version}
 
 # Stop linting code in %%check and measuring coverage, this is upstream's business
-sed -Ei '/--(cov|mypy)/d' pytest.ini
+sed -i '/--cov/d' pyproject.toml
+
+# Unping uv-build to allow testing with newer versions, it either buidls or not
+%pyproject_patch_dependency uv-build:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -53,7 +57,7 @@ sed -Ei '/--(cov|mypy)/d' pytest.ini
 %pyproject_wheel
 
 # generate html docs
-sphinx-build docs html
+PYTHONPATH=. sphinx-build docs html
 # remove the sphinx-build leftovers
 rm -rf html/{.doctrees,.buildinfo,*.inv}
 
@@ -70,7 +74,7 @@ rm -rf html/{.doctrees,.buildinfo,*.inv}
 
 
 %files -n python3-utils -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 %files docs
 %doc html

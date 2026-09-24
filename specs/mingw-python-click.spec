@@ -6,7 +6,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       8.4.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 8.4.2-2
+- Rebuild (mingw-python)
+
 * Wed Jul 29 2026 Sandro Mani <manisandro@gmail.com> - 8.4.2-1
 - Update to 8.4.2
 

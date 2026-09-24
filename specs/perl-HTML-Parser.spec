@@ -1,7 +1,7 @@
 Name:           perl-HTML-Parser
 Summary:        Perl module for parsing HTML
-Version:        3.85
-Release:        3%{?dist}
+Version:        3.86
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Parser-%{version}.tar.gz
 URL:            https://metacpan.org/release/HTML-Parser
@@ -29,6 +29,8 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(SelectSaver)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Tie::Hash)
+BuildRequires:  perl(overload)
 BuildRequires:  perl(threads)
 Requires:       perl(HTML::Tagset) >= 3
 Requires:       perl(HTTP::Headers)
@@ -47,6 +49,7 @@ HTML::LinkExtor, HTML::PullParser, and HTML::TokeParser modules.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+Requires:       perl(Tie::Hash)
 
 %description tests
 Tests from %{name}. Execute them
@@ -107,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.86-1
+- 3.86 bump (rhbz#2537221)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.85-3
 - Perl 5.44 rebuild
 

@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.14.3
+Version:        0.15.2
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
 License:        GPL-2.0-or-later
@@ -17,6 +17,11 @@ Source0:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{
 Source1:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.sign
 # https://git.kernel.org/pub/scm/utils/b4/b4.git/plain/.keys/openpgp/linuxfoundation.org/konstantin/default
 Source2:        gpgkey-DE0E66E32F1FDD0902666B96E63EDCA9329DD07E.asc
+Patch0:         0001-Make-TUI-packages-importable-without-the-textual-ext.patch
+Patch1:         0002-tests-guard-optional-dependency-imports-so-the-suite.patch
+Patch2:         0003-tests-three_way_merge-Skip-TestSuspendToShellCwd-wit.patch
+Patch3:         0004-tests-test_patatt-Skip-when-patatt-is-not-installed.patch
+Patch4:         0005-b4-Drop-shebang-lines-from-library-modules.patch
 
 BuildArch:      noarch
 
@@ -46,13 +51,12 @@ xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1
 
 # Disable attestation (only applicable to EPEL)
 %if %{without attest}
-sed -Ei -e '/^# These are optional, needed for attestation/d' \
-    -e "/^ *'?(dnspython|dkimpy|patatt)/d" requirements.in
+sed -Ei -e "/^ *\"?(dnspython|dkimpy|patatt)/d" pyproject.toml
 %endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements.in
+%pyproject_buildrequires -p
 
 
 %build
@@ -64,7 +68,7 @@ misc/tc-generate.sh zsh > b4-completion-zsh
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
-install -m644 -Dt %{buildroot}%{_mandir}/man5/ src/b4/man/b4.5
+install -m644 -Dt %{buildroot}%{_mandir}/man1/ src/b4/man/b4.1
 install -m644 -D b4-completion-bash %{buildroot}%{_datadir}/bash-completion/completions/b4
 install -m644 -D b4-completion-zsh %{buildroot}%{_datadir}/zsh/site-functions/_b4
 
@@ -77,7 +81,7 @@ install -m644 -D b4-completion-zsh %{buildroot}%{_datadir}/zsh/site-functions/_b
 %files -n %{srcname} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/%{srcname}
-%{_mandir}/man5/%{srcname}.5.*
+%{_mandir}/man1/%{srcname}.1.*
 %{_datadir}/bash-completion/completions/b4
 %{_datadir}/zsh/site-functions/_b4
 

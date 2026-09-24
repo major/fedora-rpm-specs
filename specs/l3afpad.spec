@@ -1,17 +1,20 @@
 Name:           l3afpad
-Version:        0.8.18.1.10
-Release:        31%{?dist}
+Version:        0.8.18.1.11
+Release:        1%{?dist}
 Summary:        Simple text editor forked from Leafpad, supports GTK+ 3.x
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://www.calno.com/%{name}/
-Source0:        http://www.calno.com/%{name}/%{name}-%{version}.tar.xz
-
+URL:            https://github.com/stevenhoneyman/l3afpad
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  gtk3-devel, intltool, gettext, desktop-file-utils
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gtk3-devel
+BuildRequires:  intltool
+BuildRequires:  gettext
+BuildRequires:  desktop-file-utils
 
 
 %description
@@ -19,25 +22,25 @@ L3afpad is a simple GTK+ text editor that emphasizes simplicity.
 As development focuses on keeping weight down to a minimum, only
 the most essential features are implemented in the editor.
 L3afpad is simple to use, is easily compiled, requires few
-libraries, and starts up quickly. 
+libraries, and starts up quickly.
 
 %prep
-%setup -q %{nam}
+%autosetup
 
 %build
+intltoolize -c --automake --force
+autoreconf -fi
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
-
-desktop-file-install %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
+%make_install
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %find_lang %{name}
 
 
 %files -f %{name}.lang
+%license COPYING
 %doc AUTHORS ChangeLog README
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -47,6 +50,11 @@ desktop-file-install %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Sep 24 2026 Benedikt Schäfer <ib54003@fedoraproject.org> - 0.8.18.1.11-1
+- Update to 0.8.18.1.11
+- Switch Source0 to GitHub upstream, regenerate autotools
+- Modernize spec (autosetup, make macros, license file)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18.1.10-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %bcond system_lapack 0
-%bcond atlas %[%{undefined rhel} && %{undefined flatpak} && "%{_arch}" != "riscv64" ]
+%bcond atlas %[%{undefined rhel} && %{undefined flatpak} && "%{_arch}" != "riscv64" && 0%{?fedora} < 46 ]
 %bcond blis %[%{undefined rhel} && %{undefined flatpak}]
 %bcond openblas 1
 
@@ -19,7 +19,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -439,6 +439,10 @@ export FLEXIBLAS64_TEST=%{buildroot}%{_libdir}/%{name}64/lib%{name}_%{default_ba
 %endif
 
 %changelog
+* Wed Sep 23 2026 Jakub Martisko <jamartis@redhat.com> - 3.5.0-4
+- Drop Atlas support in Fedora 46+
+- Atlas is going to be deprecated soon
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

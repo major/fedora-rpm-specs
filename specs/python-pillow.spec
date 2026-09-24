@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        12.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -307,6 +307,9 @@ popd
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 12.3.0-4
+- Rebuild (mingw-python)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 12.3.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

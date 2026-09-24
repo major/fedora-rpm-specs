@@ -15,8 +15,11 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * bump ossl dependency to v1.5.3 for RipeMD160 support
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          sequoia-openpgp-fix-metadata.diff
+# https://gitlab.com/sequoia-pgp/sequoia/-/commit/28ee4bfd
+Patch:          0001-reintroduce-ripemd160-support-for-the-ossl-backend.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

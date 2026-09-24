@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        2.4.2
+Version:        2.4.3
 Release:        %autorelease
 
 # SPDX
@@ -28,6 +28,10 @@ Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
 # Fixes tests with packaging 26.3
 Patch:          https://github.com/python-poetry/poetry/pull/11014.patch
+
+# Python 3.15 tarfile normalizes ".." in member names before the traversal
+# check, so the symlink traversal archive extracts safely instead of raising.
+Patch:          https://github.com/python-poetry/poetry/pull/11046.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

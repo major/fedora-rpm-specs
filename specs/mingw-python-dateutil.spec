@@ -7,7 +7,7 @@
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.9.0.post0
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 # According to the LICENSE file:
@@ -77,6 +77,9 @@ sed -i 's|{version}|%{version}|' setup.py
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2.9.0.post0-5
+- Rebuild (mingw-python)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0.post0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

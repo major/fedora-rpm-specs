@@ -1,5 +1,5 @@
 Name:		stress-ng
-Version:	0.22.00
+Version:	0.22.01
 Release:	%autorelease
 Summary:	Stress test a computer system in various ways
 

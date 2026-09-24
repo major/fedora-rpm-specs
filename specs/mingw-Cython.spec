@@ -9,7 +9,7 @@
 Name:          mingw-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
 Version:       3.2.8
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 License:       Apache-2.0
 URL:           http://www.cython.org
@@ -109,6 +109,9 @@ MinGW Windows Python3 %{mod_name} library.
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.2.8-3
+- Rebuild (mingw-python)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,14 +1,11 @@
 Name: fetch-crl
-Version: 3.0.23
+Version: 3.0.25
 Release: %autorelease
 Summary: Downloads Certificate Revocation Lists
 
 License: Apache-2.0
 URL: https://wiki.nikhef.nl/grid/FetchCRL3
 Source0: https://dist.eugridpma.info/distribution/util/fetch-crl3/fetch-crl-%{version}.tar.gz
-
-# https://github.com/dlgroep/fetch-crl/pull/6
-Patch0:  sbin-to-bin.patch
 
 # systemd files.
 Source1: fetch-crl.service

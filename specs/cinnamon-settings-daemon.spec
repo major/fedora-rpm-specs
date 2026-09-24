@@ -1,9 +1,9 @@
 %global cinnamon_desktop_version 6.7.3
 
-%global upstream_version 6.7.4-unstable
+%global upstream_version 6.7.5-unstable
 
 Name:           cinnamon-settings-daemon
-Version:        6.7.4^unstable
+Version:        6.7.5^unstable
 Release:        %autorelease
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
@@ -15,7 +15,6 @@ ExcludeArch:    %{ix86}
 
 BuildSystem:   meson
 BuildOption(conf): -Duse_smartcard=disabled
-BuildOption(conf): -Dgtk_layer_shell=true
 %ifarch s390 s390x
 BuildOption(conf): -Duse_wacom=disabled
 %endif
@@ -31,9 +30,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
-BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(libnotify) >= 0.7.3
 BuildRequires:  pkgconfig(pango) >= 1.20.0
 BuildRequires:  pkgconfig(polkit-gobject-1) >= 0.97

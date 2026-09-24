@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.36.0
+Version:            2.37.0
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -27,9 +27,6 @@ Patch5:             python314.patch
 Patch6:             prompt-toolkit-3.0.52.patch
 # fix Python 3.15 incompatibilities
 Patch7:             python315.patch
-# update expected CRT-optimized platforms to match awscrt >= 0.34
-Patch8:             awscrt-platforms.patch
-
 BuildArch:          noarch
 
 BuildRequires:      python%{python3_pkgversion}-devel
@@ -93,6 +90,16 @@ sed \
     -e '/pytest-cov/d' \
     %{?rhel:-e '/pytest-xdist/d'} \
     requirements-test.txt > _requirements-test.txt
+
+# ignore pytest 9 warnings about the generators used by the upstream test suite
+# (pytest 10 will require these values to be materialized)
+sed -i \
+    -e '/^filterwarnings = \[/,/^]/ {
+        /^[[:space:]]\{4\}[^#].*[^,]$/s/$/,/
+        /^]/i\
+    "ignore:Passing a non-Collection iterable to parametrize is deprecated"
+}' \
+    pyproject.toml
 
 
 %generate_buildrequires

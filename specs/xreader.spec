@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.6.4
-Release:	4%{?dist}
+Version:	4.6.9
+Release:	%autorelease
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -13,9 +13,16 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 ExcludeArch:    %{ix86}
 
-BuildRequires:	cmake
+BuildSystem:   meson
+BuildOption(conf): -Ddeprecated_warnings=false
+BuildOption(conf): -Ddjvu=true
+BuildOption(conf): -Ddvi=true
+BuildOption(conf): -Dt1lib=true
+BuildOption(conf): -Dpixbuf=true
+BuildOption(conf): -Dcomics=true
+BuildOption(conf): -Dintrospection=true
+BuildOption(conf): -Dhelp_files=true
 BuildRequires:	gcc-c++
-BuildRequires:	meson
 BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	libappstream-glib
@@ -95,24 +102,8 @@ This package adds configuration to use %{name} as a thumbnailer.
 %prep
 %autosetup -p1
 
-%build
-%meson	\
- -Ddeprecated_warnings=false \
- -Ddjvu=true \
- -Ddvi=true \
- -Depub=false \
- -Dt1lib=true \
- -Dpixbuf=true \
- -Dcomics=true \
- -Dintrospection=true \
- -Dhelp_files=true
-
-%meson_build
-
-%install
-%meson_install
-
-%{__sed} -i -e '/.*<project_group>.*/d' \
+%install -a
+sed -i -e '/.*<project_group>.*/d' \
 	%{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %find_lang %{name}
@@ -168,306 +159,4 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
-* Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.6.4-4
-- Rebuilt for libxml-2.5.4
-
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue May 19 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-2
-- Add requires xapp-symbolic-icons
-
-* Mon May 18 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-1
-- Update to 4.6.4
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.3-1
-- Update to 4.6.3
-
-* Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 4.6.1-1
-- Update to 4.6.1
-
-* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 4.6.0-1
-- Update to 4.6.0
-
-* Mon Sep 15 2025 Leigh Scott <leigh123linux@gmail.com> - 4.4.0-1
-- Update to 4.4.0
-- Add recommends xreader-thumbnailer to main package
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon May 26 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.6-1
-- Update to 4.2.6
-- Disable epub support, it's broken
-
-* Mon Apr 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.4-1
-- Update to 4.2.4
-
-* Fri Mar 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-4
-- rebuilt
-
-* Fri Jan 31 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-3
-- rebuilt
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 06 2024 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-1
-- Update to 4.2.3
-
-* Tue Aug 20 2024 Leigh Scott <leigh123linux@gmail.com> - 4.2.2-1
-- Update to 4.2.2
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4.2.1-3
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jun 18 2024 Leigh Scott <leigh123linux@gmail.com> - 4.2.1-1
-- Update to 4.2.1
-
-* Wed Jun 05 2024 Leigh Scott <leigh123linux@gmail.com> - 4.2.0-1
-- Update to 4.2.0
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 4.0.2-2
-- AAdd buildrequires python3-packaging
-
-* Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 4.0.2-1
-- Update to 4.0.2 release
-
-* Sun Dec 31 2023 Leigh Scott <leigh123linux@gmail.com> - 4.0.1-1
-- Update to 4.0.1 release
-
-* Thu Dec 21 2023 Leigh Scott <leigh123linux@gmail.com> - 4.0.0-1
-- Update to 4.0.0 release
-
-* Tue Dec 05 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.4-1
-- Update to 3.8.4 release
-
-* Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.3-1
-- Update to 3.8.3 release
-
-* Fri Aug 04 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.2-1
-- Update to 3.8.2 release
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.1-1
-- Update to 3.8.1 release
-
-* Thu Jun 01 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.0-1
-- Update to 3.8.0 release
-
-* Thu May 11 2023 Leigh Scott <leigh123linux@gmail.com> - 3.6.3-2
-- Switch to webkit2gtk-4.1
-
-* Sun Feb 05 2023 Jonathan Wright <jonathan@almalinux.org> - 3.6.3-1
-- Update to 3.6.3 rhbz#2160519
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 3.6.0-1
-- Update to 3.6.0 release
-
-* Sun Aug 21 2022 Leigh Scott <leigh123linux@gmail.com> - 3.4.5-1
-- Update to 3.4.5 release
-
-* Sun Jul 24 2022 Leigh Scott <leigh123linux@gmail.com> - 3.4.3-1
-- Update to 3.4.3 release
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jul 20 2022 Leigh Scott <leigh123linux@gmail.com> - 3.4.2-1
-- Update to 3.4.2 release
-
-* Sun Jul 17 2022 Leigh Scott <leigh123linux@gmail.com> - 3.4.1-1
-- Update to 3.4.1 release
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 06 2021 Leigh Scott <leigh123linux@gmail.com> - 3.2.2-1
-- Update to 3.2.2 release
-
-* Mon Nov 29 2021 Leigh Scott <leigh123linux@gmail.com> - 3.2.1-1
-- Update to 3.2.1 release
-
-* Wed Nov 24 2021 Leigh Scott <leigh123linux@gmail.com> - 3.2.0-1
-- Update to 3.2.0 release
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 25 2021 Leigh Scott <leigh123linux@gmail.com> - 3.0.2-1
-- Update to 3.0.2 release
-
-* Thu Jun 10 2021 Leigh Scott <leigh123linux@gmail.com> - 3.0.1-1
-- Update to 3.0.1 release
-
-* Tue Jun 01 2021 Leigh Scott <leigh123linux@gmail.com> - 3.0.0-1
-- Update to 3.0.0 release
-
-* Sun Feb 28 2021 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.8.3-3
-- Create subpackages for libs, data, and thumbnailer (rhbz#1933895)
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jan 13 2021 Leigh Scott <leigh123linux@gmail.com> - 2.8.3-1
-- Update to 2.8.3 release
-
-* Sat Jan  2 2021 Leigh Scott <leigh123linux@gmail.com> - 2.8.2-1
-- Update to 2.8.2 release
-
-* Thu Dec 10 2020 Leigh Scott <leigh123linux@gmail.com> - 2.8.1-1
-- Update to 2.8.1 release
-
-* Wed Dec  2 2020 Leigh Scott <leigh123linux@gmail.com> - 2.8.0-1
-- Update to 2.8.0 release
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 14 2020 Leigh Scott <leigh123linux@gmail.com> - 2.6.4-1
-- Update to 2.6.4 release
-
-* Sat Jun 06 2020 Leigh Scott <leigh123linux@gmail.com> - 2.6.2-1
-- Update to 2.6.2 release
-
-* Sat May 23 2020 Leigh Scott <leigh123linux@gmail.com> - 2.6.1-1
-- Update to 2.6.1 release
-
-* Tue May 12 2020 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-1
-- Update to 2.6.0 release
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 17 2020 Marek Kasik <mkasik@redhat.com> - 2.4.4-3
-- Rebuild for poppler-0.84.0
-
-* Fri Jan 10 2020 Leigh Scott <leigh123linux@gmail.com> - 2.4.4-2
-- Add build requires t1lib-devel
-
-* Fri Jan 10 2020 Leigh Scott <leigh123linux@googlemail.com> - 2.4.4-1
-- Update to 2.4.4 release
-
-* Wed Dec 11 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.4.3-1
-- Update to 2.4.3 release
-
-* Thu Nov 28 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.4.2-1
-- Update to 2.4.2 release
-
-* Tue Nov 26 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.4.1-1
-- Update to 2.4.1 release
-
-* Fri Nov 22 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.4.0-1
-- Update to 2.4.0 release
-
-* Tue Sep 10 2019 Florian Weimer <fweimer@redhat.com> - 2.2.3-2
-- Fix building in C99 mode
-
-* Wed Jul 31 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.2.3-1
-- Update to 2.2.3 release
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Jul 14 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.2.2-1
-- Update to 2.2.2 release
-
-* Sun Jun 30 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.2.1-1
-- Update to 2.2.1 release
-
-* Sat Jun 29 2019 Leigh Scott <leigh123linux@googlemail.com> - 2.2.0-1
-- Update to 2.2.0 release
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Dec 16 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.2-1
-- Update to 2.0.2 release
-
-* Wed Nov 28 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.1-1
-- Update to 2.0.1 release
-
-* Mon Nov 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.0-1
-- Update to 2.0.0 release
-
-* Wed Aug 15 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.8.5-1
-- Update to 1.8.5 release
-
-* Mon Jul 16 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.8.4-1
-- Update to 1.8.4 release
-- Add BuildRequires gcc-c++
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu May 10 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.8.1-1
-- Update to 1.8.1 release
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Dec 18 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.2-1
-- New upstream release
-
-* Tue Dec 12 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.1-1
-- New upstream release
-- Fix typelib version
-
-* Thu Nov 16 2017 Björn Esser <besser82@fedoraproject.org> - 1.6.0-3
-- Redistributable build on EPEL7
-
-* Thu Nov 16 2017 Björn Esser <besser82@fedoraproject.org> - 1.6.0-2
-- Bootstrapping on EPEL7
-
-* Sat Nov 04 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.0-1
-- Update to 1.6.0 release
-
-* Fri Sep 01 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.4-6
-- Some more fixes for EPEL
-
-* Fri Sep 01 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.4-5
-- Some more fixes for EPEL
-
-* Fri Sep 01 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.4-4
-- Adjustments for EPEL
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Wed Jun 28 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.4-1
-- New upstream release (rhbz#1462726)
-
-* Wed May 24 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.2-1
-- New upstream release (rhbz#1454986)
-
-* Mon May 08 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.1-2
-- Add patch to fix build without Caja-extension
-
-* Mon May 08 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.1-1
-- New upstream release (rhbz#1448921)
-
-* Mon May 08 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.0-2
-- Disable Caja-extension for Fedora <= 25
-
-* Mon May 08 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.0-1
-- Initial import (rhbz#1424832)
-
-* Sat May 06 2017 Björn Esser <besser82@fedoraproject.org> - 1.4.0-0.1
-- Initial rpm-release (rhbz#1424832)
+%autochangelog

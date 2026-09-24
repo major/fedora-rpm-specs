@@ -9,7 +9,7 @@
 
 Name:           perl-Test-Signature
 Version:        1.11
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Automated SIGNATURE testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Signature
@@ -23,7 +23,6 @@ Patch1:         Test-Signature-1.11-Resign-patched-code.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -31,7 +30,7 @@ BuildRequires:  perl-interpreter
 # Dependencies of bundled Module::Install
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Find)
@@ -77,12 +76,11 @@ gpg2 --import %{SOURCE1}
 gpg2 --import %{SOURCE2}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -98,6 +96,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Test::Signature.3*
 
 %changelog
+* Wed Sep 23 2026 Paul Howarth <paul@city-fan.org> - 1.11-38
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

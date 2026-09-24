@@ -6,7 +6,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-httpx2
-Version:        2.13.0
+Version:        2.13.1
 Release:        %autorelease
 Summary:        A next-generation HTTP client for Python
 

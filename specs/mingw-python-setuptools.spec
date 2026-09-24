@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       84.0.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -17,6 +17,8 @@ Patch0:        mingw-python-setuptools_nostrip.patch
 # Adapt is_mingw detection
 # NOTE: when running mingw-python3, sys.platform will be 'linux'
 Patch1:        setuptools-is_mingw.patch
+# Keep .dll.a as shared_lib_extension
+Patch2:        setuptools_shlibext.patch
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
@@ -61,10 +63,15 @@ find setuptools -name \*.py | xargs sed -i -e '1 {/^#!\//d}'
 
 
 %install
-%{mingw32_py3_install_host}
-%{mingw64_py3_install_host}
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+# Note: we need -O0 to avoid internal byte-compilation
+ln -fs build_mingw32_host build;
+%mingw32_python3_host setup.py install -O0 --skip-build --root %{buildroot}
+ln -fs build_mingw64_host build;
+%mingw64_python3_host setup.py install -O0 --skip-build --root %{buildroot}
+ln -fs build_mingw32 build;
+%mingw32_python3 setup.py install -O0 --skip-build --root %{buildroot}
+ln -fs build_mingw64 build;
+%mingw64_python3 setup.py install -O0 --skip-build --root %{buildroot}
 
 find %{buildroot}%{mingw32_python3_sitearch}/ -name '*.exe' | xargs rm -f
 find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
@@ -94,6 +101,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 84.0.0-3
+- Rebuild (mingw-python)
+
 * Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 84.0.0-2
 - Add setuptools-is_mingw.patch
 

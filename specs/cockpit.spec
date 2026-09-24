@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        367
+Version:        368
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -370,11 +370,11 @@ Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -584,7 +584,8 @@ Recommends: NetworkManager-team
 BuildArch: noarch
 
 %description networkmanager
-The Cockpit component for managing networking.  This package uses NetworkManager.
+The Cockpit component for managing networking.  This package uses
+NetworkManager.
 
 %files networkmanager -f networkmanager.list
 %license LICENSES/LGPL-2.1.txt
@@ -665,6 +666,15 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 23 2026 Packit <hello@packit.dev> - 368-1
+- Limit concurrent connections CVE-2026-91149
+- Harden cockpit-ws against trailing slash CVE-2026-91147
+- Sanitize URLs from PackageKit CVE-2026-91148
+- Interactive file chooser for SSH keys
+- Bug fixes and translation updates
+- Resolves RHEL-263070, RHEL-262891, RHEL-253609 for rhel-10.4
+- Resolves RHEL-263066 for rhel-9.10
+
 * Thu Aug 27 2026 Packit <hello@packit.dev> - 367-1
 - Translation updates
 

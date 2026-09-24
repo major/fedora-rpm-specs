@@ -35,7 +35,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.61.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1031,6 +1031,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Sep 23 2026 Jerry James <loganjerry@gmail.com> - 1:1.61.3-2
+- Bump and rebuild
+
 * Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.61.3-1
 - New upstream development version 1.61.3
 

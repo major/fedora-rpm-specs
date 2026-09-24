@@ -9,7 +9,7 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Simple Signed Certificate Generator
 
@@ -24,14 +24,6 @@ BuildRequires:  popt-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
-
-# Upstream patch to avoid segfaults when receiving bad CLI arguments
-# https://github.com/sgallagher/sscg/commit/0c37e7ace585cfb550a0ffd9d5c331d059fd687f
-Patch: 0001-Avoid-segfault-on-receiving-bad-CLI-arguments.patch
-
-# Upstream patch to support OpenSSL API adjustments without warnings
-# https://github.com/sgallagher/sscg/commit/5547334edbf609ee987157fb19444865f8d351dc
-Patch: 0002-Adapt-to-OpenSSL-4.patch
 
 
 %description

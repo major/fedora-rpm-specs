@@ -5,7 +5,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           glycin
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 

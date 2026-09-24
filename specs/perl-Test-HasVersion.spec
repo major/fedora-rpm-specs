@@ -1,6 +1,6 @@
 Name:           perl-Test-HasVersion
 Version:        0.014
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Check Perl modules have version numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HasVersion
@@ -8,12 +8,11 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-HasVersion
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 # Module Runtime
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder)
@@ -41,12 +40,11 @@ you.
 %setup -q -n Test-HasVersion-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 # test_version described in Test::HasVersion manpage
 mkdir -p %{buildroot}%{_mandir}/man1
 echo ".so man3/Test::HasVersion.$(perl -MConfig -e 'print $Config{man3ext}')" > %{buildroot}%{_mandir}/man1/test_version.1
@@ -64,6 +62,9 @@ make test
 %{_mandir}/man3/Test::HasVersion.3*
 
 %changelog
+* Wed Sep 23 2026 Paul Howarth <paul@city-fan.org> - 0.014-32
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

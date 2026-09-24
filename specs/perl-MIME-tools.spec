@@ -1,6 +1,6 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.518
+Version:	5.519
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
@@ -135,6 +135,14 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Wed Sep 23 2026 Paul Howarth <paul@city-fan.org> - 5.519-1
+- Update to 5.519
+  - Some (buggy) software creates base64-encoded parts as a concatenation of
+    multiple base64-encoded streams, and some client software decodes each
+    stream separately and concatenates the results; duplicate this behavior in
+    MIME::tools to prevent it from being used as a mechanism to sneak
+    dangerous content past a security scanner
+
 * Thu Aug 27 2026 Paul Howarth <paul@city-fan.org> - 5.518-1
 - Update to 5.518
   - Add tests for encoded "boundary=XXX" parameters and set the ambiguous-parse

@@ -1,8 +1,8 @@
 %global use_x11_tests 1
 
 Name:           perl-Config-Model-TkUI
-Version:        1.381
-Release:        2%{?dist}
+Version:        1.382
+Release:        1%{?dist}
 Summary:        TK GUI to edit config data through Config::Model
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/Config-Model-TkUI
@@ -49,7 +49,7 @@ BuildRequires:  perl(Tk::FontDialog)
 BuildRequires:  perl(Tk::Frame)
 BuildRequires:  perl(Tk::Menubutton)
 BuildRequires:  perl(Tk::NoteBook)
-BuildRequires:  perl(Tk::ObjScanner)
+# Not used in tests - BuildRequires:  perl(Tk::ObjScanner)
 BuildRequires:  perl(Tk::Pane)
 BuildRequires:  perl(Tk::Photo)
 BuildRequires:  perl(Tk::PNG)
@@ -70,6 +70,7 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
+Requires:       perl(Tk::ObjScanner)
 
 %description
 This class provides a GUI for Config::Model.
@@ -97,6 +98,9 @@ This class provides a GUI for Config::Model.
 %{_mandir}/man3/Config::Model::TkUI*
 
 %changelog
+* Wed Sep 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.382-1
+- 1.382 bump (rhbz#2526244)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.381-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

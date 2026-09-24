@@ -2,11 +2,11 @@
 %global glib2_version    2.37.3
 %global po_package       cinnamon-desktop-3.0
 
-%global upstream_version 6.7.4-unstable
+%global upstream_version 6.7.5-unstable
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.7.4^unstable
+Version: 6.7.5^unstable
 Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT
 URL:     https://github.com/linuxmint/%{name}

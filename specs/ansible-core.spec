@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.21.3
+Version:        2.22.0~b1
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -27,20 +27,6 @@ URL:            https://ansible.com
 
 Source0:        https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
-
-# ansible-core 2.20 does not support Python 3.15 and upstream does not plan to do so until 2.22
-# This is a downstream-only patch to make it possible to build 2.20 with Python 3.15
-Patch:          allow-python3.15-build.patch
-
-# Fix general compatibility with Python 3.15
-# The test fix bit comes from https://github.com/ansible/ansible/commit/d60f11409
-# (rebased to apply on the sources of this version)
-# Changes to the _dataclass_annotation_patch come from merged:
-# https://github.com/ansible/ansible/pull/86976
-Patch:          fix-compatibility-with-python-315.patch
-
-# Fix test compatibility with pytest 9.1
-Patch:          https://github.com/ansible/ansible/pull/87165.patch
 
 BuildArch:      noarch
 
@@ -258,6 +244,12 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Wed Sep 23 2026 Maxwell G <maxwell@gtmx.me> - 2.22.0~b1-1
+- Update to 2.22.0~b1.
+
+* Sat Sep 12 2026 Maxwell G <maxwell@gtmx.me> - 2.21.4-1
+- Update to 2.21.4. Fixes rhbz#2529942.
+
 * Fri Aug 14 2026 Maxwell G <maxwell@gtmx.me> - 2.21.3-1
 - Update to 2.21.3. Fixes rhbz#2499793.
 

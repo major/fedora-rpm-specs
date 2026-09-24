@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        356
+Version:        357
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -69,11 +69,11 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -118,6 +118,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 23 2026 Packit <hello@packit.dev> - 357-1
+- Harden against local attacks from accessing sensitive data CVE-2026-92768, CVE-2026-92747, CVE-2026-92745
+- Resolves RHEL-263125, RHEL-263121, RHEL-263122 for rhel-10.4
+- Resolves RHEL-263116, RHEL-263119, RHEL-263126 for rhel-9.10
+
 * Thu Aug 27 2026 Packit <hello@packit.dev> - 356-1
 - Translation updates
 - Stability improvements

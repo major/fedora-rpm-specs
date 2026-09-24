@@ -1,5 +1,5 @@
-%global basever 7.3
-%global micro 23
+%global basever 8.0
+%global micro 0
 #global pre ...
 %global pyversion 3.11
 Name:           pypy%{pyversion}
@@ -77,7 +77,7 @@ ExcludeArch:    %{ix86}
 %bcond main_pypy3 %[0%{?fedora} >= 42]
 
 # Source and patches:
-Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar.bz2
+Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar.gz
 
 # Supply various useful RPM macros for building python modules against pypy:
 #  __pypy, pypy_sitelib, pypy_sitearch
@@ -104,11 +104,6 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
-# Fix "seeing a prebuilt rpython.rlib.rthread.Lock instance" during translation
-# caused by 7.3.23's exception table changes exposing Lock objects as prebuilt constants
-# https://github.com/pypy/pypy/issues/5527
-Patch10: https://github.com/pypy/pypy/commit/9e483cf9.patch
-Patch11: https://github.com/pypy/pypy/commit/ea804f98.patch
 
 # Build-time requirements:
 
@@ -239,7 +234,7 @@ Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = 24.0
-Provides: bundled(python3dist(setuptools)) = 65.5.0
+Provides: bundled(python3dist(setuptools)) = 79.0.1
 %endif
 
 # Provides for the bundled libmpdec
@@ -249,7 +244,7 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 }
 
 # Find the version in lib_pypy/cffi-XXX.dist-info/METADATA
-Provides: bundled(python3dist(cffi)) = 1.18.0
+Provides: bundled(python3dist(cffi)) = 2.1.0
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
 Provides: bundled(python3dist(pycparser)) = 3.00
@@ -761,7 +756,7 @@ CheckPyPy pypy%{pyversion}-c
 %doc README.rst
 %license %{pypylibdir}/LICENSE
 %license %{pypylibdir}/_cffi_ssl/LICENSE
-%license %{pypylibdir}/cffi-*.dist-info/LICENSE
+%license %{pypylibdir}/cffi-*.dist-info/licenses/LICENSE
 %license %{pypylibdir}/hpy-*.dist-info/LICENSE
 %{pypylibdir}/
 %if %{with rpmwheels}

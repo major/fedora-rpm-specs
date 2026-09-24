@@ -15,6 +15,7 @@ Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
 Source6: systemd-tmpfiles.conf
+Source7: 99-prefixlen
 
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
@@ -56,6 +57,7 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 install -D -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}@.service
 install -D -m 644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -D -m 644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -D -m 444 %{SOURCE7} %{buildroot}%{_libexecdir}/%{name}-hooks/99-prefixlen
 install -d %{buildroot}%{_sharedstatedir}/%{_name}
 
 %post

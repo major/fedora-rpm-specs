@@ -18,6 +18,10 @@ Source: astropy-README.dist
 Patch: restore-compilation-flags.patch
 Patch: python-astropy-system-configobj.patch
 Patch: fix-doctest.patch
+# Handle dividing by zero differences
+Patch: riscv-fix-test_freedman_bin_width.patch
+# Handle FMA precision differences on ppc64le
+Patch: ppc64le-fix-test_polynomial_poorly_conditioned.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel

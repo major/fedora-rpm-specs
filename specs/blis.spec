@@ -8,15 +8,19 @@
 %global sover .4.0.0
 %global soshort .4
 
+# This isn't necessary with the current BLIS, but the fix probably
+# isn't robust, so keep it around.
 # Both these are necessary to avoid asm error
 # error: bp cannot be used in ‘asm’ here
 # Fixme: patch to localize this
+#if 0
 %undefine _include_frame_pointers
 %define _lto_cflags %{nil}
+#endif
 
 Name:		blis
-Version:	2.0
-Release:	7%{?dist}
+Version:	2.1
+Release:	1%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -25,7 +29,7 @@ Source0:	https://github.com/flame/blis/archive/%commit/%name-%shortcommit.tar.gz
 %else
 Source0:	https://github.com/flame/blis/archive/%version/%name-%version.tar.gz
 %endif
-Patch1:         0001-Update-Haswell-gemmsup-fix-for-gcc-16-and-later.-891.patch
+Patch1:         blis-arm64-fix.patch
 BuildRequires:	perl
 BuildRequires:	binutils gcc
 BuildRequires:	python3-devel gcc-gfortran chrpath
@@ -126,16 +130,17 @@ BLIS architecture macros.
 
 %prep
 %setup -q %{?commit: -n %name-%commit}
-%patch -P1 -p1 -b .gcc16
+%patch -p1 -P1
 
 %build
 case %_arch in
 x86_64) arch=x86_64 ;;
-# a57 runs on all aarch64 and the optimized micro-kernel should be a
-# better default than generic.
-# Fixme:  Include my changes for arm and ppc micro-arch dispatch.
-aarch64) arch=cortexa57 ;;
-armv7hl) arch=cortexa9 ;;	# Similarly to aarch64
+aarch64) arch=arm64 ;;
+%if 0%{?rhel} >= 9 || 0%{?fedora}
+# Fixme: patch in my dynamic dispatch code
+ppc64le) arch=power9 ;;
+%endif
+# Fixme: For s390, use block sizes from OpenBLAS
 *) arch=generic ;;
 esac
 
@@ -372,6 +377,13 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Wed Sep 23 2026 Dave Love <loveshack@fedoraproject.org> - 2.1-1
+- Update to v2.1
+- Drop gcc patch
+- Use aarch64 and power9 configs
+- Remove workaround for asm error
+- Add patch for arm64 build
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

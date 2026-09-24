@@ -1,6 +1,6 @@
 Name:		perl-Test-XML
 Version:	0.08
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Compare XML in perl tests
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-XML
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-XML-%{version}.ta
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(strict)
@@ -66,12 +65,11 @@ is_good_xml(XML [, TESTNAME ])
 %setup -q -n Test-XML-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -86,6 +84,9 @@ make test
 %{_mandir}/man3/Test::XML::XPath.3*
 
 %changelog
+* Wed Sep 23 2026 Paul Howarth <paul@city-fan.org> - 0.08-35
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

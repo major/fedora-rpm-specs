@@ -275,7 +275,7 @@
 %endif
 
 Name:	chromium
-Version: 153.0.8010.52
+Version: 154.0.8037.57
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -327,8 +327,7 @@ Patch93: chromium-141-csss_style_sheet.patch
 
 # revert the patch to fix the build error: "ld.lld: error: undefined symbol: __sanitizer_set_death_callback"
 Patch94: chromium-148-v8-sanitize-build-error.patch
-# Fix rust build error
-Patch95: chromium-152-build-error-rust-cbor.patch
+
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
 #     |
@@ -364,7 +363,7 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # Fix FTBFS with rustc-1.88 on el9 and epel10.1
 Patch142: chromium-149-rust-1.88-build-error.patch
-Patch143: chromium-153-rust-1.88-enable-unstable_features.patch
+Patch143: chromium-154-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
 
 # add correct path for Qt6Gui header and libs
@@ -403,7 +402,13 @@ Patch311: chromium-123-fstack-protector-strong.patch
 # ERROR at //build/rust/crubit/BUILD.gn:12:5: 
 # Unable to load third_party/rust-toolchain/lib/third_party/crubit/support/rs_std/BUILD.gn
 # "$crubit_src_dir/support/rs_std:rs_std_cpp",
-Patch312: chromium-153-ftbfs-crubit.patch
+# Patch from https://github.com/ungoogled-software/ungoogled-chromium/pull/3966
+Patch312: chromium-154-ftbfs-crubit.patch
+
+# Fix FTBFS:
+# ERROR Unresolved dependencies
+# Patch from https://github.com/ungoogled-software/ungoogled-chromium/pull/3966
+Patch313: chromium-154-ftbfs-private-verification-tokens.patch
 
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
@@ -1108,7 +1113,6 @@ Qt6 UI for chromium.
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P94 -p1 -R -b .v8-sanitize-build-error
-%patch -P95 -p1 -b .build-error-rust-cbor
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if ! %{bundleffmpegfree}
@@ -1162,7 +1166,8 @@ Qt6 UI for chromium.
 %patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
-%patch -P312 -p1 -R -b .ftbfs-crubit
+%patch -P312 -p1 -b .ftbfs-crubit
+%patch -P313 -p1 -b .ftbfs-private-verification-tokens
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1403,7 +1408,6 @@ CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:def
 CHROMIUM_BROWSER_GN_DEFINES+=' use_custom_libcxx=false'
 %endif
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
-CHROMIUM_CORE_GN_DEFINES+=' enable_enterprise_companion=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
@@ -1941,6 +1945,117 @@ fi
 %endif
 
 %changelog
+* Wed Sep 23 2026 Than Ngo <than@redhat.com> - 154.0.8037.57-1
+- Update to 154.0.8037.57
+  * CVE-2026-95274: Improper output encoding in DevTools
+  * CVE-2026-95275: Incorrect reference resolution in MediaStream
+  * CVE-2026-95276: Improper input validation in Themes
+  * CVE-2026-95277: Use after free in Views
+  * CVE-2026-95278: Missing authorization in WakeLock
+  * CVE-2026-95279: UI misrepresentation in Omnibox
+  * CVE-2026-95280: Race condition in V8
+  * CVE-2026-95281: Buffer overflow in ANGLE
+  * CVE-2026-95282: Use after free in Platform
+  * CVE-2026-95283: Buffer overflow in Tint
+  * CVE-2026-95284: Buffer overflow in ANGLE
+  * CVE-2026-95285: Missing authorization in WebView
+  * CVE-2026-95286: Type confusion in Bindings
+  * CVE-2026-95287: Missing authorization in Navigation
+  * CVE-2026-95288: UI misrepresentation in Mobile
+  * CVE-2026-95289: Incorrect authorization in Scroll
+  * CVE-2026-95290: Missing authorization in NFC
+  * CVE-2026-95291: UI misrepresentation in SecurityIndicators
+  * CVE-2026-95292: Incorrect authorization in Safebrowsing
+  * CVE-2026-95293: Uninitialized resource in GPU
+  * CVE-2026-95294: UI misrepresentation in Browser
+  * CVE-2026-95295: Information leak in Mobile
+  * CVE-2026-95296: Missing authorization in Core
+  * CVE-2026-95297: Missing authorization in Contextual Tasks
+  * CVE-2026-95298: Use after free in Browser
+  * CVE-2026-95299: Use after free in GPU
+  * CVE-2026-95300: Missing authorization in DevTools
+  * CVE-2026-95301: Missing authorization in Extensions
+  * CVE-2026-95302: Incorrect authorization in WebAPKs
+  * CVE-2026-95303: Incomplete cleanup in SmartCard
+  * CVE-2026-95304: Out of bounds write in V8
+  * CVE-2026-95305: UI misrepresentation in Chromoting
+  * CVE-2026-95306: Type confusion in V8
+  * CVE-2026-95307: UI misrepresentation in ExtensionsMenu
+  * CVE-2026-95308: Integer overflow in Metrics
+  * CVE-2026-95309: UI misrepresentation in Mobile
+  * CVE-2026-95310: Use after free in AdFilter
+  * CVE-2026-95311: Free of non-heap memory in Fonts
+  * CVE-2026-95312: Information leak in Passwords
+  * CVE-2026-95313: Use after free in Fullscreen
+  * CVE-2026-95314: Incorrect authorization in HID
+  * CVE-2026-95315: Use after free in Aura
+  * CVE-2026-95316: Unchecked return value in Performance
+  * CVE-2026-95317: Incorrect authorization in MediaCapture
+  * CVE-2026-95318: Buffer overflow in Video
+  * CVE-2026-95319: Use after free in Printing
+  * CVE-2026-95320: Missing authorization in Navigation
+  * CVE-2026-95321: UI misrepresentation in Payments
+  * CVE-2026-95322: Out of bounds write in GPU
+  * CVE-2026-95323: UI misrepresentation in Chromium
+  * CVE-2026-95324: Uninitialized resource in GPU
+  * CVE-2026-95325: Use after free in ANGLE
+  * CVE-2026-95326: Incomplete cleanup in Bluetooth
+  * CVE-2026-95327: Information leak in Networking
+  * CVE-2026-95328: Confused deputy in Mobile
+  * CVE-2026-95329: Out of bounds write in WebGL
+  * CVE-2026-95330: Improper state validation in Downloads
+  * CVE-2026-95331: Out of bounds write in ANGLE
+  * CVE-2026-95332: Use of uninitialized variable in Tint
+  * CVE-2026-95333: Use after free in Metrics
+  * CVE-2026-95334: Incorrect reference resolution in WebProtect
+  * CVE-2026-95335: Use after free in HID
+  * CVE-2026-95336: Information leak in Transactions Platform
+  * CVE-2026-95337: UI misrepresentation in Messages
+  * CVE-2026-95338: Use after free in PDFium
+  * CVE-2026-95339: Use after free in ServiceWorker
+  * CVE-2026-95340: Incorrect authorization in PictureInPicture
+  * CVE-2026-95341: Improper input validation in Desktop
+  * CVE-2026-95342: Missing authorization in V8
+  * CVE-2026-95343: Use after free in WebAudio
+  * CVE-2026-95344: Race condition in DevTools
+  * CVE-2026-95345: Use after free in Actor
+  * CVE-2026-95346: UI misrepresentation in Chromoting
+  * CVE-2026-95347: Use after free in Updater
+  * CVE-2026-95348: Use after free in Bluetooth
+  * CVE-2026-95349: Buffer overflow in WebGL
+  * CVE-2026-95350: Buffer overflow in ANGLE
+  * CVE-2026-95351: Use after free in Views
+  * CVE-2026-95352: Incorrect authorization in DevTools
+  * CVE-2026-95353: Use after free in Bindings
+  * CVE-2026-95354: Use after free in Verifier
+  * CVE-2026-95355: Incorrect authorization in Navigation
+  * CVE-2026-95356: Use after free in WindowDialog
+  * CVE-2026-95357: Out of bounds write in GPU
+  * CVE-2026-95358: Incorrect authorization in Mobile
+  * CVE-2026-95359: Uninitialized resource in GPU
+  * CVE-2026-95360: Race condition in Editing
+  * CVE-2026-95361: Confused deputy in DevTools
+  * CVE-2026-95362: Cross-site request forgery in DevTools
+  * CVE-2026-95363: UI misrepresentation in FileSystem
+  * CVE-2026-95364: Improper input validation in Passwords
+  * CVE-2026-95365: Type confusion in IndexedDB
+  * CVE-2026-95366: Use of released resource in Core
+  * CVE-2026-95367: Information leak in DataTransfer
+  * CVE-2026-95368: Incorrect authorization in DevTools
+  * CVE-2026-95369: Inappropriate implementation in XML
+  * CVE-2026-95370: Inappropriate implementation in NFC
+  * CVE-2026-95371: Missing authorization in Views
+  * CVE-2026-95372: Use after free in Chromecast
+  * CVE-2026-95373: Use after free in DevTools
+  * CVE-2026-95374: Incorrect authorization in Network
+  * CVE-2026-95375: Incorrect authorization in BrowserTag
+  * CVE-2026-95376: Externally controlled reference in DevTools
+  * CVE-2026-95380: Type confusion in V8
+  * CVE-2026-95381: Improper input validation in Printing
+  * CVE-2026-95382: Improper input validation in Auth
+  * CVE-2026-95384: Race condition in Transactions Platform
+  * CVE-2026-95385: Inappropriate implementation in PlatformIntegration
+
 * Fri Sep 18 2026 Than Ngo <than@redhat.com> - 153.0.8010.52-1
 - Update to 153.0.8010.52
   * CVE-2026-91708: Race condition in Network

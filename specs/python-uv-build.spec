@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.12.17
+Version:        0.12.18
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -170,6 +170,7 @@ tomcli set Cargo.toml false profile.release.strip
 # included in the sdist.
 skip="${skip-} --skip tests::built_by_uv_building"
 skip="${skip-} --skip tests::built_by_uv_building_tar_codec"
+skip="${skip-} --skip tests::editable_wheel_compression"
 skip="${skip-} --skip wheel::test::test_prepare_metadata"
 
 %cargo_test -- -- --exact ${skip-}

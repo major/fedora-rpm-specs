@@ -11,7 +11,7 @@ Name:           guayadeque
 Version:        0.7.6
 Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        0.7.6
+Version:        0.7.7
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -119,6 +119,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg is Icelandic
 %lang_subpkg it Italian
 %lang_subpkg ja Japanese
+%lang_subpkg ka Georgian
 %lang_subpkg lt Lithuanian
 %lang_subpkg ms "Malay (Malaysia)"
 %lang_subpkg nb Norwegian
@@ -175,6 +176,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/%{name}/Radios/FrenchRadioStations.xml
 
 %changelog
+* Wed Sep 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.7-1
+- Update to 0.7.7-1
+- Add Georgian lang
+
 * Wed Aug 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.6-1
 - Update to 0.7.6-1
 

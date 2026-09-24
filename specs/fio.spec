@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.42
-Release:	3%{?dist}
+Version:	3.43
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -289,6 +289,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Wed Sep 23 2026 Pavel Reichl <preichl@redhat.com> - 3.43-1
+- Update to upstream v3.43
+- Related: rhbz#2539425
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.42-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

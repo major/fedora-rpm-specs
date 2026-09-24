@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -600,8 +600,8 @@ of Linux applications.
 %package -n cross-binutils-aarch64
 Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-aarch64 = %{version}-%{release}
-Provides: binutils-aarch64 = %{version}-%{release}
-Obsoletes: binutils-aarch64 < %{version}-%{release}
+Provides: binutils-aarch64-linux-gnu = %{version}-%{release}
+Obsoletes: binutils-aarch64-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 # zlib-devel provides libz.so
@@ -618,8 +618,8 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-ppc64le
 Summary: Cross targeted PPC64LE binutils for developer use.  Not intended for production.
 Provides: cross-binutils-ppc64le = %{version}-%{release}
-Provides: binutils-powerpc64le = %{version}-%{release}
-Obsoletes: binutils-powerpc64le < %{version}-%{release}
+Provides: binutils-powerpc64le-linux-gnu = %{version}-%{release}
+Obsoletes: binutils-powerpc64le-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
@@ -635,8 +635,8 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-s390x
 Summary: Cross targeted S390X binutils for developer use.  Not intended for production.
 Provides: cross-binutils-s390x = %{version}-%{release}
-Provides: binutils-s390x = %{version}-%{release}
-Obsoletes: binutils-s390x < %{version}-%{release}
+Provides: binutils-s390x-linux-gnu = %{version}-%{release}
+Obsoletes: binutils-s390x-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
@@ -652,8 +652,8 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-x86_64
 Summary: Cross targeted X86_64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-x86_64 = %{version}-%{release}
-Provides: binutils-x86_64 = %{version}-%{release}
-Obsoletes: binutils-x86_64 < %{version}-%{release}
+Provides: binutils-x86_64-linux-gnu = %{version}-%{release}
+Obsoletes: binutils-x86_64-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
@@ -1684,6 +1684,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Sep 22 2026 Nikita Popov <npopov@redhat.com> - 2.47.50-12
+- Fix cross binutils package names
+
 * Mon Sep 21 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-11
 - Rebase to commit ab54f25e5e4.
 

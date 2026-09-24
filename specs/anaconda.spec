@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.25
+Version: 45.27
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -197,9 +197,11 @@ for live installations.
 %package install-env-deps
 Summary: Installation environment specific dependencies
 Requires: udisks2-iscsi
+Requires: (udisks2-lvm2 if cockpit-storaged)
 Requires: libblockdev-plugins-all >= %{libblockdevver}
 Requires: libblockdev-tools
 %if ! 0%{?rhel}
+Requires: (udisks2-btrfs if cockpit-storaged)
 Requires: libblockdev-lvm-dbus
 %endif
 # active directory/freeipa join support
@@ -526,6 +528,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 22 2026 Packit <hello@packit.dev> - 45.27-1
+- bootloader: don't call grub2-mkconfig on s390x (lfauster)
+- bootloader: install bootloader only after creating BLS entries (lfauster)
+- spec: Add udisks2-btrfs and udisks2-lvm2 deps for Web UI (kkoukiou)
+  Resolves: rhbz#2537522
+- Show network address/-es for Web UI remote access (mkolman)
+- payload: improve error message for rsync exit code 23 (rvykydal)
+- payload: log rsync per-file errors during transfer (rvykydal)
+
 * Tue Sep 15 2026 Packit <hello@packit.dev> - 45.25-1
 - progress: add a Finalization installation category (tfratrik)
 - progress: replace the CategoryChanged signal with a CurrentCategory property

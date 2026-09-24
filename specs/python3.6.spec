@@ -955,6 +955,15 @@ Patch482: 00482-cve-2026-6100.patch
 # (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
 Patch489: 00489-openssl-3.5.7.patch
 
+# 00493 # 57d78c7216e6c9192422f834f78ef67795971e01
+# Fix test_pha_required_nocert() race condition
+#
+# Backported from CPython main, combining:
+# - bpo-43921: also accept EOF in post-handshake auth test (GH-25574)
+# - bpo-43921: Fix test_ssl.test_pha_required_nocert() (GH-26489)
+# - gh-115627: Fix ssl test_pha_required_nocert() (GH-117821)
+Patch493: 00493-fix-test_pha_required_nocert-race-condition.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python" and "python3" in Fedora, EL, etc.,

@@ -6,7 +6,7 @@
 %global crate librsvg
 
 Name:           rust-librsvg
-Version:        2.63.0
+Version:        2.63.2
 Release:        %autorelease
 Summary:        Library to render SVG images to Cairo surfaces
 
@@ -15,7 +15,7 @@ URL:            https://crates.io/crates/librsvg
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused mutants dependency
-# * relax nalgebra, string_cache, and xml5ever dependency ranges
+# * relax nalgebra and string_cache dependency ranges
 Patch:          librsvg-fix-metadata.diff
 # * drop unused annotations for mutation testing
 Patch2:         0001-Drop-unused-annotations-for-mutation-testing.patch

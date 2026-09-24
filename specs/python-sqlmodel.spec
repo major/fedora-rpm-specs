@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.44
+Version:        0.0.47
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 
@@ -30,6 +30,9 @@ BuildArch:      noarch
 # - Already a direct dependency, perhaps with different version bounds:
 #   typing-extensions
 # - Only needed for ignored tests/test_select_gen.py: black, jinja2
+# - Neither psycopg[binary] nor pymysql[rsa] seems to be actually required, and
+#   psycopg is not packaged
+BuildRequires:  %{py3_dist alembic}
 BuildRequires:  %{py3_dist dirty-equals}
 BuildRequires:  %{py3_dist fastapi}
 # Upstream asks for httpx, but this is just an indirect dependency via

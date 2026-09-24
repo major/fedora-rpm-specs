@@ -58,8 +58,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %files
 %doc AUTHORS.md NEWS.md README.md TODO
 %license COPYING
-%{_libdir}/libsidplayfp.so.*
-%{_libdir}/libstilview.so.*
+%{_libdir}/libsidplayfp.so.7{,.*}
+%{_libdir}/libstilview.so.0{,.*}
 
 %files devel
 %{_libdir}/libsidplayfp.so

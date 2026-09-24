@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        130
+Version:        131
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -44,11 +44,11 @@ Requires:       libcriu2
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(docker-names)) = 1.2.1
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Sep 23 2026 Packit <hello@packit.dev> - 131-1
+- Bug fixes and translation updates
+
 * Thu Aug 27 2026 Packit <hello@packit.dev> - 130-1
 - Translation updates
 

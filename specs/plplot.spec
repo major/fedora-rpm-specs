@@ -104,6 +104,8 @@ Patch16:        plplot-swig45.patch
 # Tcl/Tk 9 support
 # https://sourceforge.net/p/plplot/plplot/merge-requests/9/
 Patch17:        plplot-tcl9.patch
+# SIP ABI v12 support
+Patch18:        plplot-sip-abi-v12.patch
 
 
 BuildRequires:  cmake >= 3.13.2
@@ -443,6 +445,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch -P15 -p1
 %patch -P16 -p1
 %patch -P17 -p1 -b .tcl9
+%patch -P18 -p1 -b .sipv12
 # Use cmake FindLua
 rm cmake/modules/FindLua.cmake
 

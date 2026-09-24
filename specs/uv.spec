@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.17
+Version:        0.12.18
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -165,13 +165,6 @@ Patch:          0003-Downstream-Avoid-embed-manifest-dependency-in-uv-cra.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
-# Gate another test on `test-pypi`
-#
-# The test `upgrade_uses_extra_index_url_credentials_for_registry_source`
-# accesses PyPI and fails in offline builds, so gate it with the `test-pypi`
-# feature.
-# https://github.com/astral-sh/uv/pull/21883
-Patch:          %{url}/pull/21883.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license uv

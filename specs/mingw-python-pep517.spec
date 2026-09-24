@@ -1,7 +1,7 @@
 # This package is required by python-build to build wheels.
 # To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
 # Note that as a pure Python package, the wheel contains no pre-built binary stuff.
-%bcond_without     bootstrap
+%bcond_with     bootstrap
 
 %{?mingw_package_header}
 
@@ -10,7 +10,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.13.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 BuildArch:     noarch
 
 # ./pep517/colorlog.py is Apache-2.0, rest is MIT
@@ -18,16 +18,18 @@ License:       MIT AND Apache-2.0
 URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source %{pypi_name} %{version}}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 %if %{without bootstrap}
 BuildRequires:  mingw32-python3-build
+BuildRequires:  mingw32-python3-flit-core
 %endif
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 %if %{without bootstrap}
 BuildRequires:  mingw64-python3-build
+BuildRequires:  mingw64-python3-flit-core
 %endif
 
 
@@ -111,6 +113,9 @@ cp -a pep517 %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 0.13.1-9
+- Rebuild (mingw-python)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

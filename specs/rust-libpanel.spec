@@ -177,6 +177,10 @@ use the "v1_8" feature of the "%{crate}" crate.
 rm -rf examples
 # Drop the [[bin]] and [[example]] targets that reference them
 sed -i '/^\[\[bin\]\]/,/^$/d; /^\[\[example\]\]/,/^$/d' Cargo.toml
+# Force on gtk4's v4_10 feature: the generated bindings use gtk::Accessible
+# unconditionally (e.g. src/auto/dock.rs), but gtk4-rs only exposes that type
+# behind its own v4_10 feature, which libpanel never enables on its own.
+sed -i '/^\[dependencies.gtk\]$/a features = ["v4_10"]' Cargo.toml
 
 %generate_buildrequires
 %cargo_generate_buildrequires

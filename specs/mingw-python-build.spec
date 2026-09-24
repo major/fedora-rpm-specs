@@ -10,7 +10,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -20,18 +20,22 @@ Source1:        macros.mingw32-python3-wheel
 Source2:        macros.mingw64-python3-wheel
 
 
-BuildRequires:  mingw32-filesystem >= 102
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-python3
 %if %{without bootstrap}
 BuildRequires:  mingw32-python3-flit-core
 BuildRequires:  mingw32-python3-build
+BuildRequires:  mingw32-python3-pyproject-hooks
+BuildRequires:  mingw32-python3-packaging
 %endif
 
-BuildRequires:  mingw64-filesystem >= 102
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-python3
 %if %{without bootstrap}
 BuildRequires:  mingw64-python3-flit-core
 BuildRequires:  mingw64-python3-build
+BuildRequires:  mingw64-python3-pyproject-hooks
+BuildRequires:  mingw64-python3-packaging
 %endif
 
 
@@ -44,6 +48,8 @@ Summary:       MinGW Python 3 %{pypi_name} library
 Requires:      mingw32-python3-installer
 Requires:      mingw32-python3-setuptools
 Requires:      mingw32-python3-wheel
+Requires:      mingw32-python3-pyproject-hooks
+Requires:      mingw32-python3-packaging
 # For %%{_rpmconfigdir}/macros.d/
 Requires:      rpm
 
@@ -56,6 +62,8 @@ Summary:       MinGW Python 3 %{pypi_name} library
 Requires:      mingw64-python3-installer
 Requires:      mingw64-python3-setuptools
 Requires:      mingw64-python3-wheel
+Requires:      mingw64-python3-pyproject-hooks
+Requires:      mingw64-python3-packaging
 # For %%{_rpmconfigdir}/macros.d/
 Requires:      rpm
 
@@ -109,26 +117,37 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE
+%if !%{with bootstrap}
 %{mingw32_bindir}/pyproject-build
+%endif
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{distinfo}
+%if !%{with bootstrap}
 %{_prefix}/%{mingw32_target}/bin/pyproject-build
+%endif
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
 %{mingw32_python3_hostsitearch}/%{distinfo}
 %{_rpmconfigdir}/macros.d/macros.mingw32-python3-wheel
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE
+%if !%{with bootstrap}
 %{mingw64_bindir}/pyproject-build
+%endif
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{distinfo}
+%if !%{with bootstrap}
 %{_prefix}/%{mingw64_target}/bin/pyproject-build
+%endif
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
 %{mingw64_python3_hostsitearch}/%{distinfo}
 %{_rpmconfigdir}/macros.d/macros.mingw64-python3-wheel
 
 
 %changelog
+* Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 1.6.1-2
+- Rebuild (mingw-python)
+
 * Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 1.6.1-1
 - Update to 1.6.1
 

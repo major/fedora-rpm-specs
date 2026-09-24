@@ -1,3 +1,8 @@
+# This package is required by python-build to build wheels.
+# To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
+# Note that as a pure Python package, the wheel contains no pre-built binary stuff.
+%bcond_with     bootstrap
+
 %{?mingw_package_header}
 
 %global pypi_name wheel
@@ -5,7 +10,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.48.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       MIT AND (Apache-2.0 OR BSD-2-Clause)
@@ -14,13 +19,17 @@ Source0:       %{pypi_source %{pypi_name} %{version}}
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
+%if %{without bootstrap}
 BuildRequires: mingw32-python3-build
 BuildRequires: mingw32-python3-flit-core
+%endif
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
+%if %{without bootstrap}
 BuildRequires: mingw64-python3-build
 BuildRequires: mingw64-python3-flit-core
+%endif
 
 # Don't scan */bin/wheel for requires, it would generate a Requires: pythonX.Y
 %global __requires_exclude_from ^.*/bin/wheel$
@@ -48,39 +57,72 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
+%if %{with bootstrap}
+%global distinfo %{pypi_name}-%{version}+rpmbootstrap.dist-info
+mkdir %{distinfo}
+cat > %{distinfo}/METADATA << EOF
+Metadata-Version: 2.2
+Name: %{pypi_name}
+Version: 1.0.1
+EOF
+%else
+%global distinfo %{pypi_name}-%{version}.dist-info
 %mingw32_py3_build_wheel
 %mingw64_py3_build_wheel
 %mingw32_py3_build_host_wheel
 %mingw64_py3_build_host_wheel
+%endif
 
 
 %install
+%if %{with bootstrap}
+mkdir -p %{buildroot}%{mingw32_python3_sitearch}
+mkdir -p %{buildroot}%{mingw64_python3_sitearch}
+cp -a src/wheel %{distinfo} %{buildroot}%{mingw32_python3_sitearch}/
+cp -a src/wheel %{distinfo} %{buildroot}%{mingw64_python3_sitearch}/
+mkdir -p %{buildroot}%{mingw32_python3_hostsitearch}
+mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
+cp -a src/wheel %{distinfo} %{buildroot}%{mingw32_python3_hostsitearch}/
+cp -a src/wheel %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
+%else
 %mingw32_py3_install_wheel
 %mingw64_py3_install_wheel
 %mingw32_py3_install_host_wheel
 %mingw64_py3_install_host_wheel
+%endif
 
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
+%if !%{with bootstrap}
 %{mingw32_bindir}/wheel
+%endif
 %{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/%{distinfo}
+%if !%{with bootstrap}
 %{_prefix}/%{mingw32_target}/bin/wheel
+%endif
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
-%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_hostsitearch}/%{distinfo}
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
+%if !%{with bootstrap}
 %{mingw64_bindir}/wheel
+%endif
 %{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/%{distinfo}
+%if !%{with bootstrap}
 %{_prefix}/%{mingw64_target}/bin/wheel
+%endif
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
-%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_hostsitearch}/%{distinfo}
 
 
 %changelog
+* Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 0.48.0-2
+- Rebuild (mingw-python)
+
 * Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 0.48.0-1
 - Update to 0.48.0
 

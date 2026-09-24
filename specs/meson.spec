@@ -4,7 +4,7 @@
 %bcond docs 1
 
 Name:           meson
-Version:        1.12.0
+Version:        1.12.1
 Release:        %autorelease
 Summary:        High productivity build system
 

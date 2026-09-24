@@ -7,14 +7,14 @@ be embeddable in whatever program you choose to use, ensuring that you can
 speak HTTP/2 regardless of your programming paradigm.}
 
 Name:           python-h2
-Version:        4.3.0
+Version:        4.4.1
 Release:        %autorelease
 Summary:        HTTP/2 State-Machine based protocol implementation
 
 License:        MIT
 URL:            https://hyper-h2.readthedocs.io
 VCS:            https://github.com/python-hyper/h2
-Source0:        %vcs/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %vcs/archive/refs/tags/v%{version}.tar.gz
 # downstream only patch
 Patch0:         0001-Fedora-tox-adjustments.patch
 

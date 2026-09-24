@@ -6,7 +6,7 @@
 Name:           mingw-python-%{pkgname}
 Summary:        MinGW Python %{pypi_name} library
 Version:        3.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause
@@ -14,10 +14,10 @@ Url:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        %{pypi_source}
 
 
-BuildRequires:  mingw32-filesystem >= 102
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-python3
 
-BuildRequires:  mingw64-filesystem >= 102
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-python3
 
 
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
 
 
 %changelog
+* Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 3.12.0-5
+- Rebuild (mingw-python)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

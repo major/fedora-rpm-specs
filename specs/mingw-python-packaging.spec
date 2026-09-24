@@ -10,7 +10,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python packaging core utils
 Version:        26.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause OR Apache-2.0
@@ -18,14 +18,14 @@ Url:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        %{pypi_source}
 
 
-BuildRequires:  mingw32-filesystem >= 102
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-python3
 %if %{without bootstrap}
 BuildRequires:  mingw32-python3-build
 BuildRequires:  mingw32-python3-flit-core
 %endif
 
-BuildRequires:  mingw64-filesystem >= 102
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-python3
 %if %{without bootstrap}
 BuildRequires:  mingw64-python3-build
@@ -83,12 +83,12 @@ EOF
 %if %{with bootstrap}
 mkdir -p %{buildroot}%{mingw32_python3_sitearch}
 mkdir -p %{buildroot}%{mingw64_python3_sitearch}
-cp -a packaging %{distinfo} %{buildroot}%{mingw32_python3_sitearch}/
-cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_sitearch}/
+cp -a src/packaging %{distinfo} %{buildroot}%{mingw32_python3_sitearch}/
+cp -a src/packaging %{distinfo} %{buildroot}%{mingw64_python3_sitearch}/
 mkdir -p %{buildroot}%{mingw32_python3_hostsitearch}
 mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
-cp -a packaging %{distinfo} %{buildroot}%{mingw32_python3_hostsitearch}/
-cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
+cp -a src/packaging %{distinfo} %{buildroot}%{mingw32_python3_hostsitearch}/
+cp -a src/packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 %else
 %mingw32_py3_install_wheel
 %mingw64_py3_install_wheel
@@ -113,6 +113,9 @@ cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 26.3-2
+- Rebuild (mingw-python)
+
 * Thu Aug 06 2026 Sandro Mani <manisandro@gmail.com> - 26.3-1
 - Update to 26.3
 

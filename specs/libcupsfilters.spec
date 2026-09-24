@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -29,6 +29,8 @@ Patch005: 0001-pdftopdf-assume-print-scaling-auto-by-default.-Fixes.patch
 # fix output order and booklet printing
 # https://github.com/OpenPrinting/libcupsfilters/commit/cb82339e748b6c1b0509060526dbd52e74968829
 Patch006: 0001-Fix-minor-errors-this-caused-issue-239.-240.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/318cd5b581d4261700add229ad23513cd30a0275
+Patch007: 0001-ghostscript-serialize-raster-integer-parameters-as-s.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -214,6 +216,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Sep 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-5
+- fix gstoraster error
+
 * Tue Sep 08 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-4
 - fix scaling, output order and booklet printing
 

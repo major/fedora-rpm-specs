@@ -1,7 +1,7 @@
 Summary:        SSL/TLS network protocol analyzer
 Name:           ssldump
 Version:        1.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 # pcap/{attrib.h,{logpkt,sys}.[ch]} are BSD-2-Clause, rest is BSD-4-Clause
 License:        BSD-4-Clause AND BSD-2-Clause
 URL:            https://github.com/adulau/ssldump
@@ -9,7 +9,7 @@ Source0:        https://github.com/adulau/ssldump/archive/v%{version}/%{name}-%{
 Source1:        HOWTO
 BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  openssl-devel
+BuildRequires:  openssl-devel < 1:4
 BuildRequires:  libpcap-devel
 BuildRequires:  libnet-devel
 BuildRequires:  json-c-devel
@@ -41,6 +41,9 @@ install -p -m 0644 %{SOURCE1} .
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Sep 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9-7
+- Build with openssl3 on F45+/EL11+
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 23
 %global min_ver 1
-%global patch_ver 1
+%global patch_ver 2
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -585,6 +585,7 @@ Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 Patch2214: 0001-ELF-Simplify-AArch64-relocateAlloc.-NFC.patch
 Patch2215: 0001-LLD-AArch64-Make-adrp-ldr-relaxation-per-symbol-all-.patch
 Patch2216: 0001-lld-ELF-Concatenate-.gnu.build.attributes.-sections-.patch
+Patch2304: 224946.patch
 #endregion LLD patches
 
 #region polly patches
@@ -629,6 +630,13 @@ Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
 # https://github.com/llvm/llvm-project/pull/220741
 Patch2203: 0001-mlir-Disable-some-tests-when-the-execution-engine-is.patch
 Patch2301: 0001-mlir-Disable-some-tests-when-the-execution-engine-is.patch
+
+# Fix some OpenMP tests on RISC-V.
+# https://github.com/llvm/llvm-project/pull/223681
+Patch2205: 0001-FIX-some-OMPT-tests-that-fail-on-RISC-V-156914.patch
+Patch2305: 0001-FIX-some-OMPT-tests-that-fail-on-RISC-V-156914.patch
+Patch2206: 223681.patch
+Patch2306: 223681.patch
 
 # Fix an illegal zext from combined loads (rhbz#2512927)
 # https://github.com/llvm/llvm-project/pull/207229
@@ -2993,6 +3001,20 @@ export LIT_XFAIL="$LIT_XFAIL;offloading/thread_state_1.c"
 export LIT_XFAIL="$LIT_XFAIL;offloading/thread_state_2.c"
 %endif
 
+%ifarch riscv64
+# The following tests are flaky and we'll filter them out.
+test_list_filter_out+=("libomp :: affinity/kmp-affinity.c")
+test_list_filter_out+=("libomp :: affinity/omp-places.c")
+
+# The following tests fail due to an issue downstream.
+export LIT_XFAIL="$LIT_XFAIL;transform/fuse/do-looprange.f90"
+export LIT_XFAIL="$LIT_XFAIL;transform/fuse/do.f90"
+export LIT_XFAIL="$LIT_XFAIL;transform/tile/do.F90"
+export LIT_XFAIL="$LIT_XFAIL;transform/tile/do_2d.f90"
+export LIT_XFAIL="$LIT_XFAIL;transform/tile/do_2d_varsizes.f90"
+export LIT_XFAIL="$LIT_XFAIL;transform/unroll/heuristic_do.f90"
+%endif
+
 adjust_lit_filter_out test_list_filter_out
 
 # This allows openmp tests to be re-run 4 times. Once they pass
@@ -3152,6 +3174,12 @@ test_list_filter_out+=("Flang :: Driver/linker-flags.f90")
 # We miss the location.f90 entry in the loc_kind_array[ base, inclusion] entry.
 # https://github.com/llvm/llvm-project/issues/156629
 test_list_filter_out+=("Flang :: Lower/location.f90")
+
+%ifarch riscv64
+# The type Complex IEEE 128-bit floating point has not been implemented for
+# RISC-V yet.
+export LIT_XFAIL="$LIT_XFAIL;Integration/debug-complex-1.f90"
+%endif
 
 adjust_lit_filter_out test_list_filter_out
 

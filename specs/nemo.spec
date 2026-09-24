@@ -1,8 +1,8 @@
-%global upstream_version 6.7.7-unstable
+%global upstream_version 6.7.8-unstable
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.7.7^unstable
+Version:        6.7.8^unstable
 Release:        %autorelease
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}

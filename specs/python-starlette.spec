@@ -1,11 +1,16 @@
 Name:           python-starlette
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
 License:        BSD-3-Clause
 URL:            https://www.starlette.io/
-Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
+%global forgeurl https://github.com/encode/starlette
+Source:         %{forgeurl}/archive/%{version}/starlette-%{version}.tar.gz
+
+# Make it possible to run the tests without blockbuster
+# https://github.com/Kludex/starlette/pull/3576
+Patch:          %{forgeurl}/pull/3576.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras full
@@ -21,6 +26,8 @@ BuildRequires:  %{py3_dist httpx2[zstd]}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist trio}
 BuildRequires:  %{py3_dist typing_extensions}
+# For blockbuster, see https://github.com/cbornet/blockbuster/issues/46 for why
+# we would prefer not to package it.
 
 %global common_description %{expand:
 Starlette is a lightweight ASGI framework/toolkit, which is ideal for building
@@ -54,7 +61,12 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest --verbose
+# Requires python3dist(opentelemetry-sdk), formerly built from
+# https://src.fedoraproject.org/rpms/python-opentelemetry, now retired and
+# neither simple nor pleasant to bring back.
+ignore="${ignore-} --ignore=tests/middleware/test_opentelemetry.py"
+
+%pytest ${ignore-} --verbose
 
 
 %files -n python3-starlette -f %{pyproject_files}

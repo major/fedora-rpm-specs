@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
 Version:       6.0.0.post1
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -73,6 +73,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 6.0.0.post1-2
+- Rebuild (mingw-python)
+
 * Mon Sep 21 2026 Sandro Mani <manisandro@gmail.com> - 6.0.0.post1-1
 - Update to 6.0.0.post1
 

@@ -11,6 +11,9 @@ URL: https://github.com/coreos/rpm-ostree
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
+# Backport https://github.com/coreos/rpm-ostree/pull/5633
+Patch0: 0001-tmpfiles-Relabel-legacy-SELinux-store-directories.patch
+
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

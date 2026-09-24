@@ -1,6 +1,6 @@
 Name: pcs
-Version: 0.12.2
-Release: 4%{?dist}
+Version: 0.12.3
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -16,7 +16,7 @@ BuildArch: noarch
 
 # To build an official pcs release, comment out branch_or_commit
 # Use long commit hash or branch name to build an unreleased version
-# %%global branch_or_commit 1353dfbb3af82d77f4de17a3fa4cbde185bb2b2d
+%global branch_or_commit 0.12.3.1
 %global version_or_commit %{clean_version}
 %if 0%{?branch_or_commit:1}
   %global version_or_commit %{branch_or_commit}
@@ -26,8 +26,8 @@ BuildArch: noarch
 
 # To build an official pcs-web-ui release, comment out ui_branch_or_commit
 # Last tagged version, also used as fallback version for untagged tarballs
-%global ui_version 0.1.24.3
-%global ui_modules_version 0.1.24.3
+%global ui_version 0.1.25
+%global ui_modules_version 0.1.25
 # Use long commit hash or branch name to build an unreleased version
 # %%global ui_branch_or_commit 34372d1268f065ed186546f55216aaa2d7e76b54
 %global ui_version_or_commit %{ui_version}
@@ -73,10 +73,8 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_vers
 # pcs patches: <= 200
 # Patch1: name.patch
 Patch1: show-info-page-instead-of-webui.patch
-Patch2: drop-dependency-on-rubygem-cgi.patch
-Patch3: typing-fixes-for-python-3.15.patch
-Patch4: bz2458608-01-fix-a-crash-when-determining-terminal-size.patch
-Patch5: bz2461143-01-Update-constraint-order-printout.patch
+Patch2: swap-rubygem-ethon-for-curb.patch
+Patch3: rbgem-json-3.0.0-compat.patch
 
 # ui patches: >200
 # Patch201: name-web-ui.patch
@@ -93,8 +91,6 @@ Obsoletes: pcs < 0.12.0
 Recommends: %{pkg_pcs_web_ui} == %{version}-%{release}
 
 
-# git for patches
-BuildRequires: git-core
 # for building pcs tarballs
 BuildRequires: autoconf
 BuildRequires: automake
@@ -120,9 +116,9 @@ BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: ruby >= 2.5.0
 BuildRequires: ruby-devel
 BuildRequires: rubygem(backports)
-BuildRequires: rubygem(childprocess)
-BuildRequires: rubygem(ethon)
-BuildRequires: rubygem(ffi)
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2536998
+BuildRequires: rubygem(childprocess) >= 5.0.0
+BuildRequires: rubygem(curb)
 BuildRequires: rubygem(json)
 BuildRequires: rubygem(logger)
 BuildRequires: rubygem(mustermann)
@@ -174,9 +170,8 @@ Requires: python3-tornado
 # ruby and gems for pcsd
 Requires: ruby >= 3.3.0
 Requires: rubygem(backports)
-Requires: rubygem(childprocess)
-Requires: rubygem(ethon)
-Requires: rubygem(ffi)
+Requires: rubygem(childprocess) >= 5.0.0
+Requires: rubygem(curb)
 Requires: rubygem(json)
 Requires: rubygem(logger)
 Requires: rubygem(mustermann)
@@ -282,74 +277,39 @@ Pacemaker/Corosync Configuration System (pcs) in the background.
 
 
 %prep
-# -- following is inspired by python-simplejon.el5 --
-# Update timestamps on the files touched by a patch, to avoid non-equal
-# .pyc/.pyo files across the multilib peers within a build
-
-update_times(){
-  # update_times <reference_file> <file_to_touch> ...
-  # set the access and modification times of each file_to_touch to the times
-  # of reference_file
-
-  # put all args to file_list
-  file_list=("$@")
-  # first argument is reference_file: so take it and remove from file_list
-  reference_file=${file_list[0]}
-  unset file_list[0]
-
-  for fname in ${file_list[@]}; do
-    # some files could be deleted by a patch therefore we test file for
-    # existance before touch to avoid exit with error: No such file or
-    # directory
-    # diffstat cannot create list of files without deleted files
-    test -e $fname && touch -r $reference_file $fname
-  done
-}
-
-update_times_patch(){
-  # update_times_patch <patch_file_name>
-  # set the access and modification times of each file in patch to the times
-  # of patch_file_name
-
-  patch_file_name=$1
-
-  # diffstat
-  # -l lists only the filenames. No histogram is generated.
-  # -p override the logic that strips common pathnames,
-  #    simulating the patch "-p" option. (Strip the smallest prefix containing
-  #    num leading slashes from each file name found in the patch file)
-  update_times ${patch_file_name} `diffstat -p1 -l ${patch_file_name}`
-}
-
-# documentation for setup/autosetup/autopatch:
+# Documentation for autosetup/autopatch:
 #   * http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html
 #   * https://rpm-software-management.github.io/rpm/manual/autosetup.html
-# patch web-ui sources
-# -n <name> — Set Name of Build Directory
-# -T — Do Not Perform Default Archive Unpacking
-# -b <n> — Unpack The nth Sources Before Changing Directory
-# -a <n> — Unpack The nth Sources After Changing Directory
-# -N — disables automatic patch application, use autopatch to apply patches
 #
-# 1. unpack sources (-b 0)
-# 2. then cd into sources tree (the setup macro itself)
-# 3. then unpack node_modules into sources tree (-a 1).
+# AUTOSETUP
+# -T        - do not perform default archive unpacking
+# -b <n>    - unpack Source<n> into builddir
+# -a <n>    - unpack Source<n> into the previously unpacked source
+# -N        - disables automatic patch application, use autopatch
+# -n <name> - set name of build directory
+#
+# AUTOPATCH (applies patches with finer control than autosetup)
+# -q    - don’t warn if there are no matching patches
+# -p<n> - argument to control patch prefix stripping (pnum in the patch manual)
+# -m<n> - apply patches starting from <n>
+# -M<n> - apply patches up to <n>
+
+# Unpack and patch web-ui sources
+# 1. Unpack web-ui Source100 before changing dir (-b 100)
+# 2. Autosetup calls cd into unpacked web-ui tree
+# 3. Unpack node_modules Source101 after cd into web-ui tree (-a 101).
 %autosetup -T -b 100 -a 101 -N -n %{ui_src_name}
-%autopatch -p1 -m 201
-# update_times_patch %%{PATCH201}
+# Apply infinite amount of patches starting with Patch201
+%autopatch -q -p1 -m 201
 
-# patch pcs sources
-%autosetup -S git -n %{pcs_source_name} -N
-%autopatch -p1 -M 200
-# update_times_patch %%{PATCH1}
-update_times_patch %{PATCH1}
-update_times_patch %{PATCH2}
-update_times_patch %{PATCH3}
-update_times_patch %{PATCH4}
-update_times_patch %{PATCH5}
+# Unpack and patch pcs sources
+%autosetup -N -n %{pcs_source_name}
+# Apply Patch1-Patch200
+%autopatch -q -p1 -M 200
 
-# generate .tarball-version if building from an untagged commit, not a released version
-# autogen uses git-version-gen which uses .tarball-version for generating version number
+# Generate .tarball-version if building from an untagged commit, not a released
+# version. autogen.sh uses git-version-gen which uses .tarball-version file for
+# setting version number across autotools
 %if 0%{?tarball_version:1}
   echo %{tarball_version} > %{_builddir}/%{pcs_source_name}/.tarball-version
 %endif
@@ -358,7 +318,7 @@ update_times_patch %{PATCH5}
   echo %{ui_tarball_version} > %{_builddir}/%{ui_src_name}/.tarball-version
 %endif
 
-# prepare dirs/files necessary for building python bundles
+# Move bundled python sdists where autotools expect them
 mkdir -p %{pcs_bundled_dir}/src
 cp -f %SOURCE41 rpm/
 cp -f %SOURCE42 rpm/
@@ -589,6 +549,15 @@ fi
 
 
 %changelog
+* Mon Sep 21 2026 Michal Pospíšil <mpospisi@redhat.com> - 0.12.3-2
+- Adjusted requirements for version of rubygem childprocess based on testing
+- Fix compatibility with rubygem json > 3.0.0
+
+* Fri Sep 11 2026 Michal Pospíšil <mpospisi@redhat.com> - 0.12.3-1
+- Rebased pcs to the newest major version (see CHANGELOG.md)
+- Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.25 (see CHANGELOG_WUI.md)
+- pcs no longer depends on rubygems ethon and ffi, rubygem curb is used instead
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
-%global upstream_version 6.7.7-unstable
+%global upstream_version 6.7.8-unstable
 
 Name:          muffin
-Version:       6.7.7^unstable
+Version:       6.7.8^unstable
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 

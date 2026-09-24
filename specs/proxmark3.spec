@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.21611
+Version:	4.23346
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -14,6 +14,9 @@ ExcludeArch:	ppc64le s390x i686
 The Swiss Army Knife of RFID Research - RRG/Iceman repo
 
 %define __strip /bin/true
+
+# Automatic debuginfo generation fails in the build environment, increasing RLIMIT_NOFILE to the buildroot hard limit (524288) does not resolve the failure.
+%global debug_package %{nil}
 
 %prep
 %autosetup
@@ -51,6 +54,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+
+* Wed Sep 23 2026 Marlin Soose <marlin.soose@esque.ca> - 4.23346
+- Bumping package to v4.23346
 
 * Mon Apr 20 2026 Marlin Soose <marlin.soose@esque.ca> - 4.21611
 - Bumping package to v4.21611

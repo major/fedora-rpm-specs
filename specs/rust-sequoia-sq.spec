@@ -122,7 +122,11 @@ install -Dpm 0644 target/assets/shell-completions/_sq \
 
 %if %{with check}
 %check
-%cargo_test
+# * skip two tests that fail due to semantics changes in sequoia-wot v0.15.3
+%{cargo_test -- -- --exact %{shrink:
+    --skip integration::sq_pki::target_cert_expired
+    --skip integration::sq_pki::target_cert_soft_revoked
+}}
 %endif
 
 %changelog

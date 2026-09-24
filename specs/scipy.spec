@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.18.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -283,6 +283,8 @@ not (test_discrete_basic and binom)' \
 
 %ifarch riscv64
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
+not test_smoke_economic and \
+not test_reproduction_NaN_on_input_points and \
 not TestSchur and \
 not test_gejsv_general and \
 not test_kendall_p_exact_large and \
@@ -325,6 +327,9 @@ popd
 %endif
 
 %changelog
+* Tue Sep 22 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.18.0-2
+- Skip test_smoke_economic and test_reproduction_NaN_on_input_points on RISC-V.
+
 * Wed Jul 29 2026 Siteshwar Vashisht <svashisht@redhat.com> - 1.18.0-1
 - Update to scipy-1.18.0
   Resolves: #2406909

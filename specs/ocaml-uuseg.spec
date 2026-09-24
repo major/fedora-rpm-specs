@@ -11,6 +11,10 @@ License:        ISC
 URL:            https://erratique.ch/software/uuseg
 VCS:            git:https://erratique.ch/repos/uuseg.git
 Source:         %{url}/releases/uuseg-%{version}.tbz
+Source:         https://www.unicode.org/Public/%{version}/ucd/auxiliary/GraphemeBreakTest.txt
+Source:         https://www.unicode.org/Public/%{version}/ucd/auxiliary/LineBreakTest.txt
+Source:         https://www.unicode.org/Public/%{version}/ucd/auxiliary/SentenceBreakTest.txt
+Source:         https://www.unicode.org/Public/%{version}/ucd/auxiliary/WordBreakTest.txt
 # Revert changes for an unreleased version of ocaml-b0; affects tests only
 Patch:          %{name}-b0-downgrade.patch
 
@@ -33,7 +37,6 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.1.0
 BuildRequires:  ocaml-uucp-devel >= 18.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
-BuildRequires:  unicode-ucd
 
 %description
 Uuseg is an OCaml library for segmenting Unicode text.  It implements the
@@ -62,7 +65,7 @@ developing applications that use %{name}.
 %autosetup -n uuseg-%{version} -p1
 
 # Files needed for the tests
-cp -p %{_datadir}/unicode/ucd/auxiliary/*BreakTest.txt test
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} test
 
 %check
 b0 test

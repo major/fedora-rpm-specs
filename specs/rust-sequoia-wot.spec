@@ -5,7 +5,7 @@
 %global crate sequoia-wot
 
 Name:           rust-sequoia-wot
-Version:        0.15.2
+Version:        0.15.3
 Release:        %autorelease
 Summary:        Implementation of OpenPGP's web of trust
 
@@ -36,6 +36,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/NEWS
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

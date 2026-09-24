@@ -5,7 +5,7 @@
 %global crate ossl
 
 Name:           rust-ossl
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        OpenSSL version 3+ bindings to modern EVP APIs
 
@@ -35,7 +35,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-2.0.txt
+%license %{crate_instdir}/LICENSE.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
