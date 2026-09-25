@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 %global tar_ver %{version}
 
@@ -54,6 +54,10 @@ BuildRequires: pkgconfig(sndfile)
 BuildRequires: pkgconfig(wavpack)
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: pkgconfig(libsidplayfp) >= 2.0
+%endif
+%if 0%{?fedora} > 45 || 0%{?rhel} > 10
+BuildRequires: pkgconfig(libsidplayfp) >= 3.1.1
+BuildRequires: pkgconfig(libresidfp) >= 1.2.2
 %endif
 BuildRequires: pkgconfig(libmodplug)
 BuildRequires: pkgconfig(ogg) pkgconfig(vorbis) pkgconfig(vorbisenc) pkgconfig(vorbisfile)
@@ -354,6 +358,11 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Thu Sep 24 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-9
+- rebuilt with libsidplayfp v3 that includes the residfp builder again
+  after libresidfp has been split off
+- BR libresidfp-devel
+
 * Tue Sep 22 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.1-8
 - Rebuild for new libsidplayfp .so version
 

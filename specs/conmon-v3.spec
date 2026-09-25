@@ -19,7 +19,7 @@
 
 Name:           %{repo}
 Version:        %(echo %{upstream_version} | sed 's/-/~/')
-Release:        1.20260916094957753737.main.58.gba34e8%{?dist}
+Release:        4.20260916094957753737.main.58.gba34e8%{?dist}
 Summary:        OCI container runtime monitor (v3)
 
 SourceLicense:  Apache-2.0

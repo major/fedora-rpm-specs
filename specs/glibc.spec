@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-95-g53e5f02a6b
+%global glibcsrcdir glibc-2.44.9000-201-g04a3995650
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -401,8 +401,6 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
-Patch19: glibc-rh2457183-1.patch
-Patch20: glibc-rh2457183-2.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2479,6 +2477,119 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Sep 24 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-3
+- Auto-sync with upstream branch master,
+  commit 04a3995650ec181e98b768fef59f1ad228a87be5:
+- advisories: fix tag for CVE in SA-2026-0023 (Rolf Eike Beer)
+- Update CVSSv3.1 score for GLIBC-SA-2026-0022 (Carlos O'Donell)
+- Publish CVE-2026-95818 advisory (Carlos O'Donell)
+- Publish CVE-2026-86805 advisory (Carlos O'Donell)
+- elf: Fix ld.so SIGSEGV in trace mode with unresolved TLS symbols (BZ 34532) (Adhemerval Zanella)
+- nptl: Retry SIGSETXID delivery on EAGAIN in setxid (bug 21108) (Adhemerval Zanella)
+- math: Sync tgamma with CORE-MATH (Adhemerval Zanella)
+- math: Sync exp10m1f with CORE-MATH (Adhemerval Zanella)
+- math: Sync acosf with CORE-MATH (Adhemerval Zanella)
+- math: Sync lgamma with CORE-MATH (Adhemerval Zanella)
+- Fix d_t_fmt and date_fmt in en_SE [BZ #34635] (Mike FABIAN)
+- stdlib: Don't call clearenv from __libc_setenv_freemem (Mark Wielaard)
+- Publish CVE-2026-8674 advisory (Adhemerval Zanella)
+- malloc: Improve calloc [BZ #34582] (Wilco Dijkstra)
+- x86-64: Link tst-shstk-legacy-1{f,g} with -Wl,--no-as-needed (H.J. Lu)
+- Revert "linux: Add __libc_procmaps_iterate" (Adhemerval Zanella)
+- Revert "linux: Use __libc_procmaps_iterate on __readonly_area_fallback" (Adhemerval Zanella)
+- Revert "nptl: Use __libc_procmaps_iterate on pthread_getattr_np" (Adhemerval Zanella)
+- Revert "nptl: Fall back to AT_EXECFN on __pthread_main_stack without /proc" (Adhemerval Zanella)
+- Revert "nptl: Account for the stack guard gap on pthread_getattr_np (BZ 34637)" (Adhemerval Zanella)
+- Mark swapcontext returns_twice by default [BZ #23130] (Stian Halseth)
+- libio: validate the wide vtable via a bounds-checked index (Alessandro Schino)
+- resolv: Fix assertion failure on search list truncation [BZ 31026, CVE-2026-8674] (Adhemerval Zanella)
+- nptl: Account for the stack guard gap on pthread_getattr_np (BZ 34637) (Adhemerval Zanella)
+- nptl: Fall back to AT_EXECFN on __pthread_main_stack without /proc (Adhemerval Zanella)
+- nptl: Use __libc_procmaps_iterate on pthread_getattr_np (Adhemerval Zanella)
+- linux: Use __libc_procmaps_iterate on __readonly_area_fallback (Adhemerval Zanella)
+- linux: Add __libc_procmaps_iterate (Adhemerval Zanella)
+- linux: Add buffer argument and line truncation to __libc_procutils_read_file (Adhemerval Zanella)
+- Publish CVE-2026-80489 advisory (Carlos O'Donell)
+- Publish CVE-2026-77117 advisory (Carlos O'Donell)
+- Publish CVE-2026-19542 advisory (Adhemerval Zanella)
+- Publish CVE-2026-19499 advisory (Adhemerval Zanella)
+- math: Update tanh from CORE-MATH (revision dbd377a9) (Adhemerval Zanella)
+- io: Reject an empty path list on fts_open [BZ #25434] [BZ #34610] (Adhemerval Zanella)
+- malloc: Reject the top chunk in mem2chunk_check (Magnus Lindholm)
+- aarch64: Add MTE mode tunable (Yury Khrustalev)
+- elf: Do not load cache extensions from an old-format ld.so.cache [BZ #34600] (Shamil Abdulaev)
+- Publish CVE-2026-89092 advisory (Siddhesh Poyarekar)
+- x86: Set AVX10 active only if XMM/YMM/ZMM are supported (H.J. Lu)
+- time: handle ^ and # modifiers with %Z in wcsftime (bug 34611) (Andreas Schwab)
+- x86: Detect APX_NCI_NDD_NF (H.J. Lu)
+- math: let architectures signal underflow after narrowing (Matt Turner)
+- locale: fix memory leaks in write_locales and write_charmaps (Ruslan Valiyev)
+- math: Set errno to ERANGE for logb (+-0) [BZ #6793] (Shamil Abdulaev)
+- alpha: Use a comdat group for the shared divide-by-zero handler [BZ #20543] (Matt Turner)
+- nptl: Skip pretty-printer tests without python3 [BZ #34507] (Hemanth Kumar M D)
+- Record CVE-2026-18374 fix (Florian Weimer)
+- libio: Add test for fopen with an empty ", ccs=" value [BZ #34574] (Shamil Abdulaev)
+- libio: Fix CVE-2026-18374 heap buffer overflow in ccs= handling (Dongkyun Son)
+- getrusage: Add smoke test for getrusage (Ondrej Marek)
+- powerpc: Restore NULL check on _rtld_global_ro in INIT_ARCH [BZ #34503] (Michael Pfeifroth)
+- stdio-common: Skip the a and A conversions for the IBM extended format (Matt Turner)
+- stdio-common: Handle subnormal values in the printf format tests (Matt Turner)
+- stdio-common: Add printf format tests for the a and A conversions (Matt Turner)
+- stdio-common: Add printf format tests for the b and B conversions (Matt Turner)
+- stdio-common: Verify printf format tests with Python rather than AWK (Matt Turner)
+- hurd: Make __file_name_lookup_at apply upmask for O_TMPFILE (BZ 34493) (Samuel Thibault)
+- hurd: Make readlinkat check bogus length returned by translator (BZ 34504) (Samuel Thibault)
+- hurd: Fix setreuid/setregid setting saved ID to new effective ID (BZ 34505) (Samuel Thibault)
+- stdlib, wcsmbs: Add missing __nonnull to strto*/wcsto* [BZ #33053] (Shamil Abdulaev)
+- elf: Open the normalized $ORIGIN rpath in AT_SECURE programs (BZ 34360) (Adhemerval Zanella)
+- test: Fix tst-personality (Yury Khrustalev)
+- manual: adjust reference to man-pages following proc(5) split-up (Collin Funk)
+- Updates udp.h from Linux 6.19 to netinet/udp.h (Jiayuan Chen)
+- nptl: Test case for bug 34546 (Florian Weimer)
+- nptl: Use FAIL_UNSUPPORTED in init_tpp_test in tst-tpp.h (Florian Weimer)
+- nptl: Revert TPP updates on pthread_mutex_*lock failure (bug 34546) (Florian Weimer)
+- nptl: Fix test error reporting in CHECK_TPP_PRIORITY in tst-tpp.h (Florian Weimer)
+- nptl: Revert robust list head on pthread_mutex_timedlock failure (bug 34542) (Florian Weimer)
+- nptl: Treat negative times as timed out in PI futex locking (bug 34543) (Florian Weimer)
+- stdio-common: Keep trailing zeros where %#g rounds into a new decade (BZ 34578) (Matt Turner)
+- stdio-common: Iterate over the huge width for one printf function only (Matt Turner)
+- elf: Remove dead l_need_tls_init static-TLS init path (Adhemerval Zanella)
+- elf: Remove __chk_fail from dl-minimal.c (Adhemerval Zanella)
+- elf: Allow RPATH/RUNPATH for static-pie (BZ 33326) (Adhemerval Zanella)
+- Fix assert during static startup (BZ 33326) (Adhemerval Zanella)
+- Use _dl_writev on __libc_message_impl (Adhemerval Zanella)
+- nptl: Add __raise_direct (Adhemerval Zanella)
+- tst-backtrace5: split long line (Samuel Thibault)
+- tst-backtrace5: Fix on hurd (Samuel Thibault)
+- fcntl: drop nonnull attribute for openat, openat2's path argument [BZ #34313] (Sam James)
+- io: drop nonnull attribute for fchmodat, faccessat, fchownat's path argument [BZ #34313] (Sam James)
+- hurd: Move SINGLE_THREAD_P / RTLD_SINGLE_THREAD_P to single-thread.h (Samuel Thibault)
+- stdlib: merge some tests from gnulib (Collin Funk)
+- nptl: Propagate EDEADLK from FUTEX_LOCK_PI for errror-checking mutexes (Moritz Klammler)
+- advisories: fix typo in README (Rolf Eike Beer)
+- Use __attribute_optimization_barrier__ for the remaining noclone users (Matt Turner)
+- io: Do not alias fts and fts64 when inode types differ (Magnus Lindholm)
+- Use FAIL_UNSUPPORTED more (Sam James)
+- iconvdata: Test case for bug 34556, bug 34568 (Florian Weimer)
+- iconvdata: EUC_JISX0213 decoding lacks pending character reset (CVE-2026-80489) (Florian Weimer)
+- iconvdata: SHIFT_JISX0213 decoding lacks pending character reset (CVE-2026-77117) (Florian Weimer)
+- localedata: bn_BD, bn_IN: use full Gregorian month names for abmon (Azharul Haque)
+- manual: Fix some typos in the Low-Level Input/Output chapter (Collin Funk)
+- x86: Update AVX10 support (H.J. Lu)
+- Document CVE-2026-18374 and new CVSS tag (Siddhesh Poyarekar)
+- aarch64: Add memory clobber to pkey_write (Yury Khrustalev)
+- stdlib: Fix right-justification in strfmon (bug 34510, CVE-2026-19499) (Florian Weimer)
+- hurd: Set _TIME_BITS=32 for installed programs on i386/Hurd (Samuel Thibault)
+- Add check-symbol-version.awk (H.J. Lu)
+- LoongArch: Add standard search paths for 32-bit (mengqinggang)
+- LoongArch: Support pointer guard on LoongArch32 (mengqinggang)
+- hurd: Warn about setting _TIME_BITS=64 on i386 GNU Hurd (Samuel Thibault)
+- math: Update tanh from CORE-MATH (revision bb39e4fa) (Adhemerval Zanella)
+- tests: elf: Fix flaky thp tests (Yury Khrustalev)
+- Remove applied or redundant patches:
+  - glibc-rh2457183-1.patch
+  - glibc-rh2457183-2.patch
+
 * Tue Sep 01 2026 Florian Weimer  <fweimer@redhat.com> - 2.44.9000-2
 - Fail the build if there are unexpected test failures (#2449608)
 

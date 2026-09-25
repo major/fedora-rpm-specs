@@ -1,9 +1,5 @@
-%global commit 0a8b69c0691b67d7daf9e32d3d8738f18ca1d61d
-%global shortcommit %(c=%{commit}; echo ${c:0:7})                                                                                          
-%global commitdate 20260505
-
 Name:           gobject-linter
-Version:        0~%{commitdate}.git%{shortcommit}
+Version:        0.1.2
 Release:        %autorelease
 Summary:        A tree-sitter-based linter for GObject/C applications
 
@@ -29,10 +25,7 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/bilelmoussaoui/gobject-linter
-Source:         %{url}/archive/gobject-linter-%{commit}.tar.gz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2420885
-Patch0001:      gobject-linter-0-fedora-tree-sitter-version.patch
+Source:         %{url}/archive/gobject-linter-%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros
 
@@ -40,7 +33,7 @@ BuildRequires:  cargo-rpm-macros
 A tree-sitter-based linter for GObject/C applications.
 
 %prep
-%autosetup -p1 -n gobject-linter-%{commit}
+%autosetup -p1
 %cargo_prep
 
 %generate_buildrequires

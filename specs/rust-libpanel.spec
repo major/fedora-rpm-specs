@@ -15,6 +15,8 @@ Summary:        Rust bindings for GNOME libpanel
 License:        MIT
 URL:            https://crates.io/crates/libpanel
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          libpanel-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 
@@ -175,12 +177,6 @@ use the "v1_8" feature of the "%{crate}" crate.
 # Remove examples until upstream moves them to the correct target
 # https://gitlab.gnome.org/World/Rust/libpanel-rs/-/issues/8
 rm -rf examples
-# Drop the [[bin]] and [[example]] targets that reference them
-sed -i '/^\[\[bin\]\]/,/^$/d; /^\[\[example\]\]/,/^$/d' Cargo.toml
-# Force on gtk4's v4_10 feature: the generated bindings use gtk::Accessible
-# unconditionally (e.g. src/auto/dock.rs), but gtk4-rs only exposes that type
-# behind its own v4_10 feature, which libpanel never enables on its own.
-sed -i '/^\[dependencies.gtk\]$/a features = ["v4_10"]' Cargo.toml
 
 %generate_buildrequires
 %cargo_generate_buildrequires

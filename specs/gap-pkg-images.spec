@@ -1,5 +1,14 @@
-%global gap_pkgname images
-%global giturl      https://github.com/gap-packages/images
+# When bootstrapping a new architecture, there is no gap-pkg-vole package yet,
+# since it requires this package to build.  We only need it for testing this
+# package, not for building it, so use the following procedure:
+# 1. Do a bootstrap build of this package.
+# 2. Build gap-pkg-vole.
+# 3. Do a normal build of this packages, which includes running the tests.
+%bcond bootstrap 0
+
+%global gap_pkgname    images
+%global giturl         https://github.com/gap-packages/images
+%global gap_skip_check %{?with_bootstrap}
 
 Name:           gap-pkg-%{gap_pkgname}
 Version:        1.4.2
@@ -23,11 +32,16 @@ BuildRequires:  gap(digraphs) >= 1.0.0
 BuildRequires:  gap(ferret) >= 0.8.0
 BuildRequires:  gap-devel >= 4.13
 
+%if %{without bootstrap}
+BuildRequires:  gap(vole) >= 0.6.0
+%endif
+
 Requires:       gap(datastructures) >= 0.2.0
 Requires:       gap(digraphs) >= 1.0.0
 Requires:       gap-core >= 4.13
 
 Recommends:     gap(ferret) >= 0.8.0
+Recommends:     gap(vole) >= 0.6.0
 
 Provides:       gap(images) = %{version}-%{release}
 

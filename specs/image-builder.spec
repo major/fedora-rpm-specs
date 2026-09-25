@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        83.0.0
+Version:        84.0.0
 
 %gometa
 
@@ -272,6 +272,42 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Sep 24 2026 Packit <hello@packit.dev> - 84.0.0-1
+Changes with 84.0.0
+----------------
+  - Build cache based on export pipeline (HMS-11233) (#2671)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou
+  - Enable CUI OpenSCAP profile for RHEL 10 (HMS-11244) (#2701)
+    - Author: Gianluca Zuccarelli, Reviewers: Achilleas Koutsou, Lucas Garfield, Simon de Vlieger
+  - Extras: User-selectable multiple explicit exports: sysexts and partitions (HMS-11288, HMS-11287) (#2700)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - Fix readme syntax and URLs (#2698)
+    - Author: Florian Schüller, Reviewers: Simon de Vlieger
+  - Update osbuild dependency commit ID (#2703)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová, Simon de Vlieger
+  - Update snapshots to 20260915 (#2690)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - bootc: drop `grub2.legacy` on aarch64 (#2693)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lucas Garfield
+  - doc: many many bits (#2691)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - fedora: decrease pcluster size for atomic ISO (#2713)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  - fedora: fix uefi vendor type for riscv64 platform (#2696)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - fix: enable bootupd gen-metadata for edge-container (#2705)
+    - Author: Vaibhav Bhope, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - gen-manifest-diffs: Adjust for images move to image-builder (#2710)
+    - Author: Brian C. Lane, Reviewers: Simon de Vlieger
+  - many: `bootc` deployment variants (#2636)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lucas Garfield
+  - rhsm: support cross major version builds (#2688)
+    - Author: Lucas Garfield, Reviewers: Simon de Vlieger
+  - rpmmd: Honor ignore_ssl when loading repositories (#2674)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-09-24
+
 * Wed Sep 16 2026 Packit <hello@packit.dev> - 83.0.0-1
 Changes with 83.0.0
 ----------------

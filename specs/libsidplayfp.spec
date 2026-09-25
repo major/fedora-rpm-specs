@@ -1,6 +1,6 @@
 Name:           libsidplayfp
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SID chip music module playing library
 # Zlib (src/utils/MD5/), GPL-2.0-only (src/builders/exsid-builder/) and GPL-2.0-or-later (the rest)
 License:        GPL-2.0-or-later AND GPL-2.0-only AND Zlib
@@ -9,6 +9,7 @@ Source0:        https://github.com/libsidplayfp/%{name}/releases/download/v%{ver
 BuildRequires:  gcc gcc-c++ libtool doxygen
 BuildRequires:  libftdi-c++-devel libgcrypt-devel
 BuildRequires:  make
+BuildRequires:  pkgconfig(libresidfp) >= 1.2.0
 Provides:       bundled(md5-deutsch-c++)
 
 %description
@@ -36,7 +37,7 @@ This package contains API documentation for %{name}.
 
 
 %prep
-%setup -q
+%autosetup
 # Regenerate autofoo stuff, it is better to always build this from source
 rm -r aclocal.m4 build-aux
 autoreconf -ivf
@@ -44,15 +45,15 @@ autoreconf -ivf
 
 %build
 %configure --disable-static
-make %{_smp_mflags} all doc
+%make_build all doc
 
 
 %install
-%make_install INSTALL="install -p"
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%make_install
 
 
-%ldconfig_scriptlets
+%check
+%make_build check
 
 
 %files
@@ -69,10 +70,15 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %files devel-doc
+%license COPYING
 %doc docs/html
 
 
 %changelog
+* Thu Sep 24 2026 Karel Volný <kvolny@redhat.com> - 3.1.1-2
+- Require libresidfp
+- spec cleanup, add %%check
+
 * Thu Sep 17 2026 Karel Volný <kvolny@redhat.com> - 3.1.1-1
 - Update to 3.1.1 (rhbz#2396905)
 - See the upstream changes at https://github.com/libsidplayfp/libsidplayfp/releases

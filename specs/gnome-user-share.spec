@@ -16,6 +16,9 @@ License:        GPL-2.0-or-later AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR
 URL:            https://gitlab.gnome.org/GNOME/gnome-user-share
 Source0:        http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
+# upstream patch to update dependencies from gtk-rs v0.20 to v0.21:
+Patch:          https://gitlab.gnome.org/GNOME/gnome-user-share/-/commit/7f995367.patch
+
 %gnome_check_version
 
 BuildRequires:  cargo-rpm-macros

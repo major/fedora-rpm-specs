@@ -70,7 +70,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -201,6 +201,7 @@ rm -rf tests
 %endif
 
 %build
+export CXXFLAGS="%{build_cxxflags} -DNDEBUG"
 %cmake \
     -DBUILD_TESTS=%{build_test} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
@@ -251,6 +252,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Thu Sep 24 2026 Igor Giamoniano <igorgphotoarte@gmail.com> - 10.0.0-2
+- Define NDEBUG so release builds drop assert() (rhbz#2417737)
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

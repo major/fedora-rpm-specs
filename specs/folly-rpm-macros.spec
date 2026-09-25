@@ -8,6 +8,7 @@ URL:            https://src.fedoraproject.org/rpms/folly-rpm-macros
 Source0:        macros.folly-rpm
 Source1:        getdeps_vendor.attr
 Source2:        getdeps_vendor.prov
+Source3:        getdeps_vendor_license_check
 
 BuildArch:      noarch
 
@@ -16,8 +17,9 @@ Requires:       rpm
 Requires:       python3
 # %%getdeps_install runs %%{__cmake}
 Requires:       cmake-rpm-macros
-# the %%getdeps_vendor_license_* macros wrap go_vendor_license
+# the %%getdeps_vendor_license_* macros wrap go_vendor_license and licensecheck
 Requires:       go-vendor-tools
+Requires:       licensecheck
 # the %%folly_toolchain macro and its subpackage were dropped in 46; nothing used them
 Obsoletes:      folly-srpm-macros < 46
 
@@ -38,13 +40,14 @@ vendored tree into bundled() Provides.
 %install
 install -D -p -m 0644 -t %{buildroot}%{_rpmmacrodir} %{SOURCE0}
 install -D -p -m 0644 -t %{buildroot}%{_fileattrsdir} %{SOURCE1}
-install -D -p -m 0755 -t %{buildroot}%{_rpmconfigdir} %{SOURCE2}
+install -D -p -m 0755 -t %{buildroot}%{_rpmconfigdir} %{SOURCE2} %{SOURCE3}
 
 
 %files
 %{_rpmmacrodir}/macros.folly-rpm
 %{_fileattrsdir}/getdeps_vendor.attr
 %{_rpmconfigdir}/getdeps_vendor.prov
+%{_rpmconfigdir}/getdeps_vendor_license_check
 
 
 %changelog

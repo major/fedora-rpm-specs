@@ -47,7 +47,7 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.6.2
+Version: 4.0.0
 Release: %autorelease
 
 # Nearly all of openvswitch is Apache-2.0.  The bugtool is LGPLv2+, and the
@@ -369,16 +369,7 @@ chmod 0640 $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/conf.db
 touch $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/system-id.conf
 
 # remove unpackaged files
-rm -f $RPM_BUILD_ROOT/%{_bindir}/ovs-benchmark \
-        $RPM_BUILD_ROOT/%{_bindir}/ovs-docker \
-        $RPM_BUILD_ROOT/%{_bindir}/ovs-l3ping \
-        $RPM_BUILD_ROOT/%{_bindir}/ovs-parse-backtrace \
-        $RPM_BUILD_ROOT/%{_bindir}/ovs-test \
-        $RPM_BUILD_ROOT/%{_sbindir}/ovs-vlan-bug-workaround \
-        $RPM_BUILD_ROOT/%{_mandir}/man1/ovs-benchmark.1* \
-        $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-l3ping.8* \
-        $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-test.8* \
-        $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-vlan-bug-workaround.8*
+rm -f $RPM_BUILD_ROOT/%{_bindir}/ovs-docker
 
 # remove ovn unpackages files
 rm -f $RPM_BUILD_ROOT%{_bindir}/ovn*
@@ -487,14 +478,10 @@ fi
 %files -n python3-openvswitch
 %{python3_sitearch}/ovs/
 %{python3_sitearch}/ovs-%{version}.dist-info/
-%{_datadir}/openvswitch/bugtool-plugins/
-%{_datadir}/openvswitch/scripts/ovs-bugtool-*
 %{_datadir}/openvswitch/scripts/ovs-check-dead-ifs
 %{_datadir}/openvswitch/scripts/ovs-vtep
 %{_bindir}/ovs-dpctl-top
-%{_sbindir}/ovs-bugtool
 %{_mandir}/man8/ovs-dpctl-top.8*
-%{_mandir}/man8/ovs-bugtool.8*
 %doc LICENSE
 
 %files test
@@ -505,8 +492,6 @@ fi
 %{_mandir}/man1/ovs-pcap.1*
 %{_mandir}/man8/ovs-tcpdump.8*
 %{_mandir}/man1/ovs-tcpundump.1*
-%{_bindir}/ovs-vlan-test
-%{_mandir}/man8/ovs-vlan-test.8*
 
 %files testcontroller
 %{_bindir}/ovs-testcontroller
@@ -598,7 +583,6 @@ fi
 %{_mandir}/man8/ovs-pki.8*
 %{_mandir}/man8/ovs-vsctl.8*
 %{_mandir}/man8/ovs-vswitchd.8*
-%{_mandir}/man8/ovs-parse-backtrace.8*
 %{_udevrulesdir}/91-vfio.rules
 %doc LICENSE NOTICE README.rst NEWS rhel/README.RHEL.rst
 /var/lib/openvswitch

@@ -16,6 +16,8 @@ URL:            https://crates.io/crates/sigul-pesign-bridge
 Source:         %{crates_source}
 
 ExcludeArch:    %{ix86}
+# Manually created patch for downstream crate metadata changes
+Patch:          sigul-pesign-bridge-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  systemd-rpm-macros

@@ -1,6 +1,6 @@
 Name:           perl-XML-TreePP
 Version:        0.43
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Pure Perl implementation for parsing/writing XML documents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-TreePP
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/XML::TreePP.3pm{,.*}
 
 %changelog
+* Fri Sep 25 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.43-34
+- Rebuilt for new sources signature
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

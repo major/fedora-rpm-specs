@@ -12,6 +12,20 @@
 # glycin-loaders -> libheif
 %bcond bootstrap 0
 
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%bcond av1 0
+%else
+%bcond av1 1
+%endif
+
+# pixbuf loader removed originally in commit
+# d6b92efe1f1495dcc7019c83b4f97e6830434427
+%if 0%{?rhel} && 0%{?rhel} <= 10
+%bcond pixbuf_loader 1
+%else
+%bcond pixbuf_loader 0
+%endif
+
 Name:           libheif
 Version:        1.23.5
 Release:        %autorelease
@@ -46,13 +60,17 @@ BuildRequires:  pkgconfig(zlib)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2393742
 BuildRequires:  pkgconfig(openh264)
 %endif
-%if ! (0%{?rhel} && 0%{?rhel} <= 9)
+
+%if %{with av1}
 BuildRequires:  pkgconfig(libsharpyuv)
 BuildRequires:  pkgconfig(rav1e)
 BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
 
-Obsoletes:      heif-pixbuf-loader < %{version}-%{release}
+%if %{without pixbuf_loader}
+Obsoletes:      heif-pixbuf-loader < 1.20.2-5
+%endif
+
 Recommends:     %{name}-ffmpeg%{_isa}
 
 %description
@@ -75,7 +93,7 @@ file format decoder and encoder.
 %ifnarch %{ix86}
 %{_libdir}/%{name}/%{name}-openh264dec.so
 %endif
-%if ! (0%{?rhel} && 0%{?rhel} <= 9)
+%if %{with av1}
 %{_libdir}/%{name}/%{name}-rav1e.so
 %{_libdir}/%{name}/%{name}-svtenc.so
 %endif
@@ -97,6 +115,24 @@ can make use of hardware decoders.
 
 %files ffmpeg
 %{_libdir}/%{name}/%{name}-ffmpegdec.so
+%endif
+
+# ----------------------------------------------------------------------
+
+%if %{with pixbuf_loader}
+%if !%{with bootstrap}
+%package -n     heif-pixbuf-loader
+Summary:        HEIF image loader for GTK+ applications
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       gdk-pixbuf2%{?_isa}
+
+%description -n heif-pixbuf-loader
+This package provides a plugin to load HEIF files in GTK+ applications.
+
+%files -n heif-pixbuf-loader
+%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-heif.so
+%endif
 %endif
 
 # ----------------------------------------------------------------------
@@ -173,7 +209,7 @@ rm -rf third-party/
  -DWITH_OpenH264_DECODER=ON \
  -DWITH_OpenH264_DECODER_PLUGIN=ON \
 %endif
-%if ! (0%{?rhel} && 0%{?rhel} <= 9)
+%if %{with av1}
  -DWITH_RAV1E=ON \
  -DWITH_RAV1E_PLUGIN=ON \
  -DWITH_SvtEnc=ON \
@@ -183,7 +219,9 @@ rm -rf third-party/
  -DWITH_EXAMPLE_HEIF_VIEW=OFF \
 %endif
  -DWITH_UNCOMPRESSED_CODEC=ON \
+%if %{without pixbuf_loader}
  -DWITH_GDK_PIXBUF=OFF \
+%endif
  -Wno-dev
 
 %cmake_build

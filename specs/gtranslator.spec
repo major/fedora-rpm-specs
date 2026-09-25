@@ -1,7 +1,7 @@
 %global app_id	org.gnome.Gtranslator
 
 Name:		gtranslator
-Version:	50.0
+Version:	51.0
 Release:	%autorelease
 Summary:	Gettext po file editor for GNOME
 
@@ -10,8 +10,6 @@ Summary:	Gettext po file editor for GNOME
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Gtranslator
 Source0:	https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{version}.tar.xz
-
-Patch0:	    gtranslator-fix-includes.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -54,7 +52,7 @@ replace functions, auto translation, and translation learning,
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -64,10 +62,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 %{_datadir}/dbus-1/services/%{app_id}.service
 %{_datadir}/icons/hicolor/*/apps/%{app_id}*.svg
 %{_datadir}/glib-2.0/schemas/%{app_id}.gschema.xml
-%{_datadir}/glib-2.0/schemas/org.gnome.gtranslator.plugins.translation-memory.gschema.xml
+%{_datadir}/glib-2.0/schemas/%{app_id}.plugins.translation-memory.gschema.xml
 %{_datadir}/gtksourceview-5/language-specs/gtranslator.lang
 %{_datadir}/gtranslator/
-%{_metainfodir}/%{app_id}.appdata.xml
+%{_metainfodir}/%{app_id}.metainfo.xml
 %{_mandir}/man1/gtranslator.1*
 
 %changelog

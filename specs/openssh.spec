@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -522,6 +522,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Sep 24 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.5p1-2
+- Make pkcs11-uri test compatible with GNOME
+
 * Fri Aug 21 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.5p1-1
 - Rebasing OpenSSH to 10.5p1
 

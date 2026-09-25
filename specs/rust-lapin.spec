@@ -5,7 +5,7 @@
 %global crate lapin
 
 Name:           rust-lapin
-Version:        4.10.0
+Version:        4.12.0
 Release:        %autorelease
 Summary:        AMQP client library
 

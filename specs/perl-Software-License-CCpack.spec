@@ -15,7 +15,7 @@
 
 Name:		perl-Software-License-CCpack
 Version:	1.11
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	Software::License pack for Creative Commons' licenses
 License:	LGPL-3.0-only
 URL:		https://metacpan.org/release/Software-License-CCpack
@@ -23,11 +23,10 @@ Source0:	https://cpan.metacpan.org/authors/id/B/BB/BBYRD/Software-License-CCpack
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(base)
 BuildRequires:	perl(Software::License)
@@ -45,6 +44,7 @@ BuildRequires:	perl(Test::CheckDeps) >= 0.010
 BuildRequires:	perl(Test::More) >= 0.96
 # Extra Tests
 %if 0%{!?perl_bootstrap:1} && %{with perl_Software_License_CCpack_enables_extra_tests}
+BuildRequires:	findutils
 BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::CPAN::Meta::JSON)
 BuildRequires:	perl(Test::DistManifest)
@@ -76,12 +76,11 @@ exist for those other purposes.
 %setup -q -n Software-License-CCpack-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -122,6 +121,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))" RELEASE_TESTING=1
 %{_mandir}/man3/Software::License::CC_PDM_1_0.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 1.11-44
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

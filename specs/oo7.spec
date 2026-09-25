@@ -1,5 +1,5 @@
 Name:           oo7
-Version:        0.7.0~alpha
+Version:        0.7.0~beta
 Release:        %autorelease
 Summary:        Secret Service provider
 
@@ -51,6 +51,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  meson
 BuildRequires:  gettext
 
+BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(systemd)
 
 %description
@@ -58,6 +59,8 @@ Secret Service provider.
 
 %package        daemon
 Summary:        oo7 daemon
+
+Recommends:     oo7-portal
 
 %description    daemon
 Service providing the Secret Service D-Bus API.
@@ -239,17 +242,7 @@ install -Dpm 0755 target/rpm/git-credential-oo7 -t %{buildroot}%{_bindir}/
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/oo7-portal.desktop
-
-%ifarch s390x
-# kwallet parsing / migration fails on s390x
-%{cargo_test -- -- --exact %{shrink:
-    --skip service::tests::discover_kwallet_keyrings
-    --skip crypto::tests::test_kwallet_sha1_matches_cpp
-    --skip test_blowfish_cbc_pbkdf2_wallet_with_password_entry
-}}
-%else
 %cargo_test
-%endif
 
 %changelog
 %autochangelog

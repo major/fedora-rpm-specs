@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc4.260923gfe2ec83746e5.40
+%define pkgrelease 0.rc4.260924g62f4c998b297.41
 %define kversion 7
-%define tarfile_release 7.3-rc4-70-gfe2ec83746e5
+%define tarfile_release 7.3-rc4-75-g62f4c998b297
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260923gfe2ec83746e5.40%{?buildid}%{?dist}
+%define specrelease 0.rc4.260924g62f4c998b297.41%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4866,11 +4866,15 @@ fi\
 #
 #
 %changelog
-* Wed Sep 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.fe2ec83746e5.40]
+* Thu Sep 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.62f4c998b297.41]
 - Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Sep 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.62f4c998b297.40]
+- redhat/configs/fedora: Enable AW88399 HDA side codec (Junjie Cao) [2537033]
+- Linux v7.3.0-0.rc4.62f4c998b297
 
 * Wed Sep 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.fe2ec83746e5.39]
 - fedora: arm64: enable Samsung S6E3FA7 panel driver (Sam Day)

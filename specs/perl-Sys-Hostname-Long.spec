@@ -1,6 +1,6 @@
 Name:           perl-Sys-Hostname-Long
 Version:        1.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Try every conceivable way to get full hostname
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Hostname-Long
@@ -11,7 +11,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) > 6.75
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  hostname
 BuildRequires:  perl(Carp)
@@ -41,10 +41,10 @@ it is missing the long hostname.
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -58,6 +58,9 @@ perl testall.pl
 %{_mandir}/man3/Sys::Hostname::Long.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 1.5-35
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

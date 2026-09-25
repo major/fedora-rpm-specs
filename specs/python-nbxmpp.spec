@@ -1,14 +1,15 @@
 Name:           python-nbxmpp
-Version:        4.5.4
-Release:        9%{?dist}
+Version:        7.4.0
+Release:        1%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
-URL:            https://dev.gajim.org/gajim/python-nbxmpp/
-Source0:        https://dev.gajim.org/gajim/python-nbxmpp/-/archive/%{version}/python-nbxmpp-%{version}.tar.bz2
+License:        GPL-3.0-or-later
+URL:            https://gitlab.com/gajim/python-nbxmpp
+Source0:        https://gitlab.com/gajim/python-nbxmpp/-/archive/%{version}/python-nbxmpp-%{version}.tar.bz2
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# Tests
+BuildRequires:  libsoup3
 
 %global desc %{expand:
 python-nbxmpp is a Python library that provides a way for Python applications
@@ -23,7 +24,6 @@ Requires:       python3-gobject >= 3.42.0
 Requires:       glib2 >= 2.66
 Requires:       libsoup3
 Recommends:     python3-gssapi
-Obsoletes:      python-nbxmpp-doc < 1.0.0
 
 %description -n python3-nbxmpp
 %{desc}
@@ -39,12 +39,18 @@ Obsoletes:      python-nbxmpp-doc < 1.0.0
 
 %install
 %pyproject_install
-%pyproject_save_files nbxmpp
+%pyproject_save_files -l nbxmpp
+
+%check
+%{py3_test_envvars} %{python3} -m unittest discover -v
 
 %files -n python3-nbxmpp -f %{pyproject_files}
 %doc README.md ChangeLog
 
 %changelog
+* Thu Aug 27 2026 Michael Kuhn <suraia@fedoraproject.org> - 7.4.0-1
+- Update to 7.4.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

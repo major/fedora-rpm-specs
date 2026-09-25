@@ -4,7 +4,7 @@
 # https://github.com/distribution/distribution
 %global goipath   github.com/distribution/distribution/v3
 %global forgeurl  https://github.com/distribution/distribution
-Version:          3.1.1
+Version:          3.1.2
 
 %gometa -L -f
 

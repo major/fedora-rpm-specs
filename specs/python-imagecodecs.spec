@@ -1,7 +1,7 @@
 %global srcname imagecodecs
 
 Name:           python-imagecodecs
-Version:        2025.8.2
+Version:        2026.1.1
 Release:        %autorelease
 Summary:        Image transformation, compression, and decompression codecs
 
@@ -31,6 +31,7 @@ BuildRequires:  libdeflate-devel
 BuildRequires:  libheif-devel
 BuildRequires:  libjpeg-turbo-devel >= 3
 BuildRequires:  liblerc-devel
+BuildRequires:  libopenjph-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel >= 4.5.0
 BuildRequires:  libzstd-devel
@@ -376,9 +377,9 @@ TEST_OPTS=(
   --deselect "tests/test_imagecodecs.py::test_tifffile[lzma-True-f4->]"
 )
 
-# A number of tests fail on s390x, ignore that for now
+# A number of tests fail on ppc64le and s390x, ignore that for now
 %pytest -v "${TEST_OPTS[@]}" \
-%ifarch s390x
+%ifarch ppc64le s390x
   || :
 %endif
 

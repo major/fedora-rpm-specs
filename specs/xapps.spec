@@ -1,7 +1,7 @@
-%global upstream_version 3.3.5-unstable
+%global upstream_version 3.3.6-unstable
 
 Name:           xapps
-Version:        3.3.5^unstable
+Version:        3.3.6^unstable
 Release:        %autorelease
 Summary:        Common files for XApp desktop apps
 

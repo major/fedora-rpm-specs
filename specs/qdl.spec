@@ -11,6 +11,8 @@ License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        51-qcom-usb.rules
+# https://github.com/linux-msm/qdl/pull/324
+Patch0:         324.patch
 BuildRequires:  gcc
 BuildRequires:  help2man
 BuildRequires:  meson
@@ -35,7 +37,7 @@ This package is the Qdl plugin for nbdkit.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %conf

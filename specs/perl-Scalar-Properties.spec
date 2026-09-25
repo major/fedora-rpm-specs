@@ -13,7 +13,7 @@
 
 Name:           perl-Scalar-Properties
 Version:        1.100860
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Run-time properties on scalar variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-Properties
@@ -25,11 +25,10 @@ BuildArch:      noarch
 # Build requirements
 # ===================================================================
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.11
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # ===================================================================
 # Module requirements
 # ===================================================================
@@ -89,12 +88,11 @@ manipulations are objects themselves.
 %patch -P 3 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -111,6 +109,9 @@ make test
 %{_mandir}/man3/Scalar::Properties.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 1.100860-43
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.100860-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

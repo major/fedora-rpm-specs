@@ -1,5 +1,5 @@
 Name:		perl-Params-SomeUtil
-Version:	1.11
+Version:	1.12
 Release:	1%{?dist}
 Summary:	Simple, compact and correct param-checking functions
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %check
 unset PERL_PARAMS_UTIL_PP
 unset PERL_PARAMS_SOMEUTIL_PP
+unset PUREPERL_ONLY
 make test
 
 %files
@@ -80,6 +81,11 @@ make test
 %{_mandir}/man3/Params::SomeUtil.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 1.12-1
+- Update to 1.12
+  - Honor PUREPERL_ONLY=1 as passed by cpanm and other cpan clients
+    (GH#11, GH#12)
+
 * Fri Sep 11 2026 Paul Howarth <paul@city-fan.org> - 1.11-1
 - Update to 1.11
   - Updated FSF address

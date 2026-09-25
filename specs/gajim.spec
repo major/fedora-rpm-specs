@@ -1,56 +1,65 @@
 %global appid org.gajim.Gajim
 
 Name:     gajim
-Version:  1.7.3
-Release:  16%{?dist}
+Version:  2.6.0
+Release:  1%{?dist}
 Summary:  Jabber client written in PyGTK
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:  GPL-3.0-only
+License:  GPL-3.0-or-later
 URL:      https://gajim.org/
-Source0:  https://gajim.org/downloads/1.7/gajim-%{version}.tar.gz
+Source0:  https://gajim.org/downloads/2.6/gajim-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  intltool
+BuildRequires:  python3dist(pytest)
+BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+# Tests
+BuildRequires:  libadwaita >= 1.7.0
+BuildRequires:  gtksourceview5
+BuildRequires:  gobject-introspection
 
 ## Hard requirements
-Requires:    python3-gobject >= 3.42
+Requires:    python3-gobject >= 3.53
 Requires:    cairo >= 1.16
-Requires:    python3-pillow
-Requires:    gtk3 >= 3.24.30
-Requires:    glib2 >= 2.60
-Requires:    gtksourceview4
+Requires:    gtk4 >= 4.17.5
+Requires:    glib2 >= 2.80
+Requires:    gtksourceview5
 Requires:    pango >= 1.50
-Requires:    sqlite-libs >= 3.33
-Requires:    hicolor-icon-theme
-## Optional, but not too big and not worth exploding the test matrix for
-# For gajim-remote, desktop notifications, logind, NetworkManager, ...
-Requires:    python3-dbus
+Requires:    libadwaita >= 1.7.0
+Requires:    gstreamer1
+Requires:    gstreamer1-plugins-base
+Requires:    sqlite-libs >= 3.35
+
+# Required for httpx
+Requires:    python3-h2
+Requires:    python3-socksio
+
+# Required but not listed
+# gobject-introspection contains cairo-1.0.typelib
+Requires:    gobject-introspection
+# Used in gajim/common/util/version.py
+Requires:    libsoup3
+
 ## Optional, roughly in the order listed in upstream README.md
-# OpenPGP message encryption - Encrypting chat messages with OpenPGP keys
-Recommends:  python3-gnupg
-# Spell checker - Spellchecking of composed messages
-Recommends:  gspell
+# gajim-remote
+Recommends:  dbus
+# Spell checker
+Recommends:  libspelling
+Recommends:  hunspell
 # Password storage
 Recommends:  libsecret
-# UPnP-IGD - Ability to request your router to forward port for file transfer
+# NAT traversal (currently disabled in Gajim)
 Recommends:  gupnp-igd
 # Sharing location
 Recommends:  geoclue2-libs
-# Sound
-Recommends:  gsound
-# Audio/Video - Ability to start audio and video chat
-Recommends:  farstream02
-Recommends:  gstreamer1
-Recommends:  gstreamer1-plugins-base
-Recommends:  gstreamer1-plugins-good-gtk
-## Plugins
-# OMEMO
-Recommends:  python3-axolotl
-Recommends:  python3-protobuf
-Recommends:  python3-qrcode
+# Get accurate information about the used operating system
+Recommends:  python3-distro
+# Rich previews (images and voice messages)
+Recommends:  gstreamer1-plugin-gtk4
+Recommends:  gstreamer1-plugin-libav
+Recommends:  gstreamer1-plugins-good
+Recommends:  gstreamer1-plugins-bad-free
 
 %description
 Gajim is a Jabber client written in PyGTK. The goal of Gajim's developers is
@@ -58,19 +67,19 @@ to provide a full featured and easy to use xmpp client for the GTK+ users.
 Gajim does not require GNOME to run, even though it exists with it nicely.
 
 %prep
-%autosetup
+%autosetup -n gajim-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
 %pyproject_wheel
-./pep517build/build_metadata.py --output-dir dist/metadata
+./make.py build
 
 %install
 %pyproject_install
-./pep517build/install_metadata.py dist/metadata --prefix %{buildroot}/%{_prefix}
-%pyproject_save_files gajim
+./make.py install --prefix %{buildroot}/%{_prefix}
+%pyproject_save_files -l gajim
 
 # RHEL <= 9 doesn't support .desktop files with version 1.5,
 # see: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
@@ -80,21 +89,25 @@ sed -e 's/^SingleMainWindow=/X-GNOME-SingleWindow=/' \
 %endif
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.metainfo.xml
 
-%find_lang %{name}
+%check
+%pytest
 
-%files -f %{pyproject_files} -f %{name}.lang
+%files -f %{pyproject_files}
 %doc %{_mandir}/man1/%{name}.1*
 %doc %{_mandir}/man1/%{name}-remote.1*
 %{_bindir}/%{name}
 %{_bindir}/%{name}-remote
 %{_datadir}/applications/%{appid}.desktop
-%{_datadir}/metainfo/%{appid}.appdata.xml
+%{_datadir}/metainfo/%{appid}.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Fri Aug 28 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.6.0-1
+- Update to 2.6.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -42,7 +42,7 @@
 
 Name:       rocdbgapi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    AMD Debugger API
 
 License:    MIT
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd-dbgapi/
 
 %changelog
+* Thu Sep 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Rebuild for 10.0
+
 * Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Remove unused global
 

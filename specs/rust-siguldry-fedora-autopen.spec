@@ -4,13 +4,15 @@
 %global crate siguldry-fedora-autopen
 
 Name:           rust-siguldry-fedora-autopen
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        AMQP client to auto-sign Fedora build artifacts
 
 License:        MIT
 URL:            https://crates.io/crates/siguldry-fedora-autopen
 Source:         %{crates_source}
+# https://github.com/fedora-infra/siguldry/pull/274
+Patch:          0001-siguldry-fedora-autopen-pass-koji-strings-instead-of.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
@@ -54,6 +56,7 @@ Recommends:        ostree
 
 # Needed for signing RPMs
 Recommends:        rpm-sign
+Recommends:        python3-koji
 
 # Needed for signing OSTree, can be used for RPMs
 Recommends:        gpg

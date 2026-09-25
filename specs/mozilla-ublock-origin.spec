@@ -6,7 +6,7 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.72.2
+Version:        1.75.0
 Release:        %autorelease
 Summary:        An efficient blocker for Firefox
 

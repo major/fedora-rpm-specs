@@ -53,7 +53,6 @@ Requires:  python3-blinker
 Requires:  python3-six
 Requires:  python3-unidecode
 Requires:  python3-jinja2
-Requires:  python3-pytz
 Requires:  python3-pygments
 Requires:  python3-docutils
 Requires:  python3-markdown
@@ -130,6 +129,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Thu Sep 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.12.0-4
+- Complete pytz dep removal.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

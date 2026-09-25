@@ -135,6 +135,15 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg tr Turkish
 %lang_subpkg uk Ukrainian
 
+%package wiki
+Summary:        Guayadeque documentation wiki
+BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+
+%description wiki
+Documentation wiki for Guayadeque, including the user manual and
+additional project documentation.
+
 %prep
 %if 0%{?usesnapshot}
 %autosetup -p1 -n %{name}-%{commit0}
@@ -152,6 +161,8 @@ cp -p %{SOURCE1} PACKAGE-LICENSING
 
 %install
 %cmake_install
+# remove duplicate file
+rm -f %{buildroot}/licenses/%{name}/INSTALL.md
 mkdir -p %{buildroot}%{_datadir}/{applications,appdata}
 desktop-file-install --delete-original  \
         --dir %{buildroot}%{_datadir}/applications   \
@@ -163,8 +174,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %files
-%doc README
-%license INSTALL.md LICENSE PACKAGE-LICENSING
+%doc %{_docdir}/%{name}/CHANGELOG.md
+%doc %{_docdir}/%{name}/INSTALL.md
+%doc %{_docdir}/%{name}/RADIOS.md
+%doc %{_docdir}/%{name}/README.md
+%license LICENSE PACKAGE-LICENSING
 %{_bindir}/%{name}
 %{_datadir}/%{name}/*.conf
 %{_datadir}/%{name}/*.xml
@@ -175,10 +189,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 %{_datadir}/%{name}/Radios/FrenchRadioStations.xml
 
+%files wiki
+%doc %{_docdir}/%{name}/wiki
+
+
 %changelog
 * Wed Sep 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.7-1
 - Update to 0.7.7-1
 - Add Georgian lang
+- Add wiki subpkg wiki
 
 * Wed Aug 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.6-1
 - Update to 0.7.6-1

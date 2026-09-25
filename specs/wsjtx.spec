@@ -3,15 +3,25 @@
 %undefine _hardened_linker_errors
 
 Name:		wsjtx
-Version:	3.0.1
-Release:	2%{?dist}
+Version:	3.0.2
+Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
 
-URL:            https://github.com/WSJTX/wsjtx
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:		https://wsjtx.github.io/wsjtx/index.html
+Source0:	https://github.com/WSJTX/wsjtx/releases/download/v%{version}/%{name}-%{version_no_tilde}%{?rctag:-%{rctag}}-src.tar.gz
 Source100:	edu.princeton.physics.WSJTX.metainfo.xml
+
+# Sent upstream
+# https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
+Patch0:		wsjtx-3.0.2-rename-split.patch
+# wsjtx-3.0.2/map65/libm65/tmoonsub.c:59:5: error: format not a string literal and no format
+# https://github.com/WSJTX/wsjtx/pull/82
+Patch2:        wsjtx-3.0.2-c_format_security.patch 
+# Sound files were installing to /usr/bin
+# https://github.com/WSJTX/wsjtx/pull/83
+Patch3:        wsjtx-3.0.2-sounds_path.patch
 
 ExcludeArch:    i686
 
@@ -25,6 +35,7 @@ BuildRequires:	qt5-qtserialport-devel
 BuildRequires:	qt5-qtmultimedia-devel
 BuildRequires:	qt5-qtwebsockets-devel
 BuildRequires:	desktop-file-utils
+BuildRequires:	dos2unix
 BuildRequires:	hamlib-devel
 BuildRequires:	fftw-devel
 BuildRequires:	libusbx-devel
@@ -40,11 +51,6 @@ BuildRequires:	asciidoc
 BuildRequires:	rubygem-asciidoctor
 BuildRequires:	libappstream-glib
 %endif
-# Temporal fix, problem reported upstream
-# https://github.com/WSJTX/wsjtx/issues/5
-# https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
-Patch:		wsjtx-3.0.0-path-fix.patch
-
 
 %description
 WSJT-X is a computer program designed to facilitate basic amateur radio
@@ -55,7 +61,16 @@ from the Moon.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version_no_tilde}
+
+%if ! 0%{?rhel} < 8
+# remove bundled boost. EL 7 is not required version.
+rm -rf boost
+%endif
+
+# convert CR + LF to LF
+dos2unix *.ui *.iss *.txt
+find ./ -type f -name '*.cpp' -exec dos2unix {} \;
 
 
 %build
@@ -130,10 +145,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_bindir}/jt9code
 %{_bindir}/ft8code
 %{_bindir}/message_aggregator
+%{_bindir}/map65
 %{_bindir}/msk144code
 %{_bindir}/qmap
 %{_bindir}/q65sim
 %{_bindir}/q65code
+%{_bindir}/qmap
 %{_bindir}/udp_daemon
 %{_bindir}/wsjtx
 %{_bindir}/wsjtx_app_version
@@ -146,10 +163,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/applications/wsjtx.desktop
 %{_datadir}/applications/message_aggregator.desktop
 %{_datadir}/pixmaps/wsjtx_icon.png
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 
 
 %changelog
+* Thu Sep 24 2026 Richard Shaw <hobbes1069@gmail.com> - 3.0.2-1
+- Update to 3.0.2.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

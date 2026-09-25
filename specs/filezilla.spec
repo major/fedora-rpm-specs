@@ -45,6 +45,7 @@ BuildRequires: sqlite-devel
 BuildRequires: wxGTK-devel
 BuildRequires: xdg-utils
 BuildRequires: make
+BuildRequires: fzssh-devel
 
 Requires: xdg-utils
 
@@ -133,8 +134,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %dir %{_sysconfdir}/%{name}
 %ghost %{_sysconfdir}/%{name}/fzdefaults.xml
 %{_bindir}/%{name}
-%{_bindir}/fzputtygen
-%{_bindir}/fzsftp
 %if %{with storj}
 %{_bindir}/fzstorj
 %endif

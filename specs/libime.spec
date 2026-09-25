@@ -1,5 +1,5 @@
 Name:       libime  
-Version:    1.1.16
+Version:    1.1.17
 # Automatically converted from old format: LGPLv2+ and MIT and BSD - review is highly recommended.
 License:    LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 Release:    %autorelease

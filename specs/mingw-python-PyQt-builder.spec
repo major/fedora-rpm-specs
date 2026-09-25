@@ -6,7 +6,7 @@
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
 Version:        1.19.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause
@@ -16,6 +16,8 @@ Source0:        %{pypi_source pyqt_builder}
 Patch0:         PyQt-builder_mingw.patch
 # Drop setuptools scm dependency
 Patch1:         pyqt_builder_nosetuptoolsscm.patch
+# PyQt5 has %%MinimumABIVersion, drop fallback which causes a ABI requirement mismatch
+Patch2:         pyqt_builder_no_abi_version.patch
 
 
 BuildRequires:  mingw32-filesystem >= 102
@@ -83,6 +85,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Thu Sep 24 2026 Sandro Mani <manisandro@gmail.com> - 1.19.1-5
+- Add pyqt_builder_no_abi_version.patch
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 1.19.1-4
 - Rebuild (mingw-python)
 

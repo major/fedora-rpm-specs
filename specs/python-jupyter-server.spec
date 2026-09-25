@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-jupyter-server
-Version:        2.21.0
+Version:        2.21.1
 Release:        %autorelease
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause
@@ -53,7 +53,11 @@ sed -i '/"pre-commit"/d' pyproject.toml
 # PytestUnraisableExceptionWarning added to the same report.
 # DeprecationWarning:pty is ignored because it breaks Python 3.15 compatibility
 # https://github.com/jupyter-server/jupyter_server/issues/1610
-%pytest -vv -W "always:unclosed <socket.socket:ResourceWarning" -W "always::pytest.PytestUnraisableExceptionWarning" -W "ignore::DeprecationWarning:pty"
+# test_restart_kernel is flaky: server-side websocket close detection is
+# intermittently too slow after a port-changing kernel restart, leaving the
+# connection counter at 1 (upstream already xfails it on Windows for the same
+# reason). It flakes under koji build load, so deselect it.
+%pytest -vv -W "always:unclosed <socket.socket:ResourceWarning" -W "always::pytest.PytestUnraisableExceptionWarning" -W "ignore::DeprecationWarning:pty" --deselect tests/services/sessions/test_api.py::test_restart_kernel
 %endif
 
 

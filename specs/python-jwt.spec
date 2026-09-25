@@ -13,7 +13,7 @@ encrypted JSON objects.}
 
 
 Name:           python-%{pkgname}
-Version:        2.14.0
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
@@ -56,7 +56,7 @@ Recommends:     python3-%{pkgname}+crypto
 
 
 %check
-%pytest -k 'not (test_ec_to_jwk_with_invalid_curve or test_get_jwt_set_sslcontext_default or test_ec_curve_validation_rejects_p192_for_es256 or test_ec_curve_validation_with_pem_key)' -W ignore::FutureWarning
+%pytest -k 'not (test_ec_to_jwk_with_invalid_curve or test_get_jwt_set_sslcontext_default or test_ec_curve_validation_rejects_p192_for_es256 or test_ec_curve_validation_with_pem_key)'
 
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
@@ -64,6 +64,10 @@ Recommends:     python3-%{pkgname}+crypto
 
 
 %changelog
+* Wed Sep 23 2026 Packit <hello@packit.dev> - 2.15.0-1
+- Update to version 2.15.0
+- Resolves: rhbz#2539595
+
 * Fri Sep 11 2026 Packit <hello@packit.dev> - 2.14.0-1
 - Update to version 2.14.0
 - Resolves: rhbz#2531953

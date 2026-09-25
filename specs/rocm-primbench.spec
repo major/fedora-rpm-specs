@@ -30,7 +30,7 @@
 
 Name:           rocm-primbench
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A single-header HIP benchmarking library
 # No toplevel license file
 # https://github.com/ROCm/rocm-libraries/issues/4580
@@ -87,6 +87,9 @@ install -p -D -m 644 primbench.hpp %{buildroot}%{_includedir}/primbench.hpp
 %{_includedir}/primbench.hpp
 
 %changelog
+* Thu Sep 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-3
+- Rebuild for 10.0
+
 * Sat Aug 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
 - Preserve timestamp
 

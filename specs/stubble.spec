@@ -1,5 +1,5 @@
-%global commit 765b1f3fe9f2fe67ab6140d9be97dd35bb8d830b
-%global commitdate 20260320
+%global commit 138aba8c6bd13c07aeef88e85b44de61d65f17a7
+%global commitdate 20260922
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # This builds an UEFI binary, not a Linux ELF binary, disable distro cflags and debug pkg
@@ -8,7 +8,7 @@
 
 Name:           stubble
 Version:        0.0~%{commitdate}git%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        UEFI kernel boot stub with auto-DTB selection
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ubuntu/%{name}
@@ -38,6 +38,8 @@ stubble is compatible with systemd-stub(7) and ukify(1).
 
 %install
 %make_install PREFIX=/usr
+# Remove this systemd ukify copy
+rm ${RPM_BUILD_ROOT}%{_bindir}/stubblify
 
 
 %files
@@ -48,6 +50,9 @@ stubble is compatible with systemd-stub(7) and ukify(1).
 
 
 %changelog
+* Thu Sep 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.0~20260922git138aba8-6)
+- Sync with upstream for new hwids
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0~20260320git765b1f3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

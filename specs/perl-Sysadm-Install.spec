@@ -1,18 +1,17 @@
 Summary:	Typical installation tasks for system administrators
 Name:		perl-Sysadm-Install
 Version:	0.48
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sysadm-Install
 Source0:	https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/Sysadm-Install-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Archive::Tar)
 BuildRequires:	perl(Cwd)
@@ -65,16 +64,15 @@ perl -pi -e 's|/usr/local/bin/perl|/usr/bin/perl|;' eg/mkperl
 # introduce any unwanted dependencies
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
+
+%install
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test TEST_VERBOSE=1
-
-%install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} -c %{buildroot}
 
 %files
 %doc Changes README eg/
@@ -85,6 +83,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/Sysadm::Install.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 0.48-29
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

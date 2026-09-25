@@ -52,7 +52,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 19beta1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -555,15 +555,15 @@ trail or audit log. The term audit log is used in this documentation.
 %endif
 
 %if %pg_repack
-%package -n %{pkgname}-pg-repack
+%package -n %{pkgname}-pg_repack
 Summary: Online table reorganization for PostgreSQL
 Requires: %{pkgname}-server%{?_isa} = %precise_version
-Provides: %{pkgname}-pg-repack = %precise_version
-Provides: %{pkgname}-pg-repack%{?_isa} = %precise_version
+Provides: %{pkgname}-pg_repack = %precise_version
+Provides: %{pkgname}-pg_repack%{?_isa} = %precise_version
 
-%virtual_conflicts_and_provides pg-repack
+%virtual_conflicts_and_provides pg_repack
 
-%description -n %{pkgname}-pg-repack
+%description -n %{pkgname}-pg_repack
 pg_repack is a PostgreSQL extension which lets you remove bloat from
 tables and indexes, and optionally restore the physical order of
 clustered indexes. Unlike CLUSTER and VACUUM FULL it works online,
@@ -1544,7 +1544,7 @@ make -C postgresql-setup-%{setup_version} check
 %endif
 
 %if %pg_repack
-%files -n %{pkgname}-pg-repack
+%files -n %{pkgname}-pg_repack
 %license contrib/pg_repack/COPYRIGHT
 %{_bindir}/pg_repack
 %{_libdir}/pgsql/pg_repack.so
@@ -1569,6 +1569,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Sep 16 2026 Pavol Sloboda <psloboda@redhat.com> - 19beta1-7
+- pg_partman subpackage name fix
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 19beta1-6
 - Rebuilt for libxml-2.5.4
 

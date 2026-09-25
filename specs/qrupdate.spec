@@ -4,60 +4,76 @@
 %global blaslib openblas
 %endif
 
-Name:		qrupdate
-Version:	1.1.2
-Release:	36%{?dist}
-Summary:	A Fortran library for fast updates of QR and Cholesky decompositions
+Name:           qrupdate
+Version:        1.2.0
+Release:        1%{?dist}
+Summary:        A Fortran library for fast updates of QR and Cholesky decompositions
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:	GPL-3.0-or-later
-URL:		http://qrupdate.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            https://github.com/mpimd-csc/qrupdate-ng
+Source0:        https://github.com/mpimd-csc/qrupdate-ng/archive/v%{version}/%{name}-%{version}.tar.gz
+Provides:       qrupdate-ng%{?_isa} = %{version}-%{release}
 
-BuildRequires: make
-BuildRequires:	gcc-gfortran
-
-BuildRequires:	%{blaslib}-devel
+BuildRequires:  cmake
+BuildRequires:  doxygen
+BuildRequires:  gcc-gfortran
+BuildRequires:  %{blaslib}-devel
 
 %description
 qrupdate is a Fortran library for fast updates of QR and Cholesky
 decompositions. 
 
 %package devel
-Summary:	Development libraries for %{name}
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{blaslib}-devel%{?_isa}
+Summary:        Development libraries for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       %{blaslib}-devel%{?_isa}
+Provides:       qrupdate-ng-devel%{?_isa} = %{version}-%{release}
+# For directory ownership
+Requires:       cmake
+Requires:       pkgconfig
 
 %description devel
 This package contains the development libraries for %{name}.
 
+%package doc
+Summary:        Documentation for %{name}
+
+%description doc
+This package contains the documentation for %{name}.
+
 %prep
-%setup -q
-# Modify install location
-sed -i 's|$(PREFIX)/lib/|$(DESTDIR)%{_libdir}/|g' src/Makefile
+%setup -q -n qrupdate-ng-%{version}
 
 %build
-%make_build solib FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch $LDFLAGS" BLAS="-l%{blaslib}" LAPACK=
+%cmake -DCMAKE_INSTALL_MODULEDIR=%{_fmoddir} -DBUILD_STATIC_LIBS=OFF
+%cmake_build
 
 %install
-make install-shlib LIBDIR=%{_libdir} PREFIX="%{buildroot}"
-# Verify attributes
-chmod 755 %{buildroot}%{_libdir}/libqrupdate.*
+%cmake_install
 
 %check
-make test FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch $LDFLAGS" BLAS="-l%{blaslib}" LAPACK=
+%ctest
 
 %ldconfig_scriptlets
 
 %files
-%license COPYING
-%doc README ChangeLog
+%license LICENSE
+%doc README.md CHANGELOG.md CODE TODO
 %{_libdir}/libqrupdate.so.*
 
 %files devel
+%{_libdir}/pkgconfig/qrupdate.pc
+%{_libdir}/cmake/qrupdate/
 %{_libdir}/libqrupdate.so
+%{_fmoddir}/qrupdate*.mod
 
+%files doc
+%{_docdir}/qrupdate-ng
 
 %changelog
+* Thu Sep 24 2026 Jussi Lehtola <jussilehtola@fedoraproject.org> - 1.2.0-1
+- Update to 1.2.0.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

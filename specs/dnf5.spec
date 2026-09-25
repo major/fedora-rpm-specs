@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 5
+%global project_version_minor 6
 %global project_version_micro 0
 
 # ========== build options ==========
@@ -163,7 +163,7 @@ BuildRequires:  bash-completion-devel
 %else
 BuildRequires:  bash-completion
 %endif
-BuildRequires:  cmake >= 3.21
+BuildRequires:  cmake >= 3.22
 BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  pkgconfig(fmt)
@@ -184,7 +184,7 @@ BuildRequires:  pkgconfig(libacl)
 %if %{with clang}
 BuildRequires:  clang
 %else
-BuildRequires:  gcc-c++ >= 10.1
+BuildRequires:  gcc-c++ >= 14.1
 %endif
 
 %if %{with tests}
@@ -209,6 +209,7 @@ BuildRequires:  systemd
 %if %{with html} || %{with man}
 BuildRequires:  python3dist(breathe)
 BuildRequires:  python3dist(sphinx) >= 4.1.2
+BuildRequires:  python3dist(sphinx-autoapi)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 %endif
 
@@ -358,6 +359,9 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %{_mandir}/man8/dnf5-list.8.*
 %{_mandir}/man8/dnf5-makecache.8.*
 %{_mandir}/man8/dnf5-mark.8.*
+%if 0%{?fedora} || 0%{?rhel} > 10
+%{_mandir}/man8/microdnf.8.*
+%endif
 %if %{with modulemd}
 %{_mandir}/man8/dnf5-module.8.*
 %endif
@@ -429,6 +433,7 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %{_mandir}/man8/dnf-system-upgrade.8.*
 %{_mandir}/man8/dnf-upgrade.8.*
 %{_mandir}/man8/dnf-versionlock.8.*
+%{_mandir}/man8/yum.8.*
 %{_mandir}/man7/dnf-aliases.7.*
 %{_mandir}/man7/dnf-caching.7.*
 %{_mandir}/man7/dnf-comps.7.*
@@ -497,6 +502,8 @@ Package management library.
 %dir %{_datadir}/dnf5/vendors.d
 %dir %{_datadir}/dnf5/libdnf.plugins.conf.d
 %dir %{_sysconfdir}/dnf/vendors.d
+%dir %{_sysconfdir}/dnf/suggest-reboot.d
+%dir %{_datadir}/dnf5/suggest-reboot.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
 %dir %{_prefix}/lib/sysimage/libdnf5
@@ -1127,6 +1134,7 @@ ln -sr %{buildroot}%{bash_completions_dir}/dnf5 %{buildroot}%{bash_completions_d
         filename=$(basename $file)
         ln -sr $file $dir/${filename/dnf5/dnf}
     done
+    ln -sr %{buildroot}%{_mandir}/man8/dnf5.8 %{buildroot}%{_mandir}/man8/yum.8
 %endif
 # Make "dnf-makecache" the "real" unit name, but keep compatibility for playbooks that refer to dnf5-makecache
 mv %{buildroot}%{_unitdir}/dnf5-makecache.service %{buildroot}%{_unitdir}/dnf-makecache.service
@@ -1157,6 +1165,9 @@ touch %{buildroot}%{_sharedstatedir}/dnf/system-repo.lock
 
 %if 0%{?fedora} || 0%{?rhel} > 10
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
+%if %{with man}
+ln -sr %{buildroot}%{_mandir}/man8/dnf5.8 %{buildroot}%{_mandir}/man8/microdnf.8
+%endif
 %endif
 
 %if %{with systemd}
@@ -1202,6 +1213,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Sep 24 2026 Packit <hello@packit.dev> - 5.4.6.0-1
+- Update to version 5.4.6.0
+
 * Mon Sep 14 2026 Packit <hello@packit.dev> - 5.4.5.0-1
 - Update to version 5.4.5.0
 

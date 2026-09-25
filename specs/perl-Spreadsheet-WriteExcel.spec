@@ -1,6 +1,6 @@
 Name:			perl-Spreadsheet-WriteExcel
 Version:		2.40
-Release:		36%{?dist}
+Release:		37%{?dist}
 Summary:		Write formatted text and numbers to a cross-platform Excel binary file
 License:		GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:			https://metacpan.org/release/Spreadsheet-WriteExcel
@@ -9,11 +9,10 @@ Patch0:			Spreadsheet-WriteExcel-2.40-utf8.patch
 BuildArch:		noarch
 # Build
 BuildRequires:		coreutils
-BuildRequires:		findutils
 BuildRequires:		make
 BuildRequires:		perl-generators
 BuildRequires:		perl-interpreter
-BuildRequires:		perl(ExtUtils::MakeMaker)
+BuildRequires:		perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:		perl(autouse)
 BuildRequires:		perl(Carp)
@@ -75,12 +74,11 @@ Excel file.
 perl -pi -e 's/\r\n/\n/g' examples/*.txt
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -113,6 +111,9 @@ make test
 %{_mandir}/man3/Spreadsheet::WriteExcel::Worksheet.3*
 
 %changelog
+* Thu Sep 24 2026 Paul Howarth <paul@city-fan.org> - 2.40-37
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

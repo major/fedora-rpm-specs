@@ -5,7 +5,7 @@ Version: 3.14.2
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,6 +16,9 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-Flush-RAID-member-caches-after-creating-a-format.patch
+Patch2: 0003-Fix-default-mount-options-for-NTFS.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -133,6 +136,10 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Thu Sep 24 2026 Vojtech Trefny <vtrefny@redhat.com> - 1:3.14.2-2
+- Fix default mount options for NTFS
+- Flush RAID member caches after creating a format (#2530897)
+
 * Mon Sep 14 2026 Packit <hello@packit.dev> - 1:3.14.2-1
 - Update to version 3.14.2
 

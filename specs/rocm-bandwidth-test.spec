@@ -29,7 +29,7 @@
 
 Name:       rocm-bandwidth-test
 Version:    %{rocm_version}
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Bandwidth test for ROCm
 
 # License mismatch
@@ -94,7 +94,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocm-bandwidth-test/LICENSE.txt
 %{_bindir}/rocm-bandwidth-test
 
 %changelog
-* Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> 6.4.2-7
+* Thu Sep 24 2026 Tom Rix <Tom.Rix@amd.com> - 6.4.2-8
+- Rebuild for 10.0
+
+* Thu Aug 13 2026 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
 - Preserve timestamp
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-6

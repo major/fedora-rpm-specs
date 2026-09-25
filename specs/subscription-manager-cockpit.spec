@@ -1,5 +1,5 @@
 Name: subscription-manager-cockpit
-Version: 18
+Version: 19
 Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
@@ -30,11 +30,11 @@ Requires: rhsm-icons
 Suggests: insights-client
 %endif
 
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(prop-types)) = 15.8.1
@@ -60,8 +60,9 @@ Conflicts: rhsm-gtk < 1.26.7
 Conflicts: subscription-manager-cockpit < 1.26.7
 
 %description -n rhsm-icons
-This package contains the desktop icons for the graphical interfaces provided for management
-of Red Hat subscriptions: subscription-manager-gui, subscription-manager-cockpit-plugin.
+This package contains the desktop icons for the graphical
+interfaces provided for management of Red Hat subscriptions:
+subscription-manager-gui, subscription-manager-cockpit-plugin.
 
 %prep
 %autosetup -n %{name} -a 1
@@ -93,6 +94,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Thu Sep 24 2026 Packit <hello@packit.dev> - 19-1
+- Translation and dependency updates
+- Resolves: rhbz#2484858
+
 * Thu Aug 27 2026 Packit <hello@packit.dev> - 18-1
 - Translation updates
 

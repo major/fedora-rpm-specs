@@ -15,7 +15,8 @@
 %else
 %bcond_with java
 %endif
-%if 0%{?flatpak}
+# At the moment, bootstrap deps are non-MPI so disable MPI builds to speed up the process
+%if %{with bootstrap} || 0%{?flatpak}
 %bcond_with mpich
 %bcond_with openmpi
 %else

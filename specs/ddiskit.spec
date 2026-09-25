@@ -1,17 +1,17 @@
 # Use the forge macros to simplify packaging.
-# See https://fedoraproject.org/wiki/Forge-hosted_projects_packaging_automation 
+# See https://fedoraproject.org/wiki/Forge-hosted_projects_packaging_automation
 %global forgeurl https://gitlab.com/redhat/centos-stream/src/dup/ddiskit
-# When we no longer need to build against a git commit, 
+# When we no longer need to build against a git commit,
 # Simply remove the commit variable and update the Version
 # Then forge will pick up the release
-%global commit d857c7726fd55e613bbd7af6c842ddfc80a9fdc8
+%global commit 82d44fc79582396cf634f6e1ac4edb06688ea524
 
 Name:           ddiskit
 Version:        3.6
 
 %forgemeta
 
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
 License:        GPL-3.0-only
@@ -20,7 +20,6 @@ Source0:        %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 Requires:       rpm createrepo
 Requires:       /usr/bin/mkisofs
@@ -35,21 +34,44 @@ kernel modules.
 
 %prep
 %forgesetup
-# Fix build with setuptools 62.1
-# https://github.com/orosp/ddiskit/issues/17
-sed -i "8i packages=[]," setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+# Resource files are bundled as package data in python3_sitelib/ddiskit/
+# but also installed to system paths for conventional system-wide use
+install -Dpm 0644 src/ddiskit/ddiskit.config \
+    %{buildroot}%{_datadir}/ddiskit/ddiskit.config
+install -Dpm 0644 src/ddiskit/templates/spec \
+    %{buildroot}%{_datadir}/ddiskit/templates/spec
+install -pm 0644 src/ddiskit/templates/config \
+    %{buildroot}%{_datadir}/ddiskit/templates/config
+install -Dpm 0644 src/ddiskit/profiles/default \
+    %{buildroot}%{_datadir}/ddiskit/profiles/default
+install -pm 0644 src/ddiskit/profiles/rh-testing \
+    %{buildroot}%{_datadir}/ddiskit/profiles/rh-testing
+install -pm 0644 src/ddiskit/profiles/rh-release \
+    %{buildroot}%{_datadir}/ddiskit/profiles/rh-release
+install -Dpm 0644 src/ddiskit/keyrings/rh-release/fd431d51.key \
+    %{buildroot}%{_datadir}/ddiskit/keyrings/rh-release/fd431d51.key
+install -Dpm 0644 src/ddiskit/etc/ddiskit.config \
+    %{buildroot}%{_sysconfdir}/ddiskit.config
+install -Dpm 0644 ddiskit.1 \
+    %{buildroot}%{_mandir}/man1/ddiskit.1
+install -Dpm 0644 ddiskit \
+    %{buildroot}%{_datadir}/bash-completion/completions/ddiskit
 find %{buildroot} -size 0 -delete
 
 %files -n %{name}
 %doc README
 %license COPYING
-%{python3_sitelib}/ddiskit-*.egg-info
+%{python3_sitelib}/ddiskit/
+%{python3_sitelib}/ddiskit-*.dist-info
 %{_bindir}/ddiskit
 %{_mandir}/man1/ddiskit.1*
 %{_datadir}/bash-completion/completions/ddiskit
@@ -67,7 +89,16 @@ find %{buildroot} -size 0 -delete
 
 %config(noreplace) /etc/ddiskit.config
 
+%check
+%pytest
+
 %changelog
+* Wed Aug 05 2026 Oleksii Baranov <olebaran@redhat.com> - 3.6-36
+- Migrate to pyproject.toml, restructure as proper Python package
+- Drop deprecated setup.py and data_files, install data files explicitly
+- Bundle resource files as package data for editable/dev installs
+- Add GitLab CI pipeline with pytest happy-path tests
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -197,4 +228,3 @@ Resolves: rhbz#2319624
 
 * Mon Sep 5 2016 Petr Oros <poros@redhat.com> - 3.0-1
 - Initial package.
-

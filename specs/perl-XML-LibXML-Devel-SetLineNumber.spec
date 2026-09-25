@@ -1,20 +1,22 @@
 Name:           perl-XML-LibXML-Devel-SetLineNumber
 Version:        0.002
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Set the line number for an XML::LibXML::Node
-# README:       GPL+ or Artistic
-# COPYRIGHT:    Public Domain
-# CONTRIBUTING: (GPL+ or Artistic) or CC-BY-SA
-# Automatically converted from old format: (GPL+ or Artistic) and ((GPL+ or Artistic) or CC-BY-SA) and Public Domain - review is highly recommended.
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ((GPL-1.0-or-later OR Artistic-1.0-Perl) OR LicenseRef-Callaway-CC-BY-SA) AND LicenseRef-Callaway-Public-Domain
+# README:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# COPYRIGHT:    LicenseRef-Fedora-Public-Domain
+# CONTRIBUTING: (GPL-1.0-or-later OR Artistic-1.0-Perl) OR CC-BY-SA-2.0-UK
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ((GPL-1.0-or-later OR Artistic-1.0-Perl) OR CC-BY-SA-2.0-UK) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/XML-LibXML-Devel-SetLineNumber
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/XML-LibXML-Devel-SetLineNumber-%{version}.tar.gz
-BuildRequires:  gcc
+# Adapt tests to libxml-2.15.4, proposed upstream, bug #2539975,
+# <https://github.com/tobyink/p5-xml-libxml-devel-setlinenumber/pull/1>
+Patch0:         XML-LibXML-Devel-SetLineNumber-0.002-Adapt-tests-to-libxml-2.15.4.patch
 BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
 BuildRequires:  perl(strict)
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -40,15 +42,14 @@ all those nodes to return the correct line numbers when the "line_number"
 method is called on them. This Perl module allows you to set the line number.
 
 %prep
-%setup -q -n XML-LibXML-Devel-SetLineNumber-%{version}
+%autosetup -p1 -n XML-LibXML-Devel-SetLineNumber-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -58,11 +59,21 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING COPYRIGHT CREDITS README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/XML*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/XML
+%dir %{perl_vendorarch}/auto/XML/LibXML
+%dir %{perl_vendorarch}/auto/XML/LibXML/Devel
+%{perl_vendorarch}/auto/XML/LibXML/Devel/SetLineNumber
+%dir %{perl_vendorarch}/XML
+%dir %{perl_vendorarch}/XML/LibXML
+%dir %{perl_vendorarch}/XML/LibXML/Devel
+%{perl_vendorarch}/XML/LibXML/Devel/SetLineNumber.pm
+%{_mandir}/man3/XML::LibXML::Devel::SetLineNumber.*
 
 %changelog
+* Thu Sep 24 2026 Petr Pisar <ppisar@redhat.com> - 0.002-36
+- Adapt tests to libxml-2.15.4 (bug #2539975)
+- Correct the license tag
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.002-35
 - Rebuilt for libxml-2.5.4
 

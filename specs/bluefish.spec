@@ -158,7 +158,7 @@ fi
 
 %changelog
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.2-3
-- Rebuilt for libxml-2.5.4
+- Rebuilt for libxml-2.15.4
 
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.4.2-2
 - Rebuilt for Python 3.15.0b4 ABI change
