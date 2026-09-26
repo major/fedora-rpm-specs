@@ -7,7 +7,7 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
@@ -21,6 +21,9 @@ Patch3: sblim-sfcc-2.2.8-fix-clone-stack-exhaust.patch
 Patch4: sblim-sfcc-2.2.8-fix-method-buffer-overflow.patch
 # Patch5: fixes buffer overflow in CIMObject namespace handling
 Patch5: sblim-sfcc-2.2.8-fix-namespace-buffer-overflow.patch
+# Patch6: fixes missing EOF and error handling in readData(), which hung the
+#   indication listener in an infinite loop
+Patch6: sblim-sfcc-2.2.8-fix-readdata-missing-eof.patch
 BuildRequires: make
 BuildRequires: curl-devel chrpath
 BuildRequires: gcc gcc-c++
@@ -71,6 +74,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
+* Fri Sep 25 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-34
+- Fix missing EOF handling in readData()
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

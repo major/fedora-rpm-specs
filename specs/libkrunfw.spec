@@ -2,11 +2,11 @@
 # the VM's memory, so no useful debug info can be generated from it.
 %global debug_package %{nil}
 
-%global kernel linux-6.12.91
+%global kernel linux-6.12.109
 
 Name:           libkrunfw
-Version:        5.5.0
-Release:        3%{?dist}
+Version:        5.6.2
+Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPL-2.1-only AND GPL-2.0-only
 URL:            https://github.com/containers/libkrunfw
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Fri Sep 25 2026 Sergio Lopez <slp@redhat.com> - 5.6.2-1
+- Update to 5.6.2 which bundles a 6.12.109 kernel
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           perl-Sys-Path
-Version:        0.16
-Release:        26%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Supply autoconf style installation directories
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Path
-Source0:        https://cpan.metacpan.org/modules/by-module/Sys/Sys-Path-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/J/JK/JKUTEJ/Sys-Path-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -26,7 +26,9 @@ BuildRequires:  perl(JSON::Util)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Module::Path)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Shell::Guess)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
@@ -53,10 +55,15 @@ PERL_MM_USE_DEFAULT=1 %{__perl} Build.PL installdirs=vendor
 
 %files
 %doc Changes README
+%{_bindir}/syspath.pl
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
+%{_mandir}/man1/*
 
 %changelog
+* Fri Sep 25 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.17-1
+- 0.17 Release RHBZ#2540970
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

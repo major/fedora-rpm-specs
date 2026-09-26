@@ -75,7 +75,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -223,6 +223,9 @@ rm -f %{buildroot}%{pkg_prefix}/*.jpg
 %{pkg_prefix}/bin/*
 
 %changelog
+* Fri Sep 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
+- Rebuild for 10.0
+
 * Sun Aug 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

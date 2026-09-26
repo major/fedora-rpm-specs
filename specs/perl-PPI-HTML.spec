@@ -1,6 +1,6 @@
 Name:           perl-PPI-HTML
 Version:        1.08
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Generate syntax-highlighted HTML for Perl using PPI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI-HTML
@@ -8,10 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/PPI/PPI-HTML-%{versi
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(inc::Module::Install)
 # Module Run-time:
 BuildRequires:  perl(CSS::Tiny) >= 1.10
@@ -42,16 +42,15 @@ PPI::HTML converts Perl documents into syntax highlighted HTML pages.
 %setup -q -n PPI-HTML-%{version}
 
 # Remove bundled inc::Module::Install
-rm -r inc/
+rm -rv inc/
 sed -i '/^\/inc\//d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -65,6 +64,9 @@ make test
 %{_mandir}/man3/PPI::HTML.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 1.08-41
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -78,7 +80,7 @@ make test
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.08-36
-- convert license to SPDX
+- Convert license to SPDX
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

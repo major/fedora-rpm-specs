@@ -1,6 +1,6 @@
 Name:           CuraEngine_grpc_definitions
 Version:        0.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        gRPC Proto Definitions for CuraEngine
 License:        MIT
 URL:            https://github.com/Ultimaker/CuraEngine_grpc_definitions
@@ -64,6 +64,9 @@ popd
 %{_libdir}/libcuraengine_grpc_definitions.so
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.0-20
+- Rebuilt for abseil-cpp 20260817.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

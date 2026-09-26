@@ -17,7 +17,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.1
+Version:        65.3
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -53,6 +53,7 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       in extract_test[1-4] Base64-encoded variables:   LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from LZ4: BSD-2-Clause
 # zpaqfranz.cpp parts from codewithnick/ascii-art:  MIT
+# zpaqfranz.cpp parts from avaneev/lzav:    MIT
 ## Used at build time, but not packaged in any binary package
 # zpaqfranz.cpp part with zsfx_mime64[] Base64-encoded variable:
 #       ZPAQ-compressed Win executable built from ZSFX/zsfx.cpp and
@@ -74,7 +75,7 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-65.1-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-65.3-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -92,9 +93,10 @@ BuildRequires:  sed
 # <http://libdivsufsort.googlecode.com/files/libdivsufsort-2.0.0.tar.bz2>.
 # New libdivsufsort upstream is <https://github.com/y-256/libdivsufsort>.
 Provides:       bundled(libdivsufsort-lite) = 2.00
-# Unknown version of lz4 is bundeld to libzpaq.cpp from
-# <https://github.com/lz4/lz4>.
-Provides:       bundled(lz4)
+# <https://github.com/lz4/lz4>
+Provides:       bundled(lz4) = 1.10.0
+# <https://github.com/avaneev/lzav>
+Provides:       bundled(lzav) = 5.17
 %if %{with fuse}
 # libfuse.so executes /usr/bin/fusermount3
 Recommends:     fuse3
@@ -182,6 +184,12 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Fri Sep 25 2026 Petr Pisar <ppisar@redhat.com> - 1:65.3-1
+- 65.3 bump
+
+* Tue Sep 22 2026 Petr Pisar <ppisar@redhat.com> - 1:65.2-1
+- 65.2 bump
+
 * Mon Sep 21 2026 Petr Pisar <ppisar@redhat.com> - 1:65.1-1
 - 65.1 bump
 

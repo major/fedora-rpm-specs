@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.27.0
-Release:        3%{?dist}
+Version:        1.28.1
+Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,11 +185,12 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Fri Sep 25 2026 David Pascual Hernandez <davherna@redhat.com> - 1.28.1-1
+- c435d75 fix(aws): avoid evaluating host size twice (David Pascual)
+- de08228 fix(aws): give size precedence over group for flavor/disksize (David Pascual)
 
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.27.0-2
-- Rebuilt for Python 3.15
+* Tue Jun 23 2026  - 1.28.0-1
+- b36cd7a feat: configure root EBS volume size via disksize(aws) (Rizwan Shaikh)
 
 * Wed Apr 15 2026 David Pascual Hernandez <davherna@redhat.com> - 1.27.0-1
 - e95edd7 feat: add SSM Parameter Store support for AWS AMI resolution (David Pascual)

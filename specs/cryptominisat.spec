@@ -1,11 +1,15 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  3b6a84062b1304433eb8960a4bff6b9a80de9c54
+%global cadicommit  47a6d821085ef8cb033241659824beafeb798cff
 %global giturl      https://github.com/msoos/cryptominisat
 
+# This corresponds to cadical 2.2.1
+# Update whenever building with a new version of cadical
+%global cadicalsha1 4198d817d0dcde5b1240eefbff70b555b7df2af9
+
 Name:           cryptominisat
-Version:        5.14.7
+Version:        5.16.0
 Release:        %autorelease
 Summary:        SAT solver
 
@@ -16,8 +20,6 @@ Source0:        %{giturl}/archive/release/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{cadiurl}/archive/%{cadicommit}/cadiback-%{sub %{cadicommit} 1 7}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch:          %{name}-cmake.patch
-# Unbundle picosat
-Patch:          %{name}-picosat.patch
 # Use zlib-ng instead of zlib
 Patch:          %{name}-zlib-ng.patch
 
@@ -39,7 +41,6 @@ BuildRequires:  cmake(cadical)
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  ninja-build
-BuildRequires:  picosat-devel
 BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  python3-devel
 
@@ -68,6 +69,9 @@ Summary:        Cryptominisat library
 
 # Cadiback upstream has not tagged any releases, so there is no version number
 Provides:       bundled(cadiback)
+
+# Picosat has been modified by the cryptominisat team
+Provides:       bundled(picosat) = 965
 
 %description libs
 The %{name} library.
@@ -107,8 +111,10 @@ fi
 # Defeat attempt to add an rpath
 sed -i 's/INSTALL_RPATH_USE_LINK_PATH TRUE//' src/CMakeLists.txt
 
-# Ensure the bundled picosat is not used
-rm -fr src/mpicosat
+# Don't try to include a nonexistent header
+sed -e '/cadical_gitsha1\.hpp/d' \
+    -e 's/CaDiCaL::get_version_sha1()/"%{cadicalsha1}"/' \
+    -i src/cryptominisat.cpp
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -118,13 +124,8 @@ export CFLAGS='%{build_cflags} -I %{_includedir}/breakid -DNTRACING'
 export CXXFLAGS='%{build_cxxflags} -I %{_includedir}/breakid -DNTRACING'
 
 %install -a
-# We don't want the bundled cadiback
-rm -fr %{buildroot}%{_includedir}/cadiback
-rm -fr %{buildroot}%{_libdir}/cmake/cadiback
-rm %{buildroot}%{_libdir}/*.a
-
 # Remove a bogus dependency that leads to cvc5 build failures
-sed -i 's/;PkgConfig::GMP//' \
+sed -i '/set_target_properties/,/^)$/d' \
     %{buildroot}%{_libdir}/cmake/cryptominisat5/cryptominisat5Targets.cmake
 
 # The Python interface is installed in the wrong place
@@ -152,10 +153,10 @@ Classifier: Intended Audience :: Developers
 Classifier: Operating System :: OS Independent
 Classifier: Programming Language :: C++
 Classifier: Programming Language :: Python :: 3
-Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.13
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Topic :: Utilities
-Requires-Python: >=3.5
+Requires-Python: >=3.13
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
 License-File: AUTHORS
@@ -175,17 +176,21 @@ mv %{buildroot}%{_bindir}/oracle %{buildroot}%{_bindir}/cryptominisat5-oracle
 %{_mandir}/man1/cryptominisat5.1*
 
 %files devel
+%{_includedir}/cadiback/
 %{_includedir}/cryptominisat5/
 %{_includedir}/oracle/
+%{_libdir}/libcadiback.so
 %{_libdir}/libcryptominisat5.so
 %{_libdir}/liboracle.so
+%{_libdir}/cmake/cadiback/
 %{_libdir}/cmake/cryptominisat5/
 
 %files libs
 %doc AUTHORS
 %license LICENSE.txt
-%{_libdir}/libcryptominisat5.so.5.14
-%{_libdir}/liboracle.so.5.14
+%{_libdir}/libcadiback.so.0{,.*}
+%{_libdir}/libcryptominisat5.so.5.16
+%{_libdir}/liboracle.so.5.16
 
 %files -n python3-pycryptosat
 %doc python/README.md

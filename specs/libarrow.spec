@@ -33,7 +33,7 @@
 
 Name:		libarrow
 Version:	25.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -882,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 25.0.1-2
+- Rebuilt for abseil-cpp 20260817.0
+
 * Thu Sep 10 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 25.0.1-1
 - Arrow 25.0.1 GA
 

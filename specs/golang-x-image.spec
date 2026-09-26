@@ -5,7 +5,7 @@
 # https://github.com/golang/image
 %global goipath         golang.org/x/image
 %global forgeurl        https://github.com/golang/image
-Version:                0.44.0
+Version:                0.46.0
 
 %gometa
 
@@ -72,6 +72,27 @@ exposed via standard OpenType features in the main font family.}
 
 %global common_description %{expand:
 This package holds supplementary Go image libraries.}
+
+# Since v0.46.0, vector/acc_amd64.go imports golang.org/x/sys/cpu for CPU
+# feature detection but it's amd64-only:
+#
+# 	https://github.com/golang/image/commit/315273a91ff5
+#
+# This cause the noarch package to be built differently on different
+# architectures and Koji emits the folowing message:
+#
+# 	BuildError: The following noarch package built differently on different architectures: golang-x-image-devel-0.46.0-1.fc46.noarch.rpm rpmdiff output was:
+# 	added       REQUIRES golang(golang.org/x/sys/cpu)
+#
+# The solution is to exclude it from auto-requires and re-add it
+# unconditionally. Reference:
+#
+# 	https://lists.fedoraproject.org/archives/list/golang@lists.fedoraproject.org/message/JT6QKHFRICFTJTUBRDK4JA6MZ36QTFAZ/
+#
+%global __requires_exclude golang\\(golang.org/x/sys/cpu\\)
+%global godevelheader %{expand:
+Requires: golang(golang.org/x/sys/cpu)
+}
 
 %global golicenses      LICENSE PATENTS
 %global godocs          example AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md

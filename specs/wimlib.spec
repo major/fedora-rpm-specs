@@ -1,6 +1,6 @@
 Name:           wimlib
 Version:        1.14.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open source Windows Imaging (WIM) library
 
 # wimlib is dual-licensed (GPL-3.0-or-later/LGPL-3.0-or-later) but is linked to
@@ -92,6 +92,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 1.14.5-4
+- rebuild for new ntfs-3g (sover 91)
+
 * Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.14.5-3
 - rebuild for new ntfs-3g
 

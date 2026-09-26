@@ -5,7 +5,7 @@
 %bcond ctest 1
 
 Name:           zstr
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        A C++ header-only ZLib wrapper
 
@@ -48,15 +48,11 @@ Provides:       %{name}-static = %{version}-%{release}
 %prep
 %autosetup -p1
 
-%install
-#%%cmake_install does nothing, so install manually
-mkdir -p %{buildroot}%{_includedir}/zstr
-install -m 0644 -p src/*.hpp %{buildroot}%{_includedir}/zstr
-
 %files devel
 %doc README.org
 %license LICENSE
 %{_includedir}/zstr/
+%{_datadir}/cmake/zstr/
 
 %changelog
 %autochangelog

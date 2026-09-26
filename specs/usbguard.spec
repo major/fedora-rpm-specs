@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -227,6 +227,9 @@ fi
 
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.4-8
+- Rebuilt for abseil-cpp 20260817.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.4-7
 - Rebuilt for libxml-2.5.4
 

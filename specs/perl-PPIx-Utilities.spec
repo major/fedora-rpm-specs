@@ -7,7 +7,7 @@
 
 Name:		perl-PPIx-Utilities
 Version:	1.001000
-Release:	57%{?dist}
+Release:	58%{?dist}
 Summary:	Extensions to PPI
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/PPIx-Utilities
@@ -15,11 +15,10 @@ Source0:	https://cpan.metacpan.org/authors/id/E/EL/ELLIOTJS/PPIx-Utilities-%{ver
 BuildArch:	noarch
 # Build:
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Run-time:
 BuildRequires:	perl(base)
@@ -41,6 +40,7 @@ BuildRequires:	perl(Test::More)
 # Extra tests:
 # PPI needed by Perl::Critic, so don't run extra tests when bootstrapping
 %if 0%{!?perl_bootstrap:1} && %{with perl_PPIx_Utilities_enables_extra_test}
+BuildRequires:	findutils
 BuildRequires:	perl(File::Find)
 BuildRequires:	perl(File::Slurp)
 BuildRequires:	perl(Perl::Critic::Policy::Miscellanea::RequireRcsKeywords)
@@ -69,12 +69,11 @@ rm xt/author/copyright.t
 sed -i -e '/copyright\.t/d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -93,6 +92,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/PPIx::Utilities::Statement.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 1.001000-58
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001000-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

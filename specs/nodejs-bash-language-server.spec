@@ -3,7 +3,7 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        5.6.0
+Version:        5.8.1
 Release:        %autorelease
 Summary:        A language server for Bash
 License:        MIT
@@ -13,12 +13,13 @@ Source0:        %{url}/archive/server-%{version}/%{pkg_name}-%{version}.tar.gz
 Source1:        %{pkg_name}-%{version}-vendor.tar.zst
 # Create with: nodejs-packaging-bundler bash-language-server 5.1.1
 Source2:        bash-language-server-bundled-licenses.txt
+Patch0:         bashls-no-vscode.patch
 BuildRequires:  fdupes
 BuildRequires:  npm(typescript)
 BuildRequires:  nodejs-packaging
 BuildRequires:  nodejs-npm
 BuildRequires:  perl-interpreter
-BuildRequires:  pnpm
+BuildRequires:  pnpm12
 BuildArch:      noarch
 ExclusiveArch: %{nodejs_arches} noarch
 Recommends:     ShellCheck
@@ -33,14 +34,15 @@ Bash with explainshell integration.
 cp %{SOURCE2} .
 
 %build
-pnpm install --offline --frozen-lockfile --store-dir="$(pwd)/.pnpm-store"
+# Ignore postinstall script which wants to install vscode-extension
+pnpm install --offline --ignore-scripts --frozen-lockfile --trust-lockfile --store-dir="$(pwd)/.pnpm-store"
 
 npm run compile
 
 %install
 # Only install production dependencies in node_modules
 rm -rf node_modules/
-pnpm install --production --offline --frozen-lockfile --package-import-method copy --store-dir="$(pwd)/.pnpm-store"
+pnpm install --production --offline --frozen-lockfile --trust-lockfile --ignore-scripts --package-import-method copy --store-dir="$(pwd)/.pnpm-store"
 
 for S in $(grep -l '#!.*node' \
     server/out/cli.js \
@@ -87,7 +89,6 @@ rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/src/get-options.sh
 
 # dangling symlinks
 rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/node_modules/@types/fuzzy-search
-rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/node_modules/@types/node-fetch
 rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/node_modules/@types/turndown
 rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/node_modules/@types/urijs
 

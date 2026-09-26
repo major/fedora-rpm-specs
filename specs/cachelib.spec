@@ -67,13 +67,25 @@ SourceLicense:  Apache-2.0
 # MIT AND BSD-2-Clause AND BSD-3-Clause             mvfst (third-party code)
 # MIT AND CC0-1.0 AND (Apache-2.0 OR CC0-1.0)       liboqs (Kyber/ML-KEM only)
 # CC0-1.0 is liboqs' aarch64 Kyber code, as in Fedora's own liboqs License tag.
+# Per-file licenses that the license files do not show, found by licensecheck
+# (the full check below): folly/hash/detail/Crc32cDetail.cpp is Zlib, mvfst's
+# quic/common/third-party/{expected.hpp,optional.h} are BSL-1.0, liboqs's
+# common/sha3 brg_endian.h is MIT-CMU and its common/aes implementations are
+# public domain, all compiled in. GPL-2.0 CMake find modules for LMDB and re2
+# and an NCSA CheckAtomic.cmake under build/fbcode_builder and the projects'
+# cmake/ directories are build-system helpers, nothing from them is compiled
+# or shipped; the license config excludes them.
 License:        %{shrink:
     Apache-2.0 AND
     BSD-2-Clause AND
     BSD-3-Clause AND
     CC0-1.0 AND
     MIT AND
-    (Apache-2.0 OR CC0-1.0)
+    (Apache-2.0 OR CC0-1.0) AND
+    BSL-1.0 AND
+    Zlib AND
+    MIT-CMU AND
+    LicenseRef-Fedora-Public-Domain
 }
 URL:            https://github.com/facebook/CacheLib
 # GitHub ignores the last path component of an archive URL, so the file is
@@ -85,6 +97,16 @@ Source0:        %{url}/archive/%{archive_ref}/%{name}-%{version}.tar.gz
 # getdeps-vendor.txt listing each project's pinned revision.
 Source1:        %{name}-%{version}-vendor.tar.xz
 Source2:        getdeps-vendor-licenses.toml
+# The per-file licensecheck pass of the license check is expensive; run it
+# only when Source1 is not the tarball it last passed on. After a full pass
+# on a new tarball, copy its sha512 here from the sources file. (Plain rpm:
+# this also runs when the SRPM is built, without folly-rpm-macros.)
+%global vendor_checked_sha512 7ee9bfeb2d52ebe6ae885d0cbaecdccc7f778f7601a9c6e24359938f3e0c39de61b23e10caee867675e1faf5d43e91923a98f89a6d3833a8ef45ce41fd36c095
+%if "%(sha512sum %{SOURCE1} 2>/dev/null | cut -c1-128)" == "%{vendor_checked_sha512}"
+%bcond_with license_full_check
+%else
+%bcond_without license_full_check
+%endif
 # Patches below apply to the vendored trees under vendor/. Each is an
 # upstream fix that the dependency revision this snapshot pins does not yet
 # include; drop them as the pins move past the landed commits.
@@ -116,6 +138,9 @@ Patch6:         0007-getdeps-keep-LDFLAGS-on-the-shared-library-links.patch
 # libstdc++ 16's own heterogeneous lookup; fix on Michel's fork, submitted
 # internally
 Patch7:         0008-folly-F14-fallback-forward-exact-key-lookups.patch
+# getdeps-vendor.txt gains the version of each vendored project, from which
+# the bundled() Provides are versioned (applied by vendor.sh before vendoring)
+Patch8:         0009-getdeps-record-the-checked-out-commit-and-a-version.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 # -devel (last shipped as 17^20250203 in Fedora, 16^20230424 in EPEL 9) is gone:
@@ -123,7 +148,7 @@ ExclusiveArch:  x86_64 aarch64 ppc64le
 # packages, so there is nothing usable to ship. No Provides on purpose.
 Obsoletes:      %{name}-devel < 19.2026.09.14.00
 
-BuildRequires:  folly-rpm-macros >= 46
+BuildRequires:  folly-rpm-macros >= 46-3
 %if %{with toolchain_clang}
 BuildRequires:  clang
 %else
@@ -147,9 +172,20 @@ caching transparently.}
 
 %prep
 %autosetup -n %{archive_dir} -a1 -p1
+# delete vendored code that is neither compiled nor referenced by the build
+# (the config's prune_directories: fbthrift's Go bindings)
+%getdeps_vendor_prune -c %{SOURCE2}
 
 
 %build
+# Verify the License tag first: it only needs the unpacked trees, and a
+# wrong tag then fails here in minutes rather than after the build. Not in
+# %%prep, which the dynamic BuildRequires passes run more than once, before
+# the detector is installed. -f adds the per-file licensecheck pass, see
+# vendor_checked_sha512 above.
+# -L: liboqs's LICENSE.txt sits in a versioned subdirectory of its tree (as
+# did sparse-map's while it was vendored)
+%getdeps_vendor_license_check -c %{SOURCE2} -L %{?with_license_full_check:-f}
 %getdeps_build %{?with_check:-t}
 
 
@@ -170,8 +206,6 @@ rm -rf %{buildroot}%{_prefix}/tests
 
 
 %check
-# -L: sparse-map's LICENSE sits in a versioned subdirectory of its tree
-%getdeps_vendor_license_check -c %{SOURCE2} -L
 %if %{with check}
 %getdeps_test
 %endif

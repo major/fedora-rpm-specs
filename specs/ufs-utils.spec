@@ -1,5 +1,5 @@
 Name:          ufs-utils
-Version:       7.14.12
+Version:       8.14.12
 Release:       %autorelease
 Summary:       Universal Flash Storage host controller utilities
 

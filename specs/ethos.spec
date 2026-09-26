@@ -2,7 +2,7 @@
 %bcond ctest 1
 
 Name:           ethos
-Version:        0.2.3
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Flexible and efficient proof checker for SMT solvers
 
@@ -29,9 +29,6 @@ Satisfiability Modulo Theories (SMT) solvers.
 
 # We want to know about use of deprecated interfaces
 sed -i '/Wno-deprecated/d' CMakeLists.txt
-
-# Make sure the bundled copy of drat-trim is not used in the build
-rm -fr contrib/drat_trim
 
 %install
 mkdir -p %{buildroot}%{_bindir}

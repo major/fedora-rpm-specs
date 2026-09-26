@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.24.1
+Version:        0.25.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -61,6 +61,8 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          %{url}/commit/74d357242f0c1531b751696df811bdb2384ff4c3.patch#/sandogasa-fix-ebranch-multiversion-req.patch
+Patch:          %{url}/commit/90de5e004255d3012253f00a0555757694a5bbd0.patch#/sandogasa-fix-ebranch-bug-matching.patch
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}
@@ -71,6 +73,11 @@ BuildRequires:  git-core
 Requires:       koji
 Recommends:     fedora-packager
 Recommends:     fedrq
+# ebranch reads the base of an EPEL minor still in freeze from the
+# CentOS Stream snapshot repos its build tag inherits. That is RHEL
+# pre-release content rather than SIG content, so unlike the two SIG
+# configs it carries no Supplements and this is what pulls it in.
+Recommends:     fedrq-config-centos-snapshot
 Recommends:     tzdata
 Suggests:       centos-packager
 
@@ -87,8 +94,28 @@ for Bugzilla, Bodhi, NVD, dist-git, Discourse, FASJSON, and HyperKitty.
 The name **sandogasa** (菅笠) refers to a Japanese straw hat often
 associated with "slum" or post-apocalyptic robots in popular culture.
 
-%package -n fedrq-config-hyperscale
+%package -n fedrq-config-centos-hyperscale
 Summary:        CentOS Hyperscale SIG repositories for fedrq
+License:        Apache-2.0 OR MIT
+
+BuildArch:      noarch
+
+Requires:       fedrq
+
+# the previous name was too generic
+# keep in Fedora until F46 is EOL
+# and keep in EPEL until EPEL 10 is EOL
+Provides:       fedrq-config-hyperscale = %{version}-%{release}
+Obsoletes:      fedrq-config-hyperscale < 0.25.0
+
+Supplements:    (fedrq and mock-centos-sig-configs)
+
+%description -n fedrq-config-centos-hyperscale
+Repository definitions to allow querying CentOS Hyperscale SIG
+packages with fedrq.
+
+%package -n fedrq-config-centos-proposed-updates
+Summary:        CentOS Proposed Updates SIG repositories for fedrq
 License:        Apache-2.0 OR MIT
 
 BuildArch:      noarch
@@ -96,9 +123,21 @@ BuildArch:      noarch
 Requires:       fedrq
 Supplements:    (fedrq and mock-centos-sig-configs)
 
-%description -n fedrq-config-hyperscale
-Repository definitions to allow querying Hyperscale packages with fedrq.
+%description -n fedrq-config-centos-proposed-updates
+Repository definitions to allow querying CentOS Proposed Updates
+packages with fedrq.
 
+%package -n fedrq-config-centos-snapshot
+Summary:        CentOS snapshot repositories for fedrq
+License:        Apache-2.0 OR MIT
+
+BuildArch:      noarch
+
+Requires:       fedrq
+
+%description -n fedrq-config-centos-snapshot
+Repository definitions to allow querying CentOS snapshot (RHEL minor
+pre-release) packages with fedrq.
 
 %prep
 %autosetup -p1
@@ -135,9 +174,11 @@ for tool in %{tools}; do
 done
 
 # fedrq repos
-for f in centos-hyperscale.toml repos/centos-hyperscale.repo; do
-  install -Dpm 0644 configs/fedrq/${f} \
-    %{buildroot}%{_sysconfdir}/fedrq/${f}
+for r in hyperscale proposed-updates snapshot; do
+  for f in centos-${r}.toml repos/centos-${r}.repo; do
+    install -Dpm 0644 configs/fedrq/${f} \
+      %{buildroot}%{_sysconfdir}/fedrq/${f}
+  done
 done
 
 # koji-lag scripts
@@ -145,6 +186,7 @@ for action in backup fetch publish vacuum; do
   install -pm 0755 scripts/${action}-store.sh %{buildroot}%{_bindir}/koji-lag-${action}-store
 done
 cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
+cp -p configs/fesco-chair/config.toml %{buildroot}%{_sysconfdir}/fesco-chair/
 for i in FINDINGS.md notebooks queries; do
   cp -pr tools/koji-lag/${i} %{buildroot}%{_datadir}/koji-lag/
 done
@@ -163,6 +205,7 @@ done
 %license LICENSE-MIT
 %license LICENSE.dependencies
 %doc README.md README.*.md CHANGELOG.md
+%doc configs/hs-relmon configs/sandogasa-pkg-acl configs/sandogasa-report
 %{_bindir}/cpu-sig-tracker
 %{_bindir}/ebranch
 %{_bindir}/fedora-cve-triage
@@ -218,7 +261,7 @@ done
 %ghost %config(noreplace) %{_sysconfdir}/fedora-cve-triage/config.toml
 %config(noreplace) %{_sysconfdir}/fedora-cve-triage/run.toml
 %ghost %config(noreplace) %{_sysconfdir}/fedora-review-digest/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/fesco-chair/config.toml
+%config(noreplace) %{_sysconfdir}/fesco-chair/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/hs-intake/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/hs-meetings/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/hs-relmon/config.toml
@@ -230,13 +273,29 @@ done
 %ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-health/config.toml
 %ghost %config(noreplace) %{_sysconfdir}/sandogasa-report/config.toml
 
-%files -n fedrq-config-hyperscale
+%files -n fedrq-config-centos-hyperscale
 %license LICENSE-APACHE
 %license LICENSE-MIT
 %dir %{_sysconfdir}/fedrq
 %config(noreplace) %{_sysconfdir}/fedrq/centos-hyperscale.toml
 %dir %{_sysconfdir}/fedrq/repos
 %config(noreplace) %{_sysconfdir}/fedrq/repos/centos-hyperscale.repo
+
+%files -n fedrq-config-centos-proposed-updates
+%license LICENSE-APACHE
+%license LICENSE-MIT
+%dir %{_sysconfdir}/fedrq
+%config(noreplace) %{_sysconfdir}/fedrq/centos-proposed-updates.toml
+%dir %{_sysconfdir}/fedrq/repos
+%config(noreplace) %{_sysconfdir}/fedrq/repos/centos-proposed-updates.repo
+
+%files -n fedrq-config-centos-snapshot
+%license LICENSE-APACHE
+%license LICENSE-MIT
+%dir %{_sysconfdir}/fedrq
+%config(noreplace) %{_sysconfdir}/fedrq/centos-snapshot.toml
+%dir %{_sysconfdir}/fedrq/repos
+%config(noreplace) %{_sysconfdir}/fedrq/repos/centos-snapshot.repo
 
 
 %changelog

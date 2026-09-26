@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/json
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        JSON reading and writing for GAP
 
@@ -18,12 +18,11 @@ BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.01.21
-BuildRequires:  gap(gapdoc) >= 1.5
-BuildRequires:  gap-devel >= 4.12
+BuildRequires:  gap-devel >= 4.15
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa} >= 4.12
+Requires:       gap-core%{?_isa} >= 4.15
 
 Provides:       gap(json) = %{version}-%{release}
 

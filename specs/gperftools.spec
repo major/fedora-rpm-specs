@@ -3,8 +3,8 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.18.1
-Release:	2%{?dist}
+Version:	2.18.90
+Release:	1%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
 URL:		https://github.com/gperftools/gperftools
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 2.18.90-1
+- update to 2.18.90
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

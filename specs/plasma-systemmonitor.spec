@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-systemmonitor
-Version: 6.7.90
+Version: 6.7.91
 Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
@@ -82,6 +82,9 @@ resources.
 %{_kf6_datadir}/config.kcfg/systemmonitor.kcfg
 
 %changelog
+* Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
+- 6.7.91
+
 * Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
 - 6.7.90
 

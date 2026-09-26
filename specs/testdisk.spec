@@ -4,7 +4,7 @@ Summary(fr.UTF8):	Outil pour vérifier et restaurer des partitions
 Summary(ru_RU.UTF8): Программа для проверки и восстановления разделов диска
 Name:		testdisk
 Version:	7.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Source0:	https://www.cgsecurity.org/testdisk-%{version}.tar.bz2
@@ -110,6 +110,9 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/qphotorec.svg
 
 %changelog
+* Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 7.2-9
+- rebuild for new ntfs-3g (sover 91)
+
 * Thu Aug 27 2026 Tom Callaway <spot@fedoraproject.org> - 7.2-8
 - rebuild for new ntfs-3g
 

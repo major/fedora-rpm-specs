@@ -3,7 +3,7 @@
 Name:		nanosvg
 # This thing has no version so we'll use the last commit date
 Version:	20221221
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	Zlib
 # Technically, this is a fork, but the upstream is unmaintained and this one has some fixes
 URL:		https://github.com/fltk/nanosvg
@@ -18,6 +18,9 @@ Patch1:		nanosvg-lib64.patch
 # https://github.com/memononen/nanosvg/pull/216
 # Modified slightly to work without an installed nanosvg instance
 Patch2:		nanosvg-build-examples.patch
+# https://github.com/jantzeno/nanosvg_slop/commit/a39afb47ff72f4a10f0df9ba34f4508ccf551f73
+# Fixes CVE-2026-88367
+Patch3:		nanosvg-CVE-2026-88367.patch
 Summary:	Simple stupid SVG parser
 BuildRequires:	cmake, gcc
 # Needed for example1
@@ -41,6 +44,7 @@ Development files for nanosvg.
 %patch -P0 -p1 -b .sover
 %patch -P1 -p1 -b .lib64
 %patch -P2 -p1 -b .build-examples
+%patch -P3 -p1 -b .CVE-2026-88367
 
 %build
 %cmake
@@ -69,6 +73,9 @@ popd
 %{_libdir}/libnanosvgrast.so
 
 %changelog
+* Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 20221221-11
+- apply fix for CVE-2026-88367 (thanks to @jantzeno and @1820893135-pixel on GitHub)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20221221-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

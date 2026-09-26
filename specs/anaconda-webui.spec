@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        84
+Version:        86
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -147,6 +147,18 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Sep 25 2026 Packit <hello@packit.dev> - 86-1
+- remote installation: Show "Installation completed" instead of "Initializing..." after reboot
+
+* Fri Sep 25 2026 Packit <hello@packit.dev> - 85-1
+- storage: stop device-tree walk from racing with installation teardown
+- po: Update from Fedora Weblate (Resolves: rhbz#2537081)
+- review: hostname: translate string (Related: rhbz#2537081)
+- firefox-theme: fully hide browser chrome on boot.iso single-tab view
+- firefox-theme: stop forcing links into new windows on boot.iso
+- firefox-theme: disable the translate popup (Resolves: rhbz#2539731)
+- firefox-theme: don't auto-hide the toolbar in fullscreen
+
 * Tue Sep 15 2026 Packit <hello@packit.dev> - 84-1
 - Move error to the footer so that it's sticky when dialog get's too long (Resolves: rhbz#2526398)
 - fix: remote installation: restore installation progress step on page reload

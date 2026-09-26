@@ -49,7 +49,7 @@
 %global with_superludist 0
 ###########
 
-## 64bit integer support is not ready yet when we use PETSc64 serial
+## 64bit integer cannot use PETSc64 because MPI must be enabled
 %if 0%{?fedora} || 0%{?rhel} >= 10
 %ifarch %{arm} %{ix86}
 %global with_64bit_integer 0
@@ -63,7 +63,7 @@
 %global with_64bit_integer 1
 %global with_klu 1
 %global with_klu64 0
-%global with_klu64_serial 0
+%global with_klu64_serial 1
 %global with_fortran 1
 %global with_petsc 1
 %global with_superlumt 1
@@ -118,6 +118,8 @@ Patch1:     %{name}-5.5.0-set_superlumt64_name.patch
 Patch3:     %{name}-7.9.0-klu64.patch
 Patch4:     %{name}-7.9.0-set_python_cmake_flags.patch
 Patch5:     %{name}-7.9.0-find_petsc64.patch
+# Prefer PETSc's MPI libraries over serial libraries in system directories.
+Patch6:     %{name}-7.9.0-petsc-library-hints.patch
 
 BuildRequires: make
 %if 0%{?with_fortran}
@@ -138,7 +140,7 @@ BuildRequires: SuperLUMT-devel > 0:4.0.2-1
 %endif
 
 # KLU support
-%if 0%{?with_klu64}
+%if 0%{?with_klu64} || 0%{?with_klu64_serial}
 BuildRequires: suitesparse64-devel
 %endif
 %if 0%{?with_klu}
@@ -202,6 +204,10 @@ static libraries and example files).
 %package -n sundials64-devel
 Summary:    Suite of nonlinear solvers (64bit integer, developer files)
 Requires:   %{name}64%{?_isa} = %{version}-%{release}
+%if 0%{?with_klu64_serial}
+Requires:   suitesparse64-devel%{?_isa}
+Requires:   %{blaslib}-devel%{?_isa}
+%endif
 Provides:   %{name}64-fortran-static = %{version}-%{release}
 Provides:   %{name}64-examples = %{version}-%{release}
 %description -n sundials64-devel
@@ -306,6 +312,10 @@ This package contains the documentation source files.
 
 %prep
 %setup -qc
+
+pushd %{name}-%{version}
+%patch -P 6 -p1 -b .petsc_library_hints
+popd
 
 %if 0%{?with_64bit_integer}
 cp -a %{name}-%{version} %{name}64-%{version}
@@ -450,7 +460,12 @@ export LDFLAGS="%{__global_ldflags}"
 %define _vpath_srcdir %{name}64-%{version}
 mkdir -p %{name}64-%{version}/build
 %define _vpath_builddir %{name}64-%{version}/build
+# A separate SONAME is required for the incompatible 64-bit index ABI.
+# This build uses Release, so the postfix covers all C and Fortran libraries,
+# their internal dependencies, and the installed CMake imported targets.
 %cmake \
+ -DCMAKE_RELEASE_POSTFIX:STRING=64 \
+ -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
 %if 0%{?with_klu64_serial}
@@ -478,7 +493,8 @@ mkdir -p %{name}64-%{version}/build
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_includedir}/sundials64 \
  -DSUNDIALS_ENABLE_LAPACK:BOOL=OFF \
  -DCMAKE_MODULE_LINKER_FLAGS:STRING="%{__global_ldflags}" \
- -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/sundials64 \
+ -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
+ -DSUNDIALS_INSTALL_CMAKEDIR:PATH=%{_lib}/cmake/sundials64 \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=ON \
@@ -810,12 +826,12 @@ rm -f %{buildroot}$MPI_INCLUDE/%{name}/NOTICE
 %define _vpath_builddir %{name}64-%{version}/build
 %cmake_install
 
-# Avoid using rpath
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#alternatives-to-rpath
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-cat > %{buildroot}%{_sysconfdir}/ld.so.conf.d/sundials64.conf <<EOL
-%{_libdir}/sundials64
-EOL
+# Upstream's installed example templates spell out library names rather than
+# querying the CMake targets.  Keep their link flags and find_library calls
+# consistent with CMAKE_RELEASE_POSTFIX.  SUNDIALS:: target names are unchanged.
+find %{buildroot}%{_libexecdir}/%{name}64-%{version}/examples \
+ -type f \( -name Makefile -o -name CMakeLists.txt \) \
+ -exec sed -i -E 's/(sundials_[[:alnum:]_]+)/\164/g' {} +
 
 %endif
 #############################################################################
@@ -891,7 +907,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %if 0%{?with_64bit_integer}
 %define _vpath_srcdir %{name}64-%{version}
 %define _vpath_builddir %{name}64-%{version}/build
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/sundials64
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %if %{with debug}
 %ctest -VV --debug
 %else
@@ -903,11 +919,13 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/sundials64
 %if %{with python}
 pushd %{name}-%{version}-python
 %pyproject_check_import
-%pytest
+# Render example plots without requiring a graphical display.
+MPLBACKEND=Agg %pytest
 popd
 %endif
 
 %files
+# Match only unsuffixed libraries here; exclusions also collect ILP64 build IDs.
 %license %{name}-%{version}/LICENSE
 %doc %{name}-%{version}/CHANGELOG.md
 %doc %{name}-%{version}/CITATIONS.md
@@ -921,8 +939,9 @@ popd
 %doc %{name}-%{version}/src/README.idas.md
 %doc %{name}-%{version}/src/README-kinsol.md
 %{_libdir}/libsundials_core.so.%{sundialslib_SOVERSION}*
-%{_libdir}/libsundials_arkode*.so.%{arkodelib_SOVERSION}*
-%{_libdir}/libsundials_cvode*.so.%{cvodelib_SOVERSION}*
+%{_libdir}/libsundials_arkode.so.%{arkodelib_SOVERSION}*
+%{_libdir}/libsundials_cvode.so.%{cvodelib_SOVERSION}*
+%{_libdir}/libsundials_cvodes.so.%{cvodeslib_SOVERSION}*
 %{_libdir}/libsundials_ida.so.%{idalib_SOVERSION}*
 %{_libdir}/libsundials_idas.so.%{idaslib_SOVERSION}*
 %{_libdir}/libsundials_kinsol.so.%{kinsollib_SOVERSION}*
@@ -932,20 +951,22 @@ popd
 %{_libdir}/libsundials_nvecpthreads.so.%{nveclib_SOVERSION}*
 %endif
 %{_libdir}/libsundials_nvecserial.so.%{nveclib_SOVERSION}*
-%{_libdir}/libsundials_sunlinsol*.so.%{sunlinsollib_SOVERSION}*
-%{_libdir}/libsundials_sunmatrix*.so.%{sunmatrixlib_SOVERSION}*
-%{_libdir}/libsundials_sunnonlinsol*.so.%{sunnonlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sunlinsol*[!0-9].so.%{sunlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sunmatrix*[!0-9].so.%{sunmatrixlib_SOVERSION}*
+%{_libdir}/libsundials_sunnonlinsol*[!0-9].so.%{sunnonlinsollib_SOVERSION}*
 %{_libdir}/libsundials_sundomeigestpower.so.%{sundomeigestpower_SOVERSION}*
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so.*
 %endif
 
 %files devel
-%{_libdir}/*.a
+%{_libdir}/libsundials_*[!0-9].a
 %{_libdir}/libsundials_core.so
-%{_libdir}/libsundials_ida*.so
-%{_libdir}/libsundials_cvode*.so
-%{_libdir}/libsundials_arkode*.so
+%{_libdir}/libsundials_ida.so
+%{_libdir}/libsundials_idas.so
+%{_libdir}/libsundials_cvode.so
+%{_libdir}/libsundials_cvodes.so
+%{_libdir}/libsundials_arkode.so
 %{_libdir}/libsundials_kinsol.so
 %{_libdir}/libsundials_nvecserial.so
 %{_libdir}/libsundials_nvecopenmp.so
@@ -955,9 +976,9 @@ popd
 %if %{with pthread}
 %{_libdir}/libsundials_nvecpthreads.so
 %endif
-%{_libdir}/libsundials_sunmatrix*.so
-%{_libdir}/libsundials_sunlinsol*.so
-%{_libdir}/libsundials_sunnonlinsol*.so
+%{_libdir}/libsundials_sunmatrix*[!0-9].so
+%{_libdir}/libsundials_sunlinsol*[!0-9].so
+%{_libdir}/libsundials_sunnonlinsol*[!0-9].so
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so
 %{_fmoddir}/%{name}/
@@ -1052,50 +1073,49 @@ popd
 %doc %{name}-%{version}/src/README-ida.md
 %doc %{name}-%{version}/src/README.idas.md
 %doc %{name}-%{version}/src/README-kinsol.md
-%{_sysconfdir}/ld.so.conf.d/%{name}64.conf
-%{_libdir}/%{name}64/libsundials_core.so.%{sundialslib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_arkode*.so.%{arkodelib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_cvode*.so.%{cvodelib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_ida.so.%{idalib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_idas.so.%{idaslib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_kinsol.so.%{kinsollib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_nvecopenmp.so.%{nveclib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_nvecmanyvector.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_core64.so.%{sundialslib_SOVERSION}*
+%{_libdir}/libsundials_arkode*64.so.%{arkodelib_SOVERSION}*
+%{_libdir}/libsundials_cvode*64.so.%{cvodelib_SOVERSION}*
+%{_libdir}/libsundials_ida64.so.%{idalib_SOVERSION}*
+%{_libdir}/libsundials_idas64.so.%{idaslib_SOVERSION}*
+%{_libdir}/libsundials_kinsol64.so.%{kinsollib_SOVERSION}*
+%{_libdir}/libsundials_nvecopenmp64.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_nvecmanyvector64.so.%{nveclib_SOVERSION}*
 %if %{with pthread}
-%{_libdir}/%{name}64/libsundials_nvecpthreads.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_nvecpthreads64.so.%{nveclib_SOVERSION}*
 %endif
-%{_libdir}/%{name}64/libsundials_nvecserial.so.%{nveclib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_sunlinsol*.so.%{sunlinsollib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_sunmatrix*.so.%{sunmatrixlib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_sunnonlinsol*.so.%{sunnonlinsollib_SOVERSION}*
-%{_libdir}/%{name}64/libsundials_sundomeigestpower.so.%{sundomeigestpower_SOVERSION}*
+%{_libdir}/libsundials_nvecserial64.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_sunlinsol*64.so.%{sunlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sunmatrix*64.so.%{sunmatrixlib_SOVERSION}*
+%{_libdir}/libsundials_sunnonlinsol*64.so.%{sunnonlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sundomeigestpower64.so.%{sundomeigestpower_SOVERSION}*
 %if 0%{?with_fortran}
-%{_libdir}/%{name}64/libsundials_f*[_mod].so.*
+%{_libdir}/libsundials_f*[_mod]64.so.*
 %endif
 
 %files -n sundials64-devel
-%{_libdir}/%{name}64/*.a
-%{_libdir}/%{name}64/libsundials_core.so
-%{_libdir}/%{name}64/libsundials_ida*.so
-%{_libdir}/%{name}64/libsundials_cvode*.so
-%{_libdir}/%{name}64/libsundials_arkode*.so
-%{_libdir}/%{name}64/libsundials_kinsol.so
-%{_libdir}/%{name}64/libsundials_nvecserial.so
-%{_libdir}/%{name}64/libsundials_nvecopenmp.so
-%{_libdir}/%{name}64/libsundials_nvecmanyvector.so
-%{_libdir}/%{name}64/libsundials_sundomeigestpower.so
-%{_libdir}/%{name}64/cmake/sundials/
+%{_libdir}/libsundials_*64.a
+%{_libdir}/libsundials_core64.so
+%{_libdir}/libsundials_ida*64.so
+%{_libdir}/libsundials_cvode*64.so
+%{_libdir}/libsundials_arkode*64.so
+%{_libdir}/libsundials_kinsol64.so
+%{_libdir}/libsundials_nvecserial64.so
+%{_libdir}/libsundials_nvecopenmp64.so
+%{_libdir}/libsundials_nvecmanyvector64.so
+%{_libdir}/libsundials_sundomeigestpower64.so
+%{_libdir}/cmake/sundials64/
 %if %{with pthread}
-%{_libdir}/%{name}64/libsundials_nvecpthreads.so
+%{_libdir}/libsundials_nvecpthreads64.so
 %endif
-%{_libdir}/%{name}64/libsundials_sunmatrix*.so
-%{_libdir}/%{name}64/libsundials_sunlinsol*.so
-%{_libdir}/%{name}64/libsundials_sunnonlinsol*.so
+%{_libdir}/libsundials_sunmatrix*64.so
+%{_libdir}/libsundials_sunlinsol*64.so
+%{_libdir}/libsundials_sunnonlinsol*64.so
 %if 0%{?with_fortran}
-%{_libdir}/%{name}64/libsundials_f*[_mod].so
+%{_libdir}/libsundials_f*[_mod]64.so
 %{_fmoddir}/%{name}64/
 %if %{with pthread}
-%{_libdir}/%{name}64/libsundials_fnvecpthreads.so
+%{_libdir}/libsundials_fnvecpthreads64.so
 %endif
 %endif
 %{_includedir}/%{name}64/nvector/
@@ -1306,7 +1326,6 @@ popd
 %doc %{name}-%{version}/README.md
 %doc %{name}-%{version}/CONTRIBUTING.md
 %doc %{name}-%{version}/doc/
-
 
 %changelog
 %autochangelog

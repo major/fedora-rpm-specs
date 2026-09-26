@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.7.90
+Version: 6.7.91
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -53,6 +53,9 @@ Requires: kf6-kirigami2%{?_isa}
 
 # runtime query of usb.ids, oui.txt
 Requires: hwdata
+
+# Required for the libva page
+Requires: libva-utils
 
 # Runtime dependencies
 Requires: plasma-systemsettings
@@ -115,6 +118,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
+- 6.7.91
+
 * Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
 - 6.7.90
 

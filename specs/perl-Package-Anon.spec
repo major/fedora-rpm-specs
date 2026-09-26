@@ -1,6 +1,6 @@
 Name:		perl-Package-Anon
 Version:	0.05
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	Anonymous packages
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Anon
@@ -14,7 +14,7 @@ BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.14
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
@@ -44,12 +44,11 @@ namespace and only available through an object instance, not by name.
 %setup -q -n Package-Anon-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -64,6 +63,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/Package::Anon.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 0.05-47
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-46
 - Perl 5.44 rebuild
 

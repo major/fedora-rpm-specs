@@ -3,7 +3,7 @@
 
 Name:		perl-Perl-OSType
 Version:	1.010
-Release:	528%{?dist}
+Release:	529%{?dist}
 Summary:	Map Perl operating system names to generic types
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-OSType
@@ -12,11 +12,10 @@ Patch2:		Perl-OSType-1.010-stopwords.patch
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.17
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(strict)
@@ -29,6 +28,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 # Optional tests, not run for this dual-lived module when bootstrapping
 # Also not run for EPEL builds due to package unavailability
 %if !%{defined perl_bootstrap} && 0%{?fedora} && %{with perl_Perl_OSType_enables_optional_test}
+BuildRequires:	findutils
 BuildRequires:	glibc-langpack-en
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
@@ -67,12 +67,11 @@ systems are given the type 'Windows' rather than 'Win32').
 %patch -P 2
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -88,6 +87,9 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Perl::OSType.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 1.010-529
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.010-528
 - Perl 5.44 re-rebuild of bootstrapped packages
 

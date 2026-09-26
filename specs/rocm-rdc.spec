@@ -63,7 +63,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Data Center Tool
 
@@ -188,6 +188,9 @@ chmod a+x %{buildroot}%{pkg_prefix}/libexec/rdc/authentication/*.sh
 %{pkg_prefix}/%{pkg_libdir}/cmake/rdc/
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 10.0.0-2
+- Rebuilt for abseil-cpp 20260817.0
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

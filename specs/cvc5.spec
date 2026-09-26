@@ -7,12 +7,12 @@
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
-%global pcommit cdcac7cb2da79d922fc44628c1c3c5f60c2eeec4
+%global pcommit a0d6c75bca0dca4a26c0d570e7b969272c9a7de1
 
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.3.4
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -29,15 +29,12 @@ Patch:          %{name}-flags.patch
 # Skip tests that require huge amounts of memory
 # Patch courtesy of Scott Talbert
 Patch:          %{name}-skip-himem-tests.patch
-# Adapt to cocoalib 0.99850
-Patch:          %{name}-cocoalib.patch
 # Adapt to cadical 2.2.0
 Patch:          %{name}-cadical.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildSystem:    cmake
-BuildOption(conf): --debug-find
 BuildOption(conf): -DBUILD_BINDINGS_JAVA:BOOL=ON
 BuildOption(conf): -DBUILD_BINDINGS_PYTHON:BOOL=ON
 BuildOption(conf): -DBUILD_DOCS:BOOL=OFF
@@ -51,6 +48,8 @@ BuildOption(conf): -DUSE_CRYPTOMINISAT:BOOL=ON
 BuildOption(conf): -DUSE_DEFAULT_LINKER:BOOL=ON
 BuildOption(conf): -DUSE_EDITLINE:BOOL=ON
 BuildOption(conf): -DUSE_KISSAT:BOOL=ON
+BuildOption(conf): -DUSE_MPFR:BOOL=ON
+BuildOption(conf): -DUSE_NORMALIZ:BOOL=ON
 BuildOption(conf): -DUSE_POLY:BOOL=ON
 
 BuildRequires:  cadical-devel
@@ -62,9 +61,11 @@ BuildRequires:  git-core
 BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 BuildRequires:  kissat-devel
+BuildRequires:  libnormaliz-devel
 BuildRequires:  libpoly-devel
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(libedit)
+BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  procps-ng
 BuildRequires:  pyproject-rpm-macros
@@ -80,7 +81,6 @@ BuildRequires:  symfpu-devel
 
 # Needed for some of the tests; we do not currently execute those tests
 #BuildRequires:  ethos
-#BuildRequires:  lfsc-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -104,8 +104,6 @@ performance and reduce the memory overhead of its predecessors.
 %package        devel
 Summary:        Headers and other files for developing with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       gmp-devel%{?_isa}
-Requires:       symfpu-devel
 
 %description    devel
 Header files and library links for developing applications that use %{name}.
@@ -148,7 +146,14 @@ sed -e 's,\(--ethos-binary \).*,\1%{_bindir}/ethos,' \
     -i test/regress/cli/CMakeLists.txt
 
 # Without this, the python interface has version 0.0.0
-sed -i 's/CVC5_WHEEL_VERSION/CVC5_VERSION/' src/api/python/__init__.py.in
+#sed -i 's/CVC5_WHEEL_VERSION/CVC5_VERSION/' src/api/python/__init__.py.in
+
+# Upstream avoids this flag for build time reasons; we want it
+sed -i '/-fno-var-tracking-assignments/d' src/CMakeLists.txt
+
+# Our build of the cvc5 binary includes one reference to a cocoalib symbol
+sed -i '/USE_EDITLINE/itarget_link_libraries(cvc5-bin PUBLIC -lcocoa)' \
+    src/main/CMakeLists.txt
 
 %conf -p
 export BUILDFLAGS='-DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'

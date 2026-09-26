@@ -14,7 +14,7 @@
 %define _lto_cflags %{nil}
 
 Name:           DirectX-Headers
-Version:        1.619.4
+Version:        1.619.5
 Release:        %autorelease
 Summary:        Official Direct3D 12 headers
 

@@ -8,7 +8,7 @@
 %global crate libcst
 
 Name:           rust-libcst
-Version:        1.8.6
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Python parser and Concrete Syntax Tree library
 

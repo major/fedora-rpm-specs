@@ -1,10 +1,8 @@
 %bcond docs 1
 %bcond tests 1
-# extras
-%bcond gbulb 1
 
 Name:           pychess
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Chess game for GNOME
 
@@ -44,9 +42,6 @@ BuildRequires:  xwayland-run
 BuildRequires:  gtksourceview4
 BuildRequires:  stockfish
 %endif
-%if %{with gbulb}
-BuildRequires:  python3dist(gbulb)
-%endif
 
 Requires:       hicolor-icon-theme
 # gi.repository deps
@@ -63,6 +58,8 @@ Recommends:     gnuchess
 Recommends:     stockfish
 Recommends:     toga2
 
+Obsoletes:      %{name}+gbulb < 1.2.0
+
 %description
 PyChess is a GTK+ chess game for Linux. It is designed to at the same time
 be easy to use, beautiful to look at, and provide advanced functions for
@@ -76,11 +73,6 @@ Requires:       python3-docs
 
 %description    doc
 This package contains additional documentation for PyChess.
-%endif
-
-
-%if %{with gbulb}
-%pyproject_extras_subpkg -n %{name} gbulb
 %endif
 
 
@@ -137,7 +129,7 @@ rm -f testing/{dialogs,fics*,savegame}.py
 # this test requires network access
 rm -f testing/remotegame.py
 # run tests
-PYCHESS_UNITTEST=true PYTHONPATH=lib xwfb-run -- pytest testing/*.py
+PYCHESS_UNITTEST=true PYTHONPATH=lib:. xwfb-run -- pytest testing/*.py
 %endif
 
 

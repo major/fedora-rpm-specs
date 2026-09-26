@@ -1,6 +1,6 @@
 Name:    kscreenlocker
-Version: 6.7.90
-Release: 2%{?dist}
+Version: 6.7.91
+Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -13,9 +13,6 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{vers
 Conflicts: plasma-workspace < 5.5
 
 ## upstream patches
-# Rebased https://invent.kde.org/plasma/kscreenlocker/-/merge_requests/372
-# Fix screenlocker showing up when switching users
-Patch0:        fix-user-switching.patch
 
 BuildRequires: cmake(LayerShellQt)
 
@@ -102,6 +99,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
+- 6.7.91
+
 * Wed Sep 16 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-2
 - Fix for user switching dropping to kscreenlocker
 

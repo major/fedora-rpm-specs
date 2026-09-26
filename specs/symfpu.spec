@@ -1,24 +1,19 @@
-# Upstream doesn't make releases.  We have to check the code out of git.
-# Use the cvc5 branch.
-%global gittag   227a7246b8ce513b393cc2645d6d65d3490ea1de
-%global shorttag %{sub %{gittag} 1 7}
-%global gitdate  20260406
-
-# There are no ELF objects in this package, so turn off debuginfo generation.
-%global debug_package %{nil}
-
 Name:           symfpu
-Version:        0
-Release:        0.23.%{gitdate}git%{shorttag}%{?dist}
+Version:        1.2.0
+Release:        %autorelease
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
-License:        GPL-3.0-or-later
-URL:            https://github.com/cvc5/symfpu
+# See LICENSE for the choice between GPL-3.0-or-later and BSD-3-Clause
+License:        GPL-3.0-or-later OR BSD-3-Clause
+URL:            https://github.com/martin-cs/symfpu
 VCS:            git:%{url}.git
-Source:         %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
+Source:         %{url}/archive/%{name}-%{version}-dual-license.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+BuildRequires:  make
+BuildRequires:  gcc-c++
 
 %description
 SymFPU is an implementation of the SMT-LIB / IEEE-754 operations in terms of
@@ -33,103 +28,63 @@ again, performance will likely not be good).
 %package devel
 Summary:        Development files for %{name}
 BuildArch:      noarch
-Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
 This package contains header files and library links for developing
 applications that use %{name}.
 
 %prep
-%autosetup -n %{name}-%{gittag}
+%autosetup -n %{name}-%{name}-%{version}-dual-license
+
+# The build expects to be done in a directory named symfpu
+ln -s %{name}-%{name}-%{version}-dual-license ../symfpu
+
+# Turn off x86-specific build flags for other architectures
+%ifnarch %{x86_64}
+sed -i 's/ -msse2 -mfpmath=sse//;s/ -mfma -mno-fma4//' flags
+%endif
 
 %build
-# Nothing to do
+# The source dereferences type-punned pointers
+export CFLAGS='%{build_cflags} -fno-strict-aliasing'
+export CXXFLAGS='%{build_cxxflags} -fno-strict-aliasing'
+# Parallel build almost always leads to an error
+make
+
+# Build a shared library instead of a static library, and give it an soname
+flags=$(sed 's/CXXFLAGS+=//' flags)
+cd baseTypes
+g++ $CXXFLAGS $flags -fPIC -I../../ -c simpleExecutable.cpp \
+    -o simpleExecutable.o
+g++ %{build_ldflags} -shared -Wl,-h,libsymfpu.so.0 -o ../libsymfpu.so.0.0.0 \
+    simpleExecutable.o
+cd -
 
 %install
-mkdir -p %{buildroot}%{_includedir}/%{name}
+# Install the header files
+mkdir -p %{buildroot}%{_includedir}/%{name}/baseTypes
+cp -p baseTypes/*.h %{buildroot}%{_includedir}/%{name}/baseTypes
 cp -a core utils %{buildroot}%{_includedir}/%{name}
+rm %{buildroot}%{_includedir}/%{name}/{core,utils}/Makefile
+
+# Install the library
+mkdir -p %{buildroot}%{_libdir}
+cp -p libsymfpu.so.0.0.0 %{buildroot}%{_libdir}
+ln -s libsymfpu.so.0.0.0 %{buildroot}%{_libdir}/libsymfpu.so.0
+ln -s libsymfpu.so.0 %{buildroot}%{_libdir}/libsymfpu.so
+
+# The test executable always exits with error code 1, which isn't super helpful
+#%%check
+#./test --allTests
+
+%files
+%doc README.md
+%license LICENSE
+%{_libdir}/libsymfpu.so.0{,.*}
 
 %files devel
-%license LICENSE
 %{_includedir}/%{name}/
+%{_libdir}/libsymfpu.so
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23.20260406git227a724
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri May 15 2026 Jerry James <loganjerry@gmail.com> - 0-0.22.20260406git227a724
-- Update for cvc5 1.3.4
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21.20230627gite6ac3af
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 0-0.20.20230627gite6ac3af
-- Switch to the cvc5 git branch
-- Drop all patches
-- Package is now header-only and therefore noarch
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 0-0.17.20190517gitc3acaf6
-- New project URL
-- Move configuration steps to %conf
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
-- Stop building for 32-bit x86
-
-* Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
-- Add patch needed by CVC5
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0-0.12.20190517gitc3acaf6
-- Add upstream patch to fix creation of zero-size bitvector
-- Add patch to avoid infinite recursion
-- Convert License tag to SPDX
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5.20190517gitc3acaf6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jun 12 2019 Jerry James <loganjerry@gmail.com> - 0-0.4.20190517gitc3acaf6
-- Update to latest git snapshot to fix a CVC4 bug
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3.20180523git0444c86
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.2.20180523git0444c86
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Jul  6 2018 Jerry James <loganjerry@gmail.com> - 0-0.1.20180523git0444c86
-- Initial RPM
+%autochangelog

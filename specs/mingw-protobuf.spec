@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       33.5
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows protobuf library
 
 BuildArch:     noarch
@@ -144,6 +144,9 @@ MinGW Windows protobuf library.
 
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 33.5-5
+- Rebuilt for abseil-cpp 20260817.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

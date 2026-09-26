@@ -53,7 +53,7 @@
 %bcond_without check
 
 %if %{with bundle_compat_lib}
-%global compat_maj_ver 21
+%global compat_maj_ver 22
 %global compat_ver %{compat_maj_ver}.1.8
 %endif
 
@@ -205,7 +205,7 @@ end
 %else
 # Disable PGO on s390x temporarily in order to reduce LLVM build time and
 # disk usage.
-%if %{maj_ver} >= 23 && "%{_arch}" == "s390x"
+%ifarch s390x
 %bcond_with pgo
 %else
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
@@ -231,7 +231,7 @@ end
 %bcond_with lto_build
 %else
 # Disable LTO on s390x in order to reduce LLVM build time.
-%if %{maj_ver} >= 23 && "%{_arch}" == "s390x"
+%ifarch s390x
 %bcond_with pgo
 %else
 %if %{defined rhel} && 0%{?rhel} <= 8
@@ -257,7 +257,7 @@ end
 %global _lto_cflags %nil
 %endif
 
-%if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build}
+%if 0%{undefined rhel} && %{without compat_build}
 %bcond_without libclc
 %else
 %bcond_with libclc
@@ -545,7 +545,6 @@ Source1001: changelog
 # behind the latest packaged LLVM version.
 
 #region CLANG patches
-Patch2100: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2200: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2300: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2400: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
@@ -553,7 +552,6 @@ Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
-Patch2107: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch2218: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch2303: 0001-21-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch2402: 0001-24-Workaround-a-bug-in-ORC-on-ppc64le.patch
@@ -581,7 +579,6 @@ Patch2213: 0001-X86-Fix-EVEX-compression-for-VPMOV-2M-KMOV-with-tied.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
-Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 Patch2214: 0001-ELF-Simplify-AArch64-relocateAlloc.-NFC.patch
 Patch2215: 0001-LLD-AArch64-Make-adrp-ldr-relaxation-per-symbol-all-.patch
 Patch2216: 0001-lld-ELF-Concatenate-.gnu.build.attributes.-sections-.patch
@@ -589,10 +586,7 @@ Patch2304: 224946.patch
 #endregion LLD patches
 
 #region polly patches
-Patch2102: 0001-20-polly-shared-libs.patch
-Patch2202: 0001-22-polly-shared-libs.patch
-Patch2302: 0001-22-polly-shared-libs.patch
-Patch2401: 0001-22-polly-shared-libs.patch
+Patch107: 0001-22-polly-shared-libs.patch
 #endregion polly patches
 
 #region libclc patches
@@ -602,29 +596,12 @@ Patch2217: 207264.patch
 #region RHEL patches
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
-# Backport a fix for https://github.com/llvm/llvm-project/issues/165696 from
-# LLVM 22. The first patch is a requirement of the second patch.
-# Apply the fix to RHEL8 only because the other distros do not need this fix
-# because they already support kfunc __bpf_trap.
-Patch502: 0001-BPF-Support-Jump-Table-149715.patch
-Patch503: 0002-BPF-Remove-unused-weak-symbol-__bpf_trap-166003.patch
-Patch504: 0003-BPF-Remove-dead-code-related-to-__bpf_trap-global-va.patch
 #endregion RHEL patches
 
 # Fix for offload builds: The DeviceRTL libraries target device code and
 # don't support the mtls-dialect flag, so we need to patch the clang driver
 # to ignore it for these targets.
-Patch2101: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
 Patch2201: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
-
-# Fix segfault compiling plotters rust crate on ppc64le
-Patch2104: 0001-PowerPC-Add-check-for-cast-when-shufflevector-172443.patch
-
-# Fix for lldb python shell with python 3.14 (rbhz#2428608)
-Patch2105: 43cb4631c1f42dbfce78288b8ae30b5840ed59b3.patch
-
-# Fix for s390x vector miscompilation (rhbz#2430017)
-Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
 
 # Disable tests when the execution engine is disabled.
 # https://github.com/llvm/llvm-project/pull/220741
@@ -1462,13 +1439,6 @@ Mesa OpenCL support with RustiCL.
 # automatically apply patches based on LLVM version
 %autopatch -m%{compat_maj_ver}00 -M%{compat_maj_ver}99 -p1
 
-%if 0%{?rhel} == 8 && %{compat_maj_ver} < 22
-# The following patches have been backported from LLVM 22.
-%patch -p1 -P502
-%patch -p1 -P503
-%patch -p1 -P504
-%endif
-
 %endif
 
 # Unpack the man pages first
@@ -1881,15 +1851,6 @@ popd
   -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_STATIC_LINKER_FLAGS="" \\\
   -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_STATIC_LINKER_FLAGS="" \\\
   -DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES="openmp"
-
-%if 0%{?__isa_bits} == 64 && %{maj_ver} <= 22
-# The following shouldn't be required, but due to a bug, we have to be
-# explicit about LLVM_LIBDIR_SUFFIX for nvptx64-nvidia-cuda.
-# This got fixed in LLVM 23.
-# https://github.com/llvm/llvm-project/issues/159762
-%global cmake_config_args %{cmake_config_args} \\\
-	-DRUNTIMES_nvptx64-nvidia-cuda_LLVM_LIBDIR_SUFFIX=64
-%endif
 %endif
 #endregion openmp options
 
@@ -2193,12 +2154,6 @@ cd ..
 
 %if %{with bundle_compat_lib}
 
-%if %{compat_maj_ver} >= 22
-%global compat_lib_cmake_args -DLLVM_ENABLE_EH=OFF
-%else
-%global compat_lib_cmake_args -DLLVM_ENABLE_EH=ON
-%endif
-
 # MIPS and Arm targets were disabled in LLVM 20, but we still need them
 # enabled for the compat libraries.
 %cmake -S ../llvm-project-%{compat_ver}.src/llvm -B ../llvm-compat-libs -G Ninja \
@@ -2207,8 +2162,7 @@ cd ..
     -DLLVM_ENABLE_PROJECTS="clang;lldb" \
     -DLLVM_INCLUDE_BENCHMARKS=OFF \
     -DLLVM_INCLUDE_TESTS=OFF \
-    %{cmake_common_args} \
-    %{compat_lib_cmake_args}
+    %{cmake_common_args}
 
 
 
@@ -2545,13 +2499,9 @@ rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
       %{buildroot}%{install_libdir}/libMIFDialect.a
 
 
-%if %{maj_ver} < 23
-find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
-%else
 # Remove header files that are only needed for writing plugins.
 # TODO: Maybe we should package these in the future.
 rm -Rf %{buildroot}%{install_includedir}/flang
-%endif
 
 # this is a test binary
 rm -v %{buildroot}%{install_bindir}/f18-parse-demo
@@ -3325,6 +3275,7 @@ fi
     FileCheck
     llc
     lli
+    llubi
     llvm-addr2line
     llvm-ar
     llvm-as
@@ -3352,6 +3303,8 @@ fi
     llvm-dwp
     llvm-exegesis
     llvm-extract
+    llvm-extract-bundle-entry
+    llvm-gpu-loader
     llvm-gsymutil
     llvm-ifs
     llvm-install-name-tool
@@ -3411,18 +3364,6 @@ fi
     yaml2obj
 }}
 
-%if %{maj_ver} >= 23
-%{expand_bins %{expand:
-    llubi
-    llvm-extract-bundle-entry
-    llvm-gpu-loader
-}}
-%else
-%{expand_bins %{expand:
-    bugpoint
-}}
-%endif
-
 %if %{maj_ver} < 24
 %{expand_bins %{expand:
     llvm-sim
@@ -3441,6 +3382,7 @@ fi
     llc
     lldb-tblgen
     lli
+    llubi
     llvm-addr2line
     llvm-ar
     llvm-as
@@ -3456,6 +3398,7 @@ fi
     llvm-dwarfutil
     llvm-exegesis
     llvm-extract
+    llvm-extract-bundle-entry
     llvm-ifs
     llvm-install-name-tool
     llvm-ir2vec
@@ -3491,17 +3434,6 @@ fi
     opt
     tblgen
 }}
-
-%if %{maj_ver} >= 23
-%{expand_mans %{expand:
-    llubi
-    llvm-extract-bundle-entry
-}}
-%else
-%{expand_mans %{expand:
-    bugpoint
-}}
-%endif
 
 %if %{maj_ver} >= 24
 %{expand_mans %{expand:
@@ -3719,6 +3651,9 @@ fi
     clang-refactor
     clang-reorder-fields
     clang-repl
+    clang-ssaf-analyzer
+    clang-ssaf-format
+    clang-ssaf-linker
     clang-sycl-linker
     clang-tidy
     clangd
@@ -3733,14 +3668,6 @@ fi
     run-clang-tidy
     offload-arch
 }}
-
-%if %{maj_ver} >= 23
-%{expand_bins %{expand:
-    clang-ssaf-analyzer
-    clang-ssaf-format
-    clang-ssaf-linker
-}}
-%endif
 
 %if %{maj_ver} >= 24
 %{expand_bins %{expand:
@@ -3964,6 +3891,7 @@ fi
 
 %files -n %{pkg_name_mlir}-devel
 %{expand_bins %{expand:
+    mlir-irdl-to-cpp
     mlir-linalg-ods-yaml-gen
     mlir-lsp-server
     mlir-opt
@@ -3972,6 +3900,7 @@ fi
     mlir-query
     mlir-reduce
     mlir-rewrite
+    mlir-src-sharder
     mlir-tblgen
     mlir-translate
     tblgen-lsp-server
@@ -3980,12 +3909,6 @@ fi
 %if "%{mlir_jit}" == "ON"
 %{expand_bins %{expand:
     mlir-runner
-}}
-%endif
-%if %{maj_ver} >= 23
-%{expand_bins %{expand:
-    mlir-irdl-to-cpp
-    mlir-src-sharder
 }}
 %endif
 %expand_includes mlir mlir-c
@@ -4027,14 +3950,8 @@ fi
 }}
 %{install_bindir}/flang-%{maj_ver}
 
-%if %{maj_ver} < 23
-%{expand_includes %{expand:
-    flang/*.mod
-}}
-%else
 %{_prefix}/lib/clang/%{maj_ver}/finclude/flang/%{llvm_triple}/*.mod
 %{_prefix}/lib/clang/%{maj_ver}/finclude/flang/%{llvm_triple}/omp_lib.h
-%endif
 
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
 %ifarch x86_64

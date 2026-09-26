@@ -56,7 +56,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 rm src/GetTime0.cpp
 
 %build
-# TODO: Once we can assume z15, add TUNE=linux-s390x to the flags for s390x
 cd src
 ./configure \
   CXX="${CXX-g++}" \
@@ -72,7 +71,11 @@ cd src
   NTL_LOADTIME_CPU=on \
   TUNE=x86 \
 %else
+%ifarch s390x
+  TUNE=linux-s390x \
+%else
   TUNE=generic \
+%endif
 %endif
   PKGDIR=%{_libdir}/pkgconfig \
   SHARED=on \

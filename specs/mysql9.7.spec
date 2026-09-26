@@ -100,7 +100,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1116,6 +1116,9 @@ popd
 %endif
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 9.7.2-2
+- Rebuilt for abseil-cpp 20260817.0
+
 * Tue Jul 28 2026 Michal Schorm <mschorm@redhat.com> - 9.7.2-1
 - Rebase to 9.7.2
 

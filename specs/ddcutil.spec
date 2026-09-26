@@ -1,7 +1,7 @@
 %bcond_without build_lib
 
 Name:       ddcutil
-Version:    2.2.1
+Version:    3.0.2
 Release:    %autorelease
 Summary:    Query and update monitor settings
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -17,17 +17,19 @@ BuildRequires:      autoconf
 BuildRequires:      libtool
 BuildRequires:      gcc
 BuildRequires:      make
-BuildRequires:      pkgconfig(glib-2.0)   >= 2.40
+BuildRequires:      pkgconfig(glib-2.0)   >= 2.64
 BuildRequires:      pkgconfig(libusb-1.0) >= 1.0.15
 BuildRequires:      pkgconfig(systemd)
 BuildRequires:      pkgconfig(libudev)
 BuildRequires:      pkgconfig(xrandr)
 BuildRequires:      pkgconfig(libdrm) >= 2.4.67
 BuildRequires:      pkgconfig(libkmod)
+BuildRequires:      pkgconfig(libacl)
 BuildRequires:      pkgconfig(jansson) >= 2.0
+BuildRequires:      pkgconfig(dbus-1)
 
 Requires:   hwdata
-Requires:   i2c-tools
+Requires:   i2c-tools >= 4.0 
 
 # file that may be used at runtime
 Recommends: /usr/bin/lsusb

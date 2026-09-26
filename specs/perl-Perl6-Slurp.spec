@@ -1,6 +1,6 @@
 Name:           perl-Perl6-Slurp
 Version:        0.051005
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Implementation of the Perl 6 'slurp' built-in
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Slurp
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Perl6/Perl6-Slurp-%{
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Scalar::Util)
@@ -44,12 +43,11 @@ read the stream, it throws an exception.
 %setup -qn Perl6-Slurp-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -61,6 +59,9 @@ make test
 %{_mandir}/man3/Perl6::Slurp.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 0.051005-37
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.051005-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

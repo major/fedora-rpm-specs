@@ -198,7 +198,8 @@ Provides: bundled(libnest2d) = 0.3.2
 # including one made on 2018-12-14 (c1f6e20) but nothing after.
 # License: zlib
 # Upstream: https://github.com/memononen/nanosvg
-Provides: bundled(nanosvg)
+# No longer bundled, uses nanosvg-devel
+# Provides: bundled(nanosvg)
 
 # Two files from an old version of the Clipper/polyclipping library are used,
 # but have been modified to add dependencies on other pieces of PrusaSlicer and

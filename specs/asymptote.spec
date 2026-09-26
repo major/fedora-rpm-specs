@@ -1,6 +1,6 @@
 Name:           asymptote
 Version:        3.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -83,7 +83,7 @@ BuildRequires:  mesa-compat-libOSMesa-devel
 BuildRequires:  mesa-libOSMesa-devel
 %endif
 BuildRequires:  ghostscript-tools-dvipdf
-BuildRequires:  glm-devel
+BuildRequires:  glm-devel, glslang-devel
 BuildRequires:  boost-devel, rapidjson-devel
 BuildRequires:  cmake, make, python3-qt5
 BuildRequires:  vulkan-headers, glfw-devel
@@ -192,6 +192,14 @@ ln -s ../share/%{name}/GUI/xasy.py xasy
 # Fix executable bits
 chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 
+# This file used to be split out (in a directory named asy-faq.html)
+# but now it's just a single file called asy-faq.html.
+# We can do lua tricks, but since no one cares what this thing is called
+# we'll just check if it's a file, and if it is, rename it.
+if [ ! -d "%{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/asy-faq.html" ]; then
+   mv %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/asy-faq.html %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/asy-faq-full.html
+fi
+
 %files
 %doc %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/}
 %license LICENSE LICENSE.LESSER
@@ -210,6 +218,10 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 3.13-2
+- address issue where asy-faq.html changed from directory to file
+- fix missing BR (glslang-devel)
+
 * Fri Aug 28 2026 Tom Callaway <spot@fedoraproject.org> - 3.13-1
 - update to 3.13
 

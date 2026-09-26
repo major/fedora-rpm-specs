@@ -2,7 +2,7 @@
 
 Name:           libcompizconfig
 Version:        0.8.18
-Release:        22%{?dist}
+Release:        23%{?dist}
 Epoch:          1
 Summary:        Configuration back end for compiz
 # backends/libini.so is GPLv2+, other parts are LGPLv2+
@@ -87,6 +87,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:0.8.18-23
+- Rebuilt for abseil-cpp 20260817.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.8.18-22
 - Rebuilt for libxml-2.5.4
 

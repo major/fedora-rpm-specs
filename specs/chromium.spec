@@ -30,8 +30,11 @@
 
 # enable|disble bootstrap
 %global bootstrap 0
-# workaround for old gn on el9, it causes build error: unknown function filter_labels_include()
-%if 0%{?rhel} == 9
+# workaround for old gn on el9 and el10.2, it causes build errors:
+#  unknown function filter_labels_include()
+# ERROR at //third_party/devtools-frontend/src/scripts/build/typescript/ts_library_split.gni:316:21: Assignment had no effect.
+#    public_inputs = filter_include(_all_sources, [ "*.ts" ])
+%if 0%{?rhel} == 9 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 3)
 %global bootstrap 1
 %endif
 

@@ -1,7 +1,7 @@
 Name:		perl-Perl-Destruct-Level
 Summary:	Allows you to change perl's internal destruction level
 Version:	0.02
-Release:	47%{?dist}
+Release:	48%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Destruct-Level
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-Destruct-Level-%{version}.tar.gz
@@ -13,7 +13,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
@@ -43,12 +43,11 @@ destruction level for their own purposes: mod_perl does that, for example.
 %setup -q -n Perl-Destruct-Level-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -61,6 +60,9 @@ make test
 %{_mandir}/man3/Perl::Destruct::Level.3*
 
 %changelog
+* Fri Sep 25 2026 Paul Howarth <paul@city-fan.org> - 0.02-48
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.02-47
 - Perl 5.44 rebuild
 

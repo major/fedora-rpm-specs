@@ -500,7 +500,7 @@ cat > macros.emacs << EOF
 %%_emacs_archsitelispdir %%{_libdir}/emacs/site-lisp
 %%_emacs_sitelispdir %{site_lisp}
 %%_emacs_sitestartdir %{site_start_d}
-%%_emacs_bytecompile(W) /usr/bin/emacs -batch --no-init-file --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
+%%_emacs_bytecompile(W) /usr/bin/emacs --batch --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
 EOF
 
 cat > 00-dynamic-module-dir.el << 'EOF'
@@ -585,7 +585,10 @@ ln -s emacs-%{version}-nw %{buildroot}%{_bindir}/emacs-nox
 # Make sure movemail isn't setgid
 chmod 755 %{buildroot}%{emacs_libexecdir}/movemail
 
-mkdir -p %{buildroot}%{site_lisp} %{buildroot}%{site_start_d}
+mkdir -p \
+      %{buildroot}%{_datadir}/%{name}/%{version}/site-lisp/elpa \
+      %{buildroot}%{site_lisp} \
+      %{buildroot}%{site_start_d}
 install -p -m 0644 %SOURCE5 %{buildroot}%{site_lisp}/site-start.el
 install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
 install -p -m 0644 00-dynamic-module-dir.el %{buildroot}%{site_start_d}/
@@ -616,9 +619,15 @@ install -p -m 0755 emacs-desktop.sh %{buildroot}%{_bindir}/emacs-desktop
 
 # Install Fedora-specific manpages:
 install -p -m 0644 %SOURCE21 %{buildroot}%{_mandir}/man1/%{basename %SOURCE21}
+%if %{with gtkx11}
 install -p -m 0644 %SOURCE22 %{buildroot}%{_mandir}/man1/%{basename %SOURCE22}
+%endif
+%if %{with lucid}
 install -p -m 0644 %SOURCE23 %{buildroot}%{_mandir}/man1/%{basename %SOURCE23}
+%endif
+%if %{with nw}
 install -p -m 0644 %SOURCE24 %{buildroot}%{_mandir}/man1/%{basename %SOURCE24}
+%endif
 install -p -m 0644 %SOURCE25 %{buildroot}%{_mandir}/man1/%{basename %SOURCE25}
 
 # Remove duplicate desktop-related files
