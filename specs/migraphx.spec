@@ -49,7 +49,7 @@
 
 Name:           migraphx
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
@@ -313,6 +313,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/cmake/migraphx/
 
 %changelog
+* Sat Sep 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 7.2.2-7
+- Rebuilt for abseil-cpp 20260817.0 (again)
+
 * Fri Sep 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-6
 - Rebuild for 10.0
 

@@ -5,17 +5,15 @@
 %bcond xarray 1
 
 Name:           pyproj
-Version:        3.7.2
-Release:        10%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
-# see: https://github.com/pyproj4/pyproj/issues/1553
-# and: https://github.com/pyproj4/pyproj/pull/1557
-Patch1:         pyproj-proj-9.7.1.patch
+Patch1:         pyproj-proj-9.6.2.patch
 
 BuildRequires:  gcc
 BuildRequires:  proj-devel >= %{minimal_needed_proj_version}
@@ -131,6 +129,9 @@ mkdir -p %{buildroot}%{_datadir}/doc/%{name}
 mv %{_builddir}/%{name}-%{version}/docs/_build/html \
    %{buildroot}%{_datadir}/doc/%{name}/html
 
+# remove the hidden .buildinfo file
+rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo
+
 # copy pyproj man page
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp %{_builddir}/%{name}-%{version}/docs/_build/man/pyproj.1 \
@@ -186,6 +187,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Sat Sep 26 2026 Jos de Kloe <josdekloe@gmail.com> 3.8.0-1
+- Update to 3.8.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.7.2-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

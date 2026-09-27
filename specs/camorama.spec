@@ -1,15 +1,30 @@
 Name:           camorama
-Version:        0.21.2
-Release:        14%{?dist}
+Version:        0.30.0
+Release:        1%{?dist}
 Summary:        Gnome webcam viewer
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            https://github.com/alessio/camorama
-Source0:        https://linuxtv.org/downloads/camorama/camorama-%{version}.tar.gz
-Patch0:		fix_crash_on_device_change.patch
-BuildRequires:  gcc desktop-file-utils libappstream-glib
-BuildRequires:  gettext-devel libv4l-devel gtk3-devel cairo-devel
-BuildRequires:  gdk-pixbuf2-devel gnome-common make
+URL:            https://github.com/mchehab/camorama
+Source0:        https://linuxtv.org/downloads/camorama/camorama-%{version}.tar.xz
+BuildRequires:  meson >= 0.60
+BuildRequires:  ninja-build
+BuildRequires:  gcc
+BuildRequires:  g++
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  gettext-devel
+BuildRequires:  gtk4-devel
+BuildRequires:  cairo-devel
+BuildRequires:  libv4l-devel
+BuildRequires:  libcamera-devel
+BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  alsa-lib-devel
+BuildRequires:  gdk-pixbuf2-devel
+BuildRequires:  libavcodec-free-devel
+BuildRequires:  libavutil-free-devel
+BuildRequires:  libswscale-free-devel
+BuildRequires:  ffmpeg-free
+BuildRequires:  gnome-common
 Requires:       hicolor-icon-theme
 
 %description
@@ -18,37 +33,37 @@ A simple Gnome webcam viewer, with the ability to apply some video effects.
 
 %prep
 %autosetup -p1
+%meson
 
 %build
-./autogen.sh
-%configure --prefix /usr
-%make_build
-
+%meson_build
 
 %install
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
-%make_install
-%find_lang %{name}
+%meson_install
 
-# below is the desktop file and icon stuff.
-desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{name}.desktop
+# Meson already installs the desktop file and icons in their final locations.
 appstream-util validate-relax --nonet \
   $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
 
 
-%files -f %{name}.lang
+%files
 %doc AUTHORS ChangeLog README.md THANKS TODO
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/glib-2.0/schemas/*
+%{_datadir}/locale/*/LC_MESSAGES/%{name}.mo
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/camorama.desktop
 %{_datadir}/icons/hicolor/*x*/devices/%{name}.png
+%{_datadir}/pixmaps/camorama-*.png
 %{_mandir}/man1/%{name}.1*
 
 
 %changelog
+* Sat Sep 26 2026 Mauro Carvalho Chehab <mchehab@kernel.org> - 0.30.1-1
+- Bump to version 0.30.1: gtk4, libcamera, audio, better decoders
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

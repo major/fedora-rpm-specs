@@ -3,13 +3,16 @@
 
 Name:          xapian-bindings
 Version:       1.4.31
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://www.xapian.org/
 Source0:       https://www.oligarchy.co.uk/xapian/%{version}/%{name}-%{version}.tar.xz
+# https://github.com/xapian/xapian/commit/64c7de24cb5cfae61017e05bd9f4094d88e27c2d
+# Support python 3.15 / swig 4.5
+Patch0:        xapian-git64c7de24-support-swig-4_5.patch
 
 BuildRequires: gcc-c++
 BuildRequires: libuuid-devel
@@ -19,7 +22,8 @@ BuildRequires: python3-devel python3-setuptools python3-sphinx
 BuildRequires: ruby ruby-devel rubygems rubygem-rdoc rubygem-json
 # swig 4.4.0+ contains a fix for PyThread_release_lock/PyThread_free_lock in Mutex destructor
 # needed for successful build with Python 3.15
-BuildRequires: swig >= 4.4.0
+# Patch0 is needed for swig 4.5.0, but with swig 4.4.0 build fails
+BuildRequires: swig >= 4.5.0
 BuildRequires: tcl-devel
 BuildRequires: xapian-core-devel
 BuildRequires: zlib-devel
@@ -117,6 +121,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Sat Sep 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.31-5
+- Backport upstream fix to support swig 4.5
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.4.31-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

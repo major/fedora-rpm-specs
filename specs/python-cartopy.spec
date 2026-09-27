@@ -4,7 +4,7 @@
 %bcond_with network
 
 Name:           python-%{srcname}
-Version:        0.25.0
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Cartographic Python library with Matplotlib visualisations
 
@@ -13,11 +13,6 @@ URL:            https://scitools.org.uk/cartopy/docs/latest/
 Source0:        %pypi_source %{srcname}
 # Set location of Fedora-provided pre-existing data.
 Source1:        siteconfig.py
-
-# Fedora specific.
-Patch:          0001-Reduce-numpy-build-dependency.patch
-# Might not go upstream in current form.
-Patch:          0002-Increase-tolerance-for-new-FreeType.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

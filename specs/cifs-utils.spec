@@ -2,7 +2,7 @@
 %define pre_release %nil
 
 Name:            cifs-utils
-Version:         7.7
+Version:         7.8
 Release:         %autorelease
 Summary:         Utilities for mounting and managing CIFS mounts
 
@@ -21,8 +21,6 @@ Requires(preun): /usr/sbin/alternatives
 Recommends: %{name}-info%{?_isa} = %{version}-%{release}
 
 Source0:         https://download.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-
-Patch0: cifs.upcall-fix-krb5-regression-with-trust-dns.patch
 
 %description
 The SMB/CIFS protocol is a standard file sharing protocol widely deployed

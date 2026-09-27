@@ -5,13 +5,22 @@
 %global crate reqsign-aws-core
 
 Name:           rust-reqsign-aws-core
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Shared AWS credential and request canonicalization support for reqsign
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-aws-core
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow older quick-xml 0.41 for now,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2521541; upstream wants 0.42
+#   since
+#   https://github.com/apache/reqsign/commit/f66cecc9b8fa35063e32018f17dff3fbe34cc2a7,
+#   but (despite a long list of breaking changes,
+#   https://github.com/tafia/quick-xml/releases/tag/v0.42.0) there were no
+#   source-code changes.
+Patch:          reqsign-aws-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

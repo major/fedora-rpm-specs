@@ -6,7 +6,7 @@
 %endif
 
 Name:       pgbouncer
-Version:    1.25.2
+Version:    1.26.0
 Release:    %autorelease
 Summary:    Lightweight connection pooler for PostgreSQL
 License:    ISC and BSD-2-Clause
@@ -18,9 +18,6 @@ Source4:    %{name}.service
 Source6:    %{name}.pam
 
 Patch0:     %{name}-ini.patch
-# OpenSSL4 - Avoid reaching into struct asn1_string_st #1440
-# from https://github.com/pgbouncer/pgbouncer/pull/1440
-Patch1:     da9cddca2de556ea0d58b45e1a433a01ee44ff66.patch
 
 BuildRequires:  c-ares-devel >= 1.11
 BuildRequires:  make

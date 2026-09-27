@@ -116,6 +116,7 @@ unit tests, coverage reports, Valgrind, CCache and the like.
 
 %package srpm-macros
 Summary:        rpm macros to build projects using meson
+Conflicts:      meson < 1.12.0-2
 
 %description srpm-macros
 This package contains %{summary}.

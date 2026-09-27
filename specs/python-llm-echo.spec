@@ -1,11 +1,12 @@
 Summary:        Debug plugin for python-llm
 Name:           python-llm-echo
 Version:        0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm-echo
 Source:         https://github.com/simonw/llm-echo/archive/%{version}/llm-echo-%{version}.tar.gz
 Patch:          python-llm-0.4-format-fix.patch
+Patch:          0001-Fix-tests.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -41,6 +42,9 @@ Summary:        %{summary}
 %files -n python3-llm-echo -f %{pyproject_files}
 
 %changelog
+* Sat Sep 26 2026 Terje Røsten <terjeros@gmail.com> - 0.4-4
+- Fix tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,14 +1,11 @@
 Name:           xdotool
-Version:        3.20211022.1
+Version:        4.20260303.1
 Epoch:          1
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Fake keyboard/mouse input
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/jordansissel/xdotool
-Source0:        https://github.com/jordansissel/xdotool/releases/download/v%{version}/xdotool-%{version}.tar.gz
-
-Patch0:         0001-Use-XTEST-instead-of-XWarpPointer-with-a-single-scre.patch
+Source0:        https://github.com/jordansissel/xdotool/archive/v%{version}/xdotool-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -34,10 +31,8 @@ developing applications that use libxdo
 
 %prep
 %setup -q
-%patch 0 -p1
 
 %build
-%set_build_flags
 %make_build WITHOUT_RPATH_FIX=1
 
 %install
@@ -50,7 +45,7 @@ chmod 0644 examples/ffsp.sh
 
 %files -n libxdo
 %doc CHANGELIST COPYRIGHT README.md
-%{_libdir}/*.so.3*
+%{_libdir}/*.so.4*
 
 %files -n libxdo-devel
 %{_includedir}/*
@@ -63,6 +58,9 @@ chmod 0644 examples/ffsp.sh
 %doc examples
 
 %changelog
+* Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:4.20260303.1-1
+- Update to v4.20260303.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.20211022.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

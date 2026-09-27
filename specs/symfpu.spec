@@ -27,7 +27,7 @@ again, performance will likely not be good).
 
 %package devel
 Summary:        Development files for %{name}
-BuildArch:      noarch
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains header files and library links for developing

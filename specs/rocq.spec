@@ -7,15 +7,15 @@
 
 %global giturl  https://github.com/rocq-prover/rocq
 
-# As of rocq 9.2.0, the native compiler only works on x86_64
-%ifarch %{x86_64}
+# As of rocq 9.3.0, the native compiler only works on x86_64 and aarch64
+%ifarch %{x86_64} %{arm64}
 %bcond native 1
 %else
 %bcond native 0
 %endif
 
 Name:           rocq
-Version:        9.2.0
+Version:        9.3.0
 Release:        %autorelease
 Summary:        Proof management system
 
@@ -32,8 +32,6 @@ Source2:        org.rocq-prover.rocqide.metainfo.xml
 Source3:        rocq.xml
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
-# Adapt to dune 3.24
-Patch:          %{name}-dune-3.24.patch
 
 # Rocq's plugin architecture requires cmxs files.  In addition, neither Java
 # nor OCaml is available on i386, but since i386 is not in
@@ -47,10 +45,12 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cairo-devel >= 0.6.4
-BuildRequires:  ocaml-dune >= 3.8
+BuildRequires:  ocaml-dune >= 3.21
 BuildRequires:  ocaml-findlib-devel >= 1.9.1
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.1.2
+BuildRequires:  ocaml-yojson-devel
 BuildRequires:  ocaml-zarith-devel >= 1.11
+BuildRequires:  ocaml-zip-devel
 BuildRequires:  python3-devel
 
 %if %{with test}
@@ -69,6 +69,7 @@ BuildRequires:  %{py3_dist beautifulsoup4}
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
+BuildRequires:  %{py3_dist sphinx-markdown-builder}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  tex(adjustbox.sty)
@@ -309,7 +310,7 @@ make dunestrap VERBOSE=1 DUNEOPT="--verbose --profile=release"
 # Build the documentation
 export ROCQLIB=${PWD}/_build/install/default/lib/coq
 export SPHINXWARNOPT="-w$PWD/sphinx-warn.log"
-%dune_build @refman-html @refman-pdf @corelib-html
+make refman-html refman-pdf corelib-html
 
 %install
 %dune_install %{!?_with_test:rocq-runtime rocq-core coq-core coqide-server rocqide}
@@ -327,12 +328,12 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/%{name}
 find _build/default/doc -name .buildinfo -delete
 
 # Install the documentation
-rm -fr _build/default/doc/refman-html/.doctrees
-mkdir -p %{buildroot}%{rocqdocdir}/refman-pdf
-mv _build/default/doc/refman-pdf/rocq*.pdf %{buildroot}%{rocqdocdir}/refman-pdf/
-mv _build/default/doc/refman-html %{buildroot}%{rocqdocdir}/refman-html
+mkdir -p %{buildroot}%{rocqdocdir}/{corelib,refman-pdf}
+cp -p doc/refman-pdf/rocq*.pdf %{buildroot}%{rocqdocdir}/refman-pdf/
+cp -a doc/refman-html %{buildroot}%{rocqdocdir}
+mv _build/default/doc/common %{buildroot}%{rocqdocdir}
 mv _build/default/doc/corelib/html %{buildroot}%{rocqdocdir}/corelib
-mv _build/default/doc/corelib/_index.html %{buildroot}%{rocqdocdir}/corelib/
+mv _build/default/doc/corelib/*.html %{buildroot}%{rocqdocdir}/corelib/
 
 # Install desktop and file type icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps

@@ -5,7 +5,7 @@
 %global crate reqsign-core
 
 Name:           rust-reqsign-core
-Version:        3.3.1
+Version:        3.3.2
 Release:        %autorelease
 Summary:        Signing API requests without effort
 
@@ -14,13 +14,6 @@ URL:            https://crates.io/crates/reqsign-core
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          reqsign-core-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * refactor: replace mea with asyncband 0.7.1:
-#   https://github.com/apache/opendal-reqsign/commit/0c93e4a97777776b09a499f23ba6bb06e0820482;
-#   requires an accompanying source-code patch
-Patch:          reqsign-core-fix-metadata.diff
-# * Source-code patch for replacing mea with asyncband 0.7.1
-Patch10:        reqsign-core-3.3.1-asyncband.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

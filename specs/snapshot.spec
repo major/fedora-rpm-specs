@@ -73,6 +73,8 @@ Requires:       hicolor-icon-theme
 
 Provides:       bundled(crate(aperture)) = 0.12.0
 
+Obsoletes:      cheese < 2:44.1-17
+
 %description
 Take pictures and videos on your computer, tablet, or phone.
 

@@ -5,7 +5,7 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.28.4
+Version:        0.28.5
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 

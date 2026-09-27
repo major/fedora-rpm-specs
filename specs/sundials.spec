@@ -8,7 +8,12 @@
 
 # Enable Python support
 # sundials4py is in beta and is subject to breaking changes
+# sundials4py needs Numpy-2, unavailable on RHEL
+%if 0%{?fedora}
 %bcond_without python
+%else
+%bcond_with python
+%endif
 #
 
 # https://github.com/LLNL/sundials/issues/97

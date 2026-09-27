@@ -5,7 +5,7 @@
 %global crate reqsign-google
 
 Name:           rust-reqsign-google
-Version:        3.0.3
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Google Cloud Platform signing implementation for reqsign
 
@@ -31,6 +31,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -45,10 +47,21 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+credential-access-boundary-client-side-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+credential-access-boundary-client-side-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "credential-access-boundary-client-side" feature of the
+"%{crate}" crate.
+
+%files       -n %{name}+credential-access-boundary-client-side-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Remove unused mock server scripts from tests to avoid a Python dependency
-rm -rv tests/mocks
 %cargo_prep
 
 %generate_buildrequires

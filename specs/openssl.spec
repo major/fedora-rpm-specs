@@ -30,7 +30,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 4.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source4: openssl.rpmlintrc
@@ -97,7 +97,7 @@ support cryptographic algorithms and protocols.
 Summary: Files for development of applications which will use OpenSSL
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
-Obsoletes: openssl-devel-engine < 4.0
+Obsoletes: openssl-devel-engine < 1:4.0
 
 %description devel
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel
@@ -378,6 +378,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Sat Sep 26 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1:4.0.2-4
+- Really obsolete openssl-devel-engine
+  Resolves: rhbz#2527847
+
 * Wed Sep 09 2026 Pavol Žáčik <pzacik@redhat.com> - 1:4.0.2-3
 - Do not advertise OPENSSL_INIT_LOAD_CONFIG in optsdone too soon
   (Backport https://github.com/openssl/openssl/pull/32646)

@@ -5,7 +5,7 @@
 %global crate reqsign-aws-v4
 
 Name:           rust-reqsign-aws-v4
-Version:        3.0.3
+Version:        3.3.1
 Release:        %autorelease
 Summary:        AWS SigV4 signing implementation for reqsign
 
@@ -17,13 +17,22 @@ Source:         %{crates_source}
 # * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
 #   not want to package them; these are used only for benchmarks and for one
 #   group of tests.
+# * Allow older quick-xml 0.41 for now,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2521541; upstream wants 0.42
+#   since
+#   https://github.com/apache/reqsign/commit/f66cecc9b8fa35063e32018f17dff3fbe34cc2a7,
+#   but (despite a long list of breaking changes,
+#   https://github.com/tafia/quick-xml/releases/tag/v0.42.0) there were no
+#   source-code changes.
 Patch:          reqsign-aws-v4-fix-metadata.diff
-# * Downstream-only: avoid a dev-dependency on aws-sigv4 and
+# * Downstream-only: avoid dev-dependencies on aws-sigv4 and
 #   aws-credential-types
-Patch10:        reqsign-aws-v4-2.0.0-unwanted-dev-deps.patch
+Patch10:        reqsign-aws-v4-3.3.0-unwanted-dev-deps.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+%if %{with check}
 BuildRequires:  python3-devel
+%endif
 
 %global _description %{expand:
 AWS SigV4 signing implementation for reqsign.}
@@ -41,8 +50,10 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/mocks/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -58,11 +69,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix Python shebangs for mock servers that are installed with tests.
-%{py3_shebang_fix} tests/mocks
-# Only credential_process_helper.py is used during the tests. Others do not
-# even have executable permissions; their shebangs are useless, so remove them.
-find tests/mocks -type f ! -executable -exec sed -r -i '1{/^#!/d}' '{}' '+'
 %cargo_prep
 
 %generate_buildrequires
@@ -73,11 +79,6 @@ find tests/mocks -type f ! -executable -exec sed -r -i '1{/^#!/d}' '{}' '+'
 
 %install
 %cargo_install
-# Remove shebang and unset execute bit on credential_process_helper.py to avoid
-# generating a dependency on the python3 interpreter; we needed these for
-# running the crate’s tests, but not for building the crate as a dependency.
-find %{buildroot}%{crate_instdir}/tests/mocks -type f -executable \
-    -exec chmod -v a-x '{}' '+' -exec sed -r -i '1{/^#!/d}' '{}' '+'
 
 %if %{with check}
 %check

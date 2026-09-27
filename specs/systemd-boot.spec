@@ -1,5 +1,5 @@
 Name:           systemd-boot
-Version:        261.2
+Version:        262
 Release:        %autorelease
 Summary:        UEFI boot manager
 

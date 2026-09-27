@@ -1,8 +1,8 @@
 %global srcname bitstring
 
 Name:           python-%{srcname}
-Version:        4.1.4
-Release:        13%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
@@ -27,6 +27,8 @@ to a file or stream.}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-hypothesis
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -50,14 +52,23 @@ sed -i '1{s|^#!\(/usr\)\?/bin/\(env \)\?python\d\?$||}' %{srcname}/__init__.py
 
 
 %check
-%{__python3} -m unittest
+# test_fp8+test_mxfp needs gfloat, unpackaged yet
+# test_benchmarks is for benchmarking, needs pytest-benchmark
+%pytest \
+  --ignore tests/test_fp8.py \
+  --ignore tests/test_mxfp.py \
+  --ignore tests/test_benchmarks.py \
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
-%doc README.md release_notes.txt
+%doc README.md
 
 
 %changelog
+* Tue Sep 22 2026 Miro Hrončok <miro@hroncok.cz> - 4.3.1-1
+- Update to 4.3.1
+- Fixes: rhbz#2513926
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
