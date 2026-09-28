@@ -5,11 +5,10 @@
 %global crate siphasher
 
 Name:           rust-siphasher
-Version:        1.0.2
+Version:        1.0.4
 Release:        %autorelease
-Summary:        SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust
+Summary:        SipHash-2-4 and SipHash-1-3 keyed hash functions in pure Rust
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/siphasher
 Source:         %{crates_source}
@@ -17,7 +16,8 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust.}
+SipHash-2-4 and SipHash-1-3 keyed hash functions in pure Rust, with
+64-bit and 128-bit output and no_std support.}
 
 %description %{_description}
 
@@ -32,6 +32,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

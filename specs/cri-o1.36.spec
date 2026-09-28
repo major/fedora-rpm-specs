@@ -8,10 +8,10 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.36
-%global crio_spec_ver   1.36.5
+%global crio_spec_ver   1.36.6
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.36.5
+%global crio_tag        v1.36.6
 %global golangver       1.26.4
 
 # Related: github.com/cri-o/cri-o/issues/3684
@@ -141,12 +141,15 @@ GO_MD2MAN=go-md2man %make_build docs
 
 # generate systemd unit files
 sed -i 's/\/local//' contrib/systemd/crio.service
+
+# generate crio.conf
 %{gobuilddir}/bin/crio \
-      --selinux \
-      --cni-plugin-dir /opt/cni/bin \
-      --cni-plugin-dir "%{_libexecdir}/cni" \
+      --cni-plugin-dir="/opt/cni/bin" \
+      --cni-plugin-dir="%{_libexecdir}/cni" \
       --enable-metrics \
-      --metrics-port 9537 \
+      --metrics-port="9537" \
+      --cni-plugin-dir="%{_libexecdir}/cni" \
+      --pinns-path="%{_libexecdir}/crio/pinns" \
       config > crio.conf
 
 %go_vendor_license_install -c %{S:2}

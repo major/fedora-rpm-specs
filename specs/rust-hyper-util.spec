@@ -5,7 +5,7 @@
 %global crate hyper-util
 
 Name:           rust-hyper-util
-Version:        0.1.20
+Version:        0.1.21
 Release:        %autorelease
 Summary:        Hyper utilities
 
@@ -145,6 +145,18 @@ use the "http2" feature of the "%{crate}" crate.
 %files       -n %{name}+http2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+rt-tracing-exec-force-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rt-tracing-exec-force-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rt-tracing-exec-force" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rt-tracing-exec-force-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+server-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -222,18 +234,18 @@ use the "tracing" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f client,client-legacy,http1,http2,server,tokio
+%cargo_generate_buildrequires -f client,client-legacy,http1,http2,server,tokio,tracing
 
 %build
-%cargo_build -f client,client-legacy,http1,http2,server,tokio
+%cargo_build -f client,client-legacy,http1,http2,server,tokio,tracing
 
 %install
-%cargo_install -f client,client-legacy,http1,http2,server,tokio
+%cargo_install -f client,client-legacy,http1,http2,server,tokio,tracing
 
 %if %{with check}
 %check
 # * Skipped test requires network access
-%cargo_test -f client,client-legacy,http1,http2,server,tokio -- -- --exact --skip test_socks_v5_with_locally_resolved_domain_works
+%cargo_test -f client,client-legacy,http1,http2,server,tokio,tracing -- -- --exact --skip test_socks_v5_with_locally_resolved_domain_works
 %endif
 
 %changelog

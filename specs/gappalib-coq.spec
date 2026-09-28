@@ -3,7 +3,7 @@
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global rocqver 9.2.0
+%global rocqver 9.3.0
 
 Name:           gappalib-coq
 Version:        1.11.0
@@ -14,6 +14,8 @@ License:        LGPL-3.0-or-later
 URL:            https://gappa.gitlabpages.inria.fr/
 VCS:            git:https://gitlab.inria.fr/gappa/coq.git
 Source:         %{url}releases/%{name}-%{version}.tar.gz
+# Adapt to rocq 9.3
+Patch:          %{name}-rocq9.3.patch
 
 # Coq's plugin architecture requires cmxs files
 ExclusiveArch:  %{ocaml_native_compiler}
@@ -53,7 +55,7 @@ files are not needed to use gappalib-coq.  They are made available for
 informational purposes.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %conf
 # Enable debuginfo

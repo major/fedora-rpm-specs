@@ -1,11 +1,11 @@
 Name:           perl-Email-Sender
 Epoch:          1
-Version:        2.601
-Release:        8%{?dist}
+Version:        2.603
+Release:        1%{?dist}
 Summary:        A library for sending email
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Email-Sender
+URL:            https://metacpan.org/dist/Email-Sender
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Sender-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -81,6 +81,9 @@ suitable for serious use, for a variety of reasons.
 %{_mandir}/man3/Email::Sender*
 
 %changelog
+* Sun Sep 27 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1:2.603-1
+- Update to 2.603 (fixes CVE-2026-93012)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.601-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

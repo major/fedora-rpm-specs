@@ -1,12 +1,11 @@
 Name:           perl-HTML-FormFu
-Version:        2.07
-Release:        25%{?dist}
+Version:        2.09
+Release:        1%{?dist}
 Summary:        HTML Form Creation, Rendering and Validation Framework
 # lib/HTML/FormFu.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-FormFu
-Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFRANKS/HTML-FormFu-%{version}.tar.gz
-Patch0:         HTML-FormFu-CVE-2026-19873.patch
+Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/HTML-FormFu-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -45,7 +44,7 @@ BuildRequires:  perl(HTML::TokeParser::Simple) >= 3.14
 BuildRequires:  perl(HTTP::Headers) >= 1.64
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(JSON::MaybeXS)
-BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::SomeUtils)
 BuildRequires:  perl(Locale::Maketext)
 BuildRequires:  perl(Module::Pluggable)
 BuildRequires:  perl(Moose) >= 1.00
@@ -69,6 +68,7 @@ BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More) >= 0.92
 BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(YAML::XS) >= 0.32
+BuildRequires:  perl(blib)
 BuildRequires:  sed
 Requires:       perl(Captcha::reCAPTCHA) >= 0.93
 Requires:       perl(Class::Accessor::Chained::Fast)
@@ -98,7 +98,6 @@ anything else you might want to do (as long as it involves forms).
 
 %prep
 %setup -q -n HTML-FormFu-%{version}
-%patch -P 0 -p1
 
 find examples -type f | xargs chmod 644
 find examples -type f | xargs sed -i -e 's/\r//'
@@ -109,7 +108,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-rm -rf $RPM_BUILD_ROOT/blib
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -124,6 +122,10 @@ rm -rf $RPM_BUILD_ROOT/blib
 %{_mandir}/man3/HTML::FormFu*
 
 %changelog
+* Sun Sep 27 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.09-1
+- Update to 2.09
+- Drop upstreamed patch
+
 * Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.07-25
 - Update release number
 

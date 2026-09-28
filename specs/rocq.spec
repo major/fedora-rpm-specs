@@ -8,7 +8,8 @@
 %global giturl  https://github.com/rocq-prover/rocq
 
 # As of rocq 9.3.0, the native compiler only works on x86_64 and aarch64
-%ifarch %{x86_64} %{arm64}
+# But it is buggy on aarch64. Try again with the next release
+%ifarch %{x86_64}
 %bcond native 1
 %else
 %bcond native 0

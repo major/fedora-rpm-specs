@@ -6,11 +6,11 @@
 # the rocq spec for details.
 
 %global stdlibdir %{ocamldir}/coq/user-contrib/Stdlib
-%global rocqver   9.2.0
+%global rocqver   9.3.0
 %global giturl    https://github.com/rocq-prover/stdlib
 
 Name:           rocq-stdlib
-Version:        9.1.0
+Version:        9.2.0
 Release:        %autorelease
 Summary:        The Rocq proof assistant standard library
 
@@ -18,8 +18,6 @@ License:        LGPL-2.1-only
 URL:            https://rocq-prover.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/V%{version}/%{name}-%{version}.tar.gz
-# Adapt to dune 3.24
-Patch:          %{name}-dune-3.24.patch
 
 # Rocq's plugin architecture requires cmxs files.
 ExclusiveArch:  %{ocaml_native_compiler}
@@ -29,8 +27,8 @@ BuildOption(build): -p rocq-stdlib
 BuildOption(install): -n rocq-stdlib
 
 BuildRequires:  rocq = %{rocqver}
-BuildRequires:  ocaml >= 4.09.0
-BuildRequires:  ocaml-dune >= 3.6.1
+BuildRequires:  ocaml >= 4.14
+BuildRequires:  ocaml-dune >= 3.21
 BuildRequires:  ocaml-findlib
 
 Requires:       rocq-core%{?_isa} = %{rocqver}

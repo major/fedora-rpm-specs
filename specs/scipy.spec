@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.18.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -176,6 +176,9 @@ sed -i "/array-api-strict/s/>=2\.3\.1/>=2/" pyproject.toml
 
 # Loosen the upper bound on Cython
 sed -i '/Cython/s/,<[0-9.]\+//' pyproject.toml
+
+# Loosen the upper bound on meson-python, which is merely preemptive
+sed -i '/meson-python/s/,<[0-9.]\+//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -p %{?with_tests:-x test} %{build_backend_args}
@@ -327,6 +330,9 @@ popd
 %endif
 
 %changelog
+* Sat Sep 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.18.0-3
+- Allow building with meson-python 0.22 (and later)
+
 * Tue Sep 22 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.18.0-2
 - Skip test_smoke_economic and test_reproduction_NaN_on_input_points on RISC-V.
 

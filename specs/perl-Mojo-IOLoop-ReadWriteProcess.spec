@@ -1,6 +1,6 @@
 Name:           perl-Mojo-IOLoop-ReadWriteProcess
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Execute external programs or internal code blocks as separate process
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -54,6 +54,8 @@ BuildRequires:  perl(utf8)
 BuildRequires:  procps-ng
 
 Requires:       perl(Mojo::EventEmitter)
+# To get prctl value for RISC-V
+Requires:       perl(syscall.ph)
 
 %{?perl_default_filter}
 
@@ -82,6 +84,9 @@ It executes external programs or internal code blocks as separate process
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Mon Sep 21 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.1.0-5
+- Add syscall.ph dependency for RISC-V
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

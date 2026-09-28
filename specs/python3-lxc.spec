@@ -1,13 +1,11 @@
 Name:           python3-lxc
-Version:        5.0.0
-Release:        19%{?dist}
+Version:        7.0.0
+Release:        1%{?dist}
 Summary:        Python binding for LXC
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://linuxcontainers.org/lxc
 Source0:        https://linuxcontainers.org/downloads/lxc/%{name}-%{version}.tar.gz
-# see https://github.com/lxc/python3-lxc/issues/35
-Patch0:         lxc-5.0.0_py3.13.patch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  lxc-devel >= 3.0.0
 BuildRequires:  pkgconfig
@@ -37,7 +35,7 @@ Summary: Python binding for LXC
 
 
 %prep
-%autosetup
+%autosetup -n python3_lxc-%{version}
 
 
 %generate_buildrequires
@@ -67,6 +65,12 @@ sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sun Sep 27 2026 Thomas Moschny <thomas.moschny@gmx.de> - 7.0.0-1
+- Update to 7.0.0.
+
+* Sun Sep 27 2026 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.0-20
+- Add upstream patch to fix "random" personality corruption.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.0.0-19
 - Rebuilt for Python 3.15.0b4 ABI change
 

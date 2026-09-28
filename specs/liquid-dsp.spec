@@ -1,7 +1,7 @@
-%global sover 1.8.2
+%global sover 1.8.3
 
 Name:           liquid-dsp
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Summary:        Digital Signal Processing Library for Software-Defined Radios
 
@@ -64,9 +64,13 @@ popd > /dev/null 2>&1
 %files -n %{name}-devel
 %{_includedir}/liquid/
 %{_libdir}/libliquid.so
+%{_libdir}/pkgconfig/liquid-dsp.pc
 
 
 %changelog
+* Mon Sep 28 2026 Richard Shaw <hobbes1069@gmail.com> - 1.8.3-1
+- Update to 1.8.3.
+
 * Mon Aug 17 2026 Richard Shaw <hobbes1069@gmail.com> - 1.8.2-1
 - Update to 1.8.2.
 

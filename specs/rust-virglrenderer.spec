@@ -5,17 +5,13 @@
 %global crate virglrenderer
 
 Name:           rust-virglrenderer
-Version:        0.1.3
+Version:        0.1.6
 Release:        %autorelease
 Summary:        Safe and idiomatic Rust wrapper for virglrenderer
 
 License:        MIT
 URL:            https://crates.io/crates/virglrenderer
 Source:         %{crates_source}
-# Relax libc dependency from 1.0.0-alpha.1 to 0.2.177
-# The upstream crate specifies libc 1.0.0-alpha.1, which is not yet available in Fedora.
-# Using libc 0.2.177 is compatible and provides all necessary functionality for this crate.
-Patch:          virglrenderer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

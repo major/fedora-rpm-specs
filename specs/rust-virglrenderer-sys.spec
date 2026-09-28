@@ -5,7 +5,7 @@
 %global crate virglrenderer-sys
 
 Name:           rust-virglrenderer-sys
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Raw FFI bindings for the virglrenderer C library
 

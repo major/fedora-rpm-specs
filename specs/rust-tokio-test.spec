@@ -5,7 +5,7 @@
 %global crate tokio-test
 
 Name:           rust-tokio-test
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Testing utilities for Tokio- and futures-based code
 

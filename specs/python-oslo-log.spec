@@ -25,9 +25,12 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+BuildRequires:  git-core
+
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  %{gpgverify}
 %endif
 
 %description
@@ -39,9 +42,6 @@ BuildRequires:  /usr/bin/gpgv2
 
 %package -n python3-%{pkg_name}
 Summary:        OpenStack Oslo Log library
-
-BuildRequires:  python3-devel
-BuildRequires:  git-core
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python3-%{pkg_name}
@@ -63,7 +63,7 @@ Requires:   python3-%{pkg_name} = %{version}-%{release}
 
 
 %description -n python3-%{pkg_name}-tests
-%{common_desc1}
+%{common_desc}
 
 Tests for the Oslo Log handling library.
 
@@ -81,13 +81,13 @@ Translation files for Oslo log library
 %endif
 %autosetup -n oslo_log-%{version} -S git
 
+sed -i '1{/^#!/d}' oslo_log/cmds/convert_json.py
+
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[!><=]/d" \
-    -e "/^reno[[:space:]]*[!><=]/d" \
-    -e "/^eventlet[[:space:]]*[!><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
+%pyproject_patch_dependency eventlet:ignore
 
 # see check section below
 sed -i '\|eventlet\.hubs\.get_hub()|d' tox.ini
@@ -115,7 +115,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 # Generate i18n files
 # This invocation is os of course deprecated, I think the correct thing to do may be:
-# pybabel compile -d %{buildroot}%{python3_sitelib}/oslo_log/locale -D oslo_log
+# pybabel compile -d %%{buildroot}%%{python3_sitelib}/oslo_log/locale -D oslo_log
 # which will need a BR on babel.
 python3 setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/oslo_log/locale --domain oslo_log
 

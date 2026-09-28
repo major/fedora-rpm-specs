@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           rust2rpm
-Version:        28.1.0
+Version:        28.2.0
 Release:        %autorelease
 Summary:        Generate RPM spec files for Rust crates
 License:        MIT
@@ -22,8 +22,11 @@ BuildRequires:  python3-libdnf5
 
 Requires:       cargo
 Requires:       cargo-rpm-macros
+
 Recommends:     rust2rpm-helper >= 0.1.2
 Recommends:     python3-libdnf5
+
+Recommends:     rust2rpm+ingredients
 
 # obsolete old provides (removed in Fedora 38)
 Obsoletes:      cargo-inspector < 24
@@ -36,6 +39,8 @@ Obsoletes:      python3-rust2rpm-core < 24
 %description
 rust2rpm is a tool that automates the generation of RPM spec files for
 Rust crates.
+
+%pyproject_extras_subpkg -n rust2rpm ingredients
 
 %prep
 %autosetup -n rust2rpm -p1
