@@ -1,7 +1,7 @@
 %global srcname dbus-client-gen
 
 Name:           python-%{srcname}
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Library for Generating D-Bus Client Code
 

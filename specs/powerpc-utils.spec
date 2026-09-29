@@ -1,30 +1,61 @@
-Name:           powerpc-utils
-Version:        1.3.13
-Release:        6%{?dist}
-Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
+Name: powerpc-utils
+Version: 1.3.13
+Release: 7%{?dist}
+Summary: PERL-based scripts for maintaining and servicing PowerPC systems
 
-License:        GPL-2.0-only
-URL:            https://github.com/ibm-power-utilities/powerpc-utils
-Source0:        https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        nx-gzip.udev
-Patch0:         powerpc-utils-1.3.11-manpages.patch
+License: GPL-2.0-only
+URL: https://github.com/ibm-power-utilities/powerpc-utils
+Source0: https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1: nx-gzip.udev
+Patch: powerpc-utils-1.3.11-manpages.patch
+
+# upstream patches
+Patch: 0001-powerpc-utils-lparstat:Fix-negative-values-for-%idle-PURR.patch
+Patch: 0002-powerpc-utils-drmgr-pci:Return-0-for-success-from-do_replace.patch
+Patch: 0003-powerpc-utils-cpu_info_helpers:Add-helper-function-to-retrieve-present-CPU-core-list.patch
+Patch: 0004-powerpc-utils-ppc64_cpu:Fix-handling-of-non-contiguous-CPU-IDs.patch
+Patch: 0005-powerpc-utils-lparstat:print-memory-mode-correctly.patch
+Patch: 0006-powerpc-utils-hcnmgr:Fix-network-conficts-across-distros.patch
+Patch: 0007-powerpc-utils-pseries_platform:Fix-ifdef-guard-typo.patch
+Patch: 0008-powerpc-utils-nvram:Correct-librtas-function-prototypes.patch
+Patch: 0009-powerpc-utils-sys_ident:Quiet-strncpy-warning.patch
+Patch: 0010-powerpc-utils-lparstat:Use-pool_capacity-for-determining-active-cpus-in-a-pool.patch
+Patch: 0011-powerpc-utils-smtstate:Start-smtstate-service-after-network-target.patch
+Patch: 0012-powerpc-utils-lsslot:dont-report-an-error-for-an-empty-PHB-list.patch
+Patch: 0013-powerpc-utils-lparstat:print-Maximum-System-Processors-patch
+Patch: 0014-powerpc-utils-lparstat:Add-Resource-group-monitoring-support-to-lparstat.patch
+Patch: 0015-powerpc-utils-drmgr:Update-cpuless_lmb_count-NUMA-counter-during-LMB-removal.patch
+Patch: 0016-powerpc-utils-drmgr:Remove-only-available-LMBs-from-CPU-less-NUMA-node.patch
+Patch: 0017-powerpc-utils-drmgr:Move-numa_topology-code-to-common_numa.patch
+Patch: 0018-powerpc-utils-drmgr:Move-read-lmb-size-property-code-to-common_ofdt.patch
+Patch: 0019-powerpc-utils-drmgr:Add-get_next_cpu-to-identify-the-removable-CPU.patch
+Patch: 0020-powerpc-utils-drmgr:Allocate-CPU-bitmap-for-each-NUMA-node.patch
+Patch: 0021-powerpc-utils-drmgr:Add-NUMA-configuration-update-for-CPU-remove.patch
+Patch: 0022-powerpc-utils-drmgr:Add-NUMA-based-CPU-removal.patch
+Patch: 0023-powerpc-utils-drmgr:Allow-signals-mentioned-in-new-sigset_t.patch
+Patch: 0024-powerpc-utils-drmgr:Add-timeout-signal-handling-for-NUMA-memory-REMOVE.patch
+Patch: 0025-powerpc-utils-drmgr:Do-not-remove-LMBs-when-the-timer-expires.patch
+Patch: 0026-powerpc-utils-ppc64_cpu:bring-power-mode-reporting-inline-with-PAPR-and-ASMI.patch
+Patch: 0027-powerpc-utils-drmgr:Use-30-secs-timeout-for-each-LMB-removal-kernel-interface.patch
+Patch: 0028-powerpc-utils-bootlist:ensure-non-nvme-devices-are-processed-with-add_logical.patch
+Patch: 0029-powerpc-utils-lparstat:report-virtual-cpus-as-vcpu-in-non-legacy-mode.patch
 
 ExclusiveArch:  ppc %{power64}
 
-BuildRequires:  gcc
-BuildRequires:  make
-BuildRequires:  automake
-BuildRequires:  doxygen
-BuildRequires:  zlib-devel
-BuildRequires:  librtas-devel >= 1.4.0
-BuildRequires:  libservicelog-devel >= 1.0.1-2
-BuildRequires:  perl-generators
-BuildRequires:  systemd
-BuildRequires:  numactl-devel
+BuildRequires: gcc
+BuildRequires: make
+BuildRequires: automake
+BuildRequires: doxygen
+BuildRequires: zlib-devel
+BuildRequires: librtas-devel >= 1.4.0
+BuildRequires: libservicelog-devel >= 1.0.1-2
+BuildRequires: perl-generators
+BuildRequires: systemd
+BuildRequires: numactl-devel
 
 # rtas_dump explicit dependency
-Requires:       perl(Data::Dumper)
-Requires:       %{name}-core = %{version}-%{release}
+Requires: perl(Data::Dumper)
+Requires: %{name}-core = %{version}-%{release}
 
 %description
 PERL-based scripts for maintaining and servicing PowerPC systems.
@@ -211,6 +242,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Mon Sep 28 2026 Than Ngo <than@redhat.com> - 1.3.13-7
+- Backport upstream patches
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

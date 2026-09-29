@@ -2,21 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate data-encoding-macro-internal
+%global crate reqsign-aws-v4a
 
-Name:           rust-data-encoding-macro-internal
-Version:        0.1.19
+Name:           rust-reqsign-aws-v4a
+Version:        3.0.6
 Release:        %autorelease
-Summary:        Internal library for data-encoding-macro
+Summary:        AWS SigV4a signing implementation for reqsign
 
-License:        MIT
-URL:            https://crates.io/crates/data-encoding-macro-internal
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign-aws-v4a
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
+#   not want to package them; these are used only for benchmarks and for one
+#   group of tests.
+Patch:          reqsign-aws-v4a-fix-metadata.diff
+# * Downstream-only: avoid dev-dependencies on aws-sigv4 and
+#   aws-credential-types
+Patch10:        reqsign-aws-v4a-3.3.0-unwanted-dev-deps.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Internal library for data-encoding-macro.}
+AWS SigV4a signing implementation for reqsign.}
 
 %description %{_description}
 
@@ -31,6 +39,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

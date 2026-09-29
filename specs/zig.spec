@@ -27,7 +27,7 @@
 # dependency versions and cache
 
 # Compatible LLVM/Clang version definitions
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11 || (0%{?rhel} == 10 && "%{?distcore}" != ".el10_2" && "%{?dist}" != ".el10_2")
 %global         llvm_compat 21
 %endif
 %global         llvm_version 21.1.8

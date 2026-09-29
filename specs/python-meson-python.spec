@@ -12,7 +12,7 @@
 
 Name:           python-meson-python
 Summary:        The Python build backend for Meson projects
-Version:        0.21.1
+Version:        0.22.0
 Release:        %autorelease
 
 # SPDX
@@ -20,9 +20,13 @@ License:        MIT
 URL:            https://github.com/mesonbuild/meson-python
 Source:         %{pypi_source meson_python}
 
+# TST: Fix a minor typo in a test name
+# https://github.com/mesonbuild/meson-python/pull/911
+Patch:          %{url}/pull/911.patch
+
 # Downstream-only patch to remove the patchelf dependency (and corresponding
 # functionality), controlled by the patchelf build conditional
-Patch100:       meson-python-0.18.0-remove-patchelf.patch
+Patch100:       meson-python-0.22.0-remove-patchelf.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --pyproject-dependencies
@@ -103,18 +107,24 @@ k="${k-}${k+ and }not test_use_ansi_escapes"
 %endif
 %if %{without wheel}
 ignore="${ignore-} --ignore=tests/test_editable.py"
+ignore="${ignore-} --ignore=tests/test_rpath.py"
 ignore="${ignore-} --ignore=tests/test_wheel.py"
 ignore="${ignore-} --ignore=tests/test_wheelfile.py"
 %endif
 %if %{without patchelf}
+k="${k-}${k+ and }not test_cmake_subproject"
 k="${k-}${k+ and }not test_contents"
+k="${k-}${k+ and }not test_get_requires_for_build_wheel"
+# Including test_link_against_local_lib_rpath_ldflags:
+k="${k-}${k+ and }not test_link_against_local_lib_rpath"
 k="${k-}${k+ and }not test_local_lib"
 k="${k-}${k+ and }not test_rpath"
-k="${k-}${k+ and }not test_get_requires_for_build_wheel"
-k="${k-}${k+ and }not test_uneeded_rpath"
+# Including test_sharedlib_in_package_{legacy,rpath,rpath_ldflags}:
+k="${k-}${k+ and }not test_sharedlib_in_package"
+k="${k-}${k+ and }not test_unneeded_rpath"
 %endif
 
-%pytest ${ignore-} -k "${k-}"
+%pytest ${ignore-} -k "${k-}" --verbose
 %endif
 
 

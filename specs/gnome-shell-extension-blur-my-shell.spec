@@ -2,7 +2,7 @@
 %global uuid        %{extension}@aunetx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        72
+Version:        73
 Release:        %autorelease
 BuildArch:      noarch
 Summary:        Adds a blur look to different parts of the GNOME Shell

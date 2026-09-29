@@ -5,9 +5,9 @@
 %global crate ct-codecs
 
 Name:           rust-ct-codecs
-Version:        1.1.7
+Version:        1.1.8
 Release:        %autorelease
-Summary:        Constant-time base64, base32, and hex codecs reimplemented in Rust
+Summary:        Constant-time base64, base32, and hex codecs
 
 License:        MIT
 URL:            https://crates.io/crates/ct-codecs
@@ -16,7 +16,8 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Constant-time base64, base32, and hex codecs reimplemented in Rust.}
+Constant-time Base64, Base32, and hex encoding and decoding, with URL-
+safe Base64 and no_std support.}
 
 %description %{_description}
 

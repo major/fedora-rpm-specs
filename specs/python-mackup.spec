@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Keep your application settings in sync
 

@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        2.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 # main project is MIT
 # basemap-data* is LGPL-3.0-or-later AND MIT AND (MIT AND LicenseRef-Fedora-Public-Domain)
@@ -86,6 +86,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Sep 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-14
+- Drop upper pyproj pin
+
 * Mon Aug 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-13
 - Adjust matplotlib pin
 

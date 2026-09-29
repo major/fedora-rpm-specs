@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.7
-Release:        0%{?dist}
+Version:        8.8
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -124,6 +124,26 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Sep 28 2026 Kim Walisch <walki@fedoraproject.org> - 8.8-1
+- D_arm_neon.hpp: ARM NEON filtering for Gourdon's D algorithm
+- D.cpp: Refactor runtime SIMD dispatching
+- AC.cpp: Refactor runtime SIMD dispatching
+- Fix potential MinGW GCC 16 assertion warning in debug mode
+- AC_libdivide.hpp: Factor out inner-loop arithmetic using sum_pi_libdivide()
+- AC_default.hpp: Factor out inner-loop arithmetic using sum_pi()
+- Remove unnecessary integer literal suffixes
+- sieve/count_simd.hpp: New ARM NEON sieve count kernel, for ARM CPUs without ARM SVE
+- D_arm_sve.hpp: Use manual ARM SVE vectorization instead of relying on auto-vectorization
+- D_arm_sve.hpp: Improve CPU pipelining
+- D_avx512.hpp: Improve CPU pipelining
+- D_default.hpp: Improve CPU pipelining
+- AC_arm_sve.hpp: Add ARM SVE implementation of AC algorithm
+- AC.cpp: Add ARM SVE runtime dispatch
+- fast_div.hpp: Add ARM SVE integer division functions
+- test/fast_div.cpp: Add ARM SVE tests
+- Add AGENTS.md file for AI agents
+- Update to libprimesieve 12.16
+
 * Sun Aug 16 2026 Kim Walisch <walki@fedoraproject.org> - 8.7-0
 - primecount now requires C++14 or later (only for building, linking still works with C++11)
 - nth_prime_sieve.cpp: Fix rare OpenMP multi-threading bug

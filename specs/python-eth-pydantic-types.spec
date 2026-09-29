@@ -1,14 +1,14 @@
 %global pypi_name eth_pydantic_types
 
 Name:          python-eth-pydantic-types
-Version:       0.2.6
+Version:       0.2.7
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ETH Pydantic types
 License:       Apache-2.0
 URL:           https://github.com/ApeWorX/eth-pydantic-types
 VCS:           git:%{url}.git
-Source0:       %{pypi_source %pypi_name}
+Source:        %{pypi_source %pypi_name}
 Patch:         python-eth-pydantic-types-0001-Go-back-to-a-pure-python-to_checksum_address.patch
 BuildRequires: python3-eth-typing
 BuildRequires: python3-eth-utils

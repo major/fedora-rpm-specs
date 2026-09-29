@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -88,6 +88,9 @@ Requires:       pipewire
 
 # The plugin system uses git at runtime as well
 Requires:       git-core
+
+# Default sound theme
+Requires:       sound-theme-freedesktop
 
 # Optional requirements for various functionality
 Recommends:     upower

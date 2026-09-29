@@ -1,7 +1,7 @@
 Name:		perl-MouseX-Types-Path-Class
 Summary:	A Path::Class type library for Mouse
 Version:	0.07
-Release:	37%{?dist}
+Release:	38%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Types-Path-Class
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Types-Path-Class-%{version}.tar.gz
@@ -9,11 +9,10 @@ Patch0:		MouseX-Types-Path-Class-0.07-hunspell.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.59
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(inc::Module::Install)
 BuildRequires:	perl(Module::Install::AuthorTests)
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
@@ -66,16 +65,12 @@ perl -ni -e 'print unless /^inc\//;' MANIFEST
 # all of upstream's toolchain modules as a result of the unbundling
 perl -ni -e 'print unless /author_requires/;' Makefile.PL
 
-# F19's dictionary doesn't have coercions
-echo coercions >> xt/03_podspell.t
-
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -87,6 +82,9 @@ make test TEST_POD=1 TEST_VERBOSE=1
 %{_mandir}/man3/MouseX::Types::Path::Class.3*
 
 %changelog
+* Mon Sep 28 2026 Paul Howarth <paul@city-fan.org> - 0.07-38
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

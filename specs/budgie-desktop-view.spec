@@ -1,12 +1,12 @@
-%global glib2_version 2.64
+%global glib2_version 2.72
 %global gtk3_version 3.24
 %global vala_version 0.48
 
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           budgie-desktop-view
-Version:        10.10.2
-Release:        2%{?dist}
+Version:        10.10.3
+Release:        1%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
 License:        Apache-2.0
@@ -28,6 +28,8 @@ BuildRequires:  vala
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
+Suggests: ffmpegthumbnailer
+Suggests: glycin-thumbnailer
 
 %description
 Official Budgie desktop icons application / implementation.
@@ -55,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Mon Sep 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-1
+- Update to 10.10.3 release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

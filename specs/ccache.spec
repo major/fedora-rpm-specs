@@ -12,7 +12,7 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.14
+Version:        4.14.1
 Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
@@ -240,6 +240,9 @@ done\
 
 
 %changelog
+* Sun Sep 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.14.1-1
+- 4.14.1
+
 * Mon Aug 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.14-1
 - 4.14
 

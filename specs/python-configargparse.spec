@@ -7,7 +7,7 @@
 %bcond toml 0
 
 Name:           python-configargparse
-Version:        1.7.7
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 

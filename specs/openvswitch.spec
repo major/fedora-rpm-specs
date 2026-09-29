@@ -50,10 +50,8 @@ URL: https://www.openvswitch.org/
 Version: 4.0.0
 Release: %autorelease
 
-# Nearly all of openvswitch is Apache-2.0.  The bugtool is LGPLv2+, and the
-# lib/sflow*.[ch] files are SISSL
-# datapath/ is GPLv2 (although not built into any of the binary packages)
-License: Apache-2.0 AND LGPL-2.0-or-later AND SISSL
+# Nearly all of openvswitch is Apache-2.0.  The lib/sflow*.[ch] files are SISSL
+License: Apache-2.0 AND SISSL
 
 # NOTE: DPDK does not currently build for s390x
 %define dpdkarches aarch64 i686 ppc64le x86_64
@@ -325,6 +323,9 @@ for service in openvswitch ovsdb-server ovs-vswitchd ovs-delete-transient-ports 
                         rhel/usr_lib_systemd_system_${service}.service \
                         $RPM_BUILD_ROOT%{_unitdir}/${service}.service
 done
+install -p -D -m 0644 \
+        rhel/usr_lib_systemd_system_ovsdb-server.socket \
+        $RPM_BUILD_ROOT%{_unitdir}/ovsdb-server.socket
 
 install -m 0755 rhel/etc_init.d_openvswitch \
         $RPM_BUILD_ROOT%{_datadir}/openvswitch/scripts/openvswitch.init
@@ -537,6 +538,7 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/openvswitch
 %{_unitdir}/openvswitch.service
 %{_unitdir}/ovsdb-server.service
+%{_unitdir}/ovsdb-server.socket
 %{_unitdir}/ovs-vswitchd.service
 %{_unitdir}/ovs-delete-transient-ports.service
 %{_datadir}/openvswitch/scripts/openvswitch.init

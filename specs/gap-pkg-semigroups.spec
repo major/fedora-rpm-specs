@@ -9,7 +9,7 @@
 %bcond bigtest 0
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        5.6.3
+Version:        5.7.0
 Release:        %autorelease
 Summary:        GAP methods for semigroups
 
@@ -35,6 +35,7 @@ BuildRequires:  gap(grape)
 BuildRequires:  gap(images) >= 1.3.1
 BuildRequires:  gap(io) >= 4.5.1
 BuildRequires:  gap(orb) >= 4.8.2
+BuildRequires:  gap(smallgrp) >= 1.0
 BuildRequires:  gap-devel >= 4.12.1
 BuildRequires:  gap-pkg-digraphs-doc >= 1.6.2
 BuildRequires:  gap-pkg-images-doc >= 1.3.1
@@ -57,6 +58,7 @@ Requires:       gap(genss) >= 1.6.5
 Requires:       gap(images) >= 1.3.1
 Requires:       gap(io) >= 4.5.1
 Requires:       gap(orb) >= 4.8.2
+Requires:       gap(smallgrp) >= 1.0
 Requires:       gap-core%{?_isa} >= 4.12.1
 
 Suggests:       gap(grape)

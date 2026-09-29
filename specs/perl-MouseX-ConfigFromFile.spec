@@ -1,7 +1,7 @@
 Name:		perl-MouseX-ConfigFromFile
 Summary:	An abstract Mouse role for setting attributes from a config file
 Version:	0.05
-Release:	38%{?dist}
+Release:	39%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-ConfigFromFile
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-ConfigFromFile-%{version}.tar.gz
@@ -9,11 +9,10 @@ Patch0:		MouseX-ConfigFromFile-0.05-hunspell.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.42
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(inc::Module::Install)
 BuildRequires:	perl(Module::Install::AuthorTests)
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
@@ -63,12 +62,11 @@ perl -ni -e 'print unless /^inc\//;' MANIFEST
 perl -ni -e 'print unless /author_requires/;' Makefile.PL
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -80,6 +78,9 @@ make test TEST_POD=1 TEST_VERBOSE=1
 %{_mandir}/man3/MouseX::ConfigFromFile.3*
 
 %changelog
+* Mon Sep 28 2026 Paul Howarth <paul@city-fan.org> - 0.05-39
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

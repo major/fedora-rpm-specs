@@ -1,7 +1,7 @@
 %global upstream_name metrics-discovery
 
 Name: intel-metrics-discovery
-Version: 1.16.188
+Version: 1.16.196
 Release: %autorelease
 Summary: Shared library for Intel Metrics Discovery API
 License: MIT

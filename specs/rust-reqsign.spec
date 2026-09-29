@@ -5,7 +5,7 @@
 %global crate reqsign
 
 Name:           rust-reqsign
-Version:        0.20.3
+Version:        0.20.7
 Release:        %autorelease
 Summary:        Signing HTTP requests for popular cloud services
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -69,6 +70,30 @@ This package contains library source intended for building other packages which
 use the "aws" feature of the "%{crate}" crate.
 
 %files       -n %{name}+aws-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+aws-v4-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+aws-v4-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "aws-v4" feature of the "%{crate}" crate.
+
+%files       -n %{name}+aws-v4-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+aws-v4a-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+aws-v4a-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "aws-v4a" feature of the "%{crate}" crate.
+
+%files       -n %{name}+aws-v4a-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+azure-devel
@@ -117,6 +142,19 @@ This package contains library source intended for building other packages which
 use the "google" feature of the "%{crate}" crate.
 
 %files       -n %{name}+google-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+google-credential-access-boundary-client-side-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+google-credential-access-boundary-client-side-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "google-credential-access-boundary-client-side" feature of the
+"%{crate}" crate.
+
+%files       -n %{name}+google-credential-access-boundary-client-side-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+huaweicloud-devel

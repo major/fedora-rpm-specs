@@ -5,7 +5,7 @@
 %bcond tests 0
 
 Name:           dnf-repo
-Version:        0.6.4
+Version:        0.7
 Release:        %autorelease
 Summary:        A dnf wrapper with fine control of enabled repos
 
@@ -19,9 +19,11 @@ Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-Glob-devel
+BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-curl-devel
 BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-edit-distance-devel
 BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-http-directory-devel
@@ -29,6 +31,8 @@ BuildRequires:  ghc-safe-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
 BuildRequires:  ghc-simple-prompt-devel
+BuildRequires:  ghc-time-devel
+BuildRequires:  ghc-typed-process-devel
 BuildRequires:  help2man
 # End cabal-rpm deps
 %if %{with tests}

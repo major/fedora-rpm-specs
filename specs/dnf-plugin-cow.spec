@@ -1,31 +1,31 @@
-%{!?dnf_lowest_compatible: %global dnf_lowest_compatible 4.2.23}
 Name:    dnf-plugin-cow
-Version: 0.0.4
+Version: 0.2.0
 Release: %autorelease
 Summary: DNF plugin to enable Copy on Write in RPM
 URL:     https://github.com/facebookincubator/dnf-plugin-cow
 License: MIT
 
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:  %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildArch: noarch
-BuildRequires: python3-devel
-BuildRequires: python3-dnf >= %{dnf_lowest_compatible}
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: pkgconfig(libdnf5)
 
 %description
 Source package for DNF plugin to enable Copy on Write in DNF and RPM.
 
-%package -n python3-%{name}
-Summary: DNF plugin to enable Copy on Write in RPM - Python3
-Requires: python3-dnf >= %{dnf_lowest_compatible}
+%package -n libdnf5-plugin-cow
+Summary: DNF5 plugin to enable Copy on Write in RPM
 # Using recommends to allow the plugin to be installed even if the requirements
 # are not packaged/available yet.
-Recommends: /usr/bin/rpm2extents
+Recommends: /usr/lib/rpm/rpm2extents
 Recommends: rpm-plugin-reflink
+# Drop once F45 is EOL
+Obsoletes:  python3-dnf-plugin-cow < 0.2.0-1
 
-%description -n python3-%{name}
-Installing this package enables a DNF plugin which changes the behaviour of
-librepo. Instead of downloading rpm files directly into cache before
+%description -n libdnf5-plugin-cow
+Installing this package enables a libdnf5 plugin which changes the behaviour
+of librepo. Instead of downloading rpm files directly into cache before
 installation they will be "transcoded" into "extent based" rpms which contain
 all the constituent files of the rpm already uncompressed. This package
 depends on a version of rpm which includes /usr/bin/rpm2extents and the
@@ -39,17 +39,17 @@ reflink'ing. Today this means btrfs or xfs.
 %autosetup -n %{name}-%{version}
 
 %build
+%cmake
+%cmake_build
 
 %install
-install -D -p reflink.conf %{buildroot}%{_sysconfdir}/dnf/plugins/reflink.conf
-install -D -p reflink.py %{buildroot}%{python3_sitelib}/dnf-plugins/reflink.py
+%cmake_install
 
-%files -n python3-%{name}
+%files -n libdnf5-plugin-cow
 %license LICENSE
 %doc README.md
-%config(noreplace) %{_sysconfdir}/dnf/plugins/reflink.conf
-%{python3_sitelib}/dnf-plugins/reflink.py
-%{python3_sitelib}/dnf-plugins/__pycache__/reflink.*
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/reflink.conf
+%{_libdir}/libdnf5/plugins/reflink.so
 
 %changelog
 %autochangelog

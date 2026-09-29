@@ -2,7 +2,7 @@
 
 Name:           earcut-hpp
 Summary:        Fast, header-only polygon triangulation 
-Version:        3.2.3
+Version:        3.2.4
 Release:        %autorelease
 
 # SPDX
@@ -18,10 +18,6 @@ Source1:        https://github.com/mapbox/earcut/archive/v%{version}/earcut-%{ve
 # Include `type_traits` header for `std::decay`
 # https://github.com/mapbox/earcut.hpp/pull/136
 Patch:          %{url}/pull/136.patch
-# Guard against degenerate edges
-# https://github.com/mapbox/earcut.hpp/commit/c0c5ecb6bd1f43ad1f5b005e846221e524d9214d
-# See discussion in https://github.com/skogler/mapbox_earcut_python/pull/32.
-Patch:          %{url}/commit/c0c5ecb6bd1f43ad1f5b005e846221e524d9214d.patch
 
 BuildSystem:    cmake
 # We do want to build the tests, but we have no use for the benchmarks or the

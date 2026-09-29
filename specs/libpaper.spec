@@ -1,6 +1,8 @@
+%global systemgnulib 1
+
 Name:		libpaper
-Version:	2.1.1
-Release:	11%{?dist}
+Version:	2.3.0
+Release:	1%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
 Summary:	Library and tools for handling papersize
@@ -13,8 +15,6 @@ URL:		https://github.com/rrthomas/libpaper/
 Source0:	https://github.com/rrthomas/libpaper/archive/v%{version}/%{name}-%{version}.tar.gz
 # Pulled from paper
 Source1:	localepaper.c
-# from libpaper-1.x
-Source2:        paperconf.1
 
 # gcc is no longer in buildroot by default
 BuildRequires:  gcc
@@ -25,7 +25,11 @@ BuildRequires:  make
 BuildRequires:	libtool, gettext, gawk, autoconf, automake
 BuildRequires:	help2man, tar, gnupg2, perl-interpreter, gzip
 
+%if 0%{?systemgnulib}
+BuildRequires:	gnulib-devel
+%else
 Provides: bundled(gnulib)
+%endif
 
 %description
 The libpaper package enables users to indicate their preferred paper
@@ -57,11 +61,13 @@ default paper size and give information about known sizes.
 %autosetup -S git
 cp %{SOURCE1} src/
 
-%if 0
+%if 0%{?systemgnulib}
 sed -i 's|gnulib_tool=$gnulib_path/gnulib-tool|gnulib_tool=%{_bindir}/gnulib-tool|g' bootstrap
 sed -i 's|./gnulib/gnulib-tool|%{_bindir}/gnulib-tool|g' bootstrap.conf
 sed -i '/doc\/INSTALL/d' bootstrap
 ./bootstrap --gnulib-srcdir=%{_datadir}/gnulib/ --skip-git
+%else
+autoreconf -ifv
 %endif
 
 %build
@@ -97,13 +103,10 @@ done
 mkdir %{buildroot}%{_libexecdir}
 install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 
-gzip -c %{SOURCE2} > paperconf.1.gz
-install -m0644 paperconf.1.gz %{buildroot}%{_mandir}/man1/paperconf.1
-
 %ldconfig_scriptlets
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %license COPYING
 %config(noreplace) %{_sysconfdir}/paperspecs
 %{_libdir}/libpaper.so.2*
@@ -114,13 +117,16 @@ install -m0644 paperconf.1.gz %{buildroot}%{_mandir}/man1/paperconf.1
 
 %files -n paper
 %{_bindir}/paper
-%{_bindir}/paperconf
+# %%{_bindir}/paperconf
 %{_libexecdir}/localepaper
 %{_mandir}/man1/paper.*
-%{_mandir}/man1/paperconf.*
+# %%{_mandir}/man1/paperconf.*
 %{_mandir}/man5/paperspecs.*
 
 %changelog
+* Mon Sep 28 2026 Tom Callaway <spot@fedoraproject.org> - 1:2.3.0-1
+- update to 2.3.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

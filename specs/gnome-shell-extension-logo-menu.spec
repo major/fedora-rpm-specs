@@ -2,7 +2,7 @@
 %global uuid            logomenu@aryan_k
 
 Name:           gnome-shell-extension-%{extension}
-Version:        24.8
+Version:        25.2
 Release:        %autorelease
 Summary:        Quick access menu for the GNOME panel
 BuildArch:      noarch
@@ -11,7 +11,7 @@ BuildArch:      noarch
 # selection.js is MIT
 License:        GPL-2.0-only
 URL:            https://github.com/Aryan20/Logomenu
-Source:         %{url}/archive/v%{version}_270626/%{extension}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}_280926/%{extension}-%{version}.tar.gz
 
 BuildRequires:  gettext
 Requires:       gnome-shell >= 46

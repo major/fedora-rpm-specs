@@ -1,5 +1,5 @@
 Name:               sshuttle
-Version:            1.3.2
+Version:            2.0.0
 Release:            %autorelease
 Summary:            Transparent Proxy VPN
 Source0:            https://github.com/sshuttle/sshuttle/archive/refs/tags/v%{version}.tar.gz

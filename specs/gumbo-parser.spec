@@ -1,6 +1,6 @@
 Name:           gumbo-parser
 Epoch:          1
-Version:        0.14.0
+Version:        0.14.1
 Release:        1%{?dist}
 Summary:        A HTML5 parser
 
@@ -117,6 +117,9 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %files python -f %{pyproject_files}
 
 %changelog
+* Mon Sep 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.14.1-1
+- 0.14.1
+
 * Wed Aug 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.14.0-1
 - 0.14.0
 

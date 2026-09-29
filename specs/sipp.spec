@@ -1,31 +1,22 @@
 Summary:	SIP test tool / traffic generator
 Name:		sipp
-Version:	3.7.7
+Version:	3.7.8
 Release:	%autorelease
 License:	GPL-2.0-or-later
 URL:		https://github.com/SIPp/sipp
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:		sipp-0001-Removal-of-bundled-gmock-gtest.patch
-Patch:		sipp-0002-Remove-unused-gmock-we-don-t-use-it.patch
-Patch:		sipp-0003-Make-SSL-library-mandatory.patch
-Patch:		sipp-0004-Removed-outdated-md5-implementation.patch
-Patch:		sipp-0005-Removed-outdated-Rijndael-Vincent-Rijmen-et-al.-impl.patch
-Patch:		sipp-0006-Raise-minimal-OpenSSL-version-to-1.1.1.patch
-# Security fixes backported from upstream master (unreleased as of 3.7.7)
-Patch:		sipp-0007-fix-use-getAuthParameter-for-algorithm-in-createAuth.patch
-Patch:		sipp-0008-fix-bound-get_peer_tag-copy-against-buffer-size.patch
-Patch:		sipp-0009-fix-bound-get_header-writes-against-last_header-buff.patch
-BuildRequires:	cmake
+Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	gsl-devel
-BuildRequires:	gtest-devel
-BuildRequires:	libpcap-devel
-BuildRequires:	lksctp-tools-devel
-BuildRequires:	make
-BuildRequires:	ncurses-devel
+BuildRequires:	pkgconfig(gsl)
+BuildRequires:	pkgconfig(gtest)
+BuildRequires:	pkgconfig(libpcap)
+BuildRequires:	pkgconfig(libsctp)
+BuildRequires:	pkgconfig(ncurses)
 BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(pugixml)
+BuildSystem:	cmake
+BuildOption(conf): -DUSE_PCAP=1 -DUSE_GSL=1 -DUSE_SCTP=1 -DUSE_SYSTEM_PUGIXML=ON -DUSE_SYSTEM_GTEST=ON -DUSE_OPENSSL_KL=ON
 
 %description
 SIPp is a free Open Source test tool / traffic generator for the SIP protocol.
@@ -37,29 +28,19 @@ running tests (call rate, round trip delay, and message statistics), periodic
 CSV statistics dumps, TCP and UDP over multiple sockets or multiplexed with
 retransmission management and dynamically adjustable call rates.
 
-%prep
-%autosetup -p1
+%prep -a
 echo "#define SIPP_VERSION VERSION
 #define VERSION \"v%{version}\"" > include/version.h
 
-%build
-%{cmake} -DUSE_PCAP=1 -DUSE_GSL=1 -DUSE_SCTP=1
-%cmake_build
-
-%install
-%cmake_install
-# Extra data setup
+%install -a
 mkdir -p %{buildroot}%{_datadir}/%{name}/pcap
 install -p -m 644 pcap/*.pcap %{buildroot}%{_datadir}/%{name}/pcap
-
-%check
-%cmake_build -- sipp_unittest
-./redhat-linux-build/sipp_unittest
 
 %files
 %license LICENSE.txt
 %doc CHANGES.md README.md THANKS
 %caps(cap_net_raw=ep) %{_bindir}/%{name}
+%{_bindir}/%{name}-multi.py
 %{_datadir}/%{name}
 
 %changelog

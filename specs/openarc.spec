@@ -1,9 +1,9 @@
-%global baserelease 4
+%global baserelease 1
 #global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
 Name: openarc
-Version: 1.3.0
+Version: 1.3.1
 Release: %{?pre_rel:0.}%{baserelease}%{?pre_rel:.%pre_rel}%{?dist}
 # Automatically converted from old format: BSD and Sendmail - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND Sendmail-8.23
@@ -155,6 +155,9 @@ install -m0644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/openarc.conf
 
 
 %changelog
+* Mon Sep 28 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.1-1
+- Update to 1.3.1 (RHBZ#2542555)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

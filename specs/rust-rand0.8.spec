@@ -5,7 +5,7 @@
 %global crate rand
 
 Name:           rust-rand0.8
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        Random number generators and other randomness functionality
 

@@ -6,24 +6,35 @@
 %bcond all_tests 0
 
 Name:           python-libcst
-Version:        1.8.6
+Version:        1.9.0
 Release:        %autorelease
-Summary:        A concrete syntax tree with AST-like properties for Python 3
+Summary:        A concrete syntax tree with AST-like properties
 
-# see LICENSE in the upstream sources for the breakdown
-License:        MIT AND (MIT AND PSF-2.0) AND Apache-2.0
+# See LICENSE in the upstream sources for the breakdown.
+# MIT AND (MIT AND PSF-2.0) AND Apache-2.0 → MIT AND PSF-2.0 AND Apache-2.0
+License:        MIT AND PSF-2.0 AND Apache-2.0
+# Licenses from statically-linked Rust dependencies (output of
+# %%{cargo_license_summary}):
+#
+# (MIT OR Apache-2.0) AND Unicode-3.0
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# MIT
+# MIT AND (MIT AND PSF-2.0)
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+#
+# Licenses above that are *not* in the source license expression:
+%global additional_rust_licenses %{shrink:
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    (MIT OR Apache-2.0) AND
+    (Unlicense OR MIT)}
+# LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
-# * drop unused, benchmark-only criterion and rayon dev-dependencies
-# * update PyO3 to 0.29 (requires an accompanying source-code patch):
-#   https://github.com/Instagram/LibCST/pull/1454#issuecomment-4902787314
-Patch:          libcst-fix-metadata.diff
-# Source-code patch from https://github.com/Instagram/LibCST/pull/1454 for
-# updating PyO3 from 0.26 to 0.28
-Patch:          libcst-1.8.6-pyo3-0.28.patch
 
-BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  python3-devel
+BuildRequires:  cargo-rpm-macros
+BuildRequires:  tomcli
 
 %if %{with tests}
 # test dependencies are intermingled with dev dependencies
@@ -31,10 +42,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 %endif
 
-
 %global _description %{expand:
 LibCST parses Python source code as a CST tree that keeps all formatting
-details (comments, whitespaces, parentheses, etc). It's useful for building
+details (comments, whitespaces, parentheses, etc). It’s useful for building
 automated refactoring (codemod) applications and linters.
 
 LibCST creates a compromise between an Abstract Syntax Tree (AST) and a
@@ -42,23 +52,11 @@ traditional Concrete Syntax Tree (CST). By carefully reorganizing and naming
 node types and fields, it creates a lossless CST that looks and feels like an
 AST.}
 
-
 %description %_description
 
 %package -n     python3-libcst
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Unicode-3.0
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# MIT
-# MIT AND (MIT AND PSF-2.0)
-# MIT OR Apache-2.0
-# Unlicense OR MIT
-License:        %{shrink:
-                MIT AND (MIT AND PSF-2.0) AND Apache-2.0
-                AND (MIT OR Apache-2.0) AND Unicode-3.0
-                AND Unicode-DFS-2016
-                AND (Unlicense OR MIT)
-                }
+License:        %{license} AND %{additional_rust_licenses}
 # LICENSE.dependencies contains a full license breakdown
 
 # Documentation is hard to build since libcst.native is not available to import until %%install
@@ -68,12 +66,14 @@ Obsoletes:      python-libcst-doc < 1.1.0-1
 
 
 %prep
-%autosetup -N -n libcst-%{version}
-# Apply patches up to 99
-%autopatch -p1 -M 99
+%autosetup -p1 -C
 
 # remove version locks
-rm native/Cargo.lock
+find . -name Cargo.lock -print -delete
+
+# drop unused, benchmark-only dev-dependencies
+tomcli set native/libcst/Cargo.toml del dev-dependencies.criterion
+tomcli set native/libcst/Cargo.toml del dev-dependencies.rayon
 
 %cargo_prep
 
@@ -88,8 +88,6 @@ done
 
 
 %build
-export RUSTFLAGS="%{build_rustflags}"
-
 # write license summary and breakdown
 cd native
 %{cargo_license_summary}
@@ -101,11 +99,15 @@ cd ..
 
 %install
 %pyproject_install
-%pyproject_save_files -l libcst
+%pyproject_save_files --assert-license libcst
 
 
 %check
-%pyproject_check_import -e 'libcst.tests.*'
+# Guard against accidental loss of LICENSE.dependencies from the .dist-info
+# directory.
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
+
+%pyproject_check_import --exclude='libcst.tests.*'
 
 %if %{with tests}
 mod='%{buildroot}%{python3_sitearch}/libcst'

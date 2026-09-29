@@ -1,4 +1,4 @@
-%global glib2_version 2.64
+%global glib2_version 2.72
 %global gnome_desktop_version 44.4
 %global gnome_settings_daemon_version 49
 %global gsettings_desktop_schemas_version 49
@@ -7,8 +7,8 @@
 %global vala_version 0.56.18
 
 Name:           budgie-desktop
-Version:        10.10.2
-Release:        5%{?dist}
+Version:        10.10.3
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -29,8 +29,6 @@ Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
 
-Patch0:         0001-feat-build-add-opt-in-oo7-secret-service-support.patch
-
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -42,13 +40,11 @@ BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
-BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
 BuildRequires:  pkgconfig(libcanberra) >= 0.30
+BuildRequires:  pkgconfig(libgtop-2.0) >= 2.41.3
 BuildRequires:  pkgconfig(libnotify) >= 0.7
 BuildRequires:  pkgconfig(libpeas-2) >= 2.2.0
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libwacom)
 BuildRequires:  pkgconfig(libxfce4windowing-0)
 BuildRequires:  pkgconfig(polkit-agent-1) >= %{polkit_version}
 BuildRequires:  pkgconfig(upower-glib) >= 0.99.13
@@ -58,18 +54,21 @@ BuildRequires:  budgie-desktop-view
 BuildRequires:  desktop-file-utils
 BuildRequires:  egl-utils
 BuildRequires:  gammastep
-BuildRequires:  grim
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  git
 BuildRequires:  gnupg2
+BuildRequires:  grim
 BuildRequires:  gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 BuildRequires:  gtk-doc >= 1.33.0
 BuildRequires:  gtklock
 BuildRequires:  intltool
-BuildRequires:  magpie-devel
 BuildRequires:  meson
 BuildRequires:  oo7-portal
+BuildRequires:  python3-dbus
+BuildRequires:  python3-gobject-base
+BuildRequires:  python3-psutil
+BuildRequires:  python3-systemd
 BuildRequires:  sassc
 BuildRequires:  slurp
 BuildRequires:  swaybg
@@ -90,6 +89,7 @@ Requires:       network-manager-applet
 Requires:       oo7-portal
 Requires:       pam_oo7
 Requires:       python3-dbus
+Requires:       python3-gobject-base
 Requires:       python3-psutil
 Requires:       python3-systemd
 Requires:       slurp
@@ -101,8 +101,11 @@ Requires:       xdg-desktop-portal-wlr
 Requires:       wlopm
 
 Suggests:       budgie-control-center
-Suggests:       budgie-display-configurator
+Suggests:       budgie-desktop-view
 Suggests:       papirus-icon-theme
+Suggests:       pocillo-gtk3-theme
+Suggests:       pocillo-labwc-theme
+Suggests:       wdisplays
 
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gtk3%{?_isa} >= %{gtk3_version}
@@ -141,12 +144,11 @@ Documentation for budgie-desktop
 %autosetup -p1
 
 %build
-%meson -Dwith-hibernate=false -Dwith-oo7=true
+%meson -Dwith-hibernate=false -Dwith-oo7=true -Dwith-runtime-dependencies=true
 %meson_build
 
 %install
 %meson_install
-chmod +x %{buildroot}/%{_libexecdir}/%{name}/labwc_bridge.py
 %find_lang %{name}
 
 %check
@@ -157,10 +159,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license LICENSE
 %dir %{_datadir}/backgrounds/budgie
 %dir %{_datadir}/budgie
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/labwc
 %dir %{_datadir}/xdg-desktop-portal
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins/
 %dir %{_libdir}/%{name}/plugins/*
+%dir %{_libdir}/%{name}/raven-plugins/
+%dir %{_libdir}/%{name}/raven-plugins/*
+%dir %{_libexecdir}/%{name}
 %{_bindir}/budgie-*
 %{_bindir}/org.buddiesofbudgie.*
 %{_bindir}/startbudgielabwc
@@ -193,7 +200,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/%{name}/budgie-polkit-dialog
 %{_libexecdir}/%{name}/budgie-power-dialog
 %{_libexecdir}/%{name}/budgie-screenshot-dialog
-%{_libexecdir}/%{name}/labwc_bridge.py
+%{_libexecdir}/%{name}/labwc{-,_}bridge
 %{_libdir}/libbudgie-appindexer.so.0{,.*}
 %{_libdir}/libbudgie-plugin.so.0{,.*}
 %{_libdir}/libbudgie-private.so.0{,.*}
@@ -234,6 +241,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Mon Sep 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-1
+- Update to 10.10.3 release
+
 * Tue Sep 15 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-5
 - Add missing python3 deps for labwc bridge
 

@@ -1,7 +1,7 @@
 %global upstream_name metrics-library
 
 Name: intel-metrics-library
-Version: 1.0.231
+Version: 1.0.240
 Release: %autorelease
 Summary: Shared library for Intel Metrics Library for Metrics Discovery API
 License: MIT

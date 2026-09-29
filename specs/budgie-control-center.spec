@@ -11,7 +11,7 @@
 
 Name:          budgie-control-center
 Version:       2.1.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -43,6 +43,7 @@ License:       GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND L
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
 Source0:       %{url}/releases/download/v%{version_no_tilde}/budgie-control-center-%{version_no_tilde}.tar.xz
 Source1:       introduction.list
+Patch0:        0001-fix-resolve-runtime-criticals-and-warnings-across-sh.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -102,6 +103,7 @@ Requires: %{name}-common = %{version}-%{release}
 # For user accounts
 Requires: accountsservice
 Requires: alsa-lib
+Requires: glycin-loaders
 
 # For the thunderbolt panel
 Recommends: bolt
@@ -231,6 +233,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Mon Sep 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.3-3
+- Add patch to fix some runtime criticals and warnings, as well as handling images when no loader is installed
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.3-2
 - Rebuilt for libxml-2.5.4
 

@@ -1,6 +1,6 @@
 Name:           perl-Exception-Class
-Version:        1.45
-Release:        15%{?dist}
+Version:        1.46
+Release:        1%{?dist}
 Summary:        Module that allows you to declare real exception classes in Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Class
@@ -8,7 +8,6 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Exception/Exception-
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -24,6 +23,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
@@ -40,10 +41,10 @@ modules in a "Java-esque" manner.
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -51,12 +52,24 @@ make test
 
 %files
 %license LICENSE
-%doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
+%doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md GOVERNANCE.md README.md SECURITY.md SUPPORT.md
 %{perl_vendorlib}/Exception/
 %{_mandir}/man3/Exception::Class.3*
 %{_mandir}/man3/Exception::Class::Base.3*
 
 %changelog
+* Mon Sep 28 2026 Paul Howarth <paul@city-fan.org> - 1.46-1
+- Update to 1.46 (rhbz#2542263)
+  - If you use Exception::Class to create a class whose module file is already
+    loaded, it no longer overwrites the %%INC entry for that module with the
+    path to Exception/Class.pm; typically, this happens when you have a package
+    that implements an exception with the same name as the package itself
+    (GH#17)
+  - Similarly, if a package defines a $VERSION, this is no longer overwritten
+    when the exception class is defined with Exception::Class (GH#18)
+- Use %%{make_build} and %%{make_install}
+- Package GOVERNANCE.md, SECURITY.md and SUPPORT.md
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

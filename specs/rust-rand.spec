@@ -5,7 +5,7 @@
 %global crate rand
 
 Name:           rust-rand
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Random number generators and other randomness functionality
 

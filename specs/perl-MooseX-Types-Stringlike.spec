@@ -1,18 +1,17 @@
 Name:		perl-MooseX-Types-Stringlike
 Summary:	Moose type constraints for strings or string-like objects
 Version:	0.003
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	Apache-2.0
 URL:		https://metacpan.org/release/MooseX-Types-Stringlike
 Source0:	https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Stringlike-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.17
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(MooseX::Types)
 BuildRequires:	perl(MooseX::Types::Moose)
@@ -40,12 +39,11 @@ into strings.
 %setup -q -n MooseX-Types-Stringlike-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -58,6 +56,9 @@ make test
 %{_mandir}/man3/MooseX::Types::Stringlike.3*
 
 %changelog
+* Mon Sep 28 2026 Paul Howarth <paul@city-fan.org> - 0.003-36
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

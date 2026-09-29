@@ -14,7 +14,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.7.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -93,7 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/aclocal
 for f in find_apr.m4 apr_common.m4; do
- install -p -m 644 build/$f $RPM_BUILD_ROOT/%{_datadir}/aclocal
+    install -p -m 644 build/$f $RPM_BUILD_ROOT/%{_datadir}/aclocal
+    ln -s %{_datadir}/aclocal/$f $RPM_BUILD_ROOT%{_libdir}/apr-%{aprver}/build/$f
 done
 
 # Trim exported dependecies
@@ -153,6 +154,9 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Sep 28 2026 Joe Orton  <jorton@redhat.com> - 1.7.6-7
+- make .m4 files available in libdir/apr-1/build as well
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -13,6 +13,10 @@ Source0:        https://files.pythonhosted.org/packages/source/x/%{srcname}/%{sr
 # https://github.com/xmlsec/python-xmlsec/pull/422
 Patch0:         0001-Bump-xmlsec1-unix-lib-to-1.3.11.patch
 
+# https://github.com/xmlsec/python-xmlsec/issues/426
+# Patch by Filipe Rosset
+Patch1:         https://github.com/user-attachments/files/30623434/Fix-test-memory-leak-detection-on-Python-3.15.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

@@ -1,5 +1,5 @@
 Name:           esptool
-Version:        5.3.1
+Version:        5.4.0
 Release:        %autorelease
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 

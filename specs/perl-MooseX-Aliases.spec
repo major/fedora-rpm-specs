@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Aliases
 Version:        0.11
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Easy aliasing of methods and attributes in Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Aliases
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Aliase
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Module
@@ -43,12 +42,11 @@ in the constructor via their aliased names.
 %setup -q -n MooseX-Aliases-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -64,6 +62,9 @@ make test
 
 
 %changelog
+* Mon Sep 28 2026 Paul Howarth <paul@city-fan.org> - 0.11-36
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global upstream_name xpumanager
 
 Name: xpu-manager
-Version: 2.1.0
+Version: 2.2.0
 Release: %{autorelease}
 Summary: Intel XPU System Management Interface
 License: MIT

@@ -97,6 +97,13 @@ BuildArch:      noarch
 # multiple-precision build.
 rm src/libLfunction/mpreal.h
 
+# Remove the patched ltmain.sh (libtool); the patch was only for a MacOS fix,
+# so we don’t need it, and it interferes with using the system libtool when the
+# version of libtool differs (is newer).
+rm build-aux/ltmain.sh.in
+sed --regexp-extended --in-place \
+    '/^[[:blank:]]*build-aux\/ltmain\.sh/d' configure.ac
+
 
 %conf
 autoreconf --force --install --verbose

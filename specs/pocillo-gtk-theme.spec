@@ -2,32 +2,23 @@
 Pocillo is a Material Design theme for the Budgie Desktop.}
 
 Name:           pocillo-gtk-theme
-Version:        0.11
-Release:        4%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Pocillo is a Material Design theme for the Budgie Desktop
 BuildArch:      noarch
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/UbuntuBudgie/pocillo-gtk-theme
-Source0:        %{url}/releases/download/v%{version}/pocillo-precompiled.tar.gz#/%{name}-%{version}-precompiled.tar.gz
+Source0:        %{url}/releases/download/v%{version}/pocillo-precompiled-papirus.tar.gz#/%{name}-%{version}-precompiled.tar.gz
 
-Requires: (pocillo-gtk2-theme if gtk2)
 Requires: (pocillo-gtk3-theme if gtk3)
 Requires: (pocillo-gtk4-theme if gtk4)
-Requires: (pocillo-openbox-theme if openbox)
-Requires: (pocillo-plank-theme if plank)
+Requires: (pocillo-labwc-theme if labwc)
+
+Obsoletes: pocillo-gtk2-theme < 0.11-2
+Obsoletes: pocillo-plank-theme < 0.11-2
 
 %description %{_description}
-
-%package -n pocillo-gtk2-theme
-Summary:        GTK+2 support for the Pocillo GTK theme
-Requires:       gtk-murrine-engine
-
-Recommends:     pocillo-gtk-theme
-
-%description -n pocillo-gtk2-theme %{_description}
-
-This package contains the Pocillo GTK+2 theme.
 
 %package -n pocillo-gtk3-theme
 Summary:        GTK3 support for the Pocillo GTK theme
@@ -49,47 +40,32 @@ Recommends:     pocillo-gtk-theme
 
 This package contains the Pocillo GTK4 theme.
 
-%package -n pocillo-openbox-theme
-Summary:        Openbox support for the Pocillo GTK theme
+%package -n pocillo-labwc-theme
+Summary:        Labwc support for the Pocillo GTK theme
 
 Recommends:     pocillo-gtk-theme
+Obsoletes:      pocillo-openbox-theme < 0.11-2
+Provides:       pocillo-openbox-theme = %{version}-%{release}
 
-%description -n pocillo-openbox-theme %{_description}
+%description -n pocillo-labwc-theme %{_description}
 
-This package contains the Pocillo Openbox theme.
-
-%package -n pocillo-plank-theme
-Summary:        Plank support for the Pocillo GTK theme
-Requires:       plank
-
-Recommends:     pocillo-gtk-theme
-
-%description -n pocillo-plank-theme  %{_description}
-
-This package contains the Pocillo Plank theme.
+This package contains the Pocillo labwc theme.
 
 %prep
 %autosetup -c
-mv Pocillo/COPYING .
-rm -rf Pocillo-*/COPYING
-rm -rf **/INSTALL_GDM_THEME.md
+mv usr/share/themes/Pocillo/COPYING .
+rm -rf usr/share/themes/Pocillo*/COPYING
+rm -rf usr/share/themes/Pocillo*/INSTALL_GDM_THEME.md
 
 %build
 
 %install
 mkdir -p %{buildroot}%{_datadir}/themes/
-cp -R Pocillo* %{buildroot}%{_datadir}/themes/
+cp -R usr/share/themes/Pocillo* %{buildroot}%{_datadir}/themes/
 
 %files
 %license COPYING
-%dir %{_datadir}/themes/Pocillo*/chrome
-%{_datadir}/themes/Pocillo*/chrome/*
 %{_datadir}/themes/Pocillo*/index.theme
-
-%files -n pocillo-gtk2-theme
-%license COPYING
-%dir %{_datadir}/themes/Pocillo*/gtk-2.0
-%{_datadir}/themes/Pocillo*/gtk-2.0/*
 
 %files -n pocillo-gtk3-theme
 %license COPYING
@@ -101,17 +77,15 @@ cp -R Pocillo* %{buildroot}%{_datadir}/themes/
 %dir %{_datadir}/themes/Pocillo*/gtk-4.0
 %{_datadir}/themes/Pocillo*/gtk-4.0/*
 
-%files -n pocillo-openbox-theme
+%files -n pocillo-labwc-theme
 %license COPYING
-%dir %{_datadir}/themes/Pocillo*/openbox-3
-%{_datadir}/themes/Pocillo*/openbox-3/*
-
-%files -n pocillo-plank-theme
-%license COPYING
-%dir %{_datadir}/themes/Pocillo*/plank
-%{_datadir}/themes/Pocillo*/plank/*
+%dir %{_datadir}/themes/Pocillo*/labwc
+%{_datadir}/themes/Pocillo*/labwc/*
 
 %changelog
+* Mon Sep 28 2026 Joshua Strobl <me@joshuastrobl.com> - 0.13.0-1
+- Update to 0.13.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           xdg-dbus-proxy
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Filtering proxy for D-Bus connections
 
@@ -14,6 +14,8 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  /usr/bin/xsltproc
+# Used in the upstream tests.
+BuildRequires:  dbus-daemon
 
 Requires:       dbus
 
@@ -31,6 +33,9 @@ to facilitate using it in other contexts.
 
 %install
 %meson_install
+
+%check
+%meson_test
 
 %files
 %doc NEWS README.md

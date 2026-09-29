@@ -26,6 +26,7 @@ BuildRequires: python3-pkg-resources
 Requires: cdrdao
 Requires: flac
 Requires: libcdio-paranoia
+Requires: python3-pkg-resources
 Requires: python3dist(discid)
 Requires: python3dist(musicbrainzngs)
 Requires: python3dist(mutagen)

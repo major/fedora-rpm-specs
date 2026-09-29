@@ -5,7 +5,7 @@
 %global crate data-encoding
 
 Name:           rust-data-encoding
-Version:        2.10.0
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Efficient and customizable data-encoding functions like base64, base32, and hex
 

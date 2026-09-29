@@ -1,5 +1,5 @@
 Name:     primesieve
-Version:  12.15
+Version:  12.16
 Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
@@ -71,6 +71,15 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Mon Sep 28 2026 Kim Walisch <walki@fedoraproject.org> - 12.16-1
+- Fix MinGW GCC 16 assertion warning in debug mode
+- Remove unnecessary integer literal suffixes
+- primesieve.pc.in: Add missing libatomic dependency
+- ci.yml: Add pkg-config and CMake find_package() CI tests
+- iterator.h: Fix -Wundef warnings
+- C_API.md: Add primesieve_iterator section
+- CPP_API.md: Add primesieve::iterator section
+
 * Thu Jul 16 2026 Kim Walisch <walki@fedoraproject.org> - 12.15-1
 - Fix LLVM/Clang -Wunused-template warning
 - CpuInfo.cpp: Use primesieve::Vector instead of std::vector

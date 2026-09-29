@@ -56,8 +56,8 @@
 
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
-Version: 2.2.2
-Release: 7%{?dist}
+Version: 2.2.3
+Release: 1%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
@@ -82,8 +82,6 @@ BuildRequires: openmpi-devel
 %if %{with openmpi3}
 BuildRequires: openmpi3-devel
 %endif
-Patch1: scalapack-2.2.2-fix-libsuffix.patch
-Patch2: scalapack-2.2.2-fix-cmake-minimum.patch
 
 %description
 The ScaLAPACK (or Scalable LAPACK) library includes a subset 
@@ -340,11 +338,6 @@ This package contains static libraries for ScaLAPACK, compiled against openmpi3.
 
 %prep
 %setup -q -c -n %{name}-%{version}
-%patch -P1 -p1 -b .libsuffix
-%patch -P2 -p1 -b .fix-cmake-minimum
-
-# fix incorrect version in CMakeLists.txt
-sed -i 's|2.2.1|%{version}|g' %{name}-%{version}/CMakeLists.txt
 
 for i in %{?with_mpich:mpich} %{?with_openmpi:openmpi} %{?with_openmpi3:openmpi3}; do
   cp -a %{name}-%{version} %{name}-%{version}-$i
@@ -454,7 +447,7 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %if %{with mpich}
 %files mpich
 %{_libdir}/mpich/lib/libscalapack.so.2.2
-%{_libdir}/mpich/lib/libscalapack.so.2.2.2
+%{_libdir}/mpich/lib/libscalapack.so.2.2.3
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}/
@@ -468,7 +461,7 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %if %{with openmpi}
 %files openmpi
 %{_libdir}/openmpi/lib/libscalapack.so.2.2
-%{_libdir}/openmpi/lib/libscalapack.so.2.2.2
+%{_libdir}/openmpi/lib/libscalapack.so.2.2.3
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}/
@@ -482,7 +475,7 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %if %{with openmpi3}
 %files openmpi3
 %{_libdir}/openmpi3/lib/libscalapack.so.2.2
-%{_libdir}/openmpi3/lib/libscalapack.so.2.2.2
+%{_libdir}/openmpi3/lib/libscalapack.so.2.2.3
 
 %files openmpi3-devel
 %{_includedir}/openmpi3-%{_arch}/
@@ -494,6 +487,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Mon Sep 28 2026 Tom Callaway <spot@fedoraproject.org> - 2.2.3-1
+- update to 2.2.3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

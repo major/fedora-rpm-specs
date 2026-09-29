@@ -1,5 +1,6 @@
 %global pesign_vre 0.106-1
 %global openssl_vre 1.0.2j
+%global shim_commit_id afc49558b34548644c1cd0ad1b6526a9470182ed
 
 # For prereleases, % global prerelease rc2, and downpatch Makefile
 %if %{defined prerelease}
@@ -27,8 +28,8 @@
 %global dbxfile %{nil}
 
 Name:		shim-unsigned-%{efiarch}
-Version:	15.8
-Release:	2
+Version:	16.1
+Release:	1
 Summary:	First-stage UEFI bootloader
 ExclusiveArch:	x86_64
 License:	BSD-2-Clause AND OpenSSL
@@ -38,7 +39,7 @@ Source1:	fedora-ca-20200709.cer
 %if 0%{?dbxfile}
 Source2:	%{dbxfile}
 %endif
-Source3:	sbat.redhat.csv
+Source3:	sbat.redhat.csv.in
 Source4:	shim.patches
 
 Source100:	shim-find-debuginfo.sh
@@ -50,6 +51,7 @@ BuildRequires:	elfutils-libelf-devel
 BuildRequires:	git openssl-devel openssl
 BuildRequires:	pesign >= %{pesign_vre}
 BuildRequires:	dos2unix findutils
+BuildRequires:	sed
 
 # Shim uses OpenSSL, but cannot use the system copy as the UEFI ABI is not
 # compatible with SysV (there's no red zone under UEFI) and there isn't a
@@ -105,10 +107,12 @@ git config --unset user.email
 git config --unset user.name
 mkdir build-%{efiarch}
 mkdir build-%{efialtarch}
-cp %{SOURCE3} data/
+sed -e 's/@@VERSION@@/%{version}/g' \
+    -e 's/@@RELEASE@@/%{release}/g' \
+    < %{SOURCE3} > data/sbat.redhat.csv
 
 %build
-COMMIT_ID=5914984a1ffeab841f482c791426d7ca9935a5e6
+COMMIT_ID=%{shim_commit_id}
 MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMIT_ID=${COMMIT_ID} "
 MAKEFLAGS+="EFIDIR=%{efidir} PKGNAME=shim RELEASE=%{release} "
 MAKEFLAGS+="ENABLE_SHIM_HASH=true "
@@ -136,7 +140,7 @@ setarch linux32 -B make ${MAKEFLAGS} \
 cd ..
 
 %install
-COMMIT_ID=5914984a1ffeab841f482c791426d7ca9935a5e6
+COMMIT_ID=%{shim_commit_id}
 MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMIT_ID=${COMMIT_ID} "
 MAKEFLAGS+="EFIDIR=%{efidir} PKGNAME=shim RELEASE=%{release} "
 MAKEFLAGS+="ENABLE_SHIM_HASH=true "
@@ -191,6 +195,9 @@ cd ..
 %files debugsource -f build-%{efiarch}/debugsource.list
 
 %changelog
+* Wed Sep 03 2025 Peter Jones <pjones@redhat.com> - 16.1-1
+- Update to shim-16.1
+
 * Fri Mar 22 2024 Nicolas Frayer <nfrayer@redhat.com>
 - Migrate to SPDX license
 - Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2

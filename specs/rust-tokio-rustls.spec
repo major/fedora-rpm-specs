@@ -6,7 +6,7 @@
 %global crate tokio-rustls
 
 Name:           rust-tokio-rustls
-Version:        0.26.5
+Version:        0.26.6
 Release:        %autorelease
 Summary:        Asynchronous TLS/SSL streams for Tokio using Rustls
 

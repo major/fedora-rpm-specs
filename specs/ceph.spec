@@ -196,8 +196,8 @@ fi
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	21.1.0
-Release:	7%{?dist}
+Version:	21.1.1
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -1287,6 +1287,8 @@ Group: System/Filesystems
 %endif
 Requires:	ceph-osd = %{_epoch_prefix}%{version}-%{release}
 Obsoletes:	ceph-osd < %{_epoch_prefix}%{version}-%{release}
+Requires(posttrans):	%{_sbindir}/update-alternatives
+Requires(preun):	%{_sbindir}/update-alternatives
 # libcares.so.2 doesn't carry the version, and only EL crosses 1.28 between a
 # rolling builder and a frozen older minor, so pin the c-ares floor there.
 %if 0%{?rhel} >= 10
@@ -1307,6 +1309,8 @@ Requires:	ceph-osd = %{_epoch_prefix}%{version}-%{release}
 Obsoletes:	ceph-osd = %{_epoch_prefix}%{version}-%{release}
 Requires:	binutils
 Requires:	protobuf
+Requires(posttrans):	%{_sbindir}/update-alternatives
+Requires(preun):	%{_sbindir}/update-alternatives
 %description osd-crimson
 crimson-osd is the object storage daemon for the Ceph distributed file
 system.  It is responsible for storing objects on a local file system
@@ -2018,6 +2022,9 @@ install -m 0644 -D udev/50-rbd.rules %{buildroot}%{_udevrulesdir}/50-rbd.rules
 # sudoers.d
 install -m 0440 -D sudoers.d/ceph-smartctl %{buildroot}%{_sysconfdir}/sudoers.d/ceph-smartctl
 
+# Undefine -P flag as it is only supported with python version >= 3.11
+%undefine _py3_shebang_P
+
 %py3_shebang_fix %{buildroot}%{_bindir}/* %{buildroot}%{_sbindir}/*
 
 #set up placeholder directories
@@ -2681,8 +2688,10 @@ fi
 %{_bindir}/radosgw-es
 %{_bindir}/radosgw-object-expirer
 %{_bindir}/rgw-policy-check
+%{_bindir}/rgw-policy-test
 %{_mandir}/man8/radosgw.8*
 %{_mandir}/man8/rgw-policy-check.8*
+%{_mandir}/man8/rgw-policy-test.8*
 %dir %{_localstatedir}/lib/ceph/radosgw
 %{_unitdir}/ceph-radosgw@.service
 %{_unitdir}/ceph-radosgw.target
@@ -2786,7 +2795,7 @@ fi
 
 %preun osd-crimson
 if [ $1 -eq 0 ]; then
-    ${_sbindir}/update-alternatives --remove ceph-osd %{_bindir}/ceph-osd-crimson
+    %{_sbindir}/update-alternatives --remove ceph-osd %{_bindir}/ceph-osd-crimson
 fi
 %endif
 
@@ -2796,7 +2805,7 @@ fi
 
 %preun osd-classic
 if [ $1 -eq 0 ]; then
-    ${_sbindir}/update-alternatives --remove ceph-osd %{_bindir}/ceph-osd-classic
+    %{_sbindir}/update-alternatives --remove ceph-osd %{_bindir}/ceph-osd-classic
 fi
 
 %files volume
@@ -2986,6 +2995,7 @@ fi
 %{_includedir}/cephfs/dump.h
 %{_includedir}/cephfs/json.h
 %{_includedir}/cephfs/keys_and_values.h
+%{_includedir}/cephfs/snap_types.h
 %{_libdir}/libcephfs.so
 %{_libdir}/libcephfs_proxy.so
 %{_libdir}/pkgconfig/cephfs.pc
@@ -3203,6 +3213,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Sep 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.1-1
+- ceph-21.1.1 RC1
+
 * Fri Sep 11 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.0-7
 - rebuild for libarrow (Apache Arrow) 25.0.1
 

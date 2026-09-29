@@ -4,9 +4,9 @@
 
 Name: gnucash
 Summary: Finance management application
-Version: 5.16
+Version: 5.17
 URL: https://gnucash.org/
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -14,9 +14,6 @@ ExcludeArch: %{ix86}
 
 Patch0: rpath.patch
 Patch1: no-implicit.patch
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch2: gnucash-swig45.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
@@ -123,6 +120,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Sep 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.17-1
+- 5.17
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.16-2
 - Rebuilt for libxml-2.5.4
 

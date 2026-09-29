@@ -59,10 +59,6 @@
 %endif
 %bcond_without xwayland
 
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%bcond_without flexiblas
-%endif
-
 # Try disabling LTO on ppc64le
 %ifarch ppc64le
 %global _lto_cflags %{nil}
@@ -77,23 +73,17 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.6.2%{?rc:~%{rc}}
+Version: 9.7.0%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
 %global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}
-Source0: https://www.vtk.org/files/release/9.6/VTK-%{srcver}.tar.gz
-Source1: https://www.vtk.org/files/release/9.6/VTKData-%{srcver}.tar.gz
+Source0: https://www.vtk.org/files/release/9.7/VTK-%{srcver}.tar.gz
+Source1: https://www.vtk.org/files/release/9.7/VTKData-%{srcver}.tar.gz
 Source2: xorg.conf
 # Patch required libharu version (Fedora 33+ contains the needed VTK patches)
 Patch: vtk-libharu.patch
-# always_inline fails on ppc64le
-# https://gitlab.kitware.com/vtk/vtk/-/issues/19622
-# https://bugzilla.redhat.com/show_bug.cgi?id=2386242
-Patch: vtk-ppc64-no-always-inline.patch
 # Fix Integer Overflow on 32-bit in KissFFT
 Patch: vtk-CVE-2025-34297.patch
-# Fix build against GDAL 3.13+
-Patch: vtk-gdal313.patch
 
 URL: https://vtk.org/
 
@@ -109,12 +99,6 @@ Obsoletes:     %{name}-java < %{version}-%{release}
 Obsoletes:     %{name}-java-devel < %{version}-%{release}
 %endif
 BuildRequires:  alembic-devel
-%if %{with flexiblas}
-BuildRequires:  flexiblas-devel
-%else
-BuildRequires:  blas-devel
-BuildRequires:  lapack-devel
-%endif
 BuildRequires:  boost-devel
 BuildRequires:  cgnslib-devel
 BuildRequires:  cli11-devel
@@ -163,8 +147,6 @@ BuildRequires:  netcdf-cxx-devel
 BuildRequires:  opencascade-devel
 %endif
 BuildRequires:  openslide-devel
-# Currently does not provide OpenVDBConfig.cmake
-#BuildRequires:  openvdb-devel
 BuildRequires:  openvr-devel
 BuildRequires:  openxr-devel
 BuildRequires:  PDAL-devel
@@ -222,13 +204,6 @@ Requires: hdf5 = %{_hdf5_version}
 # Almost every BR needs to be required by the -devel packages
 %global vtk_devel_requires \
 Requires: cmake \
-%if %{with flexiblas} \
-Requires: flexiblas-devel%{?_isa} \
-%else \
-Requires: blas-devel%{?_isa} \
-Requires: lapack-devel%{?_isa} \
-%endif \
-Requires: blas-devel%{?_isa} \
 Requires: boost-devel%{?_isa} \
 Requires: cgnslib-devel%{?_isa} \
 # cli11 is noarch and header-only \
@@ -282,7 +257,6 @@ Requires: netcdf-cxx-devel%{?_isa} \
 Requires: opencascade-devel%{?_isa} \
 %endif \
 Requires: openslide-devel%{?_isa} \
-#Requires: openvdb-devel%{?_isa} \
 Requires: openvr-devel%{?_isa} \
 Requires: openxr-devel%{?_isa} \
 Requires: PDAL-devel%{?_isa} \
@@ -679,6 +653,7 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_MODULE_ENABLE_VTK_IOFDS:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOH5part:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOH5Rage:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOIFC:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_IOMySQL:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOOMF:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOParallelLSDyna:STRING=YES \\\
@@ -700,13 +675,10 @@ find vtk-examples -type f | xargs chmod -R a-x
 %endif \
 %if %{with java} \
  -DVTK_WRAP_JAVA:BOOL=ON \\\
- -DVTK_JAVA_SOURCE_VERSION=8 \\\
- -DVTK_JAVA_TARGET_VERSION=8 \\\
  -DJAVA_INCLUDE_PATH:PATH=$JAVA_HOME/include \\\
  -DJAVA_INCLUDE_PATH2:PATH=$JAVA_HOME/include/linux \\\
  -DJAVA_AWT_INCLUDE_PATH:PATH=$JAVA_HOME/include \\\
  -DJAVA_AWT_LIBRARY:PATH=$JAVA_HOME/lib/libjawt.so \\\
- -DJAVA_JNI_INCLUDE_PATH:PATH=$JAVA_HOME/include \\\
  -DJAVA_JVM_LIBRARY:PATH=$JAVA_HOME/lib/libjava.so \\\
 %else \
  -DVTK_WRAP_JAVA:BOOL=OFF \\\
@@ -715,10 +687,12 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_USE_EXTERNAL=ON \\\
  -DVTK_BUILD_ALL_MODULES=ON \\\
  -DVTK_ENABLE_OSPRAY:BOOL=OFF \\\
+ -DVTK_MODULE_ENABLE_VTK_conduit:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_fides:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_FiltersONNX:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_FiltersOpenTURNS:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_IOADIOS2:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_IONanoVDB:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_IOOpenVDB:STRING=NO \\\
 %if !%{with fmt} \
  -DVTK_MODULE_USE_EXTERNAL_VTK_fmt:BOOL=OFF \\\
@@ -733,8 +707,7 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
  -DViskores_INSTALL_LIB_DIR=%{_lib} \\\
- -DVTK_USE_TK=ON \\\
-  %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS}
+ -DVTK_USE_TK=ON
 
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}

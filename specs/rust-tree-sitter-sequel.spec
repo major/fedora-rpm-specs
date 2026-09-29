@@ -15,6 +15,9 @@ Source:         %{crates_source}
 # * LICENSE file not shipped, see
 #   https://github.com/DerekStride/tree-sitter-sql/pull/343
 Source1:        https://raw.githubusercontent.com/DerekStride/tree-sitter-sql/refs/tags/v%{version}/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * relax overly strict 'cc' crate dependency
+Patch:          tree-sitter-sequel-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

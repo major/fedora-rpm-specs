@@ -13,6 +13,9 @@ URL:            https://crates.io/crates/siguldry-fedora-autopen
 Source:         %{crates_source}
 # https://github.com/fedora-infra/siguldry/pull/274
 Patch:          0001-siguldry-fedora-autopen-pass-koji-strings-instead-of.patch
+# Better logging on Koji errors
+# https://github.com/fedora-infra/siguldry/pull/283
+Patch:          0001-fedora-autopen-Improve-error-logs-from-Koji.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
