@@ -1,6 +1,6 @@
 Name: mtx
 Version: 1.3.12
-Release: 38%{?dist}
+Release: 39%{?dist}
 Summary: SCSI media changer control program
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -13,6 +13,8 @@ Patch1: %{name}-1.3.12-argc.patch
 # update for GCC 15 / C23
 Patch2: %{name}-1.3.12-bool.patch
 #URL: http://mtx.sourceforge.net/
+Patch3: mtx-tapeinfo-bounds-guard.patch
+# https://redhat.atlassian.net/browse/RHEL-224994
 URL: https://github.com/mtx-org/mtx
 BuildRequires: make
 BuildRequires: gcc
@@ -35,6 +37,7 @@ tape at a time, you should install MTX.
 %patch -P0 -p2 -b .destdir
 %patch -P1 -p2 -b .argc
 %patch -P2 -p1 -b .bool
+%patch -P3 -p1 -b .tapeinfo-bounds
 
 # remove exec permission
 chmod a-x contrib/config_sgen_solaris.sh contrib/mtx-changer
@@ -57,6 +60,10 @@ chmod a-x contrib/config_sgen_solaris.sh contrib/mtx-changer
 
 
 %changelog
+* Wed Aug 19 2026 Paul Evans <pevans@redhat.com> 1.3.12-39
+- mtx: bounds check device-reported lengths when parsing SCSI responses in
+  tapeinfo (RHEL-224994)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

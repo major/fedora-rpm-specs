@@ -9,6 +9,12 @@
 # SysV/POSIX shm and NUMA facilities a build chroot lacks.
 %bcond_with check
 
+# Run the license check and stop, without the (hours long) compile: the fast
+# way to find out whether a new vendor tarball needs a different License tag.
+# The build then fails on purpose, so this is for local runs only, never CI.
+#   mock -r fedora-rawhide-aarch64-getdeps --with license_check_only ...
+%bcond_with license_check_only
+
 # Upstream identifies a release by two numbers: kCachelibVersion, the
 # API/format major in cachelib/allocator/CacheVersion.h (%%major_ver), and the
 # weekly tag. Version joins them, major first: <major>.<tag without its v>,
@@ -19,11 +25,7 @@
 # <number>.<revision> snapshot form, and the distance keeps several snapshots
 # between two tags in order. 17^20250203, the last build of the old scheme,
 # sorts below.
-%global basetag v2026.09.14.00
-# Snapshot until the first weekly tag containing the getdeps vendoring
-# support this spec relies on (facebook/CacheLib#491), due 2026-09-22.
-%global commit ee4c153e648271a221f58998465cb5d1ddfe6f3c
-%global commits 38
+%global basetag v2026.09.28.00
 %global tagver %(echo %{basetag} | sed 's|^v||')
 %if 0%{?commit:1}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -101,46 +103,41 @@ Source2:        getdeps-vendor-licenses.toml
 # only when Source1 is not the tarball it last passed on. After a full pass
 # on a new tarball, copy its sha512 here from the sources file. (Plain rpm:
 # this also runs when the SRPM is built, without folly-rpm-macros.)
-%global vendor_checked_sha512 7ee9bfeb2d52ebe6ae885d0cbaecdccc7f778f7601a9c6e24359938f3e0c39de61b23e10caee867675e1faf5d43e91923a98f89a6d3833a8ef45ce41fd36c095
+%global vendor_checked_sha512 d024cc25d384a1625eb92ed2a642174f513cb247ddbb8436c3d1167771353566cb300e69e3f5996be0fb0193278b4010666f05af63cbbd7fbb399a12ca4475ea
 %if "%(sha512sum %{SOURCE1} 2>/dev/null | cut -c1-128)" == "%{vendor_checked_sha512}"
 %bcond_with license_full_check
 %else
 %bcond_without license_full_check
 %endif
-# Patches below apply to the vendored trees under vendor/. Each is an
-# upstream fix that the dependency revision this snapshot pins does not yet
-# include; drop them as the pins move past the landed commits.
+# Patches below apply to the vendored trees under vendor/ and to
+# build/fbcode_builder. Each is an upstream fix the revisions this tag pins
+# do not include yet; drop them as the pins move past the landed commits.
+# v2026.09.28.00 picked up folly's FindLibDwarf fix (facebook/folly#2707,
+# 51590144c), wangle's OpenSSL 4.0 fix (facebook/wangle#254) and the
+# cachebench binary_trace_gen link fix (facebook/CacheLib#498, 1a643ff6), so
+# those three patches are gone.
 #
-# folly's FindLibDwarf did not look in libdwarf-2/, where libdwarf 2.x
-# (Fedora 44+, EPEL 10) installs its headers, so folly built without DWARF
-# support and cachelib's use of folly::exception_tracer failed to compile.
-# Landed upstream as facebook/folly#2707 (51590144c).
-Patch0:         0001-folly-FindLibDwarf-look-in-libdwarf-2.patch
 # OpenSSL 4.0 (Fedora 45+) made ASN1_STRING opaque and the X509_get_*
-# accessors return const; folly and wangle did not compile against it.
-# facebook/folly#2706 and facebook/wangle#254, not yet landed. fizz's
-# matching fix (facebookincubator/fizz#171) only touches a test header the
-# dependency build never compiles, so it is not carried.
-Patch1:         0002-folly-build-against-OpenSSL-4.0.patch
-Patch2:         0003-wangle-build-against-OpenSSL-4.0.patch
-# binary_trace_gen fails to link with BUILD_SHARED_LIBS; drop the duplicate library.
-# Landed upstream as facebook/CacheLib#498 (1a643ff6); drop with the next snapshot.
-Patch3:         0004-cachebench-link-binary_trace_gen-against-cachelib_cachebench.patch
+# accessors return const; folly does not compile against it.
+# facebook/folly#2706, not landed. fizz's matching fix
+# (facebookincubator/fizz#171) only touches a test header the dependency
+# build never compiles, so it is not carried.
+Patch:          0002-folly-build-against-OpenSSL-4.0.patch
 # libcachelib_nvmitem.so is the one library built without a SOVERSION; facebook/CacheLib#500
-Patch4:         0005-cmake-give-cachelib_nvmitem-a-SOVERSION.patch
+Patch:          0005-cmake-give-cachelib_nvmitem-a-SOVERSION.patch
 # fbthrift puts relocated metadata in a .rodata section, which -fPIC makes
 # writable; the linker then emits an RWX text segment and glibc's aarch64
 # loader crashes on it (BTI note + RWX). Rename the section to RELRO; facebook/fbthrift#712
-Patch5:         0006-fbthrift-keep-thrift-data-out-of-a-writable-rodata-section.patch
+Patch:          0006-fbthrift-keep-thrift-data-out-of-a-writable-rodata-section.patch
 # --shared-lib dropped $LDFLAGS from the shared library links; facebook/CacheLib#499
-Patch6:         0007-getdeps-keep-LDFLAGS-on-the-shared-library-links.patch
+Patch:          0007-getdeps-keep-LDFLAGS-on-the-shared-library-links.patch
 # folly's F14 fallback (no SSE2/NEON: ppc64le) is ambiguous against
 # libstdc++ 16's own heterogeneous lookup; fix on Michel's fork, submitted
 # internally
-Patch7:         0008-folly-F14-fallback-forward-exact-key-lookups.patch
+Patch:          0008-folly-F14-fallback-forward-exact-key-lookups.patch
 # getdeps-vendor.txt gains the version of each vendored project, from which
 # the bundled() Provides are versioned (applied by vendor.sh before vendoring)
-Patch8:         0009-getdeps-record-the-checked-out-commit-and-a-version.patch
+Patch:          0009-getdeps-record-the-checked-out-commit-and-a-version.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 # -devel (last shipped as 17^20250203 in Fedora, 16^20230424 in EPEL 9) is gone:
@@ -148,7 +145,7 @@ ExclusiveArch:  x86_64 aarch64 ppc64le
 # packages, so there is nothing usable to ship. No Provides on purpose.
 Obsoletes:      %{name}-devel < 19.2026.09.14.00
 
-BuildRequires:  folly-rpm-macros >= 46-3
+BuildRequires:  folly-rpm-macros >= 46-9
 %if %{with toolchain_clang}
 BuildRequires:  clang
 %else
@@ -186,6 +183,7 @@ caching transparently.}
 # -L: liboqs's LICENSE.txt sits in a versioned subdirectory of its tree (as
 # did sparse-map's while it was vendored)
 %getdeps_vendor_license_check -c %{SOURCE2} -L %{?with_license_full_check:-f}
+%{?with_license_check_only: echo "license check only: stopping before the build"; exit 1}
 %getdeps_build %{?with_check:-t}
 
 

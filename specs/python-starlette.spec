@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        The little ASGI library that shines
 
 License:        BSD-3-Clause
-URL:            https://www.starlette.io/
+URL:            https://starlette.dev
 %global forgeurl https://github.com/encode/starlette
 Source:         %{forgeurl}/archive/%{version}/starlette-%{version}.tar.gz
 

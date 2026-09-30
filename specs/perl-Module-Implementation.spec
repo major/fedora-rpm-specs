@@ -10,7 +10,7 @@
 
 Name:		perl-Module-Implementation
 Version:	0.09
-Release:	44%{?dist}
+Release:	45%{?dist}
 Summary:	Loads one of several alternate underlying implementations for a module
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/perl-Module-Implementation
@@ -20,11 +20,10 @@ BuildArch:	noarch
 # Build requirements
 # ===================================================================
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # ===================================================================
 # Module requirements
 # ===================================================================
@@ -98,12 +97,11 @@ something like a plugin system, not this module.
 %setup -q -n Module-Implementation-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -129,6 +127,9 @@ make test
 %{_mandir}/man3/Module::Implementation.3*
 
 %changelog
+* Tue Sep 29 2026 Paul Howarth <paul@city-fan.org> - 0.09-45
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

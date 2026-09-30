@@ -41,9 +41,14 @@ Source1:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
-Patch2:         0001-Enable-float-to-unsigned-conversion-workaround-on-RI.patch
-Patch3:         0002-Use-signed-cast-for-float-to-BYTE-conversion-on-non-.patch
+# Backport: https://github.com/gnudatalanguage/gdl/pull/2229
+Patch2:         0001-Enable-float-to-unsigned-conversion-workaround-on-RISC-V.patch
+Patch3:         0002-Use-signed-cast-for-float-to-BYTE-conversion-on-non-x86.patch
 Patch4:         0003-Remove-test_rounding-from-ARM_XFAIL_TESTS.patch
+# Fix float-to-unsigned conversion on all architectures (not just aarch64/riscv)
+Patch5:         0004-Use-signed-cast-for-float-to-unsigned-on-all-archite.patch
+Patch6:         0005-Remove-test_byte_conversion-from-ARM_XFAIL_TESTS.patch
+Patch7:         0006-Simplify-defines.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -140,11 +145,14 @@ rm -rf src/antlr src/libdivide.h
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
 # Normalize CRLF line endings to LF so patches apply cleanly
-find . -name '*.cpp' -o -name '*.hpp' -o -name '*.h' | xargs sed -i 's/\r$//'
+find . -name '*.cpp' -o -name '*.hpp' -o -name '*.h' -o -name '*.txt' | xargs sed -i 's/\r$//'
 %patch -P1 -p1 -b .antlr
 %patch -P2 -p1 -b .riscv-unsigned
 %patch -P3 -p1 -b .riscv-byte
 %patch -P4 -p1 -b .xfail-rounding
+%patch -P5 -p1 -b .all-arches
+%patch -P6 -p1 -b .xfail-byte-conversion
+%patch -P7 -p1 -b .simplify-defines
 
 pushd src
 for f in *.g
@@ -227,24 +235,21 @@ sleep 2
 # byte_conversion/bytscl - https://github.com/gnudatalanguage/gdl/issues/1079
 # test_gdl2gdl - timeouts - dropped upstream - https://github.com/gnudatalanguage/gdl/issues/2148
 # test_elmhes/formats - https://github.com/gnudatalanguage/gdl/issues/1833
-# test_l64 - https://github.com/gnudatalanguage/gdl/issues/1075
-# test_rounding - https://github.com/gnudatalanguage/gdl/issues/2177
 # test_tic_toc is unstable everywhere - https://github.com/gnudatalanguage/gdl/issues/209
 %ifarch aarch64
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|gdl2gdl|idlneturl|tic_toc)"
+failing_tests="test_(bugs_poly2d|formats|gdl2gdl|idlneturl|tic_toc)"
 %endif
 %ifarch ppc64le
 # gaussfit - https://github.com/gnudatalanguage/gdl/issues/1695
 # plot_ranges - https://github.com/gnudatalanguage/gdl/issues/2176
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gaussfit|gdl2gdl|idlneturl|matrix_multiply|plot_ranges|rounding|tic_toc)"
+failing_tests="test_(bugs_poly2d|finite|gaussfit|gdl2gdl|idlneturl|plot_ranges|tic_toc)"
 %endif
 %ifarch riscv64
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gdl2gdl|idlneturl|tic_toc)"
+failing_tests="test_(bugs_poly2d|finite|gdl2gdl|idlneturl|tic_toc)"
 %endif
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
-# save_restore - https://github.com/gnudatalanguage/gdl/issues/1655
-failing_tests="test_(bugs_poly2d|byte_conversion|bytsc|elmhes|formats|gdl2gdl|hdf5|idlneturl|rounding|tic_toc|save_restore)"
+failing_tests="test_(bugs_poly2d|gdl2gdl|hdf5|idlneturl|tic_toc)"
 %endif
 %ifarch x86_64
 failing_tests="test_(gdl2gdl|idlneturl|tic_toc)"

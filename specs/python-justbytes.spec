@@ -1,7 +1,7 @@
 %global srcname justbytes
 
 Name:           python-%{srcname}
-Version:        0.15.2
+Version:        0.15.3
 Release:        %autorelease
 Summary:        Library for handling computation with address ranges in bytes
 

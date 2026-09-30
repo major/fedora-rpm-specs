@@ -1,5 +1,5 @@
-%global commit 522d2e64f938bf32b758d5a18e1d0a712ecf7b3c
-%global gitdate 20251229
+%global commit 8638f4e0914779e14979b2e8263abba362de971a
+%global gitdate 20260918
 
 Name:           digikam-gmic-qt
 Version:        0^%{gitdate}git%{sub %{commit} 1 7}
@@ -33,8 +33,8 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(libcurl)
 
-Provides:  bundled(CImg) = 3.6.0
-Provides:  bundled(gmic) = 3.6.0
+Provides:  bundled(CImg) = 4.0.3
+Provides:  bundled(gmic) = 4.0.3
 
 %description
 This provide the port of G'MIC-Qt plugin as a digiKam/Showfoto Image Editor tool.

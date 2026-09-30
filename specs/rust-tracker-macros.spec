@@ -12,9 +12,9 @@ Summary:        Macros for the tracker crate
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/tracker-macros
 Source:         %{crates_source}
-# https://github.com/AaronErhardt/Tracker/issues/9
-Source100:      https://raw.githubusercontent.com/AaronErhardt/Tracker/main/LICENSE-APACHE
-Source101:      https://raw.githubusercontent.com/AaronErhardt/Tracker/main/LICENSE-MIT
+# * https://github.com/AaronErhardt/Tracker/issues/9
+Source100:      https://raw.githubusercontent.com/AaronErhardt/Tracker/ed0b78a7e36e7740291326d13516ce9e17d84184/LICENSE-APACHE
+Source101:      https://raw.githubusercontent.com/AaronErhardt/Tracker/ed0b78a7e36e7740291326d13516ce9e17d84184/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,6 +54,7 @@ use the "default" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 cp -pav %{SOURCE100} %{SOURCE101} .
+chmod -x src/lib.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

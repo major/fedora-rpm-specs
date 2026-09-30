@@ -1,6 +1,6 @@
 Name:           perl-Badger
 Version:        0.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl Application Programming Toolkit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Badger
@@ -44,6 +44,7 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 Requires:       perl(Digest::MD5)
 Requires:       perl(File::Copy)
+Requires:       perl(FindBin)
 Requires:       perl(IO::Dir)
 Requires:       perl(IO::File)
 
@@ -74,5 +75,8 @@ make test
 %{_mandir}/man3/Badger*3pm*
 
 %changelog
+* Sun Sep 27 2026 Xavier Bachelot <xavier@bachelot.org> 0.16-2
+- Add missing R: perl(FindBin)
+
 * Thu May 21 2026 Xavier Bachelot <xavier@bachelot.org> 0.16-1
 - Initial specfile

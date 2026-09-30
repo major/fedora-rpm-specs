@@ -13,7 +13,7 @@
 
 Name: pappl-retrofit
 Version: 1.0b2
-Release: 12%{?dist}
+Release: 13%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -42,6 +42,12 @@ Patch007: 0001-Protect-_prASCII-from-negative-lengths.patch
 Patch008: 0001-Fix-potential-memory-leaks.patch
 # https://github.com/OpenPrinting/pappl-retrofit/pull/31
 Patch009: 0001-Fix-memory-leaks-from-compiled_re_list.patch
+# PAPPL 1.4.x compatibility shims for backported patches using PAPPL 2.x API
+# https://github.com/OpenPrinting/pappl-retrofit/blob/master/pappl-retrofit/pappl1-private.h
+Patch010: 0001-Add-PAPPL-1.4.x-compatibility-shims.patch
+# https://github.com/OpenPrinting/pappl-retrofit/pull/58
+# Implement prPrintFile() for raw printing (INFRASERV-1240)
+Patch011: 0001-Implement-prPrintFile-for-raw-printing.patch
 
 
 # for autogen.sh - generating configure scripts
@@ -196,6 +202,11 @@ make check
 %{_mandir}/man1/legacy-printer-app.1.gz
 
 %changelog
+* Thu Sep 24 2026 Petr Dancak <pdancak@redhat.com> - 1.0b2-13
+- Implement prPrintFile() for raw printing (INFRASERV-1240)
+- Add PAPPL 1.4.x compatibility shims for PAPPL 2.x API
+- Upstream: https://github.com/OpenPrinting/pappl-retrofit/pull/58
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0b2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

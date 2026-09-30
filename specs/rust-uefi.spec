@@ -9,7 +9,7 @@
 %global unsupported_arches ppc64le s390x
 
 Name:           rust-uefi
-Version:        0.39.0
+Version:        0.41.0
 Release:        %autorelease
 Summary:        Safe, convenient, and performant abstractions for UEFI
 

@@ -1,6 +1,6 @@
 Name:       wireplumber
-Version:    0.5.17
-Release:    2%{?dist}
+Version:    0.5.18
+Release:    1%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -8,7 +8,6 @@ URL:        https://pipewire.pages.freedesktop.org/wireplumber/
 Source0:    https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 ## upstream patches
-Patch0:     https://gitlab.freedesktop.org/pipewire/wireplumber/-/commit/65519a1ff7cecebc0622fc4a2badec830ee67d7d.patch
 
 ## upstreamable patches
 
@@ -134,6 +133,9 @@ fi
 %{_datadir}/doc/wireplumber/
 
 %changelog
+* Tue Sep 29 2026 Wim Taymans <wtaymans@redhat.com> - 0.5.18-1
+- wireplumber 0.5.18
+
 * Mon Sep 28 2026 Simone Caronni <negativo17@gmail.com> - 0.5.17-2
 - Backport fix for disabled V4L2 devices stalling the event dispatcher
 - Resolves: rhbz#2541019

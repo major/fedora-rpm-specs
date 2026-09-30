@@ -1,7 +1,7 @@
 Summary: User space tool to set up tables of ARP rules in kernel
 Name:    arptables
 Version: 0.0.5
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
@@ -79,10 +79,17 @@ fi
 %license COPYING
 %{_sbindir}/arptables-legacy*
 %{_mandir}/*/arptables-legacy*
-%ghost %attr(0755,root,root) %{_sbindir}/arptables{,-save,-restore}
-%ghost %attr(0644,root,root) %{_mandir}/man8/arptables{,-save,-restore}.8.gz
+%ghost %attr(0755,root,root) %{_sbindir}/arptables
+%ghost %attr(0755,root,root) %{_sbindir}/arptables-save
+%ghost %attr(0755,root,root) %{_sbindir}/arptables-restore
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables.8.gz
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-save.8.gz
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-restore.8.gz
 
 %changelog
+* Tue Sep 29 2026 Phil Sutter <psutter@redhat.com> - 0.0.5-22
+- Expand globbing in ghost directives
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

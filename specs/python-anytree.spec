@@ -1,8 +1,8 @@
 %global modname anytree
 
 Name:           python-anytree
-Version:        2.8.0
-Release:        26%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Powerful and Lightweight Python Tree Data Structure
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -27,27 +27,30 @@ Powerful and Lightweight Python Tree Data Structure with various plugins.
 
 %prep
 %setup -q -n %{modname}-%{version}
-rm -r %{modname}.egg-info
-# Prohibit that the file LICENSE will be installed in usr from the python setup
-sed -e "/LICENSE/d" -i setup.py
+rm -rf  %{modname}.egg-info
 
+# Make sure tooling is happy with license format (in both Fedora and RHEL)
+sed -i 's/license = "Apache-2.0"/license = {text = "Apache-2.0"}/' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l anytree -L
 
 
-%files -n python3-anytree
+%files -n python3-anytree  -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
-
 
 %changelog
+* Thu Jul 30 2026 Federico Pellegrin <fede@evolware.org> - 2.13.0-1
+- Bump to 2.13.0, use new Python macros (rhbz#2377452)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

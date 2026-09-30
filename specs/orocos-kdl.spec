@@ -3,7 +3,7 @@
 %global ctest_extra_args -E solvertest
 
 Name:       orocos-kdl
-Version:    1.5.3
+Version:    1.5.4
 Release:    %autorelease
 Summary:    A framework for modeling and computation of kinematic chains
 ExcludeArch: %{ix86}

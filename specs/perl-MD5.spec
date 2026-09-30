@@ -1,16 +1,25 @@
 Name:           perl-MD5
 Version:        2.03
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Perl interface to the MD5 Message-Digest Algorithm
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MD5
 Source0:        https://cpan.metacpan.org/modules/by-module/MD5/GAAS/MD5-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Module
 BuildRequires:  perl(Digest::MD5) >= 2.00
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+# Test Suite
+# (no additional requirements)
+# Dependencies
+# (none)
 
 %description
 This module (MD5.pm) is just a thin wrapper around the Digest::MD5
@@ -21,28 +30,31 @@ interface continue to work with the speed benefit of the new module.
 %setup -q -n MD5-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/MD5.pm
+%{_mandir}/man3/MD5.3*
 
 %changelog
+* Tue Sep 29 2026 Paul Howarth <paul@city-fan.org> - 2.03-52
+- Spec tidy-up
+  - License confirmed as "same as perl"
+  - Classify buildreqs by usage
+  - Use %%{make_build} and %%{make_install}
+  - Drop redundant buildroot cleaning in %%install section
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

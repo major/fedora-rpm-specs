@@ -13,8 +13,8 @@
 %endif
 
 Name:           libkrun
-Version:        1.19.0
-Release:        4%{?dist}
+Version:        1.19.6
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -90,7 +90,7 @@ BuildRequires:  crate(vm-memory/default) >= 0.16.0
 BuildRequires:  crate(kvm-bindings/default) >= 0.13.0
 BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.13.0
 BuildRequires:  crate(kvm-ioctls/default) >= 0.23.0
-BuildRequires:  crate(vmm-sys-util/default) >= 0.14.0
+BuildRequires:  crate(vmm-sys-util/default) >= 0.15.0
 BuildRequires:  crate(vm-fdt/default) >= 0.2.0
 BuildRequires:  (crate(virtio-bindings/default) >= 0.2.0 with crate(virtio-bindings/default) < 0.3.0~)
 BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
@@ -241,6 +241,9 @@ capabilities.
 %endif
 
 %changelog
+* Tue Sep 29 2026 Sergio Lopez <slp@redhat.com> - 1.19.6-1
+- Update to version 1.19.6
+
 * Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 1.19.0-4
 - Rebuild with latest Rust compiler to enable SHSTK support
 

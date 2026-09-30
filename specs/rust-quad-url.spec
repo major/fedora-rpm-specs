@@ -6,7 +6,7 @@
 %global crate quad-url
 
 Name:           rust-quad-url
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Plugin for macro-, mini-quad (quads) to do anything with url
 
@@ -16,10 +16,6 @@ URL:            https://crates.io/crates/quad-url
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          quad-url-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Update webbrowser to 1.0.6 (upstream wants 0.5):
-#   https://github.com/optozorax/quad-url/pull/2
-Patch:          quad-url-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

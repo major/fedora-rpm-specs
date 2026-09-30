@@ -29,11 +29,7 @@ Requires:       polkit
 Requires:       xz-libs
 
 %if !0%{?flatpak}
-%if 0%{?fedora} && 0%{?fedora} != 25
-Requires: storaged
-%else
-Requires: udisks
-%endif
+Requires: udisks2
 %endif
 
 %description

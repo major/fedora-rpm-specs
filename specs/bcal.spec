@@ -1,5 +1,5 @@
 Name:       bcal
-Version:    2.5
+Version:    2.6
 Release:    %autorelease
 Summary:    Storage conversion and expression calculator
 
@@ -27,9 +27,8 @@ a 64-bit address is set, bcal is for you
 sed -i '/STRIP ?= strip/d;s/install: bcal/install: /;s/$(CFLAGS)/$(CFLAGS) $(LDFLAGS)/' Makefile
 
 %build
-%{set_build_flags}
 export CFLAGS="-fPIC %{optflags}"
-%make_build bcal
+%make_build STRIP="$(command -v true)" bcal
 
 %install
 %make_install PREFIX=%{_prefix}

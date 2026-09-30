@@ -21,11 +21,6 @@ BuildRequires:      libmnl-devel
 BuildRequires:      libselinux-devel
 BuildRequires:      make
 BuildRequires:      pkgconfig
-%if ! 0%{?_module_build}
-%if 0%{?fedora}
-BuildRequires:      linux-atm-libs-devel
-%endif
-%endif
 Requires:           libbpf
 Requires:           psmisc
 

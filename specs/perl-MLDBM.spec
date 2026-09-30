@@ -1,6 +1,6 @@
 Name:           perl-MLDBM
 Version:        2.05
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Store multi-level hash structure in single level tied hash
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MLDBM
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-%{version
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  sed
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -45,12 +44,11 @@ databases.
 sed -i -e 's/\r$//' README Changes
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -63,6 +61,9 @@ make test
 %{_mandir}/man3/MLDBM.3*
 
 %changelog
+* Tue Sep 29 2026 Paul Howarth <paul@city-fan.org> - 2.05-39
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

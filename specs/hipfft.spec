@@ -88,7 +88,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm FFT marshaling library
 License:        MIT AND BSD-3-Clause
@@ -97,6 +97,9 @@ License:        MIT AND BSD-3-Clause
 #  shared/CLI11.hpp
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+# https://github.com/ROCm/rocm-libraries/pull/12713/changes/0e4902a9ea0c0d5ee3c90aa029f57a121a908568
+Patch1:         0001-fix-cast-unsigned-return-to-ptrdiff_t-in-get_random_.patch
 
 # Only x86_64 works right now
 ExclusiveArch:  x86_64
@@ -172,7 +175,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}
+%autosetup -p3 -n %{upstreamname}
 
 # https://github.com/ROCm/rocm-libraries/issues/2400
 sed -i '/rocm_set_soversion(hipfft .*/a\
@@ -240,6 +243,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Sep 29 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-2
+- Fix test failure
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

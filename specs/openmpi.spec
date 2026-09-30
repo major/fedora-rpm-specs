@@ -46,7 +46,7 @@
 %bcond autogen 1
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.10
+Version:        5.0.11
 Release:        %autorelease
 Summary:        Open Message Passing Interface
 # Automatically converted from old format: BSD and MIT and Romio - review is highly recommended.
@@ -67,10 +67,6 @@ Source0:        https://www.open-mpi.org/software/ompi/v5.0/downloads/openmpi-%{
 Source1:        openmpi.module.in
 Source3:        openmpi.pth.py3
 Source4:        macros.openmpi
-# Fix always inline failure - https://github.com/open-mpi/ompi/pull/13756
-Patch:          openmpi-inline.patch
-# Fix brace initialization - https://github.com/open-mpi/ompi/pull/13758
-Patch:          openmpi-braces.patch
 # Drop unused recommonmark - https://github.com/open-mpi/ompi/pull/14215
 Patch:          openmpi-drop-recommonmark.patch
 

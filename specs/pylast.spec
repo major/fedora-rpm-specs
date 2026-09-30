@@ -1,13 +1,13 @@
 %global pypi_name pylast
 
 Name:		%{pypi_name}
-Version:	7.1.0
+Version:	7.2.0
 Release:	%autorelease
 Summary:	Python interface to Last.fm API compatible social networks
 License:	Apache-2.0
 URL:		https://github.com/pylast/pylast
 VCS:		git:%{url}.git
-Source0:	%{pypi_source %{pypi_name}}
+Source:		%{pypi_source %{pypi_name}}
 BuildArch:	noarch
 BuildSystem:	pyproject
 BuildOption(install):	-l %{pypi_name}

@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        26.9
+Version:        26.9.1
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -75,10 +75,12 @@ sed -i Cargo.toml -e '/efi-apps/d'
 
 %build
 %cargo_prep
+%cargo_build -- --package virtfw-efi-tools --features eficms,udev
+%cargo_build -- --package virtfw-efi-tools --features eficms
 %cargo_build -- --package virtfw-efi-tools --features udev
 %cargo_build -- --package virtfw-efi-tools
 %cargo_build -- --package virtfw-igvm-tools --features authenticode
-%cargo_build -- --package virtfw-varstore --features std,json,pem
+%cargo_build -- --package virtfw-varstore --features std,json
 %if %{with efi_apps}
 %cargo_build -- --package virtfw-efi-apps --target $(uname -m)-unknown-uefi
 %endif
@@ -90,6 +92,8 @@ sed -i Cargo.toml -e '/efi-apps/d'
 install -d %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/generate-boot-csv %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/list-sb-vars %{buildroot}%{_bindir}
+install -v -m 755 target/rpm/enroll-sb-vars %{buildroot}%{_bindir}
+install -v -m 755 target/rpm/check-sb-signature %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/mini-bootcfg %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/virt-fw-vars-setup %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/uefi-boot-menu %{buildroot}%{_bindir}/uefi-boot-menu-rs
@@ -107,7 +111,8 @@ for dir in efi-apps efi-tools igvm-tools; do
 done
 # man pages
 mkdir -p %{buildroot}%{_mandir}/man1
-for app in virt-fw-vars-setup igvm-inspect igvm-wrap igvm-update; do
+for app in enroll-sb-vars check-sb-signature virt-fw-vars-setup \
+           igvm-inspect igvm-wrap igvm-update; do
     %{buildroot}%{_bindir}/${app} --manpage > %{buildroot}%{_mandir}/man1/${app}.1
 done
 
@@ -126,6 +131,8 @@ done
 %doc README.igvm-tools.md
 %{_bindir}/generate-boot-csv
 %{_bindir}/list-sb-vars
+%{_bindir}/enroll-sb-vars
+%{_bindir}/check-sb-signature
 %{_bindir}/mini-bootcfg
 %{_bindir}/virt-fw-vars-setup
 %{_bindir}/uefi-boot-menu-rs

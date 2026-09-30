@@ -1,5 +1,5 @@
 Name:           python-rope
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Python Code Refactoring Library
 

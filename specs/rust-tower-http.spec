@@ -5,7 +5,7 @@
 %global crate tower-http
 
 Name:           rust-tower-http
-Version:        0.6.8
+Version:        0.6.11
 Release:        %autorelease
 Summary:        Tower middleware and utilities for HTTP clients and servers
 
@@ -311,18 +311,6 @@ use the "httpdate" feature of the "%{crate}" crate.
 %files       -n %{name}+httpdate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+iri-string-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+iri-string-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "iri-string" feature of the "%{crate}" crate.
-
-%files       -n %{name}+iri-string-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+limit-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -405,6 +393,18 @@ This package contains library source intended for building other packages which
 use the "normalize-path" feature of the "%{crate}" crate.
 
 %files       -n %{name}+normalize-path-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+on-early-drop-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+on-early-drop-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "on-early-drop" feature of the "%{crate}" crate.
+
+%files       -n %{name}+on-early-drop-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+percent-encoding-devel

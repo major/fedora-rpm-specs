@@ -5,7 +5,7 @@
 %global crate zune-jpeg
 
 Name:           rust-zune-jpeg
-Version:        0.5.13
+Version:        0.5.15
 Release:        %autorelease
 Summary:        Fast, correct and safe jpeg decoder
 

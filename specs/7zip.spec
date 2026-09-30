@@ -6,7 +6,7 @@
 %global obs_ver 16.03
  
 Name:           7zip
-Version:        26.02
+Version:        26.03
 Release:        %autorelease
 Summary:        A file archiver
 

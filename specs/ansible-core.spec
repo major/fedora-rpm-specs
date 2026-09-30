@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.22.0~b1
+Version:        2.22.0~b2
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -244,6 +244,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Sep 29 2026 Maxwell G <maxwell@gtmx.me> - 2.22.0~b2-1
+- Update to 2.22.0~b2.
+
 * Wed Sep 23 2026 Maxwell G <maxwell@gtmx.me> - 2.22.0~b1-1
 - Update to 2.22.0~b1.
 

@@ -98,13 +98,16 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm SPARSE marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+# https://github.com/ROCm/rocm-libraries/pull/12739
+Patch1:         0001-fix-bounds-check-in-gen_matrix_coo-to-prevent-out-of.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -191,7 +194,7 @@ Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}
+%autosetup -p3 -n %{upstreamname}
 
 # A better default for the matrices dir
 sed -i -e 's@hipsparse_exepath() + "../matrices/"@"%{pkg_prefix}/share/hipsparse/matrices/"@' clients/include/utility.hpp
@@ -340,6 +343,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Tue Sep 29 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-2
+- Fix tests
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

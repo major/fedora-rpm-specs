@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.12.1
+Version:        2.13.0
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -112,6 +112,9 @@ do
         "features.${binding}" "${binding}-static" "${binding}-shared"
   fi
 done
+
+# Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
+tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 %cargo_prep
 

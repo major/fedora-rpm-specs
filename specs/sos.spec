@@ -27,7 +27,8 @@ Recommends: python3-boto3
 # Address duplicate man pages
 BuildRequires:  fdupes
 %endif
-
+Patch1: 0001-cleaner-refuse-out-of-tree-tar-members-on-extract.patch
+Patch2: 0002-cleaner-refuse-out-of-tree-tar-members-for-hardlinks.patch
 
 %description
 Sos is a set of tools that gathers information about system

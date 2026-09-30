@@ -88,6 +88,7 @@ BuildRequires:  vulkan-headers
 BuildRequires:  vulkan-loader-devel
 
 Requires:       hicolor-icon-theme
+Requires:       monado
 Requires:       patch
 # Obsolete the dropped wivrn subpackage
 Obsoletes:      envision-wivrn < %{version}-%{release}

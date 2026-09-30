@@ -18,7 +18,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -168,7 +168,9 @@ source files.
 %package -n js-doxygen
 Summary: Javascript files used by Doxygen
 Requires: web-assets-filesystem
+Requires: %{name} = %{epoch}:%{version}-%{release}
 BuildArch: noarch
+
 %description -n js-doxygen
 Javascript files for use by locally installed Doxygen documentation.
 
@@ -374,6 +376,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Tue Sep 29 2026 Than Ngo <than@redhat.com> - 2:1.18.0-2
+- Add a missing requirement in js-doxygen
+
 * Tue Sep 22 2026 Than Ngo <than@redhat.com> - 2:1.18.0-1
 - Fix rhbz#2515301, Update to 1.18.0
 

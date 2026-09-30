@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.11
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -20,6 +20,9 @@ Patch0:		%{name}-constraint-of-language.patch
 Patch1:		%{name}-disable-xim.patch
 ## Fedora specific: Enable xcompose for certain languages
 Patch2:		%{name}-xinput-xcompose.patch
+## Fedora specific: Do not set up IM env vars for xcompose locales on Wayland
+## https://bugzilla.redhat.com/show_bug.cgi?id=2539584
+Patch3:		%{name}-xcompose-wayland.patch
 %if 0%{?rhel}
 Patch4:		%{name}-glib.patch
 ## backport
@@ -319,6 +322,11 @@ fi
 %endif
 
 %changelog
+* Thu Sep 24 2026 Nikolay Plastinin <plaztininikolai@gmail.com> - 1.8.11-4
+- Ignore Wayland sessions in xcompose.conf like none.conf does, so
+  QT_IM_MODULE=xim is not set on Plasma Wayland for am_ET, el_GR, fi_FI,
+  pt_BR and ru_RU (rhbz#2539584)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

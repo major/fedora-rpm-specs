@@ -5,7 +5,7 @@
 %global crate asyncband
 
 Name:           rust-asyncband
-Version:        0.7.1
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Composable, runtime-agnostic concurrency building blocks for async Rust
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/NOTICE
-%doc %{crate_instdir}/HISTORY.md
 %doc %{crate_instdir}/MIGRATE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -145,6 +144,18 @@ use the "lazy-cell" feature of the "%{crate}" crate.
 %files       -n %{name}+lazy-cell-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+mpmc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mpmc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mpmc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mpmc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+mpsc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -217,6 +228,18 @@ use the "oneshot" feature of the "%{crate}" crate.
 %files       -n %{name}+oneshot-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+phaser-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+phaser-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "phaser" feature of the "%{crate}" crate.
+
+%files       -n %{name}+phaser-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+pool-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -275,6 +298,18 @@ This package contains library source intended for building other packages which
 use the "singleflight" feature of the "%{crate}" crate.
 
 %files       -n %{name}+singleflight-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+spmc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+spmc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "spmc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+spmc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+waitgroup-devel

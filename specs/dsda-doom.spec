@@ -6,10 +6,16 @@ Summary: Speedrun-oriented Doom source port
 #   - prboom2/src/gl_sky.c
 #   - prboom2/src/scanner.cpp
 #   - prboom2/src/scanner.h
+# * CC-BY-SA-4.0:
+#   - prboom2/src/textscreen/fonts/hauge-8x18-v1-6.png
+#   - prboom2/src/textscreen/fonts/normal.h
 # * LGPL v2.0 or later:
 #   - prboom2/src/umapinfo.cpp
 #   - prboom2/src/umapinfo.h
 # * LGPL v2.1 or later:
+#   - prboom2/src/MUSIC/opl3.c
+#   - prboom2/src/MUSIC/opl3.h
+#   - prboom2/src/MUSIC/wf_rom.h
 #   - prboom2/src/gl_vertex.c
 # * Public domain:
 #   - prboom2/src/SDL/SDL_windows_main.c
@@ -22,10 +28,10 @@ Summary: Speedrun-oriented Doom source port
 #
 # Note regarding gl_vertex.c: the file has a conditional licensing clause.
 # Check the discussion at: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/310
-License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
+License: GPL-2.0-or-later AND BSD-3-Clause AND CC-BY-SA-4.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
-Version: 0.29.4
-Release: 3%{?dist}
+Version: 0.30.0
+Release: 1%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -120,6 +126,9 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Tue Sep 29 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.30.0-1
+- Update to v0.30.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

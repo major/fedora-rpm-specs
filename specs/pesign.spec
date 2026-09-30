@@ -5,8 +5,8 @@
 
 Name:    pesign
 Summary: Signing utility for UEFI binaries
-Version: 116
-Release: 9%{?dist}
+Version: 117
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL:     https://github.com/rhboot/pesign
 
@@ -144,7 +144,6 @@ certutil -d %{_sysconfdir}/pki/pesign/ -X -L > /dev/null
 %config(noreplace) %attr(0660,pesign,pesign) %{_sysconfdir}/pki/pesign/*
 %dir %attr(0775,pesign,pesign) %{_sysconfdir}/pki/pesign-rh-test/
 %config(noreplace) %attr(0664,pesign,pesign) %{_sysconfdir}/pki/pesign-rh-test/*
-%{_libexecdir}/pesign/pesign-authorize
 %{_libexecdir}/pesign/pesign-rpmbuild-helper
 %config(noreplace)/%{_sysconfdir}/pesign/users
 %config(noreplace)/%{_sysconfdir}/pesign/groups
@@ -163,6 +162,9 @@ certutil -d %{_sysconfdir}/pki/pesign/ -X -L > /dev/null
 %{_sysusersdir}/pesign.conf
 
 %changelog
+* Thu Sep 24 2026 Nicolas Frayer <nfrayer@redhat.com> - 117-1
+- Use new upstream release (117)
+
 * Mon Jun 22 2026 Nicolas Frayer <nfrayer@redhat.com> - 116-9
 - Fix a FTBFS issue caused by a missing const qualifier
 - Resolves: #2491392

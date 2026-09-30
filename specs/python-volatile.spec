@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A small extension for the tempfile module
 License:        MIT
 URL:            https://github.com/mbr/volatile
@@ -40,27 +40,29 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
 %pytest -v
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Sep 29 2026 Federico Pellegrin <fede@evolware.org> - 2.1.0-24
+- Use new Python macros (rhbz#2378327)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

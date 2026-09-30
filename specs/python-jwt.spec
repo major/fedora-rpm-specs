@@ -13,7 +13,7 @@ encrypted JSON objects.}
 
 
 Name:           python-%{pkgname}
-Version:        2.15.0
+Version:        2.15.1
 Release:        1%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
@@ -64,6 +64,10 @@ Recommends:     python3-%{pkgname}+crypto
 
 
 %changelog
+* Mon Sep 28 2026 Packit <hello@packit.dev> - 2.15.1-1
+- Update to version 2.15.1
+- Resolves: rhbz#2542627
+
 * Wed Sep 23 2026 Packit <hello@packit.dev> - 2.15.0-1
 - Update to version 2.15.0
 - Resolves: rhbz#2539595

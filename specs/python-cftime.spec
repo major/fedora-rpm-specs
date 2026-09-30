@@ -1,14 +1,13 @@
 %global srcname cftime
 
 Name:           python-%{srcname}
-Version:        1.6.5
+Version:        1.6.6
 Release:        %autorelease
 Summary:        Time-handling functionality from netcdf4-python
 
 # calendar calculation routines in _cftime.pyx derived from calcalcs.c by David
 # W. Pierce with GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
-# Automatically converted from old format: MIT and GPLv3 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND GPL-3.0-only
+License:        MIT AND GPL-3.0-only
 URL:            https://pypi.python.org/pypi/cftime
 Source0:        %{pypi_source}
 

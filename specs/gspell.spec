@@ -2,7 +2,7 @@
 %global gtk3_version 3.20
 
 Name:           gspell
-Version:        1.14.4
+Version:        1.14.5
 Release:        %autorelease
 Summary:        Spell-checking library for GTK+
 

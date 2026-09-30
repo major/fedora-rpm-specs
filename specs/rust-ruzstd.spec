@@ -6,15 +6,13 @@
 %global crate ruzstd
 
 Name:           rust-ruzstd
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Decoder for the zstd compression format
 
 License:        MIT
 URL:            https://crates.io/crates/ruzstd
 Source:         %{crates_source}
-# * https://github.com/KillingSpark/zstd-rs/pull/98
-Source2:        https://github.com/KillingSpark/zstd-rs/raw/refs/tags/v0.8.2/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -88,7 +86,6 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

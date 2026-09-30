@@ -3,7 +3,7 @@
 
 Summary: An open source library and milter for providing ARC service
 Name: openarc
-Version: 1.3.1
+Version: 1.3.2
 Release: %{?pre_rel:0.}%{baserelease}%{?pre_rel:.%pre_rel}%{?dist}
 # Automatically converted from old format: BSD and Sendmail - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND Sendmail-8.23
@@ -155,6 +155,9 @@ install -m0644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/openarc.conf
 
 
 %changelog
+* Tue Sep 29 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.2-1
+- Update to 1.3.2 (RHBZ#2542928)
+
 * Mon Sep 28 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.1-1
 - Update to 1.3.1 (RHBZ#2542555)
 

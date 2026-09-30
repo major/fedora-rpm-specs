@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000177
-Version:        1.0.177
+%global cpan_version 1.000180
+Version:        1.0.180
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,10 +71,9 @@ BuildRequires:  perl(Test2::API) >= 1.302170
 BuildRequires:  perl(Test2::Event) >= 1.302170
 BuildRequires:  perl(Test2::Formatter) >= 1.302170
 BuildRequires:  perl(Test2::Hub)
-%if %{with perl_Test2_Harness_enables_coverage}
-%define test2_plugin_cover_min_version 0.000025
-BuildRequires:  perl(Test2::Plugin::Cover) >= %{test2_plugin_cover_min_version}
-%endif
+%define test2_plugin_cover_min_version 0.000030
+# perl(Test2::Plugin::Cover) >= %%{test2_plugin_cover_min_version} not used at
+# tests
 # Test2::Plugin::DBIProfile not used at tests
 BuildRequires:  perl(Test2::Plugin::IOEvents) >= 0.001001
 BuildRequires:  perl(Test2::Plugin::MemUsage) >= 0.002003
@@ -92,11 +91,10 @@ BuildRequires:  perl(YAML::Tiny)
 # Tests:
 BuildRequires:  perl(base)
 BuildRequires:  perl(lib)
+# File::Basename not used
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(ok)
-BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test2::Bundle::Extended) >= 0.000127
-BuildRequires:  perl(Test2::Require::AuthorTesting)
 BuildRequires:  perl(Test2::Tools::AsyncSubtest) >= 0.000127
 BuildRequires:  perl(Test2::Tools::GenTemp)
 BuildRequires:  perl(Test2::Tools::Spec)
@@ -107,10 +105,6 @@ BuildRequires:  perl(Test::Builder) >= 1.302170
 BuildRequires:  perl(Test::More) >= 1.302170
 BuildRequires:  perl(utf8)
 # Optional tests:
-%if %{with perl_Test2_Harness_enables_coverage}
-%define test2_require_module_min_version 0.000127
-BuildRequires:  perl(Test2::Require::Module) >= %{test2_require_module_min_version}
-%endif
 # t2/lib/App/Yath/Plugin/SelfTest.pm tries building a C code using a gcc and
 # to run a bash script. But SelfTest.pm itself is never executed.
 # bash not used
@@ -147,7 +141,7 @@ Requires:       perl(Test2::Event) >= 1.302170
 Requires:       perl(Test2::Formatter) >= 1.302170
 Requires:       perl(Test2::Hub)
 %if %{with perl_Test2_Harness_enables_coverage}
-Suggests:       perl(Test2::Plugin::Cover) >= %{test2_plugin_cover_min_version}
+Suggests:       perl(Test2::Plugin::Cover) >= 0.000130
 %endif
 Suggests:       perl(Test2::Plugin::DBIProfile) >= 0.002002
 Requires:       perl(Test2::Plugin::IOEvents) >= 0.001001
@@ -158,10 +152,10 @@ Requires:       perl(Test2::Util::Term) >= 0.000127
 Requires:       perl(Test::Builder::Formatter) >= 1.302170
 
 # Filter underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|List::Util|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover|Test2::Require::Module)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|List::Util|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover)\\)$
 # Filter private modules
-%global __requires_exclude %{__requires_exclude}|^perl\\((Ax|Bar|Baz|Bx|Cx|Foo|main::HBase|main::HBase::Wrapped)\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|ArrayrefHook|Bar|Baz|BlockingResource|Bx|BBB|Broken|CCC|CoderefHook|Cx|FakeHook|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SchedulerKillerResource|SmokePlugin|StalledResource|TestPreload|TestSimplePreload|UnavailableResource)\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\((Ax|Bar|Baz|Bx|Cx|Foo|main::HBase|main::HBase::Wrapped|TestBarrier|Vendor)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|ArrayrefHook|Bar|Baz|BlockingResource|Bx|BBB|Broken|CCC|CoderefHook|Cx|FakeHook|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SchedulerKillerResource|SmokePlugin|StalledResource|TestBarrier|TestPreload|TestSimplePreload|UnavailableResource|Vendor)\\)
 
 %description
 This is a test harness toolkit for Perl Test2 system. It provides a yath tool,
@@ -176,10 +170,6 @@ Requires:       perl(FindBin)
 Requires:       perl(List::Util) >= 1.45
 Requires:       perl(Test::Builder) >= 1.302170
 Requires:       perl(Test::More) >= 1.302170
-%if %{with perl_Test2_Harness_enables_coverage}
-Requires:       perl(Test2::Plugin::Cover) >= %{test2_plugin_cover_min_version}
-Requires:       perl(Test2::Require::Module) >= %{test2_require_module_min_version}
-%endif
 Requires:       perl(Test2::V0) >= 0.000127
 
 %description tests
@@ -189,12 +179,26 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n Test2-Harness-%{cpan_version}
 chmod -x t2/non_perl/test.c
-%if !%{with perl_Test2_Harness_enables_coverage}
-for T in t/integration/coverage{,2,3,4}.t; do
+# Remove always skipped tests
+for T in t/integration/cover_exclude.t t/integration/coverage{,2,3,4}.t \
+        t/integration/coverage/{a,b,c,once,open,x}.tx \
+        t/integration/cover_exclude/a.tx \
+        t/integration/cover_exclude/deps/lib/Dep.pm \
+        t/integration/cover_exclude/deps2/Dep2.pm \
+        t/integration/cover_exclude/lib/CoverExcludePreload.pm \
+        t/integration/cover_exclude/lib/Keep.pm \
+        t/integration/cover_exclude_out_of_band/a.tx \
+        t/integration/cover_exclude_out_of_band/deps/OOBDep.pm \
+        t/integration/cover_exclude_out_of_band/lib/CoverExcludePeek.pm \
+        t/integration/cover_exclude_out_of_band/lib/OOBKeep.pm \
+        t/integration/cover_exclude_out_of_band/lib/OOBRekey.pm \
+        t/integration/persist.t \
+        t/integration/reload.t t/integration/reload_syntax_error.t \
+        t/integration/retry.t t/integration/signals.t \
+        t/integration/stall_report.t t2/output.t; do
     rm "$T"
-    perl -i -ne 'print $_ unless m{\A\Q'"$T"'\E\b' MANIFEST
+    perl -i -ne 'print $_ unless m{\A\Q'"$T"'\E\b}' MANIFEST
 done
-%endif
 # Help generators to recognize a Perl code
 %patch -P 99 -p 1
 for F in test.pl $(find t t2 -name '*.t' -o -name '*.tx') t/unit/App/Yath/Plugin/Git.script; do
@@ -293,6 +297,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 29 2026 Petr Pisar <ppisar@redhat.com> - 1.0.180-1
+- 1.000180 bump
+
 * Wed Sep 02 2026 Petr Pisar <ppisar@redhat.com> - 1.0.177-1
 - 1.000177 bump
 

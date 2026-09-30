@@ -30,7 +30,7 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.653
+Version:        1.654
 Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -150,6 +150,7 @@ the use of existing DBI frameworks like DBIx::Class.
 
 %package tests
 Summary:        Tests for %{name}
+BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 # Optional run-time:
@@ -268,6 +269,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.654-1
+- 1.654 bump (rhbz#2541007)
+- Fix CVE-2026-88815 (DBI::sql_type_cast on IV/NV)
+- Fix CVE-2026-88816 (FetchHashKeyName on IV/NV)
+
 * Thu Sep 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.653-1
 - 1.653 bump (rhbz#2530990)
 - Fix CVE-2026-78030 (arbitrary module and file loading via dbm_type/dbm_mldbm)

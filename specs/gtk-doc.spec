@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: gtk-doc
-Version: 1.36.1
+Version: 1.37.0
 Release: %autorelease
 Summary: API documentation generation tool for GTK+ and GNOME
 

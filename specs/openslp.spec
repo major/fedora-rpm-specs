@@ -2,7 +2,7 @@
 Summary: Open implementation of Service Location Protocol V2
 Name:    openslp
 Version: 2.0.0
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 License: BSD-3-Clause
 URL:     http://sourceforge.net/projects/openslp/
@@ -33,6 +33,10 @@ Patch6:  openslp-2.0.0-cve-2017-17833.patch
 # Patch7: fixes a heap overwrite vulnerability
 #   leading to remote code execution
 Patch7:  openslp-2.0.0-cve-2019-5544.patch
+# Patch8: validates the DHCP response size in DHCPGetOptionInfo() before
+#   subtracting the 236 byte BOOTP header, which otherwise underflows the
+#   size_t parameter of dhcpProcessOptions() and reads past rcvbuf
+Patch8:  openslp-2.0.0-dhcp-integer-overflow.patch
 
 BuildRequires: make
 BuildRequires: automake libtool
@@ -74,6 +78,7 @@ OpenSLP server daemon to dynamically register services.
 %patch -P5 -p1 -b .cve-2016-7567
 %patch -P6 -p1 -b .cve-2017-17833
 %patch -P7 -p1 -b .cve-2019-5544
+%patch -P8 -p1 -b .dhcp-integer-overflow
 
 # tarball goof (?), it wants to re-automake anyway, so let's do it right.
 #libtoolize --force
@@ -171,6 +176,9 @@ rm -f  $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Tue Sep 29 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.0-44
+- Fix integer overflow in DHCPGetOptionInfo() size calculation
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           libucontext
 Version:        1.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ucontext implementation featuring glibc-compatible ABI
 
 License:        ISC
@@ -27,12 +27,20 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%package        static
+Summary:        %{name} static library
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    static
+This package contains the static library version of %{name}.
+
+
 %prep
 %autosetup
 
 
 %build
-%meson -Ddefault_library=shared -Dexport_unprefixed=false -Dfreestanding=true
+%meson -Ddefault_library=both -Dexport_unprefixed=false -Dfreestanding=true
 %meson_build
 
 
@@ -54,8 +62,14 @@ developing applications that use %{name}.
 %{_libdir}/%{name}*.so
 %{_libdir}/pkgconfig/%{name}.pc
 
+%files static
+%{_libdir}/%{name}.a
+
 
 %changelog
+* Sun Sep 27 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.5.1-3
+- Add -static subpackage
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

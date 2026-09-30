@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-201-g04a3995650
+%global glibcsrcdir glibc-2.44.9000-220-gcbf59b8366
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2477,6 +2477,29 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Sep 29 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-4
+- Auto-sync with upstream branch master,
+  commit cbf59b836645b6ac69ad8c47a560598bc4942ecc:
+- CVE-2026-89092: nscd: replace alloca with malloc in aicache, hstcache (DJ Delorie)
+- elf: Only build THP tests for ABIs that define THP-PAGE-SIZE (Adhemerval Zanella)
+- posix: Add POSIX posix_spawn_file_actions_add{,f}chdir (Adhemerval Zanella)
+- Revert "posix: Add POSIX aliases to some spawn functions" (BZ 34437) (Adhemerval Zanella)
+- elf: Consume hex arguments in _dl_exception_create_format length pass (Adhemerval Zanella)
+- math: Use cbrt from CORE-MATH (Adhemerval Zanella)
+- benchtests: Add workloads to cbrt (Adhemerval Zanella)
+- elf: Fix tunable comma iterator (Daniel Fellows)
+- posix: Use mmap for address alignment check in tst-mmap (Muhammad Kamran)
+- dirent: Restore padding in tst-getdents64 (Muhammad Kamran)
+- Publish CVE-2026-97399 advisory (Siddhesh Poyarekar)
+- AArch64: Add SVE2 memchr (Wilco Dijkstra)
+- nptl: Isolate tst-setuid-eagain RLIMIT_SIGPENDING accounting in a user namespace (Adhemerval Zanella)
+- string: Drop always_inline from tst-xbzero-opt [BZ #23130] (Stian Halseth)
+- soft-fp: fix sticky bit in _FP_MUL_MEAT_2_120_240_double [BZ #34640] (Stian Halseth)
+- Update to Unicode 18.0.0 [BZ #34648] (Mike FABIAN)
+- s390: Load stackpointer once in ____longjmp_chk. [BZ #34622] (Stefan Liebler)
+- s390: Call __setcontext directly in __makecontext_ret [BZ #34621] (Stefan Liebler)
+- s390: Don't store thread-pointer to ucontext-struct with get/swapcontext. [BZ #34620] (Stefan Liebler)
+
 * Thu Sep 24 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-3
 - Auto-sync with upstream branch master,
   commit 04a3995650ec181e98b768fef59f1ad228a87be5:
