@@ -1,5 +1,5 @@
 Name:           prrte
-Version:        3.0.14
+Version:        4.1.0
 Release:        %autorelease
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 # src/mca/prtereachable/netlink/reachable_netlink_utils_common.c is BSD-2-Clause
@@ -25,7 +25,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  hwloc-devel
 BuildRequires:  libevent-devel
-BuildRequires:  pmix-devel >= 4.2.2
+BuildRequires:  pmix-devel >= 6.1.0
 # For pmixcc - https://bugzilla.redhat.com/show_bug.cgi?id=2078048
 BuildRequires:  pmix-tools
 BuildRequires:  perl-interpreter
@@ -116,6 +116,9 @@ rm %{buildroot}%{_docdir}/%{name}/html/.buildinfo*
 %doc README.md
 %{_libdir}/openmpi/bin/prte
 %{_libdir}/openmpi/bin/prte_info
+%{_libdir}/openmpi/bin/prte-info
+%{_libdir}/openmpi/bin/prte-submit
+%{_libdir}/openmpi/bin/prte-term
 %{_libdir}/openmpi/bin/prted
 %{_libdir}/openmpi/bin/prterun
 %{_libdir}/openmpi/bin/prun

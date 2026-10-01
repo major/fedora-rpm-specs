@@ -1,7 +1,7 @@
 %global pypi_name gql
 
 Name:           python-%{pypi_name}
-Version:        4.0.0
+Version:        4.4.0
 Release:        %autorelease
 Summary:        GraphQL client for Python
 

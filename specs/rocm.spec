@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -159,14 +159,12 @@ This is a meta package for all of the ROCm devel packages.
 
 %package test
 Summary:        Tests for ROCm
-Requires: kfdtest             >= %{rocm_release}
-%if 0%{?fedora}
+Requires: kfdtest   >= %{rocm_release}
 Requires: hip-tests >= %{rocm_release}
-Requires: rccl-tests
 Requires: rocm-bandwidth-test
 Requires: rocm-transferbench
 Requires: rocm-validation-suite
-%endif
+Requires: rccl-tests
 
 %description test
 This is a meta package for all of the ROCm test packages.
@@ -189,6 +187,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed Sep 30 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-2
+- Expand epel tests
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

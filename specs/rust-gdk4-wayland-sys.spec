@@ -5,13 +5,16 @@
 %global crate gdk4-wayland-sys
 
 Name:           rust-gdk4-wayland-sys
-Version:        0.11.0
+Version:        0.11.5
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 Wayland
 
 License:        MIT
 URL:            https://crates.io/crates/gdk4-wayland-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gdk4-wayland-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gtk4-wayland) >= 4.0.0

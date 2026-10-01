@@ -8,7 +8,7 @@ extensions, and UDF.
 
 Summary:        A pure python ISO9660 read and write library
 Name:           python-%{srcname}
-Version:        1.20.0
+Version:        1.21.0
 Release:        1%{?dist}
 License:        LGPL-2.0-only
 URL:            https://github.com/clalancette/%{srcname}
@@ -68,6 +68,8 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
                        and not test_rrtfrecord_new_creation_seconds_forces_creation_bit \
                        and not test_extended_file_entry_new_creation_seconds \
                        and not test_new_rock_ridge_creation_time_round_trip \
+                       and not test_rrtfrecord_new_all_fields_short_form \
+                       and not test_rrtfrecord_new_all_fields_long_form \
                        and not test_new_udf_creation_time_forces_efe_round_trip" \
                        -v tests
 
@@ -83,6 +85,9 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 29 2026 Federico Pellegrin <fede@evolware.org> - 1.21.0-1
+- Update to 1.21.0 (rhbz#2541495)
+
 * Wed Aug 05 2026 Federico Pellegrin <fede@evolware.org> - 1.20.0-1
 - Update to 1.20.0 (rhbz#2511649)
 

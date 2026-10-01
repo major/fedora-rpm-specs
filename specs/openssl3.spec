@@ -33,7 +33,7 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl3
-Version: 3.5.8
+Version: 3.5.9
 Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
@@ -101,8 +101,9 @@ Patch0054: 0054-Temporarily-disable-SLH-DSA-FIPS-self-tests.patch
 Patch0055: 0055-Add-a-define-to-disable-symver-attributes.patch
 Patch0056: 0056-Add-targets-to-skip-build-of-non-installable-program.patch
 Patch0057: 0057-Disable-RSA-PKCS1.5-FIPS-POST-not-relevant-for-RHEL.patch
-Patch0058: 0058-separate-provider-folder.patch
-Patch0059: 0059-RH-Rename-openssl.cnf-to-openssl3.cnf.patch
+Patch0058: 0058-Skip-tests-not-matching-Fedora-RHEL-FIPS-changes.patch
+Patch0100: 0100-separate-provider-folder.patch
+Patch0101: 0101-RH-Rename-openssl.cnf-to-openssl3.cnf.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -487,6 +488,23 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Sep 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.9-1
+- Rebase to OpenSSL 3.5.9
+  Resolves: CVE-2026-84782
+  Resolves: CVE-2026-84783
+  Resolves: CVE-2026-35189
+  Resolves: CVE-2026-35191
+  Resolves: CVE-2026-42772
+  Resolves: CVE-2026-54872
+  Resolves: CVE-2026-54873
+  Resolves: CVE-2026-54875
+  Resolves: CVE-2026-72897
+  Resolves: CVE-2026-75804
+  Resolves: CVE-2026-75805
+  Resolves: CVE-2026-75806
+  Resolves: CVE-2026-77696
+  Resolves: CVE-2026-84784
+
 * Thu Sep 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.8-1
 - Rebase to OpenSSL 3.5.8
 

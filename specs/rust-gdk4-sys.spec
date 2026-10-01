@@ -7,13 +7,16 @@
 %global crate gdk4-sys
 
 Name:           rust-gdk4-sys
-Version:        0.11.4
+Version:        0.11.5
 Release:        %autorelease
 Summary:        FFI bindings of GDK 4
 
 License:        MIT
 URL:            https://crates.io/crates/gdk4-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gdk4-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gtk4) >= 4.0.0

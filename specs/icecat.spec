@@ -83,9 +83,9 @@ ExcludeArch: %{ix86} %{arm}
 %global system_nss  0
 %endif
 %if %{?system_nss}
-%global nspr_version 4.32
+%global nspr_version 4.36
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.100
+%global nss_version 3.110
 %global nss_build_version %{nss_version}
 %endif
 
@@ -95,7 +95,7 @@ ExcludeArch: %{ix86} %{arm}
 
 %global with_vpx 1
 %if %{?with_vpx}
-%global libvpx_version 1.8.2
+%global libvpx_version 1.14.1
 %endif
 
 # Use clang?
@@ -113,7 +113,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.16.0
+Version: 140.17.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -161,7 +161,6 @@ Patch226: rhbz-1354671.patch
 # Build patches
 Patch228: %{name}-protobuf_s390.patch
 Patch229: mozilla-2034301.patch
-Patch230: icecat-rust-1.98_additional_targets_mzb2053518.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -223,8 +222,8 @@ BuildRequires: mesa-libGL-devel
 BuildRequires: nodejs, /usr/bin/node
 BuildRequires: nasm >= 1.13
 %if %{?system_nss}
-BuildRequires: pkgconfig(nspr) >= %{nspr_version}
-BuildRequires: pkgconfig(nss) >= %{nss_version}
+BuildRequires: nspr-devel >= %{nspr_version}
+BuildRequires: nss-devel >= %{nss_version}
 BuildRequires: nss-static >= %{nss_version}
 %endif
 
@@ -285,8 +284,8 @@ Requires: mozilla-filesystem
 Requires: p11-kit-trust
 
 %if %{?system_nss}
-Requires: nspr >= %{nspr_build_version}
-Requires: nss >= %{nss_build_version}
+Requires: nspr%{?_isa} >= %{nspr_build_version}
+Requires: nss%{?_isa} >= %{nss_build_version}
 %endif
 
 %if 0%{?fedora}
@@ -359,7 +358,6 @@ tar -xf %{SOURCE5}
 %endif
 
 %patch -P 229 -p 1 -b .incom-pointer
-%patch -P 230 -p 1 -b .rust_additional_targets
 
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162

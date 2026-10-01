@@ -3,7 +3,7 @@
 
 # https://github.com/betterleaks/betterleaks
 %global goipath         github.com/betterleaks/betterleaks
-Version:                1.8.1
+Version:                1.9.0
 
 %gometa -L -f
 

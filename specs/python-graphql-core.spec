@@ -1,7 +1,7 @@
 %global pypi_name graphql-core
 
 Name:           python-%{pypi_name}
-Version:        3.2.12
+Version:        3.3.0
 Release:        %autorelease
 Summary:        GraphQL implementation for Python
 
@@ -15,7 +15,6 @@ Source:         %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  tomcli
 
 
 %global _description %{expand:
@@ -27,7 +26,6 @@ implementation for GraphQL, a query language for APIs.}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-Obsoletes:      python3-%{pypi_name}-doc < %{version}-%{release}
 
 
 %description -n python3-%{pypi_name} %_description
@@ -36,14 +34,17 @@ Obsoletes:      python3-%{pypi_name}-doc < %{version}-%{release}
 %prep
 %forgeautosetup
 
-# Relax version constraints
-tomcli set pyproject.toml arrays replace \
-    build-system.requires '(.+)>=[0-9.].*' '\1'
-
 # Relax version constraints for test dependencies and remove linters.
 # and other unused / unavailable plugins.
+
+%pyproject_patch_dependency tox:drop_lower
+sed -i 's/tox>=4.64/tox/' tox.ini
+
+%pyproject_patch_dependency anyio:drop_lower
+
 %pyproject_patch_dependency pytest-cov:ignore
-%pyproject_patch_dependency pytest-describe:ignore
+%pyproject_patch_dependency pytest-codspeed:ignore
+%pyproject_patch_dependency pytest-benchmark:ignore
 
 
 %generate_buildrequires
@@ -60,7 +61,7 @@ tomcli set pyproject.toml arrays replace \
 
 
 %check
-%pytest -r fEs
+%pytest -r fEs -o addopts="" --ignore=tests/benchmarks tests
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

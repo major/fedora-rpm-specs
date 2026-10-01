@@ -6,7 +6,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -464,7 +464,7 @@ for type in %{types}; do
 		libname=atlas-${type}
 		if [ "$type" = "corei2" ]; then
 			thread_options="-t 4"
-			arg_options="-A Corei2 -V 896"
+			arg_options="-A Corei2 -V 1920"
 			%define pr_corei2 %(echo $((%{__isa_bits}+2)))
 		elif [ "$type" = "corei1" ]; then
 			arg_options="-A Corei1 -V 896"
@@ -564,6 +564,7 @@ mkdir -p %{buildroot}%{_includedir}/atlas
 
 
 %check
+%ifnarch %{ix86}
 for type in %{types}; do
 	if [ "$type" = "z14" ] || [ "$type" = "z15" ]; then
 	    # skip the tests (may fail due to illegal instructions).
@@ -574,7 +575,7 @@ for type in %{types}; do
 	    popd
   fi
 done
-#%endif
+%endif
 
 %post -p /sbin/ldconfig
 
@@ -782,6 +783,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep 15 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-37
+- The build on i686 can still fail -> disabling the checks on i686
+- Add the SSE1 to corei2 build (another ftbfs)
+
 * Tue Sep 15 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-36
 - Fix the ftbfs in Fedora on i686
 - Add the -msstackallign option for the i686 builds

@@ -278,7 +278,7 @@
 %endif
 
 Name:	chromium
-Version: 154.0.8037.57
+Version: 154.0.8037.92
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -289,6 +289,12 @@ Patch1: chromium-115-initial_prefs-etc-path.patch
 
 # Try to load widevine from other places
 Patch8: chromium-117-widevine-other-locations.patch
+
+# Disable downloading Widevine CDM component
+Patch9: chromium-154-widevine-no-download.patch
+
+# Set extension-content-verification to enforce_strict by default
+Patch10: chromium-154-set-extension-content-verification-enforce_strict.patch
 
 # debian patches
 # disable font-test 
@@ -1086,12 +1092,15 @@ Qt6 UI for chromium.
 ### Chromium Fedora Patches ###
 %patch -P1 -p1 -b .etc
 %patch -P8 -p1 -b .widevine-other-locations
-
+%patch -P9 -p1 -b .widevine-no-download
+%patch -P10 -p1 -b .set-extension-content-verification-enforce_strict
 %patch -P20 -p1 -b .disable-font-test
 %patch -P21 -p1 -b .screen-ai-service
+
 %if ! %{use_custom_libcxx}
 %patch -P22 -p1 -b .fix-qt-ui
 %endif
+
 %patch -P23 -p1 -b .build-error-libpng_for_testonly
 %if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
 %patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
@@ -1948,6 +1957,41 @@ fi
 %endif
 
 %changelog
+* Wed Sep 30 2026 Than Ngo <than@redhat.com> - 154.0.8037.92-1
+- Update to 154.0.8037.92
+  * CVE-2026-102299: Type confusion in V8
+  * CVE-2026-102300: Uninitialized resource in WebGPU
+  * CVE-2026-102301: Out of bounds write in GPU
+  * CVE-2026-102302: Buffer overflow in V8
+  * CVE-2026-102303: Uninitialized resource in GPU
+  * CVE-2026-102304: Use after free in Passwords
+  * CVE-2026-102305: UI misrepresentation in SignIn
+  * CVE-2026-102306: Use after free in Bluetooth
+  * CVE-2026-102307: Uninitialized resource in Dawn
+  * CVE-2026-102308: Use after free in Views
+  * CVE-2026-102309: Use after free in FullScreen
+  * CVE-2026-102310: Missing authorization in Payments
+  * CVE-2026-102311: Uninitialized resource in GPU
+  * CVE-2026-102312: UI misrepresentation in Omnibox
+  * CVE-2026-102313: Uninitialized resource in ANGLE
+  * CVE-2026-102314: UI misrepresentation in TabStrip
+  * CVE-2026-102315: Uninitialized resource in Media
+  * CVE-2026-102316: Use after free in Views
+  * CVE-2026-102317: Improper privilege management in Mojo
+  * CVE-2026-102318: Out of bounds read in WebGL
+  * CVE-2026-102319: Uninitialized resource in GPU
+  * CVE-2026-102320: Missing authorization in CORS
+  * CVE-2026-102321: Type confusion in V8
+  * CVE-2026-102323: Type confusion in V8
+  * CVE-2026-102324: Use after free in PictureInPicture
+  * CVE-2026-102325: Uninitialized resource in Skia
+  * CVE-2026-102326: Type confusion in V8
+  * CVE-2026-102327: Incorrect authorization in WebView
+  * CVE-2026-102328: Type confusion in V8
+  * CVE-2026-102329: Cross-site scripting in WebUI
+  * CVE-2026-102330: Incorrect authorization in SiteIsolation
+  * CVE-2026-102331: Buffer overflow in ANGLE
+
 * Wed Sep 23 2026 Than Ngo <than@redhat.com> - 154.0.8037.57-1
 - Update to 154.0.8037.57
   * CVE-2026-95274: Improper output encoding in DevTools

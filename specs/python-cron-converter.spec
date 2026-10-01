@@ -1,5 +1,5 @@
 Name:           python-cron-converter
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Cron string parser and scheduler for Python
 

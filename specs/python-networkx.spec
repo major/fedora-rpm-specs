@@ -12,7 +12,7 @@
 %global giturl  https://github.com/networkx/networkx
 
 Name:           python-networkx
-Version:        3.6.1
+Version:        3.7
 Release:        %autorelease
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
@@ -40,6 +40,8 @@ Patch:          %{name}-doc.patch
 # and it does not let us use local documentation in the build.
 Patch:          %{name}-intersphinx.patch
 
+# FIXME: tests fail on non-x86_64 systems
+ExclusiveArch:  %{x86_64} noarch
 BuildArch:      noarch
 BuildSystem:    pyproject
 %if %{with doctest}
@@ -149,6 +151,10 @@ sed -i 's/Helvetica/sans-serif/' examples/drawing/plot_chess_masters.py
 
 # Do not run code coverage tools
 %pyproject_patch_dependency pytest-cov:ignore
+
+# Permit use of pygraphviz 1.14 until Fedora gets version 2.x
+%pyproject_patch_dependency pygraphviz:set_lower:1.14
+sed -i 's/pygraphviz>=2.0/pygraphviz>=1.14/' requirements/extra.txt
 
 %build -a
 %if %{with doctest}

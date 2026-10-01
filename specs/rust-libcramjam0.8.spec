@@ -2,23 +2,18 @@
 %bcond check 1
 # Build a C-API shared library with cargo-c and install it?
 #
-# Once we build a shared library in an EPEL release, we are almost guaranteed
-# to eventually need to maintain a compat package to preserve its API/ABI
-# stability. For the time being, we don’t plan to ship a shared library in any
-# EPEL release unless someone specifically asks for it.
-#
-# Older Fedora releases have the shared library built in a compat package to
+# Older Fedora releases have the shared library built in this compat package to
 # avoid an incompatible update.
-%bcond capi %[ %{undefined epel} && %{undefined fc43} && %{undefined fc44} && %{undefined fc45} ]
+%bcond capi %[ %{defined fc43} || %{defined fc44} || %{defined fc45} ]
 
 %global crate libcramjam
 
-Name:           rust-libcramjam
+Name:           rust-libcramjam0.8
 # Even though this is just MAJOR.MINOR from the SemVer version, we repeat it
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
-%global soversion 0.9
-Version:        0.9.1
+%global soversion 0.8
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
@@ -26,24 +21,20 @@ License:        MIT
 URL:            https://crates.io/crates/libcramjam
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit unused, benchmark-only criterion dev-dependency
 # * Add crate-type = ["lib", "cdylib"] to the [lib] table to get a better
 #   template from rust2rpm
+# * Do not upper-bound the version of libdeflate-sys (which is only due to CI
+#   limitations)
 # * Patch out all -static features
 # * Patch out features requiring blosc2-rs or isal-rs so we can stop packaging
 #   those crates
+# * Drop unused direct cbindgen build-dependency:
+#   https://github.com/cramjam/libcramjam/pull/23
 # * Relax bzip2 dependency to allow building with both v0.4 and v0.5:
 #   https://github.com/cramjam/libcramjam/pull/24; Allow bzip2 0.6:
 #   https://github.com/cramjam/libcramjam/pull/30
-# * Omit “corpus” tests: these require files from benches/data/, which are not
-#   distributed in the crate, and some of which don’t have entirely clear
-#   license status.
-# * Patch out pure-Rust features for now due to test failures on s390x,
-#   https://github.com/cramjam/libcramjam/issues/35.
+# * Update brotli from 7 to 8: https://github.com/cramjam/libcramjam/pull/29
 Patch:          libcramjam-fix-metadata.diff
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cargo-c
@@ -57,8 +48,8 @@ possible API.}
 %if %{with capi}
 %package     -n %{crate}
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Zlib
 # 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
 # BSD-3-Clause
 # BSD-3-Clause AND MIT
 # MIT
@@ -67,8 +58,8 @@ Summary:        %{summary}
 # bzip2-1.0.6
 License:        %{shrink:
                 MIT AND
+                Apache-2.0 AND
                 BSD-3-Clause AND
-                Zlib AND
                 bzip2-1.0.6 AND
                 (0BSD OR MIT OR Apache-2.0) AND
                 (MIT OR Apache-2.0) AND
@@ -166,30 +157,6 @@ use the "capi" feature of the "%{crate}" crate.
 %files       -n %{name}+capi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crc-fast-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crc-fast-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crc-fast" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crc-fast-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crc32fast-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crc32fast-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crc32fast" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crc32fast-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+deflate-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -248,30 +215,6 @@ This package contains library source intended for building other packages which
 use the "lz4" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lz4-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sha2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+simd-adler32-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simd-adler32-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simd-adler32" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simd-adler32-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+snappy-devel

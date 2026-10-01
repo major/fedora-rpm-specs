@@ -3,11 +3,10 @@
 %bcond check_jsonschema 0
 
 Name:           bids-schema
-Version:        1.2.7
+Version:        2.0.0
 Release:        %autorelease
 Summary:        BIDS schema description
 
-%global srcversion %(echo '%{version}' | tr '^' '.')
 # Installation paths imitate the structure of
 # https://github.com/bids-standard/bids-schema/ in case we start packaging from
 # that in the future. Schemas are installed under directories versioned by the
@@ -16,7 +15,7 @@ Summary:        BIDS schema description
 #   https://github.com/bids-standard/bids-schema/raw/refs/heads/main/…
 #   versions/%%{bidsversion}/schema/SCHEMA_VERSION
 # should match or nearly match the schema version packaged here.
-%global bidsversion 1.10.1
+%global bidsversion 1.11.2
 
 # The specification, and the schema data derived from it, are CC-BY-4.0.
 #
@@ -27,7 +26,7 @@ License:        CC-BY-4.0
 SourceLicense:  CC0-1.0 AND CC-BY-4.0 AND MIT
 URL:            https://github.com/bids-standard/bids-specification
 # The PyPI sdist corresponds to the tools/schemacode directory in git.
-Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{srcversion}.tar.gz
+Source0:        %{url}/archive/schema-%{version}/bids-specification-schema-%{version}.tar.gz
 
 # Tests would like to use the following datasets from
 # https://github.com/bids-standard/bids-examples:
@@ -51,9 +50,9 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit 3c38fb4e6bb4c425147427f077e813e007303b9e
+%global examples_commit 7150efcf2c040465e9fcb6745f0b5aa4e84919c1
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
-%global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
+%global error_examples_commit dd3bb7c8fe29cfcd1b72f809e8e254b3f824260d
 #
 # We use a script to create archives containing only the test datasets that
 # fall under clearly-acceptable content license terms *and* are used in the
@@ -142,9 +141,9 @@ Features:
 
 
 %prep
-%autosetup -n bids-specification-schema-%{srcversion} -p1
-%setup -q -T -D -a 2 -c -n bids-specification-schema-%{srcversion}
-%setup -q -T -D -a 3 -c -n bids-specification-schema-%{srcversion}
+%autosetup -n bids-specification-schema-%{version} -p1
+%setup -q -T -D -a 2 -c -n bids-specification-schema-%{version}
+%setup -q -T -D -a 3 -c -n bids-specification-schema-%{version}
 
 # Remove JavaScript sources used for building the specification documents
 # (which we don’t do anyway); these include a bundled pre-compiled/minified
@@ -230,7 +229,7 @@ install -D --preserve-timestamps --mode 0644 \
 %check -a
 # Sanity check
 verfile='%{_datadir}/bids-schema/versions/%{bidsversion}/schema/SCHEMA_VERSION'
-[ '%{srcversion}' = "$(cat "%{buildroot}${verfile}")" ]
+[ '%{version}' = "$(cat "%{buildroot}${verfile}")" ]
 
 # These tests require example files that were filtered out for license reasons.
 k="${k-}${k+ and }not test_bids_datasets[hcp_example_bids]"
@@ -249,6 +248,10 @@ ln --symbolic "${PWD}/bids-error-examples-%{error_examples_commit}" \
 %if %{without check_jsonschema}
 k="${k-}${k+ and }not test_valid_schema_with_check_jsonschema"
 %endif
+
+# There’s no reason to test maintainer tools, especially ones that would bring
+# in additional dependencies.
+ignore="${ignore-} --ignore-glob=tools/tests/test_*.py"
 
 %pytest ${ignore-} -k "${k-}" --verbose
 

@@ -19,7 +19,7 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: bsd-3-clause AND zlib AND licenseref-fedora-public-domain AND bsd-attribution-hpnd-disclaimer AND bsd-4.3tahoe AND bsd-4-clause-uc AND apache-2.0 AND lgpl-2.0-or-later AND (gpl-2.0-or-later OR bsd-2-clause OR bsd-3-clause OR bsd-4-clause) AND gpl-2.0-or-later AND xlock AND gpl-1.0-or-later AND mackerras-3-clause-acknowledgment AND mackerras-3-clause AND hpnd-fenneberg-Livingston AND sun-ppp AND hpnd-inria-imag AND sun-ppp-2000
 URL:     http://www.samba.org/ppp
@@ -50,11 +50,7 @@ BuildRequires: systemd-devel
 BuildRequires: glib2-devel
 BuildRequires: openssl-devel
 BuildRequires: libxcrypt-devel
-%if %{defined rhel}
 Provides: bundled(linux-atm) = 2.4.1
-%else
-BuildRequires: linux-atm-libs-devel
-%endif
 
 Requires: glibc >= 2.0.6
 Requires: /etc/pam.d/system-auth
@@ -195,6 +191,9 @@ install -m0644 -D ppp.sysusers.conf %{buildroot}%{_sysusersdir}/ppp.conf
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Mon Sep 21 2026 Frantisek Sumsal <frantisek@sumsal.cz> - 2.5.3-4
+- Drop build dep on linux-atm-libs-devel
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

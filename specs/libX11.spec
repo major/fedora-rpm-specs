@@ -5,7 +5,7 @@
 Summary: Core X11 protocol client library
 Name: libX11
 Version: 1.8.13
-Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT AND X11
 URL: http://www.x.org
 
@@ -19,6 +19,7 @@ Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.
 
 
 Patch2: dont-forward-keycode-0.patch
+Patch0001: 0001-xkb-Check-the-keysym-range-in-_XkbReadKeyActions-CVE.patch
 
 BuildRequires: libtool
 BuildRequires: make
@@ -123,6 +124,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Wed Sep 30 2026 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.13-3
+- xkb: Check the keysym range in _XkbReadKeyActions (CVE-2026-88806)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

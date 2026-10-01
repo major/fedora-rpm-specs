@@ -12,7 +12,7 @@ support for context specific logging (like resource id’s etc).}
 
 
 Name:           python-oslo-log
-Version:        8.3.1
+Version:        8.3.2
 Release:        %autorelease
 Summary:        OpenStack Oslo Log library
 

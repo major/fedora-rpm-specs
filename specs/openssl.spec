@@ -29,8 +29,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 4.0.2
-Release: 4%{?dist}
+Version: 4.0.3
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source4: openssl.rpmlintrc
@@ -53,8 +53,6 @@ Patch0013: 0013-FIPS-PKCS12-PBMAC1-defaults.patch
 Patch0014: 0014-FIPS-EC-disable-weak-curves.patch
 Patch0015: 0015-Make-openssl-speed-run-in-FIPS-mode.patch
 Patch0016: 0016-Allow-hybrid-MLKEM-in-FIPS-mode.patch
-# https://github.com/openssl/openssl/commit/457c55324724f385e968eeee00955b8b1bec8910
-Patch0017: 0017-Dont-advertise-config-loading-as-done-soon.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -209,7 +207,7 @@ export HASHBANGPERL=/usr/bin/perl
 	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/opensslcnf.config \
 	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp enable-sslkeylog \
 	enable-cms enable-md2 enable-rc5 ${ktlsopt} -D_GNU_SOURCE\
-	no-mdc2 no-ec2m no-sm2 no-sm3 no-sm4 no-atexit enable-buildtest-c++\
+	no-mdc2 no-ec2m no-sm2 no-sm3 no-sm4 enable-buildtest-c++\
 	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\""' -DOPENSSL_PEDANTIC_ZEROIZATION
 
 # Do not run this in a production package the FIPS symbols must be patched-in
@@ -378,6 +376,23 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Sep 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.3-1
+- Rebase to OpenSSL 4.0.3
+  Resolves: CVE-2026-84782
+  Resolves: CVE-2026-84783
+  Resolves: CVE-2026-35189
+  Resolves: CVE-2026-35191
+  Resolves: CVE-2026-42772
+  Resolves: CVE-2026-54872
+  Resolves: CVE-2026-54873
+  Resolves: CVE-2026-54875
+  Resolves: CVE-2026-72897
+  Resolves: CVE-2026-75804
+  Resolves: CVE-2026-75805
+  Resolves: CVE-2026-75806
+  Resolves: CVE-2026-77696
+  Resolves: CVE-2026-84784
+
 * Sat Sep 26 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1:4.0.2-4
 - Really obsolete openssl-devel-engine
   Resolves: rhbz#2527847

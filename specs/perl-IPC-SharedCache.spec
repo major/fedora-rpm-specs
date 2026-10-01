@@ -1,6 +1,6 @@
 Name:           perl-IPC-SharedCache
 Version:        1.3
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Perl module to manage a cache in SysV IPC shared memory
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,11 +10,10 @@ Patch0:         IPC-SharedCache-1.3-test.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(integer)
@@ -48,13 +47,12 @@ explicitly deleted.
 %patch -P0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 
@@ -71,6 +69,9 @@ make test
 
 
 %changelog
+* Wed Sep 30 2026 Paul Howarth <paul@city-fan.org> - 1.3-60
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -84,7 +85,7 @@ make test
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-55
-- convert license to SPDX
+- Convert license to SPDX
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

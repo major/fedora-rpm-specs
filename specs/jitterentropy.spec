@@ -1,7 +1,7 @@
 %global libjit_soversion 3
 Name:           jitterentropy
 Version:        3.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library implementing the jitter entropy source
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -17,6 +17,9 @@ Patch0: jitterentropy-rh-makefile.patch
 Patch1: jitterentropy-powerpc.patch
 # Restore previous jitterentropy public api
 Patch2: jitterentropy-api.patch
+# _DEFAULT_SOURCE is needed for clock_gettime() on riscv64
+# TODO drop when the next upstream release is imported
+Patch3: jitterentropy-riscv64.patch
 
 %description
 Library implementing the CPU jitter entropy source
@@ -50,6 +53,9 @@ mkdir -p %{buildroot}%{_includedir}
 %{_mandir}/man3/*
 
 %changelog
+* Thu Sep 17 2026 Andrea Bolognani <abologna@redhat.com> - 3.7.0-5
+- Fix riscv64 build
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

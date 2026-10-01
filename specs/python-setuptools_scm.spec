@@ -50,7 +50,8 @@ It also handles file finders for the supported SCMs.
 %pyproject_patch_dependency flake8:ignore
 %if %{defined rhel}
 # Remove unnecessary test dependencies:
-%pyproject_patch_dependency rich:ignore
+# rich is also an extra dependency, so use :br_only not to patch runtime METADATA
+%pyproject_patch_dependency rich:ignore:br_only
 %pyproject_patch_dependency pytest-timeout:ignore
 %pyproject_patch_dependency pytest-xdist:ignore
 sed -Ei '/^\[tool.pytest.ini_options\]/,/^\[/ { /^timeout/d }' pyproject.toml

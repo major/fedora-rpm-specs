@@ -7,13 +7,16 @@
 %global crate gsk4-sys
 
 Name:           rust-gsk4-sys
-Version:        0.11.4
+Version:        0.11.5
 Release:        %autorelease
 Summary:        FFI bindings of GSK 4
 
 License:        MIT
 URL:            https://crates.io/crates/gsk4-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gsk4-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gtk4) >= 4.0.0

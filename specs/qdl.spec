@@ -39,12 +39,20 @@ This package is the Qdl plugin for nbdkit.
 %prep
 %autosetup -p1
 
+%if 0%{?rhel} && 0%{?rhel} < 10
+sed -e 's|1.1.0|0.63|g' -i meson.build
+cp -p meson.options meson_options.txt
+%endif
 
+
+%if 0%{?rhel} && 0%{?rhel} < 10
+%build
+%meson
+%else
 %conf
 %meson
-
-
 %build
+%endif
 %meson_build
 
 

@@ -1,6 +1,6 @@
 Name:           acpica-tools
-Version:        20260408
-Release:        2%{?dist}
+Version:        20260930
+Release:        1%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -9,7 +9,7 @@ URL:            https://www.intel.com/content/www/us/en/developer/topic-technolo
 
 ExcludeArch:	i686 armv7hl s390x
 
-Source0:        https://github.com/acpica/acpica/releases/download/%{version}/acpica-unix2-%{version}.tar.gz
+Source0:        https://github.com/acpica/acpica/releases/download/%{version}/acpica-unix-%{version}.tar.gz
 Source1:        https://github.com/acpica/acpica/releases/download/%{version}/acpitests-unix-%{version}.tar.gz
 Source2:        README.Fedora
 Source3:        iasl.1
@@ -33,9 +33,6 @@ Patch04:        cve-2017-13695.patch
 Patch05:        str-trunc-warn.patch
 Patch07:	dangling-ptr.patch
 Patch08:	uuid-len.patch
-Patch09: 0001-Fix-unused-attribute-error.patch
-#Patch11:	0002-Correct-dumping-of-SLIC-tables.patch
-#Patch12:	0003-PHAT-FW-health-table-can-be-zero-length.patch
 
 BuildRequires:	make
 BuildRequires:  bison patchutils flex gcc
@@ -82,7 +79,7 @@ are installed:
 This version of the tools is being released under GPLv2 license.
 
 %prep
-%setup -q -n acpica-unix2-%{version}
+%setup -q -n acpica-unix-%{version}
 gzip -dc %{SOURCE1} | tar -x --strip-components=1 -f -
 
 %autopatch -p1
@@ -102,10 +99,6 @@ cp -p %{SOURCE14} converterSample.asl.result
 cp -p %{SOURCE15} tests/run-misc-tests.sh
 chmod a+x tests/run-misc-tests.sh
 cp -p %{SOURCE16} COPYING
-
-# spurious executable permissions on text files in upstream
-chmod a-x changes.txt
-chmod a-x source/compiler/new_table.txt
 
 
 %build
@@ -193,7 +186,7 @@ fi
 
 
 %files
-%doc changes.txt source/compiler/new_table.txt
+%doc 
 %doc README.Fedora COPYING
 %{_bindir}/*
 %{_mandir}/*/*
@@ -201,6 +194,9 @@ fi
 
 
 %changelog
+* Wed Sep 30 2026 Gwyn Ciesla <gwync@protonmail.com> - 20260930-1
+- 20260930
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260408-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

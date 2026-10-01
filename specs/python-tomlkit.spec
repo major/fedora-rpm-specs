@@ -20,6 +20,21 @@ License:        MIT
 URL:            https://github.com/sdispater/tomlkit
 Source:         %{pypi_source %{pypi_name}}
 
+# Define project metadata via [project] table (PEP 621)
+# This is an upstreamable change that allows us to change build backends more easily
+# Merged upstream at https://github.com/python-poetry/tomlkit/pull/607
+Patch:          PEP621.patch
+
+# Change build backend to flit-core
+# This is downstream only, built on PEP621.patch
+# It is motivated purely by ELN/RHEL content set, where poetry-core is undesired.
+# We apply this unconditionally, so it's more battle-tested.
+# Notes:
+#  - This does not migrate tool.poetry.include at all,
+#    we do not care about sdist files and py.typed is included automatically.
+#  - METADATA differs slightly wrt. missing automatic Python version classifiers etc
+Patch:          flit-core.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -51,7 +66,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files --assert-license %{pypi_name}
 
 
 %check
@@ -59,7 +74,6 @@ Summary:        %{summary}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 

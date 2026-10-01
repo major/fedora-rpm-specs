@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-simplejson
-Version:        4.1.1
+Version:        4.1.2
 Release:        %autorelease
 Summary:        Simple, fast, extensible JSON encoder/decoder for Python
 
@@ -44,6 +44,7 @@ Summary:        Simple, fast, extensible JSON encoder/decoder for Python 3
 %if %{with docs}
 %package -n python-simplejson-doc
 Summary:        Simplejson documentation
+BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-sphinx
 
 

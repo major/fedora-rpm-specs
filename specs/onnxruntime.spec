@@ -7,7 +7,7 @@
 # Only for testing purposes, deprecated upstream
 %bcond dnnl 0
 # Requires updated openVINO with latest onnx and protobuf
-%bcond openvino 0
+%bcond openvino 1
 %else
 %bcond migraphx 0
 %bcond dnnl 0

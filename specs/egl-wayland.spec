@@ -1,5 +1,5 @@
 Name:           egl-wayland
-Version:        1.1.22
+Version:        1.1.23
 Release:        %autorelease
 Summary:        EGLStream-based Wayland external platform
 License:        MIT
@@ -15,8 +15,7 @@ BuildRequires:  pkgconfig(eglexternalplatform) >= 1.1
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-egl-backend) >= 3
-# Explicit synchronization since 1.34:
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.34
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.49
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-server)
 

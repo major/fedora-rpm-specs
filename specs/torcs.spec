@@ -1,6 +1,6 @@
 Name:           torcs
-Version:        1.3.9
-Release:        2%{?dist}
+Version:        1.3.10
+Release:        1%{?dist}
 Summary:        The Open Racing Car Simulator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -166,6 +166,9 @@ find %{buildroot}%{_libdir}/torcs/ -name '*.so' | xargs %{__chmod} +x
 
 
 %changelog
+* Wed Sep 30 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.3.10-1
+- 1.3.10
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

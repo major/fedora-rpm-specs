@@ -5,13 +5,16 @@
 %global crate gdk4-x11-sys
 
 Name:           rust-gdk4-x11-sys
-Version:        0.11.0
+Version:        0.11.5
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 X11
 
 License:        MIT
 URL:            https://crates.io/crates/gdk4-x11-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gdk4-x11-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gtk4-x11) >= 4.0.0

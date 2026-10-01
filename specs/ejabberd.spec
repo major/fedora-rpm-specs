@@ -7,10 +7,10 @@
 %global eimp_ver 1.0.27
 %global epam_ver 1.0.14
 %global erlydtl_ver 0.15.0
-%global esip_ver 1.0.60
+%global esip_ver 1.0.61
 %global ezlib_ver 1.0.16
 %global fast_tls_ver 1.1.26
-%global fast_xml_ver 1.1.60
+%global fast_xml_ver 1.1.61
 %global fast_yaml_ver 1.0.40
 %global idna_ver 7.1.0
 %global jose_ver 1.11.12
@@ -23,8 +23,8 @@
 %global p1_utils_ver 1.0.29
 %global pkix_ver 1.0.10
 %global stringprep_ver 1.0.34
-%global stun_ver 1.2.22
-%global xmpp_ver 1.13.4
+%global stun_ver 1.2.23
+%global xmpp_ver 1.13.5
 %global yconf_ver 1.0.23
 
 # Define SELinux policy variables
@@ -35,7 +35,7 @@
 
 
 Name:           ejabberd
-Version:        26.07
+Version:        26.09
 Release:        %autorelease
 BuildArch:      noarch
 

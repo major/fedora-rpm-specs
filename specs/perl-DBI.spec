@@ -30,7 +30,7 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.654
+Version:        1.655
 Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -269,6 +269,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 30 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.655-1
+- 1.655 bump (rhbz#2543884)
+
 * Fri Sep 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.654-1
 - 1.654 bump (rhbz#2541007)
 - Fix CVE-2026-88815 (DBI::sql_type_cast on IV/NV)

@@ -5,7 +5,7 @@
 %global crate gdk4
 
 Name:           rust-gdk4
-Version:        0.11.4
+Version:        0.11.5
 Release:        %autorelease
 Summary:        Rust bindings of the GDK 4 library
 

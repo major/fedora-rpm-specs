@@ -7,8 +7,8 @@
 
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
-Version:       11.0.511
-Release:       1%{?dist}
+Version:       11.0.513
+Release:       2%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckuat2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
@@ -22,6 +22,7 @@ Source3:       cku-%{name}.modem.generic.ini
 Source4:       cku-%{name}.locale.ini
 Source5:       cku-%{name}.phone
 Source6:       README.fedora
+Patch0:        ckermit-513-fix-dirlentest.patch
 URL:           https://www.openkermit.org/
 BuildRequires: gcc
 BuildRequires: pam-devel
@@ -55,6 +56,7 @@ communication tasks.
 %prep
 %setup -q
 cp %{SOURCE6} .
+%autopatch -p 1
 
 %build
 %make_build linux \
@@ -99,6 +101,15 @@ pytest-3 -n auto
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Wed Sep 30 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.513-2
+- Test fix for dir len test error
+
+* Wed Sep 30 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.513-1
+- Update to 10.0.513
+
+* Wed Sep 30 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.512-1
+- Update to 10.0.512
+
 * Sun Sep 20 2026 Martin Jackson <mhjacks@swbell.net> - 11.0.511-1
 - Update to 10.0.511
 

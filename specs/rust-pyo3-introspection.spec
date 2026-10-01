@@ -4,7 +4,7 @@
 %global crate pyo3-introspection
 
 Name:           rust-pyo3-introspection
-Version:        0.29.2
+Version:        0.29.3
 Release:        %autorelease
 Summary:        Introspect dynamic libraries built with PyO3
 

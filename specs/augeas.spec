@@ -1,28 +1,28 @@
 Name:           augeas
-Version:        1.14.2
+Version:        1.15.0
 Summary:        A library for changing configuration files
 License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND Kazlib AND GPL-2.0-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
-# Upstream Augeas is missing several important fixes which affect
+# Upstream Augeas is missing several fixes which affect
 # Fedora.  For this reason we have soft-forked augeas, here:
-# https://github.com/rwmjones/augeas/tree/fedora-45
+# https://github.com/rwmjones/augeas/tree/fedora-46
 # See also:
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/J7SM6NLIMPU7J4LIRBDPTPWVXOKZWWEH/
 # %%global forgeurl https://github.com/hercules-team/augeas
 # %%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
 %global forgeurl https://github.com/rwmjones/augeas
-%global commit ada6219325d9a835b71b62a42c3e150427b91882
+%global commit 8e7cb3a9a2002144081c90647e3a2bc17fb9705f
 %forgemeta
 
-Release:        0.13%{?dist}
+Release:        1%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
 # The problem with packaging from the upstream git repo is that we
 # need to provide our own gnulib submodule.  I created this by doing:
 # (cd .gnulib && git archive --format=tar --prefix=.gnulib/ HEAD) |
-#   gzip -9 > gnulib-2f7479a16a.tar.gz
-Source1:        gnulib-2f7479a16a.tar.gz
+#   gzip -9 > gnulib-8e7cb3a9.tar.gz
+Source1:        gnulib-8e7cb3a9.tar.gz
 
 Provides:       bundled(gnulib)
 
@@ -199,6 +199,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Wed Sep 30 2026 Richard W.M. Jones <rjones@redhat.com> - 1.15.0-1
+- Augeas 1.15.0 (RHBZ#2543736)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.14.2-0.13
 - Rebuilt for libxml-2.5.4
 

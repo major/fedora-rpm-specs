@@ -17,6 +17,9 @@ URL:		https://github.com/linux-msm/hexagon-dsp-binaries
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 
+# https://github.com/linux-msm/hexagon-dsp-binaries/pull/117
+Patch0:		117.patch
+
 ExclusiveArch:	%{arm64}
 
 BuildArch:	noarch
@@ -77,7 +80,7 @@ Hexagon DSP binaries and configuration for %{2}. \
 %boardpkg qualcomm-db410c %{quote:Qualcomm DragonBoard 410c}
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 # don't install schema, it's mostly for development
 sed -i '/schema.json/d' Makefile

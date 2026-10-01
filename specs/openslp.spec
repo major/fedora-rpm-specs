@@ -2,7 +2,7 @@
 Summary: Open implementation of Service Location Protocol V2
 Name:    openslp
 Version: 2.0.0
-Release: 44%{?dist}
+Release: 45%{?dist}
 
 License: BSD-3-Clause
 URL:     http://sourceforge.net/projects/openslp/
@@ -37,6 +37,10 @@ Patch7:  openslp-2.0.0-cve-2019-5544.patch
 #   subtracting the 236 byte BOOTP header, which otherwise underflows the
 #   size_t parameter of dhcpProcessOptions() and reads past rcvbuf
 Patch8:  openslp-2.0.0-dhcp-integer-overflow.patch
+# Patch9: fixes type confusion in NetworkMultiUcastRqstRply, which passed a
+#   4-byte struct in_addr to KnownDABadDA() where a struct sockaddr is
+#   expected, so failed DAs were never evicted from the known DA cache
+Patch9:  openslp-2.0.0-cwe-843-knownda-type-confusion.patch
 
 BuildRequires: make
 BuildRequires: automake libtool
@@ -79,6 +83,7 @@ OpenSLP server daemon to dynamically register services.
 %patch -P6 -p1 -b .cve-2017-17833
 %patch -P7 -p1 -b .cve-2019-5544
 %patch -P8 -p1 -b .dhcp-integer-overflow
+%patch -P9 -p1 -b .cwe-843-knownda-type-confusion
 
 # tarball goof (?), it wants to re-automake anyway, so let's do it right.
 #libtoolize --force
@@ -176,6 +181,10 @@ rm -f  $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Wed Sep 30 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.0-45
+- Fix type confusion in KnownDABadDA call, so that failed directory agents
+  are correctly removed from the known DA cache
+
 * Tue Sep 29 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.0-44
 - Fix integer overflow in DHCPGetOptionInfo() size calculation
 

@@ -4,10 +4,20 @@
 Summary: Utilities for devices that use SCSI command sets
 Name:    sg3_utils
 Version: 1.49
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND BSD-2-Clause
 URL:     https://sg.danny.cz/sg/sg3_utils.html
 Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
+
+#  https://redhat.atlassian.net/browse/RHEL-259877
+Patch0: RHEL-259877-1-rescan-scsi-bus.sh.8-add-description-and-examples.patch
+Patch1: RHEL-259877-2-doc-remove-external-links-from-man-pages-and-test-da.patch
+#  https://redhat.atlassian.net/browse/RHEL-261987
+Patch2: RHEL-261987-sg_dd-fix-help-continuing-into-main-copy-logic.patch
+#  https://redhat.atlassian.net/browse/RHEL-260341
+Patch3: RHEL-260341-sg_inq-avoid-including-0-bytes-in-SCSI-name-strings.patch
+#  https://redhat.atlassian.net/browse/RHEL-266581
+Patch4: RHEL-266581-sg_inq-escape-forward-slash-in-SCSI_MODEL-and-SCSI_VENDOR.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: make
@@ -126,6 +136,12 @@ install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
 
 
 %changelog
+* Wed Sep 23 2026 Paul Evans <pevans@redhat.com> - 1.49-2
+- rescan-scsi-bus.sh.8 manpage links to external domain (RHEL-259877)
+- sg_inq: avoid including NULL-bytes in SCSI name strings (RHEL-260341)
+- sg_dd: --help argument emitting extra error lines (and bad exit code) (RHEL-261987)
+- sg_inq: handle forward-slash in SCSI_VENDOR and SCSI_MODEL field on export (RHEL-266581)
+
 * Wed Jul 22 2026 Paul Evans <pevans@redhat.com> - 1.49-1
 - update to version 1.49 (rhbz#2502183)
 

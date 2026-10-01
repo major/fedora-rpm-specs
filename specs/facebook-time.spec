@@ -3,8 +3,8 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global date            20260703
-%global commit          5fa5c15f2d11aff427b2a281d6dd7578c8159f21
+%global date            20260930
+%global commit          e432cb7586ff6d9fde88af0a6fd8c95e461b6502
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %gometa -L -f
@@ -164,7 +164,7 @@ Requires:       %{name}-vendor-licenses = %{version}-%{release}
 
 %description -n fbclock
 Fbclock is used to calculate and publish Window of Uncertainty values in shared memory
-accessible via fbclock-bin or C API
+accessible via `ptpcheck fbclock` or C API
 
 %prep
 %goprep -A
@@ -176,12 +176,6 @@ accessible via fbclock-bin or C API
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-
-# fbclock-bin / C projects
-cd cmd/fbclock-bin
-%make_build
-mv fbclock-bin %{gobuilddir}/bin/fbclock-bin
-cd -
 
 %global gomodulesmode GO111MODULE=on
 for cmd in caliper calnex c4u ntpcheck ntpresponder ntripper pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
@@ -281,7 +275,6 @@ rm -f timestamp/timestamp_linux_test.go
 %license LICENSE
 %doc fbclock/README.md
 %{_bindir}/fbclock-daemon
-%{_bindir}/fbclock-bin
 
 %changelog
 %autochangelog

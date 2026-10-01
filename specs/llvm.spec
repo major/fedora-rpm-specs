@@ -113,12 +113,16 @@
 
 #region flang
 %if %{without compat_build} && %{defined fedora} && 0%{?fedora} >= 44
-# Link error on i686.
-# s390x is not supported upstream yet.
-%ifarch i686 s390x
-%bcond_with flang
-%else
+%if %{maj_ver} >= 24
+# Flang is not supported on i686
+%ifnarch i686
 %bcond_without flang
+%endif
+%else
+# Flang is not supported on s390x either prior to LLVM 24
+%ifnarch i686 s390x
+%bcond_without flang
+%endif
 %endif
 %endif
 
@@ -227,19 +231,15 @@ end
 #endregion pgo
 
 # Disable LTO on x86 and riscv in order to reduce memory consumption.
-%ifarch %ix86 riscv64
-%bcond_with lto_build
-%else
 # Disable LTO on s390x in order to reduce LLVM build time.
-%ifarch s390x
-%bcond_with pgo
+%ifarch %ix86 riscv64 s390x
+%bcond_with lto_build
 %else
 %if %{defined rhel} && 0%{?rhel} <= 8
 # LTO builds got enabled on Fedora and RHEL >= 9 only.
 %bcond_with lto_build
 %else
 %bcond_without lto_build
-%endif
 %endif
 %endif
 
@@ -1205,6 +1205,8 @@ Summary:	MLIR python bindings
 
 Requires: python%{python3_pkgversion}
 Requires: python%{python3_pkgversion}-numpy
+# Explicit dependency on llvm-libs to satisfy rpmdeps check.
+Requires: %{pkg_name_llvm}-libs%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-mlir
 MLIR python bindings.
@@ -1338,6 +1340,10 @@ Summary: a Fortran language front-end designed for integration with LLVM
 Requires: %{pkg_name_flang}-runtime%{?_isa} = %{version}-%{release}
 # flang installs headers in the clang resource directory
 Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
+# Explicit dependencies on llvm-libs/clang-libs/mlir to satisfy rpmdeps check.
+Requires: %{pkg_name_llvm}-libs%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_clang}-libs%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_mlir}%{?_isa} = %{version}-%{release}
 # flang implicitly calls ld.bfd when linking and depends on the gcc runtime objects.
 Requires: binutils
 Requires: gcc

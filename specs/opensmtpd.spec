@@ -7,8 +7,8 @@
 
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
-Version:	7.8.0p1
-Release:	3%{?dist}
+Version:	7.9.0p0
+Release:	1%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -269,6 +269,9 @@ exit 0
 
 
 %changelog
+* Wed Sep 30 2026 Denis Fateyev <denis@fateyev.com> - 7.9.0p0-1
+- Update to 7.9.0p0 release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0p1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           mlmmj
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
 URL:            https://codeberg.org/mlmmj/mlmmj
@@ -123,6 +123,9 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Wed Sep 30 2026 Denis Fateyev <denis@fateyev.com> - 2.2.0-1
+- Update to 2.2.0 release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

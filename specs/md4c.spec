@@ -1,4 +1,4 @@
-Version:        0.5.3
+Version:        0.6.0
 Name:           md4c
 Release:        %autorelease
 Summary:        Markdown for C
@@ -8,7 +8,7 @@ URL:            https://github.com/mity/md4c
 Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
-BuildRequires: gcc 
+BuildRequires: gcc
 # Needed for tests
 BuildRequires:  python3
 
@@ -24,7 +24,7 @@ The md4c-devel package contains libraries and header files for
 developing applications that use md4c.
 
 %prep
-%autosetup -n %{name}-release-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 %cmake
@@ -35,7 +35,7 @@ developing applications that use md4c.
 
 %check
 cd %__cmake_builddir
-%{python3} %{_builddir}/%{name}-release-%{version}/scripts/run-tests.py
+%{python3} %{_builddir}/%{name}-%{version}/scripts/run-tests.py
 
 %files
 %doc README.md

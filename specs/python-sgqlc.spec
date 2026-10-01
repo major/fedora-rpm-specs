@@ -1,6 +1,6 @@
 %global pypi_name sgqlc
 Name:           python-%{pypi_name}
-Version:        17.1
+Version:        18
 Release:        %{autorelease}
 Summary:        Simple GraphQL Client
 

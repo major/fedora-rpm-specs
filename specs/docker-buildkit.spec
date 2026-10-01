@@ -3,7 +3,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.33.0
+Version:                0.33.1
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -73,6 +73,10 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 
 %global test_ignores %{shrink:
+    %dnl operation not permitted
+    -s "TestUnlazyLayerOverlaybdUsesSnapshotID"
+    -s "TestUnlazyLayerRemovesActiveSnapshotOnDiffIDMismatch"
+    -s "TestGetByBlobIgnoresLegacyChainIDSnapshot"
     %dnl skip tests that fail with create tmp file: open - invalid argument
     -s "TestConversion"
     -s "TestSetBlob"

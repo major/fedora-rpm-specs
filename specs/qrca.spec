@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:          qrca
 Version:       26.08.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
 URL:           https://apps.kde.org/%{name}/
@@ -44,6 +44,7 @@ Requires: qt6qml(org.kde.config)
 Requires: qt6qml(org.kde.kirigami)
 Requires: qt6qml(org.kde.kirigamiaddons.formcard)
 Requires: qt6qml(org.kde.prison)
+Requires: qt6qml(org.kde.desktop)
 
 %description
 Qrca is a simple application for Plasma Desktop
@@ -74,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Wed Sep 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 26.08.1-2
+- Add requirement for qt6qml(org.kde.desktop)
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

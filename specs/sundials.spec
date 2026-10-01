@@ -307,7 +307,6 @@ Requires: gcc-gfortran%{?_isa}
 Summary:   Suite of nonlinear solvers (documentation)
 BuildArch: noarch
 Obsoletes: sundials-doc < 0:6.6.2-5
-Requires:  python3-sundials4py
 Requires:  python3-sphinx-latex
 
 %description doc

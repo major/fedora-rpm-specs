@@ -1,3 +1,7 @@
+%if 0%{?rhel} && 0%{?rhel} < 11
+%define _lto_cflags %{nil}
+%endif
+
 %global commit 8638f4e0914779e14979b2e8263abba362de971a
 %global gitdate 20260918
 

@@ -1,7 +1,7 @@
 %global basever 8.0
 %global micro 0
 #global pre ...
-%global pyversion 3.11
+%global pyversion 3.12
 Name:           pypy%{pyversion}
 Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 %global version_ %{basever}.%{micro}%{?pre}
@@ -46,6 +46,11 @@ ExcludeArch:    %{ix86}
 # Uses upstream bundled prebuilt wheels otherwise
 %bcond rpmwheels 1
 
+# Versions of bundled wheels
+%global pip_version 25.0.1
+%global setuptools_version 79.0.1
+%global wheel_version 0.40.0
+
 # We will build a "pypy" binary.
 #
 # Unfortunately, the JIT support is only available on some architectures.
@@ -76,7 +81,7 @@ ExcludeArch:    %{ix86}
 # also update the excluded packages in python-classroom in https://pagure.io/fedora-kiwi-descriptions/
 #   1. locate excluded pypy3.N packages in teams/python.xml
 #   2. update the package list to include all non-main pypys
-%bcond main_pypy3 %[0%{?fedora} >= 42]
+%bcond main_pypy3 0
 
 # Source and patches:
 Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar.gz
@@ -106,6 +111,13 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
+
+# Use absolute paths in the cffi _pypy_compile_backend
+# This makes the tkinter build work when setuptools is not installed
+Patch10: https://github.com/pypy/pypy/commit/8c384bde.patch
+
+# Patch from python3.12 package to allow using newer python-setuptools-wheel instead of the bundled setuptools+wheel wheels
+Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
 
 # Build-time requirements:
 
@@ -174,8 +186,8 @@ BuildRequires:  emacs
 BuildRequires:  %{_bindir}/git
 
 %if %{with rpmwheels}
-BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
+BuildRequires: python-setuptools-wheel >= 71
 %endif
 
 # Metadata for the core package (the JIT build):
@@ -232,11 +244,9 @@ Obsoletes: pypy3.9-libs < 7.3.16-20
 %endif
 
 %if %{with rpmwheels}
-Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
-Provides: bundled(python3dist(pip)) = 24.0
-Provides: bundled(python3dist(setuptools)) = 79.0.1
+Provides: bundled(python3dist(pip)) = %{pip_version}
 %endif
 
 # Provides for the bundled libmpdec
@@ -265,6 +275,13 @@ Libraries required by the various PyPy implementations of Python %{pyversion}.
 Summary:  Tests for PyPy%{pyversion}
 Requires: pypy%{pyversion}%{?_isa} = %{version}-%{release}
 Requires: pypy%{pyversion}-libs%{?_isa} = %{version}-%{release}
+
+%if %{with rpmwheels}
+Requires: python-setuptools-wheel >= 71
+%else
+Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+Provides: bundled(python3dist(wheel)) = %{wheel_version}
+%endif
 
 %if %{with main_pypy3}
 Provides: pypy3-test = %{version}-%{release}
@@ -304,7 +321,10 @@ Header files for building C extension modules against PyPy%{pyversion}.
 
 %if %{with rpmwheels}
 # Instead of bundled wheels, use our RPM packaged wheels from /usr/share/python-wheels
-rm lib-python/3/ensurepip/_bundled/*.whl
+rm lib-python/3/ensurepip/_bundled/pip-%{pip_version}-*.whl
+rm lib-python/3/test/wheeldata/setuptools-%{setuptools_version}-*.whl
+rm lib-python/3/test/wheeldata/wheel-%{wheel_version}-*.whl
+
 # This append to _sysconfigdata.py is a hacked equivalent to CPython's configure --with-wheel-pkg-dir
 echo "build_time_vars['WHEEL_PKG_DIR'] = '%{python_wheel_dir}'" >> lib_pypy/_sysconfigdata.py
 %endif
@@ -336,6 +356,10 @@ rm lib-python/3/idlelib/idle.bat
   # use the pycparser from PyPy even on CPython
   ln -s lib_pypy/cffi/_pycparser pycparser
 %endif
+
+# Do not attempt to pip install setuptools during the build
+# As of 8.0.0 the dependency is optional
+sed -i '/"pip", "install", "setuptools"/d' pypy/tool/release/package.py
 
 %build
 # Top memory usage is about 4.5GB on arm7hf
@@ -480,11 +504,9 @@ mv %{packaged_prefix}/bin/libpypy%{pyversion}-c.so %{packaged_prefix}/%{_lib}/li
 ln -s libpypy%{pyversion}-c.so.%{soname_version} %{packaged_prefix}/%{_lib}/libpypy%{pyversion}-c.so
 patchelf --set-soname libpypy%{pyversion}-c.so.%{soname_version} %{packaged_prefix}/%{_lib}/libpypy%{pyversion}-c.so.%{soname_version}
 patchelf --replace-needed libpypy%{pyversion}-c.so libpypy%{pyversion}-c.so.%{soname_version} %{packaged_prefix}/bin/pypy%{pyversion}
-#   6. remove stray README
-rm %{packaged_prefix}/include/README
-#   7. copy the main LICENSE file to pypy's libdir, as does CPython
+#   6. copy the main LICENSE file to pypy's libdir, as does CPython
 cp -a LICENSE %{packaged_prefix}/%{_lib}/pypy%{pyversion}
-#   8. remove sources, we don't install them
+#   7. remove sources, we don't install them
 #      this list was created by inspecting rpmlint output before it was added
 #      sources that look like they might be tests are kept and included in the test subpackage
 rm -r %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_blake2/impl
@@ -611,7 +633,7 @@ install -m0644 -p -D -t %{buildroot}/%{_rpmconfigdir}/macros.d %{SOURCE2}
 
 %if %{without rpmwheels}
 # Inject SBOM into the installed wheels
-%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pypylibdir}/ensurepip/_bundled/*.whl}
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pypylibdir}/ensurepip/_bundled/*.whl %{buildroot}%{pypylibdir}/test/wheeldata/*.whl}
 %endif
 
 
@@ -784,8 +806,6 @@ CheckPyPy pypy%{pyversion}-c
 %exclude %{pypylibdir}/__pycache__/_test*
 %exclude %{pypylibdir}/test/
 %exclude %{pypylibdir}/*/testing/
-%exclude %{pypylibdir}/*/test/
-%exclude %{pypylibdir}/*/tests/
 %exclude %{pypylibdir}/idlelib/idle_test/
 %exclude %{pypylibdir}/testcapi_long.h
 
@@ -804,8 +824,6 @@ CheckPyPy pypy%{pyversion}-c
 %{pypylibdir}/__pycache__/_test*
 %{pypylibdir}/test/
 %{pypylibdir}/*/testing/
-%{pypylibdir}/*/test/
-%{pypylibdir}/*/tests/
 %{pypylibdir}/idlelib/idle_test/
 %{pypylibdir}/testcapi_long.h
 
