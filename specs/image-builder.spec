@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        84.0.0
+Version:        85.0.0
 
 %gometa
 
@@ -272,6 +272,32 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Oct 01 2026 Packit <hello@packit.dev> - 85.0.0-1
+Changes with 85.0.0
+----------------
+  - Extend boot-aws to allow passing repo files and VPC (#2721)
+    - Author: Lars Karlitski, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - Fix get_ci_runner_distro_for() (#2718)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová
+  - Update osbuild dependency commit ID (#2725)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou
+  - bootc: Don't create /boot dir if there is no /boot or /boot/efi mount (HMS-11348) (#2716)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou
+  - bootc: extras (partitions) (HMS-11288, HMS-11287) (#2702)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  - bootc: use the DPS root partition type, drop XBOOTLDR for UKI images (#2719)
+    - Author: Colin Walters (automation), Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - cmd/image-builder: support extra globbing (#2712)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Loris Fauster
+  - defs/fedora: 45 is no longer preview (#2709)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - extras: files (#2711)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  - extras: improve `file` to not export too much (#2722)
+    - Author: Simon de Vlieger, Reviewers: Nobody
+
+— Somewhere on the Internet, 2026-10-01
+
 * Thu Sep 24 2026 Packit <hello@packit.dev> - 84.0.0-1
 Changes with 84.0.0
 ----------------

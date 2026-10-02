@@ -1,35 +1,28 @@
 %global gap_pkgname quickcheck
 %global giturl      https://github.com/gap-packages/quickcheck
 
-# Upstream never tagged version 1.0.2, which we need for GraphBacktracking
-%global commit      3a1a01078ab9ec053332cd78005aaa2ac634a0ac
-%global shortcommit %{sub %{commit} 1 7}
-%global gitdate     20260731
-
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.0.2^%{gitdate}.%{shortcommit}
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Randomized property-based testing for GAP
 
 License:        MPL-2.0
 URL:            https://gap-packages.github.io/quickcheck/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{commit}/%{gap_upname}-%{shortcommit}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): examples gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap(autodoc) >= 2026.03.17
 BuildRequires:  gap(digraphs) >= 1.0.0
 BuildRequires:  gap(polycyclic) >= 1.1
 BuildRequires:  gap-devel >= 4.13
 
 Requires:       gap(polycyclic) >= 1.1
 Requires:       gap-core >= 4.13
-
-Recommends:     gap(digraphs) >= 1.0.0
 
 Provides:       gap(QuickCheck) = %{version}-%{release}
 Provides:       gap(quickcheck) = %{version}-%{release}
@@ -66,7 +59,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{gap_upname}-%{commit}
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc README.md

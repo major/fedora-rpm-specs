@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.11.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -100,6 +100,7 @@ Patch58: qtbase-libglvnd.patch
 
 # Upstream patches
 Patch100: qtbase-qiconloader-dont-consider-fallbackthemename-in-themename.patch
+Patch101: qtbase-fix-crash-when-fontconfig-fallback-pattern-has-no-charset.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -951,6 +952,10 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Thu Oct 01 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-3
+- Upstream backport:
+  Fix crash when fontconfig fallback pattern has no charset
+
 * Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-2
 - Upstream backport:
   QIconLoader: don't consider fallbackThemeName() in themeName()

@@ -5,7 +5,7 @@
 %global crate yoke-derive
 
 Name:           rust-yoke-derive
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Custom derive for the yoke crate
 
@@ -52,7 +52,7 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Avoid a circular dependency on the yoke crate
-rm -rv examples/
+rm --recursive --verbose examples/
 %cargo_prep
 
 %generate_buildrequires

@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        86
-Release:        1%{?dist}
+Version:        87
+Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -147,6 +147,20 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 01 2026 Packit <hello@packit.dev> - 87-1
+- storage: Reset partitioning on init to fix remote installation refresh
+  (Related: rhbz#2543869)
+- Debounce keyboard configuration refreshes on language change
+  (Related: rhbz#2543077)
+- Fix wizard nav overlay hidden behind scrollable menu in responsive
+  mode (Related: rhbz#2543855)
+- error dialog: preserve newlines in error messages
+- Extract GNOME keyboard focus listener to a top-level hook
+  (Related: rhbz#2542374)
+- Reset keyboard config state on fetch failure
+- storage: ensure the two use-configured-storage scenarios are mutually exclusive
+- storage: disable Next when applying the partitioning failed
+
 * Fri Sep 25 2026 Packit <hello@packit.dev> - 86-1
 - remote installation: Show "Installation completed" instead of "Initializing..." after reboot
 

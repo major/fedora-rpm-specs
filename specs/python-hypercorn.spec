@@ -20,6 +20,14 @@ Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 # chore: remove unused mock dev dependency
 # https://github.com/pgjones/hypercorn/pull/343
 Patch:          %{url}/pull/343.patch
+# fix(tests): add :protocol pseudo-header for Extended CONNECT in WebSo…
+# https://github.com/pgjones/hypercorn/pull/371
+#
+# Fixes:
+#
+# test_http2_websocket error "Ordinary CONNECT MUST NOT include :scheme or :path"
+# https://github.com/pgjones/hypercorn/issues/370
+Patch:          %{url}/pull/371.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras h3

@@ -246,7 +246,7 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pulseaudio-libs-devel
 %endif
 
-%global llvm_suffix 21
+%global llvm_suffix 20
 #BuildRequires:  llvm
 #BuildRequires:  clang
 #BuildRequires:  clang-libs

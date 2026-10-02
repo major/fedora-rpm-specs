@@ -1,5 +1,5 @@
 Name:           python-pytest-bdd
-Version:        8.1.0
+Version:        9.0.0
 Release:        %autorelease
 Summary:        BDD library for the pytest runner
 
@@ -15,18 +15,14 @@ Source10:       pytest-bdd.1
 Source11:       pytest-bdd-generate.1
 Source12:       pytest-bdd-migrate.1
 
-# Less strict `gherkin-official` version requirement
-# https://github.com/pytest-dev/pytest-bdd/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47
-Patch:          %{forgeurl}/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47.patch
-
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --tox
-BuildOption(install): --no-assert-license pytest_bdd
+BuildOption(install): --assert-license pytest_bdd
 
 BuildArch:      noarch
 
 # Required for: tests/feature/test_report.py::test_complex_types
-# Also in pyproject.toml: [tool.poetry.group.dev.dependencies]
+# Also in the “dev” dependency group.
 BuildRequires:  %{py3_dist pytest-xdist} >= 3.3.1
 
 %global common_description %{expand:
@@ -49,9 +45,6 @@ object containing the side effects of Gherkin imperative declarations.}
 %package -n     python3-pytest-bdd
 Summary:        %{summary}
 
-# Removed in F42; keep Obsoletes through F45.
-Obsoletes:      python-pytest-bdd-doc < 7.3.0-3
-
 %description -n python3-pytest-bdd %{common_description}
 
 
@@ -62,16 +55,10 @@ install -D --mode 0644 --preserve-timestamps \
 
 
 %check -a
-# test_step_outside_scenario_or_background_error fails with current
-# gherkin-official
-# https://github.com/pytest-dev/pytest-bdd/issues/779
-k="${k-}${k+ and }not test_step_outside_scenario_or_background_error"
-
-%tox -- -- -k "${k-}" --numprocesses auto --verbose
+%tox -- -- --numprocesses auto --verbose
 
 
 %files -n python3-pytest-bdd -f %{pyproject_files}
-%license LICENSE.txt
 %doc AUTHORS.rst
 %doc CHANGES.rst
 %doc README.rst

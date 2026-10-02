@@ -32,7 +32,7 @@
 %{!?pgaudit:%global pgaudit 1}
 %{!?pg_repack:%global pg_repack 1}
 %{!?pgvector:%global pgvector 1}
-%{!?decoderbufs:%global decoderbufs 0}
+%{!?decoderbufs:%global decoderbufs 1}
 %{!?postgresql_default:%global postgresql_default 0}
 
 %global majorname postgresql
@@ -52,7 +52,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 19beta1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -100,7 +100,7 @@ Source21: https://github.com/reorg/pg_repack/archive/refs/tags/ver_1.5.3.tar.gz#
 Source22: https://github.com/pgvector/pgvector/archive/refs/tags/v0.8.3.tar.gz#/pgvector-0.8.3.tar.gz
 
 # postgres-decoderbufs extension
-Source23: https://github.com/debezium/postgres-decoderbufs/archive/refs/tags/v3.5.2.Final.tar.gz#/postgres-decoderbufs-3.5.2.tar.gz
+Source23: https://github.com/debezium/postgres-decoderbufs/archive/refs/tags/v3.6.2.Final.tar.gz#/postgres-decoderbufs-3.6.2.tar.gz
 
 # Fix pgaudit compilation with PostgreSQL 19 (VARSIZE_ANY_EXHDR API change)
 Patch20: pgaudit-pg19-compat.patch
@@ -120,6 +120,13 @@ Patch9: postgresql-server-pg_config.patch
 Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
 Patch13: postgresql-default-ssl-config.patch
+
+# Upstream patch for PostgreSQL19 already approved
+# by the postgres-decoderbufs upsteram in this PR:
+# https://github.com/debezium/postgres-decoderbufs/pull/35
+# but not yet merged since PostgreSQL19 has not fully
+# released yet
+Patch30: postgresql-decoderbufs-upstream_2707849b4e143266a2a9dfaed526285ec1c5eaf1.patch
 
 # This macro is used for package names in the files section
 %if %?postgresql_default
@@ -678,9 +685,10 @@ popd
 
 %if %decoderbufs
 tar xzf %{SOURCE23}
-mv postgres-decoderbufs-3.5.2.Final contrib/decoderbufs
+mv postgres-decoderbufs-3.6.2.Final contrib/decoderbufs
 pushd contrib/decoderbufs
 %patch 23 -p1
+%patch 30 -p1
 popd
 %endif
 
@@ -1565,10 +1573,14 @@ make -C postgresql-setup-%{setup_version} check
 %files -n %{pkgname}-decoderbufs
 %license contrib/decoderbufs/LICENSE
 %{_libdir}/pgsql/decoderbufs.so
+%{_datadir}/pgsql/extension/decoderbufs.control
 %endif
 
 
 %changelog
+* Wed Sep 30 2026 Pavol Sloboda <psloboda@redhat.com> - 19beta1-8
+- Start building postgresql19-decoderbufs again
+
 * Wed Sep 16 2026 Pavol Sloboda <psloboda@redhat.com> - 19beta1-7
 - pg_partman subpackage name fix
 

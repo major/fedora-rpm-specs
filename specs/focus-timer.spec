@@ -1,7 +1,7 @@
 %global uuid pomodoro@arun.codito.in
 %global forgeurl https://github.com/focustimerhq/FocusTimer
 
-Version:        1.1.4
+Version:        1.1.5
 
 %global tag %{version}
 %forgemeta

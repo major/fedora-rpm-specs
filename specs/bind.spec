@@ -1213,8 +1213,24 @@ fi;
 %files dnssec-utils
 %{_bindir}/%{dnssec_utils_bin1}%{program_suffix}
 %{_mandir}/man1/%{dnssec_utils_bin1}%{program_suffix}.1*
-%ghost %attr(0755,-,-) %{_bindir}/%{dnssec_utils_bin1}
-%ghost %attr(0644,-,-) %{_mandir}/man1/%{dnssec_utils_bin1}.1%{manext}
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-cds
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-dsfromkey
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-importkey
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-keyfromlabel
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-keygen
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-revoke
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-settime
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-signzon
+%ghost %attr(0755,-,-) %{_bindir}/dnssec-verify
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-cds.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-dsfromkey.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-importkey.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-keyfromlabel.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-keygen.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-revoke.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-settime.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-signzon.1%{manext}
+%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-verify.1%{manext}
 
 %files devel
 %{_libdir}/%{devel_lib}%{program_suffix}.so

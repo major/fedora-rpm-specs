@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.6.3
+%global package_version 2.6.4
 
 %global oldname vault
 
 Name: openbao
-Version: 2.6.3
+Version: 2.6.4
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -17,12 +17,11 @@ Summary: A tool for securely accessing secrets
 # github.com/zeebo/blake3 it applies to has been available in Fedora as golang-github-zeebo-blake3
 # since before the cutoff date 2022-08-01, the exception to use it also applies here.
 License: MPL-2.0 AND (BSD-3-Clause OR MIT) AND (MIT OR Apache-2.0) AND (MIT OR CC0-1.0) AND (MPL-2.0 OR Apache-2.0) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BlueOak-1.0.0 AND CC-BY-4.0 AND CC0-1.0 AND ISC AND MIT AND UPL-1.0 AND Unicode-DFS-2016 AND Unlicense AND Zlib
-Source0: https://github.com/openbao/%{name}/releases/download/v%{package_version}-2/%{name}-dist-v%{package_version}.tar.xz
+Source0: https://github.com/openbao/%{name}/releases/download/v%{package_version}/%{name}-dist-v%{package_version}.tar.xz
 # This includes extra files to include in the package and is used as a
 # single git branch to track changes to them (unlike src.fedoraproject.org)
 # and a place where checks can be automated using github actions.
-# https://github.com/openbao/%%{name}-fedora/releases/download/v%%{package_version}/%%{name}-fedora-%%{package_version}.tar.gz
-Source1: %{name}-fedora-%{package_version}-2.tar.gz
+Source1: https://github.com/openbao/%{name}-fedora/releases/download/v%{package_version}/%{name}-fedora-%{package_version}.tar.gz
 # This has to be separate because it is used in a %%pre step
 Source2: https://github.com/openbao/%{name}-fedora/blob/v{package_version}/%{name}.conf
 
@@ -164,7 +163,7 @@ Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = v2.22.0
 Provides: bundled(golang(github.com/gophercloud/gophercloud)) = v0.1.0
 Provides: bundled(golang(github.com/gorilla/websocket)) = v1.5.4~0.20250319132907~e064f32e3674
 Provides: bundled(golang(github.com/hailocab/go-hostpool)) = v0.0.0~20160125115350~e80d13ce29ed
-Provides: bundled(golang(github.com/hashicorp/cap)) = v0.13.0
+Provides: bundled(golang(github.com/hashicorp/cap)) = v0.14.0
 Provides: bundled(golang(github.com/hashicorp/cli)) = v1.1.7
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
 Provides: bundled(golang(github.com/hashicorp/go-cleanhttp)) = v0.5.2

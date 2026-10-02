@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        3.1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -237,6 +237,9 @@ Source2:        gpgkey-B40A78FBA576C4A3FC7D7BBC359FAF777296F653.asc
 Patch0:         freeipa-version-upgrade-fedora-only.patch
 Patch1:         freeipa-pr-8557.patch
 Patch2:         freeipa-pr-8558.patch
+Patch3:         freeipa-CVE-2026-14612.patch
+Patch4:         freeipa-ipa-join-increase-argv-array-suze-for-ipa-getkeytab.patch
+Patch5:         freeipa-ipa-kdb-fix-NULL-pointer-dereference-when-freeing-cr.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1471,9 +1474,9 @@ if [ -f '/etc/ssh/sshd_config' -a $restore -ge 2 ]; then
             GLOBALKNOWNHOSTFILE="GlobalKnownHostsFile /var/lib/sss/pubconf/known_hosts/"
             grep -qF '$GLOBALKNOWNHOSTFILE' $SSH_CLIENT_SYSTEM_CONF
             if [ $? -ne 0 ]; then
-                sed -E --in-place=.orig '/(# IPA-related configuration changes to ssh_config)/a # added by ipa-client update\n'"$GLOBALKNOWNHOSTFILE"'' $SSH_CLIENT_SYSTEM_CONF
+                sed -E --in-place=.orig '/(# IPA-related configuration changes to ssh_config)/a # added by ipa-client update\n'"$GLOBALKNOWNHOSTFILE"'' $SSH_CLIENT_SYSTEM_CONF || :
             fi
-            sed -E --in-place=.orig 's/(KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H)/ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h/' $SSH_CLIENT_SYSTEM_CONF
+            sed -E --in-place=.orig 's/(KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H)/ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h/' $SSH_CLIENT_SYSTEM_CONF || :
         fi
     fi
 fi
@@ -1492,8 +1495,8 @@ if [ -f '/etc/ssh/sshd_config' -a $restore -ge 2 ]; then
             if grep -E -q 'Include' $SSH_CLIENT_SYSTEM_CONF  2>/dev/null ; then
                 SSH_CLIENT_SYSTEM_CONF="/etc/ssh/ssh_config.d/04-ipa.conf"
             fi
-            sed -E --in-place=.orig 's/^(GlobalKnownHostsFile \/var\/lib\/sss\/pubconf\/known_hosts)$/# disabled by ipa-client update\n# \1/' $SSH_CLIENT_SYSTEM_CONF
-            sed -E --in-place=.orig 's/(ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h)/# replaced by ipa-client update\n    KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H/' $SSH_CLIENT_SYSTEM_CONF
+            sed -E --in-place=.orig 's/^(GlobalKnownHostsFile \/var\/lib\/sss\/pubconf\/known_hosts)$/# disabled by ipa-client update\n# \1/' $SSH_CLIENT_SYSTEM_CONF || :
+            sed -E --in-place=.orig 's/(ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h)/# replaced by ipa-client update\n    KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H/' $SSH_CLIENT_SYSTEM_CONF || :
         fi
     fi
 fi
@@ -1974,6 +1977,15 @@ fi
 %endif
 
 %changelog
+* Thu Oct 01 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-3.1
+- Resolves: rhbz#2439482
+
+* Thu Oct 01 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-3
+- Fixes: CVE-2026-14612 - potential buffer overflow in ipa-otpd
+- Fix potential buffer overvlow in ipa-join
+- Fix potential NUL pointer dereference in ipa-kdb
+- Rebuild against Samba 4.25.0 release
+
 * Sat Sep 19 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.4-2
 - Update post-4.13.4-release patches
 - Rebuild against Samba 4.25.0-RC2

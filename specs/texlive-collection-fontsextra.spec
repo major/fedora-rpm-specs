@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-fontsextra
 Epoch:          12
-Version:        svn78246
-Release:        7%{?dist}
+Version:        svn80219
+Release:        9%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -178,677 +178,689 @@ Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/c
 Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmbright.doc.tar.xz
 Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmexb.tar.xz
 Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmexb.doc.tar.xz
-Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmll.tar.xz
-Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmll.doc.tar.xz
-Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpica.tar.xz
-Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpica.doc.tar.xz
-Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmsrb.tar.xz
-Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmsrb.doc.tar.xz
-Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmtiup.tar.xz
-Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmtiup.doc.tar.xz
-Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmupint.tar.xz
-Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmupint.doc.tar.xz
-Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cochineal.tar.xz
-Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cochineal.doc.tar.xz
-Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/coelacanth.tar.xz
-Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/coelacanth.doc.tar.xz
-Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comfortaa.tar.xz
-Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comfortaa.doc.tar.xz
-Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comicneue.tar.xz
-Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comicneue.doc.tar.xz
-Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-fonts.tar.xz
-Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-fonts.doc.tar.xz
-Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-otf.tar.xz
-Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-otf.doc.tar.xz
-Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cookingsymbols.tar.xz
-Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cookingsymbols.doc.tar.xz
-Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cooperhewitt.tar.xz
-Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cooperhewitt.doc.tar.xz
-Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cormorantgaramond.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cormorantgaramond.doc.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countriesofeurope.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countriesofeurope.doc.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courier-scaled.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courier-scaled.doc.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courierten.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courierten.doc.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimson.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimson.doc.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimsonpro.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimsonpro.doc.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cryst.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cryst.doc.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cuprum.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cuprum.doc.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyklop.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyklop.doc.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic-modern.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic-modern.doc.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dancers.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dantelogo.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dantelogo.doc.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu.doc.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu-otf.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu-otf.doc.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dice.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dice.doc.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dictsym.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dictsym.doc.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dingbat.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dingbat.doc.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/domitian.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/domitian.doc.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doublestroke.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doublestroke.doc.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doulossil.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doulossil.doc.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dozenal.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dozenal.doc.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drm.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drm.doc.tar.xz
-Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/droid.tar.xz
-Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/droid.doc.tar.xz
-Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dsserif.tar.xz
-Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dsserif.doc.tar.xz
-Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer.tar.xz
-Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer.doc.tar.xz
-Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer-latex.tar.xz
-Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer-latex.doc.tar.xz
-Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dutchcal.tar.xz
-Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dutchcal.doc.tar.xz
-Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ean.tar.xz
-Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ean.doc.tar.xz
-Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond.tar.xz
-Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond.doc.tar.xz
-Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond-maths.tar.xz
-Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond-maths.doc.tar.xz
-Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecc.tar.xz
-Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecc.doc.tar.xz
-Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eco.tar.xz
-Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eco.doc.tar.xz
-Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eczar.tar.xz
-Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eczar.doc.tar.xz
-Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad.tar.xz
-Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad.doc.tar.xz
-Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad-ltx.tar.xz
-Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad-ltx.doc.tar.xz
-Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ektype-tanka.tar.xz
-Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ektype-tanka.doc.tar.xz
-Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/electrumadf.tar.xz
-Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/electrumadf.doc.tar.xz
-Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elvish.tar.xz
-Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elvish.doc.tar.xz
-Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epigrafica.tar.xz
-Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epigrafica.doc.tar.xz
-Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epsdice.tar.xz
-Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epsdice.doc.tar.xz
-Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon.tar.xz
-Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon.doc.tar.xz
-Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon-math.tar.xz
-Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon-math.doc.tar.xz
-Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esrelation.tar.xz
-Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esrelation.doc.tar.xz
-Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esstix.tar.xz
-Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esstix.doc.tar.xz
-Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esvect.tar.xz
-Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esvect.doc.tar.xz
-Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etbb.tar.xz
-Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etbb.doc.tar.xz
-Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euler-math.tar.xz
-Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euler-math.doc.tar.xz
-Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eulervm.tar.xz
-Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eulervm.doc.tar.xz
-Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euxm.tar.xz
-Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbb.tar.xz
-Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbb.doc.tar.xz
-Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fdsymbol.tar.xz
-Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fdsymbol.doc.tar.xz
-Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fetamont.tar.xz
-Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fetamont.doc.tar.xz
-Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/feyn.tar.xz
-Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/feyn.doc.tar.xz
-Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fge.tar.xz
-Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fge.doc.tar.xz
-Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fira.tar.xz
-Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fira.doc.tar.xz
-Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath.tar.xz
-Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath.doc.tar.xz
-Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath-otf.tar.xz
-Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath-otf.doc.tar.xz
-Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/foekfont.tar.xz
-Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/foekfont.doc.tar.xz
-Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonetika.tar.xz
-Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonetika.doc.tar.xz
-Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome.tar.xz
-Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome.doc.tar.xz
-Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome5.tar.xz
-Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome5.doc.tar.xz
-Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome6.tar.xz
-Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome6.doc.tar.xz
-Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome7.tar.xz
-Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome7.doc.tar.xz
-Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesomescaled.tar.xz
-Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesomescaled.doc.tar.xz
-Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontmfizz.tar.xz
-Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontmfizz.doc.tar.xz
-Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-churchslavonic.tar.xz
-Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-churchslavonic.doc.tar.xz
-Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontscripts.tar.xz
-Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontscripts.doc.tar.xz
-Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forum.tar.xz
-Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forum.doc.tar.xz
-Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fourier.tar.xz
-Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fourier.doc.tar.xz
-Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fouriernc.tar.xz
-Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fouriernc.doc.tar.xz
-Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frcursive.tar.xz
-Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frcursive.doc.tar.xz
-Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frederika2016.tar.xz
-Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frederika2016.doc.tar.xz
-Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frimurer.tar.xz
-Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frimurer.doc.tar.xz
-Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-libre.tar.xz
-Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-libre.doc.tar.xz
-Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-math.tar.xz
-Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-math.doc.tar.xz
-Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasio.tar.xz
-Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasio.doc.tar.xz
-Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasiomath.tar.xz
-Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasiomath.doc.tar.xz
-Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogy.tar.xz
-Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogy.doc.tar.xz
-Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-otf.tar.xz
-Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-otf.doc.tar.xz
-Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-sil.tar.xz
-Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-sil.doc.tar.xz
-Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsartemisia.tar.xz
-Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsartemisia.doc.tar.xz
-Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsbodoni.tar.xz
-Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsbodoni.doc.tar.xz
-Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfscomplutum.tar.xz
-Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfscomplutum.doc.tar.xz
-Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidot.tar.xz
-Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidot.doc.tar.xz
-Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidotclassic.tar.xz
-Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidotclassic.doc.tar.xz
-Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenic.tar.xz
-Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenic.doc.tar.xz
-Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenicmath.tar.xz
-Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenicmath.doc.tar.xz
-Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfssolomos.tar.xz
-Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfssolomos.doc.tar.xz
-Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillcm.tar.xz
-Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillcm.doc.tar.xz
-Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillius.tar.xz
-Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillius.doc.tar.xz
-Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnu-freefont.tar.xz
-Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnu-freefont.doc.tar.xz
-Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gofonts.tar.xz
-Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gofonts.doc.tar.xz
-Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gothic.tar.xz
-Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gothic.doc.tar.xz
-Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/greenpoint.tar.xz
-Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/greenpoint.doc.tar.xz
-Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grotesq.tar.xz
-Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grotesq.doc.tar.xz
-Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gudea.tar.xz
-Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gudea.doc.tar.xz
-Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hacm.tar.xz
-Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hacm.doc.tar.xz
-Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hamnosys.tar.xz
-Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hamnosys.doc.tar.xz
-Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hands.tar.xz
-Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-font.tar.xz
-Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-font.doc.tar.xz
-Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-math-font.tar.xz
-Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-math-font.doc.tar.xz
-Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heros-otf.tar.xz
-Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heros-otf.doc.tar.xz
-Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heuristica.tar.xz
-Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heuristica.doc.tar.xz
-Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfbright.tar.xz
-Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfbright.doc.tar.xz
-Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfoldsty.tar.xz
-Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfoldsty.doc.tar.xz
-Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindmadurai.tar.xz
-Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindmadurai.doc.tar.xz
-Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ibarra.tar.xz
-Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ibarra.doc.tar.xz
-Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ifsym.tar.xz
-Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ifsym.doc.tar.xz
-Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imfellenglish.tar.xz
-Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imfellenglish.doc.tar.xz
-Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata.tar.xz
-Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata.doc.tar.xz
-Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata-nerd-font.tar.xz
-Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata-nerd-font.doc.tar.xz
-Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/initials.tar.xz
-Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/initials.doc.tar.xz
-Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inriafonts.tar.xz
-Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inriafonts.doc.tar.xz
-Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inter.tar.xz
-Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inter.doc.tar.xz
-Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ipaex-type1.tar.xz
-Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ipaex-type1.doc.tar.xz
-Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iwona.tar.xz
-Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iwona.doc.tar.xz
-Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jablantile.tar.xz
-Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jablantile.doc.tar.xz
-Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jamtimes.tar.xz
-Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jamtimes.doc.tar.xz
-Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jetbrainsmono-otf.tar.xz
-Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jetbrainsmono-otf.doc.tar.xz
-Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/josefin.tar.xz
-Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/josefin.doc.tar.xz
-Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/juliamono.tar.xz
-Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/juliamono.doc.tar.xz
-Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicode.tar.xz
-Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicode.doc.tar.xz
-Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicodevf.tar.xz
-Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicodevf.doc.tar.xz
-Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kixfont.tar.xz
-Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kixfont.doc.tar.xz
-Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts.tar.xz
-Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts.doc.tar.xz
-Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts-otf.tar.xz
-Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts-otf.doc.tar.xz
-Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurier.tar.xz
-Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurier.doc.tar.xz
-Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lato.tar.xz
-Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lato.doc.tar.xz
-Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lete-sans-math.tar.xz
-Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lete-sans-math.doc.tar.xz
-Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lexend.tar.xz
-Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lexend.doc.tar.xz
-Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lfb.tar.xz
-Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lfb.doc.tar.xz
-Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertine.tar.xz
-Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertine.doc.tar.xz
-Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinegc.tar.xz
-Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinegc.doc.tar.xz
-Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus.tar.xz
-Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus.doc.tar.xz
-Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-fonts.tar.xz
-Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-fonts.doc.tar.xz
-Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-otf.tar.xz
-Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-otf.doc.tar.xz
-Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-type1.tar.xz
-Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-type1.doc.tar.xz
-Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinust1math.tar.xz
-Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinust1math.doc.tar.xz
-Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebaskerville.tar.xz
-Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebaskerville.doc.tar.xz
-Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebodoni.tar.xz
-Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebodoni.doc.tar.xz
-Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librecaslon.tar.xz
-Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librecaslon.doc.tar.xz
-Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librefranklin.tar.xz
-Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librefranklin.doc.tar.xz
-Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libris.tar.xz
-Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libris.doc.tar.xz
-Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lineara.tar.xz
-Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lineara.doc.tar.xz
-Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linguisticspro.tar.xz
-Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linguisticspro.doc.tar.xz
-Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lobster2.tar.xz
-Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lobster2.doc.tar.xz
-Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logix.tar.xz
-Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logix.doc.tar.xz
-Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luciole.tar.xz
-Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luciole.doc.tar.xz
-Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luwiantype.tar.xz
-Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luwiantype.doc.tar.xz
-Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxfonts.tar.xz
-Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxfonts.doc.tar.xz
-Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ly1.tar.xz
-Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ly1.doc.tar.xz
-Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lydtype.tar.xz
-Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lydtype.doc.tar.xz
-Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magra.tar.xz
-Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magra.doc.tar.xz
-Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marcellus.tar.xz
-Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marcellus.doc.tar.xz
-Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx.tar.xz
-Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx.doc.tar.xz
-Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx-type1.tar.xz
-Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx-type1.doc.tar.xz
-Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathdesign.tar.xz
-Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathdesign.doc.tar.xz
-Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdputu.tar.xz
-Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdputu.doc.tar.xz
-Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdsymbol.tar.xz
-Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdsymbol.doc.tar.xz
-Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/merriweather.tar.xz
-Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/merriweather.doc.tar.xz
-Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/metsymb.tar.xz
-Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/metsymb.doc.tar.xz
-Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mfb-oldstyle.tar.xz
-Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mfb-oldstyle.doc.tar.xz
-Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miama.tar.xz
-Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miama.doc.tar.xz
-Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mintspirit.tar.xz
-Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mintspirit.doc.tar.xz
-Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/missaali.tar.xz
-Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/missaali.doc.tar.xz
-Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlmodern.tar.xz
-Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlmodern.doc.tar.xz
-Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnsymbol.tar.xz
-Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnsymbol.doc.tar.xz
-Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/monaspace-otf.tar.xz
-Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/monaspace-otf.doc.tar.xz
-Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montserrat.tar.xz
-Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montserrat.doc.tar.xz
-Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpfonts.tar.xz
-Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpfonts.doc.tar.xz
-Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mweights.tar.xz
-Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mweights.doc.tar.xz
-Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcomputermodern.tar.xz
-Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcomputermodern.doc.tar.xz
-Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpx.tar.xz
-Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpx.doc.tar.xz
-Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtx.tar.xz
-Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtx.doc.tar.xz
-Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxsf.tar.xz
-Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxsf.doc.tar.xz
-Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxtt.tar.xz
-Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxtt.doc.tar.xz
-Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/niceframe-type1.tar.xz
-Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/niceframe-type1.doc.tar.xz
-Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimbus15.tar.xz
-Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimbus15.doc.tar.xz
-Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nkarta.tar.xz
-Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nkarta.doc.tar.xz
-Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto.tar.xz
-Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto.doc.tar.xz
-Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto-emoji.tar.xz
-Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto-emoji.doc.tar.xz
-Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notomath.tar.xz
-Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notomath.doc.tar.xz
-Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nunito.tar.xz
-Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nunito.doc.tar.xz
-Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/obnov.tar.xz
-Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/obnov.doc.tar.xz
-Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocherokee.tar.xz
-Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocherokee.doc.tar.xz
-Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b.tar.xz
-Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b.doc.tar.xz
-Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b-outline.tar.xz
-Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b-outline.doc.tar.xz
-Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ogham.tar.xz
-Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ogham.doc.tar.xz
-Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oinuit.tar.xz
-Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oinuit.doc.tar.xz
-Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/old-arrows.tar.xz
-Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/old-arrows.doc.tar.xz
-Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldlatin.tar.xz
-Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldlatin.doc.tar.xz
-Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldstandard.tar.xz
-Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldstandard.doc.tar.xz
-Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opensans.tar.xz
-Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opensans.doc.tar.xz
-Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/orkhun.tar.xz
-Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/orkhun.doc.tar.xz
-Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oswald.tar.xz
-Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oswald.doc.tar.xz
-Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/overlock.tar.xz
-Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/overlock.doc.tar.xz
-Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pacioli.tar.xz
-Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pacioli.doc.tar.xz
-Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagella-otf.tar.xz
-Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagella-otf.doc.tar.xz
-Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/paratype.tar.xz
-Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/paratype.doc.tar.xz
-Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pennstander-otf.tar.xz
-Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pennstander-otf.doc.tar.xz
-Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phaistos.tar.xz
-Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phaistos.doc.tar.xz
-Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phonetic.tar.xz
-Source589:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phonetic.doc.tar.xz
-Source590:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pigpen.tar.xz
-Source591:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pigpen.doc.tar.xz
-Source592:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playfair.tar.xz
-Source593:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playfair.doc.tar.xz
-Source594:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex.tar.xz
-Source595:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex.doc.tar.xz
-Source596:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex-otf.tar.xz
-Source597:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex-otf.doc.tar.xz
-Source598:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plimsoll.tar.xz
-Source599:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plimsoll.doc.tar.xz
-Source600:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poiretone.tar.xz
-Source601:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poiretone.doc.tar.xz
-Source602:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poltawski.tar.xz
-Source603:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poltawski.doc.tar.xz
-Source604:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prodint.tar.xz
-Source605:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prodint.doc.tar.xz
-Source606:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk.tar.xz
-Source607:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk.doc.tar.xz
-Source608:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk-latex.tar.xz
-Source609:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk-latex.doc.tar.xz
-Source610:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punknova.tar.xz
-Source611:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punknova.doc.tar.xz
-Source612:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxtxalfa.tar.xz
-Source613:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxtxalfa.doc.tar.xz
-Source614:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qualitype.tar.xz
-Source615:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qualitype.doc.tar.xz
-Source616:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quattrocento.tar.xz
-Source617:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quattrocento.doc.tar.xz
-Source618:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/raleway.tar.xz
-Source619:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/raleway.doc.tar.xz
-Source620:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/recycle.tar.xz
-Source621:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/recycle.doc.tar.xz
-Source622:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rit-fonts.tar.xz
-Source623:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rit-fonts.doc.tar.xz
-Source624:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/roboto.tar.xz
-Source625:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/roboto.doc.tar.xz
-Source626:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/romandeadf.tar.xz
-Source627:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/romandeadf.doc.tar.xz
-Source628:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rosario.tar.xz
-Source629:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rosario.doc.tar.xz
-Source630:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsfso.tar.xz
-Source631:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsfso.doc.tar.xz
-Source632:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruscap.tar.xz
-Source633:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruscap.doc.tar.xz
-Source634:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathaccent.tar.xz
-Source635:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathaccent.doc.tar.xz
-Source636:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathfonts.tar.xz
-Source637:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathfonts.doc.tar.xz
-Source638:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauter.tar.xz
-Source639:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauterfonts.tar.xz
-Source640:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauterfonts.doc.tar.xz
-Source641:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schola-otf.tar.xz
-Source642:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schola-otf.doc.tar.xz
-Source643:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scholax.tar.xz
-Source644:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scholax.doc.tar.xz
-Source645:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schulschriften.tar.xz
-Source646:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schulschriften.doc.tar.xz
-Source647:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semaphor.tar.xz
-Source648:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semaphor.doc.tar.xz
-Source649:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shobhika.tar.xz
-Source650:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shobhika.doc.tar.xz
-Source651:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleicons.tar.xz
-Source652:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleicons.doc.tar.xz
-Source653:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skull.tar.xz
-Source654:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.tar.xz
-Source655:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.doc.tar.xz
-Source656:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.tar.xz
-Source657:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.doc.tar.xz
-Source658:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.tar.xz
-Source659:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.doc.tar.xz
-Source660:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.tar.xz
-Source661:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.doc.tar.xz
-Source662:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splentinex.tar.xz
-Source663:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splentinex.doc.tar.xz
-Source664:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srbtiks.tar.xz
-Source665:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srbtiks.doc.tar.xz
-Source666:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/starfont.tar.xz
-Source667:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/starfont.doc.tar.xz
-Source668:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/staves.tar.xz
-Source669:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/staves.doc.tar.xz
-Source670:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/step.tar.xz
-Source671:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/step.doc.tar.xz
-Source672:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stepgreek.tar.xz
-Source673:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stepgreek.doc.tar.xz
-Source674:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stickstoo.tar.xz
-Source675:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stickstoo.doc.tar.xz
-Source676:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix.tar.xz
-Source677:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix.doc.tar.xz
-Source678:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-otf.tar.xz
-Source679:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-otf.doc.tar.xz
-Source680:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-type1.tar.xz
-Source681:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-type1.doc.tar.xz
-Source682:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/superiors.tar.xz
-Source683:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/superiors.doc.tar.xz
-Source684:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svrsymbols.tar.xz
-Source685:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svrsymbols.doc.tar.xz
-Source686:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/symbats3.tar.xz
-Source687:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/symbats3.doc.tar.xz
-Source688:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tapir.tar.xz
-Source689:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tapir.doc.tar.xz
-Source690:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tempora.tar.xz
-Source691:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tempora.doc.tar.xz
-Source692:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tengwarscript.tar.xz
-Source693:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tengwarscript.doc.tar.xz
-Source694:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/termes-otf.tar.xz
-Source695:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/termes-otf.doc.tar.xz
-Source696:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tfrupee.tar.xz
-Source697:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tfrupee.doc.tar.xz
-Source698:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanodidot.tar.xz
-Source699:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanodidot.doc.tar.xz
-Source700:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanomodern.tar.xz
-Source701:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanomodern.doc.tar.xz
-Source702:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanooldstyle.tar.xz
-Source703:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanooldstyle.doc.tar.xz
-Source704:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tinos.tar.xz
-Source705:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tinos.doc.tar.xz
-Source706:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tpslifonts.tar.xz
-Source707:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tpslifonts.doc.tar.xz
-Source708:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trajan.tar.xz
-Source709:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trajan.doc.tar.xz
-Source710:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemoji-colr.tar.xz
-Source711:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemoji-colr.doc.tar.xz
-Source712:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txfontsb.tar.xz
-Source713:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txfontsb.doc.tar.xz
-Source714:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txuprcal.tar.xz
-Source715:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txuprcal.doc.tar.xz
-Source716:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typicons.tar.xz
-Source717:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typicons.doc.tar.xz
-Source718:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umtypewriter.tar.xz
-Source719:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umtypewriter.doc.tar.xz
-Source720:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universa.tar.xz
-Source721:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universa.doc.tar.xz
-Source722:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universalis.tar.xz
-Source723:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universalis.doc.tar.xz
-Source724:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uppunctlm.tar.xz
-Source725:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uppunctlm.doc.tar.xz
-Source726:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urwchancal.tar.xz
-Source727:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urwchancal.doc.tar.xz
-Source728:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venturisadf.tar.xz
-Source729:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venturisadf.doc.tar.xz
-Source730:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsuipa.tar.xz
-Source731:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsuipa.doc.tar.xz
-Source732:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter.tar.xz
-Source733:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter.doc.tar.xz
-Source734:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter-math.tar.xz
-Source735:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter-math.doc.tar.xz
-Source736:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xits.tar.xz
-Source737:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xits.doc.tar.xz
-Source738:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts.tar.xz
-Source739:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts.doc.tar.xz
-Source740:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-otf.tar.xz
-Source741:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-otf.doc.tar.xz
-Source742:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-t1.tar.xz
-Source743:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-t1.doc.tar.xz
-Source744:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yinit-otf.tar.xz
-Source745:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yinit-otf.doc.tar.xz
-Source746:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ysabeau.tar.xz
-Source747:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ysabeau.doc.tar.xz
-Source748:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zlmtt.tar.xz
-Source749:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zlmtt.doc.tar.xz
+Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmgraded.tar.xz
+Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmgraded.doc.tar.xz
+Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmll.tar.xz
+Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmll.doc.tar.xz
+Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpica.tar.xz
+Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpica.doc.tar.xz
+Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmsrb.tar.xz
+Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmsrb.doc.tar.xz
+Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmtiup.tar.xz
+Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmtiup.doc.tar.xz
+Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmupint.tar.xz
+Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmupint.doc.tar.xz
+Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cochineal.tar.xz
+Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cochineal.doc.tar.xz
+Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/coelacanth.tar.xz
+Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/coelacanth.doc.tar.xz
+Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comfortaa.tar.xz
+Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comfortaa.doc.tar.xz
+Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comicneue.tar.xz
+Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/comicneue.doc.tar.xz
+Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-fonts.tar.xz
+Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-fonts.doc.tar.xz
+Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-otf.tar.xz
+Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/concmath-otf.doc.tar.xz
+Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cookingsymbols.tar.xz
+Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cookingsymbols.doc.tar.xz
+Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cooperhewitt.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cooperhewitt.doc.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cormorantgaramond.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cormorantgaramond.doc.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countriesofeurope.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countriesofeurope.doc.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courier-scaled.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courier-scaled.doc.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courierten.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/courierten.doc.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimson.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimson.doc.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimsonpro.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crimsonpro.doc.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cryst.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cryst.doc.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cuprum.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cuprum.doc.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyklop.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyklop.doc.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic-modern.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic-modern.doc.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dancers.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dantelogo.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dantelogo.doc.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu.doc.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu-otf.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dejavu-otf.doc.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dice.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dice.doc.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dictsym.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dictsym.doc.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dingbat.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dingbat.doc.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/domitian.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/domitian.doc.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doublestroke.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doublestroke.doc.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doulossil.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doulossil.doc.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dozenal.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dozenal.doc.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drm.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drm.doc.tar.xz
+Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/droid.tar.xz
+Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/droid.doc.tar.xz
+Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dsserif.tar.xz
+Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dsserif.doc.tar.xz
+Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer.tar.xz
+Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer.doc.tar.xz
+Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer-latex.tar.xz
+Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duerer-latex.doc.tar.xz
+Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dutchcal.tar.xz
+Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dutchcal.doc.tar.xz
+Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ean.tar.xz
+Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ean.doc.tar.xz
+Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond.tar.xz
+Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond.doc.tar.xz
+Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond-maths.tar.xz
+Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebgaramond-maths.doc.tar.xz
+Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecc.tar.xz
+Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecc.doc.tar.xz
+Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eco.tar.xz
+Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eco.doc.tar.xz
+Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eczar.tar.xz
+Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eczar.doc.tar.xz
+Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad.tar.xz
+Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad.doc.tar.xz
+Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad-ltx.tar.xz
+Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eiad-ltx.doc.tar.xz
+Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ektype-tanka.tar.xz
+Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ektype-tanka.doc.tar.xz
+Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/electrumadf.tar.xz
+Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/electrumadf.doc.tar.xz
+Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elvish.tar.xz
+Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elvish.doc.tar.xz
+Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epigrafica.tar.xz
+Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epigrafica.doc.tar.xz
+Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epsdice.tar.xz
+Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epsdice.doc.tar.xz
+Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon.tar.xz
+Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon.doc.tar.xz
+Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon-math.tar.xz
+Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erewhon-math.doc.tar.xz
+Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esrelation.tar.xz
+Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esrelation.doc.tar.xz
+Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esstix.tar.xz
+Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esstix.doc.tar.xz
+Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esvect.tar.xz
+Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esvect.doc.tar.xz
+Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etbb.tar.xz
+Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etbb.doc.tar.xz
+Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euler-math.tar.xz
+Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euler-math.doc.tar.xz
+Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eulervm.tar.xz
+Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eulervm.doc.tar.xz
+Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euxm.tar.xz
+Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fantasquesansmono-otf.tar.xz
+Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fantasquesansmono-otf.doc.tar.xz
+Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbb.tar.xz
+Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbb.doc.tar.xz
+Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fdsymbol.tar.xz
+Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fdsymbol.doc.tar.xz
+Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fetamont.tar.xz
+Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fetamont.doc.tar.xz
+Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/feyn.tar.xz
+Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/feyn.doc.tar.xz
+Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fge.tar.xz
+Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fge.doc.tar.xz
+Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fira.tar.xz
+Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fira.doc.tar.xz
+Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath.tar.xz
+Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath.doc.tar.xz
+Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath-otf.tar.xz
+Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/firamath-otf.doc.tar.xz
+Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/foekfont.tar.xz
+Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/foekfont.doc.tar.xz
+Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonetika.tar.xz
+Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonetika.doc.tar.xz
+Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome.tar.xz
+Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome.doc.tar.xz
+Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome5.tar.xz
+Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome5.doc.tar.xz
+Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome6.tar.xz
+Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome6.doc.tar.xz
+Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome7.tar.xz
+Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesome7.doc.tar.xz
+Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesomescaled.tar.xz
+Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontawesomescaled.doc.tar.xz
+Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontmfizz.tar.xz
+Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontmfizz.doc.tar.xz
+Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-churchslavonic.tar.xz
+Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-churchslavonic.doc.tar.xz
+Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontscripts.tar.xz
+Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontscripts.doc.tar.xz
+Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forum.tar.xz
+Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forum.doc.tar.xz
+Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fourier.tar.xz
+Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fourier.doc.tar.xz
+Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fouriernc.tar.xz
+Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fouriernc.doc.tar.xz
+Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frcursive.tar.xz
+Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frcursive.doc.tar.xz
+Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frederika2016.tar.xz
+Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frederika2016.doc.tar.xz
+Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frimurer.tar.xz
+Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/frimurer.doc.tar.xz
+Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-libre.tar.xz
+Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-libre.doc.tar.xz
+Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-math.tar.xz
+Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/garamond-math.doc.tar.xz
+Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geist-font.tar.xz
+Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geist-font.doc.tar.xz
+Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasio.tar.xz
+Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasio.doc.tar.xz
+Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasiomath.tar.xz
+Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gelasiomath.doc.tar.xz
+Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogy.tar.xz
+Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogy.doc.tar.xz
+Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-otf.tar.xz
+Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-otf.doc.tar.xz
+Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-sil.tar.xz
+Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gentium-sil.doc.tar.xz
+Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsartemisia.tar.xz
+Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsartemisia.doc.tar.xz
+Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsbodoni.tar.xz
+Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsbodoni.doc.tar.xz
+Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfscomplutum.tar.xz
+Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfscomplutum.doc.tar.xz
+Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidot.tar.xz
+Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidot.doc.tar.xz
+Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidotclassic.tar.xz
+Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsdidotclassic.doc.tar.xz
+Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenic.tar.xz
+Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenic.doc.tar.xz
+Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenicmath.tar.xz
+Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfsneohellenicmath.doc.tar.xz
+Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfssolomos.tar.xz
+Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfssolomos.doc.tar.xz
+Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillcm.tar.xz
+Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillcm.doc.tar.xz
+Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillius.tar.xz
+Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gillius.doc.tar.xz
+Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnu-freefont.tar.xz
+Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnu-freefont.doc.tar.xz
+Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gofonts.tar.xz
+Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gofonts.doc.tar.xz
+Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gothic.tar.xz
+Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gothic.doc.tar.xz
+Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/greenpoint.tar.xz
+Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/greenpoint.doc.tar.xz
+Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grotesq.tar.xz
+Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grotesq.doc.tar.xz
+Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gudea.tar.xz
+Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gudea.doc.tar.xz
+Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hacm.tar.xz
+Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hacm.doc.tar.xz
+Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hamnosys.tar.xz
+Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hamnosys.doc.tar.xz
+Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hands.tar.xz
+Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-font.tar.xz
+Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-font.doc.tar.xz
+Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-math-font.tar.xz
+Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-math-font.doc.tar.xz
+Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heros-otf.tar.xz
+Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heros-otf.doc.tar.xz
+Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heuristica.tar.xz
+Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heuristica.doc.tar.xz
+Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfbright.tar.xz
+Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfbright.doc.tar.xz
+Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfoldsty.tar.xz
+Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfoldsty.doc.tar.xz
+Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindmadurai.tar.xz
+Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindmadurai.doc.tar.xz
+Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ibarra.tar.xz
+Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ibarra.doc.tar.xz
+Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ifsym.tar.xz
+Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ifsym.doc.tar.xz
+Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imfellenglish.tar.xz
+Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imfellenglish.doc.tar.xz
+Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata.tar.xz
+Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata.doc.tar.xz
+Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata-nerd-font.tar.xz
+Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inconsolata-nerd-font.doc.tar.xz
+Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/initials.tar.xz
+Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/initials.doc.tar.xz
+Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inriafonts.tar.xz
+Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inriafonts.doc.tar.xz
+Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inter.tar.xz
+Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inter.doc.tar.xz
+Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ipaex-type1.tar.xz
+Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ipaex-type1.doc.tar.xz
+Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iwona.tar.xz
+Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iwona.doc.tar.xz
+Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jablantile.tar.xz
+Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jablantile.doc.tar.xz
+Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jamtimes.tar.xz
+Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jamtimes.doc.tar.xz
+Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jetbrainsmono-otf.tar.xz
+Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jetbrainsmono-otf.doc.tar.xz
+Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/josefin.tar.xz
+Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/josefin.doc.tar.xz
+Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/juliamono.tar.xz
+Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/juliamono.doc.tar.xz
+Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicode.tar.xz
+Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicode.doc.tar.xz
+Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicodevf.tar.xz
+Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/junicodevf.doc.tar.xz
+Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kixfont.tar.xz
+Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kixfont.doc.tar.xz
+Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts.tar.xz
+Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts.doc.tar.xz
+Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts-otf.tar.xz
+Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kpfonts-otf.doc.tar.xz
+Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurier.tar.xz
+Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurier.doc.tar.xz
+Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lato.tar.xz
+Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lato.doc.tar.xz
+Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lete-sans-math.tar.xz
+Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lete-sans-math.doc.tar.xz
+Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lexend.tar.xz
+Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lexend.doc.tar.xz
+Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lfb.tar.xz
+Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lfb.doc.tar.xz
+Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertine.tar.xz
+Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertine.doc.tar.xz
+Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinegc.tar.xz
+Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinegc.doc.tar.xz
+Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus.tar.xz
+Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus.doc.tar.xz
+Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-fonts.tar.xz
+Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-fonts.doc.tar.xz
+Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-otf.tar.xz
+Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-otf.doc.tar.xz
+Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-type1.tar.xz
+Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinus-type1.doc.tar.xz
+Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinust1math.tar.xz
+Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libertinust1math.doc.tar.xz
+Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebaskerville.tar.xz
+Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebaskerville.doc.tar.xz
+Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebodoni.tar.xz
+Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librebodoni.doc.tar.xz
+Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librecaslon.tar.xz
+Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librecaslon.doc.tar.xz
+Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librefranklin.tar.xz
+Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/librefranklin.doc.tar.xz
+Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libris.tar.xz
+Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/libris.doc.tar.xz
+Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lineara.tar.xz
+Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lineara.doc.tar.xz
+Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linguisticspro.tar.xz
+Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linguisticspro.doc.tar.xz
+Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lobster2.tar.xz
+Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lobster2.doc.tar.xz
+Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logix.tar.xz
+Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logix.doc.tar.xz
+Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lora.tar.xz
+Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lora.doc.tar.xz
+Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luciole.tar.xz
+Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luciole.doc.tar.xz
+Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luwiantype.tar.xz
+Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luwiantype.doc.tar.xz
+Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxfonts.tar.xz
+Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxfonts.doc.tar.xz
+Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ly1.tar.xz
+Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ly1.doc.tar.xz
+Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lydtype.tar.xz
+Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lydtype.doc.tar.xz
+Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magra.tar.xz
+Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magra.doc.tar.xz
+Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marcellus.tar.xz
+Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marcellus.doc.tar.xz
+Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx.tar.xz
+Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx.doc.tar.xz
+Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx-type1.tar.xz
+Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathabx-type1.doc.tar.xz
+Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathdesign.tar.xz
+Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathdesign.doc.tar.xz
+Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdputu.tar.xz
+Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdputu.doc.tar.xz
+Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdsymbol.tar.xz
+Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mdsymbol.doc.tar.xz
+Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/merriweather.tar.xz
+Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/merriweather.doc.tar.xz
+Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/metsymb.tar.xz
+Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/metsymb.doc.tar.xz
+Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mfb-oldstyle.tar.xz
+Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mfb-oldstyle.doc.tar.xz
+Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miama.tar.xz
+Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miama.doc.tar.xz
+Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mintspirit.tar.xz
+Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mintspirit.doc.tar.xz
+Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/missaali.tar.xz
+Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/missaali.doc.tar.xz
+Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlmodern.tar.xz
+Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlmodern.doc.tar.xz
+Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnsymbol.tar.xz
+Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnsymbol.doc.tar.xz
+Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/monaspace-otf.tar.xz
+Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/monaspace-otf.doc.tar.xz
+Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montserrat.tar.xz
+Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montserrat.doc.tar.xz
+Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpfonts.tar.xz
+Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpfonts.doc.tar.xz
+Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mweights.tar.xz
+Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mweights.doc.tar.xz
+Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcomputermodern.tar.xz
+Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcomputermodern.doc.tar.xz
+Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpx.tar.xz
+Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpx.doc.tar.xz
+Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtx.tar.xz
+Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtx.doc.tar.xz
+Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxsf.tar.xz
+Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxsf.doc.tar.xz
+Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxtt.tar.xz
+Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newtxtt.doc.tar.xz
+Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/niceframe-type1.tar.xz
+Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/niceframe-type1.doc.tar.xz
+Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimbus15.tar.xz
+Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimbus15.doc.tar.xz
+Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nkarta.tar.xz
+Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nkarta.doc.tar.xz
+Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto.tar.xz
+Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto.doc.tar.xz
+Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto-emoji.tar.xz
+Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/noto-emoji.doc.tar.xz
+Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notomath.tar.xz
+Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notomath.doc.tar.xz
+Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nunito.tar.xz
+Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nunito.doc.tar.xz
+Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/obnov.tar.xz
+Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/obnov.doc.tar.xz
+Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocherokee.tar.xz
+Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocherokee.doc.tar.xz
+Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b.tar.xz
+Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b.doc.tar.xz
+Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b-outline.tar.xz
+Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ocr-b-outline.doc.tar.xz
+Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ogham.tar.xz
+Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ogham.doc.tar.xz
+Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oinuit.tar.xz
+Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oinuit.doc.tar.xz
+Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/old-arrows.tar.xz
+Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/old-arrows.doc.tar.xz
+Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldlatin.tar.xz
+Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldlatin.doc.tar.xz
+Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldstandard.tar.xz
+Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oldstandard.doc.tar.xz
+Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opensans.tar.xz
+Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opensans.doc.tar.xz
+Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/orkhun.tar.xz
+Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/orkhun.doc.tar.xz
+Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oswald.tar.xz
+Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oswald.doc.tar.xz
+Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/overlock.tar.xz
+Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/overlock.doc.tar.xz
+Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pacioli.tar.xz
+Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pacioli.doc.tar.xz
+Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagella-otf.tar.xz
+Source589:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagella-otf.doc.tar.xz
+Source590:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/paratype.tar.xz
+Source591:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/paratype.doc.tar.xz
+Source592:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pennstander-otf.tar.xz
+Source593:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pennstander-otf.doc.tar.xz
+Source594:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phaistos.tar.xz
+Source595:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phaistos.doc.tar.xz
+Source596:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phonetic.tar.xz
+Source597:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phonetic.doc.tar.xz
+Source598:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phosphoricons.tar.xz
+Source599:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phosphoricons.doc.tar.xz
+Source600:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pigpen.tar.xz
+Source601:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pigpen.doc.tar.xz
+Source602:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pl46-fonts.tar.xz
+Source603:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pl46-fonts.doc.tar.xz
+Source604:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playfair.tar.xz
+Source605:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playfair.doc.tar.xz
+Source606:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex.tar.xz
+Source607:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex.doc.tar.xz
+Source608:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex-otf.tar.xz
+Source609:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plex-otf.doc.tar.xz
+Source610:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plimsoll.tar.xz
+Source611:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plimsoll.doc.tar.xz
+Source612:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poiretone.tar.xz
+Source613:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poiretone.doc.tar.xz
+Source614:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poltawski.tar.xz
+Source615:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/poltawski.doc.tar.xz
+Source616:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prodint.tar.xz
+Source617:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prodint.doc.tar.xz
+Source618:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk.tar.xz
+Source619:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk.doc.tar.xz
+Source620:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk-latex.tar.xz
+Source621:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punk-latex.doc.tar.xz
+Source622:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punknova.tar.xz
+Source623:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/punknova.doc.tar.xz
+Source624:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxtxalfa.tar.xz
+Source625:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxtxalfa.doc.tar.xz
+Source626:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qualitype.tar.xz
+Source627:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qualitype.doc.tar.xz
+Source628:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quattrocento.tar.xz
+Source629:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quattrocento.doc.tar.xz
+Source630:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/raleway.tar.xz
+Source631:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/raleway.doc.tar.xz
+Source632:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/recycle.tar.xz
+Source633:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/recycle.doc.tar.xz
+Source634:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rit-fonts.tar.xz
+Source635:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rit-fonts.doc.tar.xz
+Source636:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/roboto.tar.xz
+Source637:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/roboto.doc.tar.xz
+Source638:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/romandeadf.tar.xz
+Source639:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/romandeadf.doc.tar.xz
+Source640:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rosario.tar.xz
+Source641:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rosario.doc.tar.xz
+Source642:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsfso.tar.xz
+Source643:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsfso.doc.tar.xz
+Source644:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruscap.tar.xz
+Source645:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruscap.doc.tar.xz
+Source646:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathaccent.tar.xz
+Source647:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathaccent.doc.tar.xz
+Source648:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathfonts.tar.xz
+Source649:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmathfonts.doc.tar.xz
+Source650:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauter.tar.xz
+Source651:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauterfonts.tar.xz
+Source652:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sauterfonts.doc.tar.xz
+Source653:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schola-otf.tar.xz
+Source654:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schola-otf.doc.tar.xz
+Source655:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scholax.tar.xz
+Source656:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scholax.doc.tar.xz
+Source657:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schulschriften.tar.xz
+Source658:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schulschriften.doc.tar.xz
+Source659:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semaphor.tar.xz
+Source660:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semaphor.doc.tar.xz
+Source661:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shobhika.tar.xz
+Source662:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shobhika.doc.tar.xz
+Source663:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleicons.tar.xz
+Source664:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleicons.doc.tar.xz
+Source665:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skull.tar.xz
+Source666:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.tar.xz
+Source667:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.doc.tar.xz
+Source668:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.tar.xz
+Source669:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.doc.tar.xz
+Source670:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.tar.xz
+Source671:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.doc.tar.xz
+Source672:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.tar.xz
+Source673:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.doc.tar.xz
+Source674:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splentinex.tar.xz
+Source675:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splentinex.doc.tar.xz
+Source676:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srbtiks.tar.xz
+Source677:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srbtiks.doc.tar.xz
+Source678:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/starfont.tar.xz
+Source679:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/starfont.doc.tar.xz
+Source680:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/staves.tar.xz
+Source681:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/staves.doc.tar.xz
+Source682:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/step.tar.xz
+Source683:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/step.doc.tar.xz
+Source684:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stepgreek.tar.xz
+Source685:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stepgreek.doc.tar.xz
+Source686:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stickstoo.tar.xz
+Source687:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stickstoo.doc.tar.xz
+Source688:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix.tar.xz
+Source689:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix.doc.tar.xz
+Source690:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-otf.tar.xz
+Source691:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-otf.doc.tar.xz
+Source692:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-type1.tar.xz
+Source693:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stix2-type1.doc.tar.xz
+Source694:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/superiors.tar.xz
+Source695:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/superiors.doc.tar.xz
+Source696:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svrsymbols.tar.xz
+Source697:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svrsymbols.doc.tar.xz
+Source698:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/symbats3.tar.xz
+Source699:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/symbats3.doc.tar.xz
+Source700:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tapir.tar.xz
+Source701:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tapir.doc.tar.xz
+Source702:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tempora.tar.xz
+Source703:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tempora.doc.tar.xz
+Source704:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tengwarscript.tar.xz
+Source705:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tengwarscript.doc.tar.xz
+Source706:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/termes-otf.tar.xz
+Source707:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/termes-otf.doc.tar.xz
+Source708:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tfrupee.tar.xz
+Source709:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tfrupee.doc.tar.xz
+Source710:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanodidot.tar.xz
+Source711:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanodidot.doc.tar.xz
+Source712:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanomodern.tar.xz
+Source713:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanomodern.doc.tar.xz
+Source714:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanooldstyle.tar.xz
+Source715:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theanooldstyle.doc.tar.xz
+Source716:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tinos.tar.xz
+Source717:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tinos.doc.tar.xz
+Source718:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tpslifonts.tar.xz
+Source719:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tpslifonts.doc.tar.xz
+Source720:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trajan.tar.xz
+Source721:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trajan.doc.tar.xz
+Source722:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemoji-colr.tar.xz
+Source723:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemoji-colr.doc.tar.xz
+Source724:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txfontsb.tar.xz
+Source725:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txfontsb.doc.tar.xz
+Source726:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txuprcal.tar.xz
+Source727:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/txuprcal.doc.tar.xz
+Source728:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typicons.tar.xz
+Source729:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typicons.doc.tar.xz
+Source730:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umtypewriter.tar.xz
+Source731:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umtypewriter.doc.tar.xz
+Source732:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universa.tar.xz
+Source733:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universa.doc.tar.xz
+Source734:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universalis.tar.xz
+Source735:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/universalis.doc.tar.xz
+Source736:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uppunctlm.tar.xz
+Source737:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uppunctlm.doc.tar.xz
+Source738:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urwchancal.tar.xz
+Source739:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urwchancal.doc.tar.xz
+Source740:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venturisadf.tar.xz
+Source741:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venturisadf.doc.tar.xz
+Source742:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsuipa.tar.xz
+Source743:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsuipa.doc.tar.xz
+Source744:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter.tar.xz
+Source745:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter.doc.tar.xz
+Source746:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter-math.tar.xz
+Source747:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcharter-math.doc.tar.xz
+Source748:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xits.tar.xz
+Source749:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xits.doc.tar.xz
+Source750:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts.tar.xz
+Source751:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts.doc.tar.xz
+Source752:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-otf.tar.xz
+Source753:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-otf.doc.tar.xz
+Source754:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-t1.tar.xz
+Source755:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yfonts-t1.doc.tar.xz
+Source756:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yinit-otf.tar.xz
+Source757:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yinit-otf.doc.tar.xz
+Source758:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ysabeau.tar.xz
+Source759:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ysabeau.doc.tar.xz
+Source760:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zlmtt.tar.xz
+Source761:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zlmtt.doc.tar.xz
 
 # AppStream metadata for font components
-Source750:        algolrevived.metainfo.xml
-Source751:        almfixed.metainfo.xml
-Source752:        antt.metainfo.xml
-Source753:        asapsym.metainfo.xml
-Source754:        baskervaldx.metainfo.xml
-Source755:        baskervillef.metainfo.xml
-Source756:        berenisadf.metainfo.xml
-Source757:        beuron.metainfo.xml
-Source758:        cabin.metainfo.xml
-Source759:        ccicons.metainfo.xml
-Source760:        chivo.metainfo.xml
-Source761:        clara.metainfo.xml
-Source762:        cm-unicode.metainfo.xml
-Source763:        cochineal.metainfo.xml
-Source764:        coelacanth.metainfo.xml
-Source765:        comicneue.metainfo.xml
-Source766:        countriesofeurope.metainfo.xml
-Source767:        crimson.metainfo.xml
-Source768:        cyklop.metainfo.xml
-Source769:        dantelogo.metainfo.xml
-Source770:        domitian.metainfo.xml
-Source771:        drm.metainfo.xml
-Source772:        erewhon.metainfo.xml
-Source773:        erewhon-math.metainfo.xml
-Source774:        etbb.metainfo.xml
-Source775:        fbb.metainfo.xml
-Source776:        fdsymbol.metainfo.xml
-Source777:        fetamont.metainfo.xml
-Source778:        firamath.metainfo.xml
-Source779:        fonts-churchslavonic.metainfo.xml
-Source780:        forum.metainfo.xml
-Source781:        fourier.metainfo.xml
-Source782:        frederika2016.metainfo.xml
-Source783:        garamond-libre.metainfo.xml
-Source784:        garamond-math.metainfo.xml
-Source785:        gnu-freefont.metainfo.xml
-Source786:        ibarra.metainfo.xml
-Source787:        imfellenglish.metainfo.xml
-Source788:        inriafonts.metainfo.xml
-Source789:        iwona.metainfo.xml
-Source790:        kurier.metainfo.xml
-Source791:        libertinus-fonts.metainfo.xml
-Source792:        librebodoni.metainfo.xml
-Source793:        librecaslon.metainfo.xml
-Source794:        librefranklin.metainfo.xml
-Source795:        linguisticspro.metainfo.xml
-Source796:        lobster2.metainfo.xml
-Source797:        logix.metainfo.xml
-Source798:        mdsymbol.metainfo.xml
-Source799:        miama.metainfo.xml
-Source800:        mintspirit.metainfo.xml
-Source801:        missaali.metainfo.xml
-Source802:        mnsymbol.metainfo.xml
-Source803:        newcomputermodern.metainfo.xml
-Source804:        newpx.metainfo.xml
-Source805:        newtx.metainfo.xml
-Source806:        nimbus15.metainfo.xml
-Source807:        ocr-b-outline.metainfo.xml
-Source808:        overlock.metainfo.xml
-Source809:        phaistos.metainfo.xml
-Source810:        playfair.metainfo.xml
-Source811:        poltawski.metainfo.xml
-Source812:        punknova.metainfo.xml
-Source813:        qualitype.metainfo.xml
-Source814:        rosario.metainfo.xml
-Source815:        scholax.metainfo.xml
-Source816:        semaphor.metainfo.xml
-Source817:        step.metainfo.xml
-Source818:        svrsymbols.metainfo.xml
-Source819:        tempora.metainfo.xml
-Source820:        txfontsb.metainfo.xml
-Source821:        umtypewriter.metainfo.xml
-Source822:        universalis.metainfo.xml
-Source823:        xcharter.metainfo.xml
-Source824:        xits.metainfo.xml
-Source825:        yinit-otf.metainfo.xml
+Source762:        algolrevived.metainfo.xml
+Source763:        almfixed.metainfo.xml
+Source764:        antt.metainfo.xml
+Source765:        asapsym.metainfo.xml
+Source766:        baskervaldx.metainfo.xml
+Source767:        baskervillef.metainfo.xml
+Source768:        berenisadf.metainfo.xml
+Source769:        beuron.metainfo.xml
+Source770:        cabin.metainfo.xml
+Source771:        ccicons.metainfo.xml
+Source772:        chivo.metainfo.xml
+Source773:        clara.metainfo.xml
+Source774:        cm-unicode.metainfo.xml
+Source775:        cochineal.metainfo.xml
+Source776:        coelacanth.metainfo.xml
+Source777:        comicneue.metainfo.xml
+Source778:        countriesofeurope.metainfo.xml
+Source779:        crimson.metainfo.xml
+Source780:        cyklop.metainfo.xml
+Source781:        dantelogo.metainfo.xml
+Source782:        domitian.metainfo.xml
+Source783:        drm.metainfo.xml
+Source784:        erewhon.metainfo.xml
+Source785:        erewhon-math.metainfo.xml
+Source786:        etbb.metainfo.xml
+Source787:        fbb.metainfo.xml
+Source788:        fdsymbol.metainfo.xml
+Source789:        fetamont.metainfo.xml
+Source790:        firamath.metainfo.xml
+Source791:        fonts-churchslavonic.metainfo.xml
+Source792:        forum.metainfo.xml
+Source793:        fourier.metainfo.xml
+Source794:        frederika2016.metainfo.xml
+Source795:        garamond-libre.metainfo.xml
+Source796:        garamond-math.metainfo.xml
+Source797:        gnu-freefont.metainfo.xml
+Source798:        ibarra.metainfo.xml
+Source799:        imfellenglish.metainfo.xml
+Source800:        inriafonts.metainfo.xml
+Source801:        iwona.metainfo.xml
+Source802:        kurier.metainfo.xml
+Source803:        libertinus-fonts.metainfo.xml
+Source804:        librebodoni.metainfo.xml
+Source805:        librecaslon.metainfo.xml
+Source806:        librefranklin.metainfo.xml
+Source807:        linguisticspro.metainfo.xml
+Source808:        lobster2.metainfo.xml
+Source809:        logix.metainfo.xml
+Source810:        mdsymbol.metainfo.xml
+Source811:        miama.metainfo.xml
+Source812:        mintspirit.metainfo.xml
+Source813:        missaali.metainfo.xml
+Source814:        mnsymbol.metainfo.xml
+Source815:        newcomputermodern.metainfo.xml
+Source816:        newpx.metainfo.xml
+Source817:        newtx.metainfo.xml
+Source818:        nimbus15.metainfo.xml
+Source819:        ocr-b-outline.metainfo.xml
+Source820:        overlock.metainfo.xml
+Source821:        phaistos.metainfo.xml
+Source822:        playfair.metainfo.xml
+Source823:        poltawski.metainfo.xml
+Source824:        punknova.metainfo.xml
+Source825:        qualitype.metainfo.xml
+Source826:        rosario.metainfo.xml
+Source827:        scholax.metainfo.xml
+Source828:        semaphor.metainfo.xml
+Source829:        step.metainfo.xml
+Source830:        svrsymbols.metainfo.xml
+Source831:        tempora.metainfo.xml
+Source832:        txfontsb.metainfo.xml
+Source833:        umtypewriter.metainfo.xml
+Source834:        universalis.metainfo.xml
+Source835:        xcharter.metainfo.xml
+Source836:        xits.metainfo.xml
+Source837:        yinit-otf.metainfo.xml
 
 # Patches
 Patch0:         texlive-droid-fixmono.patch
 
 # Special license files
-Source826:        yfonts-t1-license-email.pdf
+Source838:        yfonts-t1-license-email.pdf
 
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
@@ -936,6 +948,7 @@ Requires:       texlive-cm-unicode
 Requires:       texlive-cmathbb
 Requires:       texlive-cmbright
 Requires:       texlive-cmexb
+Requires:       texlive-cmgraded
 Requires:       texlive-cmll
 Requires:       texlive-cmpica
 Requires:       texlive-cmsrb
@@ -999,6 +1012,7 @@ Requires:       texlive-etbb
 Requires:       texlive-euler-math
 Requires:       texlive-eulervm
 Requires:       texlive-euxm
+Requires:       texlive-fantasquesansmono-otf
 Requires:       texlive-fbb
 Requires:       texlive-fdsymbol
 Requires:       texlive-fetamont
@@ -1025,6 +1039,7 @@ Requires:       texlive-frederika2016
 Requires:       texlive-frimurer
 Requires:       texlive-garamond-libre
 Requires:       texlive-garamond-math
+Requires:       texlive-geist-font
 Requires:       texlive-gelasio
 Requires:       texlive-gelasiomath
 Requires:       texlive-genealogy
@@ -1097,6 +1112,7 @@ Requires:       texlive-lineara
 Requires:       texlive-linguisticspro
 Requires:       texlive-lobster2
 Requires:       texlive-logix
+Requires:       texlive-lora
 Requires:       texlive-luciole
 Requires:       texlive-luwiantype
 Requires:       texlive-lxfonts
@@ -1152,7 +1168,9 @@ Requires:       texlive-paratype
 Requires:       texlive-pennstander-otf
 Requires:       texlive-phaistos
 Requires:       texlive-phonetic
+Requires:       texlive-phosphoricons
 Requires:       texlive-pigpen
+Requires:       texlive-pl46-fonts
 Requires:       texlive-playfair
 Requires:       texlive-plex
 Requires:       texlive-plex-otf
@@ -1263,7 +1281,7 @@ spacing.
 
 %package -n texlive-academicons
 Summary:        Font containing high quality icons of online academic profiles
-Version:        svn77682
+Version:        svn80218
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1274,12 +1292,12 @@ Requires:       tex(iftex.sty)
 
 %description -n texlive-academicons
 The academicons package provides access in (La)TeX to 146 high quality icons of
-online academic profiles included in the free "Academicons" font. This package
+online academic profiles included in the free Academicons font. This package
 works with both Xe(La)TeX or Lua(La)TeX by using fontspec to load the included
 font, as well as with pdf(La)TeX by loading a Type 1 converted format of the
-original font. The "Academicons" font was designed by James Walsh and released
+original font. The Academicons font was designed by James Walsh and released
 (see http://jpswalsh.github.io/academicons/) under the open SIL Open Font
-License. This package is a redistribution of the free "Academicons" font with
+License. This package is a redistribution of the free Academicons font with
 specific bindings for (La)TeX. It is inspired and based on the fontawesome
 package. The generic \aiicon macro takes as mandatory argument the [?]name[?]
 of the desired icon. Icons can also be accessed directly by their respective
@@ -1289,7 +1307,7 @@ commands can be found in the manual.
 
 %package -n texlive-accanthis
 Summary:        Accanthis fonts, with LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1357,7 +1375,7 @@ bundle do not need this support.
 
 %package -n texlive-alegreya
 Summary:        Alegreya fonts with LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1420,7 +1438,7 @@ text font.
 
 %package -n texlive-allrunes
 Summary:        Fonts and LaTeX package for almost all runes
-Version:        svn42221
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1505,7 +1523,7 @@ another.
 
 %package -n texlive-anonymouspro
 Summary:        Use AnonymousPro fonts with LaTeX
-Version:        svn51631
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1547,7 +1565,7 @@ Zygfryd Gardzielewski, reconstructed and digitized as Type 1.
 
 %package -n texlive-archaic
 Summary:        A collection of archaic fonts
-Version:        svn38005
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1564,7 +1582,7 @@ own directory includes a font installation map file for the whole collection.
 
 %package -n texlive-archivo
 Summary:        The Archivo font face with support for LaTeX and pdfLaTeX
-Version:        svn57283
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1581,8 +1599,8 @@ with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-arev
 Summary:        Fonts and LaTeX support files for Arev Sans
-Version:        svn78101
-License:        LPPL-1.3c
+Version:        svn79618
+License:        LPPL-1.3a
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       texlive-arev-doc = %{epoch}:%{version}-%{release}
@@ -1661,7 +1679,7 @@ font. XeTeX or LuaTeX is required to use these OpenType math fonts.
 
 %package -n texlive-arvo
 Summary:        The Arvo font face with support for LaTeX and pdfLaTeX
-Version:        svn57213
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1711,7 +1729,7 @@ is issued if an OTF-capable engine is not detected.
 
 %package -n texlive-ascii-font
 Summary:        Use the ASCII "font" in LaTeX
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1727,7 +1745,7 @@ package and "font" by R. Ramasubramanian and R.W.D. Nickalls.
 
 %package -n texlive-aspectratio
 Summary:        Capital A and capital R ligature for Aspect Ratio
-Version:        svn25243
+Version:        svn79461
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1777,7 +1795,7 @@ ultimately improving readability.
 
 %package -n texlive-augie
 Summary:        Calligraphic font for typesetting handwriting
-Version:        svn61719
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1790,7 +1808,7 @@ font is distributed in Adobe Type 1 format.
 
 %package -n texlive-auncial-new
 Summary:        Artificial Uncial font and LaTeX support macros
-Version:        svn62977
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1866,7 +1884,7 @@ and a set of examples; for some codes, a small Perl script is needed.
 
 %package -n texlive-baskervaldadf
 Summary:        Baskervald ADF fonts collection with TeX/LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1887,7 +1905,7 @@ provide access to these features in LaTeX.
 
 %package -n texlive-baskervaldx
 Summary:        Extension and modification of BaskervaldADF with LaTeX support
-Version:        svn73362
+Version:        svn78931
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1962,7 +1980,7 @@ appears in the blackboard bold sampler.
 
 %package -n texlive-bbm-macros
 Summary:        LaTeX support for "blackboard-style" cm fonts
-Version:        svn17224
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2055,7 +2073,7 @@ family is a repackaging, for use with TeX, of the Bitstream Vera family.
 
 %package -n texlive-berenisadf
 Summary:        Berenis ADF fonts and TeX/LaTeX support
-Version:        svn77682
+Version:        svn80371
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2171,7 +2189,7 @@ Support for the OpenType font Bonum (text and math) of the TeXGyre Fonts.
 
 %package -n texlive-bookhands
 Summary:        A collection of book-hand fonts
-Version:        svn76790
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2192,7 +2210,7 @@ centuries).
 
 %package -n texlive-boondox
 Summary:        Mathematical alphabets derived from the STIX fonts
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2469,7 +2487,7 @@ Latin Modern.
 
 %package -n texlive-charissil
 Summary:        CharisSIL fonts with support for all LaTeX engines
-Version:        svn64998
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2509,7 +2527,7 @@ interested, please contact the CTAN team for details).
 
 %package -n texlive-chivo
 Summary:        Using the free Chivo fonts with LaTeX
-Version:        svn65029
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2528,7 +2546,7 @@ Omnibus-Type.
 
 %package -n texlive-cinzel
 Summary:        LaTeX support for Cinzel and Cinzel Decorative fonts
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2573,7 +2591,7 @@ variant forms for particular languages.
 
 %package -n texlive-clearsans
 Summary:        Clear Sans fonts with LaTeX support
-Version:        svn74767
+Version:        svn78931
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2663,7 +2681,7 @@ Computer Modern font family in blackboard bold.
 
 %package -n texlive-cmbright
 Summary:        Computer Modern Bright fonts
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2691,6 +2709,30 @@ Obsoletes:      texlive-cmexb-doc <= 11:%{version}
 %description -n texlive-cmexb
 Computer Modern Math Extension bold, metrics and .pfb file. Made by Petr Olsak
 via autotracing.
+
+%package -n texlive-cmgraded
+Summary:        Classic LaTeX look and feel in different grades of blackness
+Version:        svn80416
+License:        OFL-1.1 AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(fontenc.sty)
+Requires:       tex(fontspec.sty)
+Requires:       tex(iftex.sty)
+Requires:       tex(kvoptions.sty)
+
+%description -n texlive-cmgraded
+This package contains OpenType and Type 1 (Adobe/PostScript) fonts named
+Computer Modern Graded that have been generated from the original Computer
+Modern fonts by Donald E. Knuth and TeX metrics by applying different grades of
+blackness via Metafont that make the fonts gradually darker, while keeping
+metrics intact and not turning a regular weight font visually into a bold one.
+The fonts come in seven increasingly black grades and can be easily used. Text
+fonts are OpenType, while math is so far with Type 1 fonts, which means that
+text can be fully tagged and thus made accessible. There are many more options
+and angles to this package than meet the eye, just see the documentation. Of
+course, the fonts can also be used outside of TeX/LaTeX, with anything that
+speaks OpenType, including web content.
 
 %package -n texlive-cmll
 Summary:        Symbols for linear logic
@@ -2870,7 +2912,7 @@ be reported on GitHub or emailed to tex@slxh.nl.
 
 %package -n texlive-concmath-fonts
 Summary:        Concrete mathematics fonts
-Version:        svn17218
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2898,7 +2940,7 @@ Ulrik Vieth in Metafont. "concmath-otf.sty" is a replacement for the original
 
 %package -n texlive-cookingsymbols
 Summary:        Symbols for recipes
-Version:        svn74247
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2912,7 +2954,7 @@ defined using Metafont.
 
 %package -n texlive-cooperhewitt
 Summary:        LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the Cooper Hewitt family of sans serif fonts
-Version:        svn64967
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2933,7 +2975,7 @@ form to support the newly transformed Smithsonian Design Museum.
 
 %package -n texlive-cormorantgaramond
 Summary:        Cormorant Garamond family of fonts
-Version:        svn71057
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2954,7 +2996,7 @@ with italics.
 
 %package -n texlive-countriesofeurope
 Summary:        A font with the images of the countries of Europe
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3035,7 +3077,7 @@ Bold or Semibold.
 
 %package -n texlive-crimsonpro
 Summary:        CrimsonPro fonts with LaTeX support
-Version:        svn78719
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3055,7 +3097,7 @@ weights and italics for each weight.
 
 %package -n texlive-cryst
 Summary:        Font for graphical symbols used in crystallography
-Version:        svn15878
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3163,7 +3205,7 @@ dantelogo.sty provides an interface for LuaLaTeX/XeLaTeX/pdfLaTeX.
 
 %package -n texlive-dejavu
 Summary:        LaTeX support for the DejaVu fonts
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3238,7 +3280,7 @@ macro package makes the symbols accessible as LaTeX commands.
 
 %package -n texlive-dingbat
 Summary:        Two dingbat symbol fonts
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3483,7 +3525,7 @@ answer in the same forum.
 
 %package -n texlive-ecc
 Summary:        Sources for the European Concrete fonts
-Version:        svn15878
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3578,7 +3620,7 @@ and Jaini.
 
 %package -n texlive-electrumadf
 Summary:        Electrum ADF fonts collection
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3610,7 +3652,7 @@ The bundle provides fonts for Cirth (cirth.mf, etc.) and for Tengwar
 
 %package -n texlive-epigrafica
 Summary:        A Greek and Latin font
-Version:        svn17210
+Version:        svn79618
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3626,7 +3668,7 @@ the Department of Mathematics of the University of the Aegean, Greece.
 
 %package -n texlive-epsdice
 Summary:        A scalable dice "font"
-Version:        svn78315
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3668,10 +3710,11 @@ matching that of UtopiaStd.
 
 %package -n texlive-erewhon-math
 Summary:        Utopia based OpenType Math font
-Version:        svn78490
+Version:        svn80211
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(amssymb.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(fourier-orns.sty)
 Requires:       tex(iftex.sty)
@@ -3740,7 +3783,7 @@ relevant Metafont code and a package to use it.
 
 %package -n texlive-etbb
 Summary:        An expansion of Edward Tufte's ET-Bembo family
-Version:        svn69098
+Version:        svn78931
 License:        MIT AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3781,7 +3824,7 @@ and XeLaTeX users.
 
 %package -n texlive-eulervm
 Summary:        Euler virtual math fonts
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3810,6 +3853,21 @@ Requires:       texlive-kpathsea
 
 %description -n texlive-euxm
 Includes two additional characters needed for Concrete Math (ca. 1991).
+
+%package -n texlive-fantasquesansmono-otf
+Summary:        OpenType Fantasque-Sans-Mono fonts with fontspec support
+Version:        svn80161
+License:        OFL-1.1 AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(fontspec.sty)
+Requires:       tex(iftex.sty)
+Requires:       tex(xkeyval.sty)
+
+%description -n texlive-fantasquesansmono-otf
+This package provides the OpenType Fantasque-Sans-Mono font with fontspec
+support for LuaLaTeX and XeTeX, with or without ligatures. See
+https://github.com/belluzj/fantasque-sans for further information.
 
 %package -n texlive-fbb
 Summary:        A free Bembo-like font
@@ -4013,7 +4071,7 @@ and XeLaTeX or LuaLaTeX is used.
 
 %package -n texlive-fontawesome6
 Summary:        Font Awesome 6 with LaTeX support
-Version:        svn77682
+Version:        svn79929
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4021,23 +4079,23 @@ Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
 
 %description -n texlive-fontawesome6
-This package provides LaTeX support for the included "Font Awesome 6 Free" icon
+This package provides LaTeX support for the included Font Awesome 6 Free icon
 set. These icons were designed by Fort Awesome and released under the SIL OFL
-1.1 license. The commercial "Pro" version is also supported, if it is installed
+1.1 license. The commercial Pro version is also supported, if it is installed
 and XeLaTeX or LuaLaTeX is used. For this font you need a paid license, for
 more information visit Fort Awesome Pro. More information about Font Awesome is
 available at Fort Awesome. To use an icon after the package is loaded, just
 enter the name of the icon in CamelCase prefixed with \fa, for example
 \faAddressBook for the address-book icon. The TeX files are derived from the
-Font Awesome 5package, are maintained by Daniel Nagel and are released under
+Font Awesome 5 package, are maintained by Daniel Nagel and are released under
 the LaTeX Project Public License version 1.3c. All included fonts are provided
-by Fort Awesome under the SIL OFL 1.1 license This package is not an official
+by Fort Awesome under the SIL OFL 1.1 license. This package is not an official
 Fort Awesome project. For bug reports, please open an issue at
 https://github.com/braniii/fontawesome.
 
 %package -n texlive-fontawesome7
 Summary:        Font Awesome 7 with LaTeX support
-Version:        svn76735
+Version:        svn79928
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4045,19 +4103,19 @@ Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
 
 %description -n texlive-fontawesome7
-This package provides LaTeX support for the included "Font Awesome 7 Free" icon
+This package provides LaTeX support for the included Font Awesome 7 Free icon
 set. These icons were designed by Fort Awesome and released under the SIL OFL
-1.1 license. The commercial "Pro" version has only preliminary alpha support
-for now, if it is installed and XeLaTeX or LuaLaTeX is used. For this font you
-need a paid license, for more information visit Fort Awesome Pro. More
-information about Font Awesome is available at Fort Awesome. To use an icon
-after the package is loaded, just enter the name of the icon in CamelCase
-prefixed with \fa, for example \faAddressBook for the address-book icon. The
-TeX files are derived from the Font Awesome 5package, are maintained by Daniel
-Nagel and are released under the LaTeX Project Public License version 1.3c. All
-included fonts are provided by Fort Awesome under the SIL OFL 1.1 license This
-package is not an official Fort Awesome project. For bug reports, please open
-an issue at https://github.com/braniii/fontawesome.
+1.1 license. The commercial Pro version has only preliminary alpha support for
+now, if it is installed and XeLaTeX or LuaLaTeX is used. For this font you need
+a paid license, for more information visit Fort Awesome Pro. More information
+about Font Awesome is available at Fort Awesome. To use an icon after the
+package is loaded, just enter the name of the icon in CamelCase prefixed with
+\fa, for example \faAddressBook for the address-book icon. The TeX files are
+derived from the Font Awesome 5package, are maintained by Daniel Nagel and are
+released under the LaTeX Project Public License version 1.3c. All included
+fonts are provided by Fort Awesome under the SIL OFL 1.1 license. This package
+is not an official Fort Awesome project. For bug reports, please open an issue
+at https://github.com/braniii/fontawesome.
 
 %package -n texlive-fontawesomescaled
 Summary:        Additional macros for fontawesome icons
@@ -4108,7 +4166,7 @@ are intended for Unicode TeX engines only.
 
 %package -n texlive-fontscripts
 Summary:        Font encodings, metrics and Lua script fragments for font creation
-Version:        svn74247
+Version:        svn79461
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4260,6 +4318,33 @@ and EB Garamond (Georg Mayr-Duffner). Many mathematical symbols are derived
 from other fonts, others are made from scratch. The metric is generated with a
 Python script. Issues, bug reports and other contributions are welcome.
 
+%package -n texlive-geist-font
+Summary:        LaTeX support for the Geist and Geist Mono typefaces
+Version:        svn80088
+License:        OFL-1.1 AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(figureversions.sty)
+Requires:       tex(fontenc.sty)
+Requires:       tex(fontspec.sty)
+Requires:       tex(iftex.sty)
+Requires:       tex(ifthen.sty)
+Requires:       tex(textcomp.sty)
+Requires:       tex(xkeyval.sty)
+Requires:       tex(xspace.sty)
+
+%description -n texlive-geist-font
+The package provides LaTeX support for Geist and Geist Mono, the sans-serif and
+monospaced typeface families designed by Vercel and released under the SIL Open
+Font License. Both families are covered in all nine weights, from Thin to
+Black, each with a matching italic. The package works with pdfLaTeX, XeLaTeX
+and LuaLaTeX. Under XeLaTeX and LuaLaTeX the OpenType fonts are used directly
+through fontspec. Under pdfLaTeX the package uses Type1 fonts and metrics
+generated from the OpenType originals with autoinst, since pdfTeX cannot subset
+CFF-flavoured OpenType. Both paths declare the same font series names, so a
+document selects the same face whichever engine builds it. Fonts are provided
+in the OT1, T1 and TS1 encodings.
+
 %package -n texlive-gelasio
 Summary:        LaTeX support for the Gelasio family of fonts
 Version:        svn77682
@@ -4301,7 +4386,7 @@ minor features to Gelasio.
 
 %package -n texlive-genealogy
 Summary:        A compilation genealogy font
-Version:        svn25112
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4352,7 +4437,7 @@ text.
 
 %package -n texlive-gfsartemisia
 Summary:        A modern Greek font design
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4369,7 +4454,7 @@ alphabets. LaTeX support is provided, using the OT1, T1 and LGR encodings.
 
 %package -n texlive-gfsbodoni
 Summary:        A Greek and Latin font based on Bodoni
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4385,7 +4470,7 @@ themselves are provided in Adobe Type 1 and OpenType formats.
 
 %package -n texlive-gfscomplutum
 Summary:        A Greek font with a long history
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4401,7 +4486,7 @@ of majuscules.
 
 %package -n texlive-gfsdidot
 Summary:        A Greek font based on Didot's work
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4432,7 +4517,7 @@ The classic version of GFSDidot provided for Unicode TeX engines.
 
 %package -n texlive-gfsneohellenic
 Summary:        A font in the Neo-Hellenic style
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4468,7 +4553,7 @@ distributed (both text and math) under the OFL license.
 
 %package -n texlive-gfssolomos
 Summary:        A Greek-alphabet font
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4496,7 +4581,7 @@ author's talk at TUG 2010.
 
 %package -n texlive-gillius
 Summary:        Gillius fonts with LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4599,7 +4684,7 @@ released under the GPL by URW, with supporting files for use with (La)TeX.
 
 %package -n texlive-gudea
 Summary:        The Gudea font face with support for LaTeX and pdfLaTeX
-Version:        svn57359
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4658,7 +4743,7 @@ white-on-black realisation. The font is distributed as Metafont source.
 
 %package -n texlive-hep-font
 Summary:        Latin modern extended by computer modern
-Version:        svn76220
+Version:        svn79992
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4676,7 +4761,6 @@ Requires:       tex(pdftexcmds.sty)
 Requires:       tex(silence.sty)
 Requires:       tex(slantsc.sty)
 Requires:       tex(textcomp.sty)
-Requires:       tex(units.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
 
@@ -4687,7 +4771,7 @@ counterparts. The package is loaded with \usepackage{hep-font}.
 
 %package -n texlive-hep-math-font
 Summary:        Extended Greek and sans-serif math
-Version:        svn76220
+Version:        svn79976
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4700,6 +4784,7 @@ Requires:       tex(fixmath.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(pdftexcmds.sty)
+Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
 
 %description -n texlive-hep-math-font
@@ -4728,7 +4813,7 @@ defined.
 
 %package -n texlive-heuristica
 Summary:        Fonts extending Utopia, with LaTeX support files
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4782,7 +4867,7 @@ pdfcprot package.
 
 %package -n texlive-hindmadurai
 Summary:        The HindMadurai font face with support for LaTeX and pdfLaTeX
-Version:        svn57360
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4836,7 +4921,7 @@ document.
 
 %package -n texlive-imfellenglish
 Summary:        IM Fell English fonts with LaTeX support
-Version:        svn64568
+Version:        svn78931
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4858,7 +4943,7 @@ Small-Cap fonts.
 
 %package -n texlive-inconsolata
 Summary:        A monospaced font, with support files for use with TeX
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5055,7 +5140,7 @@ corresponding italics.
 
 %package -n texlive-juliamono
 Summary:        Support for the TrueType font JuliaMono
-Version:        svn77682
+Version:        svn79753
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5154,7 +5239,7 @@ appearance from their parent.
 
 %package -n texlive-kpfonts-otf
 Summary:        OpenType versions of the kpfonts (Type1) designed by Christophe Caignaert
-Version:        svn78294
+Version:        svn79915
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5172,7 +5257,7 @@ two sizes (SmallCaps and PetitesCaps), upper and lowercase digits, real
 superscripts and subscripts; ancient ligatures (ct and st), ancient long-s and
 a long-tailed capital Q are available via font features. Math fonts cover all
 usual symbols including AMS'; a full list of available symbols is provided, see
-the 'List of glyphs'.
+the List of glyphs.
 
 %package -n texlive-kurier
 Summary:        A two-element sans-serif typeface
@@ -5197,7 +5282,7 @@ files defining fonts for LaTeX.
 
 %package -n texlive-lato
 Summary:        Lato font family and LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5219,12 +5304,15 @@ original TrueType fonts, as well as Type 1 versions, converted for this package
 using FontForge for full support with Dvips.
 
 %package -n texlive-lete-sans-math
-Summary:        Lato-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn78489
+Summary:        Lato based OpenType Math font for LuaTeX and XeTeX
+Version:        svn80210
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(amssymb.sty)
+Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
+Requires:       tex(lua-unicode-math.sty)
 Requires:       tex(unicode-math.sty)
 
 %description -n texlive-lete-sans-math
@@ -5249,7 +5337,7 @@ collection to the world of LaTeX.
 
 %package -n texlive-lfb
 Summary:        A Greek font with normal and bold variants
-Version:        svn15878
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5422,7 +5510,7 @@ variant has been artificially generated.
 
 %package -n texlive-librebodoni
 Summary:        Libre Bodoni fonts with LaTeX support
-Version:        svn64431
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5483,7 +5571,7 @@ Nhung Nguyen.
 
 %package -n texlive-libris
 Summary:        Libris ADF fonts, with LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5503,7 +5591,7 @@ support macros are distributed under LPPL licensing.
 
 %package -n texlive-lineara
 Summary:        Linear A script fonts
-Version:        svn63169
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5577,13 +5665,37 @@ Unicode math symbols. It is compatible with and complements the AMS STIX2 math
 fonts, but focuses on new symbols and symbol variants more suited to work in
 logic.
 
+%package -n texlive-lora
+Summary:        TrueType font for LuaTeX and XeTeX
+Version:        svn80290
+License:        OFL-1.1 AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(fontspec.sty)
+
+%description -n texlive-lora
+Lora is a well-balanced contemporary serif font with roots in calligraphy. It
+is a text typeface with moderate contrast well suited for body text. A
+paragraph set in Lora will make a memorable appearance because of its brushed
+curves in contrast with driving serifs. The overall typographic voice of Lora
+perfectly conveys the mood of a modern-day story, or an art essay. Technically
+Lora is optimised for screen appearance, and works equally well in print.
+Designed by Olga Karpushina, and Alexei Vanyashin for Cyreal. Released in 2011
+with contributions and assistance from Gayaneh Bagdasaryan. Lora is a Unicode
+typeface family that supports languages that use the Latin and Cyrillic scripts
+and its variants, and could be expanded to support other scripts. This package
+provides the fonts and LaTeX support for them.
+
 %package -n texlive-luciole
-Summary:        Luciole OpenType fonts for LuaTeX and XeTeX
-Version:        svn77682
+Summary:        Accessibility-focused OpenType font for LuaTeX and XeTeX
+Version:        svn80312
 License:        CC-BY-4.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(amssymb.sty)
+Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
+Requires:       tex(lua-unicode-math.sty)
 Requires:       tex(unicode-math.sty)
 
 %description -n texlive-luciole
@@ -5631,7 +5743,7 @@ with the AMS fonts, all redone with the same stylistic parameters.
 
 %package -n texlive-ly1
 Summary:        Support for LY1 LaTeX encoding
-Version:        svn63565
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5664,7 +5776,7 @@ Noto Sans Lydian font as developed by Google.
 
 %package -n texlive-magra
 Summary:        The Magra font face with support for LaTeX and pdfLaTeX
-Version:        svn57373
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5866,7 +5978,7 @@ latin, cyrillic, and greek. It comes complete with LaTeX support.
 
 %package -n texlive-mintspirit
 Summary:        LaTeX support for MintSpirit font families
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5926,7 +6038,7 @@ avoids the spindliness of most other Type 1 versions of Computer Modern.
 
 %package -n texlive-mnsymbol
 Summary:        Mathematical symbol font for Adobe MinionPro
-Version:        svn18651
+Version:        svn78931
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5952,7 +6064,7 @@ needed.
 
 %package -n texlive-monaspace-otf
 Summary:        OpenType MonaSpace fonts with fontspec support
-Version:        svn77682
+Version:        svn80073
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6028,7 +6140,7 @@ provides a solution to these difficulties.
 
 %package -n texlive-newcomputermodern
 Summary:        Computer Modern fonts including matching non-latin alphabets
-Version:        svn78793
+Version:        svn79453
 License:        LPPL-1.3c AND GPL-3.0-or-later WITH Font-exception-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6047,7 +6159,7 @@ of the package.
 
 %package -n texlive-newpx
 Summary:        Alternative uses of the PX fonts, with improved metrics
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6136,7 +6248,7 @@ sans serif Roman and Greek letters with most symbols taken from newtxmath
 
 %package -n texlive-newtxtt
 Summary:        Enhancement of typewriter fonts from newtx
-Version:        svn77682
+Version:        svn79618
 License:        GPL-3.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6284,7 +6396,7 @@ font support.
 
 %package -n texlive-ocherokee
 Summary:        LaTeX Support for the Cherokee language
-Version:        svn25689
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6323,7 +6435,7 @@ not included here, so that original ocr-b package should also be installed.
 
 %package -n texlive-ogham
 Summary:        Fonts for typesetting Ogham script
-Version:        svn24876
+Version:        svn79461
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6339,7 +6451,7 @@ Flynn and Dan Luecking.)
 
 %package -n texlive-oinuit
 Summary:        LaTeX Support for the Inuktitut Language
-Version:        svn28668
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6369,7 +6481,7 @@ the old-style ones.
 
 %package -n texlive-oldlatin
 Summary:        Compute Modern-like font with long s
-Version:        svn17932
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6382,7 +6494,7 @@ which was used in old text.
 
 %package -n texlive-oldstandard
 Summary:        OldStandard fonts with LaTeX support
-Version:        svn70421
+Version:        svn79187
 License:        OFL-1.1 AND LPPL-1.3c AND GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6444,7 +6556,7 @@ The font covers an old Turkic script. It is provided as Metafont source.
 
 %package -n texlive-oswald
 Summary:        The Oswald family of fonts with support for LaTeX and pdfLaTeX
-Version:        svn60784
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6485,7 +6597,7 @@ Regular weight.
 
 %package -n texlive-pacioli
 Summary:        Fonts designed by Fra Luca de Pacioli in 1497
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6516,7 +6628,7 @@ typefaces like bold math and slanted text are also defined
 
 %package -n texlive-paratype
 Summary:        LaTeX support for free fonts by ParaType
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6534,7 +6646,7 @@ replacement of the two packages ptsans and ptserif.
 
 %package -n texlive-pennstander-otf
 Summary:        OpenType versions of the pennstander fonts (with math support)
-Version:        svn77682
+Version:        svn79461
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6547,7 +6659,7 @@ Ross. It is usable with LuaTeX or XeTeX engines only.
 
 %package -n texlive-phaistos
 Summary:        Disk of Phaistos font
-Version:        svn18651
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6566,7 +6678,7 @@ presented.
 
 %package -n texlive-phonetic
 Summary:        Metafont Phonetic fonts, based on Computer Modern
-Version:        svn56468
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6576,6 +6688,28 @@ Obsoletes:      texlive-phonetic-doc <= 11:%{version}
 %description -n texlive-phonetic
 The fonts are based on Computer Modern, and specified in Metafont. Macros for
 the fonts' use are provided, both for LaTeX 2.09 and for current LaTeX.
+
+%package -n texlive-phosphoricons
+Summary:        LaTeX support for Phosphor Icons
+Version:        svn80074
+License:        MIT AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(xcolor.sty)
+Requires:       tex(xparse.sty)
+
+%description -n texlive-phosphoricons
+This package provides LaTeX support for Phosphor Icons Icons can be typeset
+with a generic command (\ppIcon{acorn}) or with generated per-icon commands
+(\ppAcorn), on pdfLaTeX, XeLaTeX and LuaLaTeX alike. The weight can be chosen
+as a package option, mid-document, or per icon via an optional argument, which
+also accepts key-value input. Two-layer duotone icons are fully supported; the
+background layer color defaults to the current text color mixed at 20% and can
+be set to any xcolor expression. Icons inherit the surrounding text color and
+font size. The bundled TrueType fonts are embedded directly under pdfLaTeX and
+loaded without fontspec under the Unicode engines. All bindings are
+auto-generated from the upstream release, so the package tracks new Phosphor
+versions closely.
 
 %package -n texlive-pigpen
 Summary:        A font for the pigpen (or masonic) cipher
@@ -6591,6 +6725,21 @@ The Pigpen cipher package provides the font and the necessary wrappers (style
 file, etc.) in order to write Pigpen ciphers, a simple substitution cipher. The
 package provides a font (available both as Metafont source, and as an Adobe
 Type 1 file), and macros for its use.
+
+%package -n texlive-pl46-fonts
+Summary:        PL46 OpenType text and math fonts
+Version:        svn80010
+License:        OFL-1.1 AND LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(iftex.sty)
+Requires:       tex(unicode-math.sty)
+
+%description -n texlive-pl46-fonts
+PL46 is an OpenType font family constructed from line-segment-based glyphs. The
+package provides PL46 Regular and PL46 Bold for text, PL46 Mono for monospaced
+text, and PL46 Math with an OpenType MATH table for Unicode mathematics. It
+supports XeLaTeX and LuaLaTeX.
 
 %package -n texlive-playfair
 Summary:        Playfair Display fonts with LaTeX support
@@ -6642,12 +6791,11 @@ weights: Regular, Light, ExtraLight, Thin, Bold, Text, Medium and SemiBold
 
 %package -n texlive-plex-otf
 Summary:        Support for the OpenType font IBM Plex
-Version:        svn77682
+Version:        svn79300
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
 
@@ -6673,7 +6821,7 @@ LaTeX Symbol List for emulating the Plimsoll mark.
 
 %package -n texlive-poiretone
 Summary:        PoiretOne family of fonts with LaTeX support
-Version:        svn64856
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6917,7 +7065,7 @@ Google.
 
 %package -n texlive-romandeadf
 Summary:        Romande ADF fonts and LaTeX support
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6940,7 +7088,7 @@ the xkeyval packages.
 
 %package -n texlive-rosario
 Summary:        Using the free Rosario fonts with LaTeX
-Version:        svn51688
+Version:        svn78931
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6961,7 +7109,7 @@ copyright (c) 2012-2015, Omnibus-Type.
 
 %package -n texlive-rsfso
 Summary:        A mathematical calligraphic font based on rsfs
-Version:        svn78101
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7118,7 +7266,7 @@ The fonts are provided as Metafont source, and in both OpenType and Adobe Type
 
 %package -n texlive-shobhika
 Summary:        An OpenType Devanagari font designed for scholars
-Version:        svn50555
+Version:        svn79121
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7141,7 +7289,7 @@ Shobhika.
 
 %package -n texlive-simpleicons
 Summary:        Simple Icons for LaTeX
-Version:        svn78804
+Version:        svn80403
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7167,7 +7315,7 @@ mode.
 
 %package -n texlive-sourcecodepro
 Summary:        Use SourceCodePro with TeX(-alike) systems
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7190,13 +7338,11 @@ supporting their use in LaTeX (Type 1) and XeLaTeX/LuaLaTeX (OTF).
 
 %package -n texlive-sourcesans
 Summary:        Use Source Sans with TeX(-alike) systems
-Version:        svn78246
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
-Provides:       texlive-sourcesanspro = %{epoch}:%{version}-%{release}
-Obsoletes:      texlive-sourcesanspro <= 12:svn77677-4
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(fontaxes.sty)
+Requires:       tex(figureversions.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -7205,6 +7351,7 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
+Requires:       tex(xspace.sty)
 
 %description -n texlive-sourcesans
 This package provides Source Sans for LaTeX. It includes both Type1 and
@@ -7214,10 +7361,8 @@ backwards compatibility.
 
 %package -n texlive-sourceserif
 Summary:        Use Source Serif with TeX(-alike) systems
-Version:        svn78252
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
-Provides:       texlive-sourceserifpro = %{epoch}:%{version}-%{release}
-Obsoletes:      texlive-sourceserifpro <= 12:svn77677-4
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontaxes.sty)
@@ -7304,8 +7449,8 @@ TrueType Format and in Adobe Type 1 format.
 
 %package -n texlive-staves
 Summary:        Typeset Icelandic staves and runic letters
-Version:        svn15878
-License:        LPPL-1.3c
+Version:        svn79618
+License:        LPPL-1.3b
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       texlive-staves-doc = %{epoch}:%{version}-%{release}
@@ -7371,7 +7516,7 @@ newtxmath symbols.
 
 %package -n texlive-stix
 Summary:        OpenType Unicode maths fonts
-Version:        svn78101
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7386,7 +7531,7 @@ See stix2-otf and stix2-type1 instead.
 
 %package -n texlive-stix2-otf
 Summary:        OpenType Unicode text and maths fonts
-Version:        svn58735
+Version:        svn79618
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7401,7 +7546,7 @@ available royalty-free under the SIL Open Font License.
 
 %package -n texlive-stix2-type1
 Summary:        Type1 versions of the STIX Two OpenType fonts
-Version:        svn77682
+Version:        svn79618
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7423,7 +7568,7 @@ versions of the fonts.
 
 %package -n texlive-superiors
 Summary:        Attach superior figures to a font family
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7505,8 +7650,8 @@ ancient Greek, and almost full T2A coverage of Cyrillic.
 
 %package -n texlive-tengwarscript
 Summary:        LaTeX support for using Tengwar fonts
-Version:        svn34594
-License:        LPPL-1.3c
+Version:        svn79618
+License:        LPPL-1.3a
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       texlive-tengwarscript-doc = %{epoch}:%{version}-%{release}
@@ -7541,7 +7686,7 @@ missing typefaces like bold math and slanted text are also defined.
 
 %package -n texlive-tfrupee
 Summary:        A font offering the new (Indian) Rupee symbol
-Version:        svn20770
+Version:        svn79461
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7555,7 +7700,7 @@ simple LaTeX support written for its use.
 
 %package -n texlive-theanodidot
 Summary:        TheanoDidot fonts with LaTeX support
-Version:        svn64518
+Version:        svn78931
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7584,7 +7729,7 @@ the Enlightenment.
 
 %package -n texlive-theanomodern
 Summary:        Theano Modern fonts with LaTeX support
-Version:        svn64520
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7606,7 +7751,7 @@ his wife.
 
 %package -n texlive-theanooldstyle
 Summary:        Theano OldStyle fonts with LaTeX support
-Version:        svn64519
+Version:        svn78931
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7671,7 +7816,7 @@ The package is part of the TeXPower bundle.
 
 %package -n texlive-trajan
 Summary:        Fonts from the Trajan column in Rome
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7828,7 +7973,7 @@ supersedes the pzccal package.
 
 %package -n texlive-venturisadf
 Summary:        Venturis ADF fonts collection
-Version:        svn77682
+Version:        svn79618
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7862,7 +8007,7 @@ superseded by the tipa fonts.
 
 %package -n texlive-xcharter
 Summary:        Extension of Bitstream Charter fonts
-Version:        svn71564
+Version:        svn78931
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7890,10 +8035,11 @@ LaTeX font support files. The fonts themselves are provided in both Adobe Type
 
 %package -n texlive-xcharter-math
 Summary:        XCharter-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn78488
+Version:        svn80113
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(amssymb.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(lua-unicode-math.sty)
@@ -7922,7 +8068,7 @@ and unicode-math packages.
 
 %package -n texlive-yfonts
 Summary:        Support for old German fonts
-Version:        svn77682
+Version:        svn79618
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7976,20 +8122,16 @@ This package is a conversion of the yinit font into OTF. Original Metafont
 files for yinit are in the yinit package.
 
 %package -n texlive-ysabeau
-Summary:        Ysabeau fonts with LaTeX support for traditional TeX engines
-Version:        svn77682
+Summary:        LaTeX support for the Ysabeau font family
+Version:        svn80126
 License:        OFL-1.1 AND WTFPL AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
-Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
-Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Requires:       tex(xstring.sty)
 
 %description -n texlive-ysabeau
 Ysabeau is a free type family. It combines the time-honored and supremely
@@ -8020,7 +8162,7 @@ access to all its features.
 tar -xf %{SOURCE1}
 
 # Copy special license files
-cp %{SOURCE826} .
+cp %{SOURCE838} .
 
 %build
 # Nothing to build
@@ -8779,20 +8921,20 @@ tar -xf %{SOURCE746} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE747} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE748} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE749} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE750} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE751} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE752} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE753} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE754} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE755} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE756} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE757} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE758} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE759} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE760} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE761} -C %{buildroot}%{_texmf_main}
 
 # Install AppStream metadata for font components
-cp %{SOURCE750} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE751} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE752} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE753} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE754} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE755} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE756} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE757} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE758} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE759} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE760} %{buildroot}%{_datadir}/appdata/
-cp %{SOURCE761} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE762} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE763} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE764} %{buildroot}%{_datadir}/appdata/
@@ -8857,86 +8999,1180 @@ cp %{SOURCE822} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE823} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE824} %{buildroot}%{_datadir}/appdata/
 cp %{SOURCE825} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE826} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE827} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE828} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE829} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE830} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE831} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE832} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE833} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE834} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE835} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE836} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE837} %{buildroot}%{_datadir}/appdata/
+mv %{buildroot}%{_texmf_main}/doc/fonts/atkinson/Atkinson-Hyperlegible-Font-License-2020-1104.pdf Atkinson-Hyperlegible-Font-License-2020-1104.pdf
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 # Create symlinks for OpenType fonts
-ln -sf %{_texmf_main}/fonts/opentype/public/algolrevived %{buildroot}%{_datadir}/fonts/algolrevived
-ln -sf %{_texmf_main}/fonts/opentype/public/almfixed %{buildroot}%{_datadir}/fonts/almfixed
-ln -sf %{_texmf_main}/fonts/opentype/public/antt %{buildroot}%{_datadir}/fonts/antt
-ln -sf %{_texmf_main}/fonts/opentype/omnibus-type/asapsym %{buildroot}%{_datadir}/fonts/asapsym
-ln -sf %{_texmf_main}/fonts/opentype/public/baskervaldx %{buildroot}%{_datadir}/fonts/baskervaldx
-ln -sf %{_texmf_main}/fonts/opentype/public/baskervillef %{buildroot}%{_datadir}/fonts/baskervillef
-ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf %{buildroot}%{_datadir}/fonts/berenisadf
-ln -sf %{_texmf_main}/fonts/opentype/public/beuron %{buildroot}%{_datadir}/fonts/beuron
-ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin %{buildroot}%{_datadir}/fonts/cabin
-ln -sf %{_texmf_main}/fonts/opentype/public/ccicons %{buildroot}%{_datadir}/fonts/ccicons
-ln -sf %{_texmf_main}/fonts/opentype/public/chivo %{buildroot}%{_datadir}/fonts/chivo
-ln -sf %{_texmf_main}/fonts/opentype/public/clara %{buildroot}%{_datadir}/fonts/clara
-ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode %{buildroot}%{_datadir}/fonts/cm-unicode
-ln -sf %{_texmf_main}/fonts/opentype/public/cochineal %{buildroot}%{_datadir}/fonts/cochineal
-ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth %{buildroot}%{_datadir}/fonts/coelacanth
-ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue %{buildroot}%{_datadir}/fonts/comicneue
-ln -sf %{_texmf_main}/fonts/opentype/public/countriesofeurope %{buildroot}%{_datadir}/fonts/countriesofeurope
-ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson %{buildroot}%{_datadir}/fonts/crimson
-ln -sf %{_texmf_main}/fonts/opentype/public/cyklop %{buildroot}%{_datadir}/fonts/cyklop
-ln -sf %{_texmf_main}/fonts/opentype/public/dantelogo %{buildroot}%{_datadir}/fonts/dantelogo
-ln -sf %{_texmf_main}/fonts/opentype/public/domitian %{buildroot}%{_datadir}/fonts/domitian
-ln -sf %{_texmf_main}/fonts/opentype/public/drm %{buildroot}%{_datadir}/fonts/drm
-ln -sf %{_texmf_main}/fonts/opentype/public/erewhon %{buildroot}%{_datadir}/fonts/erewhon
-ln -sf %{_texmf_main}/fonts/opentype/public/erewhon-math %{buildroot}%{_datadir}/fonts/erewhon-math
-ln -sf %{_texmf_main}/fonts/opentype/public/etbb %{buildroot}%{_datadir}/fonts/etbb
-ln -sf %{_texmf_main}/fonts/opentype/public/fbb %{buildroot}%{_datadir}/fonts/fbb
-ln -sf %{_texmf_main}/fonts/opentype/public/fdsymbol %{buildroot}%{_datadir}/fonts/fdsymbol
-ln -sf %{_texmf_main}/fonts/opentype/public/fetamont %{buildroot}%{_datadir}/fonts/fetamont
-ln -sf %{_texmf_main}/fonts/opentype/public/firamath %{buildroot}%{_datadir}/fonts/firamath
-ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic %{buildroot}%{_datadir}/fonts/fonts-churchslavonic
-ln -sf %{_texmf_main}/fonts/opentype/public/forum %{buildroot}%{_datadir}/fonts/forum
-ln -sf %{_texmf_main}/fonts/opentype/public/fourier %{buildroot}%{_datadir}/fonts/fourier
-ln -sf %{_texmf_main}/fonts/opentype/public/frederika2016 %{buildroot}%{_datadir}/fonts/frederika2016
-ln -sf %{_texmf_main}/fonts/opentype/public/garamond-libre %{buildroot}%{_datadir}/fonts/garamond-libre
-ln -sf %{_texmf_main}/fonts/opentype/public/garamond-math %{buildroot}%{_datadir}/fonts/garamond-math
-ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont %{buildroot}%{_datadir}/fonts/gnu-freefont
-ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish %{buildroot}%{_datadir}/fonts/imfellenglish
-ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts %{buildroot}%{_datadir}/fonts/inriafonts
-ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona %{buildroot}%{_datadir}/fonts/iwona
-ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier %{buildroot}%{_datadir}/fonts/kurier
-ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts %{buildroot}%{_datadir}/fonts/libertinus-fonts
-ln -sf %{_texmf_main}/fonts/opentype/impallari/librebodoni %{buildroot}%{_datadir}/fonts/librebodoni
-ln -sf %{_texmf_main}/fonts/opentype/impallari/librecaslon %{buildroot}%{_datadir}/fonts/librecaslon
-ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin %{buildroot}%{_datadir}/fonts/librefranklin
-ln -sf %{_texmf_main}/fonts/opentype/public/linguisticspro %{buildroot}%{_datadir}/fonts/linguisticspro
-ln -sf %{_texmf_main}/fonts/opentype/impallari/lobster2 %{buildroot}%{_datadir}/fonts/lobster2
-ln -sf %{_texmf_main}/fonts/opentype/public/logix %{buildroot}%{_datadir}/fonts/logix
-ln -sf %{_texmf_main}/fonts/opentype/public/mdsymbol %{buildroot}%{_datadir}/fonts/mdsymbol
-ln -sf %{_texmf_main}/fonts/opentype/public/miama %{buildroot}%{_datadir}/fonts/miama
-ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit %{buildroot}%{_datadir}/fonts/mintspirit
-ln -sf %{_texmf_main}/fonts/opentype/public/missaali %{buildroot}%{_datadir}/fonts/missaali
-ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol %{buildroot}%{_datadir}/fonts/mnsymbol
-ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern %{buildroot}%{_datadir}/fonts/newcomputermodern
-ln -sf %{_texmf_main}/fonts/opentype/public/newpx %{buildroot}%{_datadir}/fonts/newpx
-ln -sf %{_texmf_main}/fonts/opentype/public/newtx %{buildroot}%{_datadir}/fonts/newtx
-ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15 %{buildroot}%{_datadir}/fonts/nimbus15
-ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline %{buildroot}%{_datadir}/fonts/ocr-b-outline
-ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock %{buildroot}%{_datadir}/fonts/overlock
-ln -sf %{_texmf_main}/fonts/opentype/public/phaistos %{buildroot}%{_datadir}/fonts/phaistos
-ln -sf %{_texmf_main}/fonts/opentype/public/playfair %{buildroot}%{_datadir}/fonts/playfair
-ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski %{buildroot}%{_datadir}/fonts/poltawski
-ln -sf %{_texmf_main}/fonts/opentype/public/punknova %{buildroot}%{_datadir}/fonts/punknova
-ln -sf %{_texmf_main}/fonts/opentype/public/qualitype %{buildroot}%{_datadir}/fonts/qualitype
-ln -sf %{_texmf_main}/fonts/opentype/public/rosario %{buildroot}%{_datadir}/fonts/rosario
-ln -sf %{_texmf_main}/fonts/opentype/public/scholax %{buildroot}%{_datadir}/fonts/scholax
-ln -sf %{_texmf_main}/fonts/opentype/public/semaphor %{buildroot}%{_datadir}/fonts/semaphor
-ln -sf %{_texmf_main}/fonts/opentype/public/step %{buildroot}%{_datadir}/fonts/step
-ln -sf %{_texmf_main}/fonts/opentype/public/svrsymbols %{buildroot}%{_datadir}/fonts/svrsymbols
-ln -sf %{_texmf_main}/fonts/opentype/public/tempora %{buildroot}%{_datadir}/fonts/tempora
-ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb %{buildroot}%{_datadir}/fonts/txfontsb
-ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter %{buildroot}%{_datadir}/fonts/umtypewriter
-ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis %{buildroot}%{_datadir}/fonts/universalis
-ln -sf %{_texmf_main}/fonts/opentype/public/xcharter %{buildroot}%{_datadir}/fonts/xcharter
-ln -sf %{_texmf_main}/fonts/opentype/public/xits %{buildroot}%{_datadir}/fonts/xits
-ln -sf %{_texmf_main}/fonts/opentype/public/yinit-otf %{buildroot}%{_datadir}/fonts/yinit-otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-algolrevived
+ln -sf %{_texmf_main}/fonts/opentype/public/algolrevived/AlgolRevived-Medium.otf %{buildroot}%{_datadir}/fonts/texlive-algolrevived/AlgolRevived-Medium.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/algolrevived/AlgolRevived-MediumSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-algolrevived/AlgolRevived-MediumSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/algolrevived/AlgolRevived-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-algolrevived/AlgolRevived-Slanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/algolrevived/AlgolRevived.otf %{buildroot}%{_datadir}/fonts/texlive-algolrevived/AlgolRevived.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-almfixed
+ln -sf %{_texmf_main}/fonts/opentype/public/almfixed/almfixed.otf %{buildroot}%{_datadir}/fonts/texlive-almfixed/almfixed.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-antt
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunska-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunska-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunska-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunska-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunska-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunska-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunska-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunska-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCond-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCond-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCond-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCond-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCond-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCond-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCond-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCond-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCondLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCondLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCondLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCondLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCondMed-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCondMed-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaCondMed-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaCondMed-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaMed-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaMed-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/antt/AntykwaTorunskaMed-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-antt/AntykwaTorunskaMed-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-asapsym
+ln -sf %{_texmf_main}/fonts/opentype/omnibus-type/asapsym/Asap-Symbol.otf %{buildroot}%{_datadir}/fonts/texlive-asapsym/Asap-Symbol.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-baskervaldx
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervaldx/Baskervaldx-Bol.otf %{buildroot}%{_datadir}/fonts/texlive-baskervaldx/Baskervaldx-Bol.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervaldx/Baskervaldx-BolIta.otf %{buildroot}%{_datadir}/fonts/texlive-baskervaldx/Baskervaldx-BolIta.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervaldx/Baskervaldx-Ita.otf %{buildroot}%{_datadir}/fonts/texlive-baskervaldx/Baskervaldx-Ita.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervaldx/Baskervaldx-Reg.otf %{buildroot}%{_datadir}/fonts/texlive-baskervaldx/Baskervaldx-Reg.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-baskervillef
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervillef/BaskervilleF-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-baskervillef/BaskervilleF-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervillef/BaskervilleF-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-baskervillef/BaskervilleF-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervillef/BaskervilleF-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-baskervillef/BaskervilleF-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/baskervillef/BaskervilleF-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-baskervillef/BaskervilleF-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-berenisadf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFPro-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFPro-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFPro-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFPro-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFPro-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFPro-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFPro-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFPro-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFProSC-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFProSC-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFProSC-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFProSC-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFProSC-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFProSC-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/berenisadf/BerenisADFProSC-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-berenisadf/BerenisADFProSC-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-beuron
+ln -sf %{_texmf_main}/fonts/opentype/public/beuron/Beuron-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-beuron/Beuron-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/beuron/BeuronCondensed-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-beuron/BeuronCondensed-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/beuron/BeuronExtended-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-beuron/BeuronExtended-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-cabin
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-Medium.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-Medium.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-MediumItalic.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-MediumItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-SemiBold.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-SemiBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/Cabin-SemiBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/Cabin-SemiBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-BoldCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-BoldCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-BoldItalicCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-BoldItalicCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-ItalicCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-ItalicCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-MediumCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-MediumCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-MediumItalicCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-MediumItalicCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-RegularCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-RegularCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-SemiBoldCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-SemiBoldCondensed.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/cabin/CabinCondensed-SemiboldItalicCondensed.otf %{buildroot}%{_datadir}/fonts/texlive-cabin/CabinCondensed-SemiboldItalicCondensed.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-ccicons
+ln -sf %{_texmf_main}/fonts/opentype/public/ccicons/ccicons.otf %{buildroot}%{_datadir}/fonts/texlive-ccicons/ccicons.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-chivo
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Black.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Black.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-BlackItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-BlackItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-ExtraBold.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-ExtraBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-ExtraBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-ExtraBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-ExtraLight.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-ExtraLight.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-ExtraLightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-ExtraLightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Light.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Medium.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Medium.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-MediumItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-MediumItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-SemiBold.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-SemiBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-SemiBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-SemiBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-Thin.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-Thin.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/chivo/Chivo-ThinItalic.otf %{buildroot}%{_datadir}/fonts/texlive-chivo/Chivo-ThinItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-clara
+ln -sf %{_texmf_main}/fonts/opentype/public/clara/clarab.otf %{buildroot}%{_datadir}/fonts/texlive-clara/clarab.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/clara/clarabi.otf %{buildroot}%{_datadir}/fonts/texlive-clara/clarabi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/clara/clarai.otf %{buildroot}%{_datadir}/fonts/texlive-clara/clarai.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/clara/clarar.otf %{buildroot}%{_datadir}/fonts/texlive-clara/clarar.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-cm-unicode
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbbx.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbbx.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbi.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbl.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbl.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbmo.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbmo.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbmr.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbmr.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbso.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbso.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbsr.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbsr.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbtl.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbtl.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbto.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbto.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbx.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbx.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunbxo.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunbxo.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunci.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunci.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunit.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunit.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunobi.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunobi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunobx.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunobx.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunorm.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunorm.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunoti.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunoti.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunrb.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunrb.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunrm.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunrm.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunsi.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunsi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunsl.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunsl.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunso.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunso.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunss.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunss.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunssdc.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunssdc.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunst.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunst.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunsx.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunsx.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmuntb.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmuntb.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunti.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunti.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmuntt.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmuntt.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmuntx.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmuntx.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunui.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunui.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunvi.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunvi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cm-unicode/cmunvt.otf %{buildroot}%{_datadir}/fonts/texlive-cm-unicode/cmunvt.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-cochineal
+ln -sf %{_texmf_main}/fonts/opentype/public/cochineal/Cochineal-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-cochineal/Cochineal-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cochineal/Cochineal-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-cochineal/Cochineal-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cochineal/Cochineal-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-cochineal/Cochineal-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cochineal/Cochineal-Roman.otf %{buildroot}%{_datadir}/fonts/texlive-cochineal/Cochineal-Roman.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-coelacanth
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/Coelacanth.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/Coelacanth.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthBold.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthExtraLt.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthExtraLt.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthHeavy.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthHeavy.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthItalic.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthLt.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthLt.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/coelacanth/CoelacanthSemibd.otf %{buildroot}%{_datadir}/fonts/texlive-coelacanth/CoelacanthSemibd.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-comicneue
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-Light.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeue-RegularItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeue-RegularItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-Light.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/rozynski/comicneue/ComicNeueAngular-RegularItalic.otf %{buildroot}%{_datadir}/fonts/texlive-comicneue/ComicNeueAngular-RegularItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-countriesofeurope
+ln -sf %{_texmf_main}/fonts/opentype/public/countriesofeurope/countriesofeurope.otf %{buildroot}%{_datadir}/fonts/texlive-countriesofeurope/countriesofeurope.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-crimson
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-Roman.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-Roman.otf
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-Semibold.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-Semibold.otf
+ln -sf %{_texmf_main}/fonts/opentype/kosch/crimson/Crimson-SemiboldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-crimson/Crimson-SemiboldItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-cyklop
+ln -sf %{_texmf_main}/fonts/opentype/public/cyklop/cyklop-italic.otf %{buildroot}%{_datadir}/fonts/texlive-cyklop/cyklop-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/cyklop/cyklop-regular.otf %{buildroot}%{_datadir}/fonts/texlive-cyklop/cyklop-regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-dantelogo
+ln -sf %{_texmf_main}/fonts/opentype/public/dantelogo/DANTE-Bold-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-dantelogo/DANTE-Bold-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/dantelogo/DANTE-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-dantelogo/DANTE-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/dantelogo/DANTE-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-dantelogo/DANTE-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/dantelogo/DANTE.otf %{buildroot}%{_datadir}/fonts/texlive-dantelogo/DANTE.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-domitian
+ln -sf %{_texmf_main}/fonts/opentype/public/domitian/Domitian-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-domitian/Domitian-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/domitian/Domitian-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-domitian/Domitian-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/domitian/Domitian-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-domitian/Domitian-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/domitian/Domitian-Roman.otf %{buildroot}%{_datadir}/fonts/texlive-domitian/Domitian-Roman.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-drm
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drm9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drm9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmb9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmb9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoz9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoz9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozb9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozb9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozit9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozit9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozitsc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozitsc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozittc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozittc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozl9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozl9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozscbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozscbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozsl9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozsl9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdoztcbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdoztcbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozui9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozui9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmdozuibx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmdozuibx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmfigs9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmfigs9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmgrk10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmgrk10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drminf9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drminf9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmit9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmit9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmitsc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmitsc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmittc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmittc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drml9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drml9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmmi10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmmi10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmscbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmscbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsl9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsl9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsy10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsy10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmsym9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmsym9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtc9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtc9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmtcbx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmtcbx9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmui9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmui9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx10.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx11.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx11.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx12.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx14.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx14.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx17.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx17.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx24.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx24.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx6.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx7.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx8.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/drm/drmuibx9.otf %{buildroot}%{_datadir}/fonts/texlive-drm/drmuibx9.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-erewhon
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon/Erewhon-RegularSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon/Erewhon-RegularSlanted.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-erewhon-math
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon-math/Erewhon-Math-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon-math/Erewhon-Math-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/erewhon-math/Erewhon-Math.otf %{buildroot}%{_datadir}/fonts/texlive-erewhon-math/Erewhon-Math.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-etbb
+ln -sf %{_texmf_main}/fonts/opentype/public/etbb/ETbb-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-etbb/ETbb-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/etbb/ETbb-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-etbb/ETbb-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/etbb/ETbb-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-etbb/ETbb-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/etbb/ETbb-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-etbb/ETbb-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-fbb
+ln -sf %{_texmf_main}/fonts/opentype/public/fbb/fbb-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-fbb/fbb-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fbb/fbb-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-fbb/fbb-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fbb/fbb-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-fbb/fbb-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fbb/fbb-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fbb/fbb-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-fdsymbol
+ln -sf %{_texmf_main}/fonts/opentype/public/fdsymbol/FdSymbol-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-fdsymbol/FdSymbol-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fdsymbol/FdSymbol-Book.otf %{buildroot}%{_datadir}/fonts/texlive-fdsymbol/FdSymbol-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fdsymbol/FdSymbol-Demi.otf %{buildroot}%{_datadir}/fonts/texlive-fdsymbol/FdSymbol-Demi.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fdsymbol/FdSymbol-Medium.otf %{buildroot}%{_datadir}/fonts/texlive-fdsymbol/FdSymbol-Medium.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-fetamont
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmb10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmb8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmb8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmb9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmb9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbc40.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbc40.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbco40.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbco40.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbo8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbo8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbo9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbo9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbw10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbw10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmbwo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmbwo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmc10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmco10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmco10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmh10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmh10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmh8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmh8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmh9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmh9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmho10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmho10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmho8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmho8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmho9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmho9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmhw10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmhw10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmhwo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmhwo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffml10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffml10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlc10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlc10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlco10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlco10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlq10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlq10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlqo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlqo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlw10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlw10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmlwo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmlwo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmo10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmo8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmo8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmo9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmo9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmr10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmr10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmr8.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmr8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmr9.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmr9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmw10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmw10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fetamont/ffmwo10.otf %{buildroot}%{_datadir}/fonts/texlive-fetamont/ffmwo10.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-firamath
+ln -sf %{_texmf_main}/fonts/opentype/public/firamath/FiraMath-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-firamath/FiraMath-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/Acathist-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/Acathist-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/CathismaUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/CathismaUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/FedorovskUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/FedorovskUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/FiraSlav-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/FiraSlav-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/FiraSlav-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/FiraSlav-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/IndictionUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/IndictionUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/MenaionUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/MenaionUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/MezenetsUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/MezenetsUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/MonomakhUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/MonomakhUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/OglavieUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/OglavieUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/PochaevskUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/PochaevskUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/PomorskyUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/PomorskyUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/PonomarUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/PonomarUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/Shafarik-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/Shafarik-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/TriodionUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/TriodionUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/VertogradUnicode.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/VertogradUnicode.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/Vilnius-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/Vilnius-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/Voskresensky-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fonts-churchslavonic/Voskresensky-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-forum
+ln -sf %{_texmf_main}/fonts/opentype/public/forum/Forum-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-forum/Forum-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/forum/Frm-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-forum/Frm-Bold.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-fourier
+ln -sf %{_texmf_main}/fonts/opentype/public/fourier/FourierOrns-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-fourier/FourierOrns-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-frederika2016
+ln -sf %{_texmf_main}/fonts/opentype/public/frederika2016/Frederika2016.otf %{buildroot}%{_datadir}/fonts/texlive-frederika2016/Frederika2016.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-garamond-libre
+ln -sf %{_texmf_main}/fonts/opentype/public/garamond-libre/GaramondLibre-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-garamond-libre/GaramondLibre-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/garamond-libre/GaramondLibre-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-garamond-libre/GaramondLibre-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/garamond-libre/GaramondLibre-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-garamond-libre/GaramondLibre-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/garamond-libre/GaramondLibre-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-garamond-libre/GaramondLibre-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-garamond-math
+ln -sf %{_texmf_main}/fonts/opentype/public/garamond-math/Garamond-Math.otf %{buildroot}%{_datadir}/fonts/texlive-garamond-math/Garamond-Math.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeMono.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeMono.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeMonoBold.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeMonoBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeMonoBoldOblique.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeMonoBoldOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeMonoOblique.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeMonoOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSans.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSans.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSansBold.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSansBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSansBoldOblique.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSansBoldOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSansOblique.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSansOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSerif.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSerif.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSerifBold.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSerifBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSerifBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSerifBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/gnu-freefont/FreeSerifItalic.otf %{buildroot}%{_datadir}/fonts/texlive-gnu-freefont/FreeSerifItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-imfellenglish
+ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish/FeFlow1.otf %{buildroot}%{_datadir}/fonts/texlive-imfellenglish/FeFlow1.otf
+ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish/FeFlow2.otf %{buildroot}%{_datadir}/fonts/texlive-imfellenglish/FeFlow2.otf
+ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish/IMFeENit28P.otf %{buildroot}%{_datadir}/fonts/texlive-imfellenglish/IMFeENit28P.otf
+ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish/IMFeENrm28P.otf %{buildroot}%{_datadir}/fonts/texlive-imfellenglish/IMFeENrm28P.otf
+ln -sf %{_texmf_main}/fonts/opentype/iginomarini/imfellenglish/IMFeENsc28P.otf %{buildroot}%{_datadir}/fonts/texlive-imfellenglish/IMFeENsc28P.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-inriafonts
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-Light.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSans-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSans-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-Light.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/inriafonts/InriaSerif-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-inriafonts/InriaSerif-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-iwona
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/Iwona-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/Iwona-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/Iwona-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/Iwona-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/Iwona-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/Iwona-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/Iwona-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/Iwona-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCond-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCond-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCond-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCond-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCond-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCond-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCond-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCond-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondHeavy-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondHeavy-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondHeavy-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondHeavy-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondMedium-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondMedium-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaCondMedium-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaCondMedium-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaHeavy-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaHeavy-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaHeavy-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaHeavy-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaMedium-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaMedium-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/iwona/IwonaMedium-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-iwona/IwonaMedium-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-kurier
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/Kurier-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/Kurier-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/Kurier-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/Kurier-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/Kurier-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/Kurier-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/Kurier-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/Kurier-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCond-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCond-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCond-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCond-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCond-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCond-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCond-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCond-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondHeavy-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondHeavy-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondHeavy-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondHeavy-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondMedium-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondMedium-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierCondMedium-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierCondMedium-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierHeavy-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierHeavy-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierHeavy-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierHeavy-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierLight-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierLight-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierLight-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierLight-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierMedium-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierMedium-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/nowacki/kurier/KurierMedium-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-kurier/KurierMedium-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusKeyboard-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusKeyboard-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusMath-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusMath-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusMono-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusMono-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSans-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSans-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSans-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSans-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSans-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSans-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-Semibold.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-Semibold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerif-SemiboldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerif-SemiboldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerifDisplay-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerifDisplay-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/libertinus-fonts/LibertinusSerifInitials-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-libertinus-fonts/LibertinusSerifInitials-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-librebodoni
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librebodoni/LibreBodoni-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-librebodoni/LibreBodoni-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librebodoni/LibreBodoni-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librebodoni/LibreBodoni-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librebodoni/LibreBodoni-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-librebodoni/LibreBodoni-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librebodoni/LibreBodoni-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-librebodoni/LibreBodoni-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-librecaslon
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librecaslon/LibreCaslonText-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-librecaslon/LibreCaslonText-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librecaslon/LibreCaslonText-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-librecaslon/LibreCaslonText-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librecaslon/LibreCaslonText-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-librecaslon/LibreCaslonText-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librecaslon/LibreCsln-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librecaslon/LibreCsln-BoldItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-librefranklin
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Black.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Black.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-BlackItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-BlackItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-ExtraBold.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-ExtraBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-ExtraBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-ExtraBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-ExtraLight.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-ExtraLight.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-ExtraLightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-ExtraLightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Light.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Medium.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Medium.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-MediumItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-MediumItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-SemiBold.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-SemiBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-SemiBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-SemiBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-Thin.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-Thin.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/librefranklin/LibreFranklin-ThinItalic.otf %{buildroot}%{_datadir}/fonts/texlive-librefranklin/LibreFranklin-ThinItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-linguisticspro
+ln -sf %{_texmf_main}/fonts/opentype/public/linguisticspro/LinguisticsPro-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-linguisticspro/LinguisticsPro-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/linguisticspro/LinguisticsPro-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-linguisticspro/LinguisticsPro-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/linguisticspro/LinguisticsPro-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-linguisticspro/LinguisticsPro-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/linguisticspro/LinguisticsPro-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-linguisticspro/LinguisticsPro-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-lobster2
+ln -sf %{_texmf_main}/fonts/opentype/impallari/lobster2/LobsterTwo-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-lobster2/LobsterTwo-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/lobster2/LobsterTwo-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-lobster2/LobsterTwo-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/lobster2/LobsterTwo-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-lobster2/LobsterTwo-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/impallari/lobster2/LobsterTwo-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-lobster2/LobsterTwo-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-logix
+ln -sf %{_texmf_main}/fonts/opentype/public/logix/logix.otf %{buildroot}%{_datadir}/fonts/texlive-logix/logix.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/logix/logixMono.otf %{buildroot}%{_datadir}/fonts/texlive-logix/logixMono.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-mdsymbol
+ln -sf %{_texmf_main}/fonts/opentype/public/mdsymbol/MdSymbol-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-mdsymbol/MdSymbol-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mdsymbol/MdSymbol-Light.otf %{buildroot}%{_datadir}/fonts/texlive-mdsymbol/MdSymbol-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mdsymbol/MdSymbol-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-mdsymbol/MdSymbol-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mdsymbol/MdSymbol-Semibold.otf %{buildroot}%{_datadir}/fonts/texlive-mdsymbol/MdSymbol-Semibold.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-miama
+ln -sf %{_texmf_main}/fonts/opentype/public/miama/miama.otf %{buildroot}%{_datadir}/fonts/texlive-miama/miama.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-mintspirit
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpirit-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpirit-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpirit-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpirit-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpirit-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpirit-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpirit-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpirit-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpiritNo2-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpiritNo2-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpiritNo2-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpiritNo2-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpiritNo2-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpiritNo2-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/mintspirit/MintSpiritNo2-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-mintspirit/MintSpiritNo2-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-missaali
+ln -sf %{_texmf_main}/fonts/opentype/public/missaali/Missaali-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-missaali/Missaali-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-mnsymbol
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold10.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold12.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold5.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold5.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold6.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold7.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold8.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol-Bold9.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol-Bold9.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol10.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol12.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol12.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol5.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol5.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol6.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol7.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol8.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/mnsymbol/MnSymbol9.otf %{buildroot}%{_datadir}/fonts/texlive-mnsymbol/MnSymbol9.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08-BookItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08-BookItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08Devanagari-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08Devanagari-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM08Devanagari-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM08Devanagari-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-BookItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-BookItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10Devanagari-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10Devanagari-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10Devanagari-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10Devanagari-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCM10Devanagari-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCM10Devanagari-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMath-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMath-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMath-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMath-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMath-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMath-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-BoldOblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-BoldOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-BookItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-BookItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMMono10-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMMono10-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans08-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans08-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans08-BookOblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans08-BookOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans08-Oblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans08-Oblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans08-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans08-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-BoldOblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-BoldOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-BookOblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-BookOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-Oblique.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-Oblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSans10-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSans10-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMSansMath-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMSansMath-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial08-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial08-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial08-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial08-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial08-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial08-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial10-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial10-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial10-Book.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial10-Book.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newcomputermodern/NewCMUncial10-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newcomputermodern/NewCMUncial10-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-newpx
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/TeXGyrePagellaX-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/TeXGyrePagellaX-Slanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newpx/npxsups-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-newpx/npxsups-Slanted.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-newtx
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/TeXGyreTermesX-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/TeXGyreTermesX-Slanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/ntxsups-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/ntxsups-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/ntxsups-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/ntxsups-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/ntxsups-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/ntxsups-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/newtx/ntxsups-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-newtx/ntxsups-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-nimbus15
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-BoldOblique.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-BoldOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-Light.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-LightOblique.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-LightOblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-Oblique.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-Oblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zco-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zco-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zcoN-Oblique.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zcoN-Oblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zcoN-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zcoN-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zhv-Bol.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zhv-Bol.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zhv-BolIta.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zhv-BolIta.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zhv-Reg.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zhv-Reg.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/zhv-RegIta.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/zhv-RegIta.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-Med.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-Med.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-MedIta.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-MedIta.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-MedObl.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-MedObl.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-Reg.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-Reg.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-RegIta.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-RegIta.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/nimbus15/ztm-RegObl.otf %{buildroot}%{_datadir}/fonts/texlive-nimbus15/ztm-RegObl.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb10.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb5.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb5.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb6.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb6.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb7.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb7.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb8.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb8.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/ocr-b-outline/ocrb9.otf %{buildroot}%{_datadir}/fonts/texlive-ocr-b-outline/ocrb9.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-overlock
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-Black-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-Black-OTF.otf
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-BlackItalic-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-BlackItalic-OTF.otf
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-Bold-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-Bold-OTF.otf
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-BoldItalic-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-BoldItalic-OTF.otf
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-Italic-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-Italic-OTF.otf
+ln -sf %{_texmf_main}/fonts/opentype/tipo/overlock/Overlock-Regular-OTF.otf %{buildroot}%{_datadir}/fonts/texlive-overlock/Overlock-Regular-OTF.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-phaistos
+ln -sf %{_texmf_main}/fonts/opentype/public/phaistos/Phaistos.otf %{buildroot}%{_datadir}/fonts/texlive-phaistos/Phaistos.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-playfair
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-Black.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-Black.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-BlackItalic.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-BlackItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/playfair/PlayfairDisplay-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-playfair/PlayfairDisplay-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-poltawski
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpolt-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpolt-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpolt-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpolt-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpolt-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpolt-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpolt-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpolt-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltcond-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltcond-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltcond-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltcond-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltcond-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltcond-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltcond-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltcond-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltexpd-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltexpd-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltexpd-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltexpd-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltexpd-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltexpd-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltexpd-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltexpd-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltlt-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltlt-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltlt-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltlt-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltlt-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltlt-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltlt-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltlt-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltcond-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltcond-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltcond-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltcond-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltcond-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltcond-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltcond-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltcond-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltexpd-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltexpd-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltexpd-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltexpd-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltexpd-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltexpd-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltexpd-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltexpd-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemicond-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemicond-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemicond-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemicond-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemicond-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemicond-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemicond-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemicond-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemiexpd-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemiexpd-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemiexpd-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemiexpd-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemiexpd-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemiexpd-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltltsemiexpd-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltltsemiexpd-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemicond-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemicond-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemicond-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemicond-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemicond-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemicond-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemicond-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemicond-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemiexpd-bold.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemiexpd-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemiexpd-bolditalic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemiexpd-bolditalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemiexpd-italic.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemiexpd-italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/gust/poltawski/antpoltsemiexpd-regular.otf %{buildroot}%{_datadir}/fonts/texlive-poltawski/antpoltsemiexpd-regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-punknova
+ln -sf %{_texmf_main}/fonts/opentype/public/punknova/punknova-bold.otf %{buildroot}%{_datadir}/fonts/texlive-punknova/punknova-bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/punknova/punknova-boldslanted.otf %{buildroot}%{_datadir}/fonts/texlive-punknova/punknova-boldslanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/punknova/punknova-regular.otf %{buildroot}%{_datadir}/fonts/texlive-punknova/punknova-regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/punknova/punknova-slanted.otf %{buildroot}%{_datadir}/fonts/texlive-punknova/punknova-slanted.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-qualitype
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAbbie.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAbbie.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAgateType-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAgateType-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAgateType-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAgateType-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAgateType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAgateType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAncientOlive-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAncientOlive-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAncientOlive.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAncientOlive.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAntiquePost.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAntiquePost.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTArabian.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTArabian.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTArnieB.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTArnieB.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTArtiston.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTArtiston.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAtchen.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAtchen.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAvanti-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAvanti-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTAvanti.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTAvanti.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBasker-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBasker-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBasker-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBasker-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBasker.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBasker.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBeckman.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBeckman.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBengal-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBengal-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBengal.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBengal.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBlackForest.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBlackForest.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBlimpo.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBlimpo.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBodini-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBodini-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBodini-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBodini-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBodini.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBodini.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBodiniPoster-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBodiniPoster-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBodiniPoster.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBodiniPoster.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBookmann-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBookmann-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBookmann-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBookmann-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBookmann-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBookmann-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBookmann.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBookmann.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBoulevard.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBoulevard.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTBrushStroke.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTBrushStroke.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaligulatype.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaligulatype.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCanaithtype.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCanaithtype.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCascadetype.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCascadetype.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaslan-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaslan-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaslan-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaslan-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaslan-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaslan-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaslan.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaslan.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCaslanOpen.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCaslanOpen.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCasual.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCasual.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTChanceryType-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTChanceryType-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTChanceryType-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTChanceryType-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTChanceryType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTChanceryType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTChicagoland.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTChicagoland.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTClaytablet.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTClaytablet.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCloisteredMonk.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCloisteredMonk.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTCoronation.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTCoronation.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDeuce.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDeuce.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDingBits.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDingBits.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDoghaus.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDoghaus.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDoghausHeavy.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDoghausHeavy.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDoghausLight.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDoghausLight.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTDublinIrish.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTDublinIrish.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTEraType-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTEraType-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTEraType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTEraType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTEurotype-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTEurotype-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTEurotype.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTEurotype.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFloraline-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFloraline-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFloraline.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFloraline.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFlorencia.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFlorencia.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFraktur.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFraktur.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFrank.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFrank.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFrankHeavy.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFrankHeavy.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFrizQuad-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFrizQuad-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFrizQuad.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFrizQuad.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFuture-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFuture-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFuture.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFuture.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTFuturePoster.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTFuturePoster.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGaromand-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGaromand-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGaromand-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGaromand-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGaromand-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGaromand-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGaromand.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGaromand.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGhoulFace.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGhoulFace.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGraphLite.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGraphLite.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGraveure-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGraveure-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGraveure.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGraveure.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTGreece.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTGreece.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHandwriting.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHandwriting.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHeidelbergType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHeidelbergType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHelvet-Black.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHelvet-Black.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHelvet-BoldOutline.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHelvet-BoldOutline.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHelvetCnd-Black.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHelvetCnd-Black.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHelvetCnd-Light.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHelvetCnd-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHelvetCnd.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHelvetCnd.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHoboken.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHoboken.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHowardType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHowardType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTHowardTypeFat.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTHowardTypeFat.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTImpromptu.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTImpromptu.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTJupiter.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTJupiter.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTKooper-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTKooper-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTKooper.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTKooper.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTKorrin-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTKorrin-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTKorrin.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTKorrin.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTKung-Fu.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTKung-Fu.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLautrecType.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLautrecType.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLetterGoth-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLetterGoth-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLetterGoth-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLetterGoth-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLetterGoth-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLetterGoth-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLetterGoth.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLetterGoth.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLinoscroll.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLinoscroll.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLinostroke.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLinostroke.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTLondonScroll.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTLondonScroll.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTMagicMarker.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTMagicMarker.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTMerryScript.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTMerryScript.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTMilitary.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTMilitary.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOKCorral-Cnd.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOKCorral-Cnd.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOKCorral-Ext.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOKCorral-Ext.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOKCorral.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOKCorral.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOldGoudy-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOldGoudy-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOldGoudy-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOldGoudy-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOldGoudy.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOldGoudy.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOptimum-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOptimum-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOptimum-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOptimum-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOptimum-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOptimum-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTOptimum.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTOptimum.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPalatine-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPalatine-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPalatine-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPalatine-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPalatine.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPalatine.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPandora.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPandora.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTParisFrance.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTParisFrance.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPeignoir-Lite.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPeignoir-Lite.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPeignoir.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPeignoir.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPiltdown.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPiltdown.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPristine-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPristine-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPristine-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPristine-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPristine-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPristine-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTPristine.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTPristine.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTRobotic2000.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTRobotic2000.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSanDiego.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSanDiego.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSchoolCentury-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSchoolCentury-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSchoolCentury-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSchoolCentury-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSchoolCentury-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSchoolCentury-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSchoolCentury.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSchoolCentury.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSlogantype.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSlogantype.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTSnowCaps.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTSnowCaps.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTStoryTimeCaps.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTStoryTimeCaps.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTechtone-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTechtone-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTechtone-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTechtone-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTechtone-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTechtone-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTechtone.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTechtone.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTheatre.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTheatre.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTimeOutline.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTimeOutline.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTTumbleweed.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTTumbleweed.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTUSA-Uncial.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTUSA-Uncial.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTVagaRound-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTVagaRound-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTVagaRound.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTVagaRound.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTWeise-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTWeise-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTWeise-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTWeise-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTWeise.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTWeise.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/qualitype/QTWestEnd.otf %{buildroot}%{_datadir}/fonts/texlive-qualitype/QTWestEnd.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-rosario
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-Light.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-Light.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-LightItalic.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-LightItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-SemiBold.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-SemiBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/rosario/Rosario-SemiBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-rosario/Rosario-SemiBoldItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-scholax
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/scholax/TeXGyreScholaX-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-scholax/TeXGyreScholaX-Slanted.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-semaphor
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfb10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfbsl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfbsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfeb10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfeb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfebsl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfebsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfer10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfer10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfesl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfesl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfett10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfett10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfpb10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfpb10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfpbsl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfpbsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfpr10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfpr10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfpsl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfpsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfptt10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfptt10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfr10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfr10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smfsl10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smfsl10.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/semaphor/smftt10.otf %{buildroot}%{_datadir}/fonts/texlive-semaphor/smftt10.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-step
+ln -sf %{_texmf_main}/fonts/opentype/public/step/STEP-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-step/STEP-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/step/STEP-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-step/STEP-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/step/STEP-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-step/STEP-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/step/STEP-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-step/STEP-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-svrsymbols
+ln -sf %{_texmf_main}/fonts/opentype/public/svrsymbols/SVRsymbols.otf %{buildroot}%{_datadir}/fonts/texlive-svrsymbols/SVRsymbols.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-tempora
+ln -sf %{_texmf_main}/fonts/opentype/public/tempora/Tempora-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-tempora/Tempora-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/tempora/Tempora-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-tempora/Tempora-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/tempora/Tempora-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-tempora/Tempora-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/tempora/Tempora-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-tempora/Tempora-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-txfontsb
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifb-SmallCaps.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifb-SmallCaps.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifb-SmallCapsAlt.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifb-SmallCapsAlt.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifb.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifb.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifbBold.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifbBold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifbBoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifbBoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/txfontsb/FreeSerifbItalic.otf %{buildroot}%{_datadir}/fonts/texlive-txfontsb/FreeSerifbItalic.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-umtypewriter
+ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter/UMTypewriter-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-umtypewriter/UMTypewriter-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter/UMTypewriter-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-umtypewriter/UMTypewriter-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter/UMTypewriter-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-umtypewriter/UMTypewriter-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter/UMTypewriter-Oblique.otf %{buildroot}%{_datadir}/fonts/texlive-umtypewriter/UMTypewriter-Oblique.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/umtypewriter/UMTypewriter-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-umtypewriter/UMTypewriter-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-universalis
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-BoldCond.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-BoldCond.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-BoldCondIt.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-BoldCondIt.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-Cond.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-Cond.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-CondItalic.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-CondItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/arkandis/universalis/UniversalisADFStd-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-universalis/UniversalisADFStd-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-xcharter
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-BoldSlanted.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-BoldSlanted.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-Roman.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-Roman.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xcharter/XCharter-Slanted.otf %{buildroot}%{_datadir}/fonts/texlive-xcharter/XCharter-Slanted.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-xits
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITS-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITS-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITS-BoldItalic.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITS-BoldItalic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITS-Italic.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITS-Italic.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITS-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITS-Regular.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITSMath-Bold.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITSMath-Bold.otf
+ln -sf %{_texmf_main}/fonts/opentype/public/xits/XITSMath-Regular.otf %{buildroot}%{_datadir}/fonts/texlive-xits/XITSMath-Regular.otf
+mkdir -p %{buildroot}%{_datadir}/fonts/texlive-yinit-otf
+ln -sf %{_texmf_main}/fonts/opentype/public/yinit-otf/Yinit.otf %{buildroot}%{_datadir}/fonts/texlive-yinit-otf/Yinit.otf
 
 # Apply droid patch
 pushd %{buildroot}%{_texmf_main}
@@ -8973,7 +10209,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/tfm/public/academicons/
 %{_texmf_main}/fonts/truetype/public/academicons/
 %{_texmf_main}/fonts/type1/public/academicons/
-%{_texmf_main}/tex/generic/academicons/
+%{_texmf_main}/tex/latex/academicons/
 %doc %{_texmf_main}/doc/fonts/academicons/
 
 %files -n texlive-accanthis
@@ -9055,7 +10291,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/algolrevived/
 %{_texmf_main}/tex/latex/algolrevived/
 %doc %{_texmf_main}/doc/fonts/algolrevived/
-%{_datadir}/fonts/algolrevived
+%{_datadir}/fonts/texlive-algolrevived
 %{_datadir}/appdata/algolrevived.metainfo.xml
 
 %files -n texlive-allrunes
@@ -9083,7 +10319,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/almfixed/
 %{_texmf_main}/fonts/truetype/public/almfixed/
 %doc %{_texmf_main}/doc/fonts/almfixed/
-%{_datadir}/fonts/almfixed
+%{_datadir}/fonts/texlive-almfixed
 %{_datadir}/appdata/almfixed.metainfo.xml
 
 %files -n texlive-andika
@@ -9133,7 +10369,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/plain/antt/
 %doc %{_texmf_main}/doc/fonts/antt/
 %doc %{_texmf_main}/doc/latex/antt/
-%{_datadir}/fonts/antt
+%{_datadir}/fonts/texlive-antt
 %{_datadir}/appdata/antt.metainfo.xml
 
 %files -n texlive-archaic
@@ -9159,7 +10395,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/archivo/
 
 %files -n texlive-arev
-%license lppl1.3c.txt
+%license lppl1.3.txt
 %{_texmf_main}/fonts/afm/public/arev/
 %{_texmf_main}/fonts/enc/dvips/arev/
 %{_texmf_main}/fonts/map/dvips/arev/
@@ -9218,7 +10454,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/asapsym/
 %{_texmf_main}/tex/plain/asapsym/
 %doc %{_texmf_main}/doc/fonts/asapsym/
-%{_datadir}/fonts/asapsym
+%{_datadir}/fonts/texlive-asapsym
 %{_datadir}/appdata/asapsym.metainfo.xml
 
 %files -n texlive-ascii-font
@@ -9245,7 +10481,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/astro/
 
 %files -n texlive-atkinson
-%license other-free.txt
+%license Atkinson-Hyperlegible-Font-License-2020-1104.pdf
 %license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/atkinson/
 %{_texmf_main}/fonts/map/dvips/atkinson/
@@ -9329,7 +10565,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/baskervaldx/
 %{_texmf_main}/tex/latex/baskervaldx/
 %doc %{_texmf_main}/doc/fonts/baskervaldx/
-%{_datadir}/fonts/baskervaldx
+%{_datadir}/fonts/texlive-baskervaldx
 %{_datadir}/appdata/baskervaldx.metainfo.xml
 
 %files -n texlive-baskervillef
@@ -9343,7 +10579,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/baskervillef/
 %{_texmf_main}/tex/latex/baskervillef/
 %doc %{_texmf_main}/doc/fonts/baskervillef/
-%{_datadir}/fonts/baskervillef
+%{_datadir}/fonts/texlive-baskervillef
 %{_datadir}/appdata/baskervillef.metainfo.xml
 
 %files -n texlive-bbding
@@ -9415,7 +10651,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/arkandis/berenisadf/
 %{_texmf_main}/tex/latex/berenisadf/
 %doc %{_texmf_main}/doc/fonts/berenisadf/
-%{_datadir}/fonts/berenisadf
+%{_datadir}/fonts/texlive-berenisadf
 %{_datadir}/appdata/berenisadf.metainfo.xml
 
 %files -n texlive-beuron
@@ -9427,7 +10663,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/beuron/
 %{_texmf_main}/tex/latex/beuron/
 %doc %{_texmf_main}/doc/fonts/beuron/
-%{_datadir}/fonts/beuron
+%{_datadir}/fonts/texlive-beuron
 %{_datadir}/appdata/beuron.metainfo.xml
 
 %files -n texlive-bguq
@@ -9517,7 +10753,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/impallari/cabin/
 %{_texmf_main}/tex/latex/cabin/
 %doc %{_texmf_main}/doc/fonts/cabin/
-%{_datadir}/fonts/cabin
+%{_datadir}/fonts/texlive-cabin
 %{_datadir}/appdata/cabin.metainfo.xml
 
 %files -n texlive-caladea
@@ -9603,7 +10839,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/ccicons/
 %doc %{_texmf_main}/doc/fonts/ccicons/
 %doc %{_texmf_main}/doc/latex/ccicons/
-%{_datadir}/fonts/ccicons
+%{_datadir}/fonts/texlive-ccicons
 %{_datadir}/appdata/ccicons.metainfo.xml
 
 %files -n texlive-cfr-initials
@@ -9650,7 +10886,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/chivo/
 %{_texmf_main}/tex/latex/chivo/
 %doc %{_texmf_main}/doc/fonts/chivo/
-%{_datadir}/fonts/chivo
+%{_datadir}/fonts/texlive-chivo
 %{_datadir}/appdata/chivo.metainfo.xml
 
 %files -n texlive-cinzel
@@ -9676,7 +10912,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/clara/
 %{_texmf_main}/tex/latex/clara/
 %doc %{_texmf_main}/doc/fonts/clara/
-%{_datadir}/fonts/clara
+%{_datadir}/fonts/texlive-clara
 %{_datadir}/appdata/clara.metainfo.xml
 
 %files -n texlive-clearsans
@@ -9718,7 +10954,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/cm-unicode/
 %{_texmf_main}/fonts/type1/public/cm-unicode/
 %doc %{_texmf_main}/doc/fonts/cm-unicode/
-%{_datadir}/fonts/cm-unicode
+%{_datadir}/fonts/texlive-cm-unicode
 %{_datadir}/appdata/cm-unicode.metainfo.xml
 
 %files -n texlive-cmathbb
@@ -9745,6 +10981,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/tfm/public/cmexb/
 %{_texmf_main}/fonts/type1/public/cmexb/
 %doc %{_texmf_main}/doc/fonts/cmexb/
+
+%files -n texlive-cmgraded
+%license ofl.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/map/dvips/cmgraded/
+%{_texmf_main}/fonts/opentype/public/cmgraded/
+%{_texmf_main}/fonts/tfm/public/cmgraded/
+%{_texmf_main}/fonts/type1/public/cmgraded/
+%{_texmf_main}/tex/latex/cmgraded/
+%doc %{_texmf_main}/doc/fonts/cmgraded/
 
 %files -n texlive-cmll
 %license lppl1.3c.txt
@@ -9802,7 +11048,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/cochineal/
 %{_texmf_main}/tex/latex/cochineal/
 %doc %{_texmf_main}/doc/fonts/cochineal/
-%{_datadir}/fonts/cochineal
+%{_datadir}/fonts/texlive-cochineal
 %{_datadir}/appdata/cochineal.metainfo.xml
 
 %files -n texlive-coelacanth
@@ -9816,7 +11062,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/coelacanth/
 %{_texmf_main}/tex/latex/coelacanth/
 %doc %{_texmf_main}/doc/fonts/coelacanth/
-%{_datadir}/fonts/coelacanth
+%{_datadir}/fonts/texlive-coelacanth
 %{_datadir}/appdata/coelacanth.metainfo.xml
 
 %files -n texlive-comfortaa
@@ -9841,7 +11087,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/rozynski/comicneue/
 %{_texmf_main}/tex/latex/comicneue/
 %doc %{_texmf_main}/doc/latex/comicneue/
-%{_datadir}/fonts/comicneue
+%{_datadir}/fonts/texlive-comicneue
 %{_datadir}/appdata/comicneue.metainfo.xml
 
 %files -n texlive-concmath-fonts
@@ -9899,7 +11145,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/countriesofeurope/
 %{_texmf_main}/tex/latex/countriesofeurope/
 %doc %{_texmf_main}/doc/fonts/countriesofeurope/
-%{_datadir}/fonts/countriesofeurope
+%{_datadir}/fonts/texlive-countriesofeurope
 %{_datadir}/appdata/countriesofeurope.metainfo.xml
 
 %files -n texlive-courier-scaled
@@ -9929,7 +11175,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/kosch/crimson/
 %{_texmf_main}/tex/latex/crimson/
 %doc %{_texmf_main}/doc/fonts/crimson/
-%{_datadir}/fonts/crimson
+%{_datadir}/fonts/texlive-crimson
 %{_datadir}/appdata/crimson.metainfo.xml
 
 %files -n texlive-crimsonpro
@@ -9970,7 +11216,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/cyklop/
 %{_texmf_main}/tex/latex/cyklop/
 %doc %{_texmf_main}/doc/fonts/cyklop/
-%{_datadir}/fonts/cyklop
+%{_datadir}/fonts/texlive-cyklop
 %{_datadir}/appdata/cyklop.metainfo.xml
 
 %files -n texlive-cyrillic-modern
@@ -10000,7 +11246,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/dantelogo/
 %{_texmf_main}/tex/latex/dantelogo/
 %doc %{_texmf_main}/doc/fonts/dantelogo/
-%{_datadir}/fonts/dantelogo
+%{_datadir}/fonts/texlive-dantelogo
 %{_datadir}/appdata/dantelogo.metainfo.xml
 
 %files -n texlive-dejavu
@@ -10055,7 +11301,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/domitian/
 %{_texmf_main}/tex/latex/domitian/
 %doc %{_texmf_main}/doc/fonts/domitian/
-%{_datadir}/fonts/domitian
+%{_datadir}/fonts/texlive-domitian
 %{_datadir}/appdata/domitian.metainfo.xml
 
 %files -n texlive-doublestroke
@@ -10092,7 +11338,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/drm/
 %{_texmf_main}/tex/latex/drm/
 %doc %{_texmf_main}/doc/fonts/drm/
-%{_datadir}/fonts/drm
+%{_datadir}/fonts/texlive-drm
 %{_datadir}/appdata/drm.metainfo.xml
 
 %files -n texlive-droid
@@ -10245,7 +11491,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/erewhon/
 %{_texmf_main}/tex/latex/erewhon/
 %doc %{_texmf_main}/doc/fonts/erewhon/
-%{_datadir}/fonts/erewhon
+%{_datadir}/fonts/texlive-erewhon
 %{_datadir}/appdata/erewhon.metainfo.xml
 
 %files -n texlive-erewhon-math
@@ -10254,7 +11500,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/erewhon-math/
 %{_texmf_main}/tex/latex/erewhon-math/
 %doc %{_texmf_main}/doc/fonts/erewhon-math/
-%{_datadir}/fonts/erewhon-math
+%{_datadir}/fonts/texlive-erewhon-math
 %{_datadir}/appdata/erewhon-math.metainfo.xml
 
 %files -n texlive-esrelation
@@ -10297,7 +11543,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/etbb/
 %{_texmf_main}/tex/latex/etbb/
 %doc %{_texmf_main}/doc/fonts/etbb/
-%{_datadir}/fonts/etbb
+%{_datadir}/fonts/texlive-etbb
 %{_datadir}/appdata/etbb.metainfo.xml
 
 %files -n texlive-euler-math
@@ -10319,6 +11565,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/source/public/euxm/
 %{_texmf_main}/fonts/tfm/public/euxm/
 
+%files -n texlive-fantasquesansmono-otf
+%license ofl.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/opentype/public/fantasquesansmono-otf/
+%{_texmf_main}/tex/latex/fantasquesansmono-otf/
+%doc %{_texmf_main}/doc/fonts/fantasquesansmono-otf/
+
 %files -n texlive-fbb
 %license ofl.txt
 %license lppl1.3c.txt
@@ -10330,7 +11583,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/fbb/
 %{_texmf_main}/tex/latex/fbb/
 %doc %{_texmf_main}/doc/fonts/fbb/
-%{_datadir}/fonts/fbb
+%{_datadir}/fonts/texlive-fbb
 %{_datadir}/appdata/fbb.metainfo.xml
 
 %files -n texlive-fdsymbol
@@ -10345,7 +11598,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/fdsymbol/
 %doc %{_texmf_main}/doc/fonts/fdsymbol/
 %doc %{_texmf_main}/doc/latex/fdsymbol/
-%{_datadir}/fonts/fdsymbol
+%{_datadir}/fonts/texlive-fdsymbol
 %{_datadir}/appdata/fdsymbol.metainfo.xml
 
 %files -n texlive-fetamont
@@ -10359,7 +11612,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/metapost/fetamont/
 %{_texmf_main}/tex/latex/fetamont/
 %doc %{_texmf_main}/doc/fonts/fetamont/
-%{_datadir}/fonts/fetamont
+%{_datadir}/fonts/texlive-fetamont
 %{_datadir}/appdata/fetamont.metainfo.xml
 
 %files -n texlive-feyn
@@ -10394,7 +11647,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/firamath/
 %doc %{_texmf_main}/doc/fonts/firamath/
-%{_datadir}/fonts/firamath
+%{_datadir}/fonts/texlive-firamath
 %{_datadir}/appdata/firamath.metainfo.xml
 
 %files -n texlive-firamath-otf
@@ -10479,7 +11732,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/fonts-churchslavonic/
 %doc %{_texmf_main}/doc/fonts/fonts-churchslavonic/
-%{_datadir}/fonts/fonts-churchslavonic
+%{_datadir}/fonts/texlive-fonts-churchslavonic
 %{_datadir}/appdata/fonts-churchslavonic.metainfo.xml
 
 %files -n texlive-fontscripts
@@ -10500,7 +11753,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/forum/
 %{_texmf_main}/tex/latex/forum/
 %doc %{_texmf_main}/doc/fonts/forum/
-%{_datadir}/fonts/forum
+%{_datadir}/fonts/texlive-forum
 %{_datadir}/appdata/forum.metainfo.xml
 
 %files -n texlive-fourier
@@ -10513,7 +11766,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/fourier/
 %{_texmf_main}/tex/latex/fourier/
 %doc %{_texmf_main}/doc/fonts/fourier/
-%{_datadir}/fonts/fourier
+%{_datadir}/fonts/texlive-fourier
 %{_datadir}/appdata/fourier.metainfo.xml
 
 %files -n texlive-fouriernc
@@ -10537,7 +11790,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/frederika2016/
 %doc %{_texmf_main}/doc/fonts/frederika2016/
-%{_datadir}/fonts/frederika2016
+%{_datadir}/fonts/texlive-frederika2016
 %{_datadir}/appdata/frederika2016.metainfo.xml
 
 %files -n texlive-frimurer
@@ -10560,15 +11813,27 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/garamond-libre/
 %{_texmf_main}/tex/latex/garamond-libre/
 %doc %{_texmf_main}/doc/fonts/garamond-libre/
-%{_datadir}/fonts/garamond-libre
+%{_datadir}/fonts/texlive-garamond-libre
 %{_datadir}/appdata/garamond-libre.metainfo.xml
 
 %files -n texlive-garamond-math
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/garamond-math/
 %doc %{_texmf_main}/doc/fonts/garamond-math/
-%{_datadir}/fonts/garamond-math
+%{_datadir}/fonts/texlive-garamond-math
 %{_datadir}/appdata/garamond-math.metainfo.xml
+
+%files -n texlive-geist-font
+%license ofl.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/enc/dvips/geist-font/
+%{_texmf_main}/fonts/map/dvips/geist-font/
+%{_texmf_main}/fonts/opentype/public/geist-font/
+%{_texmf_main}/fonts/tfm/public/geist-font/
+%{_texmf_main}/fonts/type1/public/geist-font/
+%{_texmf_main}/fonts/vf/public/geist-font/
+%{_texmf_main}/tex/latex/geist-font/
+%doc %{_texmf_main}/doc/fonts/geist-font/
 
 %files -n texlive-gelasio
 %license ofl.txt
@@ -10717,7 +11982,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/gnu-freefont/
 %{_texmf_main}/fonts/truetype/public/gnu-freefont/
 %doc %{_texmf_main}/doc/fonts/gnu-freefont/
-%{_datadir}/fonts/gnu-freefont
+%{_datadir}/fonts/texlive-gnu-freefont
 %{_datadir}/appdata/gnu-freefont.metainfo.xml
 
 %files -n texlive-gofonts
@@ -10869,7 +12134,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/iginomarini/imfellenglish/
 %{_texmf_main}/tex/latex/imfellenglish/
 %doc %{_texmf_main}/doc/fonts/imfellenglish/
-%{_datadir}/fonts/imfellenglish
+%{_datadir}/fonts/texlive-imfellenglish
 %{_datadir}/appdata/imfellenglish.metainfo.xml
 
 %files -n texlive-inconsolata
@@ -10913,7 +12178,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/inriafonts/
 %{_texmf_main}/tex/latex/inriafonts/
 %doc %{_texmf_main}/doc/fonts/inriafonts/
-%{_datadir}/fonts/inriafonts
+%{_datadir}/fonts/texlive-inriafonts
 %{_datadir}/appdata/inriafonts.metainfo.xml
 
 %files -n texlive-inter
@@ -10948,7 +12213,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/iwona/
 %{_texmf_main}/tex/plain/iwona/
 %doc %{_texmf_main}/doc/fonts/iwona/
-%{_datadir}/fonts/iwona
+%{_datadir}/fonts/texlive-iwona
 %{_datadir}/appdata/iwona.metainfo.xml
 
 %files -n texlive-jablantile
@@ -11044,7 +12309,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/kurier/
 %{_texmf_main}/tex/plain/kurier/
 %doc %{_texmf_main}/doc/fonts/kurier/
-%{_datadir}/fonts/kurier
+%{_datadir}/fonts/texlive-kurier
 %{_datadir}/appdata/kurier.metainfo.xml
 
 %files -n texlive-lato
@@ -11109,7 +12374,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/libertinus-fonts/
 %doc %{_texmf_main}/doc/fonts/libertinus-fonts/
-%{_datadir}/fonts/libertinus-fonts
+%{_datadir}/fonts/texlive-libertinus-fonts
 %{_datadir}/appdata/libertinus-fonts.metainfo.xml
 
 %files -n texlive-libertinus-otf
@@ -11164,7 +12429,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/impallari/librebodoni/
 %{_texmf_main}/tex/latex/librebodoni/
 %doc %{_texmf_main}/doc/fonts/librebodoni/
-%{_datadir}/fonts/librebodoni
+%{_datadir}/fonts/texlive-librebodoni
 %{_datadir}/appdata/librebodoni.metainfo.xml
 
 %files -n texlive-librecaslon
@@ -11178,7 +12443,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/impallari/librecaslon/
 %{_texmf_main}/tex/latex/librecaslon/
 %doc %{_texmf_main}/doc/fonts/librecaslon/
-%{_datadir}/fonts/librecaslon
+%{_datadir}/fonts/texlive-librecaslon
 %{_datadir}/appdata/librecaslon.metainfo.xml
 
 %files -n texlive-librefranklin
@@ -11192,7 +12457,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/impallari/librefranklin/
 %{_texmf_main}/tex/latex/librefranklin/
 %doc %{_texmf_main}/doc/fonts/librefranklin/
-%{_datadir}/fonts/librefranklin
+%{_datadir}/fonts/texlive-librefranklin
 %{_datadir}/appdata/librefranklin.metainfo.xml
 
 %files -n texlive-libris
@@ -11227,7 +12492,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/linguisticspro/
 %{_texmf_main}/tex/latex/linguisticspro/
 %doc %{_texmf_main}/doc/fonts/linguisticspro/
-%{_datadir}/fonts/linguisticspro
+%{_datadir}/fonts/texlive-linguisticspro
 %{_datadir}/appdata/linguisticspro.metainfo.xml
 
 %files -n texlive-lobster2
@@ -11241,7 +12506,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/impallari/lobster2/
 %{_texmf_main}/tex/latex/lobster2/
 %doc %{_texmf_main}/doc/fonts/lobster2/
-%{_datadir}/fonts/lobster2
+%{_datadir}/fonts/texlive-lobster2
 %{_datadir}/appdata/lobster2.metainfo.xml
 
 %files -n texlive-logix
@@ -11251,8 +12516,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/truetype/public/logix/
 %{_texmf_main}/tex/latex/logix/
 %doc %{_texmf_main}/doc/fonts/logix/
-%{_datadir}/fonts/logix
+%{_datadir}/fonts/texlive-logix
 %{_datadir}/appdata/logix.metainfo.xml
+
+%files -n texlive-lora
+%license ofl.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/truetype/public/lora/
+%{_texmf_main}/tex/latex/lora/
+%doc %{_texmf_main}/doc/fonts/lora/
 
 %files -n texlive-luciole
 %license cc-by-4.txt
@@ -11361,7 +12633,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/mdsymbol/
 %doc %{_texmf_main}/doc/fonts/mdsymbol/
 %doc %{_texmf_main}/doc/latex/mdsymbol/
-%{_datadir}/fonts/mdsymbol
+%{_datadir}/fonts/texlive-mdsymbol
 %{_datadir}/appdata/mdsymbol.metainfo.xml
 
 %files -n texlive-merriweather
@@ -11409,7 +12681,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/miama/
 %{_texmf_main}/tex/latex/miama/
 %doc %{_texmf_main}/doc/fonts/miama/
-%{_datadir}/fonts/miama
+%{_datadir}/fonts/texlive-miama
 %{_datadir}/appdata/miama.metainfo.xml
 
 %files -n texlive-mintspirit
@@ -11423,7 +12695,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/arkandis/mintspirit/
 %{_texmf_main}/tex/latex/mintspirit/
 %doc %{_texmf_main}/doc/fonts/mintspirit/
-%{_datadir}/fonts/mintspirit
+%{_datadir}/fonts/texlive-mintspirit
 %{_datadir}/appdata/mintspirit.metainfo.xml
 
 %files -n texlive-missaali
@@ -11432,7 +12704,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/missaali/
 %{_texmf_main}/tex/latex/missaali/
 %doc %{_texmf_main}/doc/fonts/missaali/
-%{_datadir}/fonts/missaali
+%{_datadir}/fonts/texlive-missaali
 %{_datadir}/appdata/missaali.metainfo.xml
 
 %files -n texlive-mlmodern
@@ -11454,7 +12726,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/mnsymbol/
 %{_texmf_main}/tex/latex/mnsymbol/
 %doc %{_texmf_main}/doc/latex/mnsymbol/
-%{_datadir}/fonts/mnsymbol
+%{_datadir}/fonts/texlive-mnsymbol
 %{_datadir}/appdata/mnsymbol.metainfo.xml
 
 %files -n texlive-monaspace-otf
@@ -11492,10 +12764,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-newcomputermodern
 %license lppl1.3c.txt
+%license gpl3.txt
 %{_texmf_main}/fonts/opentype/public/newcomputermodern/
 %{_texmf_main}/tex/latex/newcomputermodern/
 %doc %{_texmf_main}/doc/fonts/newcomputermodern/
-%{_datadir}/fonts/newcomputermodern
+%{_datadir}/fonts/texlive-newcomputermodern
 %{_datadir}/appdata/newcomputermodern.metainfo.xml
 
 %files -n texlive-newpx
@@ -11509,7 +12782,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/newpx/
 %{_texmf_main}/tex/latex/newpx/
 %doc %{_texmf_main}/doc/fonts/newpx/
-%{_datadir}/fonts/newpx
+%{_datadir}/fonts/texlive-newpx
 %{_datadir}/appdata/newpx.metainfo.xml
 
 %files -n texlive-newtx
@@ -11523,7 +12796,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/newtx/
 %{_texmf_main}/tex/latex/newtx/
 %doc %{_texmf_main}/doc/fonts/newtx/
-%{_datadir}/fonts/newtx
+%{_datadir}/fonts/texlive-newtx
 %{_datadir}/appdata/newtx.metainfo.xml
 
 %files -n texlive-newtxsf
@@ -11565,7 +12838,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/nimbus15/
 %{_texmf_main}/tex/latex/nimbus15/
 %doc %{_texmf_main}/doc/fonts/nimbus15/
-%{_datadir}/fonts/nimbus15
+%{_datadir}/fonts/texlive-nimbus15
 %{_datadir}/appdata/nimbus15.metainfo.xml
 
 %files -n texlive-nkarta
@@ -11647,7 +12920,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/opentype/public/ocr-b-outline/
 %{_texmf_main}/fonts/type1/public/ocr-b-outline/
 %doc %{_texmf_main}/doc/fonts/ocr-b-outline/
-%{_datadir}/fonts/ocr-b-outline
+%{_datadir}/fonts/texlive-ocr-b-outline
 %{_datadir}/appdata/ocr-b-outline.metainfo.xml
 
 %files -n texlive-ogham
@@ -11736,7 +13009,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/tipo/overlock/
 %{_texmf_main}/tex/latex/overlock/
 %doc %{_texmf_main}/doc/fonts/overlock/
-%{_datadir}/fonts/overlock
+%{_datadir}/fonts/texlive-overlock
 %{_datadir}/appdata/overlock.metainfo.xml
 
 %files -n texlive-pacioli
@@ -11790,7 +13063,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/phaistos/
 %{_texmf_main}/tex/latex/phaistos/
 %doc %{_texmf_main}/doc/fonts/phaistos/
-%{_datadir}/fonts/phaistos
+%{_datadir}/fonts/texlive-phaistos
 %{_datadir}/appdata/phaistos.metainfo.xml
 
 %files -n texlive-phonetic
@@ -11800,6 +13073,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/phonetic/
 %doc %{_texmf_main}/doc/fonts/phonetic/
 
+%files -n texlive-phosphoricons
+%license mit.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/enc/dvips/phosphoricons/
+%{_texmf_main}/fonts/map/dvips/phosphoricons/
+%{_texmf_main}/fonts/tfm/public/phosphoricons/
+%{_texmf_main}/fonts/truetype/public/phosphoricons/
+%{_texmf_main}/tex/latex/phosphoricons/
+%doc %{_texmf_main}/doc/fonts/phosphoricons/
+
 %files -n texlive-pigpen
 %license lppl1.3c.txt
 %{_texmf_main}/fonts/map/dvips/pigpen/
@@ -11808,6 +13091,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/pigpen/
 %{_texmf_main}/tex/latex/pigpen/
 %doc %{_texmf_main}/doc/fonts/pigpen/
+
+%files -n texlive-pl46-fonts
+%license ofl.txt
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/opentype/public/pl46-fonts/
+%{_texmf_main}/tex/latex/pl46-fonts/
+%doc %{_texmf_main}/doc/fonts/pl46-fonts/
 
 %files -n texlive-playfair
 %license ofl.txt
@@ -11820,7 +13110,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/playfair/
 %{_texmf_main}/tex/latex/playfair/
 %doc %{_texmf_main}/doc/fonts/playfair/
-%{_datadir}/fonts/playfair
+%{_datadir}/fonts/texlive-playfair
 %{_datadir}/appdata/playfair.metainfo.xml
 
 %files -n texlive-plex
@@ -11872,7 +13162,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/gust/poltawski/
 %{_texmf_main}/tex/latex/poltawski/
 %doc %{_texmf_main}/doc/fonts/poltawski/
-%{_datadir}/fonts/poltawski
+%{_datadir}/fonts/texlive-poltawski
 %{_datadir}/appdata/poltawski.metainfo.xml
 
 %files -n texlive-prodint
@@ -11899,7 +13189,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license other-free.txt
 %{_texmf_main}/fonts/opentype/public/punknova/
 %doc %{_texmf_main}/doc/fonts/punknova/
-%{_datadir}/fonts/punknova
+%{_datadir}/fonts/texlive-punknova
 %{_datadir}/appdata/punknova.metainfo.xml
 
 %files -n texlive-pxtxalfa
@@ -11914,7 +13204,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license gpl2.txt
 %{_texmf_main}/fonts/opentype/public/qualitype/
 %doc %{_texmf_main}/doc/fonts/qualitype/
-%{_datadir}/fonts/qualitype
+%{_datadir}/fonts/texlive-qualitype
 %{_datadir}/appdata/qualitype.metainfo.xml
 
 %files -n texlive-quattrocento
@@ -11993,7 +13283,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/rosario/
 %{_texmf_main}/tex/latex/rosario/
 %doc %{_texmf_main}/doc/fonts/rosario/
-%{_datadir}/fonts/rosario
+%{_datadir}/fonts/texlive-rosario
 %{_datadir}/appdata/rosario.metainfo.xml
 
 %files -n texlive-rsfso
@@ -12053,7 +13343,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/scholax/
 %{_texmf_main}/tex/latex/scholax/
 %doc %{_texmf_main}/doc/fonts/scholax/
-%{_datadir}/fonts/scholax
+%{_datadir}/fonts/texlive-scholax
 %{_datadir}/appdata/scholax.metainfo.xml
 
 %files -n texlive-schulschriften
@@ -12076,7 +13366,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/semaphor/
 %{_texmf_main}/tex/plain/semaphor/
 %doc %{_texmf_main}/doc/fonts/semaphor/
-%{_datadir}/fonts/semaphor
+%{_datadir}/fonts/texlive-semaphor
 %{_datadir}/appdata/semaphor.metainfo.xml
 
 %files -n texlive-shobhika
@@ -12179,7 +13469,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/starfont/
 
 %files -n texlive-staves
-%license lppl1.3c.txt
+%license lppl1.3.txt
 %{_texmf_main}/fonts/map/dvips/staves/
 %{_texmf_main}/fonts/tfm/public/staves/
 %{_texmf_main}/fonts/type1/public/staves/
@@ -12196,7 +13486,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/step/
 %{_texmf_main}/tex/latex/step/
 %doc %{_texmf_main}/doc/fonts/step/
-%{_datadir}/fonts/step
+%{_datadir}/fonts/texlive-step
 %{_datadir}/appdata/step.metainfo.xml
 
 %files -n texlive-stepgreek
@@ -12262,7 +13552,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/type1/public/svrsymbols/
 %{_texmf_main}/tex/latex/svrsymbols/
 %doc %{_texmf_main}/doc/fonts/svrsymbols/
-%{_datadir}/fonts/svrsymbols
+%{_datadir}/fonts/texlive-svrsymbols
 %{_datadir}/appdata/svrsymbols.metainfo.xml
 
 %files -n texlive-symbats3
@@ -12287,11 +13577,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/tempora/
 %{_texmf_main}/tex/latex/tempora/
 %doc %{_texmf_main}/doc/fonts/tempora/
-%{_datadir}/fonts/tempora
+%{_datadir}/fonts/texlive-tempora
 %{_datadir}/appdata/tempora.metainfo.xml
 
 %files -n texlive-tengwarscript
-%license lppl1.3c.txt
+%license lppl1.3.txt
 %{_texmf_main}/fonts/enc/dvips/tengwarscript/
 %{_texmf_main}/fonts/map/dvips/tengwarscript/
 %{_texmf_main}/fonts/tfm/public/tengwarscript/
@@ -12393,7 +13683,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/txfontsb/
 %{_texmf_main}/tex/latex/txfontsb/
 %doc %{_texmf_main}/doc/fonts/txfontsb/
-%{_datadir}/fonts/txfontsb
+%{_datadir}/fonts/texlive-txfontsb
 %{_datadir}/appdata/txfontsb.metainfo.xml
 
 %files -n texlive-txuprcal
@@ -12414,7 +13704,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/umtypewriter/
 %doc %{_texmf_main}/doc/fonts/umtypewriter/
-%{_datadir}/fonts/umtypewriter
+%{_datadir}/fonts/texlive-umtypewriter
 %{_datadir}/appdata/umtypewriter.metainfo.xml
 
 %files -n texlive-universa
@@ -12435,7 +13725,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/arkandis/universalis/
 %{_texmf_main}/tex/latex/universalis/
 %doc %{_texmf_main}/doc/fonts/universalis/
-%{_datadir}/fonts/universalis
+%{_datadir}/fonts/texlive-universalis
 %{_datadir}/appdata/universalis.metainfo.xml
 
 %files -n texlive-uppunctlm
@@ -12480,7 +13770,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/vf/public/xcharter/
 %{_texmf_main}/tex/latex/xcharter/
 %doc %{_texmf_main}/doc/fonts/xcharter/
-%{_datadir}/fonts/xcharter
+%{_datadir}/fonts/texlive-xcharter
 %{_datadir}/appdata/xcharter.metainfo.xml
 
 %files -n texlive-xcharter-math
@@ -12494,7 +13784,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license ofl.txt
 %{_texmf_main}/fonts/opentype/public/xits/
 %doc %{_texmf_main}/doc/fonts/xits/
-%{_datadir}/fonts/xits
+%{_datadir}/fonts/texlive-xits
 %{_datadir}/appdata/xits.metainfo.xml
 
 %files -n texlive-yfonts
@@ -12522,7 +13812,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license pd.txt
 %{_texmf_main}/fonts/opentype/public/yinit-otf/
 %doc %{_texmf_main}/doc/fonts/yinit-otf/
-%{_datadir}/fonts/yinit-otf
+%{_datadir}/fonts/texlive-yinit-otf
 %{_datadir}/appdata/yinit-otf.metainfo.xml
 
 %files -n texlive-ysabeau
@@ -12545,6 +13835,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
+* Thu Oct 01 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn80219-9
+- Adjust symlinks to avoid conflict on upgrade
+
+* Thu Oct 01 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn80219-8
+- Update collection from svn78246 to svn80219
+- Add cmgraded
+- Add fantasquesansmono-otf
+- Add geist-font
+- Add lora
+- Add phosphoricons
+- Add pl46-fonts
+- Update 112 components
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn78246-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

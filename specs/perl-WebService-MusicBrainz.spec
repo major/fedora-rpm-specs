@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           perl-WebService-MusicBrainz
-Version:        1.0.10
+Version:        1.0.11
 Release:        %autorelease
 Summary:        Perl interface to search the musicbrainz.org database
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl

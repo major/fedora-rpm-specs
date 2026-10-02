@@ -1,4 +1,4 @@
-Version: 22.1.7
+Version: 22.1.8
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
@@ -56,6 +56,9 @@ the UPnP SDK libraries.
 
 
 %changelog
+* Thu Oct 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.1.8-1
+- 22.1.8
+
 * Tue Sep 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 22.1.7-1
 - 22.1.7
 

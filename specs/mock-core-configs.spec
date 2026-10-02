@@ -3,7 +3,7 @@
 %endif
 
 Name:       mock-core-configs
-Version:    45.1
+Version:    45.2
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -16,13 +16,14 @@ URL:        https://github.com/rpm-software-management/mock/
 # tito build --tgz
 Source:     https://github.com/rpm-software-management/mock/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.gz
 BuildArch:  noarch
+BuildRequires: python3-pytest
 
 # The mock.rpm requires this.  Other packages may provide this if they tend to
 # replace the mock-core-configs.rpm functionality.
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.121
+Requires:   distribution-gpg-keys >= 1.122
 # specify minimal compatible version of mock
 Requires:   mock >= 6.8
 Requires:   mock-filesystem
@@ -39,10 +40,11 @@ Requires(post): sed
 %endif
 
 %description
-Mock configuration files which allow you to create chroots for Alma Linux,
-Amazon Linux, CentOS, CentOS Stream, Circle Linux, EuroLinux, Fedora, Fedora EPEL, Mageia,
-Navy Linux, OpenMandriva Lx, openSUSE, Oracle Linux, Red Hat Enterprise Linux,
-Rocky Linux and various other specific or combined chroots.
+Mock configuration files which allow you to create chroots for AlmaLinux,
+AlmaLinux Kitten, Amazon Linux, CentOS, CentOS Stream, Circle Linux, EuroLinux,
+Fedora, Fedora EPEL, Mageia, Navy Linux, OpenMandriva Lx, openSUSE, Oracle
+Linux, Red Hat Enterprise Linux, Rocky Linux and various other specific or
+combined chroots.
 
 
 %prep
@@ -81,6 +83,11 @@ mock_docs=%{_pkgdocdir}
 mock_docs=${mock_docs//mock-core-configs/mock}
 mock_docs=${mock_docs//-%version/-*}
 sed -i "s~@MOCK_DOCS@~$mock_docs~" %{buildroot}%{_sysconfdir}/mock/site-defaults.cfg
+
+%check
+# Validate the shipped templates directly from the source tree (the configs
+# live in mock-core-configs, not the mock package).
+PYTHONPATH=. %{python3} -m pytest tests
 
 %post
 if [ -s /etc/os-release ]; then
@@ -156,6 +163,18 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Oct 01 2026 Pavel Raiskup <pavel@raiskup.cz> 45.2-1
+- Add openSUSE Leap 16.1 configurations (ucraft98@gmail.com)
+- Fix openSUSE Tumbleweed %%dist macro (ucraft98@gmail.com)
+- Fix "AlmaLinux" name (one word) (msuchy@redhat.com)
+- Alma Kitten + EPEL 10s adjustments (carlwgeorge@gmail.com)
+- Add Amazon Linux 2027 configuration and mark AL2 eol (rajibade@amazon.com)
+- Add epel-10s template (carlwgeorge@gmail.com)
+- Amazon Linux 2023 has a buildsys-build group that can be used to setup the
+  chroot (negativo17@gmail.com)
+- tests: add openEuler source metalink test to mock-core-configs
+  (pkwarcraft@gmail.com)
+
 * Tue Aug 11 2026 Pavel Raiskup <pavel@raiskup.cz> 45.1-1
 - branch Fedora 45 from Rawhide
 - Document oci_platform_map as a temporary workaround

@@ -10,16 +10,14 @@
 
 %global github_owner     phpDocumentor
 %global github_name      ReflectionCommon
-%global github_version   2.2.0
-%global github_commit    1d01c49d4ed62f25aa84a747ad35d5a16924662b
 
 %global composer_vendor  phpdocumentor
 %global composer_project reflection-common
 
 %global major            2
 
-# "php": "^7.2 || ^8.0"
-%global php_min_ver 7.2
+# "php": "^7.4 || ^8.0"
+%global php_min_ver 7.4
 
 # Build using "--without tests" to disable tests
 %global with_tests 0%{!?_without_tests:1}
@@ -27,8 +25,8 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
-Version:       %{github_version}
-Release:       17%{?github_release}%{?dist}
+Version:       2.2.1
+Release:       1%{?dist}
 Summary:       Common reflection classes used by phpdocumentor
 
 Group:         Development/Libraries
@@ -36,7 +34,7 @@ License:       MIT
 URL:           https://github.com/%{github_owner}/%{github_name}
 # GitHub export does not include tests.
 # Run makesrc.sh to create full source.
-Source0:       %{name}-%{github_version}-%{github_commit}.tar.gz
+Source0:       %{name}-%{version}.tgz
 Source1:       makesrc.sh
 
 BuildArch:     noarch
@@ -66,7 +64,7 @@ Autoloader: %{phpdir}/phpDocumentor/Reflection%{major}/autoload-common.php
 
 
 %prep
-%setup -qn %{github_name}-%{github_commit}
+%setup -qn %{github_name}-%{version}
 
 
 %build
@@ -87,7 +85,7 @@ touch vendor/autoload.php
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in php php81 php82 php83 php84; do
+for PHP_EXEC in php php82 php83 php84 php85 php86; do
     if which $PHP_EXEC; then
         $PHP_EXEC -d auto_prepend_file=$BOOTSTRAP \
             %{_bindir}/phpunit9 --no-coverage || RETURN_CODE=1
@@ -116,6 +114,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 2.2.1-1
+- update to 2.2.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

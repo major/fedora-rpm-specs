@@ -14,7 +14,7 @@
 %global precision double
 
 Name:           lcalc
-Version:        2.2.1
+Version:        2.2.2
 %global so_version 2
 Release:        %autorelease
 # @PACKAGE_DESCRIPTION@, from configure.ac
@@ -27,10 +27,6 @@ SourceLicense:  %{license} AND GPL-3.0-or-later
 URL:            https://gitlab.com/sagemath/lcalc
 VCS:            git:%{url}.git
 Source:         %{url}/-/archive/%{version}/lcalc-%{version}.tar.bz2
-
-# Address GCC “may be used uninitialized” warnings
-# https://gitlab.com/sagemath/lcalc/-/merge_requests/9
-Patch:          %{url}/-/merge_requests/9.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -93,16 +89,9 @@ BuildArch:      noarch
 %prep
 %autosetup -p1
 
-# Remove a bundled copy “MPFR C++” (mpreal), which would be used only in a
+# Remove a bundled copy of “MPFR C++” (mpreal), which would be used only in a
 # multiple-precision build.
 rm src/libLfunction/mpreal.h
-
-# Remove the patched ltmain.sh (libtool); the patch was only for a MacOS fix,
-# so we don’t need it, and it interferes with using the system libtool when the
-# version of libtool differs (is newer).
-rm build-aux/ltmain.sh.in
-sed --regexp-extended --in-place \
-    '/^[[:blank:]]*build-aux\/ltmain\.sh/d' configure.ac
 
 
 %conf

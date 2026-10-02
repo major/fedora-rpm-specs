@@ -13,7 +13,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.21
+%global general_version %{pybasever}.22
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -369,7 +369,7 @@ Patch474: 00474-cve-2025-15366.patch
 # (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
 Patch475: 00475-cve-2025-15367.patch
 
-# 00494 # 430aab133397ed44cc9ee621fd311e02fee317b5
+# 00494 # 5985102102cd00494ea5412c1abb40d18c92b104
 # Increase the timeout of test_large_content_length_truncated
 #
 # It has started to fail randomly when run on s390x architecture.
@@ -1678,6 +1678,17 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Oct 01 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.21-2
+- Update to 3.10.22
+- Security fix for CVE-2026-15310
+- Security fix for CVE-2026-15806
+- Security fix for CVE-2026-17084
+- Security fix for CVE-2026-19445
+- Security fix for CVE-2026-19553
+- Security fix for CVE-2026-19672
+- Security fix for CVE-2026-82049
+- Security fix for CVE-2026-87910
+
 * Thu Aug 13 2026 Karolina Surma <ksurma@redhat.com> - 3.10.21-1
 - Update to Python 3.10.21
 

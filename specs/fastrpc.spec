@@ -1,5 +1,5 @@
 Name:		fastrpc
-Version:	1.0.7
+Version:	1.0.8
 Release:	%autorelease
 Summary:	Qualcomm FastRPC and library
 
@@ -9,8 +9,6 @@ Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/qualcomm/fastrpc/pull/372
 Patch0:		372.patch
-# https://github.com/qualcomm/fastrpc/pull/378
-Patch1:		378.patch
 
 ExclusiveArch:	%{arm64}
 
@@ -97,6 +95,7 @@ autoreconf -fiv
 %{_libdir}/libsdsp_default_listener.so
 %{_libdir}/libsdsprpc.so
 %{_mandir}/man3/fastrpc.3*
+%{_mandir}/man1/fastrpc-healthcheck.1*
 
 %files services
 %{_sbindir}/adsprpcd

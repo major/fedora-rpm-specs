@@ -1,6 +1,6 @@
 Name:           perl-Guard
 Version:        1.023
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Safe cleanup blocks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Guard
@@ -13,7 +13,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(warnings)
@@ -36,12 +36,11 @@ object) that "guards" a resource, ensuring that it is cleaned up when expected.
 %setup -q -n Guard-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -56,6 +55,9 @@ make test
 %{_mandir}/man3/Guard.3*
 
 %changelog
+* Thu Oct  1 2026 Paul Howarth <paul@city-fan.org> - 1.023-39
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.023-38
 - Perl 5.44 rebuild
 

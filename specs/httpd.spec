@@ -16,6 +16,7 @@
 %bcond engine %[0%{?fedora} < 41 && 0%{?rhel} < 10]
 %bcond worker %[0%{?fedora} < 44 && 0%{?rhel} < 11]
 %bcond wstunnel %[0%{?fedora} < 45 && 0%{?rhel} < 11]
+%bcond libmagic %[0%{?fedora} > 44 || 0%{?rhel} > 10]
 
 %if %{with worker}
 %global mpms event prefork worker
@@ -28,8 +29,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.68
-Release: 8%{?dist}
+Version: 2.4.69
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -95,13 +96,13 @@ Patch25: httpd-2.4.43-cachehardmax.patch
 Patch26: httpd-2.4.43-sslciphdefault.patch
 Patch27: httpd-2.4.64-sslprotdefault.patch
 Patch28: httpd-2.4.43-logjournal.patch
-Patch29: httpd-2.4.63-r1912477+.patch
+Patch29: httpd-2.4.69-r1912477+.patch
 Patch30: httpd-2.4.64-separate-systemd-fns.patch
+Patch31: httpd-2.4.69-r1938247+.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
-Patch61: httpd-2.4.68-proxyhtml.patch
 
 # Security fixes
 # Patch200: ...
@@ -124,6 +125,9 @@ BuildRequires: pcre2-devel
 %endif
 %if %{with pcre}
 BuildRequires: pcre-devel > 5.0
+%endif
+%if %{with libmagic}
+BuildRequires: file-devel
 %endif
 BuildRequires: gnupg2
 Requires: system-logos(httpd-logo-ng)
@@ -329,6 +333,8 @@ touch -r $RPM_SOURCE_DIR/00-proxy.conf 00-proxy.conf
 : Vendor string is '%{vstring}'
 : Regex Engine: PCRE=%{with pcre} PCRE2=%{with pcre2}
 : mod_ssl ENGINE support: %{with engine}
+: mod_proxy_wstunnel built: %{with wstunnel}
+: mod_mime_libmagic built: %{with libmagic}
 
 %build
 # forcibly prevent use of bundled apr, apr-util, pcre
@@ -391,6 +397,9 @@ autoheader && autoconf || exit 1
         --disable-dav-lock \
 %if %{without wstunnel}
         --disable-proxy-wstunnel \
+%endif
+%if %{without libmagic}
+        --disable-mime-libmagic \
 %endif
             $*
 
@@ -862,6 +871,10 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Thu Oct 01 2026 Joe Orton  <jorton@redhat.com> - 2.4.69-1
+- update to 2.4.69
+- add mod_mime_libmagic for F45+
+
 * Mon Sep 21 2026 Luboš Uhliarik <luhliari@redhat.com> - 2.4.68-8
 - Remove the ssl directory from /var/cache/httpd
 

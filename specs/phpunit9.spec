@@ -20,7 +20,7 @@
 %global ver_minor    6
 
 Name:           %{pk_project}%{ver_major}
-Version:        9.6.36
+Version:        9.6.37
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -250,6 +250,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 23 2026 Remi Collet <remi@remirepo.net> - 9.6.37-1
+- update to 9.6.37
+
 * Tue Aug 11 2026 Remi Collet <remi@remirepo.net> - 9.6.36-1
 - update to 9.6.36
 - raise dependency on sebastian/exporter 4.0.9

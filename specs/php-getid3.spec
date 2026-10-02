@@ -12,7 +12,7 @@
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.26
+Version:   1.9.27
 Release:   1%{?dist}
 Epoch:     1
 License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
@@ -89,6 +89,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 1.9.27-1
+- update to 1.9.27
+
 * Mon Sep  7 2026 Remi Collet <remi@remirepo.net> - 1.9.26-1
 - update to 1.9.26
 

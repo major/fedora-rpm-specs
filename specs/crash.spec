@@ -3,8 +3,8 @@
 #
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
-Version: 9.0.2
-Release: 3%{?dist}
+Version: 9.0.3
+Release: 1%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-16.2.tar.gz
@@ -19,6 +19,11 @@ Provides: bundled(libiberty)
 Provides: bundled(gdb) = 16.2
 Patch0: lzo_snappy_zstd.patch
 Patch1: crash-9.0.1_build.patch
+Patch2: 0001-arm64-move-irq-overflow-stackframe-init-to-POST_VM-p.patch
+Patch3: 0002-netdump.c-validate-sh_info-value-before-use.patch
+Patch4: 0003-vmware_vmss.c-validate-group-offsets-before-fseek.patch
+Patch5: 0004-netdump.c-validate-ELF-note-name-size.patch
+Patch6: 0005-qemu-load.c-validate-name-length.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -40,6 +45,11 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %setup -n %{name}-%{version} -q
 %patch -P 0 -p1 -b lzo_snappy_zstd.patch
 %patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
 
 %build
 
@@ -65,6 +75,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Thu Oct 1 2026 Tao Liu <ltao@redhat.com> - 9.0.3-1
+- Rebase to upstream crash 9.0.3
+
 * Fri Jul 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 9.0.2-3
 - enable loongarch64 support.
 

@@ -7,7 +7,7 @@
 %endif
 
 Name:    libsoup3
-Version: 3.7.3
+Version: 3.8.0
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 

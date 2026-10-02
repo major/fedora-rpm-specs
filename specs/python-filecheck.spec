@@ -4,8 +4,8 @@
 %global desc Python port of LLVM's FileCheck, flexible pattern matching file verifier.
 
 Name: python-%{pypi_name}
-Version: 1.0.3
-Release: 3%{?dist}
+Version: 1.0.6
+Release: 1%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
 URL: https://github.com/AntonLydike/filecheck
@@ -62,6 +62,9 @@ fi
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Thu Oct 01 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.6-1
+- update to 1.0.6 (resolves rhbz#2526020)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
-Version: 12.7.0
+Version: 12.8.0
 Release: 1%{?dist}
 Source0: https://libvirt.org/sources/python/%{dist_name}-%{version}.tar.gz
 Url: https://libvirt.org
@@ -80,7 +80,11 @@ exit 1
 %files -n python3-libvirt -f %{pyproject_files}
 %doc ChangeLog AUTHORS README COPYING examples/
 
+
 %changelog
+* Thu Oct 01 2026 Cole Robinson <crobinso@redhat.com> - 12.8.0-1
+- Update to 12.8.0 release
+
 * Thu Sep  3 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.7.0-1
 - Update to 12.7.0 release
 - Convert to modern pyproject macros

@@ -7,8 +7,8 @@
 
 Name:           perl-Moose
 Summary:        Complete modern object system for Perl 5
-Version:        2.4000
-Release:        8%{?dist}
+Version:        2.4001
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Moose
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Moose-%{version}.tar.gz
@@ -197,6 +197,9 @@ make test
 %{_mandir}/man3/Test::Moose*
 
 %changelog
+* Thu Oct  1 2026 Paul Howarth <paul@city-fan.org> - 2.4001-1
+- Update to 2.4001 (rhbz#2544417)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.4000-8
 - Perl 5.44 re-rebuild of bootstrapped packages
 

@@ -12,7 +12,7 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	4.5.6
+Version:	4.5.7
 Release:	%autorelease
 Summary:	A cross-platform system monitoring tool
 

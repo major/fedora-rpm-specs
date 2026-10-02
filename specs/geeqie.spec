@@ -8,7 +8,7 @@ Summary: Image browser and viewer
 Name: geeqie
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-Version: 2.7
+Version: 3.2
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -33,41 +33,45 @@ Source2: 91EC400226201276E2ADCEC7D0DA6F44C936D1DA.gpg
 
 ExcludeArch: %{ix86}
 
+BuildRequires: desktop-file-utils
+BuildRequires: evince
+BuildRequires: gcc-c++
+BuildRequires: gettext
+BuildRequires: gnome-doc-utils
 # for %%gpgverify
 BuildRequires: gnupg2
+BuildRequires: intltool
 BuildRequires: make
 BuildRequires: meson
-BuildRequires: gcc-c++
 BuildRequires: yelp-tools
-BuildRequires: evince
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
-BuildRequires: gtk3-devel
+
 BuildRequires: cfitsio-devel
 BuildRequires: clutter-devel
 BuildRequires: djvulibre-devel
-BuildRequires: libchamplain-devel
-BuildRequires: lcms2-devel
+BuildRequires: glib2-devel
+BuildRequires: gtk4-devel
 BuildRequires: exiv2-devel
-BuildRequires: lirc-devel
+BuildRequires: lcms2-devel
 BuildRequires: libarchive-devel
+BuildRequires: libchamplain-devel
 BuildRequires: libheif-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel
+BuildRequires: LibRaw-devel
+BuildRequires: libshumate-devel
+BuildRequires: libspelling-devel
 BuildRequires: libtiff-devel
-BuildRequires: libheif-devel
 BuildRequires: libwebp-devel
+BuildRequires: lirc-devel
+BuildRequires: lua-devel
 BuildRequires: openexr-devel
 BuildRequires: openjpeg2-devel
+BuildRequires: pango-devel
 BuildRequires: poppler-glib-devel
-BuildRequires: lua-devel
-BuildRequires: gettext
-BuildRequires: intltool
-BuildRequires: desktop-file-utils
-BuildRequires: gnome-doc-utils
-BuildRequires: LibRaw-devel
-BuildRequires: gspell-devel
 BuildRequires: webp-pixbuf-loader
+
 %if %{with thumbnailer}
 BuildRequires: ffmpegthumbnailer-devel
 %endif
@@ -138,15 +142,12 @@ install -p -m 0644 COPYING NEWS README* \
 
 ln -s NEWS %{buildroot}%{_pkgdocdir}/ChangeLog
 
-desktop-file-install \
-    --delete-original \
-    --dir %{buildroot}%{_datadir}/applications \
-    %{buildroot}%{_datadir}/applications/org.geeqie.Geeqie.desktop
-
 %find_lang %name
 
-mv %{buildroot}/usr/share/metainfo %{buildroot}%{_datadir}/appdata
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie.Geeqie.metainfo.xml
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.geeqie.Geeqie.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.geeqie.Geeqie.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -161,7 +162,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/org.geeqie.Geeqie.desktop
 # %%{_datadir}/applications/org.geeqie.cache-maintenance.desktop
-%{_datadir}/appdata/org.geeqie.Geeqie.metainfo.xml
+%{_metainfodir}/org.geeqie.Geeqie.metainfo.xml
 %{bash_completions_dir}/%{name}
 
 

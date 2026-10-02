@@ -1,5 +1,5 @@
 Name:           frei0r-plugins
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Frei0r - a minimalist plugin API for video effects
 
@@ -12,6 +12,7 @@ Buildrequires:  cmake
 
 BuildRequires:  gcc-c++
 BuildRequires:  gavl-devel >= 0.2.3
+BuildRequires:  libglvnd-devel
 BuildRequires:  opencv-devel >= 1.0.0
 BuildRequires:  cairo-devel >= 1.0.0
 

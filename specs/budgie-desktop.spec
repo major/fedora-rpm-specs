@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -28,6 +28,9 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
+Patch0:         0001-fix-bridges-stop-left-click-on-the-desktop-opening-t.patch
+Patch1:         0002-fix-panel-stop-aborting-when-a-panel-has-no-stored-l.patch
+Patch2:         0003-fix-panel-store-a-new-panel-s-edge-before-it-is-show.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -241,6 +244,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Thu Oct 01 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-2
+- Add patches for labwc left-click desktop and panel abrt fix
+
 * Mon Sep 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-1
 - Update to 10.10.3 release
 

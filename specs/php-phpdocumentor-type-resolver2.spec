@@ -10,8 +10,6 @@
 
 %global github_owner     phpDocumentor
 %global github_name      TypeResolver
-%global github_version   2.0.0
-%global github_commit    327a05bbee54120d4786a0dc67aad30226ad4cf9
 
 %global composer_vendor  phpdocumentor
 %global composer_project type-resolver
@@ -38,8 +36,8 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
-Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Version:       2.1.0
+Release:       1%{?dist}
 Summary:       A PSR-5 based resolver of Class names, Types and Structural Element Names
 
 Group:         Development/Libraries
@@ -48,7 +46,7 @@ URL:           https://github.com/%{github_owner}/%{github_name}
 
 # GitHub export does not include tests.
 # Run makesrc.sh to create full source.
-Source0:       %{name}-%{github_version}-%{github_commit}.tar.gz
+Source0:       %{name}-%{version}.tgz
 Source1:       makesrc.sh
 
 BuildArch:     noarch
@@ -105,7 +103,7 @@ Autoloader: %{phpdir}/phpDocumentor/Reflection/TypeResolver%{major}/autoload.php
 
 
 %prep
-%setup -qn %{github_name}-%{github_commit}
+%setup -qn %{github_name}-%{version}
 
 : Update examples autoload require
 sed "s#.*require.*vendor.*/autoload.php.*#require_once '%{phpdir}/phpDocumentor/Reflection/TypeResolver%{major}/autoload.php';#" \
@@ -142,7 +140,7 @@ BOOTSTRAP
 
 : Upstream tests
 RETURN_CODE=0
-for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85 php86; do
     if which $cmdarg; then
         set $cmdarg
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -167,6 +165,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %bcond pathops 0
 
 Name:           python-ufo2ft
-Version:        3.9.0
+Version:        3.9.1
 Release:        %autorelease
 Summary:        A bridge from UFOs to FontTool objects
 

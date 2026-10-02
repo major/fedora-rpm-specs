@@ -10,6 +10,9 @@
 # Add "mount" subcommand for mounting archives via FUSE
 %bcond_without fuse
 
+# Add SMTP support, bundles mbedtls.
+%bcond_without smtp
+
 # Prefer GCC compiler
 %global toolchain gcc
 %bcond_with toolchain_clang
@@ -17,7 +20,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.4
+Version:        65.6
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -51,9 +54,7 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from Stephan Brumme's SHA3 and MD5:   Zlib
 # zpaqfranz.cpp parts from Iliade translated by Vincenzo Monti in 1825
 #       in extract_test[1-4] Base64-encoded variables:   LicenseRef-Fedora-Public-Domain
-# zpaqfranz.cpp parts from LZ4: BSD-2-Clause
 # zpaqfranz.cpp parts from codewithnick/ascii-art:  MIT
-# zpaqfranz.cpp parts from avaneev/lzav:    MIT
 ## Used at build time, but not packaged in any binary package
 # zpaqfranz.cpp part with zsfx_mime64[] Base64-encoded variable:
 #       ZPAQ-compressed Win executable built from ZSFX/zsfx.cpp and
@@ -65,17 +66,23 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       but there is no such code
 # zpaqfranz.cpp parts clamimed for be from WinFsp (GPL-3-only WITH an exception)
 #       but there is no such code
+# zpaqfranz.cpp parts from Zstd: BSD-3-Clause OR GPL-2.0-only
+# zpaqfranz.cpp parts from Mbed TLS: Apache-2.0 OR GPL-2.0-or-later
 # ZSFX/libzpaq.cpp: MIT AND Unlicense AND LicenseRef-Fedora-Public-Domain
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
 # ZSFX/zsfx.cpp:    MIT
 License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND (LicenseRef-Fedora-Public-Domain OR WTFPL) AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
-SourceLicense:  %{license} AND curl
+SourceLicense:  %{license} AND curl AND (BSD-3-Clause OR GPL-2.0-only) AND (Apache-2.0 OR GPL-2.0-or-later)
 URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
 Patch0:         zpaqfranz-65.3-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+# Unbundle zstd, probably not suitable for the upstream.
+Patch1:         zpaqfranz-65.6-Unbundle-zstd.patch
+# Unbundle mbedtls, probably not suitable for the upstream.
+Patch2:         zpaqfranz-65.6-Unbundle-mbedtls.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -83,6 +90,12 @@ BuildRequires:  libssh-devel
 BuildRequires:  perl-podlators
 %if %{with fuse}
 BuildRequires:  pkgconfig(fuse3)
+%endif
+BuildRequires:  pkgconfig(libzstd)
+%if %{with smtp}
+BuildRequires:  pkgconfig(mbedcrypto)
+BuildRequires:  pkgconfig(mbedtls)
+BuildRequires:  pkgconfig(mbedx509)
 %endif
 # rpm-build for elfdeps tool
 BuildRequires:  rpm-build
@@ -93,10 +106,6 @@ BuildRequires:  sed
 # <http://libdivsufsort.googlecode.com/files/libdivsufsort-2.0.0.tar.bz2>.
 # New libdivsufsort upstream is <https://github.com/y-256/libdivsufsort>.
 Provides:       bundled(libdivsufsort-lite) = 2.00
-# <https://github.com/lz4/lz4>
-Provides:       bundled(lz4) = 1.10.0
-# <https://github.com/avaneev/lzav>
-Provides:       bundled(lzav) = 5.17
 %if %{with fuse}
 # libfuse.so executes /usr/bin/fusermount3
 Recommends:     fuse3
@@ -145,6 +154,11 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
 %{build_cxx} %{optflags} \
     -DIPV6 \
     -Dunix \
+%if %{with smtp}
+    $(pkg-config --cflags mbedcrypto mbedtls mbedx509) \
+%else
+    -DNOEMAIL \
+%endif
 %if %{without jit}
     -DNOJIT \
 %endif
@@ -159,9 +173,14 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
     -DZPAQMOUNT \
     $(pkg-config --cflags fuse3) \
 %endif
+    $(pkg-config --cflags libzstd) \
     zpaqfranz.cpp %{?__global_ldflags} -ldl -pthread \
 %if %{with fuse}
     $(pkg-config --libs fuse3) \
+%endif
+    $(pkg-config --libs libzstd) \
+%if %{with smtp}
+    $(pkg-config --libs mbedcrypto mbedtls mbedx509) \
 %endif
     -o zpaqfranz
 pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
@@ -184,6 +203,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Thu Oct 01 2026 Petr Pisar <ppisar@redhat.com> - 1:65.6-1
+- 65.6 bump
+
 * Tue Sep 29 2026 Petr Pisar <ppisar@redhat.com> - 1:65.4-1
 - 65.4 bump
 

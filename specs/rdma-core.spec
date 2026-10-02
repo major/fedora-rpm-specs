@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 64.0
+Version: 65.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -11,6 +11,8 @@ License: GPL-2.0-only OR BSD-2-Clause AND BSD-3-Clause
 Url: https://github.com/linux-rdma/rdma-core
 Source: https://github.com/linux-rdma/rdma-core/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0001: 0001-Revert-dracut-do-not-install-dracut-module-in-non-ho.patch
+# https://github.com/linux-rdma/rdma-core/pull/1803
+Patch0002: fix-comp-cntr-uint64.patch
 Patch9998: 9998-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch
 Patch9999: 9999-udev-keep-NAME_KERNEL-as-default-interface-naming-co.patch
 # Do not build static libs by default.
@@ -142,6 +144,7 @@ RDMA core development libraries and headers.
 Summary: InfiniBand Diagnostic Tools
 Requires: %{name}-common = %{version}-%{release}
 Requires: libibumad%{?_isa} = %{version}-%{release}
+Requires: libibverbs%{?_isa} = %{version}-%{release}
 Provides: perl(IBswcountlimits) = %{version}-%{release}
 Provides: libibmad = %{version}-%{release}
 Obsoletes: libibmad < %{version}-%{release}
@@ -305,6 +308,7 @@ easy, object-oriented access to IB verbs.
 %prep
 %setup -q
 %patch 0001 -p1
+%patch 0002 -p1
 %if 0%{?fedora}
 %patch 9998 -p1
 %endif

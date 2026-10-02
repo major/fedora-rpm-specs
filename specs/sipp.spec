@@ -1,11 +1,11 @@
 Summary:	SIP test tool / traffic generator
 Name:		sipp
-Version:	3.7.8
+Version:	3.7.9
 Release:	%autorelease
 License:	GPL-2.0-or-later
 URL:		https://github.com/SIPp/sipp
 VCS:		git:%{url}.git
-Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:		%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig(gsl)
@@ -27,10 +27,6 @@ complex call flows. It features the dynamic display of statistics about
 running tests (call rate, round trip delay, and message statistics), periodic
 CSV statistics dumps, TCP and UDP over multiple sockets or multiplexed with
 retransmission management and dynamically adjustable call rates.
-
-%prep -a
-echo "#define SIPP_VERSION VERSION
-#define VERSION \"v%{version}\"" > include/version.h
 
 %install -a
 mkdir -p %{buildroot}%{_datadir}/%{name}/pcap

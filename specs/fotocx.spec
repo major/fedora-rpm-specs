@@ -1,5 +1,5 @@
 Name:    fotocx
-Version: 26.8
+Version: 26.8.1
 Release: 1%{?dist}
 Summary: Photo editor
 
@@ -91,6 +91,10 @@ rm -f %{buildroot}%{_datadir}/icons/fotocx.png
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Wed Sep 30 2026 Packit <hello@packit.dev> - 26.8.1-1
+- Update to version 26.8.1
+- Resolves: rhbz#2496965
+
 * Sun Sep 06 2026 Packit <hello@packit.dev> - 26.8-1
 - Update to version 26.8
 - Resolves: rhbz#2496965

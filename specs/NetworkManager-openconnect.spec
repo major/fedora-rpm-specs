@@ -24,13 +24,15 @@
 Summary:   NetworkManager VPN plugin for openconnect
 Name:      NetworkManager-openconnect
 Version:   1.2.10
-Release:   13%{?dist}
+Release:   14%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-only
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source:    https://download.gnome.org/sources/NetworkManager-openconnect/1.2/%{name}-%{version}.tar.xz
+Patch0:    https://gitlab.gnome.org/GNOME/NetworkManager-openconnect/-/merge_requests/88.patch
 
 BuildRequires: make
 BuildRequires: gcc
+BuildRequires: autoconf, automake, libtool
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(libnm) >= %{nm_version}
 BuildRequires: pkgconfig(libnma) >= %{nm_version}
@@ -80,6 +82,8 @@ the OpenConnect client with NetworkManager (GNOME files).
 %prep
 %autosetup -p1
 
+autoreconf -ifv
+
 # Create a sysusers.d config file
 cat >networkmanager-openconnect.sysusers.conf <<EOF
 u nm-openconnect - 'NetworkManager user for OpenConnect' - -
@@ -87,7 +91,7 @@ EOF
 
 %build
 %configure \
-        --enable-more-warnings=yes \
+        --enable-more-warnings=no \
         --disable-static \
 %if %{with libnm_glib}
         --with-libnm-glib \
@@ -152,6 +156,9 @@ fi
 
 
 %changelog
+* Thu Oct  1 2026 Tom Callaway <spot@fedoraproject.org> - 1.2.10-14
+- apply (unmerged) fix from upstream to allow per-user use again
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.10-13
 - Rebuilt for libxml-2.5.4
 

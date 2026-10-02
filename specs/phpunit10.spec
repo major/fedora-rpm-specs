@@ -28,8 +28,8 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        10.5.64
-Release:        2%{?dist}
+Version:        10.5.65
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -43,7 +43,7 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.1.15   with php-composer(phpunit/php-code-coverage) < 11)
@@ -59,7 +59,7 @@ BuildRequires:  (php-composer(sebastian/environment) >= 6.1.0         with php-c
 BuildRequires:  (php-composer(sebastian/exporter) >= 5.1.4            with php-composer(sebastian/exporter) < 6)
 BuildRequires:  (php-composer(sebastian/global-state) >= 6.0.2        with php-composer(sebastian/global-state) < 7)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 5.0     with php-composer(sebastian/object-enumerator) < 6)
-BuildRequires:  (php-composer(sebastian/recursion-context) >= 5.0.1   with php-composer(sebastian/recursion-context) < 6)
+BuildRequires:  (php-composer(sebastian/recursion-context) >= 5.0.2   with php-composer(sebastian/recursion-context) < 6)
 BuildRequires:  (php-composer(sebastian/type) >= 4.0                  with php-composer(sebastian/type) < 5)
 BuildRequires:  (php-composer(sebastian/version) >= 4.0.1             with php-composer(sebastian/version) < 5)
 BuildRequires:  php-dom
@@ -79,7 +79,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-libxml": "*",
 #        "ext-mbstring": "*",
 #        "ext-xmlwriter": "*",
-#        "myclabs/deep-copy": "^1.13.4",
+#        "myclabs/deep-copy": "^1.4.0",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^10.1.15",
@@ -95,7 +95,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/exporter": "^5.1.4",
 #        "sebastian/global-state": "^6.0.2",
 #        "sebastian/object-enumerator": "^5.0.0",
-#        "sebastian/recursion-context": "^5.0.1",
+#        "sebastian/recursion-context": "^5.0.2",
 #        "sebastian/type": "^4.0.0",
 #        "sebastian/version": "^4.0.1"
 Requires:       php(language) >= 8.1
@@ -105,7 +105,7 @@ Requires:       php-json
 Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xmlwriter
-Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 10.1.15   with php-composer(phpunit/php-code-coverage) < 11)
@@ -121,7 +121,7 @@ Requires:       (php-composer(sebastian/environment) >= 6.1.0         with php-c
 Requires:       (php-composer(sebastian/exporter) >= 5.1.4            with php-composer(sebastian/exporter) < 6)
 Requires:       (php-composer(sebastian/global-state) >= 6.0.2        with php-composer(sebastian/global-state) < 7)
 Requires:       (php-composer(sebastian/object-enumerator) >= 5.0     with php-composer(sebastian/object-enumerator) < 6)
-Requires:       (php-composer(sebastian/recursion-context) >= 5.0.1   with php-composer(sebastian/recursion-context) < 6)
+Requires:       (php-composer(sebastian/recursion-context) >= 5.0.2   with php-composer(sebastian/recursion-context) < 6)
 Requires:       (php-composer(sebastian/type) >= 4.0                  with php-composer(sebastian/type) < 5)
 Requires:       (php-composer(sebastian/version) >= 4.0.1             with php-composer(sebastian/version) < 5)
 # From composer.json, "suggest": {
@@ -261,6 +261,11 @@ exit $ret
 
 
 %changelog
+* Wed Sep 23 2026 Remi Collet <remi@remirepo.net> - 10.5.65-1
+- update to 10.5.65
+- raise dependency on myclabs/deep-copy 1.14.0
+- raise dependency on sebastian/recursion-context 5.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.5.64-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

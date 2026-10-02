@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -77,6 +77,31 @@ Patch132: rear-dbus-broker-RHEL-134213.patch
 # Patch135:
 # Patch136:
 
+# fix EXCLUDE_COMPONENTS being ignored for partition tables unsupported by ReaR
+# https://github.com/rear/rear/commit/626701843a32070080856c960b9e4202102b81d1
+Patch137: rear-respect-EXCLUDE_COMPONENTS-in-extract_partitions-RHEL-235767.patch
+
+# mark ISO filesystem labels as write protected
+# https://github.com/rear/rear/commit/014a7653b56f9ab8471af591ddf3698d08f0f290
+Patch138: rear-mark-ISO-labels-write-protected-RHEL-143987.patch
+
+# fix lftp command to pass options prior to opening the URL
+# https://github.com/rear/rear/commit/da9200db491c37662f0c6dc734dcb31e1efc0275
+# https://github.com/rear/rear/commit/958231f8a4fdba028ba396e1147f8ad7ee654307
+Patch139: rear-fix-lftp-options-pass-RHEL-178087.patch
+
+# add REAR_INITRD_OVERLAY to split initramfs into core + SquashFS overlay
+# https://github.com/rear/rear/commit/e95afd1c8580454451fb791991b30839be3141b7
+Patch140: rear-add-squashfs-overlay-split-support-RHEL-192030.patch
+
+# fix unsuccessful unmout of rescue ESP that might result in a corrupted rescue USB
+# https://github.com/rear/rear/commit/aadf9b40a48f4bbdc9f1ac22165bb2ecfed92207
+Patch141: rear-add-lazy-unmounting-with-retry-RHEL-146134.patch
+
+# EL9-only
+# Patch142:
+# Patch143:
+
 ######################
 # downstream patches #
 ######################
@@ -146,8 +171,11 @@ Requires: gawk
 Requires: gzip
 Requires: iproute
 Requires: iputils
+Requires: lftp
 Requires: openssl
 Requires: parted
+# For REAR_INITRD_OVERLAY
+Requires: squashfs-tools
 Requires: tar
 # No ISO image support on s390x (may change when we add support for LPARs)
 %ifnarch s390x
@@ -222,6 +250,13 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Thu Oct 01 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-10
+- fix EXCLUDE_COMPONENTS being ignored for partition tables unsupported by ReaR
+- mark ISO filesystem labels as write protected
+- fix lftp command to pass options prior to opening the URL
+- add REAR_INITRD_OVERLAY to split initramfs into core + SquashFS overlay
+- fix unsuccessful unmout of rescue ESP that might result in a corrupted rescue USB
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

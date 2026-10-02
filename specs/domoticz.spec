@@ -1,5 +1,5 @@
 Name:		domoticz
-Version:	2026.3
+Version:	2026.4
 Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
@@ -13,8 +13,8 @@ Source2:	%{name}.conf
 Source3:	%{name}-appversion
 # https://github.com/Thalhammer/jwt-cpp/tree/3e037df3e669633a3044618e30550ea2f212e915
 Source4:	jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915.zip
-# https://github.com/domoticz/libwebem/tree/9126af0ce3456c24b936dfb20d1b5a8bdb797104
-Source5:	libwebem-9126af0ce3456c24b936dfb20d1b5a8bdb797104.zip
+# https://github.com/domoticz/libwebem/tree/dde28f230efefa279aceb92f039ea251b34234d8
+Source5:	libwebem-dde28f230efefa279aceb92f039ea251b34234d8.zip
 
 # Use system tinyxpath (https://github.com/domoticz/domoticz/pull/1759)
 Patch1:		%{name}-tinyxpath.patch
@@ -107,7 +107,7 @@ rmdir extern/jwtcpp/
 mv extern/jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915/ extern/jwtcpp/
 unzip -d extern %{SOURCE5}
 rmdir extern/libwebem
-mv extern/libwebem-9126af0ce3456c24b936dfb20d1b5a8bdb797104/ extern/libwebem/
+mv extern/libwebem-dde28f230efefa279aceb92f039ea251b34234d8/ extern/libwebem/
 
 # Create a sysusers.d config file
 cat >domoticz.sysusers.conf <<EOF
@@ -252,6 +252,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Thu Oct 01 2026 Michael Cronenworth <mike@cchtml.com> - 2026.4-1
+- New stable release
+
 * Sun Aug 02 2026 Michael Cronenworth <mike@cchtml.com> - 2026.3-1
 - New stable release
 

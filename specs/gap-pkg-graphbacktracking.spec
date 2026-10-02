@@ -3,7 +3,7 @@
 %global giturl      https://github.com/peal/GraphBacktracking
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Implementation of a graph backtracking algorithm for GAP
 
@@ -19,14 +19,14 @@ BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2018.02.14
-BuildRequires:  gap(backtrackkit) >= 1.1.0
+BuildRequires:  gap(backtrackkit) >= 1.2.0
 BuildRequires:  gap(digraphs) >= 1.1.1
 BuildRequires:  gap(images) >= 1.3.0
 BuildRequires:  gap(quickcheck)
 BuildRequires:  gap-devel >= 4.13
 BuildRequires:  gap-pkg-backtrackkit-doc >= 1.1.0
 
-Requires:       gap(backtrackkit) >= 1.1.0
+Requires:       gap(backtrackkit) >= 1.2.0
 Requires:       gap(digraphs) >= 1.1.1
 Requires:       gap(images) >= 1.3.0
 Requires:       gap-core >= 4.13

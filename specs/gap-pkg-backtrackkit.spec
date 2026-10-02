@@ -3,7 +3,7 @@
 %global giturl      https://github.com/peal/BacktrackKit
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Implementation of Jeffrey Leon's Partition Backtrack framework
 

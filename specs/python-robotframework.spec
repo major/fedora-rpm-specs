@@ -1,8 +1,8 @@
 %global srcname robotframework
 
 Name:           python-%{srcname}
-Version:        7.4.2
-Release:        3%{?dist}
+Version:        7.5
+Release:        1%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
 # Support libraries to display HTML results:
@@ -18,7 +18,15 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-jsonschema
 BuildRequires:  python3-typing-extensions
+BuildRequires:  python3-docutils
+BuildRequires:  python3-markdown
+BuildRequires:  python3-pyyaml
 
+# Recommended packages as enable a few extra features
+Recommends:     python3-docutils
+Recommends:     python3-markdown
+Recommends:     python3-pygments
+Recommends:     python3-pyyaml
 
 %global _description %{expand:
 Robot Framework is a generic open source automation framework for acceptance
@@ -63,6 +71,10 @@ Provides:      bundled(jsxcompressor)
 
 
 %check
+# Current EPEL10.x has a too old typing_extensions for certain tests (< 4.13), review in future
+%if 0%{?rhel}
+rm -rf utest/running/test_typeinfo.py utest/utils/test_normalizing.py utest/utils/test_robottypes.py
+%endif
 %{python3} utest/run.py
 
 
@@ -73,6 +85,9 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Thu Oct 01 2026 Federico Pellegrin <fede@evolware.org> - 7.5-1
+- Upgrade to 7.5
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
