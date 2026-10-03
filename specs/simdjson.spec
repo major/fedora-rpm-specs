@@ -1,7 +1,7 @@
-%global lib_version 33.0.0
-%global lib_soversion 33
+%global lib_version 34.0.0
+%global lib_soversion 34
 Name:		simdjson
-Version:	4.6.7
+Version:	5.0.1
 Release:	%autorelease
 Summary:	Parsing gigabytes of JSON per second
 
@@ -33,7 +33,7 @@ Summary: Documents for %{name}
 %{summary}
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup
 
 %build
 %cmake -DSIMDJSON_TESTS=ON

@@ -13,10 +13,6 @@ Summary:        Macros helpers for GTK 4 bindings
 License:        MIT
 URL:            https://crates.io/crates/gtk4-macros
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * allow quick-xml v0.40 and v0.41:
-#   https://github.com/gtk-rs/gtk4-rs/pull/2323#issuecomment-4881071748
-Patch:          gtk4-macros-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

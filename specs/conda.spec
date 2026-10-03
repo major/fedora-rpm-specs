@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           conda
-Version:        26.7.3
+Version:        26.9.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -102,6 +102,9 @@ sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pypr
 # Unpackaged - really only applicable for macOS/Windows?
 sed -i -e '/"truststore *>/d' pyproject.toml
 
+# Remove checks that require an installed conda
+sed -i -e '/assert expected_/d' tests/conftest.py
+
 %ifnarch x86_64
 # Tests on 32-bit
 cp -a tests/data/conda_format_repo/linux-{64,32}
@@ -175,6 +178,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # Unsure - but perhaps config does not has a subdir?
 # tests/cli/test_common.py::test_validate_subdir_config - TypeError: expected str, bytes or os.PathLike object, not NoneType
 # tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir - TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'
+# tests/cli/test_conda_argparse.py::test_init_dev_is_not_deprecated - conda.CondaError: Operation failed. Privileged install disallowed for 'conda init --dev'.
 # Would need an installed conda to test
 # tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
 # tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
@@ -250,6 +254,8 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/test_activate.py::test_build_deactivate_shlvl_2_from_activate - requries network
 # tests/test_activate.py::test_build_deactivate_shlvl_1 - requries network
 # tests/test_activate.py::test_build_stack_shlvl_1 - requries network
+# tests/test_activate.py::test_dev_flag_deprecation[False-hook] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
+# tests/test_activate.py::test_dev_flag_deprecation[True-hook] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
 # tests/test_activate.py::test_get_env_vars_big_whitespace/test_get_env_vars_empty_file require network access
 # tests/test_activate.py::test_activate_default_env - requires network
 # tests/test_activate.py::test_pre_post_command_invoked[hook] - requires conda to be installed
@@ -294,6 +300,8 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/test_activate.py::test_build_deactivate_shlvl_2_from_activate \
     --deselect=tests/test_activate.py::test_build_deactivate_shlvl_1 \
     --deselect=tests/test_activate.py::test_build_stack_shlvl_1 \
+    --deselect=tests/test_activate.py::test_dev_flag_deprecation[False-hook] \
+    --deselect=tests/test_activate.py::test_dev_flag_deprecation[True-hook] \
     --deselect=tests/test_activate.py::test_get_env_vars_big_whitespace \
     --deselect=tests/test_activate.py::test_get_env_vars_empty_file \
     --deselect=tests/test_activate.py::test_plugin_hooks_skipped_when_manager_not_loaded[hook] \
@@ -316,6 +324,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_cli_install.py::test_reinstall_args[libmamba] \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config \
     --deselect=tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir \
+    --deselect=tests/cli/test_conda_argparse.py::test_init_dev_is_not_deprecated \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] \

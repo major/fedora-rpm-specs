@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate xml5ever
+%global crate obj
 
-Name:           rust-xml5ever0.35
-Version:        0.35.0
+Name:           rust-obj
+Version:        0.10.2
 Release:        %autorelease
-Summary:        Push based streaming parser for XML
+Summary:        Package for loading Wavefront .obj files
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/xml5ever
+License:        Apache-2.0
+URL:            https://crates.io/crates/obj
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          xml5ever-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Push based streaming parser for XML.}
+A package for loading Wavefront .obj files.}
 
 %description %{_description}
 
@@ -33,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+trace_tokenizer-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+trace_tokenizer-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "trace_tokenizer" feature of the "%{crate}" crate.
-
-%files       -n %{name}+trace_tokenizer-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -77,7 +61,11 @@ use the "trace_tokenizer" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * Some tests require files from the workspace not included in the crate
+%{cargo_test -- -- --exact %{shrink:
+    --skip round_trip_sponza_no_mtls
+    --skip round_trip_sponza_with_mtl
+}}
 %endif
 
 %changelog

@@ -2,11 +2,11 @@
 #%%global git_commit trace-cmd-v2.6.2
 #%%global git_commit 57371aaa2f469d0ba15fd85276deca7bfdd7ce36
 
-%global srcversion 3.3.1
+%global srcversion 3.4
 
 Name: trace-cmd
-Version: %{srcversion}
-Release: 7%{?dist}
+Version: 3.4
+Release: 1%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A user interface to Ftrace
 
@@ -33,8 +33,8 @@ BuildRequires: asciidoc
 BuildRequires: graphviz doxygen
 BuildRequires: gcc-c++
 BuildRequires: cmake
-BuildRequires: libtraceevent-devel >= 1.8.0
-BuildRequires: libtracefs-devel >= 1.8.0
+BuildRequires: libtraceevent-devel >= 1.9.0
+BuildRequires: libtracefs-devel >= 1.8.3
 BuildRequires: audit-libs-devel
 BuildRequires: chrpath
 BuildRequires: swig
@@ -96,7 +96,7 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_mandir}/man1/%{name}*
 %{_mandir}/man5/%{name}*
 %{_docdir}/trace-cmd/trace-cmd*.html
-%{_sysconfdir}/bash_completion.d/trace-cmd.bash
+%{_datadir}/bash-completion/completions/trace-cmd.bash
 %{_sysconfdir}/sysconfig/trace-cmd.conf
 %{_unitdir}/trace-cmd.service
 %{_udevrulesdir}/98-trace-cmd.rules
@@ -106,6 +106,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Fri Oct 02 2026 Zamir SUN <sztsian@gmail.com> - 3.4-1
+- Update to 3.4 (#2359796)
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.1-7
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

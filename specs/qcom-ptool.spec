@@ -1,6 +1,6 @@
 %global with_snapshot 1
-%global gitdate 20260723
-%global commit 0b3897c9c10d41752e431744c8a5a6502a27828e
+%global gitdate 20261001
+%global commit 481caa203fcde01a7c58f16d11ca985656d5cc54
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 %global desc %{expand: \
 qcom-ptool contains various device partitioning utilities like ptool.py,
@@ -20,23 +20,25 @@ Source0:	%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
-# https://github.com/qualcomm-linux/qcom-ptool/pull/148
-Patch0:		148.patch
-# https://github.com/qualcomm-linux/qcom-ptool/pull/150
-Patch1:		150.patch
-
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
+BuildRequires:	python3-pytest
 
 %description
 %{desc}
 
 %prep
 %if %{with_snapshot}
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -n %{name}-%{commit}
 %else
 %autosetup
+%endif
+
+%if 0%{?rhel} > 9
+# PEP 639 fix
+sed -e 's|license = "BSD-3-Clause"|license = {text = "BSD-3-Clause"}|g' -i pyproject.toml
+sed -i '/license-files/d' pyproject.toml
 %endif
 
 %generate_buildrequires
@@ -48,6 +50,9 @@ BuildRequires:	python3-devel
 %install
 %pyproject_install
 %pyproject_save_files qcom_ptool
+
+%check
+%pytest -v
 
 %files -n qcom-ptool -f %{pyproject_files}
 %doc README.md CONTRIBUTING.md

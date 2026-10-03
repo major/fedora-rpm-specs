@@ -4,8 +4,8 @@
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name: libtraceevent
-Version: 1.8.4
-Release: 6%{?dist}
+Version: 1.9.0
+Release: 1%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: Library to parse raw trace event formats
 
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{_libdir}/libtraceevent.a
 %{_libdir}/pkgconfig/libtraceevent.pc
 
 %changelog
+* Fri Oct 02 2026 Zamir SUN <sztsian@gmail.com> - 1.9.0-1
+- new version 1.9.0-1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -78,7 +81,7 @@ rm -rf %{buildroot}/%{_libdir}/libtraceevent.a
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Tue Oct 17 2024 Zamir SUN <sztsian@gmail.com> - 1.8.4-1
+* Thu Oct 17 2024 Zamir SUN <sztsian@gmail.com> - 1.8.4-1
 - Update to 1.8.4
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4

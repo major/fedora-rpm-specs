@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Summary: A Tier 3 KDE Frameworks 6 module that provides indexing and search functionality
-Version: 6.30.0
+Version: 6.31.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND bzip2-1.0.6
@@ -151,6 +151,9 @@ cat baloo_file6.lang baloo_file_extractor6.lang \
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
 - 6.30.0
 

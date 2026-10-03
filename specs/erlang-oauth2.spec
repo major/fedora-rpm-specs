@@ -1,7 +1,7 @@
 %global srcname oauth2
 
 Name:       erlang-%{srcname}
-Version:    1.0.7
+Version:    1.0.8
 Release:    %autorelease
 BuildArch:  noarch
 License:    MIT
@@ -11,23 +11,11 @@ VCS:        git:%{url}.git
 Source0:    %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildRequires: erlang-meck
 BuildRequires: erlang-proper
-BuildRequires: erlang-rebar3
+BuildSystem:   rebar3
 
 %description
 This library is designed to simplify the implementation of the server side of
 OAuth2.
-
-%prep
-%autosetup -p1 -n %{srcname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %license LICENSE

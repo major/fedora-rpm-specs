@@ -4,9 +4,8 @@
 
 Name:           zipios++
 Version:        0.1.5.9
-Release:        38%{dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+Release:        39%{dist}
+License:        LGPL-2.0-or-later
 Summary:        C++ library for reading and writing Zip files
 Summary(pl.UTF-8): Biblioteka C++ do odczytu i zapisu plików Zip
 URL:            http://zipios.sourceforge.net/
@@ -23,7 +22,7 @@ Patch4:         0001-cppunit-config-no-longer-exists-use-pkg-config.patch
 Patch10:        zipios++-zipheadio-size0.patch
 
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -81,12 +80,10 @@ make V=1 doc
 
 %install
 %make_install
+install -m0644 src/backbuffer.h src/zipios_common.h %{buildroot}%{_includedir}/zipios++/
 
 # Remove static libs
 rm -f %{buildroot}%{_libdir}/*.{a,la}
-
-
-%{ldconfig_scriptlets}
 
 
 %files
@@ -101,6 +98,9 @@ rm -f %{buildroot}%{_libdir}/*.{a,la}
 
 
 %changelog
+* Thu Oct 1 2026 Tomi Lähteenmäki <lihis@lihis.net> - 0.1.5.9-39
+- Install backbuffer.h and zipios_common.h to the development package
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5.9-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

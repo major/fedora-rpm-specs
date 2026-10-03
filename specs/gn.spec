@@ -26,10 +26,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 127dd2a6d582528d6d61c4d838dc17385ef31abd
-%global access 20260920
+%global commit 0e7d98e041b01eb5fed29a9a80482ed8ca9efe5b
+%global access 20261002
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2574
+%global position 2586
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -113,7 +113,7 @@ Requires:       vim-filesystem
 Requires:       python3
 Provides:       vim-gn = %{version}-%{release}
 
-Requires:       emacs-filesystem >= %{_emacs_version}
+Requires:       emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
 Provides:       emacs-gn = %{version}-%{release}
 
 # src/base/third_party/icu/icu_utf.h:

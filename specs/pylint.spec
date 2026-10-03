@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.0.9
+%global basever 4.0.10
 #%%global prever b0
-Version:        4.0.9
+Version:        4.0.10
 %forgemeta
 
 Name:           pylint
@@ -99,7 +99,8 @@ done
   --deselect=tests/test_self.py::TestRunTC::test_progress_reporting \
   --deselect=tests/test_functional.py::test_functional[unspecified_encoding_py38] \
   --deselect=tests/test_functional.py::test_functional[bad_open_mode] \
-  --deselect=tests/lint/unittest_lint.py::test_enable_message_block
+  --deselect=tests/lint/unittest_lint.py::test_enable_message_block \
+  --deselect=tests/test_functional.py::test_functional[unused_argument]
 
 %files
 %doc CONTRIBUTORS.txt

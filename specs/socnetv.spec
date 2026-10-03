@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.6
-Release:	2%{?dist}
+Version:	3.8
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Oct 01 2026 RI_Eugene <ti.eugene@gmail.com> - 3.8-1
+- Version bump
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -11,12 +11,13 @@
 # The base package, the libs package, the devel package, and the server package
 # always get built.
 
+%{!?liburing:%global liburing 1}
 %{!?test:%global test 1}
 %{!?llvmjit:%global llvmjit 0}
 %{!?external_libpq:%global external_libpq 0}
 %{!?upgrade:%global upgrade 1}
 %{!?plpython3:%global plpython3 1}
-%{!?pltcl:%global pltcl 0}
+%{!?pltcl:%global pltcl 1}
 %{!?plperl:%global plperl 1}
 %{!?ssl:%global ssl 1}
 %{!?icu:%global icu 1}
@@ -210,6 +211,10 @@ BuildRequires:	libicu-devel
 
 %if %decoderbufs
 BuildRequires: protobuf-c-devel
+%endif
+
+%if %liburing
+BuildRequires: liburing-devel
 %endif
 
 %if %?postgresql_default
@@ -779,6 +784,9 @@ common_configure_options='
 %if %plpython3
 	--with-python
 %endif
+%if %liburing
+    --with-liburing
+%endif
 '
 
 export PYTHON=/usr/bin/python3
@@ -897,6 +905,9 @@ upgrade_configure ()
 %endif
 %if %plpython3
 		--with-python \
+%endif
+%if %liburing
+        --with-liburing \
 %endif
 		--with-tclconfig=/usr/%_lib \
 		--with-system-tzdata=/usr/share/zoneinfo \

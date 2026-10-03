@@ -1,5 +1,5 @@
 Name:           python-pytest-recording
-Version:        0.13.4
+Version:        0.14.0
 Release:        %autorelease
 Summary:        A pytest plugin powered by VCR.py to record and replay HTTP traffic
 

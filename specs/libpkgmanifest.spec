@@ -4,7 +4,7 @@
 
 %global version_major 0
 %global version_minor 6
-%global version_patch 0
+%global version_patch 1
 
 %bcond_with    docs
 %bcond_without python
@@ -12,7 +12,7 @@
 
 Name:       %{pkg_name}
 Version:    %{version_major}.%{version_minor}.%{version_patch}
-Release:    5%{?dist}
+Release:    1%{?dist}
 
 %forgemeta
 
@@ -20,9 +20,6 @@ Summary:    Library for working with RPM manifests
 License:    LGPL-2.1-or-later
 URL:        %{forgeurl}
 Source:     %{forgesource}
-Patch1:     0001-Bump-a-version-to-0.6.0.patch
-Patch2:     0002-spec-Package-COPYING.lib-not-LICENSE.patch
-Patch3:     0003-Move-from-automatic-release-numbering-to-manual-one.patch
 
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  cmake >= 3.16
@@ -111,6 +108,9 @@ Python 3 bindings for the %{name} library.
 %cmake_install
 
 %changelog
+* Fri Oct 02 2026 Packit <hello@packit.dev> - 0.6.1-1
+- Update to version 0.6.1
+
 * Fri Sep 18 2026 Petr Pisar <ppisar@redhat.com> - 0.6.0-5
 - Move from automatic release numbering to manual one
 

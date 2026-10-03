@@ -70,7 +70,7 @@
 # NOTE: thrift versions their libraries by package version, so each version
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
-Version: 0.24.0
+Version: 0.25.0
 Release: 1%{?dist}
 Summary: Software framework for cross-language services development
 
@@ -114,7 +114,7 @@ BuildRequires: glib2-devel
 BuildRequires: libevent-devel
 BuildRequires: libstdc++-devel
 BuildRequires: libtool
-BuildRequires: openssl3-devel
+BuildRequires: openssl-devel
 BuildRequires: qt5-qtbase-devel
 BuildRequires: texlive
 BuildRequires: zlib-devel
@@ -449,6 +449,9 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Fri Oct 2 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 0.25.0-1
+- Thrift 0.25.0 GA
+
 * Wed Aug 5 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 0.24.0-1
 - Thrift 0.24.0 GA, h/t to Justin Caratzas <jcaratza@ibm.com>
   https://src.fedoraproject.org/rpms/thrift/pull-request/7

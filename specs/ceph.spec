@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -3213,6 +3213,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Oct 2 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.1-2
+- ceph-21.1.1, rebuild with thrift-0.25.0 (f46-build-side-153920)
+
 * Mon Sep 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.1-1
 - ceph-21.1.1 RC1
 

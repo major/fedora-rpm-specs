@@ -1,7 +1,7 @@
 %global srcname liblore
 
 Name:           python-%{srcname}
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Library for working with public-inbox
 License:        GPL-2.0-or-later

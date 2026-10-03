@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -143,6 +143,8 @@ perl xml2lst.pl < /usr/share/X11/xkb/rules/base.xml > layouts-variants.lst
 while read line; do
   XKBLAYOUT=`echo "$line" | cut -d " " -f 1`
   echo "$XKBLAYOUT" >> layouts-list.lst
+  # skip to next iteration if line has no space, i.e. no variant
+  [[ $line == *" "* ]] || continue
   XKBVARIANT=`echo "$line" | cut -d " " -f 2`
   ckbcomp -rules base "$XKBLAYOUT" "$XKBVARIANT" | gzip > $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/xkb/"$XKBLAYOUT"-"$XKBVARIANT".map.gz
 done < layouts-variants.lst
@@ -184,6 +186,9 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Fri Oct 02 2026 Adam Williamson <adamwill@fedoraproject.org> - 2.10.0-3
+- Fix xkb conversion to include layouts with no variants
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

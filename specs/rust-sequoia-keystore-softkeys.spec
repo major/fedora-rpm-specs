@@ -5,7 +5,7 @@
 %global crate sequoia-keystore-softkeys
 
 Name:           rust-sequoia-keystore-softkeys
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Soft key (in-memory key) backend for Sequoia's private key store
 

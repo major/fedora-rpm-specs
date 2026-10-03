@@ -640,6 +640,7 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_GROUP_ENABLE_Web:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_AcceleratorsVTKmFilters:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_CommonArchive:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_CommonCache:STRING=WANT \\\
  -DVTK_MODULE_ENABLE_VTK_DomainsMicroscopy:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_GeovisGDAL:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_FiltersParallelStatistics:STRING=YES \\\

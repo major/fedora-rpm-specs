@@ -6,12 +6,13 @@
 
 Name:           budgie-desktop-view
 Version:        10.10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
 License:        Apache-2.0
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop-view
 Source0:        %{url}/releases/download/v%{version_no_tilde}/%{name}-v%{version_no_tilde}.tar.xz
+Patch0:         0001-fix-stop-removed-icons-from-reappearing-after-a-drop.patch
 
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}
@@ -35,7 +36,7 @@ Suggests: glycin-thumbnailer
 Official Budgie desktop icons application / implementation.
 
 %prep
-%autosetup -n %{name}-%{version_no_tilde}
+%autosetup -n %{name}-%{version_no_tilde} -p1
 
 %build
 %meson
@@ -57,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Fri Oct 02 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-2
+- Add patch to ensure redraw on drag and dropped files
+
 * Mon Sep 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-1
 - Update to 10.10.3 release
 

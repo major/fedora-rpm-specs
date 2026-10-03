@@ -6,24 +6,22 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    701df15b183f25af663af134eb71353cd838b955
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2026-02-06
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
+%global tag          %{version}
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.15.0
-Release:        3%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
+Version:        2.16.0
+Release:        1%{?dist}
 
 License:        WTFPL
-URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
-
-Patch0:         upstream.patch
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7
@@ -71,8 +69,7 @@ No further extension is needed.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
-%patch -P0 -p1
+%forgesetup
 
 : Create autoloader
 cat << 'AUTOLOAD' | tee rpm.php
@@ -115,7 +112,7 @@ ret=0
 
 if [ -x %{_bindir}/phpunit8 ]; then
 : Run upstream test suite with phpunit8
-for cmd in php php82 php82 php84 php85; do
+for cmd in php php82 php82 php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
@@ -124,7 +121,7 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -133,7 +130,7 @@ fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
 : Run upstream test suite with phpunit10
-for cmd in php php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -144,7 +141,7 @@ fi
 
 if [ -x %{_bindir}/phpunit11 ]; then
 : Run upstream test suite with phpunit11
-for cmd in php php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit11 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -155,7 +152,7 @@ fi
 
 if [ -x %{_bindir}/phpunit12 ]; then
 : Run upstream test suite with phpunit12
-for cmd in php php83 php84 php85; do
+for cmd in php php83 php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit12 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -166,7 +163,7 @@ fi
 
 if [ -x %{_bindir}/phpunit13 ]; then
 : Run upstream test suite with phpunit13
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit13 \
        --filter '^((?!(testPreserveArgumentDefaultValue|testExpects)).)*$' \
@@ -188,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct  2 2026 Remi Collet <remi@remirepo.net> - 2.16.0-1
+- update to 2.16.0
+
 * Thu Sep  3 2026 Remi Collet <remi@remirepo.net> - 2.15.0-3
 - add upstream patches for PHPUnit 13.1
 - fix FTBFS #2504405

@@ -22,8 +22,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        9.3.2
-Release:        2%{?dist}
+Version:        9.3.3
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -40,8 +40,8 @@ BuildRequires:  php-posix
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.11"
-BuildRequires:  phpunit13 >= 13.1.11
+#        "phpunit/phpunit": "^13.3.6"
+BuildRequires:  phpunit13  >= 13.3.6
 %endif
 
 # from composer.json, "require": {
@@ -88,7 +88,7 @@ ln -s %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php ve
 
 : Run tests
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      -d pcov.enabled=1 \
@@ -107,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 9.3.3-1
+- update to 9.3.3
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Summary:	A QtQuick module providing high-performance charts
-Version:	6.30.0
+Version:	6.31.0
 Release:	1%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
 - 6.30.0
 

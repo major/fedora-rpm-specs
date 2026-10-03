@@ -4,13 +4,17 @@
 %bcond docs 0
 
 Name:           python-%{pypi_name}
-Version:        5.12.0
+Version:        5.13.0
 Release:        %autorelease
 Summary:        Objects and routines pertaining to date and time (tempora)
 
 License:        Apache-2.0
 URL:            https://github.com/jaraco/tempora
 Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+# The 5.13.0 sdist omits LICENSE and the license metadata (upstream generates
+# both at build time and that step failed). No relicensing occurred; this is
+# the Apache-2.0 text shipped in the 5.12.0 sdist.
+Source1:        LICENSE
 BuildArch:      noarch
  
 %description
@@ -40,6 +44,7 @@ Documentation for tempora
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_docs:-x doc}

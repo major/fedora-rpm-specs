@@ -3,7 +3,7 @@
 
 Name:           google-auth-httplib2
 Summary:        %{sum}
-Version:        0.4.3
+Version:        0.4.4
 Release:        1%{?dist}
 
 License:        Apache-2.0
@@ -44,6 +44,9 @@ Python 3 client library for accessing Google APIs.
 %doc README.rst
 
 %changelog
+* Fri Oct 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.4.4-1
+- 0.4.4
+
 * Thu Oct 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.4.3-1
 - 0.4.3
 

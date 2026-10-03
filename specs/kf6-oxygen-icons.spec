@@ -1,7 +1,7 @@
 %global framework oxygen-icons
 
 Name:           kf6-oxygen-icons
-Version:        6.30.0
+Version:        6.31.0
 Release:        1%{?dist}
 Summary:        Oxygen icon theme
 
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ox
 
 
 %changelog
+* Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Sep 04 2026 Steve Cossette <farchord@gmail.com> - 6.30.0-1
 - 6.30.0
 

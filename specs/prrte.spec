@@ -15,7 +15,9 @@ Source0:        https://github.com/openpmix/%{name}/releases/download/v%{version
 # Obsoleted by upstream removal of flex-based parser
 # in 11 commits f9ee7c5d57b8..cfc373e95c83 on master,
 # which were then backported to the "v5.0" branch, but not older branches.
-Patch0:         prrte-fix-cflags-before-picky.patch
+Patch:         prrte-fix-cflags-before-picky.patch
+# Upstream fix for segfault in prte_hwloc_base_get_topo_signature
+Patch:         https://github.com/openpmix/prrte/pull/2417.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

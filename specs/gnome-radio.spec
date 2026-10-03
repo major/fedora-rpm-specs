@@ -1,5 +1,5 @@
 Name:           gnome-radio
-Version:        83.0.2
+Version:        84.0.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
@@ -52,12 +52,13 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_bindir}/radio-beamy
 %{_bindir}/radio-icy
 %{_datadir}/applications/gnome-radio.desktop
-%{_datadir}/applications/gnome-radio-oop.desktop
 %{_datadir}/applications/gtk-radio.desktop
 %{_datadir}/applications/org.gnome.Radio.desktop
 %{_datadir}/applications/radio-beamy.desktop
-%{_datadir}/doc/gnome-radio/radio.html
+%{_datadir}/doc/gnome-radio/gnome-radio-oop.html
+%{_datadir}/doc/gnome-radio/longwave.html
 %{_datadir}/doc/gnome-radio/radio-maps.html
+%{_datadir}/doc/gnome-radio/radio.html
 %{_datadir}/doc/gnome-radio/studio.html
 %{_datadir}/gnome-radio/doc/AAMOT.txt.xz
 %{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz
@@ -70,7 +71,6 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/gtk-radio/gtk-radio-550.3.dtd
 %{_datadir}/gtk-radio/gtk-radio.xml
 %{_datadir}/icons/hicolor/scalable/apps/gnome-radio.svg
-%{_datadir}/icons/hicolor/scalable/apps/gnome-radio-oop.svg
 %{_datadir}/icons/hicolor/scalable/apps/gtk-radio.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Radio.svg
 %{_datadir}/icons/hicolor/scalable/apps/radio-beamy.svg
@@ -105,7 +105,6 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/locale/zh_CN/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/man/man1/gnome-radio.1.gz
 %{_datadir}/metainfo/gnome-radio.appdata.xml
-%{_datadir}/metainfo/gnome-radio-oop.appdata.xml
 %{_datadir}/metainfo/gtk-radio.appdata.xml
 %{_datadir}/metainfo/org.gnome.Radio.appdata.xml
 %{_datadir}/metainfo/radio-beamy.appdata.xml

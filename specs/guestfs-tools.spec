@@ -16,7 +16,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.57.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -274,11 +274,6 @@ export SKIP_TEST_VIRT_FORMAT_SH=1
 # fine with KVM enabled.
 export SKIP_TEST_VIRT_RESIZE_PL=1
 
-# Mounting ntfs-3g breaks on Fedora 45.  The same problem happens in
-# virt-v2v Koji builds.  I cannot reproduce this locally.  Skip it for
-# now.
-export SKIP_TEST_VIRT_MAKE_FS_SH=1
-
 if ! make check -k ; then
     # Dump out the log files of any failing tests to make
     # debugging test failures easier.
@@ -393,6 +388,9 @@ end
 
 
 %changelog
+* Fri Oct 02 2026 Richard W.M. Jones <rjones@redhat.com> - 1.57.3-2
+- Re-enable ntfs test
+
 * Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.57.3-1
 - New upstream development version 1.57.3
 

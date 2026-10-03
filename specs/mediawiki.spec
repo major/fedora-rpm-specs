@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.46.0
+Version: 1.46.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
@@ -67,9 +67,9 @@ Provides: bundled(php-composer-semver) = 3.4.4
 Provides: bundled(php-dasprid-enum) = 1.0.7
 Provides: bundled(php-endroid-qr-code) = 6.0.9
 Provides: bundled(php-firebase-php-jwt) = 7.0.3
-Provides: bundled(php-guzzlehttp-guzzle) = 7.12.3
-Provides: bundled(php-guzzlehttp-promises) = 2.5.0
-Provides: bundled(php-guzzlehttp-psr7) = 2.12.3
+Provides: bundled(php-guzzlehttp-guzzle) = 7.15.2
+Provides: bundled(php-guzzlehttp-promises) = 2.5.1
+Provides: bundled(php-guzzlehttp-psr7) = 2.13.0
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
 Provides: bundled(php-justinrainbow-json-schema) = 5.3.4
 Provides: bundled(php-lcobucci-jwt) = 5.6.0
@@ -280,6 +280,12 @@ cd tests/phpunit
 
 
 %changelog
+* Fri Oct 02 2026 Michael Cronenworth <mike@cchtml.com> - 1.46.2-1
+- Update to 1.46.2
+
+* Fri Oct 02 2026 Michael Cronenworth <mike@cchtml.com> - 1.46.1-1
+- Update to 1.46.1
+
 * Tue Sep 29 2026 Michael Cronenworth <mike@cchtml.com> - 1.46.0-1
 - Update to 1.46.0
 

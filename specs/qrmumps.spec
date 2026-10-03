@@ -2,14 +2,19 @@
 %global with_check 0
 
 Name: qrmumps
-Version: 3.1
+Version: 3.2.0
 Release: %autorelease
 Summary: A multithreaded multifrontal QR solver
 License: LGPL-3.0-or-later
-URL: http://buttari.perso.enseeiht.fr/qr_mumps/
+URL: https://gitlab.com/qr_mumps/qr_mumps
 Source0: https://gitlab.com/qr_mumps/qr_mumps/-/archive/%{version}/qr_mumps-%{version}.tar.gz
+	
+# Add libraries soname and fix the installation paths	
+Patch0:   %{name}-fix_libpaths+libsoname.patch
 
-BuildRequires: gcc-gfortran, gcc-c++, gcc
+BuildRequires: gcc-gfortran
+BuildRequires: gcc-c++
+BuildRequires: gcc
 BuildRequires: cmake
 BuildRequires: metis-devel >= 5.1.0-12
 BuildRequires: scotch-devel
@@ -21,9 +26,6 @@ Requires: gcc-gfortran%{?_isa}
 
 Provides: qr_mumps = 0:%{version}-%{release}
 Obsoletes: qr_mumps < 0:3.0-1
-
-# Add libraries soname and fix the installation paths
-Patch0:   %{name}-fix_libpaths+libsoname.patch
 
 %description
 qr_mumps is a software package for the solution of sparse,
@@ -49,7 +51,7 @@ Summary: Benchmark files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description benchmarks
 Benchamrks to evaluate the performance of QRM are provided in
-the =timing/= directory. These allow for running experiments on the
+the =bin/= directory. These allow for running experiments on the
 solution of dense and sparse linear systems through the $QR$ and
 Cholesky factorizations. Use the =-h= command line argument to get
 help on using these benchmarks.
@@ -69,12 +71,7 @@ PDF documentation files of %{name}.
 rm -f aux/find/Find{BLAS,LAPACK}.cmake
 
 %build
-# TODO: Remove LIB_SUFFIX flag once upstream properly supports GNUInstallDirs
-# https://gitlab.com/qr_mumps/qr_mumps/-/merge_requests/9
 %cmake -Wno-dev -DQRM_VERSION:STRING=%{version} \
-%if "%{?_lib}" == "lib64"
- %{?_cmake_lib_suffix64} \
-%endif
  -DARITH="d;s;z;c" -DCMAKE_BUILD_TYPE:STRING=Release \
  -DQRM_ORDERING_AMD:BOOL=ON -DQRM_ORDERING_METIS:BOOL=ON \
  -DQRM_ORDERING_SCOTCH:BOOL=ON -DQRM_WITH_STARPU:BOOL=OFF \
@@ -82,16 +79,23 @@ rm -f aux/find/Find{BLAS,LAPACK}.cmake
  -DBLA_VENDOR=FlexiBLAS \
  -DBLAS_VERBOSE:BOOL=ON -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
- -DINCLUDE_INSTALL_DIR:PATH=%{_includedir}/qrm -DLIB_INSTALL_DIR:PATH=%{_libdir}
+ -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+%if !0%{?with_check}
+ -DQRM_WITH_EXAMPLES:BOOL=OFF -DQRM_WITH_TESTS:BOOL=OFF \
+ -DBUILD_TESTING:BOOL=OFF
+%endif
 
 %cmake_build
 
 %install
 %cmake_install
 
+rm -rf %{buildroot}%{_prefix}/lib/cmake/qrm/find
+
 %if 0%{?with_check}
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+export FORTRAN_MODS=%{buildroot}%{_fmoddir}/qrm
 %ctest
 %endif
 
@@ -100,11 +104,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc Changelog.org README.org
 %{_libdir}/lib*qrm.so.3
 %{_libdir}/libqrm_common.so.3
-%{_libdir}/lib*qrm.so.%{version}
-%{_libdir}/libqrm_common.so.%{version}
+%{_libdir}/lib*qrm.so.3.2
+%{_libdir}/libqrm_common.so.3.2
 
 %files devel
-%{_includedir}/qrm/
+%{_includedir}/*qrm*.h
 %{_fmoddir}/qrm/
 %{_libdir}/lib*qrm.so
 %{_libdir}/libqrm_common.so

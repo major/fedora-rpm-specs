@@ -6,7 +6,7 @@
 
 #
 Name:           opentrep
-Version:        0.08.02
+Version:        0.09.01
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
@@ -146,7 +146,7 @@ chmod a-x %{buildroot}%{python3_sitearch}/py%{name}/Travel_pb2.py
 
 
 #check
-#ctest
+ctest
 
 %if %{with python}
 %post -n python3-%{name}
