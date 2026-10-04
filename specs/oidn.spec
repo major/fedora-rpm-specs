@@ -1,5 +1,6 @@
 %bcond          gcc 0 #Use clang by default
-%bcond          hip %{undefined flatpak}
+# Temporaritly disable hip
+%bcond          hip 0 #%%{undefined flatpak}
 %bcond          ninja 1
 #%%global	        prerelease beta
 Name:           oidn

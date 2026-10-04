@@ -1,6 +1,6 @@
 Name:           openblas-srpm-macros
 Version:        2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        OpenBLAS architecture macros
 License:        MIT
 Source0:        macros.openblas-srpm
@@ -27,6 +27,9 @@ install -m0644 %SOURCE0 %{buildroot}%{macrosdir}/macros.openblas-srpm
 
 
 %changelog
+* Mon Sep 14 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2-23
+- Add loongarch64 to openblas_arches.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

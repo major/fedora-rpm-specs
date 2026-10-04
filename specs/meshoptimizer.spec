@@ -1,5 +1,5 @@
 Name:           meshoptimizer
-Version:        1.2
+Version:        1.3
 Release:        %autorelease
 Summary:        Mesh optimization library
 

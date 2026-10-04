@@ -7,8 +7,8 @@ the backbone of Quaternion, Spectral and other projects. Versions 0.5.x and
 older use the previous name - libQMatrixClient.}
 
 Name: libquotient
-Version: 0.9.5
-Release: 6%{?dist}
+Version: 0.9.6.1
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -24,7 +24,7 @@ BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: pkgconfig(openssl)
-BuildRequires: qt6-qtbase-private-devel
+BuildRequires: cmake(Qt6CorePrivate)
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -44,6 +44,8 @@ Requires: %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: cmake(Olm)
 Requires: cmake(Qt6Keychain)
 Requires: cmake(Qt6Sql)
+# Devel subpackage requires the devel libs
+Requires: cmake(Qt6CorePrivate)
 Requires: pkgconfig(openssl)
 Obsoletes: %{name}-qt5-devel < 0.9.0
 %description qt6-devel %_description
@@ -82,6 +84,12 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Sat Oct 03 2026 Steve Cossette <farchord@gmail.com> - 0.9.6.1-2
+- Add runtime dep on Qt6CorePrivate
+
+* Sat Oct 03 2026 Steve Cossette <farchord@gmail.com> - 0.9.6.1-1
+- 0.9.6.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

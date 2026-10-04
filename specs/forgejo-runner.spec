@@ -3,10 +3,10 @@
 %bcond check 0
 
 # https://code.forgejo.org/forgejo/runner
-%global goipath         code.forgejo.org/forgejo/runner/v12
+%global goipath         code.forgejo.org/forgejo/runner/v13
 %global forgeurl        https://code.forgejo.org/forgejo/runner
 %global archivename     %{name}-%{version}
-Version:                12.13.2
+Version:                13.2.0
 
 %gometa -L -f
 
@@ -54,7 +54,7 @@ sends back with the logs and ultimately reports its success or failure.
 %build
 %global gomodulesmode GO111MODULE=on
 export GO_LDFLAGS=" \
-    -X \"code.forgejo.org/forgejo/runner/v12/internal/pkg/ver.version=v%{version}\" \
+    -X \"code.forgejo.org/forgejo/runner/v13/internal/pkg/ver.version=v%{version}\" \
 "
 %gobuild -o %{gobuilddir}/bin/forgejo-runner %{goipath}
 %{gobuilddir}/bin/forgejo-runner generate-config > config.yml

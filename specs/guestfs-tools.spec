@@ -16,7 +16,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.57.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -388,6 +388,9 @@ end
 
 
 %changelog
+* Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 1.57.3-3
+- Bump and rebuild
+
 * Fri Oct 02 2026 Richard W.M. Jones <rjones@redhat.com> - 1.57.3-2
 - Re-enable ntfs test
 

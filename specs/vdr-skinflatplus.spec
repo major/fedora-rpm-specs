@@ -4,20 +4,14 @@
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-skinflatplus
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
-Summary:        A fast, modern and up-to-date skin for the Video Disc Recorder
+Summary:        A fast, modern and up-to-date skin for the Video Disk Recorder
 License:        GPL-2.0-or-later
 URL:            https://github.com/MegaV0lt/vdr-plugin-%{pname}
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Plugin parameters passed by runvdr. Fedora specific, not in upstream.
 Source1:        %{name}.conf
-# For upstream: replace the FSF's stale postal address in COPYING with the
-# license URLs; rpmlint rejects the old address.
-Patch0:         %{name}-fsf-address.patch
-# For upstream: default the channel logo path to VDR's shared <resdir>/logos
-# instead of a plugin private directory the plugin never installs.
-Patch1:         %{name}-logopath.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -27,23 +21,16 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
-Requires:       %{name}-data = %{version}-%{release}
+# Channel logos are optional artwork read from <resdir>/logos at runtime.
+Recommends:     vdr-channellogos
 
 %description
-This plugin for Klaus Schmidinger's Video Disc Recorder VDR adds the "flatPlus"
+This plugin for Klaus Schmidinger's Video Disk Recorder VDR adds the "flatPlus"
 skin. Skin flatPlus is a fast, modern and up-to-date skin for VDR. The design
 is flat and straightforward (no glossy or 3D effects).
 
-%package data
-Summary:        Data files for VDR skin flatPlus
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-
-%description data
-Data files for the VDR skin flatPlus.
-
 %prep
-%autosetup -n vdr-plugin-%{pname}-%{version} -p1
+%autosetup -n vdr-plugin-%{pname}-%{version}
 
 %build
 %make_build IMAGELIB=graphicsmagick
@@ -65,22 +52,44 @@ install -Dpm 644 %{SOURCE1} \
 # vdr resolves VDRPluginCreator after dlopen; a plugin without that export
 # is broken even if it links cleanly
 nm -D --defined-only %{buildroot}%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion} | grep -q ' VDRPluginCreator$'
+# The compiled-in default logo path must be the shared one vdr-channellogos
+# fills, and the compiled-in widget path the one the widgets are installed to.
+strings %{buildroot}%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion} > strings.txt
+grep -qx '%{vdr_resdir}/logos' strings.txt
+grep -qx '%{vdr_libdir}/%{pname}/widgets' strings.txt
+test -d %{buildroot}%{vdr_libdir}/%{pname}/widgets/temperatures
 
 %files -f %{name}.lang
-%license COPYING icons/COPYRIGHT
-%doc HISTORY* README*
+%license COPYING
+%doc HISTORY README.md *.HISTORY *.INFO
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
-%config(noreplace) %{vdr_configdir}/plugins/%{pname}/
+%dir %{vdr_configdir}/plugins/%{pname}/
+# "Save current settings" in the setup menu writes here as the vdr user,
+# so the presets beside the saved files belong to vdr too.
+%dir %attr(-,%{vdr_user},root) %{vdr_configdir}/plugins/%{pname}/configs/
+%config(noreplace) %attr(-,%{vdr_user},root) %{vdr_configdir}/plugins/%{pname}/configs/*
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 %{vdr_libdir}/%{pname}/
+%{vdr_resdir}/plugins/%{pname}/
 %config(noreplace) %{vdr_configdir}/themes/flatPlus-*.theme
 
-%files data
-%dir %{vdr_resdir}/plugins/%{pname}
-%{vdr_resdir}/plugins/%{pname}/*
-
 %changelog
-* Thu Aug 13 2026 Dirk Nehring <dnehring@gmx.net> - 1.3.1-1
+* Mon Sep 28 2026 Dirk Nehring <dnehring@gmx.net> - 1.3.2-1
+- Update to 1.3.2
+- Drop all four patches, upstream took them for this release: the FSF address
+  in COPYING (pull/79), the shared <resdir>/logos default, now a
+  SKINFLATPLUS_LOGODIR make variable (pull/77), saving the current settings
+  to <configdir> (pull/76) and the vaapivideo main menu icons (pull/78)
+
+* Sun Sep 27 2026 Dirk Nehring <dnehring@gmx.net> - 1.3.1-1
+- Rebuilt for VDR 2.8.3 API version 14
+- Save the current settings to /etc/vdr/plugins/skinflatplus/configs, where
+  the setup menu loads them from, and let vdr write there (for upstream)
+- Recommend vdr-channellogos, which fills the default logo path
+- Name the new default logo path in README.md (for upstream)
+- Ship the theme credits (*.HISTORY, *.INFO)
+- Add main menu icons for vaapivideo, reusing the softhddevice icon
+  (for upstream)
 - Install the themes into /etc/vdr/themes, where stock VDR looks for them
 - Split the channel logos out into the separate vdr-channellogos source
   package
@@ -88,9 +97,6 @@ nm -D --defined-only %{buildroot}%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversi
   /usr/share/vdr/logos instead of a plugin private directory that is
   never installed; --logopath is no longer needed in the sysconfig snippet
 - Modernize spec
-- create subpackage data
-- Add file COPYRIGHT to %%license
-- Add RR of data subpackage to main package
 
 * Fri Apr 03 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.10-1
 - Update to 1.2.10

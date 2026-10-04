@@ -13,10 +13,6 @@
 %global system_build_flags 0
 
 %global numjobs %{_smp_build_ncpus}
-# Limit to 48 cpus due to OOM on x86_64 platform
-%ifarch x86_64
-%global numjobs 48
-%endif
 
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
@@ -278,7 +274,7 @@
 %endif
 
 Name:	chromium
-Version: 154.0.8037.92
+Version: 154.0.8037.97
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1957,6 +1953,21 @@ fi
 %endif
 
 %changelog
+* Sat Oct 03 2026 Than Ngo <than@redhat.com> - 154.0.8037.97-1
+- Update to 154.0.8037.97
+  * CVE-2026-103621: Integer overflow in Compositing
+  * CVE-2026-103622: Use after free in SVG
+  * CVE-2026-103623: Use after free in MediaStream
+  * CVE-2026-103624: Use after free in Contextual Tasks
+  * CVE-2026-103625: Type confusion in V8
+  * CVE-2026-103626: Incorrect authorization in FileSystem
+  * CVE-2026-103627: Information leak in SVG
+  * CVE-2026-103628: Out of bounds write in WebGL
+  * CVE-2026-103629: Integer overflow in Skia
+  * CVE-2026-103630: Use after free in FedCM
+  * CVE-2026-103631: Buffer overflow in WebRTC
+
+
 * Wed Sep 30 2026 Than Ngo <than@redhat.com> - 154.0.8037.92-1
 - Update to 154.0.8037.92
   * CVE-2026-102299: Type confusion in V8

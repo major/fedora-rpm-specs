@@ -20,7 +20,7 @@
 
 
 Name:           SDL3
-Version:        3.4.16
+Version:        3.4.18
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
@@ -213,6 +213,9 @@ install -p -m 644 %{SOURCE10} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Sat Oct 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.18-1
+- Update to v3.4.18
+
 * Thu Sep 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.16-1
 - Update to v3.4.16
 - gpgverify the sources

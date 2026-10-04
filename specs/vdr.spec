@@ -13,8 +13,8 @@
 %global __provides_exclude_from ^%{plugindir}/.*\\.so.*$
 
 Name:           vdr
-Version:        2.8.2
-Release:        3%{?dist}
+Version:        2.8.3
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -44,13 +44,44 @@ Source14:       %{name}-check-setup.sh
 Source15:       %{name}-set-wakeup.sh
 
 # Fedora/FHS integration: export datadir/rundir/vardir/user/group from vdr.pc
-Patch:          %{name}-fedora.patch
+Patch0:         %{name}-fedora.patch
 # MainMenuHooks, reduced to the only hook any shipped plugin implements
-# (epgsearch's "Replace original schedule").
-Patch:          %{name}-mainmenuhooks.patch
-# Sent upstream: replace the FSF's stale postal address in COPYING with the
-# license URLs; rpmlint rejects the old address.
-Patch:          %{name}-fsf-address.patch
+# (epgsearch's "Replace original schedule")
+Patch1:         %{name}-mainmenuhooks.patch
+# Sent upstream: replace the FSF's former postal address in COPYING with the
+# license URLs; rpmlint rejects the old address
+Patch2:         %{name}-fsf-address.patch
+# Sent upstream: thread-safe inet_pton()/inet_ntop() instead of inet_ntoa() & Co.
+Patch3:         %{name}-posix-inet-functions.patch
+
+# For upstream, Patch1NN is %%{name}-NN-*.patch, in dependency order:
+# data races found with ThreadSanitizer (01-12)
+Patch101:       %{name}-01-thread-atomics.patch
+Patch102:       %{name}-02-device-track-atomics.patch
+Patch103:       %{name}-03-device-player-atomics.patch
+Patch104:       %{name}-04-receiver-atomics.patch
+Patch105:       %{name}-05-transfer-atomics.patch
+Patch106:       %{name}-06-dvbplayer-atomics.patch
+Patch107:       %{name}-07-dvbtuner-atomics.patch
+Patch108:       %{name}-08-dvbtuner-channel-lock.patch
+Patch109:       %{name}-09-sections-sdt-atomics.patch
+Patch110:       %{name}-10-svdrp-ready-atomic.patch
+Patch111:       %{name}-11-dvbsubtitle-atomics.patch
+Patch112:       %{name}-12-device-camslot-atomic.patch
+# lock order inversions and object lifetime (13-17)
+Patch113:       %{name}-13-camslot-assign-lock-scope.patch
+Patch114:       %{name}-14-device-pid-notify-lock-scope.patch
+Patch115:       %{name}-15-control-mutex-null.patch
+Patch116:       %{name}-16-osd-deregister-before-delete.patch
+Patch117:       %{name}-17-skins-locked-track-copy.patch
+# live data reached the receivers in 100 ms steps, slowing down channel switches
+Patch118:       %{name}-18-tsbuffer-get-timeout.patch
+# the end of a replay: a pause in the tail, B-frame tails cut by the STC check,
+# recordings that are still being written, and DrainDevice() in PLUGINS.html
+Patch119:       %{name}-19-dvbplayer-pause-stuckateof.patch
+Patch120:       %{name}-20-dvbplayer-last-frame.patch
+Patch121:       %{name}-21-dvbplayer-growing-recording.patch
+Patch122:       %{name}-22-plugins-html-draindevice.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -201,7 +232,7 @@ PKG_CONFIG_PATH="%{buildroot}%{_libdir}/pkgconfig:$PKG_CONFIG_PATH" \
 make install-bin install-dirs install-conf install-doc install-i18n \
     install-includes DESTDIR=%{buildroot}
 
-install -pm 755 epg2html %{buildroot}%{_bindir}
+install -pm 755 epg2html pes2ts %{buildroot}%{_bindir}
 
 install -dm 755 %{buildroot}%{configdir}/plugins
 install -dm 755 %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d
@@ -283,7 +314,8 @@ install -Dpm 644 %{SOURCE4} %{buildroot}%{_rpmmacrodir}/macros.vdr
 
 # plugins
 
-%make_install -C PLUGINS/src/skincurses
+# VDRDIR: resolve vdr.pc from this tree, not from an installed vdr-devel
+%make_install -C PLUGINS/src/skincurses VDRDIR=$PWD PLGCFG=$PWD/bundled-plugins.mk
 install -pm 644 %{SOURCE8} \
     %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/skincurses.conf
 
@@ -328,6 +360,7 @@ visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr
 %config %dir %{_sysconfdir}/sysconfig/vdr-plugins.d/
 %{_bindir}/epg2html
+%{_bindir}/pes2ts
 %{_bindir}/runvdr
 %{_bindir}/svdrpsend
 %{_bindir}/vdr
@@ -383,6 +416,45 @@ visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 
 
 %changelog
+* Sun Sep 27 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-1
+- Update to 2.8.3 (API version 14)
+- Drop the patches merged into 2.8.3: cache-threadid, hoist-receiver-lock,
+  fix-unused-variable, 03-osd-isopen-locking, 11-dvbdevice-stop-thread,
+  12-launch-transfer-after-switch, 14-svdrp-stop-order,
+  15-transfer-serialize-playts, 16-settrackdescriptions-lock-scope,
+  17-device-track-table-lock, 20-lcars-flush-control-mutex-scope,
+  23-device-subtitleconverter-lock, 30-detachallreceivers-lock-scope
+- Drop 26-capid-handlingpid-atomic: 28-device-pid-notify-lock-scope already
+  calls cCamSlot::SetPid() outside of mutexPids, and without its mutex
+  HandlingPid() could make a concurrent SetPid() skip a channel PID
+- Rework the rest for upstream as 01-17, with short descriptions and
+  comments that give the reason: merge the pairs that guard one link
+  (player/device, receiver PIDs/device, transfer, which also makes
+  cTransfer::activated atomic), split the tuner patch into its atomics and
+  a channel lock that no longer spans the signal ioctls, and fix the
+  misplaced GetTrackId() documentation
+- Add 18-tsbuffer-get-timeout: faster channel switches
+- Add 19-22 for the end of a replay: a pause in the tail no longer ends it,
+  B-frame tails are no longer cut, a recording that is still being written
+  no longer ends at a stall or trickles out after its end, and PLUGINS.html
+  describes DrainDevice()
+- Package the pes2ts script
+- Install skincurses with VDRDIR set: the plugin's make install resolved
+  vdr.pc through the installed vdr-devel and used its API version
+
+* Sat Aug 22 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.2-4
+- Drop vdr-10-lcars-sttng-event-lock.patch and
+  vdr-19-setchannel-lock-order.patch, both rejected upstream. For 19, every
+  caller of cDevice::SetChannel() already holds the channels read lock before
+  it takes mutexChannel, so the lock the patch hoisted was a recursive re-lock
+  in the same thread and the lock order it was meant to fix was never inverted
+- Drop vdr-02-displaychannel-lock-order.patch. cDisplayChannel::DisplayInfo()
+  is private and both of its callers already hold LOCK_CHANNELS_READ, so the
+  channels lock the patch added was a recursive re-lock and changed no lock
+  order. The ThreadSanitizer report behind it was a false positive: the
+  inversion it flagged cannot deadlock, because a thread holding the channels
+  read lock blocks cSchedules::Read() from taking the write half
+
 * Thu Aug 13 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.2-3
 - Refactor the spec file
 - Themes live in /etc/vdr/themes: stock VDR's path, now that the old

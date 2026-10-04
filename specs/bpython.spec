@@ -3,7 +3,7 @@
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
 Version:       0.26
-Release:       5%{?dist}
+Release:       6%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
@@ -36,7 +36,6 @@ Requires:      python3-curtsies >= 0.3.5
 Requires:      python3-greenlet
 Requires:      python3-pygments
 Requires:      python3-requests > 1.2.3
-Requires:      python3-six >= 1.5
 Recommends:    python3dist(jedi)
 Recommends:    python3dist(watchdog)
 %description -n python3-bpython
@@ -91,7 +90,6 @@ popd
 
 # backwards compatibility links python3
 ln -s bpython %{buildroot}/%{_bindir}/bpython3
-ln -s bpython-curses %{buildroot}/%{_bindir}/bpython3-curses
 ln -s bpdb %{buildroot}%{_bindir}/bpdb3
 ln -s bpython %{buildroot}%{_bindir}/python3-bpython
 install -m0644 -p -D doc/sphinx/build/man/bpython.1 \
@@ -107,7 +105,6 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %{_bindir}/bpython
 %{_bindir}/bpdb3
 %{_bindir}/bpython3
-%{_bindir}/bpython3-curses
 %{_bindir}/python3-bpython
 %{python3_sitelib}/bpython/
 %{python3_sitelib}/bpython-%{version}.dist-info/
@@ -122,6 +119,9 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %{_bindir}/bpython-urwid
 
 %changelog
+* Sat Oct 03 2026 Terje Rosten <terjeros@gmail.com> - 0.26-6
+- Remove stray symlink (rhzb#2544984)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

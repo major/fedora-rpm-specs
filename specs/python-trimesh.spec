@@ -13,7 +13,7 @@
 %bcond manifold %{without bootstrap}
 
 Name:           python-trimesh
-Version:        5.1.0
+Version:        5.1.1
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

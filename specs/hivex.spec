@@ -10,7 +10,7 @@
 
 Name:           hivex
 Version:        1.3.24
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 1.3.24-23
+- Bump and rebuild
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.24-22
 - OCaml 5.5.1 rebuild
 

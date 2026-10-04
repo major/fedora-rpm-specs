@@ -1,7 +1,8 @@
 %global forgeurl https://github.com/hluk/CopyQ/
+%global commit   d0c179f75c04974bfe801289ea6e58a1a49535fc
 
 Name:    copyq
-Version: 16.0.0
+Version: 17.0.0
 Release: %autorelease
 Summary: Advanced clipboard manager
 License: GPL-3.0-or-later

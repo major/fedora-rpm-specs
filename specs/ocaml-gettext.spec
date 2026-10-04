@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gettext
 Version:        0.5.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -159,6 +159,9 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 0.5.0-15
+- Bump and rebuild
+
 * Thu Sep 17 2026 Jerry James <loganjerry@gmail.com> - 0.5.0-14
 - Rebuild for ocaml-camomile 2.1.0
 

@@ -25,15 +25,14 @@
 
 Summary:	IPv6/IPv4 address information, format change, filter and calculation utility
 Name:		ipv6calc
-Version:	4.4.0
-Release:	4%{?gittag}%{?dist}
+Version:	4.4.1
+Release:	1%{?gittag}%{?dist}
 URL:		https://www.deepspace6.net/projects/%{name}.html
 License:	GPL-2.0-only
 %if 0%{?gitcommit:1}
 Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
 Source:		https://github.com/pbiering/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:		ipv6calc-4.4.0-9b6aebd3.patch
 %endif
 BuildRequires:	automake make
 BuildRequires:	gcc
@@ -381,6 +380,9 @@ fi
 
 
 %changelog
+* Sat Oct 03 2026 Peter Bieringer <pb@bieringer.de> - 4.4.1-1
+- Final release 4.4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

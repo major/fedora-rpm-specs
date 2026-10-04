@@ -8,7 +8,7 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.32.72
+Version:        2.32.74
 Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
@@ -167,6 +167,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Sat Oct 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.32.74-1
+- Update to v2.32.74
+
 * Thu Sep 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.32.72-1
 - Update to v2.32.72
 

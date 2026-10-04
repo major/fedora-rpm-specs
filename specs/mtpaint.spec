@@ -3,7 +3,7 @@
 Summary:       Painting program for creating icons and pixel-based artwork
 Name:          mtpaint
 Version:       3.50
-Release:       20%{?dist}
+Release:       21%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://mtpaint.sourceforge.net/
@@ -29,6 +29,7 @@ BuildRequires: zlib-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: dos2unix
+Requires:      gdk-pixbuf2-modules-extra
 Requires:      ImageMagick
 Requires:      /usr/bin/yad
 
@@ -125,6 +126,9 @@ EOF
 %license %{name}_handbook-%{version}/COPYING
 
 %changelog
+* Sat Oct 03 2026 Terje Rosten <terjeros@gmail.com> - 3.50-21
+- Add req. on gdk-pixbuf2-modules-extra (rhbz#2545137)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.50-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 
 Name:          pam-u2f
 Version:       1.4.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 
 ExcludeArch:   %{ix86}
 
@@ -15,7 +15,11 @@ Source2:       yubico-release-gpgkeys.asc
 
 BuildRequires: asciidoc
 BuildRequires: cmake
+%if 0%{?fedora} >= 45
+BuildRequires: openpgpverify
+%else
 BuildRequires: gnupg2
+%endif
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: pkgconfig(pam)
@@ -35,7 +39,11 @@ pamu2fcfg provides a command line tool for configuring PAM authentication
 over U2F.
 
 %prep
+%if 0%{?fedora} >= 45
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%else
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -n pam_u2f-%{version}
 
 %build
@@ -59,6 +67,9 @@ over U2F.
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Sat Oct 03 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.4.0-8
+- Migrate to using sequoia openpgpverify from legacy gpgverify
+
 * Tue Jul 21 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.4.0-7
 - Update the signing keys (remove expired, update to current)
 

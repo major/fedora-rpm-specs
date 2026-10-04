@@ -12,11 +12,9 @@ BuildArch:     noarch
 # https://github.com/apache/buildstream/blob/master/src/buildstream/_testing/_sourcetests/project/elements/base/base-alpine.bst
 ExclusiveArch: x86_64 aarch64
 
-Version:       2.3.3
+Version:       2.4.0
 Release:       %autorelease
 Source0:       %{pypi_source}
-# https://gitlab.com/BuildStream/buildstream-plugins-community/-/merge_requests/487
-Patch:         no_click.patch
 
 BuildRequires: buildstream >= %{version}
 BuildRequires: python3-devel >= 3.10

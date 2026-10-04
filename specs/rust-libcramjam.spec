@@ -18,7 +18,7 @@ Name:           rust-libcramjam
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
 %global soversion 0.9
-Version:        0.9.1
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
@@ -32,14 +32,11 @@ Source:         %{crates_source}
 # * Patch out all -static features
 # * Patch out features requiring blosc2-rs or isal-rs so we can stop packaging
 #   those crates
-# * Relax bzip2 dependency to allow building with both v0.4 and v0.5:
-#   https://github.com/cramjam/libcramjam/pull/24; Allow bzip2 0.6:
-#   https://github.com/cramjam/libcramjam/pull/30
+# * Fix inconsistent bzip2 version bound:
+#   https://github.com/cramjam/libcramjam/pull/39
 # * Omit “corpus” tests: these require files from benches/data/, which are not
 #   distributed in the crate, and some of which don’t have entirely clear
 #   license status.
-# * Patch out pure-Rust features for now due to test failures on s390x,
-#   https://github.com/cramjam/libcramjam/issues/35.
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -154,6 +151,18 @@ use the "bzip2" feature of the "%{crate}" crate.
 %files       -n %{name}+bzip2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bzip2-pure-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bzip2-pure-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bzip2-pure" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bzip2-pure-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+capi-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -166,30 +175,6 @@ use the "capi" feature of the "%{crate}" crate.
 %files       -n %{name}+capi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crc-fast-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crc-fast-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crc-fast" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crc-fast-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crc32fast-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crc32fast-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crc32fast" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crc32fast-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+deflate-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -200,6 +185,18 @@ This package contains library source intended for building other packages which
 use the "deflate" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deflate-pure-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate-pure-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate-pure" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate-pure-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+deflate-shared-devel
@@ -250,28 +247,28 @@ use the "lz4" feature of the "%{crate}" crate.
 %files       -n %{name}+lz4-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+sha2-devel
+%package     -n %{name}+lz4-pure-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+sha2-devel %{_description}
+%description -n %{name}+lz4-pure-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "sha2" feature of the "%{crate}" crate.
+use the "lz4-pure" feature of the "%{crate}" crate.
 
-%files       -n %{name}+sha2-devel
+%files       -n %{name}+lz4-pure-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+simd-adler32-devel
+%package     -n %{name}+pure-rust-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+simd-adler32-devel %{_description}
+%description -n %{name}+pure-rust-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "simd-adler32" feature of the "%{crate}" crate.
+use the "pure-rust" feature of the "%{crate}" crate.
 
-%files       -n %{name}+simd-adler32-devel
+%files       -n %{name}+pure-rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+snappy-devel
@@ -296,6 +293,18 @@ This package contains library source intended for building other packages which
 use the "xz" feature of the "%{crate}" crate.
 
 %files       -n %{name}+xz-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+xz-pure-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+xz-pure-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "xz-pure" feature of the "%{crate}" crate.
+
+%files       -n %{name}+xz-pure-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+xz-shared-devel
@@ -344,6 +353,18 @@ This package contains library source intended for building other packages which
 use the "zstd" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zstd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zstd-pure-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zstd-pure-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zstd-pure" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zstd-pure-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
