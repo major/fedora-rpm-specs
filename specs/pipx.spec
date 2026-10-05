@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.17.10
+Version:        1.17.11
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -30,6 +30,19 @@ applications.
 
 
 %pyproject_extras_subpkg --name pipx uv
+
+
+%prep -p
+# In 1.17.11, dependencies were bumped to the latest versions in
+# https://github.com/pypa/pipx/pull/2063, but this was not due to any
+# particular requirements, so we should be able to safely loosen these as
+# needed.
+#
+# Allow older platformdirs for now; upstream wants 4.12.2
+# https://bugzilla.redhat.com/show_bug.cgi?id=2440135
+%pyproject_patch_dependency platformdirs:set_lower:4.9.1
+# Allow older filelock for now; upstream wants 4.0.9
+%pyproject_patch_dependency filelock:set_lower:3.20.3
 
 
 %generate_buildrequires -p

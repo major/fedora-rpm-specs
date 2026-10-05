@@ -2,8 +2,8 @@
 %global sover 3.1
 
 Name:           OpenImageIO
-Version:        3.1.17.0
-Release:        2%{?dist}
+Version:        3.1.18.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -205,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Oct 05 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.18.0-1
+- Update to 3.1.18.0.
+
 * Mon Sep 21 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.17.0-2
 - Rebuild for OpenVDB 13.1.0.
 

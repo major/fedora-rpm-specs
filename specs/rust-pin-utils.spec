@@ -5,7 +5,7 @@
 %global crate pin-utils
 
 Name:           rust-pin-utils
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Utilities for pinning
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

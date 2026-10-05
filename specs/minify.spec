@@ -3,7 +3,7 @@
 
 # https://github.com/tdewolff/minify
 %global goipath         github.com/tdewolff/minify/v2
-Version:                2.24.18
+Version:                2.24.19
 
 %gometa -L -f
 

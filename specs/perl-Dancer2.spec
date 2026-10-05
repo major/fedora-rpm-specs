@@ -1,10 +1,10 @@
 Name:           perl-Dancer2
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Dancer2
+URL:            https://metacpan.org/dist/Dancer2
 Source0:        https://cpan.metacpan.org/authors/id/C/CR/CROMEDOME/Dancer2-%{version}.tar.gz
 # https://anonscm.debian.org/cgit/pkg-perl/packages/libdancer2-perl.git/plain/debian/patches/no-phone-home.patch?id=cfa2426c2feb48bfb8b433a53449374273612f73
 Patch0:         no-phone-home.patch
@@ -195,6 +195,9 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Oct 04 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.2.2-1
+- Update to 2.2.2
+
 * Sun Sep 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.2.1-1
 - Update to 2.2.1
 - Downsize version check to make no check the default

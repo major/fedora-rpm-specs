@@ -7,7 +7,7 @@
 %global crate cargo-semver-checks
 
 Name:           rust-cargo-semver-checks
-Version:        0.50.0
+Version:        0.51.0
 Release:        %autorelease
 Summary:        Scan your Rust crate for semver violations
 

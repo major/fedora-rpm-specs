@@ -1,13 +1,11 @@
 Name:		spi-tools
-Version:	1.0.2
-Release:	9%{?dist}
+Version:	1.1.0
+Release:	1%{?dist}
 Summary:	Simple command line tools to help using Linux spidev devices
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 URL:		https://github.com/cpb-/spi-tools/
 Source0:	https://github.com/cpb-/spi-tools/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		0001-Don-t-override-the-compiler-flags-with-nonsense-ones.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -44,6 +42,9 @@ autoreconf -fi
 
 
 %changelog
+* Sun Oct 04 2026 Federico Pellegrin <fede@evolware.org> - 1.1.0-1
+- Upgrade to 1.1.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 %endif
 
 %global pv_maj 6
-%global pv_min 1
-%global pv_patch 1
+%global pv_min 2
+%global pv_patch 0
 %global pv_majmin %{pv_maj}.%{pv_min}
 #global rcsuf RC2
 %{?rcsuf:%global relsuf .%{rcsuf}}
@@ -66,10 +66,6 @@ Source2:        https://www.paraview.org/files/v%{pv_majmin}/ParaViewGettingStar
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
-# always_inline fails on ppc64le
-# https://gitlab.kitware.com/vtk/vtk/-/issues/19622
-# https://bugzilla.redhat.com/show_bug.cgi?id=2386242
-Patch2:         vtk-ppc64-no-always-inline.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch

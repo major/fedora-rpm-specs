@@ -1,6 +1,6 @@
 Name:           perl-Mojo-IOLoop-ReadWriteProcess
 Version:        1.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Execute external programs or internal code blocks as separate process
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -49,6 +49,7 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(syscall.ph)
 BuildRequires:  perl(utf8)
 # needed for /usr/bin/pgrep
 BuildRequires:  procps-ng
@@ -84,6 +85,9 @@ It executes external programs or internal code blocks as separate process
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Tue Sep 29 2026 Yanko Kaneti <yaneti@declera.com> - 1.1.0-6
+- Build require syscall.ph for tests on RISC-V
+
 * Mon Sep 21 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.1.0-5
 - Add syscall.ph dependency for RISC-V
 

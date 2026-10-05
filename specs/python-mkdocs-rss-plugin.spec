@@ -10,6 +10,11 @@ URL:            https://guts.github.io/mkdocs-rss-plugin/
 # PyPI tarball is missing requirements
 Source:         %{forgeurl}/archive/%{version}/mkdocs-rss-plugin-%{version}.tar.gz
 
+# Allow GitPython 3.2
+# https://github.com/Guts/mkdocs-rss-plugin/pull/460
+# Rebased on 1.17.7
+Patch:          0001-Allow-GitPython-3.2.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  sed

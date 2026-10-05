@@ -1,10 +1,10 @@
 Name:           perl-Future
-Version:        0.52
-Release:        3%{?dist}
+Version:        0.53
+Release:        1%{?dist}
 Summary:        Perl object system to represent an operation awaiting completion
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Future
+URL:            https://metacpan.org/dist/Future
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -59,9 +59,13 @@ flow of control, and data, through an asynchronous program.
 %license LICENSE
 %{perl_vendorlib}/Future*
 %{perl_vendorlib}/Test/Future*
-%{_mandir}/man3/*
+%{_mandir}/man3/Future*
+%{_mandir}/man3/Test::Future*
 
 %changelog
+* Sun Oct 04 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.53-1
+- Update to 0.53
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

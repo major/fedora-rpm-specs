@@ -16,7 +16,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        29.7.2
+%global version0        29.8.2
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
     rpm.define("tag0 " .. "docker-v" .. version0)
@@ -71,8 +71,9 @@ Source201:      cli_go-vendor-tools.toml
 Patch0:         0001-systemd-adjust-docker.service-for-downstream.patch
 
 # Patches 1000+ are for docker/cli
-# Patch1000:
+Patch1000:      1000-fix-bash-completions.patch
 
+BuildRequires:  fdupes
 BuildRequires:  git-core
 BuildRequires:  go-vendor-tools
 BuildRequires:  make
@@ -94,7 +95,7 @@ Requires:       /usr/bin/tini-static
 # Other runtime packages (sorted)
 Requires:       container-selinux
 Requires:       iptables
-Requires:       libseccomp
+# Requires:       libseccomp
 Requires:       nftables
 Requires:       pigz
 Requires:       systemd
@@ -161,9 +162,11 @@ Conflicts:      docker-ee-cli
 # Conflict with podman-docker that also contains /usr/bin/docker
 Conflicts:      podman-docker
 
+# v24.0.5 was released on 24 Jul 2023, commenting out for 
+# future removal
 # Obsolete old separate shell completions packages
-Obsoletes:      moby-engine-fish-completion < 24.0.5-6
-Obsoletes:      moby-engine-zsh-completion < 24.0.5-6
+# Obsoletes:      moby-engine-fish-completion < 24.0.5-6
+# Obsoletes:      moby-engine-zsh-completion < 24.0.5-6
 
 %description -n docker-cli %{common_description}
 
@@ -262,6 +265,10 @@ mkdir %{buildroot}%{_libexecdir}/docker/cli-plugins
 cd %{engine_dir}
 # Install licenses
 %go_vendor_license_install -c %{S:200}
+
+# additional license deduplication
+%fdupes %{buildroot}%{_datadir}/licenses/%{name}
+
 # Install binaries
 install -Dpm 0755 bundles/dynbinary*/* -t %{buildroot}%{_bindir}
 # Create docker-init -> tini-static symlink
@@ -281,6 +288,7 @@ install -Dpm 0755 contrib/dockerd-rootless* -t %{buildroot}%{_bindir}
 cd %{cli_dir}
 # Install licenses
 %go_vendor_license_install -c %{S:201}
+
 # Install docker-cli
 install -Dpm 0755 build/docker -t %{buildroot}%{_bindir}
 # Install shell completions

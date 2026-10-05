@@ -2,7 +2,7 @@
 
 Name:           fbreader
 Version:        0.99.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        E-book reader
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Oct 04 2026 Maxwell G <maxwell@gtmx.me> - 0.99.4-22
+- Rebuild for libunibreak 8
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

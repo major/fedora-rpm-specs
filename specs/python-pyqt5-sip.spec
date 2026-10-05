@@ -1,10 +1,10 @@
 %global pypi_name pyqt5_sip
 %global _sip_api_major 12
-%global _sip_api_minor 19
+%global _sip_api_minor 20
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-pyqt5-sip
-Version:        12.19.0
+Version:        12.20.0
 Release:        1%{?dist}
 Summary:        The sip module support for PyQt5
 
@@ -48,6 +48,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %doc README
 
 %changelog
+* Sun Oct 04 2026 Scott Talbert <swt@techie.net> - 12.20.0-1
+- Update to new upstream release 12.20.0 (#2545642)
+
 * Mon Aug 10 2026 Scott Talbert <swt@techie.net> - 12.19.0-1
 - Update to new upstream release 12.19.0 (#2510134)
 

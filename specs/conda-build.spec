@@ -1,15 +1,13 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        26.7.1
+Version:        26.9.0
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause
 License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://github.com/conda/conda-build
 Source0:        https://github.com/conda/conda-build/archive/%{version}/%{name}-%{version}.tar.gz
-# Compatibility with packaging 26.3
-Patch:          https://github.com/conda/conda-build/pull/6092.patch
 BuildArch:      noarch
 BuildRequires:  make
 Requires:       python%{python3_pkgversion}-conda-build = %{version}-%{release}
@@ -69,7 +67,7 @@ BuildRequires:  /usr/bin/python
 # lief is not yet packaged and is not a hard dependency
 sed -i -e '/lief/d' pyproject.toml
 # Unpackaged and unneeded test deps
-sed -i -E -e '/^(py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' -e '/rattler-build/d' tests/requirements.txt
+sed -i -E -e '/^(conda-launchers|py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' -e '/rattler-build/d' tests/requirements.txt
 # do not run coverage/durations/xdoctest in pytest
 sed -i -E -e '/--(no-)?cov|durations|xdoctest/d' pyproject.toml
 # Not needed for man pages
@@ -101,6 +99,7 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 # tests/test_api_render.py::test_get_output_file_paths_jinja2 - Requires GIT/CI env
 # tests/test_api_render.py::test_noarch_with_no_platform_deps - fails in koji for an unknown reason
 # tests/test_api_render.py::test_transitive_subpackage_dependency - nettwork
+# tests/test_rattler_build_compat.py - rattler_build
 # tests/test_v1_recipes.py - rattler_build
 # tests/cli/test_main_build.py - rattler_build
 # tests/cli/test_main_debug.py - rattler_build
@@ -108,6 +107,7 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::PendingDeprecationWarning \
   --ignore tests/test_api_build.py --ignore tests/cli/test_main_skeleton.py --ignore tests/test_v1_recipes.py \
   --ignore tests/cli/test_main_build.py --ignore tests/cli/test_main_debug.py --ignore tests/cli/test_main_render.py \
+  --ignore tests/test_rattler_build_compat.py \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[None-.tar.bz2]' \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[2-.conda]' \
   --deselect='tests/test_api_build_dll_package.py::test_recipe_build' \
@@ -167,6 +167,7 @@ py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::Pend
   --deselect='tests/test_api_render.py::test_render_yaml_output' \
   --deselect='tests/test_api_render.py::test_resolved_packages_recipe' \
   --deselect='tests/test_api_render.py::test_run_exports_with_pin_compatible_in_subpackages' \
+  --deselect='tests/test_api_render.py::test_transitive_pin_subpackage_variant_rows' \
   --deselect='tests/test_api_render.py::test_transitive_subpackage_dependency' \
   --deselect='tests/test_api_skeleton_cpan.py::test_xs_needs_c_compiler' \
   --deselect='tests/test_api_skeleton_cran.py::test_cran_no_comments' \
@@ -174,6 +175,9 @@ py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::Pend
   --deselect='tests/test_api_skeleton.py::test_sympy[with url]' \
   --deselect='tests/test_api_skeleton.py::test_get_package_metadata' \
   --deselect='tests/test_api_skeleton.py::test_pypi_with_setup_options' \
+  --deselect='tests/test_api_skeleton.py::test_pypi_pin_numpy' \
+  --deselect='tests/test_api_skeleton.py::test_pypi_version[with version]' \
+  --deselect='tests/test_api_skeleton.py::test_pypi_version[with url]' \
   --deselect='tests/test_api_skeleton.py::test_pypi_pin_numpy' \
   --deselect='tests/test_api_skeleton.py::test_pypi_version_sorting' \
   --deselect='tests/test_api_skeleton.py::test_pypi_with_entry_points' \
